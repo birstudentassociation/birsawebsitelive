@@ -19,6 +19,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
+  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Checked BEFORE schema validation so bots never see a validation error
+  // pointing at the trap field.
+  if (typeof body === "object" && body !== null && (body as { nickname?: unknown }).nickname) {
+    return NextResponse.json({ ok: true }, { status: 200 });
+  }
+
   const result = startClubSchema.safeParse(body);
   if (!result.success) {
     return NextResponse.json(
@@ -27,12 +34,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const { name, email, clubName, description, members, nickname } = result.data;
-
-  // Honeypot filled — silently accept and discard, never reveal detection.
-  if (nickname) {
-    return NextResponse.json({ ok: true }, { status: 200 });
-  }
+  const { name, email, clubName, description, members } = result.data;
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
