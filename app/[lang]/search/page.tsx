@@ -214,7 +214,8 @@ export default async function SearchPage({
         {hasQuery ? (
           <div className="flex flex-col gap-8">
             <p role="status" className="text-muted text-sm">
-              {t.resultsFor(query)} — {dict.actions.showing} {totalResults} {dict.actions.results}
+              {t.resultsFor(query)} — {dict.actions.showing} {totalResults}{" "}
+              {totalResults === 1 ? dict.actions.result : dict.actions.results}
             </p>
 
             {totalResults === 0 ? (

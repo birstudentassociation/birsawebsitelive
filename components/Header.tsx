@@ -28,7 +28,12 @@ export default function Header({ locale }: HeaderProps) {
           className="focus-halo flex shrink-0 items-center gap-2.5 rounded-md"
         >
           <Image src="/birsa-logo.png" alt="" width={36} height={36} className="h-9 w-9" priority />
-          <span aria-hidden="true" className="font-display text-ink text-lg font-semibold">
+          {/* Wordmark hides on the narrowest screens so the header reflows
+              at 320px; the link's aria-label always carries the name. */}
+          <span
+            aria-hidden="true"
+            className="font-display text-ink hidden text-lg font-semibold min-[360px]:inline"
+          >
             {dict.site.name}
           </span>
         </Link>
@@ -49,7 +54,7 @@ export default function Header({ locale }: HeaderProps) {
           </ul>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        <div className="flex min-w-0 shrink-0 items-center gap-1.5 sm:gap-3">
           <Link
             href={localeHref(locale, "/search")}
             aria-label={dict.actions.search}
@@ -60,13 +65,13 @@ export default function Header({ locale }: HeaderProps) {
               <path d="m17 17-3.7-3.7" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
             </svg>
           </Link>
-          <Button
-            href={localeHref(locale, dict.headerCta.href)}
-            variant="secondary"
-            className="hidden sm:inline-flex"
-          >
-            {dict.headerCta.label}
-          </Button>
+          {/* Wrapper handles the responsive hiding — Button's own display
+              utility would win a class-level `hidden` conflict. */}
+          <div className="hidden sm:block">
+            <Button href={localeHref(locale, dict.headerCta.href)} variant="secondary">
+              {dict.headerCta.label}
+            </Button>
+          </div>
           <LanguageToggle locale={locale} label={dict.switchTo} ariaLabel={dict.switchToAria} />
           <HeaderNavClient
             locale={locale}

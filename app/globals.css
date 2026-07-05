@@ -64,6 +64,14 @@ html[lang="th"] {
   --font-heading: var(--font-thai);
 }
 
+/* The `font-display` utility means "display type", which is language-
+   dependent: Fraunces for English, Sarabun for Thai. Unlayered so it wins
+   over the Tailwind utility on Thai pages. */
+html[lang="th"] .font-display {
+  font-family: var(--font-thai);
+  letter-spacing: 0.01em;
+}
+
 /* ==========================================================================
    Base layer
    ========================================================================== */

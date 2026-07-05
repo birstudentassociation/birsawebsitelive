@@ -188,7 +188,8 @@ export default async function NewsPage({
         </nav>
 
         <p className="text-muted mb-6 text-sm" role="status">
-          {dict.actions.showing} {filtered.length} {dict.actions.results}
+          {dict.actions.showing} {filtered.length}{" "}
+          {filtered.length === 1 ? dict.actions.result : dict.actions.results}
         </p>
 
         {filtered.length > 0 ? (

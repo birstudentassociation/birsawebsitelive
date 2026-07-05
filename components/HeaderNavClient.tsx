@@ -50,6 +50,7 @@ export default function HeaderNavClient({
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
+        aria-label={open ? closeLabel : openLabel}
         onClick={() => setOpen((value) => !value)}
         className="focus-halo border-line-strong text-ink flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border px-3 text-sm font-semibold"
       >
@@ -72,12 +73,16 @@ export default function HeaderNavClient({
             />
           )}
         </svg>
-        {open ? closeLabel : openLabel}
+        {/* Text hides on the narrowest screens (icon-only, aria-label above
+            keeps the name) so the header reflows at 320px. */}
+        <span className="hidden min-[400px]:inline">{open ? closeLabel : openLabel}</span>
       </button>
 
       {open ? (
-        <nav id={panelId} aria-label={openLabel} className="mt-2">
-          <ul className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-2 shadow-md">
+        /* Full-width dropdown below the (sticky, i.e. positioned) header —
+           absolutely positioned so it never stretches the header row. */
+        <nav id={panelId} aria-label={openLabel} className="absolute inset-x-0 top-full px-3 pb-3">
+          <ul className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-2 shadow-lg">
             <li>
               <Link
                 href={localeHref(locale, ctaItem.href)}

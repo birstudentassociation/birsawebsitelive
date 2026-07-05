@@ -61,6 +61,7 @@ export const en = {
     allCategories: "All categories",
     clearFilters: "Clear filters",
     showing: "Showing",
+    result: "result",
     results: "results",
     noResults: "Nothing matched your filters. Try clearing them.",
     required: "required",

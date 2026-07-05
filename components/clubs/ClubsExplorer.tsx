@@ -13,6 +13,7 @@ export type ClubsExplorerDict = {
   category: string;
   allCategories: string;
   showing: string;
+  result: string;
   results: string;
   noResults: string;
   clearFilters: string;
@@ -111,7 +112,7 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
       </div>
 
       <p role="status" className="text-muted text-sm">
-        {dict.showing} {filtered.length} {dict.results}
+        {dict.showing} {filtered.length} {filtered.length === 1 ? dict.result : dict.results}
       </p>
 
       {filtered.length === 0 ? (

@@ -61,6 +61,7 @@ export const th: typeof en = {
     allCategories: "ทุกหมวดหมู่",
     clearFilters: "ล้างตัวกรอง",
     showing: "แสดง",
+    result: "รายการ",
     results: "รายการ",
     noResults: "ไม่พบรายการที่ตรงกับตัวกรอง ลองล้างตัวกรองแล้วค้นหาใหม่",
     required: "จำเป็น",

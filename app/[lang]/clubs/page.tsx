@@ -93,6 +93,7 @@ export default async function ClubsPage({ params }: { params: Promise<{ lang: st
             category: dict.actions.category,
             allCategories: dict.actions.allCategories,
             showing: dict.actions.showing,
+            result: dict.actions.result,
             results: dict.actions.results,
             noResults: dict.actions.noResults,
             clearFilters: dict.actions.clearFilters,

@@ -21,13 +21,16 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
   const pathname = usePathname();
   const target: Locale = locale === "th" ? "en" : "th";
   const href = swapLocalePath(pathname, target);
+  // Compact label for narrow screens so the header reflows down to 320px
+  // (WCAG 1.4.10) without dropping the toggle. aria-label stays descriptive.
+  const shortLabel = target === "en" ? "EN" : "ไทย";
 
   return (
     <a
       href={href}
       hrefLang={target}
       aria-label={ariaLabel}
-      className="focus-halo border-line-strong text-ink hover:bg-sunken inline-flex h-11 items-center gap-1.5 rounded-full border px-3.5 text-sm font-semibold"
+      className="focus-halo border-line-strong text-ink hover:bg-sunken inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold sm:px-3.5"
     >
       <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
         <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.5} />
@@ -38,7 +41,10 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
           strokeWidth={1.5}
         />
       </svg>
-      {label}
+      <span aria-hidden="true" className="sm:hidden">
+        {shortLabel}
+      </span>
+      <span className="hidden sm:inline">{label}</span>
     </a>
   );
 }
