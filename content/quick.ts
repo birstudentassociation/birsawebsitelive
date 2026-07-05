@@ -48,57 +48,6 @@ const faculty = officialLinks.find((l) => l.id === "faculty")!;
 
 export const quickGroups: QuickGroup[] = [
   {
-    key: "do-it-now",
-    en: { heading: "Do it now" },
-    th: { heading: "ลงมือเลย" },
-    items: [
-      {
-        key: "register-classes",
-        href: "https://www.reg.tu.ac.th",
-        external: true,
-        icon: "register",
-        en: { label: "Register for classes", hint: "TU registrar (reg.tu.ac.th)" },
-        th: { label: "ลงทะเบียนเรียน", hint: "สำนักทะเบียน มธ. (reg.tu.ac.th)" },
-      },
-      {
-        key: "pay-tuition",
-        href: "https://www.reg.tu.ac.th",
-        external: true,
-        icon: "pay",
-        en: { label: "Pay tuition", hint: "TU registrar (reg.tu.ac.th)" },
-        th: { label: "ชำระค่าเทอม", hint: "สำนักทะเบียน มธ. (reg.tu.ac.th)" },
-      },
-      {
-        key: "tu-accounts",
-        href: "/services/tu-accounts",
-        icon: "wifi",
-        en: { label: "TU wifi & library account help", hint: "Set up and troubleshoot your TU accounts" },
-        th: { label: "ช่วยเหลือบัญชี TU wifi และห้องสมุด", hint: "ตั้งค่าและแก้ปัญหาบัญชี TU ของคุณ" },
-      },
-      {
-        key: "whats-on",
-        href: "/news",
-        icon: "calendar",
-        en: { label: "See what's on", hint: "News and upcoming events" },
-        th: { label: "ดูข่าวและกิจกรรม", hint: "ข่าวสารและกิจกรรมที่กำลังจะมาถึง" },
-      },
-      {
-        key: "join-club",
-        href: "/clubs",
-        icon: "club",
-        en: { label: "Join a club" },
-        th: { label: "เข้าร่วมชมรม" },
-      },
-      {
-        key: "report-problem",
-        href: "/services/report-a-problem",
-        icon: "flag",
-        en: { label: "Report a problem", hint: "Facilities, safety or other issues" },
-        th: { label: "แจ้งปัญหา", hint: "อาคารสถานที่ ความปลอดภัย หรือเรื่องอื่น ๆ" },
-      },
-    ],
-  },
-  {
     key: "get-help",
     en: { heading: "Get help" },
     th: { heading: "ขอความช่วยเหลือ" },
@@ -159,8 +108,8 @@ export const quickGroups: QuickGroup[] = [
         key: "email",
         href: email.href,
         icon: "email",
-        en: { label: "Email", hint: "bir@tu.ac.th" },
-        th: { label: "อีเมล", hint: "bir@tu.ac.th" },
+        en: { label: "Email", hint: "birsa@tu.ac.th" },
+        th: { label: "อีเมล", hint: "birsa@tu.ac.th" },
       },
       {
         key: "bir-program",
