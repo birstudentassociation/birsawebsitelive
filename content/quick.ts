@@ -116,7 +116,7 @@ export const quickGroups: QuickGroup[] = [
         href: birProgram.href,
         external: true,
         icon: "external",
-        en: { label: "BIR Program site", hint: "birpolsci.com" },
+        en: { label: "BIR Programme site", hint: "birpolsci.com" },
         th: { label: "เว็บไซต์หลักสูตร BIR", hint: "birpolsci.com" },
       },
       {
