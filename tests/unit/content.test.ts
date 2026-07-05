@@ -1,0 +1,111 @@
+import { describe, expect, it } from "vitest";
+import { getEntries, getGuideEntries, type Section } from "@/lib/content";
+import { locales, type Locale } from "@/lib/i18n";
+import { clubs } from "@/content/clubs/clubs";
+
+const sections: Section[] = ["news", "services", "about"];
+const guideAudiences: ("home" | "international")[] = ["home", "international"];
+
+describe("content loaders — every section and locale has real, valid frontmatter", () => {
+  for (const section of sections) {
+    for (const locale of locales) {
+      it(`getEntries("${section}", "${locale}") returns entries without throwing`, () => {
+        expect(() => getEntries(section, locale)).not.toThrow();
+        const entries = getEntries(section, locale);
+        expect(entries.length).toBeGreaterThan(0);
+      });
+    }
+  }
+
+  for (const audience of guideAudiences) {
+    for (const locale of locales) {
+      it(`getGuideEntries("${locale}", "${audience}") returns entries without throwing`, () => {
+        expect(() => getGuideEntries(locale, audience)).not.toThrow();
+        const entries = getGuideEntries(locale, audience);
+        expect(entries.length).toBeGreaterThan(0);
+      });
+    }
+  }
+});
+
+function slugSet(entries: { slug: string }[]): Set<string> {
+  return new Set(entries.map((entry) => entry.slug));
+}
+
+describe("slug parity across locales", () => {
+  for (const section of sections) {
+    it(`"${section}" has the same slug set in en and th`, () => {
+      const enSlugs = slugSet(getEntries(section, "en"));
+      const thSlugs = slugSet(getEntries(section, "th"));
+      expect(enSlugs).toEqual(thSlugs);
+    });
+  }
+
+  for (const audience of guideAudiences) {
+    it(`student-life/${audience} has the same slug set in en and th`, () => {
+      const enSlugs = slugSet(getGuideEntries("en", audience));
+      const thSlugs = slugSet(getGuideEntries("th", audience));
+      expect(enSlugs).toEqual(thSlugs);
+    });
+  }
+});
+
+describe("news is sorted date-desc", () => {
+  for (const locale of locales) {
+    it(`"news" (${locale}) is sorted newest first`, () => {
+      const entries = getEntries("news", locale);
+      const dates = entries.map((entry) => (entry.frontmatter as { date: string }).date);
+      const sorted = [...dates].sort((a, b) => (a < b ? 1 : a > b ? -1 : 0));
+      expect(dates).toEqual(sorted);
+    });
+  }
+});
+
+describe("services and about are sorted order-asc", () => {
+  const orderedSections: Section[] = ["services", "about"];
+  for (const section of orderedSections) {
+    for (const locale of locales) {
+      it(`"${section}" (${locale}) is sorted by order ascending`, () => {
+        const entries = getEntries(section, locale);
+        const orders = entries.map((entry) => (entry.frontmatter as { order: number }).order);
+        const sorted = [...orders].sort((a, b) => a - b);
+        expect(orders).toEqual(sorted);
+      });
+    }
+  }
+});
+
+describe("student-life guides are sorted order-asc", () => {
+  for (const audience of guideAudiences) {
+    for (const locale of locales) {
+      it(`student-life/${audience} (${locale}) is sorted by order ascending`, () => {
+        const entries = getGuideEntries(locale, audience);
+        const orders = entries.map((entry) => entry.frontmatter.order);
+        const sorted = [...orders].sort((a, b) => a - b);
+        expect(orders).toEqual(sorted);
+      });
+    }
+  }
+});
+
+describe("clubs.ts", () => {
+  const localesToCheck: Locale[] = ["en", "th"];
+
+  it("every club has both en and th content blocks with non-empty fields", () => {
+    for (const club of clubs) {
+      for (const locale of localesToCheck) {
+        const content = club[locale];
+        expect(content, `club "${club.slug}" is missing "${locale}" content`).toBeDefined();
+        expect(content.name.length).toBeGreaterThan(0);
+        expect(content.tagline.length).toBeGreaterThan(0);
+        expect(content.description.length).toBeGreaterThan(0);
+        expect(content.howToJoin.length).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("every club has a unique slug", () => {
+    const slugs = clubs.map((club) => club.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+  });
+});

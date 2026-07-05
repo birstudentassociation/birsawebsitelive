@@ -1,0 +1,80 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Fraunces, Inter, Sarabun } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "@/app/globals.css";
+import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import SkipLink from "@/components/SkipLink";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-en-display",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-en-body",
+  display: "swap",
+});
+
+const sarabun = Sarabun({
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-th",
+  display: "swap",
+});
+
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
+}
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLocale(lang)) return {};
+  const dict = getDictionary(lang);
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: `${dict.site.name} — ${dict.site.fullName}`,
+      template: `%s — ${dict.site.name}`,
+    },
+    description: dict.site.description,
+  };
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+  const locale: Locale = lang;
+  const dict = getDictionary(locale);
+
+  return (
+    <html lang={locale} className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}>
+      <body>
+        <SkipLink label={dict.a11y.skip} />
+        <Header locale={locale} />
+        <main id="main">{children}</main>
+        <Footer locale={locale} />
+        <Analytics />
+      </body>
+    </html>
+  );
+}

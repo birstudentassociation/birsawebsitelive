@@ -1,0 +1,145 @@
+"use client";
+
+import { useEffect, useId, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { Locale } from "@/lib/i18n";
+import { localeHref } from "@/lib/i18n";
+
+export type NavItem = { href: string; label: string };
+
+export type HeaderNavClientProps = {
+  locale: Locale;
+  items: NavItem[];
+  /** The header's CTA (e.g. "Quick actions"), repeated here since the CTA
+   * button in `Header.tsx` is hidden on narrow screens — this keeps it
+   * reachable from the mobile menu too. */
+  ctaItem: NavItem;
+  /** dict.a11y.openMenu */
+  openLabel: string;
+  /** dict.a11y.closeMenu */
+  closeLabel: string;
+};
+
+/**
+ * Mobile menu disclosure: toggle button + collapsible panel duplicate of the
+ * nav for small screens, closing itself whenever the route changes. Desktop
+ * nav links live in `Header.tsx` as plain server-rendered `<Link>`s that
+ * work with no JS at all; this file's `DesktopNavItem` named export only
+ * layers on the `aria-current`/underline indicator as a progressive
+ * enhancement once hydrated — it never gates navigation behind JS.
+ */
+export default function HeaderNavClient({
+  locale,
+  items,
+  ctaItem,
+  openLabel,
+  closeLabel,
+}: HeaderNavClientProps) {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const panelId = useId();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  return (
+    <div className="md:hidden">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((value) => !value)}
+        className="focus-halo border-line-strong text-ink flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border px-3 text-sm font-semibold"
+      >
+        <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5 shrink-0">
+          {open ? (
+            <path
+              d="m5 5 10 10M15 5 5 15"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.75}
+              strokeLinecap="round"
+            />
+          ) : (
+            <path
+              d="M3 5.5h14M3 10h14M3 14.5h14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.75}
+              strokeLinecap="round"
+            />
+          )}
+        </svg>
+        {open ? closeLabel : openLabel}
+      </button>
+
+      {open ? (
+        <nav id={panelId} aria-label={openLabel} className="mt-2">
+          <ul className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-2 shadow-md">
+            <li>
+              <Link
+                href={localeHref(locale, ctaItem.href)}
+                className="border-ink flex min-h-11 items-center justify-center rounded-md border-[1.5px] px-3 py-2 text-sm font-semibold"
+              >
+                {ctaItem.label}
+              </Link>
+            </li>
+            {items.map((item) => {
+              const href = localeHref(locale, item.href);
+              const current = pathname === href;
+              return (
+                <li key={item.href}>
+                  <Link
+                    href={href}
+                    aria-current={current ? "page" : undefined}
+                    className={`flex min-h-11 items-center rounded-md px-3 py-2 text-sm font-semibold ${
+                      current ? "bg-brand-tint text-brand-deep" : "text-ink hover:bg-sunken"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      ) : null}
+    </div>
+  );
+}
+
+export type DesktopNavItemProps = {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  activeClassName?: string;
+};
+
+/**
+ * A single desktop nav link that marks itself `aria-current="page"` (with a
+ * red underline via `activeClassName`) when its href matches the current
+ * route. The link itself renders via `next/link` regardless of JS/hydration
+ * state, so navigation never depends on this component running — only the
+ * current-page indicator is a progressive enhancement.
+ */
+export function DesktopNavItem({
+  href,
+  children,
+  className,
+  activeClassName,
+}: DesktopNavItemProps) {
+  const pathname = usePathname();
+  const current = pathname === href;
+
+  return (
+    <Link
+      href={href}
+      aria-current={current ? "page" : undefined}
+      className={`${className ?? ""} ${current ? (activeClassName ?? "") : ""}`.trim()}
+    >
+      {children}
+    </Link>
+  );
+}
