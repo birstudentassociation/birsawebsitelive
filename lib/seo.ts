@@ -53,5 +53,10 @@ export function buildMetadata({
       url: absoluteUrl(locale, path),
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }

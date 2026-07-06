@@ -11,6 +11,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
+import Email from "@/components/Email";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
 import type { Locale } from "@/lib/i18n";
 
@@ -53,6 +54,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       );
     },
     Notice,
+    Email,
     CommitteeRoster: () => <CommitteeRoster locale={locale} />,
   };
 }

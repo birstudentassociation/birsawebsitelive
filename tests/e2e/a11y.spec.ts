@@ -36,6 +36,35 @@ test("submitting an empty contact form shows a focused error summary with field 
   expect(await errorLinks.count()).toBeGreaterThan(0);
 });
 
+test.describe("email scrape-proofing", () => {
+  const emailPages = ["/en/services/contact", "/en/about/contact"];
+
+  for (const path of emailPages) {
+    test(`${path} raw HTML has no plaintext BIRSA/BIR email address`, async ({ request }) => {
+      const response = await request.get(path);
+      const body = await response.text();
+
+      // The raw HTTP response (not the browser-parsed DOM) must never
+      // contain a plaintext address a scraper could regex out of the page
+      // source — every email is emitted as HTML numeric character entities.
+      expect(body).not.toContain("birsa@tu.ac.th");
+      expect(body).not.toContain("bir@tu.ac.th");
+      expect(body).toMatch(/&#64;/); // entity-encoded "@"
+    });
+  }
+
+  test("the contact page exposes a working mailto link once parsed by the browser", async ({
+    page,
+  }) => {
+    await page.goto("/en/services/contact");
+
+    // Once the browser parses the entities, this is an ordinary, accessible
+    // mailto link — obfuscation must not cost usability.
+    const emailLink = page.locator('a[href="mailto:birsa@tu.ac.th"]');
+    await expect(emailLink.first()).toBeVisible();
+  });
+});
+
 test("the language toggle switches locale and updates html[lang]", async ({ page }) => {
   await page.goto("/en/clubs");
 

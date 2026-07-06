@@ -6,6 +6,7 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import Email from "@/components/Email";
 import { startClubSchema } from "@/lib/validation";
 import type { Dictionary, Locale } from "@/lib/i18n";
 
@@ -212,9 +213,10 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
           <p className="font-semibold">{dict.form.fallbackTitle}</p>
           <p className="mt-1 text-sm">
             {dict.form.fallbackBody}{" "}
-            <a href="mailto:bir@tu.ac.th" className="text-brand-deep hover:text-brand-dark font-medium">
-              bir@tu.ac.th
-            </a>
+            <Email
+              address="birsa@tu.ac.th"
+              className="text-brand-deep hover:text-brand-dark font-medium"
+            />
           </p>
         </div>
         <Field as="textarea" name="draft" label={t.description} value={state.draft} readOnly rows={8} />

@@ -40,7 +40,7 @@ export default function Header({ locale }: HeaderProps) {
           </span>
         </Link>
 
-        <nav aria-label={dict.a11y.primaryNav} className="hidden md:block">
+        <nav aria-label={dict.a11y.primaryNav} className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {dict.nav.map((item) => (
               <li key={item.href}>

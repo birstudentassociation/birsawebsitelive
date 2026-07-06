@@ -28,7 +28,7 @@ export const socials: Social[] = [
   {
     id: "email",
     label: "Email",
-    href: "mailto:bir@tu.ac.th",
+    href: "mailto:birsa@tu.ac.th",
   },
   {
     id: "line",
@@ -44,7 +44,7 @@ export const contact = {
     en: "BIR, Faculty of Political Science, Thammasat University, 2 Prachan Road, Bangkok 10200",
   } satisfies LocalizedText,
   phone: "02-221-6111 ext. 3409",
-  email: "bir@tu.ac.th",
+  email: "birsa@tu.ac.th",
 };
 
 export type OfficialLink = {

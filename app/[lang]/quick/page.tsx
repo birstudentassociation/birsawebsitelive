@@ -4,9 +4,11 @@ import { buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ExternalLink from "@/components/ExternalLink";
+import Email from "@/components/Email";
 import Tag from "@/components/Tag";
 import QuickIconGlyph from "@/components/quick/QuickIcon";
 import { quickGroups, type QuickItem } from "@/content/quick";
+import { contact } from "@/content/site";
 
 export async function generateMetadata({
   params,
@@ -55,14 +57,35 @@ function QuickLinkRow({
   const rowClasses =
     "border-line bg-surface flex min-h-14 w-full items-center gap-3 rounded-lg border p-3.5 shadow-sm transition-shadow duration-150";
 
+  // The email item's hint is the address itself — never render it as
+  // plaintext (it would leak to scrapers even without an <a href>), so this
+  // row skips the hint and instead makes the whole row a scrape-proof
+  // <Email> link (entity-encoded) using the stretched-link pattern: the
+  // visible icon/label stay as plain markup, and an invisible full-area
+  // <Email> anchor on top supplies the accessible name and click target.
+  const isEmail = item.icon === "email" && !item.placeholder;
+
+  const icon = (
+    <span className="text-brand-deep bg-brand-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
+      <QuickIconGlyph icon={item.icon} />
+    </span>
+  );
+
   const content = (
     <>
-      <span className="text-brand-deep bg-brand-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
-        <QuickIconGlyph icon={item.icon} />
-      </span>
+      {icon}
       <span className="min-w-0 flex-1">
-        <span className="text-ink block font-semibold">{copy.label}</span>
-        {copy.hint ? <span className="text-muted block text-sm">{copy.hint}</span> : null}
+        {isEmail ? (
+          // The whole row is the <Email> stretched link (see below), so
+          // this label is decorative markup duplicating its accessible
+          // name — hide it from assistive tech to avoid double-announcing.
+          <span className="text-ink block font-semibold" aria-hidden="true">
+            {copy.label}
+          </span>
+        ) : (
+          <span className="text-ink block font-semibold">{copy.label}</span>
+        )}
+        {copy.hint && !isEmail ? <span className="text-muted block text-sm">{copy.hint}</span> : null}
       </span>
     </>
   );
@@ -74,6 +97,26 @@ function QuickLinkRow({
         <Tag variant="neutral" className="shrink-0">
           {comingSoonLabel}
         </Tag>
+      </div>
+    );
+  }
+
+  if (isEmail) {
+    return (
+      <div className={`${rowClasses} relative`}>
+        {content}
+        <ChevronIcon />
+        {/* Stretched link: a full-area anchor on top of the row supplies
+            the accessible name and the scrape-proof mailto href. Its own
+            text is rendered transparent (not hidden — hidden/zero-size
+            text wouldn't cover the row) since the icon/label/chevron
+            above already show the same information to sighted users; the
+            global :focus-visible outline still renders on top. */}
+        <Email
+          address={contact.email}
+          label={copy.label}
+          className="absolute inset-0 rounded-lg text-transparent"
+        />
       </div>
     );
   }

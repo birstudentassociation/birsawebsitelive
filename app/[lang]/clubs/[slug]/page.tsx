@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
+import Email from "@/components/Email";
 import { clubCategories, clubs, getClub } from "@/content/clubs/clubs";
 
 export function generateStaticParams() {
@@ -137,9 +138,7 @@ export default async function ClubDetailPage({
               <dt className="text-ink text-sm font-semibold">{t.contact}</dt>
               <dd className="mt-1 flex flex-col gap-1 text-sm">
                 {club.email ? (
-                  <a href={`mailto:${club.email}`} className="text-brand-deep hover:text-brand-dark">
-                    {club.email}
-                  </a>
+                  <Email address={club.email} className="text-brand-deep hover:text-brand-dark" />
                 ) : null}
                 {club.instagram ? (
                   <ExternalLink href={club.instagram} newTabLabel={dict.a11y.newTab}>

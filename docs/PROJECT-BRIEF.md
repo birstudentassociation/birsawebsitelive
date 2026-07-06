@@ -183,7 +183,7 @@ API route handlers under `app/api/`: zod-validate server-side; silently accept+d
 the hidden honeypot field (`nickname`) is filled; best-effort in-memory rate limit per IP
 (e.g. 5/10min, Map — fine on serverless); send via Resend ONLY if `RESEND_API_KEY` set, else
 respond `{ ok: false, reason: "not-configured" }` so the client shows the "email us directly"
-fallback with `BIRSA_INBOX` (default `bir@tu.ac.th`). Never store submissions. Never echo
+fallback with `BIRSA_INBOX` (default `birsa@tu.ac.th`). Never store submissions. Never echo
 user input as HTML (plain-text email bodies). No secrets in client code.
 
 ## Definition of done for your task

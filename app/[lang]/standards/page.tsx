@@ -6,6 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
+import Email from "@/components/Email";
 import { contact } from "@/content/site";
 
 export async function generateMetadata({
@@ -86,7 +87,8 @@ const content: Record<
     a11yLimits:
       "We're honest that this site is still young. Some content (example dates, room numbers, and similar details) is placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug — please tell us.",
     a11yReportTitle: "Report a problem",
-    a11yReportBody: `If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at ${contact.email}.`,
+    a11yReportBody:
+      "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
     a11yReportCta: "Contact BIRSA",
     perfTitle: "Performance and data",
     perfBody: "We use cookieless, privacy-friendly analytics to understand which pages are useful and where people get stuck — never to track individuals.",
@@ -137,7 +139,8 @@ const content: Record<
     a11yLimits:
       "เราขอบอกตรง ๆ ว่าเว็บไซต์นี้ยังใหม่ เนื้อหาบางส่วน (เช่น วันที่ตัวอย่าง หรือหมายเลขห้องตัวอย่าง) เป็นเนื้อหาตัวอย่างที่รอ BIRSA ตรวจสอบ และมีการระบุไว้ชัดเจน ถ้าคุณเจออุปสรรคในการเข้าถึงจริง ๆ นั่นคือข้อบกพร่องที่เราต้องแก้ บอกเราได้เลย",
     a11yReportTitle: "แจ้งปัญหา",
-    a11yReportBody: `ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่ ${contact.email}`,
+    a11yReportBody:
+      "ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่",
     a11yReportCta: "ติดต่อ BIRSA",
     perfTitle: "ข้อมูลการใช้งาน",
     perfBody: "เราใช้ระบบวิเคราะห์ข้อมูลแบบไม่ใช้คุกกี้และเป็นมิตรกับความเป็นส่วนตัว เพื่อดูว่าหน้าไหนมีประโยชน์และตรงไหนที่คนใช้งานติดขัด โดยไม่ติดตามตัวบุคคล",
@@ -200,6 +203,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
           <h3 className="text-ink font-semibold">{t.a11yReportTitle}</h3>
           <p className="text-muted leading-relaxed">
             {t.a11yReportBody}{" "}
+            <Email address={contact.email} className="text-brand-deep hover:text-brand-dark font-semibold" />.{" "}
             <Link
               href={localeHref(locale, "/services/contact")}
               className="text-brand-deep hover:text-brand-dark font-semibold underline"

@@ -58,7 +58,7 @@ fall back gracefully to an "email us directly" message when email isn't configur
 | ---------------------- | ------------------------------------------------------------------------------------------ |
 | `NEXT_PUBLIC_SITE_URL` | Public base URL of the deployed site — used for canonical URLs, the sitemap, and hreflang.  |
 | `RESEND_API_KEY`       | API key from [resend.com](https://resend.com). If unset, forms validate but don't send email. |
-| `BIRSA_INBOX`          | Inbox that form submissions are delivered to (default `bir@tu.ac.th`).                      |
+| `BIRSA_INBOX`          | Inbox that form submissions are delivered to (default `birsa@tu.ac.th`).                     |
 | `CONTACT_FROM`         | Verified "from" address Resend sends on behalf of.                                          |
 
 ## Project structure

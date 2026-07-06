@@ -3,6 +3,7 @@ import type { Locale } from "@/lib/i18n";
 import { getDictionary, localeHref } from "@/lib/i18n";
 import { contact, officialLinks, socials } from "@/content/site";
 import ExternalLink from "@/components/ExternalLink";
+import Email from "@/components/Email";
 
 export type FooterProps = {
   locale: Locale;
@@ -30,11 +31,7 @@ function SocialLink({
   }
 
   if (social.id === "email") {
-    return (
-      <a href={social.href} className="hover:text-brand-deep">
-        {social.label}
-      </a>
-    );
+    return <Email address={contact.email} label={social.label} className="hover:text-brand-deep" />;
   }
 
   return (
@@ -88,9 +85,7 @@ export default function Footer({ locale }: FooterProps) {
           </h2>
           <ul className="text-muted mt-3 space-y-2 text-sm">
             <li>
-              <a href={`mailto:${contact.email}`} className="hover:text-brand-deep">
-                {contact.email}
-              </a>
+              <Email address={contact.email} className="hover:text-brand-deep" />
             </li>
             <li>{contact.phone}</li>
             <li className="max-w-[32ch]">{contact.address[locale]}</li>

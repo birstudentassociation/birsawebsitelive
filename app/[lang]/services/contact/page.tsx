@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
+import Email from "@/components/Email";
 import ContactForm from "@/components/forms/ContactForm";
 import { socials, contact } from "@/content/site";
 
@@ -104,9 +105,7 @@ export default async function ContactPage({
             <div>
               <dt className="text-ink font-semibold">{t.emailLabel}</dt>
               <dd>
-                <a href={`mailto:${contact.email}`} className="text-brand-deep hover:text-brand-dark">
-                  {contact.email}
-                </a>
+                <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
               </dd>
             </div>
             {visibleSocials

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   try {
     const { Resend } = await import("resend");
     const resend = new Resend(apiKey);
-    const inbox = process.env.BIRSA_INBOX ?? "bir@tu.ac.th";
+    const inbox = process.env.BIRSA_INBOX ?? "birsa@tu.ac.th";
     const from = process.env.CONTACT_FROM ?? "BIRSA Portal <onboarding@resend.dev>";
 
     await resend.emails.send({
