@@ -80,6 +80,7 @@ const content: Record<
       "Motion respects your system's \"reduce motion\" setting — we don't add animation that ignores it.",
       "Pages stay readable and usable at 320px-wide screens and at 400% browser zoom.",
       "The whole site is bilingual, with the correct `lang` attribute set on every page.",
+      "The site supports both light and dark colour modes, both checked against WCAG contrast requirements. It follows your device setting by default, and you can switch it any time with the toggle in the header.",
     ],
     a11yLimitsTitle: "Known limitations",
     a11yLimits:
@@ -130,6 +131,7 @@ const content: Record<
       "การเคลื่อนไหวบนเว็บเคารพการตั้งค่า \"ลดการเคลื่อนไหว\" ของระบบคุณ เราไม่เพิ่มแอนิเมชันที่ไม่สนใจการตั้งค่านี้",
       "หน้าเว็บยังอ่านและใช้งานได้ที่ความกว้างหน้าจอ 320px และเมื่อซูมเบราว์เซอร์ 400%",
       "เว็บไซต์ทั้งหมดรองรับสองภาษา และตั้งค่า `lang` ที่ถูกต้องในทุกหน้า",
+      "เว็บไซต์นี้มีทั้งโหมดสว่างและโหมดมืด ผ่านการตรวจสอบคอนทราสต์สีแล้วทั้งคู่ โดยค่าเริ่มต้นจะเป็นไปตามการตั้งค่าของอุปกรณ์คุณ และสลับได้ทุกเมื่อด้วยปุ่มที่ส่วนหัวของเว็บไซต์",
     ],
     a11yLimitsTitle: "ข้อจำกัดที่เรายอมรับตรง ๆ",
     a11yLimits:

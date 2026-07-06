@@ -44,3 +44,67 @@ test("the language toggle switches locale and updates html[lang]", async ({ page
   await expect(page).toHaveURL(/\/th\/clubs$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "th");
 });
+
+test.describe("dark mode (system preference)", () => {
+  test.use({ colorScheme: "dark" });
+
+  for (const path of pages) {
+    test(`${path} has no automatically detectable WCAG 2.2 AA violations in dark mode`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+      const results = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+        .analyze();
+
+      expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+    });
+  }
+});
+
+test("the theme toggle switches, persists, and clears the explicit override", async ({ page }) => {
+  await page.goto("/en");
+
+  const html = page.locator("html");
+
+  // Wait for hydration: the accessible name only reflects the resolved
+  // theme once mounted (see ThemeToggle.tsx `mounted` state).
+  const toggle = page.getByRole("button", { name: "Switch to dark mode" });
+  await toggle.waitFor({ state: "visible" });
+
+  // First click: light -> dark (explicit override).
+  await toggle.click();
+  await expect(html).toHaveAttribute("data-theme", "dark");
+  const themeAfterFirstClick = await page.evaluate(() => localStorage.getItem("birsa-theme"));
+  expect(themeAfterFirstClick).toBe("dark");
+
+  // Reload: the explicit choice persists via the no-FOUC inline script.
+  await page.reload();
+  await expect(html).toHaveAttribute("data-theme", "dark");
+
+  // Second click: dark -> light. Since the system preference in this test
+  // is light (default colorScheme), this matches the system and the
+  // explicit override is removed entirely.
+  const toggleAfterReload = page.getByRole("button", { name: "Switch to light mode" });
+  await toggleAfterReload.waitFor({ state: "visible" });
+  await toggleAfterReload.click();
+
+  await expect(html).not.toHaveAttribute("data-theme", /.+/);
+  const themeAfterSecondClick = await page.evaluate(() => localStorage.getItem("birsa-theme"));
+  expect(themeAfterSecondClick).toBeNull();
+});
+
+test("dark mode via explicit localStorage override has no automatically detectable WCAG 2.2 AA violations", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    window.localStorage.setItem("birsa-theme", "dark");
+  });
+  await page.goto("/th");
+
+  const results = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+    .analyze();
+
+  expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+});

@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/i18n";
 import { getDictionary, localeHref } from "@/lib/i18n";
 import Button from "@/components/Button";
 import LanguageToggle from "@/components/LanguageToggle";
+import ThemeToggle from "@/components/ThemeToggle";
 import HeaderNavClient, { DesktopNavItem } from "@/components/HeaderNavClient";
 
 export type HeaderProps = {
@@ -65,6 +66,11 @@ export default function Header({ locale }: HeaderProps) {
               <path d="m17 17-3.7-3.7" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
             </svg>
           </Link>
+          <ThemeToggle
+            neutralLabel={dict.a11y.theme}
+            darkLabel={dict.a11y.themeDark}
+            lightLabel={dict.a11y.themeLight}
+          />
           {/* Wrapper handles the responsive hiding — Button's own display
               utility would win a class-level `hidden` conflict. */}
           <div className="hidden sm:block">

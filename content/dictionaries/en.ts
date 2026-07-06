@@ -43,6 +43,9 @@ export const en = {
     languageSelector: "Language",
     logoHome: "BIRSA — go to the home page",
     loading: "Loading",
+    theme: "Theme",
+    themeDark: "Switch to dark mode",
+    themeLight: "Switch to light mode",
   },
 
   actions: {

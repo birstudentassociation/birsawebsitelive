@@ -90,7 +90,8 @@ visuals.
 
 Accessibility target: **WCAG 2.2 AA**. See [`/standards`](http://localhost:3000/th/standards)
 on the running site for the plain-language explanation of how the site is built to be usable by
-everyone, including keyboard and screen-reader users.
+everyone, including keyboard and screen-reader users. The site also ships a WCAG-AA-verified
+dark mode (system-preference aware, with a header toggle to override it).
 
 ## Editing content
 

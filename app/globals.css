@@ -12,12 +12,14 @@
   --color-sunken: #f3ead9; /* wells / subtle fills */
   --color-line: #e6dccb; /* hairline borders */
   --color-line-strong: #d9cbb2;
+  --color-input-border: #8a7a64; /* form input/textarea/select boundary — ≥3:1 (WCAG 1.4.11) */
 
   --color-ink: #211c19; /* body text — ~15:1 on cream */
   --color-muted: #5b524a; /* secondary text — ~6.9:1 on cream */
 
   --color-brand: #d81f26; /* BIR red — AA on cream + white-on-red */
   --color-brand-dark: #b3161c; /* hover / active */
+  --color-brand-strong: #b3161c; /* primary button hover/active fill */
   --color-brand-deep: #9e1319; /* red used as small text */
   --color-brand-tint: #fbeae9; /* red-tinted fill */
 
@@ -51,6 +53,101 @@
   --shadow-sm: 0 1px 2px rgba(33, 28, 25, 0.06);
   --shadow-md: 0 6px 20px -8px rgba(33, 28, 25, 0.18);
   --shadow-lg: 0 18px 40px -18px rgba(33, 28, 25, 0.28);
+}
+
+/* ==========================================================================
+   Dark mode — token overrides
+   Two identical scopes: an explicit user choice (`data-theme="dark"`) and a
+   system-preference fallback for users who haven't chosen (no `data-theme`,
+   or `data-theme="light"` explicitly opts back out). Contrast-verified: every
+   text pair ≥4.5:1, UI accents ≥3:1.
+   ========================================================================== */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-cream: #201b17;
+  --color-surface: #2a241e;
+  --color-sunken: #191512;
+  --color-line: #3d352c;
+  --color-line-strong: #7e6e5a;
+  --color-input-border: #7e6e5a;
+
+  --color-ink: #f0e9df;
+  --color-muted: #b3a79a;
+
+  --color-brand: #d62d34;
+  --color-brand-dark: #ffa9ac;
+  --color-brand-strong: #b3161c;
+  --color-brand-deep: #f9999c;
+  --color-brand-tint: #3c2422;
+
+  --color-forest: #93c4b1;
+  --color-forest-tint: #22312a;
+
+  --color-success: #96cba1;
+  --color-success-tint: #1f2f23;
+  --color-warning: #e4b266;
+  --color-warning-tint: #3a2e17;
+  --color-error: #f9999c;
+  --color-error-tint: #3c2422;
+  --color-info: #93c4b1;
+  --color-info-tint: #22312a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+  display: inline;
+}
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-cream: #201b17;
+    --color-surface: #2a241e;
+    --color-sunken: #191512;
+    --color-line: #3d352c;
+    --color-line-strong: #7e6e5a;
+    --color-input-border: #7e6e5a;
+
+    --color-ink: #f0e9df;
+    --color-muted: #b3a79a;
+
+    --color-brand: #d62d34;
+    --color-brand-dark: #ffa9ac;
+    --color-brand-strong: #b3161c;
+    --color-brand-deep: #f9999c;
+    --color-brand-tint: #3c2422;
+
+    --color-forest: #93c4b1;
+    --color-forest-tint: #22312a;
+
+    --color-success: #96cba1;
+    --color-success-tint: #1f2f23;
+    --color-warning: #e4b266;
+    --color-warning-tint: #3a2e17;
+    --color-error: #f9999c;
+    --color-error-tint: #3c2422;
+    --color-info: #93c4b1;
+    --color-info-tint: #22312a;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+    --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+  }
+
+  html:not([data-theme="light"]) .theme-icon-sun {
+    display: inline;
+  }
+  html:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
 }
 
 /* Language-conditional font mapping.
@@ -205,7 +302,7 @@ html[lang="th"] .font-display {
     z-index: 100;
     transform: translateY(-160%);
     background: var(--color-ink);
-    color: #fff;
+    color: var(--color-cream);
     padding: 0.75rem 1.15rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -214,7 +311,17 @@ html[lang="th"] .font-display {
   }
   .skip-link:focus {
     transform: translateY(0);
-    color: #fff;
+    color: var(--color-cream);
+  }
+
+  /* Theme toggle icon swap — CSS-only so it's correct before hydration.
+     Light (default): moon shown ("switch to dark"). Dark (either explicit
+     data-theme or system preference): sun shown ("switch to light"). */
+  .theme-icon-sun {
+    display: none;
+  }
+  .theme-icon-moon {
+    display: inline;
   }
 
   /* Editorial long-form content (MDX). */

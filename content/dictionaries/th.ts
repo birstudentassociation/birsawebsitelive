@@ -43,6 +43,9 @@ export const th: typeof en = {
     languageSelector: "ภาษา",
     logoHome: "BIRSA — กลับหน้าแรก",
     loading: "กำลังโหลด",
+    theme: "ธีม",
+    themeDark: "เปลี่ยนเป็นโหมดมืด",
+    themeLight: "เปลี่ยนเป็นโหมดสว่าง",
   },
 
   actions: {

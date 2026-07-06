@@ -58,7 +58,7 @@ export default function Field({
 
   const sharedClasses = clsx(
     "focus-halo w-full rounded-md border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted",
-    error ? "border-error" : "border-line-strong"
+    error ? "border-error" : "border-input-border"
   );
 
   const marker = required

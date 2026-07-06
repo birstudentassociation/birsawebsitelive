@@ -67,8 +67,26 @@ export default async function RootLayout({
   const dict = getDictionary(locale);
 
   return (
-    <html lang={locale} className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}>
+    <html
+      lang={locale}
+      className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}
+      suppressHydrationWarning
+    >
       <body>
+        <script
+          // Parser-blocking, first child of <body> — runs before paint so
+          // there's no flash of the wrong theme. Only touches the DOM when
+          // the visitor made an explicit choice; system-preference users
+          // need no JS at all (handled by the CSS media-query scope).
+          dangerouslySetInnerHTML={{
+            __html: `try {
+  var t = localStorage.getItem("birsa-theme");
+  if (t === "dark" || t === "light") {
+    document.documentElement.dataset.theme = t;
+  }
+} catch (e) {}`,
+          }}
+        />
         <SkipLink label={dict.a11y.skip} />
         <Header locale={locale} />
         <main id="main">{children}</main>

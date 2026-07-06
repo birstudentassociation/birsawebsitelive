@@ -205,7 +205,7 @@ export default async function SearchPage({
               name="q"
               defaultValue={query}
               placeholder={t.inputLabel}
-              className="focus-halo border-line-strong bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+              className="focus-halo border-input-border bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
             />
           </div>
           <Button type="submit">{t.submit}</Button>
