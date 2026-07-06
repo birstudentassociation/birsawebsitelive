@@ -1,0 +1,45 @@
+/**
+ * Assembles the full Notice from its per-Part modules. Consumed by
+ * `app/[lang]/activity/regulations/page.tsx`, which renders it in a
+ * legislation.gov.uk-style layout (arrangement of provisions + Parts with
+ * short-title marginal notes and deep links).
+ *
+ * Each Part lives in its own file so the (long) bilingual text stays
+ * manageable; the preliminary provisions (ข้อ 1–3) sit before Part 1.
+ */
+import type { Regulation } from "./types";
+import { meta } from "./meta";
+import { preliminary } from "./preliminary";
+import { part01 } from "./part01";
+import { part02 } from "./part02";
+import { part03 } from "./part03";
+import { part04 } from "./part04";
+import { part05 } from "./part05";
+import { part06 } from "./part06";
+import { part07 } from "./part07";
+import { part08 } from "./part08";
+import { part09 } from "./part09";
+import { part10 } from "./part10";
+import { part11 } from "./part11";
+import { part12 } from "./part12";
+
+export const regulation: Regulation = {
+  ...meta,
+  parts: [
+    preliminary,
+    part01,
+    part02,
+    part03,
+    part04,
+    part05,
+    part06,
+    part07,
+    part08,
+    part09,
+    part10,
+    part11,
+    part12,
+  ],
+};
+
+export type { Regulation, Part, Provision, ProvisionItem, Definition, Bi } from "./types";

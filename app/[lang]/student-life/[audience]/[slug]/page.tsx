@@ -193,7 +193,7 @@ export default async function StudentLifeSectionPage({
         <div className="border-line bg-sunken flex flex-col items-start gap-4 rounded-lg border p-8">
           <h2 className="font-display text-xl">{t.helpTitle}</h2>
           <p className="text-muted max-w-[var(--measure)]">{t.helpBody}</p>
-          <Button href={localeHref(locale, "/services/contact")}>{t.helpCta}</Button>
+          <Button href={localeHref(locale, "/contact")}>{t.helpCta}</Button>
         </div>
 
         <Link href={trackHref} className="text-brand-deep hover:text-brand-dark text-sm font-semibold">

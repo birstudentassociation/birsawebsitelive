@@ -6,7 +6,7 @@ export const homeEn = {
   hero: {
     heading: "Your student association, standing by you.",
     intro:
-      "BIRSA runs events, services and support for every BIR student at Thammasat — Find the latest updates, clubs, and practical help in just a few taps.",
+      "BIRSA runs events, support and representation for every BIR student at Thammasat — find the latest updates, clubs, and practical help in just a few taps.",
     primaryCta: "Quick actions",
     secondaryCta: "Student life guide",
   },
@@ -17,9 +17,9 @@ export const homeEn = {
   quickLinks: {
     heading: "Get around",
     items: {
-      services: {
-        label: "Services",
-        description: "Practical help: TU accounts, reporting a problem, contacting BIRSA.",
+      activity: {
+        label: "BIRSA activity",
+        description: "Officer roles, student regulations, transparency documents, and news.",
       },
       clubs: {
         label: "Clubs",

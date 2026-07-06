@@ -25,8 +25,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/",
       "/quick",
       "/news",
-      "/services",
-      "/services/contact",
+      "/contact",
+      "/activity",
+      "/activity/roles",
+      "/activity/regulations",
       "/clubs",
       "/clubs/start",
       "/student-life",
@@ -43,8 +45,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: url(locale, `/news/${entry.slug}`) });
     }
 
-    for (const entry of getEntries("services", locale)) {
-      entries.push({ url: url(locale, `/services/${entry.slug}`) });
+    for (const entry of getEntries("activity", locale)) {
+      entries.push({ url: url(locale, `/activity/${entry.slug}`) });
     }
 
     for (const entry of getEntries("about", locale)) {

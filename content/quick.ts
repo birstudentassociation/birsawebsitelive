@@ -54,14 +54,14 @@ export const quickGroups: QuickGroup[] = [
     items: [
       {
         key: "contact-birsa",
-        href: "/services/contact",
+        href: "/contact",
         icon: "help",
         en: { label: "Contact BIRSA", hint: "Questions, ideas or concerns" },
         th: { label: "ติดต่อ BIRSA", hint: "คำถาม ข้อเสนอแนะ หรือเรื่องกังวลใจ" },
       },
       {
         key: "give-feedback",
-        href: "/services/contact",
+        href: "/contact",
         icon: "feedback",
         en: { label: "Give feedback", hint: "Uses the same contact form" },
         th: { label: "ให้ข้อเสนอแนะ", hint: "ใช้แบบฟอร์มติดต่อเดียวกัน" },

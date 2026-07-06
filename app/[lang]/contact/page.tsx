@@ -24,7 +24,7 @@ export async function generateMetadata({
       ? "ส่งข้อความถึง BIRSA หรือติดต่อโดยตรงทางอีเมลและโซเชียลมีเดีย"
       : "Send BIRSA a message, or reach us directly by email and social media.";
 
-  return buildMetadata({ locale, title, description, path: "/services/contact" });
+  return buildMetadata({ locale, title, description, path: "/contact" });
 }
 
 const copy: Record<
@@ -32,7 +32,6 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    services: string;
     otherWaysTitle: string;
     otherWaysBody: string;
     emailLabel: string;
@@ -41,7 +40,6 @@ const copy: Record<
   en: {
     title: "Contact BIRSA",
     lede: "Send us a message with the form below, or reach out directly — whichever is easier for you.",
-    services: "Services",
     otherWaysTitle: "Other ways to reach us",
     otherWaysBody: "You don't have to use the form — email or message us on social media directly.",
     emailLabel: "Email",
@@ -49,7 +47,6 @@ const copy: Record<
   th: {
     title: "ติดต่อ BIRSA",
     lede: "ส่งข้อความถึงเราผ่านแบบฟอร์มด้านล่าง หรือติดต่อโดยตรงตามที่สะดวก",
-    services: "บริการนักศึกษา",
     otherWaysTitle: "ช่องทางติดต่ออื่น ๆ",
     otherWaysBody: "ไม่จำเป็นต้องใช้แบบฟอร์มก็ได้ — อีเมลหรือทักหาเราทางโซเชียลมีเดียได้โดยตรง",
     emailLabel: "อีเมล",
@@ -87,11 +84,7 @@ export default async function ContactPage({
           <Breadcrumbs
             locale={locale}
             label={dict.a11y.breadcrumb}
-            items={[
-              { label: dict.site.name, href: "/" },
-              { label: t.services, href: "/services" },
-              { label: t.title },
-            ]}
+            items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
           />
         }
       />

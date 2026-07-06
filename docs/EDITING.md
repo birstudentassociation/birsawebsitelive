@@ -144,34 +144,31 @@ To add or replace a photo:
 
 `content/quick.ts` powers the `/quick` page — BIRSA's "link in bio" page. It's organised into
 `quickGroups`, each with a heading and a list of `items`. Each item needs `key`, `href` (an
-internal path like `/services/tu-accounts`, or a full external URL with `external: true`), an
+internal path like `/activity/roles`, or a full external URL with `external: true`), an
 `icon` (pick from the existing `QuickIcon` union), and `en`/`th` blocks with a `label` and
 optional `hint`. Set `placeholder: true` on an item if the destination isn't real yet (e.g. a
 social channel that doesn't exist).
 
-## Services and student-life guides
+## BIRSA activity and student-life guides
 
-Services (`content/services/{en,th}/<slug>.mdx`) and student-life guide entries
+BIRSA activity (`content/activity/{en,th}/<slug>.mdx`) and student-life guide entries
 (`content/student-life/{en,th}/{home,international}/<slug>.mdx`) share a similar frontmatter
 shape. As with news, create matching `<slug>.mdx` files in both locale folders.
 
-### Services frontmatter template
+### BIRSA activity frontmatter template
 
 ```mdx
 ---
-title: "Service or guide title"
-summary: "One sentence shown on the services hub."
-category: "it-and-accounts"
+title: "Activity entry title"
+summary: "One sentence shown on the activity hub."
 order: 1
 updated: 2026-08-01
 ---
 
-Body copy in Markdown, using `##` headings to break up longer guides.
+Body copy in Markdown, using `##` headings to break up longer entries.
 ```
 
-`category` must be one of the values defined in `content/services/categories.ts`
-(`it-and-accounts`, `academic-admin`, `money`, `opportunities`, `wellbeing`, `help`). `order`
-controls the sort position within that category (lower numbers first).
+`order` controls the sort position (lower numbers first).
 
 ### Student-life guide frontmatter template
 
@@ -190,13 +187,13 @@ Body copy in Markdown.
 `audience` is either `home` (for Thai/home students) or `international`. Each audience has its
 own folder (`student-life/{en,th}/home/` or `.../international/`) and its own `order` sequence.
 
-Both services and student-life entries accept an optional `placeholder: true`.
+Both activity and student-life entries accept an optional `placeholder: true`.
 
 ## Placeholder flag and Notice removal checklist (going live)
 
 Before telling students a piece of content is final, go through this checklist:
 
-- [ ] Remove `placeholder: true` from the frontmatter (news, services, student-life, and each
+- [ ] Remove `placeholder: true` from the frontmatter (news, activity, student-life, and each
       relevant `clubs.ts` entry).
 - [ ] Remove any `<Notice variant="placeholder">…</Notice>` block from the MDX body.
 - [ ] Replace any obviously generic names, dates, room numbers, or links with the real details.

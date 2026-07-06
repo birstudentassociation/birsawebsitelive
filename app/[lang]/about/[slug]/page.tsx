@@ -89,7 +89,7 @@ export default async function AboutDetailPage({
         <p className="text-muted max-w-[var(--measure)] text-sm">
           {t.questions}{" "}
           <Link
-            href={localeHref(locale, "/services/contact")}
+            href={localeHref(locale, "/contact")}
             className="text-brand-deep hover:text-brand-dark font-semibold underline"
           >
             {t.contact}

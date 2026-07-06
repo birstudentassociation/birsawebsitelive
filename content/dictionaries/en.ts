@@ -17,12 +17,12 @@ export const en = {
     fullName: "BIR Student Association",
     tagline: "Your students' association at Thammasat",
     description:
-      "News, services, clubs and a student-life guide from the BIR Student Association — Politics and International Relations, Thammasat University.",
+      "News, activities, clubs and a student-life guide from the BIR Student Association — Politics and International Relations, Thammasat University.",
   },
 
   nav: [
     { href: "/news", label: "What's on" },
-    { href: "/services", label: "Services" },
+    { href: "/activity", label: "BIRSA activity" },
     { href: "/clubs", label: "Clubs" },
     { href: "/student-life", label: "Student life" },
     { href: "/about", label: "About" },

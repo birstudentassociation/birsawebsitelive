@@ -147,7 +147,7 @@ export default async function StudentLifePage({
           <p className="text-muted max-w-[var(--measure)]">
             {t.howToUseBody}{" "}
             <a
-              href={localeHref(locale, "/services/contact")}
+              href={localeHref(locale, "/contact")}
               className="text-brand-deep hover:text-brand-dark font-semibold underline"
             >
               {t.reportGaps}

@@ -32,7 +32,7 @@ visual identity**: warm "cream editorial" on BIR red. Do NOT imitate GOV.UK visu
 - BIRSA socials: Instagram `@student_birsa`, Facebook "BIR Student Association".
 - Thammasat founded 1934 by Pridi Banomyong; motto "I love Thammasat because Thammasat
   teaches me to love the people." University registrar: www.reg.tu.ac.th
-- Anything about BIRSA's internal committee/services/clubs that isn't above is UNKNOWN →
+- Anything about BIRSA's internal committee/activity/clubs that isn't above is UNKNOWN →
   write it as clearly-marked placeholder (see Placeholder rules).
 
 ## Stack & repo layout
@@ -87,7 +87,7 @@ export function localeHref(locale: Locale, path: string): string; // "/en/news"
 export function swapLocalePath(pathname: string, to: Locale): string;
 
 // lib/content.ts  (build-time fs loaders, zod-validated frontmatter)
-export type Section = "news" | "services" | "about";
+export type Section = "news" | "activity" | "about";
 export function getEntries(section: Section, locale: Locale): Entry[];      // sorted
 export function getEntry(section: Section, locale: Locale, slug: string): Entry | null;
 export function getGuideEntries(locale: Locale, audience: "home" | "international"): Entry[];
@@ -114,7 +114,7 @@ content/dictionaries/{en,th}.ts     # UI microcopy (EXISTS — do not restructur
 content/home/{en,th}.ts             # home page blocks
 content/quick.ts                    # quick-actions link groups
 content/news/{en,th}/<slug>.mdx     # same slug in both locales
-content/services/{en,th}/<slug>.mdx
+content/activity/{en,th}/<slug>.mdx
 content/student-life/{en,th}/{home,international}/<slug>.mdx
 content/about/{en,th}/<slug>.mdx
 content/clubs/clubs.ts              # typed array, en+th fields inline
@@ -122,7 +122,7 @@ content/clubs/clubs.ts              # typed array, en+th fields inline
 
 News frontmatter: `title, summary, date (YYYY-MM-DD), type ("news"|"event"), category,
 location?, start? (ISO datetime), end?, links? [{label,href}]`.
-Services frontmatter: `title, summary, category, order, updated`.
+Activity frontmatter: `title, summary, order, updated, placeholder?`.
 Student-life frontmatter: `title, summary, order, updated, audience`.
 Validate all frontmatter with zod in `lib/content.ts`; build must fail loudly on bad content.
 

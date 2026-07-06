@@ -124,7 +124,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
           <p className="text-muted leading-relaxed">
             {t.choicesBody}{" "}
             <Link
-              href={localeHref(locale, "/services/contact")}
+              href={localeHref(locale, "/contact")}
               className="text-brand-deep hover:text-brand-dark font-semibold underline"
             >
               {t.contactCta}

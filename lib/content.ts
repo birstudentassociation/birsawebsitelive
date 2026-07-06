@@ -64,10 +64,9 @@ const newsFrontmatterSchema = z.object({
   placeholder: z.boolean().optional(),
 });
 
-const servicesFrontmatterSchema = z.object({
+const activityFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
-  category: z.string().min(1),
   order: z.number(),
   updated: dateOnly,
   placeholder: z.boolean().optional(),
@@ -92,21 +91,21 @@ const aboutFrontmatterSchema = z.object({
 
 const frontmatterSchemas = {
   news: newsFrontmatterSchema,
-  services: servicesFrontmatterSchema,
+  activity: activityFrontmatterSchema,
   about: aboutFrontmatterSchema,
 } as const;
 
 export type NewsFrontmatter = z.infer<typeof newsFrontmatterSchema>;
-export type ServicesFrontmatter = z.infer<typeof servicesFrontmatterSchema>;
+export type ActivityFrontmatter = z.infer<typeof activityFrontmatterSchema>;
 export type StudentLifeFrontmatter = z.infer<typeof studentLifeFrontmatterSchema>;
 export type AboutFrontmatter = z.infer<typeof aboutFrontmatterSchema>;
 
-export type Section = "news" | "services" | "about";
+export type Section = "news" | "activity" | "about";
 
 type FrontmatterFor<S extends Section> = S extends "news"
   ? NewsFrontmatter
-  : S extends "services"
-    ? ServicesFrontmatter
+  : S extends "activity"
+    ? ActivityFrontmatter
     : AboutFrontmatter;
 
 export type Entry<F = Record<string, unknown>> = {

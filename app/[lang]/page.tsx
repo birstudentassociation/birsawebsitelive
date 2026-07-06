@@ -40,7 +40,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const news = getEntries("news", locale).slice(0, 3);
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/services", key: "services" },
+    { href: "/activity", key: "activity" },
     { href: "/clubs", key: "clubs" },
     { href: "/student-life", key: "studentLife" },
     { href: "/about", key: "about" },

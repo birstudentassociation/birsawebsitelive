@@ -20,8 +20,8 @@ export async function generateMetadata({
   const title = locale === "th" ? "ค้นหา" : "Search";
   const description =
     locale === "th"
-      ? "ค้นหาข่าว บริการ ชมรม และคู่มือชีวิตนักศึกษาในเว็บไซต์ BIRSA"
-      : "Search news, services, clubs and the student-life guide on the BIRSA site.";
+      ? "ค้นหาข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษาในเว็บไซต์ BIRSA"
+      : "Search news, BIRSA activity, clubs and the student-life guide on the BIRSA site.";
 
   return buildMetadata({ locale, title, description, path: "/search" });
 }
@@ -38,7 +38,7 @@ const copy: Record<
     resultsFor: (q: string) => string;
     groups: {
       news: string;
-      services: string;
+      activity: string;
       about: string;
       clubs: string;
       studentLifeHome: string;
@@ -49,13 +49,13 @@ const copy: Record<
 > = {
   en: {
     title: "Search",
-    lede: "Search news, services, clubs and the student-life guide.",
+    lede: "Search news, BIRSA activity, clubs and the student-life guide.",
     inputLabel: "Search this site",
     submit: "Search",
     resultsFor: (q) => `${q ? `Results for "${q}"` : "Results"}`,
     groups: {
       news: "News",
-      services: "Services",
+      activity: "BIRSA activity",
       about: "About",
       clubs: "Clubs",
       studentLifeHome: "Student life — home students",
@@ -65,13 +65,13 @@ const copy: Record<
   },
   th: {
     title: "ค้นหา",
-    lede: "ค้นหาข่าว บริการ ชมรม และคู่มือชีวิตนักศึกษา",
+    lede: "ค้นหาข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษา",
     inputLabel: "ค้นหาในเว็บไซต์นี้",
     submit: "ค้นหา",
     resultsFor: (q) => (q ? `ผลการค้นหาสำหรับ "${q}"` : "ผลการค้นหา"),
     groups: {
       news: "ข่าวและกิจกรรม",
-      services: "บริการนักศึกษา",
+      activity: "การดำเนินงานของ BIRSA",
       about: "เกี่ยวกับเรา",
       clubs: "ชมรม",
       studentLifeHome: "ชีวิตนักศึกษา — นักศึกษาไทย",
@@ -128,16 +128,16 @@ export default async function SearchPage({
       }));
     if (newsResults.length > 0) groups.push({ key: "news", label: t.groups.news, items: newsResults });
 
-    const servicesResults: ResultItem[] = getEntries("services", locale)
+    const activityResults: ResultItem[] = getEntries("activity", locale)
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
       .map((entry) => ({
         slug: entry.slug,
-        href: localeHref(locale, `/services/${entry.slug}`),
+        href: localeHref(locale, `/activity/${entry.slug}`),
         title: entry.frontmatter.title,
         summary: entry.frontmatter.summary,
       }));
-    if (servicesResults.length > 0)
-      groups.push({ key: "services", label: t.groups.services, items: servicesResults });
+    if (activityResults.length > 0)
+      groups.push({ key: "activity", label: t.groups.activity, items: activityResults });
 
     const aboutResults: ResultItem[] = getEntries("about", locale)
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))

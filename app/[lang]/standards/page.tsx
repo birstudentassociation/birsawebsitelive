@@ -205,7 +205,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
             {t.a11yReportBody}{" "}
             <Email address={contact.email} className="text-brand-deep hover:text-brand-dark font-semibold" />.{" "}
             <Link
-              href={localeHref(locale, "/services/contact")}
+              href={localeHref(locale, "/contact")}
               className="text-brand-deep hover:text-brand-dark font-semibold underline"
             >
               {t.a11yReportCta}

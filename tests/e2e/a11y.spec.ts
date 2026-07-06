@@ -6,7 +6,7 @@ const pages = [
   "/en",
   "/en/clubs",
   "/en/student-life/international/visa-and-immigration",
-  "/en/services/contact",
+  "/en/contact",
   "/th/quick",
 ];
 
@@ -24,7 +24,7 @@ for (const path of pages) {
 test("submitting an empty contact form shows a focused error summary with field error links", async ({
   page,
 }) => {
-  await page.goto("/en/services/contact");
+  await page.goto("/en/contact");
 
   await page.getByRole("button", { name: "Send message" }).click();
 
@@ -37,7 +37,7 @@ test("submitting an empty contact form shows a focused error summary with field 
 });
 
 test.describe("email scrape-proofing", () => {
-  const emailPages = ["/en/services/contact", "/en/about/contact"];
+  const emailPages = ["/en/contact", "/en/about/contact"];
 
   for (const path of emailPages) {
     test(`${path} raw HTML has no plaintext BIRSA/BIR email address`, async ({ request }) => {
@@ -56,7 +56,7 @@ test.describe("email scrape-proofing", () => {
   test("the contact page exposes a working mailto link once parsed by the browser", async ({
     page,
   }) => {
-    await page.goto("/en/services/contact");
+    await page.goto("/en/contact");
 
     // Once the browser parses the entities, this is an ordinary, accessible
     // mailto link — obfuscation must not cost usability.

@@ -4,7 +4,7 @@ import { locales, type Locale } from "@/lib/i18n";
 import { clubs } from "@/content/clubs/clubs";
 import { committee } from "@/content/committee";
 
-const sections: Section[] = ["news", "services", "about"];
+const sections: Section[] = ["news", "activity", "about"];
 const guideAudiences: ("home" | "international")[] = ["home", "international"];
 
 describe("content loaders — every section and locale has real, valid frontmatter", () => {
@@ -62,8 +62,8 @@ describe("news is sorted date-desc", () => {
   }
 });
 
-describe("services and about are sorted order-asc", () => {
-  const orderedSections: Section[] = ["services", "about"];
+describe("activity and about are sorted order-asc", () => {
+  const orderedSections: Section[] = ["activity", "about"];
   for (const section of orderedSections) {
     for (const locale of locales) {
       it(`"${section}" (${locale}) is sorted by order ascending`, () => {

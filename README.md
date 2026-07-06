@@ -3,9 +3,10 @@
 The BIRSA Portal is the bilingual (Thai/English) website for the **BIR Student Association**
 (BIRSA) — the student association of the Bachelor of Political Science in Politics and
 International Relations (BIR) programme, Faculty of Political Science, Thammasat University.
-It gives BIR students one place to find news and events, everyday student services, the club
-directory, a student-life guide (for both home and international students), and a way to
-contact BIRSA directly — all written natively in Thai and English, not machine-translated.
+It gives BIR students one place to find news and events, BIRSA's activity and committee
+information, the club directory, a student-life guide (for both home and international
+students), and a way to contact BIRSA directly — all written natively in Thai and English, not
+machine-translated.
 
 This is currently a student-run, unofficial site. For official programme matters, always use
 the BIR Program and Faculty links in the footer.
@@ -66,7 +67,7 @@ fall back gracefully to an "email us directly" message when email isn't configur
 ```
 app/                # Next.js App Router — all pages live under app/[lang]/...
 components/         # Shared design-system components (PascalCase filenames)
-content/            # All editable content: news, services, clubs, student-life, dictionaries
+content/            # All editable content: news, activity, clubs, student-life, dictionaries
 docs/               # This README's companion docs, including the content editing guide
 lib/                # i18n, content loaders, MDX rendering, SEO helpers, validation
 public/             # Static assets (logo, etc.)
@@ -95,8 +96,8 @@ dark mode (system-preference aware, with a header toggle to override it).
 
 ## Editing content
 
-BIRSA committee members who want to add or update news, services, clubs, or student-life guides
-should read [`docs/EDITING.md`](docs/EDITING.md) — it covers frontmatter templates, the
+BIRSA committee members who want to add or update news, activity entries, clubs, or student-life
+guides should read [`docs/EDITING.md`](docs/EDITING.md) — it covers frontmatter templates, the
 placeholder-removal checklist for going live, and how publishing works.
 
 ## Repository status
