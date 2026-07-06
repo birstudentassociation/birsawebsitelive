@@ -111,7 +111,7 @@ Each entry in the `committee` array is one person, with these fields:
 | --------------- | ------------------------------------------------------------------------------------------ |
 | `key`           | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem — see below. Don't change an existing member's `key` casually, since it's tied to their photo filename. |
 | `group`         | Either `"officer"` (core committee) or `"assistant"` (assistant officers).                |
-| `en` / `th`     | Each has `name`, `nickname`, and `title` — all required, written in that language.        |
+| `en` / `th`     | Each has `firstName`, `lastName`, `nickname`, and `title` — all required, written in that language. |
 
 To add a new committee member, copy an existing entry as a template, give them a unique `key`,
 and fill in both the `en` and `th` blocks. To remove someone, delete their entry. To update a

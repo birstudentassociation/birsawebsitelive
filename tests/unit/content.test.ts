@@ -131,11 +131,14 @@ describe("committee.ts", () => {
     }
   });
 
-  it("every entry has non-empty en and th name/nickname/title", () => {
+  it("every entry has non-empty en and th firstName/lastName/nickname/title", () => {
     for (const member of committee) {
       for (const locale of localesToCheck) {
         const t = member[locale];
-        expect(t.name.length, `${member.key} (${locale}) missing name`).toBeGreaterThan(0);
+        expect(t.firstName.length, `${member.key} (${locale}) missing firstName`).toBeGreaterThan(
+          0
+        );
+        expect(t.lastName.length, `${member.key} (${locale}) missing lastName`).toBeGreaterThan(0);
         expect(t.nickname.length, `${member.key} (${locale}) missing nickname`).toBeGreaterThan(0);
         expect(t.title.length, `${member.key} (${locale}) missing title`).toBeGreaterThan(0);
       }
@@ -146,10 +149,12 @@ describe("committee.ts", () => {
     for (const member of committee) {
       const fields = [
         member.key,
-        member.en.name,
+        member.en.firstName,
+        member.en.lastName,
         member.en.nickname,
         member.en.title,
-        member.th.name,
+        member.th.firstName,
+        member.th.lastName,
         member.th.nickname,
         member.th.title,
       ];

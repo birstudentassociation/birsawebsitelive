@@ -64,11 +64,15 @@ function MemberCard({ locale, member }: { locale: "en" | "th"; member: (typeof c
       ) : (
         <PortraitPlaceholder />
       )}
-      <div>
-        <p className="text-ink font-semibold">
-          {t.name} ({t.nickname})
+      <div className="flex flex-col items-center">
+        <p data-roster-line className="text-ink font-semibold whitespace-nowrap">
+          {t.firstName}
         </p>
-        <p className="text-muted text-sm">{t.title}</p>
+        <p data-roster-line className="text-ink font-semibold whitespace-nowrap">
+          {t.lastName}
+        </p>
+        <p data-roster-line className="text-muted text-sm whitespace-nowrap">({t.nickname})</p>
+        <p className="text-muted mt-1 text-sm">{t.title}</p>
       </div>
     </li>
   );
@@ -88,7 +92,7 @@ export default function CommitteeRoster({ locale }: CommitteeRosterProps) {
         return (
           <section key={group} className="flex flex-col gap-4">
             <h3>{committeeGroupLabels[group][locale]}</h3>
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))]">
               {members.map((member) => (
                 <MemberCard key={member.key} locale={locale} member={member} />
               ))}

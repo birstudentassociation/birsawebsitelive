@@ -29,11 +29,12 @@ export default function Header({ locale }: HeaderProps) {
           className="focus-halo flex shrink-0 items-center gap-2.5 rounded-md"
         >
           <Image src="/birsa-logo.png" alt="" width={36} height={36} className="h-9 w-9" priority />
-          {/* Wordmark hides on the narrowest screens so the header reflows
-              at 320px; the link's aria-label always carries the name. */}
+          {/* Wordmark hides on narrow screens so the header reflows at 320px
+              with room to spare in the 360-400px band; the link's aria-label
+              always carries the name. */}
           <span
             aria-hidden="true"
-            className="font-display text-ink hidden text-lg font-semibold min-[360px]:inline"
+            className="font-display text-ink hidden text-lg font-semibold min-[400px]:inline"
           >
             {dict.site.name}
           </span>
