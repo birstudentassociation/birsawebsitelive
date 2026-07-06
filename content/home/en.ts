@@ -4,9 +4,9 @@
  */
 export const homeEn = {
   hero: {
-    heading: "Your student association, right here",
+    heading: "Your student association, standing by you.",
     intro:
-      "BIRSA runs events, services and support for every BIR student at Thammasat — from your first week on campus to graduation. Find what you need in a couple of taps.",
+      "BIRSA runs events, services and support for every BIR student at Thammasat — Find the latest updates, clubs, and practical help in just a few taps.",
     primaryCta: "Quick actions",
     secondaryCta: "Student life guide",
   },
