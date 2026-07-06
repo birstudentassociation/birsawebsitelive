@@ -4,6 +4,7 @@ import { Fraunces, Inter, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -32,8 +33,6 @@ const sarabun = Sarabun({
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export async function generateMetadata({
   params,

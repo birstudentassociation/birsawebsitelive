@@ -8,8 +8,7 @@ import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
 import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { clubs } from "@/content/clubs/clubs";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 const guideAudiences: GuideAudience[] = ["home", "international"];
 

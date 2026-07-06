@@ -2,6 +2,7 @@ import Image from "next/image";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site-url";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
@@ -13,7 +14,6 @@ import { homeTh } from "@/content/home/th";
 import { socials } from "@/content/site";
 
 const homeCopy = { en: homeEn, th: homeTh };
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export async function generateMetadata({
   params,

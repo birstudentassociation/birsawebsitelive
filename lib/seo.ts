@@ -5,8 +5,7 @@
  */
 import type { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n";
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { SITE_URL } from "@/lib/site-url";
 
 const OG_LOCALES: Record<Locale, string> = {
   th: "th_TH",
