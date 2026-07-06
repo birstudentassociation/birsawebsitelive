@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getEntries, getGuideEntries, type Section } from "@/lib/content";
 import { locales, type Locale } from "@/lib/i18n";
 import { clubs } from "@/content/clubs/clubs";
+import { committee } from "@/content/committee";
 
 const sections: Section[] = ["news", "services", "about"];
 const guideAudiences: ("home" | "international")[] = ["home", "international"];
@@ -107,5 +108,57 @@ describe("clubs.ts", () => {
   it("every club has a unique slug", () => {
     const slugs = clubs.map((club) => club.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
+  });
+});
+
+describe("committee.ts", () => {
+  const localesToCheck: Locale[] = ["en", "th"];
+  const kebabCase = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+  const emailLike = /@/;
+  const longDigitRun = /\d{10,}/;
+
+  it("has exactly 21 entries: 10 officers + 11 assistant officers", () => {
+    expect(committee.length).toBe(21);
+    expect(committee.filter((member) => member.group === "officer").length).toBe(10);
+    expect(committee.filter((member) => member.group === "assistant").length).toBe(11);
+  });
+
+  it("every key is unique and kebab-case", () => {
+    const keys = committee.map((member) => member.key);
+    expect(new Set(keys).size).toBe(keys.length);
+    for (const key of keys) {
+      expect(key, `"${key}" is not kebab-case`).toMatch(kebabCase);
+    }
+  });
+
+  it("every entry has non-empty en and th name/nickname/title", () => {
+    for (const member of committee) {
+      for (const locale of localesToCheck) {
+        const t = member[locale];
+        expect(t.name.length, `${member.key} (${locale}) missing name`).toBeGreaterThan(0);
+        expect(t.nickname.length, `${member.key} (${locale}) missing nickname`).toBeGreaterThan(0);
+        expect(t.title.length, `${member.key} (${locale}) missing title`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("no entry contains an email address or a student-ID-like digit run", () => {
+    for (const member of committee) {
+      const fields = [
+        member.key,
+        member.en.name,
+        member.en.nickname,
+        member.en.title,
+        member.th.name,
+        member.th.nickname,
+        member.th.title,
+      ];
+      for (const field of fields) {
+        expect(field, `"${field}" on ${member.key} looks like an email`).not.toMatch(emailLike);
+        expect(field, `"${field}" on ${member.key} looks like a student ID`).not.toMatch(
+          longDigitRun
+        );
+      }
+    }
   });
 });

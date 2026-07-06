@@ -11,6 +11,8 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
+import CommitteeRoster from "@/components/about/CommitteeRoster";
+import type { Locale } from "@/lib/i18n";
 
 export type MdxProps = {
   source: string;
@@ -18,13 +20,15 @@ export type MdxProps = {
   newTabLabel?: string;
   /** Accessible label for the wrapper around wide tables. Defaults to English. */
   tableRegionLabel?: string;
+  /** Locale passed through to MDX components that render bilingual content (e.g. CommitteeRoster). */
+  locale?: Locale;
 };
 
 function isExternalHref(href: string): boolean {
   return /^https?:\/\//.test(href);
 }
 
-function createComponents(newTabLabel: string, tableRegionLabel: string) {
+function createComponents(newTabLabel: string, tableRegionLabel: string, locale: Locale) {
   return {
     a(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
       const { href = "", children, ...rest } = props;
@@ -49,6 +53,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string) {
       );
     },
     Notice,
+    CommitteeRoster: () => <CommitteeRoster locale={locale} />,
   };
 }
 
@@ -63,12 +68,13 @@ export function Mdx({
   source,
   newTabLabel = "opens in a new tab",
   tableRegionLabel = "Table",
+  locale = "en",
 }: MdxProps) {
   return (
     <div className="prose">
       <MDXRemote
         source={source}
-        components={createComponents(newTabLabel, tableRegionLabel)}
+        components={createComponents(newTabLabel, tableRegionLabel, locale)}
         options={{
           mdxOptions: {
             remarkPlugins: [remarkGfm],

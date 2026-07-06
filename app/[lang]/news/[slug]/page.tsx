@@ -95,7 +95,7 @@ export default async function NewsDetailPage({
           </dl>
         ) : null}
 
-        <Mdx source={content} newTabLabel={dict.a11y.newTab} />
+        <Mdx source={content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
         {frontmatter.links && frontmatter.links.length > 0 ? (
           <div className="mt-8 max-w-[var(--measure)]">

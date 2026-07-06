@@ -84,7 +84,7 @@ export default async function AboutDetailPage({
           {dict.meta.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
-        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} />
+        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
         <p className="text-muted max-w-[var(--measure)] text-sm">
           {t.questions}{" "}

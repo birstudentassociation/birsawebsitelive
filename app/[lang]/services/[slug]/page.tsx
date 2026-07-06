@@ -87,7 +87,7 @@ export default async function ServiceDetailPage({
           {dict.meta.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
-        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} />
+        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
         <div className="border-line bg-sunken flex flex-col items-start gap-4 rounded-lg border p-8">
           <h2 className="font-display text-xl">{t.helpTitle}</h2>

@@ -157,7 +157,7 @@ export default async function StudentLifeSectionPage({
           {t.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
-        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} />
+        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
         {prevEntry || nextEntry ? (
           <nav aria-label={t.prevNextNav} className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2">

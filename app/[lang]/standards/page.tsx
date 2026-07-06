@@ -84,7 +84,7 @@ const content: Record<
     ],
     a11yLimitsTitle: "Known limitations",
     a11yLimits:
-      "We're honest that this site is still young. Some content (committee names, some facts and figures) is example or placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug — please tell us.",
+      "We're honest that this site is still young. Some content (example dates, room numbers, and similar details) is placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug — please tell us.",
     a11yReportTitle: "Report a problem",
     a11yReportBody: `If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at ${contact.email}.`,
     a11yReportCta: "Contact BIRSA",
@@ -135,7 +135,7 @@ const content: Record<
     ],
     a11yLimitsTitle: "ข้อจำกัดที่เรายอมรับตรง ๆ",
     a11yLimits:
-      "เราขอบอกตรง ๆ ว่าเว็บไซต์นี้ยังใหม่ เนื้อหาบางส่วน (ชื่อคณะกรรมการ ข้อมูลหรือตัวเลขบางอย่าง) เป็นเนื้อหาตัวอย่างที่รอ BIRSA ตรวจสอบ และมีการระบุไว้ชัดเจน ถ้าคุณเจออุปสรรคในการเข้าถึงจริง ๆ นั่นคือข้อบกพร่องที่เราต้องแก้ บอกเราได้เลย",
+      "เราขอบอกตรง ๆ ว่าเว็บไซต์นี้ยังใหม่ เนื้อหาบางส่วน (เช่น วันที่ตัวอย่าง หรือหมายเลขห้องตัวอย่าง) เป็นเนื้อหาตัวอย่างที่รอ BIRSA ตรวจสอบ และมีการระบุไว้ชัดเจน ถ้าคุณเจออุปสรรคในการเข้าถึงจริง ๆ นั่นคือข้อบกพร่องที่เราต้องแก้ บอกเราได้เลย",
     a11yReportTitle: "แจ้งปัญหา",
     a11yReportBody: `ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่ ${contact.email}`,
     a11yReportCta: "ติดต่อ BIRSA",

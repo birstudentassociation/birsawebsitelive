@@ -97,6 +97,49 @@ these fields:
 Every club needs **both** an `en` block and a `th` block, written natively (not translated).
 Keep `slug` values unique across the whole file — the content test suite checks this.
 
+## Committee roster and portraits
+
+The committee roster shown on the "What is BIRSA?" about page (`content/about/{en,th}/birsa.mdx`,
+rendered via the `<CommitteeRoster />` component) comes from a single typed file:
+`content/committee.ts`. It is **not** MDX — edit the array directly.
+
+### Editing `content/committee.ts`
+
+Each entry in the `committee` array is one person, with these fields:
+
+| Field           | Notes                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------ |
+| `key`           | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem — see below. Don't change an existing member's `key` casually, since it's tied to their photo filename. |
+| `group`         | Either `"officer"` (core committee) or `"assistant"` (assistant officers).                |
+| `en` / `th`     | Each has `name`, `nickname`, and `title` — all required, written in that language.        |
+
+To add a new committee member, copy an existing entry as a template, give them a unique `key`,
+and fill in both the `en` and `th` blocks. To remove someone, delete their entry. To update a
+title after a re-shuffle, just edit the `title` field in both `en` and `th`.
+
+Group headings ("Officers" / "Assistant Officers" and their Thai equivalents) come from
+`committeeGroupLabels` in the same file — edit those if the group names themselves change.
+
+**Never add an email address or student ID to this file** — the roster is public-facing, and
+`tests/unit/content.test.ts` checks that no entry contains one.
+
+### Adding a portrait photo
+
+Portraits are optional — any committee member without a photo automatically gets a neutral
+placeholder icon, so there's no rush to have photos for everyone before publishing an update.
+
+To add or replace a photo:
+
+1. Crop the photo to a square, ideally at least 640×640px.
+2. Keep the file size small — aim for under ~300 KB (re-export/compress if needed).
+3. Name the file **exactly** `<key>.<extension>`, matching the member's `key` in
+   `content/committee.ts` — e.g. `chayapon-srisukho.jpg`. Accepted extensions: `.webp`, `.jpg`,
+   `.jpeg`, `.png` (checked in that order if more than one exists for the same key).
+4. Drop the file into `public/committee/`.
+5. Commit and push — no code changes are needed. The site picks up the photo automatically on
+   the next build; if the file is missing or misnamed, that member just keeps showing the
+   placeholder icon instead of erroring.
+
 ## Quick actions (`content/quick.ts`)
 
 `content/quick.ts` powers the `/quick` page — BIRSA's "link in bio" page. It's organised into
