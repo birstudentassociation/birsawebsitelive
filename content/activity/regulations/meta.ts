@@ -3,9 +3,9 @@
  * signature block. Authored bilingually; the Thai is transcribed from the
  * official document, the English is a faithful reference translation.
  */
-import type { Regulation } from "./types";
+import type { RegulationMeta } from "./types";
 
-export const meta: Omit<Regulation, "parts"> = {
+export const meta: RegulationMeta = {
   shortTitle: {
     en: "Student Activities Notice (B.E. 2565)",
     th: "ประกาศ เรื่อง กิจกรรมนักศึกษา คณะรัฐศาสตร์ พ.ศ. 2565",

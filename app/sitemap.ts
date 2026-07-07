@@ -8,6 +8,7 @@ import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
 import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { clubs } from "@/content/clubs/clubs";
+import { documents } from "@/content/activity/regulations";
 import { SITE_URL } from "@/lib/site-url";
 
 const guideAudiences: GuideAudience[] = ["home", "international"];
@@ -47,6 +48,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const entry of getEntries("activity", locale)) {
       entries.push({ url: url(locale, `/activity/${entry.slug}`) });
+    }
+
+    for (const doc of documents) {
+      entries.push({ url: url(locale, `/activity/regulations/${doc.slug}`) });
     }
 
     for (const entry of getEntries("about", locale)) {
