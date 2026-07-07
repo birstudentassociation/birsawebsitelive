@@ -1,19 +1,20 @@
 import type { Section } from "../types";
 
 /**
- * Title 2 (ลักษณะ ๒): The Student Council (ข้อ 7–34), of the Regulation of
- * Thammasat University on Student Activities, B.E. 2563 (2020).
+ * Title 2 (ลักษณะ ๒): The Thammasat University Student Council, "TUSC"
+ * (ข้อ 7–34), of the Regulation of Thammasat University on Student
+ * Activities, B.E. 2563 (2020).
  */
 export const title2: Section = {
   kind: { en: "Title", th: "ลักษณะ" },
   number: "2",
-  title: { en: "The Student Council", th: "สภานักศึกษา" },
+  title: { en: "The Thammasat University Student Council (\"TUSC\")", th: "สภานักศึกษา" },
   children: [
     {
       kind: { en: "Chapter", th: "หมวด" },
       number: "1",
       title: {
-        en: "Composition of the Student Council",
+        en: "Composition of the TUSC",
         th: "องค์ประกอบของสภานักศึกษา",
       },
       provisions: [
@@ -24,7 +25,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "There shall be a Student Council composed of the members of each Campus Student Council, as follows:",
+                en: "There shall be a TUSC composed of the members of each Campus Student Council, as follows:",
                 th: "ให้มีสภานักศึกษาประกอบด้วยสมาชิกสภานักศึกษาระดับศูนย์ของแต่ละศูนย์ ดังนี้",
               },
             },
@@ -34,21 +35,21 @@ export const title2: Section = {
                 {
                   marker: "(1)",
                   text: {
-                    en: "the Student Council of Tha Prachan Campus, composed of thirty members of the Student Council who are undergraduate students studying at Tha Prachan Campus, elected by the undergraduate students studying at Tha Prachan Campus;",
+                    en: "the TUSC of Tha Prachan Campus, composed of thirty members of the TUSC who are undergraduate students studying at Tha Prachan Campus, elected by the undergraduate students studying at Tha Prachan Campus;",
                     th: "สภานักศึกษา ศูนย์ท่าพระจันทร์ ประกอบด้วยสมาชิกสภานักศึกษาที่เป็นนักศึกษาระดับปริญญาตรีและศึกษาอยู่ในศูนย์ท่าพระจันทร์ ที่ได้รับการเลือกตั้งโดยนักศึกษาระดับปริญญาตรีที่ศึกษาอยู่ในศูนย์ท่าพระจันทร์ จำนวนสามสิบคน",
                   },
                 },
                 {
                   marker: "(2)",
                   text: {
-                    en: "the Student Council of Rangsit Campus, composed of fifty members of the Student Council who are undergraduate students studying at Rangsit Campus, elected by the undergraduate students studying at Rangsit Campus;",
+                    en: "the TUSC of Rangsit Campus, composed of fifty members of the TUSC who are undergraduate students studying at Rangsit Campus, elected by the undergraduate students studying at Rangsit Campus;",
                     th: "สภานักศึกษา ศูนย์รังสิต ประกอบด้วยสมาชิกสภานักศึกษาซึ่งเป็นนักศึกษาระดับปริญญาตรีและศึกษาอยู่ในศูนย์รังสิต ที่ได้รับการเลือกตั้งโดยนักศึกษาระดับปริญญาตรีที่ศึกษาอยู่ในศูนย์รังสิต จำนวนห้าสิบคน",
                   },
                 },
                 {
                   marker: "(3)",
                   text: {
-                    en: "the Student Council of Lampang Campus, composed of twenty members of the Student Council who are undergraduate students studying at Lampang Campus, elected by the undergraduate students studying at Lampang Campus.",
+                    en: "the TUSC of Lampang Campus, composed of twenty members of the TUSC who are undergraduate students studying at Lampang Campus, elected by the undergraduate students studying at Lampang Campus.",
                     th: "สภานักศึกษา ศูนย์ลำปาง ประกอบด้วยสมาชิกสภานักศึกษาซึ่งเป็นนักศึกษาระดับปริญญาตรีและศึกษาอยู่ในศูนย์ลำปางที่ได้รับการเลือกตั้งโดยนักศึกษาระดับปริญญาตรีที่ศึกษาอยู่ในศูนย์ลำปาง จำนวนยี่สิบคน",
                   },
                 },
@@ -57,7 +58,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "Where any other campus is established by the University, the Student Council of that campus shall be composed of twenty members of the Student Council who are undergraduate students studying at that campus, elected by the undergraduate students studying at that campus.",
+                en: "Where any other campus is established by the University, the TUSC of that campus shall be composed of twenty members of the TUSC who are undergraduate students studying at that campus, elected by the undergraduate students studying at that campus.",
                 th: "ในกรณีที่มีศูนย์การศึกษาอื่นที่มหาวิทยาลัยจัดตั้งขึ้นให้สภานักศึกษาศูนย์การศึกษานั้นประกอบด้วยสมาชิกสภานักศึกษาซึ่งเป็นนักศึกษาระดับปริญญาตรีและศึกษาอยู่ในศูนย์การศึกษานั้นที่ได้รับการเลือกตั้งโดยนักศึกษาระดับปริญญาตรีที่ศึกษาอยู่ในศูนย์การศึกษานั้น จำนวนยี่สิบคน",
               },
             },
@@ -65,38 +66,38 @@ export const title2: Section = {
         },
         {
           num: 8,
-          title: { en: "Council Executive Board", th: "คณะกรรมการบริหารสภานักศึกษา" },
+          title: { en: "TUSC Executive Board", th: "คณะกรรมการบริหารสภานักศึกษา" },
           body: [
             {
               kind: "para",
               text: {
-                en: "There shall be a Student Council Executive Board in the Student Council, appointed by the Rector, composed of:",
+                en: "There shall be a TUSC Executive Board in the TUSC, appointed by the Rector, composed of:",
                 th: "ในสภานักศึกษาให้มีคณะกรรมการบริหารสภานักศึกษาที่อธิการบดีแต่งตั้ง ประกอบด้วย",
               },
             },
             {
               kind: "list",
               items: [
-                { marker: "(1)", text: { en: "the President of the Student Council;", th: "ประธานสภานักศึกษา" } },
-                { marker: "(2)", text: { en: "the First Vice-President of the Student Council;", th: "รองประธานสภานักศึกษา คนที่ ๑" } },
-                { marker: "(3)", text: { en: "the Second Vice-President of the Student Council;", th: "รองประธานสภานักศึกษา คนที่ ๒" } },
-                { marker: "(4)", text: { en: "the Secretary-General of the Student Council;", th: "เลขาธิการสภานักศึกษา" } },
-                { marker: "(5)", text: { en: "the First Deputy Secretary-General of the Student Council;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๑" } },
-                { marker: "(6)", text: { en: "the Second Deputy Secretary-General of the Student Council;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๒" } },
-                { marker: "(7)", text: { en: "the Chair of the Student Council's Standing Committee.", th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษา" } },
+                { marker: "(1)", text: { en: "the President of the TUSC;", th: "ประธานสภานักศึกษา" } },
+                { marker: "(2)", text: { en: "the First Vice-President of the TUSC;", th: "รองประธานสภานักศึกษา คนที่ ๑" } },
+                { marker: "(3)", text: { en: "the Second Vice-President of the TUSC;", th: "รองประธานสภานักศึกษา คนที่ ๒" } },
+                { marker: "(4)", text: { en: "the Secretary-General of the TUSC;", th: "เลขาธิการสภานักศึกษา" } },
+                { marker: "(5)", text: { en: "the First Deputy Secretary-General of the TUSC;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๑" } },
+                { marker: "(6)", text: { en: "the Second Deputy Secretary-General of the TUSC;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๒" } },
+                { marker: "(7)", text: { en: "the Chair of the TUSC's Standing Committee.", th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษา" } },
               ],
             },
             {
               kind: "para",
               text: {
-                en: "A member of the Student Council may hold only one position under paragraph one.",
+                en: "A member of the TUSC may hold only one position under paragraph one.",
                 th: "สมาชิกสภานักศึกษาสามารถดำรงตำแหน่งตามวรรคหนึ่ง ได้เพียงตำแหน่งเดียว",
               },
             },
             {
               kind: "para",
               text: {
-                en: "The Student Council Executive Board shall have the powers and duties, including the responsibility, to administer all affairs concerning the Student Council, provided this is not contrary to any regulation, rule, or order of the University.",
+                en: "The TUSC Executive Board shall have the powers and duties, including the responsibility, to administer all affairs concerning the TUSC, provided this is not contrary to any regulation, rule, or order of the University.",
                 th: "ให้คณะกรรมการบริหารสภานักศึกษา มีอำนาจและหน้าที่รวมถึงความรับผิดชอบในการบริหารกิจการทั้งปวงที่เกี่ยวข้องกับสภานักศึกษาโดยไม่ขัดต่อข้อบังคับ ระเบียบ หรือคำสั่งของมหาวิทยาลัย",
               },
             },
@@ -147,18 +148,18 @@ export const title2: Section = {
       kind: { en: "Chapter", th: "หมวด" },
       number: "2",
       title: {
-        en: "Powers and duties of the Student Council and Campus Student Councils",
+        en: "Powers and duties of the TUSC and Campus Student Councils",
         th: "อำนาจหน้าที่ของสภานักศึกษาและสภานักศึกษาระดับศูนย์",
       },
       provisions: [
         {
           num: 10,
-          title: { en: "Powers of the Student Council", th: "อำนาจหน้าที่ของสภานักศึกษา" },
+          title: { en: "Powers of the TUSC", th: "อำนาจหน้าที่ของสภานักศึกษา" },
           body: [
             {
               kind: "para",
               text: {
-                en: "The Student Council shall have the following powers and duties, including responsibility:",
+                en: "The TUSC shall have the following powers and duties, including responsibility:",
                 th: "สภานักศึกษามีอำนาจและหน้าที่รวมถึงความรับผิดชอบดังต่อไปนี้",
               },
             },
@@ -175,25 +176,25 @@ export const title2: Section = {
                 {
                   marker: "(2)",
                   text: {
-                    en: "to make recommendations and give advice to the Student Organisation on the administration of student activities or matters affecting students;",
+                    en: "to make recommendations and give advice to the TUSU on the administration of student activities or matters affecting students;",
                     th: "เสนอแนะและให้คำปรึกษาแก่องค์การนักศึกษาในการบริหารกิจกรรมนักศึกษาหรือเรื่องที่มีผลกระทบต่อนักศึกษา",
                   },
                 },
                 {
                   marker: "(3)",
                   text: {
-                    en: "to consider and approve or disapprove the plans, projects, budget, and student-activity rules proposed by the Student Organisation Executive Committee;",
+                    en: "to consider and approve or disapprove the plans, projects, budget, and student-activity rules proposed by the TUSU Executive Committee;",
                     th: "พิจารณาและให้ความเห็นชอบหรือไม่เห็นชอบต่อ แผนงาน โครงการ งบประมาณและระเบียบกิจกรรมนักศึกษาตามที่คณะกรรมการบริหารองค์การนักศึกษาเสนอ",
                   },
                 },
                 {
                   marker: "(4)",
                   text: {
-                    en: "to monitor, examine, and evaluate the administration, operations, and budget expenditure of the Student Organisation Executive Committee, the Election Commission, and clubs, whether funded from amounts approved by the Student Council or otherwise obtained support, and to have the power to prescribe rules, or to request documents, or to invite the President of the Student Organisation or persons concerned to attend meetings or give clarification on relevant matters;",
+                    en: "to monitor, examine, and evaluate the administration, operations, and budget expenditure of the TUSU Executive Committee, the Election Commission, and clubs, whether funded from amounts approved by the TUSC or otherwise obtained support, and to have the power to prescribe rules, or to request documents, or to invite the President of the TUSU or persons concerned to attend meetings or give clarification on relevant matters;",
                     th: "ติดตาม ตรวจสอบและประเมินผลการบริหารงาน การดำเนินงาน และการใช้จ่ายงบประมาณของคณะกรรมการบริหารองค์การนักศึกษา คณะกรรมการการเลือกตั้งและชุมนุม ทั้งจากที่สภานักศึกษาอนุมัติหรือการได้รับการสนับสนุนมา และให้มีอำนาจกำหนดระเบียบหรือขอเอกสารหรือเชิญนายกองค์การนักศึกษาหรือผู้เกี่ยวข้องเข้าร่วมประชุมหรือชี้แจงในประเด็นที่เกี่ยวข้องได้",
                   },
                   note: {
-                    en: "Once the Student Council has considered the report under paragraph one, the Student Council shall summarise that report and submit it to the University for further consideration.",
+                    en: "Once the TUSC has considered the report under paragraph one, the TUSC shall summarise that report and submit it to the University for further consideration.",
                     th: "เมื่อสภานักศึกษาพิจารณารายงานตามวรรคหนึ่งแล้ว ให้สภานักศึกษาดำเนินการสรุปรายงานดังกล่าวเสนอมหาวิทยาลัยพิจารณาต่อไป",
                   },
                 },
@@ -214,7 +215,7 @@ export const title2: Section = {
                 {
                   marker: "(7)",
                   text: {
-                    en: "to propose that the Rector or the Vice-Rector for Student Affairs issue rules or a University notice under section 88, or to propose amendments to this Regulation, by a resolution of not less than two-thirds of all members of the Student Council.",
+                    en: "to propose that the Rector or the Vice-Rector for Student Affairs issue rules or a University notice under section 88, or to propose amendments to this Regulation, by a resolution of not less than two-thirds of all members of the TUSC.",
                     th: "เสนอให้อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษา ออกระเบียบหรือประกาศมหาวิทยาลัยตามข้อ ๘๘ หรือเสนอแก้ไขปรับปรุงข้อบังคับนี้ด้วยมติไม่น้อยกว่าสองในสามของสมาชิกสภานักศึกษาทั้งหมด",
                   },
                 },
@@ -239,28 +240,28 @@ export const title2: Section = {
                 {
                   marker: "(1)",
                   text: {
-                    en: "to propose opinions to the Student Council on matters affecting students studying at that campus;",
+                    en: "to propose opinions to the TUSC on matters affecting students studying at that campus;",
                     th: "เสนอความคิดเห็นต่อสภานักศึกษาในเรื่องที่มีผลกระทบต่อนักศึกษาที่ศึกษาในศูนย์",
                   },
                 },
                 {
                   marker: "(2)",
                   text: {
-                    en: "to make recommendations and give advice to the Student Organisation on matters affecting students at that campus;",
+                    en: "to make recommendations and give advice to the TUSU on matters affecting students at that campus;",
                     th: "เสนอแนะและให้คำปรึกษาแก่องค์การนักศึกษาในเรื่องที่มีผลกระทบต่อนักศึกษาในศูนย์",
                   },
                 },
                 {
                   marker: "(3)",
                   text: {
-                    en: "to monitor, examine, and evaluate the administration, operations, and budget expenditure, whether funded from amounts approved by the Student Council or any other support obtained, of the Campus Student Organisation Executive Committee and student activity clubs within that campus, and to have the power to request documents or to summon the Vice-President of the Student Organisation or persons concerned to attend meetings or give clarification on relevant matters;",
+                    en: "to monitor, examine, and evaluate the administration, operations, and budget expenditure, whether funded from amounts approved by the TUSC or any other support obtained, of the Campus TUSU Executive Committee and student activity clubs within that campus, and to have the power to request documents or to summon the Vice-President of the TUSU or persons concerned to attend meetings or give clarification on relevant matters;",
                     th: "ติดตาม ตรวจสอบและประเมินผลการบริหารงาน การดำเนินงาน การใช้จ่ายงบประมาณทั้งจากที่สภานักศึกษาอนุมัติหรือการได้รับการสนับสนุนอื่นใดของคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์และชุมนุมกิจกรรมของนักศึกษาภายในศูนย์ และให้มีอำนาจขอเอกสารหรือเรียกอุปนายกองค์การนักศึกษาหรือผู้เกี่ยวข้องเข้าร่วมประชุมหรือชี้แจงในประเด็นที่เกี่ยวข้องได้",
                   },
                 },
                 {
                   marker: "(4)",
                   text: {
-                    en: "such other powers as the Student Council may assign.",
+                    en: "such other powers as the TUSC may assign.",
                     th: "อำนาจอื่นตามที่สภานักศึกษามอบหมาย",
                   },
                 },
@@ -274,7 +275,7 @@ export const title2: Section = {
       kind: { en: "Chapter", th: "หมวด" },
       number: "3",
       title: {
-        en: "Election of the Student Council and Campus Student Councils",
+        en: "Election of the TUSC and Campus Student Councils",
         th: "การเลือกตั้งสภานักศึกษาและสภานักศึกษาระดับศูนย์",
       },
       provisions: [
@@ -285,21 +286,21 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The election of the Student Council and Campus Student Councils shall be by a party-list system, divided into lists by campus, and a candidate on any list must be a student studying at that campus.",
+                en: "The election of the TUSC and Campus Student Councils shall be by a party-list system, divided into lists by campus, and a candidate on any list must be a student studying at that campus.",
                 th: "การเลือกตั้งสภานักศึกษาและสภานักศึกษาระดับศูนย์ให้เป็นแบบระบบบัญชีรายชื่อ โดยแบ่งเป็นบัญชีรายชื่อตามศูนย์การศึกษา โดยผู้สมัครในบัญชีรายชื่อใด ต้องเป็นนักศึกษาที่ศึกษาอยู่ในศูนย์การศึกษานั้น",
               },
             },
             {
               kind: "para",
               text: {
-                en: "Where a position of a member of the Student Council or a Campus Student Council becomes vacant for a reason other than the expiry of the Student Council's term, the President of the Student Council shall nominate the next-ranked person on the list of the student party concerned to fill the vacant position, submitting the nomination to the Rector within seven days from the date the vacancy became known.",
+                en: "Where a position of a member of the TUSC or a Campus Student Council becomes vacant for a reason other than the expiry of the TUSC's term, the President of the TUSC shall nominate the next-ranked person on the list of the student party concerned to fill the vacant position, submitting the nomination to the Rector within seven days from the date the vacancy became known.",
                 th: "กรณีที่ตำแหน่งสมาชิกสภานักศึกษาและสภานักศึกษาระดับศูนย์ว่างลง เพราะเหตุอื่นนอกจากกรณีถึงคราวออกตามอายุของสภานักศึกษา ให้ประธานสภานักศึกษาเสนอชื่อผู้ที่อยู่ในลำดับถัดไปในบัญชีรายชื่อของพรรคนักศึกษาแทนตำแหน่งที่ว่างลงต่ออธิการบดีภายในเจ็ดวันนับแต่วันที่ทราบว่าตำแหน่งนั้นว่างลง",
               },
             },
             {
               kind: "para",
               text: {
-                en: "The membership of a member of the Student Council who fills a vacant position shall last only for the remaining term of the Student Council.",
+                en: "The membership of a member of the TUSC who fills a vacant position shall last only for the remaining term of the TUSC.",
                 th: "สมาชิกภาพของสมาชิกสภานักศึกษาผู้เข้าแทนที่ตำแหน่งที่ว่างลง ให้อยู่ในตำแหน่งได้เพียงเท่าอายุของสภานักศึกษาที่เหลืออยู่",
               },
             },
@@ -312,7 +313,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The criteria and procedure for conducting the election of members of the Student Council prescribed in this Regulation shall be as determined by the Rector on the proposal of the Election Commission, by issuing a University notice.",
+                en: "The criteria and procedure for conducting the election of members of the TUSC prescribed in this Regulation shall be as determined by the Rector on the proposal of the Election Commission, by issuing a University notice.",
                 th: "หลักเกณฑ์และวิธีการดำเนินการเลือกตั้งสมาชิกสภานักศึกษาที่กำหนดไว้ในข้อบังคับนี้ให้เป็นไปตามที่อธิการบดีกำหนด ตามข้อเสนอของคณะกรรมการการเลือกตั้งโดยออกเป็นประกาศมหาวิทยาลัย",
               },
             },
@@ -325,7 +326,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "A person entitled to vote in the election of members of the Student Council must have the status of a student on the day of voting.",
+                en: "A person entitled to vote in the election of members of the TUSC must have the status of a student on the day of voting.",
                 th: "ผู้มีสิทธิลงคะแนนเลือกตั้งสมาชิกสภานักศึกษาต้องมีสภาพเป็นนักศึกษาอยู่ในวันที่ลงคะแนนเสียงเลือกตั้ง",
               },
             },
@@ -338,7 +339,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "A person entitled to stand for election as a member of the Student Council must have the following qualifications and must not have any of the following prohibited characteristics:",
+                en: "A person entitled to stand for election as a member of the TUSC must have the following qualifications and must not have any of the following prohibited characteristics:",
                 th: "ผู้มีสิทธิสมัครรับการเลือกตั้งสมาชิกสภานักศึกษา ต้องมีคุณสมบัติและไม่มีลักษณะต้องห้ามดังต่อไปนี้",
               },
             },
@@ -374,7 +375,7 @@ export const title2: Section = {
                     {
                       marker: "(2)",
                       text: {
-                        en: "being a member of the Student Organisation Executive Committee or the Campus Student Organisation Executive Committee;",
+                        en: "being a member of the TUSU Executive Committee or the Campus TUSU Executive Committee;",
                         th: "เป็นกรรมการในคณะกรรมการบริหารองค์การนักศึกษาหรือคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์",
                       },
                     },
@@ -405,7 +406,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "When the remaining term of the Student Council and the Campus Student Councils is less than sixty days, the Rector shall issue a University notice calling a general election of members of the Student Council.",
+                en: "When the remaining term of the TUSC and the Campus Student Councils is less than sixty days, the Rector shall issue a University notice calling a general election of members of the TUSC.",
                 th: "เมื่ออายุสภานักศึกษาและสภานักศึกษาระดับศูนย์เหลืออยู่ไม่ถึงหกสิบวัน ให้อธิการบดีออกประกาศมหาวิทยาลัยกำหนดให้มีการเลือกตั้งสมาชิกสภานักศึกษาเป็นการทั่วไป",
               },
             },
@@ -417,7 +418,7 @@ export const title2: Section = {
       kind: { en: "Chapter", th: "หมวด" },
       number: "4",
       title: {
-        en: "Operation and meetings of the Student Council and Campus Student Councils",
+        en: "Operation and meetings of the TUSC and Campus Student Councils",
         th: "การดำเนินงานและการประชุมสภานักศึกษาและสภานักศึกษาระดับศูนย์",
       },
       provisions: [
@@ -428,21 +429,21 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The President of the Student Council shall come from an election by the Student Council, and if the President of the Student Council comes from any Campus Student Council, that person shall be the President of that Campus Student Council by virtue of office, and the members of the Student Council of the remaining campus shall elect one member of the Student Council to be President of that Campus Student Council.",
+                en: "The President of the TUSC shall come from an election by the TUSC, and if the President of the TUSC comes from any Campus Student Council, that person shall be the President of that Campus Student Council by virtue of office, and the members of the TUSC of the remaining campus shall elect one member of the TUSC to be President of that Campus Student Council.",
                 th: "ให้ประธานสภานักศึกษามาจากการเลือกตั้งของสภานักศึกษา และหากประธานสภานักศึกษามาจากสภานักศึกษาระดับศูนย์จากศูนย์ใดก็ให้เป็นประธานสภานักศึกษาระดับศูนย์นั้นโดยตำแหน่ง และให้สมาชิกสภานักศึกษาของศูนย์การศึกษาที่เหลือ เลือกสมาชิกสภานักศึกษาคนหนึ่งเป็นประธานสภานักศึกษาระดับศูนย์",
               },
             },
             {
               kind: "para",
               text: {
-                en: "A President of a Campus Student Council who is not the President of the Student Council shall be a Vice-President of the Student Council by virtue of office.",
+                en: "A President of a Campus Student Council who is not the President of the TUSC shall be a Vice-President of the TUSC by virtue of office.",
                 th: "ประธานสภานักศึกษาระดับศูนย์ ที่มิได้เป็นประธานสภานักศึกษา ให้เป็นรองประธานสภานักศึกษาโดยตำแหน่ง",
               },
             },
             {
               kind: "para",
               text: {
-                en: "The Secretary-General and Deputy Secretary-General of the Campus Student Council to which the President of the Student Council belongs shall be the Secretary-General and Deputy Secretary-General of the Student Council by virtue of office.",
+                en: "The Secretary-General and Deputy Secretary-General of the Campus Student Council to which the President of the TUSC belongs shall be the Secretary-General and Deputy Secretary-General of the TUSC by virtue of office.",
                 th: "เลขาธิการและรองเลขาธิการสภานักศึกษาระดับศูนย์ที่ประธานสภานักศึกษาสังกัดอยู่ ให้เป็นเลขาธิการและรองเลขาธิการสภานักศึกษาโดยตำแหน่ง",
               },
             },
@@ -455,14 +456,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The President of the Student Council shall have the duty to control and oversee the operations of the Student Council and shall chair meetings of the Student Council.",
+                en: "The President of the TUSC shall have the duty to control and oversee the operations of the TUSC and shall chair meetings of the TUSC.",
                 th: "ให้ประธานสภานักศึกษามีหน้าที่ควบคุมและดูแลการดำเนินงานของสภานักศึกษาและเป็นประธานที่ประชุมสภานักศึกษา",
               },
             },
             {
               kind: "para",
               text: {
-                en: "The President of the Student Council shall have the power to issue orders or notices to carry out paragraph one.",
+                en: "The President of the TUSC shall have the power to issue orders or notices to carry out paragraph one.",
                 th: "ทั้งนี้ให้ประธานสภานักศึกษามีอำนาจออกคำสั่งหรือประกาศเพื่อดำเนินการตามวรรคหนึ่ง",
               },
             },
@@ -475,7 +476,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The President of the Student Council shall arrange for meetings of the Student Council to consider matters within its powers and duties at least once a month, except where there is a necessary cause preventing a meeting from being held.",
+                en: "The President of the TUSC shall arrange for meetings of the TUSC to consider matters within its powers and duties at least once a month, except where there is a necessary cause preventing a meeting from being held.",
                 th: "ให้ประธานสภานักศึกษาจัดให้มีการประชุมสภานักศึกษาเพื่อพิจารณาดำเนินการตามอำนาจหน้าที่ของสภานักศึกษาอย่างน้อยเดือนละหนึ่งครั้ง เว้นแต่มีกรณีที่เหตุอันจำเป็นที่ไม่สามารถจัดการประชุมได้",
               },
             },
@@ -488,14 +489,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "Within seven days from the date of the notice announcing the persons elected as members of the Student Council, and once the number of members of the Student Council is not less than three-quarters of the total number of members, the Rector or the Vice-Rector for Student Affairs so assigned shall call a meeting of the Student Council so that members may hold their first meeting.",
+                en: "Within seven days from the date of the notice announcing the persons elected as members of the TUSC, and once the number of members of the TUSC is not less than three-quarters of the total number of members, the Rector or the Vice-Rector for Student Affairs so assigned shall call a meeting of the TUSC so that members may hold their first meeting.",
                 th: "ภายในเจ็ดวันนับแต่วันที่มีประกาศผู้ที่ได้รับการเลือกตั้งเป็นสมาชิกสภานักศึกษาและมีจำนวนสมาชิกสภานักศึกษาไม่น้อยกว่าสามในสี่ของจำนวนสมาชิกทั้งหมด ให้อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษามอบหมายเรียกประชุมสภานักศึกษาเพื่อให้สมาชิกได้มาประชุมเป็นครั้งแรก",
               },
             },
             {
               kind: "para",
               text: {
-                en: "For the meeting of the Student Council under paragraph one, the Student Council shall be composed of the members of the Student Council as they then exist, and the Rector or the Vice-Rector for Student Affairs shall chair the meeting, with the power and duty to control and arrange for the election of the President of the Student Council to be conducted.",
+                en: "For the meeting of the TUSC under paragraph one, the TUSC shall be composed of the members of the TUSC as they then exist, and the Rector or the Vice-Rector for Student Affairs shall chair the meeting, with the power and duty to control and arrange for the election of the President of the TUSC to be conducted.",
                 th: "การประชุมสภานักศึกษาตามวรรคหนึ่ง ให้สภานักศึกษาประกอบด้วยสมาชิกสภานักศึกษาเท่าที่มีอยู่ และให้อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษาเป็นประธานในที่ประชุม โดยให้มีอำนาจหน้าที่ควบคุมและจัดให้มีการดำเนินการเลือกประธานสภานักศึกษา",
               },
             },
@@ -508,7 +509,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The nomination of any member of the Student Council to be President of the Student Council must be seconded by not less than one-fifth of the number of members of the Student Council, and if only one name is nominated, that person shall be deemed elected once the meeting passes a resolution of endorsement by a vote of more than one-half of the members of the Student Council as they then exist.",
+                en: "The nomination of any member of the TUSC to be President of the TUSC must be seconded by not less than one-fifth of the number of members of the TUSC, and if only one name is nominated, that person shall be deemed elected once the meeting passes a resolution of endorsement by a vote of more than one-half of the members of the TUSC as they then exist.",
                 th: "การเสนอชื่อสมาชิกสภานักศึกษาคนใดเป็นประธานสภานักศึกษา ต้องมีเสียงรับรองไม่น้อยกว่าหนึ่งในห้าของจำนวนสมาชิกสภานักศึกษา และหากมีการเสนอชื่อเพียงชื่อเดียว ให้ถือว่าผู้นั้นเป็นผู้ได้รับเลือก เมื่อที่ประชุมมีมติรับรองด้วยคะแนนเสียงเกินกว่ากึ่งหนึ่งของสมาชิกสภานักศึกษาเท่าที่มีอยู่",
               },
             },
@@ -521,7 +522,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "Within three days from the date of the first meeting of the members of the Student Council, and once the number of members of the Campus Student Councils is not less than three-quarters of the total number of members of the Campus Councils, the Rector or the Vice-Rector for Student Affairs shall call a meeting of the Campus Student Councils so that members may hold their first meeting.",
+                en: "Within three days from the date of the first meeting of the members of the TUSC, and once the number of members of the Campus Student Councils is not less than three-quarters of the total number of members of the Campus Councils, the Rector or the Vice-Rector for Student Affairs shall call a meeting of the Campus Student Councils so that members may hold their first meeting.",
                 th: "ภายในสามวันนับแต่วันที่มีการประชุมสมาชิกสภานักศึกษาครั้งแรก และมีจำนวนสมาชิกสภานักศึกษาระดับศูนย์ไม่น้อยกว่าสามในสี่ของจำนวนสมาชิกสภาระดับศูนย์ทั้งหมด ให้อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษาเรียกประชุมสภานักศึกษาระดับศูนย์ เพื่อให้สมาชิกได้มาประชุมเป็นครั้งแรก",
               },
             },
@@ -541,7 +542,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The President of the Student Council and the President of a Campus Student Council shall have the following powers and duties, including responsibility:",
+                en: "The President of the TUSC and the President of a Campus Student Council shall have the following powers and duties, including responsibility:",
                 th: "ประธานสภานักศึกษาและประธานสภานักศึกษาระดับศูนย์ มีอำนาจและหน้าที่รวมถึงความรับผิดชอบ ดังต่อไปนี้",
               },
             },
@@ -551,28 +552,28 @@ export const title2: Section = {
                 {
                   marker: "(1)",
                   text: {
-                    en: "to chair meetings of the Student Council or the Campus Student Council, as the case may be;",
+                    en: "to chair meetings of the TUSC or the Campus Student Council, as the case may be;",
                     th: "เป็นประธานของที่ประชุมสภานักศึกษาหรือสภานักศึกษาระดับศูนย์ แล้วแต่กรณี",
                   },
                 },
                 {
                   marker: "(2)",
                   text: {
-                    en: "to control the meetings and the conduct of business of the Student Council or the Campus Student Council, as the case may be;",
+                    en: "to control the meetings and the conduct of business of the TUSC or the Campus Student Council, as the case may be;",
                     th: "ควบคุมการประชุมและการดำเนินกิจการของสภานักศึกษาหรือสภานักศึกษาระดับศูนย์ แล้วแต่กรณี",
                   },
                 },
                 {
                   marker: "(3)",
                   text: {
-                    en: "to act as representative in the external affairs of the Student Council or the Campus Student Council, as the case may be;",
+                    en: "to act as representative in the external affairs of the TUSC or the Campus Student Council, as the case may be;",
                     th: "เป็นผู้แทนในกิจการภายนอกของสภานักศึกษาหรือสภานักศึกษาระดับศูนย์ แล้วแต่กรณี",
                   },
                 },
                 {
                   marker: "(4)",
                   text: {
-                    en: "to appoint a person or group of persons to carry out any business beneficial to the affairs of the Student Council or the Campus Student Council, as the case may be;",
+                    en: "to appoint a person or group of persons to carry out any business beneficial to the affairs of the TUSC or the Campus Student Council, as the case may be;",
                     th: "แต่งตั้งบุคคลหรือคณะบุคคลเพื่อดำเนินกิจการใด ๆ อันเป็นประโยชน์ต่อกิจการสภานักศึกษาหรือสภานักศึกษาระดับศูนย์ แล้วแต่กรณี",
                   },
                 },
@@ -594,14 +595,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "Where there is no person holding the position of President of the Student Council, or there is such a person but that person is unable to perform the duty, the First Vice-President of the Student Council shall act in that person's place; if the President of the Student Council and the First Vice-President of the Student Council are unable to perform the duty, the Second Vice-President of the Student Council shall act in that person's place.",
+                en: "Where there is no person holding the position of President of the TUSC, or there is such a person but that person is unable to perform the duty, the First Vice-President of the TUSC shall act in that person's place; if the President of the TUSC and the First Vice-President of the TUSC are unable to perform the duty, the Second Vice-President of the TUSC shall act in that person's place.",
                 th: "ในกรณีที่ไม่มีผู้ดำรงตำแหน่งประธานสภานักศึกษาหรือมีแต่ไม่สามารถปฏิบัติหน้าที่ได้ให้รองประธานสภานักศึกษาคนที่ ๑ ทำหน้าที่แทน หากประธานสภานักศึกษาและรองประธานสภานักศึกษาคนที่ ๑ ไม่อาจทำหน้าที่ได้ ให้รองประธานสภานักศึกษาคนที่ ๒ ทำหน้าที่แทน",
               },
             },
             {
               kind: "para",
               text: {
-                en: "Where the President of the Student Council is unable to perform the duty and there is no one to act in that person's place under paragraph one, the Student Council Executive Board under section 8 shall select one of its members to act as President of the Student Council.",
+                en: "Where the President of the TUSC is unable to perform the duty and there is no one to act in that person's place under paragraph one, the TUSC Executive Board under section 8 shall select one of its members to act as President of the TUSC.",
                 th: "ในกรณีที่ประธานสภานักศึกษาไม่อาจทำหน้าที่ได้ และไม่มีผู้ปฏิบัติหน้าที่แทนตามวรรคหนึ่ง ให้คณะกรรมการบริหารสภานักศึกษาตามข้อ ๘ เลือกกรรมการบริหารคนใดคนหนึ่งทำหน้าที่ประธานสภานักศึกษา",
               },
             },
@@ -634,7 +635,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The powers and duties, including the responsibility, of the Vice-President of the Student Council and the Vice-President of a Campus Student Council shall be as determined by the President of the Student Council or the President of the Campus Student Council, as the case may be.",
+                en: "The powers and duties, including the responsibility, of the Vice-President of the TUSC and the Vice-President of a Campus Student Council shall be as determined by the President of the TUSC or the President of the Campus Student Council, as the case may be.",
                 th: "อำนาจและหน้าที่รวมถึงความรับผิดชอบของรองประธานสภานักศึกษาและรองประธานสภานักศึกษาระดับศูนย์ ให้เป็นไปตามที่ประธานสภานักศึกษาหรือประธานสภานักศึกษาระดับศูนย์ แล้วแต่กรณีกำหนด",
               },
             },
@@ -647,7 +648,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The Secretary-General of the Student Council and the Secretary-General of a Campus Student Council shall have the following powers and duties, including responsibility:",
+                en: "The Secretary-General of the TUSC and the Secretary-General of a Campus Student Council shall have the following powers and duties, including responsibility:",
                 th: "เลขาธิการสภานักศึกษาและเลขาธิการสภานักศึกษาระดับศูนย์ มีอำนาจและหน้าที่รวมถึงความรับผิดชอบ ดังต่อไปนี้",
               },
             },
@@ -657,14 +658,14 @@ export const title2: Section = {
                 {
                   marker: "(1)",
                   text: {
-                    en: "responsibility for the general administrative work of the Student Council;",
+                    en: "responsibility for the general administrative work of the TUSC;",
                     th: "รับผิดชอบงานธุรการทั่วไปของสภานักศึกษา",
                   },
                 },
                 {
                   marker: "(2)",
                   text: {
-                    en: "to perform such other duties as the President of the Student Council or the President of the Campus Student Council, as the case may be, may assign.",
+                    en: "to perform such other duties as the President of the TUSC or the President of the Campus Student Council, as the case may be, may assign.",
                     th: "ปฏิบัติหน้าที่อื่นตามที่ประธานสภานักศึกษาหรือประธานสภานักศึกษาระดับศูนย์ แล้วแต่กรณีมอบหมาย",
                   },
                 },
@@ -673,7 +674,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The Deputy Secretary-General of the Student Council and the Deputy Secretary-General of a Campus Student Council shall assist with such various work as the Secretary-General of the Student Council or the Secretary-General of the Campus Student Council, as the case may be, may assign.",
+                en: "The Deputy Secretary-General of the TUSC and the Deputy Secretary-General of a Campus Student Council shall assist with such various work as the Secretary-General of the TUSC or the Secretary-General of the Campus Student Council, as the case may be, may assign.",
                 th: "ให้รองเลขาธิการสภานักศึกษาและรองเลขาธิการสภานักศึกษาระดับศูนย์ ช่วยเหลืองานด้านต่าง ๆ ตามที่เลขาธิการสภานักศึกษาหรือเลขาธิการสภานักศึกษาระดับศูนย์ แล้วแต่กรณีมอบหมาย",
               },
             },
@@ -686,14 +687,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The Secretary-General of the Student Council and the Secretary-General of a Campus Student Council may propose the appointment of students as assistants in their own division.",
+                en: "The Secretary-General of the TUSC and the Secretary-General of a Campus Student Council may propose the appointment of students as assistants in their own division.",
                 th: "ให้เลขาธิการสภานักศึกษาและเลขาธิการสภานักศึกษาระดับศูนย์ เสนอแต่งตั้งนักศึกษาเป็นผู้ช่วยในฝ่ายตนได้",
               },
             },
             {
               kind: "para",
               text: {
-                en: "The appointment under paragraph one shall be signed by the President of the Student Council or the President of the Campus Student Council, as the case may be.",
+                en: "The appointment under paragraph one shall be signed by the President of the TUSC or the President of the Campus Student Council, as the case may be.",
                 th: "การแต่งตั้งตามวรรคหนึ่งให้ประธานสภานักศึกษาหรือประธานสภานักศึกษาระดับศูนย์ แล้วแต่กรณี เป็นผู้ลงนามแต่งตั้ง",
               },
             },
@@ -706,7 +707,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The operation and meetings of the Student Council, apart from what is provided in this Chapter, shall be governed by the student-activity rules concerning the operation and meetings of the Student Council as determined by the Student Council.",
+                en: "The operation and meetings of the TUSC, apart from what is provided in this Chapter, shall be governed by the student-activity rules concerning the operation and meetings of the TUSC as determined by the TUSC.",
                 th: "การดำเนินงานและการประชุมของสภานักศึกษา นอกจากที่กำหนดไว้ในหมวดนี้ ให้เป็นไปตามระเบียบกิจกรรมนักศึกษาเกี่ยวกับการดำเนินงานและการประชุมสภานักศึกษาที่สภานักศึกษากำหนด",
               },
             },
@@ -726,7 +727,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "There shall be standing committees or select committees of the Student Council to carry out matters within the powers and duties of the Student Council, with terms as determined by the Student Council but not exceeding the term of the Student Council.",
+                en: "There shall be standing committees or select committees of the TUSC to carry out matters within the powers and duties of the TUSC, with terms as determined by the TUSC but not exceeding the term of the TUSC.",
                 th: "ให้สภานักศึกษามีคณะกรรมาธิการสามัญหรือคณะกรรมาธิการวิสามัญประจำสภานักศึกษา เพื่อดำเนินการตามอำนาจหน้าที่ของสภานักศึกษา โดยมีวาระตามที่สภานักศึกษากำหนดแต่ไม่เกินวาระของสภานักศึกษา",
               },
             },
@@ -740,7 +741,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The appointment under paragraphs one and two shall be signed by the President of the Student Council.",
+                en: "The appointment under paragraphs one and two shall be signed by the President of the TUSC.",
                 th: "การแต่งตั้งตามวรรคหนึ่งและวรรคสองให้ประธานสภานักศึกษาเป็นผู้ลงนามแต่งตั้ง",
               },
             },
@@ -780,7 +781,7 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "The Student Council may invite University personnel, full-time faculty members, or persons of relevant expertise to attend its meetings to give opinions or advice on matters within the powers and duties of the Student Council.",
+                en: "The TUSC may invite University personnel, full-time faculty members, or persons of relevant expertise to attend its meetings to give opinions or advice on matters within the powers and duties of the TUSC.",
                 th: "สภานักศึกษาอาจเชิญผู้ปฏิบัติงานในมหาวิทยาลัย คณาจารย์ประจำ หรือผู้ทรงคุณวุฒิ ให้เข้าร่วมการประชุม เพื่อให้ข้อคิดเห็นหรือคำแนะนำในกิจการตามอำนาจหน้าที่ของสภานักศึกษาด้วยก็ได้",
               },
             },
@@ -793,14 +794,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "A member of the Student Council must attend meetings of the Student Council and of the Campus Student Councils regularly; where a member is unable to attend a meeting, that member shall submit a letter to the President of the Student Council or the President of the Campus Student Council, as the case may be, to request leave of absence from the meeting.",
+                en: "A member of the TUSC must attend meetings of the TUSC and of the Campus Student Councils regularly; where a member is unable to attend a meeting, that member shall submit a letter to the President of the TUSC or the President of the Campus Student Council, as the case may be, to request leave of absence from the meeting.",
                 th: "สมาชิกสภานักศึกษาต้องเข้าร่วมการประชุมสภานักศึกษาและสภานักศึกษาระดับศูนย์อย่างสม่ำเสมอ ในกรณีที่ไม่อาจเข้าร่วมการประชุมได้ให้มีหนังสือถึงประธานสภานักศึกษาหรือประธานสภานักศึกษาระดับศูนย์แล้วแต่กรณี เพื่อขอลาการประชุม",
               },
             },
             {
               kind: "para",
               text: {
-                en: "A member of the Student Council who is absent from meetings of the Student Council and the Campus Student Councils, combined, for more than three consecutive occasions shall vacate membership, and the President of the Student Council shall nominate the next-ranked person on the list of the student party concerned to fill the vacant position, submitting the nomination to the Rector within seven days from the date the vacancy became known.",
+                en: "A member of the TUSC who is absent from meetings of the TUSC and the Campus Student Councils, combined, for more than three consecutive occasions shall vacate membership, and the President of the TUSC shall nominate the next-ranked person on the list of the student party concerned to fill the vacant position, submitting the nomination to the Rector within seven days from the date the vacancy became known.",
                 th: "ให้สมาชิกสภานักศึกษาที่ขาดประชุมสภานักศึกษาและสภานักศึกษาระดับศูนย์รวมกันเกินกว่าสามครั้งติดต่อกัน ให้พ้นจากสมาชิกภาพ และให้ประธานสภานักศึกษาเสนอชื่อผู้ที่อยู่ในลำดับถัดไปในบัญชีรายชื่อของพรรคนักศึกษาแทนตำแหน่งที่ว่างลงต่ออธิการบดีภายในเจ็ดวันนับแต่วันที่ทราบว่าตำแหน่งนั้นว่างลง",
               },
             },
@@ -823,14 +824,14 @@ export const title2: Section = {
             {
               kind: "para",
               text: {
-                en: "A member of the Student Council shall hold office for a term of one year at a time, from the date of appointment as a member of the Student Council.",
+                en: "A member of the TUSC shall hold office for a term of one year at a time, from the date of appointment as a member of the TUSC.",
                 th: "ให้สมาชิกสภานักศึกษา มีวาระการดำรงตำแหน่งคราวละหนึ่งปี นับแต่วันที่ได้มีการแต่งตั้งเป็นสมาชิกสภานักศึกษา",
               },
             },
             {
               kind: "para",
               text: {
-                en: "In addition to vacating office upon expiry of the term under paragraph one, a member of the Student Council vacates office upon:",
+                en: "In addition to vacating office upon expiry of the term under paragraph one, a member of the TUSC vacates office upon:",
                 th: "นอกจากการพ้นตำแหน่งตามวาระในวรรคหนึ่ง สมาชิกสภานักศึกษาพ้นจากตำแหน่งเมื่อ",
               },
             },

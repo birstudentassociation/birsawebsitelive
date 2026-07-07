@@ -85,8 +85,11 @@ export const preliminary: Section = {
               },
             },
             {
-              term: { en: "\"the Student Council\"", th: "\"สภานักศึกษา\"" },
-              meaning: { en: "means the Student Council of Thammasat University;", th: "หมายความว่า สภานักศึกษามหาวิทยาลัยธรรมศาสตร์" },
+              term: { en: "\"TUSC\"", th: "\"สภานักศึกษา\"" },
+              meaning: {
+                en: "means the Thammasat University Student Council;",
+                th: "หมายความว่า สภานักศึกษามหาวิทยาลัยธรรมศาสตร์",
+              },
             },
             {
               term: { en: "\"a Campus Student Council\"", th: "\"สภานักศึกษาระดับศูนย์\"" },
@@ -96,17 +99,20 @@ export const preliminary: Section = {
               },
             },
             {
-              term: { en: "\"the Student Organisation\"", th: "\"องค์การนักศึกษา\"" },
-              meaning: { en: "means the Student Organisation of Thammasat University;", th: "หมายความว่า องค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์" },
-            },
-            {
-              term: { en: "\"the Student Organisation Executive Committee\"", th: "\"คณะกรรมการบริหารองค์การนักศึกษา\"" },
-              meaning: { en: "means the Student Organisation Executive Committee of Thammasat University;", th: "หมายความว่า คณะกรรมการบริหารองค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์" },
-            },
-            {
-              term: { en: "\"the Campus Student Organisation Executive Committee\"", th: "\"คณะกรรมการบริหารองค์การนักศึกษา ระดับศูนย์\"" },
+              term: { en: "\"TUSU\"", th: "\"องค์การนักศึกษา\"" },
               meaning: {
-                en: "means the Student Organisation Executive Committee of Tha Prachan Campus, the Student Organisation Executive Committee of Rangsit Campus, the Student Organisation Executive Committee of Lampang Campus, or the Student Organisation Executive Committee of any other campus established by the University;",
+                en: "means the Thammasat University Student Union;",
+                th: "หมายความว่า องค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์",
+              },
+            },
+            {
+              term: { en: "\"the TUSU Executive Committee\"", th: "\"คณะกรรมการบริหารองค์การนักศึกษา\"" },
+              meaning: { en: "means the Executive Committee of TUSU;", th: "หมายความว่า คณะกรรมการบริหารองค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์" },
+            },
+            {
+              term: { en: "\"a Campus TUSU Executive Committee\"", th: "\"คณะกรรมการบริหารองค์การนักศึกษา ระดับศูนย์\"" },
+              meaning: {
+                en: "means the Executive Committee of TUSU at Tha Prachan Campus, at Rangsit Campus, at Lampang Campus, or at any other campus established by the University;",
                 th: "หมายความว่า คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ท่าพระจันทร์ คณะกรรมการบริหารองค์การนักศึกษา ศูนย์รังสิต คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ลำปาง หรือคณะกรรมการบริหารองค์การนักศึกษาศูนย์การศึกษาที่มหาวิทยาลัยจัดตั้งขึ้น",
               },
             },

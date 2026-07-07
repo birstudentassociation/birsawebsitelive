@@ -18,7 +18,7 @@ const title3: Section = {
   kind: { en: "Title", th: "ลักษณะ" },
   number: "3",
   title: {
-    en: "The Student Organisation of Thammasat University",
+    en: "The Thammasat University Student Union (\"TUSU\")",
     th: "องค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์",
   },
   children: [...title3Chapters1to3, ...title3Chapters4to5],

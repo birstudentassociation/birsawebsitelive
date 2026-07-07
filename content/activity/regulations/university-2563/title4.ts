@@ -97,7 +97,7 @@ export const title4: Section = {
                 {
                   marker: "(4)",
                   text: {
-                    en: "being a member of the Student Council, the Student Organisation Executive Committee, the Student Organisation Executive Committee at centre level, the chairperson or a member of the Faculty Student Committee, the chairperson or a member of the Student Dormitory Committee, or the chairperson or a member of a student activity club;",
+                    en: "being a member of the TUSC, the TUSU Executive Committee, the TUSU Executive Committee at centre level, the chairperson or a member of the Faculty Student Committee, the chairperson or a member of the Student Dormitory Committee, or the chairperson or a member of a student activity club;",
                     th: "เป็นสมาชิกสภานักศึกษา คณะกรรมการบริหารองค์การนักศึกษา คณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์ ประธานหรือกรรมการในคณะกรรมการนักศึกษาประจำคณะ ประธานหรือกรรมการในคณะกรรมการหอพักนักศึกษา หรือประธานหรือกรรมการในชุมนุมกิจกรรมนักศึกษา",
                   },
                 },
@@ -121,7 +121,7 @@ export const title4: Section = {
         {
           kind: "para",
           text: {
-            en: "The seeking-out of members of the Election Commission shall be in accordance with the criteria and procedure determined by the Vice-Rector for Student Affairs, under consultation with the President of the Student Organisation and the President of the Student Council.",
+            en: "The seeking-out of members of the Election Commission shall be in accordance with the criteria and procedure determined by the Vice-Rector for Student Affairs, under consultation with the President of the TUSU and the President of the TUSC.",
             th: "การสรรหากรรมการการเลือกตั้ง ให้เป็นไปตามหลักเกณฑ์และวิธีการที่รองอธิการบดีฝ่ายการนักศึกษากำหนด ทั้งนี้ภายใต้การหารือกับนายกองค์การนักศึกษาและประธานสภานักศึกษา",
           },
         },
@@ -129,19 +129,19 @@ export const title4: Section = {
     },
     {
       num: 84,
-      title: { en: "Approval by the Student Council", th: "ความเห็นชอบของสภานักศึกษา" },
+      title: { en: "Approval by the TUSC", th: "ความเห็นชอบของสภานักศึกษา" },
       body: [
         {
           kind: "para",
           text: {
-            en: "A person sought out and selected as a member of the Election Commission must receive the approval of the Student Council by a vote of more than one-half before being submitted to the Rector for consideration of appointment.",
+            en: "A person sought out and selected as a member of the Election Commission must receive the approval of the TUSC by a vote of more than one-half before being submitted to the Rector for consideration of appointment.",
             th: "ผู้ได้รับการสรรหาและคัดเลือกเป็นกรรมการการเลือกตั้ง ต้องได้รับความเห็นชอบจากสภานักศึกษาด้วยคะแนนเสียงเกินกว่ากึ่งหนึ่งก่อนที่จะนำเสนออธิการบดีเพื่อพิจารณาแต่งตั้ง",
           },
         },
         {
           kind: "para",
           text: {
-            en: "Where approval is not obtained under paragraph one, if the Student Affairs Committee approves, by a vote of two-thirds of the Student Affairs Committee, that the same person hold the position of member of the Election Commission, the matter shall be submitted to the Rector for appointment without the need to seek the approval of the Student Council again.",
+            en: "Where approval is not obtained under paragraph one, if the Student Affairs Committee approves, by a vote of two-thirds of the Student Affairs Committee, that the same person hold the position of member of the Election Commission, the matter shall be submitted to the Rector for appointment without the need to seek the approval of the TUSC again.",
             th: "ในกรณีที่ไม่ได้รับความเห็นชอบตามวรรคหนึ่ง หากคณะกรรมการกิจการนักศึกษาเห็นชอบให้บุคคลเดิมดำรงตำแหน่งกรรมการการเลือกตั้งด้วยคะแนนเสียงสองในสามของคณะกรรมการกิจการนักศึกษา และให้เสนออธิการบดีแต่งตั้งโดยไม่ต้องขอความเห็นชอบจากสภานักศึกษาอีก",
           },
         },
@@ -191,42 +191,42 @@ export const title4: Section = {
             {
               marker: "(1)",
               text: {
-                en: "to propose rules concerning the operation and meetings of the Election Commission to the Student Council for approval;",
+                en: "to propose rules concerning the operation and meetings of the Election Commission to the TUSC for approval;",
                 th: "เสนอระเบียบเกี่ยวกับการดำเนินงานและการประชุมของคณะกรรมการการเลือกตั้งต่อสภานักศึกษาเพื่อพิจารณาอนุมัติ",
               },
             },
             {
               marker: "(2)",
               text: {
-                en: "to propose the criteria and procedure for the election of members of the Student Council, the President of the Student Organisation, and a Vice-President of the Student Organisation, to the Rector or the Vice-Rector for Student Affairs, for issuance as a University notice, under consultation with the President of the Student Council and the President of the Student Organisation;",
+                en: "to propose the criteria and procedure for the election of members of the TUSC, the President of the TUSU, and a Vice-President of the TUSU, to the Rector or the Vice-Rector for Student Affairs, for issuance as a University notice, under consultation with the President of the TUSC and the President of the TUSU;",
                 th: "เสนอหลักเกณฑ์และวิธีการเลือกตั้งสมาชิกสภานักศึกษา นายกองค์การนักศึกษา และอุปนายกองค์การนักศึกษาต่ออธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษา เพื่อออกเป็นประกาศมหาวิทยาลัย ทั้งนี้ภายใต้การหารือกับประธานสภานักศึกษาและนายกองค์การนักศึกษา",
               },
             },
             {
               marker: "(3)",
               text: {
-                en: "to arrange or conduct the election of members of the Student Council, the President of the Student Organisation, and a Vice-President of the Student Organisation, under this Regulation;",
+                en: "to arrange or conduct the election of members of the TUSC, the President of the TUSU, and a Vice-President of the TUSU, under this Regulation;",
                 th: "จัดหรือดำเนินการให้มีการเลือกตั้งสมาชิกสภานักศึกษา นายกองค์การนักศึกษา และอุปนายกองค์การนักศึกษา ตามข้อบังคับนี้",
               },
             },
             {
               marker: "(4)",
               text: {
-                en: "to control the election of members of the Student Council, the President of the Student Organisation, and a Vice-President of the Student Organisation, and any referendum under this Regulation, to ensure that they are conducted honestly and fairly; a referendum shall be proposed by the Student Organisation Executive Committee, with the approval of the Student Council;",
+                en: "to control the election of members of the TUSC, the President of the TUSU, and a Vice-President of the TUSU, and any referendum under this Regulation, to ensure that they are conducted honestly and fairly; a referendum shall be proposed by the TUSU Executive Committee, with the approval of the TUSC;",
                 th: "ควบคุมการเลือกตั้งสมาชิกสภานักศึกษา นายกองค์การนักศึกษา และอุปนายกองค์การนักศึกษา และการออกเสียงประชามติตามข้อบังคับให้เป็นไปโดยสุจริตและเที่ยงธรรม การออกเสียงประชามติให้คณะกรรมการบริหารองค์การนักศึกษา โดยความเห็นชอบของสภานักศึกษาเป็นผู้เสนอ",
               },
             },
             {
               marker: "(5)",
               text: {
-                en: "to control, examine, and compile the membership registers of student parties standing for election to the Student Council, the President of the Student Organisation, or a Vice-President of the Student Organisation, under this Regulation;",
+                en: "to control, examine, and compile the membership registers of student parties standing for election to the TUSC, the President of the TUSU, or a Vice-President of the TUSU, under this Regulation;",
                 th: "ควบคุม ตรวจสอบและจัดทำข้อมูลทะเบียนสมาชิกพรรคนักศึกษาที่ลงสมัครรับเลือกสภานักศึกษา นายกองค์การนักศึกษา อุปนายกองค์การนักศึกษา ตามข้อบังคับนี้",
               },
             },
             {
               marker: "(6)",
               text: {
-                en: "to supervise, control, and oversee the operation, and the approval and authorisation, within its powers and duties, of matters concerning the budget, materials and equipment, documents of all kinds, working spaces, and public-relations media and other electronic media, of the Student Council or the Student Organisation, during the period of an election until the appointment of a new Student Council or Student Organisation, as the case may be, taking up office;",
+                en: "to supervise, control, and oversee the operation, and the approval and authorisation, within its powers and duties, of matters concerning the budget, materials and equipment, documents of all kinds, working spaces, and public-relations media and other electronic media, of the TUSC or the TUSU, during the period of an election until the appointment of a new TUSC or TUSU, as the case may be, taking up office;",
                 th: "กำกับ ควบคุม ดูแลการทำงาน การอนุมัติ อนุญาตตามอำนาจหน้าที่ ทั้งในส่วนของงบประมาณ วัสดุอุปกรณ์ สรรพเอกสาร ห้องปฏิบัติงาน สื่อประชาสัมพันธ์และสื่ออิเล็กทรอนิกส์อื่นใดของสภานักศึกษาหรือองค์การนักศึกษา ในช่วงระหว่างที่มีการเลือกตั้งไปจนกว่าจะมีการแต่งตั้งสภานักศึกษาหรือองค์การนักศึกษาชุดใหม่แล้วแต่กรณี เข้ารับหน้าที่",
               },
             },
@@ -242,7 +242,7 @@ export const title4: Section = {
         {
           kind: "para",
           text: {
-            en: "The Election Commission shall determine rules for carrying out the matters under (4), (5), and (6), by submitting them to the Student Council for approval.",
+            en: "The Election Commission shall determine rules for carrying out the matters under (4), (5), and (6), by submitting them to the TUSC for approval.",
             th: "ทั้งนี้ให้คณะกรรมการการเลือกตั้งกำหนดระเบียบ เพื่อดำเนินการตามความใน (๔) (๕) (๖) โดยเสนอต่อสภานักศึกษาเพื่อพิจารณาอนุมัติ",
           },
         },
@@ -255,7 +255,7 @@ export const title4: Section = {
         {
           kind: "para",
           text: {
-            en: "A student who stands for election to the Student Council, the President of the Student Organisation, or a Vice-President of the Student Organisation under this Regulation must belong to a student party, and a student party must have no fewer than 50 students as members and must have duly completed the registration of the party's establishment with the Election Commission.",
+            en: "A student who stands for election to the TUSC, the President of the TUSU, or a Vice-President of the TUSU under this Regulation must belong to a student party, and a student party must have no fewer than 50 students as members and must have duly completed the registration of the party's establishment with the Election Commission.",
             th: "นักศึกษาที่ลงสมัครรับเลือกตั้งสภานักศึกษา นายกองค์การนักศึกษา อุปนายกองค์การนักศึกษา ตามข้อบังคับนี้ ต้องสังกัดพรรค โดยพรรคนักศึกษาต้องมีสมาชิกพรรคเป็นนักศึกษาจำนวนไม่น้อยกว่าห้าสิบคน และดำเนินการจดจัดตั้งพรรคต่อคณะกรรมการการเลือกตั้งเรียบร้อยแล้ว",
           },
         },

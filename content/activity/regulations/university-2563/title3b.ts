@@ -41,7 +41,7 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "para",
             text: {
-              en: "To form a club, no fewer than 50 undergraduate students of the University, drawn from various Faculties, must submit a petition to the Student Organisation Executive Committee, together with the following documents for the club's establishment:",
+              en: "To form a club, no fewer than 50 undergraduate students of the University, drawn from various Faculties, must submit a petition to the TUSU Executive Committee, together with the following documents for the club's establishment:",
               th: "การก่อตั้งชุมนุมต้องมีนักศึกษาระดับปริญญาตรีของมหาวิทยาลัย จำนวนไม่น้อยกว่าห้าสิบคน ที่มาจากคณะต่าง ๆ ยื่นคำร้องต่อคณะกรรมการบริหารองค์การนักศึกษาพร้อมเอกสารการก่อตั้งชุมนุมกิจกรรม ดังต่อไปนี้",
             },
           },
@@ -86,21 +86,21 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "para",
             text: {
-              en: "When the Student Organisation Executive Committee receives a petition to form a student activity club, the Student Organisation Executive Committee shall consider it; if it approves the formation of the club, it shall submit the matter to the Student Council for approval.",
+              en: "When the TUSU Executive Committee receives a petition to form a student activity club, the TUSU Executive Committee shall consider it; if it approves the formation of the club, it shall submit the matter to the TUSC for approval.",
               th: "เมื่อคณะกรรมการบริหารองค์การนักศึกษา ได้รับคำร้องของก่อตั้งชุมนุมกิจกรรมนักศึกษา ให้คณะกรรมการบริหารองค์การนักศึกษาพิจารณา หากเห็นชอบให้ก่อตั้งเป็นชุมนุม ให้เสนอสภานักศึกษาเพื่อพิจารณาอนุมัติ",
             },
           },
           {
             kind: "para",
             text: {
-              en: "Once the Student Council has approved the matter, the Student Council shall report the result to the Rector for the club to be established.",
+              en: "Once the TUSC has approved the matter, the TUSC shall report the result to the Rector for the club to be established.",
               th: "เมื่อสภานักศึกษาพิจารณาอนุมัติแล้ว ให้สภานักศึกษาดำเนินรายงานผล เสนออธิการบดีเพื่อจัดตั้งชุมนุมต่อไป",
             },
           },
           {
             kind: "para",
             text: {
-              en: "The Student Organisation Executive Committee and the Student Council may request documents from, or summon, the club chairperson or persons concerned to attend and give explanations for the purpose of their consideration under paragraph one.",
+              en: "The TUSU Executive Committee and the TUSC may request documents from, or summon, the club chairperson or persons concerned to attend and give explanations for the purpose of their consideration under paragraph one.",
               th: "ให้คณะกรรมการบริหารองค์การนักศึกษาและสภานักศึกษาขอเอกสารหรือเรียกประธานชุมนุมหรือผู้ที่เกี่ยวข้องเข้าร่วมชี้แจง เพื่อประกอบการพิจารณาตามวรรคหนึ่งได้",
             },
           },
@@ -147,7 +147,7 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "para",
             text: {
-              en: "Within 30 days from the date of the club's annual general meeting, the club executive committee shall report the club's annual operating results and the results of the club's annual general meeting to the President of the Student Organisation, and shall submit the names of the persons elected as the club chairperson and club executive committee members to the President of the Student Organisation for appointment as the club executive committee.",
+              en: "Within 30 days from the date of the club's annual general meeting, the club executive committee shall report the club's annual operating results and the results of the club's annual general meeting to the President of the TUSU, and shall submit the names of the persons elected as the club chairperson and club executive committee members to the President of the TUSU for appointment as the club executive committee.",
               th: "ภายในสามสิบวัน นับแต่วันประชุมใหญ่ของชุมนุม ให้คณะกรรมการบริหารชุมนุมรายงานผลดำเนินงานประจำปีของชุมนุม และผลการประชุมใหญ่ของชุมนุมให้นายกองค์การนักศึกษา พร้อมทั้งเสนอชื่อผู้ได้รับเลือกตั้งเป็นประธานชุมนุม และกรรมการบริหารชุมนุมต่อนายกองค์การนักศึกษาเพื่อแต่งตั้งเป็นคณะกรรมการบริหารชุมนุม",
             },
           },
@@ -190,7 +190,7 @@ export const title3Chapters4to5: Section[] = [
                   {
                     marker: "(2)",
                     text: {
-                      en: "being a member of the Student Council, a member of the Student Organisation Executive Committee, a member of the Student Organisation Executive Committee at centre level, a member of the Faculty Student Committee, or a member of the Student Dormitory Committee.",
+                      en: "being a member of the TUSC, a member of the TUSU Executive Committee, a member of the TUSU Executive Committee at centre level, a member of the Faculty Student Committee, or a member of the Student Dormitory Committee.",
                       th: "เป็นสมาชิกสภานักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์ หรือกรรมการในคณะกรรมการหอพักนักศึกษา หรือกรรมการในคณะกรรมการนักศึกษาประจำคณะ",
                     },
                   },
@@ -236,14 +236,14 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "para",
             text: {
-              en: "The club executive committee must prepare and report on the results of project implementation, its annual operations, its income-and-expenditure accounts, and the club's assets to the Student Council, and must complete this within 30 days before the end of the fiscal year.",
+              en: "The club executive committee must prepare and report on the results of project implementation, its annual operations, its income-and-expenditure accounts, and the club's assets to the TUSC, and must complete this within 30 days before the end of the fiscal year.",
               th: "คณะกรรมการบริหารชุมนุมจะต้องจัดทำและรายงานผลการดำเนินโครงการ การดำเนินงานประจำปี บัญชีรายรับ รายจ่าย ตลอดจนทรัพย์สินของชุมนุมต่อสภานักศึกษา ให้แล้วเสร็จภายในสามสิบวันก่อนสิ้นปีงบประมาณ",
             },
           },
           {
             kind: "para",
             text: {
-              en: "Once the Student Council has considered the report under paragraph one, the Student Council shall summarise that report and submit it to the University for further consideration.",
+              en: "Once the TUSC has considered the report under paragraph one, the TUSC shall summarise that report and submit it to the University for further consideration.",
               th: "เมื่อสภานักศึกษาพิจารณารายงานตามวรรคหนึ่งแล้ว ให้สภานักศึกษาดำเนินการสรุปรายงานดังกล่าวเสนอมหาวิทยาลัยพิจารณาต่อไป",
             },
           },
@@ -285,11 +285,11 @@ export const title3Chapters4to5: Section[] = [
             items: [
               { marker: "(1)", text: { en: "its membership falls below 50 persons;", th: "มีจำนวนสมาชิกไม่ถึงห้าสิบคน" } },
               { marker: "(2)", text: { en: "the club's members resolve, by a vote of no fewer than two-thirds, to dissolve the club;", th: "สมาชิกชุมนุมลงมติด้วยคะแนนเสียงไม่น้อยกว่าสองในสาม ให้ยุบเลิกชุมนุม" } },
-              { marker: "(3)", text: { en: "the Student Organisation Executive Committee proposes to the Student Council that it consider dissolving the club;", th: "คณะกรรมการบริหารองค์การนักศึกษาเสนอความเห็นต่อสภานักศึกษาพิจารณายุบเลิกชุมนุม" } },
+              { marker: "(3)", text: { en: "the TUSU Executive Committee proposes to the TUSC that it consider dissolving the club;", th: "คณะกรรมการบริหารองค์การนักศึกษาเสนอความเห็นต่อสภานักศึกษาพิจารณายุบเลิกชุมนุม" } },
               {
                 marker: "(4)",
                 text: {
-                  en: "the Student Council resolves to dissolve the club on the ground that the club has not carried out activities in accordance with its objectives, or has not operated in accordance with the club's regulation, for a period of 1 year.",
+                  en: "the TUSC resolves to dissolve the club on the ground that the club has not carried out activities in accordance with its objectives, or has not operated in accordance with the club's regulation, for a period of 1 year.",
                   th: "สภานักศึกษามีมติให้ยกเลิกชุมนุม ด้วยเหตุเพราะชุมนุมไม่ได้จัดทำกิจกรรมตามวัตถุประสงค์หรือไม่มีการดำเนินการตามข้อบังคับชุมนุมมาเป็นเวลาหนึ่งปี",
                 },
               },
@@ -298,7 +298,7 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "para",
             text: {
-              en: "Once dissolution has been considered under paragraph one, the Student Council shall propose to the Rector that the Rector consider ordering the dissolution of that club.",
+              en: "Once dissolution has been considered under paragraph one, the TUSC shall propose to the Rector that the Rector consider ordering the dissolution of that club.",
               th: "เมื่อมีการพิจารณายุบเลิกตามวรรคหนึ่งแล้ว ให้สภานักศึกษาเสนออธิการบดีพิจารณาสั่งยุบเลิกชุมนุมนั้น",
             },
           },
@@ -374,7 +374,7 @@ export const title3Chapters4to5: Section[] = [
                       {
                         marker: "(2)",
                         text: {
-                          en: "being a member of the Student Council, a member of the Student Organisation Executive Committee, a member of the Student Organisation Executive Committee at centre level, a member of the Faculty Student Committee, or a member of a club executive committee;",
+                          en: "being a member of the TUSC, a member of the TUSU Executive Committee, a member of the TUSU Executive Committee at centre level, a member of the Faculty Student Committee, or a member of a club executive committee;",
                           th: "เป็นสมาชิกสภานักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์ หรือกรรมการในคณะกรรมการนักศึกษาประจำคณะ หรือกรรมการในคณะกรรมการบริหารชุมนุม",
                         },
                       },
@@ -462,7 +462,7 @@ export const title3Chapters4to5: Section[] = [
                   {
                     marker: "(1)",
                     text: {
-                      en: "to propose opinions to the Student Organisation, the Student Council, the Rector, or the University Council on matters affecting dormitory students;",
+                      en: "to propose opinions to the TUSU, the TUSC, the Rector, or the University Council on matters affecting dormitory students;",
                       th: "เสนอความคิดเห็นต่อองค์การนักศึกษา สภานักศึกษา อธิการบดี หรือสภามหาวิทยาลัยในเรื่องที่มีผลกระทบต่อนักศึกษาหอพัก",
                     },
                   },
