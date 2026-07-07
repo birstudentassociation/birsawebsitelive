@@ -23,6 +23,7 @@ import { part10 } from "./part10";
 import { part11 } from "./part11";
 import { part12 } from "./part12";
 import { university2563 } from "./university-2563/doc";
+import { discipline2568 } from "./discipline-2568/doc";
 
 /** A Faculty Part is a flat leaf section; the preliminary Part (num null) is
  * an unlabelled group, the rest are "Part N". */
@@ -55,9 +56,14 @@ const politicalScience2565: RegulationDoc = {
   ].map(partToSection),
 };
 
-/** Ordered newest-authority-first: the University Regulation, then the
- * Faculty Notice issued under it. */
-export const documents: RegulationDoc[] = [university2563, politicalScience2565];
+/** The regulations library, ordered: the University Regulation on student
+ * activities, the Faculty Notice issued under it, then the University
+ * Regulation on student discipline. */
+export const documents: RegulationDoc[] = [
+  university2563,
+  politicalScience2565,
+  discipline2568,
+];
 
 export function getDocument(slug: string): RegulationDoc | undefined {
   return documents.find((doc) => doc.slug === slug);
