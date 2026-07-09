@@ -26,6 +26,21 @@ const nextConfig = {
     // 31 days: site images only change with a deploy, so cache aggressively.
     minimumCacheTTL: 2678400,
   },
+  async redirects() {
+    // Section merges (see the BIRSA activity + Information & Services reshuffle):
+    // "About" folded into "/activity"; "Student life" landing folded into the
+    // new "/information-services" hub. Locale-prefixed sources preserve the
+    // visitor's language. Permanent (308) so search engines follow the move.
+    return [
+      { source: "/:lang/about", destination: "/:lang/activity", permanent: true },
+      { source: "/:lang/about/:slug*", destination: "/:lang/activity/:slug*", permanent: true },
+      {
+        source: "/:lang/student-life",
+        destination: "/:lang/information-services",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

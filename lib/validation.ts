@@ -32,3 +32,21 @@ export const startClubSchema = z.object({
 
 export type ContactInput = z.infer<typeof contactSchema>;
 export type StartClubInput = z.infer<typeof startClubSchema>;
+
+export const loanRequestSchema = z
+  .object({
+    itemKey: z.string().min(1, "Choose an item"),
+    studentName: z.string().min(1, "Enter your name").max(120),
+    studentId: z.string().min(1, "Enter your student ID").max(40),
+    studentEmail: z.string().email("Enter a valid email"),
+    pickupDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter a valid date"),
+    returnDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter a valid date"),
+    reason: z.string().max(1000).optional().or(z.literal("")),
+    nickname: honeypot,
+  })
+  .refine((data) => data.returnDate >= data.pickupDate, {
+    message: "Return date must be on or after the pickup date",
+    path: ["returnDate"],
+  });
+
+export type LoanRequestInput = z.infer<typeof loanRequestSchema>;

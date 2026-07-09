@@ -24,8 +24,7 @@ export const en = {
     { href: "/news", label: "What's on" },
     { href: "/activity", label: "BIRSA activity" },
     { href: "/clubs", label: "Clubs" },
-    { href: "/student-life", label: "Student life" },
-    { href: "/about", label: "About" },
+    { href: "/information-services", label: "Information & services" },
   ],
   headerCta: { href: "/quick", label: "Quick actions" },
 

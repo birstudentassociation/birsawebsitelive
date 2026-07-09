@@ -60,7 +60,7 @@ const labels: Record<
   }
 > = {
   en: {
-    studentLife: "Student life",
+    studentLife: "Information & services",
     tracks: { home: "For home students", international: "For international students" },
     updated: "Last updated",
     onThisPage: "On this page",
@@ -76,7 +76,7 @@ const labels: Record<
     },
   },
   th: {
-    studentLife: "ชีวิตนักศึกษา",
+    studentLife: "ข้อมูลและบริการ",
     tracks: { home: "สำหรับนักศึกษาไทย", international: "สำหรับนักศึกษาต่างชาติ" },
     updated: "อัปเดตล่าสุด",
     onThisPage: "ในหน้านี้",
@@ -128,7 +128,7 @@ export default async function StudentLifeSectionPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: t.studentLife, href: "/student-life" },
+              { label: t.studentLife, href: "/information-services" },
               { label: trackLabel, href: `/student-life/${audience}` },
               { label: entry.frontmatter.title },
             ]}

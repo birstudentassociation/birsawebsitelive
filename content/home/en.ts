@@ -8,7 +8,7 @@ export const homeEn = {
     intro:
       "BIRSA runs events, support and representation for every BIR student at Thammasat, so you can find the latest updates, clubs, and practical help in just a few taps.",
     primaryCta: "Quick actions",
-    secondaryCta: "Student life guide",
+    secondaryCta: "Information & services",
   },
   whatsOn: {
     heading: "What's on",
@@ -44,13 +44,32 @@ export const homeEn = {
         label: "Clubs",
         description: "Find a club to join, or see how to start your own.",
       },
-      studentLife: {
-        label: "Student life",
-        description: "Guides for settling in, whether you're a home or international student.",
+      informationServices: {
+        label: "Information & services",
+        description: "Equipment loans and guides for settling in, whether you're a home or international student.",
       },
-      about: {
-        label: "About",
-        description: "Who BIRSA is, what we do, and how the committee works.",
+      news: {
+        label: "What's on",
+        description: "The latest news and events from BIRSA.",
+      },
+    },
+  },
+  activityHighlight: {
+    heading: "BIRSA activity",
+    intro:
+      "The section that explains who runs BIRSA and how: officer roles, the regulations that govern student activities, and more.",
+    items: {
+      roles: {
+        label: "Officer roles",
+        description: "Who sits on the BIRSA committee, and what each role is responsible for.",
+      },
+      regulations: {
+        label: "Student regulations",
+        description: "The University's regulations and Faculty Notice on student activities and discipline.",
+      },
+      overview: {
+        label: "BIRSA activity",
+        description: "Officer roles, student regulations, transparency documents, and news, all in one place.",
       },
     },
   },
@@ -58,6 +77,6 @@ export const homeEn = {
     title: "New here?",
     body:
       "Whether you've just arrived from a Thai school or you're joining us from abroad, our student-life guide has a track built for you.",
-    cta: "Go to the student-life guide",
+    cta: "Go to Information & services",
   },
 };

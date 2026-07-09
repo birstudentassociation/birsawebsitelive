@@ -39,7 +39,6 @@ const copy: Record<
     groups: {
       news: string;
       activity: string;
-      about: string;
       clubs: string;
       studentLifeHome: string;
       studentLifeInternational: string;
@@ -56,7 +55,6 @@ const copy: Record<
     groups: {
       news: "News",
       activity: "BIRSA activity",
-      about: "About",
       clubs: "Clubs",
       studentLifeHome: "Student life for home students",
       studentLifeInternational: "Student life for international students",
@@ -72,7 +70,6 @@ const copy: Record<
     groups: {
       news: "ข่าวและกิจกรรม",
       activity: "การดำเนินงานของ BIRSA",
-      about: "เกี่ยวกับเรา",
       clubs: "ชมรม",
       studentLifeHome: "ชีวิตนักศึกษาสำหรับนักศึกษาไทย",
       studentLifeInternational: "ชีวิตนักศึกษาสำหรับนักศึกษาต่างชาติ",
@@ -138,16 +135,6 @@ export default async function SearchPage({
       }));
     if (activityResults.length > 0)
       groups.push({ key: "activity", label: t.groups.activity, items: activityResults });
-
-    const aboutResults: ResultItem[] = getEntries("about", locale)
-      .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
-      .map((entry) => ({
-        slug: entry.slug,
-        href: localeHref(locale, `/about/${entry.slug}`),
-        title: entry.frontmatter.title,
-        summary: entry.frontmatter.summary,
-      }));
-    if (aboutResults.length > 0) groups.push({ key: "about", label: t.groups.about, items: aboutResults });
 
     for (const audience of guideAudiences) {
       const guideResults: ResultItem[] = getGuideEntries(locale, audience)

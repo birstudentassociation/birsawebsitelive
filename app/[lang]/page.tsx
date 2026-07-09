@@ -53,8 +53,17 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
     { href: "/activity", key: "activity" },
     { href: "/clubs", key: "clubs" },
-    { href: "/student-life", key: "studentLife" },
-    { href: "/about", key: "about" },
+    { href: "/information-services", key: "informationServices" },
+    { href: "/news", key: "news" },
+  ];
+
+  const activityHighlightCards: {
+    href: string;
+    key: keyof typeof copy.activityHighlight.items;
+  }[] = [
+    { href: "/activity/roles", key: "roles" },
+    { href: "/activity/regulations", key: "regulations" },
+    { href: "/activity", key: "overview" },
   ];
 
   const instagram = socials.find((s) => s.id === "instagram");
@@ -82,7 +91,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <p className="text-muted mt-4 text-lg">{copy.hero.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>
-              <Button href={localeHref(locale, "/student-life")} variant="secondary">
+              <Button href={localeHref(locale, "/information-services")} variant="secondary">
                 {copy.hero.secondaryCta}
               </Button>
             </div>
@@ -154,6 +163,28 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
+      {/* BIRSA activity highlight */}
+      <section aria-labelledby="activity-highlight-heading" className="wrap py-12 sm:py-16">
+        <div className="mb-6 max-w-[var(--measure)]">
+          <h2 id="activity-highlight-heading" className="font-display text-2xl sm:text-3xl">
+            {copy.activityHighlight.heading}
+          </h2>
+          <p className="text-muted mt-2 text-lg">{copy.activityHighlight.intro}</p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {activityHighlightCards.map(({ href, key }) => {
+            const item = copy.activityHighlight.items[key];
+            const fullHref = localeHref(locale, href);
+            return (
+              <Card key={key} href={fullHref}>
+                <CardTitle href={fullHref}>{item.label}</CardTitle>
+                <p className="text-muted text-sm leading-relaxed">{item.description}</p>
+              </Card>
+            );
+          })}
+        </div>
+      </section>
+
       {/* Quick links */}
       <section aria-labelledby="get-around-heading" className="bg-sunken border-line border-y">
         <div className="wrap py-12 sm:py-16">
@@ -181,7 +212,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <p>{copy.newHere.body}</p>
           <p className="mt-2">
             <a
-              href={localeHref(locale, "/student-life")}
+              href={localeHref(locale, "/information-services")}
               className="text-brand-deep font-semibold hover:underline"
             >
               {copy.newHere.cta}

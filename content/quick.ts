@@ -68,7 +68,7 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "student-life-guide",
-        href: "/student-life",
+        href: "/information-services",
         icon: "guide",
         en: { label: "Student-life guide", hint: "For home and international students" },
         th: { label: "คู่มือชีวิตนักศึกษา", hint: "สำหรับนักศึกษาไทยและนักศึกษาต่างชาติ" },

@@ -44,7 +44,7 @@ const copy: Record<
   }
 > = {
   en: {
-    studentLife: "Student life",
+    studentLife: "Information & services",
     updated: "Updated",
     tracks: {
       home: {
@@ -58,7 +58,7 @@ const copy: Record<
     },
   },
   th: {
-    studentLife: "ชีวิตนักศึกษา",
+    studentLife: "ข้อมูลและบริการ",
     updated: "อัปเดตล่าสุด",
     tracks: {
       home: {
@@ -98,7 +98,7 @@ export default async function StudentLifeTrackPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: t.studentLife, href: "/student-life" },
+              { label: t.studentLife, href: "/information-services" },
               { label: track.title },
             ]}
           />

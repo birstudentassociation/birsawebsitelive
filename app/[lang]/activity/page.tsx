@@ -35,7 +35,7 @@ const copy: Record<
 > = {
   en: {
     title: "BIRSA activity",
-    lede: "How BIRSA is run: officer roles, student regulations, transparency documents, and the latest news and events.",
+    lede: "What BIRSA is, how it's run, and how to reach us: officer roles, student regulations, transparency documents, the BIR programme, contact details, and the latest news and events.",
     rolesTitle: "Officer roles",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
     regsTitle: "Student regulations and rules",
@@ -45,7 +45,7 @@ const copy: Record<
   },
   th: {
     title: "การดำเนินงานของ BIRSA",
-    lede: "การดำเนินงานของ BIRSA ได้แก่ บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส และข่าวสารกิจกรรมล่าสุด",
+    lede: "BIRSA คือใคร ดำเนินงานอย่างไร และติดต่อได้ที่ไหน ตั้งแต่บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส หลักสูตร BIR ช่องทางติดต่อ ไปจนถึงข่าวสารกิจกรรมล่าสุด",
     rolesTitle: "บทบาทหน้าที่ของคณะกรรมการ",
     rolesSummary: "ใครอยู่ในคณะกรรมการ BIRSA บ้าง และแต่ละตำแหน่งรับผิดชอบเรื่องอะไร",
     regsTitle: "ระเบียบและข้อบังคับนักศึกษา",

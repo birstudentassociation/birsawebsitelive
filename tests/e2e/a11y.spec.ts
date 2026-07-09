@@ -37,7 +37,7 @@ test("submitting an empty contact form shows a focused error summary with field 
 });
 
 test.describe("email scrape-proofing", () => {
-  const emailPages = ["/en/contact", "/en/about/contact"];
+  const emailPages = ["/en/contact", "/en/activity/contact"];
 
   for (const path of emailPages) {
     test(`${path} raw HTML has no plaintext BIRSA/BIR email address`, async ({ request }) => {

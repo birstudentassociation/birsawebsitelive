@@ -32,8 +32,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/activity/regulations",
       "/clubs",
       "/clubs/start",
-      "/student-life",
-      "/about",
+      "/information-services",
+      "/information-services/equipment-loan",
       "/standards",
       "/privacy",
     ];
@@ -52,10 +52,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const doc of documents) {
       entries.push({ url: url(locale, `/activity/regulations/${doc.slug}`) });
-    }
-
-    for (const entry of getEntries("about", locale)) {
-      entries.push({ url: url(locale, `/about/${entry.slug}`) });
     }
 
     for (const audience of guideAudiences) {

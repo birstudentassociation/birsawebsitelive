@@ -16,13 +16,13 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
 
-  const title = locale === "th" ? "ชีวิตนักศึกษา" : "Student life";
+  const title = locale === "th" ? "ข้อมูลและบริการ" : "Information & services";
   const description =
     locale === "th"
-      ? "คู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยรุ่นพี่นักศึกษา ครอบคลุมทั้งนักศึกษาไทยและนักศึกษาต่างชาติ"
-      : "A plain-language guide to life outside the classroom at BIR, written by students, for both home and international students.";
+      ? "บริการยืมอุปกรณ์ของ BIRSA และคู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยรุ่นพี่นักศึกษา ครอบคลุมทั้งนักศึกษาไทยและนักศึกษาต่างชาติ"
+      : "BIRSA's equipment loan service and plain-language guides to life outside the classroom at BIR, written by students, for both home and international students.";
 
-  return buildMetadata({ locale, title, description, path: "/student-life" });
+  return buildMetadata({ locale, title, description, path: "/information-services" });
 }
 
 const copy: Record<
@@ -30,6 +30,7 @@ const copy: Record<
   {
     title: string;
     lede: string;
+    equipmentLoan: { eyebrow: string; title: string; description: string; cta: string };
     tracks: Record<
       GuideAudience,
       { title: string; description: string; topicsLabel: string; cta: string }
@@ -40,8 +41,15 @@ const copy: Record<
   }
 > = {
   en: {
-    title: "Student life",
-    lede: "A plain-language guide to life outside the classroom at BIR, written by students, for students. Pick the track that matches you to get started.",
+    title: "Information & services",
+    lede: "The place to find BIRSA's services and guides in one spot. Borrow equipment, or pick the guide track that matches you.",
+    equipmentLoan: {
+      eyebrow: "Service",
+      title: "Equipment Loan Service",
+      description:
+        "Borrow BIRSA equipment such as the first-aid kit for your event or everyday need.",
+      cta: "Request equipment",
+    },
     tracks: {
       home: {
         title: "For home students",
@@ -58,14 +66,20 @@ const copy: Record<
         cta: "Explore the international student guide",
       },
     },
-    howToUseTitle: "How to use this guide",
+    howToUseTitle: "How to use this page",
     howToUseBody:
-      "This guide is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you don't need to read start to finish. If you spot something missing, out of date, or wrong, please tell BIRSA.",
+      "This page is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you don't need to read start to finish. If you spot something missing, out of date, or wrong, please tell BIRSA.",
     reportGaps: "Report a gap",
   },
   th: {
-    title: "ชีวิตนักศึกษา",
-    lede: "คู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยนักศึกษา เพื่อนักศึกษาด้วยกัน เลือกเส้นทางที่ตรงกับคุณเพื่อเริ่มอ่านได้เลย",
+    title: "ข้อมูลและบริการ",
+    lede: "รวมบริการและคู่มือของ BIRSA ไว้ในที่เดียว ยืมอุปกรณ์ หรือเลือกเส้นทางคู่มือที่ตรงกับคุณ",
+    equipmentLoan: {
+      eyebrow: "บริการ",
+      title: "บริการยืมอุปกรณ์",
+      description: "ยืมอุปกรณ์ของ BIRSA เช่น ชุดปฐมพยาบาล สำหรับกิจกรรมหรือความจำเป็นในชีวิตประจำวัน",
+      cta: "ขอยืมอุปกรณ์",
+    },
     tracks: {
       home: {
         title: "สำหรับนักศึกษาไทย",
@@ -82,16 +96,16 @@ const copy: Record<
         cta: "ดูคู่มือสำหรับนักศึกษาต่างชาติ",
       },
     },
-    howToUseTitle: "วิธีใช้คู่มือนี้",
+    howToUseTitle: "วิธีใช้หน้านี้",
     howToUseBody:
-      "คู่มือนี้ออกแบบมาให้ใช้งานได้ดีกับโปรแกรมอ่านหน้าจอและการกดคีย์บอร์ด แต่ละหัวข้ออ่านแยกกันได้ ไม่จำเป็นต้องอ่านตามลำดับ ถ้าคุณพบว่ามีข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด บอก BIRSA ได้เลย",
+      "หน้านี้ออกแบบมาให้ใช้งานได้ดีกับโปรแกรมอ่านหน้าจอและการกดคีย์บอร์ด แต่ละหัวข้ออ่านแยกกันได้ ไม่จำเป็นต้องอ่านตามลำดับ ถ้าคุณพบว่ามีข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด บอก BIRSA ได้เลย",
     reportGaps: "แจ้งข้อมูลที่ขาดหาย",
   },
 };
 
 const audiences: GuideAudience[] = ["home", "international"];
 
-export default async function StudentLifePage({
+export default async function InformationServicesPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
@@ -101,6 +115,8 @@ export default async function StudentLifePage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+
+  const equipmentHref = localeHref(locale, "/information-services/equipment-loan");
 
   return (
     <>
@@ -116,6 +132,19 @@ export default async function StudentLifePage({
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
+        <Card href={equipmentHref} className="gap-4 p-8 sm:p-10">
+          <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+            {t.equipmentLoan.eyebrow}
+          </span>
+          <CardTitle href={equipmentHref} as="h2" className="text-2xl sm:text-3xl">
+            {t.equipmentLoan.title}
+          </CardTitle>
+          <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+            {t.equipmentLoan.description}
+          </p>
+          <span className="text-brand-deep font-semibold">{t.equipmentLoan.cta} &rarr;</span>
+        </Card>
+
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {audiences.map((audience) => {
             const track = t.tracks[audience];
