@@ -30,6 +30,10 @@ export const homeTh: typeof homeEn = {
       academic: "วันสำคัญด้านการเรียน",
       university: "มหาวิทยาลัยและคณะ",
     },
+    styleLegend: {
+      period: "ช่วงหลายวัน",
+      single: "กิจกรรมวันเดียว",
+    },
   },
   quickLinks: {
     heading: "ไปยังส่วนต่าง ๆ",

@@ -28,6 +28,10 @@ export const homeEn = {
       academic: "Academic dates",
       university: "University & faculty",
     },
+    styleLegend: {
+      period: "Multi-day period",
+      single: "Single-day event",
+    },
   },
   quickLinks: {
     heading: "Get around",

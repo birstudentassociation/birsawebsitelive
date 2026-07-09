@@ -148,6 +148,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               noEventsDay: copy.calendar.noEventsDay,
               open: copy.calendar.open,
               legend: copy.calendar.legend,
+              styleLegend: copy.calendar.styleLegend,
             }}
           />
         </div>
