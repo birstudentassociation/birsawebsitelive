@@ -12,7 +12,9 @@ import Footer from "@/components/Footer";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  // Display type only ever renders at 600 (headings + wordmark), and
+  // font-synthesis-weight is disabled, so one weight is all we ship.
+  weight: ["600"],
   variable: "--font-en-display",
   display: "swap",
 });
