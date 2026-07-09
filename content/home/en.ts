@@ -14,6 +14,21 @@ export const homeEn = {
     heading: "What's on",
     seeAll: "See all",
   },
+  calendar: {
+    heading: "Activity calendar",
+    intro:
+      "Key dates for BIR students this term. Tap a highlighted day to see what's happening and read more.",
+    prevMonth: "Previous month",
+    nextMonth: "Next month",
+    selectedFor: "On {date}",
+    noEventsDay: "Nothing scheduled on this day.",
+    open: "Read",
+    legend: {
+      birsa: "BIRSA activities",
+      academic: "Academic dates",
+      university: "University & faculty",
+    },
+  },
   quickLinks: {
     heading: "Get around",
     items: {

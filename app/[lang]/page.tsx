@@ -9,6 +9,8 @@ import Button from "@/components/Button";
 import Card, { CardTitle } from "@/components/Card";
 import Notice from "@/components/Notice";
 import NewsCard from "@/components/news/NewsCard";
+import EventCalendar from "@/components/home/EventCalendar";
+import { calendarEvents } from "@/content/calendar/events";
 import { homeEn } from "@/content/home/en";
 import { homeTh } from "@/content/home/th";
 import { socials } from "@/content/site";
@@ -38,6 +40,15 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const dict = getDictionary(locale);
   const copy = homeCopy[locale];
   const news = getEntries("news", locale).slice(0, 3);
+
+  // Compute "today" in Bangkok on the server so the calendar's SSR and
+  // hydration agree (en-CA renders as YYYY-MM-DD).
+  const todayKey = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Bangkok",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
     { href: "/activity", key: "activity" },
@@ -116,6 +127,31 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </div>
         </section>
       ) : null}
+
+      {/* Activity calendar */}
+      <section aria-labelledby="calendar-heading" className="bg-cream border-line border-y">
+        <div className="wrap py-12 sm:py-16">
+          <div className="mb-6 max-w-[var(--measure)]">
+            <h2 id="calendar-heading" className="font-display text-2xl sm:text-3xl">
+              {copy.calendar.heading}
+            </h2>
+            <p className="text-muted mt-2 text-lg">{copy.calendar.intro}</p>
+          </div>
+          <EventCalendar
+            events={calendarEvents}
+            locale={locale}
+            todayKey={todayKey}
+            labels={{
+              prevMonth: copy.calendar.prevMonth,
+              nextMonth: copy.calendar.nextMonth,
+              selectedFor: copy.calendar.selectedFor,
+              noEventsDay: copy.calendar.noEventsDay,
+              open: copy.calendar.open,
+              legend: copy.calendar.legend,
+            }}
+          />
+        </div>
+      </section>
 
       {/* Quick links */}
       <section aria-labelledby="get-around-heading" className="bg-sunken border-line border-y">

@@ -16,6 +16,21 @@ export const homeTh: typeof homeEn = {
     heading: "ข่าวและกิจกรรมล่าสุด",
     seeAll: "ดูทั้งหมด",
   },
+  calendar: {
+    heading: "ปฏิทินกิจกรรม",
+    intro:
+      "วันสำคัญของนักศึกษา BIR ในเทอมนี้ แตะวันที่ไฮไลต์เพื่อดูว่ามีอะไรและอ่านรายละเอียดเพิ่มเติม",
+    prevMonth: "เดือนก่อนหน้า",
+    nextMonth: "เดือนถัดไป",
+    selectedFor: "วันที่ {date}",
+    noEventsDay: "ไม่มีกิจกรรมในวันนี้",
+    open: "อ่าน",
+    legend: {
+      birsa: "กิจกรรม BIRSA",
+      academic: "วันสำคัญด้านการเรียน",
+      university: "มหาวิทยาลัยและคณะ",
+    },
+  },
   quickLinks: {
     heading: "ไปยังส่วนต่าง ๆ",
     items: {
