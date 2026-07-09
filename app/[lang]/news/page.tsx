@@ -37,6 +37,11 @@ const copy = {
     categoryLabel: "Category",
     allCategories: "All categories",
     filterNav: "Filter news and events",
+    categories: {
+      announcements: "Announcements",
+      events: "Events",
+      community: "Community",
+    } as Record<string, string>,
   },
   th: {
     title: "ข่าวและกิจกรรม",
@@ -49,6 +54,11 @@ const copy = {
     categoryLabel: "หมวดหมู่",
     allCategories: "ทุกหมวดหมู่",
     filterNav: "ตัวกรองข่าวและกิจกรรม",
+    categories: {
+      announcements: "ประกาศ",
+      events: "กิจกรรม",
+      community: "ชุมชน",
+    } as Record<string, string>,
   },
 };
 
@@ -79,8 +89,11 @@ export default async function NewsPage({
 
   function buildFilterHref(next: { type?: string; category?: string }) {
     const params = new URLSearchParams();
-    const nextType = next.type !== undefined ? next.type : type;
-    const nextCategory = next.category !== undefined ? next.category : category;
+    // `"key" in next` (not `next.key !== undefined`) so an explicit
+    // `{ category: undefined }` — used to clear back to "All" — is
+    // distinguishable from the key being omitted entirely (keep current).
+    const nextType = "type" in next ? next.type : type;
+    const nextCategory = "category" in next ? next.category : category;
     if (nextType) params.set("type", nextType);
     if (nextCategory) params.set("category", nextCategory);
     const qs = params.toString();
@@ -173,7 +186,7 @@ export default async function NewsPage({
                     aria-current={category === c ? "true" : undefined}
                     className={`${filterTagBase} ${category === c ? filterTagActive : filterTagInactive}`}
                   >
-                    {c}
+                    {text.categories[c] ?? c}
                   </a>
                 </li>
               ))}
