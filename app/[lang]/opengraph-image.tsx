@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "BIR Student Association — Politics and International Relations, Thammasat University";
+export const alt = "BIR Student Association, Politics and International Relations, Thammasat University";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

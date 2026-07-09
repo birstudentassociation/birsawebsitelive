@@ -58,8 +58,8 @@ const copy: Record<
       activity: "BIRSA activity",
       about: "About",
       clubs: "Clubs",
-      studentLifeHome: "Student life — home students",
-      studentLifeInternational: "Student life — international students",
+      studentLifeHome: "Student life for home students",
+      studentLifeInternational: "Student life for international students",
     },
     minChars: "Type at least 2 characters and press search.",
   },
@@ -74,8 +74,8 @@ const copy: Record<
       activity: "การดำเนินงานของ BIRSA",
       about: "เกี่ยวกับเรา",
       clubs: "ชมรม",
-      studentLifeHome: "ชีวิตนักศึกษา — นักศึกษาไทย",
-      studentLifeInternational: "ชีวิตนักศึกษา — นักศึกษาต่างชาติ",
+      studentLifeHome: "ชีวิตนักศึกษาสำหรับนักศึกษาไทย",
+      studentLifeInternational: "ชีวิตนักศึกษาสำหรับนักศึกษาต่างชาติ",
     },
     minChars: "พิมพ์อย่างน้อย 2 ตัวอักษรแล้วกดค้นหา",
   },
@@ -214,7 +214,7 @@ export default async function SearchPage({
         {hasQuery ? (
           <div className="flex flex-col gap-8">
             <p role="status" className="text-muted text-sm">
-              {t.resultsFor(query)} — {dict.actions.showing} {totalResults}{" "}
+              {t.resultsFor(query)}: {dict.actions.showing} {totalResults}{" "}
               {totalResults === 1 ? dict.actions.result : dict.actions.results}
             </p>
 

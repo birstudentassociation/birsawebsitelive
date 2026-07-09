@@ -22,7 +22,7 @@ export async function generateMetadata({
     lang === "th"
       ? "ข่าวสารและกิจกรรมล่าสุดจาก BIRSA"
       : "The latest news and events from BIRSA.";
-  return buildMetadata({ locale: lang, title: `${title} — ${dict.site.name}`, description, path: "/news" });
+  return buildMetadata({ locale: lang, title: `${title}: ${dict.site.name}`, description, path: "/news" });
 }
 
 const copy = {

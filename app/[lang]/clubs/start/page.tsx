@@ -41,9 +41,9 @@ const copy: Record<
     clubs: "Clubs",
     stepsTitle: "How it works",
     steps: [
-      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for — you don't need a full plan yet.",
+      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for, you don't need a full plan yet.",
       "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and figure out what support you need (a room, a small budget, promotion).",
-      "Start meeting. Once the basics are sorted, you're free to run your first session — BIRSA can help spread the word to other students.",
+      "Start meeting. Once the basics are sorted, you're free to run your first session, and BIRSA can help spread the word to other students.",
     ],
     formTitle: "Tell us your idea",
   },

@@ -47,12 +47,12 @@ const content: Record<
 > = {
   en: {
     title: "How this site works",
-    lede: "We build this site openly, against a clear set of standards — here's what we aim for, and where we're still catching up.",
+    lede: "We build this site openly, against a clear set of standards: here's what we aim for, and where we're still catching up.",
     principlesTitle: "Our design principles",
     principles: [
       {
         title: "Start with what students need",
-        body: "Every page exists because students asked a real question — not because it looked good on an org chart. If a page doesn't help you do something, we cut it.",
+        body: "Every page exists because students asked a real question, not because it looked good on an org chart. If a page doesn't help you do something, we cut it.",
       },
       {
         title: "Use simple, direct language",
@@ -60,7 +60,7 @@ const content: Record<
       },
       {
         title: "Make it work for everyone",
-        body: "Keyboard-only, screen readers, small screens, slow connections, both languages — the site should work well under all of these, not just the easy case.",
+        body: "Keyboard-only, screen readers, small screens, slow connections, both languages: the site should work well under all of these, not just the easy case.",
       },
       {
         title: "Join up our channels",
@@ -78,20 +78,20 @@ const content: Record<
       "Every feature can be operated with a keyboard alone, with a visible focus indicator.",
       "Pages use correct heading structure and landmark regions so screen readers can navigate them predictably.",
       "Our colour palette is contrast-checked, and we never use colour as the only way to convey meaning.",
-      "Motion respects your system's \"reduce motion\" setting — we don't add animation that ignores it.",
+      "Motion respects your system's \"reduce motion\" setting: we don't add animation that ignores it.",
       "Pages stay readable and usable at 320px-wide screens and at 400% browser zoom.",
       "The whole site is bilingual, with the correct `lang` attribute set on every page.",
       "The site supports both light and dark colour modes, both checked against WCAG contrast requirements. It follows your device setting by default, and you can switch it any time with the toggle in the header.",
     ],
     a11yLimitsTitle: "Known limitations",
     a11yLimits:
-      "We're honest that this site is still young. Some content (example dates, room numbers, and similar details) is placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug — please tell us.",
+      "We're honest that this site is still young. Some content (example dates, room numbers, and similar details) is placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug, so please tell us.",
     a11yReportTitle: "Report a problem",
     a11yReportBody:
       "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
     a11yReportCta: "Contact BIRSA",
     perfTitle: "Performance and data",
-    perfBody: "We use cookieless, privacy-friendly analytics to understand which pages are useful and where people get stuck — never to track individuals.",
+    perfBody: "We use cookieless, privacy-friendly analytics to understand which pages are useful and where people get stuck, never to track individuals.",
     perfNotice: "We'll publish usage statistics here once the site has launched and we have meaningful data to share.",
     maintainTitle: "How this site is maintained",
     maintainBody:

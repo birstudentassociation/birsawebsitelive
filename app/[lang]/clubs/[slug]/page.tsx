@@ -55,7 +55,7 @@ const labels: Record<
     howToJoin: "How to join",
     contact: "Contact",
     back: "Back to clubs",
-    placeholderNotice: "Example content — BIRSA will replace this with real details.",
+    placeholderNotice: "Example content: BIRSA will replace this with real details.",
     openToJoin: "Open to join",
   },
   th: {
@@ -65,7 +65,7 @@ const labels: Record<
     howToJoin: "วิธีเข้าร่วม",
     contact: "ติดต่อ",
     back: "กลับไปหน้าชมรมทั้งหมด",
-    placeholderNotice: "เนื้อหาตัวอย่าง — BIRSA จะแทนที่ด้วยข้อมูลจริง",
+    placeholderNotice: "เนื้อหาตัวอย่าง BIRSA จะแทนที่ด้วยข้อมูลจริง",
     openToJoin: "รับสมาชิกอยู่",
   },
 };

@@ -49,7 +49,7 @@ const copy: Record<
     tracks: {
       home: {
         title: "For home students",
-        lede: "Practical, everyday guidance for Thai students at BIR — pick a topic below to get started.",
+        lede: "Practical, everyday guidance for Thai students at BIR. Pick a topic below to get started.",
       },
       international: {
         title: "For international students",

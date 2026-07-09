@@ -57,7 +57,7 @@ function Heading({
 function sectionLabel(section: Section, locale: Locale): string {
   const title = section.title[locale];
   if (section.kind && section.number) {
-    return `${section.kind[locale]} ${section.number} — ${title}`;
+    return `${section.kind[locale]} ${section.number}: ${title}`;
   }
   return title;
 }
@@ -101,7 +101,7 @@ function Definitions({
       {entries.map((def) => (
         <div key={def.term.en} className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
           <dt className="text-ink font-semibold">{pick(def.term)}</dt>
-          <dd className="sm:before:mr-2 sm:before:content-['—']">{pick(def.meaning)}</dd>
+          <dd className="sm:before:mr-2 sm:before:content-[':']">{pick(def.meaning)}</dd>
         </div>
       ))}
     </dl>

@@ -27,7 +27,7 @@ export async function generateMetadata({
   const dict = getDictionary(lang);
   return buildMetadata({
     locale: lang,
-    title: `${dict.site.name} — ${dict.site.fullName}`,
+    title: `${dict.site.name}: ${dict.site.fullName}`,
     description: dict.site.description,
     path: "/",
   });

@@ -35,17 +35,17 @@ const copy: Record<
 > = {
   en: {
     title: "BIRSA activity",
-    lede: "How BIRSA is run — officer roles, student regulations, transparency documents, and the latest news and events.",
+    lede: "How BIRSA is run: officer roles, student regulations, transparency documents, and the latest news and events.",
     rolesTitle: "Officer roles",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
     regsTitle: "Student regulations and rules",
-    regsSummary: "The University's regulations on student activities and discipline, plus the Faculty Notice — set out provision by provision.",
+    regsSummary: "The University's regulations on student activities and discipline, plus the Faculty Notice, set out provision by provision.",
     newsTitle: "News",
     newsSummary: "BIRSA's latest news and upcoming events.",
   },
   th: {
     title: "การดำเนินงานของ BIRSA",
-    lede: "การดำเนินงานของ BIRSA — บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส และข่าวสารกิจกรรมล่าสุด",
+    lede: "การดำเนินงานของ BIRSA ได้แก่ บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส และข่าวสารกิจกรรมล่าสุด",
     rolesTitle: "บทบาทหน้าที่ของคณะกรรมการ",
     rolesSummary: "ใครอยู่ในคณะกรรมการ BIRSA บ้าง และแต่ละตำแหน่งรับผิดชอบเรื่องอะไร",
     regsTitle: "ระเบียบและข้อบังคับนักศึกษา",

@@ -39,16 +39,16 @@ const copy: Record<
 > = {
   en: {
     title: "Contact BIRSA",
-    lede: "Send us a message with the form below, or reach out directly — whichever is easier for you.",
+    lede: "Send us a message with the form below, or reach out directly, whichever is easier for you.",
     otherWaysTitle: "Other ways to reach us",
-    otherWaysBody: "You don't have to use the form — email or message us on social media directly.",
+    otherWaysBody: "You don't have to use the form: email or message us on social media directly.",
     emailLabel: "Email",
   },
   th: {
     title: "ติดต่อ BIRSA",
     lede: "ส่งข้อความถึงเราผ่านแบบฟอร์มด้านล่าง หรือติดต่อโดยตรงตามที่สะดวก",
     otherWaysTitle: "ช่องทางติดต่ออื่น ๆ",
-    otherWaysBody: "ไม่จำเป็นต้องใช้แบบฟอร์มก็ได้ — อีเมลหรือทักหาเราทางโซเชียลมีเดียได้โดยตรง",
+    otherWaysBody: "ไม่จำเป็นต้องใช้แบบฟอร์มก็ได้ อีเมลหรือทักหาเราทางโซเชียลมีเดียได้โดยตรง",
     emailLabel: "อีเมล",
   },
 };

@@ -14,7 +14,7 @@ export function generateStaticParams() {
 const copy: Record<Locale, { title: string; lede: string; sectionLabel: string }> = {
   en: {
     title: "Student regulations and rules",
-    lede: "The rules that govern BIRSA and student activities — the University's own Regulation and the Faculty Notice issued under it, each set out provision by provision.",
+    lede: "The rules that govern BIRSA and student activities: the University's own Regulation and the Faculty Notice issued under it, each set out provision by provision.",
     sectionLabel: "BIRSA activity",
   },
   th: {

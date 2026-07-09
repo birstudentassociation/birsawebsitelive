@@ -10,7 +10,7 @@ export const th: typeof en = {
   langLabel: "ไทย",
   // Shown inside the language toggle as the language you can switch TO.
   switchTo: "English",
-  switchToAria: "Switch to English — เปลี่ยนเป็นภาษาอังกฤษ",
+  switchToAria: "Switch to English, เปลี่ยนเป็นภาษาอังกฤษ",
 
   site: {
     name: "BIRSA",
@@ -29,6 +29,8 @@ export const th: typeof en = {
   ],
   headerCta: { href: "/quick", label: "ทางลัด" },
 
+  betaBanner: "เว็บไซต์นี้อยู่ในช่วงทดลองใช้งาน ข้อมูลบางส่วนอาจไม่ครบถ้วนหรือไม่ถูกต้อง",
+
   a11y: {
     skip: "ข้ามไปยังเนื้อหาหลัก",
     primaryNav: "เมนูหลัก",
@@ -41,7 +43,7 @@ export const th: typeof en = {
     newTab: "เปิดในแท็บใหม่",
     externalLink: "ลิงก์ภายนอก",
     languageSelector: "ภาษา",
-    logoHome: "BIRSA — กลับหน้าแรก",
+    logoHome: "BIRSA, กลับหน้าแรก",
     loading: "กำลังโหลด",
     theme: "ธีม",
     themeDark: "เปลี่ยนเป็นโหมดมืด",

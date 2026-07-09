@@ -2,7 +2,7 @@
   "name": "birsa-portal",
   "version": "0.1.0",
   "private": true,
-  "description": "BIRSA Portal — the bilingual student portal for the BIR Student Association, Faculty of Political Science, Thammasat University.",
+  "description": "BIRSA Portal, the bilingual student portal for the BIR Student Association, Faculty of Political Science, Thammasat University.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

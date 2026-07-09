@@ -21,7 +21,7 @@ export async function generateMetadata({
   const title = lang === "th" ? "ทางลัด" : "Quick actions";
   return buildMetadata({
     locale: lang,
-    title: `${title} — ${dict.site.name}`,
+    title: `${title}: ${dict.site.name}`,
     description: dict.site.description,
     path: "/quick",
   });

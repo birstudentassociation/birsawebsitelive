@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!entry) return {};
   return buildMetadata({
     locale: lang,
-    title: `${entry.frontmatter.title} — ${dict.site.name}`,
+    title: `${entry.frontmatter.title}: ${dict.site.name}`,
     description: entry.frontmatter.summary,
     path: `/news/${slug}`,
   });

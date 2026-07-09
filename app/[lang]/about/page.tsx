@@ -28,7 +28,7 @@ export async function generateMetadata({
 const copy: Record<Locale, { title: string; lede: string }> = {
   en: {
     title: "About",
-    lede: "Who BIRSA is, what the BIR programme is, and where to find the essentials — from the committee structure to how to get in touch.",
+    lede: "Who BIRSA is, what the BIR programme is, and where to find the essentials, from the committee structure to how to get in touch.",
   },
   th: {
     title: "เกี่ยวกับเรา",

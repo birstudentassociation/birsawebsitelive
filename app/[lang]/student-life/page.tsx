@@ -20,7 +20,7 @@ export async function generateMetadata({
   const description =
     locale === "th"
       ? "คู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยรุ่นพี่นักศึกษา ครอบคลุมทั้งนักศึกษาไทยและนักศึกษาต่างชาติ"
-      : "A plain-language guide to life outside the classroom at BIR, written by students — for home and international students.";
+      : "A plain-language guide to life outside the classroom at BIR, written by students, for both home and international students.";
 
   return buildMetadata({ locale, title, description, path: "/student-life" });
 }
@@ -41,26 +41,26 @@ const copy: Record<
 > = {
   en: {
     title: "Student life",
-    lede: "A plain-language guide to life outside the classroom at BIR — written by students, for students. Pick the track that matches you to get started.",
+    lede: "A plain-language guide to life outside the classroom at BIR, written by students, for students. Pick the track that matches you to get started.",
     tracks: {
       home: {
         title: "For home students",
         description:
-          "Practical, everyday guidance for Thai students at BIR — getting around Tha Prachan, budgeting, staying healthy and safe, and finding ways to get involved.",
+          "Practical, everyday guidance for Thai students at BIR: getting around Tha Prachan, budgeting, staying healthy and safe, and finding ways to get involved.",
         topicsLabel: "Top topics",
         cta: "Explore the home student guide",
       },
       international: {
         title: "For international students",
         description:
-          "Everything you need for your first weeks and beyond in Bangkok — arrival, visas, banking, phones, healthcare, and everyday culture and language.",
+          "Everything you need for your first weeks and beyond in Bangkok: arrival, visas, banking, phones, healthcare, and everyday culture and language.",
         topicsLabel: "Top topics",
         cta: "Explore the international student guide",
       },
     },
     howToUseTitle: "How to use this guide",
     howToUseBody:
-      "This guide is built to work well with screen readers and keyboard navigation, and every section stands on its own — you don't need to read start to finish. If you spot something missing, out of date, or wrong, please tell BIRSA.",
+      "This guide is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you don't need to read start to finish. If you spot something missing, out of date, or wrong, please tell BIRSA.",
     reportGaps: "Report a gap",
   },
   th: {

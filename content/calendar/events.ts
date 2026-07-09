@@ -64,7 +64,7 @@ export const calendarEvents: CalendarEvent[] = [
     id: "jun-faculty-anniversary",
     start: "2026-06-14",
     title: {
-      en: "Faculty of Political Science — 77th Foundation Day",
+      en: "Faculty of Political Science (77th Foundation Day)",
       th: "วันสถาปนาคณะรัฐศาสตร์ ครบรอบ 77 ปี",
     },
     slug: "faculty-77th-anniversary",
@@ -74,7 +74,7 @@ export const calendarEvents: CalendarEvent[] = [
     id: "jun-recruitment",
     start: "2026-06-15",
     title: {
-      en: "Sub-committee recruitment — Round 1 opens",
+      en: "Round 1 of sub-committee recruitment opens",
       th: "เปิดรับสมัครอนุกรรมการ รอบที่ 1",
     },
     slug: "birsa-committee-recruitment",
@@ -94,7 +94,7 @@ export const calendarEvents: CalendarEvent[] = [
     id: "jun-tu-anniversary",
     start: "2026-06-27",
     title: {
-      en: "Thammasat University — 92nd Foundation Day",
+      en: "Thammasat University (92nd Foundation Day)",
       th: "วันสถาปนามหาวิทยาลัยธรรมศาสตร์ ครบรอบ 92 ปี",
     },
     slug: "june-2026-activity-calendar",

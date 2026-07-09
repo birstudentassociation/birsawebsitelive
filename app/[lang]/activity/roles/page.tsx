@@ -28,7 +28,7 @@ const copy: Record<Locale, { activity: string; title: string; lede: string }> = 
   en: {
     activity: "BIRSA activity",
     title: "Officer roles",
-    lede: "These are the roles that make up the BIRSA committee — officers first, then the assistant officers who support them.",
+    lede: "These are the roles that make up the BIRSA committee: officers first, then the assistant officers who support them.",
   },
   th: {
     activity: "การดำเนินงานของ BIRSA",

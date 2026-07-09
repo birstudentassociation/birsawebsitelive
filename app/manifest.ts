@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "BIRSA Portal",
     short_name: "BIRSA",
     description:
-      "News, activities, clubs and a student-life guide from the BIR Student Association — Thammasat University.",
+      "News, activities, clubs and a student-life guide from the BIR Student Association, Thammasat University.",
     start_url: "/",
     display: "standalone",
     background_color: "#fbf7ef",

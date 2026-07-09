@@ -10,14 +10,14 @@ export const en = {
   langLabel: "English",
   // Shown inside the language toggle as the language you can switch TO.
   switchTo: "ภาษาไทย",
-  switchToAria: "เปลี่ยนเป็นภาษาไทย — switch to Thai",
+  switchToAria: "เปลี่ยนเป็นภาษาไทย, switch to Thai",
 
   site: {
     name: "BIRSA",
     fullName: "BIR Student Association",
     tagline: "Your students' association at Thammasat",
     description:
-      "News, activities, clubs and a student-life guide from the BIR Student Association — Politics and International Relations, Thammasat University.",
+      "News, activities, clubs and a student-life guide from the BIR Student Association (Politics and International Relations, Thammasat University).",
   },
 
   nav: [
@@ -28,6 +28,9 @@ export const en = {
     { href: "/about", label: "About" },
   ],
   headerCta: { href: "/quick", label: "Quick actions" },
+
+  betaBanner:
+    "This website is in beta. Some information may be incomplete or inaccurate.",
 
   a11y: {
     skip: "Skip to main content",
@@ -41,7 +44,7 @@ export const en = {
     newTab: "opens in a new tab",
     externalLink: "external link",
     languageSelector: "Language",
-    logoHome: "BIRSA — go to the home page",
+    logoHome: "BIRSA, go to the home page",
     loading: "Loading",
     theme: "Theme",
     themeDark: "Switch to dark mode",
@@ -85,7 +88,7 @@ export const en = {
       "We use what you send only to answer you. We don't share it. See our privacy notice.",
     errorSummaryTitle: "There is a problem",
     genericError: "Something went wrong. Please try again, or email us directly.",
-    successTitle: "Thank you — your message is on its way",
+    successTitle: "Thank you. Your message is on its way",
     successBody: "A member of the BIRSA committee will get back to you by email.",
     fallbackTitle: "Email isn't set up yet",
     fallbackBody: "Please send your message directly to:",
@@ -95,7 +98,7 @@ export const en = {
       emailInvalid: "Enter an email address in the correct format, like name@example.com",
       subjectRequired: "Enter a subject",
       messageRequired: "Enter your message",
-      messageShort: "Your message is a little short — please add more detail",
+      messageShort: "Your message is a little short. Please add more detail",
       categoryRequired: "Choose what this is about",
     },
   },

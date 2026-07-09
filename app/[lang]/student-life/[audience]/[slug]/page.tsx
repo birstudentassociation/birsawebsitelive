@@ -68,7 +68,7 @@ const labels: Record<
     previous: "Previous",
     next: "Next",
     helpTitle: "Something wrong or missing?",
-    helpBody: "Tell BIRSA and we'll look into it — this guide is written and kept up to date by students.",
+    helpBody: "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
     helpCta: "Tell BIRSA",
     back: {
       home: "Back to the home student guide",
@@ -84,7 +84,7 @@ const labels: Record<
     previous: "ก่อนหน้า",
     next: "ถัดไป",
     helpTitle: "มีอะไรผิดพลาดหรือขาดหายไปไหม",
-    helpBody: "บอก BIRSA ได้เลย เราจะตรวจสอบให้ — คู่มือนี้เขียนและดูแลโดยนักศึกษาด้วยกัน",
+    helpBody: "บอก BIRSA ได้เลย เราจะตรวจสอบให้ คู่มือนี้เขียนและดูแลโดยนักศึกษาด้วยกัน",
     helpCta: "แจ้ง BIRSA",
     back: {
       home: "กลับไปคู่มือสำหรับนักศึกษาไทย",

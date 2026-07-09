@@ -6,6 +6,7 @@ import "@/app/globals.css";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
+import BetaBanner from "@/components/BetaBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -46,8 +47,8 @@ export async function generateMetadata({
   return {
     metadataBase: new URL(SITE_URL),
     title: {
-      default: `${dict.site.name} — ${dict.site.fullName}`,
-      template: `%s — ${dict.site.name}`,
+      default: `${dict.site.name} | ${dict.site.fullName}`,
+      template: `%s | ${dict.site.name}`,
     },
     description: dict.site.description,
   };
@@ -87,6 +88,7 @@ export default async function RootLayout({
           }}
         />
         <SkipLink label={dict.a11y.skip} />
+        <BetaBanner message={dict.betaBanner} />
         <Header locale={locale} />
         <main id="main">{children}</main>
         <Footer locale={locale} />
