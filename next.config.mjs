@@ -20,11 +20,37 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  images: {
+    // AVIF first so Vercel's image optimizer serves AVIF to supporting browsers.
+    formats: ["image/avif", "image/webp"],
+    // 31 days: site images only change with a deploy, so cache aggressively.
+    minimumCacheTTL: 2678400,
+  },
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        // Static image assets can be replaced in place without a filename
+        // change, so cache for a week with SWR rather than marking immutable.
+        source: "/birsa-logo.png",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/committee/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
       },
     ];
   },
