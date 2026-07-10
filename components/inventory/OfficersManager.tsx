@@ -12,7 +12,6 @@ import type { FormEvent } from "react";
 import clsx from "clsx";
 import Field from "@/components/Field";
 import Button from "@/components/Button";
-import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import type { Locale } from "@/lib/i18n";

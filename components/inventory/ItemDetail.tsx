@@ -14,7 +14,6 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Notice from "@/components/Notice";
-import Tag from "@/components/Tag";
 import Accordion from "@/components/Accordion";
 import PhotoUpload from "@/components/inventory/PhotoUpload";
 import { formatDate, type Locale } from "@/lib/i18n";

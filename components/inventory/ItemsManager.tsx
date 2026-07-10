@@ -272,8 +272,6 @@ export default function ItemsManager({ items: initialItems, categories, location
     });
   }, [items, query, categoryFilter, statusFilter]);
 
-  const hasFilters = query.trim().length > 0 || categoryFilter !== "all" || statusFilter !== "active";
-
   function clearFilters() {
     setQuery("");
     setCategoryFilter("all");

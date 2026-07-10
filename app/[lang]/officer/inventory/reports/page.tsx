@@ -261,13 +261,19 @@ export default async function OfficerReportsPage({
           </h2>
           <p className="text-muted text-sm">{t.exportsLede}</p>
           <div className="flex flex-wrap gap-3">
-            <a href="/api/inventory/export?type=loans" className={EXPORT_LINK_CLASS}>
+            {/* Plain anchors: these hit an API route that streams a CSV file
+                download, not a page. next/link would intercept them as client
+                navigations and mishandle the non-HTML response. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a href="/api/inventory/export?type=loans" className={EXPORT_LINK_CLASS} download>
               {t.exportLoans}
             </a>
-            <a href="/api/inventory/export?type=units" className={EXPORT_LINK_CLASS}>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a href="/api/inventory/export?type=units" className={EXPORT_LINK_CLASS} download>
               {t.exportUnits}
             </a>
-            <a href="/api/inventory/export?type=borrowers" className={EXPORT_LINK_CLASS}>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a href="/api/inventory/export?type=borrowers" className={EXPORT_LINK_CLASS} download>
               {t.exportBorrowers}
             </a>
           </div>
