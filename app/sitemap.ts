@@ -34,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/clubs/start",
       "/information-services",
       "/information-services/equipment-loan",
+      "/information-services/equipment-loan/status",
       "/standards",
       "/privacy",
     ];

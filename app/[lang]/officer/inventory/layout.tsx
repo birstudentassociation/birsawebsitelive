@@ -37,6 +37,7 @@ type NavCopy = {
   catalogue: string;
   loans: string;
   borrowers: string;
+  reports: string;
   officers: string;
 };
 
@@ -47,6 +48,7 @@ const navCopy: Record<Locale, NavCopy> = {
     catalogue: "Catalogue",
     loans: "Loans",
     borrowers: "Borrowers",
+    reports: "Reports",
     officers: "Officers",
   },
   th: {
@@ -55,6 +57,7 @@ const navCopy: Record<Locale, NavCopy> = {
     catalogue: "รายการครุภัณฑ์",
     loans: "การยืม-คืน",
     borrowers: "ผู้ยืม",
+    reports: "รายงาน",
     officers: "เจ้าหน้าที่",
   },
 };
@@ -79,6 +82,7 @@ export default async function OfficerInventoryLayout({
     { href: "/officer/inventory/items", label: t.catalogue },
     { href: "/officer/inventory/loans", label: t.loans },
     { href: "/officer/inventory/borrowers", label: t.borrowers },
+    { href: "/officer/inventory/reports", label: t.reports },
     { href: "/officer/inventory/officers", label: t.officers },
   ];
 

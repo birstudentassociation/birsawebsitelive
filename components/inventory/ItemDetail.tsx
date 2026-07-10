@@ -16,6 +16,7 @@ import Button from "@/components/Button";
 import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import Accordion from "@/components/Accordion";
+import PhotoUpload from "@/components/inventory/PhotoUpload";
 import { formatDate, type Locale } from "@/lib/i18n";
 import type {
   Category,
@@ -51,6 +52,16 @@ type Copy = {
   retiredTag: string;
   assetTag: string;
   consumableTag: string;
+
+  photoTitle: string;
+  photoUploadLabel: string;
+  photoUploadingLabel: string;
+  photoRemoveLabel: string;
+  photoHintLabel: string;
+  photoTooLargeLabel: string;
+  photoNotConfiguredLabel: string;
+  photoErrorLabel: string;
+  photoUpdated: string;
 
   editTitle: string;
   nameEnLabel: string;
@@ -140,6 +151,16 @@ const copy: Record<Locale, Copy> = {
     retiredTag: "Retired",
     assetTag: "Asset",
     consumableTag: "Consumable",
+
+    photoTitle: "Photo",
+    photoUploadLabel: "Upload photo",
+    photoUploadingLabel: "Uploading...",
+    photoRemoveLabel: "Remove selection",
+    photoHintLabel: "JPG or PNG, up to 5 MB.",
+    photoTooLargeLabel: "That file is too large. Please choose an image up to 5 MB.",
+    photoNotConfiguredLabel: "Photo uploads are not set up for this site yet.",
+    photoErrorLabel: "Could not upload the photo. Please try again.",
+    photoUpdated: "Photo updated.",
 
     editTitle: "Edit item details",
     nameEnLabel: "Name (English)",
@@ -234,6 +255,16 @@ const copy: Record<Locale, Copy> = {
     retiredTag: "เลิกใช้แล้ว",
     assetTag: "ครุภัณฑ์",
     consumableTag: "วัสดุสิ้นเปลือง",
+
+    photoTitle: "รูปภาพ",
+    photoUploadLabel: "อัปโหลดรูปภาพ",
+    photoUploadingLabel: "กำลังอัปโหลด...",
+    photoRemoveLabel: "ยกเลิกการเลือกไฟล์",
+    photoHintLabel: "ไฟล์ JPG หรือ PNG ขนาดไม่เกิน 5 MB",
+    photoTooLargeLabel: "ไฟล์นี้มีขนาดใหญ่เกินไป กรุณาเลือกรูปภาพขนาดไม่เกิน 5 MB",
+    photoNotConfiguredLabel: "ระบบอัปโหลดรูปภาพยังไม่พร้อมใช้งานสำหรับเว็บไซต์นี้",
+    photoErrorLabel: "ไม่สามารถอัปโหลดรูปภาพได้ กรุณาลองใหม่อีกครั้ง",
+    photoUpdated: "อัปเดตรูปภาพแล้ว",
 
     editTitle: "แก้ไขรายละเอียดรายการ",
     nameEnLabel: "ชื่อ (อังกฤษ)",
@@ -395,6 +426,29 @@ export default function ItemDetail({
 
   const [retireBusy, setRetireBusy] = useState(false);
   const [retireMessage, setRetireMessage] = useState<{ text: string; kind: "success" | "error" } | null>(null);
+
+  // --- Photo ---
+  const [photoMessage, setPhotoMessage] = useState<{ text: string; kind: "success" | "error" } | null>(null);
+
+  async function handlePhotoUploaded(url: string) {
+    setPhotoMessage(null);
+    try {
+      const response = await fetch(`/api/inventory/items/${item.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ photoUrl: url }),
+      });
+      const result = (await response.json().catch(() => null)) as ItemPatchResponse | null;
+      if (response.ok && result?.ok && result.item) {
+        setItem(result.item);
+        setPhotoMessage({ text: t.photoUpdated, kind: "success" });
+        return;
+      }
+      setPhotoMessage({ text: response.status === 403 ? t.errorForbidden : t.errorGeneric, kind: "error" });
+    } catch {
+      setPhotoMessage({ text: t.errorGeneric, kind: "error" });
+    }
+  }
 
   async function handleSaveItem(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -674,6 +728,33 @@ export default function ItemDetail({
           </div>
         ) : null}
       </section>
+
+      {canWrite ? (
+        <section className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5 sm:p-6">
+          <h2 className="font-display text-ink text-xl">{t.photoTitle}</h2>
+          <PhotoUpload
+            currentUrl={item.photoUrl}
+            onUploaded={handlePhotoUploaded}
+            labels={{
+              upload: t.photoUploadLabel,
+              uploading: t.photoUploadingLabel,
+              remove: t.photoRemoveLabel,
+              hint: t.photoHintLabel,
+              tooLarge: t.photoTooLargeLabel,
+              notConfigured: t.photoNotConfiguredLabel,
+              error: t.photoErrorLabel,
+            }}
+          />
+          {photoMessage ? (
+            <p
+              role="status"
+              className={clsx("text-sm font-medium", photoMessage.kind === "success" ? "text-success" : "text-error")}
+            >
+              {photoMessage.text}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
 
       {canWrite ? (
         <Accordion summary={t.editTitle}>

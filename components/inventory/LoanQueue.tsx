@@ -2,8 +2,8 @@
 
 /**
  * Officer-facing loans queue: approve/reject pending requests, hand off
- * approved units, record returns, and cancel. Generalizes the pattern in
- * components/equipment/OfficerQueue.tsx to the full loan lifecycle and to
+ * approved units, record returns, and cancel. Generalizes the single-item
+ * approval queue pattern to the full loan lifecycle and to
  * individually-tracked units.
  */
 import { useMemo, useState } from "react";

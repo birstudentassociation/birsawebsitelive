@@ -266,6 +266,15 @@ export default async function EquipmentLoanPage({
               const categoryName = item.categoryId ? categoriesById.get(item.categoryId)?.name[locale] : undefined;
               return (
                 <Card key={item.key} className="gap-3 p-6">
+                  {item.photoUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={item.photoUrl}
+                      alt={item.name[locale]}
+                      loading="lazy"
+                      className="border-line max-h-48 w-full rounded-lg border object-cover"
+                    />
+                  ) : null}
                   {categoryName ? (
                     <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
                       {categoryName}

@@ -8,6 +8,8 @@ const pages = [
   "/en/student-life/international/visa-and-immigration",
   "/en/contact",
   "/th/quick",
+  "/en/information-services/equipment-loan",
+  "/en/information-services/equipment-loan/status",
 ];
 
 for (const path of pages) {

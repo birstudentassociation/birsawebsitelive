@@ -2,11 +2,10 @@
 
 /**
  * Email + passcode sign-in for the inventory management console. Each
- * officer has their own account (unlike the legacy shared-passcode
- * `components/equipment/OfficerLogin.tsx`). On success it calls
- * `router.refresh()` so the parent server component re-reads the now-set
- * session cookie and swaps in the console content, without a full page
- * navigation.
+ * officer has their own account rather than a shared passcode. On success it
+ * calls `router.refresh()` so the parent server component re-reads the
+ * now-set session cookie and swaps in the console content, without a full
+ * page navigation.
  */
 import { useId, useState } from "react";
 import type { FormEvent } from "react";
