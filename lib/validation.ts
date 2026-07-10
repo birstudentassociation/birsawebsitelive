@@ -50,3 +50,30 @@ export const loanRequestSchema = z
   });
 
 export type LoanRequestInput = z.infer<typeof loanRequestSchema>;
+
+export const inventoryLoanRequestSchema = z
+  .object({
+    itemKey: z.string().min(1),
+    studentName: z.string().min(1).max(120),
+    studentId: z.string().min(1).max(40),
+    studentEmail: z.string().email(),
+    phone: z.string().max(40).optional().or(z.literal("")),
+    startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    reason: z.string().max(1000).optional().or(z.literal("")),
+    nickname: honeypot,
+  })
+  .refine((data) => data.endDate >= data.startDate, {
+    path: ["endDate"],
+    message: "Return date must be on or after the pickup date",
+  });
+
+export type InventoryLoanRequestInput = z.infer<typeof inventoryLoanRequestSchema>;
+
+export const loanLookupSchema = z.object({
+  reference: z.string().min(1).max(40),
+  email: z.string().email(),
+  nickname: honeypot,
+});
+
+export type LoanLookupInput = z.infer<typeof loanLookupSchema>;
