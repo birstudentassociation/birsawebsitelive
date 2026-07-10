@@ -7,16 +7,23 @@
  * English and Thai entries are written in lock-step: whenever a key is
  * added or changed on one side, update the other immediately below it.
  */
-import type { EquipmentItem } from "@/content/services/equipment";
+import type { Bilingual } from "@/lib/inventory/types";
 import type { Locale } from "@/lib/i18n";
+
+/** Slim view of an inventory item, just the fields the wizard needs. */
+export type LoanWizardItem = {
+  key: string;
+  name: Bilingual;
+  maxLoanDays: number;
+};
 
 export type LoanWizardStep =
   | "start"
   | "name"
   | "studentId"
   | "email"
-  | "pickup"
-  | "return"
+  | "phone"
+  | "dates"
   | "reason"
   | "check"
   | "confirmation";
@@ -59,20 +66,33 @@ export type LoanWizardLabels = {
     errorRequired: string;
     errorInvalid: string;
   };
-  pickup: {
+  phone: {
     question: string;
     hint: string;
-    errorRequired: string;
     errorInvalid: string;
-    errorPast: string;
   };
-  returnStep: {
-    question: string;
-    hint: string;
-    errorRequired: string;
-    errorInvalid: string;
-    errorBeforePickup: string;
+  dates: {
+    title: string;
+    startQuestion: string;
+    startHint: string;
+    endQuestion: string;
+    endHint: string;
+    errorStartRequired: string;
+    errorStartInvalid: string;
+    errorStartPast: string;
+    errorEndRequired: string;
+    errorEndInvalid: string;
+    errorEndBeforeStart: string;
     errorTooLong: string;
+    checkCta: string;
+    checking: string;
+    // Template with a {count} placeholder, kept as a plain string for the
+    // same serializability reason as common.stepOf.
+    availableTemplate: string;
+    noneFreeTitle: string;
+    noneFreeBody: string;
+    checkErrorTitle: string;
+    checkErrorBody: string;
   };
   reason: {
     question: string;
@@ -85,8 +105,10 @@ export type LoanWizardLabels = {
     nameLabel: string;
     studentIdLabel: string;
     emailLabel: string;
-    pickupLabel: string;
-    returnLabel: string;
+    phoneLabel: string;
+    phoneEmpty: string;
+    startDateLabel: string;
+    endDateLabel: string;
     reasonLabel: string;
     reasonEmpty: string;
     submit: string;
@@ -102,6 +124,10 @@ export type LoanWizardLabels = {
   results: {
     unavailableTitle: string;
     unavailableBody: string;
+    blocklistedTitle: string;
+    blocklistedBody: string;
+    limitExceededTitle: string;
+    limitExceededBody: string;
     notConfiguredTitle: string;
     notConfiguredBody: string;
     contactLink: string;
@@ -114,7 +140,7 @@ export type LoanWizardLabels = {
   };
 };
 
-export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): LoanWizardLabels {
+export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): LoanWizardLabels {
   const itemName = item.name[locale];
   const maxDays = item.maxLoanDays;
 
@@ -155,20 +181,31 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
         errorRequired: "กรุณากรอกอีเมลของคุณ",
         errorInvalid: "กรุณากรอกอีเมลให้ถูกต้องตามรูปแบบ เช่น name@example.com",
       },
-      pickup: {
-        question: "คุณต้องการมารับอุปกรณ์วันไหน",
-        hint: `เลือกวันที่ต้องการมารับอุปกรณ์ที่สำนักงาน BIRSA ยืมได้สูงสุด ${maxDays} วัน`,
-        errorRequired: "กรุณาเลือกวันที่ต้องการรับอุปกรณ์",
-        errorInvalid: "กรุณาเลือกวันที่ให้ถูกต้อง",
-        errorPast: "วันที่รับอุปกรณ์ต้องไม่ใช่วันที่ผ่านมาแล้ว",
+      phone: {
+        question: "เบอร์โทรศัพท์ของคุณคืออะไร",
+        hint: "ไม่บังคับ ใช้ในกรณีที่ BIRSA ต้องการติดต่อคุณอย่างเร่งด่วนเกี่ยวกับคำขอนี้",
+        errorInvalid: "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง",
       },
-      returnStep: {
-        question: "คุณจะคืนอุปกรณ์วันไหน",
-        hint: `ต้องอยู่ภายใน ${maxDays} วันนับจากวันที่รับอุปกรณ์`,
-        errorRequired: "กรุณาเลือกวันที่จะคืนอุปกรณ์",
-        errorInvalid: "กรุณาเลือกวันที่ให้ถูกต้อง",
-        errorBeforePickup: "วันที่คืนต้องไม่ก่อนวันที่รับอุปกรณ์",
+      dates: {
+        title: "คุณต้องการยืมอุปกรณ์วันไหนถึงวันไหน",
+        startQuestion: "วันที่ต้องการมารับอุปกรณ์",
+        startHint: `เลือกวันที่ต้องการมารับอุปกรณ์ที่สำนักงาน BIRSA ยืมได้สูงสุด ${maxDays} วัน`,
+        endQuestion: "วันที่จะคืนอุปกรณ์",
+        endHint: `ต้องอยู่ภายใน ${maxDays} วันนับจากวันที่รับอุปกรณ์`,
+        errorStartRequired: "กรุณาเลือกวันที่ต้องการรับอุปกรณ์",
+        errorStartInvalid: "กรุณาเลือกวันที่ให้ถูกต้อง",
+        errorStartPast: "วันที่รับอุปกรณ์ต้องไม่ใช่วันที่ผ่านมาแล้ว",
+        errorEndRequired: "กรุณาเลือกวันที่จะคืนอุปกรณ์",
+        errorEndInvalid: "กรุณาเลือกวันที่ให้ถูกต้อง",
+        errorEndBeforeStart: "วันที่คืนต้องไม่ก่อนวันที่รับอุปกรณ์",
         errorTooLong: `ระยะเวลายืมต้องไม่เกิน ${maxDays} วัน`,
+        checkCta: "ตรวจสอบความพร้อมให้ยืม",
+        checking: "กำลังตรวจสอบความพร้อมให้ยืม...",
+        availableTemplate: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
+        noneFreeTitle: "ไม่มีอุปกรณ์ว่างในช่วงวันที่เลือก",
+        noneFreeBody: "กรุณาเลือกช่วงวันที่อื่นแล้วลองใหม่อีกครั้ง",
+        checkErrorTitle: "ตรวจสอบความพร้อมให้ยืมไม่สำเร็จ",
+        checkErrorBody: "เกิดข้อผิดพลาดระหว่างตรวจสอบ กรุณาลองใหม่อีกครั้ง",
       },
       reason: {
         question: "คุณต้องการยืมไปใช้ทำอะไร",
@@ -181,8 +218,10 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
         nameLabel: "ชื่อ-นามสกุล",
         studentIdLabel: "รหัสนักศึกษา",
         emailLabel: "อีเมล",
-        pickupLabel: "วันที่รับ",
-        returnLabel: "วันที่คืน",
+        phoneLabel: "เบอร์โทรศัพท์",
+        phoneEmpty: "ไม่ได้ระบุ",
+        startDateLabel: "วันที่รับ",
+        endDateLabel: "วันที่คืน",
         reasonLabel: "เหตุผลในการยืม",
         reasonEmpty: "ไม่ได้ระบุ",
         submit: "ยอมรับและส่งคำขอ",
@@ -202,7 +241,13 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
       results: {
         unavailableTitle: "อุปกรณ์เพิ่งถูกยืมไป",
         unavailableBody:
-          "ขออภัย อุปกรณ์ชิ้นนี้เพิ่งถูกยืมไปโดยผู้อื่นก่อนที่คำขอของคุณจะเสร็จสมบูรณ์ ลองตรวจสอบรายการอุปกรณ์อีกครั้งในภายหลัง",
+          "ขออภัย อุปกรณ์ชิ้นนี้เพิ่งถูกยืมไปโดยผู้อื่นก่อนที่คำขอของคุณจะเสร็จสมบูรณ์ ลองเลือกช่วงวันที่อื่นหรือตรวจสอบรายการอุปกรณ์อีกครั้งในภายหลัง",
+        blocklistedTitle: "ไม่สามารถส่งคำขอได้",
+        blocklistedBody:
+          "บัญชีของคุณไม่สามารถส่งคำขอยืมอุปกรณ์ได้ในขณะนี้ กรุณาติดต่อ BIRSA เพื่อขอทราบรายละเอียดเพิ่มเติม",
+        limitExceededTitle: "คุณมีคำขอยืมอุปกรณ์ค้างอยู่เกินจำนวนที่กำหนด",
+        limitExceededBody:
+          "กรุณาคืนหรือรอผลคำขอที่ค้างอยู่ก่อน จึงจะสามารถส่งคำขอใหม่ได้ ติดต่อ BIRSA หากต้องการความช่วยเหลือ",
         notConfiguredTitle: "ระบบส่งคำขอออนไลน์กำลังอยู่ระหว่างการเตรียมการ",
         notConfiguredBody: "กรุณาติดต่อ BIRSA โดยตรงเพื่อขอยืมอุปกรณ์ผ่านหน้า",
         contactLink: "ติดต่อ BIRSA",
@@ -251,20 +296,31 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
       errorRequired: "Enter your email address",
       errorInvalid: "Enter an email address in the correct format, like name@example.com",
     },
-    pickup: {
-      question: "When do you want to collect the item",
-      hint: `Choose the date you will collect it from the BIRSA office. Maximum loan length is ${maxDays} day(s).`,
-      errorRequired: "Enter the date you want to collect the item",
-      errorInvalid: "Enter a valid date",
-      errorPast: "The pickup date cannot be in the past",
+    phone: {
+      question: "What is your phone number",
+      hint: "Optional. Used if BIRSA needs to reach you urgently about this request.",
+      errorInvalid: "Enter a valid phone number",
     },
-    returnStep: {
-      question: "When will you return the item",
-      hint: `Must be within ${maxDays} day(s) of the pickup date.`,
-      errorRequired: "Enter the date you will return the item",
-      errorInvalid: "Enter a valid date",
-      errorBeforePickup: "The return date must be on or after the pickup date",
+    dates: {
+      title: "When do you need to borrow it",
+      startQuestion: "Date you will collect the item",
+      startHint: `Choose the date you will collect it from the BIRSA office. Maximum loan length is ${maxDays} day(s).`,
+      endQuestion: "Date you will return the item",
+      endHint: `Must be within ${maxDays} day(s) of the collection date.`,
+      errorStartRequired: "Enter the date you want to collect the item",
+      errorStartInvalid: "Enter a valid date",
+      errorStartPast: "The collection date cannot be in the past",
+      errorEndRequired: "Enter the date you will return the item",
+      errorEndInvalid: "Enter a valid date",
+      errorEndBeforeStart: "The return date must be on or after the collection date",
       errorTooLong: `The loan period cannot exceed ${maxDays} day(s)`,
+      checkCta: "Check availability",
+      checking: "Checking availability...",
+      availableTemplate: "{count} unit(s) available for your dates",
+      noneFreeTitle: "Nothing is free for those dates",
+      noneFreeBody: "Try a different date range and check again.",
+      checkErrorTitle: "Could not check availability",
+      checkErrorBody: "Something went wrong while checking. Please try again.",
     },
     reason: {
       question: "What will you use it for",
@@ -277,8 +333,10 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
       nameLabel: "Full name",
       studentIdLabel: "Student ID",
       emailLabel: "Email address",
-      pickupLabel: "Pickup date",
-      returnLabel: "Return date",
+      phoneLabel: "Phone number",
+      phoneEmpty: "Not given",
+      startDateLabel: "Collection date",
+      endDateLabel: "Return date",
       reasonLabel: "Reason for borrowing",
       reasonEmpty: "Not given",
       submit: "Accept and send request",
@@ -298,7 +356,13 @@ export function buildLoanWizardLabels(locale: Locale, item: EquipmentItem): Loan
     results: {
       unavailableTitle: "This item was just borrowed",
       unavailableBody:
-        "Sorry, someone else's request for this item went through just before yours. Check the equipment list again later to see when it is free.",
+        "Sorry, someone else's request for this item went through just before yours. Try a different date range, or check the equipment list again later.",
+      blocklistedTitle: "We cannot accept this request",
+      blocklistedBody:
+        "Your account is currently unable to request equipment loans. Please contact BIRSA for more details.",
+      limitExceededTitle: "You have too many open loan requests",
+      limitExceededBody:
+        "Please wait for an existing request to be returned or decided before sending a new one. Contact BIRSA if you need help.",
       notConfiguredTitle: "Online requests are still being set up",
       notConfiguredBody: "Please contact BIRSA directly to request this item through the",
       contactLink: "contact page",

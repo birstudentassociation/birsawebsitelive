@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { getEquipmentItem, getItemAvailability } from "@/lib/equipment-loan";
+import { getItemByKey, getItemAvailabilitySummary } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -18,8 +18,8 @@ export async function generateMetadata({
   const { lang, item: itemKey } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const item = getEquipmentItem(itemKey);
-  if (!item) return {};
+  const item = await getItemByKey(itemKey);
+  if (!item || item.isRetired) return {};
 
   const title =
     locale === "th" ? `ขอยืม${item.name.th}` : `Request to borrow the ${item.name.en.toLowerCase()}`;
@@ -77,10 +77,10 @@ export default async function EquipmentLoanRequestPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
 
-  const item = getEquipmentItem(itemKey);
-  if (!item) notFound();
+  const item = await getItemByKey(itemKey);
+  if (!item || item.isRetired) notFound();
 
-  const availability = await getItemAvailability(itemKey);
+  const availability = await getItemAvailabilitySummary(item);
   const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
 
   const breadcrumbs = (
@@ -96,7 +96,7 @@ export default async function EquipmentLoanRequestPage({
     />
   );
 
-  if (availability.available <= 0 && availability.configured) {
+  if (availability.available <= 0) {
     return (
       <>
         <PageHeader title={item.name[locale]} breadcrumbs={breadcrumbs} />

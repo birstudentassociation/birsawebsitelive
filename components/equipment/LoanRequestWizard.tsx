@@ -7,18 +7,17 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
-import { loanRequestSchema } from "@/lib/validation";
+import { inventoryLoanRequestSchema } from "@/lib/validation";
 import { localeHref, type Locale } from "@/lib/i18n";
-import type { EquipmentItem } from "@/content/services/equipment";
-import type { LoanWizardLabels, LoanWizardStep } from "@/components/equipment/loanWizardCopy";
+import type { LoanWizardItem, LoanWizardLabels, LoanWizardStep } from "@/components/equipment/loanWizardCopy";
 
 export type LoanRequestWizardProps = {
-  item: EquipmentItem;
+  item: LoanWizardItem;
   locale: Locale;
   labels: LoanWizardLabels;
 };
 
-type FieldName = "studentName" | "studentId" | "studentEmail" | "pickupDate" | "returnDate" | "reason";
+type FieldName = "studentName" | "studentId" | "studentEmail" | "phone" | "startDate" | "endDate" | "reason";
 
 type Values = Record<FieldName, string> & { nickname: string };
 
@@ -29,8 +28,17 @@ type SubmitState =
   | { status: "pending" }
   | { status: "success"; reference: string }
   | { status: "unavailable" }
+  | { status: "blocklisted" }
+  | { status: "limit-exceeded" }
   | { status: "not-configured" }
   | { status: "rate-limited" }
+  | { status: "error" };
+
+type DatesAvailability =
+  | { status: "idle" }
+  | { status: "checking" }
+  | { status: "checked"; available: number }
+  | { status: "unavailable" }
   | { status: "error" };
 
 // Steps that count towards the visible "Step X of Y" progress indicator.
@@ -39,15 +47,15 @@ const QUESTION_STEPS: LoanWizardStep[] = [
   "name",
   "studentId",
   "email",
-  "pickup",
-  "return",
+  "phone",
+  "dates",
   "reason",
   "check",
 ];
 
 // Base object schema without the cross-field refine, so individual fields
 // can be validated one at a time as the user moves through the wizard.
-const baseSchema = loanRequestSchema.innerType();
+const baseSchema = inventoryLoanRequestSchema.innerType();
 
 function todayISO(): string {
   const now = new Date();
@@ -68,16 +76,17 @@ const SERVER_FIELD_TO_STEP: Record<string, LoanWizardStep> = {
   studentName: "name",
   studentId: "studentId",
   studentEmail: "email",
-  pickupDate: "pickup",
-  returnDate: "return",
+  phone: "phone",
+  startDate: "dates",
+  endDate: "dates",
   reason: "reason",
 };
 
 /**
  * GOV.UK-style one-question-per-page loan request flow: a "before you begin"
- * screen, one field per screen, a check-your-answers summary, then a
- * confirmation panel showing the reference number. All state lives in React;
- * the API is only called once, on final submit.
+ * screen, one field per screen (a combined start/end date-range step checks
+ * live availability before letting the user continue), a check-your-answers
+ * summary, then a confirmation panel showing the reference number.
  */
 export default function LoanRequestWizard({ item, locale, labels }: LoanRequestWizardProps) {
   const formId = useId();
@@ -86,13 +95,15 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
     studentName: "",
     studentId: "",
     studentEmail: "",
-    pickupDate: "",
-    returnDate: "",
+    phone: "",
+    startDate: "",
+    endDate: "",
     reason: "",
     nickname: "",
   });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
+  const [datesAvailability, setDatesAvailability] = useState<DatesAvailability>({ status: "idle" });
 
   const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
   const contactHref = localeHref(locale, "/contact");
@@ -114,14 +125,14 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       case "email":
         setStep("studentId");
         return;
-      case "pickup":
+      case "phone":
         setStep("email");
         return;
-      case "return":
-        setStep("pickup");
+      case "dates":
+        setStep("phone");
         return;
       case "reason":
-        setStep("return");
+        setStep("dates");
         return;
       case "check":
         setStep("reason");
@@ -173,45 +184,83 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
     return true;
   }
 
-  function validatePickup(): boolean {
-    const value = values.pickupDate;
+  function validatePhone(): boolean {
+    const value = values.phone.trim();
     if (value.length === 0) {
-      setErrors((prev) => ({ ...prev, pickupDate: labels.pickup.errorRequired }));
+      setErrors((prev) => ({ ...prev, phone: undefined }));
+      return true;
+    }
+    if (!baseSchema.shape.phone.safeParse(value).success) {
+      setErrors((prev) => ({ ...prev, phone: labels.phone.errorInvalid }));
       return false;
     }
-    if (!baseSchema.shape.pickupDate.safeParse(value).success) {
-      setErrors((prev) => ({ ...prev, pickupDate: labels.pickup.errorInvalid }));
-      return false;
-    }
-    if (value < todayISO()) {
-      setErrors((prev) => ({ ...prev, pickupDate: labels.pickup.errorPast }));
-      return false;
-    }
-    setErrors((prev) => ({ ...prev, pickupDate: undefined }));
+    setErrors((prev) => ({ ...prev, phone: undefined }));
     return true;
   }
 
-  function validateReturn(): boolean {
-    const value = values.returnDate;
-    if (value.length === 0) {
-      setErrors((prev) => ({ ...prev, returnDate: labels.returnStep.errorRequired }));
-      return false;
+  function validateDates(): boolean {
+    let ok = true;
+    const start = values.startDate;
+    const end = values.endDate;
+
+    if (start.length === 0) {
+      setErrors((prev) => ({ ...prev, startDate: labels.dates.errorStartRequired }));
+      ok = false;
+    } else if (!baseSchema.shape.startDate.safeParse(start).success) {
+      setErrors((prev) => ({ ...prev, startDate: labels.dates.errorStartInvalid }));
+      ok = false;
+    } else if (start < todayISO()) {
+      setErrors((prev) => ({ ...prev, startDate: labels.dates.errorStartPast }));
+      ok = false;
+    } else {
+      setErrors((prev) => ({ ...prev, startDate: undefined }));
     }
-    if (!baseSchema.shape.returnDate.safeParse(value).success) {
-      setErrors((prev) => ({ ...prev, returnDate: labels.returnStep.errorInvalid }));
-      return false;
+
+    if (end.length === 0) {
+      setErrors((prev) => ({ ...prev, endDate: labels.dates.errorEndRequired }));
+      ok = false;
+    } else if (!baseSchema.shape.endDate.safeParse(end).success) {
+      setErrors((prev) => ({ ...prev, endDate: labels.dates.errorEndInvalid }));
+      ok = false;
+    } else if (start.length > 0 && end < start) {
+      setErrors((prev) => ({ ...prev, endDate: labels.dates.errorEndBeforeStart }));
+      ok = false;
+    } else if (start.length > 0 && end > addDaysISO(start, item.maxLoanDays)) {
+      setErrors((prev) => ({ ...prev, endDate: labels.dates.errorTooLong }));
+      ok = false;
+    } else {
+      setErrors((prev) => ({ ...prev, endDate: undefined }));
     }
-    if (value < values.pickupDate) {
-      setErrors((prev) => ({ ...prev, returnDate: labels.returnStep.errorBeforePickup }));
-      return false;
+
+    return ok;
+  }
+
+  async function checkDatesAvailability() {
+    setDatesAvailability({ status: "checking" });
+    try {
+      const params = new URLSearchParams({
+        itemKey: item.key,
+        start: values.startDate,
+        end: values.endDate,
+      });
+      const response = await fetch(`/api/loans/availability?${params.toString()}`);
+      const body = (await response.json()) as {
+        ok: boolean;
+        available?: number;
+      };
+      if (!body.ok) {
+        setDatesAvailability({ status: "error" });
+        return;
+      }
+      const available = body.available ?? 0;
+      if (available > 0) {
+        setDatesAvailability({ status: "checked", available });
+      } else {
+        setDatesAvailability({ status: "unavailable" });
+      }
+    } catch {
+      setDatesAvailability({ status: "error" });
     }
-    const latestReturn = addDaysISO(values.pickupDate, item.maxLoanDays);
-    if (value > latestReturn) {
-      setErrors((prev) => ({ ...prev, returnDate: labels.returnStep.errorTooLong }));
-      return false;
-    }
-    setErrors((prev) => ({ ...prev, returnDate: undefined }));
-    return true;
   }
 
   function handleStepSubmit(event: FormEvent<HTMLFormElement>, current: LoanWizardStep) {
@@ -230,15 +279,20 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       return;
     }
     if (current === "email") {
-      if (validateEmail()) setStep("pickup");
+      if (validateEmail()) setStep("phone");
       return;
     }
-    if (current === "pickup") {
-      if (validatePickup()) setStep("return");
+    if (current === "phone") {
+      if (validatePhone()) setStep("dates");
       return;
     }
-    if (current === "return") {
-      if (validateReturn()) setStep("reason");
+    if (current === "dates") {
+      if (datesAvailability.status === "checked" && datesAvailability.available > 0) {
+        setStep("reason");
+        return;
+      }
+      if (!validateDates()) return;
+      void checkDatesAvailability();
       return;
     }
     if (current === "reason") {
@@ -255,7 +309,7 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
     setSubmitState({ status: "pending" });
 
     try {
-      const response = await fetch("/api/equipment-loan/request", {
+      const response = await fetch("/api/loans/request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -263,8 +317,9 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
           studentName: values.studentName.trim(),
           studentId: values.studentId.trim(),
           studentEmail: values.studentEmail.trim(),
-          pickupDate: values.pickupDate,
-          returnDate: values.returnDate,
+          phone: values.phone.trim(),
+          startDate: values.startDate,
+          endDate: values.endDate,
           reason: values.reason.trim(),
           nickname: values.nickname,
         }),
@@ -300,6 +355,14 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
         setSubmitState({ status: "unavailable" });
         return;
       }
+      if (body.reason === "blocklisted") {
+        setSubmitState({ status: "blocklisted" });
+        return;
+      }
+      if (body.reason === "limit-exceeded") {
+        setSubmitState({ status: "limit-exceeded" });
+        return;
+      }
       if (body.reason === "not-configured") {
         setSubmitState({ status: "not-configured" });
         return;
@@ -330,6 +393,30 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
         body={<p>{labels.results.unavailableBody}</p>}
         actionHref={catalogueHref}
         actionLabel={labels.results.backToCatalogue}
+      />
+    );
+  }
+
+  if (submitState.status === "blocklisted") {
+    return (
+      <ResultPanel
+        variant="error"
+        title={labels.results.blocklistedTitle}
+        body={<p>{labels.results.blocklistedBody}</p>}
+        actionHref={contactHref}
+        actionLabel={labels.results.contactLink}
+      />
+    );
+  }
+
+  if (submitState.status === "limit-exceeded") {
+    return (
+      <ResultPanel
+        variant="warning"
+        title={labels.results.limitExceededTitle}
+        body={<p>{labels.results.limitExceededBody}</p>}
+        actionHref={contactHref}
+        actionLabel={labels.results.contactLink}
       />
     );
   }
@@ -438,6 +525,23 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
   }
 
   const progress = stepProgress(step);
+  const datesChecked = datesAvailability.status === "checked" && datesAvailability.available > 0;
+  const datesChecking = datesAvailability.status === "checking";
+
+  const primaryLabel =
+    step === "check"
+      ? submitState.status === "pending"
+        ? labels.check.submitting
+        : labels.check.submit
+      : step === "dates"
+        ? datesChecking
+          ? labels.dates.checking
+          : datesChecked
+            ? labels.common.continueLabel
+            : labels.dates.checkCta
+        : labels.common.continueLabel;
+
+  const primaryDisabled = submitState.status === "pending" || (step === "dates" && datesChecking);
 
   return (
     <form onSubmit={(event) => handleStepSubmit(event, step)} noValidate className="flex flex-col gap-6">
@@ -511,46 +615,87 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
         </>
       ) : null}
 
-      {step === "pickup" ? (
+      {step === "phone" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["pickupDate"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.pickup.question}</h1>
+          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["phone"])} />
+          <h1 className="font-display text-2xl sm:text-3xl">{labels.phone.question}</h1>
           <Field
-            id={fieldId("pickupDate")}
-            name="pickupDate"
-            type="date"
-            label={labels.pickup.question}
-            hint={labels.pickup.hint}
-            required
-            requiredLabel={labels.common.required}
-            value={values.pickupDate}
-            onChange={(event) => setValue("pickupDate", event.target.value)}
-            error={errors.pickupDate}
-            min={todayISO()}
+            id={fieldId("phone")}
+            name="phone"
+            type="tel"
+            label={labels.phone.question}
+            hint={labels.phone.hint}
+            optionalLabel={labels.common.optional}
+            value={values.phone}
+            onChange={(event) => setValue("phone", event.target.value)}
+            error={errors.phone}
+            autoComplete="tel"
             autoFocus
           />
         </>
       ) : null}
 
-      {step === "return" ? (
+      {step === "dates" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["returnDate"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.returnStep.question}</h1>
+          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["startDate", "endDate"])} />
+          <h1 className="font-display text-2xl sm:text-3xl">{labels.dates.title}</h1>
           <Field
-            id={fieldId("returnDate")}
-            name="returnDate"
+            id={fieldId("startDate")}
+            name="startDate"
             type="date"
-            label={labels.returnStep.question}
-            hint={labels.returnStep.hint}
+            label={labels.dates.startQuestion}
+            hint={labels.dates.startHint}
             required
             requiredLabel={labels.common.required}
-            value={values.returnDate}
-            onChange={(event) => setValue("returnDate", event.target.value)}
-            error={errors.returnDate}
-            min={values.pickupDate || todayISO()}
-            max={values.pickupDate ? addDaysISO(values.pickupDate, item.maxLoanDays) : undefined}
+            value={values.startDate}
+            onChange={(event) => {
+              setValue("startDate", event.target.value);
+              setDatesAvailability({ status: "idle" });
+            }}
+            error={errors.startDate}
+            min={todayISO()}
             autoFocus
           />
+          <Field
+            id={fieldId("endDate")}
+            name="endDate"
+            type="date"
+            label={labels.dates.endQuestion}
+            hint={labels.dates.endHint}
+            required
+            requiredLabel={labels.common.required}
+            value={values.endDate}
+            onChange={(event) => {
+              setValue("endDate", event.target.value);
+              setDatesAvailability({ status: "idle" });
+            }}
+            error={errors.endDate}
+            min={values.startDate || todayISO()}
+            max={values.startDate ? addDaysISO(values.startDate, item.maxLoanDays) : undefined}
+          />
+
+          {datesChecking ? (
+            <p role="status" aria-live="polite" className="text-muted text-sm">
+              {labels.dates.checking}
+            </p>
+          ) : null}
+          {datesAvailability.status === "checked" ? (
+            <Notice variant="success">
+              <p role="status">
+                {labels.dates.availableTemplate.replace("{count}", String(datesAvailability.available))}
+              </p>
+            </Notice>
+          ) : null}
+          {datesAvailability.status === "unavailable" ? (
+            <Notice variant="warning" title={labels.dates.noneFreeTitle}>
+              <p role="status">{labels.dates.noneFreeBody}</p>
+            </Notice>
+          ) : null}
+          {datesAvailability.status === "error" ? (
+            <Notice variant="error" title={labels.dates.checkErrorTitle}>
+              <p role="status">{labels.dates.checkErrorBody}</p>
+            </Notice>
+          ) : null}
         </>
       ) : null}
 
@@ -601,15 +746,21 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
               changeLabel={labels.common.change}
             />
             <SummaryRow
-              label={labels.check.pickupLabel}
-              value={values.pickupDate}
-              onChange={() => setStep("pickup")}
+              label={labels.check.phoneLabel}
+              value={values.phone.trim() || labels.check.phoneEmpty}
+              onChange={() => setStep("phone")}
               changeLabel={labels.common.change}
             />
             <SummaryRow
-              label={labels.check.returnLabel}
-              value={values.returnDate}
-              onChange={() => setStep("return")}
+              label={labels.check.startDateLabel}
+              value={values.startDate}
+              onChange={() => setStep("dates")}
+              changeLabel={labels.common.change}
+            />
+            <SummaryRow
+              label={labels.check.endDateLabel}
+              value={values.endDate}
+              onChange={() => setStep("dates")}
               changeLabel={labels.common.change}
             />
             <SummaryRow
@@ -637,12 +788,8 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       ) : null}
 
       <div>
-        <Button type="submit" disabled={submitState.status === "pending"}>
-          {step === "check"
-            ? submitState.status === "pending"
-              ? labels.check.submitting
-              : labels.check.submit
-            : labels.common.continueLabel}
+        <Button type="submit" disabled={primaryDisabled}>
+          {primaryLabel}
         </Button>
         <span role="status" aria-live="polite" className="sr-only">
           {submitState.status === "pending" ? labels.check.submitting : ""}

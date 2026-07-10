@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { equipmentItems, getItemAvailability, isLoanBackendConfigured } from "@/lib/equipment-loan";
+import { listItems, getItemAvailabilitySummary } from "@/lib/inventory/items";
+import { listCategories } from "@/lib/inventory/categories";
+import { isInventoryConfigured } from "@/lib/inventory/db";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Card from "@/components/Card";
@@ -39,10 +41,14 @@ const copy: Record<
     contactLink: string;
     availableLabel: (available: number, total: number) => string;
     unavailableLabel: string;
-    storageLabel: string;
     maxLoanLabel: (days: number) => string;
     requestCta: string;
     unavailableCta: string;
+    categoryLabel: string;
+    allCategories: string;
+    filterNav: string;
+    clearFilters: string;
+    noResults: string;
   }
 > = {
   en: {
@@ -61,10 +67,14 @@ const copy: Record<
     contactLink: "Contact BIRSA",
     availableLabel: (available, total) => `Available (${available} of ${total})`,
     unavailableLabel: "On loan / unavailable",
-    storageLabel: "Storage location",
     maxLoanLabel: (days) => `Borrow for up to ${days} day(s)`,
     requestCta: "Request to borrow",
-    unavailableCta: "Currently on loan",
+    unavailableCta: "Currently unavailable",
+    categoryLabel: "Category",
+    allCategories: "All categories",
+    filterNav: "Filter equipment",
+    clearFilters: "Clear filters",
+    noResults: "No equipment matched this category.",
   },
   th: {
     title: "บริการยืมอุปกรณ์",
@@ -82,10 +92,14 @@ const copy: Record<
     contactLink: "ติดต่อ BIRSA",
     availableLabel: (available, total) => `พร้อมให้ยืม (${available} จาก ${total})`,
     unavailableLabel: "ถูกยืมอยู่ / ไม่พร้อมให้ยืม",
-    storageLabel: "สถานที่จัดเก็บ",
     maxLoanLabel: (days) => `ยืมได้สูงสุด ${days} วัน`,
     requestCta: "ขอยืมอุปกรณ์นี้",
-    unavailableCta: "ถูกยืมอยู่ในขณะนี้",
+    unavailableCta: "ไม่พร้อมให้ยืมในขณะนี้",
+    categoryLabel: "หมวดหมู่",
+    allCategories: "ทุกหมวดหมู่",
+    filterNav: "ตัวกรองอุปกรณ์",
+    clearFilters: "ล้างตัวกรอง",
+    noResults: "ไม่พบอุปกรณ์ในหมวดหมู่นี้",
   },
 };
 
@@ -115,22 +129,49 @@ function UnavailableIcon() {
 
 export default async function EquipmentLoanPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<{ category?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
-  const configured = isLoanBackendConfigured();
+  const configured = isInventoryConfigured();
+  const { category: categorySlug } = await searchParams;
+
+  const [allItems, categories] = await Promise.all([listItems(), listCategories()]);
+  const categoriesById = new Map(categories.map((c) => [c.id, c]));
+
+  // Only offer categories that actually have at least one (non-retired) item.
+  const usedCategoryIds = new Set(allItems.map((item) => item.categoryId).filter((id): id is string => Boolean(id)));
+  const availableCategories = categories.filter((c) => usedCategoryIds.has(c.id));
+
+  const selectedCategory = categorySlug ? categories.find((c) => c.slug === categorySlug) : undefined;
+  const filteredItems = selectedCategory
+    ? allItems.filter((item) => item.categoryId === selectedCategory.id)
+    : allItems;
 
   const items = await Promise.all(
-    equipmentItems.map(async (item) => ({
+    filteredItems.map(async (item) => ({
       item,
-      availability: await getItemAvailability(item.key),
+      availability: await getItemAvailabilitySummary(item),
     }))
   );
+
+  function buildHref(nextCategorySlug: string | undefined): string {
+    const params = new URLSearchParams();
+    if (nextCategorySlug) params.set("category", nextCategorySlug);
+    const qs = params.toString();
+    return localeHref(locale, "/information-services/equipment-loan") + (qs ? `?${qs}` : "");
+  }
+
+  const filterTagBase =
+    "inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors";
+  const filterTagInactive = "border-line bg-surface text-ink hover:bg-sunken";
+  const filterTagActive = "border-brand bg-brand text-white";
 
   return (
     <>
@@ -179,49 +220,90 @@ export default async function EquipmentLoanPage({
           </Notice>
         ) : null}
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ item, availability }) => {
-            const isAvailable = availability.available > 0;
-            const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
-            return (
-              <Card key={item.key} className="gap-3 p-6">
-                <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                  {item.category[locale]}
-                </span>
-                <h3 className="font-display text-ink text-lg leading-snug">{item.name[locale]}</h3>
-                <p className="text-muted text-sm leading-relaxed">{item.description[locale]}</p>
-
-                <div className="mt-1 flex items-center gap-2 text-sm font-semibold">
-                  {isAvailable ? <AvailableIcon /> : <UnavailableIcon />}
-                  <span className={isAvailable ? "text-success" : "text-error"}>
-                    {isAvailable ? t.availableLabel(availability.available, availability.total) : t.unavailableLabel}
-                  </span>
-                </div>
-
-                <dl className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                  <div>
-                    <dt className="text-ink inline font-semibold">{t.storageLabel}: </dt>
-                    <dd className="inline">{item.storageLocation[locale]}</dd>
-                  </div>
-                  <div>{t.maxLoanLabel(item.maxLoanDays)}</div>
-                </dl>
-
-                <div className="mt-2">
-                  {isAvailable ? (
-                    <Button href={requestHref}>{t.requestCta}</Button>
-                  ) : (
-                    <span
-                      aria-disabled="true"
-                      className="border-line text-muted inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+        {availableCategories.length > 0 ? (
+          <nav aria-label={t.filterNav} className="flex flex-col gap-4">
+            <div>
+              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{t.categoryLabel}</p>
+              <ul className="flex flex-wrap gap-2">
+                <li>
+                  <a
+                    href={buildHref(undefined)}
+                    aria-current={!selectedCategory ? "true" : undefined}
+                    className={`${filterTagBase} ${!selectedCategory ? filterTagActive : filterTagInactive}`}
+                  >
+                    {t.allCategories}
+                  </a>
+                </li>
+                {availableCategories.map((c) => (
+                  <li key={c.id}>
+                    <a
+                      href={buildHref(c.slug)}
+                      aria-current={selectedCategory?.id === c.id ? "true" : undefined}
+                      className={`${filterTagBase} ${selectedCategory?.id === c.id ? filterTagActive : filterTagInactive}`}
                     >
-                      {t.unavailableCta}
+                      {c.name[locale]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {selectedCategory ? (
+              <a
+                href={buildHref(undefined)}
+                className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+              >
+                {t.clearFilters}
+              </a>
+            ) : null}
+          </nav>
+        ) : null}
+
+        {items.length > 0 ? (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map(({ item, availability }) => {
+              const isAvailable = availability.available > 0;
+              const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
+              const categoryName = item.categoryId ? categoriesById.get(item.categoryId)?.name[locale] : undefined;
+              return (
+                <Card key={item.key} className="gap-3 p-6">
+                  {categoryName ? (
+                    <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                      {categoryName}
                     </span>
-                  )}
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+                  ) : null}
+                  <h3 className="font-display text-ink text-lg leading-snug">{item.name[locale]}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{item.description[locale]}</p>
+
+                  <div className="mt-1 flex items-center gap-2 text-sm font-semibold">
+                    {isAvailable ? <AvailableIcon /> : <UnavailableIcon />}
+                    <span className={isAvailable ? "text-success" : "text-error"}>
+                      {isAvailable ? t.availableLabel(availability.available, availability.total) : t.unavailableLabel}
+                    </span>
+                  </div>
+
+                  <dl className="text-muted mt-1 flex flex-col gap-1 text-sm">
+                    <div>{t.maxLoanLabel(item.maxLoanDays)}</div>
+                  </dl>
+
+                  <div className="mt-2">
+                    {isAvailable ? (
+                      <Button href={requestHref}>{t.requestCta}</Button>
+                    ) : (
+                      <span
+                        aria-disabled="true"
+                        className="border-line text-muted inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+                      >
+                        {t.unavailableCta}
+                      </span>
+                    )}
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="text-muted">{t.noResults}</p>
+        )}
       </div>
     </>
   );
