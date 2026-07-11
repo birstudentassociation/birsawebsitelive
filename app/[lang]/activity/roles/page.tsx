@@ -13,14 +13,14 @@ function PortraitPlaceholder() {
   return (
     <div
       aria-hidden="true"
-      className="bg-sunken border-line flex h-14 w-14 shrink-0 items-center justify-center rounded-full border"
+      className="bg-sunken border-line flex aspect-[3/4] w-full items-center justify-center border-b"
     >
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth={1.5}
-        className="text-muted h-7 w-7"
+        className="text-muted h-16 w-16"
       >
         <circle cx="12" cy="8" r="3.5" />
         <path d="M4.5 20c1.4-3.8 4.7-6 7.5-6s6.1 2.2 7.5 6" strokeLinecap="round" />
@@ -103,30 +103,30 @@ export default async function ActivityRolesPage({
                   return (
                     <li
                       key={member.key}
-                      className="bg-surface border-line flex flex-col gap-3 rounded-lg border p-4 shadow-sm"
+                      className="bg-surface border-line flex flex-col gap-3 overflow-hidden rounded-lg border shadow-sm"
                     >
-                      <div className="flex items-center gap-3">
-                        {portraitSrc ? (
-                          <Image
-                            src={portraitSrc}
-                            alt=""
-                            width={112}
-                            height={112}
-                            className="border-line h-14 w-14 shrink-0 rounded-full border object-cover"
-                          />
-                        ) : (
-                          <PortraitPlaceholder />
-                        )}
-                        <div className="min-w-0">
+                      {portraitSrc ? (
+                        <Image
+                          src={portraitSrc}
+                          alt=""
+                          width={360}
+                          height={480}
+                          className="aspect-[3/4] w-full object-cover"
+                        />
+                      ) : (
+                        <PortraitPlaceholder />
+                      )}
+                      <div className="flex flex-col gap-3 px-4 pb-4">
+                        <div>
                           <p className="text-ink font-semibold">
                             {m.firstName} {m.lastName} ({m.nickname})
                           </p>
                           <p className="text-muted text-sm">{m.title}</p>
                         </div>
+                        {description ? (
+                          <p className="text-muted text-sm leading-relaxed">{description}</p>
+                        ) : null}
                       </div>
-                      {description ? (
-                        <p className="text-muted text-sm leading-relaxed">{description}</p>
-                      ) : null}
                     </li>
                   );
                 })}
