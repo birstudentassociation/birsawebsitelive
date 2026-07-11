@@ -25,10 +25,13 @@ const copy: Record<
   {
     title: string;
     lede: string;
+    aboutHeading: string;
     rolesTitle: string;
     rolesSummary: string;
+    governanceHeading: string;
     regsTitle: string;
     regsSummary: string;
+    connectHeading: string;
     newsTitle: string;
     newsSummary: string;
   }
@@ -36,20 +39,26 @@ const copy: Record<
   en: {
     title: "BIRSA activity",
     lede: "What BIRSA is, how it's run, and how to reach us: officer roles, student regulations, transparency documents, the BIR programme, contact details, and the latest news and events.",
+    aboutHeading: "About BIRSA",
     rolesTitle: "Officer roles",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
+    governanceHeading: "Governance & transparency",
     regsTitle: "Student regulations and rules",
     regsSummary: "The University's regulations on student activities and discipline, plus the Faculty Notice, set out provision by provision.",
+    connectHeading: "Connect",
     newsTitle: "News",
     newsSummary: "BIRSA's latest news and upcoming events.",
   },
   th: {
     title: "การดำเนินงานของ BIRSA",
     lede: "BIRSA คือใคร ดำเนินงานอย่างไร และติดต่อได้ที่ไหน ตั้งแต่บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส หลักสูตร BIR ช่องทางติดต่อ ไปจนถึงข่าวสารกิจกรรมล่าสุด",
+    aboutHeading: "เกี่ยวกับ BIRSA",
     rolesTitle: "บทบาทหน้าที่ของคณะกรรมการ",
     rolesSummary: "ใครอยู่ในคณะกรรมการ BIRSA บ้าง และแต่ละตำแหน่งรับผิดชอบเรื่องอะไร",
+    governanceHeading: "การกำกับดูแลและความโปร่งใส",
     regsTitle: "ระเบียบและข้อบังคับนักศึกษา",
     regsSummary: "ข้อบังคับมหาวิทยาลัยว่าด้วยกิจกรรมนักศึกษาและวินัยนักศึกษา และประกาศคณะ จัดเรียงเป็นรายข้อ",
+    connectHeading: "ช่องทางติดต่อ",
     newsTitle: "ข่าวและกิจกรรม",
     newsSummary: "ข่าวสารล่าสุดและกิจกรรมที่กำลังจะมาถึงของ BIRSA",
   },
@@ -63,6 +72,26 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const t = copy[locale];
 
   const entries = getEntries("activity", locale);
+  const findEntry = (slug: string) => entries.find((entry) => entry.slug === slug);
+
+  const entryCard = (entry: (typeof entries)[number]) => {
+    const href = localeHref(locale, `/activity/${entry.slug}`);
+    return (
+      <Card key={entry.slug} href={href}>
+        <CardTitle href={href}>{entry.frontmatter.title}</CardTitle>
+        <p className="text-muted text-sm leading-relaxed">{entry.frontmatter.summary}</p>
+      </Card>
+    );
+  };
+
+  const birsaEntry = findEntry("birsa");
+  const programmeEntry = findEntry("bir-programme");
+  const transparencyEntry = findEntry("transparency");
+  const contactEntry = findEntry("contact");
+
+  const rolesHref = localeHref(locale, "/activity/roles");
+  const regsHref = localeHref(locale, "/activity/regulations");
+  const newsHref = localeHref(locale, "/news");
 
   return (
     <>
@@ -78,55 +107,43 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {(() => {
-            const rolesHref = localeHref(locale, "/activity/roles");
-            return (
-              <Card href={rolesHref}>
-                <CardTitle href={rolesHref} as="h2">
-                  {t.rolesTitle}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{t.rolesSummary}</p>
-              </Card>
-            );
-          })()}
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.aboutHeading}</h2>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {birsaEntry ? entryCard(birsaEntry) : null}
 
-          {(() => {
-            const regsHref = localeHref(locale, "/activity/regulations");
-            return (
-              <Card href={regsHref}>
-                <CardTitle href={regsHref} as="h2">
-                  {t.regsTitle}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{t.regsSummary}</p>
-              </Card>
-            );
-          })()}
+            <Card href={rolesHref}>
+              <CardTitle href={rolesHref}>{t.rolesTitle}</CardTitle>
+              <p className="text-muted text-sm leading-relaxed">{t.rolesSummary}</p>
+            </Card>
 
-          {entries.map((entry) => {
-            const href = localeHref(locale, `/activity/${entry.slug}`);
-            return (
-              <Card key={entry.slug} href={href}>
-                <CardTitle href={href} as="h2">
-                  {entry.frontmatter.title}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{entry.frontmatter.summary}</p>
-              </Card>
-            );
-          })}
+            {programmeEntry ? entryCard(programmeEntry) : null}
+          </div>
+        </section>
 
-          {(() => {
-            const newsHref = localeHref(locale, "/news");
-            return (
-              <Card href={newsHref}>
-                <CardTitle href={newsHref} as="h2">
-                  {t.newsTitle}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{t.newsSummary}</p>
-              </Card>
-            );
-          })()}
-        </div>
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.governanceHeading}</h2>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <Card href={regsHref}>
+              <CardTitle href={regsHref}>{t.regsTitle}</CardTitle>
+              <p className="text-muted text-sm leading-relaxed">{t.regsSummary}</p>
+            </Card>
+
+            {transparencyEntry ? entryCard(transparencyEntry) : null}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.connectHeading}</h2>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {contactEntry ? entryCard(contactEntry) : null}
+
+            <Card href={newsHref}>
+              <CardTitle href={newsHref}>{t.newsTitle}</CardTitle>
+              <p className="text-muted text-sm leading-relaxed">{t.newsSummary}</p>
+            </Card>
+          </div>
+        </section>
       </div>
     </>
   );

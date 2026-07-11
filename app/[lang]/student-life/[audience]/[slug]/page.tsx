@@ -61,7 +61,7 @@ const labels: Record<
 > = {
   en: {
     studentLife: "Information & services",
-    tracks: { home: "For home students", international: "For international students" },
+    tracks: { home: "Student life & culture guides", international: "For international students" },
     updated: "Last updated",
     onThisPage: "On this page",
     prevNextNav: "Previous and next sections",
@@ -71,13 +71,13 @@ const labels: Record<
     helpBody: "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
     helpCta: "Tell BIRSA",
     back: {
-      home: "Back to the home student guide",
+      home: "Back to the student life & culture guides",
       international: "Back to the international student guide",
     },
   },
   th: {
     studentLife: "ข้อมูลและบริการ",
-    tracks: { home: "สำหรับนักศึกษาไทย", international: "สำหรับนักศึกษาต่างชาติ" },
+    tracks: { home: "คู่มือชีวิตนักศึกษาและวัฒนธรรม", international: "สำหรับนักศึกษาต่างชาติ" },
     updated: "อัปเดตล่าสุด",
     onThisPage: "ในหน้านี้",
     prevNextNav: "หัวข้อก่อนหน้าและถัดไป",
@@ -87,7 +87,7 @@ const labels: Record<
     helpBody: "บอก BIRSA ได้เลย เราจะตรวจสอบให้ คู่มือนี้เขียนและดูแลโดยนักศึกษาด้วยกัน",
     helpCta: "แจ้ง BIRSA",
     back: {
-      home: "กลับไปคู่มือสำหรับนักศึกษาไทย",
+      home: "กลับไปคู่มือชีวิตนักศึกษาและวัฒนธรรม",
       international: "กลับไปคู่มือสำหรับนักศึกษาต่างชาติ",
     },
   },

@@ -1,11 +1,33 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { findPortrait } from "@/lib/committee-portrait";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { committee, committeeGroupLabels, type CommitteeGroup } from "@/content/committee";
 import { roleDescriptions } from "@/content/activity/roleInfo";
+
+function PortraitPlaceholder() {
+  return (
+    <div
+      aria-hidden="true"
+      className="bg-sunken border-line flex h-14 w-14 shrink-0 items-center justify-center rounded-full border"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        className="text-muted h-7 w-7"
+      >
+        <circle cx="12" cy="8" r="3.5" />
+        <path d="M4.5 20c1.4-3.8 4.7-6 7.5-6s6.1 2.2 7.5 6" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -77,17 +99,33 @@ export default async function ActivityRolesPage({
                 {members.map((member) => {
                   const m = member[locale];
                   const description = roleDescriptions[member.key]?.[locale];
+                  const portraitSrc = findPortrait(member.key);
                   return (
                     <li
                       key={member.key}
-                      className="bg-surface border-line flex flex-col gap-1 rounded-lg border p-4 shadow-sm"
+                      className="bg-surface border-line flex flex-col gap-3 rounded-lg border p-4 shadow-sm"
                     >
-                      <p className="text-ink font-semibold">
-                        {m.firstName} {m.lastName} ({m.nickname})
-                      </p>
-                      <p className="text-muted text-sm">{m.title}</p>
+                      <div className="flex items-center gap-3">
+                        {portraitSrc ? (
+                          <Image
+                            src={portraitSrc}
+                            alt=""
+                            width={112}
+                            height={112}
+                            className="border-line h-14 w-14 shrink-0 rounded-full border object-cover"
+                          />
+                        ) : (
+                          <PortraitPlaceholder />
+                        )}
+                        <div className="min-w-0">
+                          <p className="text-ink font-semibold">
+                            {m.firstName} {m.lastName} ({m.nickname})
+                          </p>
+                          <p className="text-muted text-sm">{m.title}</p>
+                        </div>
+                      </div>
                       {description ? (
-                        <p className="text-muted mt-2 text-sm leading-relaxed">{description}</p>
+                        <p className="text-muted text-sm leading-relaxed">{description}</p>
                       ) : null}
                     </li>
                   );

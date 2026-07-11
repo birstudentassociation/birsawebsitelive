@@ -102,9 +102,13 @@ export default function HeaderNavClient({
             />
           )}
         </svg>
-        {/* Text hides on the narrowest screens (icon-only, aria-label above
-            keeps the name) so the header reflows at 320px. */}
-        <span className="hidden min-[400px]:inline">{open ? closeLabel : openLabel}</span>
+        {/* Icon-only until md: the right-hand cluster is shrink-0, and below md
+            it already carries the search, theme, language and (from sm) the
+            Quick-actions CTA. Adding a text label here tips the row past the
+            content edge — worst at exactly 640px, where the CTA and full
+            language label appear together. The aria-label keeps the accessible
+            name; the text returns at md, where there's comfortable room. */}
+        <span className="hidden md:inline">{open ? closeLabel : openLabel}</span>
       </button>
 
       {open ? (

@@ -10,22 +10,9 @@
  * ("Committee structure") heading in the MDX, so heading order stays
  * sequential (h2 -> h3).
  */
-import fs from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import { committee, committeeGroupLabels, type CommitteeGroup } from "@/content/committee";
-
-const PORTRAIT_EXTENSIONS = ["webp", "jpg", "jpeg", "png"] as const;
-
-function findPortrait(key: string): string | null {
-  for (const ext of PORTRAIT_EXTENSIONS) {
-    const filePath = path.join(process.cwd(), "public", "committee", `${key}.${ext}`);
-    if (fs.existsSync(filePath)) {
-      return `/committee/${key}.${ext}`;
-    }
-  }
-  return null;
-}
+import { findPortrait } from "@/lib/committee-portrait";
 
 function PortraitPlaceholder() {
   return (

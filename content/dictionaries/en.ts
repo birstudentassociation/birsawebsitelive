@@ -22,9 +22,9 @@ export const en = {
 
   nav: [
     { href: "/news", label: "What's on" },
-    { href: "/activity", label: "BIRSA activity" },
-    { href: "/clubs", label: "Clubs" },
     { href: "/information-services", label: "Information & services" },
+    { href: "/clubs", label: "Clubs" },
+    { href: "/activity", label: "BIRSA activity" },
   ],
   headerCta: { href: "/quick", label: "Quick actions" },
 

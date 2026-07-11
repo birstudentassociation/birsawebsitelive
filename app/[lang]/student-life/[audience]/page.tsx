@@ -48,8 +48,8 @@ const copy: Record<
     updated: "Updated",
     tracks: {
       home: {
-        title: "For home students",
-        lede: "Practical, everyday guidance for Thai students at BIR. Pick a topic below to get started.",
+        title: "Student life & culture guides",
+        lede: "Practical, everyday guidance for all BIR students, plus course reviews and the kind of non-obvious, culturally-enriching knowledge you only pick up from someone who's already been through it. Pick a topic below to get started.",
       },
       international: {
         title: "For international students",
@@ -62,8 +62,8 @@ const copy: Record<
     updated: "อัปเดตล่าสุด",
     tracks: {
       home: {
-        title: "สำหรับนักศึกษาไทย",
-        lede: "คำแนะนำที่ใช้ได้จริงในชีวิตประจำวันของนักศึกษาไทยที่ BIR เลือกหัวข้อด้านล่างเพื่อเริ่มอ่าน",
+        title: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
+        lede: "คำแนะนำที่ใช้ได้จริงในชีวิตประจำวันสำหรับนักศึกษา BIR ทุกคน พร้อมรีวิวรายวิชาและเกร็ดความรู้ด้านวัฒนธรรมที่ไม่ค่อยมีใครพูดถึง เลือกหัวข้อด้านล่างเพื่อเริ่มอ่าน",
       },
       international: {
         title: "สำหรับนักศึกษาต่างชาติ",

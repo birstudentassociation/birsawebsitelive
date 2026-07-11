@@ -22,9 +22,9 @@ export const th: typeof en = {
 
   nav: [
     { href: "/news", label: "ข่าวและกิจกรรม" },
-    { href: "/activity", label: "การดำเนินงานของ BIRSA" },
-    { href: "/clubs", label: "ชมรม" },
     { href: "/information-services", label: "ข้อมูลและบริการ" },
+    { href: "/clubs", label: "ชมรม" },
+    { href: "/activity", label: "การดำเนินงานของ BIRSA" },
   ],
   headerCta: { href: "/quick", label: "ทางลัด" },
 
