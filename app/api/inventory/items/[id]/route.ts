@@ -1,18 +1,21 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
-import { updateItem } from "@/lib/inventory/items";
+import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
+import { getItem, updateItem } from "@/lib/inventory/items";
+import { getCustodian } from "@/lib/inventory/custodians";
 import { recordAudit } from "@/lib/inventory/audit";
 
 const bilingualSchema = z.object({ en: z.string(), th: z.string() });
 
 const updateItemSchema = z.object({
   categoryId: z.string().nullable().optional(),
+  custodianId: z.string().optional(),
   name: bilingualSchema.optional(),
   description: bilingualSchema.optional(),
   defaultLocationId: z.string().nullable().optional(),
   maxLoanDays: z.number().optional(),
+  onlineLoanable: z.boolean().optional(),
   qtyOnHand: z.number().nullable().optional(),
   reorderThreshold: z.number().nullable().optional(),
   photoUrl: z.string().nullable().optional(),
@@ -51,7 +54,26 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     );
   }
 
-  const result = await updateItem(id, parsed.data);
+  const item = await getItem(id);
+  if (!item) {
+    return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
+  }
+  if (!canManageCustodian(auth.officer, item.custodianId)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
+  }
+
+  const patch = { ...parsed.data };
+  if (auth.officer.custodianId !== null) {
+    // Scoped club custodian: may not reassign an item to another club.
+    delete patch.custodianId;
+  } else if (patch.custodianId) {
+    const custodian = await getCustodian(patch.custodianId);
+    if (!custodian) {
+      return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
+    }
+  }
+
+  const result = await updateItem(id, patch);
   if (!result.ok) {
     const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
@@ -62,7 +84,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     action: "item.update",
     entityType: "item",
     entityId: result.item.id,
-    detail: parsed.data,
+    detail: patch,
   });
 
   return NextResponse.json({ ok: true, item: result.item }, { status: 200 });
@@ -80,6 +102,14 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   const { id } = await params;
+
+  const item = await getItem(id);
+  if (!item) {
+    return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
+  }
+  if (!canManageCustodian(auth.officer, item.custodianId)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
+  }
 
   const result = await updateItem(id, { isRetired: true });
   if (!result.ok) {

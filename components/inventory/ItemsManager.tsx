@@ -17,12 +17,14 @@ import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import { localeHref, type Locale } from "@/lib/i18n";
-import type { Category, Item, Location, Role, TrackingMode } from "@/lib/inventory/types";
+import type { Category, Custodian, Item, Location, Role, TrackingMode } from "@/lib/inventory/types";
 
 export type ItemsManagerProps = {
   items: Item[];
   categories: Category[];
   locations: Location[];
+  custodians: Custodian[];
+  scopedCustodianId: string | null;
   role: Role;
   locale: Locale;
 };
@@ -83,6 +85,12 @@ type Copy = {
   qtyLabel: (qty: number) => string;
   noCategory: string;
   viewDetail: string;
+  ownerLabel: string;
+  allOwners: string;
+  ownerFieldLabel: string;
+  onlineLoanableLabel: string;
+  onlineTag: string;
+  notOnlineTag: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -143,6 +151,12 @@ const copy: Record<Locale, Copy> = {
     qtyLabel: (qty) => `${qty} on hand`,
     noCategory: "Uncategorised",
     viewDetail: "View",
+    ownerLabel: "Owner",
+    allOwners: "All owners",
+    ownerFieldLabel: "Owner",
+    onlineLoanableLabel: "Available to request online",
+    onlineTag: "Online",
+    notOnlineTag: "Not online",
   },
   th: {
     search: "ค้นหา",
@@ -201,6 +215,12 @@ const copy: Record<Locale, Copy> = {
     qtyLabel: (qty) => `คงเหลือ ${qty}`,
     noCategory: "ไม่มีหมวดหมู่",
     viewDetail: "ดูรายละเอียด",
+    ownerLabel: "เจ้าของ",
+    allOwners: "เจ้าของทั้งหมด",
+    ownerFieldLabel: "เจ้าของ",
+    onlineLoanableLabel: "เปิดให้ยืมผ่านระบบออนไลน์",
+    onlineTag: "ออนไลน์",
+    notOnlineTag: "ไม่ออนไลน์",
   },
 };
 
@@ -216,21 +236,27 @@ type FormState = {
   maxLoanDays: string;
   qtyOnHand: string;
   reorderThreshold: string;
+  custodianId: string;
+  onlineLoanable: boolean;
 };
 
-const emptyForm: FormState = {
-  key: "",
-  categoryId: "",
-  nameEn: "",
-  nameTh: "",
-  descriptionEn: "",
-  descriptionTh: "",
-  trackingMode: "asset",
-  defaultLocationId: "",
-  maxLoanDays: "7",
-  qtyOnHand: "0",
-  reorderThreshold: "",
-};
+function buildEmptyForm(defaultCustodianId: string): FormState {
+  return {
+    key: "",
+    categoryId: "",
+    nameEn: "",
+    nameTh: "",
+    descriptionEn: "",
+    descriptionTh: "",
+    trackingMode: "asset",
+    defaultLocationId: "",
+    maxLoanDays: "7",
+    qtyOnHand: "0",
+    reorderThreshold: "",
+    custodianId: defaultCustodianId,
+    onlineLoanable: false,
+  };
+}
 
 type CreateResponse = {
   ok: boolean;
@@ -246,6 +272,8 @@ export default function ItemsManager({
   items: initialItems,
   categories,
   locations,
+  custodians,
+  scopedCustodianId,
   role,
   locale,
 }: ItemsManagerProps) {
@@ -253,13 +281,22 @@ export default function ItemsManager({
   const canWrite = CAN_WRITE.includes(role);
   const formId = useId();
 
+  const custodianById = useMemo(() => new Map(custodians.map((c) => [c.id, c])), [custodians]);
+  const activeCustodians = useMemo(() => custodians.filter((c) => c.isActive), [custodians]);
+  const defaultCustodianId = useMemo(() => {
+    const birsa = activeCustodians.find((c) => c.kind === "birsa");
+    return birsa?.id ?? activeCustodians[0]?.id ?? "";
+  }, [activeCustodians]);
+  const isGlobal = scopedCustodianId === null;
+
   const [items, setItems] = useState<Item[]>(initialItems);
   const [query, setQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<"all" | "active" | "retired">("active");
 
   const [formOpen, setFormOpen] = useState(false);
-  const [form, setForm] = useState<FormState>(emptyForm);
+  const [form, setForm] = useState<FormState>(() => buildEmptyForm(defaultCustodianId));
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -311,18 +348,21 @@ export default function ItemsManager({
             ? item.isRetired
             : !item.isRetired;
       const matchesCategory = categoryFilter === "all" || item.categoryId === categoryFilter;
+      const matchesOwner =
+        !isGlobal || ownerFilter === "all" || item.custodianId === ownerFilter;
       const matchesQuery =
         q.length === 0 ||
         item.key.toLowerCase().includes(q) ||
         item.name.en.toLowerCase().includes(q) ||
         item.name.th.toLowerCase().includes(q);
-      return matchesStatus && matchesCategory && matchesQuery;
+      return matchesStatus && matchesCategory && matchesOwner && matchesQuery;
     });
-  }, [items, query, categoryFilter, statusFilter]);
+  }, [items, query, categoryFilter, ownerFilter, statusFilter, isGlobal]);
 
   function clearFilters() {
     setQuery("");
     setCategoryFilter("all");
+    setOwnerFilter("all");
     setStatusFilter("active");
   }
 
@@ -352,7 +392,7 @@ export default function ItemsManager({
 
     setSubmitting(true);
     try {
-      const body = {
+      const body: Record<string, unknown> = {
         key: form.key.trim(),
         categoryId: form.categoryId || undefined,
         name: { en: form.nameEn.trim(), th: form.nameTh.trim() },
@@ -365,7 +405,11 @@ export default function ItemsManager({
           form.trackingMode === "consumable" && form.reorderThreshold.trim() !== ""
             ? Number(form.reorderThreshold)
             : null,
+        onlineLoanable: form.onlineLoanable,
       };
+      if (isGlobal && form.custodianId) {
+        body.custodianId = form.custodianId;
+      }
 
       const response = await fetch("/api/inventory/items", {
         method: "POST",
@@ -379,7 +423,7 @@ export default function ItemsManager({
         setItems((prev) =>
           [...prev, createdItem].sort((a, b) => a.name.en.localeCompare(b.name.en))
         );
-        setForm(emptyForm);
+        setForm(buildEmptyForm(defaultCustodianId));
         setFormOpen(false);
         setSuccessMessage(t.createdMessage);
         return;
@@ -524,6 +568,30 @@ export default function ItemsManager({
               ))}
             </select>
           </div>
+
+          {isGlobal ? (
+            <div className="max-w-xs">
+              <label
+                htmlFor={`${formId}-owner-filter`}
+                className="text-ink mb-1.5 block text-sm font-semibold"
+              >
+                {t.ownerLabel}
+              </label>
+              <select
+                id={`${formId}-owner-filter`}
+                value={ownerFilter}
+                onChange={(event) => setOwnerFilter(event.target.value)}
+                className="focus-halo border-input-border bg-surface text-ink h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+              >
+                <option value="all">{t.allOwners}</option>
+                {custodians.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name[locale]}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ) : null}
 
           <div
             role="radiogroup"
@@ -685,7 +753,31 @@ export default function ItemsManager({
               onChange={(event) => updateForm("maxLoanDays", event.target.value)}
               error={fieldErrors.maxLoanDays}
             />
+            {isGlobal ? (
+              <Field
+                id={`${formId}-custodianId`}
+                name="custodianId"
+                as="select"
+                label={t.ownerFieldLabel}
+                required
+                requiredLabel={t.required}
+                value={form.custodianId}
+                onChange={(event) => updateForm("custodianId", event.target.value)}
+                options={activeCustodians.map((c) => ({ value: c.id, label: c.name[locale] }))}
+                error={fieldErrors.custodianId}
+              />
+            ) : null}
           </div>
+
+          <label className="focus-halo border-input-border has-checked:border-brand has-checked:bg-brand-tint flex min-h-11 w-fit items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+            <input
+              type="checkbox"
+              checked={form.onlineLoanable}
+              onChange={(event) => updateForm("onlineLoanable", event.target.checked)}
+              className="h-5 w-5 rounded border-input-border"
+            />
+            {t.onlineLoanableLabel}
+          </label>
 
           <fieldset className="flex flex-col gap-2">
             <legend className="text-ink text-sm font-semibold">{t.trackingModeLabel}</legend>
@@ -762,6 +854,7 @@ export default function ItemsManager({
         <ul className="flex flex-col gap-3">
           {filtered.map((item) => {
             const category = item.categoryId ? categoryById.get(item.categoryId) : undefined;
+            const owner = custodianById.get(item.custodianId);
             const message = rowMessage?.id === item.id ? rowMessage : null;
             const busy = rowBusy === item.id;
             return (
@@ -789,6 +882,10 @@ export default function ItemsManager({
                       <Tag variant="neutral">{t.qtyLabel(item.qtyOnHand ?? 0)}</Tag>
                     ) : null}
                     <Tag variant="neutral">{category ? category.name[locale] : t.noCategory}</Tag>
+                    {owner ? <Tag variant="neutral">{owner.name[locale]}</Tag> : null}
+                    <Tag variant={item.onlineLoanable ? "forest" : "neutral"}>
+                      {item.onlineLoanable ? t.onlineTag : t.notOnlineTag}
+                    </Tag>
                     {item.isRetired ? <Tag variant="forest">{t.retiredTag}</Tag> : null}
                   </div>
                 </div>

@@ -2,29 +2,31 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { requireRole } from "@/lib/inventory/auth";
-import { listOfficers, createOfficer } from "@/lib/inventory/officers";
-import { getCustodian } from "@/lib/inventory/custodians";
+import { listCustodians, createCustodian } from "@/lib/inventory/custodians";
 import { recordAudit } from "@/lib/inventory/audit";
 
-const createOfficerSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(1).max(120),
-  role: z.enum(["admin", "inventory_manager", "loan_officer", "read_only"]),
-  passcode: z.string().min(6).max(200),
-  custodianId: z.string().nullable().optional(),
+const bilingualSchema = z.object({ en: z.string(), th: z.string() });
+
+const createCustodianSchema = z.object({
+  slug: z.string().min(1),
+  kind: z.enum(["birsa", "club"]),
+  name: bilingualSchema,
+  contactName: bilingualSchema.optional(),
+  contactEmail: z.string().nullable().optional(),
+  contactInstagram: z.string().nullable().optional(),
+  contactOther: z.string().nullable().optional(),
+  borrowNote: bilingualSchema.optional(),
+  sortOrder: z.number().optional(),
 });
 
 export async function GET() {
-  const auth = await requireRole(["admin"]);
+  const auth = await requireRole(["admin", "inventory_manager", "loan_officer", "read_only"]);
   if (!auth.ok) {
     return NextResponse.json({ ok: false }, { status: auth.status });
   }
-  if (auth.officer.custodianId !== null) {
-    return NextResponse.json({ ok: false }, { status: 403 });
-  }
 
-  const officers = await listOfficers();
-  return NextResponse.json({ ok: true, officers }, { status: 200 });
+  const custodians = await listCustodians({ includeInactive: true });
+  return NextResponse.json({ ok: true, custodians }, { status: 200 });
 }
 
 export async function POST(request: Request) {
@@ -48,7 +50,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
-  const parsed = createOfficerSchema.safeParse(body);
+  const parsed = createCustodianSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
@@ -56,14 +58,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (parsed.data.custodianId) {
-    const custodian = await getCustodian(parsed.data.custodianId);
-    if (!custodian) {
-      return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
-    }
-  }
-
-  const result = await createOfficer(parsed.data);
+  const result = await createCustodian(parsed.data);
   if (!result.ok) {
     const status = result.reason === "not-configured" ? 200 : result.reason === "duplicate" ? 409 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
@@ -71,11 +66,11 @@ export async function POST(request: Request) {
 
   await recordAudit({
     officerId: auth.officer.id,
-    action: "officer.create",
-    entityType: "officer",
-    entityId: result.officer.id,
-    detail: { email: result.officer.email, role: result.officer.role },
+    action: "custodian.create",
+    entityType: "custodian",
+    entityId: result.custodian.id,
+    detail: result.custodian,
   });
 
-  return NextResponse.json({ ok: true, officer: result.officer }, { status: 200 });
+  return NextResponse.json({ ok: true, custodian: result.custodian }, { status: 200 });
 }

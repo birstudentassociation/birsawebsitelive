@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
-import { closeMaintenance } from "@/lib/inventory/maintenance";
+import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
+import { closeMaintenance, getMaintenanceEntry } from "@/lib/inventory/maintenance";
+import { getUnit } from "@/lib/inventory/units";
+import { getItem } from "@/lib/inventory/items";
 import { recordAudit } from "@/lib/inventory/audit";
 
 const closeMaintenanceSchema = z.object({
@@ -40,6 +42,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
       { status: 400 }
     );
+  }
+
+  const entry = await getMaintenanceEntry(id);
+  if (!entry) {
+    return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
+  }
+  const unit = await getUnit(entry.unitId);
+  const ownerItem = unit ? await getItem(unit.itemId) : null;
+  if (!ownerItem || !canManageCustodian(auth.officer, ownerItem.custodianId)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
   }
 
   const result = await closeMaintenance(id, { ...parsed.data, officerId: auth.officer.id });

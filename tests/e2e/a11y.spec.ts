@@ -28,6 +28,7 @@ const publicPaths = [
   "/student-life/home/food-and-budgeting",
   "/information-services",
   "/information-services/equipment-loan", // DB-degraded "not configured" state
+  "/information-services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/information-services/equipment-loan/status", // status lookup form
 ];
 
@@ -41,6 +42,8 @@ const pages = [
   // tests (see tests/unit/inventory-a11y.test.tsx).
   "/en/officer/inventory",
   "/th/officer/inventory",
+  "/en/officer/inventory/custodians",
+  "/th/officer/inventory/custodians",
 ];
 
 for (const path of pages) {

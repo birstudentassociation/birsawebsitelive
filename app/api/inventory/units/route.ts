@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
+import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
 import { listUnits, createUnit } from "@/lib/inventory/units";
+import { getItem } from "@/lib/inventory/items";
 import { recordAudit } from "@/lib/inventory/audit";
 import type { UnitState } from "@/lib/inventory/types";
 
@@ -59,6 +60,14 @@ export async function POST(request: Request) {
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
       { status: 400 }
     );
+  }
+
+  const ownerItem = await getItem(parsed.data.itemId);
+  if (!ownerItem) {
+    return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
+  }
+  if (!canManageCustodian(auth.officer, ownerItem.custodianId)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
   }
 
   const result = await createUnit(parsed.data);

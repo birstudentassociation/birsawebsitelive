@@ -26,6 +26,7 @@ type OfficerRow = {
   name: string;
   role: Role;
   passcode_hash: string | null;
+  custodian_id: string | null;
   is_active: boolean;
   created_at: string;
   last_login_at: string | null;
@@ -38,6 +39,7 @@ function mapOfficer(row: OfficerRow): Officer {
     email: row.email,
     name: row.name,
     role: row.role,
+    custodianId: row.custodian_id,
     isActive: row.is_active,
     createdAt: row.created_at,
     lastLoginAt: row.last_login_at,
@@ -217,4 +219,9 @@ export async function requireRole(
     return { ok: false, status: 403 };
   }
   return { ok: true, officer };
+}
+
+/** True if `officer` may act on an item/unit owned by `targetCustodianId`. Global (null-scope) officers may act on anything. */
+export function canManageCustodian(officer: Officer, targetCustodianId: string | null): boolean {
+  return officer.custodianId === null || officer.custodianId === targetCustodianId;
 }

@@ -20,6 +20,7 @@ import { formatDate, type Locale } from "@/lib/i18n";
 import type {
   Category,
   ConsumableAdjustment,
+  Custodian,
   Item,
   Location,
   Role,
@@ -34,6 +35,8 @@ export type ItemDetailProps = {
   units: Unit[];
   categories: Category[];
   locations: Location[];
+  custodians: Custodian[];
+  scopedCustodianId: string | null;
   role: Role;
   locale: Locale;
   adjustments?: ConsumableAdjustment[];
@@ -51,6 +54,11 @@ type Copy = {
   retiredTag: string;
   assetTag: string;
   consumableTag: string;
+  ownerLabel: string;
+  ownerFieldLabel: string;
+  onlineLoanableLabel: string;
+  onlineTag: string;
+  notOnlineTag: string;
 
   photoTitle: string;
   photoAltLabel: (name: string) => string;
@@ -151,6 +159,11 @@ const copy: Record<Locale, Copy> = {
     retiredTag: "Retired",
     assetTag: "Asset",
     consumableTag: "Consumable",
+    ownerLabel: "Owner",
+    ownerFieldLabel: "Owner",
+    onlineLoanableLabel: "Available to request online",
+    onlineTag: "Online",
+    notOnlineTag: "Not online",
 
     photoTitle: "Photo",
     photoAltLabel: (name) => `Photo of ${name}`,
@@ -256,6 +269,11 @@ const copy: Record<Locale, Copy> = {
     retiredTag: "เลิกใช้แล้ว",
     assetTag: "ครุภัณฑ์",
     consumableTag: "วัสดุสิ้นเปลือง",
+    ownerLabel: "เจ้าของ",
+    ownerFieldLabel: "เจ้าของ",
+    onlineLoanableLabel: "เปิดให้ยืมผ่านระบบออนไลน์",
+    onlineTag: "ออนไลน์",
+    notOnlineTag: "ไม่ออนไลน์",
 
     photoTitle: "รูปภาพ",
     photoAltLabel: (name) => `รูปภาพของ ${name}`,
@@ -435,6 +453,8 @@ export default function ItemDetail({
   units: initialUnits,
   categories,
   locations,
+  custodians,
+  scopedCustodianId,
   role,
   locale,
   adjustments: initialAdjustments = [],
@@ -443,6 +463,8 @@ export default function ItemDetail({
   const t = copy[locale];
   const canWrite = CAN_WRITE.includes(role);
   const formId = useId();
+  const isGlobal = scopedCustodianId === null;
+  const activeCustodians = custodians.filter((c) => c.isActive);
 
   const [item, setItem] = useState<Item>(initialItem);
   const [units, setUnits] = useState<Unit[]>(initialUnits);
@@ -450,6 +472,8 @@ export default function ItemDetail({
   const [openMaintenanceEntryByUnit, setOpenMaintenanceEntryByUnit] = useState<
     Record<string, string>
   >({});
+
+  const owner = custodians.find((c) => c.id === item.custodianId);
 
   // --- Edit item details ---
   const [editForm, setEditForm] = useState({
@@ -461,6 +485,8 @@ export default function ItemDetail({
     defaultLocationId: item.defaultLocationId ?? "",
     maxLoanDays: String(item.maxLoanDays),
     reorderThreshold: item.reorderThreshold != null ? String(item.reorderThreshold) : "",
+    custodianId: item.custodianId,
+    onlineLoanable: item.onlineLoanable,
   });
   const [editErrors, setEditErrors] = useState<Record<string, string>>({});
   const [editError, setEditError] = useState<string | null>(null);
@@ -526,10 +552,14 @@ export default function ItemDetail({
         categoryId: editForm.categoryId || null,
         defaultLocationId: editForm.defaultLocationId || null,
         maxLoanDays: Number(editForm.maxLoanDays),
+        onlineLoanable: editForm.onlineLoanable,
       };
       if (item.trackingMode === "consumable") {
         body.reorderThreshold =
           editForm.reorderThreshold.trim() !== "" ? Number(editForm.reorderThreshold) : null;
+      }
+      if (isGlobal && editForm.custodianId) {
+        body.custodianId = editForm.custodianId;
       }
 
       const response = await fetch(`/api/inventory/items/${item.id}`, {
@@ -762,12 +792,19 @@ export default function ItemDetail({
               {t.availabilityLabel(availability.available, availability.total)}
             </Pill>
           ) : null}
+          <Pill className={item.onlineLoanable ? "bg-forest-tint text-forest" : "bg-sunken text-muted"}>
+            {item.onlineLoanable ? t.onlineTag : t.notOnlineTag}
+          </Pill>
         </div>
 
         <dl className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
           <div>
             <dt className="text-muted font-semibold">{t.keyLabel}</dt>
             <dd className="text-ink">{item.key}</dd>
+          </div>
+          <div>
+            <dt className="text-muted font-semibold">{t.ownerLabel}</dt>
+            <dd className="text-ink">{owner ? owner.name[locale] : ""}</dd>
           </div>
           <div>
             <dt className="text-muted font-semibold">{t.categoryLabel}</dt>
@@ -943,7 +980,34 @@ export default function ItemDetail({
                   }
                 />
               ) : null}
+              {isGlobal ? (
+                <Field
+                  id={`${formId}-edit-custodianId`}
+                  name="custodianId"
+                  as="select"
+                  label={t.ownerFieldLabel}
+                  required
+                  requiredLabel={t.required}
+                  value={editForm.custodianId}
+                  onChange={(event) =>
+                    setEditForm((prev) => ({ ...prev, custodianId: event.target.value }))
+                  }
+                  options={activeCustodians.map((c) => ({ value: c.id, label: c.name[locale] }))}
+                />
+              ) : null}
             </div>
+
+            <label className="focus-halo border-input-border has-checked:border-brand has-checked:bg-brand-tint flex min-h-11 w-fit items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+              <input
+                type="checkbox"
+                checked={editForm.onlineLoanable}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, onlineLoanable: event.target.checked }))
+                }
+                className="h-5 w-5 rounded border-input-border"
+              />
+              {t.onlineLoanableLabel}
+            </label>
 
             <div>
               <Button type="submit" disabled={editSaving}>

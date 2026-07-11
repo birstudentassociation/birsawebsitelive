@@ -13,6 +13,9 @@ export async function GET(request: Request) {
   if (!auth.ok) {
     return NextResponse.json({ ok: false }, { status: auth.status });
   }
+  if (auth.officer.custodianId !== null) {
+    return NextResponse.json({ ok: false }, { status: 403 });
+  }
 
   const { searchParams } = new URL(request.url);
   const type = searchParams.get("type") ?? "loans";

@@ -17,6 +17,7 @@ type ItemRow = {
   id: string;
   key: string;
   category_id: string | null;
+  custodian_id: string;
   name_en: string;
   name_th: string;
   description_en: string;
@@ -24,6 +25,7 @@ type ItemRow = {
   tracking_mode: TrackingMode;
   default_location_id: string | null;
   max_loan_days: number;
+  online_loanable: boolean;
   photo_url: string | null;
   qty_on_hand: number | null;
   reorder_threshold: number | null;
@@ -38,11 +40,13 @@ function mapItem(row: ItemRow): Item {
     id: row.id,
     key: row.key,
     categoryId: row.category_id,
+    custodianId: row.custodian_id,
     name: { en: row.name_en, th: row.name_th },
     description: { en: row.description_en, th: row.description_th },
     trackingMode: row.tracking_mode,
     defaultLocationId: row.default_location_id,
     maxLoanDays: row.max_loan_days,
+    onlineLoanable: row.online_loanable,
     photoUrl: row.photo_url,
     qtyOnHand: row.qty_on_hand,
     reorderThreshold: row.reorder_threshold,
@@ -155,20 +159,27 @@ export async function listAdjustments(itemId: string): Promise<ConsumableAdjustm
   }
 }
 
-/** Consumable items at or below their reorder threshold. */
-export async function getLowStockItems(): Promise<Item[]> {
+/** Consumable items at or below their reorder threshold. Optionally scoped to one custodian. */
+export async function getLowStockItems(custodianId?: string): Promise<Item[]> {
   if (!isInventoryConfigured()) {
     return [];
   }
 
   try {
-    const result = await sql<ItemRow>`
-      select * from items
-      where tracking_mode = 'consumable'
-        and reorder_threshold is not null
-        and qty_on_hand <= reorder_threshold
-      order by name_en
-    `;
+    const conditions = [
+      "tracking_mode = 'consumable'",
+      "reorder_threshold is not null",
+      "qty_on_hand <= reorder_threshold",
+    ];
+    const params: unknown[] = [];
+
+    if (custodianId) {
+      params.push(custodianId);
+      conditions.push(`custodian_id = $${params.length}`);
+    }
+
+    const text = `select * from items where ${conditions.join(" and ")} order by name_en`;
+    const result = await sql.query<ItemRow>(text, params);
     return result.rows.map(mapItem);
   } catch {
     return [];

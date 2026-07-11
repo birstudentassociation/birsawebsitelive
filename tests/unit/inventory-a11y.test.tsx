@@ -22,12 +22,22 @@ import BorrowersManager from "@/components/inventory/BorrowersManager";
 import BorrowerDetail from "@/components/inventory/BorrowerDetail";
 import OfficersManager from "@/components/inventory/OfficersManager";
 import ReferenceManager from "@/components/inventory/ReferenceManager";
+import CustodiansManager from "@/components/inventory/CustodiansManager";
 import PhotoUpload from "@/components/inventory/PhotoUpload";
 import OfficerLogin from "@/components/inventory/OfficerLogin";
 import StatusPill from "@/components/inventory/StatusPill";
 import { LogoutButton, ConsoleNav } from "@/components/inventory/ConsoleGate";
 
-import type { Borrower, Category, Item, Loan, Location, Officer, Unit } from "@/lib/inventory/types";
+import type {
+  Borrower,
+  Category,
+  Custodian,
+  Item,
+  Loan,
+  Location,
+  Officer,
+  Unit,
+} from "@/lib/inventory/types";
 
 // BorrowersManager and OfficerLogin call `useRouter()` from next/navigation,
 // which throws ("invariant expected app router to be mounted") when rendered
@@ -76,10 +86,41 @@ const location: Location = {
   createdAt: NOW,
 };
 
+const custodian: Custodian = {
+  id: "cust-1",
+  slug: "birsa",
+  kind: "birsa",
+  name: { en: "BIRSA", th: "BIRSA" },
+  contactName: { en: "", th: "" },
+  contactEmail: null,
+  contactInstagram: null,
+  contactOther: null,
+  borrowNote: { en: "", th: "" },
+  isActive: true,
+  sortOrder: 0,
+  createdAt: NOW,
+};
+
+const clubCustodian: Custodian = {
+  id: "cust-2",
+  slug: "bir-basketball",
+  kind: "club",
+  name: { en: "BIR Basketball", th: "บาสเกตบอล BIR" },
+  contactName: { en: "Club captain", th: "หัวหน้าชมรม" },
+  contactEmail: "basketball@example.com",
+  contactInstagram: "birbasketball",
+  contactOther: null,
+  borrowNote: { en: "Message us on Instagram to borrow.", th: "ทักมาทาง Instagram เพื่อยืม" },
+  isActive: true,
+  sortOrder: 3,
+  createdAt: NOW,
+};
+
 const assetItem: Item = {
   id: "item-1",
   key: "TENT-01",
   categoryId: "cat-1",
+  custodianId: "cust-1",
   name: { en: "4-person tent", th: "เต็นท์ 4 คน" },
   description: { en: "A 4-person camping tent.", th: "เต็นท์แคมป์สำหรับ 4 คน" },
   trackingMode: "asset",
@@ -88,6 +129,7 @@ const assetItem: Item = {
   photoUrl: null,
   qtyOnHand: null,
   reorderThreshold: null,
+  onlineLoanable: true,
   isRetired: false,
   createdBy: "officer-1",
   createdAt: NOW,
@@ -98,6 +140,7 @@ const consumableItem: Item = {
   id: "item-2",
   key: "BATT-AA",
   categoryId: null,
+  custodianId: "cust-2",
   name: { en: "AA batteries", th: "ถ่าน AA" },
   description: { en: "Rechargeable AA batteries.", th: "ถ่านชาร์จ AA" },
   trackingMode: "consumable",
@@ -106,6 +149,7 @@ const consumableItem: Item = {
   photoUrl: null,
   qtyOnHand: 24,
   reorderThreshold: 10,
+  onlineLoanable: false,
   isRetired: true,
   createdBy: "officer-1",
   createdAt: NOW,
@@ -151,6 +195,7 @@ const officer: Officer = {
   email: "officer@example.com",
   name: "Officer One",
   role: "admin",
+  custodianId: null,
   isActive: true,
   createdAt: NOW,
   lastLoginAt: NOW,
@@ -161,6 +206,7 @@ const inactiveOfficer: Officer = {
   email: "officer2@example.com",
   name: "Officer Two",
   role: "loan_officer",
+  custodianId: "cust-2",
   isActive: false,
   createdAt: NOW,
   lastLoginAt: null,
@@ -208,6 +254,8 @@ describe("inventory console accessibility (axe)", () => {
         items={[assetItem, consumableItem]}
         categories={[category]}
         locations={[location]}
+        custodians={[custodian, clubCustodian]}
+        scopedCustodianId={null}
         role="admin"
         locale="en"
       />
@@ -259,7 +307,18 @@ describe("inventory console accessibility (axe)", () => {
 
   it("OfficersManager has no axe violations", async () => {
     const { container } = render(
-      <OfficersManager locale="en" officers={[officer, inactiveOfficer]} />
+      <OfficersManager
+        locale="en"
+        officers={[officer, inactiveOfficer]}
+        custodians={[custodian, clubCustodian]}
+      />
+    );
+    await expectNoViolations(container);
+  });
+
+  it("CustodiansManager has no axe violations", async () => {
+    const { container } = render(
+      <CustodiansManager locale="en" custodians={[custodian, clubCustodian]} />
     );
     await expectNoViolations(container);
   });

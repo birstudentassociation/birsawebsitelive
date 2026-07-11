@@ -45,15 +45,34 @@ export type Location = {
   createdAt: string;
 };
 
+export type CustodianKind = "birsa" | "club";
+
+export type Custodian = {
+  id: string;
+  slug: string;
+  kind: CustodianKind;
+  name: Bilingual;
+  contactName: Bilingual;
+  contactEmail: string | null;
+  contactInstagram: string | null;
+  contactOther: string | null;
+  borrowNote: Bilingual;
+  isActive: boolean;
+  sortOrder: number;
+  createdAt: string;
+};
+
 export type Item = {
   id: string;
   key: string;
   categoryId: string | null;
+  custodianId: string;
   name: Bilingual;
   description: Bilingual;
   trackingMode: TrackingMode;
   defaultLocationId: string | null;
   maxLoanDays: number;
+  onlineLoanable: boolean;
   photoUrl: string | null;
   qtyOnHand: number | null;
   reorderThreshold: number | null;
@@ -106,6 +125,7 @@ export type Officer = {
   email: string;
   name: string;
   role: Role;
+  custodianId: string | null;
   isActive: boolean;
   createdAt: string;
   lastLoginAt: string | null;

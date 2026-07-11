@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
-import { updateUnit } from "@/lib/inventory/units";
+import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
+import { getUnit, updateUnit } from "@/lib/inventory/units";
+import { getItem } from "@/lib/inventory/items";
 import { recordAudit } from "@/lib/inventory/audit";
 
 const updateUnitSchema = z
@@ -46,6 +47,15 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
       { status: 400 }
     );
+  }
+
+  const unit = await getUnit(id);
+  if (!unit) {
+    return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
+  }
+  const ownerItem = await getItem(unit.itemId);
+  if (!ownerItem || !canManageCustodian(auth.officer, ownerItem.custodianId)) {
+    return NextResponse.json({ ok: false }, { status: 403 });
   }
 
   const result = await updateUnit(id, parsed.data);

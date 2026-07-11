@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getGuideEntries } from "@/lib/content";
@@ -31,6 +32,8 @@ const copy: Record<
     title: string;
     lede: string;
     equipmentLoan: { eyebrow: string; title: string; description: string; cta: string };
+    directoryLinkLine: string;
+    directoryLinkCta: string;
     servicesHeading: string;
     informationHeading: string;
     informationLede: string;
@@ -58,6 +61,8 @@ const copy: Record<
         "Borrow BIRSA equipment such as the first-aid kit for your event or everyday need.",
       cta: "Request equipment",
     },
+    directoryLinkLine: "Looking for equipment owned by a club instead of BIRSA?",
+    directoryLinkCta: "See the club equipment directory",
     servicesHeading: "Services",
     informationHeading: "Information",
     informationLede:
@@ -98,6 +103,8 @@ const copy: Record<
       description: "ยืมอุปกรณ์ของ BIRSA เช่น ชุดปฐมพยาบาล สำหรับกิจกรรมหรือความจำเป็นในชีวิตประจำวัน",
       cta: "ขอยืมอุปกรณ์",
     },
+    directoryLinkLine: "ตามหาอุปกรณ์ที่เป็นของชมรมแทน BIRSA อยู่หรือเปล่า",
+    directoryLinkCta: "ดูทำเนียบอุปกรณ์ของชมรม",
     servicesHeading: "บริการ",
     informationHeading: "ข้อมูล",
     informationLede:
@@ -143,6 +150,7 @@ export default async function InformationServicesPage({
   const t = copy[locale];
 
   const equipmentHref = localeHref(locale, "/information-services/equipment-loan");
+  const equipmentDirectoryHref = localeHref(locale, "/information-services/equipment-loan/directory");
   const courseReviewsHref = localeHref(locale, "/student-life/home/course-reviews");
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
@@ -180,6 +188,12 @@ export default async function InformationServicesPage({
             </p>
             <span className="text-brand-deep font-semibold">{t.equipmentLoan.cta} &rarr;</span>
           </Card>
+          <p className="text-muted text-sm">
+            {t.directoryLinkLine}{" "}
+            <Link href={equipmentDirectoryHref} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+              {t.directoryLinkCta}
+            </Link>
+          </p>
         </section>
 
         <section className="flex flex-col gap-5">

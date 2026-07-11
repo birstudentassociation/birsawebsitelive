@@ -54,6 +54,8 @@ type Copy = {
   loansLink: string;
   borrowersLink: string;
   officersLink: string;
+  scopedLoansNoticeTitle: string;
+  scopedLoansNoticeBody: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -87,6 +89,9 @@ const copy: Record<Locale, Copy> = {
     loansLink: "Go to loans",
     borrowersLink: "Go to borrowers",
     officersLink: "Go to officers",
+    scopedLoansNoticeTitle: "Loan requests are handled centrally",
+    scopedLoansNoticeBody:
+      "BIRSA officers handle all loan requests. This dashboard shows only your club's low-stock consumables.",
   },
   th: {
     title: "แดชบอร์ด",
@@ -118,6 +123,9 @@ const copy: Record<Locale, Copy> = {
     loansLink: "ไปที่การยืม-คืน",
     borrowersLink: "ไปที่ผู้ยืม",
     officersLink: "ไปที่เจ้าหน้าที่",
+    scopedLoansNoticeTitle: "คำขอยืมดำเนินการโดยส่วนกลาง",
+    scopedLoansNoticeBody:
+      "เจ้าหน้าที่ BIRSA เป็นผู้พิจารณาคำขอยืมทั้งหมด แดชบอร์ดนี้แสดงเฉพาะสต็อกวัสดุสิ้นเปลืองของชมรมคุณที่ใกล้หมด",
   },
 };
 
@@ -173,14 +181,89 @@ export default async function OfficerInventoryDashboardPage({
             {t.dbNotConfiguredBody}
           </Notice>
         ) : (
-          <DashboardBoards locale={locale} t={t} />
+          <DashboardBoards locale={locale} t={t} custodianId={officer.custodianId} />
         )}
       </div>
     </>
   );
 }
 
-async function DashboardBoards({ locale, t }: { locale: Locale; t: Copy }) {
+async function DashboardBoards({
+  locale,
+  t,
+  custodianId,
+}: {
+  locale: Locale;
+  t: Copy;
+  custodianId: string | null;
+}) {
+  if (custodianId !== null) {
+    return <ScopedDashboardBoards locale={locale} t={t} custodianId={custodianId} />;
+  }
+  return <GlobalDashboardBoards locale={locale} t={t} />;
+}
+
+/**
+ * Club custodians only see their own low-stock consumables. The
+ * pending/overdue "needs attention" board and the loans-by-status board are
+ * BIRSA-global (the loan queue is handled centrally), so they're omitted
+ * here in favour of a notice pointing club officers to the catalogue.
+ */
+async function ScopedDashboardBoards({
+  locale,
+  t,
+  custodianId,
+}: {
+  locale: Locale;
+  t: Copy;
+  custodianId: string;
+}) {
+  const lowStock = await getLowStockItems(custodianId);
+
+  return (
+    <div className="flex flex-col gap-10">
+      <Notice variant="info" title={t.scopedLoansNoticeTitle}>
+        {t.scopedLoansNoticeBody}
+      </Notice>
+
+      <section aria-labelledby="low-stock-heading" className="flex flex-col gap-4">
+        <h2 id="low-stock-heading" className="font-display text-ink text-xl">
+          {t.lowStockTitle}
+        </h2>
+        {lowStock.length === 0 ? (
+          <p className="text-muted text-sm">{t.lowStockEmpty}</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {lowStock.map((item) => (
+              <Card key={item.id}>
+                <CardTitle as="h3">{item.name[locale]}</CardTitle>
+                <p className="text-muted text-sm">
+                  {t.lowStockQty(item.qtyOnHand ?? 0, item.reorderThreshold ?? 0)}
+                </p>
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section aria-labelledby="quick-links-heading" className="flex flex-col gap-4">
+        <h2 id="quick-links-heading" className="font-display text-ink text-xl">
+          {t.quickLinksTitle}
+        </h2>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="secondary" href={localeHref(locale, "/officer/inventory/items")}>
+            {t.catalogueLink}
+          </Button>
+          <Button variant="secondary" href={localeHref(locale, "/officer/inventory/borrowers")}>
+            {t.borrowersLink}
+          </Button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy }) {
   const [loans, lowStock] = await Promise.all([listLoans(), getLowStockItems()]);
 
   const counts = new Map<LoanStatus, number>();

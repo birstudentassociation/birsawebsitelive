@@ -58,6 +58,8 @@ type Copy = {
   filterAll: string;
   filterNavLabel: string;
   statusLabels: Record<LoanStatus, string>;
+  scopedNoticeTitle: string;
+  scopedNoticeBody: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -79,6 +81,9 @@ const copy: Record<Locale, Copy> = {
       cancelled: "Cancelled",
       no_show: "No-show",
     },
+    scopedNoticeTitle: "Loan requests are handled by BIRSA officers",
+    scopedNoticeBody:
+      "Your club's items are managed from the Catalogue. BIRSA officers decide, hand off, and check in loan requests centrally.",
   },
   th: {
     title: "คิวคำขอยืม",
@@ -98,6 +103,9 @@ const copy: Record<Locale, Copy> = {
       cancelled: "ยกเลิกแล้ว",
       no_show: "ไม่มารับ",
     },
+    scopedNoticeTitle: "คำขอยืมดำเนินการโดยเจ้าหน้าที่ BIRSA",
+    scopedNoticeBody:
+      "รายการของชมรมคุณจัดการได้ที่หน้ารายการครุภัณฑ์ เจ้าหน้าที่ BIRSA เป็นผู้พิจารณา ส่งมอบ และรับคืนคำขอยืมโดยส่วนกลาง",
   },
 };
 
@@ -136,6 +144,22 @@ export default async function OfficerLoansQueuePage({
           <Notice variant="info" title={t.signInTitle}>
             <p className="mb-3">{t.signInBody}</p>
             <Button href={localeHref(locale, "/officer/inventory")}>{t.signInCta}</Button>
+          </Notice>
+        </div>
+      </>
+    );
+  }
+
+  // The loans queue is BIRSA-global: club custodians manage their own items
+  // from the catalogue, but loan decisions are made centrally by BIRSA
+  // officers.
+  if (officer.custodianId !== null) {
+    return (
+      <>
+        <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
+        <div className="wrap py-10">
+          <Notice variant="info" title={t.scopedNoticeTitle}>
+            {t.scopedNoticeBody}
           </Notice>
         </div>
       </>

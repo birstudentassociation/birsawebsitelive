@@ -20,6 +20,7 @@ type OfficerRow = {
   name: string;
   role: Role;
   passcode_hash: string | null;
+  custodian_id: string | null;
   is_active: boolean;
   created_at: string;
   last_login_at: string | null;
@@ -32,6 +33,7 @@ function mapRow(row: OfficerRow): Officer {
     email: row.email,
     name: row.name,
     role: row.role,
+    custodianId: row.custodian_id,
     isActive: row.is_active,
     createdAt: row.created_at,
     lastLoginAt: row.last_login_at,
@@ -79,6 +81,7 @@ export async function createOfficer(input: {
   name: string;
   role: Role;
   passcode: string;
+  custodianId?: string | null;
 }): Promise<{ ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
@@ -88,8 +91,8 @@ export async function createOfficer(input: {
     const email = input.email.toLowerCase();
     const passcodeHash = hashPasscode(input.passcode);
     const result = await sql<OfficerRow>`
-      insert into officers (email, name, role, passcode_hash)
-      values (${email}, ${input.name}, ${input.role}, ${passcodeHash})
+      insert into officers (email, name, role, passcode_hash, custodian_id)
+      values (${email}, ${input.name}, ${input.role}, ${passcodeHash}, ${input.custodianId ?? null})
       returning *
     `;
     const row = result.rows[0];
@@ -107,7 +110,13 @@ export async function createOfficer(input: {
 
 export async function updateOfficer(
   id: string,
-  patch: Partial<{ name: string; role: Role; isActive: boolean; passcode: string }>
+  patch: Partial<{
+    name: string;
+    role: Role;
+    isActive: boolean;
+    passcode: string;
+    custodianId: string | null;
+  }>
 ): Promise<{ ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
@@ -131,6 +140,7 @@ export async function updateOfficer(
     if (patch.role !== undefined) push("role", patch.role);
     if (patch.isActive !== undefined) push("is_active", patch.isActive);
     if (patch.passcode !== undefined) push("passcode_hash", hashPasscode(patch.passcode));
+    if ("custodianId" in patch) push("custodian_id", patch.custodianId ?? null);
 
     if (setClauses.length === 0) {
       return { ok: true, officer: existing };

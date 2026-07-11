@@ -10,6 +10,7 @@ import OfficersManager from "@/components/inventory/OfficersManager";
 import { getSessionOfficer } from "@/lib/inventory/auth";
 import { isInventoryConfigured } from "@/lib/inventory/db";
 import { listOfficers } from "@/lib/inventory/officers";
+import { listCustodians } from "@/lib/inventory/custodians";
 
 export async function generateMetadata({
   params,
@@ -125,7 +126,11 @@ export default async function OfficerInventoryOfficersPage({
             {t.dbNotConfiguredBody}
           </Notice>
         ) : (
-          <OfficersManager locale={locale} officers={await listOfficers()} />
+          <OfficersManager
+            locale={locale}
+            officers={await listOfficers()}
+            custodians={await listCustodians({ includeInactive: true })}
+          />
         )}
       </div>
     </>

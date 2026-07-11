@@ -2,16 +2,20 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { requireRole } from "@/lib/inventory/auth";
-import { updateOfficer } from "@/lib/inventory/officers";
-import { getCustodian } from "@/lib/inventory/custodians";
+import { updateCustodian } from "@/lib/inventory/custodians";
 import { recordAudit } from "@/lib/inventory/audit";
 
-const updateOfficerSchema = z.object({
-  name: z.string().min(1).max(120).optional(),
-  role: z.enum(["admin", "inventory_manager", "loan_officer", "read_only"]).optional(),
+const bilingualSchema = z.object({ en: z.string(), th: z.string() });
+
+const updateCustodianSchema = z.object({
+  name: bilingualSchema.optional(),
+  contactName: bilingualSchema.optional(),
+  contactEmail: z.string().nullable().optional(),
+  contactInstagram: z.string().nullable().optional(),
+  contactOther: z.string().nullable().optional(),
+  borrowNote: bilingualSchema.optional(),
   isActive: z.boolean().optional(),
-  passcode: z.string().min(6).max(200).optional(),
-  custodianId: z.string().nullable().optional(),
+  sortOrder: z.number().optional(),
 });
 
 export async function GET() {
@@ -41,7 +45,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
-  const parsed = updateOfficerSchema.safeParse(body);
+  const parsed = updateCustodianSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
@@ -49,14 +53,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     );
   }
 
-  if (parsed.data.custodianId) {
-    const custodian = await getCustodian(parsed.data.custodianId);
-    if (!custodian) {
-      return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
-    }
-  }
-
-  const result = await updateOfficer(id, parsed.data);
+  const result = await updateCustodian(id, parsed.data);
   if (!result.ok) {
     const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
@@ -64,11 +61,11 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   await recordAudit({
     officerId: auth.officer.id,
-    action: "officer.update",
-    entityType: "officer",
-    entityId: result.officer.id,
-    detail: { ...parsed.data, passcode: parsed.data.passcode ? "[redacted]" : undefined },
+    action: "custodian.update",
+    entityType: "custodian",
+    entityId: result.custodian.id,
+    detail: parsed.data,
   });
 
-  return NextResponse.json({ ok: true, officer: result.officer }, { status: 200 });
+  return NextResponse.json({ ok: true, custodian: result.custodian }, { status: 200 });
 }

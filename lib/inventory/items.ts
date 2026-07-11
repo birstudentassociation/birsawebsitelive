@@ -14,6 +14,7 @@ type ItemRow = {
   id: string;
   key: string;
   category_id: string | null;
+  custodian_id: string;
   name_en: string;
   name_th: string;
   description_en: string;
@@ -21,6 +22,7 @@ type ItemRow = {
   tracking_mode: TrackingMode;
   default_location_id: string | null;
   max_loan_days: number;
+  online_loanable: boolean;
   photo_url: string | null;
   qty_on_hand: number | null;
   reorder_threshold: number | null;
@@ -35,11 +37,13 @@ function mapRow(row: ItemRow): Item {
     id: row.id,
     key: row.key,
     categoryId: row.category_id,
+    custodianId: row.custodian_id,
     name: { en: row.name_en, th: row.name_th },
     description: { en: row.description_en, th: row.description_th },
     trackingMode: row.tracking_mode,
     defaultLocationId: row.default_location_id,
     maxLoanDays: row.max_loan_days,
+    onlineLoanable: row.online_loanable,
     photoUrl: row.photo_url,
     qtyOnHand: row.qty_on_hand,
     reorderThreshold: row.reorder_threshold,
@@ -57,6 +61,7 @@ function isUniqueViolation(err: unknown): boolean {
 export async function listItems(opts?: {
   includeRetired?: boolean;
   categoryId?: string;
+  custodianId?: string;
   search?: string;
 }): Promise<Item[]> {
   if (!isInventoryConfigured()) {
@@ -73,6 +78,10 @@ export async function listItems(opts?: {
     if (opts?.categoryId) {
       params.push(opts.categoryId);
       conditions.push(`category_id = $${params.length}`);
+    }
+    if (opts?.custodianId) {
+      params.push(opts.custodianId);
+      conditions.push(`custodian_id = $${params.length}`);
     }
     if (opts?.search) {
       params.push(`%${opts.search}%`);
@@ -124,11 +133,13 @@ export async function getItemByKey(key: string): Promise<Item | null> {
 export async function createItem(input: {
   key: string;
   categoryId?: string | null;
+  custodianId?: string | null;
   name: Bilingual;
   description?: Bilingual;
   trackingMode: TrackingMode;
   defaultLocationId?: string | null;
   maxLoanDays: number;
+  onlineLoanable?: boolean;
   qtyOnHand?: number | null;
   reorderThreshold?: number | null;
   photoUrl?: string | null;
@@ -149,13 +160,14 @@ export async function createItem(input: {
   try {
     const result = await sql<ItemRow>`
       insert into items (
-        key, category_id, name_en, name_th, description_en, description_th,
-        tracking_mode, default_location_id, max_loan_days, photo_url,
+        key, category_id, custodian_id, name_en, name_th, description_en, description_th,
+        tracking_mode, default_location_id, max_loan_days, online_loanable, photo_url,
         qty_on_hand, reorder_threshold, created_by
       )
       values (
         ${input.key},
         ${input.categoryId ?? null},
+        ${input.custodianId ?? null},
         ${input.name.en},
         ${input.name.th},
         ${input.description?.en ?? ""},
@@ -163,6 +175,7 @@ export async function createItem(input: {
         ${input.trackingMode},
         ${input.defaultLocationId ?? null},
         ${input.maxLoanDays},
+        ${input.onlineLoanable ?? false},
         ${input.photoUrl ?? null},
         ${qtyOnHand},
         ${input.reorderThreshold ?? null},
@@ -187,10 +200,12 @@ export async function updateItem(
   id: string,
   patch: Partial<{
     categoryId: string | null;
+    custodianId: string;
     name: Bilingual;
     description: Bilingual;
     defaultLocationId: string | null;
     maxLoanDays: number;
+    onlineLoanable: boolean;
     qtyOnHand: number | null;
     reorderThreshold: number | null;
     photoUrl: string | null;
@@ -216,6 +231,7 @@ export async function updateItem(
     };
 
     if ("categoryId" in patch) push("category_id", patch.categoryId ?? null);
+    if (patch.custodianId !== undefined) push("custodian_id", patch.custodianId);
     if (patch.name) {
       push("name_en", patch.name.en);
       push("name_th", patch.name.th);
@@ -226,6 +242,7 @@ export async function updateItem(
     }
     if ("defaultLocationId" in patch) push("default_location_id", patch.defaultLocationId ?? null);
     if (patch.maxLoanDays !== undefined) push("max_loan_days", patch.maxLoanDays);
+    if (patch.onlineLoanable !== undefined) push("online_loanable", patch.onlineLoanable);
     if ("qtyOnHand" in patch) push("qty_on_hand", patch.qtyOnHand ?? null);
     if ("reorderThreshold" in patch) push("reorder_threshold", patch.reorderThreshold ?? null);
     if ("photoUrl" in patch) push("photo_url", patch.photoUrl ?? null);

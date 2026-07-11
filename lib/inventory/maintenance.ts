@@ -139,6 +139,23 @@ export async function closeMaintenance(
   }
 }
 
+/** Fetches a single maintenance entry by id, or null when unconfigured/not found. */
+export async function getMaintenanceEntry(id: string): Promise<MaintenanceEntry | null> {
+  if (!isInventoryConfigured()) {
+    return null;
+  }
+
+  try {
+    const result = await sql<MaintenanceRow>`
+      select * from maintenance_log where id = ${id} limit 1
+    `;
+    const row = result.rows[0];
+    return row ? mapRow(row) : null;
+  } catch {
+    return null;
+  }
+}
+
 /** Lists maintenance entries for a unit, newest opened_at first. */
 export async function listMaintenance(unitId: string): Promise<MaintenanceEntry[]> {
   if (!isInventoryConfigured()) {

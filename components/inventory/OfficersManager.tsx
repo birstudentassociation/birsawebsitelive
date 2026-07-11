@@ -15,11 +15,12 @@ import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import type { Locale } from "@/lib/i18n";
-import type { Officer, Role } from "@/lib/inventory/types";
+import type { Custodian, Officer, Role } from "@/lib/inventory/types";
 
 export type OfficersManagerProps = {
   locale: Locale;
   officers: Officer[];
+  custodians: Custodian[];
 };
 
 type Copy = {
@@ -58,6 +59,9 @@ type Copy = {
   roleLabels: Record<Role, string>;
   lastLoginLabel: (date: string) => string;
   neverLoggedInLabel: string;
+  scopeLabel: string;
+  scopeGlobalOption: string;
+  scopeGlobalTag: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -102,6 +106,9 @@ const copy: Record<Locale, Copy> = {
     },
     lastLoginLabel: (date) => `Last signed in ${date}`,
     neverLoggedInLabel: "Never signed in",
+    scopeLabel: "Scope / organisation",
+    scopeGlobalOption: "Global / BIRSA staff",
+    scopeGlobalTag: "Global / BIRSA",
   },
   th: {
     addTitle: "เพิ่มเจ้าหน้าที่",
@@ -146,6 +153,9 @@ const copy: Record<Locale, Copy> = {
     },
     lastLoginLabel: (date) => `เข้าสู่ระบบล่าสุด ${date}`,
     neverLoggedInLabel: "ยังไม่เคยเข้าสู่ระบบ",
+    scopeLabel: "ขอบเขต / องค์กร",
+    scopeGlobalOption: "ส่วนกลาง / เจ้าหน้าที่ BIRSA",
+    scopeGlobalTag: "ส่วนกลาง / BIRSA",
   },
 };
 
@@ -174,9 +184,17 @@ function formatLastLogin(locale: Locale, t: Copy, lastLoginAt: string | null): s
 export default function OfficersManager({
   locale,
   officers: initialOfficers,
+  custodians,
 }: OfficersManagerProps) {
   const t = copy[locale];
   const formId = useId();
+
+  const activeCustodians = custodians.filter((c) => c.isActive);
+  const custodianById = new Map(custodians.map((c) => [c.id, c]));
+  const scopeOptions = [
+    { value: "", label: t.scopeGlobalOption },
+    ...activeCustodians.map((c) => ({ value: c.id, label: c.name[locale] })),
+  ];
 
   const [officers, setOfficers] = useState<Officer[]>(initialOfficers);
 
@@ -184,6 +202,7 @@ export default function OfficersManager({
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState<Role>("read_only");
+  const [custodianId, setCustodianId] = useState<string>("");
   const [passcode, setPasscode] = useState("");
   const [addError, setAddError] = useState<AddError | null>(null);
   const [addPending, setAddPending] = useState(false);
@@ -237,7 +256,7 @@ export default function OfficersManager({
       const response = await fetch("/api/inventory/officers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name, role, passcode }),
+        body: JSON.stringify({ email, name, role, passcode, custodianId: custodianId || null }),
       });
       const body = (await response.json().catch(() => null)) as OfficerApiResponse | null;
 
@@ -251,6 +270,7 @@ export default function OfficersManager({
         setEmail("");
         setName("");
         setRole("read_only");
+        setCustodianId("");
         setPasscode("");
         setAddMessage(t.addedMessage);
         return;
@@ -270,7 +290,7 @@ export default function OfficersManager({
 
   async function patchOfficer(
     id: string,
-    patch: Partial<{ role: Role; isActive: boolean; passcode: string }>,
+    patch: Partial<{ role: Role; isActive: boolean; passcode: string; custodianId: string | null }>,
     successMessage: string
   ) {
     setBusyId(id);
@@ -315,6 +335,12 @@ export default function OfficersManager({
       return;
     }
     void patchOfficer(officerRow.id, { role: nextRole }, t.updatedMessage);
+  }
+
+  function handleScopeChange(officerRow: Officer, nextCustodianId: string) {
+    const normalized = nextCustodianId || null;
+    if (normalized === officerRow.custodianId) return;
+    void patchOfficer(officerRow.id, { custodianId: normalized }, t.updatedMessage);
   }
 
   function handleToggleActive(officerRow: Officer) {
@@ -419,6 +445,16 @@ export default function OfficersManager({
           />
 
           <Field
+            id={`${formId}-custodianId`}
+            name="custodianId"
+            as="select"
+            label={t.scopeLabel}
+            value={custodianId}
+            onChange={(event) => setCustodianId(event.target.value)}
+            options={scopeOptions}
+          />
+
+          <Field
             id={`${formId}-passcode`}
             name="passcode"
             type="password"
@@ -478,6 +514,12 @@ export default function OfficersManager({
                         {officerRow.isActive ? t.activeLabel : t.inactiveLabel}
                       </Tag>
                       <Tag variant="brand">{t.roleLabels[officerRow.role]}</Tag>
+                      <Tag variant="neutral">
+                        {officerRow.custodianId
+                          ? (custodianById.get(officerRow.custodianId)?.name[locale] ??
+                            t.scopeGlobalTag)
+                          : t.scopeGlobalTag}
+                      </Tag>
                     </div>
                   </div>
 
@@ -495,6 +537,18 @@ export default function OfficersManager({
                       onChange={(event) => handleRoleChange(officerRow, event.target.value as Role)}
                       disabled={isBusy}
                       options={ROLES.map((r) => ({ value: r, label: t.roleLabels[r] }))}
+                      className="min-w-[10rem]"
+                    />
+
+                    <Field
+                      id={`${formId}-scope-${officerRow.id}`}
+                      name={`scope-${officerRow.id}`}
+                      as="select"
+                      label={t.scopeLabel}
+                      value={officerRow.custodianId ?? ""}
+                      onChange={(event) => handleScopeChange(officerRow, event.target.value)}
+                      disabled={isBusy}
+                      options={scopeOptions}
                       className="min-w-[10rem]"
                     />
 

@@ -13,6 +13,7 @@ import { listUnits } from "@/lib/inventory/units";
 import { listAdjustments } from "@/lib/inventory/consumables";
 import { listCategories } from "@/lib/inventory/categories";
 import { listLocations } from "@/lib/inventory/locations";
+import { listCustodians } from "@/lib/inventory/custodians";
 
 /**
  * Officer console: single item detail, editing, unit management (for
@@ -86,13 +87,17 @@ export default async function OfficerInventoryItemDetailPage({
 
   const item = await getItem(id);
   if (!item) notFound();
+  if (officer.custodianId !== null && item.custodianId !== officer.custodianId) {
+    notFound();
+  }
 
-  const [units, categories, locations, availability, adjustments] = await Promise.all([
+  const [units, categories, locations, availability, adjustments, custodians] = await Promise.all([
     listUnits({ itemId: id }),
     listCategories(),
     listLocations(),
     getItemAvailabilitySummary(item),
     item.trackingMode === "consumable" ? listAdjustments(id) : Promise.resolve([]),
+    listCustodians({ includeInactive: true }),
   ]);
 
   return (
@@ -119,6 +124,8 @@ export default async function OfficerInventoryItemDetailPage({
           units={units}
           categories={categories}
           locations={locations}
+          custodians={custodians}
+          scopedCustodianId={officer.custodianId}
           role={officer.role}
           locale={locale}
           adjustments={adjustments}

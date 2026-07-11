@@ -11,6 +11,7 @@ import { getSessionOfficer } from "@/lib/inventory/auth";
 import { listItems } from "@/lib/inventory/items";
 import { listCategories } from "@/lib/inventory/categories";
 import { listLocations } from "@/lib/inventory/locations";
+import { listCustodians } from "@/lib/inventory/custodians";
 
 /**
  * Officer console: full item catalogue with search/filter and item creation.
@@ -87,10 +88,11 @@ export default async function OfficerInventoryItemsPage({
     );
   }
 
-  const [items, categories, locations] = await Promise.all([
-    listItems({ includeRetired: true }),
+  const [items, categories, locations, custodians] = await Promise.all([
+    listItems({ custodianId: officer.custodianId ?? undefined, includeRetired: true }),
     listCategories(),
     listLocations(),
+    listCustodians({ includeInactive: true }),
   ]);
 
   const t = pageCopy[locale];
@@ -117,6 +119,8 @@ export default async function OfficerInventoryItemsPage({
           items={items}
           categories={categories}
           locations={locations}
+          custodians={custodians}
+          scopedCustodianId={officer.custodianId}
           role={officer.role}
           locale={locale}
         />

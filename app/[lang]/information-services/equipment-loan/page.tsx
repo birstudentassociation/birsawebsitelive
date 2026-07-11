@@ -4,12 +4,16 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { listItems, getItemAvailabilitySummary } from "@/lib/inventory/items";
 import { listCategories } from "@/lib/inventory/categories";
+import { listCustodians } from "@/lib/inventory/custodians";
 import { isInventoryConfigured } from "@/lib/inventory/db";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Card from "@/components/Card";
 import Button from "@/components/Button";
 import Notice from "@/components/Notice";
+import Tag from "@/components/Tag";
+import Email from "@/components/Email";
+import ExternalLink from "@/components/ExternalLink";
 
 export async function generateMetadata({
   params,
@@ -49,6 +53,16 @@ const copy: Record<
     filterNav: string;
     clearFilters: string;
     noResults: string;
+    ownerLabel: string;
+    allOwners: string;
+    directoryNoticeTitle: string;
+    directoryNoticeBody: string;
+    directoryLinkCta: string;
+    clubBorrowLine: (clubName: string) => string;
+    contactLabel: string;
+    instagramLabel: string;
+    noContactBody: string;
+    viewInDirectory: string;
   }
 > = {
   en: {
@@ -75,6 +89,17 @@ const copy: Record<
     filterNav: "Filter equipment",
     clearFilters: "Clear filters",
     noResults: "No equipment matched this category.",
+    ownerLabel: "Owner",
+    allOwners: "All owners",
+    directoryNoticeTitle: "Looking for club equipment?",
+    directoryNoticeBody:
+      "Some equipment is managed by clubs and borrowed directly from them — see the club equipment directory.",
+    directoryLinkCta: "Open the club equipment directory",
+    clubBorrowLine: (clubName) => `Borrow this from ${clubName} directly.`,
+    contactLabel: "Contact",
+    instagramLabel: "Instagram",
+    noContactBody: "See the club equipment directory for how to reach this club.",
+    viewInDirectory: "View in the club directory",
   },
   th: {
     title: "บริการยืมอุปกรณ์",
@@ -100,6 +125,17 @@ const copy: Record<
     filterNav: "ตัวกรองอุปกรณ์",
     clearFilters: "ล้างตัวกรอง",
     noResults: "ไม่พบอุปกรณ์ในหมวดหมู่นี้",
+    ownerLabel: "เจ้าของ",
+    allOwners: "ทุกเจ้าของ",
+    directoryNoticeTitle: "ตามหาอุปกรณ์ของชมรมอยู่หรือเปล่า",
+    directoryNoticeBody:
+      "อุปกรณ์บางรายการดูแลโดยชมรมและต้องยืมโดยตรงจากชมรมนั้น ๆ ดูได้ที่ทำเนียบอุปกรณ์ของชมรม",
+    directoryLinkCta: "เปิดทำเนียบอุปกรณ์ของชมรม",
+    clubBorrowLine: (clubName) => `ยืมอุปกรณ์นี้ได้โดยตรงจาก${clubName}`,
+    contactLabel: "ติดต่อ",
+    instagramLabel: "Instagram",
+    noContactBody: "ดูวิธีติดต่อชมรมนี้ได้ที่ทำเนียบอุปกรณ์ของชมรม",
+    viewInDirectory: "ดูในทำเนียบอุปกรณ์ของชมรม",
   },
 };
 
@@ -127,12 +163,20 @@ function UnavailableIcon() {
   );
 }
 
+/** Normalise a free-text Instagram field (full URL, "@handle", or bare handle) into a link href. */
+function instagramHref(value: string): string {
+  const trimmed = value.trim();
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  const handle = trimmed.replace(/^@/, "");
+  return `https://www.instagram.com/${handle}`;
+}
+
 export default async function EquipmentLoanPage({
   params,
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; owner?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -140,19 +184,31 @@ export default async function EquipmentLoanPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
   const configured = isInventoryConfigured();
-  const { category: categorySlug } = await searchParams;
+  const { category: categorySlug, owner: ownerSlug } = await searchParams;
 
-  const [allItems, categories] = await Promise.all([listItems(), listCategories()]);
+  const [allItems, categories, custodians] = await Promise.all([
+    listItems(),
+    listCategories(),
+    listCustodians(),
+  ]);
   const categoriesById = new Map(categories.map((c) => [c.id, c]));
+  const custodiansById = new Map(custodians.map((c) => [c.id, c]));
 
-  // Only offer categories that actually have at least one (non-retired) item.
+  // Only offer categories/owners that actually have at least one (non-retired) listed item.
   const usedCategoryIds = new Set(allItems.map((item) => item.categoryId).filter((id): id is string => Boolean(id)));
   const availableCategories = categories.filter((c) => usedCategoryIds.has(c.id));
 
+  const usedCustodianIds = new Set(allItems.map((item) => item.custodianId).filter((id): id is string => Boolean(id)));
+  const availableOwners = custodians.filter((c) => usedCustodianIds.has(c.id));
+
   const selectedCategory = categorySlug ? categories.find((c) => c.slug === categorySlug) : undefined;
-  const filteredItems = selectedCategory
-    ? allItems.filter((item) => item.categoryId === selectedCategory.id)
-    : allItems;
+  const selectedOwner = ownerSlug ? custodians.find((c) => c.slug === ownerSlug) : undefined;
+
+  const filteredItems = allItems.filter((item) => {
+    if (selectedCategory && item.categoryId !== selectedCategory.id) return false;
+    if (selectedOwner && item.custodianId !== selectedOwner.id) return false;
+    return true;
+  });
 
   const items = await Promise.all(
     filteredItems.map(async (item) => ({
@@ -161,9 +217,12 @@ export default async function EquipmentLoanPage({
     }))
   );
 
-  function buildHref(nextCategorySlug: string | undefined): string {
+  function buildHref(next: { category?: string | undefined; owner?: string | undefined }): string {
     const params = new URLSearchParams();
-    if (nextCategorySlug) params.set("category", nextCategorySlug);
+    const nextCategory = "category" in next ? next.category : categorySlug;
+    const nextOwner = "owner" in next ? next.owner : ownerSlug;
+    if (nextCategory) params.set("category", nextCategory);
+    if (nextOwner) params.set("owner", nextOwner);
     const qs = params.toString();
     return localeHref(locale, "/information-services/equipment-loan") + (qs ? `?${qs}` : "");
   }
@@ -205,6 +264,19 @@ export default async function EquipmentLoanPage({
           </ol>
         </section>
 
+        <Notice variant="info" title={t.directoryNoticeTitle}>
+          <p>
+            {t.directoryNoticeBody}{" "}
+            <a
+              href={localeHref(locale, "/information-services/equipment-loan/directory")}
+              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            >
+              {t.directoryLinkCta}
+            </a>
+            .
+          </p>
+        </Notice>
+
         {!configured ? (
           <Notice variant="info" title={t.notConfiguredTitle}>
             <p>
@@ -227,7 +299,7 @@ export default async function EquipmentLoanPage({
               <ul className="flex flex-wrap gap-2">
                 <li>
                   <a
-                    href={buildHref(undefined)}
+                    href={buildHref({ category: undefined })}
                     aria-current={!selectedCategory ? "page" : undefined}
                     className={`${filterTagBase} ${!selectedCategory ? filterTagActive : filterTagInactive}`}
                   >
@@ -237,7 +309,7 @@ export default async function EquipmentLoanPage({
                 {availableCategories.map((c) => (
                   <li key={c.id}>
                     <a
-                      href={buildHref(c.slug)}
+                      href={buildHref({ category: c.slug })}
                       aria-current={selectedCategory?.id === c.id ? "page" : undefined}
                       className={`${filterTagBase} ${selectedCategory?.id === c.id ? filterTagActive : filterTagInactive}`}
                     >
@@ -249,7 +321,45 @@ export default async function EquipmentLoanPage({
             </div>
             {selectedCategory ? (
               <a
-                href={buildHref(undefined)}
+                href={buildHref({ category: undefined })}
+                className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+              >
+                {t.clearFilters}
+              </a>
+            ) : null}
+          </nav>
+        ) : null}
+
+        {availableOwners.length > 0 ? (
+          <nav aria-label={t.ownerLabel} className="flex flex-col gap-4">
+            <div>
+              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{t.ownerLabel}</p>
+              <ul className="flex flex-wrap gap-2">
+                <li>
+                  <a
+                    href={buildHref({ owner: undefined })}
+                    aria-current={!selectedOwner ? "page" : undefined}
+                    className={`${filterTagBase} ${!selectedOwner ? filterTagActive : filterTagInactive}`}
+                  >
+                    {t.allOwners}
+                  </a>
+                </li>
+                {availableOwners.map((c) => (
+                  <li key={c.id}>
+                    <a
+                      href={buildHref({ owner: c.slug })}
+                      aria-current={selectedOwner?.id === c.id ? "page" : undefined}
+                      className={`${filterTagBase} ${selectedOwner?.id === c.id ? filterTagActive : filterTagInactive}`}
+                    >
+                      {c.name[locale]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {selectedOwner ? (
+              <a
+                href={buildHref({ owner: undefined })}
                 className="text-brand-deep w-fit text-sm font-semibold hover:underline"
               >
                 {t.clearFilters}
@@ -264,6 +374,10 @@ export default async function EquipmentLoanPage({
               const isAvailable = availability.available > 0;
               const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
               const categoryName = item.categoryId ? categoriesById.get(item.categoryId)?.name[locale] : undefined;
+              const custodian = custodiansById.get(item.custodianId);
+              const directoryHref = custodian
+                ? localeHref(locale, `/information-services/equipment-loan/directory#${custodian.slug}`)
+                : localeHref(locale, "/information-services/equipment-loan/directory");
               return (
                 <Card key={item.key} className="gap-3 p-6">
                   {item.photoUrl ? (
@@ -275,37 +389,97 @@ export default async function EquipmentLoanPage({
                       className="border-line max-h-48 w-full rounded-lg border object-cover"
                     />
                   ) : null}
-                  {categoryName ? (
-                    <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                      {categoryName}
-                    </span>
-                  ) : null}
+                  <div className="flex flex-wrap gap-2">
+                    {categoryName ? (
+                      <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                        {categoryName}
+                      </span>
+                    ) : null}
+                    {custodian ? <Tag variant="forest">{custodian.name[locale]}</Tag> : null}
+                  </div>
                   <h3 className="font-display text-ink text-lg leading-snug">{item.name[locale]}</h3>
                   <p className="text-muted text-sm leading-relaxed">{item.description[locale]}</p>
 
-                  <div className="mt-1 flex items-center gap-2 text-sm font-semibold">
-                    {isAvailable ? <AvailableIcon /> : <UnavailableIcon />}
-                    <span className={isAvailable ? "text-success" : "text-error"}>
-                      {isAvailable ? t.availableLabel(availability.available, availability.total) : t.unavailableLabel}
-                    </span>
-                  </div>
+                  {item.onlineLoanable ? (
+                    <>
+                      <div className="mt-1 flex items-center gap-2 text-sm font-semibold">
+                        {isAvailable ? <AvailableIcon /> : <UnavailableIcon />}
+                        <span className={isAvailable ? "text-success" : "text-error"}>
+                          {isAvailable
+                            ? t.availableLabel(availability.available, availability.total)
+                            : t.unavailableLabel}
+                        </span>
+                      </div>
 
-                  <dl className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                    <div>{t.maxLoanLabel(item.maxLoanDays)}</div>
-                  </dl>
+                      <dl className="text-muted mt-1 flex flex-col gap-1 text-sm">
+                        <div>{t.maxLoanLabel(item.maxLoanDays)}</div>
+                      </dl>
 
-                  <div className="mt-2">
-                    {isAvailable ? (
-                      <Button href={requestHref}>{t.requestCta}</Button>
-                    ) : (
-                      <span
-                        aria-disabled="true"
-                        className="border-line text-muted inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
-                      >
-                        {t.unavailableCta}
-                      </span>
-                    )}
-                  </div>
+                      <div className="mt-2">
+                        {isAvailable ? (
+                          <Button href={requestHref}>{t.requestCta}</Button>
+                        ) : (
+                          <span
+                            aria-disabled="true"
+                            className="border-line text-muted inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+                          >
+                            {t.unavailableCta}
+                          </span>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="mt-1 flex flex-col gap-2 text-sm">
+                      <p className="text-muted leading-relaxed">
+                        {custodian ? t.clubBorrowLine(custodian.name[locale]) : t.noContactBody}
+                      </p>
+                      {custodian?.borrowNote[locale] ? (
+                        <p className="text-muted leading-relaxed">{custodian.borrowNote[locale]}</p>
+                      ) : null}
+                      <div>
+                        <Button href={directoryHref} variant="secondary">
+                          {t.viewInDirectory}
+                        </Button>
+                      </div>
+                      {custodian?.contactEmail || custodian?.contactInstagram || custodian?.contactOther ? (
+                        <dl className="flex flex-col gap-1">
+                          {custodian.contactEmail ? (
+                            <div className="flex flex-wrap items-baseline gap-1">
+                              <dt className="text-ink font-semibold">{t.contactLabel}:</dt>
+                              <dd>
+                                <Email
+                                  address={custodian.contactEmail}
+                                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                                />
+                              </dd>
+                            </div>
+                          ) : null}
+                          {custodian.contactInstagram ? (
+                            <div className="flex flex-wrap items-baseline gap-1">
+                              <dt className="text-ink font-semibold">{t.instagramLabel}:</dt>
+                              <dd>
+                                <ExternalLink
+                                  href={instagramHref(custodian.contactInstagram)}
+                                  newTabLabel={dict.a11y.newTab}
+                                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                                >
+                                  {custodian.contactInstagram}
+                                </ExternalLink>
+                              </dd>
+                            </div>
+                          ) : null}
+                          {custodian.contactOther ? (
+                            <div className="flex flex-wrap items-baseline gap-1">
+                              <dt className="text-ink font-semibold">{t.contactLabel}:</dt>
+                              <dd className="text-muted">{custodian.contactOther}</dd>
+                            </div>
+                          ) : null}
+                        </dl>
+                      ) : (
+                        <p className="text-muted leading-relaxed">{t.noContactBody}</p>
+                      )}
+                    </div>
+                  )}
                 </Card>
               );
             })}
