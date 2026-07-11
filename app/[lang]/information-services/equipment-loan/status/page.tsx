@@ -78,6 +78,8 @@ const copy: Record<
         no_show: "Not collected",
       },
       cancelButton: "Cancel this request",
+      cancelConfirm:
+        "Cancel this loan request? If you change your mind, you'll need to submit a new request.",
       cancelling: "Cancelling...",
       cancelledTitle: "Request cancelled",
       cancelledBody: "Your loan request has been cancelled.",
@@ -128,6 +130,7 @@ const copy: Record<
         no_show: "ไม่มารับอุปกรณ์",
       },
       cancelButton: "ยกเลิกคำขอนี้",
+      cancelConfirm: "ยืนยันการยกเลิกคำขอยืมนี้หรือไม่? หากเปลี่ยนใจ คุณจะต้องส่งคำขอใหม่อีกครั้ง",
       cancelling: "กำลังยกเลิก...",
       cancelledTitle: "ยกเลิกคำขอแล้ว",
       cancelledBody: "คำขอยืมของคุณถูกยกเลิกแล้ว",

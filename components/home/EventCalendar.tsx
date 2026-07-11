@@ -12,6 +12,9 @@ export type EventCalendarLabels = {
   selectedFor: string; // "Events on {date}" — {date} is substituted
   noEventsDay: string; // shown when a day has no events
   open: string; // accessible verb for the link, e.g. "Read"
+  /** Localized, plural-aware event-count suffix for a day cell's accessible
+   *  name. `{n}` is substituted; `one` is used when there is exactly one event. */
+  eventCount: { one: string; other: string };
   legend: Record<CalendarEventKind, string>;
   styleLegend: { period: string; single: string };
 };
@@ -251,6 +254,15 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
     return `${start} – ${formatDate(locale, event.end)}`;
   }
 
+  /** A day cell's accessible name: the localized date, plus a localized,
+   *  plural-aware event count when the day has events. */
+  function dayLabel(dayKey: string, count: number): string {
+    const date = formatDate(locale, dayKey);
+    if (count === 0) return date;
+    const template = count === 1 ? labels.eventCount.one : labels.eventCount.other;
+    return `${date}, ${template.replace("{n}", String(count))}`;
+  }
+
   if (!current) return null;
 
   const navBtn =
@@ -334,7 +346,7 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                           onClick={() => setSelectedDay(dayKey)}
                           aria-pressed={isSelected}
                           aria-current={isToday ? "date" : undefined}
-                          aria-label={`${formatDate(locale, dayKey)}${dayEvents.length ? ", " + dayEvents.length + " events" : ""}`}
+                          aria-label={dayLabel(dayKey, dayEvents.length)}
                           className={clsx(
                             "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
                             hasEvents ? "text-ink cursor-pointer font-semibold" : "text-muted cursor-default",
@@ -374,7 +386,9 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                   {laneCount > 0 && (
                     <div
                       className="grid grid-cols-7 gap-x-1 gap-y-0.5 mt-0.5"
-                      style={{ gridTemplateRows: `repeat(${laneCount}, 1.35rem)` }}
+                      // Each period ribbon is a link; ≥1.5rem (24px) tall keeps
+                      // the pointer target at the WCAG 2.5.8 (AA) minimum.
+                      style={{ gridTemplateRows: `repeat(${laneCount}, 1.6rem)` }}
                     >
                       {weekFirstKey !== null && weekLastKey !== null
                         ? weekPeriods.map((p) => {

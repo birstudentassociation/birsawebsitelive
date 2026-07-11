@@ -115,7 +115,7 @@ export default function Footer({ locale }: FooterProps) {
       <div className="border-line-strong border-t">
         <div className="wrap text-muted flex flex-col gap-3 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <Link href={localeHref(locale, "/standards")} className="hover:text-brand-deep">
+            <Link href={localeHref(locale, "/standards#accessibility")} className="hover:text-brand-deep">
               {dict.footer.accessibility}
             </Link>
             <Link href={localeHref(locale, "/standards")} className="hover:text-brand-deep">

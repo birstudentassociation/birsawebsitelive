@@ -57,6 +57,7 @@ export type StatusLookupLabels = {
   datesLabel: string;
   statusLabels: Record<LoanStatus, string>;
   cancelButton: string;
+  cancelConfirm: string;
   cancelling: string;
   cancelledTitle: string;
   cancelledBody: string;
@@ -188,6 +189,9 @@ export default function StatusLookup({ locale, labels }: StatusLookupProps) {
 
   async function handleCancel() {
     if (state.status !== "success") return;
+    // Confirm before the irreversible cancel — the student would otherwise have
+    // to submit a whole new request (GDS error prevention).
+    if (!window.confirm(labels.cancelConfirm)) return;
 
     setCancelState({ status: "pending" });
 

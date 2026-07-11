@@ -19,12 +19,12 @@ export type PhotoUploadLabels = {
   notConfigured: string;
   error: string;
   /**
-   * Accessible name for the current-photo preview image. Optional so
-   * existing callers keep compiling; falls back to `upload` when omitted,
-   * which is a reasonable approximation but callers should ideally pass
-   * something like "Photo of <item name>" (in both locales).
+   * Accessible name for the current-photo preview image, e.g. "Photo of
+   * <item name>" (in the active locale). Required: the preview conveys the
+   * item's appearance, so it must have descriptive alt text (WCAG 1.1.1) —
+   * never the upload verb.
    */
-  photoAlt?: string;
+  photoAlt: string;
 };
 
 export type PhotoUploadProps = {
@@ -102,7 +102,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentUrl}
-          alt={labels.photoAlt ?? labels.upload}
+          alt={labels.photoAlt}
           className="border-line max-h-48 w-auto rounded-lg border object-contain"
         />
       ) : null}

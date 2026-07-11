@@ -23,6 +23,12 @@ export const homeEn = {
     selectedFor: "On {date}",
     noEventsDay: "Nothing scheduled on this day.",
     open: "Read",
+    // Screen-reader suffix on a day cell, appended after the date. `{n}` is the
+    // number of events on that day; `one` is used when n === 1.
+    eventCount: {
+      one: "{n} event",
+      other: "{n} events",
+    },
     legend: {
       birsa: "BIRSA activities",
       academic: "Academic dates",

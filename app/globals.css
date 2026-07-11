@@ -324,6 +324,22 @@ html[lang="th"] .font-display {
     display: inline;
   }
 
+  /* One-question-per-page forms (GOV.UK pattern): the visible question is the
+     step heading, so the field's own <label> is kept for the accessible name
+     but visually hidden to avoid showing the same sentence twice. Hides only
+     the label, never the control. */
+  .sr-only-label label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   /* Editorial long-form content (MDX). */
   .prose {
     color: var(--color-ink);

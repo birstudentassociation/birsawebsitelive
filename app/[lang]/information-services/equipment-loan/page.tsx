@@ -228,7 +228,7 @@ export default async function EquipmentLoanPage({
                 <li>
                   <a
                     href={buildHref(undefined)}
-                    aria-current={!selectedCategory ? "true" : undefined}
+                    aria-current={!selectedCategory ? "page" : undefined}
                     className={`${filterTagBase} ${!selectedCategory ? filterTagActive : filterTagInactive}`}
                   >
                     {t.allCategories}
@@ -238,7 +238,7 @@ export default async function EquipmentLoanPage({
                   <li key={c.id}>
                     <a
                       href={buildHref(c.slug)}
-                      aria-current={selectedCategory?.id === c.id ? "true" : undefined}
+                      aria-current={selectedCategory?.id === c.id ? "page" : undefined}
                       className={`${filterTagBase} ${selectedCategory?.id === c.id ? filterTagActive : filterTagInactive}`}
                     >
                       {c.name[locale]}

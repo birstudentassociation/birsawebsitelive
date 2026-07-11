@@ -82,6 +82,7 @@ export default function Field({
           name={name}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
+          aria-required={required || undefined}
           className={clsx(sharedClasses, "min-h-32 resize-y")}
           {...(rest as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
         />
@@ -91,6 +92,7 @@ export default function Field({
           name={name}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
+          aria-required={required || undefined}
           className={clsx(sharedClasses, "h-11")}
           {...(rest as React.SelectHTMLAttributes<HTMLSelectElement>)}
         >
@@ -106,6 +108,7 @@ export default function Field({
           name={name}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
+          aria-required={required || undefined}
           className={clsx(sharedClasses, "h-11")}
           {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
         />

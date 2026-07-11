@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import Field from "@/components/Field";
@@ -104,6 +104,21 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle" });
   const [datesAvailability, setDatesAvailability] = useState<DatesAvailability>({ status: "idle" });
+  const checkHeadingRef = useRef<HTMLHeadingElement>(null);
+  const confirmationRef = useRef<HTMLDivElement>(null);
+
+  // Question steps use `autoFocus` on their field, but the check-answers and
+  // confirmation steps have no single field to focus. Move focus to their
+  // heading / result panel on entry so keyboard and screen-reader users aren't
+  // dropped on <body> (2.4.3), and the success reference number is announced.
+  useEffect(() => {
+    if (step === "check") checkHeadingRef.current?.focus();
+  }, [step]);
+  useEffect(() => {
+    if (step === "confirmation" && submitState.status === "success") {
+      confirmationRef.current?.focus();
+    }
+  }, [step, submitState.status]);
 
   const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
   const contactHref = localeHref(locale, "/contact");
@@ -468,7 +483,12 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
   if (step === "confirmation" && submitState.status === "success") {
     return (
       <div className="flex flex-col gap-6">
-        <div role="status" className="border-success bg-success-tint text-ink rounded-lg border-l-4 p-6">
+        <div
+          ref={confirmationRef}
+          tabIndex={-1}
+          role="status"
+          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+        >
           <p className="font-display text-xl">{labels.confirmation.title}</p>
           {submitState.reference ? (
             <p className="mt-3 text-sm">
@@ -503,10 +523,10 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
         <Link href={catalogueHref} className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium">
           &larr; {labels.start.backToCatalogue}
         </Link>
-        <h1 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h1>
+        <h2 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h2>
         <p className="text-muted">{labels.start.intro}</p>
         <div className="border-line bg-sunken rounded-lg border p-5">
-          <h2 className="text-ink text-base font-semibold">{labels.start.needTitle}</h2>
+          <h3 className="text-ink text-base font-semibold">{labels.start.needTitle}</h3>
           <ul className="text-muted mt-2 list-inside list-disc space-y-1 text-sm">
             {labels.start.needItems.map((need) => (
               <li key={need}>{need}</li>
@@ -514,7 +534,7 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
           </ul>
         </div>
         <div className="border-line bg-sunken rounded-lg border p-5">
-          <h2 className="text-ink text-base font-semibold">{labels.start.termsTitle}</h2>
+          <h3 className="text-ink text-base font-semibold">{labels.start.termsTitle}</h3>
           <p className="text-muted mt-2 text-sm">{labels.start.termsBody}</p>
         </div>
         <div>
@@ -557,7 +577,7 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "name" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentName"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.name.question}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.name.question}</h2>
           <Field
             id={fieldId("studentName")}
             name="studentName"
@@ -577,11 +597,12 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "studentId" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentId"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.studentId.question}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.studentId.question}</h2>
           <Field
             id={fieldId("studentId")}
             name="studentId"
             label={labels.studentId.question}
+            className="sr-only-label"
             hint={labels.studentId.hint}
             required
             requiredLabel={labels.common.required}
@@ -597,12 +618,13 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "email" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentEmail"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.email.question}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.email.question}</h2>
           <Field
             id={fieldId("studentEmail")}
             name="studentEmail"
             type="email"
             label={labels.email.question}
+            className="sr-only-label"
             hint={labels.email.hint}
             required
             requiredLabel={labels.common.required}
@@ -618,12 +640,13 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "phone" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["phone"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.phone.question}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.phone.question}</h2>
           <Field
             id={fieldId("phone")}
             name="phone"
             type="tel"
             label={labels.phone.question}
+            className="sr-only-label"
             hint={labels.phone.hint}
             optionalLabel={labels.common.optional}
             value={values.phone}
@@ -638,7 +661,7 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "dates" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["startDate", "endDate"])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.dates.title}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.dates.title}</h2>
           <Field
             id={fieldId("startDate")}
             name="startDate"
@@ -701,12 +724,13 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
 
       {step === "reason" ? (
         <>
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.reason.question}</h1>
+          <h2 className="font-display text-2xl sm:text-3xl">{labels.reason.question}</h2>
           <Field
             id={fieldId("reason")}
             name="reason"
             as="textarea"
             label={labels.reason.question}
+            className="sr-only-label"
             hint={labels.reason.hint}
             optionalLabel={labels.common.optional}
             value={values.reason}
@@ -721,7 +745,13 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
       {step === "check" ? (
         <>
           <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor([])} />
-          <h1 className="font-display text-2xl sm:text-3xl">{labels.check.title}</h1>
+          <h2
+            ref={checkHeadingRef}
+            tabIndex={-1}
+            className="font-display focus-halo text-2xl sm:text-3xl"
+          >
+            {labels.check.title}
+          </h2>
           <dl className="border-line divide-line divide-y rounded-lg border">
             <SummaryRow
               label={labels.check.itemLabel}

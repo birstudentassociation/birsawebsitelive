@@ -156,6 +156,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               selectedFor: copy.calendar.selectedFor,
               noEventsDay: copy.calendar.noEventsDay,
               open: copy.calendar.open,
+              eventCount: copy.calendar.eventCount,
               legend: copy.calendar.legend,
               styleLegend: copy.calendar.styleLegend,
             }}
@@ -207,7 +208,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       </section>
 
       {/* New here? */}
-      <section className="wrap py-12 sm:py-16">
+      <section aria-labelledby="new-here-heading" className="wrap py-12 sm:py-16">
+        <h2 id="new-here-heading" className="sr-only">
+          {copy.newHere.title}
+        </h2>
         <Notice variant="info" title={copy.newHere.title}>
           <p>{copy.newHere.body}</p>
           <p className="mt-2">

@@ -46,6 +46,7 @@ type Copy = {
   activeLabel: string;
   inactiveLabel: string;
   deactivateConfirm: (name: string) => string;
+  roleChangeConfirm: (name: string, role: string) => string;
   activateAction: string;
   deactivateAction: string;
   resetPasscodeAction: string;
@@ -84,6 +85,7 @@ const copy: Record<Locale, Copy> = {
     activeLabel: "Active",
     inactiveLabel: "Inactive",
     deactivateConfirm: (name) => `Deactivate ${name}? They will no longer be able to sign in.`,
+    roleChangeConfirm: (name, role) => `Change ${name}'s role to ${role}? This changes what they can access.`,
     activateAction: "Activate",
     deactivateAction: "Deactivate",
     resetPasscodeAction: "Reset passcode",
@@ -126,6 +128,8 @@ const copy: Record<Locale, Copy> = {
     inactiveLabel: "ปิดใช้งาน",
     deactivateConfirm: (name) =>
       `ปิดใช้งานบัญชีของ ${name} ใช่หรือไม่ พวกเขาจะไม่สามารถเข้าสู่ระบบได้อีก`,
+    roleChangeConfirm: (name, role) =>
+      `เปลี่ยนบทบาทของ ${name} เป็น ${role} ใช่หรือไม่ การเข้าถึงของพวกเขาจะเปลี่ยนไป`,
     activateAction: "เปิดใช้งาน",
     deactivateAction: "ปิดใช้งาน",
     resetPasscodeAction: "ตั้งรหัสผ่านใหม่",
@@ -304,6 +308,12 @@ export default function OfficersManager({
 
   function handleRoleChange(officerRow: Officer, nextRole: Role) {
     if (nextRole === officerRow.role) return;
+    // Role changes grant/revoke access, so confirm first — consistent with the
+    // deactivate action (GDS error prevention).
+    const confirmText = t.roleChangeConfirm(officerRow.name, t.roleLabels[nextRole]);
+    if (typeof window !== "undefined" && !window.confirm(confirmText)) {
+      return;
+    }
     void patchOfficer(officerRow.id, { role: nextRole }, t.updatedMessage);
   }
 

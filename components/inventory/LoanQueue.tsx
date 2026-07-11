@@ -6,7 +6,7 @@
  * approval queue pattern to the full loan lifecycle and to
  * individually-tracked units.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import Button from "@/components/Button";
 import Field from "@/components/Field";
@@ -268,6 +268,22 @@ export default function LoanQueue({
     setMessages((prev) => ({ ...prev, [loanId]: message as RowMessage }));
   }
 
+  // After an action the acted-on card changes status group and its action
+  // buttons unmount, which drops focus to <body>. Move focus to the card so a
+  // keyboard/screen-reader officer keeps their place and hears the result
+  // (2.4.3). The card keeps a stable ref by loan id even when it moves group.
+  const articleRefs = useRef<Map<string, HTMLElement>>(new Map());
+  const [focusLoanId, setFocusLoanId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!focusLoanId) return;
+    const el = articleRefs.current.get(focusLoanId);
+    if (el) {
+      el.focus();
+      setFocusLoanId(null);
+    }
+  }, [focusLoanId, loans, messages]);
+
   async function runAction(
     loan: Loan,
     action: string,
@@ -304,6 +320,7 @@ export default function LoanQueue({
     } finally {
       setBusyId(null);
       setBusyAction(null);
+      setFocusLoanId(loan.id);
     }
   }
 
@@ -406,7 +423,12 @@ export default function LoanQueue({
     return (
       <article
         key={loan.id}
-        className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+        ref={(el) => {
+          if (el) articleRefs.current.set(loan.id, el);
+          else articleRefs.current.delete(loan.id);
+        }}
+        tabIndex={-1}
+        className="border-line bg-surface focus-halo flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

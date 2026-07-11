@@ -4,7 +4,7 @@
  * of MDX content in the site gets the same headings/links/tables behaviour
  * and accessibility handling for free.
  */
-import type { AnchorHTMLAttributes, TableHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -52,6 +52,13 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
           <table {...props} />
         </div>
       );
+    },
+    th(props: ThHTMLAttributes<HTMLTableCellElement>) {
+      // remark-gfm only ever emits header cells in a <thead> (column
+      // headers), so default the scope to "col" (WCAG 1.3.1 / H63) while
+      // still honouring an explicit scope if an author sets one.
+      const { scope, ...rest } = props;
+      return <th scope={scope ?? "col"} {...rest} />;
     },
     Notice,
     Email,

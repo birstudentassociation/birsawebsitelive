@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
@@ -118,6 +118,16 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
   const [nickname, setNickname] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [state, setState] = useState<SubmitState>({ status: "idle" });
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  // On success/fallback the form (and the focused submit button) unmounts, so
+  // move focus to the result message — otherwise focus falls back to <body>
+  // and keyboard users lose their place (2.4.3).
+  useEffect(() => {
+    if (state.status === "success" || state.status === "fallback") {
+      resultRef.current?.focus();
+    }
+  }, [state.status]);
 
   const fieldIds = {
     name: `${formId}-name`,
@@ -199,7 +209,12 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
 
   if (state.status === "success") {
     return (
-      <div role="status" className="border-success bg-success-tint text-ink rounded-lg border-l-4 p-6">
+      <div
+        ref={resultRef}
+        tabIndex={-1}
+        role="status"
+        className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+      >
         <p className="font-semibold">{t.successTitle}</p>
         <p className="mt-1 text-sm">{t.successBody}</p>
       </div>
@@ -209,7 +224,12 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
   if (state.status === "fallback") {
     return (
       <div className="flex flex-col gap-4">
-        <div role="status" className="border-warning bg-warning-tint text-ink rounded-lg border-l-4 p-6">
+        <div
+          ref={resultRef}
+          tabIndex={-1}
+          role="status"
+          className="border-warning bg-warning-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+        >
           <p className="font-semibold">{dict.form.fallbackTitle}</p>
           <p className="mt-1 text-sm">
             {dict.form.fallbackBody}{" "}

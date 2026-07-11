@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import clsx from "clsx";
 import Button from "@/components/Button";
 import ClubCard from "@/components/clubs/ClubCard";
@@ -39,6 +39,34 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
   const [category, setCategory] = useState<ClubCategory | "all">("all");
   const searchId = useId();
 
+  // A `radiogroup` is a single tab stop with arrow-key navigation between the
+  // radios (WCAG 2.1.1 / 4.1.2), mirroring the officer console's ItemsManager.
+  const categoryOptions: [ClubCategory | "all", string][] = [
+    ["all", dict.allCategories],
+    ...CATEGORY_ORDER.map((cat) => [cat, clubCategories[cat][locale]] as [ClubCategory, string]),
+  ];
+  const categoryButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function handleCategoryKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const currentIndex = categoryOptions.findIndex(([value]) => value === category);
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (currentIndex + 1) % categoryOptions.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex = (currentIndex - 1 + categoryOptions.length) % categoryOptions.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = categoryOptions.length - 1;
+    }
+    const nextOption = nextIndex !== null ? categoryOptions[nextIndex] : undefined;
+    if (nextIndex !== null && nextOption) {
+      event.preventDefault();
+      setCategory(nextOption[0]);
+      categoryButtonRefs.current[nextIndex]?.focus();
+    }
+  }
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return clubs.filter((club) => {
@@ -76,36 +104,31 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
           />
         </div>
 
-        <div role="radiogroup" aria-label={dict.category} className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            role="radio"
-            aria-checked={category === "all"}
-            onClick={() => setCategory("all")}
-            className={clsx(
-              "focus-halo rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors",
-              category === "all"
-                ? "border-brand bg-brand text-white"
-                : "border-line-strong bg-surface text-ink hover:bg-sunken"
-            )}
-          >
-            {dict.allCategories}
-          </button>
-          {CATEGORY_ORDER.map((cat) => (
+        <div
+          role="radiogroup"
+          aria-label={dict.category}
+          className="flex flex-wrap gap-2"
+          onKeyDown={handleCategoryKeyDown}
+        >
+          {categoryOptions.map(([value, label], index) => (
             <button
-              key={cat}
+              key={value}
+              ref={(el) => {
+                categoryButtonRefs.current[index] = el;
+              }}
               type="button"
               role="radio"
-              aria-checked={category === cat}
-              onClick={() => setCategory(cat)}
+              aria-checked={category === value}
+              tabIndex={category === value ? 0 : -1}
+              onClick={() => setCategory(value)}
               className={clsx(
                 "focus-halo rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors",
-                category === cat
+                category === value
                   ? "border-brand bg-brand text-white"
                   : "border-line-strong bg-surface text-ink hover:bg-sunken"
               )}
             >
-              {clubCategories[cat][locale]}
+              {label}
             </button>
           ))}
         </div>

@@ -184,7 +184,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
           </ol>
         </section>
 
-        <section className="flex flex-col gap-4">
+        <section id="accessibility" className="flex flex-col gap-4 scroll-mt-24">
           <h2 className="font-display text-2xl">{t.a11yTitle}</h2>
           <p className="text-muted leading-relaxed">{t.a11yIntro}</p>
 
