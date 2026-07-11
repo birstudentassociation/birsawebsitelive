@@ -9,6 +9,8 @@
  * `getSessionOfficer()` — this component only handles ending a session.
  */
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Button from "@/components/Button";
 import type { Locale } from "@/lib/i18n";
 
@@ -39,8 +41,68 @@ export function LogoutButton({ locale, className }: LogoutButtonProps) {
   }
 
   return (
-    <Button variant="secondary" onClick={handleLogout} disabled={loggingOut} className={className}>
-      {loggingOut ? t.loggingOut : t.logout}
-    </Button>
+    <>
+      <Button
+        variant="secondary"
+        onClick={handleLogout}
+        disabled={loggingOut}
+        className={className}
+      >
+        {loggingOut ? t.loggingOut : t.logout}
+      </Button>
+      {/* Announced without moving focus (WCAG 4.1.3): the button's visible
+          label already changes, but a page reload follows almost
+          immediately, so screen reader users need this spoken proactively
+          rather than relying on them re-reading the button. */}
+      {loggingOut ? (
+        <span role="status" className="sr-only">
+          {t.loggingOut}
+        </span>
+      ) : null}
+    </>
+  );
+}
+
+export type ConsoleNavItem = {
+  /** Fully resolved, locale-prefixed href, e.g. `/en/officer/inventory`. */
+  href: string;
+  label: string;
+};
+
+export type ConsoleNavProps = {
+  ariaLabel: string;
+  items: ConsoleNavItem[];
+};
+
+/**
+ * Client wrapper around the console's primary nav links so the active item
+ * can be marked `aria-current="page"` from `usePathname()`. The dashboard
+ * link only matches exactly (every other console route also starts with
+ * `/officer/inventory`); every other link also matches its own subpages
+ * (e.g. an item detail page still highlights "Catalogue").
+ */
+export function ConsoleNav({ ariaLabel, items }: ConsoleNavProps) {
+  const pathname = usePathname() ?? "";
+
+  return (
+    <nav aria-label={ariaLabel} className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+      {items.map((item) => {
+        const isDashboard = !item.href.includes("/inventory/");
+        const current = isDashboard
+          ? pathname === item.href
+          : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            aria-current={current ? "page" : undefined}
+            className="font-medium text-white hover:underline"
+          >
+            {item.label}
+          </Link>
+        );
+      })}
+    </nav>
   );
 }

@@ -26,13 +26,19 @@ export async function generateMetadata({
       ? "จัดการบัญชีเจ้าหน้าที่ที่เข้าถึงคอนโซลจัดการครุภัณฑ์"
       : "Manage officer accounts with access to the inventory console.";
 
-  const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory/officers" });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/officer/inventory/officers",
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
 type Copy = {
   title: string;
   lede: string;
+  consoleHomeLabel: string;
   signInNeededTitle: string;
   signInNeededBody: string;
   signInLink: string;
@@ -46,17 +52,20 @@ const copy: Record<Locale, Copy> = {
   en: {
     title: "Officers",
     lede: "Manage who can sign in to the inventory console and what they can do.",
+    consoleHomeLabel: "Officer console",
     signInNeededTitle: "Please sign in on the console home",
     signInNeededBody: "You need an active officer session to manage officer accounts.",
     signInLink: "Go to console home",
     adminsOnlyTitle: "Admins only",
     adminsOnlyBody: "Only officers with the admin role can manage officer accounts.",
     dbNotConfiguredTitle: "The inventory database is not connected",
-    dbNotConfiguredBody: "POSTGRES_URL is not configured, so there are no officer accounts to show yet.",
+    dbNotConfiguredBody:
+      "POSTGRES_URL is not configured, so there are no officer accounts to show yet.",
   },
   th: {
     title: "เจ้าหน้าที่",
     lede: "จัดการสิทธิ์การเข้าสู่ระบบคอนโซลจัดการครุภัณฑ์และบทบาทของเจ้าหน้าที่",
+    consoleHomeLabel: "คอนโซลเจ้าหน้าที่",
     signInNeededTitle: "กรุณาเข้าสู่ระบบที่หน้าแรกของคอนโซล",
     signInNeededBody: "คุณต้องมีเซสชันเจ้าหน้าที่ที่ใช้งานอยู่จึงจะจัดการบัญชีเจ้าหน้าที่ได้",
     signInLink: "ไปที่หน้าแรกของคอนโซล",
@@ -91,7 +100,7 @@ export default async function OfficerInventoryOfficersPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: "Officer console", href: "/officer/inventory" },
+              { label: t.consoleHomeLabel, href: "/officer/inventory" },
               { label: t.title },
             ]}
           />

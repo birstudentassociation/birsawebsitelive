@@ -39,6 +39,7 @@ type Copy = {
   maxLoansTitle: string;
   maxLoansLabel: string;
   maxLoansHint: string;
+  maxLoansInvalidMessage: string;
   maxLoansSave: string;
   savingLabel: string;
   updatedMessage: string;
@@ -68,6 +69,7 @@ const copy: Record<Locale, Copy> = {
     maxLoansTitle: "Loan limit",
     maxLoansLabel: "Max concurrent loans",
     maxLoansHint: "Leave blank to use the site default.",
+    maxLoansInvalidMessage: "Enter a whole number of 0 or more, or leave blank.",
     maxLoansSave: "Save limit",
     savingLabel: "Saving...",
     updatedMessage: "Saved.",
@@ -95,6 +97,7 @@ const copy: Record<Locale, Copy> = {
     maxLoansTitle: "จำนวนที่ยืมได้พร้อมกัน",
     maxLoansLabel: "จำนวนสูงสุดที่ยืมพร้อมกันได้",
     maxLoansHint: "เว้นว่างไว้เพื่อใช้ค่าเริ่มต้นของระบบ",
+    maxLoansInvalidMessage: "กรุณากรอกจำนวนเต็มตั้งแต่ 0 ขึ้นไป หรือเว้นว่างไว้",
     maxLoansSave: "บันทึกจำนวน",
     savingLabel: "กำลังบันทึก...",
     updatedMessage: "บันทึกแล้ว",
@@ -132,7 +135,14 @@ const STATUS_LABELS_TH: Record<Loan["status"], string> = {
 
 type PatchResponse = { ok: true; borrower: Borrower } | { ok: false; reason?: string };
 
-export default function BorrowerDetail({ locale, borrower: initialBorrower, loans, itemsById, activeCount, role }: BorrowerDetailProps) {
+export default function BorrowerDetail({
+  locale,
+  borrower: initialBorrower,
+  loans,
+  itemsById,
+  activeCount,
+  role,
+}: BorrowerDetailProps) {
   const t = copy[locale];
   const statusLabels = locale === "th" ? STATUS_LABELS_TH : STATUS_LABELS_EN;
   const canManage = role === "admin" || role === "loan_officer";
@@ -143,6 +153,7 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
   const [savingBlocklist, setSavingBlocklist] = useState(false);
   const [savingLimit, setSavingLimit] = useState(false);
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
+  const [maxLoansError, setMaxLoansError] = useState<string | null>(null);
 
   function friendlyMessage(status: number, reason: string | undefined): string {
     if (status === 401 || reason === "unauthorized") return t.unauthorizedMessage;
@@ -191,9 +202,11 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
     const trimmed = maxLoans.trim();
     const parsed = trimmed === "" ? null : Number(trimmed);
     if (parsed !== null && (!Number.isInteger(parsed) || parsed < 0)) {
-      setMessage({ kind: "error", text: t.genericErrorMessage });
+      setMaxLoansError(t.maxLoansInvalidMessage);
+      setMessage({ kind: "error", text: t.maxLoansInvalidMessage });
       return;
     }
+    setMaxLoansError(null);
     setSavingLimit(true);
     await patchBorrower({ maxConcurrentLoans: parsed });
     setSavingLimit(false);
@@ -224,11 +237,13 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
 
       {message ? (
         <div
-          role="status"
-          aria-live="polite"
+          role={message.kind === "success" ? "status" : "alert"}
+          aria-live={message.kind === "success" ? "polite" : "assertive"}
           className={clsx(
             "rounded-md border-l-4 p-3 text-sm",
-            message.kind === "success" ? "border-success bg-success-tint text-ink" : "border-error bg-error-tint text-ink"
+            message.kind === "success"
+              ? "border-success bg-success-tint text-ink"
+              : "border-error bg-error-tint text-ink"
           )}
         >
           {message.text}
@@ -248,7 +263,11 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
             />
           ) : null}
           <div>
-            <Button variant={borrower.blocklisted ? "secondary" : "primary"} onClick={handleBlocklistToggle} disabled={savingBlocklist}>
+            <Button
+              variant={borrower.blocklisted ? "secondary" : "primary"}
+              onClick={handleBlocklistToggle}
+              disabled={savingBlocklist}
+            >
               {savingBlocklist ? t.saving : borrower.blocklisted ? t.unblockCta : t.blockCta}
             </Button>
           </div>
@@ -266,8 +285,12 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
             step={1}
             hint={t.maxLoansHint}
             value={maxLoans}
-            onChange={(e) => setMaxLoans(e.target.value)}
+            onChange={(e) => {
+              setMaxLoans(e.target.value);
+              setMaxLoansError(null);
+            }}
             className="max-w-xs"
+            error={maxLoansError ?? undefined}
           />
           <div>
             <Button onClick={handleMaxLoansSave} disabled={savingLimit}>
@@ -288,12 +311,16 @@ export default function BorrowerDetail({ locale, borrower: initialBorrower, loan
             {loans.map((loan) => {
               const item = itemsById[loan.itemId];
               return (
-                <article key={loan.id} className="border-line bg-surface flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4">
+                <article
+                  key={loan.id}
+                  className="border-line bg-surface flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4"
+                >
                   <div>
                     <p className="text-ink font-semibold">{loan.reference}</p>
                     <p className="text-muted text-sm">{item ? item.name[locale] : loan.itemId}</p>
                     <p className="text-muted text-sm">
-                      {t.datesLabel}: {formatDate(locale, loan.startDate)} &rarr; {formatDate(locale, loan.endDate)}
+                      {t.datesLabel}: {formatDate(locale, loan.startDate)} &rarr;{" "}
+                      {formatDate(locale, loan.endDate)}
                     </p>
                   </div>
                   <StatusPill status={loan.status} label={statusLabels[loan.status]} />

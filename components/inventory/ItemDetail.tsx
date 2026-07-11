@@ -53,6 +53,7 @@ type Copy = {
   consumableTag: string;
 
   photoTitle: string;
+  photoAltLabel: (name: string) => string;
   photoUploadLabel: string;
   photoUploadingLabel: string;
   photoRemoveLabel: string;
@@ -122,7 +123,7 @@ type Copy = {
   reasonLabel: string;
   adjustSubmit: string;
   adjusting: string;
-  adjusted: string;
+  adjustedWithQty: (qty: number) => string;
   historyTitle: string;
   historyEmpty: string;
   historyDate: string;
@@ -152,6 +153,7 @@ const copy: Record<Locale, Copy> = {
     consumableTag: "Consumable",
 
     photoTitle: "Photo",
+    photoAltLabel: (name) => `Photo of ${name}`,
     photoUploadLabel: "Upload photo",
     photoUploadingLabel: "Uploading...",
     photoRemoveLabel: "Remove selection",
@@ -228,7 +230,7 @@ const copy: Record<Locale, Copy> = {
     reasonLabel: "Reason",
     adjustSubmit: "Apply adjustment",
     adjusting: "Applying...",
-    adjusted: "Stock adjusted.",
+    adjustedWithQty: (qty) => `Stock adjusted. Current quantity on hand: ${qty}.`,
     historyTitle: "Adjustment history",
     historyEmpty: "No adjustments recorded yet.",
     historyDate: "Date",
@@ -256,6 +258,7 @@ const copy: Record<Locale, Copy> = {
     consumableTag: "วัสดุสิ้นเปลือง",
 
     photoTitle: "รูปภาพ",
+    photoAltLabel: (name) => `รูปภาพของ ${name}`,
     photoUploadLabel: "อัปโหลดรูปภาพ",
     photoUploadingLabel: "กำลังอัปโหลด...",
     photoRemoveLabel: "ยกเลิกการเลือกไฟล์",
@@ -332,7 +335,7 @@ const copy: Record<Locale, Copy> = {
     reasonLabel: "เหตุผล",
     adjustSubmit: "บันทึกการปรับสต๊อก",
     adjusting: "กำลังบันทึก...",
-    adjusted: "ปรับสต๊อกแล้ว",
+    adjustedWithQty: (qty) => `ปรับสต๊อกแล้ว จำนวนคงเหลือปัจจุบันคือ ${qty}`,
     historyTitle: "ประวัติการปรับสต๊อก",
     historyEmpty: "ยังไม่มีประวัติการปรับสต๊อก",
     historyDate: "วันที่",
@@ -370,14 +373,49 @@ const stateTint: Record<UnitState, string> = {
 
 function Pill({ className, children }: { className: string; children: React.ReactNode }) {
   return (
-    <span className={clsx("inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide", className)}>
+    <span
+      className={clsx(
+        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide",
+        className
+      )}
+    >
       {children}
     </span>
   );
 }
 
+/**
+ * Reusable status/error live region (WCAG 4.1.3). Success and in-progress
+ * feedback uses `role="status"` (implicit polite live region) so it is
+ * announced without moving focus; errors use `role="alert"` (implicit
+ * assertive live region) so they interrupt. Used for every async action's
+ * feedback in this file so screen reader users get consistent announcements.
+ */
+function LiveMessage({
+  text,
+  kind,
+}: {
+  text: string | null | undefined;
+  kind: "success" | "error";
+}) {
+  if (!text) return null;
+  return (
+    <p
+      role={kind === "error" ? "alert" : "status"}
+      className={clsx("text-sm font-medium", kind === "success" ? "text-success" : "text-error")}
+    >
+      {text}
+    </p>
+  );
+}
+
 type ItemPatchResponse = { ok: boolean; item?: Item; reason?: string };
-type UnitCreateResponse = { ok: boolean; unit?: Unit; reason?: string; errors?: Record<string, string[]> };
+type UnitCreateResponse = {
+  ok: boolean;
+  unit?: Unit;
+  reason?: string;
+  errors?: Record<string, string[]>;
+};
 type UnitPatchResponse = { ok: boolean; unit?: Unit; reason?: string };
 type MaintenanceOpenResponse = {
   ok: boolean;
@@ -385,7 +423,11 @@ type MaintenanceOpenResponse = {
   reason?: string;
   errors?: Record<string, string[]>;
 };
-type MaintenanceCloseResponse = { ok: boolean; entry?: { id: string; unitId: string }; reason?: string };
+type MaintenanceCloseResponse = {
+  ok: boolean;
+  entry?: { id: string; unitId: string };
+  reason?: string;
+};
 type AdjustResponse = { ok: boolean; resultingQty?: number; reason?: string };
 
 export default function ItemDetail({
@@ -405,7 +447,9 @@ export default function ItemDetail({
   const [item, setItem] = useState<Item>(initialItem);
   const [units, setUnits] = useState<Unit[]>(initialUnits);
   const [adjustments, setAdjustments] = useState<ConsumableAdjustment[]>(initialAdjustments);
-  const [openMaintenanceEntryByUnit, setOpenMaintenanceEntryByUnit] = useState<Record<string, string>>({});
+  const [openMaintenanceEntryByUnit, setOpenMaintenanceEntryByUnit] = useState<
+    Record<string, string>
+  >({});
 
   // --- Edit item details ---
   const [editForm, setEditForm] = useState({
@@ -424,10 +468,16 @@ export default function ItemDetail({
   const [editSaved, setEditSaved] = useState<string | null>(null);
 
   const [retireBusy, setRetireBusy] = useState(false);
-  const [retireMessage, setRetireMessage] = useState<{ text: string; kind: "success" | "error" } | null>(null);
+  const [retireMessage, setRetireMessage] = useState<{
+    text: string;
+    kind: "success" | "error";
+  } | null>(null);
 
   // --- Photo ---
-  const [photoMessage, setPhotoMessage] = useState<{ text: string; kind: "success" | "error" } | null>(null);
+  const [photoMessage, setPhotoMessage] = useState<{
+    text: string;
+    kind: "success" | "error";
+  } | null>(null);
 
   async function handlePhotoUploaded(url: string) {
     setPhotoMessage(null);
@@ -443,7 +493,10 @@ export default function ItemDetail({
         setPhotoMessage({ text: t.photoUpdated, kind: "success" });
         return;
       }
-      setPhotoMessage({ text: response.status === 403 ? t.errorForbidden : t.errorGeneric, kind: "error" });
+      setPhotoMessage({
+        text: response.status === 403 ? t.errorForbidden : t.errorGeneric,
+        kind: "error",
+      });
     } catch {
       setPhotoMessage({ text: t.errorGeneric, kind: "error" });
     }
@@ -456,6 +509,11 @@ export default function ItemDetail({
     setEditSaved(null);
 
     if (!editForm.nameEn.trim() || !editForm.nameTh.trim() || !editForm.maxLoanDays.trim()) {
+      const fieldErrors: Record<string, string> = {};
+      if (!editForm.nameEn.trim()) fieldErrors.nameEn = t.errorRequired;
+      if (!editForm.nameTh.trim()) fieldErrors.nameTh = t.errorRequired;
+      if (!editForm.maxLoanDays.trim()) fieldErrors.maxLoanDays = t.errorRequired;
+      setEditErrors(fieldErrors);
       setEditError(t.errorRequired);
       return;
     }
@@ -470,7 +528,8 @@ export default function ItemDetail({
         maxLoanDays: Number(editForm.maxLoanDays),
       };
       if (item.trackingMode === "consumable") {
-        body.reorderThreshold = editForm.reorderThreshold.trim() !== "" ? Number(editForm.reorderThreshold) : null;
+        body.reorderThreshold =
+          editForm.reorderThreshold.trim() !== "" ? Number(editForm.reorderThreshold) : null;
       }
 
       const response = await fetch(`/api/inventory/items/${item.id}`, {
@@ -516,7 +575,10 @@ export default function ItemDetail({
       const result = (await response.json().catch(() => null)) as ItemPatchResponse | null;
       if (response.ok && result?.ok && result.item) {
         setItem(result.item);
-        setRetireMessage({ text: item.isRetired ? t.restoredMessage : t.retiredMessage, kind: "success" });
+        setRetireMessage({
+          text: item.isRetired ? t.restoredMessage : t.retiredMessage,
+          kind: "success",
+        });
       } else if (response.status === 403) {
         setRetireMessage({ text: t.errorForbidden, kind: "error" });
       } else {
@@ -565,6 +627,7 @@ export default function ItemDetail({
 
     if (!unitForm.label.trim()) {
       setUnitFormError(t.errorRequired);
+      setUnitFormErrors({ label: t.errorRequired });
       return;
     }
 
@@ -587,7 +650,13 @@ export default function ItemDetail({
       if (response.ok && result?.ok && result.unit) {
         const createdUnit = result.unit;
         setUnits((prev) => [...prev, createdUnit].sort((a, b) => a.label.localeCompare(b.label)));
-        setUnitForm({ label: "", condition: "good", state: "available", locationId: "", notes: "" });
+        setUnitForm({
+          label: "",
+          condition: "good",
+          state: "available",
+          locationId: "",
+          notes: "",
+        });
         setAddUnitOpen(false);
         setUnitAddedMessage(t.unitAdded);
         return;
@@ -619,17 +688,20 @@ export default function ItemDetail({
   const [delta, setDelta] = useState("");
   const [reason, setReason] = useState("");
   const [adjustError, setAdjustError] = useState<string | null>(null);
+  const [deltaFieldError, setDeltaFieldError] = useState<string | null>(null);
   const [adjusting, setAdjusting] = useState(false);
   const [adjustMessage, setAdjustMessage] = useState<string | null>(null);
 
   async function handleAdjust(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setAdjustError(null);
+    setDeltaFieldError(null);
     setAdjustMessage(null);
 
     const deltaNum = Number(delta);
     if (delta.trim() === "" || Number.isNaN(deltaNum) || deltaNum === 0) {
       setAdjustError(t.errorRequired);
+      setDeltaFieldError(t.errorRequired);
       return;
     }
 
@@ -660,7 +732,7 @@ export default function ItemDetail({
         ]);
         setDelta("");
         setReason("");
-        setAdjustMessage(t.adjusted);
+        setAdjustMessage(t.adjustedWithQty(resultingQty));
         return;
       }
       if (response.status === 403) {
@@ -681,10 +753,14 @@ export default function ItemDetail({
     <div className="flex flex-col gap-8">
       <section className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
-          <Pill className="bg-brand-tint text-brand-deep">{item.trackingMode === "asset" ? t.assetTag : t.consumableTag}</Pill>
+          <Pill className="bg-brand-tint text-brand-deep">
+            {item.trackingMode === "asset" ? t.assetTag : t.consumableTag}
+          </Pill>
           {item.isRetired ? <Pill className="bg-sunken text-muted">{t.retiredTag}</Pill> : null}
           {availability && item.trackingMode === "asset" ? (
-            <Pill className="bg-info-tint text-ink">{t.availabilityLabel(availability.available, availability.total)}</Pill>
+            <Pill className="bg-info-tint text-ink">
+              {t.availabilityLabel(availability.available, availability.total)}
+            </Pill>
           ) : null}
         </div>
 
@@ -696,14 +772,17 @@ export default function ItemDetail({
           <div>
             <dt className="text-muted font-semibold">{t.categoryLabel}</dt>
             <dd className="text-ink">
-              {item.categoryId ? categories.find((c) => c.id === item.categoryId)?.name[locale] ?? t.noCategory : t.noCategory}
+              {item.categoryId
+                ? (categories.find((c) => c.id === item.categoryId)?.name[locale] ?? t.noCategory)
+                : t.noCategory}
             </dd>
           </div>
           <div>
             <dt className="text-muted font-semibold">{t.locationLabel}</dt>
             <dd className="text-ink">
               {item.defaultLocationId
-                ? locations.find((l) => l.id === item.defaultLocationId)?.name[locale] ?? t.noLocation
+                ? (locations.find((l) => l.id === item.defaultLocationId)?.name[locale] ??
+                  t.noLocation)
                 : t.noLocation}
             </dd>
           </div>
@@ -712,18 +791,22 @@ export default function ItemDetail({
             <dd className="text-ink">{item.maxLoanDays}</dd>
           </div>
         </dl>
-        {item.description[locale] ? <p className="text-ink text-sm leading-relaxed">{item.description[locale]}</p> : null}
+        {item.description[locale] ? (
+          <p className="text-ink text-sm leading-relaxed">{item.description[locale]}</p>
+        ) : null}
 
         {canWrite ? (
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <Button variant="secondary" onClick={handleRetireToggle} disabled={retireBusy}>
-              {item.isRetired ? (retireBusy ? t.restoring : t.restore) : retireBusy ? t.retiring : t.retire}
+              {item.isRetired
+                ? retireBusy
+                  ? t.restoring
+                  : t.restore
+                : retireBusy
+                  ? t.retiring
+                  : t.retire}
             </Button>
-            {retireMessage ? (
-              <p role="status" className={clsx("text-sm font-medium", retireMessage.kind === "success" ? "text-success" : "text-error")}>
-                {retireMessage.text}
-              </p>
-            ) : null}
+            <LiveMessage text={retireMessage?.text} kind={retireMessage?.kind ?? "success"} />
           </div>
         ) : null}
       </section>
@@ -742,33 +825,24 @@ export default function ItemDetail({
               tooLarge: t.photoTooLargeLabel,
               notConfigured: t.photoNotConfiguredLabel,
               error: t.photoErrorLabel,
+              photoAlt: t.photoAltLabel(item.name[locale]),
             }}
           />
-          {photoMessage ? (
-            <p
-              role="status"
-              className={clsx("text-sm font-medium", photoMessage.kind === "success" ? "text-success" : "text-error")}
-            >
-              {photoMessage.text}
-            </p>
-          ) : null}
+          <LiveMessage text={photoMessage?.text} kind={photoMessage?.kind ?? "success"} />
         </section>
       ) : null}
 
       {canWrite ? (
         <Accordion summary={t.editTitle}>
-          <form onSubmit={handleSaveItem} noValidate aria-live="polite" className="flex flex-col gap-5 pt-2">
+          <form
+            onSubmit={handleSaveItem}
+            noValidate
+            aria-live="polite"
+            className="flex flex-col gap-5 pt-2"
+          >
             <ErrorSummary title={t.errorSummaryTitle} errors={editErrorItems} />
-            {editError && editErrorItems.length === 0 ? (
-              <p role="alert" className="text-error text-sm font-medium">
-                {editError}
-              </p>
-            ) : null}
-            {editSaved ? (
-              <p role="status" className="text-success text-sm font-medium">
-                {editSaved}
-              </p>
-            ) : null}
+            <LiveMessage text={editErrorItems.length === 0 ? editError : null} kind="error" />
+            <LiveMessage text={editSaved} kind="success" />
 
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <Field
@@ -778,7 +852,10 @@ export default function ItemDetail({
                 required
                 requiredLabel={t.required}
                 value={editForm.nameEn}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, nameEn: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, nameEn: event.target.value }))
+                }
+                error={editErrors.nameEn}
               />
               <Field
                 id={`${formId}-edit-nameTh`}
@@ -787,7 +864,10 @@ export default function ItemDetail({
                 required
                 requiredLabel={t.required}
                 value={editForm.nameTh}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, nameTh: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, nameTh: event.target.value }))
+                }
+                error={editErrors.nameTh}
               />
               <Field
                 id={`${formId}-edit-descriptionEn`}
@@ -796,7 +876,9 @@ export default function ItemDetail({
                 label={t.descriptionEnLabel}
                 optionalLabel={t.optional}
                 value={editForm.descriptionEn}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, descriptionEn: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, descriptionEn: event.target.value }))
+                }
               />
               <Field
                 id={`${formId}-edit-descriptionTh`}
@@ -805,7 +887,9 @@ export default function ItemDetail({
                 label={t.descriptionThLabel}
                 optionalLabel={t.optional}
                 value={editForm.descriptionTh}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, descriptionTh: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, descriptionTh: event.target.value }))
+                }
               />
               <Field
                 id={`${formId}-edit-categoryId`}
@@ -814,7 +898,9 @@ export default function ItemDetail({
                 label={t.categoryLabel}
                 optionalLabel={t.optional}
                 value={editForm.categoryId}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, categoryId: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, categoryId: event.target.value }))
+                }
                 options={categoryOptions}
               />
               <Field
@@ -824,7 +910,9 @@ export default function ItemDetail({
                 label={t.locationLabel}
                 optionalLabel={t.optional}
                 value={editForm.defaultLocationId}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, defaultLocationId: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, defaultLocationId: event.target.value }))
+                }
                 options={locationOptions}
               />
               <Field
@@ -836,7 +924,10 @@ export default function ItemDetail({
                 required
                 requiredLabel={t.required}
                 value={editForm.maxLoanDays}
-                onChange={(event) => setEditForm((prev) => ({ ...prev, maxLoanDays: event.target.value }))}
+                onChange={(event) =>
+                  setEditForm((prev) => ({ ...prev, maxLoanDays: event.target.value }))
+                }
+                error={editErrors.maxLoanDays}
               />
               {item.trackingMode === "consumable" ? (
                 <Field
@@ -847,7 +938,9 @@ export default function ItemDetail({
                   label={t.reorderThresholdLabel}
                   optionalLabel={t.optional}
                   value={editForm.reorderThreshold}
-                  onChange={(event) => setEditForm((prev) => ({ ...prev, reorderThreshold: event.target.value }))}
+                  onChange={(event) =>
+                    setEditForm((prev) => ({ ...prev, reorderThreshold: event.target.value }))
+                  }
                 />
               ) : null}
             </div>
@@ -866,30 +959,28 @@ export default function ItemDetail({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="font-display text-ink text-xl">{t.unitsTitle}</h2>
             {canWrite ? (
-              <Button variant={addUnitOpen ? "secondary" : "primary"} onClick={() => setAddUnitOpen((prev) => !prev)}>
+              <Button
+                variant={addUnitOpen ? "secondary" : "primary"}
+                onClick={() => setAddUnitOpen((prev) => !prev)}
+                aria-expanded={addUnitOpen}
+                aria-controls={`${formId}-add-unit-panel`}
+              >
                 {addUnitOpen ? t.hideForm : t.addUnit}
               </Button>
             ) : null}
           </div>
 
-          {unitAddedMessage ? (
-            <p role="status" className="text-success text-sm font-medium">
-              {unitAddedMessage}
-            </p>
-          ) : null}
+          <LiveMessage text={unitAddedMessage} kind="success" />
 
           {canWrite && addUnitOpen ? (
             <form
+              id={`${formId}-add-unit-panel`}
               onSubmit={handleAddUnit}
               noValidate
               aria-live="polite"
               className="border-line bg-sunken flex flex-col gap-5 rounded-lg border p-5"
             >
-              {unitFormError ? (
-                <p role="alert" className="text-error text-sm font-medium">
-                  {unitFormError}
-                </p>
-              ) : null}
+              <LiveMessage text={unitFormError} kind="error" />
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field
                   id={`${formId}-unit-label`}
@@ -898,7 +989,9 @@ export default function ItemDetail({
                   required
                   requiredLabel={t.required}
                   value={unitForm.label}
-                  onChange={(event) => setUnitForm((prev) => ({ ...prev, label: event.target.value }))}
+                  onChange={(event) =>
+                    setUnitForm((prev) => ({ ...prev, label: event.target.value }))
+                  }
                   error={unitFormErrors.label}
                 />
                 <Field
@@ -907,7 +1000,12 @@ export default function ItemDetail({
                   as="select"
                   label={t.conditionLabel}
                   value={unitForm.condition}
-                  onChange={(event) => setUnitForm((prev) => ({ ...prev, condition: event.target.value as UnitCondition }))}
+                  onChange={(event) =>
+                    setUnitForm((prev) => ({
+                      ...prev,
+                      condition: event.target.value as UnitCondition,
+                    }))
+                  }
                   options={CONDITIONS.map((c) => ({ value: c, label: t.conditionLabels[c] }))}
                 />
                 <Field
@@ -916,7 +1014,9 @@ export default function ItemDetail({
                   as="select"
                   label={t.stateLabel}
                   value={unitForm.state}
-                  onChange={(event) => setUnitForm((prev) => ({ ...prev, state: event.target.value as UnitState }))}
+                  onChange={(event) =>
+                    setUnitForm((prev) => ({ ...prev, state: event.target.value as UnitState }))
+                  }
                   options={STATES.map((s) => ({ value: s, label: t.stateLabels[s] }))}
                 />
                 <Field
@@ -926,7 +1026,9 @@ export default function ItemDetail({
                   label={t.locationLabel}
                   optionalLabel={t.optional}
                   value={unitForm.locationId}
-                  onChange={(event) => setUnitForm((prev) => ({ ...prev, locationId: event.target.value }))}
+                  onChange={(event) =>
+                    setUnitForm((prev) => ({ ...prev, locationId: event.target.value }))
+                  }
                   options={locationOptions}
                 />
                 <Field
@@ -937,7 +1039,9 @@ export default function ItemDetail({
                   optionalLabel={t.optional}
                   className="sm:col-span-2"
                   value={unitForm.notes}
-                  onChange={(event) => setUnitForm((prev) => ({ ...prev, notes: event.target.value }))}
+                  onChange={(event) =>
+                    setUnitForm((prev) => ({ ...prev, notes: event.target.value }))
+                  }
                 />
               </div>
               <div>
@@ -993,16 +1097,8 @@ export default function ItemDetail({
               aria-live="polite"
               className="border-line bg-sunken flex flex-col gap-5 rounded-lg border p-5"
             >
-              {adjustError ? (
-                <p role="alert" className="text-error text-sm font-medium">
-                  {adjustError}
-                </p>
-              ) : null}
-              {adjustMessage ? (
-                <p role="status" className="text-success text-sm font-medium">
-                  {adjustMessage}
-                </p>
-              ) : null}
+              <LiveMessage text={adjustError} kind="error" />
+              <LiveMessage text={adjustMessage} kind="success" />
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field
                   id={`${formId}-adjust-delta`}
@@ -1014,6 +1110,7 @@ export default function ItemDetail({
                   requiredLabel={t.required}
                   value={delta}
                   onChange={(event) => setDelta(event.target.value)}
+                  error={deltaFieldError ?? undefined}
                 />
                 <Field
                   id={`${formId}-adjust-reason`}
@@ -1033,12 +1130,17 @@ export default function ItemDetail({
           ) : null}
 
           <div className="flex flex-col gap-3">
-            <h3 className="text-ink text-sm font-semibold">{t.historyTitle}</h3>
+            <h3 id={`${formId}-history-heading`} className="text-ink text-sm font-semibold">
+              {t.historyTitle}
+            </h3>
             {adjustments.length === 0 ? (
               <p className="text-muted text-sm">{t.historyEmpty}</p>
             ) : (
               <div className="overflow-x-auto">
-                <table className="text-ink w-full text-left text-sm">
+                <table
+                  aria-labelledby={`${formId}-history-heading`}
+                  className="text-ink w-full text-left text-sm"
+                >
                   <thead>
                     <tr className="border-line border-b">
                       <th scope="col" className="py-2 pr-4 font-semibold">
@@ -1059,7 +1161,12 @@ export default function ItemDetail({
                     {adjustments.map((adjustment) => (
                       <tr key={adjustment.id} className="border-line border-b last:border-0">
                         <td className="py-2 pr-4">{formatDate(locale, adjustment.createdAt)}</td>
-                        <td className={clsx("py-2 pr-4 font-semibold", adjustment.delta >= 0 ? "text-success" : "text-error")}>
+                        <td
+                          className={clsx(
+                            "py-2 pr-4 font-semibold",
+                            adjustment.delta >= 0 ? "text-success" : "text-error"
+                          )}
+                        >
                           {adjustment.delta >= 0 ? `+${adjustment.delta}` : adjustment.delta}
                         </td>
                         <td className="py-2 pr-4">{adjustment.reason ?? ""}</td>
@@ -1111,6 +1218,7 @@ function UnitRow({
     notes: unit.notes ?? "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [labelError, setLabelError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
@@ -1119,6 +1227,7 @@ function UnitRow({
   const [conditionBefore, setConditionBefore] = useState<UnitCondition>(unit.condition);
   const [openingMaintenance, setOpeningMaintenance] = useState(false);
   const [maintenanceError, setMaintenanceError] = useState<string | null>(null);
+  const [issueFieldError, setIssueFieldError] = useState<string | null>(null);
 
   const [closeOpen, setCloseOpen] = useState(false);
   const [actionTaken, setActionTaken] = useState("");
@@ -1134,9 +1243,11 @@ function UnitRow({
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setLabelError(null);
     setMessage(null);
     if (!form.label.trim()) {
       setError(t.errorRequired);
+      setLabelError(t.errorRequired);
       return;
     }
     setSaving(true);
@@ -1170,8 +1281,10 @@ function UnitRow({
   async function handleOpenMaintenance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMaintenanceError(null);
+    setIssueFieldError(null);
     if (!issue.trim()) {
       setMaintenanceError(t.errorRequired);
+      setIssueFieldError(t.errorRequired);
       return;
     }
     setOpeningMaintenance(true);
@@ -1232,7 +1345,9 @@ function UnitRow({
         <div>
           <p className="text-ink font-semibold">{unit.label}</p>
           <p className="text-muted text-sm">
-            {unit.locationId ? locations.find((l) => l.id === unit.locationId)?.name[locale] ?? t.noLocation : t.noLocation}
+            {unit.locationId
+              ? (locations.find((l) => l.id === unit.locationId)?.name[locale] ?? t.noLocation)
+              : t.noLocation}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -1244,15 +1359,30 @@ function UnitRow({
 
       {canWrite ? (
         <div className="flex flex-wrap items-center gap-3">
-          <Button variant="ghost" onClick={() => setEditing((prev) => !prev)}>
+          <Button
+            variant="ghost"
+            onClick={() => setEditing((prev) => !prev)}
+            aria-expanded={editing}
+            aria-controls={`${formId}-edit-panel`}
+          >
             {editing ? t.hideForm : t.editUnit}
           </Button>
           {unit.state !== "maintenance" ? (
-            <Button variant="ghost" onClick={() => setMaintenanceOpen((prev) => !prev)}>
+            <Button
+              variant="ghost"
+              onClick={() => setMaintenanceOpen((prev) => !prev)}
+              aria-expanded={maintenanceOpen}
+              aria-controls={`${formId}-maintenance-panel`}
+            >
               {maintenanceOpen ? t.hideForm : t.reportIssue}
             </Button>
           ) : openMaintenanceEntryId ? (
-            <Button variant="ghost" onClick={() => setCloseOpen((prev) => !prev)}>
+            <Button
+              variant="ghost"
+              onClick={() => setCloseOpen((prev) => !prev)}
+              aria-expanded={closeOpen}
+              aria-controls={`${formId}-close-panel`}
+            >
               {closeOpen ? t.hideForm : t.closeMaintenance}
             </Button>
           ) : null}
@@ -1263,19 +1393,17 @@ function UnitRow({
         <Notice variant="info">{t.maintenanceUnknownEntry}</Notice>
       ) : null}
 
-      {message ? (
-        <p role="status" className="text-success text-sm font-medium">
-          {message}
-        </p>
-      ) : null}
+      <LiveMessage text={message} kind="success" />
 
       {canWrite && editing ? (
-        <form onSubmit={handleSave} noValidate aria-live="polite" className="border-line flex flex-col gap-4 border-t pt-4">
-          {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
-              {error}
-            </p>
-          ) : null}
+        <form
+          id={`${formId}-edit-panel`}
+          onSubmit={handleSave}
+          noValidate
+          aria-live="polite"
+          className="border-line flex flex-col gap-4 border-t pt-4"
+        >
+          <LiveMessage text={error} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field
               id={`${formId}-label`}
@@ -1285,6 +1413,7 @@ function UnitRow({
               requiredLabel={t.required}
               value={form.label}
               onChange={(event) => setForm((prev) => ({ ...prev, label: event.target.value }))}
+              error={labelError ?? undefined}
             />
             <Field
               id={`${formId}-condition`}
@@ -1292,7 +1421,9 @@ function UnitRow({
               as="select"
               label={t.conditionLabel}
               value={form.condition}
-              onChange={(event) => setForm((prev) => ({ ...prev, condition: event.target.value as UnitCondition }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, condition: event.target.value as UnitCondition }))
+              }
               options={CONDITIONS.map((c) => ({ value: c, label: t.conditionLabels[c] }))}
             />
             <Field
@@ -1301,7 +1432,9 @@ function UnitRow({
               as="select"
               label={t.stateLabel}
               value={form.state}
-              onChange={(event) => setForm((prev) => ({ ...prev, state: event.target.value as UnitState }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, state: event.target.value as UnitState }))
+              }
               options={STATES.map((s) => ({ value: s, label: t.stateLabels[s] }))}
             />
             <Field
@@ -1335,16 +1468,13 @@ function UnitRow({
 
       {canWrite && maintenanceOpen ? (
         <form
+          id={`${formId}-maintenance-panel`}
           onSubmit={handleOpenMaintenance}
           noValidate
           aria-live="polite"
           className="border-line flex flex-col gap-4 border-t pt-4"
         >
-          {maintenanceError ? (
-            <p role="alert" className="text-error text-sm font-medium">
-              {maintenanceError}
-            </p>
-          ) : null}
+          <LiveMessage text={maintenanceError} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field
               id={`${formId}-issue`}
@@ -1356,6 +1486,7 @@ function UnitRow({
               className="sm:col-span-2"
               value={issue}
               onChange={(event) => setIssue(event.target.value)}
+              error={issueFieldError ?? undefined}
             />
             <Field
               id={`${formId}-conditionBefore`}
@@ -1377,16 +1508,13 @@ function UnitRow({
 
       {canWrite && closeOpen && openMaintenanceEntryId ? (
         <form
+          id={`${formId}-close-panel`}
           onSubmit={handleCloseMaintenance}
           noValidate
           aria-live="polite"
           className="border-line flex flex-col gap-4 border-t pt-4"
         >
-          {closeError ? (
-            <p role="alert" className="text-error text-sm font-medium">
-              {closeError}
-            </p>
-          ) : null}
+          <LiveMessage text={closeError} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field
               id={`${formId}-actionTaken`}

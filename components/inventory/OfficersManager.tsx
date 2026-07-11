@@ -124,7 +124,8 @@ const copy: Record<Locale, Copy> = {
     listEmpty: "ยังไม่มีบัญชีเจ้าหน้าที่",
     activeLabel: "ใช้งานอยู่",
     inactiveLabel: "ปิดใช้งาน",
-    deactivateConfirm: (name) => `ปิดใช้งานบัญชีของ ${name} ใช่หรือไม่ พวกเขาจะไม่สามารถเข้าสู่ระบบได้อีก`,
+    deactivateConfirm: (name) =>
+      `ปิดใช้งานบัญชีของ ${name} ใช่หรือไม่ พวกเขาจะไม่สามารถเข้าสู่ระบบได้อีก`,
     activateAction: "เปิดใช้งาน",
     deactivateAction: "ปิดใช้งาน",
     resetPasscodeAction: "ตั้งรหัสผ่านใหม่",
@@ -147,6 +148,8 @@ const copy: Record<Locale, Copy> = {
 const ROLES: Role[] = ["admin", "inventory_manager", "loan_officer", "read_only"];
 
 type RowMessage = { kind: "success" | "error"; text: string };
+type FieldName = "email" | "name" | "role" | "passcode";
+type AddError = { field: FieldName | "general"; message: string };
 
 type OfficerApiResponse =
   | { ok: true; officer: Officer }
@@ -164,7 +167,10 @@ function formatLastLogin(locale: Locale, t: Copy, lastLoginAt: string | null): s
   return t.lastLoginLabel(formatted);
 }
 
-export default function OfficersManager({ locale, officers: initialOfficers }: OfficersManagerProps) {
+export default function OfficersManager({
+  locale,
+  officers: initialOfficers,
+}: OfficersManagerProps) {
   const t = copy[locale];
   const formId = useId();
 
@@ -175,7 +181,7 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
   const [name, setName] = useState("");
   const [role, setRole] = useState<Role>("read_only");
   const [passcode, setPasscode] = useState("");
-  const [addError, setAddError] = useState<string | null>(null);
+  const [addError, setAddError] = useState<AddError | null>(null);
   const [addPending, setAddPending] = useState(false);
   const [addMessage, setAddMessage] = useState<string | null>(null);
 
@@ -183,6 +189,7 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
   const [busyId, setBusyId] = useState<string | null>(null);
   const [resettingId, setResettingId] = useState<string | null>(null);
   const [resetValue, setResetValue] = useState("");
+  const [resetError, setResetError] = useState<string | null>(null);
   const [rowMessages, setRowMessages] = useState<Record<string, RowMessage>>({});
 
   function errorTextForReason(reason: string | undefined): string {
@@ -201,12 +208,20 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
   async function handleAdd(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!email || !name || !passcode) {
-      setAddError(t.errorRequired);
+    if (!email) {
+      setAddError({ field: "email", message: t.errorRequired });
+      return;
+    }
+    if (!name) {
+      setAddError({ field: "name", message: t.errorRequired });
+      return;
+    }
+    if (!passcode) {
+      setAddError({ field: "passcode", message: t.errorRequired });
       return;
     }
     if (passcode.length < 6) {
-      setAddError(t.errorPasscodeLength);
+      setAddError({ field: "passcode", message: t.errorPasscodeLength });
       return;
     }
 
@@ -223,14 +238,12 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
       const body = (await response.json().catch(() => null)) as OfficerApiResponse | null;
 
       if (response.status === 401 || response.status === 403) {
-        setAddError(t.errorForbidden);
+        setAddError({ field: "general", message: t.errorForbidden });
         return;
       }
 
       if (body?.ok) {
-        setOfficers((prev) =>
-          [...prev, body.officer].sort((a, b) => a.name.localeCompare(b.name))
-        );
+        setOfficers((prev) => [...prev, body.officer].sort((a, b) => a.name.localeCompare(b.name)));
         setEmail("");
         setName("");
         setRole("read_only");
@@ -239,9 +252,13 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
         return;
       }
 
-      setAddError(errorTextForReason(body?.reason));
+      const reason = body?.reason;
+      setAddError({
+        field: reason === "duplicate" ? "email" : "general",
+        message: errorTextForReason(reason),
+      });
     } catch {
-      setAddError(t.errorGeneric);
+      setAddError({ field: "general", message: t.errorGeneric });
     } finally {
       setAddPending(false);
     }
@@ -274,7 +291,10 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
         return;
       }
 
-      setRowMessages((prev) => ({ ...prev, [id]: { kind: "error", text: errorTextForReason(body?.reason) } }));
+      setRowMessages((prev) => ({
+        ...prev,
+        [id]: { kind: "error", text: errorTextForReason(body?.reason) },
+      }));
     } catch {
       setRowMessages((prev) => ({ ...prev, [id]: { kind: "error", text: t.errorGeneric } }));
     } finally {
@@ -300,24 +320,37 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
   function startResetPasscode(id: string) {
     setResettingId(id);
     setResetValue("");
+    setResetError(null);
   }
 
   function cancelResetPasscode() {
     setResettingId(null);
     setResetValue("");
+    setResetError(null);
   }
 
   async function submitResetPasscode(officerRow: Officer) {
     if (resetValue.length < 6) {
-      setRowMessages((prev) => ({ ...prev, [officerRow.id]: { kind: "error", text: t.errorPasscodeLength } }));
+      setResetError(t.errorPasscodeLength);
+      setRowMessages((prev) => ({
+        ...prev,
+        [officerRow.id]: { kind: "error", text: t.errorPasscodeLength },
+      }));
       return;
     }
+    setResetError(null);
     await patchOfficer(officerRow.id, { passcode: resetValue }, t.passcodeResetMessage);
     setResettingId(null);
     setResetValue("");
   }
 
-  const addErrorItems: ErrorSummaryItem[] = addError ? [{ id: `${formId}-email`, message: addError }] : [];
+  const addErrorFieldId =
+    addError?.field && addError.field !== "general"
+      ? `${formId}-${addError.field}`
+      : `${formId}-email`;
+  const addErrorItems: ErrorSummaryItem[] = addError
+    ? [{ id: addErrorFieldId, message: addError.message }]
+    : [];
 
   return (
     <div className="flex flex-col gap-10">
@@ -325,7 +358,11 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
         <h2 id="add-officer-heading" className="font-display text-ink text-xl">
           {t.addTitle}
         </h2>
-        <form onSubmit={handleAdd} noValidate className="border-line bg-surface flex flex-col gap-5 rounded-lg border p-5 sm:max-w-xl">
+        <form
+          onSubmit={handleAdd}
+          noValidate
+          className="border-line bg-surface flex flex-col gap-5 rounded-lg border p-5 sm:max-w-xl"
+        >
           <ErrorSummary title={t.addErrorSummaryTitle} errors={addErrorItems} />
 
           <Field
@@ -336,8 +373,12 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
             required
             requiredLabel={t.required}
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              if (addError?.field === "email") setAddError(null);
+            }}
             autoComplete="off"
+            error={addError?.field === "email" ? addError.message : undefined}
           />
 
           <Field
@@ -347,8 +388,12 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
             required
             requiredLabel={t.required}
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => {
+              setName(event.target.value);
+              if (addError?.field === "name") setAddError(null);
+            }}
             autoComplete="off"
+            error={addError?.field === "name" ? addError.message : undefined}
           />
 
           <Field
@@ -372,8 +417,12 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
             required
             requiredLabel={t.required}
             value={passcode}
-            onChange={(event) => setPasscode(event.target.value)}
+            onChange={(event) => {
+              setPasscode(event.target.value);
+              if (addError?.field === "passcode") setAddError(null);
+            }}
             autoComplete="new-password"
+            error={addError?.field === "passcode" ? addError.message : undefined}
           />
 
           <div>
@@ -383,7 +432,7 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
           </div>
 
           {addMessage ? (
-            <p role="status" className="text-success text-sm font-medium">
+            <p role="status" aria-live="polite" className="text-success text-sm font-medium">
               {addMessage}
             </p>
           ) : null}
@@ -405,7 +454,10 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
               const isResetting = resettingId === officerRow.id;
 
               return (
-                <article key={officerRow.id} className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5">
+                <article
+                  key={officerRow.id}
+                  className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+                >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <p className="font-display text-ink text-lg">{officerRow.name}</p>
@@ -419,7 +471,9 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
                     </div>
                   </div>
 
-                  <p className="text-muted text-sm">{formatLastLogin(locale, t, officerRow.lastLoginAt)}</p>
+                  <p className="text-muted text-sm">
+                    {formatLastLogin(locale, t, officerRow.lastLoginAt)}
+                  </p>
 
                   <div className="flex flex-wrap items-end gap-3 pt-1">
                     <Field
@@ -434,12 +488,20 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
                       className="min-w-[10rem]"
                     />
 
-                    <Button variant="secondary" onClick={() => handleToggleActive(officerRow)} disabled={isBusy}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => handleToggleActive(officerRow)}
+                      disabled={isBusy}
+                    >
                       {officerRow.isActive ? t.deactivateAction : t.activateAction}
                     </Button>
 
                     {!isResetting ? (
-                      <Button variant="ghost" onClick={() => startResetPasscode(officerRow.id)} disabled={isBusy}>
+                      <Button
+                        variant="ghost"
+                        onClick={() => startResetPasscode(officerRow.id)}
+                        disabled={isBusy}
+                      >
                         {t.resetPasscodeAction}
                       </Button>
                     ) : null}
@@ -454,9 +516,13 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
                         label={t.passcodeLabel}
                         hint={t.passcodeHint}
                         value={resetValue}
-                        onChange={(event) => setResetValue(event.target.value)}
+                        onChange={(event) => {
+                          setResetValue(event.target.value);
+                          setResetError(null);
+                        }}
                         autoComplete="new-password"
                         className="min-w-[14rem]"
+                        error={resetError ?? undefined}
                       />
                       <Button onClick={() => submitResetPasscode(officerRow)} disabled={isBusy}>
                         {isBusy ? t.savingLabel : t.resetPasscodeSubmit}
@@ -469,7 +535,8 @@ export default function OfficersManager({ locale, officers: initialOfficers }: O
 
                   {message ? (
                     <div
-                      role="status"
+                      role={message.kind === "success" ? "status" : "alert"}
+                      aria-live={message.kind === "success" ? "polite" : "assertive"}
                       className={clsx(
                         "rounded-md border-l-4 p-3 text-sm",
                         message.kind === "success"

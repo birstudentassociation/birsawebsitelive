@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { getSessionOfficer } from "@/lib/inventory/auth";
-import { LogoutButton } from "@/components/inventory/ConsoleGate";
+import { ConsoleNav, LogoutButton } from "@/components/inventory/ConsoleGate";
 
 /**
  * Console shell for the inventory management suite. Never indexed: reachable
@@ -33,6 +33,9 @@ export async function generateMetadata({
 
 type NavCopy = {
   consoleName: string;
+  /** aria-label for the primary console nav — distinct from the page's
+   * breadcrumb trail, which uses `dict.a11y.breadcrumb`. */
+  navLabel: string;
   dashboard: string;
   catalogue: string;
   loans: string;
@@ -44,6 +47,7 @@ type NavCopy = {
 const navCopy: Record<Locale, NavCopy> = {
   en: {
     consoleName: "BIRSA officer console",
+    navLabel: "Officer console navigation",
     dashboard: "Dashboard",
     catalogue: "Catalogue",
     loans: "Loans",
@@ -53,6 +57,7 @@ const navCopy: Record<Locale, NavCopy> = {
   },
   th: {
     consoleName: "คอนโซลเจ้าหน้าที่ BIRSA",
+    navLabel: "เมนูนำทางคอนโซลเจ้าหน้าที่",
     dashboard: "แดชบอร์ด",
     catalogue: "รายการครุภัณฑ์",
     loans: "การยืม-คืน",
@@ -72,7 +77,6 @@ export default async function OfficerInventoryLayout({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const t = navCopy[locale];
 
   const officer = await getSessionOfficer();
@@ -90,18 +94,21 @@ export default async function OfficerInventoryLayout({
     <div className="flex min-h-screen flex-col">
       <header className="bg-brand text-white">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-4">
-          <Link href={localeHref(locale, "/officer/inventory")} className="font-display text-lg font-semibold">
+          <Link
+            href={localeHref(locale, "/officer/inventory")}
+            className="font-display text-lg font-semibold text-white"
+          >
             {t.consoleName}
           </Link>
 
           {officer ? (
-            <nav aria-label={dict.a11y.breadcrumb} className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-              {navItems.map((item) => (
-                <Link key={item.href} href={localeHref(locale, item.href)} className="font-medium hover:underline">
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+            <ConsoleNav
+              ariaLabel={t.navLabel}
+              items={navItems.map((item) => ({
+                href: localeHref(locale, item.href),
+                label: item.label,
+              }))}
+            />
           ) : null}
 
           {officer ? (

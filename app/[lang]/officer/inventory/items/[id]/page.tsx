@@ -36,7 +36,12 @@ export async function generateMetadata({
       ? "หน้าสำหรับเจ้าหน้าที่ BIRSA ใช้ดูและจัดการรายละเอียดครุภัณฑ์แต่ละรายการ"
       : "Internal page for BIRSA officers to view and manage a single inventory item.";
 
-  const metadata = buildMetadata({ locale, title, description, path: `/officer/inventory/items/${id}` });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: `/officer/inventory/items/${id}`,
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 

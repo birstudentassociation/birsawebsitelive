@@ -118,7 +118,12 @@ const CAN_WRITE: Role[] = ["admin", "inventory_manager"];
 type CategoryResponse = { ok: true; category: Category } | { ok: false; reason?: string };
 type LocationResponse = { ok: true; location: Location } | { ok: false; reason?: string };
 
-export default function ReferenceManager({ categories: initialCategories, locations: initialLocations, role, locale }: ReferenceManagerProps) {
+export default function ReferenceManager({
+  categories: initialCategories,
+  locations: initialLocations,
+  role,
+  locale,
+}: ReferenceManagerProps) {
   const t = copy[locale];
   const canWrite = CAN_WRITE.includes(role);
 
@@ -127,8 +132,20 @@ export default function ReferenceManager({ categories: initialCategories, locati
 
   return (
     <div className="flex flex-col gap-10">
-      <CategorySection t={t} locale={locale} canWrite={canWrite} categories={categories} setCategories={setCategories} />
-      <LocationSection t={t} locale={locale} canWrite={canWrite} locations={locations} setLocations={setLocations} />
+      <CategorySection
+        t={t}
+        locale={locale}
+        canWrite={canWrite}
+        categories={categories}
+        setCategories={setCategories}
+      />
+      <LocationSection
+        t={t}
+        locale={locale}
+        canWrite={canWrite}
+        locations={locations}
+        setLocations={setLocations}
+      />
     </div>
   );
 }
@@ -174,7 +191,11 @@ function CategorySection({
       });
       const result = (await response.json().catch(() => null)) as CategoryResponse | null;
       if (response.ok && result?.ok) {
-        setCategories((prev) => [...prev, result.category].sort((a, b) => a.sortOrder - b.sortOrder || a.name.en.localeCompare(b.name.en)));
+        setCategories((prev) =>
+          [...prev, result.category].sort(
+            (a, b) => a.sortOrder - b.sortOrder || a.name.en.localeCompare(b.name.en)
+          )
+        );
         setForm({ slug: "", nameEn: "", nameTh: "", sortOrder: "0" });
         setCreateOpen(false);
         setMessage(t.created);
@@ -195,7 +216,12 @@ function CategorySection({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-display text-ink text-xl">{t.categoriesTitle}</h2>
         {canWrite ? (
-          <Button variant={createOpen ? "secondary" : "primary"} onClick={() => setCreateOpen((prev) => !prev)}>
+          <Button
+            variant={createOpen ? "secondary" : "primary"}
+            aria-expanded={createOpen}
+            aria-controls={`${formId}-create-form`}
+            onClick={() => setCreateOpen((prev) => !prev)}
+          >
             {createOpen ? t.hideForm : t.addCategory}
           </Button>
         ) : null}
@@ -209,6 +235,7 @@ function CategorySection({
 
       {canWrite && createOpen ? (
         <form
+          id={`${formId}-create-form`}
           onSubmit={handleCreate}
           noValidate
           aria-live="polite"
@@ -271,7 +298,14 @@ function CategorySection({
       ) : (
         <ul className="flex flex-col gap-3">
           {categories.map((category) => (
-            <CategoryRow key={category.id} category={category} t={t} locale={locale} canWrite={canWrite} setCategories={setCategories} />
+            <CategoryRow
+              key={category.id}
+              category={category}
+              t={t}
+              locale={locale}
+              canWrite={canWrite}
+              setCategories={setCategories}
+            />
           ))}
         </ul>
       )}
@@ -302,6 +336,7 @@ function CategoryRow({
   });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [savedMessage, setSavedMessage] = useState<string | null>(null);
 
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -323,8 +358,11 @@ function CategoryRow({
       });
       const result = (await response.json().catch(() => null)) as CategoryResponse | null;
       if (response.ok && result?.ok) {
-        setCategories((prev) => prev.map((existing) => (existing.id === category.id ? result.category : existing)));
+        setCategories((prev) =>
+          prev.map((existing) => (existing.id === category.id ? result.category : existing))
+        );
         setEditing(false);
+        setSavedMessage(t.saved);
         return;
       }
       if (response.status === 403) setError(t.errorForbidden);
@@ -345,14 +383,34 @@ function CategoryRow({
           <p className="text-muted text-sm">{category.slug}</p>
         </div>
         {canWrite ? (
-          <Button variant="ghost" onClick={() => setEditing((prev) => !prev)}>
+          <Button
+            variant="ghost"
+            aria-expanded={editing}
+            aria-controls={`${formId}-edit-form`}
+            onClick={() => {
+              setEditing((prev) => !prev);
+              setSavedMessage(null);
+            }}
+          >
             {editing ? t.cancel : t.edit}
           </Button>
         ) : null}
       </div>
 
+      {savedMessage && !editing ? (
+        <p role="status" className="text-success text-sm font-medium">
+          {savedMessage}
+        </p>
+      ) : null}
+
       {canWrite && editing ? (
-        <form onSubmit={handleSave} noValidate aria-live="polite" className="border-line flex flex-col gap-4 border-t pt-4">
+        <form
+          id={`${formId}-edit-form`}
+          onSubmit={handleSave}
+          noValidate
+          aria-live="polite"
+          className="border-line flex flex-col gap-4 border-t pt-4"
+        >
           {error ? (
             <p role="alert" className="text-error text-sm font-medium">
               {error}
@@ -421,7 +479,14 @@ function LocationSection({
 }) {
   const formId = useId();
   const [createOpen, setCreateOpen] = useState(false);
-  const [form, setForm] = useState({ slug: "", nameEn: "", nameTh: "", descriptionEn: "", descriptionTh: "", sortOrder: "0" });
+  const [form, setForm] = useState({
+    slug: "",
+    nameEn: "",
+    nameTh: "",
+    descriptionEn: "",
+    descriptionTh: "",
+    sortOrder: "0",
+  });
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -448,8 +513,19 @@ function LocationSection({
       });
       const result = (await response.json().catch(() => null)) as LocationResponse | null;
       if (response.ok && result?.ok) {
-        setLocations((prev) => [...prev, result.location].sort((a, b) => a.sortOrder - b.sortOrder || a.name.en.localeCompare(b.name.en)));
-        setForm({ slug: "", nameEn: "", nameTh: "", descriptionEn: "", descriptionTh: "", sortOrder: "0" });
+        setLocations((prev) =>
+          [...prev, result.location].sort(
+            (a, b) => a.sortOrder - b.sortOrder || a.name.en.localeCompare(b.name.en)
+          )
+        );
+        setForm({
+          slug: "",
+          nameEn: "",
+          nameTh: "",
+          descriptionEn: "",
+          descriptionTh: "",
+          sortOrder: "0",
+        });
         setCreateOpen(false);
         setMessage(t.created);
         return;
@@ -469,7 +545,12 @@ function LocationSection({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="font-display text-ink text-xl">{t.locationsTitle}</h2>
         {canWrite ? (
-          <Button variant={createOpen ? "secondary" : "primary"} onClick={() => setCreateOpen((prev) => !prev)}>
+          <Button
+            variant={createOpen ? "secondary" : "primary"}
+            aria-expanded={createOpen}
+            aria-controls={`${formId}-create-form`}
+            onClick={() => setCreateOpen((prev) => !prev)}
+          >
             {createOpen ? t.hideForm : t.addLocation}
           </Button>
         ) : null}
@@ -483,6 +564,7 @@ function LocationSection({
 
       {canWrite && createOpen ? (
         <form
+          id={`${formId}-create-form`}
           onSubmit={handleCreate}
           noValidate
           aria-live="polite"
@@ -538,7 +620,9 @@ function LocationSection({
               label={t.descriptionEnLabel}
               optionalLabel={t.optional}
               value={form.descriptionEn}
-              onChange={(event) => setForm((prev) => ({ ...prev, descriptionEn: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, descriptionEn: event.target.value }))
+              }
             />
             <Field
               id={`${formId}-descriptionTh`}
@@ -547,7 +631,9 @@ function LocationSection({
               label={t.descriptionThLabel}
               optionalLabel={t.optional}
               value={form.descriptionTh}
-              onChange={(event) => setForm((prev) => ({ ...prev, descriptionTh: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, descriptionTh: event.target.value }))
+              }
             />
           </div>
           <div>
@@ -563,7 +649,14 @@ function LocationSection({
       ) : (
         <ul className="flex flex-col gap-3">
           {locations.map((location) => (
-            <LocationRow key={location.id} location={location} t={t} locale={locale} canWrite={canWrite} setLocations={setLocations} />
+            <LocationRow
+              key={location.id}
+              location={location}
+              t={t}
+              locale={locale}
+              canWrite={canWrite}
+              setLocations={setLocations}
+            />
           ))}
         </ul>
       )}
@@ -596,6 +689,7 @@ function LocationRow({
   });
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [savedMessage, setSavedMessage] = useState<string | null>(null);
 
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -618,8 +712,11 @@ function LocationRow({
       });
       const result = (await response.json().catch(() => null)) as LocationResponse | null;
       if (response.ok && result?.ok) {
-        setLocations((prev) => prev.map((existing) => (existing.id === location.id ? result.location : existing)));
+        setLocations((prev) =>
+          prev.map((existing) => (existing.id === location.id ? result.location : existing))
+        );
         setEditing(false);
+        setSavedMessage(t.saved);
         return;
       }
       if (response.status === 403) setError(t.errorForbidden);
@@ -640,15 +737,37 @@ function LocationRow({
           <p className="text-muted text-sm">{location.slug}</p>
         </div>
         {canWrite ? (
-          <Button variant="ghost" onClick={() => setEditing((prev) => !prev)}>
+          <Button
+            variant="ghost"
+            aria-expanded={editing}
+            aria-controls={`${formId}-edit-form`}
+            onClick={() => {
+              setEditing((prev) => !prev);
+              setSavedMessage(null);
+            }}
+          >
             {editing ? t.cancel : t.edit}
           </Button>
         ) : null}
       </div>
-      {location.description[locale] ? <p className="text-ink text-sm">{location.description[locale]}</p> : null}
+      {location.description[locale] ? (
+        <p className="text-ink text-sm">{location.description[locale]}</p>
+      ) : null}
+
+      {savedMessage && !editing ? (
+        <p role="status" className="text-success text-sm font-medium">
+          {savedMessage}
+        </p>
+      ) : null}
 
       {canWrite && editing ? (
-        <form onSubmit={handleSave} noValidate aria-live="polite" className="border-line flex flex-col gap-4 border-t pt-4">
+        <form
+          id={`${formId}-edit-form`}
+          onSubmit={handleSave}
+          noValidate
+          aria-live="polite"
+          className="border-line flex flex-col gap-4 border-t pt-4"
+        >
           {error ? (
             <p role="alert" className="text-error text-sm font-medium">
               {error}
@@ -697,7 +816,9 @@ function LocationRow({
               label={t.descriptionEnLabel}
               optionalLabel={t.optional}
               value={form.descriptionEn}
-              onChange={(event) => setForm((prev) => ({ ...prev, descriptionEn: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, descriptionEn: event.target.value }))
+              }
             />
             <Field
               id={`${formId}-descriptionTh`}
@@ -706,7 +827,9 @@ function LocationRow({
               label={t.descriptionThLabel}
               optionalLabel={t.optional}
               value={form.descriptionTh}
-              onChange={(event) => setForm((prev) => ({ ...prev, descriptionTh: event.target.value }))}
+              onChange={(event) =>
+                setForm((prev) => ({ ...prev, descriptionTh: event.target.value }))
+              }
             />
           </div>
           <div>

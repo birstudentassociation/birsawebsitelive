@@ -122,12 +122,14 @@ export default function BorrowersManager({
                     <Link
                       href={localeHref(locale, `/officer/inventory/borrowers/${borrower.id}`)}
                       className="after:absolute after:inset-0 hover:underline"
+                      aria-label={t.viewLabel(borrower.name)}
                     >
                       {borrower.name}
                     </Link>
                   </p>
                   <p className="text-muted text-sm">
-                    {t.studentIdLabel}: {borrower.tuStudentId} &middot; {t.emailLabel}: {borrower.email}
+                    {t.studentIdLabel}: {borrower.tuStudentId} &middot; {t.emailLabel}:{" "}
+                    {borrower.email}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">

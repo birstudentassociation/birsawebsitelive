@@ -18,6 +18,13 @@ export type PhotoUploadLabels = {
   tooLarge: string;
   notConfigured: string;
   error: string;
+  /**
+   * Accessible name for the current-photo preview image. Optional so
+   * existing callers keep compiling; falls back to `upload` when omitted,
+   * which is a reasonable approximation but callers should ideally pass
+   * something like "Photo of <item name>" (in both locales).
+   */
+  photoAlt?: string;
 };
 
 export type PhotoUploadProps = {
@@ -95,7 +102,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={currentUrl}
-          alt=""
+          alt={labels.photoAlt ?? labels.upload}
           className="border-line max-h-48 w-auto rounded-lg border object-contain"
         />
       ) : null}
@@ -112,7 +119,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
           type="file"
           accept="image/*"
           onChange={handleFileChange}
-          className="focus-halo border-input-border w-full rounded-md border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+          className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
         />
       </div>
 
@@ -120,15 +127,35 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
         <Button type="button" onClick={handleUpload} disabled={!selectedFile || uploading}>
           {uploading ? labels.uploading : labels.upload}
         </Button>
+        {uploading ? (
+          <span role="status" className="sr-only">
+            {labels.uploading}
+          </span>
+        ) : null}
         {selectedFile ? (
-          <Button type="button" variant="ghost" onClick={handleRemoveSelection} disabled={uploading}>
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={handleRemoveSelection}
+            disabled={uploading}
+          >
             {labels.remove}
           </Button>
         ) : null}
       </div>
 
       {message ? (
-        <p role="alert" aria-live="polite" className={message.kind === "success" ? "text-success text-sm font-medium" : "text-error text-sm font-medium"}>
+        // Success/progress uses role="status" (polite, implicit live
+        // region); errors use role="alert" (assertive) — same pattern as
+        // OfficerLogin's error handling (WCAG 4.1.3 Status Messages).
+        <p
+          role={message.kind === "success" ? "status" : "alert"}
+          className={
+            message.kind === "success"
+              ? "text-success text-sm font-medium"
+              : "text-error text-sm font-medium"
+          }
+        >
           {message.text}
         </p>
       ) : null}

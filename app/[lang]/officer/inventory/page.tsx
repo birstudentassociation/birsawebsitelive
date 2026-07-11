@@ -92,7 +92,8 @@ const copy: Record<Locale, Copy> = {
     title: "แดชบอร์ด",
     lede: "ภาพรวมคำขอยืมที่กำลังดำเนินการและสต็อกที่ต้องดูแล",
     authNotConfiguredTitle: "ยังไม่ได้ตั้งค่าบัญชีเจ้าหน้าที่",
-    authNotConfiguredBody: "ยังไม่ได้ตั้งค่า OFFICER_SESSION_SECRET จึงยังไม่มีใครเข้าสู่ระบบคอนโซลนี้ได้",
+    authNotConfiguredBody:
+      "ยังไม่ได้ตั้งค่า OFFICER_SESSION_SECRET จึงยังไม่มีใครเข้าสู่ระบบคอนโซลนี้ได้",
     dbNotConfiguredTitle: "ยังไม่ได้เชื่อมต่อฐานข้อมูลครุภัณฑ์",
     dbNotConfiguredBody: "ยังไม่ได้ตั้งค่า POSTGRES_URL จึงยังไม่มีข้อมูลให้แสดงในขณะนี้",
     needsAttentionTitle: "ต้องดูแลด่วน",
@@ -200,13 +201,23 @@ async function DashboardBoards({ locale, t }: { locale: Locale; t: Copy }) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>
             <p className="text-muted text-sm font-semibold">{t.pendingLabel}</p>
-            <p className={clsx("font-display text-3xl", pendingCount > 0 ? "text-warning" : "text-ink")}>
+            <p
+              className={clsx(
+                "font-display text-3xl",
+                pendingCount > 0 ? "text-warning" : "text-ink"
+              )}
+            >
               {pendingCount}
             </p>
           </Card>
           <Card>
             <p className="text-muted text-sm font-semibold">{t.overdueLabel}</p>
-            <p className={clsx("font-display text-3xl", overdueCount > 0 ? "text-error" : "text-ink")}>
+            <p
+              className={clsx(
+                "font-display text-3xl",
+                overdueCount > 0 ? "text-error" : "text-ink"
+              )}
+            >
               {overdueCount}
             </p>
           </Card>

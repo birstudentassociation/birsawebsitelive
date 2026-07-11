@@ -28,7 +28,12 @@ export async function generateMetadata({
       ? "สรุปสถานะการยืม-คืนและการใช้งานครุภัณฑ์ พร้อมส่งออกข้อมูลเป็น CSV"
       : "Loan status summary, item utilisation, and CSV exports for BIRSA officers.";
 
-  const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory/reports" });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/officer/inventory/reports",
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
@@ -218,6 +223,7 @@ export default async function OfficerReportsPage({
           ) : (
             <div className="overflow-x-auto">
               <table className="text-ink w-full text-left text-sm">
+                <caption className="sr-only">{t.utilisationTitle}</caption>
                 <thead>
                   <tr className="border-line border-b">
                     <th scope="col" className="py-2 pr-4 font-semibold">
@@ -240,7 +246,9 @@ export default async function OfficerReportsPage({
                 <tbody>
                   {utilisation.map((row) => (
                     <tr key={row.itemId} className="border-line border-b last:border-0">
-                      <td className="py-2 pr-4">{locale === "th" ? row.nameTh : row.nameEn}</td>
+                      <th scope="row" className="py-2 pr-4 text-left font-normal">
+                        {locale === "th" ? row.nameTh : row.nameEn}
+                      </th>
                       <td className="py-2 pr-4">
                         <Tag>{row.itemKey}</Tag>
                       </td>

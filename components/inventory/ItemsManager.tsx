@@ -8,8 +8,8 @@
  * (`components/inventory/ItemDetail.tsx`); this component only creates,
  * lists, filters, and retires/restores.
  */
-import { useId, useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import { useId, useMemo, useRef, useState } from "react";
+import type { FormEvent, KeyboardEvent } from "react";
 import clsx from "clsx";
 import Link from "next/link";
 import Field from "@/components/Field";
@@ -133,7 +133,8 @@ const copy: Record<Locale, Copy> = {
     retiring: "Retiring...",
     restore: "Restore",
     restoring: "Restoring...",
-    confirmRetire: (name) => `Retire "${name}"? It will be hidden from active loans but kept in records.`,
+    confirmRetire: (name) =>
+      `Retire "${name}"? It will be hidden from active loans but kept in records.`,
     retiredMessage: "Item retired.",
     restoredMessage: "Item restored.",
     retiredTag: "Retired",
@@ -190,7 +191,8 @@ const copy: Record<Locale, Copy> = {
     retiring: "กำลังเลิกใช้...",
     restore: "กู้คืน",
     restoring: "กำลังกู้คืน...",
-    confirmRetire: (name) => `เลิกใช้ "${name}" ใช่หรือไม่ รายการจะถูกซ่อนจากการยืมแต่ยังเก็บประวัติไว้`,
+    confirmRetire: (name) =>
+      `เลิกใช้ "${name}" ใช่หรือไม่ รายการจะถูกซ่อนจากการยืมแต่ยังเก็บประวัติไว้`,
     retiredMessage: "เลิกใช้รายการแล้ว",
     restoredMessage: "กู้คืนรายการแล้ว",
     retiredTag: "เลิกใช้แล้ว",
@@ -230,12 +232,23 @@ const emptyForm: FormState = {
   reorderThreshold: "",
 };
 
-type CreateResponse = { ok: boolean; item?: Item; reason?: string; errors?: Record<string, string[]> };
+type CreateResponse = {
+  ok: boolean;
+  item?: Item;
+  reason?: string;
+  errors?: Record<string, string[]>;
+};
 type PatchResponse = { ok: boolean; item?: Item; reason?: string };
 
 const CAN_WRITE: Role[] = ["admin", "inventory_manager"];
 
-export default function ItemsManager({ items: initialItems, categories, locations, role, locale }: ItemsManagerProps) {
+export default function ItemsManager({
+  items: initialItems,
+  categories,
+  locations,
+  role,
+  locale,
+}: ItemsManagerProps) {
   const t = copy[locale];
   const canWrite = CAN_WRITE.includes(role);
   const formId = useId();
@@ -253,15 +266,50 @@ export default function ItemsManager({ items: initialItems, categories, location
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const [rowBusy, setRowBusy] = useState<string | null>(null);
-  const [rowMessage, setRowMessage] = useState<{ id: string; text: string; kind: "success" | "error" } | null>(null);
+  const [rowMessage, setRowMessage] = useState<{
+    id: string;
+    text: string;
+    kind: "success" | "error";
+  } | null>(null);
 
   const categoryById = useMemo(() => new Map(categories.map((c) => [c.id, c])), [categories]);
+
+  const statusOptions = [
+    ["all", t.statusAll],
+    ["active", t.statusActive],
+    ["retired", t.statusRetired],
+  ] as const;
+  const statusButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  function handleStatusKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const currentIndex = statusOptions.findIndex(([value]) => value === statusFilter);
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (currentIndex + 1) % statusOptions.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex = (currentIndex - 1 + statusOptions.length) % statusOptions.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = statusOptions.length - 1;
+    }
+    const nextOption = nextIndex !== null ? statusOptions[nextIndex] : undefined;
+    if (nextIndex !== null && nextOption) {
+      event.preventDefault();
+      setStatusFilter(nextOption[0]);
+      statusButtonRefs.current[nextIndex]?.focus();
+    }
+  }
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return items.filter((item) => {
       const matchesStatus =
-        statusFilter === "all" ? true : statusFilter === "retired" ? item.isRetired : !item.isRetired;
+        statusFilter === "all"
+          ? true
+          : statusFilter === "retired"
+            ? item.isRetired
+            : !item.isRetired;
       const matchesCategory = categoryFilter === "all" || item.categoryId === categoryFilter;
       const matchesQuery =
         q.length === 0 ||
@@ -288,7 +336,12 @@ export default function ItemsManager({ items: initialItems, categories, location
     setFieldErrors({});
     setSuccessMessage(null);
 
-    if (!form.key.trim() || !form.nameEn.trim() || !form.nameTh.trim() || !form.maxLoanDays.trim()) {
+    if (
+      !form.key.trim() ||
+      !form.nameEn.trim() ||
+      !form.nameTh.trim() ||
+      !form.maxLoanDays.trim()
+    ) {
       setFormError(t.errorRequired);
       return;
     }
@@ -323,7 +376,9 @@ export default function ItemsManager({ items: initialItems, categories, location
 
       if (response.ok && result?.ok && result.item) {
         const createdItem = result.item;
-        setItems((prev) => [...prev, createdItem].sort((a, b) => a.name.en.localeCompare(b.name.en)));
+        setItems((prev) =>
+          [...prev, createdItem].sort((a, b) => a.name.en.localeCompare(b.name.en))
+        );
         setForm(emptyForm);
         setFormOpen(false);
         setSuccessMessage(t.createdMessage);
@@ -363,7 +418,9 @@ export default function ItemsManager({ items: initialItems, categories, location
       const result = (await response.json().catch(() => null)) as PatchResponse | null;
       if (response.ok && result?.ok && result.item) {
         const updatedItem = result.item;
-        setItems((prev) => prev.map((existing) => (existing.id === item.id ? updatedItem : existing)));
+        setItems((prev) =>
+          prev.map((existing) => (existing.id === item.id ? updatedItem : existing))
+        );
         setRowMessage({ id: item.id, text: t.retiredMessage, kind: "success" });
       } else if (response.status === 403) {
         setRowMessage({ id: item.id, text: t.errorForbidden, kind: "error" });
@@ -389,7 +446,9 @@ export default function ItemsManager({ items: initialItems, categories, location
       const result = (await response.json().catch(() => null)) as PatchResponse | null;
       if (response.ok && result?.ok && result.item) {
         const updatedItem = result.item;
-        setItems((prev) => prev.map((existing) => (existing.id === item.id ? updatedItem : existing)));
+        setItems((prev) =>
+          prev.map((existing) => (existing.id === item.id ? updatedItem : existing))
+        );
         setRowMessage({ id: item.id, text: t.restoredMessage, kind: "success" });
       } else if (response.status === 403) {
         setRowMessage({ id: item.id, text: t.errorForbidden, kind: "error" });
@@ -403,10 +462,21 @@ export default function ItemsManager({ items: initialItems, categories, location
     }
   }
 
-  const errorItems: ErrorSummaryItem[] = Object.entries(fieldErrors).map(([field, message]) => ({
-    id: `${formId}-${field}`,
-    message,
-  }));
+  const errorItems: ErrorSummaryItem[] = Object.entries(fieldErrors).flatMap(([field, message]) => {
+    if (field === "name") {
+      return [
+        { id: `${formId}-nameEn`, message },
+        { id: `${formId}-nameTh`, message },
+      ];
+    }
+    if (field === "description") {
+      return [
+        { id: `${formId}-descriptionEn`, message },
+        { id: `${formId}-descriptionTh`, message },
+      ];
+    }
+    return [{ id: `${formId}-${field}`, message }];
+  });
 
   const categoryOptions = [
     { value: "all", label: t.allCategories },
@@ -418,7 +488,10 @@ export default function ItemsManager({ items: initialItems, categories, location
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="max-w-sm">
-            <label htmlFor={`${formId}-search`} className="text-ink mb-1.5 block text-sm font-semibold">
+            <label
+              htmlFor={`${formId}-search`}
+              className="text-ink mb-1.5 block text-sm font-semibold"
+            >
               {t.search}
             </label>
             <input
@@ -432,7 +505,10 @@ export default function ItemsManager({ items: initialItems, categories, location
           </div>
 
           <div className="max-w-xs">
-            <label htmlFor={`${formId}-category`} className="text-ink mb-1.5 block text-sm font-semibold">
+            <label
+              htmlFor={`${formId}-category`}
+              className="text-ink mb-1.5 block text-sm font-semibold"
+            >
               {t.category}
             </label>
             <select
@@ -449,19 +525,22 @@ export default function ItemsManager({ items: initialItems, categories, location
             </select>
           </div>
 
-          <div role="radiogroup" aria-label={t.status} className="flex gap-2">
-            {(
-              [
-                ["all", t.statusAll],
-                ["active", t.statusActive],
-                ["retired", t.statusRetired],
-              ] as const
-            ).map(([value, label]) => (
+          <div
+            role="radiogroup"
+            aria-label={t.status}
+            className="flex gap-2"
+            onKeyDown={(event) => handleStatusKeyDown(event)}
+          >
+            {statusOptions.map(([value, label], index) => (
               <button
                 key={value}
+                ref={(el) => {
+                  statusButtonRefs.current[index] = el;
+                }}
                 type="button"
                 role="radio"
                 aria-checked={statusFilter === value}
+                tabIndex={statusFilter === value ? 0 : -1}
                 onClick={() => setStatusFilter(value)}
                 className={clsx(
                   "focus-halo rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors",
@@ -477,20 +556,29 @@ export default function ItemsManager({ items: initialItems, categories, location
         </div>
 
         {canWrite ? (
-          <Button variant={formOpen ? "secondary" : "primary"} onClick={() => setFormOpen((prev) => !prev)}>
+          <Button
+            variant={formOpen ? "secondary" : "primary"}
+            aria-expanded={formOpen}
+            aria-controls={`${formId}-create-form`}
+            onClick={() => setFormOpen((prev) => !prev)}
+          >
             {formOpen ? t.hideForm : t.addItem}
           </Button>
         ) : null}
       </div>
 
       {successMessage ? (
-        <div role="status" className="border-success bg-success-tint text-ink rounded-md border-l-4 p-3 text-sm">
+        <div
+          role="status"
+          className="border-success bg-success-tint text-ink rounded-md border-l-4 p-3 text-sm"
+        >
           {successMessage}
         </div>
       ) : null}
 
       {canWrite && formOpen ? (
         <form
+          id={`${formId}-create-form`}
           onSubmit={handleSubmit}
           noValidate
           aria-live="polite"
@@ -525,7 +613,11 @@ export default function ItemsManager({ items: initialItems, categories, location
               optionalLabel={t.optional}
               value={form.categoryId}
               onChange={(event) => updateForm("categoryId", event.target.value)}
-              options={[{ value: "", label: t.categoryNone }, ...categories.map((c) => ({ value: c.id, label: c.name[locale] }))]}
+              options={[
+                { value: "", label: t.categoryNone },
+                ...categories.map((c) => ({ value: c.id, label: c.name[locale] })),
+              ]}
+              error={fieldErrors.categoryId}
             />
             <Field
               id={`${formId}-nameEn`}
@@ -535,6 +627,7 @@ export default function ItemsManager({ items: initialItems, categories, location
               requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => updateForm("nameEn", event.target.value)}
+              error={fieldErrors.name}
             />
             <Field
               id={`${formId}-nameTh`}
@@ -544,6 +637,7 @@ export default function ItemsManager({ items: initialItems, categories, location
               requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => updateForm("nameTh", event.target.value)}
+              error={fieldErrors.name}
             />
             <Field
               id={`${formId}-descriptionEn`}
@@ -553,6 +647,7 @@ export default function ItemsManager({ items: initialItems, categories, location
               optionalLabel={t.optional}
               value={form.descriptionEn}
               onChange={(event) => updateForm("descriptionEn", event.target.value)}
+              error={fieldErrors.description}
             />
             <Field
               id={`${formId}-descriptionTh`}
@@ -562,6 +657,7 @@ export default function ItemsManager({ items: initialItems, categories, location
               optionalLabel={t.optional}
               value={form.descriptionTh}
               onChange={(event) => updateForm("descriptionTh", event.target.value)}
+              error={fieldErrors.description}
             />
             <Field
               id={`${formId}-defaultLocationId`}
@@ -575,6 +671,7 @@ export default function ItemsManager({ items: initialItems, categories, location
                 { value: "", label: t.locationNone },
                 ...locations.map((l) => ({ value: l.id, label: l.name[locale] })),
               ]}
+              error={fieldErrors.defaultLocationId}
             />
             <Field
               id={`${formId}-maxLoanDays`}
@@ -586,6 +683,7 @@ export default function ItemsManager({ items: initialItems, categories, location
               requiredLabel={t.required}
               value={form.maxLoanDays}
               onChange={(event) => updateForm("maxLoanDays", event.target.value)}
+              error={fieldErrors.maxLoanDays}
             />
           </div>
 
@@ -625,6 +723,7 @@ export default function ItemsManager({ items: initialItems, categories, location
                 requiredLabel={t.required}
                 value={form.qtyOnHand}
                 onChange={(event) => updateForm("qtyOnHand", event.target.value)}
+                error={fieldErrors.qtyOnHand}
               />
               <Field
                 id={`${formId}-reorderThreshold`}
@@ -635,6 +734,7 @@ export default function ItemsManager({ items: initialItems, categories, location
                 optionalLabel={t.optional}
                 value={form.reorderThreshold}
                 onChange={(event) => updateForm("reorderThreshold", event.target.value)}
+                error={fieldErrors.reorderThreshold}
               />
             </div>
           ) : null}
@@ -665,18 +765,26 @@ export default function ItemsManager({ items: initialItems, categories, location
             const message = rowMessage?.id === item.id ? rowMessage : null;
             const busy = rowBusy === item.id;
             return (
-              <li key={item.id} className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5">
+              <li
+                key={item.id}
+                className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+              >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <p className="font-display text-ink text-lg">
-                      <Link href={localeHref(locale, `/officer/inventory/items/${item.id}`)} className="hover:underline">
+                      <Link
+                        href={localeHref(locale, `/officer/inventory/items/${item.id}`)}
+                        className="hover:underline"
+                      >
                         {item.name[locale]}
                       </Link>
                     </p>
                     <p className="text-muted text-sm">{item.key}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <Tag variant="brand">{item.trackingMode === "asset" ? t.assetTag : t.consumableTag}</Tag>
+                    <Tag variant="brand">
+                      {item.trackingMode === "asset" ? t.assetTag : t.consumableTag}
+                    </Tag>
                     {item.trackingMode === "consumable" ? (
                       <Tag variant="neutral">{t.qtyLabel(item.qtyOnHand ?? 0)}</Tag>
                     ) : null}
@@ -686,7 +794,10 @@ export default function ItemsManager({ items: initialItems, categories, location
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button variant="ghost" href={localeHref(locale, `/officer/inventory/items/${item.id}`)}>
+                  <Button
+                    variant="ghost"
+                    href={localeHref(locale, `/officer/inventory/items/${item.id}`)}
+                  >
                     {t.viewDetail}
                   </Button>
                   {canWrite && !item.isRetired ? (
@@ -703,8 +814,11 @@ export default function ItemsManager({ items: initialItems, categories, location
 
                 {message ? (
                   <p
-                    role="status"
-                    className={clsx("text-sm font-medium", message.kind === "success" ? "text-success" : "text-error")}
+                    role={message.kind === "error" ? "alert" : "status"}
+                    className={clsx(
+                      "text-sm font-medium",
+                      message.kind === "success" ? "text-success" : "text-error"
+                    )}
                   >
                     {message.text}
                   </p>
@@ -714,7 +828,6 @@ export default function ItemsManager({ items: initialItems, categories, location
           })}
         </ul>
       )}
-
     </div>
   );
 }

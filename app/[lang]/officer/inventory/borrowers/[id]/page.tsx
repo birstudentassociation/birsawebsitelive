@@ -23,18 +23,25 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
 
-  const title = locale === "th" ? "รายละเอียดผู้ยืม เจ้าหน้าที่" : "Officer console: borrower detail";
+  const title =
+    locale === "th" ? "รายละเอียดผู้ยืม เจ้าหน้าที่" : "Officer console: borrower detail";
   const description =
     locale === "th"
       ? "หน้าสำหรับเจ้าหน้าที่ BIRSA ใช้ดูประวัติและจัดการผู้ยืมรายบุคคล"
       : "Internal page for BIRSA officers to review and manage a single borrower.";
 
-  const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory/borrowers" });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/officer/inventory/borrowers",
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
 type Copy = {
   title: string;
+  borrowersListLabel: string;
   signInTitle: string;
   signInBody: string;
   signInCta: string;
@@ -45,6 +52,7 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   en: {
     title: "Borrower detail",
+    borrowersListLabel: "Borrowers",
     signInTitle: "Please sign in on the console home",
     signInBody: "You need an active officer session to view this borrower.",
     signInCta: "Go to console home",
@@ -53,6 +61,7 @@ const copy: Record<Locale, Copy> = {
   },
   th: {
     title: "รายละเอียดผู้ยืม",
+    borrowersListLabel: "ผู้ยืม",
     signInTitle: "กรุณาเข้าสู่ระบบที่หน้าแรกของคอนโซล",
     signInBody: "คุณต้องเข้าสู่ระบบเจ้าหน้าที่ก่อนจึงจะดูผู้ยืมรายนี้ได้",
     signInCta: "ไปที่หน้าแรกคอนโซล",
@@ -82,7 +91,7 @@ export default async function OfficerBorrowerDetailPage({
       label={dict.a11y.breadcrumb}
       items={[
         { label: dict.site.name, href: "/" },
-        { label: t.title, href: "/officer/inventory/borrowers" },
+        { label: t.borrowersListLabel, href: "/officer/inventory/borrowers" },
         { label: t.title },
       ]}
     />
@@ -120,7 +129,10 @@ export default async function OfficerBorrowerDetailPage({
     notFound();
   }
 
-  const [loans, activeCount] = await Promise.all([listLoans({ borrowerId: id }), countActiveLoans(id)]);
+  const [loans, activeCount] = await Promise.all([
+    listLoans({ borrowerId: id }),
+    countActiveLoans(id),
+  ]);
 
   const itemIds = Array.from(new Set(loans.map((loan) => loan.itemId)));
   const items = await Promise.all(itemIds.map((itemId) => getItem(itemId)));

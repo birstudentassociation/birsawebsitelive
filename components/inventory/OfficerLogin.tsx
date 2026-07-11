@@ -80,7 +80,11 @@ export default function OfficerLogin({ locale }: OfficerLoginProps) {
 
   const [email, setEmail] = useState("");
   const [passcode, setPasscode] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  // Tracks *why* the form is in error so we can point aria-invalid /
+  // inline messages at whichever field(s) are actually responsible,
+  // instead of always blaming the email field (WCAG 3.3.1 Error
+  // Identification).
+  const [errorKind, setErrorKind] = useState<"required" | "incorrect" | "network" | null>(null);
   const [notConfigured, setNotConfigured] = useState(false);
   const [pending, setPending] = useState(false);
 
@@ -88,11 +92,11 @@ export default function OfficerLogin({ locale }: OfficerLoginProps) {
     event.preventDefault();
 
     if (!email || !passcode) {
-      setError(t.errorRequired);
+      setErrorKind("required");
       return;
     }
 
-    setError(null);
+    setErrorKind(null);
     setNotConfigured(false);
     setPending(true);
 
@@ -115,13 +119,28 @@ export default function OfficerLogin({ locale }: OfficerLoginProps) {
         return;
       }
 
-      setError(t.errorIncorrect);
+      setErrorKind("incorrect");
     } catch {
-      setError(t.errorNetwork);
+      setErrorKind("network");
     } finally {
       setPending(false);
     }
   }
+
+  const error =
+    errorKind === "required"
+      ? t.errorRequired
+      : errorKind === "incorrect"
+        ? t.errorIncorrect
+        : errorKind === "network"
+          ? t.errorNetwork
+          : null;
+  // "required" only implicates whichever field is actually empty; an
+  // incorrect-credentials response is deliberately ambiguous about which
+  // field was wrong, so both are flagged; a network error isn't a field
+  // problem at all.
+  const emailInvalid = errorKind === "required" ? !email : errorKind === "incorrect";
+  const passcodeInvalid = errorKind === "required" ? !passcode : errorKind === "incorrect";
 
   const errorItems: ErrorSummaryItem[] = error ? [{ id: emailId, message: error }] : [];
 
@@ -147,8 +166,8 @@ export default function OfficerLogin({ locale }: OfficerLoginProps) {
           requiredLabel={t.required}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          error={error ?? undefined}
-          autoComplete="email"
+          error={emailInvalid ? (error ?? undefined) : undefined}
+          autoComplete="username"
         />
 
         <Field
@@ -160,10 +179,18 @@ export default function OfficerLogin({ locale }: OfficerLoginProps) {
           requiredLabel={t.required}
           value={passcode}
           onChange={(event) => setPasscode(event.target.value)}
+          error={passcodeInvalid ? (error ?? undefined) : undefined}
           autoComplete="current-password"
         />
 
-        <input type="text" name="nickname" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+        <input
+          type="text"
+          name="nickname"
+          tabIndex={-1}
+          autoComplete="off"
+          className="hidden"
+          aria-hidden="true"
+        />
 
         <div>
           <Button type="submit" disabled={pending}>

@@ -25,7 +25,12 @@ export async function generateMetadata({
       ? "หน้าสำหรับเจ้าหน้าที่ BIRSA ใช้ค้นหาและจัดการข้อมูลผู้ยืมครุภัณฑ์"
       : "Internal page for BIRSA officers to search and manage equipment borrowers.";
 
-  const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory/borrowers" });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/officer/inventory/borrowers",
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
@@ -114,7 +119,9 @@ export default async function OfficerBorrowersPage({
   }
 
   const borrowers = await listBorrowers({ search });
-  const activeCounts = await Promise.all(borrowers.map((borrower) => countActiveLoans(borrower.id)));
+  const activeCounts = await Promise.all(
+    borrowers.map((borrower) => countActiveLoans(borrower.id))
+  );
   const activeCountsById: Record<string, number> = {};
   borrowers.forEach((borrower, index) => {
     activeCountsById[borrower.id] = activeCounts[index] ?? 0;

@@ -13,7 +13,15 @@ import Field from "@/components/Field";
 import StatusPill from "@/components/inventory/StatusPill";
 import { formatDate } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
-import type { Loan, LoanStatus, Item, Borrower, Unit, UnitCondition, Role } from "@/lib/inventory/types";
+import type {
+  Loan,
+  LoanStatus,
+  Item,
+  Borrower,
+  Unit,
+  UnitCondition,
+  Role,
+} from "@/lib/inventory/types";
 
 export type LoanQueueProps = {
   locale: Locale;
@@ -52,6 +60,7 @@ type Copy = {
   datesLabel: string;
   reasonLabel: string;
   unitLabel: string;
+  unitRequiredLabel: string;
   unitPlaceholder: string;
   noUnitsAvailable: string;
   conditionOutLabel: string;
@@ -99,6 +108,7 @@ const copy: Record<Locale, Copy> = {
     datesLabel: "Start, end",
     reasonLabel: "Reason",
     unitLabel: "Unit to assign",
+    unitRequiredLabel: "required",
     unitPlaceholder: "Select a unit",
     noUnitsAvailable: "No units are available for these dates.",
     conditionOutLabel: "Condition going out",
@@ -127,10 +137,12 @@ const copy: Record<Locale, Copy> = {
     cancelledMessage: "Loan cancelled.",
     unauthorizedMessage: "Your session has expired. Please sign in again.",
     forbiddenMessage: "You don't have permission to do this.",
-    staleMessage: "This loan was already updated, or no longer exists. Refresh the page to see the latest status.",
+    staleMessage:
+      "This loan was already updated, or no longer exists. Refresh the page to see the latest status.",
     unitRequiredMessage: "Select a unit before approving.",
     unavailableMessage: "That unit was just taken by another loan. Pick a different one.",
-    invalidStateMessage: "This loan is no longer in a state that allows this action. Refresh the page.",
+    invalidStateMessage:
+      "This loan is no longer in a state that allows this action. Refresh the page.",
     genericErrorMessage: "Something went wrong. Please try again.",
     statusLabels: {
       pending: "Pending",
@@ -153,6 +165,7 @@ const copy: Record<Locale, Copy> = {
     datesLabel: "วันเริ่ม, วันสิ้นสุด",
     reasonLabel: "เหตุผล",
     unitLabel: "ชิ้นที่จะจัดสรร",
+    unitRequiredLabel: "จำเป็น",
     unitPlaceholder: "เลือกชิ้น",
     noUnitsAvailable: "ไม่มีชิ้นว่างสำหรับช่วงวันที่นี้",
     conditionOutLabel: "สภาพก่อนยืมออก",
@@ -181,7 +194,8 @@ const copy: Record<Locale, Copy> = {
     cancelledMessage: "ยกเลิกคำขอยืมแล้ว",
     unauthorizedMessage: "เซสชันของคุณหมดอายุ กรุณาเข้าสู่ระบบใหม่",
     forbiddenMessage: "คุณไม่มีสิทธิ์ทำรายการนี้",
-    staleMessage: "คำขอยืมนี้ถูกอัปเดตไปแล้ว หรือไม่มีอยู่แล้ว กรุณารีเฟรชหน้านี้เพื่อดูสถานะล่าสุด",
+    staleMessage:
+      "คำขอยืมนี้ถูกอัปเดตไปแล้ว หรือไม่มีอยู่แล้ว กรุณารีเฟรชหน้านี้เพื่อดูสถานะล่าสุด",
     unitRequiredMessage: "กรุณาเลือกชิ้นก่อนอนุมัติ",
     unavailableMessage: "ชิ้นนี้เพิ่งถูกจัดสรรให้คำขออื่นไปแล้ว กรุณาเลือกชิ้นอื่น",
     invalidStateMessage: "คำขอยืมนี้ไม่อยู่ในสถานะที่ทำรายการนี้ได้แล้ว กรุณารีเฟรชหน้านี้",
@@ -232,6 +246,7 @@ export default function LoanQueue({
   const [selectedUnit, setSelectedUnit] = useState<Record<string, string>>({});
   const [conditionOut, setConditionOut] = useState<Record<string, UnitCondition | "">>({});
   const [conditionIn, setConditionIn] = useState<Record<string, UnitCondition | "">>({});
+  const [unitErrors, setUnitErrors] = useState<Record<string, string>>({});
 
   const grouped = useMemo(() => {
     const map = new Map<LoanStatus, Loan[]>();
@@ -244,7 +259,10 @@ export default function LoanQueue({
 
   const pendingLoans = grouped.get("pending") ?? [];
   const otherStatuses = ALL_STATUSES.filter((status) => status !== "pending");
-  const otherCount = otherStatuses.reduce((sum, status) => sum + (grouped.get(status)?.length ?? 0), 0);
+  const otherCount = otherStatuses.reduce(
+    (sum, status) => sum + (grouped.get(status)?.length ?? 0),
+    0
+  );
 
   function setMessage(loanId: string, message: RowMessage | undefined) {
     setMessages((prev) => ({ ...prev, [loanId]: message as RowMessage }));
@@ -266,7 +284,8 @@ export default function LoanQueue({
 
     try {
       const response = await request();
-      const body = (await response.json().catch(() => null)) as DecisionResponse | CancelResponse | null;
+      const body = (await response.json().catch(() => null)) as
+        DecisionResponse | CancelResponse | null;
 
       if (body?.ok) {
         if ("loan" in body) {
@@ -296,9 +315,11 @@ export default function LoanQueue({
   async function handleApprove(loan: Loan) {
     const unitId = selectedUnit[loan.id];
     if (!unitId) {
+      setUnitErrors((prev) => ({ ...prev, [loan.id]: t.unitRequiredMessage }));
       setMessage(loan.id, { kind: "error", text: t.unitRequiredMessage });
       return;
     }
+    setUnitErrors((prev) => ({ ...prev, [loan.id]: "" }));
     await runAction(
       loan,
       "approve",
@@ -383,7 +404,10 @@ export default function LoanQueue({
     const units = availableUnitsByLoan[loan.id] ?? [];
 
     return (
-      <article key={loan.id} className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5">
+      <article
+        key={loan.id}
+        className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+      >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="font-display text-ink text-lg">{loan.reference}</p>
@@ -423,14 +447,20 @@ export default function LoanQueue({
               label={t.unitLabel}
               name={`unit-${loan.id}`}
               as="select"
+              required
+              requiredLabel={t.unitRequiredLabel}
               value={selectedUnit[loan.id] ?? ""}
-              onChange={(e) => setSelectedUnit((prev) => ({ ...prev, [loan.id]: e.target.value }))}
+              onChange={(e) => {
+                setSelectedUnit((prev) => ({ ...prev, [loan.id]: e.target.value }));
+                setUnitErrors((prev) => ({ ...prev, [loan.id]: "" }));
+              }}
               options={[
                 { value: "", label: t.unitPlaceholder },
                 ...units.map((unit) => ({ value: unit.id, label: unit.label })),
               ]}
               disabled={units.length === 0 || isBusy}
               hint={units.length === 0 ? t.noUnitsAvailable : undefined}
+              error={unitErrors[loan.id] || undefined}
             />
             <div className="flex flex-wrap items-center gap-3">
               <Button onClick={() => handleApprove(loan)} disabled={isBusy || units.length === 0}>
@@ -454,11 +484,17 @@ export default function LoanQueue({
               as="select"
               value={conditionOut[loan.id] ?? ""}
               onChange={(e) =>
-                setConditionOut((prev) => ({ ...prev, [loan.id]: e.target.value as UnitCondition | "" }))
+                setConditionOut((prev) => ({
+                  ...prev,
+                  [loan.id]: e.target.value as UnitCondition | "",
+                }))
               }
               options={[
                 { value: "", label: t.unitPlaceholder },
-                ...CONDITIONS.map((condition) => ({ value: condition, label: t.conditionLabels[condition] })),
+                ...CONDITIONS.map((condition) => ({
+                  value: condition,
+                  label: t.conditionLabels[condition],
+                })),
               ]}
               disabled={isBusy}
             />
@@ -481,11 +517,17 @@ export default function LoanQueue({
               as="select"
               value={conditionIn[loan.id] ?? ""}
               onChange={(e) =>
-                setConditionIn((prev) => ({ ...prev, [loan.id]: e.target.value as UnitCondition | "" }))
+                setConditionIn((prev) => ({
+                  ...prev,
+                  [loan.id]: e.target.value as UnitCondition | "",
+                }))
               }
               options={[
                 { value: "", label: t.unitPlaceholder },
-                ...CONDITIONS.map((condition) => ({ value: condition, label: t.conditionLabels[condition] })),
+                ...CONDITIONS.map((condition) => ({
+                  value: condition,
+                  label: t.conditionLabels[condition],
+                })),
               ]}
               disabled={isBusy}
             />
@@ -499,11 +541,13 @@ export default function LoanQueue({
 
         {message ? (
           <div
-            role="status"
-            aria-live="polite"
+            role={message.kind === "success" ? "status" : "alert"}
+            aria-live={message.kind === "success" ? "polite" : "assertive"}
             className={clsx(
               "rounded-md border-l-4 p-3 text-sm",
-              message.kind === "success" ? "border-success bg-success-tint text-ink" : "border-error bg-error-tint text-ink"
+              message.kind === "success"
+                ? "border-success bg-success-tint text-ink"
+                : "border-error bg-error-tint text-ink"
             )}
           >
             {message.text}
@@ -546,7 +590,9 @@ export default function LoanQueue({
               <h3 className="text-ink text-sm font-semibold">
                 {t.statusLabels[status]} ({statusLoans.length})
               </h3>
-              <div className="flex flex-col gap-4">{statusLoans.map((loan) => renderLoan(loan))}</div>
+              <div className="flex flex-col gap-4">
+                {statusLoans.map((loan) => renderLoan(loan))}
+              </div>
             </div>
           );
         })}

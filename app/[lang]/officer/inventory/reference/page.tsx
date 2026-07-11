@@ -31,7 +31,12 @@ export async function generateMetadata({
       ? "หน้าสำหรับเจ้าหน้าที่ BIRSA ใช้จัดการหมวดหมู่และสถานที่จัดเก็บครุภัณฑ์"
       : "Internal page for BIRSA officers to manage inventory categories and storage locations.";
 
-  const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory/reference" });
+  const metadata = buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/officer/inventory/reference",
+  });
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
@@ -107,7 +112,12 @@ export default async function OfficerInventoryReferencePage({
         }
       />
       <div className="wrap py-10">
-        <ReferenceManager categories={categories} locations={locations} role={officer.role} locale={locale} />
+        <ReferenceManager
+          categories={categories}
+          locations={locations}
+          role={officer.role}
+          locale={locale}
+        />
       </div>
     </>
   );

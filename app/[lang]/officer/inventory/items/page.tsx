@@ -113,7 +113,13 @@ export default async function OfficerInventoryItemsPage({
         }
       />
       <div className="wrap py-10">
-        <ItemsManager items={items} categories={categories} locations={locations} role={officer.role} locale={locale} />
+        <ItemsManager
+          items={items}
+          categories={categories}
+          locations={locations}
+          role={officer.role}
+          locale={locale}
+        />
       </div>
     </>
   );

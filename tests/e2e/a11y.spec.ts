@@ -10,6 +10,10 @@ const pages = [
   "/th/quick",
   "/en/information-services/equipment-loan",
   "/en/information-services/equipment-loan/status",
+  // Officer console, unauthenticated: exercises the sign-in form (accessible
+  // authentication, 3.3.8) and the console nav chrome. Behind-auth screens
+  // need a seeded session and are covered by the component-level fixes.
+  "/en/officer/inventory",
 ];
 
 for (const path of pages) {

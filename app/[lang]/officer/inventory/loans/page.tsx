@@ -56,6 +56,7 @@ type Copy = {
   signInBody: string;
   signInCta: string;
   filterAll: string;
+  filterNavLabel: string;
   statusLabels: Record<LoanStatus, string>;
 };
 
@@ -67,6 +68,7 @@ const copy: Record<Locale, Copy> = {
     signInBody: "You need an active officer session to view the loans queue.",
     signInCta: "Go to console home",
     filterAll: "All",
+    filterNavLabel: "Filter loans by status",
     statusLabels: {
       pending: "Pending",
       approved: "Approved",
@@ -85,6 +87,7 @@ const copy: Record<Locale, Copy> = {
     signInBody: "คุณต้องเข้าสู่ระบบเจ้าหน้าที่ก่อนจึงจะดูคิวคำขอยืมได้",
     signInCta: "ไปที่หน้าแรกคอนโซล",
     filterAll: "ทั้งหมด",
+    filterNavLabel: "กรองคำขอยืมตามสถานะ",
     statusLabels: {
       pending: "รอดำเนินการ",
       approved: "อนุมัติแล้ว",
@@ -162,7 +165,11 @@ export default async function OfficerLoansQueuePage({
   const availableUnitsByLoan: Record<string, Unit[]> = {};
   await Promise.all(
     pendingLoans.map(async (loan) => {
-      availableUnitsByLoan[loan.id] = await getAvailableUnitsForRange(loan.itemId, loan.startDate, loan.endDate);
+      availableUnitsByLoan[loan.id] = await getAvailableUnitsForRange(
+        loan.itemId,
+        loan.startDate,
+        loan.endDate
+      );
     })
   );
 
@@ -170,9 +177,10 @@ export default async function OfficerLoansQueuePage({
     <>
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-6 py-10">
-        <nav aria-label={t.filterAll} className="flex flex-wrap gap-2">
+        <nav aria-label={t.filterNavLabel} className="flex flex-wrap gap-2">
           <Link
             href={localeHref(locale, "/officer/inventory/loans")}
+            aria-current={!statusFilter ? "page" : undefined}
             className={clsx(
               "rounded-full px-3.5 py-1.5 text-sm font-semibold",
               !statusFilter ? "bg-brand text-white" : "bg-sunken text-ink hover:bg-sunken/70"
@@ -184,9 +192,12 @@ export default async function OfficerLoansQueuePage({
             <Link
               key={status}
               href={localeHref(locale, `/officer/inventory/loans?status=${status}`)}
+              aria-current={statusFilter === status ? "page" : undefined}
               className={clsx(
                 "rounded-full px-3.5 py-1.5 text-sm font-semibold",
-                statusFilter === status ? "bg-brand text-white" : "bg-sunken text-ink hover:bg-sunken/70"
+                statusFilter === status
+                  ? "bg-brand text-white"
+                  : "bg-sunken text-ink hover:bg-sunken/70"
               )}
             >
               {t.statusLabels[status]}
