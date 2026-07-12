@@ -9,6 +9,7 @@ import SkipLink from "@/components/SkipLink";
 import BetaBanner from "@/components/BetaBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -94,6 +95,7 @@ export default async function RootLayout({
         <Header locale={locale} />
         <main id="main">{children}</main>
         <Footer locale={locale} />
+        <ScrollToTop label={dict.actions.backToTop} />
         <Analytics />
       </body>
     </html>
