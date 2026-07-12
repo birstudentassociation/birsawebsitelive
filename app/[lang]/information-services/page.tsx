@@ -174,19 +174,19 @@ export default async function InformationServicesPage({
         }
       />
       <div className="wrap flex flex-col gap-12 py-10">
-        <section className="flex flex-col gap-5">
-          <h2 className="font-display text-2xl sm:text-3xl">{t.servicesHeading}</h2>
-          <Card href={equipmentHref} className="gap-4 p-8 sm:p-10">
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
+          <Card href={equipmentHref}>
             <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
               {t.equipmentLoan.eyebrow}
             </span>
-            <CardTitle href={equipmentHref} as="h3" className="text-2xl sm:text-3xl">
+            <CardTitle href={equipmentHref} as="h3">
               {t.equipmentLoan.title}
             </CardTitle>
-            <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+            <p className="text-muted text-sm leading-relaxed">
               {t.equipmentLoan.description}
             </p>
-            <span className="text-brand-deep font-semibold">{t.equipmentLoan.cta} &rarr;</span>
+            <span className="text-brand-deep text-sm font-semibold">{t.equipmentLoan.cta} &rarr;</span>
           </Card>
           <p className="text-muted text-sm">
             {t.directoryLinkLine}{" "}
@@ -196,29 +196,29 @@ export default async function InformationServicesPage({
           </p>
         </section>
 
-        <section className="flex flex-col gap-5">
-          <h2 className="font-display text-2xl sm:text-3xl">{t.informationHeading}</h2>
-          <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.informationHeading}</h2>
+          <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
             {t.informationLede}
           </p>
 
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <Card href={courseReviewsHref} className="gap-4 p-6">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <Card href={courseReviewsHref}>
               <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
                 {t.courseReviews.eyebrow}
               </span>
-              <CardTitle href={courseReviewsHref} as="h3" className="text-xl">
+              <CardTitle href={courseReviewsHref} as="h3">
                 {t.courseReviews.title}
               </CardTitle>
-              <p className="text-muted leading-relaxed">{t.courseReviews.description}</p>
-              <span className="text-brand-deep font-semibold">{t.courseReviews.cta} &rarr;</span>
+              <p className="text-muted text-sm leading-relaxed">{t.courseReviews.description}</p>
+              <span className="text-brand-deep text-sm font-semibold">{t.courseReviews.cta} &rarr;</span>
             </Card>
 
-            <Card href={guidesHref} className="gap-4 p-6">
-              <CardTitle href={guidesHref} as="h3" className="text-xl">
+            <Card href={guidesHref}>
+              <CardTitle href={guidesHref} as="h3">
                 {t.guides.title}
               </CardTitle>
-              <p className="text-muted leading-relaxed">{t.guides.description}</p>
+              <p className="text-muted text-sm leading-relaxed">{t.guides.description}</p>
               {guideTopics.length > 0 ? (
                 <div className="mt-1">
                   <p className="text-ink text-sm font-semibold">{t.guides.topicsLabel}</p>
@@ -232,14 +232,14 @@ export default async function InformationServicesPage({
             </Card>
           </div>
 
-          <Card href={internationalHref} className="gap-4 p-6">
+          <Card href={internationalHref}>
             <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
               {t.international.eyebrow}
             </span>
-            <CardTitle href={internationalHref} as="h3" className="text-xl">
+            <CardTitle href={internationalHref} as="h3">
               {t.international.title}
             </CardTitle>
-            <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+            <p className="text-muted text-sm leading-relaxed">
               {t.international.description}
             </p>
             {internationalTopics.length > 0 ? (
@@ -252,13 +252,13 @@ export default async function InformationServicesPage({
                 </ul>
               </div>
             ) : null}
-            <span className="text-brand-deep font-semibold">{t.international.cta} &rarr;</span>
+            <span className="text-brand-deep text-sm font-semibold">{t.international.cta} &rarr;</span>
           </Card>
         </section>
 
         <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">
           <h2 className="font-display text-2xl">{t.howToUseTitle}</h2>
-          <p className="text-muted max-w-[var(--measure)]">
+          <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
             {t.howToUseBody}{" "}
             <a
               href={localeHref(locale, "/contact")}
