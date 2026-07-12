@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
-import { getGuideEntries, getGuideEntry, type GuideAudience } from "@/lib/content";
+import { getGuides, getGuide, getStudentLifeH2Toc, type GuideAudience } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
-import { Mdx } from "@/lib/mdx";
-import { extractH2Toc } from "@/lib/toc";
+import RichTextRenderer from "@/components/RichTextRenderer";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
@@ -16,12 +15,19 @@ function isAudience(x: string): x is GuideAudience {
   return audiences.includes(x as GuideAudience);
 }
 
-export function generateStaticParams() {
-  return locales.flatMap((lang) =>
-    audiences.flatMap((audience) =>
-      getGuideEntries(lang, audience).map((entry) => ({ lang, audience, slug: entry.slug }))
+export async function generateStaticParams() {
+  const paramsByLocale = await Promise.all(
+    locales.map(async (lang) =>
+      (
+        await Promise.all(
+          audiences.map(async (audience) =>
+            (await getGuides(lang, audience)).map((entry) => ({ lang, audience, slug: entry.slug }))
+          )
+        )
+      ).flat()
     )
   );
+  return paramsByLocale.flat();
 }
 
 export async function generateMetadata({
@@ -32,7 +38,7 @@ export async function generateMetadata({
   const { lang, audience, slug } = await params;
   if (!isLocale(lang) || !isAudience(audience)) return {};
   const locale: Locale = lang;
-  const entry = getGuideEntry(locale, audience, slug);
+  const entry = await getGuide(locale, audience, slug);
   if (!entry) return {};
 
   return buildMetadata({
@@ -102,20 +108,20 @@ export default async function StudentLifeSectionPage({
   if (!isLocale(lang) || !isAudience(audience)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
-  const entry = getGuideEntry(locale, audience, slug);
+  const entry = await getGuide(locale, audience, slug);
   if (!entry) notFound();
 
   const t = labels[locale];
   const trackLabel = t.tracks[audience];
   const trackHref = localeHref(locale, `/student-life/${audience}`);
 
-  const allEntries = getGuideEntries(locale, audience);
+  const allEntries = await getGuides(locale, audience);
   const currentIndex = allEntries.findIndex((e) => e.slug === slug);
   const prevEntry = currentIndex > 0 ? allEntries[currentIndex - 1] : null;
   const nextEntry =
     currentIndex >= 0 && currentIndex < allEntries.length - 1 ? allEntries[currentIndex + 1] : null;
 
-  const toc = extractH2Toc(entry.content);
+  const toc = getStudentLifeH2Toc(entry.body);
 
   return (
     <>
@@ -157,7 +163,7 @@ export default async function StudentLifeSectionPage({
           {t.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
-        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
+        <RichTextRenderer data={entry.body} newTabLabel={dict.a11y.newTab} />
 
         {prevEntry || nextEntry ? (
           <nav aria-label={t.prevNextNav} className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2">

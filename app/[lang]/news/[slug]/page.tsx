@@ -1,5 +1,5 @@
 import { getDictionary, isLocale, locales, localeHref, formatDate, type Locale } from "@/lib/i18n";
-import { getEntries, getEntry } from "@/lib/content";
+import { getNews, getNewsItem } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -7,12 +7,13 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
-import { Mdx } from "@/lib/mdx";
+import RichTextRenderer from "@/components/RichTextRenderer";
 
-export function generateStaticParams() {
-  return locales.flatMap((lang) =>
-    getEntries("news", lang).map((entry) => ({ lang, slug: entry.slug }))
+export async function generateStaticParams() {
+  const entriesByLocale = await Promise.all(
+    locales.map(async (lang) => (await getNews(lang)).map((entry) => ({ lang, slug: entry.slug })))
   );
+  return entriesByLocale.flat();
 }
 
 export const dynamicParams = false;
@@ -25,7 +26,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   if (!isLocale(lang)) return {};
   const dict = getDictionary(lang);
-  const entry = getEntry("news", lang, slug);
+  const entry = await getNewsItem(lang, slug);
   if (!entry) return {};
   return buildMetadata({
     locale: lang,
@@ -48,10 +49,10 @@ export default async function NewsDetailPage({
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
-  const entry = getEntry("news", locale, slug);
+  const entry = await getNewsItem(locale, slug);
   if (!entry) notFound();
 
-  const { frontmatter, content } = entry;
+  const { frontmatter, body } = entry;
   const isEvent = frontmatter.type === "event";
 
   return (
@@ -95,7 +96,7 @@ export default async function NewsDetailPage({
           </dl>
         ) : null}
 
-        <Mdx source={content} newTabLabel={dict.a11y.newTab} locale={locale} />
+        <RichTextRenderer data={body} newTabLabel={dict.a11y.newTab} />
 
         {frontmatter.links && frontmatter.links.length > 0 ? (
           <div className="mt-8 max-w-[var(--measure)]">

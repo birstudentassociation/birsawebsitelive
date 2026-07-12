@@ -2,16 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
-import { getEntries, getEntry } from "@/lib/content";
+import { getActivityPages, getActivityPage } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
-import { Mdx } from "@/lib/mdx";
+import RichTextRenderer from "@/components/RichTextRenderer";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
-export function generateStaticParams() {
-  return locales.flatMap((lang) =>
-    getEntries("activity", lang).map((entry) => ({ lang, slug: entry.slug }))
+export async function generateStaticParams() {
+  const entriesByLocale = await Promise.all(
+    locales.map(async (lang) => (await getActivityPages(lang)).map((entry) => ({ lang, slug: entry.slug })))
   );
+  return entriesByLocale.flat();
 }
 
 export async function generateMetadata({
@@ -22,7 +23,7 @@ export async function generateMetadata({
   const { lang, slug } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const entry = getEntry("activity", locale, slug);
+  const entry = await getActivityPage(locale, slug);
   if (!entry) return {};
 
   return buildMetadata({
@@ -57,7 +58,7 @@ export default async function ActivityDetailPage({
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
-  const entry = getEntry("activity", locale, slug);
+  const entry = await getActivityPage(locale, slug);
   if (!entry) notFound();
 
   const t = labels[locale];
@@ -84,7 +85,7 @@ export default async function ActivityDetailPage({
           {dict.meta.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
-        <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
+        <RichTextRenderer data={entry.body} newTabLabel={dict.a11y.newTab} />
 
         <p className="text-muted max-w-[var(--measure)] text-sm">
           {t.questions}{" "}

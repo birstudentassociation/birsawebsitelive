@@ -1,5 +1,5 @@
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getEntries } from "@/lib/content";
+import { getNews } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -76,7 +76,7 @@ export default async function NewsPage({
   const text = copy[locale];
   const { type, category } = await searchParams;
 
-  const allEntries = getEntries("news", locale);
+  const allEntries = await getNews(locale);
   const categories = Array.from(new Set(allEntries.map((e) => e.frontmatter.category))).sort();
 
   const filtered = allEntries.filter((entry) => {

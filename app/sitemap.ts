@@ -1,12 +1,12 @@
 /**
  * Sitemap: enumerates every route in both locales. Slugs are derived from
- * the same content loaders the pages themselves use (`lib/content.ts` and
- * `content/clubs/clubs.ts`) — never hardcoded — so the sitemap can't drift
- * out of sync with what actually gets built.
+ * the same content loaders the pages themselves use (`lib/content-payload.ts`
+ * and `content/clubs/clubs.ts`) — never hardcoded — so the sitemap can't
+ * drift out of sync with what actually gets built.
  */
 import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
-import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
+import { getNews, getActivityPages, getGuides, type GuideAudience } from "@/lib/content-payload";
 import { clubs } from "@/content/clubs/clubs";
 import { documents } from "@/content/activity/regulations";
 import { SITE_URL } from "@/lib/site-url";
@@ -18,7 +18,7 @@ function url(locale: Locale, path: string): string {
   return `${SITE_URL}/${locale}${normalized}`;
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of locales) {
@@ -43,11 +43,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: url(locale, path) });
     }
 
-    for (const entry of getEntries("news", locale)) {
+    for (const entry of await getNews(locale)) {
       entries.push({ url: url(locale, `/news/${entry.slug}`) });
     }
 
-    for (const entry of getEntries("activity", locale)) {
+    for (const entry of await getActivityPages(locale)) {
       entries.push({ url: url(locale, `/activity/${entry.slug}`) });
     }
 
@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const audience of guideAudiences) {
       entries.push({ url: url(locale, `/student-life/${audience}`) });
-      for (const entry of getGuideEntries(locale, audience)) {
+      for (const entry of await getGuides(locale, audience)) {
         entries.push({ url: url(locale, `/student-life/${audience}/${entry.slug}`) });
       }
     }

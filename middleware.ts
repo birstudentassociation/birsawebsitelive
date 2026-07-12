@@ -4,11 +4,21 @@ import { defaultLocale, isLocale, type Locale } from "@/lib/i18n";
 const LOCALE_COOKIE = "NEXT_LOCALE";
 
 /**
- * Skip API routes, Next internals, and any path that looks like a static
- * file (has a dot in the last segment, e.g. `/robots.txt`, `/favicon.ico`).
+ * Skip API routes, Next internals, the Payload CMS admin panel + its API, and
+ * any path that looks like a static file (has a dot in the last segment, e.g.
+ * `/robots.txt`, `/favicon.ico`). Payload owns `/admin` and `/cms-api`; the
+ * locale prefixer must not redirect those to `/th/admin` etc.
  */
 function shouldSkip(pathname: string): boolean {
-  if (pathname.startsWith("/api") || pathname.startsWith("/_next")) return true;
+  if (
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/_next") ||
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/") ||
+    pathname.startsWith("/cms-api")
+  ) {
+    return true;
+  }
   const lastSegment = pathname.split("/").pop() ?? "";
   return lastSegment.includes(".");
 }
@@ -76,10 +86,10 @@ export const config = {
   matcher: [
     /*
      * Match all paths except:
-     * - api routes
+     * - api routes, and Payload's admin panel (/admin) + API (/cms-api)
      * - _next/static, _next/image (Next internals)
      * - any path with a file extension (favicon.ico, robots.txt, images, etc.)
      */
-    "/((?!api|_next/static|_next/image|.*\\..*).*)",
+    "/((?!api|cms-api|admin|_next/static|_next/image|.*\\..*).*)",
   ],
 };

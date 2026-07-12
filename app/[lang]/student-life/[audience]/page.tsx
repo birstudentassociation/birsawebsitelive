@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
-import { getGuideEntries, type GuideAudience } from "@/lib/content";
+import { getGuides, type GuideAudience } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -85,7 +85,7 @@ export default async function StudentLifeTrackPage({
   const t = copy[locale];
   const track = t.tracks[audience];
 
-  const entries = getGuideEntries(locale, audience);
+  const entries = await getGuides(locale, audience);
 
   return (
     <>

@@ -33,6 +33,10 @@ export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel }: The
   const [resolved, setResolved] = useState<Resolved>("light");
 
   useEffect(() => {
+    // Reads browser-only APIs (matchMedia/localStorage via getResolvedTheme)
+    // that aren't available during SSR, so this can't be computed at render
+    // time — it must run once after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolved(getResolvedTheme());
     setMounted(true);
 

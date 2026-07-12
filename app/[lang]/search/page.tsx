@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
+import { getNews, getActivityPages, getGuides, type GuideAudience } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import { clubs } from "@/content/clubs/clubs";
 import PageHeader from "@/components/PageHeader";
@@ -115,7 +115,7 @@ export default async function SearchPage({
   const groups: ResultGroup[] = [];
 
   if (hasQuery) {
-    const newsResults: ResultItem[] = getEntries("news", locale)
+    const newsResults: ResultItem[] = (await getNews(locale))
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
       .map((entry) => ({
         slug: entry.slug,
@@ -125,7 +125,7 @@ export default async function SearchPage({
       }));
     if (newsResults.length > 0) groups.push({ key: "news", label: t.groups.news, items: newsResults });
 
-    const activityResults: ResultItem[] = getEntries("activity", locale)
+    const activityResults: ResultItem[] = (await getActivityPages(locale))
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
       .map((entry) => ({
         slug: entry.slug,
@@ -137,7 +137,7 @@ export default async function SearchPage({
       groups.push({ key: "activity", label: t.groups.activity, items: activityResults });
 
     for (const audience of guideAudiences) {
-      const guideResults: ResultItem[] = getGuideEntries(locale, audience)
+      const guideResults: ResultItem[] = (await getGuides(locale, audience))
         .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
         .map((entry) => ({
           slug: entry.slug,

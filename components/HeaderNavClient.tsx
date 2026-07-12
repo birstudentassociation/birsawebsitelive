@@ -42,9 +42,14 @@ export default function HeaderNavClient({
   const containerRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
+  // Close the mobile menu when the route changes. Adjusted during render
+  // (rather than in an effect) per https://react.dev/learn/you-might-not-need-an-effect
+  // so there's no extra render with the stale `open` state.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   // While open: Escape closes and returns focus to the toggle (2.4.3 focus
   // order); a pointer press outside the menu closes it. It stays a disclosure,

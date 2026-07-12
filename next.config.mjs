@@ -1,3 +1,5 @@
+import { withPayload } from "@payloadcms/next/withPayload";
+
 /**
  * Next.js configuration.
  * Security headers support Service Standard point 9 (create a secure service).
@@ -71,4 +73,9 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// `withPayload` mounts the CMS: it merges Payload's required headers with the
+// ones above, externalizes server-only packages, and adds an (ignored under
+// Turbopack) webpack config. Because it injects a webpack key, `next build`
+// must be run with `--turbopack` (see package.json scripts) so Next.js uses
+// Turbopack rather than erroring on the presence of a webpack config.
+export default withPayload(nextConfig);

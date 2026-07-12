@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getGuideEntries } from "@/lib/content";
+import { getGuides } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -155,10 +155,10 @@ export default async function InformationServicesPage({
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
 
-  const guideTopics = getGuideEntries(locale, "home")
+  const guideTopics = (await getGuides(locale, "home"))
     .filter((entry) => entry.slug !== "course-reviews")
     .slice(0, 4);
-  const internationalTopics = getGuideEntries(locale, "international").slice(0, 4);
+  const internationalTopics = (await getGuides(locale, "international")).slice(0, 4);
 
   return (
     <>

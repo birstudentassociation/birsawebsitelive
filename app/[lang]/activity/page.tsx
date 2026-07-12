@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getEntries } from "@/lib/content";
+import { getActivityPages } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -71,7 +71,7 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const dict = getDictionary(locale);
   const t = copy[locale];
 
-  const entries = getEntries("activity", locale);
+  const entries = await getActivityPages(locale);
   const findEntry = (slug: string) => entries.find((entry) => entry.slug === slug);
 
   const entryCard = (entry: (typeof entries)[number]) => {

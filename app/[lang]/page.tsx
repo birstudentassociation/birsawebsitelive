@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getEntries } from "@/lib/content";
+import { getNews } from "@/lib/content-payload";
 import { buildMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 import { notFound } from "next/navigation";
@@ -39,7 +39,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const copy = homeCopy[locale];
-  const news = getEntries("news", locale).slice(0, 3);
+  const news = (await getNews(locale)).slice(0, 3);
 
   // Compute "today" in Bangkok on the server so the calendar's SSR and
   // hydration agree (en-CA renders as YYYY-MM-DD).
