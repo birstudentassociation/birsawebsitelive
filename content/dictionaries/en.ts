@@ -164,6 +164,9 @@ export const en = {
     credits: "credits",
     yearLabel: "Year",
     prerequisite: "Prerequisite",
+    instructorsHeading: "Instructor",
+    instructorsNote:
+      "From the Faculty of Political Science staff directory. Teaching assignments can vary by term.",
     previous: "Previous",
     next: "Next",
     pageOf: "Page {current} of {total}",

@@ -47,6 +47,21 @@ export type CourseCredits = {
   selfStudy: number;
 };
 
+/**
+ * A course instructor, sourced from the Faculty of Political Science staff
+ * directory (polsci.tu.ac.th/en/team). The name is the romanised English form
+ * with academic title as shown on the faculty site — rendered the same in both
+ * locales, since only the English directory publishes per-course teaching. The
+ * mapping is drawn from each lecturer's profile "Courses" listing; teaching
+ * assignments can change term to term, so treat it as indicative.
+ */
+export type Instructor = {
+  /** Name with academic title, e.g. "Assoc. Prof. Dr. Charlie Thame". */
+  name: string;
+  /** Absolute URL of the lecturer's faculty profile page. */
+  profileUrl: string;
+};
+
 /** A short, optionally-attributed student quote about a course. */
 export type ReviewQuote = {
   text: Bi;
@@ -86,6 +101,12 @@ export type Course = {
   yearLevel: number[];
   /** Prerequisite note, when the curriculum states one (e.g. PI280 requires PI271). */
   prerequisite?: Bi;
+  /**
+   * Lecturer(s) who teach this course, per the faculty staff directory.
+   * Present only for courses a listed lecturer names on their profile; many
+   * electives have no assignment published and omit this field.
+   */
+  instructors?: Instructor[];
   description: Bi;
   /** Aggregated student review — present only once BIRSA has collected one. */
   review?: StudentReview;

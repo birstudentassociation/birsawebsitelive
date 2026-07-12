@@ -164,6 +164,8 @@ export const th: typeof en = {
     credits: "หน่วยกิต",
     yearLabel: "ชั้นปี",
     prerequisite: "วิชาบังคับก่อน",
+    instructorsHeading: "ผู้สอน",
+    instructorsNote: "ข้อมูลจากทำเนียบคณาจารย์ คณะรัฐศาสตร์ ผู้สอนอาจเปลี่ยนแปลงในแต่ละภาคการศึกษา",
     previous: "ก่อนหน้า",
     next: "ถัดไป",
     pageOf: "หน้า {current} จาก {total}",

@@ -111,6 +111,32 @@ export default async function CourseDetailPage({
           </p>
         ) : null}
 
+        {course.instructors && course.instructors.length > 0 ? (
+          <section className="flex flex-col gap-1.5">
+            <h2 className="text-ink text-sm font-semibold">{t.instructorsHeading}</h2>
+            <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
+              {course.instructors.map((instructor, i) => (
+                <li key={instructor.profileUrl} className="flex items-center gap-2">
+                  <a
+                    href={instructor.profileUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-brand-deep hover:text-brand-dark font-medium underline underline-offset-2"
+                  >
+                    {instructor.name}
+                  </a>
+                  {i < course.instructors!.length - 1 ? (
+                    <span aria-hidden className="text-muted">
+                      &middot;
+                    </span>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted text-xs">{t.instructorsNote}</p>
+          </section>
+        ) : null}
+
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-xl">{t.descriptionHeading}</h2>
           <p className="text-ink max-w-[var(--measure)] leading-relaxed whitespace-pre-line">
