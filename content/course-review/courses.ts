@@ -18,6 +18,52 @@ export const courses: Course[] = [
       en: "This course explores different sub-disciplines in the field of social sciences. Its main focus is concerned with the understanding of the social world through different disciplinary lenses. The course invites guest speakers with a wide array of expertise to discuss challenging contemporary issues and share their experiences. This course thematically covers different aspects of social sciences with a relevant introductory overview.",
       th: "รายวิชานี้นำเสนอภาพรวมสาขาวิชาต่าง ๆ ในสังคมศาสตร์เพื่อให้เกิดความเข้าใจเกี่ยวกับโลกทางสังคมผ่านมุมมองของแต่ละสาขาวิชา โดยจะเชิญวิทยากรซี่งเป็นผู้เชี่ยวชาญทางด้านสังคมศาสตร์จากหลากหลายสาขาเป็นผู้ชวนขบคิดในประเด็นความท้าทายใหม่ ๆ ผ่านประสบการณ์ของวิทยากร การจัดการเรียนการสอนในรายวิชานี้ครอบคลุมประเด็นในทางสังคมศาสตร์เบื้องต้น",
     },
+    // Mockup content — demonstrates the student-review layout. Not a real
+    // submission; replace once BIRSA collects an actual review for PI121.
+    review: {
+      reviewCount: 27,
+      overallRating: 4.3,
+      workloadRating: 2,
+      difficultyRating: 1.5,
+      workload: {
+        en: "Light. There's no textbook to keep up with — most weeks are just showing up for the guest lecture and writing a short reflection afterward. Budget an hour or so per reflection if you want it to be more than a summary.",
+        th: "เบามาก ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ ถ้าอยากเขียนให้ดีกว่าแค่สรุปเนื้อหา ควรกันเวลาไว้สักชั่วโมงต่อชิ้น",
+      },
+      assessmentStyle: {
+        en: "Graded on short reflective write-ups submitted after each guest lecture, plus in-class participation. No midterm, no final exam.",
+        th: "ให้คะแนนจากงานเขียนสะท้อนความคิดสั้น ๆ ที่ส่งหลังบรรยายแต่ละครั้ง บวกกับการมีส่วนร่วมในชั้นเรียน ไม่มีสอบกลางภาคหรือปลายภาค",
+      },
+      tips: [
+        {
+          en: "Go to every lecture in person — reflection prompts usually reference something specific the speaker said, so it's hard to write a good one from the recording alone.",
+          th: "พยายามไปฟังบรรยายให้ครบทุกครั้ง เพราะโจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง ถ้าดูย้อนหลังอย่างเดียวจะเขียนได้ไม่ดีเท่าไป",
+        },
+        {
+          en: "Keep reflections short, specific, and tied to that week's speaker — generic essays about social science in general tend to score lower.",
+          th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้นจริง ๆ ถ้าเขียนกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
+        },
+        {
+          en: "A good first-semester pick if you want something low-stress while you adjust to university workload elsewhere.",
+          th: "เหมาะเป็นวิชาแรก ๆ ของเทอมแรกถ้าอยากได้วิชาที่ไม่กดดัน ระหว่างที่ยังปรับตัวกับภาระงานวิชาอื่น ๆ ในมหาวิทยาลัย",
+        },
+      ],
+      quotes: [
+        {
+          text: {
+            en: "Genuinely one of the more relaxed courses in year one — a good way to ease into how Thammasat expects you to write.",
+            th: "เป็นวิชาที่ผ่อนคลายที่สุดวิชาหนึ่งในปีหนึ่ง เหมาะกับการค่อย ๆ ปรับตัวให้ชินกับสไตล์การเขียนที่ธรรมศาสตร์คาดหวัง",
+          },
+          attribution: { en: "2nd-year student", th: "นักศึกษาชั้นปีที่ 2" },
+        },
+        {
+          text: {
+            en: "The guest speaker lineup changes every year, so ask around for who's coming this semester — some sessions are much more engaging than others.",
+            th: "รายชื่อวิทยากรเปลี่ยนทุกปี ลองถามรุ่นพี่ดูว่าเทอมนี้ใครมาบ้าง เพราะบางครั้งก็น่าสนใจกว่าครั้งอื่นมาก",
+          },
+          attribution: { en: "3rd-year student", th: "นักศึกษาชั้นปีที่ 3" },
+        },
+      ],
+    },
   },
   {
     code: "PI122",

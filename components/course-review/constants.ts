@@ -24,3 +24,19 @@ export const CATEGORY_ORDER: CourseCategory[] = [
   "minor-elective",
   "free-elective",
 ];
+
+/** Formats e.g. `[1]` -> "Year 1" or `[3, 4]` -> "Year 3–4". */
+export function formatYearLevel(yearLevel: number[], yearLabel: string): string {
+  if (yearLevel.length === 0) return yearLabel;
+  const min = Math.min(...yearLevel);
+  const max = Math.max(...yearLevel);
+  return min === max ? `${yearLabel} ${min}` : `${yearLabel} ${min}–${max}`;
+}
+
+/** Fills a "{current}"/"{total}"-style template, e.g. dict.pageOf. */
+export function fillTemplate(template: string, values: Record<string, string | number>): string {
+  return Object.entries(values).reduce(
+    (result, [key, value]) => result.replaceAll(`{${key}}`, String(value)),
+    template
+  );
+}

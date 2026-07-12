@@ -47,6 +47,34 @@ export type CourseCredits = {
   selfStudy: number;
 };
 
+/** A short, optionally-attributed student quote about a course. */
+export type ReviewQuote = {
+  text: Bi;
+  /** e.g. "3rd-year student" — kept general, never a real name. */
+  attribution?: Bi;
+};
+
+/**
+ * Structured, aggregated student feedback for a course — distinct from the
+ * official curriculum `description`. Optional: most courses won't have this
+ * until BIRSA collects real submissions (see the course detail page's
+ * "no review yet" state, which invites students to write one via /contact).
+ */
+export type StudentReview = {
+  /** How many students' feedback this summary is drawn from. */
+  reviewCount: number;
+  /** 1–5, overall recommendation. */
+  overallRating: number;
+  /** 1–5, 1 = light workload, 5 = heavy. */
+  workloadRating: number;
+  /** 1–5, 1 = easy, 5 = very difficult. */
+  difficultyRating: number;
+  workload: Bi;
+  assessmentStyle: Bi;
+  tips: Bi[];
+  quotes?: ReviewQuote[];
+};
+
 export type Course = {
   /** Course code, e.g. "PI280". */
   code: string;
@@ -59,4 +87,6 @@ export type Course = {
   /** Prerequisite note, when the curriculum states one (e.g. PI280 requires PI271). */
   prerequisite?: Bi;
   description: Bi;
+  /** Aggregated student review — present only once BIRSA has collected one. */
+  review?: StudentReview;
 };

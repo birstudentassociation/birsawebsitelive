@@ -2,13 +2,12 @@
 
 import { useMemo, useState } from "react";
 import Field from "@/components/Field";
-import Card from "@/components/Card";
+import Card, { CardTitle } from "@/components/Card";
 import Tag from "@/components/Tag";
-import Accordion from "@/components/Accordion";
 import Button from "@/components/Button";
-import type { Locale } from "@/lib/i18n";
+import { localeHref, type Locale } from "@/lib/i18n";
 import type { Course, CourseCategory, CourseTrack } from "@/content/course-review/types";
-import { CATEGORY_ORDER, TRACK_ORDER } from "@/components/course-review/constants";
+import { CATEGORY_ORDER, TRACK_ORDER, formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 
 const PAGE_SIZE = 12;
 
@@ -29,11 +28,10 @@ export type CourseReviewDict = {
   credits: string;
   yearLabel: string;
   prerequisite: string;
-  viewDescription: string;
-  hideDescription: string;
+  reviewedBadge: string;
   previous: string;
   next: string;
-  /** Template containing the literal placeholders "{current}" and "{total}". */
+  /** Template containing the literal placeholder "{current}" and "{total}". */
   pageOf: string;
 };
 
@@ -42,17 +40,6 @@ export type CourseReviewBrowserProps = {
   locale: Locale;
   dict: CourseReviewDict;
 };
-
-function formatYearLevel(yearLevel: number[], yearLabel: string): string {
-  if (yearLevel.length === 0) return yearLabel;
-  const min = Math.min(...yearLevel);
-  const max = Math.max(...yearLevel);
-  return min === max ? `${yearLabel} ${min}` : `${yearLabel} ${min}–${max}`;
-}
-
-function formatPageOf(template: string, current: number, total: number): string {
-  return template.replace("{current}", String(current)).replace("{total}", String(total));
-}
 
 /**
  * Client-side search + track/category filter + pagination over the full
@@ -172,7 +159,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
 
           {totalPages > 1 ? (
             <nav
-              aria-label={formatPageOf(dict.pageOf, currentPage, totalPages)}
+              aria-label={fillTemplate(dict.pageOf, { current: currentPage, total: totalPages })}
               className="flex items-center justify-center gap-4"
             >
               <Button
@@ -183,7 +170,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
                 {dict.previous}
               </Button>
               <span aria-hidden="true" className="text-muted text-sm">
-                {formatPageOf(dict.pageOf, currentPage, totalPages)}
+                {fillTemplate(dict.pageOf, { current: currentPage, total: totalPages })}
               </span>
               <Button
                 variant="secondary"
@@ -210,17 +197,18 @@ function CourseCard({
   dict: CourseReviewDict;
 }) {
   const otherLocale: Locale = locale === "en" ? "th" : "en";
-  const [open, setOpen] = useState(false);
+  const href = localeHref(locale, `/student-life/home/course-reviews/${course.code}`);
 
   return (
-    <Card>
+    <Card href={href}>
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-ink font-mono text-sm font-semibold">{course.code}</span>
         <Tag variant="brand">{dict.tracks[course.track]}</Tag>
         <Tag variant="forest">{dict.categories[course.category]}</Tag>
+        {course.review ? <Tag variant="neutral">{dict.reviewedBadge}</Tag> : null}
       </div>
       <div>
-        <h3 className="font-display text-ink text-lg leading-snug">{course.title[locale]}</h3>
+        <CardTitle href={href}>{course.title[locale]}</CardTitle>
         <p className="text-muted text-sm">{course.title[otherLocale]}</p>
       </div>
       <div className="flex flex-wrap gap-2 text-xs">
@@ -238,12 +226,7 @@ function CourseCard({
           {course.prerequisite[locale]}
         </p>
       ) : null}
-      <Accordion
-        summary={open ? dict.hideDescription : dict.viewDescription}
-        onToggle={setOpen}
-      >
-        {course.description[locale]}
-      </Accordion>
+      <p className="text-muted line-clamp-2 text-sm leading-relaxed">{course.description[locale]}</p>
     </Card>
   );
 }
