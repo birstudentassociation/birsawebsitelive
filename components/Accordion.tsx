@@ -4,6 +4,10 @@ export type AccordionProps = {
   className?: string;
   /** Open by default. */
   defaultOpen?: boolean;
+  /** Fires when the disclosure is toggled, with the new open state — lets a
+   * caller mirror the open state elsewhere (e.g. to switch the summary
+   * label). The `<details>` element stays otherwise uncontrolled. */
+  onToggle?: (open: boolean) => void;
 };
 
 /**
@@ -11,11 +15,18 @@ export type AccordionProps = {
  * rotation is CSS-only so it already respects `prefers-reduced-motion`
  * (handled globally in `app/globals.css`).
  */
-export default function Accordion({ summary, children, className, defaultOpen }: AccordionProps) {
+export default function Accordion({
+  summary,
+  children,
+  className,
+  defaultOpen,
+  onToggle,
+}: AccordionProps) {
   return (
     <details
       className={`group border-line bg-surface rounded-lg border open:shadow-sm ${className ?? ""}`}
       open={defaultOpen}
+      onToggle={onToggle ? (event) => onToggle(event.currentTarget.open) : undefined}
     >
       <summary className="focus-halo text-ink flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-3 font-semibold marker:content-none [&::-webkit-details-marker]:hidden">
         <span>{summary}</span>
