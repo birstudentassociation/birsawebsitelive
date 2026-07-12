@@ -95,7 +95,7 @@ export default async function ActivityRolesPage({
           return (
             <section key={group} className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{committeeGroupLabels[group][locale]}</h2>
-              <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3">
                 {members.map((member) => {
                   const m = member[locale];
                   const description = roleDescriptions[member.key]?.[locale];
