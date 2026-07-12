@@ -6,6 +6,7 @@ import { decideLoan } from "@/lib/inventory/loans";
 import { getItem } from "@/lib/inventory/items";
 import { getBorrower } from "@/lib/inventory/borrowers";
 import { recordAudit } from "@/lib/inventory/audit";
+import { renderLoanApproved, renderLoanRejected } from "@/lib/email/templates";
 
 const decisionSchema = z.object({
   id: z.string().min(1),
@@ -86,38 +87,34 @@ export async function POST(request: Request) {
       const resend = new Resend(apiKey);
       const from = process.env.CONTACT_FROM ?? "BIRSA Portal <onboarding@resend.dev>";
       const item = await getItem(decided.loan.itemId);
-      const itemName = item?.name.en ?? "the item";
+      const itemNameEn = item?.name.en ?? "the item";
+      const itemNameTh = item?.name.th ?? item?.name.en ?? "the item";
       const borrower = await getBorrower(decided.loan.borrowerId);
 
-      const subject =
-        decided.loan.status === "approved"
-          ? `[BIRSA] Your loan request ${decided.loan.reference} was approved`
-          : `[BIRSA] Your loan request ${decided.loan.reference} was not approved`;
-
-      const text =
-        decided.loan.status === "approved"
-          ? [
-              `Good news! Your request to borrow "${itemName}" has been approved.`,
-              "",
-              `Reference: ${decided.loan.reference}`,
-              `Start date: ${decided.loan.startDate}`,
-              `End date: ${decided.loan.endDate}`,
-              "",
-              "Please bring your student ID when you collect the item.",
-            ].join("\n")
-          : [
-              `Thank you for your interest in borrowing "${itemName}".`,
-              "",
-              `Unfortunately your request (reference ${decided.loan.reference}) could not be approved at this time.`,
-              "If you have questions or would like to discuss alternatives, please contact BIRSA directly.",
-            ].join("\n");
-
       if (borrower) {
+        const email =
+          decided.loan.status === "approved"
+            ? renderLoanApproved({
+                borrowerName: borrower.name,
+                itemNameEn,
+                itemNameTh,
+                reference: decided.loan.reference,
+                startDate: decided.loan.startDate,
+                endDate: decided.loan.endDate,
+              })
+            : renderLoanRejected({
+                borrowerName: borrower.name,
+                itemNameEn,
+                itemNameTh,
+                reference: decided.loan.reference,
+              });
+
         await resend.emails.send({
           from,
           to: borrower.email,
-          subject,
-          text,
+          subject: email.subject,
+          html: email.html,
+          text: email.text,
         });
       }
     } catch {

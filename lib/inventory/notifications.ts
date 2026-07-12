@@ -10,6 +10,12 @@
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import { getLowStockItems } from "@/lib/inventory/consumables";
+import {
+  renderOverdue,
+  renderDueSoon,
+  renderPickupReady,
+  renderOfficerDigest,
+} from "@/lib/email/templates";
 
 /** Window (in days, inclusive) used for "due soon" reminders. */
 export const DUE_SOON_DAYS = 2;
@@ -41,9 +47,20 @@ type NotifyRow = {
   borrower_email: string;
   borrower_name: string;
   item_name_en: string;
+  item_name_th: string;
 };
 
-type ResendClient = { emails: { send: (input: { from: string; to: string; subject: string; text: string }) => Promise<unknown> } };
+type ResendClient = {
+  emails: {
+    send: (input: {
+      from: string;
+      to: string;
+      subject: string;
+      text: string;
+      html?: string;
+    }) => Promise<unknown>;
+  };
+};
 
 /**
  * Lazily constructs a Resend client, or returns null when `RESEND_API_KEY`
@@ -68,10 +85,16 @@ function fromAddress(): string {
 
 async function sendMail(
   resend: ResendClient,
-  input: { to: string; subject: string; text: string }
+  input: { to: string; subject: string; text: string; html?: string }
 ): Promise<boolean> {
   try {
-    await resend.emails.send({ from: fromAddress(), to: input.to, subject: input.subject, text: input.text });
+    await resend.emails.send({
+      from: fromAddress(),
+      to: input.to,
+      subject: input.subject,
+      text: input.text,
+      html: input.html,
+    });
     return true;
   } catch {
     return false;
@@ -135,22 +158,25 @@ export async function runDailyJob(): Promise<
         const rows = await sql<NotifyRow>`
           select l.id, l.reference, l.start_date, l.end_date,
                  b.email as borrower_email, b.name as borrower_name,
-                 i.name_en as item_name_en
+                 i.name_en as item_name_en, i.name_th as item_name_th
           from loans l
           join borrowers b on b.id = l.borrower_id
           join items i on i.id = l.item_id
           where l.status = 'overdue' and l.overdue_notified_at is null
         `;
         for (const row of rows.rows) {
+          const email = renderOverdue({
+            borrowerName: row.borrower_name,
+            itemNameEn: row.item_name_en,
+            itemNameTh: row.item_name_th,
+            reference: row.reference,
+            endDate: row.end_date,
+          });
           const sent = await sendMail(resend, {
             to: row.borrower_email,
-            subject: `[BIRSA] Your loan ${row.reference} is overdue`,
-            text: [
-              `Hi ${row.borrower_name},`,
-              "",
-              `Your loan of "${row.item_name_en}" (reference ${row.reference}) was due back on ${row.end_date} and is now overdue.`,
-              "Please return it to the BIRSA office as soon as possible.",
-            ].join("\n"),
+            subject: email.subject,
+            text: email.text,
+            html: email.html,
           });
           if (sent) {
             await sql`update loans set overdue_notified_at = now() where id = ${row.id}`;
@@ -168,7 +194,7 @@ export async function runDailyJob(): Promise<
         const rows = await sql<NotifyRow>`
           select l.id, l.reference, l.start_date, l.end_date,
                  b.email as borrower_email, b.name as borrower_name,
-                 i.name_en as item_name_en
+                 i.name_en as item_name_en, i.name_th as item_name_th
           from loans l
           join borrowers b on b.id = l.borrower_id
           join items i on i.id = l.item_id
@@ -178,15 +204,18 @@ export async function runDailyJob(): Promise<
             and l.reminder_sent_at is null
         `;
         for (const row of rows.rows) {
+          const email = renderDueSoon({
+            borrowerName: row.borrower_name,
+            itemNameEn: row.item_name_en,
+            itemNameTh: row.item_name_th,
+            reference: row.reference,
+            endDate: row.end_date,
+          });
           const sent = await sendMail(resend, {
             to: row.borrower_email,
-            subject: `[BIRSA] Reminder: your loan ${row.reference} is due soon`,
-            text: [
-              `Hi ${row.borrower_name},`,
-              "",
-              `Your loan of "${row.item_name_en}" (reference ${row.reference}) is due back on ${row.end_date}.`,
-              "Please return it to the BIRSA office on or before that date.",
-            ].join("\n"),
+            subject: email.subject,
+            text: email.text,
+            html: email.html,
           });
           if (sent) {
             await sql`update loans set reminder_sent_at = now() where id = ${row.id}`;
@@ -204,7 +233,7 @@ export async function runDailyJob(): Promise<
         const rows = await sql<NotifyRow>`
           select l.id, l.reference, l.start_date, l.end_date,
                  b.email as borrower_email, b.name as borrower_name,
-                 i.name_en as item_name_en
+                 i.name_en as item_name_en, i.name_th as item_name_th
           from loans l
           join borrowers b on b.id = l.borrower_id
           join items i on i.id = l.item_id
@@ -213,15 +242,18 @@ export async function runDailyJob(): Promise<
             and l.pickup_alert_sent_at is null
         `;
         for (const row of rows.rows) {
+          const email = renderPickupReady({
+            borrowerName: row.borrower_name,
+            itemNameEn: row.item_name_en,
+            itemNameTh: row.item_name_th,
+            reference: row.reference,
+            startDate: row.start_date,
+          });
           const sent = await sendMail(resend, {
             to: row.borrower_email,
-            subject: `[BIRSA] Your loan ${row.reference} is ready for pickup`,
-            text: [
-              `Hi ${row.borrower_name},`,
-              "",
-              `Your approved loan of "${row.item_name_en}" (reference ${row.reference}) is ready for pickup starting ${row.start_date}.`,
-              "Please collect it from the BIRSA office and bring your student ID.",
-            ].join("\n"),
+            subject: email.subject,
+            text: email.text,
+            html: email.html,
           });
           if (sent) {
             await sql`update loans set pickup_alert_sent_at = now() where id = ${row.id}`;
@@ -249,20 +281,23 @@ export async function runDailyJob(): Promise<
 
       if (resend) {
         const inboxTo = process.env.BIRSA_INBOX ?? "birsa@tu.ac.th";
+        const email = renderOfficerDigest({
+          date: today,
+          pending: Number(pendingResult.rows[0]?.count ?? 0),
+          overdue: Number(overdueResult.rows[0]?.count ?? 0),
+          dueSoon: Number(dueSoonResult.rows[0]?.count ?? 0),
+          dueSoonDays: DUE_SOON_DAYS,
+          lowStock: lowStock.map((item) => ({
+            nameEn: item.name.en,
+            nameTh: item.name.th,
+            qty: item.qtyOnHand ?? 0,
+          })),
+        });
         const sent = await sendMail(resend, {
           to: inboxTo,
-          subject: `[BIRSA] Daily inventory digest (${today})`,
-          text: [
-            `Daily inventory summary for ${today}:`,
-            "",
-            `Pending loan requests: ${pendingResult.rows[0]?.count ?? 0}`,
-            `Overdue loans: ${overdueResult.rows[0]?.count ?? 0}`,
-            `Due within ${DUE_SOON_DAYS} day(s): ${dueSoonResult.rows[0]?.count ?? 0}`,
-            `Low-stock consumables: ${lowStock.length}`,
-            ...(lowStock.length > 0
-              ? ["", "Low-stock items:", ...lowStock.map((item) => `- ${item.name.en} (qty ${item.qtyOnHand ?? 0})`)]
-              : []),
-          ].join("\n"),
+          subject: email.subject,
+          text: email.text,
+          html: email.html,
         });
         summary.digestSent = sent;
       }

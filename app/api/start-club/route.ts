@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { startClubSchema } from "@/lib/validation";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { renderStartClub } from "@/lib/email/templates";
 
 export async function GET() {
   return NextResponse.json({ ok: false }, { status: 405 });
@@ -47,20 +48,21 @@ export async function POST(request: Request) {
     const inbox = process.env.BIRSA_INBOX ?? "birsa@tu.ac.th";
     const from = process.env.CONTACT_FROM ?? "BIRSA Portal <onboarding@resend.dev>";
 
+    const rendered = renderStartClub({
+      name,
+      email,
+      clubName,
+      description,
+      members,
+    });
+
     await resend.emails.send({
       from,
       to: inbox,
       replyTo: email,
-      subject: `[BIRSA start-a-club] ${clubName}`,
-      text: [
-        `Proposed club name: ${clubName}`,
-        `From: ${name} <${email}>`,
-        members ? `Other interested members: ${members}` : null,
-        "",
-        description,
-      ]
-        .filter((line): line is string => line !== null)
-        .join("\n"),
+      subject: rendered.subject,
+      html: rendered.html,
+      text: rendered.text,
     });
 
     return NextResponse.json({ ok: true }, { status: 200 });

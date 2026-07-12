@@ -3,6 +3,7 @@ import { inventoryLoanRequestSchema } from "@/lib/validation";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { createLoanRequest } from "@/lib/inventory/loans";
 import { getItemByKey } from "@/lib/inventory/items";
+import { renderOfficerNewRequest } from "@/lib/email/templates";
 
 export async function GET() {
   return NextResponse.json({ ok: false }, { status: 405 });
@@ -77,23 +78,28 @@ export async function POST(request: Request) {
       const inbox = process.env.BIRSA_INBOX ?? "birsa@tu.ac.th";
       const from = process.env.CONTACT_FROM ?? "BIRSA Portal <onboarding@resend.dev>";
       const item = await getItemByKey(itemKey);
-      const itemName = item?.name.en ?? itemKey;
+      const itemNameEn = item?.name.en ?? itemKey;
+      const itemNameTh = item?.name.th ?? item?.name.en ?? itemKey;
+
+      const email = renderOfficerNewRequest({
+        itemNameEn,
+        itemNameTh,
+        reference: created.reference,
+        studentName,
+        studentId,
+        studentEmail,
+        startDate,
+        endDate,
+        reason,
+      });
 
       await resend.emails.send({
         from,
         to: inbox,
         replyTo: studentEmail,
-        subject: `[Loan] New request ${created.reference}`,
-        text: [
-          `Item: ${itemName}`,
-          `Reference: ${created.reference}`,
-          `Student: ${studentName} (${studentId}) <${studentEmail}>`,
-          `Start: ${startDate}`,
-          `End: ${endDate}`,
-          reason ? `Reason: ${reason}` : "",
-        ]
-          .filter(Boolean)
-          .join("\n"),
+        subject: email.subject,
+        html: email.html,
+        text: email.text,
       });
     } catch {
       // Notification email is optional; the request itself already succeeded.
