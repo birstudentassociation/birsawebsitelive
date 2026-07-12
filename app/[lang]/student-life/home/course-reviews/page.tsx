@@ -47,11 +47,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function CourseReviewsPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function CourseReviewsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -94,8 +90,9 @@ export default async function CourseReviewsPage({
           courses={courses}
           locale={locale}
           dict={{
+            browseHeading: t.browseHeading,
             searchLabel: dict.actions.search,
-            searchPlaceholder: dict.actions.searchPlaceholder,
+            searchPlaceholder: t.searchPlaceholder,
             trackLabel: t.trackLabel,
             allTracks: t.allTracks,
             categoryLabel: dict.actions.category,

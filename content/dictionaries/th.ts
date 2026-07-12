@@ -135,6 +135,8 @@ export const th: typeof en = {
   courseReview: {
     title: "รีวิวรายวิชา",
     lede: "ค้นหารายวิชาทั้งหมดของ BIR ทั้งรหัสวิชา หน่วยกิต วิชาบังคับก่อน และคำอธิบายของทุกรายวิชาในหลักสูตร",
+    browseHeading: "เรียกดูรายวิชา",
+    searchPlaceholder: "ค้นหาด้วยรหัสวิชา ชื่อวิชา หรือคำสำคัญ…",
     statsHeading: "ภาพรวม",
     statsTotalCourses: "จำนวนรายวิชาทั้งหมด",
     statsTotalCredits: "หน่วยกิตรวม ถ้าลงทุกวิชา",

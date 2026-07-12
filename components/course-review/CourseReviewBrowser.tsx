@@ -1,17 +1,23 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Field from "@/components/Field";
 import Card, { CardTitle } from "@/components/Card";
 import Tag from "@/components/Tag";
 import Button from "@/components/Button";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Course, CourseCategory, CourseTrack } from "@/content/course-review/types";
-import { CATEGORY_ORDER, TRACK_ORDER, formatYearLevel, fillTemplate } from "@/components/course-review/constants";
+import {
+  CATEGORY_ORDER,
+  TRACK_ORDER,
+  formatYearLevel,
+  fillTemplate,
+} from "@/components/course-review/constants";
 
 const PAGE_SIZE = 12;
 
 export type CourseReviewDict = {
+  browseHeading: string;
   searchLabel: string;
   searchPlaceholder: string;
   trackLabel: string;
@@ -54,6 +60,10 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
   const [track, setTrack] = useState<CourseTrack | "all">("all");
   const [category, setCategory] = useState<CourseCategory | "all">("all");
   const [page, setPage] = useState(1);
+  // After a Previous/Next press, keep keyboard focus inside the pager: when the
+  // pressed button becomes disabled at a boundary, focus is redirected to its
+  // still-enabled sibling so it is never lost to <body> (WCAG 2.4.3).
+  const pendingFocus = useRef<"prev" | "next" | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -75,6 +85,22 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
   const currentPage = Math.min(page, totalPages);
   const pageCourses = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
   const hasFilters = query.trim().length > 0 || track !== "all" || category !== "all";
+
+  useEffect(() => {
+    if (!pendingFocus.current) return;
+    const id = pendingFocus.current === "next" ? "course-page-next" : "course-page-prev";
+    pendingFocus.current = null;
+    document.getElementById(id)?.focus();
+  }, [currentPage]);
+
+  function goToPage(target: number) {
+    const next = Math.min(totalPages, Math.max(1, target));
+    // If the button just pressed will disable at this boundary, hand focus to
+    // the opposite button, which stays enabled.
+    if (next > currentPage) pendingFocus.current = next === totalPages ? "prev" : "next";
+    else if (next < currentPage) pendingFocus.current = next === 1 ? "next" : "prev";
+    setPage(next);
+  }
 
   function handleQueryChange(value: string) {
     setQuery(value);
@@ -104,8 +130,17 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
     ...CATEGORY_ORDER.map((value) => ({ value, label: dict.categories[value] })),
   ];
 
+  const statusText =
+    `${dict.showing} ${filtered.length} ${filtered.length === 1 ? dict.result : dict.results}` +
+    (totalPages > 1
+      ? ` · ${fillTemplate(dict.pageOf, { current: currentPage, total: totalPages })}`
+      : "");
+
   return (
-    <div className="flex flex-col gap-6">
+    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-6">
+      <h2 id="course-browse-heading" className="font-display text-xl">
+        {dict.browseHeading}
+      </h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <Field
           as="input"
@@ -136,7 +171,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p role="status" className="text-muted text-sm">
-          {dict.showing} {filtered.length} {filtered.length === 1 ? dict.result : dict.results}
+          {statusText}
         </p>
         {hasFilters ? (
           <Button variant="secondary" onClick={clearFilters}>
@@ -163,8 +198,9 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
               className="flex items-center justify-center gap-4"
             >
               <Button
+                id="course-page-prev"
                 variant="secondary"
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                onClick={() => goToPage(currentPage - 1)}
                 disabled={currentPage === 1}
               >
                 {dict.previous}
@@ -173,8 +209,9 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
                 {fillTemplate(dict.pageOf, { current: currentPage, total: totalPages })}
               </span>
               <Button
+                id="course-page-next"
                 variant="secondary"
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
                 {dict.next}
@@ -183,7 +220,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
           ) : null}
         </>
       )}
-    </div>
+    </section>
   );
 }
 
@@ -226,7 +263,9 @@ function CourseCard({
           {course.prerequisite[locale]}
         </p>
       ) : null}
-      <p className="text-muted line-clamp-2 text-sm leading-relaxed">{course.description[locale]}</p>
+      <p className="text-muted line-clamp-2 text-sm leading-relaxed">
+        {course.description[locale]}
+      </p>
     </Card>
   );
 }

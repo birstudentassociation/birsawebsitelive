@@ -28,8 +28,7 @@ export const en = {
   ],
   headerCta: { href: "/quick", label: "Quick actions" },
 
-  betaBanner:
-    "This website is in beta. Some information may be incomplete or inaccurate.",
+  betaBanner: "This website is in beta. Some information may be incomplete or inaccurate.",
 
   a11y: {
     skip: "Skip to main content",
@@ -136,6 +135,8 @@ export const en = {
   courseReview: {
     title: "Course reviews",
     lede: "Search the full BIR course catalog — codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
+    browseHeading: "Browse the catalog",
+    searchPlaceholder: "Search by code, title, or keyword…",
     statsHeading: "At a glance",
     statsTotalCourses: "Courses in the catalog",
     statsTotalCredits: "Credit hours, if you took them all",
