@@ -52,7 +52,7 @@ export const quickGroups: QuickGroup[] = [
   {
     key: "top-tasks",
     en: { heading: "Popular right now" },
-    th: { heading: "ที่ใช้บ่อย" },
+    th: { heading: "บริการนิยม" },
     items: [
       {
         key: "whats-on",
@@ -72,15 +72,15 @@ export const quickGroups: QuickGroup[] = [
         key: "course-reviews",
         href: "/student-life/home/course-reviews",
         icon: "review",
-        en: { label: "Course reviews", hint: "Codes, credits and reviews" },
-        th: { label: "รีวิววิชาเรียน", hint: "รหัสวิชา หน่วยกิต และรีวิวจากรุ่นพี่" },
+        en: { label: "Course reviews", hint: "For finding out what a course is like" },
+        th: { label: "รีวิววิชาเรียน", hint: "ฐานข้อมูลรีวิววิชา PI" },
       },
       {
         key: "find-a-club",
         href: "/clubs",
         icon: "club",
         en: { label: "Find a club", hint: "Join one, or start your own" },
-        th: { label: "หาชมรม", hint: "เข้าร่วม หรือจะตั้งเองก็ได้" },
+        th: { label: "หาชมรม", hint: "รวบรวมข้อมูลชมรมต่าง ๆ (ตอนนี้ยังไม่มีข้อมูลจริง)" },
       },
     ],
   },
