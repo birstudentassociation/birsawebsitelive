@@ -267,7 +267,7 @@ function CourseCard({
       {course.instructors && course.instructors.length > 0 ? (
         <p className="text-muted text-sm">
           <span className="text-ink font-semibold">{dict.instructor}: </span>
-          {course.instructors.map((instructor) => instructor.name).join(", ")}
+          {course.instructors.map((instructor) => instructor.name[locale]).join(", ")}
         </p>
       ) : null}
     </Card>

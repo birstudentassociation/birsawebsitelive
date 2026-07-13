@@ -116,7 +116,7 @@ export default async function CourseDetailPage({
             <h2 className="text-ink text-sm font-semibold">{t.instructorsHeading}</h2>
             <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
               {course.instructors.map((instructor, i) => (
-                <li key={instructor.name} className="flex items-center gap-2">
+                <li key={instructor.name.en} className="flex items-center gap-2">
                   {instructor.profileUrl ? (
                     <a
                       href={instructor.profileUrl}
@@ -124,10 +124,10 @@ export default async function CourseDetailPage({
                       rel="noreferrer"
                       className="text-brand-deep hover:text-brand-dark font-medium underline underline-offset-2"
                     >
-                      {instructor.name}
+                      {instructor.name[locale]}
                     </a>
                   ) : (
-                    <span className="text-ink font-medium">{instructor.name}</span>
+                    <span className="text-ink font-medium">{instructor.name[locale]}</span>
                   )}
                   {i < course.instructors!.length - 1 ? (
                     <span aria-hidden className="text-muted">

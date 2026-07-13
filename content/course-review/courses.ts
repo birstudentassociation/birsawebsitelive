@@ -13,39 +13,39 @@ import type { Course, Instructor } from "./types";
  * under their teaching. Defined once here and referenced below so a name or URL
  * change is a single edit; teaching assignments can vary by term.
  */
-const THAME: Instructor = { name: "Assoc. Prof. Dr. Charlie Thame", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-charles-edward-morgan-thame/" };
-const AMPORN: Instructor = { name: "Prof. Dr. Amporn Tamronglak", profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-amporn-tamronglak/" };
-const JOSEPH: Instructor = { name: "Dr. Joseph Lee", profileUrl: "https://polsci.tu.ac.th/en/team/dr-joseph-lee/" };
-const REBECCA: Instructor = { name: "Rebecca Anne Goncharoff", profileUrl: "https://polsci.tu.ac.th/en/team/rebecca-anne-goncharoff-2/" };
-const PEERA: Instructor = { name: "Assoc. Prof. Dr. Peera Charoenvattananukul", profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-peera-charoenvattananukul/" };
-const COWIE: Instructor = { name: "Iain Cowie", profileUrl: "https://polsci.tu.ac.th/en/team/iain-cowie/" };
-const FUADI: Instructor = { name: "Dr. Fuadi Pitsuwan", profileUrl: "https://polsci.tu.ac.th/en/team/dr-fuadi-pitsuwan/" };
-const SUNIDA: Instructor = { name: "Assoc. Prof. Dr. Sunida Aroonpipat", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunida-aroonpipat/" };
-const SIKARN: Instructor = { name: "Assoc. Prof. Dr. Sikarn Issarachaiyos", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sikarn-lssarachaiyos/" };
-const PULI: Instructor = { name: "Assoc. Prof. Dr. Puli Fuwongcharoen", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-puli-fuwongcharoen/" };
-const SUNISA: Instructor = { name: "Assoc. Prof. Dr. Sunisa Chorkaew", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunisa-chorkaew/" };
-const WASAN: Instructor = { name: "Assoc. Prof. Dr. Wasan Luangprapat", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-wasan-luangprapat/" };
-const JARAN: Instructor = { name: "Prof. Dr. Jaran Maluleem", profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-jaran-maluleem/" };
-const PONGKWAN: Instructor = { name: "Dr. Pongkwan Sawasdipakdi", profileUrl: "https://polsci.tu.ac.th/en/team/dr-pongkwan-sawasdipakdi/" };
-const PINITBHAND: Instructor = { name: "Assoc. Prof. Dr. M.L. Pinitbhand Paribatra", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-m-l-pinitbhand-paribatra/" };
-const SIREMORN: Instructor = { name: "Dr. Siremorn Asvapromtada", profileUrl: "https://polsci.tu.ac.th/en/team/dr-siremorn-asvapromtada/" };
-const CHAYANIT: Instructor = { name: "Dr. Chayanit Poonyarat", profileUrl: "https://polsci.tu.ac.th/en/team/r-chayanit-poonyarat/" };
-const CHALIDAPORN: Instructor = { name: "Prof. Dr. Chalidaporn Songsamphan", profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-chalidaporn-songsamphan/" };
-const ATTAKRIT: Instructor = { name: "Prof. Dr. Attakrit Patchimnan", profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-attakrit-patchimnan/" };
-const KITTI: Instructor = { name: "Prof. Dr. Kitti Prasirtsuk", profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-kitti-prasirtsuk/" };
-const CHANINTIRA: Instructor = { name: "Prof. Dr. Chanintira na Thalang", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-chanintira-na-thalang/" };
-const PRAPIMPHAN: Instructor = { name: "Assoc. Prof. Dr. Prapimphan Chiengkul", profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-prapimphan-chiengkul/" };
-const JITTIPAT: Instructor = { name: "Assoc. Prof. Dr. Jittipat Poonkham", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-jittipat/" };
-const AJIRAPA: Instructor = { name: "Asst. Prof. Dr. Ajirapa Pienkhuntod", profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-ajirapa-pienkhuntod/" };
-const WASIN: Instructor = { name: "Dr. Wasin Punthong", profileUrl: "https://polsci.tu.ac.th/en/team/dr-wasin-punthong/" };
-const GAMOLPORN: Instructor = { name: "Assoc. Prof. Dr. Gamolporn Sonsri", profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-gamolporn-sonsri/" };
+const THAME: Instructor = { name: { en: "Assoc. Prof. Dr. Charlie Thame", th: "รศ.ดร.ชาร์ลี เทม" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-charles-edward-morgan-thame/" };
+const AMPORN: Instructor = { name: { en: "Prof. Dr. Amporn Tamronglak", th: "ศ.ดร.อัมพร ธำรงลักษณ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-amporn-tamronglak/" };
+const JOSEPH: Instructor = { name: { en: "Dr. Joseph Lee", th: "ดร.โจเซฟ ลี" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-joseph-lee/" };
+const REBECCA: Instructor = { name: { en: "Rebecca Anne Goncharoff", th: "อ.รีเบคกา กอนชารอฟ" }, profileUrl: "https://polsci.tu.ac.th/en/team/rebecca-anne-goncharoff-2/" };
+const PEERA: Instructor = { name: { en: "Assoc. Prof. Dr. Peera Charoenvattananukul", th: "รศ.ดร.พีระ เจริญวัฒนนุกูล" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-peera-charoenvattananukul/" };
+const COWIE: Instructor = { name: { en: "Iain Cowie", th: "อ.เอียน โควี" }, profileUrl: "https://polsci.tu.ac.th/en/team/iain-cowie/" };
+const FUADI: Instructor = { name: { en: "Dr. Fuadi Pitsuwan", th: "อ.ดร.ฟูอาดี้ พิศสุวรรณ" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-fuadi-pitsuwan/" };
+const SUNIDA: Instructor = { name: { en: "Assoc. Prof. Dr. Sunida Aroonpipat", th: "รศ.ดร.สุนิดา อรุณพิพัฒน์" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunida-aroonpipat/" };
+const SIKARN: Instructor = { name: { en: "Assoc. Prof. Dr. Sikarn Issarachaiyos", th: "รศ.ดร.ศิกานต์ อิสสระชัยยศ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sikarn-lssarachaiyos/" };
+const PULI: Instructor = { name: { en: "Assoc. Prof. Dr. Puli Fuwongcharoen", th: "รศ.ดร.ภูริ ฟูวงศ์เจริญ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-puli-fuwongcharoen/" };
+const SUNISA: Instructor = { name: { en: "Assoc. Prof. Dr. Sunisa Chorkaew", th: "รศ.ดร.สุนิสา ช่อแก้ว" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunisa-chorkaew/" };
+const WASAN: Instructor = { name: { en: "Assoc. Prof. Dr. Wasan Luangprapat", th: "รศ.ดร.วสันต์ เหลืองประภัสร์" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-wasan-luangprapat/" };
+const JARAN: Instructor = { name: { en: "Prof. Dr. Jaran Maluleem", th: "ศ.ดร.จรัญ มะลูลีม" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-jaran-maluleem/" };
+const PONGKWAN: Instructor = { name: { en: "Dr. Pongkwan Sawasdipakdi", th: "ดร.ปองขวัญ สวัสดิภักดิ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-pongkwan-sawasdipakdi/" };
+const PINITBHAND: Instructor = { name: { en: "Assoc. Prof. Dr. M.L. Pinitbhand Paribatra", th: "รศ.ดร.ม.ล.พินิตพันธุ์ บริพัตร" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-m-l-pinitbhand-paribatra/" };
+const SIREMORN: Instructor = { name: { en: "Dr. Siremorn Asvapromtada", th: "อ.ดร.สิเรมอร อัศวพรหมธาดา" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-siremorn-asvapromtada/" };
+const CHAYANIT: Instructor = { name: { en: "Dr. Chayanit Poonyarat", th: "อ.ดร.ชญานิษฐ์ พูลยรัตน์" }, profileUrl: "https://polsci.tu.ac.th/en/team/r-chayanit-poonyarat/" };
+const CHALIDAPORN: Instructor = { name: { en: "Prof. Dr. Chalidaporn Songsamphan", th: "ศ.ดร.ชลิดาภรณ์ ส่งสัมพันธ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-chalidaporn-songsamphan/" };
+const ATTAKRIT: Instructor = { name: { en: "Prof. Dr. Attakrit Patchimnan", th: "ศ.ดร.อรรถกฤต ปัจฉิมนันท์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-attakrit-patchimnan/" };
+const KITTI: Instructor = { name: { en: "Prof. Dr. Kitti Prasirtsuk", th: "ศ.ดร.กิตติ ประเสริฐสุข" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-kitti-prasirtsuk/" };
+const CHANINTIRA: Instructor = { name: { en: "Prof. Dr. Chanintira na Thalang", th: "ศ.ดร.ชนินท์ทิรา ณ ถลาง" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-chanintira-na-thalang/" };
+const PRAPIMPHAN: Instructor = { name: { en: "Assoc. Prof. Dr. Prapimphan Chiengkul", th: "ผศ.ดร.ประพิมพ์ฝัน เชียงกูล" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-prapimphan-chiengkul/" };
+const JITTIPAT: Instructor = { name: { en: "Assoc. Prof. Dr. Jittipat Poonkham", th: "รศ.ดร.จิตติภัทร พูนขำ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-jittipat/" };
+const AJIRAPA: Instructor = { name: { en: "Asst. Prof. Dr. Ajirapa Pienkhuntod", th: "ผศ.ดร.อจิรภาส์ เพียรขุนทด" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-ajirapa-pienkhuntod/" };
+const WASIN: Instructor = { name: { en: "Dr. Wasin Punthong", th: "ดร.วศิน ปั้นทอง" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-wasin-punthong/" };
+const GAMOLPORN: Instructor = { name: { en: "Assoc. Prof. Dr. Gamolporn Sonsri", th: "รศ.ดร.กมลพร สอนศรี" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-gamolporn-sonsri/" };
 // No current faculty-directory profile (retired, or based in another faculty),
 // so no profileUrl — their name renders as plain text on the detail page.
-const VIBOONPONG: Instructor = { name: "Asst. Prof. Dr. Viboonpong Poonprasit" };
-const TRIN: Instructor = { name: "Asst. Prof. Dr. Trin Aiyara" };
-const VIROT: Instructor = { name: "Virot Ali" };
-const WIJITBUSABA: Instructor = { name: "Assoc. Prof. Dr. Wijitbusaba Marome" };
-const THANES: Instructor = { name: "Prof. Thanes Wongyannava" };
+const VIBOONPONG: Instructor = { name: { en: "Asst. Prof. Dr. Viboonpong Poonprasit", th: "ผศ.ดร.วิบูลพงศ์ พูนประสิทธิ์" } };
+const TRIN: Instructor = { name: { en: "Asst. Prof. Dr. Trin Aiyara", th: "ผศ.ดร.ตฤณ ไอยะรา" } };
+const VIROT: Instructor = { name: { en: "Virot Ali", th: "อ.วิโรจน์ อาลี" } };
+const WIJITBUSABA: Instructor = { name: { en: "Assoc. Prof. Dr. Wijitbusaba Marome", th: "รศ.ดร.วิจิตรบุษบา มารมย์" } };
+const THANES: Instructor = { name: { en: "Prof. Thanes Wongyannava", th: "ศ.ธเนศ วงศ์ยานนาวา" } };
 
 export const courses: Course[] = [
   {

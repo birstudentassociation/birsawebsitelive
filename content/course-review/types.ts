@@ -49,15 +49,15 @@ export type CourseCredits = {
 
 /**
  * A course instructor, sourced from the Faculty of Political Science staff
- * directory (polsci.tu.ac.th/en/team). The name is the romanised English form
- * with academic title as shown on the faculty site — rendered the same in both
- * locales, since only the English directory publishes per-course teaching. The
- * mapping is drawn from each lecturer's profile "Courses" listing; teaching
- * assignments can change term to term, so treat it as indicative.
+ * directory (polsci.tu.ac.th/en/team). The name is bilingual — `en` is the
+ * romanised form with academic title as shown on the faculty site, `th` is
+ * the Thai form from the faculty directory. The mapping is drawn from each
+ * lecturer's profile "Courses" listing; teaching assignments can change term
+ * to term, so treat it as indicative.
  */
 export type Instructor = {
   /** Name with academic title, e.g. "Assoc. Prof. Dr. Charlie Thame". */
-  name: string;
+  name: Bi;
   /**
    * Absolute URL of the lecturer's faculty profile page. Omitted for
    * instructors with no current profile on the faculty directory (e.g.
