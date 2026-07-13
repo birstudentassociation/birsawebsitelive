@@ -79,6 +79,21 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
           <path d="M10 5.5c1.3-1 3-1.5 4.5-1.5 1 0 1.5.2 1.5.2v10.3s-.5-.2-1.5-.2c-1.5 0-3.2.5-4.5 1.5V5.5Z" strokeLinejoin="round" strokeLinecap="round" />
         </svg>
       );
+    case "loan":
+      return (
+        <svg {...common}>
+          <path d="M3 6.8 10 3l7 3.8-7 3.8-7-3.8Z" strokeLinejoin="round" />
+          <path d="M3 6.8v6.4L10 17l7-3.8V6.8" strokeLinejoin="round" strokeLinecap="round" />
+          <path d="M10 10.6V17" strokeLinecap="round" />
+        </svg>
+      );
+    case "review":
+      return (
+        <svg {...common}>
+          <path d="M4.5 3.5h8l3 3v10a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z" strokeLinejoin="round" />
+          <path d="M10 8.6l.9 1.8 2 .3-1.45 1.4.34 2-1.79-.95-1.79.94.34-1.99L7 10.7l2-.3.9-1.8Z" strokeLinejoin="round" strokeLinecap="round" />
+        </svg>
+      );
     case "instagram":
       return (
         <svg {...common}>

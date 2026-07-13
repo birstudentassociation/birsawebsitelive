@@ -15,6 +15,8 @@ export type QuickIcon =
   | "help"
   | "feedback"
   | "guide"
+  | "loan"
+  | "review"
   | "instagram"
   | "facebook"
   | "email"
@@ -48,6 +50,41 @@ const faculty = officialLinks.find((l) => l.id === "faculty")!;
 
 export const quickGroups: QuickGroup[] = [
   {
+    key: "top-tasks",
+    en: { heading: "Popular right now" },
+    th: { heading: "ที่ใช้บ่อย" },
+    items: [
+      {
+        key: "whats-on",
+        href: "/news",
+        icon: "calendar",
+        en: { label: "What's on", hint: "News and events" },
+        th: { label: "มีอะไรบ้าง", hint: "ข่าวสารและกิจกรรม" },
+      },
+      {
+        key: "borrow-equipment",
+        href: "/information-services/equipment-loan",
+        icon: "loan",
+        en: { label: "Borrow equipment", hint: "Free BIRSA equipment loans" },
+        th: { label: "ยืมอุปกรณ์", hint: "ยืมฟรีกับ BIRSA" },
+      },
+      {
+        key: "course-reviews",
+        href: "/student-life/home/course-reviews",
+        icon: "review",
+        en: { label: "Course reviews", hint: "Codes, credits and reviews" },
+        th: { label: "รีวิววิชาเรียน", hint: "รหัสวิชา หน่วยกิต และรีวิวจากรุ่นพี่" },
+      },
+      {
+        key: "find-a-club",
+        href: "/clubs",
+        icon: "club",
+        en: { label: "Find a club", hint: "Join one, or start your own" },
+        th: { label: "หาชมรม", hint: "เข้าร่วม หรือจะตั้งเองก็ได้" },
+      },
+    ],
+  },
+  {
     key: "get-help",
     en: { heading: "Get help" },
     th: { heading: "ขอความช่วยเหลือ" },
@@ -72,6 +109,20 @@ export const quickGroups: QuickGroup[] = [
         icon: "guide",
         en: { label: "Student-life guide", hint: "For home and international students" },
         th: { label: "คู่มือชีวิตนักศึกษา", hint: "สำหรับนักศึกษาไทยและนักศึกษาต่างชาติ" },
+      },
+    ],
+  },
+  {
+    key: "how-birsa-works",
+    en: { heading: "How BIRSA works" },
+    th: { heading: "การดำเนินงานของ BIRSA" },
+    items: [
+      {
+        key: "birsa-activity",
+        href: "/activity",
+        icon: "flag",
+        en: { label: "BIRSA activity", hint: "Officer roles, regulations and transparency" },
+        th: { label: "การทำงานของ BIRSA", hint: "บทบาทกรรมการ ระเบียบ และความโปร่งใส" },
       },
     ],
   },
@@ -111,6 +162,13 @@ export const quickGroups: QuickGroup[] = [
         en: { label: "Email", hint: "birsa@tu.ac.th" },
         th: { label: "อีเมล", hint: "birsa@tu.ac.th" },
       },
+    ],
+  },
+  {
+    key: "official",
+    en: { heading: "Official links" },
+    th: { heading: "ลิงก์ทางการ" },
+    items: [
       {
         key: "bir-program",
         href: birProgram.href,
