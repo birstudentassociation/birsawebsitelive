@@ -9,7 +9,7 @@ export const preliminary: Part = {
       title: { en: "Citation", th: "ชื่อประกาศ" },
       lead: {
         en: 'This Notice is called the "Notice of the Faculty of Political Science, Thammasat University, on Student Activities of the Faculty of Political Science, B.E. 2565".',
-        th: "ประกาศนี้เรียกว่า “ประกาศคณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เรื่อง กิจกรรมนักศึกษา คณะรัฐศาสตร์ พ.ศ. 2565”",
+        th: "ประกาศนี้เรียกว่า “ประกาศคณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เรื่อง กิจกรรมนักศึกษาคณะรัฐศาสตร์ พ.ศ. 2565”",
       },
     },
     {
