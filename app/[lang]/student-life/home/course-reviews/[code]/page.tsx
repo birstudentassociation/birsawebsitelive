@@ -116,15 +116,19 @@ export default async function CourseDetailPage({
             <h2 className="text-ink text-sm font-semibold">{t.instructorsHeading}</h2>
             <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
               {course.instructors.map((instructor, i) => (
-                <li key={instructor.profileUrl} className="flex items-center gap-2">
-                  <a
-                    href={instructor.profileUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-brand-deep hover:text-brand-dark font-medium underline underline-offset-2"
-                  >
-                    {instructor.name}
-                  </a>
+                <li key={instructor.name} className="flex items-center gap-2">
+                  {instructor.profileUrl ? (
+                    <a
+                      href={instructor.profileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-brand-deep hover:text-brand-dark font-medium underline underline-offset-2"
+                    >
+                      {instructor.name}
+                    </a>
+                  ) : (
+                    <span className="text-ink font-medium">{instructor.name}</span>
+                  )}
                   {i < course.instructors!.length - 1 ? (
                     <span aria-hidden className="text-muted">
                       &middot;

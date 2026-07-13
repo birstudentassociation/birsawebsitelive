@@ -34,6 +34,7 @@ export type CourseReviewDict = {
   credits: string;
   yearLabel: string;
   prerequisite: string;
+  instructor: string;
   reviewedBadge: string;
   previous: string;
   next: string;
@@ -263,9 +264,12 @@ function CourseCard({
           {course.prerequisite[locale]}
         </p>
       ) : null}
-      <p className="text-muted line-clamp-2 text-sm leading-relaxed">
-        {course.description[locale]}
-      </p>
+      {course.instructors && course.instructors.length > 0 ? (
+        <p className="text-muted text-sm">
+          <span className="text-ink font-semibold">{dict.instructor}: </span>
+          {course.instructors.map((instructor) => instructor.name).join(", ")}
+        </p>
+      ) : null}
     </Card>
   );
 }

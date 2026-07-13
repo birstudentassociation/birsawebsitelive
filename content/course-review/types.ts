@@ -58,8 +58,13 @@ export type CourseCredits = {
 export type Instructor = {
   /** Name with academic title, e.g. "Assoc. Prof. Dr. Charlie Thame". */
   name: string;
-  /** Absolute URL of the lecturer's faculty profile page. */
-  profileUrl: string;
+  /**
+   * Absolute URL of the lecturer's faculty profile page. Omitted for
+   * instructors with no current profile on the faculty directory (e.g.
+   * retired staff or those based in another faculty), so their name renders
+   * as plain text rather than a broken link.
+   */
+  profileUrl?: string;
 };
 
 /** A short, optionally-attributed student quote about a course. */
