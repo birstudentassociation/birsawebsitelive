@@ -33,6 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/clubs",
       "/clubs/start",
       "/information-services",
+      "/information-services/university-services",
       "/information-services/equipment-loan",
       "/information-services/equipment-loan/status",
       "/standards",

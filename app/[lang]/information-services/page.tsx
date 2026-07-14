@@ -34,6 +34,7 @@ const copy: Record<
     equipmentLoan: { eyebrow: string; title: string; description: string; cta: string };
     directoryLinkLine: string;
     directoryLinkCta: string;
+    universityServices: { eyebrow: string; title: string; description: string; cta: string };
     servicesHeading: string;
     informationHeading: string;
     informationLede: string;
@@ -63,6 +64,13 @@ const copy: Record<
     },
     directoryLinkLine: "Looking for equipment owned by a club instead of BIRSA?",
     directoryLinkCta: "See the club equipment directory",
+    universityServices: {
+      eyebrow: "From the University",
+      title: "University services",
+      description:
+        "Accident insurance, military-service postponement, certificates, counselling, and IT help — the University's services for students, in one place.",
+      cta: "See University services",
+    },
     servicesHeading: "Services",
     informationHeading: "Information",
     informationLede:
@@ -100,11 +108,19 @@ const copy: Record<
     equipmentLoan: {
       eyebrow: "บริการ",
       title: "บริการยืมอุปกรณ์",
-      description: "ยืมอุปกรณ์ของ BIRSA เช่น ชุดปฐมพยาบาล สำหรับกิจกรรมหรือความจำเป็นในชีวิตประจำวัน",
+      description:
+        "ยืมอุปกรณ์ของ BIRSA เช่น ชุดปฐมพยาบาล สำหรับกิจกรรมหรือความจำเป็นในชีวิตประจำวัน",
       cta: "ขอยืมอุปกรณ์",
     },
     directoryLinkLine: "ตามหาอุปกรณ์ที่เป็นของชมรมแทน BIRSA อยู่หรือเปล่า",
     directoryLinkCta: "ดูทำเนียบอุปกรณ์ของชมรม",
+    universityServices: {
+      eyebrow: "จากมหาวิทยาลัย",
+      title: "บริการจากมหาวิทยาลัย",
+      description:
+        "ประกันอุบัติเหตุ การผ่อนผันเกณฑ์ทหาร การขอเอกสาร บริการให้คำปรึกษา และความช่วยเหลือด้านไอที รวมบริการของมหาวิทยาลัยสำหรับนักศึกษาไว้ในที่เดียว",
+      cta: "ดูบริการจากมหาวิทยาลัย",
+    },
     servicesHeading: "บริการ",
     informationHeading: "ข้อมูล",
     informationLede:
@@ -150,7 +166,11 @@ export default async function InformationServicesPage({
   const t = copy[locale];
 
   const equipmentHref = localeHref(locale, "/information-services/equipment-loan");
-  const equipmentDirectoryHref = localeHref(locale, "/information-services/equipment-loan/directory");
+  const equipmentDirectoryHref = localeHref(
+    locale,
+    "/information-services/equipment-loan/directory"
+  );
+  const universityServicesHref = localeHref(locale, "/information-services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/home/course-reviews");
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
@@ -183,17 +203,33 @@ export default async function InformationServicesPage({
             <CardTitle href={equipmentHref} as="h3">
               {t.equipmentLoan.title}
             </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">
-              {t.equipmentLoan.description}
-            </p>
-            <span className="text-brand-deep text-sm font-semibold">{t.equipmentLoan.cta} &rarr;</span>
+            <p className="text-muted text-sm leading-relaxed">{t.equipmentLoan.description}</p>
+            <span className="text-brand-deep text-sm font-semibold">
+              {t.equipmentLoan.cta} &rarr;
+            </span>
           </Card>
           <p className="text-muted text-sm">
             {t.directoryLinkLine}{" "}
-            <Link href={equipmentDirectoryHref} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+            <Link
+              href={equipmentDirectoryHref}
+              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            >
               {t.directoryLinkCta}
             </Link>
           </p>
+
+          <Card href={universityServicesHref}>
+            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+              {t.universityServices.eyebrow}
+            </span>
+            <CardTitle href={universityServicesHref} as="h3">
+              {t.universityServices.title}
+            </CardTitle>
+            <p className="text-muted text-sm leading-relaxed">{t.universityServices.description}</p>
+            <span className="text-brand-deep text-sm font-semibold">
+              {t.universityServices.cta} &rarr;
+            </span>
+          </Card>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -211,7 +247,9 @@ export default async function InformationServicesPage({
                 {t.courseReviews.title}
               </CardTitle>
               <p className="text-muted text-sm leading-relaxed">{t.courseReviews.description}</p>
-              <span className="text-brand-deep text-sm font-semibold">{t.courseReviews.cta} &rarr;</span>
+              <span className="text-brand-deep text-sm font-semibold">
+                {t.courseReviews.cta} &rarr;
+              </span>
             </Card>
 
             <Card href={guidesHref}>
@@ -239,9 +277,7 @@ export default async function InformationServicesPage({
             <CardTitle href={internationalHref} as="h3">
               {t.international.title}
             </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">
-              {t.international.description}
-            </p>
+            <p className="text-muted text-sm leading-relaxed">{t.international.description}</p>
             {internationalTopics.length > 0 ? (
               <div className="mt-1">
                 <p className="text-ink text-sm font-semibold">{t.international.topicsLabel}</p>
@@ -252,7 +288,9 @@ export default async function InformationServicesPage({
                 </ul>
               </div>
             ) : null}
-            <span className="text-brand-deep text-sm font-semibold">{t.international.cta} &rarr;</span>
+            <span className="text-brand-deep text-sm font-semibold">
+              {t.international.cta} &rarr;
+            </span>
           </Card>
         </section>
 
