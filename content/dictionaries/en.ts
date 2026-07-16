@@ -22,7 +22,7 @@ export const en = {
 
   nav: [
     { href: "/news", label: "What's on" },
-    { href: "/information-services", label: "Information & services" },
+    { href: "/information-services", label: "Information and services" },
     { href: "/clubs", label: "Clubs" },
     { href: "/activity", label: "BIRSA activity" },
   ],
@@ -121,6 +121,18 @@ export const en = {
     title: "We can't find that page",
     body: "It may have moved, or the link may be wrong. Try the main sections below.",
     home: "Go to the home page",
+  },
+
+  error: {
+    title: "Sorry, there is a problem with this page",
+    body: "Please try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
+    tryAgain: "Try again",
+    home: "Go to the home page",
+  },
+
+  feedback: {
+    prompt: "Is there a problem with this page?",
+    report: "Report a problem with this page",
   },
 
   meta: {

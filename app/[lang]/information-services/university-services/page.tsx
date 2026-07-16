@@ -94,7 +94,7 @@ const copy: Record<
   en: {
     title: "University services",
     lede: "Services and support Thammasat University provides to every student. BIRSA collects them here for BIR students; the services themselves are run by the University and its offices.",
-    breadcrumbLabel: "Information & services",
+    breadcrumbLabel: "Information and services",
     onThisPageLabel: "On this page",
     disclaimerTitle: "These are University-run services",
     disclaimerBody:

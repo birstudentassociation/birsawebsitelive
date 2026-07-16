@@ -44,7 +44,7 @@ const copy: Record<
   }
 > = {
   en: {
-    studentLife: "Information & services",
+    studentLife: "Information and services",
     updated: "Updated",
     tracks: {
       home: {

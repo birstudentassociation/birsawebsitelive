@@ -31,10 +31,16 @@ const content: Record<
     principles: { title: string; body: string }[];
     a11yTitle: string;
     a11yIntro: string;
+    a11yComplianceStatus: string;
     a11yWhatWeDoTitle: string;
     a11yWhatWeDo: string[];
+    a11yTestTitle: string;
+    a11yTest: string;
     a11yLimitsTitle: string;
-    a11yLimits: string;
+    a11yLimitsIntro: string;
+    a11yIssues: { title: string; body: string }[];
+    a11yPreparedTitle: string;
+    a11yPrepared: string;
     a11yReportTitle: string;
     a11yReportBody: string;
     a11yReportCta: string;
@@ -72,7 +78,10 @@ const content: Record<
       },
     ],
     a11yTitle: "Accessibility statement",
-    a11yIntro: "We aim to meet WCAG 2.2 at level AA across this site.",
+    a11yIntro:
+      "This is a voluntary accessibility statement, modelled on the one the UK Government Digital Service asks its services to publish. BIRSA is a student-run society, not a public body, so no law requires this — we publish it because we think every site should be honest about how usable it is.",
+    a11yComplianceStatus:
+      "This site is partially compliant with the Web Content Accessibility Guidelines (WCAG) 2.2 level AA. “Partially” because of the known issues listed below, not because of a specific failure we are aware of.",
     a11yWhatWeDoTitle: "What we do",
     a11yWhatWeDo: [
       "Every feature can be operated with a keyboard alone, with a visible focus indicator.",
@@ -83,9 +92,25 @@ const content: Record<
       "The whole site is bilingual, with the correct `lang` attribute set on every page.",
       "The site supports both light and dark colour modes, both checked against WCAG contrast requirements. It follows your device setting by default, and you can switch it any time with the toggle in the header.",
     ],
-    a11yLimitsTitle: "Known limitations",
-    a11yLimits:
-      "We're honest that this site is still young. Some content (example dates, room numbers, and similar details) is placeholder text pending review by the BIRSA committee, and is marked as such. If you hit a genuine accessibility barrier, it's a bug, so please tell us.",
+    a11yTestTitle: "How we test",
+    a11yTest:
+      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users — that is the main gap between “we test” and “we are certain”.",
+    a11yLimitsTitle: "Known issues",
+    a11yLimitsIntro:
+      "We would rather name what is not done than imply everything is perfect. These are the things we know about:",
+    a11yIssues: [
+      {
+        title: "No full independent audit yet",
+        body: "Our automated tests and manual checks catch a lot, but they are not a substitute for a full audit with real assistive-technology users. Until we arrange one, some barriers for screen reader or speech-recognition users may go unnoticed (WCAG 4.1.2 and others). Planned before we leave beta.",
+      },
+      {
+        title: "Some placeholder content",
+        body: "A few details (example dates, room numbers and similar) are placeholder text pending review by the BIRSA committee, and are labelled as such. This is a content-accuracy gap rather than an accessibility barrier, but we mention it for honesty.",
+      },
+    ],
+    a11yPreparedTitle: "When we prepared this",
+    a11yPrepared:
+      "This statement was first prepared on 14 July 2026 and last reviewed on 14 July 2026. We review it at least once a year, and whenever we make a significant change to the site.",
     a11yReportTitle: "Report a problem",
     a11yReportBody:
       "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
@@ -124,7 +149,10 @@ const content: Record<
       },
     ],
     a11yTitle: "การเข้าถึงเว็บไซต์",
-    a11yIntro: "เราตั้งเป้าให้เว็บไซต์นี้ผ่านมาตรฐาน WCAG 2.2 ระดับ AA",
+    a11yIntro:
+      "นี่คือคำแถลงการเข้าถึงแบบสมัครใจ ซึ่งอิงตามแบบที่หน่วยงาน Government Digital Service ของสหราชอาณาจักรกำหนดให้บริการต่าง ๆ เผยแพร่ BIRSA เป็นสโมสรที่ดูแลโดยนักศึกษา ไม่ใช่หน่วยงานรัฐ จึงไม่มีกฎหมายบังคับ แต่เราเผยแพร่เพราะเชื่อว่าทุกเว็บไซต์ควรพูดตรง ๆ ว่าใช้งานได้ดีแค่ไหน",
+    a11yComplianceStatus:
+      "เว็บไซต์นี้ผ่านมาตรฐาน WCAG 2.2 ระดับ AA เป็นบางส่วน คำว่า “บางส่วน” มาจากข้อจำกัดที่ระบุไว้ด้านล่าง ไม่ใช่เพราะมีจุดที่เรารู้ว่าไม่ผ่านโดยเฉพาะ",
     a11yWhatWeDoTitle: "สิ่งที่เราทำ",
     a11yWhatWeDo: [
       "ทุกฟีเจอร์ใช้งานได้ด้วยคีย์บอร์ดอย่างเดียว พร้อมเส้นโฟกัสที่มองเห็นชัดเจน",
@@ -135,9 +163,25 @@ const content: Record<
       "เว็บไซต์ทั้งหมดรองรับสองภาษา และตั้งค่า `lang` ที่ถูกต้องในทุกหน้า",
       "เว็บไซต์นี้มีทั้งโหมดสว่างและโหมดมืด ผ่านการตรวจสอบคอนทราสต์สีแล้วทั้งคู่ โดยค่าเริ่มต้นจะเป็นไปตามการตั้งค่าของอุปกรณ์คุณ และสลับได้ทุกเมื่อด้วยปุ่มที่ส่วนหัวของเว็บไซต์",
     ],
-    a11yLimitsTitle: "ข้อจำกัดที่เรายอมรับตรง ๆ",
-    a11yLimits:
-      "เราขอบอกตรง ๆ ว่าเว็บไซต์นี้ยังใหม่ เนื้อหาบางส่วน (เช่น วันที่ตัวอย่าง หรือหมายเลขห้องตัวอย่าง) เป็นเนื้อหาตัวอย่างที่รอ BIRSA ตรวจสอบ และมีการระบุไว้ชัดเจน ถ้าคุณเจออุปสรรคในการเข้าถึงจริง ๆ นั่นคือข้อบกพร่องที่เราต้องแก้ บอกเราได้เลย",
+    a11yTestTitle: "เราตรวจสอบอย่างไร",
+    a11yTest:
+      "ทุกครั้งที่เราแก้โค้ด ระบบจะรันการตรวจสอบอัตโนมัติ (axe-core) กับทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด โดยเทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA นอกจากนี้เรายังตรวจด้วยตัวเองผ่านการใช้คีย์บอร์ดและโปรแกรมอ่านหน้าจอเป็นระยะ เรายังไม่ได้จ้างผู้ตรวจสอบอิสระเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือ ซึ่งเป็นช่องว่างหลักระหว่าง “เราตรวจแล้ว” กับ “เรามั่นใจแล้ว”",
+    a11yLimitsTitle: "ข้อจำกัดที่เรารู้",
+    a11yLimitsIntro:
+      "เราขอบอกสิ่งที่ยังทำไม่เสร็จ ดีกว่าทำเหมือนทุกอย่างสมบูรณ์แบบ นี่คือสิ่งที่เรารู้:",
+    a11yIssues: [
+      {
+        title: "ยังไม่มีการตรวจสอบอิสระเต็มรูปแบบ",
+        body: "การตรวจอัตโนมัติและการตรวจด้วยตัวเองจับปัญหาได้มาก แต่แทนที่การตรวจสอบเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือจริงไม่ได้ จนกว่าจะได้จัดให้มีขึ้น อุปสรรคบางอย่างสำหรับผู้ใช้โปรแกรมอ่านหน้าจอหรือการสั่งงานด้วยเสียงอาจยังไม่ถูกพบ (WCAG 4.1.2 และข้ออื่น ๆ) เราวางแผนจะทำก่อนออกจากช่วงเบต้า",
+      },
+      {
+        title: "มีเนื้อหาตัวอย่างบางส่วน",
+        body: "รายละเอียดบางอย่าง (เช่น วันที่ตัวอย่าง หมายเลขห้องตัวอย่าง) เป็นเนื้อหาตัวอย่างที่รอ BIRSA ตรวจสอบ และมีการระบุไว้ชัดเจน นี่เป็นเรื่องความถูกต้องของเนื้อหา ไม่ใช่อุปสรรคด้านการเข้าถึง แต่เราขอบอกไว้เพื่อความตรงไปตรงมา",
+      },
+    ],
+    a11yPreparedTitle: "จัดทำเมื่อไร",
+    a11yPrepared:
+      "คำแถลงนี้จัดทำครั้งแรกเมื่อวันที่ 14 กรกฎาคม 2026 และทบทวนล่าสุดเมื่อวันที่ 14 กรกฎาคม 2026 เราทบทวนอย่างน้อยปีละครั้ง และทุกครั้งที่มีการเปลี่ยนแปลงสำคัญกับเว็บไซต์",
     a11yReportTitle: "แจ้งปัญหา",
     a11yReportBody:
       "ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่",
@@ -187,6 +231,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
         <section id="accessibility" className="flex flex-col gap-4 scroll-mt-24">
           <h2 className="font-display text-2xl">{t.a11yTitle}</h2>
           <p className="text-muted leading-relaxed">{t.a11yIntro}</p>
+          <p className="text-muted leading-relaxed">{t.a11yComplianceStatus}</p>
 
           <h3 className="text-ink font-semibold">{t.a11yWhatWeDoTitle}</h3>
           <ul className="flex flex-col gap-2">
@@ -197,8 +242,22 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
             ))}
           </ul>
 
+          <h3 className="text-ink font-semibold">{t.a11yTestTitle}</h3>
+          <p className="text-muted leading-relaxed">{t.a11yTest}</p>
+
           <h3 className="text-ink font-semibold">{t.a11yLimitsTitle}</h3>
-          <p className="text-muted leading-relaxed">{t.a11yLimits}</p>
+          <p className="text-muted leading-relaxed">{t.a11yLimitsIntro}</p>
+          <ul className="flex flex-col gap-3">
+            {t.a11yIssues.map((issue) => (
+              <li key={issue.title}>
+                <h4 className="text-ink font-semibold">{issue.title}</h4>
+                <p className="text-muted mt-1 leading-relaxed">{issue.body}</p>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="text-ink font-semibold">{t.a11yPreparedTitle}</h3>
+          <p className="text-muted leading-relaxed">{t.a11yPrepared}</p>
 
           <h3 className="text-ink font-semibold">{t.a11yReportTitle}</h3>
           <p className="text-muted leading-relaxed">

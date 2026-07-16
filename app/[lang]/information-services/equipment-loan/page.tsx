@@ -243,7 +243,7 @@ export default async function EquipmentLoanPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: locale === "th" ? "ข้อมูลและบริการ" : "Information & services", href: "/information-services" },
+              { label: locale === "th" ? "ข้อมูลและบริการ" : "Information and services", href: "/information-services" },
               { label: t.title },
             ]}
           />

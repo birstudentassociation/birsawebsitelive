@@ -60,7 +60,7 @@ const labels: Record<
   }
 > = {
   en: {
-    studentLife: "Information & services",
+    studentLife: "Information and services",
     tracks: { home: "Student life & culture guides", international: "For international students" },
     updated: "Last updated",
     onThisPage: "On this page",

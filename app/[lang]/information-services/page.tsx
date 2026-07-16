@@ -17,7 +17,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
 
-  const title = locale === "th" ? "ข้อมูลและบริการ" : "Information & services";
+  const title = locale === "th" ? "ข้อมูลและบริการ" : "Information and services";
   const description =
     locale === "th"
       ? "บริการยืมอุปกรณ์ของ BIRSA รีวิวรายวิชา และคู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยรุ่นพี่นักศึกษา สำหรับนักศึกษาทุกคน พร้อมข้อมูลเฉพาะสำหรับนักศึกษาต่างชาติ"
@@ -53,7 +53,7 @@ const copy: Record<
   }
 > = {
   en: {
-    title: "Information & services",
+    title: "Information and services",
     lede: "The place to find BIRSA's services and guides in one spot. Borrow equipment, read course reviews and student-life guides written by students, or get the logistics sorted if you're new to Bangkok.",
     equipmentLoan: {
       eyebrow: "Service",

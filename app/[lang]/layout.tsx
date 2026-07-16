@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { Fraunces, Inter, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -9,6 +10,7 @@ import SkipLink from "@/components/SkipLink";
 import BetaBanner from "@/components/BetaBanner";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageFeedback from "@/components/PageFeedback";
 import ScrollToTop from "@/components/ScrollToTop";
 
 const fraunces = Fraunces({
@@ -69,6 +71,9 @@ export default async function RootLayout({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
 
+  // Nonce set by middleware so the inline theme script is allowed by the CSP.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html
       lang={locale}
@@ -77,6 +82,7 @@ export default async function RootLayout({
     >
       <body>
         <script
+          nonce={nonce}
           // Parser-blocking, first child of <body> — runs before paint so
           // there's no flash of the wrong theme. Only touches the DOM when
           // the visitor made an explicit choice; system-preference users
@@ -94,6 +100,7 @@ export default async function RootLayout({
         <BetaBanner message={dict.betaBanner} />
         <Header locale={locale} />
         <main id="main">{children}</main>
+        <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />
         <Footer locale={locale} />
         <ScrollToTop label={dict.actions.backToTop} />
         <Analytics />

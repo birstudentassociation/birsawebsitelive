@@ -38,12 +38,48 @@ function detectLocale(request: NextRequest): Locale {
   return defaultLocale;
 }
 
+/** Generate a base64 nonce using Web Crypto (available in the Edge runtime). */
+function generateNonce(): string {
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+}
+
+/**
+ * Content-Security-Policy for Service Standard point 9 (limit attack surface).
+ * A per-request nonce authorises the inline theme script in the layout; Next
+ * automatically applies the same nonce to its own scripts once it sees this
+ * header on the request. Styles keep `'unsafe-inline'` (React inline styles /
+ * Tailwind), so no nonce is added there — a nonce would disable that keyword.
+ * `va.vercel-scripts.com` is Vercel Analytics; its beacon posts to `'self'`.
+ */
+function buildCsp(nonce: string): string {
+  return [
+    `default-src 'self'`,
+    `script-src 'self' 'nonce-${nonce}' https://va.vercel-scripts.com`,
+    `style-src 'self' 'unsafe-inline'`,
+    `img-src 'self' data: blob:`,
+    `font-src 'self'`,
+    `connect-src 'self' https://va.vercel-scripts.com`,
+    `frame-ancestors 'none'`,
+    `base-uri 'self'`,
+    `form-action 'self'`,
+    `object-src 'none'`,
+    `manifest-src 'self'`,
+  ].join("; ");
+}
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (shouldSkip(pathname)) {
     return NextResponse.next();
   }
+
+  const nonce = generateNonce();
+  const csp = buildCsp(nonce);
 
   const firstSegment = pathname.split("/")[1] ?? "";
 
@@ -52,9 +88,14 @@ export function middleware(request: NextRequest) {
 
   if (isLocale(firstSegment)) {
     // Already locale-prefixed — pass through, but refresh the cookie so the
-    // visited locale is what persists for next time.
+    // visited locale is what persists for next time. Forward the nonce (and the
+    // CSP) on the request so the layout can read `x-nonce` and Next can nonce
+    // its own inline scripts.
     activeLocale = firstSegment;
-    response = NextResponse.next();
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-nonce", nonce);
+    requestHeaders.set("Content-Security-Policy", csp);
+    response = NextResponse.next({ request: { headers: requestHeaders } });
   } else {
     // No locale prefix — redirect into the detected locale.
     activeLocale = detectLocale(request);
@@ -63,6 +104,7 @@ export function middleware(request: NextRequest) {
     response = NextResponse.redirect(url);
   }
 
+  response.headers.set("Content-Security-Policy", csp);
   response.cookies.set(LOCALE_COOKIE, activeLocale, {
     path: "/",
     maxAge: 60 * 60 * 24 * 365,

@@ -8,7 +8,7 @@ export const homeEn = {
     intro:
       "BIRSA runs events, support and representation for every BIR student at Thammasat, so you can find the latest updates, clubs, and practical help in just a few taps.",
     primaryCta: "Quick actions",
-    secondaryCta: "Information & services",
+    secondaryCta: "Information and services",
   },
   whatsOn: {
     heading: "What's on",
@@ -51,7 +51,7 @@ export const homeEn = {
         description: "Find a club to join, or see how to start your own.",
       },
       informationServices: {
-        label: "Information & services",
+        label: "Information and services",
         description: "Equipment loans and guides for settling in, whether you're a home or international student.",
       },
       news: {
@@ -83,6 +83,6 @@ export const homeEn = {
     title: "New here?",
     body:
       "Whether you've just arrived from a Thai school or you're joining us from abroad, our student-life guide has a track built for you.",
-    cta: "Go to Information & services",
+    cta: "Go to Information and services",
   },
 };

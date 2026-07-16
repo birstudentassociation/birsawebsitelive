@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useActionState, useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
 import Field from "@/components/Field";
@@ -10,6 +10,12 @@ import Button from "@/components/Button";
 import { inventoryLoanRequestSchema } from "@/lib/validation";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { LoanWizardItem, LoanWizardLabels, LoanWizardStep } from "@/components/equipment/loanWizardCopy";
+import {
+  submitLoanRequest,
+  type LoanFieldErrorCode,
+  type LoanFieldName,
+  type LoanRequestState,
+} from "@/app/[lang]/information-services/equipment-loan/[item]/request/actions";
 
 export type LoanRequestWizardProps = {
   item: LoanWizardItem;
@@ -83,12 +89,28 @@ const SERVER_FIELD_TO_STEP: Record<string, LoanWizardStep> = {
 };
 
 /**
+ * Progressive-enhancement wrapper. Before hydration — and for anyone without
+ * JavaScript — it renders an all-fields fallback form that posts to a server
+ * action and completes the loan request HTML-first (Service Manual: "a user can
+ * complete the journey using HTML alone"). Once JS loads, it swaps to the
+ * richer one-question-per-page wizard. Server and first client render both
+ * produce the fallback, so there's no hydration mismatch.
+ */
+export default function LoanRequestWizard(props: LoanRequestWizardProps) {
+  const [enhanced, setEnhanced] = useState(false);
+  useEffect(() => setEnhanced(true), []);
+
+  if (!enhanced) return <LoanFallbackForm {...props} />;
+  return <InteractiveLoanWizard {...props} />;
+}
+
+/**
  * GOV.UK-style one-question-per-page loan request flow: a "before you begin"
  * screen, one field per screen (a combined start/end date-range step checks
  * live availability before letting the user continue), a check-your-answers
  * summary, then a confirmation panel showing the reference number.
  */
-export default function LoanRequestWizard({ item, locale, labels }: LoanRequestWizardProps) {
+function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps) {
   const formId = useId();
   const [step, setStep] = useState<LoanWizardStep>("start");
   const [values, setValues] = useState<Values>({
@@ -824,6 +846,282 @@ export default function LoanRequestWizard({ item, locale, labels }: LoanRequestW
         <span role="status" aria-live="polite" className="sr-only">
           {submitState.status === "pending" ? labels.check.submitting : ""}
         </span>
+      </div>
+    </form>
+  );
+}
+
+function loanErrorMessage(labels: LoanWizardLabels, code: LoanFieldErrorCode): string {
+  switch (code) {
+    case "nameRequired":
+      return labels.name.errorRequired;
+    case "idRequired":
+      return labels.studentId.errorRequired;
+    case "emailRequired":
+      return labels.email.errorRequired;
+    case "emailInvalid":
+      return labels.email.errorInvalid;
+    case "phoneInvalid":
+      return labels.phone.errorInvalid;
+    case "startRequired":
+      return labels.dates.errorStartRequired;
+    case "startInvalid":
+      return labels.dates.errorStartInvalid;
+    case "startPast":
+      return labels.dates.errorStartPast;
+    case "endRequired":
+      return labels.dates.errorEndRequired;
+    case "endInvalid":
+      return labels.dates.errorEndInvalid;
+    case "endBeforeStart":
+      return labels.dates.errorEndBeforeStart;
+    case "tooLong":
+      return labels.dates.errorTooLong;
+  }
+}
+
+/**
+ * No-JavaScript fallback for the loan request: every question on one server-
+ * rendered page, posting to the `submitLoanRequest` server action. Renders the
+ * same confirmation and terminal panels as the interactive wizard so the whole
+ * journey is completable with HTML alone. On a validation error the server
+ * echoes the entered values back into the fields.
+ */
+function LoanFallbackForm({ item, locale, labels }: LoanRequestWizardProps) {
+  const formId = useId();
+  const [state, formAction, isPending] = useActionState<LoanRequestState, FormData>(
+    submitLoanRequest,
+    { status: "idle" },
+  );
+  const confirmationRef = useRef<HTMLDivElement>(null);
+
+  const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
+  const contactHref = localeHref(locale, "/contact");
+  const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
+
+  useEffect(() => {
+    if (state.status === "success") confirmationRef.current?.focus();
+  }, [state.status]);
+
+  if (state.status === "unavailable") {
+    return (
+      <ResultPanel
+        variant="warning"
+        title={labels.results.unavailableTitle}
+        body={<p>{labels.results.unavailableBody}</p>}
+        actionHref={catalogueHref}
+        actionLabel={labels.results.backToCatalogue}
+      />
+    );
+  }
+  if (state.status === "blocklisted") {
+    return (
+      <ResultPanel
+        variant="error"
+        title={labels.results.blocklistedTitle}
+        body={<p>{labels.results.blocklistedBody}</p>}
+        actionHref={contactHref}
+        actionLabel={labels.results.contactLink}
+      />
+    );
+  }
+  if (state.status === "limit-exceeded") {
+    return (
+      <ResultPanel
+        variant="warning"
+        title={labels.results.limitExceededTitle}
+        body={<p>{labels.results.limitExceededBody}</p>}
+        actionHref={contactHref}
+        actionLabel={labels.results.contactLink}
+      />
+    );
+  }
+  if (state.status === "not-configured") {
+    return (
+      <ResultPanel
+        variant="info"
+        title={labels.results.notConfiguredTitle}
+        body={
+          <p>
+            {labels.results.notConfiguredBody}{" "}
+            <Link href={contactHref} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+              {labels.results.contactLink}
+            </Link>
+            .
+          </p>
+        }
+        actionHref={catalogueHref}
+        actionLabel={labels.results.backToCatalogue}
+      />
+    );
+  }
+  if (state.status === "rate-limited") {
+    return (
+      <ResultPanel
+        variant="warning"
+        title={labels.results.rateLimitedTitle}
+        body={<p>{labels.results.rateLimitedBody}</p>}
+        actionHref={requestHref}
+        actionLabel={labels.results.tryAgain}
+      />
+    );
+  }
+  if (state.status === "error") {
+    return (
+      <ResultPanel
+        variant="error"
+        title={labels.results.errorTitle}
+        body={<p>{labels.results.errorBody}</p>}
+        actionHref={requestHref}
+        actionLabel={labels.results.tryAgain}
+      />
+    );
+  }
+
+  if (state.status === "success") {
+    return (
+      <div className="flex flex-col gap-6">
+        <div
+          ref={confirmationRef}
+          tabIndex={-1}
+          role="status"
+          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+        >
+          <p className="font-display text-xl">{labels.confirmation.title}</p>
+          {state.reference ? (
+            <p className="mt-3 text-sm">
+              <span className="font-semibold">{labels.confirmation.referenceLabel}: </span>
+              <span className="font-mono text-base">{state.reference}</span>
+            </p>
+          ) : null}
+        </div>
+        <div>
+          <h2 className="font-display text-lg">{labels.confirmation.nextStepsTitle}</h2>
+          <ul className="text-muted mt-3 flex flex-col gap-2 text-sm leading-relaxed">
+            {labels.confirmation.nextSteps.map((next, index) => (
+              <li key={index} className="flex gap-2">
+                <span aria-hidden="true">{index + 1}.</span>
+                <span>{next}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <Button href={catalogueHref} variant="secondary">
+            {labels.confirmation.backToCatalogue}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const values = state.status === "invalid" ? state.values : undefined;
+  const errors = state.status === "invalid" ? state.errors : undefined;
+  const fieldId = (name: string) => `${formId}-${name}`;
+  const errorItems: ErrorSummaryItem[] = errors
+    ? (Object.entries(errors) as [LoanFieldName, LoanFieldErrorCode][]).map(([name, code]) => ({
+        id: fieldId(name),
+        message: loanErrorMessage(labels, code),
+      }))
+    : [];
+
+  return (
+    <form action={formAction} noValidate className="flex flex-col gap-6">
+      <input type="hidden" name="itemKey" value={item.key} />
+      <Link href={catalogueHref} className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium">
+        &larr; {labels.start.backToCatalogue}
+      </Link>
+      <h2 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h2>
+      <p className="text-muted">{labels.start.intro}</p>
+
+      <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItems} />
+
+      <Field
+        id={fieldId("studentName")}
+        name="studentName"
+        label={labels.name.question}
+        required
+        requiredLabel={labels.common.required}
+        defaultValue={values?.studentName}
+        error={errors?.studentName ? loanErrorMessage(labels, errors.studentName) : undefined}
+        autoComplete="name"
+      />
+      <Field
+        id={fieldId("studentId")}
+        name="studentId"
+        label={labels.studentId.question}
+        hint={labels.studentId.hint}
+        required
+        requiredLabel={labels.common.required}
+        defaultValue={values?.studentId}
+        error={errors?.studentId ? loanErrorMessage(labels, errors.studentId) : undefined}
+      />
+      <Field
+        id={fieldId("studentEmail")}
+        name="studentEmail"
+        type="email"
+        label={labels.email.question}
+        hint={labels.email.hint}
+        required
+        requiredLabel={labels.common.required}
+        defaultValue={values?.studentEmail}
+        error={errors?.studentEmail ? loanErrorMessage(labels, errors.studentEmail) : undefined}
+        autoComplete="email"
+      />
+      <Field
+        id={fieldId("phone")}
+        name="phone"
+        type="tel"
+        label={labels.phone.question}
+        hint={labels.phone.hint}
+        optionalLabel={labels.common.optional}
+        defaultValue={values?.phone}
+        error={errors?.phone ? loanErrorMessage(labels, errors.phone) : undefined}
+        autoComplete="tel"
+      />
+      <Field
+        id={fieldId("startDate")}
+        name="startDate"
+        type="date"
+        label={labels.dates.startQuestion}
+        hint={labels.dates.startHint}
+        required
+        requiredLabel={labels.common.required}
+        defaultValue={values?.startDate}
+        error={errors?.startDate ? loanErrorMessage(labels, errors.startDate) : undefined}
+        min={todayISO()}
+      />
+      <Field
+        id={fieldId("endDate")}
+        name="endDate"
+        type="date"
+        label={labels.dates.endQuestion}
+        hint={labels.dates.endHint}
+        required
+        requiredLabel={labels.common.required}
+        defaultValue={values?.endDate}
+        error={errors?.endDate ? loanErrorMessage(labels, errors.endDate) : undefined}
+      />
+      <Field
+        id={fieldId("reason")}
+        name="reason"
+        as="textarea"
+        label={labels.reason.question}
+        hint={labels.reason.hint}
+        optionalLabel={labels.common.optional}
+        defaultValue={values?.reason}
+      />
+
+      {/* Honeypot: real visitors never see or fill this field. */}
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor={fieldId("nickname")}>Leave this field empty</label>
+        <input id={fieldId("nickname")} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
+      </div>
+
+      <div>
+        <Button type="submit" disabled={isPending}>
+          {isPending ? labels.check.submitting : labels.check.submit}
+        </Button>
       </div>
     </form>
   );

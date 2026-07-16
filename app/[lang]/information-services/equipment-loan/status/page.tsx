@@ -38,7 +38,7 @@ const copy: Record<
   en: {
     title: "Check a loan request",
     lede: "Enter your reference number and TU email to see where your equipment loan request stands.",
-    breadcrumbHub: "Information & services",
+    breadcrumbHub: "Information and services",
     breadcrumbCatalogue: "Equipment loan service",
     breadcrumbStatus: "Check a request",
     labels: {

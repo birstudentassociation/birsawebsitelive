@@ -1,60 +1,53 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import type { FormEvent } from "react";
+import { useActionState, useEffect, useId, useRef } from "react";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import Email from "@/components/Email";
-import { contactSchema } from "@/lib/validation";
-import type { Locale } from "@/lib/i18n";
-import type { Dictionary } from "@/lib/i18n";
+import { submitContact, type ContactState } from "@/app/[lang]/contact/actions";
+import type { Dictionary, Locale } from "@/lib/i18n";
 
 export type ContactFormProps = {
   locale: Locale;
   dict: Dictionary;
   /** Preselected category, e.g. from `?category=` search param. */
   initialCategory?: string;
+  /** Prefilled subject, e.g. from the "report a problem with this page" link. */
+  initialSubject?: string;
 };
-
-type FieldErrors = Partial<Record<"name" | "email" | "category" | "subject" | "message", string>>;
-
-type SubmitState =
-  | { status: "idle" }
-  | { status: "pending" }
-  | { status: "success" }
-  | { status: "fallback"; draft: string }
-  | { status: "error" };
 
 const CATEGORY_VALUES = ["question", "suggestion", "problem", "other"] as const;
 
-function categoryLabel(dict: Dictionary, value: (typeof CATEGORY_VALUES)[number]): string {
+function categoryLabel(locale: Locale, value: (typeof CATEGORY_VALUES)[number]): string {
   const labels: Record<(typeof CATEGORY_VALUES)[number], string> = {
-    question: dict.locale === "th" ? "คำถามทั่วไป" : "A question",
-    suggestion: dict.locale === "th" ? "ข้อเสนอแนะ" : "A suggestion",
-    problem: dict.locale === "th" ? "แจ้งปัญหา" : "A problem to report",
-    other: dict.locale === "th" ? "เรื่องอื่น ๆ" : "Something else",
+    question: locale === "th" ? "คำถามทั่วไป" : "A question",
+    suggestion: locale === "th" ? "ข้อเสนอแนะ" : "A suggestion",
+    problem: locale === "th" ? "แจ้งปัญหา" : "A problem to report",
+    other: locale === "th" ? "เรื่องอื่น ๆ" : "Something else",
   };
   return labels[value];
 }
 
+const initialState: ContactState = { status: "idle" };
+
 /**
- * Contact BIRSA form. Validates client-side with the shared zod schema,
- * posts JSON to /api/contact, and handles the three server outcomes: success,
- * not-configured (email fallback with the draft kept visible), and generic
- * error (fields kept intact so nothing is lost).
+ * Contact BIRSA form. Posts to the `submitContact` server action, so it works
+ * with HTML alone (a plain form POST re-renders the page with the result);
+ * `useActionState` progressively enhances it with an inline error summary,
+ * focus management, and a pending state — no full reload when JS is available.
+ * Inputs are uncontrolled (`defaultValue` + `name`) so the no-JS path carries
+ * values through `FormData`; on a validation error the server echoes them back.
  */
-export default function ContactForm({ dict, initialCategory }: ContactFormProps) {
+export default function ContactForm({
+  locale,
+  dict,
+  initialCategory,
+  initialSubject,
+}: ContactFormProps) {
   const formId = useId();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [category, setCategory] = useState(initialCategory ?? "question");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [state, setState] = useState<SubmitState>({ status: "idle" });
+  const [state, formAction, isPending] = useActionState(submitContact, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
 
   // On success/fallback the form (and the focused submit button) unmounts, so
@@ -74,69 +67,21 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
     message: `${formId}-message`,
   };
 
+  const values = state.values;
+
   function buildDraft(): string {
-    const catLabel = categoryLabel(dict, category as (typeof CATEGORY_VALUES)[number]);
-    return [`${dict.form.yourName}: ${name}`, `${dict.form.email}: ${email}`, `${dict.form.category}: ${catLabel}`, `${dict.form.subject}: ${subject}`, "", message].join(
-      "\n"
-    );
+    const v = state.values;
+    if (!v) return "";
+    const catLabel = categoryLabel(locale, v.category as (typeof CATEGORY_VALUES)[number]);
+    return [
+      `${dict.form.yourName}: ${v.name}`,
+      `${dict.form.email}: ${v.email}`,
+      `${dict.form.category}: ${catLabel}`,
+      `${dict.form.subject}: ${v.subject}`,
+      "",
+      v.message,
+    ].join("\n");
   }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const result = contactSchema.safeParse({
-      name,
-      email,
-      category,
-      subject,
-      message,
-      nickname,
-    });
-
-    if (!result.success) {
-      const nextErrors: FieldErrors = {};
-      for (const issue of result.error.issues) {
-        const path = issue.path[0];
-        if (path === "name") nextErrors.name = dict.form.errors.nameRequired;
-        if (path === "email") {
-          nextErrors.email = email.length === 0 ? dict.form.errors.emailRequired : dict.form.errors.emailInvalid;
-        }
-        if (path === "category") nextErrors.category = dict.form.errors.categoryRequired;
-        if (path === "subject") nextErrors.subject = dict.form.errors.subjectRequired;
-        if (path === "message") {
-          nextErrors.message = message.length === 0 ? dict.form.errors.messageRequired : dict.form.errors.messageShort;
-        }
-      }
-      setErrors(nextErrors);
-      return;
-    }
-
-    setErrors({});
-    setState({ status: "pending" });
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
-      });
-      const body = (await response.json()) as { ok: boolean; reason?: string };
-
-      if (body.ok) {
-        setState({ status: "success" });
-      } else if (body.reason === "not-configured") {
-        setState({ status: "fallback", draft: buildDraft() });
-      } else {
-        setState({ status: "error" });
-      }
-    } catch {
-      setState({ status: "error" });
-    }
-  }
-
-  const errorItems: ErrorSummaryItem[] = Object.entries(errors)
-    .filter(([, message]) => Boolean(message))
-    .map(([key, message]) => ({ id: fieldIds[key as keyof typeof fieldIds], message: message as string }));
 
   if (state.status === "success") {
     return (
@@ -170,20 +115,18 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
             />
           </p>
         </div>
-        <Field
-          as="textarea"
-          name="draft"
-          label={dict.form.message}
-          value={state.draft}
-          readOnly
-          rows={8}
-        />
+        <Field as="textarea" name="draft" label={dict.form.message} value={buildDraft()} readOnly rows={8} />
       </div>
     );
   }
 
+  const errorItems: ErrorSummaryItem[] = Object.entries(state.errors ?? {})
+    .filter(([, message]) => Boolean(message))
+    .map(([key, message]) => ({ id: fieldIds[key as keyof typeof fieldIds], message: message as string }));
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+    <form action={formAction} noValidate className="flex flex-col gap-5">
+      <input type="hidden" name="locale" value={locale} />
       <ErrorSummary title={dict.form.errorSummaryTitle} errors={errorItems} />
 
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
@@ -193,15 +136,7 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
           explicit instruction rather than a trap. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
-        <input
-          id={`${formId}-nickname`}
-          name="nickname"
-          type="text"
-          autoComplete="off"
-          tabIndex={-1}
-          value={nickname}
-          onChange={(event) => setNickname(event.target.value)}
-        />
+        <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
       </div>
 
       <Field
@@ -210,9 +145,8 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
         label={dict.form.yourName}
         required
         requiredLabel={dict.actions.required}
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        error={errors.name}
+        defaultValue={values?.name}
+        error={state.errors?.name}
         autoComplete="name"
       />
       <Field
@@ -223,9 +157,8 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
         hint={dict.form.emailHint}
         required
         requiredLabel={dict.actions.required}
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        error={errors.email}
+        defaultValue={values?.email}
+        error={state.errors?.email}
         autoComplete="email"
       />
       <Field
@@ -235,10 +168,9 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
         label={dict.form.category}
         required
         requiredLabel={dict.actions.required}
-        value={category}
-        onChange={(event) => setCategory(event.target.value)}
-        error={errors.category}
-        options={CATEGORY_VALUES.map((value) => ({ value, label: categoryLabel(dict, value) }))}
+        defaultValue={values?.category ?? initialCategory ?? "question"}
+        error={state.errors?.category}
+        options={CATEGORY_VALUES.map((value) => ({ value, label: categoryLabel(locale, value) }))}
       />
       <Field
         id={fieldIds.subject}
@@ -246,9 +178,8 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
         label={dict.form.subject}
         required
         requiredLabel={dict.actions.required}
-        value={subject}
-        onChange={(event) => setSubject(event.target.value)}
-        error={errors.subject}
+        defaultValue={values?.subject ?? initialSubject}
+        error={state.errors?.subject}
       />
       <Field
         id={fieldIds.message}
@@ -257,18 +188,17 @@ export default function ContactForm({ dict, initialCategory }: ContactFormProps)
         label={dict.form.message}
         required
         requiredLabel={dict.actions.required}
-        value={message}
-        onChange={(event) => setMessage(event.target.value)}
-        error={errors.message}
+        defaultValue={values?.message}
+        error={state.errors?.message}
       />
 
       <p className="text-muted text-sm">{dict.form.privacyNote}</p>
 
       <div>
-        <Button type="submit" disabled={state.status === "pending"}>
-          {state.status === "pending" ? dict.form.sending : dict.form.send}
+        <Button type="submit" disabled={isPending}>
+          {isPending ? dict.form.sending : dict.form.send}
         </Button>
-        {state.status === "pending" ? (
+        {isPending ? (
           <span role="status" className="sr-only">
             {dict.form.sending}
           </span>

@@ -1,13 +1,16 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import type { FormEvent } from "react";
+import { useActionState, useEffect, useId, useRef } from "react";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import Email from "@/components/Email";
-import { startClubSchema } from "@/lib/validation";
+import {
+  submitStartClub,
+  type StartClubErrorCode,
+  type StartClubState,
+} from "@/app/[lang]/clubs/start/actions";
 import type { Dictionary, Locale } from "@/lib/i18n";
 
 export type StartClubFormProps = {
@@ -15,16 +18,7 @@ export type StartClubFormProps = {
   dict: Dictionary;
 };
 
-type FieldErrors = Partial<
-  Record<"name" | "email" | "clubName" | "description" | "members", string>
->;
-
-type SubmitState =
-  | { status: "idle" }
-  | { status: "pending" }
-  | { status: "success" }
-  | { status: "fallback"; draft: string }
-  | { status: "error" };
+type StartClubField = "name" | "email" | "clubName" | "description";
 
 const copy: Record<
   Locale,
@@ -103,21 +97,18 @@ const copy: Record<
   },
 };
 
+const initialState: StartClubState = { status: "idle" };
+
 /**
- * "Start a club" idea submission form — same validation/submit/fallback
- * pattern as ContactForm, posting to /api/start-club with startClubSchema.
+ * "Start a club" idea submission form — same HTML-first pattern as ContactForm,
+ * posting to the `submitStartClub` server action (works without JavaScript) and
+ * enhanced with `useActionState`. The action returns error codes, mapped here to
+ * localized messages.
  */
 export default function StartClubForm({ locale, dict }: StartClubFormProps) {
   const t = copy[locale];
   const formId = useId();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [clubName, setClubName] = useState("");
-  const [description, setDescription] = useState("");
-  const [members, setMembers] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [errors, setErrors] = useState<FieldErrors>({});
-  const [state, setState] = useState<SubmitState>({ status: "idle" });
+  const [state, formAction, isPending] = useActionState(submitStartClub, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
 
   // On success/fallback the form (and the focused submit button) unmounts, so
@@ -137,75 +128,35 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
     members: `${formId}-members`,
   };
 
+  function messageFor(field: StartClubField, code: StartClubErrorCode): string {
+    switch (field) {
+      case "name":
+        return t.errors.nameRequired;
+      case "email":
+        return code === "invalid" ? t.errors.emailInvalid : t.errors.emailRequired;
+      case "clubName":
+        return t.errors.clubNameRequired;
+      case "description":
+        return code === "short" ? t.errors.descriptionShort : t.errors.descriptionRequired;
+    }
+  }
+
+  const values = state.values;
+
   function buildDraft(): string {
+    const v = state.values;
+    if (!v) return "";
     return [
-      `${t.yourName}: ${name}`,
-      `${t.email}: ${email}`,
-      `${t.clubName}: ${clubName}`,
-      members ? `${t.members}: ${members}` : null,
+      `${t.yourName}: ${v.name}`,
+      `${t.email}: ${v.email}`,
+      `${t.clubName}: ${v.clubName}`,
+      v.members ? `${t.members}: ${v.members}` : null,
       "",
-      description,
+      v.description,
     ]
       .filter((line): line is string => line !== null)
       .join("\n");
   }
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const result = startClubSchema.safeParse({
-      name,
-      email,
-      clubName,
-      description,
-      members: members || undefined,
-      nickname,
-    });
-
-    if (!result.success) {
-      const nextErrors: FieldErrors = {};
-      for (const issue of result.error.issues) {
-        const path = issue.path[0];
-        if (path === "name") nextErrors.name = t.errors.nameRequired;
-        if (path === "email") {
-          nextErrors.email = email.length === 0 ? t.errors.emailRequired : t.errors.emailInvalid;
-        }
-        if (path === "clubName") nextErrors.clubName = t.errors.clubNameRequired;
-        if (path === "description") {
-          nextErrors.description =
-            description.length === 0 ? t.errors.descriptionRequired : t.errors.descriptionShort;
-        }
-      }
-      setErrors(nextErrors);
-      return;
-    }
-
-    setErrors({});
-    setState({ status: "pending" });
-
-    try {
-      const response = await fetch("/api/start-club", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
-      });
-      const body = (await response.json()) as { ok: boolean; reason?: string };
-
-      if (body.ok) {
-        setState({ status: "success" });
-      } else if (body.reason === "not-configured") {
-        setState({ status: "fallback", draft: buildDraft() });
-      } else {
-        setState({ status: "error" });
-      }
-    } catch {
-      setState({ status: "error" });
-    }
-  }
-
-  const errorItems: ErrorSummaryItem[] = Object.entries(errors)
-    .filter(([, message]) => Boolean(message))
-    .map(([key, message]) => ({ id: fieldIds[key as keyof typeof fieldIds], message: message as string }));
 
   if (state.status === "success") {
     return (
@@ -239,28 +190,27 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
             />
           </p>
         </div>
-        <Field as="textarea" name="draft" label={t.description} value={state.draft} readOnly rows={8} />
+        <Field as="textarea" name="draft" label={t.description} value={buildDraft()} readOnly rows={8} />
       </div>
     );
   }
 
+  const errorItems: ErrorSummaryItem[] = Object.entries(state.errors ?? {})
+    .filter(([, code]) => Boolean(code))
+    .map(([key, code]) => ({
+      id: fieldIds[key as keyof typeof fieldIds],
+      message: messageFor(key as StartClubField, code as StartClubErrorCode),
+    }));
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+    <form action={formAction} noValidate className="flex flex-col gap-5">
       <ErrorSummary title={t.errorSummaryTitle} errors={errorItems} />
 
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
 
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
-        <input
-          id={`${formId}-nickname`}
-          name="nickname"
-          type="text"
-          autoComplete="off"
-          tabIndex={-1}
-          value={nickname}
-          onChange={(event) => setNickname(event.target.value)}
-        />
+        <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
       </div>
 
       <Field
@@ -269,9 +219,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         label={t.yourName}
         required
         requiredLabel={dict.actions.required}
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        error={errors.name}
+        defaultValue={values?.name}
+        error={state.errors?.name ? messageFor("name", state.errors.name) : undefined}
         autoComplete="name"
       />
       <Field
@@ -282,9 +231,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         hint={t.emailHint}
         required
         requiredLabel={dict.actions.required}
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        error={errors.email}
+        defaultValue={values?.email}
+        error={state.errors?.email ? messageFor("email", state.errors.email) : undefined}
         autoComplete="email"
       />
       <Field
@@ -294,9 +242,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         hint={t.clubNameHint}
         required
         requiredLabel={dict.actions.required}
-        value={clubName}
-        onChange={(event) => setClubName(event.target.value)}
-        error={errors.clubName}
+        defaultValue={values?.clubName}
+        error={state.errors?.clubName ? messageFor("clubName", state.errors.clubName) : undefined}
       />
       <Field
         id={fieldIds.description}
@@ -306,9 +253,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         hint={t.descriptionHint}
         required
         requiredLabel={dict.actions.required}
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
-        error={errors.description}
+        defaultValue={values?.description}
+        error={state.errors?.description ? messageFor("description", state.errors.description) : undefined}
       />
       <Field
         id={fieldIds.members}
@@ -316,15 +262,14 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         label={t.members}
         hint={t.membersHint}
         optionalLabel={dict.actions.optional}
-        value={members}
-        onChange={(event) => setMembers(event.target.value)}
+        defaultValue={values?.members}
       />
 
       <div>
-        <Button type="submit" disabled={state.status === "pending"}>
-          {state.status === "pending" ? t.sending : t.send}
+        <Button type="submit" disabled={isPending}>
+          {isPending ? t.sending : t.send}
         </Button>
-        {state.status === "pending" ? (
+        {isPending ? (
           <span role="status" className="sr-only">
             {t.sending}
           </span>

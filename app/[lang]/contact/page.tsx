@@ -60,7 +60,7 @@ export default async function ContactPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; from?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -68,10 +68,18 @@ export default async function ContactPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
 
-  const { category } = await searchParams;
+  const { category, from } = await searchParams;
   const initialCategory = CATEGORY_VALUES.includes(category as (typeof CATEGORY_VALUES)[number])
     ? category
     : undefined;
+
+  // Arriving from the site-wide "report a problem with this page" link: prefill
+  // the subject with the page the report is about. Only same-site paths are
+  // accepted so the value can't be steered to arbitrary text.
+  const initialSubject =
+    initialCategory === "problem" && typeof from === "string" && from.startsWith("/")
+      ? `${locale === "th" ? "ปัญหาในหน้า" : "Problem with page"}: ${from}`
+      : undefined;
 
   const visibleSocials = socials.filter((social) => !social.placeholder);
 
@@ -89,7 +97,12 @@ export default async function ContactPage({
         }
       />
       <div className="wrap grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1.2fr_1fr]">
-        <ContactForm locale={locale} dict={dict} initialCategory={initialCategory} />
+        <ContactForm
+          locale={locale}
+          dict={dict}
+          initialCategory={initialCategory}
+          initialSubject={initialSubject}
+        />
 
         <aside className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-6 lg:self-start">
           <h2 className="font-display text-xl">{t.otherWaysTitle}</h2>

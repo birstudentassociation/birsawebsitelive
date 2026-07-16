@@ -21,7 +21,7 @@ export function generateStaticParams() {
 }
 
 const sectionLabel: Record<Locale, string> = {
-  en: "Information & services",
+  en: "Information and services",
   th: "ข้อมูลและบริการ",
 };
 

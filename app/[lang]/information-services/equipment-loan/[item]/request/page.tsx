@@ -52,7 +52,7 @@ const copy: Record<
     unavailableBody:
       "There are no units of this item available to borrow right now. Check back later, or contact BIRSA if it's urgent.",
     backToCatalogue: "Back to the equipment list",
-    breadcrumbHub: "Information & services",
+    breadcrumbHub: "Information and services",
     breadcrumbCatalogue: "Equipment loan service",
     breadcrumbRequest: "Request",
   },

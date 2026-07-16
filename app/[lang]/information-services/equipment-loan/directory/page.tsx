@@ -147,7 +147,7 @@ export default async function EquipmentLoanDirectoryPage({
     );
   }
 
-  const infoServicesLabel = locale === "th" ? "ข้อมูลและบริการ" : "Information & services";
+  const infoServicesLabel = locale === "th" ? "ข้อมูลและบริการ" : "Information and services";
   const equipmentLoanLabel = locale === "th" ? "บริการยืมอุปกรณ์" : "Equipment loan service";
 
   const breadcrumbs = (
