@@ -5,7 +5,6 @@ import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
 import Email from "@/components/Email";
@@ -44,7 +43,6 @@ const labels: Record<
     howToJoin: string;
     contact: string;
     back: string;
-    placeholderNotice: string;
     openToJoin: string;
   }
 > = {
@@ -55,7 +53,6 @@ const labels: Record<
     howToJoin: "How to join",
     contact: "Contact",
     back: "Back to clubs",
-    placeholderNotice: "Example content: BIRSA will replace this with real details.",
     openToJoin: "Open to join",
   },
   th: {
@@ -65,7 +62,6 @@ const labels: Record<
     howToJoin: "วิธีเข้าร่วม",
     contact: "ติดต่อ",
     back: "กลับไปหน้าชมรมทั้งหมด",
-    placeholderNotice: "เนื้อหาตัวอย่าง BIRSA จะแทนที่ด้วยข้อมูลจริง",
     openToJoin: "รับสมาชิกอยู่",
   },
 };
@@ -107,8 +103,6 @@ export default async function ClubDetailPage({
           <Tag>{clubCategories[club.category][locale]}</Tag>
           {club.join.open ? <Tag variant="forest">{t.openToJoin}</Tag> : null}
         </div>
-
-        <Notice variant="placeholder">{t.placeholderNotice}</Notice>
 
         <div className="prose">
           {content.description.map((paragraph, index) => (

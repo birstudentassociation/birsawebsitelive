@@ -4,7 +4,6 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import ClubsExplorer from "@/components/clubs/ClubsExplorer";
 import { clubs } from "@/content/clubs/clubs";
@@ -33,7 +32,6 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    placeholderNotice: string;
     startTitle: string;
     startBody: string;
     startCta: string;
@@ -41,9 +39,7 @@ const copy: Record<
 > = {
   en: {
     title: "Clubs",
-    lede: "Clubs are small groups of BIR students who share an interest, such as sport, debate, film, volunteering and more. Anyone can join one, and anyone can start a new one.",
-    placeholderNotice:
-      "The clubs listed below are examples: BIRSA will replace them with the real, current club list.",
+    lede: "Clubs are small groups of BIR students who share an interest, such as sport, music, volunteering, gaming, or making a podcast. Anyone can join one, and anyone can start a new one.",
     startTitle: "Don't see your thing? Start a club.",
     startBody:
       "If a handful of you share an interest that is not covered yet, BIRSA can help you set up a new club. It's a simpler process than you'd think.",
@@ -51,9 +47,7 @@ const copy: Record<
   },
   th: {
     title: "ชมรม",
-    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา โต้วาที ภาพยนตร์ งานอาสา และอื่น ๆ ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้เช่นกัน",
-    placeholderNotice:
-      "รายชื่อชมรมด้านล่างเป็นตัวอย่าง BIRSA จะแทนที่ด้วยรายชื่อชมรมจริงที่ใช้งานอยู่",
+    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม หรือการทำพอดแคสต์ ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้เช่นกัน",
     startTitle: "ยังไม่มีชมรมที่ใช่? เริ่มชมรมของคุณเองได้",
     startBody:
       "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ BIRSA ช่วยตั้งชมรมใหม่ให้ได้ ขั้นตอนง่ายกว่าที่คิด",
@@ -82,8 +76,6 @@ export default async function ClubsPage({ params }: { params: Promise<{ lang: st
         }
       />
       <div className="wrap flex flex-col gap-8 py-10">
-        <Notice variant="placeholder">{t.placeholderNotice}</Notice>
-
         <ClubsExplorer
           clubs={clubs}
           locale={locale}

@@ -1,9 +1,17 @@
 /**
- * Clubs directory: typed module (not MDX). Every club below is a plausible
- * placeholder for a politics/IR student programme; BIRSA will replace these
- * with the real club list. `slug` is the shared key across locales.
+ * Clubs directory: typed module (not MDX). These are the real BIR programme
+ * clubs. `slug` is the shared key across locales.
  *
- * Never invent real people's names. `lead` is a role title only.
+ * Sourcing notes:
+ * - ASA IR, BIRify, and Kien Club have confirmed public accounts, linked below.
+ *   Their descriptions are drawn from their own public material.
+ * - The remaining clubs (music, card games, the three sports, esports) are real
+ *   but keep little public footprint. Their entries describe what the club does
+ *   in general terms and do NOT state meeting times, emails, or handles we could
+ *   not verify. Do not add unverified specifics.
+ *
+ * Never invent real people's names. `lead` is a role title only. Do not
+ * fabricate contact details: leave `email`/`instagram` unset unless confirmed.
  */
 import type { Locale } from "@/lib/i18n";
 
@@ -24,8 +32,6 @@ export type Club = {
   key: string;
   slug: string;
   category: ClubCategory;
-  /** True while this entry is example content pending BIRSA's real list. */
-  placeholder: boolean;
   email?: string;
   instagram?: string;
   join: { open: boolean };
@@ -43,264 +49,280 @@ export const clubCategories: Record<ClubCategory, Record<Locale, string>> = {
 
 export const clubs: Club[] = [
   {
-    key: "debate-society",
-    slug: "debate-society",
-    category: "academic",
-    placeholder: true,
-    email: "debate.birsa@tu.ac.th",
-    instagram: "https://www.instagram.com/",
-    join: { open: true },
-    en: {
-      name: "Debate Society",
-      tagline: "Argue both sides, then argue them better.",
-      description: [
-        "The Debate Society is where BIR students practise the art of arguing clearly under pressure, using British Parliamentary format, current-affairs motions, and the occasional friendly grudge match against other faculties.",
-        "Sessions mix short lectures on argumentation with live rounds, so first-timers and experienced debaters both get something out of it. No prior competition experience is expected.",
-        "Members have gone on to represent Thammasat at inter-university debate tournaments, but most people join simply to get better at thinking on their feet.",
-      ],
-      meets: "Thursdays, 5:30pm to 7:30pm, Faculty of Political Science seminar room (check socials for room changes)",
-      lead: "President",
-      howToJoin: "Turn up to any Thursday session; no sign-up is needed for your first visit. To join properly, message the club Instagram or email the address below.",
-    },
-    th: {
-      name: "ชมรมโต้วาที",
-      tagline: "เถียงได้ทั้งสองฝั่ง แล้วเถียงให้ดีขึ้นเรื่อย ๆ",
-      description: [
-        "ชมรมโต้วาทีคือพื้นที่ให้นักศึกษา BIR ได้ฝึกพูดโต้แย้งอย่างมีเหตุผลภายใต้ความกดดัน ในรูปแบบ British Parliamentary พร้อมญัตติจากสถานการณ์บ้านเมืองปัจจุบัน และบางครั้งก็มีแมตช์กระชับมิตรกับคณะอื่น ๆ",
-        "แต่ละครั้งจะมีทั้งการสอนหลักการโต้แย้งสั้น ๆ และรอบแข่งจริง เหมาะทั้งคนที่เพิ่งเริ่มต้นและคนที่โต้วาทีมาแล้ว ไม่จำเป็นต้องมีประสบการณ์แข่งขันมาก่อน",
-        "รุ่นพี่หลายคนเคยเป็นตัวแทนธรรมศาสตร์ไปแข่งระดับมหาวิทยาลัย แต่ส่วนใหญ่ที่มาร่วมก็แค่อยากคิดและพูดให้ไวขึ้น",
-      ],
-      meets: "ทุกวันพฤหัสบดี 17:30 ถึง 19:30 น. ห้องสัมมนา คณะรัฐศาสตร์ (เช็กห้องอีกครั้งทางโซเชียลของชมรม)",
-      lead: "ประธานชมรม",
-      howToJoin: "แวะมาร่วมงานวันพฤหัสบดีได้เลยโดยไม่ต้องสมัครล่วงหน้าในครั้งแรก หากต้องการสมัครเป็นสมาชิก ทักไปที่ Instagram หรืออีเมลของชมรมด้านล่าง",
-    },
-  },
-  {
-    key: "model-united-nations",
-    slug: "model-united-nations",
-    category: "academic",
-    placeholder: true,
-    email: "mun.birsa@tu.ac.th",
-    instagram: "https://www.instagram.com/",
-    join: { open: true },
-    en: {
-      name: "Model United Nations Club",
-      tagline: "Diplomacy, resolutions, and a lot of note-passing.",
-      description: [
-        "This club prepares BIR students for Model UN conferences by researching country positions, drafting resolutions, and practising the procedure and public speaking that MUN runs on.",
-        "Weekly meetings rotate between committee-style practice sessions and workshops on topics like resolution writing, lobbying, and crisis committees.",
-        "The club typically sends delegations to a couple of conferences a year, both in Bangkok and abroad, and welcomes complete beginners alongside seasoned delegates.",
-      ],
-      meets: "Alternate Wednesdays, 6:00pm to 8:00pm, room TBC each term",
-      lead: "Secretary-General",
-      howToJoin: "Join the group chat linked on the club's Instagram at the start of each semester, or come to the first open session, with details posted there.",
-    },
-    th: {
-      name: "ชมรมจำลองสหประชาชาติ (MUN)",
-      tagline: "การทูต มติที่ประชุม และโน้ตส่งกันในห้อง",
-      description: [
-        "ชมรมนี้เตรียมความพร้อมนักศึกษา BIR สำหรับการแข่งขัน Model UN ทั้งการค้นคว้าจุดยืนของประเทศ การร่างมติ และฝึกขั้นตอนการประชุมรวมถึงการพูดในที่สาธารณะ",
-        "นัดพบประจำสัปดาห์จะสลับกันระหว่างการซ้อมแบบคณะกรรมการจำลอง กับเวิร์กช็อปหัวข้อต่าง ๆ เช่น การเขียนมติ การล็อบบี้ และคณะกรรมการภาวะวิกฤต",
-        "โดยทั่วไปชมรมจะส่งคณะผู้แทนไปแข่งปีละ 2-3 รายการ ทั้งในกรุงเทพฯ และต่างประเทศ ยินดีต้อนรับทั้งมือใหม่และผู้แทนที่มีประสบการณ์แล้ว",
-      ],
-      meets: "ทุกวันพุธเว้นพุธ 18:00 ถึง 20:00 น. (ห้องแจ้งอีกครั้งในแต่ละเทอม)",
-      lead: "เลขาธิการชมรม",
-      howToJoin: "เข้าร่วมกลุ่มแชทที่ลิงก์ไว้ใน Instagram ของชมรมตอนต้นเทอม หรือมาร่วมงานเปิดรับสมาชิกครั้งแรก โดยรายละเอียดจะประกาศที่นั่น",
-    },
-  },
-  {
-    key: "bir-football-club",
-    slug: "bir-football-club",
-    category: "sports",
-    placeholder: true,
-    instagram: "https://www.instagram.com/",
-    join: { open: true },
-    en: {
-      name: "BIR Football Club",
-      tagline: "Five-a-side, most weeks, all levels welcome.",
-      description: [
-        "BIR Football Club gets students out from behind their laptops for a kickabout, casual five-a-side games on campus pitches open to any skill level.",
-        "The club also enters a team into the Faculty of Political Science's internal sports tournament each year, alongside informal matches against other programmes.",
-        "No trials, no fees to just turn up and play; just bring trainers and water.",
-      ],
-      meets: "Saturdays, 4:00pm, Thammasat Tha Prachan sports field (weather permitting)",
-      lead: "Team captain",
-      howToJoin: "Show up on a Saturday, or message the club Instagram to be added to the match-day group chat.",
-    },
-    th: {
-      name: "ชมรมฟุตบอล BIR",
-      tagline: "ฟุตบอล 5 คน แทบทุกสัปดาห์ ทุกระดับฝีเท้า",
-      description: [
-        "ชมรมฟุตบอล BIR ชวนเพื่อน ๆ ออกมาวิ่งเตะบอลนอกจอคอม เป็นเกมฟุตบอล 5 คนแบบสบาย ๆ ที่สนามในมหาวิทยาลัย เปิดรับทุกระดับฝีเท้า",
-        "ทุกปีชมรมยังส่งทีมลงแข่งกีฬาภายในของคณะรัฐศาสตร์ และมีแมตช์กระชับมิตรกับหลักสูตรอื่น ๆ เป็นครั้งคราว",
-        "ไม่มีการคัดตัว ไม่มีค่าใช้จ่ายสำหรับการมาเตะเล่น แค่เตรียมรองเท้าผ้าใบกับน้ำมาเอง",
-      ],
-      meets: "ทุกวันเสาร์ 16:00 น. สนามกีฬา มธ. ท่าพระจันทร์ (ขึ้นอยู่กับสภาพอากาศ)",
-      lead: "กัปตันทีม",
-      howToJoin: "มาเตะด้วยกันได้เลยในวันเสาร์ หรือทักไปที่ Instagram ของชมรมเพื่อขอเข้ากลุ่มแชทนัดแข่ง",
-    },
-  },
-  {
-    key: "photography-club",
-    slug: "photography-club",
-    category: "arts",
-    placeholder: true,
-    email: "photo.birsa@tu.ac.th",
-    instagram: "https://www.instagram.com/",
-    join: { open: true },
-    en: {
-      name: "Photography Club",
-      tagline: "Documenting campus life, one frame at a time.",
-      description: [
-        "The Photography Club is for anyone who likes carrying a camera (or just a phone) around campus, covering BIRSA events, street photography around Tha Prachan, and portrait practice with fellow members.",
-        "Monthly themed challenges and casual photo walks make it easy to join even without your own gear; some members share lenses and tips.",
-        "The club also handles informal photo coverage for some BIRSA events, which is a nice way to build a small portfolio.",
-      ],
-      meets: "Monthly photo walk, with the date posted on Instagram each month",
-      lead: "Club coordinator",
-      howToJoin: "Follow the club Instagram and reply to the latest post, or email to be added to the group chat.",
-    },
-    th: {
-      name: "ชมรมถ่ายภาพ",
-      tagline: "บันทึกชีวิตในรั้วมหาวิทยาลัย ทีละเฟรม",
-      description: [
-        "ชมรมถ่ายภาพเปิดรับทุกคนที่ชอบพกกล้อง (หรือแค่มือถือ) เดินถ่ายรอบมหาวิทยาลัย ทั้งบันทึกงานกิจกรรมของ BIRSA ถ่ายภาพสตรีทแถวท่าพระจันทร์ และฝึกถ่ายภาพบุคคลกับเพื่อนสมาชิก",
-        "มีชาเลนจ์หัวข้อประจำเดือนและทริปเดินถ่ายภาพแบบชิล ๆ ทำให้เข้าร่วมได้ง่ายแม้ไม่มีอุปกรณ์ของตัวเอง สมาชิกบางคนพร้อมแบ่งปันเลนส์และเทคนิคให้กัน",
-        "ชมรมยังช่วยถ่ายภาพงานกิจกรรมบางงานของ BIRSA แบบไม่เป็นทางการ ซึ่งเป็นโอกาสดีในการสร้างพอร์ตเล็ก ๆ ของตัวเอง",
-      ],
-      meets: "ทริปถ่ายภาพประจำเดือน โดยประกาศวันที่ทาง Instagram ทุกเดือน",
-      lead: "ผู้ประสานงานชมรม",
-      howToJoin: "ติดตาม Instagram ของชมรมแล้วทักตอบโพสต์ล่าสุด หรืออีเมลมาเพื่อขอเข้ากลุ่มแชท",
-    },
-  },
-  {
-    key: "volunteer-community-service",
-    slug: "volunteer-community-service",
+    key: "asa-ir",
+    slug: "asa-ir",
     category: "community",
-    placeholder: true,
-    email: "volunteer.birsa@tu.ac.th",
-    instagram: "https://www.instagram.com/",
+    instagram: "https://www.instagram.com/asa.ir.tu/",
     join: { open: true },
     en: {
-      name: "Volunteer and Community Service Club",
-      tagline: "Putting BIR's politics degree into practice, locally.",
+      name: "ASA IR",
+      tagline: "Student volunteer camps built around sustainable development.",
       description: [
-        "This club organises volunteering trips and community projects, from teaching English at nearby schools to environmental clean-ups and fundraising drives for causes members choose together.",
-        "Most projects run over a weekend or during semester breaks, and the club tries to partner with local organisations rather than running one-off drop-in visits.",
-        "You do not need any special skills to join, just time and willingness; many members say it's the most grounding thing they do outside lectures.",
+        "ASA IR is the BIR programme's volunteer club. It runs student-led camps and community projects under the theme of sustainable development, taking what you study about politics and society and putting it to work outside the classroom.",
+        "The club follows the Thai volunteer-camp tradition of working alongside a host community rather than dropping in for a single visit, so the aim is help that still stands once the camp packs up. Planning, fundraising, and the camps themselves all need hands.",
+        "You do not need any special skills to take part, just time and a willingness to pitch in. Many members say it is the most grounding thing they do outside lectures.",
       ],
-      meets: "Planning meeting monthly; project dates vary by term",
-      lead: "Volunteer coordinator",
-      howToJoin: "Email the club or message Instagram to be added to the planning group chat before the next project is announced.",
+      lead: "Committee",
+      howToJoin:
+        "Follow the club on Instagram at @asa.ir.tu, where camp dates and member recruitment are posted. Recruitment usually opens ahead of each camp.",
     },
     th: {
-      name: "ชมรมจิตอาสาและกิจกรรมเพื่อชุมชน",
-      tagline: "เอาความรู้ด้านรัฐศาสตร์มาลงมือทำจริงในชุมชน",
+      name: "อาสาไออาร์ (ASA IR)",
+      tagline: "ค่ายอาสาของนักศึกษาที่ยึดการพัฒนาอย่างยั่งยืนเป็นหัวใจ",
       description: [
-        "ชมรมนี้จัดทริปอาสาและโครงการเพื่อชุมชน ตั้งแต่สอนภาษาอังกฤษให้โรงเรียนใกล้เคียง กิจกรรมทำความสะอาดสิ่งแวดล้อม ไปจนถึงระดมทุนเพื่อประเด็นที่สมาชิกร่วมกันเลือก",
-        "โครงการส่วนใหญ่จัดในวันหยุดสุดสัปดาห์หรือช่วงปิดเทอม และพยายามร่วมมือกับหน่วยงานในพื้นที่จริง มากกว่าไปเยี่ยมแบบครั้งเดียวจบ",
-        "ไม่ต้องมีทักษะพิเศษในการเข้าร่วม แค่มีเวลาและใจที่พร้อม สมาชิกหลายคนบอกว่านี่คือกิจกรรมที่ทำให้รู้สึกเชื่อมโยงกับโลกจริงมากที่สุดนอกห้องเรียน",
+        "อาสาไออาร์คือชมรมจิตอาสาของหลักสูตร BIR จัดค่ายและโครงการเพื่อชุมชนที่นักศึกษาเป็นผู้ขับเคลื่อน ภายใต้แนวคิดการพัฒนาอย่างยั่งยืน เป็นการนำสิ่งที่เรียนเรื่องการเมืองและสังคมมาลงมือทำจริงนอกห้องเรียน",
+        "ชมรมยึดแนวทางค่ายอาสาแบบไทยที่ลงไปทำงานร่วมกับชุมชนเจ้าบ้าน ไม่ใช่แค่ไปเยี่ยมครั้งเดียวจบ เป้าหมายคือความช่วยเหลือที่ยังอยู่ต่อไปแม้ค่ายจะเลิกแล้ว ทั้งการวางแผน การระดมทุน และตัวค่ายเองล้วนต้องการคนมาช่วยกัน",
+        "ไม่ต้องมีทักษะพิเศษในการเข้าร่วม แค่มีเวลาและใจที่พร้อมลงมือ สมาชิกหลายคนบอกว่านี่คือกิจกรรมที่ทำให้รู้สึกเชื่อมโยงกับโลกจริงมากที่สุดนอกห้องเรียน",
       ],
-      meets: "ประชุมวางแผนทุกเดือน วันที่ทำโครงการแตกต่างกันไปในแต่ละเทอม",
-      lead: "ผู้ประสานงานอาสาสมัคร",
-      howToJoin: "อีเมลหรือทัก Instagram ของชมรมเพื่อขอเข้ากลุ่มวางแผนก่อนประกาศโครงการถัดไป",
+      lead: "คณะกรรมการชมรม",
+      howToJoin:
+        "ติดตามชมรมได้ทาง Instagram @asa.ir.tu ซึ่งจะประกาศวันจัดค่ายและการรับสมาชิก โดยปกติจะเปิดรับก่อนถึงกำหนดจัดค่ายแต่ละครั้ง",
     },
   },
   {
-    key: "film-society",
-    slug: "film-society",
+    key: "bir-music-club",
+    slug: "bir-music-club",
     category: "arts",
-    placeholder: true,
-    instagram: "https://www.instagram.com/",
+    instagram: "https://www.instagram.com/birmusicclub/",
     join: { open: true },
     en: {
-      name: "Film Society",
-      tagline: "Watch something that is not for a course, for once.",
+      name: "BIR Music Club",
+      tagline: "For BIR students who play, sing, or just want to jam.",
       description: [
-        "Film Society runs regular screening nights, a mix of political dramas, documentaries, and whatever members are curious about, followed by a relaxed discussion (no essay required).",
-        "Occasional themed weeks tie into BIR topics, such as election-year cinema, Southeast Asian film, or diplomacy on screen, but the club is just as happy watching something purely for fun.",
-        "New members are welcome any time; you do not need to have seen the previous films to join in.",
+        "BIR Music Club brings together students who make music, whether you play an instrument, sing, produce, or simply want people to jam with between classes.",
+        "It is a way to find bandmates, share what you are working on, and put together performances for BIR and BIRSA events through the year.",
+        "All levels are welcome. You do not need to read music or own expensive gear to take part.",
       ],
-      meets: "Fortnightly screening, evenings, with room and film posted on Instagram",
-      lead: "Programme lead",
-      howToJoin: "Follow the Instagram for screening announcements and just show up; seats are first-come, first-served.",
+      lead: "Committee",
+      howToJoin:
+        "Follow the club on Instagram at @birmusicclub, where jam sessions, performances, and member sign-ups are posted. New members are usually welcomed at the start of each semester.",
     },
     th: {
-      name: "ชมรมภาพยนตร์",
-      tagline: "ได้ดูหนังที่ไม่ต้องเอาไปสอบ สักครั้งในชีวิต",
+      name: "ชมรมดนตรี BIR",
+      tagline: "สำหรับชาว BIR ที่เล่นดนตรี ร้องเพลง หรือแค่อยากมาแจมด้วยกัน",
       description: [
-        "ชมรมภาพยนตร์จัดคืนฉายหนังเป็นประจำ ทั้งหนังดราม่าการเมือง สารคดี และเรื่องที่สมาชิกอยากดู ตามด้วยวงพูดคุยแบบสบาย ๆ ไม่ต้องเขียนรายงานส่ง",
-        "บางช่วงมีธีมพิเศษที่เชื่อมกับเนื้อหา BIR เช่น หนังปีเลือกตั้ง หนังเอเชียตะวันออกเฉียงใต้ หรือการทูตบนจอ แต่ส่วนใหญ่ก็แค่ดูเพื่อความสนุก",
-        "เปิดรับสมาชิกใหม่ตลอดเวลา ไม่จำเป็นต้องเคยดูเรื่องก่อนหน้ามาก่อนก็ร่วมสนุกได้",
+        "ชมรมดนตรี BIR รวมนักศึกษาที่รักการทำดนตรี ไม่ว่าจะเล่นเครื่องดนตรี ร้องเพลง ทำเพลง หรือแค่อยากหาเพื่อนมาแจมกันระหว่างคาบเรียน",
+        "เป็นพื้นที่ให้หาเพื่อนร่วมวง แชร์ผลงานที่กำลังทำอยู่ และรวมตัวกันขึ้นแสดงในงานของ BIR และ BIRSA ตลอดทั้งปี",
+        "ยินดีต้อนรับทุกระดับฝีมือ ไม่จำเป็นต้องอ่านโน้ตเป็นหรือมีอุปกรณ์ราคาแพงก็ร่วมได้",
       ],
-      meets: "ฉายหนังทุกสองสัปดาห์ ช่วงเย็น (ห้องและชื่อเรื่องประกาศทาง Instagram)",
-      lead: "หัวหน้าฝ่ายจัดฉาย",
-      howToJoin: "ติดตาม Instagram เพื่อดูประกาศรอบฉาย แล้วมาได้เลย ที่นั่งมาก่อนได้ก่อน",
+      lead: "คณะกรรมการชมรม",
+      howToJoin:
+        "ติดตามชมรมได้ทาง Instagram @birmusicclub ซึ่งจะประกาศการนัดแจม การแสดง และการรับสมาชิก โดยปกติจะเปิดรับสมาชิกใหม่ช่วงต้นเทอมแต่ละเทอม",
     },
   },
   {
-    key: "board-games-club",
-    slug: "board-games-club",
+    key: "birify",
+    slug: "birify",
+    category: "arts",
+    instagram: "https://www.instagram.com/birify/",
+    join: { open: true },
+    en: {
+      name: "BIRify",
+      tagline: "The BIR student podcast: making it BIR.",
+      description: [
+        "BIRify is a podcast made by BIR students to introduce listeners to the world of the programme. Episodes run in Thai and English and cover popular culture, philosophy, history, politics, and students' own experiences of studying BIR.",
+        "Past episodes have picked apart everything from the film Inside Out to menstruation policy, urban loneliness, and the reign of Henry VIII. A spin-off series, '(History of) NO IDEA', digs into intellectual history.",
+        "A new episode goes up every two weeks. You can listen on Spotify and YouTube, and follow @birify for updates.",
+      ],
+      lead: "Host and production team",
+      howToJoin:
+        "Listen on Spotify and YouTube, and follow the show on Instagram at @birify. Watch there for calls when the team is looking for new hosts and producers.",
+    },
+    th: {
+      name: "BIRify",
+      tagline: "พอดแคสต์ของนักศึกษา BIR: making it BIR",
+      description: [
+        "BIRify คือพอดแคสต์ที่นักศึกษา BIR ทำขึ้นเพื่อพาผู้ฟังไปรู้จักโลกของหลักสูตร แต่ละอีพีมีทั้งภาษาไทยและภาษาอังกฤษ ครอบคลุมทั้งวัฒนธรรมป็อป ปรัชญา ประวัติศาสตร์ การเมือง และประสบการณ์ตรงของนักศึกษาที่เรียน BIR",
+        "อีพีที่ผ่านมาชวนคุยหลากหลาย ตั้งแต่หนังเรื่อง Inside Out ไปจนถึงนโยบายเรื่องประจำเดือน ความเหงาในเมืองใหญ่ และรัชสมัยของพระเจ้าเฮนรีที่ 8 พร้อมซีรีส์แยก '(History of) NO IDEA' ที่เจาะลึกประวัติศาสตร์ทางความคิด",
+        "ปล่อยอีพีใหม่ทุกสองสัปดาห์ ฟังได้ทาง Spotify และ YouTube และติดตามความเคลื่อนไหวได้ที่ @birify",
+      ],
+      lead: "ทีมผู้ดำเนินรายการและผลิต",
+      howToJoin:
+        "ฟังได้ทาง Spotify และ YouTube และติดตามรายการทาง Instagram @birify คอยดูประกาศเมื่อทีมงานเปิดรับผู้ดำเนินรายการและทีมผลิตใหม่",
+    },
+  },
+  {
+    key: "kien-club",
+    slug: "kien-club",
+    category: "arts",
+    instagram: "https://www.instagram.com/kien.club/",
+    join: { open: true },
+    en: {
+      name: "Kien Club",
+      tagline: "A student e-zine: writing, editing, and design.",
+      description: [
+        "Kien Club is a BIR student publication. Its members write, edit, and illustrate essays on culture, society, and city life, then publish them for anyone to read.",
+        "Work is organised into teams, roughly writing, editorial, and graphics, so there is a place for you whether you want to report an idea, sharpen someone else's draft, or design how it looks on the page.",
+        "Recent pieces have looked at subjects like gentrification in Bangkok's older neighbourhoods. Articles go out through the club's Instagram.",
+      ],
+      lead: "Editorial team",
+      howToJoin:
+        "Follow @kien.club on Instagram. The club recruits for all its teams once a year, usually around August to September, and posts the details there.",
+    },
+    th: {
+      name: "Kien Club",
+      tagline: "อีซีนของนักศึกษา: เขียน บรรณาธิการ และออกแบบ",
+      description: [
+        "Kien Club คือสื่อสิ่งพิมพ์ของนักศึกษา BIR สมาชิกร่วมกันเขียน เรียบเรียง และวาดภาพประกอบบทความว่าด้วยวัฒนธรรม สังคม และชีวิตในเมือง แล้วเผยแพร่ให้ทุกคนได้อ่าน",
+        "งานแบ่งออกเป็นทีมย่อย ทั้งทีมเขียน กองบรรณาธิการ และกราฟิก จึงมีที่ทางสำหรับทุกคน ไม่ว่าจะอยากนำเสนอไอเดีย ช่วยขัดเกลาต้นฉบับของคนอื่น หรือออกแบบหน้าตาของบทความ",
+        "ผลงานช่วงหลังพูดถึงประเด็นอย่างเจนทริฟิเคชันในย่านเก่าของกรุงเทพฯ โดยบทความจะเผยแพร่ผ่าน Instagram ของชมรม",
+      ],
+      lead: "กองบรรณาธิการ",
+      howToJoin:
+        "ติดตาม @kien.club ทาง Instagram ชมรมเปิดรับสมาชิกทุกทีมปีละครั้ง โดยปกติราวเดือนสิงหาคมถึงกันยายน และจะประกาศรายละเอียดไว้ที่นั่น",
+    },
+  },
+  {
+    key: "bir-cardgame-club",
+    slug: "bir-cardgame-club",
     category: "social",
-    placeholder: true,
-    instagram: "https://www.instagram.com/",
     join: { open: true },
     en: {
-      name: "Board Games Club",
-      tagline: "Strategy, diplomacy, and betrayal, just on a tabletop.",
+      name: "BIR CardGame Club",
+      tagline: "Trading card games and a table to play them on.",
       description: [
-        "A relaxed weekly hangout for card and board games, from party games to longer strategy titles, and a good way to meet people outside your own year or section.",
-        "The club keeps a small shared library of games; members are also welcome to bring their own to teach the group.",
-        "No commitment needed; drop in for one session or every week.",
+        "BIR CardGame Club is a relaxed space for card games, from trading card games to quicker party decks, and a good way to meet people across year groups.",
+        "Members bring games to teach, run casual matches, and organise the occasional friendly tournament.",
+        "Whether you are a seasoned player or have never shuffled a deck, you are welcome to drop in.",
       ],
-      meets: "Fridays, 5:00pm to 8:00pm, student common area",
-      lead: "Club organiser",
-      howToJoin: "Just show up on a Friday; new faces are always welcome, no sign-up required.",
+      lead: "Committee",
+      howToJoin:
+        "Club sign-ups are announced at the start of each semester. Watch BIRSA's Instagram (@student_birsa) for the announcement, or ask around at BIRSA's welcome events.",
     },
     th: {
-      name: "ชมรมบอร์ดเกม",
-      tagline: "กลยุทธ์ การทูต และการหักหลัง แค่บนโต๊ะเกม",
+      name: "ชมรมการ์ดเกม BIR",
+      tagline: "การ์ดเกมและโต๊ะให้ได้ลงเล่นด้วยกัน",
       description: [
-        "นัดพบประจำสัปดาห์แบบชิล ๆ สำหรับคนชอบเล่นการ์ดเกมและบอร์ดเกม ตั้งแต่เกมปาร์ตี้ไปจนถึงเกมกลยุทธ์ยาว ๆ เป็นโอกาสดีที่จะได้รู้จักเพื่อนต่างชั้นปีหรือต่างกลุ่ม",
-        "ชมรมมีเกมส่วนกลางให้ยืมเล่นจำนวนหนึ่ง และยินดีถ้าใครอยากพกเกมของตัวเองมาสอนเพื่อน ๆ เล่นด้วย",
-        "ไม่ต้องผูกมัด แวะมาครั้งเดียวหรือมาทุกสัปดาห์ก็ได้",
+        "ชมรมการ์ดเกม BIR คือพื้นที่สบาย ๆ สำหรับคนชอบการ์ดเกม ตั้งแต่เกมการ์ดสะสมไปจนถึงเกมปาร์ตี้เล่นเร็ว และเป็นโอกาสดีที่จะได้รู้จักเพื่อนต่างชั้นปี",
+        "สมาชิกพกเกมมาสอนกัน จัดแมตช์แบบชิล ๆ และมีทัวร์นาเมนต์กระชับมิตรเป็นครั้งคราว",
+        "ไม่ว่าจะเป็นมือเก๋าหรือไม่เคยจับไพ่สับเลย ก็แวะมาร่วมได้เสมอ",
       ],
-      meets: "ทุกวันศุกร์ 17:00 ถึง 20:00 น. พื้นที่ส่วนกลางของนักศึกษา",
-      lead: "ผู้จัดกิจกรรมชมรม",
-      howToJoin: "มาได้เลยในวันศุกร์ ยินดีต้อนรับหน้าใหม่เสมอ ไม่ต้องลงชื่อล่วงหน้า",
+      lead: "คณะกรรมการชมรม",
+      howToJoin:
+        "การรับสมาชิกจะประกาศช่วงต้นเทอมแต่ละเทอม ติดตามได้ทาง Instagram ของ BIRSA (@student_birsa) หรือสอบถามในงานต้อนรับของ BIRSA",
     },
   },
   {
-    key: "mooting-negotiation-club",
-    slug: "mooting-negotiation-club",
-    category: "academic",
-    placeholder: true,
-    email: "mooting.birsa@tu.ac.th",
-    instagram: "https://www.instagram.com/",
+    key: "bir-football",
+    slug: "bir-football",
+    category: "sports",
+    instagram: "https://www.instagram.com/birfootballclub/",
     join: { open: true },
     en: {
-      name: "Mooting and Negotiation Club",
-      tagline: "Practising the arguments behind international agreements.",
+      name: "BIR Football",
+      tagline: "Casual football and friendly matches, all levels welcome.",
       description: [
-        "This club practises simulated negotiation and mooting exercises relevant to international relations, including treaty negotiations, mock arbitration, and crisis-response scenarios.",
-        "Sessions are run as structured exercises with assigned roles and a short debrief, useful for anyone interested in diplomacy, law, or international organisations after graduation.",
-        "The club occasionally partners with the Model UN and Debate Society for joint practice sessions.",
+        "BIR Football gets students out from behind their laptops for a game, from casual kickabouts to friendly matches against other programmes and faculties.",
+        "The club is a relaxed way to play regularly, meet people across year groups, and represent BIR when there is a match on.",
+        "No trials and no experience required. Bring trainers and water and turn up.",
       ],
-      meets: "Bi-weekly, evenings, with the schedule confirmed each term",
-      lead: "Convenor",
-      howToJoin: "Email the club with a short line about your interest, or come to the first session of term; open to all years.",
+      lead: "Team captain",
+      howToJoin:
+        "Follow the club on Instagram at @birfootballclub, where match days and new-player sign-ups are posted. New players are usually welcomed at the start of each semester.",
     },
     th: {
-      name: "ชมรมจำลองการเจรจาต่อรอง",
-      tagline: "ฝึกซ้อมเบื้องหลังข้อตกลงระหว่างประเทศ",
+      name: "ฟุตบอล BIR",
+      tagline: "ฟุตบอลแบบสบาย ๆ และแมตช์กระชับมิตร ทุกระดับฝีเท้า",
       description: [
-        "ชมรมนี้ฝึกซ้อมการเจรจาต่อรองจำลองและกิจกรรมโต้แย้งที่เกี่ยวข้องกับความสัมพันธ์ระหว่างประเทศ เช่น การเจรจาสนธิสัญญาจำลอง การอนุญาโตตุลาการจำลอง และสถานการณ์จำลองภาวะวิกฤต",
-        "แต่ละครั้งจัดเป็นกิจกรรมที่มีบทบาทกำหนดไว้ชัดเจนพร้อมสรุปบทเรียนสั้น ๆ ท้ายกิจกรรม เหมาะกับใครที่สนใจสายการทูต กฎหมาย หรือองค์กรระหว่างประเทศหลังเรียนจบ",
-        "บางครั้งชมรมร่วมมือกับชมรม MUN และชมรมโต้วาทีจัดซ้อมร่วมกัน",
+        "ฟุตบอล BIR ชวนเพื่อน ๆ ออกมาวิ่งเตะบอลนอกจอคอม ตั้งแต่เตะเล่นสบาย ๆ ไปจนถึงแมตช์กระชับมิตรกับหลักสูตรและคณะอื่น ๆ",
+        "เป็นวิธีชิล ๆ ที่จะได้เล่นบอลสม่ำเสมอ ได้รู้จักเพื่อนต่างชั้นปี และได้เป็นตัวแทน BIR เมื่อมีแมตช์",
+        "ไม่มีการคัดตัว ไม่ต้องมีประสบการณ์ แค่เตรียมรองเท้าผ้าใบกับน้ำแล้วมาได้เลย",
       ],
-      meets: "ทุกสองสัปดาห์ ช่วงเย็น (ตารางยืนยันอีกครั้งในแต่ละเทอม)",
-      lead: "ผู้ประสานงานชมรม",
-      howToJoin: "อีเมลบอกความสนใจสั้น ๆ มาที่ชมรม หรือมาร่วมงานแรกของเทอมได้เลย เปิดรับทุกชั้นปี",
+      lead: "กัปตันทีม",
+      howToJoin:
+        "ติดตามชมรมได้ทาง Instagram @birfootballclub ซึ่งจะประกาศวันแข่งและการรับผู้เล่นใหม่ โดยปกติจะเปิดรับผู้เล่นใหม่ช่วงต้นเทอมแต่ละเทอม",
+    },
+  },
+  {
+    key: "bir-volleyball",
+    slug: "bir-volleyball",
+    category: "sports",
+    join: { open: true },
+    en: {
+      name: "BIR Volleyball",
+      tagline: "Volleyball for BIR students, from first-timers to regulars.",
+      description: [
+        "BIR Volleyball runs casual sessions and friendly matches for anyone who wants to play, whatever your level.",
+        "It is an easy way to keep active during term, learn the game if you are new to it, and play alongside other BIR students.",
+        "Just bring water and shoes you can move in; no experience is needed to join a session.",
+      ],
+      lead: "Team captain",
+      howToJoin:
+        "Sessions and new players are announced through BIRSA at the start of each semester. Watch BIRSA's Instagram (@student_birsa), or ask around at BIRSA's welcome events.",
+    },
+    th: {
+      name: "วอลเลย์บอล BIR",
+      tagline: "วอลเลย์บอลสำหรับชาว BIR ตั้งแต่มือใหม่จนถึงขาประจำ",
+      description: [
+        "วอลเลย์บอล BIR จัดซ้อมแบบสบาย ๆ และแมตช์กระชับมิตรให้ทุกคนที่อยากเล่น ไม่ว่าจะระดับไหน",
+        "เป็นวิธีง่าย ๆ ที่จะได้ขยับร่างกายระหว่างเทอม ได้หัดเล่นถ้าเพิ่งเริ่ม และได้เล่นกับเพื่อน ๆ ชาว BIR",
+        "แค่เตรียมน้ำและรองเท้าที่ขยับสะดวกมาก็พอ ไม่ต้องมีประสบการณ์ก็มาร่วมซ้อมได้",
+      ],
+      lead: "กัปตันทีม",
+      howToJoin:
+        "ตารางซ้อมและการรับผู้เล่นใหม่จะประกาศผ่าน BIRSA ช่วงต้นเทอมแต่ละเทอม ติดตามได้ทาง Instagram ของ BIRSA (@student_birsa) หรือสอบถามในงานต้อนรับของ BIRSA",
+    },
+  },
+  {
+    key: "bir-basketball",
+    slug: "bir-basketball",
+    category: "sports",
+    instagram: "https://www.instagram.com/bir.basketballclub/",
+    join: { open: true },
+    en: {
+      name: "BIR Basketball",
+      tagline: "Pick-up games and a BIR team to play for.",
+      description: [
+        "BIR Basketball is for students who want to shoot some hoops, from casual pick-up games to playing for BIR in friendly matches.",
+        "The club welcomes regulars and complete beginners alike, and is a relaxed way to stay active and meet people across the programme.",
+        "Turn up in trainers, bring water, and get on the court.",
+      ],
+      lead: "Team captain",
+      howToJoin:
+        "Follow the club on Instagram at @bir.basketballclub, where game days and new-player sign-ups are posted. New players are usually welcomed at the start of each semester.",
+    },
+    th: {
+      name: "บาสเกตบอล BIR",
+      tagline: "เล่นบาสสบาย ๆ และทีม BIR ให้ได้ลงสนาม",
+      description: [
+        "บาสเกตบอล BIR สำหรับคนที่อยากมาชู้ตบาส ตั้งแต่เล่นกันเองสบาย ๆ ไปจนถึงลงเล่นให้ BIR ในแมตช์กระชับมิตร",
+        "ชมรมยินดีต้อนรับทั้งขาประจำและมือใหม่หัดเล่น เป็นวิธีชิล ๆ ที่จะได้ออกกำลังและรู้จักเพื่อน ๆ ในหลักสูตร",
+        "ใส่รองเท้าผ้าใบ เตรียมน้ำ แล้วลงสนามได้เลย",
+      ],
+      lead: "กัปตันทีม",
+      howToJoin:
+        "ติดตามชมรมได้ทาง Instagram @bir.basketballclub ซึ่งจะประกาศวันแข่งและการรับผู้เล่นใหม่ โดยปกติจะเปิดรับผู้เล่นใหม่ช่วงต้นเทอมแต่ละเทอม",
+    },
+  },
+  {
+    key: "bir-esports-club",
+    slug: "bir-esports-club",
+    category: "sports",
+    instagram: "https://www.instagram.com/biresport.club/",
+    join: { open: true },
+    en: {
+      name: "BIR Esports Club",
+      tagline: "Competitive and casual gaming for BIR students.",
+      description: [
+        "BIR Esports Club is for students who game, whether you want to compete or just play together. It brings players together across popular titles and sorts out teams and casual sessions.",
+        "The club runs internal matches and helps members team up for inter-faculty and online tournaments.",
+        "All skill levels are welcome, whatever you play.",
+      ],
+      lead: "Committee",
+      howToJoin:
+        "Follow the club on Instagram at @biresport.club, where tournaments and member sign-ups are posted. New members are usually welcomed at the start of each semester.",
+    },
+    th: {
+      name: "ชมรมอีสปอร์ต BIR",
+      tagline: "เกมทั้งสายแข่งและสายชิลสำหรับชาว BIR",
+      description: [
+        "ชมรมอีสปอร์ต BIR สำหรับคนที่ชอบเล่นเกม ไม่ว่าจะอยากลงแข่งจริงจังหรือแค่มาเล่นด้วยกัน ชมรมรวมผู้เล่นจากหลากหลายเกมยอดนิยม และช่วยจัดทีมกับนัดเล่นแบบสบาย ๆ",
+        "ชมรมจัดแมตช์ภายในและช่วยสมาชิกจับทีมลงแข่งทั้งรายการระหว่างคณะและทัวร์นาเมนต์ออนไลน์",
+        "ยินดีต้อนรับทุกระดับฝีมือ ไม่ว่าคุณจะเล่นเกมอะไร",
+      ],
+      lead: "คณะกรรมการชมรม",
+      howToJoin:
+        "ติดตามชมรมได้ทาง Instagram @biresport.club ซึ่งจะประกาศทัวร์นาเมนต์และการรับสมาชิก โดยปกติจะเปิดรับสมาชิกใหม่ช่วงต้นเทอมแต่ละเทอม",
     },
   },
 ];
