@@ -1,5 +1,5 @@
 /**
- * Quick-actions link groups — BIRSA's "link in bio" target (`/quick`).
+ * Quick-actions link groups: BIRSA's "link in bio" target (`/quick`).
  * Each item is authored bilingually inline (en/th) since this page's copy
  * is short, list-like microcopy rather than long-form prose.
  */
@@ -128,7 +128,7 @@ export const quickGroups: QuickGroup[] = [
   },
   {
     key: "find-follow",
-    en: { heading: "Find & follow us" },
+    en: { heading: "Find and follow us" },
     th: { heading: "ติดตามเรา" },
     items: [
       {

@@ -135,15 +135,15 @@ const copy: Record<Locale, Copy> = {
     checkedOutMessage: "Unit checked out to the borrower.",
     checkedInMessage: "Unit checked in.",
     cancelledMessage: "Loan cancelled.",
-    unauthorizedMessage: "Your session has expired. Please sign in again.",
-    forbiddenMessage: "You don't have permission to do this.",
+    unauthorizedMessage: "Your session has expired. Sign in again.",
+    forbiddenMessage: "You do not have permission to do this.",
     staleMessage:
       "This loan was already updated, or no longer exists. Refresh the page to see the latest status.",
     unitRequiredMessage: "Select a unit before approving.",
     unavailableMessage: "That unit was just taken by another loan. Pick a different one.",
     invalidStateMessage:
       "This loan is no longer in a state that allows this action. Refresh the page.",
-    genericErrorMessage: "Something went wrong. Please try again.",
+    genericErrorMessage: "Something went wrong. Try again.",
     statusLabels: {
       pending: "Pending",
       approved: "Approved",
@@ -447,7 +447,7 @@ export default function LoanQueue({
           </div>
           <div>
             <dt className="text-muted font-semibold">{t.emailLabel}</dt>
-            <dd className="text-ink break-all">{borrower?.email ?? "—"}</dd>
+            <dd className="text-ink break-all">{borrower?.email ?? "Not provided"}</dd>
           </div>
           <div>
             <dt className="text-muted font-semibold">{t.datesLabel}</dt>

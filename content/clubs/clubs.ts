@@ -1,9 +1,9 @@
 /**
- * Clubs directory — typed module (not MDX). Every club below is a plausible
+ * Clubs directory: typed module (not MDX). Every club below is a plausible
  * placeholder for a politics/IR student programme; BIRSA will replace these
  * with the real club list. `slug` is the shared key across locales.
  *
- * Never invent real people's names — `lead` is a role title only.
+ * Never invent real people's names. `lead` is a role title only.
  */
 import type { Locale } from "@/lib/i18n";
 
@@ -15,7 +15,7 @@ export type ClubLocaleContent = {
   /** 2-3 paragraphs. */
   description: string[];
   meets?: string;
-  /** Role title only, e.g. "President" — never a person's name. */
+  /** Role title only, e.g. "President". Never a person's name. */
   lead?: string;
   howToJoin: string;
 };
@@ -36,8 +36,8 @@ export type Club = {
 export const clubCategories: Record<ClubCategory, Record<Locale, string>> = {
   academic: { en: "Academic", th: "วิชาการ" },
   sports: { en: "Sports", th: "กีฬา" },
-  arts: { en: "Arts & culture", th: "ศิลปะและวัฒนธรรม" },
-  community: { en: "Community & service", th: "ชุมชนและจิตอาสา" },
+  arts: { en: "Arts and culture", th: "ศิลปะและวัฒนธรรม" },
+  community: { en: "Community and service", th: "ชุมชนและจิตอาสา" },
   social: { en: "Social", th: "สังสรรค์" },
 };
 
@@ -58,7 +58,7 @@ export const clubs: Club[] = [
         "Sessions mix short lectures on argumentation with live rounds, so first-timers and experienced debaters both get something out of it. No prior competition experience is expected.",
         "Members have gone on to represent Thammasat at inter-university debate tournaments, but most people join simply to get better at thinking on their feet.",
       ],
-      meets: "Thursdays, 5:30–7:30pm, Faculty of Political Science seminar room (check socials for room changes)",
+      meets: "Thursdays, 5:30pm to 7:30pm, Faculty of Political Science seminar room (check socials for room changes)",
       lead: "President",
       howToJoin: "Turn up to any Thursday session; no sign-up is needed for your first visit. To join properly, message the club Instagram or email the address below.",
     },
@@ -70,7 +70,7 @@ export const clubs: Club[] = [
         "แต่ละครั้งจะมีทั้งการสอนหลักการโต้แย้งสั้น ๆ และรอบแข่งจริง เหมาะทั้งคนที่เพิ่งเริ่มต้นและคนที่โต้วาทีมาแล้ว ไม่จำเป็นต้องมีประสบการณ์แข่งขันมาก่อน",
         "รุ่นพี่หลายคนเคยเป็นตัวแทนธรรมศาสตร์ไปแข่งระดับมหาวิทยาลัย แต่ส่วนใหญ่ที่มาร่วมก็แค่อยากคิดและพูดให้ไวขึ้น",
       ],
-      meets: "ทุกวันพฤหัสบดี 17:30–19:30 น. ห้องสัมมนา คณะรัฐศาสตร์ (เช็กห้องอีกครั้งทางโซเชียลของชมรม)",
+      meets: "ทุกวันพฤหัสบดี 17:30 ถึง 19:30 น. ห้องสัมมนา คณะรัฐศาสตร์ (เช็กห้องอีกครั้งทางโซเชียลของชมรม)",
       lead: "ประธานชมรม",
       howToJoin: "แวะมาร่วมงานวันพฤหัสบดีได้เลยโดยไม่ต้องสมัครล่วงหน้าในครั้งแรก หากต้องการสมัครเป็นสมาชิก ทักไปที่ Instagram หรืออีเมลของชมรมด้านล่าง",
     },
@@ -91,7 +91,7 @@ export const clubs: Club[] = [
         "Weekly meetings rotate between committee-style practice sessions and workshops on topics like resolution writing, lobbying, and crisis committees.",
         "The club typically sends delegations to a couple of conferences a year, both in Bangkok and abroad, and welcomes complete beginners alongside seasoned delegates.",
       ],
-      meets: "Alternate Wednesdays, 6:00–8:00pm, room TBC each term",
+      meets: "Alternate Wednesdays, 6:00pm to 8:00pm, room TBC each term",
       lead: "Secretary-General",
       howToJoin: "Join the group chat linked on the club's Instagram at the start of each semester, or come to the first open session, with details posted there.",
     },
@@ -103,7 +103,7 @@ export const clubs: Club[] = [
         "นัดพบประจำสัปดาห์จะสลับกันระหว่างการซ้อมแบบคณะกรรมการจำลอง กับเวิร์กช็อปหัวข้อต่าง ๆ เช่น การเขียนมติ การล็อบบี้ และคณะกรรมการภาวะวิกฤต",
         "โดยทั่วไปชมรมจะส่งคณะผู้แทนไปแข่งปีละ 2-3 รายการ ทั้งในกรุงเทพฯ และต่างประเทศ ยินดีต้อนรับทั้งมือใหม่และผู้แทนที่มีประสบการณ์แล้ว",
       ],
-      meets: "ทุกวันพุธเว้นพุธ 18:00–20:00 น. (ห้องแจ้งอีกครั้งในแต่ละเทอม)",
+      meets: "ทุกวันพุธเว้นพุธ 18:00 ถึง 20:00 น. (ห้องแจ้งอีกครั้งในแต่ละเทอม)",
       lead: "เลขาธิการชมรม",
       howToJoin: "เข้าร่วมกลุ่มแชทที่ลิงก์ไว้ใน Instagram ของชมรมตอนต้นเทอม หรือมาร่วมงานเปิดรับสมาชิกครั้งแรก โดยรายละเอียดจะประกาศที่นั่น",
     },
@@ -182,12 +182,12 @@ export const clubs: Club[] = [
     instagram: "https://www.instagram.com/",
     join: { open: true },
     en: {
-      name: "Volunteer & Community Service Club",
+      name: "Volunteer and Community Service Club",
       tagline: "Putting BIR's politics degree into practice, locally.",
       description: [
         "This club organises volunteering trips and community projects, from teaching English at nearby schools to environmental clean-ups and fundraising drives for causes members choose together.",
         "Most projects run over a weekend or during semester breaks, and the club tries to partner with local organisations rather than running one-off drop-in visits.",
-        "You don't need any special skills to join, just time and willingness; many members say it's the most grounding thing they do outside lectures.",
+        "You do not need any special skills to join, just time and willingness; many members say it's the most grounding thing they do outside lectures.",
       ],
       meets: "Planning meeting monthly; project dates vary by term",
       lead: "Volunteer coordinator",
@@ -215,11 +215,11 @@ export const clubs: Club[] = [
     join: { open: true },
     en: {
       name: "Film Society",
-      tagline: "Watch something that isn't for a course, for once.",
+      tagline: "Watch something that is not for a course, for once.",
       description: [
         "Film Society runs regular screening nights, a mix of political dramas, documentaries, and whatever members are curious about, followed by a relaxed discussion (no essay required).",
         "Occasional themed weeks tie into BIR topics, such as election-year cinema, Southeast Asian film, or diplomacy on screen, but the club is just as happy watching something purely for fun.",
-        "New members are welcome any time; you don't need to have seen the previous films to join in.",
+        "New members are welcome any time; you do not need to have seen the previous films to join in.",
       ],
       meets: "Fortnightly screening, evenings, with room and film posted on Instagram",
       lead: "Programme lead",
@@ -253,7 +253,7 @@ export const clubs: Club[] = [
         "The club keeps a small shared library of games; members are also welcome to bring their own to teach the group.",
         "No commitment needed; drop in for one session or every week.",
       ],
-      meets: "Fridays, 5:00–8:00pm, student common area",
+      meets: "Fridays, 5:00pm to 8:00pm, student common area",
       lead: "Club organiser",
       howToJoin: "Just show up on a Friday; new faces are always welcome, no sign-up required.",
     },
@@ -265,7 +265,7 @@ export const clubs: Club[] = [
         "ชมรมมีเกมส่วนกลางให้ยืมเล่นจำนวนหนึ่ง และยินดีถ้าใครอยากพกเกมของตัวเองมาสอนเพื่อน ๆ เล่นด้วย",
         "ไม่ต้องผูกมัด แวะมาครั้งเดียวหรือมาทุกสัปดาห์ก็ได้",
       ],
-      meets: "ทุกวันศุกร์ 17:00–20:00 น. พื้นที่ส่วนกลางของนักศึกษา",
+      meets: "ทุกวันศุกร์ 17:00 ถึง 20:00 น. พื้นที่ส่วนกลางของนักศึกษา",
       lead: "ผู้จัดกิจกรรมชมรม",
       howToJoin: "มาได้เลยในวันศุกร์ ยินดีต้อนรับหน้าใหม่เสมอ ไม่ต้องลงชื่อล่วงหน้า",
     },
@@ -279,7 +279,7 @@ export const clubs: Club[] = [
     instagram: "https://www.instagram.com/",
     join: { open: true },
     en: {
-      name: "Mooting & Negotiation Club",
+      name: "Mooting and Negotiation Club",
       tagline: "Practising the arguments behind international agreements.",
       description: [
         "This club practises simulated negotiation and mooting exercises relevant to international relations, including treaty negotiations, mock arbitration, and crisis-response scenarios.",

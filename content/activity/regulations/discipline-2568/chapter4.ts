@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Chapter 4 (หมวด ๔ คณะกรรมการอุทธรณ์วินัยนักศึกษา, ข้อ 25–40) of the
+ * Chapter 4 (หมวด ๔ คณะกรรมการอุทธรณ์วินัยนักศึกษา, ข้อ 25 to 40) of the
  * Regulation of Thammasat University on Student Discipline, B.E. 2568 (2025).
  */
 export const chapter4: Section = {

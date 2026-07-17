@@ -6,7 +6,7 @@ import { checkRateLimit } from "@/app/api/_lib/guard";
 import { renderStartClub } from "@/lib/email/templates";
 
 type StartClubField = "name" | "email" | "clubName" | "description";
-/** Error codes, not messages — the form maps them to its localized copy. */
+/** Error codes, not messages: the form maps them to its localized copy. */
 export type StartClubErrorCode = "required" | "invalid" | "short";
 
 export type StartClubValues = {
@@ -52,7 +52,7 @@ export async function submitStartClub(
     return { status: "error", values };
   }
 
-  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     return { status: "success" };
   }

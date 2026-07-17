@@ -37,11 +37,11 @@ const copy: Record<
 > = {
   en: {
     title: "Start a club",
-    lede: "If a few of you share an interest that isn't covered by an existing club, BIRSA can help you get a new one off the ground.",
+    lede: "If a few of you share an interest that is not covered by an existing club, BIRSA can help you get a new one off the ground.",
     clubs: "Clubs",
     stepsTitle: "How it works",
     steps: [
-      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for, you don't need a full plan yet.",
+      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for, you do not need a full plan yet.",
       "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and figure out what support you need (a room, a small budget, promotion).",
       "Start meeting. Once the basics are sorted, you're free to run your first session, and BIRSA can help spread the word to other students.",
     ],

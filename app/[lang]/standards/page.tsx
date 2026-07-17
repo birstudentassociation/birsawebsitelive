@@ -58,7 +58,7 @@ const content: Record<
     principles: [
       {
         title: "Start with what students need",
-        body: "Every page exists because students asked a real question, not because it looked good on an org chart. If a page doesn't help you do something, we cut it.",
+        body: "Every page exists because students asked a real question, not because it looked good on an org chart. If a page does not help you do something, we cut it.",
       },
       {
         title: "Use simple, direct language",
@@ -79,7 +79,7 @@ const content: Record<
     ],
     a11yTitle: "Accessibility statement",
     a11yIntro:
-      "This is a voluntary accessibility statement, modelled on the one the UK Government Digital Service asks its services to publish. BIRSA is a student-run society, not a public body, so no law requires this — we publish it because we think every site should be honest about how usable it is.",
+      "This is a voluntary accessibility statement, modelled on the one the UK Government Digital Service asks its services to publish. BIRSA is a student-run society, not a public body, so no law requires this. We publish it because we think every site should be honest about how usable it is.",
     a11yComplianceStatus:
       "This site is partially compliant with the Web Content Accessibility Guidelines (WCAG) 2.2 level AA. “Partially” because of the known issues listed below, not because of a specific failure we are aware of.",
     a11yWhatWeDoTitle: "What we do",
@@ -87,14 +87,14 @@ const content: Record<
       "Every feature can be operated with a keyboard alone, with a visible focus indicator.",
       "Pages use correct heading structure and landmark regions so screen readers can navigate them predictably.",
       "Our colour palette is contrast-checked, and we never use colour as the only way to convey meaning.",
-      "Motion respects your system's \"reduce motion\" setting: we don't add animation that ignores it.",
+      "Motion respects your system's \"reduce motion\" setting: we do not add animation that ignores it.",
       "Pages stay readable and usable at 320px-wide screens and at 400% browser zoom.",
       "The whole site is bilingual, with the correct `lang` attribute set on every page.",
       "The site supports both light and dark colour modes, both checked against WCAG contrast requirements. It follows your device setting by default, and you can switch it any time with the toggle in the header.",
     ],
     a11yTestTitle: "How we test",
     a11yTest:
-      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users — that is the main gap between “we test” and “we are certain”.",
+      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users. That is the main gap between “we test” and “we are certain”.",
     a11yLimitsTitle: "Known issues",
     a11yLimitsIntro:
       "We would rather name what is not done than imply everything is perfect. These are the things we know about:",

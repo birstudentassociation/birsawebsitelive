@@ -1,14 +1,14 @@
 export type RatingBarProps = {
   label: string;
-  /** 0–`max`. */
+  /** 0 to `max`. */
   value: number;
   max?: number;
-  /** e.g. "/ 5" — appended after the numeric value. */
+  /** e.g. "/ 5": appended after the numeric value. */
   outOf: string;
 };
 
 /**
- * A single labelled magnitude bar, e.g. "Workload — 2.0 / 5". Reuses the same
+ * A single labelled magnitude bar, e.g. "Workload: 2.0 / 5". Reuses the same
  * single-hue bar language as `CourseStats`' track breakdown: identity comes
  * from the adjacent label, not from color, so every bar stays the same
  * brand-red fill regardless of what it measures.

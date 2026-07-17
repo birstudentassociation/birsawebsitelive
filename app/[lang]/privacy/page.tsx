@@ -43,15 +43,15 @@ const content: Record<
     lede: "A plain-language summary of what we collect on this site, and why: there's less than you might think.",
     collectTitle: "What we collect",
     collectBody:
-      "When you use a contact form on this site, we collect what you type in: your name, email address, and message. We use this only to reply to you, and it's sent to us by email. We don't store form submissions in a database.",
+      "When you use a contact form on this site, we collect what you type in: your name, email address, and message. We use this only to reply to you, and it's sent to us by email. We do not store form submissions in a database.",
     cookiesTitle: "Cookies",
     cookiesBody:
-      "This site sets one functional cookie, NEXT_LOCALE, which remembers whether you last read the site in Thai or English so we don't ask again. We don't set any tracking or advertising cookies. If you switch the light/dark mode toggle, we also save that choice in your browser's local storage (key birsa-theme) so the site remembers it next time. This stays on your device and is never sent to us.",
+      "This site sets one functional cookie, NEXT_LOCALE, which remembers whether you last read the site in Thai or English so we do not ask again. We do not set any tracking or advertising cookies. If you switch the light/dark mode toggle, we also save that choice in your browser's local storage (key birsa-theme) so the site remembers it next time. This stays on your device and is never sent to us.",
     analyticsTitle: "Analytics",
     analyticsBody:
-      "We use cookieless, privacy-friendly analytics that count things like page views in aggregate. This doesn't identify you personally and can't be linked back to an individual visitor.",
+      "We use cookieless, privacy-friendly analytics that count things like page views in aggregate. This does not identify you personally and cannot be linked back to an individual visitor.",
     adsTitle: "No ads, no data sales",
-    adsBody: "We don't run advertising on this site, and we never sell or share your data with third parties.",
+    adsBody: "We do not run advertising on this site, and we never sell or share your data with third parties.",
     choicesTitle: "Your choices and questions",
     choicesBody:
       "You can clear your cookies at any time using your browser settings. This just means we'll ask your language preference again. If you have any questions about this notice or your data, get in touch.",

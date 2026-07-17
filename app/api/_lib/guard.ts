@@ -3,7 +3,7 @@
  * in-memory rate limiter. Underscore-prefixed directory so Next.js does not
  * treat this as a route.
  *
- * In-memory state is fine here — a serverless cold start just resets the
+ * In-memory state is fine here: a serverless cold start just resets the
  * counters, which only makes the limiter slightly more permissive, never
  * less safe.
  */

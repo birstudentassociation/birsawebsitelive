@@ -11,7 +11,7 @@ import { ConsoleNav, LogoutButton } from "@/components/inventory/ConsoleGate";
  * Console shell for the inventory management suite. Never indexed: reachable
  * only by officers who know the URL and have an account. Auth gating happens
  * per-page (via `getSessionOfficer()`), not here, so `{children}` is always
- * rendered — this layout only supplies the header/nav chrome around it.
+ * rendered; this layout only supplies the header/nav chrome around it.
  */
 export async function generateMetadata({
   params,
@@ -26,7 +26,7 @@ export async function generateMetadata({
   const description =
     locale === "th"
       ? "CBEMS ระบบจัดการครุภัณฑ์กลางของ BIR สำหรับเจ้าหน้าที่ใช้จัดการครุภัณฑ์และการยืม-คืน"
-      : "CBEMS — the Central BIR Equipment Management System console for officers to manage inventory and loans.";
+      : "CBEMS: the Central BIR Equipment Management System console for officers to manage inventory and loans.";
 
   const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory" });
   return { ...metadata, robots: { index: false, follow: false } };
@@ -34,7 +34,7 @@ export async function generateMetadata({
 
 type NavCopy = {
   consoleName: string;
-  /** aria-label for the primary console nav — distinct from the page's
+  /** aria-label for the primary console nav, distinct from the page's
    * breadcrumb trail, which uses `dict.a11y.breadcrumb`. */
   navLabel: string;
   dashboard: string;

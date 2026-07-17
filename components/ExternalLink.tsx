@@ -4,7 +4,7 @@ import VisuallyHidden from "@/components/VisuallyHidden";
 export type ExternalLinkProps = {
   href: string;
   children: React.ReactNode;
-  /** dict.a11y.newTab — passed as a prop so this stays a server component. */
+  /** dict.a11y.newTab: passed as a prop so this stays a server component. */
   newTabLabel: string;
   className?: string;
 };

@@ -54,7 +54,7 @@ const copy: Record<Locale, Copy> = {
     title: "Officers",
     lede: "Manage who can sign in to the inventory console and what they can do.",
     consoleHomeLabel: "Officer console",
-    signInNeededTitle: "Please sign in on the console home",
+    signInNeededTitle: "Sign in on the console home",
     signInNeededBody: "You need an active officer session to manage officer accounts.",
     signInLink: "Go to console home",
     adminsOnlyTitle: "Admins only",

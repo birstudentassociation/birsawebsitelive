@@ -82,7 +82,7 @@ const copy: Record<Locale, Copy> = {
     errorValidation: "Check the values and try again",
     errorForbidden: "You do not have permission to do this",
     errorNotConfigured: "The inventory database is not set up, so this could not be saved",
-    errorGeneric: "Something went wrong. Please try again.",
+    errorGeneric: "Something went wrong. Try again.",
     addedMessage: "Officer added.",
     listTitle: "Officer accounts",
     listEmpty: "No officer accounts yet.",
@@ -328,7 +328,7 @@ export default function OfficersManager({
 
   function handleRoleChange(officerRow: Officer, nextRole: Role) {
     if (nextRole === officerRow.role) return;
-    // Role changes grant/revoke access, so confirm first — consistent with the
+    // Role changes grant/revoke access, so confirm first, consistent with the
     // deactivate action (GDS error prevention).
     const confirmText = t.roleChangeConfirm(officerRow.name, t.roleLabels[nextRole]);
     if (typeof window !== "undefined" && !window.confirm(confirmText)) {

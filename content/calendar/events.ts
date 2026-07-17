@@ -1,14 +1,14 @@
 /**
- * Front-page activity calendar — the dated items pulled from BIRSA's monthly
+ * Front-page activity calendar: the dated items pulled from BIRSA's monthly
  * "activity calendar" Instagram posts (June + July 2026). Each event links
  * through to a news/event post via `slug` (locale-less; the calendar builds
  * the locale-aware href). Kept as plain, serialisable data so it can be
  * passed straight into the client `<EventCalendar>` component.
  *
  * `kind` drives the colour accent:
- *   birsa      — BIRSA's own activities (brand red)
- *   academic   — registration / payment / course dates (forest green)
- *   university — university & faculty commemorations (warning amber)
+ *   birsa      : BIRSA's own activities (brand red)
+ *   academic   : registration / payment / course dates (forest green)
+ *   university : university and faculty commemorations (warning amber)
  */
 import type { Locale } from "@/lib/i18n";
 
@@ -33,8 +33,8 @@ export const calendarEvents: CalendarEvent[] = [
     start: "2026-06-02",
     end: "2026-06-08",
     title: {
-      en: "Summer late registration & add–drop (S/2026)",
-      th: "ลงทะเบียนล่าช้าและเพิ่ม–ถอนรายวิชา ภาคฤดูร้อน (S/2026)",
+      en: "Summer late registration and add-drop (S/2026)",
+      th: "ลงทะเบียนล่าช้าและเพิ่ม-ถอนรายวิชา ภาคฤดูร้อน (S/2026)",
     },
     slug: "june-2026-activity-calendar",
     kind: "academic",
@@ -117,8 +117,8 @@ export const calendarEvents: CalendarEvent[] = [
     id: "jul-course-reg-6568",
     start: "2026-07-13",
     title: {
-      en: "Course registration (student ID 65–68)",
-      th: "ลงทะเบียนเรียน (รหัส 65–68)",
+      en: "Course registration (student ID 65 to 68)",
+      th: "ลงทะเบียนเรียน (รหัส 65 ถึง 68)",
     },
     slug: "july-2026-activity-calendar",
     kind: "academic",
@@ -128,8 +128,8 @@ export const calendarEvents: CalendarEvent[] = [
     start: "2026-07-13",
     end: "2026-07-31",
     title: {
-      en: "Course payment period (student ID 65–68)",
-      th: "ช่วงชำระเงินค่าลงทะเบียน (รหัส 65–68)",
+      en: "Course payment period (student ID 65 to 68)",
+      th: "ช่วงชำระเงินค่าลงทะเบียน (รหัส 65 ถึง 68)",
     },
     slug: "july-2026-activity-calendar",
     kind: "academic",

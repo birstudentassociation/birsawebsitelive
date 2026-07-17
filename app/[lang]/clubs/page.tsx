@@ -46,7 +46,7 @@ const copy: Record<
       "The clubs listed below are examples: BIRSA will replace them with the real, current club list.",
     startTitle: "Don't see your thing? Start a club.",
     startBody:
-      "If a handful of you share an interest that isn't covered yet, BIRSA can help you set up a new club. It's a simpler process than you'd think.",
+      "If a handful of you share an interest that is not covered yet, BIRSA can help you set up a new club. It's a simpler process than you'd think.",
     startCta: "Start a club",
   },
   th: {

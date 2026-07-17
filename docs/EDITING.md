@@ -7,7 +7,7 @@
 "Going live" ด้านล่างทุกครั้ง
 
 This guide is for whoever on the BIRSA committee is adding or updating content on the portal.
-No coding knowledge is required beyond editing text files — but a few rules keep the two
+No coding knowledge is required beyond editing text files. A few rules keep the two
 language versions correct and keep the site's automated checks (`npm run test`) passing.
 
 ## The golden rules
@@ -15,7 +15,7 @@ language versions correct and keep the site's automated checks (`npm run test`) 
 1. **Same slug in both locales.** Every news post, service guide, about page, or student-life
    entry has an English kebab-case filename (e.g. `freshers-orientation-2026.mdx`). The Thai and
    English versions of the same piece of content **must use the identical filename** in their
-   respective `en/` and `th/` folders — that's how the site matches them up and builds the
+   respective `en/` and `th/` folders; that's how the site matches them up and builds the
    language toggle correctly.
 2. **Never machine-translate.** Write the Thai version for Thai readers and the English version
    for English readers, independently. They should cover the same facts, but the wording,
@@ -25,8 +25,8 @@ language versions correct and keep the site's automated checks (`npm run test`) 
    member's name, an exact date, a room number), write something plausible but obviously
    temporary, add `placeholder: true` to the frontmatter (where the content type supports it),
    and add a `<Notice variant="placeholder">` at the top of the page saying it's example content.
-4. **Never invent real people's names.** Use role titles instead — "President", "Head of Student
-   Welfare" — never a made-up name for a real person.
+4. **Never invent real people's names.** Use role titles instead, like "President" or "Head of Student
+   Welfare", never a made-up name for a real person.
 
 ## Adding a news post or event
 
@@ -38,13 +38,13 @@ Create both files with the **same `<slug>.mdx` filename**.
 ```mdx
 ---
 title: "Your headline here"
-summary: "One sentence summarising the post — shown on cards and in search results."
+summary: "One sentence summarising the post, shown on cards and in search results."
 date: 2026-08-01
 type: news
 category: announcements
 ---
 
-<Notice variant="placeholder">Example content — BIRSA will replace this with real announcements.</Notice>
+<Notice variant="placeholder">Example content. BIRSA will replace this with real announcements.</Notice>
 
 Write the body of the post here in plain Markdown. Use `##` for section headings if the post
 is long enough to need them.
@@ -72,36 +72,36 @@ Body copy here.
 
 Optional fields for either type:
 
-- `links` — an array of `{ label, href }` for related links (e.g. a registration form).
-- `placeholder: true` — add this while the post is still example content.
+- `links`: an array of `{ label, href }` for related links (e.g. a registration form).
+- `placeholder: true`: add this while the post is still example content.
 
 Remove the `<Notice variant="placeholder">` line and the `placeholder: true` frontmatter field
 once the post is real.
 
 ## Editing clubs
 
-Clubs are **not** MDX files — they're a single typed list in `content/clubs/clubs.ts`. Find the
+Clubs are **not** MDX files; they're a single typed list in `content/clubs/clubs.ts`. Find the
 club you want to edit (or copy an existing entry as a starting point for a new one) and update
 these fields:
 
 | Field                | Notes                                                                                 |
 | --------------------- | -------------------------------------------------------------------------------------- |
-| `key`                 | Internal identifier — lowercase, hyphenated, doesn't need to match anything visible.   |
-| `slug`                | The URL segment (`/clubs/<slug>`) — English kebab-case, must be unique.                |
+| `key`                 | Internal identifier: lowercase, hyphenated. Does not need to match anything visible.   |
+| `slug`                | The URL segment (`/clubs/<slug>`): English kebab-case, must be unique.                |
 | `category`            | One of `academic`, `sports`, `arts`, `community`, `social`.                            |
 | `placeholder`         | `true` while this is example content; set to `false` once BIRSA confirms it's real.    |
-| `email` / `instagram` | Optional contact details — omit the field entirely if the club doesn't have one.       |
+| `email` / `instagram` | Optional contact details: omit the field entirely if the club does not have one.       |
 | `join.open`           | Whether the club is currently open to new members.                                    |
-| `en` / `th`           | Each has `name`, `tagline`, `description` (an array of 2–3 paragraph strings), `meets` (optional), `lead` (a **role title**, never a person's name), and `howToJoin`. |
+| `en` / `th`           | Each has `name`, `tagline`, `description` (an array of 2 to 3 paragraph strings), `meets` (optional), `lead` (a **role title**, never a person's name), and `howToJoin`. |
 
 Every club needs **both** an `en` block and a `th` block, written natively (not translated).
-Keep `slug` values unique across the whole file — the content test suite checks this.
+Keep `slug` values unique across the whole file; the content test suite checks this.
 
 ## Committee roster and portraits
 
 The committee roster shown on the "What is BIRSA?" about page (`content/about/{en,th}/birsa.mdx`,
 rendered via the `<CommitteeRoster />` component) comes from a single typed file:
-`content/committee.ts`. It is **not** MDX — edit the array directly.
+`content/committee.ts`. It is **not** MDX; edit the array directly.
 
 ### Editing `content/committee.ts`
 
@@ -109,40 +109,40 @@ Each entry in the `committee` array is one person, with these fields:
 
 | Field           | Notes                                                                                     |
 | --------------- | ------------------------------------------------------------------------------------------ |
-| `key`           | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem — see below. Don't change an existing member's `key` casually, since it's tied to their photo filename. |
+| `key`           | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem, see below. Do not change an existing member's `key` casually, since it's tied to their photo filename. |
 | `group`         | Either `"officer"` (core committee) or `"assistant"` (assistant officers).                |
-| `en` / `th`     | Each has `firstName`, `lastName`, `nickname`, and `title` — all required, written in that language. |
+| `en` / `th`     | Each has `firstName`, `lastName`, `nickname`, and `title`, all required, written in that language. |
 
 To add a new committee member, copy an existing entry as a template, give them a unique `key`,
 and fill in both the `en` and `th` blocks. To remove someone, delete their entry. To update a
 title after a re-shuffle, just edit the `title` field in both `en` and `th`.
 
 Group headings ("Officers" / "Assistant Officers" and their Thai equivalents) come from
-`committeeGroupLabels` in the same file — edit those if the group names themselves change.
+`committeeGroupLabels` in the same file; edit those if the group names themselves change.
 
-**Never add an email address or student ID to this file** — the roster is public-facing, and
+**Never add an email address or student ID to this file.** The roster is public-facing, and
 `tests/unit/content.test.ts` checks that no entry contains one.
 
 ### Adding a portrait photo
 
-Portraits are optional — any committee member without a photo automatically gets a neutral
+Portraits are optional. Any committee member without a photo automatically gets a neutral
 placeholder icon, so there's no rush to have photos for everyone before publishing an update.
 
 To add or replace a photo:
 
 1. Crop the photo to a square, ideally at least 640×640px.
-2. Keep the file size small — aim for under ~300 KB (re-export/compress if needed).
+2. Keep the file size small: aim for under ~300 KB (re-export/compress if needed).
 3. Name the file **exactly** `<key>.<extension>`, matching the member's `key` in
-   `content/committee.ts` — e.g. `chayapon-srisukho.jpg`. Accepted extensions: `.webp`, `.jpg`,
+   `content/committee.ts`, e.g. `chayapon-srisukho.jpg`. Accepted extensions: `.webp`, `.jpg`,
    `.jpeg`, `.png` (checked in that order if more than one exists for the same key).
 4. Drop the file into `public/committee/`.
-5. Commit and push — no code changes are needed. The site picks up the photo automatically on
+5. Commit and push. No code changes are needed. The site picks up the photo automatically on
    the next build; if the file is missing or misnamed, that member just keeps showing the
    placeholder icon instead of erroring.
 
 ## Quick actions (`content/quick.ts`)
 
-`content/quick.ts` powers the `/quick` page — BIRSA's "link in bio" page. It's organised into
+`content/quick.ts` powers the `/quick` page, BIRSA's "link in bio" page. It's organised into
 `quickGroups`, each with a heading and a list of `items`. Each item needs `key`, `href` (an
 internal path like `/activity/roles`, or a full external URL with `external: true`), an
 `icon` (pick from the existing `QuickIcon` union), and `en`/`th` blocks with a `label` and
@@ -197,14 +197,14 @@ Before telling students a piece of content is final, go through this checklist:
       relevant `clubs.ts` entry).
 - [ ] Remove any `<Notice variant="placeholder">…</Notice>` block from the MDX body.
 - [ ] Replace any obviously generic names, dates, room numbers, or links with the real details.
-- [ ] Check both the Thai and English versions were updated — not just one.
+- [ ] Check both the Thai and English versions were updated, not just one.
 - [ ] Re-run `npm run test` locally (or check the next deploy) to confirm the content still
       passes validation (a required field can't be blank, dates must be `YYYY-MM-DD`, etc.).
 
 ## Voice and language
 
 - **Write natively, not by translating.** The Thai and English versions should read like two
-  people who each know their own audience wrote them — not like one was run through a
+  people who each know their own audience wrote them, not like one was run through a
   translator.
 - **English**: plain, direct, warm. Short sentences, active verbs, sentence case even in
   headings. "You" is the student, "we" is BIRSA.
@@ -219,6 +219,6 @@ The site is deployed on Vercel and auto-deploys from this repository. To publish
 1. Edit the content files (or `clubs.ts` / `quick.ts`) directly.
 2. Commit your change with a clear message describing what you added or updated.
 3. Push to the repository's main branch.
-4. Vercel automatically builds and deploys the new version — no manual deploy step needed. If the
+4. Vercel automatically builds and deploys the new version. No manual deploy step needed. If the
    build fails (for example, invalid frontmatter), Vercel will show the error and the previous
    version stays live until it's fixed.

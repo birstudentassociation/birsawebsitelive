@@ -79,7 +79,7 @@ export async function POST(request: Request) {
     detail: { decision, unitId: unitId ?? null },
   });
 
-  // Best-effort student outcome email — never blocks the response.
+  // Best-effort student outcome email; never blocks the response.
   const apiKey = process.env.RESEND_API_KEY;
   if (apiKey) {
     try {

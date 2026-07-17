@@ -56,10 +56,10 @@ const copy: Record<
     jumpNavLabel: "Jump to a club",
     notConfiguredTitle: "This directory is still being set up",
     notConfiguredBody:
-      "Club equipment listings aren't available online yet. Please contact BIRSA for help reaching a club.",
+      "Club equipment listings are not available online yet. Contact BIRSA for help reaching a club.",
     contactLink: "Contact BIRSA",
     noClubsTitle: "No clubs listed yet",
-    noClubsBody: "BIRSA hasn't published any club equipment listings yet. Check back soon.",
+    noClubsBody: "BIRSA has not published any club equipment listings yet. Check back soon.",
     noItemsLine: "No items listed yet.",
     availableHint: "Available",
     unavailableHint: "Currently out",

@@ -1,7 +1,7 @@
 import { en } from "./en";
 
 /**
- * Thai UI microcopy — authored natively in Thai, not translated from English.
+ * Thai UI microcopy: authored natively in Thai, not translated from English.
  * น้ำเสียง: ตรงไปตรงมา อ่านง่าย เหมือนรุ่นพี่คุยกับรุ่นน้อง สุภาพแต่ไม่เป็นทางการจนแข็ง
  * โครงสร้างต้องตรงกับ en (typeof en) แต่ถ้อยคำเขียนขึ้นใหม่สำหรับผู้อ่านภาษาไทย
  */
@@ -167,10 +167,10 @@ export const th: typeof en = {
       "general-education": "ศึกษาทั่วไป",
       core: "วิชาบังคับ",
       required: "วิชาบังคับเฉพาะ",
-      "elective-area": "วิชาเลือก — อาณาบริเวณศึกษา",
-      "elective-approach": "วิชาเลือก — แนวทางการศึกษา",
-      "minor-required": "วิชาโท — บังคับ",
-      "minor-elective": "วิชาโท — เลือก",
+      "elective-area": "วิชาเลือก: อาณาบริเวณศึกษา",
+      "elective-approach": "วิชาเลือก: แนวทางการศึกษา",
+      "minor-required": "วิชาโท: บังคับ",
+      "minor-elective": "วิชาโท: เลือก",
       "free-elective": "วิชาเลือกเสรี",
     },
     credits: "หน่วยกิต",

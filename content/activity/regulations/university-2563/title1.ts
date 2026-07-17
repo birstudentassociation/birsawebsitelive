@@ -2,7 +2,7 @@ import type { Section } from "../types";
 
 /**
  * Title 1 (ลักษณะ ๑): Rights and duties of students in student activities
- * (ข้อ 5–6), of the Regulation of Thammasat University on Student
+ * (ข้อ 5 to 6), of the Regulation of Thammasat University on Student
  * Activities, B.E. 2563 (2020).
  */
 export const title1: Section = {

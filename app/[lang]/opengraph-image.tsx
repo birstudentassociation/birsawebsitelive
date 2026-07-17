@@ -10,7 +10,7 @@ export const contentType = "image/png";
  * Shared Open Graph image for every page under `/[lang]` (Next.js falls back
  * to this for any route that doesn't define its own). Runs on the default
  * Node.js runtime (not edge) so it can read the bundled logo and Sarabun font
- * files from disk with `fs` — Satori (which next/og uses) ships no default
+ * files from disk with `fs`; Satori (which next/og uses) ships no default
  * font, so fonts must be supplied explicitly, and Sarabun covers both Latin
  * and Thai glyphs for the subtitle.
  */

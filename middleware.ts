@@ -52,7 +52,7 @@ function generateNonce(): string {
  * A per-request nonce authorises the inline theme script in the layout; Next
  * automatically applies the same nonce to its own scripts once it sees this
  * header on the request. Styles keep `'unsafe-inline'` (React inline styles /
- * Tailwind), so no nonce is added there — a nonce would disable that keyword.
+ * Tailwind), so no nonce is added there; a nonce would disable that keyword.
  * `va.vercel-scripts.com` is Vercel Analytics; its beacon posts to `'self'`.
  */
 function buildCsp(nonce: string): string {
@@ -87,7 +87,7 @@ export function middleware(request: NextRequest) {
   let activeLocale: Locale;
 
   if (isLocale(firstSegment)) {
-    // Already locale-prefixed — pass through, but refresh the cookie so the
+    // Already locale-prefixed: pass through, but refresh the cookie so the
     // visited locale is what persists for next time. Forward the nonce (and the
     // CSP) on the request so the layout can read `x-nonce` and Next can nonce
     // its own inline scripts.
@@ -97,7 +97,7 @@ export function middleware(request: NextRequest) {
     requestHeaders.set("Content-Security-Policy", csp);
     response = NextResponse.next({ request: { headers: requestHeaders } });
   } else {
-    // No locale prefix — redirect into the detected locale.
+    // No locale prefix: redirect into the detected locale.
     activeLocale = detectLocale(request);
     const url = request.nextUrl.clone();
     url.pathname = `/${activeLocale}${pathname === "/" ? "" : pathname}`;

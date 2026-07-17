@@ -89,8 +89,8 @@ const SERVER_FIELD_TO_STEP: Record<string, LoanWizardStep> = {
 };
 
 /**
- * Progressive-enhancement wrapper. Before hydration — and for anyone without
- * JavaScript — it renders an all-fields fallback form that posts to a server
+ * Progressive-enhancement wrapper. Before hydration, and for anyone without
+ * JavaScript, it renders an all-fields fallback form that posts to a server
  * action and completes the loan request HTML-first (Service Manual: "a user can
  * complete the journey using HTML alone"). Once JS loads, it swaps to the
  * richer one-question-per-page wizard. Server and first client render both

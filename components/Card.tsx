@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 export type CardProps = {
   /** When provided, pass the same `href` to a `CardTitle` inside this card
-   * so its stretched link makes the whole card clickable — the title text
+   * so its stretched link makes the whole card clickable: the title text
    * becomes the accessible name for the entire clickable area. */
   href?: string;
   className?: string;

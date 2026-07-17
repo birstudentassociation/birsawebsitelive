@@ -48,8 +48,8 @@ export async function generateMetadata({
 
 const gateCopy: Record<Locale, { title: string; body: string; cta: string }> = {
   en: {
-    title: "Please sign in",
-    body: "Please sign in on the console home to manage the inventory catalogue.",
+    title: "Sign in",
+    body: "Sign in on the console home to manage the inventory catalogue.",
     cta: "Go to console home",
   },
   th: {

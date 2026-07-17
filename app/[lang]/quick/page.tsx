@@ -57,7 +57,7 @@ function QuickLinkRow({
   const rowClasses =
     "border-line bg-surface flex min-h-14 w-full items-center gap-3 rounded-lg border p-3.5 shadow-sm transition-shadow duration-150";
 
-  // The email item's hint is the address itself — never render it as
+  // The email item's hint is the address itself; never render it as
   // plaintext (it would leak to scrapers even without an <a href>), so this
   // row skips the hint and instead makes the whole row a scrape-proof
   // <Email> link (entity-encoded) using the stretched-link pattern: the
@@ -78,7 +78,7 @@ function QuickLinkRow({
         {isEmail ? (
           // The whole row is the <Email> stretched link (see below), so
           // this label is decorative markup duplicating its accessible
-          // name — hide it from assistive tech to avoid double-announcing.
+          // name; hide it from assistive tech to avoid double-announcing.
           <span className="text-ink block font-semibold" aria-hidden="true">
             {copy.label}
           </span>
@@ -108,7 +108,7 @@ function QuickLinkRow({
         <ChevronIcon />
         {/* Stretched link: a full-area anchor on top of the row supplies
             the accessible name and the scrape-proof mailto href. Its own
-            text is rendered transparent (not hidden — hidden/zero-size
+            text is rendered transparent (not hidden; hidden/zero-size
             text wouldn't cover the row) since the icon/label/chevron
             above already show the same information to sighted users; the
             global :focus-visible outline still renders on top. */}

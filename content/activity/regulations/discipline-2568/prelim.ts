@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Preliminary provisions (ข้อ 1–5) of the Regulation of Thammasat University
+ * Preliminary provisions (ข้อ 1 to 5) of the Regulation of Thammasat University
  * on Student Discipline, B.E. 2568 (2025).
  */
 export const preliminary: Section = {

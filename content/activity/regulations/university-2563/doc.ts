@@ -1,7 +1,7 @@
 /**
  * Assembles the University Regulation on Student Activities, B.E. 2563, from
  * its per-section modules (one Title/Chapter group per file). Title 3 is
- * stitched from its two authoring halves (Chapters 1–3 and 4–5).
+ * stitched from its two authoring halves (Chapters 1 to 3 and 4 to 5).
  */
 import type { RegulationDoc, Section } from "../types";
 import { uniMeta } from "./meta";

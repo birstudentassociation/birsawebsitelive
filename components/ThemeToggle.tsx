@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 
 export type ThemeToggleProps = {
-  /** dict.a11y.theme — neutral label shown before hydration/mount. */
+  /** dict.a11y.theme: neutral label shown before hydration/mount. */
   neutralLabel: string;
-  /** dict.a11y.themeDark — shown when the resolved theme is light (pressed=false). */
+  /** dict.a11y.themeDark: shown when the resolved theme is light (pressed=false). */
   darkLabel: string;
-  /** dict.a11y.themeLight — shown when the resolved theme is dark (pressed=true). */
+  /** dict.a11y.themeLight: shown when the resolved theme is dark (pressed=true). */
   lightLabel: string;
 };
 

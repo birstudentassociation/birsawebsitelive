@@ -26,7 +26,7 @@ const sectionLabel: Record<Locale, string> = {
 };
 
 const guidesLabel: Record<Locale, string> = {
-  en: "Student life & culture guides",
+  en: "Student life and culture guides",
   th: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
 };
 
@@ -43,7 +43,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale,
-    title: `${course.code} — ${course.title[locale]}`,
+    title: `${course.code}: ${course.title[locale]}`,
     description: course.description[locale],
     path: `/student-life/home/course-reviews/${course.code}`,
   });
@@ -71,7 +71,7 @@ export default async function CourseDetailPage({
   return (
     <>
       <PageHeader
-        title={`${course.code} — ${course.title[locale]}`}
+        title={`${course.code}: ${course.title[locale]}`}
         lede={course.title[otherLocale]}
         breadcrumbs={
           <Breadcrumbs
@@ -178,7 +178,7 @@ export default async function CourseDetailPage({
                     &larr; {t.previous}
                   </span>
                   <span className="text-ink font-semibold">
-                    {prevCourse.code} — {prevCourse.title[locale]}
+                    {prevCourse.code}: {prevCourse.title[locale]}
                   </span>
                 </Link>
               ) : null}
@@ -193,7 +193,7 @@ export default async function CourseDetailPage({
                     {t.next} &rarr;
                   </span>
                   <span className="text-ink font-semibold">
-                    {nextCourse.code} — {nextCourse.title[locale]}
+                    {nextCourse.code}: {nextCourse.title[locale]}
                   </span>
                 </Link>
               ) : null}
@@ -259,7 +259,7 @@ function CourseReview({
               <li key={i} className="border-brand bg-sunken text-ink rounded-md border-l-4 p-4 text-sm">
                 <p className="italic">&ldquo;{quote.text[locale]}&rdquo;</p>
                 {quote.attribution ? (
-                  <p className="text-muted mt-2 text-xs">&mdash; {quote.attribution[locale]}</p>
+                  <p className="text-muted mt-2 text-xs">&middot; {quote.attribution[locale]}</p>
                 ) : null}
               </li>
             ))}

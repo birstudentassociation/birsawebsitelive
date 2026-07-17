@@ -53,7 +53,7 @@ export async function submitLoanLookup(
     return { status: "rate-limited" };
   }
 
-  // Honeypot filled — behave exactly like a miss, never reveal detection.
+  // Honeypot filled: behave exactly like a miss, never reveal detection.
   if (nickname) {
     return { status: "not-found" };
   }

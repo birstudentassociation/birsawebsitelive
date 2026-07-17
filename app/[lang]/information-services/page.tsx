@@ -68,13 +68,13 @@ const copy: Record<
       eyebrow: "From the University",
       title: "University services",
       description:
-        "Accident insurance, military-service postponement, certificates, counselling, and IT help — the University's services for students, in one place.",
+        "Accident insurance, military-service postponement, certificates, counselling, and IT help: the University's services for students, in one place.",
       cta: "See University services",
     },
     servicesHeading: "Services",
     informationHeading: "Information",
     informationLede:
-      "Course reviews, and the kind of student-life knowledge that doesn't fit in a syllabus: practical guides, cultural notes, and things students wish they'd known sooner. And so on.",
+      "Course reviews, and the kind of student-life knowledge that does not fit in a syllabus: practical guides, cultural notes, and things students wish they'd known sooner. And so on.",
     courseReviews: {
       eyebrow: "New",
       title: "Course reviews",
@@ -83,7 +83,7 @@ const copy: Record<
       cta: "See what's coming",
     },
     guides: {
-      title: "Student life & culture guides",
+      title: "Student life and culture guides",
       description:
         "Everyday guidance for all BIR students, plus the non-obvious stuff: getting around Tha Prachan, budgeting, health and safety, culture, and getting involved.",
       topicsLabel: "Top topics",
@@ -99,7 +99,7 @@ const copy: Record<
     },
     howToUseTitle: "How to use this page",
     howToUseBody:
-      "This page is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you don't need to read start to finish. If you spot something missing, out of date, or wrong, please tell BIRSA.",
+      "This page is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you do not need to read start to finish. If you spot something missing, out of date, or wrong, tell BIRSA.",
     reportGaps: "Report a gap",
   },
   th: {

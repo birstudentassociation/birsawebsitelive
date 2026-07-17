@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Chapter 3 (หมวด ๓): Disciplinary proceedings (ข้อ 13–24) of the Regulation
+ * Chapter 3 (หมวด ๓): Disciplinary proceedings (ข้อ 13 to 24) of the Regulation
  * of Thammasat University on Student Discipline, B.E. 2568 (2025).
  */
 export const chapter3: Section = {

@@ -44,7 +44,7 @@ const copy: Record<Locale, Copy> = {
     errorSummaryTitle: "There is a problem",
     errorRequired: "Enter your email and passcode",
     errorIncorrect: "Incorrect email or passcode",
-    errorNetwork: "Something went wrong. Please try again.",
+    errorNetwork: "Something went wrong. Try again.",
     notConfiguredTitle: "Officer accounts are not set up yet",
     notConfiguredBody: "This console has not been configured, so nobody can sign in yet.",
     signIn: "Sign in",

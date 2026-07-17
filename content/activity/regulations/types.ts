@@ -1,5 +1,5 @@
 /**
- * Typed model for the bilingual "regulations library" under /activity —
+ * Typed model for the bilingual "regulations library" under /activity,
  * documents rendered in a legislation.gov.uk-style layout (nested
  * Titles/Chapters/Divisions → numbered provisions, each with a short summary
  * heading / marginal note, an arrangement-of-provisions contents list, and
@@ -31,7 +31,7 @@ export type ProvisionItem = {
 /** A defined term (used by definitions provisions). */
 export type Definition = { term: Bi; meaning: Bi };
 
-/** An ordered content block inside a provision — lets prose paragraphs and
+/** An ordered content block inside a provision, lets prose paragraphs and
  * lists interleave in the exact order of the source. */
 export type Block =
   | { kind: "para"; text: Bi }
@@ -41,7 +41,7 @@ export type Block =
 export type Provision = {
   /** The provision (ข้อ) number. */
   num: number;
-  /** Very short summary heading — the legislation-style marginal note. */
+  /** Very short summary heading, the legislation-style marginal note. */
   title: Bi;
 
   // --- Simple shape (Faculty Notice) -------------------------------------
@@ -61,7 +61,7 @@ export type Provision = {
 };
 
 /** A heading node in the document tree. A node either groups sub-sections
- * (`children`) or holds `provisions` (a leaf) — deeply nested documents use
+ * (`children`) or holds `provisions` (a leaf); deeply nested documents use
  * both levels (Title → Chapter → Division → provisions). */
 export type Section = {
   /** Kind label, e.g. { en: "Chapter", th: "หมวด" }; omit for an unlabelled

@@ -1,7 +1,7 @@
 /**
  * English UI microcopy (site chrome, forms, shared labels).
  * Page and article prose lives in the MDX / content modules, authored
- * natively per language — this file is only the reusable interface strings.
+ * natively per language; this file is only the reusable interface strings.
  *
  * English voice: plain, direct, friendly. Short sentences. Active verbs.
  */
@@ -83,20 +83,20 @@ export const en = {
     message: "Message",
     category: "What is this about?",
     privacyNote:
-      "We use what you send only to answer you. We don't share it. See our privacy notice.",
+      "We use what you send only to answer you. We do not share it. See our privacy notice.",
     errorSummaryTitle: "There is a problem",
-    genericError: "Something went wrong. Please try again, or email us directly.",
+    genericError: "Something went wrong. Try again, or email us directly.",
     successTitle: "Thank you. Your message is on its way",
     successBody: "A member of the BIRSA committee will get back to you by email.",
-    fallbackTitle: "Email isn't set up yet",
-    fallbackBody: "Please send your message directly to:",
+    fallbackTitle: "Email is not set up yet",
+    fallbackBody: "Send your message directly to:",
     errors: {
       nameRequired: "Enter your name",
       emailRequired: "Enter your email address",
       emailInvalid: "Enter an email address in the correct format, like name@example.com",
       subjectRequired: "Enter a subject",
       messageRequired: "Enter your message",
-      messageShort: "Your message is a little short. Please add more detail",
+      messageShort: "Your message is a little short. Add more detail",
       categoryRequired: "Choose what this is about",
     },
   },
@@ -118,14 +118,14 @@ export const en = {
   },
 
   notFound: {
-    title: "We can't find that page",
+    title: "We cannot find that page",
     body: "It may have moved, or the link may be wrong. Try the main sections below.",
     home: "Go to the home page",
   },
 
   error: {
     title: "Sorry, there is a problem with this page",
-    body: "Please try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
+    body: "Try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
     tryAgain: "Try again",
     home: "Go to the home page",
   },
@@ -146,7 +146,7 @@ export const en = {
 
   courseReview: {
     title: "Course reviews",
-    lede: "Search the full BIR course catalog — codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
+    lede: "Search the full BIR course catalog: codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
     browseHeading: "Browse the catalog",
     searchPlaceholder: "Search by code, title, or keyword…",
     statsHeading: "At a glance",
@@ -159,18 +159,18 @@ export const en = {
     tracks: {
       foundational: "Foundational",
       "international-relations": "International Relations",
-      "governance-transnational": "Governance & Transnational Studies",
-      "public-admin-policy": "Public Administration & Policy",
+      "governance-transnational": "Governance and Transnational Studies",
+      "public-admin-policy": "Public Administration and Policy",
       "global-political-economy": "Global Political Economy",
     },
     categories: {
       "general-education": "General education",
       core: "Core",
       required: "Required",
-      "elective-area": "Elective — area studies",
-      "elective-approach": "Elective — approaches & issues",
-      "minor-required": "Minor — required",
-      "minor-elective": "Minor — elective",
+      "elective-area": "Elective: area studies",
+      "elective-approach": "Elective: approaches and issues",
+      "minor-required": "Minor: required",
+      "minor-elective": "Minor: elective",
       "free-elective": "Free elective",
     },
     credits: "credits",
@@ -198,7 +198,7 @@ export const en = {
     quotesHeading: "In their words",
     noReviewTitle: "No student review yet",
     noReviewBody:
-      "BIRSA hasn't collected a student review for this course yet. If you've taken it and are willing to write a short, honest one, get in touch.",
+      "BIRSA has not collected a student review for this course yet. If you've taken it and are willing to write a short, honest one, get in touch.",
     backToCatalog: "Back to the course catalog",
   },
 };

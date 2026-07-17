@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Transitional provisions (บทเฉพาะกาล, ข้อ 91–96) of the Regulation of
+ * Transitional provisions (บทเฉพาะกาล, ข้อ 91 to 96) of the Regulation of
  * Thammasat University on Student Activities, B.E. 2563 (2020).
  */
 export const transitional: Section = {

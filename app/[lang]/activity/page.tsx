@@ -42,7 +42,7 @@ const copy: Record<
     aboutHeading: "About BIRSA",
     rolesTitle: "Officer roles",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
-    governanceHeading: "Governance & transparency",
+    governanceHeading: "Governance and transparency",
     regsTitle: "Student regulations and rules",
     regsSummary: "The University's regulations that apply to us.",
     connectHeading: "Connect",

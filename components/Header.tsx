@@ -72,7 +72,7 @@ export default function Header({ locale }: HeaderProps) {
             darkLabel={dict.a11y.themeDark}
             lightLabel={dict.a11y.themeLight}
           />
-          {/* Wrapper handles the responsive hiding — Button's own display
+          {/* Wrapper handles the responsive hiding: Button's own display
               utility would win a class-level `hidden` conflict. */}
           <div className="hidden sm:block">
             <Button href={localeHref(locale, dict.headerCta.href)} variant="secondary">

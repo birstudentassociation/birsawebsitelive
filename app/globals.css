@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   BIRSA Portal — design tokens
+   BIRSA Portal: design tokens
    "Cream editorial" identity built on BIR red (#d81f26).
    Colour pairings below are chosen to meet WCAG 2.2 AA contrast.
    ========================================================================== */
@@ -12,12 +12,12 @@
   --color-sunken: #f3ead9; /* wells / subtle fills */
   --color-line: #e6dccb; /* hairline borders */
   --color-line-strong: #d9cbb2;
-  --color-input-border: #8a7a64; /* form input/textarea/select boundary — ≥3:1 (WCAG 1.4.11) */
+  --color-input-border: #8a7a64; /* form input/textarea/select boundary, ≥3:1 (WCAG 1.4.11) */
 
-  --color-ink: #211c19; /* body text — ~15:1 on cream */
-  --color-muted: #5b524a; /* secondary text — ~6.9:1 on cream */
+  --color-ink: #211c19; /* body text, ~15:1 on cream */
+  --color-muted: #5b524a; /* secondary text, ~6.9:1 on cream */
 
-  --color-brand: #d81f26; /* BIR red — AA on cream + white-on-red */
+  --color-brand: #d81f26; /* BIR red, AA on cream + white-on-red */
   --color-brand-dark: #b3161c; /* hover / active */
   --color-brand-strong: #b3161c; /* primary button hover/active fill */
   --color-brand-deep: #9e1319; /* red used as small text */
@@ -56,7 +56,7 @@
 }
 
 /* ==========================================================================
-   Dark mode — token overrides
+   Dark mode: token overrides
    Two identical scopes: an explicit user choice (`data-theme="dark"`) and a
    system-preference fallback for users who haven't chosen (no `data-theme`,
    or `data-theme="light"` explicitly opts back out). Contrast-verified: every
@@ -241,7 +241,7 @@ html[lang="th"] .font-display {
     color: #fff;
   }
 
-  /* WCAG 2.2 — 2.4.7 focus visible + 2.4.11 focus not obscured + strong
+  /* WCAG 2.2: 2.4.7 focus visible + 2.4.11 focus not obscured + strong
      focus appearance. A dark ring with offset reads on cream, white and red. */
   :focus-visible {
     outline: 3px solid var(--color-ink);
@@ -294,7 +294,7 @@ html[lang="th"] .font-display {
     }
   }
 
-  /* Skip link — hidden until focused (keyboard). */
+  /* Skip link: hidden until focused (keyboard). */
   .skip-link {
     position: fixed;
     top: 0.75rem;
@@ -314,7 +314,7 @@ html[lang="th"] .font-display {
     color: var(--color-cream);
   }
 
-  /* Theme toggle icon swap — CSS-only so it's correct before hydration.
+  /* Theme toggle icon swap: CSS-only so it's correct before hydration.
      Light (default): moon shown ("switch to dark"). Dark (either explicit
      data-theme or system preference): sun shown ("switch to light"). */
   .theme-icon-sun {

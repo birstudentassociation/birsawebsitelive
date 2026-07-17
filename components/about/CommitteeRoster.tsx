@@ -1,12 +1,12 @@
 /**
  * Renders the real BIRSA committee roster (`content/committee.ts`) as two
- * labelled sections — officers, then assistant officers. Server component:
+ * labelled sections: officers, then assistant officers. Server component:
  * portraits are resolved from the filesystem at render time (same pattern
  * as `lib/content.ts`'s build-time `fs` reads), so BIRSA can drop a photo
  * into `public/committee/<key>.{webp,jpg,jpeg,png}` with no code change.
  *
  * Used from `content/about/{en,th}/birsa.mdx` via the MDX component map in
- * `lib/mdx.tsx`. Rendered as `<h3>` group headings — it sits under the `##`
+ * `lib/mdx.tsx`. Rendered as `<h3>` group headings: it sits under the `##`
  * ("Committee structure") heading in the MDX, so heading order stays
  * sequential (h2 -> h3).
  */

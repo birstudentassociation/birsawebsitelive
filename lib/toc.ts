@@ -2,7 +2,7 @@
  * Table-of-contents extraction for MDX sources.
  *
  * Pulls `##` (h2) headings from the raw MDX string and generates the same
- * ids rehype-slug will produce at render time — both use github-slugger,
+ * ids rehype-slug will produce at render time; both use github-slugger,
  * so anchor links always match the rendered heading ids (including Thai
  * headings, whose characters github-slugger preserves).
  */

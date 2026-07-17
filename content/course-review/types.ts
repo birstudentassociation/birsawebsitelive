@@ -1,6 +1,6 @@
 /**
  * Typed model for the PI (Politics and International Relations) course
- * catalog under /student-life/home/course-reviews — sourced from the
+ * catalog under /student-life/home/course-reviews. Sourced from the
  * Faculty of Political Science, Thammasat University curriculum document
  * (BIR programme, B.E. 2568/2025 revision).
  *
@@ -17,9 +17,9 @@ export type Bi = { en: string; th: string };
  * category is verifiable against the source rather than inferred.
  */
 export type CourseCategory =
-  | "general-education" // วิชาศึกษาทั่วไป (PI121, PI122 only — the PI-coded gen-ed courses)
-  | "core" // วิชาบังคับ — required of every BIR student
-  | "required" // วิชาบังคับเฉพาะ — major-required, but distinct from the "core" block
+  | "general-education" // วิชาศึกษาทั่วไป (PI121, PI122 only: the PI-coded gen-ed courses)
+  | "core" // วิชาบังคับ: required of every BIR student
+  | "required" // วิชาบังคับเฉพาะ: major-required, but distinct from the "core" block
   | "elective-area" // วิชาเลือก กลุ่มอาณาบริเวณศึกษา (Area Studies)
   | "elective-approach" // วิชาเลือก กลุ่มแนวทางการศึกษา (Approaches and Issues)
   | "minor-required" // วิชาโท: วิชาบังคับศึกษา (compulsory within a minor track)
@@ -28,12 +28,12 @@ export type CourseCategory =
 
 /**
  * The disciplinary track a course belongs to. Distinct from `category`
- * (which encodes *how* a course is required) — this encodes *what field* it
+ * (which encodes *how* a course is required). This encodes *what field* it
  * covers, derived from the curriculum's subject-group grouping (4.3.2.1) and
  * the three วิชาโท (minor) tracks in 4.3.2.2 §2.5.
  */
 export type CourseTrack =
-  | "foundational" // gen-ed + core + required-major + the free-elective internship — every student takes these regardless of minor
+  | "foundational" // gen-ed + core + required-major + the free-elective internship; every student takes these regardless of minor
   | "international-relations" // the Area Studies / Approaches and Issues elective pools (2.4)
   | "governance-transnational" // minor: กลุ่มวิชาโลกาภิบาลและประเด็นข้ามชาติ
   | "public-admin-policy" // minor: กลุ่มวิชาบริหารรัฐกิจและนโยบายสาธารณะ
@@ -49,7 +49,7 @@ export type CourseCredits = {
 
 /**
  * A course instructor, sourced from the Faculty of Political Science staff
- * directory (polsci.tu.ac.th/en/team). The name is bilingual — `en` is the
+ * directory (polsci.tu.ac.th/en/team). The name is bilingual: `en` is the
  * romanised form with academic title as shown on the faculty site, `th` is
  * the Thai form from the faculty directory. The mapping is drawn from each
  * lecturer's profile "Courses" listing; teaching assignments can change term
@@ -70,12 +70,12 @@ export type Instructor = {
 /** A short, optionally-attributed student quote about a course. */
 export type ReviewQuote = {
   text: Bi;
-  /** e.g. "3rd-year student" — kept general, never a real name. */
+  /** e.g. "3rd-year student"; kept general, never a real name. */
   attribution?: Bi;
 };
 
 /**
- * Structured, aggregated student feedback for a course — distinct from the
+ * Structured, aggregated student feedback for a course, distinct from the
  * official curriculum `description`. Optional: most courses won't have this
  * until BIRSA collects real submissions (see the course detail page's
  * "no review yet" state, which invites students to write one via /contact).
@@ -83,11 +83,11 @@ export type ReviewQuote = {
 export type StudentReview = {
   /** How many students' feedback this summary is drawn from. */
   reviewCount: number;
-  /** 1–5, overall recommendation. */
+  /** 1 to 5, overall recommendation. */
   overallRating: number;
-  /** 1–5, 1 = light workload, 5 = heavy. */
+  /** 1 to 5, 1 = light workload, 5 = heavy. */
   workloadRating: number;
-  /** 1–5, 1 = easy, 5 = very difficult. */
+  /** 1 to 5, 1 = easy, 5 = very difficult. */
   difficultyRating: number;
   workload: Bi;
   assessmentStyle: Bi;
@@ -113,6 +113,6 @@ export type Course = {
    */
   instructors?: Instructor[];
   description: Bi;
-  /** Aggregated student review — present only once BIRSA has collected one. */
+  /** Aggregated student review: present only once BIRSA has collected one. */
   review?: StudentReview;
 };

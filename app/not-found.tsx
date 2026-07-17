@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 /**
  * Global (root) not-found. The only root layout lives under `app/[lang]`, so
- * paths that never enter a `[lang]` segment — e.g. a bad locale prefix, or an
- * unmatched top-level path — render THIS boundary with no layout above it.
+ * paths that never enter a `[lang]` segment (e.g. a bad locale prefix, or an
+ * unmatched top-level path) render THIS boundary with no layout above it.
  * It must therefore emit its own `<html lang>` + `<body>` (WCAG 3.1.1); the
  * segment-level `app/[lang]/not-found.tsx` handles in-locale misses with the
  * full site chrome.

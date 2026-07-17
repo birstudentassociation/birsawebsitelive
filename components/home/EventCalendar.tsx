@@ -9,7 +9,7 @@ import type { CalendarEvent, CalendarEventKind } from "@/content/calendar/events
 export type EventCalendarLabels = {
   prevMonth: string;
   nextMonth: string;
-  selectedFor: string; // "Events on {date}" — {date} is substituted
+  selectedFor: string; // "Events on {date}": {date} is substituted
   noEventsDay: string; // shown when a day has no events
   open: string; // accessible verb for the link, e.g. "Read"
   /** Localized, plural-aware event-count suffix for a day cell's accessible
@@ -30,7 +30,7 @@ export type EventCalendarProps = {
 
 type IconProps = { className?: string };
 
-/** Five-point star — birsa. */
+/** Five-point star: birsa. */
 function StarIcon({ className }: IconProps) {
   return (
     <svg
@@ -48,7 +48,7 @@ function StarIcon({ className }: IconProps) {
   );
 }
 
-/** Open book — academic. */
+/** Open book: academic. */
 function BookIcon({ className }: IconProps) {
   return (
     <svg
@@ -68,7 +68,7 @@ function BookIcon({ className }: IconProps) {
   );
 }
 
-/** Columned building / landmark — university. */
+/** Columned building / landmark: university. */
 function BuildingIcon({ className }: IconProps) {
   return (
     <svg
@@ -191,7 +191,7 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
 
   const weekdays = useMemo(() => {
     const fmt = new Intl.DateTimeFormat(intlLocale, { weekday: "short" });
-    // 2024-06-02 is a Sunday — build a stable Sun→Sat header.
+    // 2024-06-02 is a Sunday: build a stable Sun→Sat header.
     return Array.from({ length: 7 }, (_, i) => fmt.format(new Date(2024, 5, 2 + i)));
   }, [intlLocale]);
 
@@ -251,7 +251,7 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
   function eventRangeLabel(event: CalendarEvent): string {
     const start = formatDate(locale, event.start);
     if (!event.end || event.end === event.start) return start;
-    return `${start} – ${formatDate(locale, event.end)}`;
+    return `${start} to ${formatDate(locale, event.end)}`;
   }
 
   /** A day cell's accessible name: the localized date, plus a localized,

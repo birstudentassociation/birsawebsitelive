@@ -12,7 +12,7 @@ export type HeaderNavClientProps = {
   locale: Locale;
   items: NavItem[];
   /** The header's CTA (e.g. "Quick actions"), repeated here since the CTA
-   * button in `Header.tsx` is hidden on narrow screens — this keeps it
+   * button in `Header.tsx` is hidden on narrow screens: this keeps it
    * reachable from the mobile menu too. */
   ctaItem: NavItem;
   /** dict.a11y.openMenu */
@@ -27,7 +27,7 @@ export type HeaderNavClientProps = {
  * nav links live in `Header.tsx` as plain server-rendered `<Link>`s that
  * work with no JS at all; this file's `DesktopNavItem` named export only
  * layers on the `aria-current`/underline indicator as a progressive
- * enhancement once hydrated — it never gates navigation behind JS.
+ * enhancement once hydrated. It never gates navigation behind JS.
  */
 export default function HeaderNavClient({
   locale,
@@ -105,14 +105,14 @@ export default function HeaderNavClient({
         {/* Icon-only until md: the right-hand cluster is shrink-0, and below md
             it already carries the search, theme, language and (from sm) the
             Quick-actions CTA. Adding a text label here tips the row past the
-            content edge — worst at exactly 640px, where the CTA and full
+            content edge, worst at exactly 640px, where the CTA and full
             language label appear together. The aria-label keeps the accessible
             name; the text returns at md, where there's comfortable room. */}
         <span className="hidden md:inline">{open ? closeLabel : openLabel}</span>
       </button>
 
       {open ? (
-        /* Full-width dropdown below the (sticky, i.e. positioned) header —
+        /* Full-width dropdown below the (sticky, i.e. positioned) header:
            absolutely positioned so it never stretches the header row. */
         <nav id={panelId} aria-label={openLabel} className="absolute inset-x-0 top-full px-3 pb-3">
           <ul className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-2 shadow-lg">
@@ -159,7 +159,7 @@ export type DesktopNavItemProps = {
  * A single desktop nav link that marks itself `aria-current="page"` (with a
  * red underline via `activeClassName`) when its href matches the current
  * route. The link itself renders via `next/link` regardless of JS/hydration
- * state, so navigation never depends on this component running — only the
+ * state, so navigation never depends on this component running. Only the
  * current-page indicator is a progressive enhancement.
  */
 export function DesktopNavItem({

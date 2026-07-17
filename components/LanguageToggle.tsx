@@ -6,7 +6,7 @@ import { swapLocalePath } from "@/lib/i18n";
 
 export type LanguageToggleProps = {
   locale: Locale;
-  /** dict.switchTo — label of the language you can switch TO. */
+  /** dict.switchTo: label of the language you can switch TO. */
   label: string;
   /** dict.switchToAria */
   ariaLabel: string;
@@ -14,7 +14,7 @@ export type LanguageToggleProps = {
 
 /**
  * Plain `<a>` (not a button) linking to the same page with the locale
- * segment swapped. Sets nothing itself — the middleware persists the
+ * segment swapped. Sets nothing itself: the middleware persists the
  * `NEXT_LOCALE` cookie once the link is followed.
  */
 export default function LanguageToggle({ locale, label, ariaLabel }: LanguageToggleProps) {

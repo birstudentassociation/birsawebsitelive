@@ -65,7 +65,7 @@ const copy: Record<Locale, Copy> = {
   en: {
     title: "Reports",
     lede: "Loan status at a glance, item utilisation, and CSV exports.",
-    signInTitle: "Please sign in on the console home",
+    signInTitle: "Sign in on the console home",
     signInBody: "You need an active officer session to view reports.",
     signInCta: "Go to console home",
     dbNotConfiguredTitle: "The inventory database is not connected",

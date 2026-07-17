@@ -122,7 +122,7 @@ function StatusPill({ status, label }: { status: LoanStatus; label: string }) {
 
 /**
  * Progressive-enhancement wrapper. Without JavaScript (and before hydration) it
- * renders a fallback that posts the lookup to a server action — email travels by
+ * renders a fallback that posts the lookup to a server action: email travels by
  * POST, never in the URL. Once JS loads it swaps to the interactive tool, which
  * additionally lets a pending request be cancelled in place.
  */
@@ -205,7 +205,7 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
 
   async function handleCancel() {
     if (state.status !== "success") return;
-    // Confirm before the irreversible cancel — the student would otherwise have
+    // Confirm before the irreversible cancel, otherwise the student would have
     // to submit a whole new request (GDS error prevention).
     if (!window.confirm(labels.cancelConfirm)) return;
 
@@ -335,7 +335,7 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
         ) : null}
       </div>
 
-      {/* Honeypot — real visitors never see or fill this. Visually hidden,
+      {/* Honeypot: real visitors never see or fill this. Visually hidden,
           not display:none, so assistive tech that ignores CSS still gets an
           explicit instruction rather than a trap. */}
       <div className="sr-only" aria-hidden="true">
@@ -491,7 +491,7 @@ function StatusLookupFallback({ locale, labels }: StatusLookupProps) {
         ) : null}
       </div>
 
-      {/* Honeypot — real visitors never see or fill this. */}
+      {/* Honeypot: real visitors never see or fill this. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
         <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />

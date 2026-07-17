@@ -1,8 +1,8 @@
 import type { Section } from "../types";
 
 /**
- * Title 3 (ลักษณะ ๓), Chapters 4–5: Student activity clubs (ข้อ 61–71) and
- * the Student Dormitory Committee (ข้อ 72–79), of the Regulation of
+ * Title 3 (ลักษณะ ๓), Chapters 4 to 5: Student activity clubs (ข้อ 61 to 71) and
+ * the Student Dormitory Committee (ข้อ 72 to 79), of the Regulation of
  * Thammasat University on Student Activities, B.E. 2563 (2020).
  */
 export const title3Chapters4to5: Section[] = [

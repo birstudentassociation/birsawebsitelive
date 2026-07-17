@@ -15,7 +15,7 @@ export type LoanFieldName =
   | "startDate"
   | "endDate";
 
-/** Error codes (not messages) — the form maps them to its localized labels. */
+/** Error codes (not messages): the form maps them to its localized labels. */
 export type LoanFieldErrorCode =
   | "nameRequired"
   | "idRequired"
@@ -100,7 +100,7 @@ export async function submitLoanRequest(
     return { status: "rate-limited", values };
   }
 
-  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     return { status: "success", reference: "" };
   }
@@ -175,7 +175,7 @@ export async function submitLoanRequest(
     }
   }
 
-  // Best-effort officer notification email — never blocks the response.
+  // Best-effort officer notification email; never blocks the response.
   const apiKey = process.env.RESEND_API_KEY;
   if (apiKey) {
     try {

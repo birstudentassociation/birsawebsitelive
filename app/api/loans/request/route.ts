@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
-  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Honeypot filled: silently accept and discard, never reveal detection.
   if (typeof body === "object" && body !== null && (body as { nickname?: unknown }).nickname) {
     return NextResponse.json({ ok: true, reference: "" }, { status: 200 });
   }
@@ -69,7 +69,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, reason: "error" }, { status: 500 });
   }
 
-  // Best-effort officer notification email — never blocks the response.
+  // Best-effort officer notification email; never blocks the response.
   const apiKey = process.env.RESEND_API_KEY;
   if (apiKey) {
     try {

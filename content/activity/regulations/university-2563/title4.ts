@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Title 4 (ลักษณะ ๔): The Election Commission (ข้อ 80–87), of the
+ * Title 4 (ลักษณะ ๔): The Election Commission (ข้อ 80 to 87), of the
  * Regulation of Thammasat University on Student Activities, B.E. 2563 (2020).
  */
 export const title4: Section = {

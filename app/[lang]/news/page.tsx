@@ -90,7 +90,7 @@ export default async function NewsPage({
   function buildFilterHref(next: { type?: string; category?: string }) {
     const params = new URLSearchParams();
     // `"key" in next` (not `next.key !== undefined`) so an explicit
-    // `{ category: undefined }` — used to clear back to "All" — is
+    // `{ category: undefined }` (used to clear back to "All") is
     // distinguishable from the key being omitted entirely (keep current).
     const nextType = "type" in next ? next.type : type;
     const nextCategory = "category" in next ? next.category : category;

@@ -4,7 +4,7 @@ export type AccordionProps = {
   className?: string;
   /** Open by default. */
   defaultOpen?: boolean;
-  /** Fires when the disclosure is toggled, with the new open state — lets a
+  /** Fires when the disclosure is toggled, with the new open state: lets a
    * caller mirror the open state elsewhere (e.g. to switch the summary
    * label). The `<details>` element stays otherwise uncontrolled. */
   onToggle?: (open: boolean) => void;

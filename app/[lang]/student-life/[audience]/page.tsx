@@ -48,7 +48,7 @@ const copy: Record<
     updated: "Updated",
     tracks: {
       home: {
-        title: "Student life & culture guides",
+        title: "Student life and culture guides",
         lede: "Practical, everyday guidance for all BIR students, plus course reviews and the kind of non-obvious, culturally-enriching knowledge you only pick up from someone who's already been through it. Pick a topic below to get started.",
       },
       international: {

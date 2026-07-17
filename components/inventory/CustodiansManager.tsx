@@ -6,7 +6,7 @@
  * per-row edit + create-form structure used by ReferenceManager for
  * categories/locations. Only rendered for BIRSA/global admins (the page
  * gates access before mounting this component), so there is no
- * `canWrite`/role prop here — writing is always allowed.
+ * `canWrite`/role prop here: writing is always allowed.
  */
 import { useId, useState } from "react";
 import type { FormEvent } from "react";
@@ -99,7 +99,7 @@ const copy: Record<Locale, Copy> = {
     errorRequired: "Fill in all required fields",
     errorDuplicate: "That slug is already used",
     errorForbidden: "Your account does not have permission to do this",
-    errorGeneric: "Something went wrong. Please try again.",
+    errorGeneric: "Something went wrong. Try again.",
   },
   th: {
     addOrganisation: "เพิ่มองค์กร/ชมรม",

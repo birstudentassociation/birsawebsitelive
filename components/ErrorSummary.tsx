@@ -25,7 +25,7 @@ export default function ErrorSummary({ title, errors }: ErrorSummaryProps) {
   // (callers rebuild that inline on every render). Otherwise the summary would
   // steal focus back from the field on every keystroke while an error is
   // showing (SC 3.2.2 / 2.4.3). Focus moves only when the set of errors
-  // actually changes — e.g. on a failed submit.
+  // actually changes, e.g. on a failed submit.
   const signature = errors.map((error) => `${error.id}:${error.message}`).join("|");
 
   useEffect(() => {

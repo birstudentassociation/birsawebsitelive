@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Title 5 (ลักษณะ ๕): Oversight of student activities (ข้อ 88–90), of the
+ * Title 5 (ลักษณะ ๕): Oversight of student activities (ข้อ 88 to 90), of the
  * Regulation of Thammasat University on Student Activities, B.E. 2563 (2020).
  */
 export const title5: Section = {

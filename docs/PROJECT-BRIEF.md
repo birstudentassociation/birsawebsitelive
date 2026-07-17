@@ -1,17 +1,17 @@
-# BIRSA Portal — Build Brief (read me first)
+# BIRSA Portal: Build Brief (read me first)
 
 You are building part of the **BIRSA Portal**: a production-ready, bilingual (Thai/English),
-WCAG 2.2 AA website for the **BIR Student Association (BIRSA)** — the student association of
+WCAG 2.2 AA website for the **BIR Student Association (BIRSA)**, the student association of
 the Bachelor of Political Science in Politics and International Relations (BIR), Faculty of
 Political Science, Thammasat University (Tha Prachan campus, Bangkok). Deployed on Vercel.
 
 Founding principles: GOV.UK Government Design Principles + Service Standard **in spirit**
-(user needs, plain language, accessibility, security, reliability) — but with our **own
+(user needs, plain language, accessibility, security, reliability), but with our **own
 visual identity**: warm "cream editorial" on BIR red. Do NOT imitate GOV.UK visuals.
 
 ## Environment quirks (IMPORTANT)
 
-- Windows. Project root: `C:\BIRSA files\BIRSA portal` (note the spaces — always quote).
+- Windows. Project root: `C:\BIRSA files\BIRSA portal` (note the spaces, always quote).
 - **Node is NOT on PATH.** Before any `node`/`npm`/`npx` command:
   - PowerShell: `$env:Path = "C:\Program Files\nodejs;" + $env:Path`
   - Bash: `export PATH="/c/Program Files/nodejs:$PATH"`
@@ -23,8 +23,8 @@ visual identity**: warm "cream editorial" on BIR red. Do NOT imitate GOV.UK visu
 
 - BIR = English-medium international BPolSc programme in Politics & International Relations,
   Faculty of Political Science, Thammasat University; Tha Prachan campus, 2 Prachan Rd,
-  Bangkok 10200. Founded 2009 — first English-language political science programme in
-  Thailand. ~126 credits, bi-semester (Aug–Dec, Jan–May, optional summer Jun–Jul).
+  Bangkok 10200. Founded 2009, the first English-language political science programme in
+  Thailand. ~126 credits, bi-semester (Aug to Dec, Jan to May, optional summer Jun to Jul).
 - Exchange/double-degree partners incl. Meiji University (Japan), Aberystwyth University and
   University of Bristol (UK). Annual third-year field trip; Bangkok International Student
   Conference (BISC); internships.
@@ -38,12 +38,12 @@ visual identity**: warm "cream editorial" on BIR red. Do NOT imitate GOV.UK visu
 ## Stack & repo layout
 
 Next.js 15 App Router + React 19 + TypeScript strict + Tailwind CSS v4 (tokens in
-`app/globals.css` via `@theme` — READ IT before styling). MDX via `next-mdx-remote/rsc` +
+`app/globals.css` via `@theme`, READ IT before styling). MDX via `next-mdx-remote/rsc` +
 `gray-matter`; zod validation; Resend email (optional, env-gated); `next/font` fonts.
 Path alias `@/*` → repo root.
 
 ```
-app/[lang]/...            # ALL pages live under [lang]; there is NO app/layout.tsx —
+app/[lang]/...            # ALL pages live under [lang]; there is NO app/layout.tsx;
                           # app/[lang]/layout.tsx is the root layout and renders <html lang>
 app/api/*                 # route handlers (forms)
 components/*.tsx          # shared design system (PascalCase filenames)
@@ -70,7 +70,7 @@ middleware.ts             # locale detection/redirect
   Inter → `--font-en-body`, Sarabun (weights 400/500/600/700, subsets `["thai","latin"]`) →
   `--font-th`. `app/globals.css` already maps them per `html[lang]`.
 - UI strings come from `lib/i18n.ts#getDictionary(locale)` returning
-  `content/dictionaries/{en,th}.ts` (READ both — they define tone). Never hard-code chrome
+  `content/dictionaries/{en,th}.ts` (READ both, they define tone). Never hard-code chrome
   strings in components.
 - All internal links must be locale-prefixed via `localeHref(locale, "/path")` from
   `lib/i18n.ts`.
@@ -97,20 +97,20 @@ export function getGuideEntry(locale, audience, slug): Entry | null;
 // lib/mdx.tsx
 export function Mdx({ source }: { source: string }): JSX.Element; // RSC; remark-gfm,
 // rehype-slug, rehype-autolink-headings({behavior:"append", class:"anchor"}), custom
-// component map (Notice, links w/ external handling) — output wrapped in .prose styling
+// component map (Notice, links w/ external handling); output wrapped in .prose styling
 
 // lib/seo.ts
 export function buildMetadata(opts: { locale; title; description; path }): Metadata;
 // sets canonical + hreflang alternates (th, en, x-default) using NEXT_PUBLIC_SITE_URL
 
-// lib/validation.ts — zod schemas for the forms (shared client+server)
+// lib/validation.ts: zod schemas for the forms (shared client+server)
 ```
 
 ## Content model
 
 ```
 content/site.ts                     # socials, contact, official links (typed, per-locale labels)
-content/dictionaries/{en,th}.ts     # UI microcopy (EXISTS — do not restructure)
+content/dictionaries/{en,th}.ts     # UI microcopy (EXISTS, do not restructure)
 content/home/{en,th}.ts             # home page blocks
 content/quick.ts                    # quick-actions link groups
 content/news/{en,th}/<slug>.mdx     # same slug in both locales
@@ -128,14 +128,14 @@ Validate all frontmatter with zod in `lib/content.ts`; build must fail loudly on
 
 ## Design system
 
-READ `app/globals.css` first — tokens, `.wrap`, `.prose`, `.skip-link`, focus rules exist.
+READ `app/globals.css` first: tokens, `.wrap`, `.prose`, `.skip-link`, focus rules exist.
 Style with Tailwind utilities referencing tokens (e.g. `bg-cream`, `text-ink`, `text-muted`,
 `bg-surface`, `border-line`, `bg-brand`, `text-brand-deep`, `rounded-lg`, `shadow-md`).
 
 - Editorial feel: generous whitespace, hairline borders, serif display headings (EN),
-  red used for accents/CTAs/rules — body text is always ink on cream/surface.
+  red used for accents/CTAs/rules; body text is always ink on cream/surface.
 - Buttons: primary = white on brand red (hover brand-dark); secondary = ink text on
-  transparent with 1.5px ink border; min target 44×44px (WCAG 2.5.8 AA is 24px — we exceed).
+  transparent with 1.5px ink border; min target 44×44px (WCAG 2.5.8 AA is 24px, we exceed).
 - Cards: `bg-surface border border-line rounded-lg shadow-sm`, red top hairline or tag
   accents; entire card clickable via stretched link with the title as the accessible name.
 - NEVER convey meaning by colour alone; pair icons/labels. Decorative SVGs need
@@ -145,7 +145,7 @@ Style with Tailwind utilities referencing tokens (e.g. `bg-cream`, `text-ink`, `
 
 - One `<h1>` per page; logical heading order; landmarks (`header/nav/main/footer`);
   `<main id="main">` targeted by the existing SkipLink.
-- Full keyboard operability; visible focus (globals handles) — never remove outlines.
+- Full keyboard operability; visible focus (globals handles); never remove outlines.
 - Forms: every input has a `<label>`; errors rendered inline `id`-linked via
   `aria-describedby` AND in an error summary box at top which receives focus on failed
   submit; `aria-invalid` on bad fields. Success/status messages use `role="status"`.
@@ -156,9 +156,9 @@ Style with Tailwind utilities referencing tokens (e.g. `bg-cream`, `text-ink`, `
 - Tables for tabular data only, with `<th scope>`. Lists as `<ul>/<ol>`.
 - Content readable at 320px width and 400% zoom: no fixed heights on text containers,
   wrap-friendly flex/grid.
-- `prefers-reduced-motion` already globally respected — do not add JS animations that ignore it.
+- `prefers-reduced-motion` already globally respected; do not add JS animations that ignore it.
 
-## Copy voice (write natively per language — NEVER translate mechanically)
+## Copy voice (write natively per language; NEVER translate mechanically)
 
 - **English**: plain, direct, warm. Short sentences. Active verbs. Sentence case everywhere
   (headings too). "You" = the student, "we" = BIRSA. No jargon, no exclamation-mark spam.
@@ -172,16 +172,16 @@ Style with Tailwind utilities referencing tokens (e.g. `bg-cream`, `text-ink`, `
 
 Unknown facts (committee names, club details, dates, venues) must be plausible but clearly
 marked: MDX/data gets `placeholder: true` where the schema allows, AND visible copy is
-wrapped in the `PlaceholderNote` pattern — e.g. a Notice at top of the page/entry saying
-(EN) "Example content — BIRSA will replace this with real details." / (TH)
-"เนื้อหาตัวอย่าง — BIRSA จะแทนที่ด้วยข้อมูลจริง". Never invent real people's names; use role
+wrapped in the `PlaceholderNote` pattern, e.g. a Notice at top of the page/entry saying
+(EN) "Example content. BIRSA will replace this with real details." / (TH)
+"เนื้อหาตัวอย่าง: BIRSA จะแทนที่ด้วยข้อมูลจริง". Never invent real people's names; use role
 titles ("President", "Head of Student Welfare") or obviously generic names.
 
 ## Security (forms)
 
 API route handlers under `app/api/`: zod-validate server-side; silently accept+discard when
 the hidden honeypot field (`nickname`) is filled; best-effort in-memory rate limit per IP
-(e.g. 5/10min, Map — fine on serverless); send via Resend ONLY if `RESEND_API_KEY` set, else
+(e.g. 5/10min, Map, fine on serverless); send via Resend ONLY if `RESEND_API_KEY` set, else
 respond `{ ok: false, reason: "not-configured" }` so the client shows the "email us directly"
 fallback with `BIRSA_INBOX` (default `birsa@tu.ac.th`). Never store submissions. Never echo
 user input as HTML (plain-text email bodies). No secrets in client code.

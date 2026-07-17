@@ -20,7 +20,7 @@ export async function generateMetadata({
   const description =
     locale === "th"
       ? "บริการที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน ทั้งประกันอุบัติเหตุ การผ่อนผันเกณฑ์ทหาร การขอเอกสาร บริการให้คำปรึกษา และความช่วยเหลือด้านไอที รวบรวมไว้ในที่เดียวโดย BIRSA"
-      : "Services Thammasat University provides to all students — accident insurance, military-service postponement, certificates, counselling, and IT help — collected in one place by BIRSA.";
+      : "Services Thammasat University provides to all students, including accident insurance, military-service postponement, certificates, counselling, and IT help, collected in one place by BIRSA.";
 
   return buildMetadata({
     locale,
@@ -98,11 +98,11 @@ const copy: Record<
     onThisPageLabel: "On this page",
     disclaimerTitle: "These are University-run services",
     disclaimerBody:
-      "BIRSA lists them for convenience but doesn't operate them. Dates and requirements can change — always confirm the latest details on the official channel linked in each section before you act.",
+      "BIRSA lists them for convenience but does not operate them. Dates and requirements can change. Always confirm the latest details on the official channel linked in each section before you act.",
     accidentInsurance: {
       title: "Accident insurance for TU students",
       intro:
-        "Every Thammasat student is covered. Academic year 2025 coverage runs 1 Aug 2025 – 31 Jul 2026.",
+        "Every Thammasat student is covered. Academic year 2025 coverage runs 1 Aug 2025 to 31 Jul 2026.",
       claimTitle: "How to make a claim",
       claimSteps: [
         {
@@ -115,12 +115,12 @@ const copy: Record<
         },
         {
           lead: "Advance payment",
-          text: "if your name isn't listed yet, or the hospital isn't a partner, pay first and submit the documents below to the responsible officer to forward to the insurer.",
+          text: "if your name is not listed yet, or the hospital is not a partner, pay first and submit the documents below to the responsible officer to forward to the insurer.",
         },
       ],
       documentsTitle: "Documents for an advance-payment claim",
       documents: [
-        "Compensation claim form (AC_01) — download from the TU Student Affairs Division website or ask the responsible officer",
+        "Compensation claim form (AC_01): download from the TU Student Affairs Division website or ask the responsible officer",
         "Original medical certificate",
         "Original medical receipt",
         "One copy of your ID card, certified with a blue pen",
@@ -134,7 +134,7 @@ const copy: Record<
         },
         {
           term: "Death or disability from an accident",
-          desc: "150,000 baht — death, loss of organs, eyesight, hearing or speech, or permanent disability from accidents, including murder and assault",
+          desc: "150,000 baht: death, loss of organs, eyesight, hearing or speech, or permanent disability from accidents, including murder and assault",
         },
         {
           term: "Funeral costs (death from illness)",
@@ -159,8 +159,8 @@ const copy: Record<
         "For male students born in 2006 (B.E. 2549) at the Tha Prachan, Rangsit and Pattaya campuses. Submit in one round only.",
       roundsTitle: "Submission rounds (choose one)",
       rounds: [
-        { term: "Round 1", desc: "10 August – 9 October 2026" },
-        { term: "Round 2", desc: "11 January – 10 February 2027" },
+        { term: "Round 1", desc: "10 August to 9 October 2026" },
+        { term: "Round 2", desc: "11 January to 10 February 2027" },
       ],
       stepsTitle: "What to do",
       steps: [
@@ -172,7 +172,7 @@ const copy: Record<
       documentsLinkLabel: "Documents and instructions",
       approvedListLinkLabel: "Check last year's approved list",
       contactLine:
-        "Questions: Scholarships, Discipline & Student Welfare, Student Affairs Division — 0-2564-2921 (Facebook: TU Scholarships).",
+        "Questions: Scholarships, Discipline and Student Welfare, Student Affairs Division: 0-2564-2921 (Facebook: TU Scholarships).",
     },
     certificates: {
       title: "Online certificate requests",
@@ -180,7 +180,7 @@ const copy: Record<
       linkLabel: "Open TU REG",
     },
     counselling: {
-      title: "Counselling & mental-health support",
+      title: "Counselling and mental-health support",
       intro: "Free, confidential support for TU students. Three ways to get help:",
       wellBeing: {
         title: "Thammasat Well Being Center",
@@ -198,7 +198,7 @@ const copy: Record<
       },
     },
     itSupport: {
-      title: "IT support & TU apps",
+      title: "IT support and TU apps",
       helpdesk: {
         title: "ICT Helpdesk",
         body: "Get help with TU accounts, Wi-Fi, email and university systems via LINE (@icttuhelpdesk).",
@@ -206,7 +206,7 @@ const copy: Record<
       },
       appStore: {
         title: "TU application store",
-        body: "Find the official Thammasat apps — including TU GREATS — in the TU application store.",
+        body: "Find the official Thammasat apps, including TU GREATS, in the TU application store.",
         linkLabel: "Browse TU apps",
       },
     },
@@ -227,7 +227,7 @@ const copy: Record<
     accidentInsurance: {
       title: "ประกันอุบัติเหตุสำหรับนักศึกษาธรรมศาสตร์",
       intro:
-        "นักศึกษาธรรมศาสตร์ทุกคนได้รับความคุ้มครอง ปีการศึกษา 2568 คุ้มครองระหว่าง 1 ส.ค. 2568 – 31 ก.ค. 2569",
+        "นักศึกษาธรรมศาสตร์ทุกคนได้รับความคุ้มครอง ปีการศึกษา 2568 คุ้มครองระหว่าง 1 ส.ค. 2568 ถึง 31 ก.ค. 2569",
       claimTitle: "วิธียื่นเคลม",
       claimSteps: [
         {
@@ -245,7 +245,7 @@ const copy: Record<
       ],
       documentsTitle: "เอกสารสำหรับการเคลมแบบสำรองจ่าย",
       documents: [
-        "แบบฟอร์มเบิกค่าสินไหม (AC_01) — ดาวน์โหลดจากเว็บไซต์กองกิจการนักศึกษา มธ. หรือขอจากเจ้าหน้าที่ผู้รับผิดชอบ",
+        "แบบฟอร์มเบิกค่าสินไหม (AC_01): ดาวน์โหลดจากเว็บไซต์กองกิจการนักศึกษา มธ. หรือขอจากเจ้าหน้าที่ผู้รับผิดชอบ",
         "ใบรับรองแพทย์ฉบับจริง",
         "ใบเสร็จค่ารักษาพยาบาลฉบับจริง",
         "สำเนาบัตรประชาชน 1 ชุด รับรองสำเนาด้วยปากกาสีน้ำเงิน",
@@ -259,7 +259,7 @@ const copy: Record<
         },
         {
           term: "เสียชีวิตหรือทุพพลภาพจากอุบัติเหตุ",
-          desc: "150,000 บาท — เสียชีวิต สูญเสียอวัยวะ สายตา การได้ยิน การพูด หรือทุพพลภาพถาวรจากอุบัติเหตุ รวมถึงการถูกฆาตกรรมและทำร้ายร่างกาย",
+          desc: "150,000 บาท: เสียชีวิต สูญเสียอวัยวะ สายตา การได้ยิน การพูด หรือทุพพลภาพถาวรจากอุบัติเหตุ รวมถึงการถูกฆาตกรรมและทำร้ายร่างกาย",
         },
         {
           term: "ค่าปลงศพ (เสียชีวิตจากการเจ็บป่วยทั่วไป)",
@@ -281,8 +281,8 @@ const copy: Record<
         "สำหรับนักศึกษาชายที่เกิด พ.ศ. 2549 ศูนย์ท่าพระจันทร์ / ศูนย์รังสิต / ศูนย์พัทยา เลือกยื่นเพียงรอบเดียว",
       roundsTitle: "รอบการยื่น (เลือกรอบเดียว)",
       rounds: [
-        { term: "รอบที่ 1", desc: "10 สิงหาคม – 9 ตุลาคม 2569" },
-        { term: "รอบที่ 2", desc: "11 มกราคม – 10 กุมภาพันธ์ 2570" },
+        { term: "รอบที่ 1", desc: "10 สิงหาคม ถึง 9 ตุลาคม 2569" },
+        { term: "รอบที่ 2", desc: "11 มกราคม ถึง 10 กุมภาพันธ์ 2570" },
       ],
       stepsTitle: "ขั้นตอนการดำเนินการ",
       steps: [
@@ -294,7 +294,7 @@ const copy: Record<
       documentsLinkLabel: "เอกสารและคำแนะนำ",
       approvedListLinkLabel: "ตรวจสอบรายชื่อผู้ได้สิทธิ์ปีที่ผ่านมา",
       contactLine:
-        "สอบถาม: งานทุน วินัย และสวัสดิการนักศึกษา กองกิจการนักศึกษา — 0-2564-2921 (เฟซบุ๊ก: TU Scholarships)",
+        "สอบถาม: งานทุน วินัย และสวัสดิการนักศึกษา กองกิจการนักศึกษา: 0-2564-2921 (เฟซบุ๊ก: TU Scholarships)",
     },
     certificates: {
       title: "การขอเอกสารสำคัญออนไลน์",

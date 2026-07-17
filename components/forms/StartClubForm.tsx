@@ -68,7 +68,7 @@ const copy: Record<
       emailInvalid: "Enter an email address in the correct format, like name@example.com",
       clubNameRequired: "Enter a proposed club name",
       descriptionRequired: "Tell us what the club would do",
-      descriptionShort: "Please add a little more detail",
+      descriptionShort: "Add a little more detail",
     },
   },
   th: {
@@ -100,7 +100,7 @@ const copy: Record<
 const initialState: StartClubState = { status: "idle" };
 
 /**
- * "Start a club" idea submission form — same HTML-first pattern as ContactForm,
+ * "Start a club" idea submission form: same HTML-first pattern as ContactForm,
  * posting to the `submitStartClub` server action (works without JavaScript) and
  * enhanced with `useActionState`. The action returns error codes, mapped here to
  * localized messages.
@@ -112,7 +112,7 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
   const resultRef = useRef<HTMLDivElement>(null);
 
   // On success/fallback the form (and the focused submit button) unmounts, so
-  // move focus to the result message — otherwise focus falls back to <body>
+  // move focus to the result message, otherwise focus falls back to <body>
   // and keyboard users lose their place (2.4.3).
   useEffect(() => {
     if (state.status === "success" || state.status === "fallback") {

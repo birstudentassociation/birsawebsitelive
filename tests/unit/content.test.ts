@@ -7,7 +7,7 @@ import { committee } from "@/content/committee";
 const sections: Section[] = ["news", "activity"];
 const guideAudiences: ("home" | "international")[] = ["home", "international"];
 
-describe("content loaders — every section and locale has real, valid frontmatter", () => {
+describe("content loaders: every section and locale has real, valid frontmatter", () => {
   for (const section of sections) {
     for (const locale of locales) {
       it(`getEntries("${section}", "${locale}") returns entries without throwing`, () => {

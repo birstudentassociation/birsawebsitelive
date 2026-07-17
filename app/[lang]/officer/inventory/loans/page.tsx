@@ -66,7 +66,7 @@ const copy: Record<Locale, Copy> = {
   en: {
     title: "Loans queue",
     lede: "Decide pending requests, hand off approved units, and record returns.",
-    signInTitle: "Please sign in on the console home",
+    signInTitle: "Sign in on the console home",
     signInBody: "You need an active officer session to view the loans queue.",
     signInCta: "Go to console home",
     filterAll: "All",

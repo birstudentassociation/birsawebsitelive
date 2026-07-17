@@ -61,7 +61,7 @@ const labels: Record<
 > = {
   en: {
     studentLife: "Information and services",
-    tracks: { home: "Student life & culture guides", international: "For international students" },
+    tracks: { home: "Student life and culture guides", international: "For international students" },
     updated: "Last updated",
     onThisPage: "On this page",
     prevNextNav: "Previous and next sections",
@@ -71,7 +71,7 @@ const labels: Record<
     helpBody: "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
     helpCta: "Tell BIRSA",
     back: {
-      home: "Back to the student life & culture guides",
+      home: "Back to the student life and culture guides",
       international: "Back to the international student guide",
     },
   },

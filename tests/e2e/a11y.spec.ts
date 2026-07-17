@@ -93,7 +93,7 @@ test.describe("email scrape-proofing", () => {
 
       // The raw HTTP response (not the browser-parsed DOM) must never
       // contain a plaintext address a scraper could regex out of the page
-      // source — every email is emitted as HTML numeric character entities.
+      // source: every email is emitted as HTML numeric character entities.
       expect(body).not.toContain("birsa@tu.ac.th");
       expect(body).not.toContain("bir@tu.ac.th");
       expect(body).toMatch(/&#64;/); // entity-encoded "@"
@@ -106,7 +106,7 @@ test.describe("email scrape-proofing", () => {
     await page.goto("/en/contact");
 
     // Once the browser parses the entities, this is an ordinary, accessible
-    // mailto link — obfuscation must not cost usability.
+    // mailto link: obfuscation must not cost usability.
     const emailLink = page.locator('a[href="mailto:birsa@tu.ac.th"]');
     await expect(emailLink.first()).toBeVisible();
   });

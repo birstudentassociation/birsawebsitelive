@@ -83,7 +83,7 @@ export default async function RootLayout({
       <body>
         <script
           nonce={nonce}
-          // Parser-blocking, first child of <body> — runs before paint so
+          // Parser-blocking, first child of <body>; runs before paint so
           // there's no flash of the wrong theme. Only touches the DOM when
           // the visitor made an explicit choice; system-preference users
           // need no JS at all (handled by the CSS media-query scope).

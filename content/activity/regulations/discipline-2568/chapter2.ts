@@ -1,8 +1,8 @@
 import type { Section } from "../types";
 
 /**
- * Chapter 2 (หมวด ๒ โทษ และการพิจารณาโทษทางวินัย — Penalties and disciplinary
- * consideration), ข้อ 10–12, of the Regulation of Thammasat University on
+ * Chapter 2 (หมวด ๒ โทษ และการพิจารณาโทษทางวินัย: Penalties and disciplinary
+ * consideration), ข้อ 10 to 12, of the Regulation of Thammasat University on
  * Student Discipline, B.E. 2568 (2025).
  */
 export const chapter2: Section = {

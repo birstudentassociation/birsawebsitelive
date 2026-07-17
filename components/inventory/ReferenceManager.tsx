@@ -2,7 +2,7 @@
 
 /**
  * Officer console: manage the two pieces of shared reference data that items
- * and units are tagged with — categories and locations. Two independent
+ * and units are tagged with: categories and locations. Two independent
  * sections, each with a list, inline edit per row, and a create form.
  */
 import { useId, useState } from "react";
@@ -79,7 +79,7 @@ const copy: Record<Locale, Copy> = {
     errorRequired: "Fill in all required fields",
     errorDuplicate: "That slug is already used",
     errorForbidden: "Your account does not have permission to do this",
-    errorGeneric: "Something went wrong. Please try again.",
+    errorGeneric: "Something went wrong. Try again.",
   },
   th: {
     categoriesTitle: "หมวดหมู่",

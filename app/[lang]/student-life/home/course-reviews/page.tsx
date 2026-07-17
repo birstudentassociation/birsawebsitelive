@@ -9,7 +9,7 @@ import CourseStats from "@/components/course-review/CourseStats";
 import CourseReviewBrowser from "@/components/course-review/CourseReviewBrowser";
 import { courses } from "@/content/course-review/courses";
 
-// Literal route — takes precedence over `[audience]/[slug]/page.tsx` for
+// Literal route: takes precedence over `[audience]/[slug]/page.tsx` for
 // exactly this URL, so `/student-life/home/course-reviews` renders this
 // dedicated browser instead of the generic MDX guide page. The guide's MDX
 // entry (content/student-life/{en,th}/home/course-reviews.mdx) is left in
@@ -25,7 +25,7 @@ const sectionLabel: Record<Locale, string> = {
 };
 
 const guidesLabel: Record<Locale, string> = {
-  en: "Student life & culture guides",
+  en: "Student life and culture guides",
   th: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
 };
 

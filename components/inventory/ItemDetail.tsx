@@ -171,9 +171,9 @@ const copy: Record<Locale, Copy> = {
     photoUploadingLabel: "Uploading...",
     photoRemoveLabel: "Remove selection",
     photoHintLabel: "JPG or PNG, up to 5 MB.",
-    photoTooLargeLabel: "That file is too large. Please choose an image up to 5 MB.",
+    photoTooLargeLabel: "That file is too large. Choose an image up to 5 MB.",
     photoNotConfiguredLabel: "Photo uploads are not set up for this site yet.",
-    photoErrorLabel: "Could not upload the photo. Please try again.",
+    photoErrorLabel: "Could not upload the photo. Try again.",
     photoUpdated: "Photo updated.",
 
     editTitle: "Edit item details",
@@ -255,7 +255,7 @@ const copy: Record<Locale, Copy> = {
     errorForbidden: "Your account does not have permission to do this",
     errorNotFound: "This record no longer exists. Refresh the page.",
     errorInsufficient: "That would take stock below zero",
-    errorGeneric: "Something went wrong. Please try again.",
+    errorGeneric: "Something went wrong. Try again.",
     errorSummaryTitle: "There is a problem",
   },
   th: {

@@ -40,7 +40,7 @@ const AJIRAPA: Instructor = { name: { en: "Asst. Prof. Dr. Ajirapa Pienkhuntod",
 const WASIN: Instructor = { name: { en: "Dr. Wasin Punthong", th: "ดร.วศิน ปั้นทอง" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-wasin-punthong/" };
 const GAMOLPORN: Instructor = { name: { en: "Assoc. Prof. Dr. Gamolporn Sonsri", th: "รศ.ดร.กมลพร สอนศรี" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-gamolporn-sonsri/" };
 // No current faculty-directory profile (retired, or based in another faculty),
-// so no profileUrl — their name renders as plain text on the detail page.
+// so no profileUrl, and their name renders as plain text on the detail page.
 const VIBOONPONG: Instructor = { name: { en: "Asst. Prof. Dr. Viboonpong Poonprasit", th: "ผศ.ดร.วิบูลพงศ์ พูนประสิทธิ์" } };
 const TRIN: Instructor = { name: { en: "Asst. Prof. Dr. Trin Aiyara", th: "ผศ.ดร.ตฤณ ไอยะรา" } };
 const VIROT: Instructor = { name: { en: "Virot Ali", th: "อ.วิโรจน์ อาลี" } };
@@ -60,7 +60,7 @@ export const courses: Course[] = [
       en: "This course explores different sub-disciplines in the field of social sciences. Its main focus is concerned with the understanding of the social world through different disciplinary lenses. The course invites guest speakers with a wide array of expertise to discuss challenging contemporary issues and share their experiences. This course thematically covers different aspects of social sciences with a relevant introductory overview.",
       th: "รายวิชานี้นำเสนอภาพรวมสาขาวิชาต่าง ๆ ในสังคมศาสตร์เพื่อให้เกิดความเข้าใจเกี่ยวกับโลกทางสังคมผ่านมุมมองของแต่ละสาขาวิชา โดยจะเชิญวิทยากรซี่งเป็นผู้เชี่ยวชาญทางด้านสังคมศาสตร์จากหลากหลายสาขาเป็นผู้ชวนขบคิดในประเด็นความท้าทายใหม่ ๆ ผ่านประสบการณ์ของวิทยากร การจัดการเรียนการสอนในรายวิชานี้ครอบคลุมประเด็นในทางสังคมศาสตร์เบื้องต้น",
     },
-    // Mockup content — demonstrates the student-review layout. Not a real
+    // Mockup content that demonstrates the student-review layout. Not a real
     // submission; replace once BIRSA collects an actual review for PI121.
     review: {
       reviewCount: 27,
@@ -68,7 +68,7 @@ export const courses: Course[] = [
       workloadRating: 2,
       difficultyRating: 1.5,
       workload: {
-        en: "Light. There's no textbook to keep up with — most weeks are just showing up for the guest lecture and writing a short reflection afterward. Budget an hour or so per reflection if you want it to be more than a summary.",
+        en: "Light. There's no textbook to keep up with; most weeks are just showing up for the guest lecture and writing a short reflection afterward. Budget an hour or so per reflection if you want it to be more than a summary.",
         th: "เบามาก ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ ถ้าอยากเขียนให้ดีกว่าแค่สรุปเนื้อหา ควรกันเวลาไว้สักชั่วโมงต่อชิ้น",
       },
       assessmentStyle: {
@@ -77,11 +77,11 @@ export const courses: Course[] = [
       },
       tips: [
         {
-          en: "Go to every lecture in person — reflection prompts usually reference something specific the speaker said, so it's hard to write a good one from the recording alone.",
+          en: "Go to every lecture in person. Reflection prompts usually reference something specific the speaker said, so it's hard to write a good one from the recording alone.",
           th: "พยายามไปฟังบรรยายให้ครบทุกครั้ง เพราะโจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง ถ้าดูย้อนหลังอย่างเดียวจะเขียนได้ไม่ดีเท่าไป",
         },
         {
-          en: "Keep reflections short, specific, and tied to that week's speaker — generic essays about social science in general tend to score lower.",
+          en: "Keep reflections short, specific, and tied to that week's speaker. Generic essays about social science in general tend to score lower.",
           th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้นจริง ๆ ถ้าเขียนกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
         },
         {
@@ -92,14 +92,14 @@ export const courses: Course[] = [
       quotes: [
         {
           text: {
-            en: "Genuinely one of the more relaxed courses in year one — a good way to ease into how Thammasat expects you to write.",
+            en: "Genuinely one of the more relaxed courses in year one, a good way to ease into how Thammasat expects you to write.",
             th: "เป็นวิชาที่ผ่อนคลายที่สุดวิชาหนึ่งในปีหนึ่ง เหมาะกับการค่อย ๆ ปรับตัวให้ชินกับสไตล์การเขียนที่ธรรมศาสตร์คาดหวัง",
           },
           attribution: { en: "2nd-year student", th: "นักศึกษาชั้นปีที่ 2" },
         },
         {
           text: {
-            en: "The guest speaker lineup changes every year, so ask around for who's coming this semester — some sessions are much more engaging than others.",
+            en: "The guest speaker lineup changes every year, so ask around for who's coming this semester. Some sessions are much more engaging than others.",
             th: "รายชื่อวิทยากรเปลี่ยนทุกปี ลองถามรุ่นพี่ดูว่าเทอมนี้ใครมาบ้าง เพราะบางครั้งก็น่าสนใจกว่าครั้งอื่นมาก",
           },
           attribution: { en: "3rd-year student", th: "นักศึกษาชั้นปีที่ 3" },
@@ -1089,7 +1089,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "Global politics is greatly complicated. The extent to which one can grasp such complication depends upon one’s ability to read those globally political phenomena. One’s ability, in turn, depends upon one’s conceptual, theoretical, or epistemological strategies used in reading those phenomena. This course mainly focuses on epistemology. It is a branch of philosophy and its basic question is: How do we know that which we claim to know? The course explores five sets of epistemologies popularly employed in constructing knowledge in social sciences or humanities. They are empiricism/positivism, phenomenology, hermeneutics, structuralism, and poststructuralism. In order to ensure students’ ability to adequately comprehend the course’s content, both theoretical lecture and application exercise are the pedagogical modes. In the process, students are encouraged to use all kinds of media – image (still or moving), text, and music etc. – as case studies for their applications.",
+      en: "Global politics is greatly complicated. The extent to which one can grasp such complication depends upon one’s ability to read those globally political phenomena. One’s ability, in turn, depends upon one’s conceptual, theoretical, or epistemological strategies used in reading those phenomena. This course mainly focuses on epistemology. It is a branch of philosophy and its basic question is: How do we know that which we claim to know? The course explores five sets of epistemologies popularly employed in constructing knowledge in social sciences or humanities. They are empiricism/positivism, phenomenology, hermeneutics, structuralism, and poststructuralism. In order to ensure students’ ability to adequately comprehend the course’s content, both theoretical lecture and application exercise are the pedagogical modes. In the process, students are encouraged to use all kinds of media: image (still or moving), text, and music etc., as case studies for their applications.",
       th: "การเมืองโลกนั้นเต็มไปด้วยความซับซ้อน ความซับซ้อนดังกล่าวทำให้ความสามารถที่จะจับประเด็นและอ่านปรากฏการณ์ทางการเมืองโลกนั้นแตกต่างกันออกไป ขึ้นอยู่กับแนวคิด กรอบทฤษฎี และญาณวิทยาที่ใช้ในการอ่านปรากฏการณ์เหล่านั้น โดยการเรียนการสอนในวิชานี้ได้ให้ความสำคัญกับญาณวิทยาเป็นหลัก ญาณวิทยาเป็นแขนงหนึ่งของปรัชญา โดยคำถามพื้นฐานที่ใช้ในการศึกษาญาณวิทยาคือ “เราจะทราบได้อย่างไรว่าเรารู้ในสิ่งที่เรา(รับ)รู้?” การศึกษาในวิชานี้จะพิจารณาถึงญาณวิทยาที่มีส่วนสำคัญในการสร้างความรู้ทางสังคมศาสตร์และมนุษย์ศาสตร์ อันได้แก่ ประจักษ์นิยม/ปฏิฐานนิยม (empiricism/positivism) ปรากฏการณ์วิทยา (phenomenology) ศาสตร์แห่งการตีความ (hermeneutics) โครงสร้างนิยม (structuralism) และหลังโครงสร้างนิยม (poststructuralism) เพื่อให้แน่ใจว่านักศึกษามีความเข้าใจเนื้อหาอย่างแท้จริง ทั้งทางทฤษฎีและการนำไปใช้ซึ่งจะรวมอยู่ในการสอนในชั้นเรียน ทั้งนี้ นักศึกษาสามารถใช้ภาพนิ่ง ภาพเคลื่อนไหว ตัวบท ดนตรี ฯลฯ เพื่อแสดงตัวอย่างการนำความรู้ทางทฤษฎีมาอธิบายปรากฏการณ์เหล่านั้น",
     },
   },

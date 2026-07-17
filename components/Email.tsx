@@ -2,7 +2,7 @@
  * Server-safe, accessible, scrape-resistant email link. Every character of
  * both the `mailto:` href and the visible text is emitted as an HTML numeric
  * character entity, so the raw HTML never contains a plaintext address or a
- * literal `@` for scrapers to harvest — but browsers parse entities normally,
+ * literal `@` for scrapers to harvest, but browsers parse entities normally,
  * so this renders as an ordinary, fully accessible, copy-pasteable mailto
  * link with no JavaScript required.
  *

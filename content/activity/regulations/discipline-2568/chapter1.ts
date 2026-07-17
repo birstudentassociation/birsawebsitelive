@@ -1,7 +1,7 @@
 import type { Section } from "../types";
 
 /**
- * Chapter 1 (หมวด ๑ วินัยนักศึกษา — Student discipline), ข้อ 6–9, of the
+ * Chapter 1 (หมวด ๑ วินัยนักศึกษา: Student discipline), ข้อ 6 to 9, of the
  * Regulation of Thammasat University on Student Discipline, B.E. 2568 (2025).
  */
 export const chapter1: Section = {

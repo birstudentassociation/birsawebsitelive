@@ -7,7 +7,7 @@ import { clubCategories, type Club } from "@/content/clubs/clubs";
 export type ClubCardProps = {
   club: Club;
   locale: Locale;
-  /** dict.actions — "open to join" style label per locale. */
+  /** dict.actions: "open to join" style label per locale. */
   openLabel: string;
 };
 

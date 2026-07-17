@@ -6,7 +6,7 @@
  * component in the tree (layout + page) re-reads the now-cleared cookie.
  *
  * Auth gating itself is done server-side, inline in each console page via
- * `getSessionOfficer()` — this component only handles ending a session.
+ * `getSessionOfficer()`. This component only handles ending a session.
  */
 import { useState } from "react";
 import Link from "next/link";

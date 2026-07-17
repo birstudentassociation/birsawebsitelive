@@ -160,8 +160,8 @@ export function renderLayout(input: { previewText?: string; bodyHtml: string }):
                 </tr>
                 <tr>
                   <td style="padding:20px 28px;border-top:1px solid #e6dccb;">
-                    <p style="margin:0 0 4px;padding:0;font-family:${FONT_STACK};font-size:13px;line-height:1.6;color:#5b524a;">อีเมลนี้ส่งโดยอัตโนมัติจากระบบของสโมสรนักศึกษา BIR (BIRSA) &mdash; กรุณาอย่าตอบกลับอีเมลนี้</p>
-                    <p style="margin:0 0 4px;padding:0;font-family:${FONT_STACK};font-size:13px;line-height:1.6;color:#5b524a;">This is an automated message from the BIR Student Association (BIRSA). Please do not reply.</p>
+                    <p style="margin:0 0 4px;padding:0;font-family:${FONT_STACK};font-size:13px;line-height:1.6;color:#5b524a;">อีเมลนี้ส่งโดยอัตโนมัติจากระบบของสโมสรนักศึกษา BIR (BIRSA) กรุณาอย่าตอบกลับอีเมลนี้</p>
+                    <p style="margin:0 0 4px;padding:0;font-family:${FONT_STACK};font-size:13px;line-height:1.6;color:#5b524a;">This is an automated message from the BIR Student Association (BIRSA). Do not reply.</p>
                     <p style="margin:0;padding:0;font-family:${FONT_STACK};font-size:13px;line-height:1.6;color:#5b524a;">BIRSA &middot; Faculty of Political Science, Thammasat University (Tha Prachan) &middot; bir@tu.ac.th</p>
                   </td>
                 </tr>

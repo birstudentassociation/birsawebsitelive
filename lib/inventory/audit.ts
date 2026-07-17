@@ -31,7 +31,7 @@ function mapAudit(row: AuditRow): AuditEntry {
   };
 }
 
-/** Records an audit entry. Never throws — failures are swallowed so audit logging can't break a mutation. */
+/** Records an audit entry. Never throws; failures are swallowed so audit logging can't break a mutation. */
 export async function recordAudit(input: {
   officerId: string | null;
   action: string;

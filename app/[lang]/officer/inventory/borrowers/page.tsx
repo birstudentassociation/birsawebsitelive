@@ -48,10 +48,10 @@ const copy: Record<Locale, Copy> = {
   en: {
     title: "Borrowers",
     lede: "Search borrowers, review their loan history, and manage blocklisting.",
-    signInTitle: "Please sign in on the console home",
+    signInTitle: "Sign in on the console home",
     signInBody: "You need an active officer session to view borrowers.",
     signInCta: "Go to console home",
-    noAccessTitle: "You don't have access to this page",
+    noAccessTitle: "You do not have access to this page",
     noAccessBody: "Only admins and loan officers can view and manage borrowers.",
   },
   th: {

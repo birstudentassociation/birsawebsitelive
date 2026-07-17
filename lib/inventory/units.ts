@@ -45,7 +45,7 @@ function isUniqueViolation(err: unknown): boolean {
 
 /**
  * Inclusive overlap check for two ISO (YYYY-MM-DD) date ranges. Pure, no DB
- * access — exported for unit tests. String comparison is valid here because
+ * access; exported for unit tests. String comparison is valid here because
  * lexical order matches chronological order for YYYY-MM-DD strings.
  */
 export function rangesOverlap(aStart: string, aEnd: string, bStart: string, bEnd: string): boolean {

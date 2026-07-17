@@ -72,7 +72,7 @@ export type NoticeProps = {
 /**
  * Callout box for info/success/warning/error messaging, plus a `placeholder`
  * variant used to mark example content that BIRSA will replace. Never the
- * sole way meaning is conveyed — icon + colour + text always travel
+ * sole way meaning is conveyed: icon, colour and text always travel
  * together.
  */
 export default function Notice({ variant = "info", title, className, children }: NoticeProps) {

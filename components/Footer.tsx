@@ -9,7 +9,7 @@ export type FooterProps = {
   locale: Locale;
 };
 
-/** Renders a social entry — external link treatment unless it's a placeholder with no real destination. */
+/** Renders a social entry: external link treatment unless it's a placeholder with no real destination. */
 function SocialLink({
   social,
   locale,

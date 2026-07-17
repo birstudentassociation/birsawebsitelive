@@ -1,5 +1,5 @@
 /**
- * i18n plumbing — locales, dictionary lookup, and locale-aware link helpers.
+ * i18n plumbing: locales, dictionary lookup, and locale-aware link helpers.
  *
  * Slugs are identical across locales (English kebab-case acts as the shared
  * key); only titles/content differ. Every internal link must be built with
@@ -38,7 +38,7 @@ export function localeHref(locale: Locale, path: string): string {
 
 /**
  * Swap the locale segment of a pathname while preserving the rest of the
- * path — used by the language toggle so it links to the same page in the
+ * path, used by the language toggle so it links to the same page in the
  * other language.
  */
 export function swapLocalePath(pathname: string, to: Locale): string {

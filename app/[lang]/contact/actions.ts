@@ -12,10 +12,10 @@ export type ContactValues = Record<ContactFieldName, string>;
 
 /**
  * Result of a contact submission, driving what the form renders next:
- * - `invalid`  — validation failed; show field errors, keep the typed values
- * - `success`  — message sent (or honeypot silently swallowed)
- * - `fallback` — email isn't configured; show the draft to send manually
- * - `error`    — rate-limited or send failed; show a generic error, keep values
+ * - `invalid`: validation failed; show field errors, keep the typed values
+ * - `success`: message sent (or honeypot silently swallowed)
+ * - `fallback`: email isn't configured; show the draft to send manually
+ * - `error`: rate-limited or send failed; show a generic error, keep values
  */
 export type ContactState = {
   status: "idle" | "invalid" | "success" | "fallback" | "error";
@@ -40,7 +40,7 @@ function ipFromHeaders(h: Headers): string {
  * JavaScript (Next serialises it to an endpoint), so the whole journey works
  * HTML-first; `useActionState` layers the inline behaviour on top. Mirrors the
  * JSON route handler at `app/api/contact/route.ts`: rate limit, honeypot,
- * shared zod schema, then Resend — never revealing the honeypot to bots.
+ * shared zod schema, then Resend, never revealing the honeypot to bots.
  */
 export async function submitContact(
   _prev: ContactState,
@@ -63,7 +63,7 @@ export async function submitContact(
     return { status: "error", values };
   }
 
-  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     return { status: "success" };
   }

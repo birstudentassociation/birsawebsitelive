@@ -135,7 +135,7 @@ const copy: Record<Locale, Copy> = {
     errorRequired: "Fill in all required fields",
     errorDuplicate: "That key is already used by another item",
     errorForbidden: "Your account does not have permission to do this",
-    errorGeneric: "Something went wrong. Please try again.",
+    errorGeneric: "Something went wrong. Try again.",
     createdMessage: "Item created.",
     retire: "Retire",
     retiring: "Retiring...",

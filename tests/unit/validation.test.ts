@@ -35,7 +35,7 @@ describe("contactSchema", () => {
   });
 
   it("fails validation when the honeypot (nickname) field is filled", () => {
-    // `nickname` only permits an empty string (or omission) — a real visitor
+    // `nickname` only permits an empty string (or omission); a real visitor
     // never fills it, so any non-empty value fails schema validation. This
     // is the mechanism the API route relies on to detect bots.
     const result = contactSchema.safeParse({ ...validInput, nickname: "a bot filled this in" });

@@ -2,7 +2,7 @@
  * Bilingual (Thai + English) email renderers for every transactional email
  * BIRSA sends: student-facing loan lifecycle emails, and officer/inbox-facing
  * notifications (delivered to `BIRSA_INBOX`). Each renderer is a pure
- * function returning `{ subject, html, text }` — no env/DB access here, that
+ * function returning `{ subject, html, text }`; no env/DB access here, that
  * lives in the callers (e.g. lib/inventory/notifications.ts, API routes).
  *
  * Every interpolated dynamic value is escaped via `escapeHtml` /
@@ -73,7 +73,7 @@ export function renderLoanApproved(i: {
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Congratulations! Your loan request has been approved. Please bring your student ID when you come to collect the item.`) +
+        paragraph(`Congratulations! Your loan request has been approved. Bring your student ID when you come to collect the item.`) +
         infoTable(rowsEn),
     });
 
@@ -89,7 +89,7 @@ export function renderLoanApproved(i: {
       `Start date: ${i.startDate}`,
       `End date: ${i.endDate}`,
       "",
-      "Please bring your student ID when you come to collect the item.",
+      "Bring your student ID when you come to collect the item.",
     ].join("\n"),
   };
 }
@@ -123,7 +123,7 @@ export function renderLoanRejected(i: {
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. If you have any questions, please feel free to contact BIRSA directly.`) +
+        paragraph(`Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. If you have any questions, feel free to contact BIRSA directly.`) +
         infoTable(rowsEn),
     });
 
@@ -137,7 +137,7 @@ export function renderLoanRejected(i: {
       `Reference: ${i.reference}`,
       `Item: ${i.itemNameEn}`,
       "",
-      "If you have any questions, please feel free to contact BIRSA directly.",
+      "If you have any questions, feel free to contact BIRSA directly.",
     ].join("\n"),
   };
 }
@@ -176,7 +176,7 @@ export function renderOverdue(i: {
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Your item was due back on ${end} and is now overdue. Please return it to the BIRSA office as soon as possible.`) +
+        paragraph(`Your item was due back on ${end} and is now overdue. Return it to the BIRSA office as soon as possible.`) +
         infoTable(rowsEn),
     });
 
@@ -187,7 +187,7 @@ export function renderOverdue(i: {
       `Hi ${i.borrowerName},`,
       "",
       `Your loan of "${i.itemNameEn}" (reference ${i.reference}) was due back on ${i.endDate} and is now overdue.`,
-      "Please return it to the BIRSA office as soon as possible.",
+      "Return it to the BIRSA office as soon as possible.",
     ].join("\n"),
   };
 }
@@ -225,7 +225,7 @@ export function renderDueSoon(i: {
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Just a friendly reminder that your item is due back on ${end}. Please return it to the BIRSA office on or before that date.`) +
+        paragraph(`Just a friendly reminder that your item is due back on ${end}. Return it to the BIRSA office on or before that date.`) +
         infoTable(rowsEn),
     });
 
@@ -236,7 +236,7 @@ export function renderDueSoon(i: {
       `Hi ${i.borrowerName},`,
       "",
       `Your loan of "${i.itemNameEn}" (reference ${i.reference}) is due back on ${i.endDate}.`,
-      "Please return it to the BIRSA office on or before that date.",
+      "Return it to the BIRSA office on or before that date.",
     ].join("\n"),
   };
 }
@@ -275,7 +275,7 @@ export function renderPickupReady(i: {
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Your approved loan is ready for pickup starting ${start}. Please collect it from the BIRSA office and bring your student ID.`) +
+        paragraph(`Your approved loan is ready for pickup starting ${start}. Collect it from the BIRSA office and bring your student ID.`) +
         infoTable(rowsEn),
     });
 
@@ -286,7 +286,7 @@ export function renderPickupReady(i: {
       `Hi ${i.borrowerName},`,
       "",
       `Your approved loan of "${i.itemNameEn}" (reference ${i.reference}) is ready for pickup starting ${i.startDate}.`,
-      "Please collect it from the BIRSA office and bring your student ID.",
+      "Collect it from the BIRSA office and bring your student ID.",
     ].join("\n"),
   };
 }

@@ -21,7 +21,7 @@ export type PhotoUploadLabels = {
   /**
    * Accessible name for the current-photo preview image, e.g. "Photo of
    * <item name>" (in the active locale). Required: the preview conveys the
-   * item's appearance, so it must have descriptive alt text (WCAG 1.1.1) —
+   * item's appearance, so it must have descriptive alt text (WCAG 1.1.1),
    * never the upload verb.
    */
   photoAlt: string;
@@ -146,7 +146,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
 
       {message ? (
         // Success/progress uses role="status" (polite, implicit live
-        // region); errors use role="alert" (assertive) — same pattern as
+        // region); errors use role="alert" (assertive), same pattern as
         // OfficerLogin's error handling (WCAG 4.1.3 Status Messages).
         <p
           role={message.kind === "success" ? "status" : "alert"}

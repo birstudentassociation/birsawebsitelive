@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 /**
  * Segment-level not-found for any unmatched path under `/[lang]`. Next.js
  * *usually* passes the same dynamic `params` used to match the segment, so
- * we can still render in the visited locale — but during static generation
+ * we can still render in the visited locale, but during static generation
  * (and in some Next.js versions generally) this boundary can be invoked
  * with `params` omitted entirely, so treat it as optional and fall back to
  * the default locale's copy rather than destructuring blindly.

@@ -77,7 +77,7 @@ const copy: Record<
     ],
     notConfiguredTitle: "Online requests are still being set up",
     notConfiguredBody:
-      "You can still see what's available below, but the online request form isn't ready yet. Please contact BIRSA directly to borrow an item.",
+      "You can still see what's available below, but the online request form is not ready yet. Contact BIRSA directly to borrow an item.",
     contactLink: "Contact BIRSA",
     availableLabel: (available, total) => `Available (${available} of ${total})`,
     unavailableLabel: "On loan / unavailable",
@@ -93,7 +93,7 @@ const copy: Record<
     allOwners: "All owners",
     directoryNoticeTitle: "Looking for club equipment?",
     directoryNoticeBody:
-      "Some equipment is managed by clubs and borrowed directly from them — see the club equipment directory.",
+      "Some equipment is managed by clubs and borrowed directly from them. See the club equipment directory.",
     directoryLinkCta: "Open the club equipment directory",
     clubBorrowLine: (clubName) => `Borrow this from ${clubName} directly.`,
     contactLabel: "Contact",

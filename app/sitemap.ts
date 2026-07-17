@@ -1,7 +1,7 @@
 /**
  * Sitemap: enumerates every route in both locales. Slugs are derived from
  * the same content loaders the pages themselves use (`lib/content.ts` and
- * `content/clubs/clubs.ts`) — never hardcoded — so the sitemap can't drift
+ * `content/clubs/clubs.ts`), never hardcoded, so the sitemap can't drift
  * out of sync with what actually gets built.
  */
 import type { MetadataRoute } from "next";

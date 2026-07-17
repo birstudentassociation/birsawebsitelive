@@ -2,7 +2,7 @@ import type { Section } from "../types";
 
 /**
  * Title 2 (ลักษณะ ๒): The Thammasat University Student Council, "TUSC"
- * (ข้อ 7–34), of the Regulation of Thammasat University on Student
+ * (ข้อ 7 to 34), of the Regulation of Thammasat University on Student
  * Activities, B.E. 2563 (2020).
  */
 export const title2: Section = {

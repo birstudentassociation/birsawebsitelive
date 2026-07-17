@@ -1,5 +1,5 @@
 /**
- * Home page copy (English) — authored natively, not translated.
+ * Home page copy (English): authored natively, not translated.
  * See `content/home/th.ts` for the Thai version (same facts, own phrasing).
  */
 export const homeEn = {
@@ -32,7 +32,7 @@ export const homeEn = {
     legend: {
       birsa: "BIRSA activities",
       academic: "Academic dates",
-      university: "University & faculty",
+      university: "University and faculty",
     },
     styleLegend: {
       period: "Multi-day period",

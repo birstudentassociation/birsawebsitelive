@@ -4,7 +4,7 @@ import { test, expect } from "@playwright/test";
  * Progressive-enhancement guarantees (Service Manual: "a user can complete the
  * journey using HTML alone"). Every test here runs with JavaScript DISABLED, so
  * the forms must submit via a real POST to their server action and re-render the
- * result server-side — no client fetch, no `useActionState` on the client.
+ * result server-side, with no client fetch and no `useActionState` on the client.
  */
 test.use({ javaScriptEnabled: false });
 
@@ -29,13 +29,13 @@ test.describe("forms work without JavaScript", () => {
     await page
       .locator('textarea[name="message"]')
       .fill("I would like to know how to start a new debate club this term.");
-    // Submit via Enter in a single-line field — a native form submit that avoids
+    // Submit via Enter in a single-line field, a native form submit that avoids
     // clicking the button as the page navigates.
     await page.locator('input[name="subject"]').fill("A question about clubs");
     await page.locator('input[name="subject"]').press("Enter");
     await page.waitForLoadState("load");
 
-    // Either "sent" (success) or the "email not configured" fallback — both are
+    // Either "sent" (success) or the "email not configured" fallback; both are
     // valid accepted outcomes and both render a role="status" panel. What must
     // NOT happen is the validation error summary.
     await expect(page.getByRole("status").first()).toBeVisible();

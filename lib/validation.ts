@@ -1,5 +1,5 @@
 /**
- * Shared zod schemas for the site's forms — used both client-side (for
+ * Shared zod schemas for the site's forms, used both client-side (for
  * inline validation) and server-side (in `app/api/*` route handlers, which
  * must never trust client validation alone).
  *

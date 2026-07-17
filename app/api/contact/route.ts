@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
-  // Honeypot filled — silently accept and discard, never reveal detection.
+  // Honeypot filled: silently accept and discard, never reveal detection.
   // Checked BEFORE schema validation so bots never see a validation error
   // pointing at the trap field.
   if (typeof body === "object" && body !== null && (body as { nickname?: unknown }).nickname) {

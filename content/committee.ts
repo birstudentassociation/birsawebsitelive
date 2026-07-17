@@ -1,11 +1,11 @@
 /**
- * BIRSA committee roster — typed module (not MDX). This is the REAL 2026
+ * BIRSA committee roster: typed module (not MDX). This is the REAL 2026
  * committee: officers first, then assistant officers, in the order BIRSA
  * supplied. `key` is the shared identifier across locales and also doubles
  * as the portrait filename stem (see `components/about/CommitteeRoster.tsx`
  * and `docs/EDITING.md` for how to add a photo).
  *
- * Never add emails or student IDs here — see `tests/unit/content.test.ts`
+ * Never add emails or student IDs here. See `tests/unit/content.test.ts`
  * for the guard that enforces this.
  */
 

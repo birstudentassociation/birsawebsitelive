@@ -2,9 +2,9 @@
  * Indicative role descriptions for each BIRSA committee position, keyed by
  * the same `key` used in `content/committee.ts`. These describe the SCOPE
  * of the role (inferred from each member's `title`), not the person holding
- * it — so this file doesn't need to change when the committee changes.
+ * it, so this file does not need to change when the committee changes.
  *
- * These are indicative role scopes only, written for this site launch — the
+ * These are indicative role scopes only, written for this site launch; the
  * BIRSA committee should review and refine the wording to match how each
  * role actually works in practice.
  */

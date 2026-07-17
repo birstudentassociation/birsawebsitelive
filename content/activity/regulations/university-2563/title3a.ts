@@ -1,9 +1,9 @@
 import type { Section } from "../types";
 
 /**
- * Title 3 (ลักษณะ ๓), Chapters 1–3: General provisions (ข้อ 35), the TUSU
- * Executive Committee (ข้อ 36–52), and Faculty Student Committees
- * (ข้อ 53–60), of the Regulation of Thammasat University on Student
+ * Title 3 (ลักษณะ ๓), Chapters 1 to 3: General provisions (ข้อ 35), the TUSU
+ * Executive Committee (ข้อ 36 to 52), and Faculty Student Committees
+ * (ข้อ 53 to 60), of the Regulation of Thammasat University on Student
  * Activities, B.E. 2563 (2020).
  */
 export const title3Chapters1to3: Section[] = [

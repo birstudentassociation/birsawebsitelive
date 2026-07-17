@@ -7,7 +7,7 @@
  * throwing, so the site stays buildable and renderable with zero
  * environment configuration.
  *
- * NOTE: the app-facing `Officer` type never includes `passcode_hash` — every
+ * NOTE: the app-facing `Officer` type never includes `passcode_hash`; every
  * function here maps rows through `mapRow`, which drops it.
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";

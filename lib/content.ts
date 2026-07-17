@@ -1,6 +1,6 @@
 /**
  * Build-time filesystem content loaders. Reads MDX files under `content/`,
- * parses frontmatter with gray-matter, and validates it with zod — invalid
+ * parses frontmatter with gray-matter, and validates it with zod; invalid
  * frontmatter throws a descriptive error so the build fails loudly rather
  * than shipping broken content.
  *
@@ -30,20 +30,20 @@ function toDateOnlyString(value: Date): string {
   return `${y}-${m}-${d}`;
 }
 
-/** Frontmatter date field, e.g. `2025-08-20` — normalized to `YYYY-MM-DD`. */
+/** Frontmatter date field, e.g. `2025-08-20`, normalized to `YYYY-MM-DD`. */
 const dateOnly = z
   .union([z.string(), z.date()])
   .transform((v) => (v instanceof Date ? toDateOnlyString(v) : v))
   .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "must be an ISO date, e.g. 2025-08-20"));
 
-/** Frontmatter datetime field — normalized to a full ISO string. */
+/** Frontmatter datetime field, normalized to a full ISO string. */
 const dateTime = z
   .union([z.string(), z.date()])
   .transform((v) => (v instanceof Date ? v.toISOString() : v))
   .pipe(z.string().min(1));
 
 // ---------------------------------------------------------------------------
-// Frontmatter schemas — see docs/PROJECT-BRIEF.md "Content model".
+// Frontmatter schemas: see docs/PROJECT-BRIEF.md "Content model".
 // ---------------------------------------------------------------------------
 
 const linkSchema = z.object({
@@ -111,7 +111,7 @@ type FrontmatterFor<S extends Section> = S extends "news"
 export type Entry<F = Record<string, unknown>> = {
   slug: string;
   frontmatter: F;
-  /** Raw (unrendered) MDX body — pass to `Mdx({ source })` to render. */
+  /** Raw (unrendered) MDX body. Pass to `Mdx({ source })` to render. */
   content: string;
 };
 

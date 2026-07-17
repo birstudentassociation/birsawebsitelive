@@ -36,7 +36,7 @@ const initialState: ContactState = { status: "idle" };
  * Contact BIRSA form. Posts to the `submitContact` server action, so it works
  * with HTML alone (a plain form POST re-renders the page with the result);
  * `useActionState` progressively enhances it with an inline error summary,
- * focus management, and a pending state — no full reload when JS is available.
+ * focus management, and a pending state: no full reload when JS is available.
  * Inputs are uncontrolled (`defaultValue` + `name`) so the no-JS path carries
  * values through `FormData`; on a validation error the server echoes them back.
  */
@@ -51,7 +51,7 @@ export default function ContactForm({
   const resultRef = useRef<HTMLDivElement>(null);
 
   // On success/fallback the form (and the focused submit button) unmounts, so
-  // move focus to the result message — otherwise focus falls back to <body>
+  // move focus to the result message, otherwise focus falls back to <body>
   // and keyboard users lose their place (2.4.3).
   useEffect(() => {
     if (state.status === "success" || state.status === "fallback") {
@@ -131,7 +131,7 @@ export default function ContactForm({
 
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
 
-      {/* Honeypot — real visitors never see or fill this. Visually hidden,
+      {/* Honeypot: real visitors never see or fill this. Visually hidden,
           not display:none, so assistive tech that ignores CSS still gets an
           explicit instruction rather than a trap. */}
       <div className="sr-only" aria-hidden="true">

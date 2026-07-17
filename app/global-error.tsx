@@ -6,7 +6,7 @@ import "@/app/globals.css";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 
 /**
- * Global error boundary — the last line of defence. It only renders when the
+ * Global error boundary: the last line of defence. It only renders when the
  * root `app/[lang]/layout.tsx` itself throws, so no layout wraps it and it must
  * emit its own `<html lang>` + `<body>` (WCAG 3.1.1), just like the global
  * `app/not-found.tsx`. The visited locale is unknown here, so it renders in the
