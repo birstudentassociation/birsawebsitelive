@@ -11,7 +11,7 @@ import { clubs } from "@/content/clubs/clubs";
 import { documents } from "@/content/activity/regulations";
 import { SITE_URL } from "@/lib/site-url";
 
-const guideAudiences: GuideAudience[] = ["home", "international"];
+const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
 
 function url(locale: Locale, path: string): string {
   const normalized = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;

@@ -77,7 +77,7 @@ const studentLifeFrontmatterSchema = z.object({
   summary: z.string().min(1),
   order: z.number(),
   updated: dateOnly,
-  audience: z.enum(["home", "international"]),
+  audience: z.enum(["home", "international", "handbook"]),
   placeholder: z.boolean().optional(),
 });
 
@@ -205,7 +205,7 @@ export function getEntry<S extends Section>(
 // Student-life guide (has an extra `audience` sub-directory + field)
 // ---------------------------------------------------------------------------
 
-export type GuideAudience = "home" | "international";
+export type GuideAudience = "home" | "international" | "handbook";
 
 /** Returns all student-life guide entries for a locale/audience, sorted by `order` asc. */
 export function getGuideEntries(
