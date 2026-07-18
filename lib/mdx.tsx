@@ -13,6 +13,9 @@ import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import Email from "@/components/Email";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
+import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
+import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
+import ShuttleTimetable from "@/components/shuttle/ShuttleTimetable";
 import type { Locale } from "@/lib/i18n";
 
 export type MdxProps = {
@@ -63,6 +66,9 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     Notice,
     Email,
     CommitteeRoster: () => <CommitteeRoster locale={locale} />,
+    ShuttleTimer: () => <ShuttleTimer locale={locale} />,
+    ShuttleRoute: () => <ShuttleRoute locale={locale} />,
+    ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
   };
 }
 

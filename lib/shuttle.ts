@@ -1,0 +1,245 @@
+/**
+ * Pure data + scheduling logic for the Thammasat shuttle bus guide
+ * (`content/student-life/{en,th}/home/shuttle-bus.mdx`). No React here so
+ * this stays fully unit-testable; see `tests/unit/shuttle.test.ts`.
+ *
+ * All times below are the two lines' scheduled DEPARTURES FROM the
+ * Thammasat Tha Prachan campus (TPC), Monday to Friday only. Buses are
+ * boarded in front of the Thammasat University Auditorium.
+ */
+
+export type LineId = "sanam-chai" | "pinklao";
+
+export type Bilingual = { en: string; th: string };
+
+export type Stop = Bilingual & {
+  /** Marks the Tha Prachan campus stop (both the start and, for a loop, the end). */
+  isCampus?: boolean;
+};
+
+/** Hour of day (0-23) -> sorted list of departure minutes within that hour. Hours with no service are omitted. */
+export type Schedule = Record<number, number[]>;
+
+/** A departure that also serves as a dormitory shuttle round, e.g. Pinklao's 07:00/09:00/17:00/19:00. */
+export type DormitoryMarker = {
+  time: string; // "HH:MM"
+  label: Bilingual;
+};
+
+export type ShuttleLine = {
+  id: LineId;
+  name: Bilingual;
+  kind: "point-to-point" | "loop";
+  stops: Stop[];
+  schedule: Schedule;
+  dormitoryMarkers?: DormitoryMarker[];
+};
+
+export const shuttleLines: ShuttleLine[] = [
+  {
+    id: "sanam-chai",
+    name: { en: "Sanam Chai Line", th: "สายสนามไชย" },
+    kind: "point-to-point",
+    stops: [
+      {
+        en: "Thammasat University, Tha Prachan",
+        th: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+        isCampus: true,
+      },
+      { en: "MRT Sanam Chai Station, Museum Siam Exit", th: "สถานีสนามไชย ทางออกมิวเซียมสยาม" },
+    ],
+    schedule: {
+      7: [45],
+      8: [0, 15, 30, 45],
+      9: [0, 30, 45],
+      10: [0],
+      12: [0, 15, 30, 45],
+      13: [0, 15, 30],
+      14: [0],
+      15: [0],
+      16: [0, 15, 30, 45],
+      17: [0, 15, 30, 45],
+      18: [0, 15, 30],
+      19: [0],
+      20: [0, 30, 45],
+      21: [0, 30],
+    },
+  },
+  {
+    id: "pinklao",
+    name: { en: "Pinklao Line", th: "สายปิ่นเกล้า" },
+    kind: "loop",
+    stops: [
+      {
+        en: "Thammasat University, Tha Prachan",
+        th: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+        isCampus: true,
+      },
+      { en: "Before Pinklao Bridge", th: "ก่อนสะพานปิ่นเกล้า" },
+      { en: "Pata Pinklao", th: "พาต้าปิ่นเกล้า" },
+      { en: "Major Pinklao", th: "เมเจอร์ปิ่นเกล้า" },
+      { en: "Lumphini Park Pinklao", th: "ลุมพินีพาร์ค ปิ่นเกล้า" },
+      { en: "Lumphini Place Pinklao 2", th: "ลุมพินีเพลส ปิ่นเกล้า 2" },
+      { en: "Central Pinklao", th: "เซ็นทรัลปิ่นเกล้า" },
+      { en: "Opposite Pata Pinklao", th: "ตรงข้ามพาต้าปิ่นเกล้า" },
+      { en: "After Pinklao Bridge", th: "หลังสะพานปิ่นเกล้า" },
+      {
+        en: "Thammasat University, Tha Prachan",
+        th: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+        isCampus: true,
+      },
+    ],
+    schedule: {
+      7: [0, 20, 40],
+      8: [0, 20, 40],
+      9: [0, 30],
+      11: [0, 30],
+      12: [0, 30],
+      13: [0, 30],
+      14: [0, 30],
+      16: [0, 20, 40],
+      17: [0, 20, 40],
+      18: [0, 30],
+      19: [0, 30],
+      20: [0, 30],
+      21: [0, 30],
+    },
+    dormitoryMarkers: [
+      {
+        time: "07:00",
+        label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
+      },
+      {
+        time: "09:00",
+        label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
+      },
+      {
+        time: "17:00",
+        label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
+      },
+      {
+        time: "19:00",
+        label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
+      },
+    ],
+  },
+];
+
+export function getLine(id: LineId): ShuttleLine {
+  const line = shuttleLines.find((l) => l.id === id);
+  if (!line) throw new Error(`Unknown shuttle line: ${id}`);
+  return line;
+}
+
+function pad2(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
+/** Sorted list of every departure for a line, expressed as minutes since midnight. */
+export function getDepartureMinutes(lineId: LineId): number[] {
+  const { schedule } = getLine(lineId);
+  const minutes: number[] = [];
+  for (const hourKey of Object.keys(schedule)) {
+    const hour = Number(hourKey);
+    for (const minute of schedule[hour] ?? []) {
+      minutes.push(hour * 60 + minute);
+    }
+  }
+  return minutes.sort((a, b) => a - b);
+}
+
+/** Sorted list of every departure for a line, as "HH:MM" strings. */
+export function getDepartureTimes(lineId: LineId): string[] {
+  return getDepartureMinutes(lineId).map((m) => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`);
+}
+
+/** Looks up the dormitory-service footnote for a given "HH:MM" departure, if any. */
+export function getDormitoryMarker(lineId: LineId, time: string): DormitoryMarker | undefined {
+  return getLine(lineId).dormitoryMarkers?.find((marker) => marker.time === time);
+}
+
+export const lastDepartureNote: Bilingual = {
+  en: "Last bus",
+  th: "รถคันสุดท้าย",
+};
+
+/** Weekday/minute-of-day for a given instant, computed for Asia/Bangkok regardless of host timezone. */
+export type BangkokParts = {
+  /** 0 = Sunday ... 6 = Saturday. */
+  weekday: number;
+  /** Minutes since midnight, 0-1439. */
+  minutes: number;
+};
+
+const WEEKDAY_ORDER = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+/**
+ * Resolves the current weekday and minute-of-day in the Asia/Bangkok
+ * timezone, independent of the viewer's device timezone. Uses
+ * `Intl.DateTimeFormat` with an explicit `timeZone` and `formatToParts`
+ * rather than trusting `Date`'s local getters.
+ */
+export function getBangkokParts(date: Date = new Date()): BangkokParts {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Bangkok",
+    weekday: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const parts = formatter.formatToParts(date);
+  const lookup = new Map(parts.map((p) => [p.type, p.value]));
+
+  const weekdayName = lookup.get("weekday") ?? "Sun";
+  const weekday = WEEKDAY_ORDER.indexOf(weekdayName);
+
+  // Some ICU implementations render midnight as "24" with hour12: false.
+  const hour = Number(lookup.get("hour") ?? "0") % 24;
+  const minute = Number(lookup.get("minute") ?? "0");
+
+  return {
+    weekday: weekday < 0 ? 0 : weekday,
+    minutes: hour * 60 + minute,
+  };
+}
+
+export type NextDepartureResult =
+  | { status: "no-service-weekend" }
+  | { status: "finished-today" }
+  | {
+      status: "upcoming";
+      minutesOfDay: number;
+      hh: string;
+      mm: string;
+      /** Whole minutes remaining until this departure (floor). */
+      minutesUntil: number;
+    };
+
+/**
+ * Given Bangkok weekday/minute-of-day parts, returns the next scheduled
+ * departure for a line, at whole-minute granularity. Weekends never have
+ * service. On a weekday, finds the earliest departure strictly after the
+ * current minute; this naturally covers "before first bus" (falls through
+ * to the day's first departure), "mid-service" (the next slot), and "after
+ * last bus" (nothing found -> finished-today).
+ */
+export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartureResult {
+  if (parts.weekday === 0 || parts.weekday === 6) {
+    return { status: "no-service-weekend" };
+  }
+
+  const departures = getDepartureMinutes(lineId);
+  const next = departures.find((minutesOfDay) => minutesOfDay > parts.minutes);
+
+  if (next === undefined) {
+    return { status: "finished-today" };
+  }
+
+  return {
+    status: "upcoming",
+    minutesOfDay: next,
+    hh: pad2(Math.floor(next / 60)),
+    mm: pad2(next % 60),
+    minutesUntil: next - parts.minutes,
+  };
+}
