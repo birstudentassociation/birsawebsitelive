@@ -56,7 +56,7 @@ export type OfficialLink = {
 export const officialLinks: OfficialLink[] = [
   {
     id: "birProgram",
-    label: { th: "หลักสูตร BIR", en: "BIR Program" },
+    label: { th: "หลักสูตร BIR", en: "BIR Programme" },
     href: "https://www.birpolsci.com",
   },
   {

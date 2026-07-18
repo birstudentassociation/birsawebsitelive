@@ -1,5 +1,5 @@
 /**
- * Full PI (Politics and International Relations) course catalog, extracted
+ * Full PI (Politics and International Relations) course catalogue, extracted
  * from the Faculty of Political Science, Thammasat University curriculum
  * document (BIR programme, B.E. 2568/2025 revision). Sorted by course code
  * ascending. See `types.ts` for field semantics.
@@ -155,7 +155,7 @@ export const courses: Course[] = [
     track: "foundational",
     yearLevel: [1, 2],
     description: {
-      en: "This course introduces definitions, theories, concepts, the scope of public administration and public policy. The evolutions of public administration and policy and their environmental factors will be examined. The study will also examine politics and administration, process of management, public policy, public organization and public personnel, public finance and budgeting, mission and public accountability, including the ethics of public executive. Upon completion of the course, students will have an understanding of the relationship between public administration and public policy and how one is translated into another.",
+      en: "This course introduces definitions, theories, concepts, the scope of public administration and public policy. The evolutions of public administration and policy and their environmental factors will be examined. The study will also examine politics and administration, process of management, public policy, public organisation and public personnel, public finance and budgeting, mission and public accountability, including the ethics of public executive. Upon completion of the course, students will have an understanding of the relationship between public administration and public policy and how one is translated into another.",
       th: "รายวิชานี้แนะนำความหมาย ทฤษฎี แนวคิด และขอบข่ายของการบริหารรัฐกิจ วิวัฒนาการของการบริหารรัฐกิจ การบริหารกับสภาพแวดล้อม การเมืองและการบริหาร กระบวนการบริหาร นโยบายสาธารณะ ประเภทขององค์กรภาครัฐและบุคลากร การคลังและงบประมาณ พันธะรับผิดชอบในการบริหารราชการ และจริยศาสตร์ของนักบริหาร รวมถึงเนื้อหาสาระของนโยบายสาธารณะ และผลกระทบทางจริยศาสตร์ การเมือง เศรษฐกิจ และสังคม อันเป็นผลมาจากนโยบายดังกล่าว",
     },
   },
@@ -181,7 +181,7 @@ export const courses: Course[] = [
     track: "foundational",
     yearLevel: [1, 2],
     description: {
-      en: "This course discusses the foundations of international politics and the nature and structure of international relations. It fundamentally explores how political, military, economic, social, and cultural factors impact state behaviors and developments of international cooperation in various forms such as international regulations, international laws, and international institutions.",
+      en: "This course discusses the foundations of international politics and the nature and structure of international relations. It fundamentally explores how political, military, economic, social, and cultural factors impact state behaviours and developments of international cooperation in various forms such as international regulations, international laws, and international institutions.",
       th: "รายวิชานี้อภิปรายเกี่ยวกับพื้นฐานของการเมืองระหว่างประเทศ ธรรมชาติ และโครงสร้างของระบบความสัมพันธ์ระหว่างประเทศ ปัจจัยทางด้านการเมือง การทหาร เศรษฐกิจ สังคม และวัฒนธรรม ที่มีผลต่อแนวพฤติกรรมของรัฐ เครื่องมือที่ใช้ในการดำเนินความสัมพันธ์ระหว่างรัฐ ตลอดจนพัฒนาการความร่วมมือระหว่างประเทศในรูปต่าง ๆ เช่น ระเบียบปฏิบัติ กฎหมาย และสถาบันระหว่างประเทศ อันเป็นผลมาจากปัจจัยดังกล่าว",
     },
   },
@@ -194,7 +194,7 @@ export const courses: Course[] = [
     track: "foundational",
     yearLevel: [1, 2],
     description: {
-      en: "This course introduces analytical and conceptual tools crucial for analyzing foreign policies. The class assists students to identify differences and similarities as well as changes and continuities in the foreign policy processes of states across the globe. Various case studies will be used to highlight the theoretical debates and the gap between theories and practices in decision-making of foreign policies.",
+      en: "This course introduces analytical and conceptual tools crucial for analysing foreign policies. The class assists students to identify differences and similarities as well as changes and continuities in the foreign policy processes of states across the globe. Various case studies will be used to highlight the theoretical debates and the gap between theories and practices in decision-making of foreign policies.",
       th: "รายวิชานี้แนะนำทฤษฎีและระเบียบวิธีศึกษานโยบายต่างประเทศในเบื้องต้น เพื่อวิเคราะห์นโยบายต่างประเทศในเชิงเปรียบเทียบ โดยศึกษาและวิเคราะห์โครงสร้างและกระบวนการต่าง ๆ ที่เกี่ยวข้องกับการกำหนดนโยบาย การแปลงนโยบายไปสู่การปฏิบัติ รวมทั้งการวิเคราะห์กรณีศึกษาเห็นช่องว่างระหว่างภาคทฤษฎีและภาคปฏิบัติ",
     },
   },
@@ -208,7 +208,7 @@ export const courses: Course[] = [
     yearLevel: [1, 2],
     prerequisite: { en: "Have earned credits of PI271", th: "สอบได้วิชา รร.271" },
     description: {
-      en: "This course analyzes international events based on theoretical and conceptual perspectives in International Relations. This course explores how we can apply theories to explain contemporary issues (such as inter-state conflicts, terrorism, nuclear and arms proliferation, transnational crimes, human rights, and trade), and how the international community responds to these issues.",
+      en: "This course analyses international events based on theoretical and conceptual perspectives in International Relations. This course explores how we can apply theories to explain contemporary issues (such as inter-state conflicts, terrorism, nuclear and arms proliferation, transnational crimes, human rights, and trade), and how the international community responds to these issues.",
       th: "รายวิชานี้วิเคราะห์เหตุการณ์ระหว่างประเทศโดยอาศัยแนวคิดและแนวทางทฤษฎีทางความสัมพันธ์ระหว่างประเทศ และวิชานี้มุ่งสำรวจวิธีการใช้แนวคิดและทางทฤษฎีมาเพื่ออธิบายประเด็นร่วมสมัย เช่น ความขัดแย้งระหว่างประเทศ การก่อการร้าย อาวุธนิวเคลียร์และการแพร่ขยาย อาชญากรรมระหว่างประเทศ สิทธิมนุษยชน และการค้า เป็นต้น รวมถึงศึกษาการตอบสนองของประชาคมระหว่างประเทศต่อประเด็นดังกล่าว",
     },
   },
@@ -234,20 +234,20 @@ export const courses: Course[] = [
     track: "foundational",
     yearLevel: [1, 2],
     description: {
-      en: "This course introduces principles and theories of international law; origins of international law from the past to the present; the relationships between domestic and international law; status of individuals under international law; rights and responsibilities of inter-state relations and state and private sector relations; origins and roles of international organizations, international maritime law and other issues regarding international law and politics, economy, and society studied on a case by case basis.",
+      en: "This course introduces principles and theories of international law; origins of international law from the past to the present; the relationships between domestic and international law; status of individuals under international law; rights and responsibilities of inter-state relations and state and private sector relations; origins and roles of international organisations, international maritime law and other issues regarding international law and politics, economy, and society studied on a case by case basis.",
       th: "รายวิชานี้แนะนำหลักการและทฤษฎีของกฎหมายระหว่างประเทศ ที่มาของกฎหมายระหว่างประเทศจากอดีตถึงปัจจุบัน ความสัมพันธ์ระหว่างกฎหมายในกับกฎหมายระหว่างประเทศ สถานะของบุคคลในกฎหมายระหว่างประเทศ รวมถึงสิทธิและหน้าที่ของรัฐในความสัมพันธ์ระหว่างรัฐต่อรัฐ รัฐต่อเอกชน ที่มาและบทบาทขององค์การระหว่างประเทศ และกฎหมายระหว่างประเทศทางทะเล ตลอดจนปัญหาอื่น ๆ ที่เกี่ยวข้องระหว่างกฎหมายระหว่างประเทศกับการเมือง เศรษฐกิจ สังคม ฯลฯ ซึ่งอาจจะนำมาศึกษาเป็นกรณี ๆ ไป",
     },
   },
   {
     code: "PI292",
     instructors: [FUADI],
-    title: { en: "International Organizations and Regimes", th: "องค์การและระบอบระหว่างประเทศ" },
+    title: { en: "International Organisations and Regimes", th: "องค์การและระบอบระหว่างประเทศ" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "required",
     track: "foundational",
     yearLevel: [1, 2],
     description: {
-      en: "This course discusses history of different levels of international organizations, from The Hague conventions, the League of Nations, the United Nations and the World Trade Organization to various regional organizations. The course will highlight the structure, power, responsibilities, roles and operations of these organizations in resolving international problems in different aspects such as social, economic and political aspects, as well as consider successes and failures of international organizations.",
+      en: "This course discusses history of different levels of international organisations, from The Hague conventions, the League of Nations, the United Nations and the World Trade Organization to various regional organisations. The course will highlight the structure, power, responsibilities, roles and operations of these organisations in resolving international problems in different aspects such as social, economic and political aspects, as well as consider successes and failures of international organisations.",
       th: "รายวิชานี้ศึกษาประวัติองค์การระหว่างประเทศในระดับต่าง ๆ เริ่มจากการประชุมระหว่างประเทศที่กรุงเฮก สันนิบาตชาติ สหประชาชาติ และองค์การการค้าโลก (WTO) ตลอดจนองค์การระดับภูมิภาคต่าง ๆ โดยจะชี้ให้เห็นโครงสร้างและอำนาจหน้าที่ บทบาท และการดำเนินงานขององค์การเหล่านี้ในการแก้ไขปัญหาระหว่างประเทศในมิติต่าง ๆ ทั้งด้านสังคม เศรษฐกิจ และการเมือง ตลอดจนพิจารณาถึงความสำเร็จและความล้มเหลวขององค์การระหว่างประเทศด้วย",
     },
   },
@@ -260,7 +260,7 @@ export const courses: Course[] = [
     track: "global-political-economy",
     yearLevel: [1, 2],
     description: {
-      en: "The course introduces the field of political economy by examining key theoretical developments through history of the discipline. The course will also examine the emergence and evolution of capitalism beginning with the study of the first and the second “global trading” systems followed by other important developments until the rise of developmental state under the current trend of globalization.",
+      en: "The course introduces the field of political economy by examining key theoretical developments through history of the discipline. The course will also examine the emergence and evolution of capitalism beginning with the study of the first and the second “global trading” systems followed by other important developments until the rise of developmental state under the current trend of globalisation.",
       th: "รายวิชานี้แนะนำความรู้เบื้องต้นในสาขาวิชาเศรษฐกิจการเมือง โดยศึกษาพัฒนาการของทฤษฎีที่สำคัญผ่านประวัติศาสตร์ของสาขาวิชา นอกจากนี้ ยังศึกษาการก่อตัวและวิวัฒนาการของทุนนิยมตั้งแต่ระบบ “การค้าระดับโลก” ระลอกที่หนึ่งและสอง ตามด้วยพัฒนาการที่สำคัญต่าง ๆ จนถึงการก่อตัวของรัฐนำการพัฒนาภายใต้กระแสโลกาภิวัตน์ในปัจจุบัน",
     },
   },
@@ -300,7 +300,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI211", th: "สอบได้วิชา รร.211" },
     description: {
-      en: "This course examines concepts, theories, and arguments from the sub-field of political science such as comparative politics and government through case studies from various countries and issues of interest to political scientists at the time in order to understand the nature of political systems, the development of the state, political dynamics and stability, democratization, social conflicts, public policies, political behavior.",
+      en: "This course examines concepts, theories, and arguments from the sub-field of political science such as comparative politics and government through case studies from various countries and issues of interest to political scientists at the time in order to understand the nature of political systems, the development of the state, political dynamics and stability, democratisation, social conflicts, public policies, political behaviour.",
       th: "รายวิชานี้นำเสนอแนวคิด ทฤษฎี และข้อถกเถียงในสาขาวิชาย่อยว่าด้วยการเมืองการปกครองเปรียบเทียบ โดยพิจารณาผ่านกรณีศึกษาจากประเทศต่าง ๆ รวมทั้งประเด็นปัญหาซึ่งกำลังเป็นที่สนใจในแวดวงรัฐศาสตร์ ณ เวลานั้น เพื่อทำความเข้าใจธรรมชาติของระบบการเมือง พัฒนาการของรัฐ พลวัตและเสถียรภาพทางการเมือง ความเป็นประชาธิปไตย ความขัดแย้งในสังคม นโยบายสาธารณะและพฤติกรรมทางการเมือง",
     },
   },
@@ -314,7 +314,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI211", th: "สอบได้วิชา รร.211" },
     description: {
-      en: "This course discusses factors involving Thai politics and government such as history, social structure, culture, and economy. It examines trends of Thai political entities, characteristics of political behaviors, analyses of the relationship between political and socioeconomic factors, problems in Thai politics and government in the age of change affected by the above factors.",
+      en: "This course discusses factors involving Thai politics and government such as history, social structure, culture, and economy. It examines trends of Thai political entities, characteristics of political behaviours, analyses of the relationship between political and socioeconomic factors, problems in Thai politics and government in the age of change affected by the above factors.",
       th: "รายวิชานี้ศึกษาปัจจัยต่าง ๆ ที่เกี่ยวข้องกับการเมืองการปกครองของไทย เช่น ประวัติศาสตร์ โครงสร้างสังคม วัฒนธรรม เศรษฐกิจและการเมืองไทย ลักษณะและแนวโน้มของชีวิตการเมืองของไทย ลักษณะเฉพาะพฤติกรรมการเมือง เป็นต้น วิเคราะห์สัมพันธภาพระหว่างชีวิตการเมืองกับปัจจัยทางสังคมและเศรษฐกิจ สำรวจปัญหาทางการเมืองการปกครองในยุคของการเปลี่ยนแปลงตามปัจจัยเหล่านี้",
     },
   },
@@ -327,7 +327,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course examines cases of public management and policy. The course aims to stimulate discussion on how the global dynamics affect the study and practices of public policy and management such as regionalization and international collaboration. The course encourages class discussions on policy formation, policy agenda setting, and policy design using case study to identify and explain recent global public management and policy trends as well as the differences between the public management and policy structures and processes that change within the countries locally, regionally, and globally.",
+      en: "This course examines cases of public management and policy. The course aims to stimulate discussion on how the global dynamics affect the study and practices of public policy and management such as regionalisation and international collaboration. The course encourages class discussions on policy formation, policy agenda setting, and policy design using case study to identify and explain recent global public management and policy trends as well as the differences between the public management and policy structures and processes that change within the countries locally, regionally, and globally.",
       th: "รายวิชานี้ศึกษาการจัดการและนโยบายสาธารณะของประเทศต่าง ๆ ที่น่าสนใจ โดยมุ่งเน้นการถกเถียงเกี่ยวกับพลวัตโลก เช่น การรวมกลุ่มทางภูมิภาคและความร่วมมือในระดับระหว่างประเทศ ที่ส่งผลถึงการเรียนและการปฏิบัติที่เกี่ยวข้องกับนโยบายและการจัดการสาธารณะ รวมถึงศึกษากระแสการจัดการสาธารณะและนโยบายของโลก และความแตกต่างของโครงสร้างและกระบวนการการจัดการและนโยบายสาธารณะที่เปลี่ยนแปลงไปทั้งในระดับท้องถิ่น ภูมิภาค และโลก",
     },
   },
@@ -340,20 +340,20 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course explores concepts, theories, techniques, and practices of policy analysis and evaluation. The course encourages class discussions on public policy responses of government and provides students with a toolset of practical methods, based on microeconomic and political concepts, for analyzing public policy issues. Students will learn how to analyze policies as well as how techniques of analysis differ from one to another. The use of evaluation techniques, both quantitatively and qualitatively, will be applied to study various policy issues in terms of ethical, political, economic, and societal aspects.",
+      en: "This course explores concepts, theories, techniques, and practices of policy analysis and evaluation. The course encourages class discussions on public policy responses of government and provides students with a toolset of practical methods, based on microeconomic and political concepts, for analysing public policy issues. Students will learn how to analyse policies as well as how techniques of analysis differ from one to another. The use of evaluation techniques, both quantitatively and qualitatively, will be applied to study various policy issues in terms of ethical, political, economic, and societal aspects.",
       th: "รายวิชานี้ศึกษาแนวคิด ทฤษฎี เทคนิค และการปฏิบัติที่เกี่ยวข้องกับการวิเคราะห์และประเมินนโยบายสาธารณะ เช่น การก่อตัวของนโยบาย การวางวาระทางนโยบาย และการออกแบบนโยบาย นักศึกษาจะได้เรียนรู้วิธีการในการวิเคราะห์นโยบายและเทคนิคการวิเคราะห์ในรูปแบบต่าง ๆ โดยใช้เทคนิคที่ใช้ในการประเมินทั้งเชิงปริมาณและคุณภาพในการศึกษาผลกระทบของนโยบายในด้านจริยธรรม การเมือง เศรษฐกิจ และสังคม",
     },
   },
   {
     code: "PI342",
     instructors: [SUNISA],
-    title: { en: "Organization and Human Resources Management: Theories and Practices", th: "การจัดการองค์การและการบริหารทรัพยากรมนุษย์: ทฤษฎีและปฏิบัติ" },
+    title: { en: "Organisation and Human Resources Management: Theories and Practices", th: "การจัดการองค์การและการบริหารทรัพยากรมนุษย์: ทฤษฎีและปฏิบัติ" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course examines theories, principles, approaches, and policies essential to the study of human resources management. The course covers key functions of human resource management, such as recruitment and selection, compensation management, performance appraisal, retention, labor relations, and human resource development. It also includes managerial process and organizational designs. The course encourages class discussions on human resources process and techniques, as well as current problems in human resource management.",
+      en: "This course examines theories, principles, approaches, and policies essential to the study of human resources management. The course covers key functions of human resource management, such as recruitment and selection, compensation management, performance appraisal, retention, labour relations, and human resource development. It also includes managerial process and organisational designs. The course encourages class discussions on human resources process and techniques, as well as current problems in human resource management.",
       th: "รายวิชานี้พิจารณาทฤษฎีและแนวความคิดต่าง ๆ เกี่ยวกับการบริหารทรัพยากรบุคคล ตลอดจนกระบวนการจัดการวางแผนอำนวยการและการควบคุม ตลอดจนการปรับปรุงและเปลี่ยนแปลงองค์การ รวมถึงปรัชญา แนวคิด หลักการ และนโบบายของการบริหารทรัพยากรมนุษย์ภาครัฐ กระบวนการและเทคนิคของการบริหารทรัพยากรมนุษย์ภาครัฐ การกำหนดงานและตำแหน่ง รวมทั้งศึกษาปัญหาร่วมสมัยของการบริหารทรัพยากรมนุษย์",
     },
   },
@@ -366,7 +366,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course discusses the concept of strategic management and its application to government agencies, state enterprises, autonomous organizations, and other public entities. The class introduces students to strategic management tools; such as the organizational mission statement, SWOT analysis, strategy formulation, strategy implementation, and strategy evaluation. Using a comparative approach, the course will highlight how organizations from different sectors and countries interpret and apply these strategic management concepts and tools.",
+      en: "This course discusses the concept of strategic management and its application to government agencies, state enterprises, autonomous organisations, and other public entities. The class introduces students to strategic management tools; such as the organisational mission statement, SWOT analysis, strategy formulation, strategy implementation, and strategy evaluation. Using a comparative approach, the course will highlight how organisations from different sectors and countries interpret and apply these strategic management concepts and tools.",
       th: "รายวิชานี้ศึกษาแนวคิดเกี่ยวกับการวางแผนและจัดการเชิงกลยุทธ์ เพื่อนำไปปรับใช้กับหน่วยงานราชการ รัฐวิสาหกิจ องค์การอิสระ และองค์การสาธารณะอื่น ๆ โดยครอบคลุมเนื้อหาเกี่ยวกับการกำหนดวิสัยทัศน์ พันธกิจขององค์การ การวิเคราะห์จุดอ่อน จุดแข็ง โอกาส ภาวะคุกคาม การกำหนดกลยุทธ์ที่เหมาะสม การนำกลยุทธ์ไปปฏิบัติ และการประเมินผลกลยุทธ์ รวมทั้งเปรียบเทียบองค์กรที่เป็นเลิศทั้งภาครัฐและเอกชนทั้งในและต่างประเทศเพื่อนำมาประยุกต์ใช้อย่างเหมาะสม",
     },
   },
@@ -379,7 +379,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course explores environmental management and policy from the perspectives of government regulators, private corporations, and nonprofit organizations. It also focuses on analyzing critical ways of making environmental management and policy as conductive to innovation as possible. This will be done by providing a comprehensive understanding of government structure, organizations, decision making procedure, policy instruments, and the roles of non-state actors in the environmental management and policy. The course will use case studies to discuss the major factors, such as the institutional structure and interests and powers of the actors, which influence governments as they develop and implement environmental policies. The intent is to give students a fairly detailed understanding of difference policy approaches and different policy instruments available to policy-makers.",
+      en: "This course explores environmental management and policy from the perspectives of government regulators, private corporations, and nonprofit organisations. It also focuses on analysing critical ways of making environmental management and policy as conductive to innovation as possible. This will be done by providing a comprehensive understanding of government structure, organisations, decision making procedure, policy instruments, and the roles of non-state actors in the environmental management and policy. The course will use case studies to discuss the major factors, such as the institutional structure and interests and powers of the actors, which influence governments as they develop and implement environmental policies. The intent is to give students a fairly detailed understanding of difference policy approaches and different policy instruments available to policy-makers.",
       th: "รายวิชานี้ศึกษากระบวนการเครื่องมือทางนโยบายเกี่ยวกับสิ่งแวดล้อม แนวทาง และมาตรการต่าง ๆ ในการจัดการสิ่งแวดล้อม รวมถึงกฎหมายที่เกี่ยวกับการควบคุมภาวะมลพิษด้านต่าง ๆ บทบาทของตัวแสดงและองค์การต่าง ๆ ที่เกี่ยวข้องกับสิ่งแวดล้อม การประสานนโยบายสิ่งแวดล้อมให้สอดคล้องกับนโยบายการพัฒนาประเทศในด้านอื่น ๆ โดยจะศึกษาจากกรณีศึกษาความขัดแย้งต่าง ๆ ที่เกิดขึ้น ตลอดจนนโยบายและการจัดการสิ่งแวดล้อมในระดับระหว่างประเทศ",
     },
   },
@@ -391,7 +391,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course examines changing global and local settings and how disasters and risks are managed. Students will explore the concepts, frameworks, techniques, and practices of disaster risk governance through institutional design, interagency coordination, decision making and communication in crises, organizational network, and adaptive capacity building in chaotic and dynamic environments. The course uses case studies and real situations to analyze how best practices and effective and efficient risk reductions are conducted.",
+      en: "This course examines changing global and local settings and how disasters and risks are managed. Students will explore the concepts, frameworks, techniques, and practices of disaster risk governance through institutional design, interagency coordination, decision making and communication in crises, organisational network, and adaptive capacity building in chaotic and dynamic environments. The course uses case studies and real situations to analyse how best practices and effective and efficient risk reductions are conducted.",
       th: "รายวิชานี้พิจารณาพื้นฐานของการบริหารจัดการองค์กรที่มีหน้าที่ปฏิบัติงานตอบรับต่อภาวะที่เร่งด่วน การจัดการภายในองค์การในภาวะวิกฤต และภาวะฉุกเฉินต่าง ๆ การเปลี่ยนแปลงของสภาวะแวดล้อมภายนอกและภัยพิบัติแต่ละชนิด ตลอดจนการดำเนินงานของเครือข่ายบริหารและการจัดการองค์การภาครัฐและภาคต่าง ๆ ที่เกี่ยวข้องกับการบรรเทาสาธารณะภัย ปัจจัยที่ช่วยให้การปฏิบัติงานเป็นไปอย่างมีประสิทธิภาพและประสิทธิผล ความสามารถในการปรับตัวในสภาพแวดล้อมที่เปลี่ยนแปลงตลอดเวลา รวมทั้งมีกระบวนการตัดสินใจที่ถูกต้องมากขึ้น โดยใช้กรณีศึกษาในการบริหารจัดการภัยพิบัติและภาวะฉุกเฉินเป็นตัวอย่างประกอบการศึกษา เพื่อให้นักศึกษาเข้าใจถึงการนำหลักการไปใช้อย่างแท้จริง",
     },
   },
@@ -404,7 +404,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [2, 3],
     description: {
-      en: "This course discusses policy process and management of urban planning and development of cities. It explores theories and concepts of its meanings, characteristics, city cycles, the significance and patterns of city growth, and urbanization. The course also studies principles, processes, actors and tools of managing cities in various areas including city planning, urban environment management, economics of development and forms and structure of city government. It also discusses current issues and solutions of administering cities from experiences in Thailand and abroad.",
+      en: "This course discusses policy process and management of urban planning and development of cities. It explores theories and concepts of its meanings, characteristics, city cycles, the significance and patterns of city growth, and urbanisation. The course also studies principles, processes, actors and tools of managing cities in various areas including city planning, urban environment management, economics of development and forms and structure of city government. It also discusses current issues and solutions of administering cities from experiences in Thailand and abroad.",
       th: "รายวิชานี้ศึกษาความหมายและวัฏจักรของเมือง บทบาทของเมืองในมิติการพัฒนาทางการเมือง เศรษฐกิจและสังคม วิเคราะห์สภาพปัญหาที่มาพร้อมกับการเติบโตของเมือง เข้าถึงทิศทางการพัฒนาเมือง รวมทั้งองค์กรที่เกี่ยวข้องในกระบวนการนโยบายและการจัดการ และแนวทางในการบริหารจัดการเมืองในมิติต่าง ๆ เช่น ผังเมือง สิ่งแวดล้อม และการบริการทางสังคม รวมทั้งกระบวนการและเทคนิคการมีส่วนร่วมในการจัดการเมืองจากประสบการณ์ทั้งในและต่างประเทศ",
     },
   },
@@ -470,7 +470,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course discusses development and role of Russia in global politics as well as domestic and international factors that influence foreign policies formation of the Soviet Union during the Cold War and Russia in the post-Cold War World. The course includes continuities and changes in foreign policy and foreign relations of Russia with the major powers, international organizations, and regions in the world, as well as contemporary issues and tendency.",
+      en: "This course discusses development and role of Russia in global politics as well as domestic and international factors that influence foreign policies formation of the Soviet Union during the Cold War and Russia in the post-Cold War World. The course includes continuities and changes in foreign policy and foreign relations of Russia with the major powers, international organisations, and regions in the world, as well as contemporary issues and tendency.",
       th: "รายวิชานี้ศึกษาพัฒนาการและบทบาทของรัสเซียในการเมืองโลก โดยพิจารณาถึงปัจจัยภายในและภายนอกที่มีอิทธิพลต่อการกำหนดนโยบายต่างประเทศของสหภาพโซเวียตในช่วงสงครามเย็น และรัสเซียในช่วงหลังสงครามเย็น ความต่อเนื่องและการเปลี่ยนแปลงในนโยบายต่างประเทศ และความสัมพันธ์ระหว่างประเทศของรัสเซียกับมหาอำนาจและกับภูมิภาคต่าง ๆ ของโลก รวมทั้งประเด็นร่วมสมัยและแนวโน้มในอนาคต",
     },
   },
@@ -484,7 +484,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course examines development and competing debates about the roles of the U.S. in global politics after the Second World War. The course provides an overview of continuities and changes in the U.S. foreign policy and contemporary issues in the 21st century of the U.S. relationship with other countries, international organizations, and regions in the world.",
+      en: "This course examines development and competing debates about the roles of the U.S. in global politics after the Second World War. The course provides an overview of continuities and changes in the U.S. foreign policy and contemporary issues in the 21st century of the U.S. relationship with other countries, international organisations, and regions in the world.",
       th: "รายวิชานี้ศึกษาพัฒนาการและข้อโต้แย้งเกี่ยวกับบทบาทของสหรัฐอเมริการในการเมืองโลกตั้งแต่สงครามโลกครั้งที่ 2 วิชานำเสนอภาพรวมของความต่อเนื่องและการเปลี่ยนแปลงทางด้านนโยบายต่างประเทศ และประเด็นร่วมสมัยในศตวรรษที่ 21 ที่เกี่ยวข้องกับความสัมพันธ์ระหว่างสหรัฐอเมริกากับประเทศอื่น ๆ องค์การระหว่างประเทศ และภูมิภาคต่าง ๆ ในโลก",
     },
   },
@@ -510,7 +510,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course examines international relations among countries in South Asia. Class discussion will explore the relations of South Asian states with the Non-Aligned Movement, African countries, Middle East, Asia-Pacific and other countries. The course explores regional socio-political and economic cooperation between South Asia and other regional organizations such as ASEAN, APEC and, the EU.",
+      en: "This course examines international relations among countries in South Asia. Class discussion will explore the relations of South Asian states with the Non-Aligned Movement, African countries, Middle East, Asia-Pacific and other countries. The course explores regional socio-political and economic cooperation between South Asia and other regional organisations such as ASEAN, APEC and, the EU.",
       th: "รายวิชานี้สำรวจความสัมพันธ์ระหว่างประเทศในกลุ่มประเทศเอเชียใต้ โดยเน้นความสำคัญของกลุ่มประเทศที่มีต่อขบวนการไม่ฝักใฝ่ฝ่ายใด (Non-Aligned movement) กลุ่มประเทศแอฟริกา ตะวันออกกลาง เอเชียแปซิฟิก และอื่น ๆ ตลอดจนศึกษาความร่วมมือในการจัดตั้งองค์กร ความร่วมมือในภูมิภาคระหว่างกลุ่มประเทศในเอเชียใต้ด้านเศรษฐกิจ การเมืองและสังคม และความร่วมมือระหว่างกลุ่มประเทศเอเชียใต้และองค์กรภูมิภาคอื่น ๆ เช่น อาเซียน เอเปค และสหภาพยุโรป",
     },
   },
@@ -523,7 +523,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course examines development and roles of Africa in the 21st century global politics. The course focuses on domestic and international factors that influence foreign policies of states in Africa. The study also includes continuities and changes in foreign policy and their foreign relations with the major powers, international organizations, and regions in the world, as well as contemporary issues and trends in Africa.",
+      en: "This course examines development and roles of Africa in the 21st century global politics. The course focuses on domestic and international factors that influence foreign policies of states in Africa. The study also includes continuities and changes in foreign policy and their foreign relations with the major powers, international organisations, and regions in the world, as well as contemporary issues and trends in Africa.",
       th: "รายวิชานี้ศึกษาพัฒนาการและบทบาทของแอฟริกาในการเมืองโลกในศตวรรษที่ 21 โดยศึกษาทั้งปัจจัยภายในและปัจจัยภายนอกที่ส่งผลต่อการกำหนดนโยบายต่างประเทศของกลุ่มประเทศแอฟริกา ความต่อเนื่องและการเปลี่ยนแปลงในนโยบายต่างประเทศ และความสัมพันธ์ระหว่างประเทศของกลุ่มประเทศแอฟริกากับมหาอำนาจและกับภูมิภาคต่าง ๆ ของโลก รวมทั้งประเด็นร่วมสมัยและแนวโน้มในอนาคต",
     },
   },
@@ -563,7 +563,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course offers a comprehensive introduction to China’s role in current world affairs through theories and approaches of international relations. It examines the key events and factors that brought about the emergence of China in the 21st century. It also addresses how China deals with certain contemporary thematic issues such as territorial disputes and trade as well as how China deals with major powers and neighbor countries. Students will learn about the sources of conflict and cooperation in China’s actions, including their impact on regional and global politics.",
+      en: "This course offers a comprehensive introduction to China’s role in current world affairs through theories and approaches of international relations. It examines the key events and factors that brought about the emergence of China in the 21st century. It also addresses how China deals with certain contemporary thematic issues such as territorial disputes and trade as well as how China deals with major powers and neighbour countries. Students will learn about the sources of conflict and cooperation in China’s actions, including their impact on regional and global politics.",
       th: "รายวิชานี้ศึกษานโยบายต่างประเทศของสาธารณรัฐประชาชนจีน ผ่านทฤษฎีและกรอบการวิเคราะห์ด้านความสัมพันธ์ระหว่างประเทศ ปัจจัยและเหตุการณ์ที่สำคัญที่นำจีนสู่บทบาทสำคัญในโลก การดำเนินนโยบายต่างประเทศของจีนในด้านต่าง ๆ เช่น ความขัดแย้งเรื่องดินแดน ความสัมพันธ์ด้านการค้า เป็นต้น รวมทั้งพิจารณาการดำเนินนโยบายต่างประเทศของจีนต่อมหาอำนาจและประเทศเพื่อนบ้าน และผลต่อการดำเนินนโยบายดังกล่าว",
     },
   },
@@ -590,7 +590,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [2, 3],
     description: {
-      en: "This course introduces alternative approaches in the field of International Relations such as constructivism, feminism and critical theories. Various case studies will be used for illustrative purposes. Discussion will be aimed at the debates on the usefulness of the new approaches to analyze the current situations.",
+      en: "This course introduces alternative approaches in the field of International Relations such as constructivism, feminism and critical theories. Various case studies will be used for illustrative purposes. Discussion will be aimed at the debates on the usefulness of the new approaches to analyse the current situations.",
       th: "รายวิชานี้แนะนำทฤษฎีและแนวการศึกษาทางเลือกในความสัมพันธ์ระหว่างประเทศ อาทิ แนวคิดสรรค์สร้างนิยม สตรีนิยม และแนวคิดทฤษฎีวิพากษ์อื่น ๆ วิชายังศึกษาเกี่ยวกับวาทกรรมและการวิเคราะห์ความสัมพันธ์ระหว่างประเทศ โดยใช้กรณีศึกษาเพื่อถอดบทเรียนและนำไปประยุกต์ใช้ในสถานการณ์ปัจจุบัน",
     },
   },
@@ -603,7 +603,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [2, 3],
     description: {
-      en: "This course provides an overview of key concepts and issues to the study of security studies such as collective security, collective defense, and comprehensive security. The course discusses current security issues, including terrorism, ethnic conflicts, as well as the change of both global and regional strategic landscapes.",
+      en: "This course provides an overview of key concepts and issues to the study of security studies such as collective security, collective defence, and comprehensive security. The course discusses current security issues, including terrorism, ethnic conflicts, as well as the change of both global and regional strategic landscapes.",
       th: "รายวิชานี้สำรวจแนวคิดความมั่นคงแบบต่าง ๆ เช่น ความมั่นคงร่วมกัน การป้องกันร่วมกัน ความมั่นคงเบ็ดเสร็จ วิเคราะห์ประเด็นความมั่นคงทั้งแบบเดิมและแบบใหม่ซึ่งมีผลต่อการเมืองระหว่างประเทศในปัจจุบัน เช่น การก่อการร้าย ความขัดแย้งในเรื่องเชื้อชาติศาสนา ตลอดจนความเปลี่ยนแปลงทางด้านยุทธศาสตร์ทั้งในระดับโลกและในระดับภูมิภาค",
     },
   },
@@ -616,7 +616,7 @@ export const courses: Course[] = [
     yearLevel: [2, 3],
     prerequisite: { en: "Have earned credits of PI280", th: "สอบได้วิชา รร.280" },
     description: {
-      en: "This course analyzes contemporary Japanese international relations focusing on Japanese views of the changing world such as the Japan-U.S. alliance and Japan’s rising position within Asia. It will also explore the factors contributing to the change of Japan’s foreign policy making process, particularly the linkage between its domestic politics and changing foreign policy.",
+      en: "This course analyses contemporary Japanese international relations focusing on Japanese views of the changing world such as the Japan-U.S. alliance and Japan’s rising position within Asia. It will also explore the factors contributing to the change of Japan’s foreign policy making process, particularly the linkage between its domestic politics and changing foreign policy.",
       th: "รายวิชานี้วิเคราะห์ความสัมพันธ์ระหว่างประเทศของญี่ปุ่นในปัจจุบัน ผ่านมุมมองของญี่ปุ่นที่มีต่อการเปลี่ยนแปลงของโลก ความสัมพันธ์ญี่ปุ่นและสหรัฐอเมริกา ตลอดจนสถานะของญี่ปุ่นที่กำลังเติบโตขึ้นในเอเชีย ปัจจัยที่มีผลต่อกระบวนการกำหนดนโยบายต่างประเทศของญี่ปุ่น โดยเฉพาะความสัมพันธ์ระหว่างการเมืองภายในกับการเปลี่ยนแปลงนโยบายต่างประเทศ",
     },
   },
@@ -641,20 +641,20 @@ export const courses: Course[] = [
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course examines contemporary transnational forces and their relationship with the nation-state and the question of sovereignty. The course identifies and explores the various political, economic and social processes of liberalization as well as a social space and migrations that have created this new era of the increased circulation of people, ideas, commodities and technologies across national boundaries.",
+      en: "This course examines contemporary transnational forces and their relationship with the nation-state and the question of sovereignty. The course identifies and explores the various political, economic and social processes of liberalisation as well as a social space and migrations that have created this new era of the increased circulation of people, ideas, commodities and technologies across national boundaries.",
       th: "รายวิชานี้ศึกษาพลังข้ามชาติที่ส่งผลต่อรัฐชาติและอธิปไตย ทั้งพลังที่ตอกย้ำความสำคัญของเส้นแบ่งเขตแดนรัฐชาติ และพลังที่ตัดผ่านเส้นแบ่ง รวมถึงพลังข้ามชาติที่มีผลต่อพลวัตด้านเศรษฐกิจ การเมือง ขบวนการเคลื่อนไหวทางสังคม และพื้นที่ทางสังคมกับการอพยพซึ่งสร้างปรากฎการณ์ใหม่ของการไหลเวียนของคน ความคิด สินค้า และเทคโนโลยีข้ามพรมแดน",
     },
   },
   {
     code: "PI381",
     instructors: [VIROT],
-    title: { en: "Globalization and Global Governance", th: "โลกาภิวัตน์และโลกาภิบาล" },
+    title: { en: "Globalisation and Global Governance", th: "โลกาภิวัตน์และโลกาภิบาล" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course discusses causes and impacts of globalization on the interaction between the power of market and the states. The course explores how state institutions cope with the forces of globalization. It also investigates novel regulations and orders of the global governance.",
+      en: "This course discusses causes and impacts of globalisation on the interaction between the power of market and the states. The course explores how state institutions cope with the forces of globalisation. It also investigates novel regulations and orders of the global governance.",
       th: "รายวิชานี้อภิปรายสาเหตุและผลกระทบของกระแสโลกาภิวัตน์ที่มีต่อปฏิสัมพันธ์ระหว่างพลังอำนาจของตลาด และรัฐชาติทั้งหลาย ตลอดจนการรับมือกับกระแสโลกาภิวัตน์ของสถาบันของรัฐ นอกจากนั้นยังสำรวจกติกาและระเบียบใหม่ ๆ ของธรรมาภิบาลระหว่างประเทศ",
     },
   },
@@ -667,7 +667,7 @@ export const courses: Course[] = [
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course discusses the evolution of theories and practices on international development. It then highlights the political and social realities of various developmental issues related to economic and political liberalization, poverty reduction, ethnic conflict, and the roles of international aids and non-government organizations (NGOs).",
+      en: "This course discusses the evolution of theories and practices on international development. It then highlights the political and social realities of various developmental issues related to economic and political liberalisation, poverty reduction, ethnic conflict, and the roles of international aids and non-government organisations (NGOs).",
       th: "รายวิชานี้ศึกษาความรู้เบื้องต้นเกี่ยวกับวิวัฒนาการของทฤษฎีและแนวทางทางปฏิบัติของการพัฒนาระหว่างประเทศ รวมถึงการศึกษาสภาพความเป็นจริงทางการเมืองและสังคมปัญหาและอุปสรรคที่เกี่ยวกับการพัฒนา เช่น การเปิดเสรีภาพทางเศรษฐกิจและการเมือง ลดปัญหาความยากจน ความขัดแย้งทางชาติพันธุ์ ตลอดจนบทบาทความช่วยเหลือระหว่างประเทศและองค์การที่ไม่ใช่รัฐบาล",
     },
   },
@@ -731,7 +731,7 @@ export const courses: Course[] = [
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course introduces the rise of global environmental issues. The course discusses the effectiveness of current structures and policies of international organizations to resolve these environmental issues.",
+      en: "This course introduces the rise of global environmental issues. The course discusses the effectiveness of current structures and policies of international organisations to resolve these environmental issues.",
       th: "รายวิชานี้แนะนำประเด็นปัญหาระหว่างประเทศ โดยมุ่งศึกษาเกี่ยวกับประสิทธิภาพของโครงสร้าง นโยบาย และตัวแสดงที่สำคัญ เช่น องค์การระหว่างประเทศ ที่มีบทบาทในการจัดการกับประเด็นและปัญหาสิ่งแวดล้อมในปัจจุบัน",
     },
   },
@@ -743,7 +743,7 @@ export const courses: Course[] = [
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course analyzes contemporary human security issues. The course presents and critically assesses contemporary discourses on human security. It also explores the debates and dilemmas of human security through contemporary case studies.",
+      en: "This course analyses contemporary human security issues. The course presents and critically assesses contemporary discourses on human security. It also explores the debates and dilemmas of human security through contemporary case studies.",
       th: "รายวิชานี้วิเคราะห์ประเด็นที่เกี่ยวข้องกับความมั่นคงมนุษย์ในโลกปัจจุบันโดยมุ่งเน้นศึกษาเหตุการณ์ในปัจจุบันเพื่อได้เห็นและเข้าถึงปัญหาทางด้านความมั่นคงของมนุษย์ที่เกิดขึ้นจริง",
     },
   },
@@ -756,7 +756,7 @@ export const courses: Course[] = [
     track: "governance-transnational",
     yearLevel: [2, 3],
     description: {
-      en: "This course analyzes increasingly visible roles of non-state actors in global governance expanding across the territorial boundaries of the state. The course also explores non-state activism and its role, challenges and limitations in shaping different global issues including, but not limited to, humanitarian, environmental, development, arms control, and human rights issues.",
+      en: "This course analyses increasingly visible roles of non-state actors in global governance expanding across the territorial boundaries of the state. The course also explores non-state activism and its role, challenges and limitations in shaping different global issues including, but not limited to, humanitarian, environmental, development, arms control, and human rights issues.",
       th: "รายวิชานี้วิเคราะห์บทบาทตัวแสดงข้ามชาติที่มีบทบาทมีตัวอย่างที่เห็นได้ชัดในปัจจุบัน วิชาศึกษาบทบาทและการตื่นตัว ตลอดจนความท้าทายและข้อจำกัดของตัวแสดงเหล่านี้ต่อประเด็นระหว่างประเทศ เช่น สิทธิมนุษยชน สิ่งแวดล้อม การพัฒนา การควบคุมอาวุธ และสิทธิมนุษยชน",
     },
   },
@@ -809,7 +809,7 @@ export const courses: Course[] = [
     track: "global-political-economy",
     yearLevel: [2, 3],
     description: {
-      en: "This course utilizes economic and mathematical tools of game theory to increase the understanding of political behavior under the conditions of cooperative and non-cooperative games. This course also examines the optimal theory’s foundations with an emphasis on applications for making strategic games associated with political and economic behaviors and thoughts, including political behaviors, economic strategies, institutional choices, and coalitional games.",
+      en: "This course utilises economic and mathematical tools of game theory to increase the understanding of political behaviour under the conditions of cooperative and non-cooperative games. This course also examines the optimal theory’s foundations with an emphasis on applications for making strategic games associated with political and economic behaviours and thoughts, including political behaviours, economic strategies, institutional choices, and coalitional games.",
       th: "รายวิชานี้ประยุกต์ใช้เครื่องมือทางเศรษฐศาสตร์และคณิตศาสตร์ของนโยบายเกม เพื่อทำความเข้าใจพฤติกรรมทางการเมืองภายใต้กรอบและเงื่อนไขของเกมการร่วมมือและเกมไม่ร่วมมือ รวมถึงศึกษาพื้นฐานของทฤษฎีคำนวณผลลัพธ์ที่เหมาะสมที่สุด โดยเน้นปรับใช้กับเกมยุทธศาสตร์ที่เกี่ยวข้องกับพฤติกรรมและความคิดทางการเมืองและเศรษฐกิจ เช่น พฤติกรรมทางการเมือง ยุทธศาสตร์ทางเศรษฐกิจ ทางเลือกขององค์กร และเกมการรวมกลุ่ม",
     },
   },
@@ -822,7 +822,7 @@ export const courses: Course[] = [
     track: "global-political-economy",
     yearLevel: [2, 3],
     description: {
-      en: "This course offers a comprehensive understanding of the government’s behaviors and decision makings to formulate policy choices for implementing fiscal and budgeting. In addition, the factor influencing public policies in terms of economic development, the function of the state, government expenditure, taxation, and public finance associated with theories for public choices will also be examined.",
+      en: "This course offers a comprehensive understanding of the government’s behaviours and decision makings to formulate policy choices for implementing fiscal and budgeting. In addition, the factor influencing public policies in terms of economic development, the function of the state, government expenditure, taxation, and public finance associated with theories for public choices will also be examined.",
       th: "รายวิชานี้ศึกษาพฤติกรรมและการตัดสินใจของรัฐบาลในการสร้างตัวเลือกเชิงนโยบายเพื่อการดำเนินนโยบายการคลังและการจัดทำงบประมาณ นอกจากนี้ยังทบทวนปัจจัยที่ส่งผลต่อนโยบายสาธารณะด้านการพัฒนาเศรษฐกิจ การทำงานของรัฐ ค่าใช้จ่ายของรัฐบาล ภาษี และการคลังสาธารณะ ซึ่งล้วนเกี่ยวข้องกับทฤษฎีตัวเลือกสาธารณะ",
     },
   },
@@ -853,13 +853,13 @@ export const courses: Course[] = [
   },
   {
     code: "PI413",
-    title: { en: "Seminar: Globalization, Regional Grouping and the State", th: "สัมมนา: โลกาภิวัตน์ การรวมกลุ่มทางภูมิภาคและรัฐ" },
+    title: { en: "Seminar: Globalisation, Regional Grouping and the State", th: "สัมมนา: โลกาภิวัตน์ การรวมกลุ่มทางภูมิภาคและรัฐ" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "governance-transnational",
     yearLevel: [3, 4],
     description: {
-      en: "This seminar explores the phenomena of globalization, regional grouping, and the state. The course focuses on the impact of the emerging the “regionalism” and the “globalism” on international politics, conflicts, cooperation, as well as, policy making of states and international institutions. The analysis includes a comparative view of regional groupings and corporations in different geographical areas.",
+      en: "This seminar explores the phenomena of globalisation, regional grouping, and the state. The course focuses on the impact of the emerging the “regionalism” and the “globalism” on international politics, conflicts, cooperation, as well as, policy making of states and international institutions. The analysis includes a comparative view of regional groupings and corporations in different geographical areas.",
       th: "รายวิชาสัมมนาสำรวจกระแสโลกาภิวัตน์ ความสัมพันธ์ ความร่วมมือระดับภูมิภาค และบทบาทของรัฐ ศึกษากระแสภูมิภาคนิยมและแนวคิดครอบโลกต่อการเมืองระหว่างประเทศ ความขัดแย้ง ความร่วมมือ และการกำหนดนโยบายของรัฐและสถาบันระหว่างประเทศ การศึกษาวิเคราะห์จะเป็นในลักษณะเชิงเปรียบเทียบความร่วมมือในภูมิภาคอื่น ๆ กับความร่วมมือลักษณะต่าง ๆ",
     },
   },
@@ -897,7 +897,7 @@ export const courses: Course[] = [
     track: "public-admin-policy",
     yearLevel: [3, 4],
     description: {
-      en: "This course discusses concepts, techniques, and practices of public administration. The course emphasizes the discussion of problems or issues occurred in various areas and functions in public administration, such as human resource management, organizational management, public financial management, and information management. The course also includes a study of Thailand’s public administration problems in comparison to other countries.",
+      en: "This course discusses concepts, techniques, and practices of public administration. The course emphasises the discussion of problems or issues occurred in various areas and functions in public administration, such as human resource management, organisational management, public financial management, and information management. The course also includes a study of Thailand’s public administration problems in comparison to other countries.",
       th: "รายวิชาสัมมนาประเด็นและปัญหาในการบริหารรัฐกิจด้านต่าง ๆ โดยเน้นปัญหาการบริหารรัฐกิจของประเทศที่กำลังพัฒนา เช่น การบริหารทรัพยากรมนุษย์ การจัดการองค์การ การคลังและการงบประมาณ ฯลฯ การศึกษาเฉพาะกรณีเกี่ยวกับปัญหาการบริหารรัฐกิจของไทยและเปรียบเทียบกับของต่างประเทศ",
     },
   },
@@ -950,7 +950,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "This course offers a comprehensive understanding of the Association of Southeast Asian Nations (ASEAN), its structures and functions and, the transformation to ASEAN Community. Thematic developments of ASEAN, its policies, and its success and failures in dealing with regional and global challenges will be highlighted. The course also examines the evolution of different ASEAN regional policy dialogues such as ARF and East Asian Summit to have a better comprehension of ASEAN’s relations with both intra- and extra-regional powers and other international organizations.",
+      en: "This course offers a comprehensive understanding of the Association of Southeast Asian Nations (ASEAN), its structures and functions and, the transformation to ASEAN Community. Thematic developments of ASEAN, its policies, and its success and failures in dealing with regional and global challenges will be highlighted. The course also examines the evolution of different ASEAN regional policy dialogues such as ARF and East Asian Summit to have a better comprehension of ASEAN’s relations with both intra- and extra-regional powers and other international organisations.",
       th: "รายวิชานี้นำเสนอความเข้าใจในองค์การอาเซียน โครงสร้างและภารกิจขององค์การ และความแปลงเปลี่ยนสู่การเป็นประชาคมอาเซียน วิชาเน้นการศึกษาพัฒนาการและนโยบายที่สำคัญของอาเซียน ตลอดจนความสำเร็จและความล้มเหลวในการจัดการกับความท้าทายทั้งในระดับภูมิภาคและระดับโลก วิชาสำรวจพัฒนาของช่องทางหารือทางนโยบายส่วนภูมิภาคของอาเซียน อาทิ เวทีการประชุมอาเซียนว่าด้วยความร่วมมือด้านการเมืองและความมั่นคงในภูมิภาคเอเชีย-แปซิฟิก (ARF) และ การประชุมสุดยอดเอเชียตะวันออก (East Asian Summit) เป็นต้น เพื่อทำความเข้าใจความสัมพันธ์ของอาเซียนกับมหาอำนาจทั้งในและนอกภูมิภาค ตลอดจนองค์การระหว่างประเทศอื่น ๆ",
     },
   },
@@ -976,7 +976,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "Dominating theories in international relations mostly assume decision-makers to be rational. What if human-beings are not rational or what if being rational requires certain cognitive and emotional components? Do we need an alternative explanation for state behavior in international politics? This course introduces students to the subject of political psychology and international relations. The subjects under review include foreign policy decision-making, public opinion, ideology, emotion, and biases in international relations.",
+      en: "Dominating theories in international relations mostly assume decision-makers to be rational. What if human-beings are not rational or what if being rational requires certain cognitive and emotional components? Do we need an alternative explanation for state behaviour in international politics? This course introduces students to the subject of political psychology and international relations. The subjects under review include foreign policy decision-making, public opinion, ideology, emotion, and biases in international relations.",
       th: "ทฤษฎีความสัมพันธ์ระหว่างประเทศโดยมากมักตั้งสมมติฐานว่าผู้กำหนดนโยบายมีความเป็นเหตุเป็นผล วิชานี้ตั้งคำถามกับสมมติฐานดังกล่าว โดยมองว่าหากมนุษย์นั้นไม่มีความเป็นเหตุเป็นผล หรือหากการเป็นเหตุเป็นผลของมนุษย์มีพื้นฐานเรื่องการรับรู้และอารมณ์เป็นส่วนประกอบ เราจำเป็นต้องตั้งคำถามกับคำอธิบายเรื่องพฤติกรรมของรัฐในการเมืองระหว่างประเทศที่ผ่านมา และจำเป็นต้องหาคำอธิบายใหม่เพื่ออธิบายพฤติกรรมของรัฐหรือไม่ วิชาจิตวิทยาการเมืองและความสัมพันธ์ระหว่างประเทศนี้นำเสนอประเด็นเรื่องการตัดสินใจเชิงนโยบาย ความเห็นของสาธารณชน อุดมการณ์ อารมณ์ และอคติในความสัมพันธ์ระหว่างประเทศ",
     },
   },
@@ -1014,7 +1014,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "Although International Relations scholarship is predominately produced in the west, the rapid rise of these countries on the international stage begs the question whether existing International Relations theories are well-suited to capture these developments. This course is divided into two parts. It first seeks to examine the emerging states on the international stage. It then explores the current state of International Relations scholarship and the theoretical debates in general as well as the developments in non-western academic contexts in order to discuss and analyze the gap between practice and the theory.",
+      en: "Although International Relations scholarship is predominately produced in the west, the rapid rise of these countries on the international stage begs the question whether existing International Relations theories are well-suited to capture these developments. This course is divided into two parts. It first seeks to examine the emerging states on the international stage. It then explores the current state of International Relations scholarship and the theoretical debates in general as well as the developments in non-western academic contexts in order to discuss and analyse the gap between practice and the theory.",
       th: "แม้ว่าวิชาการความสัมพันธ์ระหว่างประเทศ จะมีจุดกำเนิดขึ้นในโลกตะวันตกเป็นส่วนใหญ่ แต่การพัฒนาอย่างรวดเร็วของประเทศในโลกตะวันออกในเวทีระหว่างประเทศก่อให้เกิดคำถามว่าทฤษฎีความสัมพันธ์ระหว่างประเทศในปัจจุบันยังคงสามารถอธิบายพัฒนาการเหล่านี้ได้อยู่หรือไม่ วิชานี้แบ่งออกเป็นสองส่วนด้วยกัน ส่วนแรกพิจารณาการเติบโตของประเทศเศรษฐกิจเกิดใหม่ในเวทีระหว่างประเทศ จากนั้นจึงสำรวจสถานะการศึกษาความสัมพันธ์ระหว่างประเทศในปัจจุบันและการถกเถียงในเชิงทฤษฎีในภาพกว้าง และพัฒนาการทางวิชาการที่อยู่นอกเหนือจากโลกตะวันตก เพื่ออธิปรายและวิจารณาช่องว่างระหว่างการปฏิบัติและภาคทฤษฎี",
     },
   },
@@ -1026,7 +1026,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "This seminar explores concepts and theories on international regimes, institutions, and governance in order to analyze developments, features, elements and related problems of international regimes. The course studies international regimes in many sample areas, such as international trade, environmental control, maintenance of peace and security and management of international human rights.",
+      en: "This seminar explores concepts and theories on international regimes, institutions, and governance in order to analyse developments, features, elements and related problems of international regimes. The course studies international regimes in many sample areas, such as international trade, environmental control, maintenance of peace and security and management of international human rights.",
       th: "รายวิชานี้ศึกษาแนวคิดและทฤษฎีเกี่ยวกับระบอบ สถาบัน และการอภิบาลระหว่างประเทศ เพื่อวิเคราะห์พัฒนาการ ลักษณะ องค์ประกอบ ตลอดจนปัญหาที่เกี่ยวกับระบอบระหว่างประเทศต่าง ๆ วิชาครอบคลุมการศึกษาในประเด็นตัวอย่างของระบอบระหว่างประเทศร่วมสมัยต่าง ๆ อาทิ การค้าระหว่างประเทศ การควบคุมดูแลสิ่งแวดล้อม การรักษาสันติภาพและความมั่นคง และการบริหารจัดการสิทธิมนุษยชนระหว่างประเทศ เป็นต้น",
     },
   },
@@ -1051,7 +1051,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "This course surveys diversity of regional institutions in Asia, Europe, Africa, the Middle East, and the Western hemisphere. The course explores theoretical perspectives of regionalism, and analyzes different paths and experiences of regional integration. Historical context, design, development, and assessment of regionalism will be examined in a comparative perspective.",
+      en: "This course surveys diversity of regional institutions in Asia, Europe, Africa, the Middle East, and the Western hemisphere. The course explores theoretical perspectives of regionalism, and analyses different paths and experiences of regional integration. Historical context, design, development, and assessment of regionalism will be examined in a comparative perspective.",
       th: "รายวิชานี้สำรวจบริบททางประวัติศาสตร์ การออกแบบสถาบัน พัฒนาการ และการประเมินการรวมกลุ่มประเทศในภูมิภาค ความหลากหลายของสถาบันต่าง ๆ ที่เกิดจากการรวมกลุ่มในระดับภูมิภาค ทั้งในเอเชีย ยุโรป แอฟริกา ตะวันออกกลาง และอื่น ๆ ในโลกตะวันตก โดยศึกษาทฤษฎี มุมมองของการรวมกลุ่มนั้น รวมถึงวิเคราะห์สาเหตุและเส้นทางการรวมกลุ่มในแต่ละภูมิภาคว่าแตกต่างกันอย่างไร บริบทเหล่านี้จะถูกนำมาอภิปรายและศึกษาเปรียบเทียบในคาบเรียน",
     },
   },
@@ -1076,7 +1076,7 @@ export const courses: Course[] = [
     track: "international-relations",
     yearLevel: [3, 4],
     description: {
-      en: "This course provides an advanced understanding of the history of political thoughts on International Relations in the period of the classical European state system. Topics will include areas as follows: theories of the state and the development of the concept of sovereignty; nationalism and national self-determination; international institutions (including international law, international organization, the balance of power, and diplomacy); war and the use of force (including the evolution of strategic thought, doctrines of intervention); imperialism and the expansion of international society; revolutions and its impact on international relations; and theories of progress and of historical change.",
+      en: "This course provides an advanced understanding of the history of political thoughts on International Relations in the period of the classical European state system. Topics will include areas as follows: theories of the state and the development of the concept of sovereignty; nationalism and national self-determination; international institutions (including international law, international organisation, the balance of power, and diplomacy); war and the use of force (including the evolution of strategic thought, doctrines of intervention); imperialism and the expansion of international society; revolutions and its impact on international relations; and theories of progress and of historical change.",
       th: "รายวิชานี้นำเสนอความเข้าใจขั้นสูงในประวัติศาสตร์ความคิดทางด้านความสัมพันธ์ระหว่างประเทศในยุคคลาสสิกของระบบรัฐ-ชาติยุโรป หัวข้อในการศึกษาที่สำคัญรวมถึง ทฤษฎีของรัฐและการพัฒนาของแนวคิดอธิปไตย แนวคิดชาตินิยมและการปกครองตนเอง สถาบันระหว่างประเทศ (รวมถึง กฎหมายระหว่างประเทศ องค์การระหว่างประเทศ การดุลอำนาจ และการทูต) การสงครามและการใช้กำลัง การล่าอาณานิคมและการแผ่ขยายของสังคมระหว่างประเทศ การปฏิวัติและผลกระทบต่อความสัมพันธ์ระหว่างประเทศ รวมถึงทฤษฎีก้าวหน้าและทฤษฎีการเปลี่ยนแปลงของประวัติศาสตร์",
     },
   },
@@ -1152,7 +1152,7 @@ export const courses: Course[] = [
     track: "global-political-economy",
     yearLevel: [3, 4],
     description: {
-      en: "This course examines the influence of domestic and international politics on policies of international trade in services and the roles of service sector in political decision. The course explores economic and political economy theories with analytical frameworks related to international trade in services, including liberalization and barriers to services trade. The aim is to provide students with an understanding of the interrelationship between politics and economics in international relations.",
+      en: "This course examines the influence of domestic and international politics on policies of international trade in services and the roles of service sector in political decision. The course explores economic and political economy theories with analytical frameworks related to international trade in services, including liberalisation and barriers to services trade. The aim is to provide students with an understanding of the interrelationship between politics and economics in international relations.",
       th: "รายวิชานี้ศึกษาบทบาทของการเมืองทั้งในและระหว่างประเทศที่ส่งผลต่อนโยบายการค้าภาคบริการ และบทบาทของภาคบริการที่ส่งผลต่อการตัดสินใจทางการเมือง โดยพิจารณาทฤษฎีทางเศรษฐศาสตร์และเศรษฐกิจการเมืองว่าด้วยการค้าภาคบริการระหว่างประเทศ ซึ่งร่วมถึงแนวคิดเรื่องการเปิดเสรี และอุปสรรคต่อการเปิดเสรีภาคบริการ ทั้งนี้ เพื่อให้นักศึกษาเข้าใจความเชื่อมโยงระหว่างมิติด้านการเมืองกับเศรษฐกิจในความสัมพันธ์ระหว่างประเทศ",
     },
   },
@@ -1164,7 +1164,7 @@ export const courses: Course[] = [
     track: "global-political-economy",
     yearLevel: [3, 4],
     description: {
-      en: "This course introduces the main elements of the digital economy and explores how digital economy influences market and global society such as internet, e-commerce, social media and cryptocurrencies. Relevant theories or analytical frameworks will be explored to help analyze the influence of domestic and international politics on rule, regulations and international agreements related to digital economy.",
+      en: "This course introduces the main elements of the digital economy and explores how digital economy influences market and global society such as internet, e-commerce, social media and cryptocurrencies. Relevant theories or analytical frameworks will be explored to help analyse the influence of domestic and international politics on rule, regulations and international agreements related to digital economy.",
       th: "รายวิชานี้แนะนำองค์ประกอบหลักของเศรษฐกิจดิจิทัล พร้อมทั้งศึกษาว่าเศรษฐกิจดิจิทัลส่งผลอย่างไรต่อการทำงานของตลาดและสังคมโลก เช่น อินเทอร์เน็ต พาณิชย์อิเล็กทรอนิกส์ สื่อสังคมออนไลน์ และสกุลเงินดิจิทัล นอกจากนี้ ทฤษฎีและกรอบคิดวิเคราะห์ที่เกี่ยวข้องจะถูกนำเสนอเพื่อช่วยในการวิเคราะห์อิทธิพลของการเมืองภายในและต่างประเทศต่อการกำหนดกฎ ระเบียบ ข้อตกลงระหว่างประเทศที่เกี่ยวกับเศรษฐกิจดิจิทัล",
     },
   },
@@ -1176,11 +1176,11 @@ export const courses: Course[] = [
     track: "foundational",
     yearLevel: [3, 4],
     prerequisite: {
-      en: "Up to 3rd year student or have authorization from the lecturer",
+      en: "Up to 3rd year student or have authorisation from the lecturer",
       th: "นักศึกษาชั้นปี 3 ขึ้นไป โดยได้รับอนุมัติจากผู้สอน",
     },
     description: {
-      en: "This course supports and encourages summer internship for students to gain first-hand experience with organization that complements their field of study. This is designed to prepare the students for future careers.",
+      en: "This course supports and encourages summer internship for students to gain first-hand experience with organisation that complements their field of study. This is designed to prepare the students for future careers.",
       th: "รายวิชานี้สนับสนุนและส่งเสริมการฝึกงานในช่วงฤดูร้อนเพื่อให้เกิดการเรียนรู้จากประสบการณ์จริงจากองค์กรหรือหน่วยงานที่เกี่ยวข้องกับการเมือง การบริหารรัฐกิจ และ/หรือ การระหว่างประเทศ และเพื่อเตรียมความพร้อมให้แก่นักศึกษาสำหรับการประกอบอาชีพในอนาคต",
     },
   },

@@ -112,7 +112,7 @@ export const en = {
     privacy: "Privacy",
     standards: "How this site works",
     openInfo:
-      "This is an unofficial student-run site. For official programme matters, use the BIR Program links.",
+      "This is an unofficial student-run site. For official programme matters, use the BIR Programme links.",
     rights: "BIR Student Association",
     builtNote: "Built to be usable by everyone.",
   },
@@ -146,11 +146,11 @@ export const en = {
 
   courseReview: {
     title: "Course reviews",
-    lede: "Search the full BIR course catalog: codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
-    browseHeading: "Browse the catalog",
+    lede: "Search the full BIR course catalogue: codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
+    browseHeading: "Browse the catalogue",
     searchPlaceholder: "Search by code, title, or keyword…",
     statsHeading: "At a glance",
-    statsTotalCourses: "Courses in the catalog",
+    statsTotalCourses: "Courses in the catalogue",
     statsTotalCredits: "Credit hours, if you took them all",
     statsTracks: "Minor tracks",
     statsByTrack: "Courses by track",
@@ -199,6 +199,6 @@ export const en = {
     noReviewTitle: "No student review yet",
     noReviewBody:
       "BIRSA has not collected a student review for this course yet. If you've taken it and are willing to write a short, honest one, get in touch.",
-    backToCatalog: "Back to the course catalog",
+    backToCatalog: "Back to the course catalogue",
   },
 };

@@ -1,6 +1,6 @@
 /**
  * Typed model for the PI (Politics and International Relations) course
- * catalog under /student-life/home/course-reviews. Sourced from the
+ * catalogue under /student-life/home/course-reviews. Sourced from the
  * Faculty of Political Science, Thammasat University curriculum document
  * (BIR programme, B.E. 2568/2025 revision).
  *

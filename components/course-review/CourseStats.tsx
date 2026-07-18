@@ -21,7 +21,7 @@ export type CourseStatsProps = {
  * Visual overview above the browsable course list: a few stat tiles plus a
  * horizontal bar breakdown of course count by track. All numbers are
  * derived from `courses` (never hardcoded), so this stays correct as the
- * catalog grows from the current placeholder set to the full ~84 courses.
+ * catalogue grows from the current placeholder set to the full ~84 courses.
  *
  * Deliberately a single hue (brand red) for every bar; the site's palette
  * has no categorical rainbow, and each bar already carries its identity via
