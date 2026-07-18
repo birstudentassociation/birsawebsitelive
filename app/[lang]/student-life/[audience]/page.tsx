@@ -7,7 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Card, { CardTitle } from "@/components/Card";
 
-const audiences: GuideAudience[] = ["home", "international"];
+const audiences: GuideAudience[] = ["home", "international", "handbook"];
 
 function isAudience(x: string): x is GuideAudience {
   return audiences.includes(x as GuideAudience);
@@ -55,6 +55,10 @@ const copy: Record<
         title: "For international students",
         lede: "Everything you need for your first weeks and beyond in Bangkok. A condensed Thai-language version of each section is also available, written for Thai buddies and staff who support international students.",
       },
+      handbook: {
+        title: "Student handbook",
+        lede: "The BIR student handbook: admission and fees, the curriculum and the 2023 revised study plan, the academic rules that govern your degree, the internship, and academic activities. Based on the 2021 edition, with the study plan updated to the 2023 revision. Read it in order or jump to the chapter you need.",
+      },
     },
   },
   th: {
@@ -68,6 +72,10 @@ const copy: Record<
       international: {
         title: "สำหรับนักศึกษาต่างชาติ",
         lede: "หน้านี้เป็นเวอร์ชันสรุปย่อของคู่มือสำหรับนักศึกษาต่างชาติ เขียนไว้ให้เพื่อนบัดดี้ไทยและเจ้าหน้าที่ที่ช่วยดูแลนักศึกษาต่างชาติเข้าใจภาพรวม เนื้อหาฉบับเต็มอยู่ในเวอร์ชันภาษาอังกฤษ",
+      },
+      handbook: {
+        title: "คู่มือนักศึกษา",
+        lede: "คู่มือนักศึกษา BIR ครอบคลุมการรับเข้าและค่าเล่าเรียน โครงสร้างหลักสูตรและแผนการศึกษาฉบับปรับปรุง พ.ศ. 2566 ระเบียบด้านการเรียนที่เกี่ยวกับการสำเร็จการศึกษา การฝึกงาน และกิจกรรมทางวิชาการ อ้างอิงจากฉบับ พ.ศ. 2564 โดยปรับแผนการศึกษาเป็นฉบับปรับปรุง พ.ศ. 2566 อ่านตามลำดับหรือข้ามไปยังบทที่ต้องการได้เลย",
       },
     },
   },

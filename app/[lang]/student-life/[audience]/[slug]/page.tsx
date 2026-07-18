@@ -10,7 +10,7 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 
-const audiences: GuideAudience[] = ["home", "international"];
+const audiences: GuideAudience[] = ["home", "international", "handbook"];
 
 function isAudience(x: string): x is GuideAudience {
   return audiences.includes(x as GuideAudience);
@@ -61,7 +61,11 @@ const labels: Record<
 > = {
   en: {
     studentLife: "Information and services",
-    tracks: { home: "Student life and culture guides", international: "For international students" },
+    tracks: {
+      home: "Student life and culture guides",
+      international: "For international students",
+      handbook: "Student handbook",
+    },
     updated: "Last updated",
     onThisPage: "On this page",
     prevNextNav: "Previous and next sections",
@@ -73,11 +77,16 @@ const labels: Record<
     back: {
       home: "Back to the student life and culture guides",
       international: "Back to the international student guide",
+      handbook: "Back to the student handbook",
     },
   },
   th: {
     studentLife: "ข้อมูลและบริการ",
-    tracks: { home: "คู่มือชีวิตนักศึกษาและวัฒนธรรม", international: "สำหรับนักศึกษาต่างชาติ" },
+    tracks: {
+      home: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
+      international: "สำหรับนักศึกษาต่างชาติ",
+      handbook: "คู่มือนักศึกษา",
+    },
     updated: "อัปเดตล่าสุด",
     onThisPage: "ในหน้านี้",
     prevNextNav: "หัวข้อก่อนหน้าและถัดไป",
@@ -89,6 +98,7 @@ const labels: Record<
     back: {
       home: "กลับไปคู่มือชีวิตนักศึกษาและวัฒนธรรม",
       international: "กลับไปคู่มือสำหรับนักศึกษาต่างชาติ",
+      handbook: "กลับไปคู่มือนักศึกษา",
     },
   },
 };
