@@ -47,6 +47,13 @@ const copy: Record<
       topicsLabel: string;
       cta: string;
     };
+    handbook: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      topicsLabel: string;
+      cta: string;
+    };
     howToUseTitle: string;
     howToUseBody: string;
     reportGaps: string;
@@ -96,6 +103,14 @@ const copy: Record<
         "Arrival, visas, banking, phones, healthcare, and everyday culture and language: everything for your first weeks and beyond.",
       topicsLabel: "Top topics",
       cta: "Explore the international student guide",
+    },
+    handbook: {
+      eyebrow: "Reference",
+      title: "Student handbook",
+      description:
+        "The BIR handbook: admission and fees, the curriculum and 2023 revised study plan, academic rules, the internship, and academic activities.",
+      topicsLabel: "In this handbook",
+      cta: "Read the student handbook",
     },
     howToUseTitle: "How to use this page",
     howToUseBody:
@@ -147,6 +162,14 @@ const copy: Record<
       topicsLabel: "หัวข้อยอดนิยม",
       cta: "ดูคู่มือสำหรับนักศึกษาต่างชาติ",
     },
+    handbook: {
+      eyebrow: "เอกสารอ้างอิง",
+      title: "คู่มือนักศึกษา",
+      description:
+        "คู่มือนักศึกษา BIR ทั้งการรับเข้าและค่าเล่าเรียน โครงสร้างหลักสูตรและแผนการศึกษาฉบับปรับปรุง พ.ศ. 2566 ระเบียบด้านการเรียน การฝึกงาน และกิจกรรมทางวิชาการ",
+      topicsLabel: "ในคู่มือนี้",
+      cta: "อ่านคู่มือนักศึกษา",
+    },
     howToUseTitle: "วิธีใช้หน้านี้",
     howToUseBody:
       "หน้านี้ออกแบบมาให้ใช้งานได้ดีกับโปรแกรมอ่านหน้าจอและการกดคีย์บอร์ด แต่ละหัวข้ออ่านแยกกันได้ ไม่จำเป็นต้องอ่านตามลำดับ ถ้าคุณพบว่ามีข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด บอก BIRSA ได้เลย",
@@ -174,11 +197,13 @@ export default async function InformationServicesPage({
   const courseReviewsHref = localeHref(locale, "/student-life/home/course-reviews");
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
+  const handbookHref = localeHref(locale, "/student-life/handbook");
 
   const guideTopics = getGuideEntries(locale, "home")
     .filter((entry) => entry.slug !== "course-reviews")
     .slice(0, 4);
   const internationalTopics = getGuideEntries(locale, "international").slice(0, 4);
+  const handbookTopics = getGuideEntries(locale, "handbook").slice(0, 4);
 
   return (
     <>
@@ -270,28 +295,51 @@ export default async function InformationServicesPage({
             </Card>
           </div>
 
-          <Card href={internationalHref}>
-            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-              {t.international.eyebrow}
-            </span>
-            <CardTitle href={internationalHref} as="h3">
-              {t.international.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{t.international.description}</p>
-            {internationalTopics.length > 0 ? (
-              <div className="mt-1">
-                <p className="text-ink text-sm font-semibold">{t.international.topicsLabel}</p>
-                <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                  {internationalTopics.map((entry) => (
-                    <li key={entry.slug}>{entry.frontmatter.title}</li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-            <span className="text-brand-deep text-sm font-semibold">
-              {t.international.cta} &rarr;
-            </span>
-          </Card>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <Card href={handbookHref}>
+              <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                {t.handbook.eyebrow}
+              </span>
+              <CardTitle href={handbookHref} as="h3">
+                {t.handbook.title}
+              </CardTitle>
+              <p className="text-muted text-sm leading-relaxed">{t.handbook.description}</p>
+              {handbookTopics.length > 0 ? (
+                <div className="mt-1">
+                  <p className="text-ink text-sm font-semibold">{t.handbook.topicsLabel}</p>
+                  <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
+                    {handbookTopics.map((entry) => (
+                      <li key={entry.slug}>{entry.frontmatter.title}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <span className="text-brand-deep text-sm font-semibold">{t.handbook.cta} &rarr;</span>
+            </Card>
+
+            <Card href={internationalHref}>
+              <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                {t.international.eyebrow}
+              </span>
+              <CardTitle href={internationalHref} as="h3">
+                {t.international.title}
+              </CardTitle>
+              <p className="text-muted text-sm leading-relaxed">{t.international.description}</p>
+              {internationalTopics.length > 0 ? (
+                <div className="mt-1">
+                  <p className="text-ink text-sm font-semibold">{t.international.topicsLabel}</p>
+                  <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
+                    {internationalTopics.map((entry) => (
+                      <li key={entry.slug}>{entry.frontmatter.title}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+              <span className="text-brand-deep text-sm font-semibold">
+                {t.international.cta} &rarr;
+              </span>
+            </Card>
+          </div>
         </section>
 
         <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">
