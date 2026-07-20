@@ -14,12 +14,18 @@ export type BreadcrumbsProps = {
   /** dict.a11y.breadcrumb */
   label: string;
   className?: string;
+  /** Recolour for placement on a dark/coloured band (e.g. emergency heroes). */
+  onDark?: boolean;
 };
 
 /** Chevron separator, decorative only. */
-function Chevron() {
+function Chevron({ onDark }: { onDark?: boolean }) {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-muted h-3.5 w-3.5 shrink-0">
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 20 20"
+      className={`h-3.5 w-3.5 shrink-0 ${onDark ? "text-white/70" : "text-muted"}`}
+    >
       <path
         d="m7.5 4.5 5 5.5-5 5.5"
         fill="none"
@@ -32,21 +38,39 @@ function Chevron() {
   );
 }
 
-export default function Breadcrumbs({ locale, items, label, className }: BreadcrumbsProps) {
+export default function Breadcrumbs({
+  locale,
+  items,
+  label,
+  className,
+  onDark,
+}: BreadcrumbsProps) {
   return (
     <nav aria-label={label} className={className}>
-      <ol className="text-muted flex flex-wrap items-center gap-1.5 text-sm">
+      <ol
+        className={`flex flex-wrap items-center gap-1.5 text-sm ${onDark ? "text-white/80" : "text-muted"}`}
+      >
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
             <li key={`${item.label}-${index}`} className="flex items-center gap-1.5">
-              {index > 0 ? <Chevron /> : null}
+              {index > 0 ? <Chevron onDark={onDark} /> : null}
               {isLast || !item.href ? (
-                <span aria-current={isLast ? "page" : undefined} className="text-ink font-medium">
+                <span
+                  aria-current={isLast ? "page" : undefined}
+                  className={`font-medium ${onDark ? "text-white" : "text-ink"}`}
+                >
                   {item.label}
                 </span>
               ) : (
-                <Link href={localeHref(locale, item.href)} className="hover:text-brand-deep">
+                <Link
+                  href={localeHref(locale, item.href)}
+                  className={
+                    onDark
+                      ? "text-white underline hover:text-white/80"
+                      : "hover:text-brand-deep"
+                  }
+                >
                   {item.label}
                 </Link>
               )}

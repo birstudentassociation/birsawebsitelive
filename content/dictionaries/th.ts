@@ -34,6 +34,15 @@ export const th: typeof en = {
 
   emergencyPage: {
     breadcrumb: "เหตุฉุกเฉิน",
+    atAGlance: "สรุปโดยย่อ",
+    alertLevel: "ระดับความรุนแรง",
+    doThisFirst: "ทำสิ่งนี้ก่อน",
+    keyNumbers: "เบอร์สำคัญ",
+    severity: {
+      critical: "วิกฤต",
+      warning: "เฝ้าระวัง",
+      info: "คำแนะนำ",
+    },
     whatToDo: "สิ่งที่ควรทำตอนนี้",
     usefulContacts: "ช่องทางติดต่อที่เป็นประโยชน์",
     birsaContacts: "ติดต่อ BIRSA",

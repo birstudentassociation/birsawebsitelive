@@ -34,6 +34,15 @@ export const en = {
 
   emergencyPage: {
     breadcrumb: "Emergency",
+    atAGlance: "At a glance",
+    alertLevel: "Alert level",
+    doThisFirst: "Do this first",
+    keyNumbers: "Key numbers",
+    severity: {
+      critical: "Critical",
+      warning: "Warning",
+      info: "Advisory",
+    },
     whatToDo: "What to do now",
     usefulContacts: "Useful contacts",
     birsaContacts: "Contact BIRSA",
