@@ -79,9 +79,6 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
           dict={{
             heading: t.statsHeading,
             totalCourses: t.statsTotalCourses,
-            totalCredits: t.statsTotalCredits,
-            minorTracks: t.statsTracks,
-            byTrack: t.statsByTrack,
             tracks: t.tracks,
           }}
         />
