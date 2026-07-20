@@ -18,6 +18,7 @@ import {
   shuttleLines,
   getBangkokParts,
   nextDeparture,
+  type LineId,
   type NextDepartureResult,
 } from "@/lib/shuttle";
 
@@ -25,13 +26,18 @@ export type ShuttleTimerProps = {
   locale: Locale;
 };
 
+const lineAccents: Record<LineId, string> = {
+  "sanam-chai": "#C3002F",
+  "pinklao": "#FFD13F",
+};
+
 type Labels = {
   loading: string;
   nextDeparture: string;
   weekendTitle: string;
   weekendBody: string;
-  finishedTitle: string;
-  finishedBody: string;
+  offTitle: string;
+  offBody: string;
   minutes: (n: number) => string;
   seconds: (n: number) => string;
   caveat: string;
@@ -43,8 +49,8 @@ const labels: Record<Locale, Labels> = {
     nextDeparture: "Next departure",
     weekendTitle: "Not in service",
     weekendBody: "Service runs Monday to Friday. There's no shuttle at weekends.",
-    finishedTitle: "Service has finished for today",
-    finishedBody: "Service resumes on the next weekday morning.",
+    offTitle: "Not in service",
+    offBody: "The next bus shows here about an hour before it departs.",
     minutes: (n) => `in ${n} min`,
     seconds: (n) => `in ${n} sec`,
     caveat: "Times are scheduled departures. In heavy traffic, buses can run a few minutes late.",
@@ -54,8 +60,8 @@ const labels: Record<Locale, Labels> = {
     nextDeparture: "รถคันต่อไป",
     weekendTitle: "งดให้บริการ",
     weekendBody: "ให้บริการวันจันทร์ถึงศุกร์เท่านั้น เสาร์อาทิตย์ไม่มีรถ",
-    finishedTitle: "หมดรอบวันนี้แล้ว",
-    finishedBody: "รถจะกลับมาให้บริการเช้าวันทำการถัดไป",
+    offTitle: "งดให้บริการ",
+    offBody: "รถคันต่อไปจะแสดงที่นี่ประมาณหนึ่งชั่วโมงก่อนออก",
     minutes: (n) => `อีก ${n} นาที`,
     seconds: (n) => `อีก ${n} วินาที`,
     caveat: "เวลาที่แสดงเป็นเวลาตามตารางเดินรถ ช่วงรถติดหนักอาจล่าช้ากว่าที่แจ้งไว้บ้าง",
@@ -80,11 +86,11 @@ function StatusBlock({
     );
   }
 
-  if (result.status === "finished-today") {
+  if (result.status === "not-in-service") {
     return (
       <div>
-        <p className="text-ink font-semibold">{t.finishedTitle}</p>
-        <p className="text-muted text-sm">{t.finishedBody}</p>
+        <p className="text-ink font-semibold">{t.offTitle}</p>
+        <p className="text-muted text-sm">{t.offBody}</p>
       </div>
     );
   }
@@ -147,9 +153,10 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
             <div
               key={line.id}
               className="border-line bg-surface rounded-lg border p-4"
+              style={{ borderLeftWidth: "4px", borderLeftColor: lineAccents[line.id] }}
               aria-live="polite"
             >
-              <h3 className="font-display text-lg">{line.name[locale]}</h3>
+              <h3 className="font-display text-lg mt-0">{line.name[locale]}</h3>
               <StatusBlock result={result} secondsPastMinute={secondsPastMinute} t={t} />
             </div>
           );

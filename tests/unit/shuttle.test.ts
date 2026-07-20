@@ -41,9 +41,26 @@ describe("nextDeparture", () => {
     expect(result.status).toBe("no-service-weekend");
   });
 
-  it("returns the first bus when checked before the first departure of the day", () => {
+  it("returns not-in-service well before the first departure (overnight/early morning)", () => {
     const result = nextDeparture("sanam-chai", parts(1, 6, 0));
-    expect(result).toMatchObject({ status: "upcoming", hh: "07", mm: "45" });
+    expect(result.status).toBe("not-in-service");
+  });
+
+  it("is out of service just over an hour before the first departure", () => {
+    // 06:44 is 61 min before Sanam Chai's 07:45 first bus.
+    const result = nextDeparture("sanam-chai", parts(1, 6, 44));
+    expect(result.status).toBe("not-in-service");
+  });
+
+  it("shows the first bus at exactly one hour before (boundary is in service)", () => {
+    // 06:45 is exactly 60 min before 07:45.
+    const result = nextDeparture("sanam-chai", parts(1, 6, 45));
+    expect(result).toMatchObject({ status: "upcoming", hh: "07", mm: "45", minutesUntil: 60 });
+  });
+
+  it("shows the first bus once within an hour of the first departure", () => {
+    const result = nextDeparture("sanam-chai", parts(1, 7, 0));
+    expect(result).toMatchObject({ status: "upcoming", hh: "07", mm: "45", minutesUntil: 45 });
   });
 
   it("returns the correct next slot mid-service", () => {
@@ -57,14 +74,14 @@ describe("nextDeparture", () => {
     expect(result).toMatchObject({ status: "upcoming", hh: "11", mm: "0".padStart(2, "0") });
   });
 
-  it("returns finished-today after the last departure", () => {
+  it("returns not-in-service after the last departure", () => {
     const result = nextDeparture("sanam-chai", parts(5, 22, 0));
-    expect(result.status).toBe("finished-today");
+    expect(result.status).toBe("not-in-service");
   });
 
-  it("returns finished-today exactly at the last departure (21:30), since it's no longer strictly after", () => {
+  it("returns not-in-service exactly at the last departure (21:30), since it's no longer strictly after", () => {
     const result = nextDeparture("pinklao", parts(2, 21, 30));
-    expect(result.status).toBe("finished-today");
+    expect(result.status).toBe("not-in-service");
   });
 
   it("at the exact boundary of a departure minute, returns the NEXT departure, not the same one", () => {

@@ -205,7 +205,7 @@ export function getBangkokParts(date: Date = new Date()): BangkokParts {
 
 export type NextDepartureResult =
   | { status: "no-service-weekend" }
-  | { status: "finished-today" }
+  | { status: "not-in-service" }
   | {
       status: "upcoming";
       minutesOfDay: number;
@@ -219,9 +219,12 @@ export type NextDepartureResult =
  * Given Bangkok weekday/minute-of-day parts, returns the next scheduled
  * departure for a line, at whole-minute granularity. Weekends never have
  * service. On a weekday, finds the earliest departure strictly after the
- * current minute; this naturally covers "before first bus" (falls through
- * to the day's first departure), "mid-service" (the next slot), and "after
- * last bus" (nothing found -> finished-today).
+ * current minute; this naturally covers "mid-service" (the next slot) and
+ * "after last bus" (nothing found -> not-in-service). Before the first bus
+ * of the day, the board still counts as not-in-service until we're within
+ * an hour of that first departure, so the overnight and early-morning
+ * window doesn't show a long, misleading countdown; the upcoming countdown
+ * only appears once 60 minutes or less remain.
  */
 export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartureResult {
   if (parts.weekday === 0 || parts.weekday === 6) {
@@ -229,10 +232,19 @@ export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartur
   }
 
   const departures = getDepartureMinutes(lineId);
+  const first = departures[0];
   const next = departures.find((minutesOfDay) => minutesOfDay > parts.minutes);
 
+  // After the last departure of the day: out of service until the next day.
   if (next === undefined) {
-    return { status: "finished-today" };
+    return { status: "not-in-service" };
+  }
+
+  // Before the first bus, but more than an hour out: the overnight and
+  // early-morning window still counts as out of service. The countdown only
+  // appears within an hour of the first departure.
+  if (next === first && first - parts.minutes > 60) {
+    return { status: "not-in-service" };
   }
 
   return {

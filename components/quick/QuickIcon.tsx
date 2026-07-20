@@ -87,6 +87,16 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
           <path d="M10 10.6V17" strokeLinecap="round" />
         </svg>
       );
+    case "bus":
+      return (
+        <svg {...common}>
+          <rect x="3.5" y="4" width="13" height="10" rx="1.5" strokeLinejoin="round" />
+          <path d="M3.5 8h13" strokeLinecap="round" />
+          <path d="M6.5 14v1.5M13.5 14v1.5" strokeLinecap="round" />
+          <circle cx="7" cy="11" r="0.9" fill="currentColor" stroke="none" />
+          <circle cx="13" cy="11" r="0.9" fill="currentColor" stroke="none" />
+        </svg>
+      );
     case "review":
       return (
         <svg {...common}>

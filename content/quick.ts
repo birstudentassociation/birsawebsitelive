@@ -16,6 +16,7 @@ export type QuickIcon =
   | "feedback"
   | "guide"
   | "loan"
+  | "bus"
   | "review"
   | "instagram"
   | "facebook"
@@ -74,6 +75,13 @@ export const quickGroups: QuickGroup[] = [
         icon: "review",
         en: { label: "Course reviews", hint: "For finding out what a course is like" },
         th: { label: "รีวิววิชาเรียน", hint: "ฐานข้อมูลรีวิววิชา PI" },
+      },
+      {
+        key: "shuttle-bus",
+        href: "/student-life/home/shuttle-bus",
+        icon: "bus",
+        en: { label: "Shuttle bus", hint: "Live departures and timetables" },
+        th: { label: "รถเวียน", hint: "เวลารถและตารางเดินรถ" },
       },
       {
         key: "find-a-club",
