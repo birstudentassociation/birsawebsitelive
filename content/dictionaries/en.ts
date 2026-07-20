@@ -17,7 +17,7 @@ export const en = {
     fullName: "BIR Student Association",
     tagline: "Your students' association at Thammasat",
     description:
-      "News, activities, clubs and a student-life guide from the BIR Student Association (Politics and International Relations, Thammasat University).",
+      "The official portal of the BIR Student Association, Faculty of Political Science, Thammasat University.",
   },
 
   nav: [
