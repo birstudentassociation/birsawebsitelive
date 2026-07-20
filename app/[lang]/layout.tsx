@@ -8,6 +8,8 @@ import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
 import BetaBanner from "@/components/BetaBanner";
+import EmergencyBanner from "@/components/EmergencyBanner";
+import { getEmergencyNotice } from "@/lib/emergency";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageFeedback from "@/components/PageFeedback";
@@ -74,6 +76,9 @@ export default async function RootLayout({
   // Nonce set by middleware so the inline theme script is allowed by the CSP.
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
+  // Runtime emergency mode, toggled via Edge Config without a redeploy.
+  const emergency = await getEmergencyNotice(locale);
+
   return (
     <html
       lang={locale}
@@ -97,6 +102,12 @@ export default async function RootLayout({
           }}
         />
         <SkipLink label={dict.a11y.skip} />
+        {emergency.active && (
+          <EmergencyBanner
+            message={emergency.message ?? dict.emergencyBanner.defaultMessage}
+            label={dict.emergencyBanner.label}
+          />
+        )}
         <BetaBanner message={dict.betaBanner} />
         <Header locale={locale} />
         <main id="main">{children}</main>

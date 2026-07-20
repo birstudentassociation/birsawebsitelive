@@ -30,6 +30,12 @@ export const en = {
 
   betaBanner: "This website is in beta. Some information may be incomplete or inaccurate.",
 
+  emergencyBanner: {
+    label: "Emergency notice",
+    defaultMessage:
+      "This is an emergency notice. Please check official BIRSA channels for the latest updates.",
+  },
+
   a11y: {
     skip: "Skip to main content",
     primaryNav: "Primary",
