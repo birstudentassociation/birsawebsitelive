@@ -6,44 +6,79 @@
  * every request (pages already render dynamically for the CSP nonce), so a
  * change in the Vercel dashboard is live within seconds.
  *
- * Edge Config item, keyed `emergency`:
+ * Edge Config only SELECTS which pre-prepared scenario is live; the scenario
+ * content lives in `content/emergency/`. Edge Config item, keyed `emergency`:
  *   {
  *     "active": true,
- *     "en": "Optional English override message.",
- *     "th": "Optional Thai override message."
+ *     "scenario": "flooding",
+ *     "messageOverride": { "en": "", "th": "" }
  *   }
  *
- * When `active` is true the banner shows. A locale message from Edge Config is
- * used if present; otherwise the component falls back to the dictionary default
- * so translations still live with the rest of the site content.
+ * `scenario` must match a registered scenario id; an unknown or missing id
+ * falls back to the `generic` scenario. `messageOverride` is optional per-
+ * incident banner text (e.g. a specific building or time) that wins over the
+ * scenario's default `bannerMessage` when present.
  */
 import { get } from "@vercel/edge-config";
+import { z } from "zod";
 import type { Locale } from "@/lib/i18n";
+import {
+  getScenario,
+  type EmergencyScenario,
+  type EmergencySeverity,
+} from "@/content/emergency/scenarios";
 
-export type EmergencyNotice = {
+const configSchema = z.object({
+  active: z.boolean().default(false),
+  scenario: z.string().optional(),
+  messageOverride: z
+    .object({ en: z.string().optional(), th: z.string().optional() })
+    .optional(),
+});
+
+export type EmergencyState = {
   active: boolean;
-  /** Per-incident override text from Edge Config, if the editor supplied one. */
-  message?: string;
+  /** Always a valid scenario (falls back to `generic`). */
+  scenario: EmergencyScenario;
+  scenarioId: string;
+  /** Locale-resolved banner message (override, else the scenario default). */
+  message: string;
+  severity: EmergencySeverity;
 };
 
-type EmergencyConfig = {
-  active?: boolean;
-  en?: string;
-  th?: string;
-};
+function offState(): EmergencyState {
+  const scenario = getScenario("generic");
+  return {
+    active: false,
+    scenario,
+    scenarioId: scenario.id,
+    message: "",
+    severity: scenario.severity,
+  };
+}
 
 /**
  * Read the current emergency state for a locale. Never throws: if Edge Config
- * is not provisioned (e.g. local dev, or before setup) the site behaves as
- * though emergency mode is off rather than erroring the whole layout.
+ * is not provisioned (e.g. local dev) or the value is malformed, the site
+ * behaves as though emergency mode is off rather than erroring the layout.
  */
-export async function getEmergencyNotice(locale: Locale): Promise<EmergencyNotice> {
+export async function getEmergencyState(locale: Locale): Promise<EmergencyState> {
   try {
-    const config = await get<EmergencyConfig>("emergency");
-    if (!config?.active) return { active: false };
-    const message = config[locale]?.trim();
-    return { active: true, message: message || undefined };
+    const parsed = configSchema.safeParse(await get("emergency"));
+    if (!parsed.success || !parsed.data.active) return offState();
+
+    const scenario = getScenario(parsed.data.scenario);
+    const override = parsed.data.messageOverride?.[locale]?.trim();
+    const message = override || scenario[locale].bannerMessage;
+
+    return {
+      active: true,
+      scenario,
+      scenarioId: scenario.id,
+      message,
+      severity: scenario.severity,
+    };
   } catch {
-    return { active: false };
+    return offState();
   }
 }

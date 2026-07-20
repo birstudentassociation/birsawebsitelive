@@ -29,9 +29,24 @@ export const en = {
   headerCta: { href: "/quick", label: "Quick actions" },
 
   emergencyBanner: {
-    defaultMessage:
-      "This is an emergency notice. Please check official BIRSA channels for the latest updates.",
     cta: "Click for more information",
+  },
+
+  emergencyPage: {
+    breadcrumb: "Emergency",
+    whatToDo: "What to do now",
+    usefulContacts: "Useful contacts",
+    birsaContacts: "Contact BIRSA",
+    phone: "Phone",
+    address: "Address",
+    disclaimer:
+      "This is general guidance from a student-run site. In an emergency, always follow the instructions of the emergency services and Thammasat University.",
+    noActiveTitle: "No active emergency",
+    noActiveLede:
+      "There is no emergency affecting the faculty right now. If one occurs, this is where you will find guidance.",
+    noActiveBody:
+      "If you have an urgent safety concern, contact the emergency services directly: police 191, medical 1669, fire 199.",
+    backHome: "Go to the home page",
   },
 
   a11y: {

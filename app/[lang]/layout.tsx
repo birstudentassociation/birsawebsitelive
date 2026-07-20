@@ -8,7 +8,7 @@ import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
 import EmergencyBanner from "@/components/EmergencyBanner";
-import { getEmergencyNotice } from "@/lib/emergency";
+import { getEmergencyState } from "@/lib/emergency";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageFeedback from "@/components/PageFeedback";
@@ -76,7 +76,7 @@ export default async function RootLayout({
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   // Runtime emergency mode, toggled via Edge Config without a redeploy.
-  const emergency = await getEmergencyNotice(locale);
+  const emergency = await getEmergencyState(locale);
 
   return (
     <html
@@ -103,9 +103,10 @@ export default async function RootLayout({
         <SkipLink label={dict.a11y.skip} />
         {emergency.active && (
           <EmergencyBanner
-            href={localeHref(locale, "/emergency")}
-            message={emergency.message ?? dict.emergencyBanner.defaultMessage}
+            href={localeHref(locale, `/emergency/${emergency.scenarioId}`)}
+            message={emergency.message}
             cta={dict.emergencyBanner.cta}
+            severity={emergency.severity}
           />
         )}
         <Header locale={locale} />
