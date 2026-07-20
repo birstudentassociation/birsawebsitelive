@@ -146,7 +146,7 @@ export const en = {
 
   courseReview: {
     title: "Course reviews",
-    lede: "Search the full BIR course catalogue: codes, credit breakdowns, prerequisites, and descriptions for every course in the curriculum.",
+    lede: "Notes on all BIR courses and electives. Workload, assessment style, and what to expect before you register.",
     browseHeading: "Browse the catalogue",
     searchPlaceholder: "Search by code, title, or keyword…",
     statsHeading: "At a glance",
