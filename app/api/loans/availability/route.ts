@@ -4,7 +4,7 @@ import { getItemAvailabilityForRange } from "@/lib/inventory/loans";
 
 export async function GET(request: Request) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, "loan-availability", 60)) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 

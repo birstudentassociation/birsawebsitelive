@@ -49,7 +49,7 @@ export async function submitLoanLookup(
   const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h))) {
+  if (!checkRateLimit(ipFromHeaders(h), "loan-status")) {
     return { status: "rate-limited" };
   }
 

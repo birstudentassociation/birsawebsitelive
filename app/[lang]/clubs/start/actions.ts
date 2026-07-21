@@ -48,7 +48,7 @@ export async function submitStartClub(
   const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h))) {
+  if (!checkRateLimit(ipFromHeaders(h), "start-club")) {
     return { status: "error", values };
   }
 

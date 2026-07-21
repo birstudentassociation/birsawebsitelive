@@ -59,7 +59,7 @@ export async function submitContact(
   const dict = getDictionary(locale);
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h))) {
+  if (!checkRateLimit(ipFromHeaders(h), "contact")) {
     return { status: "error", values };
   }
 

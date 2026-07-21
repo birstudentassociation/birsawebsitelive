@@ -64,6 +64,36 @@ test.describe("forms work without JavaScript", () => {
     await expect(errorSummary.getByRole("link").first()).toBeVisible();
   });
 
+  test("officer sign-in: submitting empty server-renders the error summary", async ({ page }) => {
+    await page.goto("/en/officer/inventory");
+
+    // With JS off this is a native form POST to the server action.
+    await page.getByRole("button", { name: "Sign in" }).click();
+
+    const errorSummary = page.getByRole("alert").filter({ hasText: "There is a problem" });
+    await expect(errorSummary).toBeVisible();
+    await expect(errorSummary.getByRole("link").first()).toBeVisible();
+  });
+
+  test("officer sign-in: incorrect credentials server-render a generic error", async ({
+    page,
+  }) => {
+    await page.goto("/en/officer/inventory");
+
+    await page.locator('input[name="email"]').fill("not-a-real-officer@example.com");
+    await page.locator('input[name="passcode"]').fill("wrong-passcode");
+    await page.getByRole("button", { name: "Sign in" }).click();
+
+    // Either "Incorrect email or passcode" (auth configured) or the
+    // "not set up yet" notice (auth not configured); both are valid
+    // rejections and neither leaks which field, if any, was wrong.
+    // .first() because the not-configured notice can render more than once
+    // (page-level notice plus the form's own state).
+    const incorrect = page.getByText("Incorrect email or passcode");
+    const notConfigured = page.getByText("Officer accounts are not set up yet");
+    await expect(incorrect.or(notConfigured).first()).toBeVisible();
+  });
+
   test("the contact form posts to a server action, not a client fetch", async ({ page }) => {
     await page.goto("/en/contact");
 

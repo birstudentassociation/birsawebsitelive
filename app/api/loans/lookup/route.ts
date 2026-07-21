@@ -10,7 +10,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, "loan-status")) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 

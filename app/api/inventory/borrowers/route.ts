@@ -5,7 +5,7 @@ import { listBorrowers } from "@/lib/inventory/borrowers";
 
 export async function GET(request: Request) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, "officer-api", 120)) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 

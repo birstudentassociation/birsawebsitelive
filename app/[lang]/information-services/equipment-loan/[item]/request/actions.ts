@@ -101,7 +101,7 @@ export async function submitLoanRequest(
   const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h))) {
+  if (!checkRateLimit(ipFromHeaders(h), "loan-request")) {
     return { status: "rate-limited", values };
   }
 

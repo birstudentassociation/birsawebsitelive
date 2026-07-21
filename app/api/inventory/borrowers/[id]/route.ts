@@ -18,7 +18,7 @@ const updateBorrowerSchema = z
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, "officer-api", 120)) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 
@@ -38,7 +38,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip)) {
+  if (!checkRateLimit(ip, "officer-api", 120)) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 
