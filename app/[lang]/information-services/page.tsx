@@ -38,6 +38,8 @@ const copy: Record<
     servicesHeading: string;
     informationHeading: string;
     informationLede: string;
+    studentLifeIndexLine: string;
+    studentLifeIndexCta: string;
     courseReviews: { eyebrow: string; title: string; description: string; cta: string };
     guides: { title: string; description: string; topicsLabel: string; cta: string };
     international: {
@@ -82,6 +84,8 @@ const copy: Record<
     informationHeading: "Information",
     informationLede:
       "Course reviews, and the kind of student-life knowledge that does not fit in a syllabus: practical guides, cultural notes, and things students wish they'd known sooner. And so on.",
+    studentLifeIndexLine: "Want everything in one list?",
+    studentLifeIndexCta: "See the student life index",
     courseReviews: {
       eyebrow: "New",
       title: "Course reviews",
@@ -140,6 +144,8 @@ const copy: Record<
     informationHeading: "ข้อมูล",
     informationLede:
       "รีวิวรายวิชา และเกร็ดความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ และอื่น ๆ อีกมากมาย",
+    studentLifeIndexLine: "อยากดูรวมทุกอย่างในที่เดียวไหม",
+    studentLifeIndexCta: "ไปที่หน้ารวมชีวิตนักศึกษา",
     courseReviews: {
       eyebrow: "ใหม่",
       title: "รีวิวรายวิชา",
@@ -187,6 +193,7 @@ export default async function InformationServicesPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   const equipmentHref = localeHref(locale, "/information-services/equipment-loan");
   const equipmentDirectoryHref = localeHref(
@@ -194,14 +201,13 @@ export default async function InformationServicesPage({
     "/information-services/equipment-loan/directory"
   );
   const universityServicesHref = localeHref(locale, "/information-services/university-services");
-  const courseReviewsHref = localeHref(locale, "/student-life/home/course-reviews");
+  const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
+  const studentLifeHref = localeHref(locale, "/student-life");
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
   const handbookHref = localeHref(locale, "/student-life/handbook");
 
-  const guideTopics = getGuideEntries(locale, "home")
-    .filter((entry) => entry.slug !== "course-reviews")
-    .slice(0, 4);
+  const guideTopics = getGuideEntries(locale, "home").slice(0, 4);
   const internationalTopics = getGuideEntries(locale, "international").slice(0, 4);
   const handbookTopics = getGuideEntries(locale, "handbook").slice(0, 4);
 
@@ -214,7 +220,7 @@ export default async function InformationServicesPage({
           <Breadcrumbs
             locale={locale}
             label={dict.a11y.breadcrumb}
-            items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
+            items={[{ label: dict.site.name, href: "/" }, { label: infoServicesLabel }]}
           />
         }
       />
@@ -261,6 +267,15 @@ export default async function InformationServicesPage({
           <h2 className="font-display text-2xl">{t.informationHeading}</h2>
           <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
             {t.informationLede}
+          </p>
+          <p className="text-muted text-sm">
+            {t.studentLifeIndexLine}{" "}
+            <Link
+              href={studentLifeHref}
+              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            >
+              {t.studentLifeIndexCta}
+            </Link>
           </p>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">

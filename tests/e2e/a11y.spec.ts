@@ -22,14 +22,18 @@ const publicPaths = [
   "/clubs",
   "/clubs/debate-society", // club detail
   "/clubs/start", // start-a-club form
+  "/student-life", // track index (sideways nav)
   "/student-life/home",
   "/student-life/international",
   "/student-life/international/visa-and-immigration", // guide article (MDX)
   "/student-life/home/food-and-budgeting",
+  "/student-life/course-reviews", // course catalogue browser
+  "/student-life/course-reviews/PI121", // course detail
   "/information-services",
   "/information-services/equipment-loan", // DB-degraded "not configured" state
   "/information-services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/information-services/equipment-loan/status", // status lookup form
+  "/emergency", // calm emergency-preparedness landing
 ];
 
 const locales = ["en", "th"] as const;

@@ -13,22 +13,12 @@ import { formatYearLevel, fillTemplate } from "@/components/course-review/consta
 import { courses } from "@/content/course-review/courses";
 
 // Nested under the literal `course-reviews` route (see the parent page.tsx
-// for why that segment already wins over the generic guide `[slug]` route).
-// `[code]` is the only dynamic part, e.g. /student-life/home/course-reviews/PI121.
+// for why that segment already wins over the generic `[audience]` route).
+// `[code]` is the only dynamic part, e.g. /student-life/course-reviews/PI121.
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => courses.map((course) => ({ lang, code: course.code })));
 }
-
-const sectionLabel: Record<Locale, string> = {
-  en: "Information and services",
-  th: "ข้อมูลและบริการ",
-};
-
-const guidesLabel: Record<Locale, string> = {
-  en: "Student life and culture guides",
-  th: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
-};
 
 export async function generateMetadata({
   params,
@@ -45,7 +35,7 @@ export async function generateMetadata({
     locale,
     title: `${course.code}: ${course.title[locale]}`,
     description: course.description[locale],
-    path: `/student-life/home/course-reviews/${course.code}`,
+    path: `/student-life/course-reviews/${course.code}`,
   });
 }
 
@@ -59,6 +49,7 @@ export default async function CourseDetailPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
+  const sectionLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   const index = courses.findIndex((c) => c.code === code);
   const course = courses[index];
@@ -66,7 +57,7 @@ export default async function CourseDetailPage({
   const prevCourse = index > 0 ? courses[index - 1] : null;
   const nextCourse = index < courses.length - 1 ? courses[index + 1] : null;
   const otherLocale: Locale = locale === "en" ? "th" : "en";
-  const catalogHref = localeHref(locale, "/student-life/home/course-reviews");
+  const catalogHref = localeHref(locale, "/student-life/course-reviews");
 
   return (
     <>
@@ -79,9 +70,8 @@ export default async function CourseDetailPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel[locale], href: "/information-services" },
-              { label: guidesLabel[locale], href: "/student-life/home" },
-              { label: t.title, href: "/student-life/home/course-reviews" },
+              { label: sectionLabel, href: "/information-services" },
+              { label: t.title, href: "/student-life/course-reviews" },
               { label: course.code },
             ]}
           />
@@ -171,7 +161,7 @@ export default async function CourseDetailPage({
             <div>
               {prevCourse ? (
                 <Link
-                  href={localeHref(locale, `/student-life/home/course-reviews/${prevCourse.code}`)}
+                  href={localeHref(locale, `/student-life/course-reviews/${prevCourse.code}`)}
                   className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4"
                 >
                   <span className="text-muted text-xs font-semibold tracking-wide uppercase">
@@ -186,7 +176,7 @@ export default async function CourseDetailPage({
             <div>
               {nextCourse ? (
                 <Link
-                  href={localeHref(locale, `/student-life/home/course-reviews/${nextCourse.code}`)}
+                  href={localeHref(locale, `/student-life/course-reviews/${nextCourse.code}`)}
                   className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4 text-right"
                 >
                   <span className="text-muted text-xs font-semibold tracking-wide uppercase">

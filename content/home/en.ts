@@ -40,24 +40,25 @@ export const homeEn = {
     },
   },
   quickLinks: {
-    heading: "Get around",
+    heading: "Popular right now",
     items: {
-      activity: {
-        label: "BIRSA activity",
-        description: "Officer roles, student regulations, transparency documents, and news.",
+      borrowEquipment: {
+        label: "Borrow equipment",
+        description: "Free BIRSA equipment loans, from the first-aid kit to event gear.",
       },
-      clubs: {
-        label: "Clubs",
-        description: "Find a club to join, or see how to start your own.",
+      courseReviews: {
+        label: "Course reviews",
+        description:
+          "Student-written notes on BIR courses: workload, assessment style, and what to expect before you register.",
+      },
+      shuttleBus: {
+        label: "Shuttle bus",
+        description: "Live departures and timetables for the campus shuttle.",
       },
       informationServices: {
         label: "Information and services",
         description:
           "Equipment loans and guides for settling in, whether you're a home or international student.",
-      },
-      news: {
-        label: "What's on",
-        description: "The latest news and events from BIRSA.",
       },
     },
   },

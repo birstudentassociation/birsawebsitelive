@@ -235,7 +235,7 @@ function CourseCard({
   dict: CourseReviewDict;
 }) {
   const otherLocale: Locale = locale === "en" ? "th" : "en";
-  const href = localeHref(locale, `/student-life/home/course-reviews/${course.code}`);
+  const href = localeHref(locale, `/student-life/course-reviews/${course.code}`);
 
   return (
     <Card href={href}>

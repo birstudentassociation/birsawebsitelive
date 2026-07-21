@@ -46,7 +46,6 @@ export async function generateMetadata({
 const labels: Record<
   Locale,
   {
-    studentLife: string;
     tracks: Record<GuideAudience, string>;
     updated: string;
     onThisPage: string;
@@ -60,7 +59,6 @@ const labels: Record<
   }
 > = {
   en: {
-    studentLife: "Information and services",
     tracks: {
       home: "Student life and culture guides",
       international: "For international students",
@@ -82,7 +80,6 @@ const labels: Record<
     },
   },
   th: {
-    studentLife: "ข้อมูลและบริการ",
     tracks: {
       home: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
       international: "สำหรับนักศึกษาต่างชาติ",
@@ -119,6 +116,7 @@ export default async function StudentLifeSectionPage({
   const t = labels[locale];
   const trackLabel = t.tracks[audience];
   const trackHref = localeHref(locale, `/student-life/${audience}`);
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   const allEntries = getGuideEntries(locale, audience);
   const currentIndex = allEntries.findIndex((e) => e.slug === slug);
@@ -139,7 +137,7 @@ export default async function StudentLifeSectionPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: t.studentLife, href: "/information-services" },
+              { label: infoServicesLabel, href: "/information-services" },
               { label: trackLabel, href: `/student-life/${audience}` },
               { label: entry.frontmatter.title },
             ]}

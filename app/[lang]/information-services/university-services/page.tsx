@@ -39,7 +39,6 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    breadcrumbLabel: string;
     onThisPageLabel: string;
     disclaimerTitle: string;
     disclaimerBody: string;
@@ -94,7 +93,6 @@ const copy: Record<
   en: {
     title: "University services",
     lede: "Services and support Thammasat University provides to every student. BIRSA collects them here for BIR students; the services themselves are run by the University and its offices.",
-    breadcrumbLabel: "Information and services",
     onThisPageLabel: "On this page",
     disclaimerTitle: "These are University-run services",
     disclaimerBody:
@@ -219,7 +217,6 @@ const copy: Record<
   th: {
     title: "บริการจากมหาวิทยาลัย",
     lede: "บริการและความช่วยเหลือที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน BIRSA รวบรวมไว้ที่นี่เพื่อนักศึกษา BIR ส่วนตัวบริการดำเนินการโดยมหาวิทยาลัยและหน่วยงานที่เกี่ยวข้อง",
-    breadcrumbLabel: "ข้อมูลและบริการ",
     onThisPageLabel: "ในหน้านี้",
     disclaimerTitle: "บริการเหล่านี้ดำเนินการโดยมหาวิทยาลัย",
     disclaimerBody:
@@ -350,6 +347,7 @@ export default async function UniversityServicesPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   const linkClass = "text-brand-deep hover:text-brand-dark font-semibold underline";
 
@@ -372,7 +370,7 @@ export default async function UniversityServicesPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: t.breadcrumbLabel, href: "/information-services" },
+              { label: infoServicesLabel, href: "/information-services" },
               { label: t.title },
             ]}
           />

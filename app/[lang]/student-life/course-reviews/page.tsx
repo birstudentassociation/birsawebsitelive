@@ -9,25 +9,14 @@ import CourseStats from "@/components/course-review/CourseStats";
 import CourseReviewBrowser from "@/components/course-review/CourseReviewBrowser";
 import { courses } from "@/content/course-review/courses";
 
-// Literal route: takes precedence over `[audience]/[slug]/page.tsx` for
-// exactly this URL, so `/student-life/home/course-reviews` renders this
-// dedicated browser instead of the generic MDX guide page. The guide's MDX
-// entry (content/student-life/{en,th}/home/course-reviews.mdx) is left in
-// place only so it still lists correctly as a card on `/student-life/home`.
+// Literal route: sits as a sibling of `[audience]/page.tsx` and takes
+// precedence over the dynamic `[audience]` segment for exactly this URL, so
+// `/student-life/course-reviews` renders this dedicated browser instead of
+// being swallowed by the generic guide-track route.
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
-
-const sectionLabel: Record<Locale, string> = {
-  en: "Information and services",
-  th: "ข้อมูลและบริการ",
-};
-
-const guidesLabel: Record<Locale, string> = {
-  en: "Student life and culture guides",
-  th: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
-};
 
 export async function generateMetadata({
   params,
@@ -43,7 +32,7 @@ export async function generateMetadata({
     locale,
     title: t.title,
     description: t.lede,
-    path: "/student-life/home/course-reviews",
+    path: "/student-life/course-reviews",
   });
 }
 
@@ -53,6 +42,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
+  const sectionLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   return (
     <>
@@ -65,8 +55,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel[locale], href: "/information-services" },
-              { label: guidesLabel[locale], href: "/student-life/home" },
+              { label: sectionLabel, href: "/information-services" },
               { label: t.title },
             ]}
           />

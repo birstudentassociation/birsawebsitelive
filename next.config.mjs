@@ -28,15 +28,24 @@ const nextConfig = {
   },
   async redirects() {
     // Section merges (see the BIRSA activity + Information & Services reshuffle):
-    // "About" folded into "/activity"; "Student life" landing folded into the
-    // new "/information-services" hub. Locale-prefixed sources preserve the
+    // "About" folded into "/activity". Locale-prefixed sources preserve the
     // visitor's language. Permanent (308) so search engines follow the move.
+    //
+    // Course reviews moved from the literal `student-life/home/course-reviews`
+    // route (nested under the "home" guide track) to a sibling of `[audience]`
+    // at `student-life/course-reviews`, so it reads as its own section rather
+    // than a guide topic.
     return [
       { source: "/:lang/about", destination: "/:lang/activity", permanent: true },
       { source: "/:lang/about/:slug*", destination: "/:lang/activity/:slug*", permanent: true },
       {
-        source: "/:lang/student-life",
-        destination: "/:lang/information-services",
+        source: "/:lang/student-life/home/course-reviews",
+        destination: "/:lang/student-life/course-reviews",
+        permanent: true,
+      },
+      {
+        source: "/:lang/student-life/home/course-reviews/:code",
+        destination: "/:lang/student-life/course-reviews/:code",
         permanent: true,
       },
     ];

@@ -9,6 +9,7 @@ import { locales, type Locale } from "@/lib/i18n";
 import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { clubs } from "@/content/clubs/clubs";
 import { documents } from "@/content/activity/regulations";
+import { courses } from "@/content/course-review/courses";
 import { SITE_URL } from "@/lib/site-url";
 
 const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
@@ -32,6 +33,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/activity/regulations",
       "/clubs",
       "/clubs/start",
+      "/student-life",
+      "/student-life/course-reviews",
       "/information-services",
       "/information-services/university-services",
       "/information-services/equipment-loan",
@@ -61,6 +64,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       for (const entry of getGuideEntries(locale, audience)) {
         entries.push({ url: url(locale, `/student-life/${audience}/${entry.slug}`) });
       }
+    }
+
+    // Course reviews are a dedicated route (not a guide track), so
+    // `getGuideEntries` never emits them; list each course code explicitly.
+    for (const course of courses) {
+      entries.push({ url: url(locale, `/student-life/course-reviews/${course.code}`) });
     }
 
     for (const club of clubs) {

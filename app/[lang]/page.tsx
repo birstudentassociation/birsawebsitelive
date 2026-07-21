@@ -51,10 +51,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   }).format(new Date());
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/activity", key: "activity" },
-    { href: "/clubs", key: "clubs" },
+    { href: "/information-services/equipment-loan", key: "borrowEquipment" },
+    { href: "/student-life/course-reviews", key: "courseReviews" },
+    { href: "/student-life/home/shuttle-bus", key: "shuttleBus" },
     { href: "/information-services", key: "informationServices" },
-    { href: "/news", key: "news" },
   ];
 
   const activityHighlightCards: {
@@ -186,10 +186,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* Quick links */}
-      <section aria-labelledby="get-around-heading" className="bg-sunken border-line border-y">
+      {/* Quick links: top tasks, not a mirror of the header nav */}
+      <section aria-labelledby="top-tasks-heading" className="bg-sunken border-line border-y">
         <div className="wrap py-12 sm:py-16">
-          <h2 id="get-around-heading" className="font-display mb-6 text-2xl sm:text-3xl">
+          <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
             {copy.quickLinks.heading}
           </h2>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
