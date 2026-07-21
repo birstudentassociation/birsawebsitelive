@@ -10,7 +10,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
 import Button from "@/components/Button";
 import Field from "@/components/Field";
+import Pager from "@/components/Pager";
 import StatusPill from "@/components/inventory/StatusPill";
+import { usePagination } from "@/lib/usePagination";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import { formatDate } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import type {
@@ -22,6 +25,11 @@ import type {
   UnitCondition,
   Role,
 } from "@/lib/inventory/types";
+
+/** Page size for the "other loans" (non-pending) group only; pending
+ * requests are never paginated, since capping them would hide actionable
+ * work from the officer. */
+const OTHER_PAGE_SIZE = 24;
 
 export type LoanQueueProps = {
   locale: Locale;
@@ -95,6 +103,21 @@ type Copy = {
   invalidStateMessage: string;
   genericErrorMessage: string;
   statusLabels: Record<LoanStatus, string>;
+  /** Label for the confirm dialog's confirm button (its cancel button reuses
+   * `cancelLabel` above, which already reads "Cancel"/"ยกเลิก"). */
+  confirmLabel: string;
+  previous: string;
+  next: string;
+  /** Template containing the literal placeholders "{current}" and "{total}". */
+  pageOf: string;
+  approveAllLabel: string;
+  approvingAllLabel: string;
+  confirmApproveAll: (count: number) => string;
+  /** All pending requests approved, none failed. */
+  bulkApprovedAll: (count: number) => string;
+  /** A mix of approved and failed requests; `failures` are already-formatted
+   * "<reference> (<reason>)" strings. */
+  bulkApprovedSummary: (successCount: number, failures: string[]) => string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -154,6 +177,23 @@ const copy: Record<Locale, Copy> = {
       cancelled: "Cancelled",
       no_show: "No-show",
     },
+    confirmLabel: "Confirm",
+    previous: "Previous",
+    next: "Next",
+    pageOf: "Page {current} of {total}",
+    approveAllLabel: "Approve all pending",
+    approvingAllLabel: "Approving all...",
+    confirmApproveAll: (count) => `Approve all ${count} pending requests?`,
+    bulkApprovedAll: (count) => (count === 1 ? "Approved 1 request." : `Approved ${count} requests.`),
+    bulkApprovedSummary: (successCount, failures) => {
+      const approvedPart =
+        successCount === 1 ? "Approved 1 request." : `Approved ${successCount} requests.`;
+      const failedPart =
+        failures.length === 1
+          ? `1 failed: ${failures[0]}.`
+          : `${failures.length} failed: ${failures.join(", ")}.`;
+      return `${approvedPart} ${failedPart}`;
+    },
   },
   th: {
     emptyList: "ไม่มีคำขอยืมในมุมมองนี้",
@@ -210,6 +250,23 @@ const copy: Record<Locale, Copy> = {
       cancelled: "ยกเลิกแล้ว",
       no_show: "ไม่มารับ",
     },
+    confirmLabel: "ยืนยัน",
+    previous: "ก่อนหน้า",
+    next: "ถัดไป",
+    pageOf: "หน้า {current} จาก {total}",
+    approveAllLabel: "อนุมัติที่รอดำเนินการทั้งหมด",
+    approvingAllLabel: "กำลังอนุมัติทั้งหมด...",
+    confirmApproveAll: (count) => `อนุมัติคำขอยืมที่รอดำเนินการทั้งหมด ${count} รายการใช่หรือไม่`,
+    bulkApprovedAll: (count) => (count === 1 ? "อนุมัติแล้ว 1 รายการ" : `อนุมัติแล้ว ${count} รายการ`),
+    bulkApprovedSummary: (successCount, failures) => {
+      const approvedPart =
+        successCount === 1 ? "อนุมัติแล้ว 1 รายการ" : `อนุมัติแล้ว ${successCount} รายการ`;
+      const failedPart =
+        failures.length === 1
+          ? `ไม่สำเร็จ 1 รายการ: ${failures[0]}`
+          : `ไม่สำเร็จ ${failures.length} รายการ: ${failures.join(", ")}`;
+      return `${approvedPart} ${failedPart}`;
+    },
   },
 };
 
@@ -238,6 +295,10 @@ export default function LoanQueue({
 }: LoanQueueProps) {
   const t = copy[locale];
   const canAct = role === "admin" || role === "loan_officer";
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: t.confirmLabel,
+    cancelLabel: t.cancelLabel,
+  });
 
   const [loans, setLoans] = useState<Loan[]>(initialLoans);
   const [busyId, setBusyId] = useState<string | null>(null);
@@ -247,6 +308,8 @@ export default function LoanQueue({
   const [conditionOut, setConditionOut] = useState<Record<string, UnitCondition | "">>({});
   const [conditionIn, setConditionIn] = useState<Record<string, UnitCondition | "">>({});
   const [unitErrors, setUnitErrors] = useState<Record<string, string>>({});
+  const [bulkApproving, setBulkApproving] = useState(false);
+  const [bulkMessage, setBulkMessage] = useState<RowMessage | null>(null);
 
   const grouped = useMemo(() => {
     const map = new Map<LoanStatus, Loan[]>();
@@ -263,6 +326,30 @@ export default function LoanQueue({
     (sum, status) => sum + (grouped.get(status)?.length ?? 0),
     0
   );
+  // Only the "other loans" group is paginated; pending requests always
+  // render in full since capping them would hide actionable work. Flatten
+  // in status order, paginate that flat list, then re-group the current
+  // page's loans by status so each status subheading still only shows its
+  // own (on-page) rows.
+  const otherLoans = useMemo(
+    () => otherStatuses.flatMap((status) => grouped.get(status) ?? []),
+    [otherStatuses, grouped]
+  );
+  const {
+    page: otherPage,
+    totalPages: otherTotalPages,
+    pageItems: otherPageItems,
+    goToPage: goToOtherPage,
+  } = usePagination(otherLoans, OTHER_PAGE_SIZE);
+  const otherPageByStatus = useMemo(() => {
+    const map = new Map<LoanStatus, Loan[]>();
+    for (const loan of otherPageItems) {
+      const list = map.get(loan.status) ?? [];
+      list.push(loan);
+      map.set(loan.status, list);
+    }
+    return map;
+  }, [otherPageItems]);
 
   function setMessage(loanId: string, message: RowMessage | undefined) {
     setMessages((prev) => ({ ...prev, [loanId]: message as RowMessage }));
@@ -289,11 +376,11 @@ export default function LoanQueue({
     action: string,
     confirmText: string,
     request: () => Promise<Response>,
-    onSuccess: (loan: Loan) => void
+    onSuccess: (loan: Loan) => void,
+    danger = false
   ) {
-    if (typeof window !== "undefined" && !window.confirm(confirmText)) {
-      return;
-    }
+    const ok = await confirm({ title: confirmText, danger });
+    if (!ok) return;
     setBusyId(loan.id);
     setBusyAction(action);
     setMessage(loan.id, undefined);
@@ -329,6 +416,41 @@ export default function LoanQueue({
     setMessage(updated.id, { kind: "success", text: successText });
   }
 
+  // Shared by the single-row Approve button and "Approve all pending": hits
+  // the same /api/loans/decision endpoint per loan, so each item still gets
+  // its own server-side recordAudit entry. Confirming and busy-state are the
+  // caller's responsibility (handleApprove wraps a single confirm + row busy
+  // state; handleApproveAll confirms once and drives its own bulk busy
+  // state around a sequential loop of this function).
+  async function performApprove(loan: Loan): Promise<{ ok: true } | { ok: false; reasonText: string }> {
+    const unitId = selectedUnit[loan.id];
+    if (!unitId) {
+      setUnitErrors((prev) => ({ ...prev, [loan.id]: t.unitRequiredMessage }));
+      setMessage(loan.id, { kind: "error", text: t.unitRequiredMessage });
+      return { ok: false, reasonText: t.unitRequiredMessage };
+    }
+    setUnitErrors((prev) => ({ ...prev, [loan.id]: "" }));
+    try {
+      const response = await fetch("/api/loans/decision", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: loan.id, decision: "approved", unitId }),
+      });
+      const body = (await response.json().catch(() => null)) as DecisionResponse | null;
+      if (body?.ok) {
+        applyLoan(body.loan, t.approvedMessage);
+        return { ok: true };
+      }
+      const reason = (body as { reason?: string } | null)?.reason;
+      const reasonText = friendlyMessage(t, response.status, reason);
+      setMessage(loan.id, { kind: "error", text: reasonText });
+      return { ok: false, reasonText };
+    } catch {
+      setMessage(loan.id, { kind: "error", text: t.genericErrorMessage });
+      return { ok: false, reasonText: t.genericErrorMessage };
+    }
+  }
+
   async function handleApprove(loan: Loan) {
     const unitId = selectedUnit[loan.id];
     if (!unitId) {
@@ -336,18 +458,40 @@ export default function LoanQueue({
       setMessage(loan.id, { kind: "error", text: t.unitRequiredMessage });
       return;
     }
-    setUnitErrors((prev) => ({ ...prev, [loan.id]: "" }));
-    await runAction(
-      loan,
-      "approve",
-      t.confirmApprove(loan.reference),
-      () =>
-        fetch("/api/loans/decision", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: loan.id, decision: "approved", unitId }),
-        }),
-      (updated) => applyLoan(updated, t.approvedMessage)
+    const ok = await confirm({ title: t.confirmApprove(loan.reference) });
+    if (!ok) return;
+    setBusyId(loan.id);
+    setBusyAction("approve");
+    setMessage(loan.id, undefined);
+    await performApprove(loan);
+    setBusyId(null);
+    setBusyAction(null);
+    setFocusLoanId(loan.id);
+  }
+
+  async function handleApproveAll() {
+    const ok = await confirm({ title: t.confirmApproveAll(pendingLoans.length) });
+    if (!ok) return;
+    setBulkApproving(true);
+    setBulkMessage(null);
+    let successCount = 0;
+    const failures: string[] = [];
+    for (const loan of pendingLoans) {
+      const result = await performApprove(loan);
+      if (result.ok) {
+        successCount++;
+      } else {
+        failures.push(`${loan.reference} (${result.reasonText})`);
+      }
+    }
+    setBulkApproving(false);
+    setBulkMessage(
+      failures.length === 0
+        ? { kind: "success", text: t.bulkApprovedAll(successCount) }
+        : {
+            kind: successCount > 0 ? "success" : "error",
+            text: t.bulkApprovedSummary(successCount, failures),
+          }
     );
   }
 
@@ -362,7 +506,8 @@ export default function LoanQueue({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: loan.id, decision: "rejected" }),
         }),
-      (updated) => applyLoan(updated, t.rejectedMessage)
+      (updated) => applyLoan(updated, t.rejectedMessage),
+      true
     );
   }
 
@@ -409,7 +554,8 @@ export default function LoanQueue({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: loan.id }),
         }),
-      (updated) => applyLoan(updated, t.cancelledMessage)
+      (updated) => applyLoan(updated, t.cancelledMessage),
+      true
     );
   }
 
@@ -417,7 +563,9 @@ export default function LoanQueue({
     const item = itemsById[loan.itemId];
     const borrower = borrowersById[loan.borrowerId];
     const message = messages[loan.id];
-    const isBusy = busyId === loan.id;
+    // Bulk-approving disables every pending row's actions too, not just the
+    // one loan currently mid-request.
+    const isBusy = busyId === loan.id || (bulkApproving && loan.status === "pending");
     const units = availableUnitsByLoan[loan.id] ?? [];
 
     return (
@@ -580,19 +728,54 @@ export default function LoanQueue({
   }
 
   if (loans.length === 0) {
-    return <p className="text-muted text-sm">{t.emptyList}</p>;
+    return (
+      <>
+        <p className="text-muted text-sm">{t.emptyList}</p>
+        {dialog}
+      </>
+    );
   }
 
   if (!groupByStatus) {
-    return <div className="flex flex-col gap-4">{loans.map((loan) => renderLoan(loan))}</div>;
+    return (
+      <>
+        <div className="flex flex-col gap-4">{loans.map((loan) => renderLoan(loan))}</div>
+        {dialog}
+      </>
+    );
   }
 
   return (
     <div className="flex flex-col gap-10">
       <section aria-labelledby="loan-queue-pending-heading" className="flex flex-col gap-4">
-        <h2 id="loan-queue-pending-heading" className="font-display text-ink text-xl">
-          {t.pendingTitle} ({pendingLoans.length})
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 id="loan-queue-pending-heading" className="font-display text-ink text-xl">
+            {t.pendingTitle} ({pendingLoans.length})
+          </h2>
+          {canAct && pendingLoans.length >= 2 ? (
+            <Button
+              variant="secondary"
+              onClick={handleApproveAll}
+              disabled={bulkApproving || busyId !== null}
+            >
+              {bulkApproving ? t.approvingAllLabel : t.approveAllLabel}
+            </Button>
+          ) : null}
+        </div>
+        {bulkMessage ? (
+          <div
+            role={bulkMessage.kind === "success" ? "status" : "alert"}
+            aria-live={bulkMessage.kind === "success" ? "polite" : "assertive"}
+            className={clsx(
+              "rounded-md border-l-4 p-3 text-sm",
+              bulkMessage.kind === "success"
+                ? "border-success bg-success-tint text-ink"
+                : "border-error bg-error-tint text-ink"
+            )}
+          >
+            {bulkMessage.text}
+          </div>
+        ) : null}
         {pendingLoans.length === 0 ? (
           <p className="text-muted text-sm">{t.emptyList}</p>
         ) : (
@@ -605,12 +788,13 @@ export default function LoanQueue({
           {t.otherTitle} ({otherCount})
         </h2>
         {otherStatuses.map((status) => {
-          const statusLoans = grouped.get(status) ?? [];
+          const statusLoans = otherPageByStatus.get(status) ?? [];
+          const statusTotal = grouped.get(status)?.length ?? 0;
           if (statusLoans.length === 0) return null;
           return (
             <div key={status} className="flex flex-col gap-4">
               <h3 className="text-ink text-sm font-semibold">
-                {t.statusLabels[status]} ({statusLoans.length})
+                {t.statusLabels[status]} ({statusTotal})
               </h3>
               <div className="flex flex-col gap-4">
                 {statusLoans.map((loan) => renderLoan(loan))}
@@ -618,7 +802,17 @@ export default function LoanQueue({
             </div>
           );
         })}
+        <Pager
+          page={otherPage}
+          totalPages={otherTotalPages}
+          goToPage={goToOtherPage}
+          previousLabel={t.previous}
+          nextLabel={t.next}
+          pageOfTemplate={t.pageOf}
+        />
       </section>
+
+      {dialog}
     </div>
   );
 }

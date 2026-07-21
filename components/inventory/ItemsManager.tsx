@@ -8,7 +8,7 @@
  * (`components/inventory/ItemDetail.tsx`); this component only creates,
  * lists, filters, and retires/restores.
  */
-import { useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import type { FormEvent, KeyboardEvent } from "react";
 import clsx from "clsx";
 import Link from "next/link";
@@ -16,6 +16,9 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
+import Pager from "@/components/Pager";
+import { usePagination } from "@/lib/usePagination";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type {
   Category,
@@ -25,6 +28,8 @@ import type {
   Role,
   TrackingMode,
 } from "@/lib/inventory/types";
+
+const PAGE_SIZE = 24;
 
 export type ItemsManagerProps = {
   items: Item[];
@@ -98,6 +103,12 @@ type Copy = {
   onlineLoanableLabel: string;
   onlineTag: string;
   notOnlineTag: string;
+  confirmLabel: string;
+  cancelLabel: string;
+  previous: string;
+  next: string;
+  /** Template containing the literal placeholders "{current}" and "{total}". */
+  pageOf: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -164,6 +175,11 @@ const copy: Record<Locale, Copy> = {
     onlineLoanableLabel: "Available to request online",
     onlineTag: "Online",
     notOnlineTag: "Not online",
+    confirmLabel: "Confirm",
+    cancelLabel: "Cancel",
+    previous: "Previous",
+    next: "Next",
+    pageOf: "Page {current} of {total}",
   },
   th: {
     search: "ค้นหา",
@@ -228,6 +244,11 @@ const copy: Record<Locale, Copy> = {
     onlineLoanableLabel: "เปิดให้ยืมผ่านระบบออนไลน์",
     onlineTag: "ออนไลน์",
     notOnlineTag: "ไม่ออนไลน์",
+    confirmLabel: "ยืนยัน",
+    cancelLabel: "ยกเลิก",
+    previous: "ก่อนหน้า",
+    next: "ถัดไป",
+    pageOf: "หน้า {current} จาก {total}",
   },
 };
 
@@ -287,6 +308,10 @@ export default function ItemsManager({
   const t = copy[locale];
   const canWrite = CAN_WRITE.includes(role);
   const formId = useId();
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: t.confirmLabel,
+    cancelLabel: t.cancelLabel,
+  });
 
   const custodianById = useMemo(() => new Map(custodians.map((c) => [c.id, c])), [custodians]);
   const activeCustodians = useMemo(() => custodians.filter((c) => c.isActive), [custodians]);
@@ -364,6 +389,19 @@ export default function ItemsManager({
       return matchesStatus && matchesCategory && matchesOwner && matchesQuery;
     });
   }, [items, query, categoryFilter, ownerFilter, statusFilter, isGlobal]);
+
+  const {
+    page,
+    totalPages,
+    pageItems: pagedItems,
+    goToPage,
+  } = usePagination(filtered, PAGE_SIZE);
+  // Jump back to page 1 whenever a filter narrows/widens the result set, so
+  // the list never opens mid-way through a new filter's results.
+  useEffect(() => {
+    goToPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query, categoryFilter, ownerFilter, statusFilter]);
 
   function clearFilters() {
     setQuery("");
@@ -458,9 +496,8 @@ export default function ItemsManager({
   }
 
   async function handleRetire(item: Item) {
-    if (typeof window !== "undefined" && !window.confirm(t.confirmRetire(item.name[locale]))) {
-      return;
-    }
+    const ok = await confirm({ title: t.confirmRetire(item.name[locale]), danger: true });
+    if (!ok) return;
     setRowBusy(item.id);
     setRowMessage(null);
     try {
@@ -858,7 +895,7 @@ export default function ItemsManager({
         </div>
       ) : (
         <ul className="flex flex-col gap-3">
-          {filtered.map((item) => {
+          {pagedItems.map((item) => {
             const category = item.categoryId ? categoryById.get(item.categoryId) : undefined;
             const owner = custodianById.get(item.custodianId);
             const message = rowMessage?.id === item.id ? rowMessage : null;
@@ -931,6 +968,17 @@ export default function ItemsManager({
           })}
         </ul>
       )}
+
+      <Pager
+        page={page}
+        totalPages={totalPages}
+        goToPage={goToPage}
+        previousLabel={t.previous}
+        nextLabel={t.next}
+        pageOfTemplate={t.pageOf}
+      />
+
+      {dialog}
     </div>
   );
 }

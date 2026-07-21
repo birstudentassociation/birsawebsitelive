@@ -5,15 +5,19 @@
  * query param via the router so the server page re-runs `listBorrowers`,
  * keeping the search itself SSR-driven.
  */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import Field from "@/components/Field";
 import Button from "@/components/Button";
+import Pager from "@/components/Pager";
+import { usePagination } from "@/lib/usePagination";
 import { localeHref } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import type { Borrower, Role } from "@/lib/inventory/types";
+
+const PAGE_SIZE = 30;
 
 export type BorrowersManagerProps = {
   locale: Locale;
@@ -34,6 +38,10 @@ type Copy = {
   activeLoansLabel: (n: number) => string;
   blocklistedLabel: string;
   viewLabel: (name: string) => string;
+  previous: string;
+  next: string;
+  /** Template containing the literal placeholders "{current}" and "{total}". */
+  pageOf: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -48,6 +56,9 @@ const copy: Record<Locale, Copy> = {
     activeLoansLabel: (n) => (n === 1 ? "1 active loan" : `${n} active loans`),
     blocklistedLabel: "Blocklisted",
     viewLabel: (name) => `View ${name}`,
+    previous: "Previous",
+    next: "Next",
+    pageOf: "Page {current} of {total}",
   },
   th: {
     searchLabel: "ค้นหาผู้ยืม",
@@ -60,6 +71,9 @@ const copy: Record<Locale, Copy> = {
     activeLoansLabel: (n) => `กำลังยืม ${n} รายการ`,
     blocklistedLabel: "ถูกระงับสิทธิ์",
     viewLabel: (name) => `ดู ${name}`,
+    previous: "ก่อนหน้า",
+    next: "ถัดไป",
+    pageOf: "หน้า {current} จาก {total}",
   },
 };
 
@@ -72,6 +86,14 @@ export default function BorrowersManager({
   const t = copy[locale];
   const router = useRouter();
   const [search, setSearch] = useState(initialSearch);
+  const { page, totalPages, pageItems, goToPage } = usePagination(borrowers, PAGE_SIZE);
+  // Each search submits a new `?search=` and re-renders with a fresh
+  // `borrowers` array from the server; jump back to page 1 so a new search
+  // never opens mid-way through its results.
+  useEffect(() => {
+    goToPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [borrowers]);
 
   function submitSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -110,7 +132,7 @@ export default function BorrowersManager({
         <p className="text-muted text-sm">{t.emptyList}</p>
       ) : (
         <ul className="flex flex-col gap-3">
-          {borrowers.map((borrower) => {
+          {pageItems.map((borrower) => {
             const activeCount = activeCountsById[borrower.id] ?? 0;
             return (
               <li
@@ -150,6 +172,15 @@ export default function BorrowersManager({
           })}
         </ul>
       )}
+
+      <Pager
+        page={page}
+        totalPages={totalPages}
+        goToPage={goToPage}
+        previousLabel={t.previous}
+        nextLabel={t.next}
+        pageOfTemplate={t.pageOf}
+      />
     </div>
   );
 }
