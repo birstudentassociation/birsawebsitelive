@@ -8,6 +8,16 @@ import { getCustodian } from "@/lib/inventory/custodians";
 import { ConsoleNav, LogoutButton } from "@/components/inventory/ConsoleGate";
 
 /**
+ * Force dynamic rendering for the entire officer console subtree. These pages
+ * read the session cookie and live database rows, but `getSessionOfficer()`
+ * short-circuits before touching `cookies()` when the database is unconfigured
+ * (as it is during `next build`). Without this, Next would prerender the pages
+ * as a logged-out, empty shell and serve that stale HTML in production instead
+ * of rendering per request. Inherited by all nested officer routes.
+ */
+export const dynamic = "force-dynamic";
+
+/**
  * Console shell for the inventory management suite. Never indexed: reachable
  * only by officers who know the URL and have an account. Auth gating happens
  * per-page (via `getSessionOfficer()`), not here, so `{children}` is always
@@ -106,9 +116,7 @@ export default async function OfficerInventoryLayout({
     { href: "/officer/inventory/borrowers", label: t.borrowers },
     { href: "/officer/inventory/reports", label: t.reports },
     { href: "/officer/inventory/officers", label: t.officers },
-    ...(isGlobalOfficer
-      ? [{ href: "/officer/inventory/custodians", label: t.organisations }]
-      : []),
+    ...(isGlobalOfficer ? [{ href: "/officer/inventory/custodians", label: t.organisations }] : []),
   ];
 
   return (

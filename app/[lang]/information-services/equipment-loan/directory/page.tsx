@@ -12,6 +12,13 @@ import Notice from "@/components/Notice";
 import Email from "@/components/Email";
 import ExternalLink from "@/components/ExternalLink";
 
+/**
+ * Live club inventory and per-item availability, which change as loans are made
+ * and are unavailable at build time (no database). Render per request so the
+ * directory reflects current data instead of a stale build-time snapshot.
+ */
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
 }: {
@@ -27,7 +34,12 @@ export async function generateMetadata({
       ? "ดูว่าชมรมไหนมีอุปกรณ์อะไรบ้าง และติดต่อชมรมโดยตรงเพื่อขอยืม"
       : "See what equipment each club has and contact the club directly to borrow it.";
 
-  return buildMetadata({ locale, title, description, path: "/information-services/equipment-loan/directory" });
+  return buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/information-services/equipment-loan/directory",
+  });
 }
 
 const copy: Record<
@@ -73,7 +85,8 @@ const copy: Record<
     lede: "อุปกรณ์บางรายการดูแลโดยชมรมโดยตรง ไม่ได้อยู่ในระบบส่งคำขอออนไลน์ของ BIRSA ค้นหาชมรมของคุณด้านล่างเพื่อดูว่ามีอุปกรณ์อะไรบ้างและติดต่อได้อย่างไร",
     jumpNavLabel: "ไปที่ชมรม",
     notConfiguredTitle: "ทำเนียบนี้กำลังอยู่ระหว่างการเตรียมการ",
-    notConfiguredBody: "ข้อมูลอุปกรณ์ของชมรมยังไม่พร้อมใช้งานออนไลน์ กรุณาติดต่อ BIRSA เพื่อขอความช่วยเหลือในการติดต่อชมรม",
+    notConfiguredBody:
+      "ข้อมูลอุปกรณ์ของชมรมยังไม่พร้อมใช้งานออนไลน์ กรุณาติดต่อ BIRSA เพื่อขอความช่วยเหลือในการติดต่อชมรม",
     contactLink: "ติดต่อ BIRSA",
     noClubsTitle: "ยังไม่มีรายชื่อชมรม",
     noClubsBody: "BIRSA ยังไม่ได้เผยแพร่รายการอุปกรณ์ของชมรม กรุณาตรวจสอบใหม่อีกครั้งเร็ว ๆ นี้",
@@ -134,13 +147,19 @@ export default async function EquipmentLoanDirectoryPage({
   const custodians = await listCustodians();
   const clubs = custodians.filter((c) => c.kind === "club");
 
-  const clubItems = new Map<string, { item: Item; availability: { total: number; available: number } }[]>();
+  const clubItems = new Map<
+    string,
+    { item: Item; availability: { total: number; available: number } }[]
+  >();
   if (clubs.length > 0) {
     await Promise.all(
       clubs.map(async (club) => {
         const items = await listItems({ custodianId: club.id });
         const withAvailability = await Promise.all(
-          items.map(async (item) => ({ item, availability: await getItemAvailabilitySummary(item) }))
+          items.map(async (item) => ({
+            item,
+            availability: await getItemAvailabilitySummary(item),
+          }))
         );
         clubItems.set(club.id, withAvailability);
       })
@@ -200,7 +219,9 @@ export default async function EquipmentLoanDirectoryPage({
     if (!hasContact && !club.borrowNote[locale]) return null;
     return (
       <div className="flex flex-col gap-2 text-sm">
-        {club.borrowNote[locale] ? <p className="text-muted leading-relaxed">{club.borrowNote[locale]}</p> : null}
+        {club.borrowNote[locale] ? (
+          <p className="text-muted leading-relaxed">{club.borrowNote[locale]}</p>
+        ) : null}
         {hasContact ? (
           <dl className="flex flex-col gap-1">
             {club.contactName[locale] ? (
@@ -251,7 +272,9 @@ export default async function EquipmentLoanDirectoryPage({
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-10 py-10">
         <nav aria-label={t.jumpNavLabel} className="border-line bg-sunken rounded-lg border p-6">
-          <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{t.jumpNavLabel}</p>
+          <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+            {t.jumpNavLabel}
+          </p>
           <ul className="flex flex-wrap gap-2">
             {clubs.map((club) => (
               <li key={club.id}>
@@ -290,7 +313,10 @@ export default async function EquipmentLoanDirectoryPage({
                       {items.map(({ item, availability }) => {
                         const isAvailable = availability.available > 0;
                         return (
-                          <li key={item.id} className="border-line border-t pt-3 first:border-t-0 first:pt-0">
+                          <li
+                            key={item.id}
+                            className="border-line border-t pt-3 first:border-t-0 first:pt-0"
+                          >
                             <div className="flex flex-wrap items-baseline justify-between gap-2">
                               <span className="text-ink font-semibold">{item.name[locale]}</span>
                               <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
@@ -301,7 +327,9 @@ export default async function EquipmentLoanDirectoryPage({
                               </span>
                             </div>
                             {item.description[locale] ? (
-                              <p className="text-muted mt-1 text-sm leading-relaxed">{item.description[locale]}</p>
+                              <p className="text-muted mt-1 text-sm leading-relaxed">
+                                {item.description[locale]}
+                              </p>
                             ) : null}
                           </li>
                         );

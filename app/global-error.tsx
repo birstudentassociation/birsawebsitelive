@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { Fraunces, Inter, Sarabun } from "next/font/google";
+import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 
@@ -14,7 +14,7 @@ import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
  * nonce); system dark-mode users are still covered by the CSS media query.
  */
 const fraunces = Fraunces({ subsets: ["latin"], weight: ["600"], variable: "--font-en-display", display: "swap" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
+const lexend = Lexend({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
 const sarabun = Sarabun({ subsets: ["thai", "latin"], weight: ["400", "500", "600", "700"], variable: "--font-th", display: "swap" });
 
 export default function GlobalError({
@@ -33,7 +33,7 @@ export default function GlobalError({
   return (
     <html
       lang={defaultLocale}
-      className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
       suppressHydrationWarning
     >
       <body>

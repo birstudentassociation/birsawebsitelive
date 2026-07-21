@@ -37,7 +37,7 @@
   --color-info-tint: #e7efe9;
 
   /* Typography ------------------------------------------------------------ */
-  /* next/font sets --font-en-display (Fraunces), --font-en-body (Inter),
+  /* next/font sets --font-en-display (Fraunces), --font-en-body (Lexend),
      --font-th (Sarabun) on <html>. */
   --font-display: var(--font-en-display), Georgia, "Times New Roman", serif;
   --font-sans:
@@ -151,7 +151,7 @@ html[data-theme="dark"] .theme-icon-moon {
 }
 
 /* Language-conditional font mapping.
-   English: Fraunces headings + Inter body.  Thai: Sarabun throughout. */
+   English: Fraunces headings + Lexend body.  Thai: Sarabun throughout. */
 html[lang="en"] {
   --font-body: var(--font-sans);
   --font-heading: var(--font-display);

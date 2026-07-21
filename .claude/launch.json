@@ -4,10 +4,14 @@
     {
       "name": "birsa-portal",
       "runtimeExecutable": "cmd.exe",
-      "runtimeArgs": [
-        "/c",
-        "set PATH=C:\\Program Files\\nodejs;%PATH% && npm run dev"
-      ],
+      "runtimeArgs": ["/c", "set PATH=C:\\Program Files\\nodejs;%PATH% && npm run dev"],
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "birsa-prod",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "set PATH=C:\\Program Files\\nodejs;%PATH% && npm run start"],
       "port": 3000,
       "autoPort": true
     }

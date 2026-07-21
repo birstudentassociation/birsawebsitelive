@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { Fraunces, Inter, Sarabun } from "next/font/google";
+import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
-import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
-import EmergencyBanner from "@/components/EmergencyBanner";
-import { getEmergencyState } from "@/lib/emergency";
+import EmergencyBannerClient from "@/components/EmergencyBannerClient";
+import { getEmergencyBannerData } from "@/lib/emergency";
+import { THEME_SCRIPT } from "@/lib/theme-script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageFeedback from "@/components/PageFeedback";
@@ -23,7 +23,7 @@ const fraunces = Fraunces({
   display: "swap",
 });
 
-const inter = Inter({
+const lexend = Lexend({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-en-body",
@@ -72,43 +72,32 @@ export default async function RootLayout({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
 
-  // Nonce set by middleware so the inline theme script is allowed by the CSP.
-  const nonce = (await headers()).get("x-nonce") ?? undefined;
-
-  // Runtime emergency mode, toggled via Edge Config without a redeploy.
-  const emergency = await getEmergencyState(locale);
+  // Runtime emergency mode, toggled via Edge Config without a redeploy. The read
+  // is cached (see lib/emergency.ts) so it does not force dynamic rendering; the
+  // banner is server-rendered here for no-JS visitors and then refreshed
+  // client-side. No `headers()`/nonce read here — that would force every page
+  // dynamic; the inline theme script is authorised by hash on strict routes and
+  // by `'unsafe-inline'` on the static ones (see middleware.ts).
+  const emergency = await getEmergencyBannerData(locale);
 
   return (
     <html
       lang={locale}
-      className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
       suppressHydrationWarning
     >
       <body>
         <script
-          nonce={nonce}
           // Parser-blocking, first child of <body>; runs before paint so
           // there's no flash of the wrong theme. Only touches the DOM when
           // the visitor made an explicit choice; system-preference users
-          // need no JS at all (handled by the CSS media-query scope).
-          dangerouslySetInnerHTML={{
-            __html: `try {
-  var t = localStorage.getItem("birsa-theme");
-  if (t === "dark" || t === "light") {
-    document.documentElement.dataset.theme = t;
-  }
-} catch (e) {}`,
-          }}
+          // need no JS at all (handled by the CSS media-query scope). Authorised
+          // by CSP hash (THEME_SCRIPT_HASH) on strict routes; edit via
+          // lib/theme-script.ts so the hash guard test stays in sync.
+          dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
         <SkipLink label={dict.a11y.skip} />
-        {emergency.active && (
-          <EmergencyBanner
-            href={localeHref(locale, `/emergency/${emergency.scenarioId}`)}
-            message={emergency.message}
-            cta={dict.emergencyBanner.cta}
-            severity={emergency.severity}
-          />
-        )}
+        <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
         <Header locale={locale} />
         <main id="main">{children}</main>
         <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />

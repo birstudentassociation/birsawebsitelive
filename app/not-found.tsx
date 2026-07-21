@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Fraunces, Inter, Sarabun } from "next/font/google";
+import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
  * offer both language homepages so no visitor is stranded.
  */
 const fraunces = Fraunces({ subsets: ["latin"], weight: ["600"], variable: "--font-en-display", display: "swap" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
+const lexend = Lexend({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
 const sarabun = Sarabun({ subsets: ["thai", "latin"], weight: ["400", "500", "600", "700"], variable: "--font-th", display: "swap" });
 
 export default function GlobalNotFound() {
@@ -33,7 +33,7 @@ export default function GlobalNotFound() {
   return (
     <html
       lang={defaultLocale}
-      className={`${fraunces.variable} ${inter.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
       suppressHydrationWarning
     >
       <body>
