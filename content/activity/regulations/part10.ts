@@ -13,7 +13,13 @@ export const part10: Part = {
       },
       items: [
         { marker: "(1)", text: { en: "the PSC's part;", th: "ส่วนของ กนศ.ร." } },
-        { marker: "(2)", text: { en: "the part subsidizing Faculty activity groups;", th: "ส่วนอุดหนุนกลุ่มกิจกรรมคณะ" } },
+        {
+          marker: "(2)",
+          text: {
+            en: "the part subsidizing Faculty activity groups;",
+            th: "ส่วนอุดหนุนกลุ่มกิจกรรมคณะ",
+          },
+        },
         { marker: "(3)", text: { en: "the central fund part.", th: "ส่วนงบกลาง" } },
       ],
       tail: {
@@ -27,7 +33,13 @@ export const part10: Part = {
       lead: { en: "The PSC's revenue consists of:", th: "รายได้ของ กนศ.ร. คือ" },
       items: [
         { marker: "(1)", text: { en: "subsidy funds from the Faculty;", th: "เงินอุดหนุนจากคณะ" } },
-        { marker: "(2)", text: { en: "special income from the PSC's own fundraising.", th: "เงินรายได้พิเศษ จากการหาทุนของ กนศ.ร. เอง" } },
+        {
+          marker: "(2)",
+          text: {
+            en: "special income from the PSC's own fundraising.",
+            th: "เงินรายได้พิเศษ จากการหาทุนของ กนศ.ร. เอง",
+          },
+        },
       ],
     },
     {

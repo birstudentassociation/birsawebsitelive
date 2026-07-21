@@ -31,10 +31,28 @@ export const part06: Part = {
         th: "แกนนักศึกษาคณะรัฐศาสตร์รุ่น จะต้องแต่งตั้ง คกร. ซึ่งประกอบด้วย",
       },
       items: [
-        { marker: "(1)", text: { en: "the Faculty of Political Science cohort leaders, Class of…;", th: "แกนนักศึกษาคณะรัฐศาสตร์รุ่น…" } },
-        { marker: "(2)", text: { en: "the Rangsit-campus coordinator;", th: "ประสานงานศูนย์รังสิต" } },
-        { marker: "(3)", text: { en: "the Tha Prachan-campus coordinator;", th: "ประสานงานท่าพระจันทร์" } },
-        { marker: "(4)", text: { en: "not more than 6 other committee members.", th: "กรรมการอื่น ๆ ไม่เกิน 6 คน" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "the Faculty of Political Science cohort leaders, Class of…;",
+            th: "แกนนักศึกษาคณะรัฐศาสตร์รุ่น…",
+          },
+        },
+        {
+          marker: "(2)",
+          text: { en: "the Rangsit-campus coordinator;", th: "ประสานงานศูนย์รังสิต" },
+        },
+        {
+          marker: "(3)",
+          text: { en: "the Tha Prachan-campus coordinator;", th: "ประสานงานท่าพระจันทร์" },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "not more than 6 other committee members.",
+            th: "กรรมการอื่น ๆ ไม่เกิน 6 คน",
+          },
+        },
       ],
     },
     {
@@ -66,11 +84,41 @@ export const part06: Part = {
       title: { en: "Powers of the คกร.", th: "อำนาจของ คกร." },
       lead: { en: "The คกร. shall have the following powers:", th: "คกร. มีอำนาจดังนี้" },
       items: [
-        { marker: "(1)", text: { en: "to assist the Faculty of Political Science cohort leaders in coordinating the conduct of activities within the cohort;", th: "ช่วยแกนนักศึกษาคณะรัฐศาสตร์รุ่นในการประสานการดำเนินกิจกรรมภายรุ่น" } },
-        { marker: "(2)", text: { en: "to share responsibility for the conduct of the cohort's affairs;", th: "รับผิดชอบร่วมกันในการดำเนินงานของรุ่น" } },
-        { marker: "(3)", text: { en: "to offer suggestions and opinions on the administration and conduct of various activities to the Faculty of Political Science cohort leaders;", th: "เสนอแนะความคิดเห็นในการบริหารงานและดำเนินกิจกรรมต่าง ๆ ต่อแกนนักศึกษาคณะรัฐศาสตร์รุ่น" } },
-        { marker: "(4)", text: { en: "to jointly consider and plan the conduct of the cohort's affairs;", th: "พิจารณาและวางแผนร่วมกันในการดำเนินงานของรุ่น" } },
-        { marker: "(5)", text: { en: "to render such cooperation as the Faculty of Political Science cohort leaders may reasonably request.", th: "ให้ความร่วมมือตามที่แกนนักศึกษาคณะรัฐศาสตร์รุ่นร้องขอตามที่เห็นสมควร" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "to assist the Faculty of Political Science cohort leaders in coordinating the conduct of activities within the cohort;",
+            th: "ช่วยแกนนักศึกษาคณะรัฐศาสตร์รุ่นในการประสานการดำเนินกิจกรรมภายรุ่น",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "to share responsibility for the conduct of the cohort's affairs;",
+            th: "รับผิดชอบร่วมกันในการดำเนินงานของรุ่น",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "to offer suggestions and opinions on the administration and conduct of various activities to the Faculty of Political Science cohort leaders;",
+            th: "เสนอแนะความคิดเห็นในการบริหารงานและดำเนินกิจกรรมต่าง ๆ ต่อแกนนักศึกษาคณะรัฐศาสตร์รุ่น",
+          },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "to jointly consider and plan the conduct of the cohort's affairs;",
+            th: "พิจารณาและวางแผนร่วมกันในการดำเนินงานของรุ่น",
+          },
+        },
+        {
+          marker: "(5)",
+          text: {
+            en: "to render such cooperation as the Faculty of Political Science cohort leaders may reasonably request.",
+            th: "ให้ความร่วมมือตามที่แกนนักศึกษาคณะรัฐศาสตร์รุ่นร้องขอตามที่เห็นสมควร",
+          },
+        },
       ],
     },
   ],

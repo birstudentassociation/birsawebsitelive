@@ -792,7 +792,9 @@ export default function ItemDetail({
               {t.availabilityLabel(availability.available, availability.total)}
             </Pill>
           ) : null}
-          <Pill className={item.onlineLoanable ? "bg-forest-tint text-forest" : "bg-sunken text-muted"}>
+          <Pill
+            className={item.onlineLoanable ? "bg-forest-tint text-forest" : "bg-sunken text-muted"}
+          >
             {item.onlineLoanable ? t.onlineTag : t.notOnlineTag}
           </Pill>
         </div>
@@ -1004,7 +1006,7 @@ export default function ItemDetail({
                 onChange={(event) =>
                   setEditForm((prev) => ({ ...prev, onlineLoanable: event.target.checked }))
                 }
-                className="h-5 w-5 rounded border-input-border"
+                className="border-input-border h-5 w-5 rounded"
               />
               {t.onlineLoanableLabel}
             </label>

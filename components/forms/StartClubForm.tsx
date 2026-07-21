@@ -60,7 +60,8 @@ const copy: Record<
     send: "Submit idea",
     sending: "Sending…",
     successTitle: "Thanks, your club idea is on its way",
-    successBody: "A member of the BIRSA committee will get back to you by email to talk through next steps.",
+    successBody:
+      "A member of the BIRSA committee will get back to you by email to talk through next steps.",
     errorSummaryTitle: "There is a problem",
     errors: {
       nameRequired: "Enter your name",
@@ -190,7 +191,14 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
             />
           </p>
         </div>
-        <Field as="textarea" name="draft" label={t.description} value={buildDraft()} readOnly rows={8} />
+        <Field
+          as="textarea"
+          name="draft"
+          label={t.description}
+          value={buildDraft()}
+          readOnly
+          rows={8}
+        />
       </div>
     );
   }
@@ -210,7 +218,13 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
 
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
-        <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
+        <input
+          id={`${formId}-nickname`}
+          name="nickname"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+        />
       </div>
 
       <Field
@@ -254,7 +268,11 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         required
         requiredLabel={dict.actions.required}
         defaultValue={values?.description}
-        error={state.errors?.description ? messageFor("description", state.errors.description) : undefined}
+        error={
+          state.errors?.description
+            ? messageFor("description", state.errors.description)
+            : undefined
+        }
       />
       <Field
         id={fieldIds.members}

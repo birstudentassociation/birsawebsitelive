@@ -28,7 +28,7 @@ export type ShuttleTimerProps = {
 
 const lineAccents: Record<LineId, string> = {
   "sanam-chai": "#C3002F",
-  "pinklao": "#FFD13F",
+  pinklao: "#FFD13F",
 };
 
 type Labels = {
@@ -156,7 +156,7 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
               style={{ borderLeftWidth: "4px", borderLeftColor: lineAccents[line.id] }}
               aria-live="polite"
             >
-              <h3 className="font-display text-lg mt-0">{line.name[locale]}</h3>
+              <h3 className="font-display mt-0 text-lg">{line.name[locale]}</h3>
               <StatusBlock result={result} secondsPastMinute={secondsPastMinute} t={t} />
             </div>
           );

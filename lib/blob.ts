@@ -24,7 +24,10 @@ function sanitizeFileName(name: string): string {
 export async function uploadImage(
   file: File,
   keyPrefix: string
-): Promise<{ ok: true; url: string } | { ok: false; reason: "not-configured" | "invalid" | "too-large" | "error" }> {
+): Promise<
+  | { ok: true; url: string }
+  | { ok: false; reason: "not-configured" | "invalid" | "too-large" | "error" }
+> {
   if (!isBlobConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

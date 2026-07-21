@@ -44,7 +44,9 @@ type: news
 category: announcements
 ---
 
-<Notice variant="placeholder">Example content. BIRSA will replace this with real announcements.</Notice>
+<Notice variant="placeholder">
+  Example content. BIRSA will replace this with real announcements.
+</Notice>
 
 Write the body of the post here in plain Markdown. Use `##` for section headings if the post
 is long enough to need them.
@@ -84,14 +86,14 @@ Clubs are **not** MDX files; they're a single typed list in `content/clubs/clubs
 club you want to edit (or copy an existing entry as a starting point for a new one) and update
 these fields:
 
-| Field                | Notes                                                                                 |
-| --------------------- | -------------------------------------------------------------------------------------- |
-| `key`                 | Internal identifier: lowercase, hyphenated. Does not need to match anything visible.   |
-| `slug`                | The URL segment (`/clubs/<slug>`): English kebab-case, must be unique.                |
-| `category`            | One of `academic`, `sports`, `arts`, `community`, `social`.                            |
-| `placeholder`         | `true` while this is example content; set to `false` once BIRSA confirms it's real.    |
-| `email` / `instagram` | Optional contact details: omit the field entirely if the club does not have one.       |
-| `join.open`           | Whether the club is currently open to new members.                                    |
+| Field                 | Notes                                                                                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `key`                 | Internal identifier: lowercase, hyphenated. Does not need to match anything visible.                                                                                     |
+| `slug`                | The URL segment (`/clubs/<slug>`): English kebab-case, must be unique.                                                                                                   |
+| `category`            | One of `academic`, `sports`, `arts`, `community`, `social`.                                                                                                              |
+| `placeholder`         | `true` while this is example content; set to `false` once BIRSA confirms it's real.                                                                                      |
+| `email` / `instagram` | Optional contact details: omit the field entirely if the club does not have one.                                                                                         |
+| `join.open`           | Whether the club is currently open to new members.                                                                                                                       |
 | `en` / `th`           | Each has `name`, `tagline`, `description` (an array of 2 to 3 paragraph strings), `meets` (optional), `lead` (a **role title**, never a person's name), and `howToJoin`. |
 
 Every club needs **both** an `en` block and a `th` block, written natively (not translated).
@@ -107,11 +109,11 @@ rendered via the `<CommitteeRoster />` component) comes from a single typed file
 
 Each entry in the `committee` array is one person, with these fields:
 
-| Field           | Notes                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------------ |
-| `key`           | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem, see below. Do not change an existing member's `key` casually, since it's tied to their photo filename. |
-| `group`         | Either `"officer"` (core committee) or `"assistant"` (assistant officers).                |
-| `en` / `th`     | Each has `firstName`, `lastName`, `nickname`, and `title`, all required, written in that language. |
+| Field       | Notes                                                                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `key`       | Unique, lowercase, hyphenated identifier (e.g. `chayapon-srisukho`). Also doubles as the portrait filename stem, see below. Do not change an existing member's `key` casually, since it's tied to their photo filename. |
+| `group`     | Either `"officer"` (core committee) or `"assistant"` (assistant officers).                                                                                                                                              |
+| `en` / `th` | Each has `firstName`, `lastName`, `nickname`, and `title`, all required, written in that language.                                                                                                                      |
 
 To add a new committee member, copy an existing entry as a template, give them a unique `key`,
 and fill in both the `en` and `th` blocks. To remove someone, delete their entry. To update a

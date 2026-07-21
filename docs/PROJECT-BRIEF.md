@@ -80,7 +80,8 @@ middleware.ts             # locale detection/redirect
 ```ts
 // lib/i18n.ts
 export type Locale = "th" | "en";
-export const locales: Locale[]; export const defaultLocale: Locale; // "th"
+export const locales: Locale[];
+export const defaultLocale: Locale; // "th"
 export function isLocale(x: string): x is Locale;
 export function getDictionary(locale: Locale): Dictionary; // typeof en
 export function localeHref(locale: Locale, path: string): string; // "/en/news"
@@ -88,7 +89,7 @@ export function swapLocalePath(pathname: string, to: Locale): string;
 
 // lib/content.ts  (build-time fs loaders, zod-validated frontmatter)
 export type Section = "news" | "activity" | "about";
-export function getEntries(section: Section, locale: Locale): Entry[];      // sorted
+export function getEntries(section: Section, locale: Locale): Entry[]; // sorted
 export function getEntry(section: Section, locale: Locale, slug: string): Entry | null;
 export function getGuideEntries(locale: Locale, audience: "home" | "international"): Entry[];
 export function getGuideEntry(locale, audience, slug): Entry | null;

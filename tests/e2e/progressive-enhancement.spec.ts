@@ -52,7 +52,9 @@ test.describe("forms work without JavaScript", () => {
     await expect(errorSummary.getByRole("link").first()).toBeVisible();
   });
 
-  test("loan status lookup: submitting empty server-renders the error summary", async ({ page }) => {
+  test("loan status lookup: submitting empty server-renders the error summary", async ({
+    page,
+  }) => {
     await page.goto("/en/information-services/equipment-loan/status");
 
     await page.getByRole("button", { name: "Check status" }).click();
@@ -68,7 +70,9 @@ test.describe("forms work without JavaScript", () => {
     // A progressively-enhanced server-action form submits with a native POST
     // (Next uses an empty `action` plus hidden `$ACTION_*` fields it reads
     // server-side), so it works with no JavaScript.
-    const form = page.locator("form").filter({ has: page.getByRole("button", { name: "Send message" }) });
+    const form = page
+      .locator("form")
+      .filter({ has: page.getByRole("button", { name: "Send message" }) });
     await expect(form).toHaveAttribute("method", /post/i);
     await expect(form.locator('input[type="hidden"][name^="$ACTION"]').first()).toBeAttached();
   });

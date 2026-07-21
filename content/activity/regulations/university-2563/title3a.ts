@@ -26,10 +26,25 @@ export const title3Chapters1to3: Section[] = [
           {
             kind: "list",
             items: [
-              { marker: "(1)", text: { en: "the TUSU Executive Committee;", th: "คณะกรรมการบริหารองค์การนักศึกษา" } },
-              { marker: "(2)", text: { en: "the Faculty Student Committees;", th: "คณะกรรมการนักศึกษาประจำคณะ" } },
-              { marker: "(3)", text: { en: "the student activity clubs;", th: "ชุมนุมกิจกรรมนักศึกษา" } },
-              { marker: "(4)", text: { en: "the Student Dormitory Committee.", th: "คณะกรรมการหอพักนักศึกษา" } },
+              {
+                marker: "(1)",
+                text: {
+                  en: "the TUSU Executive Committee;",
+                  th: "คณะกรรมการบริหารองค์การนักศึกษา",
+                },
+              },
+              {
+                marker: "(2)",
+                text: { en: "the Faculty Student Committees;", th: "คณะกรรมการนักศึกษาประจำคณะ" },
+              },
+              {
+                marker: "(3)",
+                text: { en: "the student activity clubs;", th: "ชุมนุมกิจกรรมนักศึกษา" },
+              },
+              {
+                marker: "(4)",
+                text: { en: "the Student Dormitory Committee.", th: "คณะกรรมการหอพักนักศึกษา" },
+              },
             ],
           },
         ],
@@ -60,9 +75,27 @@ export const title3Chapters1to3: Section[] = [
               {
                 kind: "list",
                 items: [
-                  { marker: "(1)", text: { en: "the TUSU Executive Committee, Tha Prachan Campus;", th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ท่าพระจันทร์" } },
-                  { marker: "(2)", text: { en: "the TUSU Executive Committee, Rangsit Campus;", th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์รังสิต" } },
-                  { marker: "(3)", text: { en: "the TUSU Executive Committee, Lampang Campus.", th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ลำปาง" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "the TUSU Executive Committee, Tha Prachan Campus;",
+                      th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ท่าพระจันทร์",
+                    },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "the TUSU Executive Committee, Rangsit Campus;",
+                      th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์รังสิต",
+                    },
+                  },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "the TUSU Executive Committee, Lampang Campus.",
+                      th: "คณะกรรมการบริหารองค์การนักศึกษา ศูนย์ลำปาง",
+                    },
+                  },
                 ],
               },
               {
@@ -88,17 +121,80 @@ export const title3Chapters1to3: Section[] = [
               {
                 kind: "list",
                 items: [
-                  { marker: "(1)", text: { en: "the President of the TUSU;", th: "นายกองค์การนักศึกษา" } },
-                  { marker: "(2)", text: { en: "the Vice-President of the TUSU, Tha Prachan Campus;", th: "อุปนายกองค์การนักศึกษา ศูนย์ท่าพระจันทร์" } },
-                  { marker: "(3)", text: { en: "the Vice-President of the TUSU, Rangsit Campus;", th: "อุปนายกองค์การนักศึกษา ศูนย์รังสิต" } },
-                  { marker: "(4)", text: { en: "the Vice-President of the TUSU, Lampang Campus;", th: "อุปนายกองค์การนักศึกษา ศูนย์ลำปาง" } },
-                  { marker: "(5)", text: { en: "the Secretary-General of the TUSU;", th: "เลขาธิการองค์การนักศึกษา" } },
-                  { marker: "(6)", text: { en: "the TUSU committee member for external affairs;", th: "กรรมการองค์การนักศึกษาฝ่ายกิจการภายนอก" } },
-                  { marker: "(7)", text: { en: "the TUSU committee member for planning and budget;", th: "กรรมการองค์การนักศึกษาฝ่ายแผนงานและงบประมาณ" } },
-                  { marker: "(8)", text: { en: "the TUSU committee member for the protection of rights and promotion of student welfare;", th: "กรรมการองค์การนักศึกษาฝ่ายพิทักษ์สิทธิและส่งเสริมสวัสดิการนักศึกษา" } },
-                  { marker: "(9)", text: { en: "the TUSU committee member for student activities;", th: "กรรมการองค์การนักศึกษาฝ่ายกิจกรรมนักศึกษา" } },
-                  { marker: "(10)", text: { en: "the TUSU committee member for rules and regulations;", th: "กรรมการองค์การนักศึกษาฝ่ายกฎระเบียบ" } },
-                  { marker: "(11)", text: { en: "the TUSU committee member for public relations.", th: "กรรมการองค์การนักศึกษาฝ่ายประชาสัมพันธ์" } },
+                  {
+                    marker: "(1)",
+                    text: { en: "the President of the TUSU;", th: "นายกองค์การนักศึกษา" },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "the Vice-President of the TUSU, Tha Prachan Campus;",
+                      th: "อุปนายกองค์การนักศึกษา ศูนย์ท่าพระจันทร์",
+                    },
+                  },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "the Vice-President of the TUSU, Rangsit Campus;",
+                      th: "อุปนายกองค์การนักศึกษา ศูนย์รังสิต",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "the Vice-President of the TUSU, Lampang Campus;",
+                      th: "อุปนายกองค์การนักศึกษา ศูนย์ลำปาง",
+                    },
+                  },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "the Secretary-General of the TUSU;",
+                      th: "เลขาธิการองค์การนักศึกษา",
+                    },
+                  },
+                  {
+                    marker: "(6)",
+                    text: {
+                      en: "the TUSU committee member for external affairs;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายกิจการภายนอก",
+                    },
+                  },
+                  {
+                    marker: "(7)",
+                    text: {
+                      en: "the TUSU committee member for planning and budget;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายแผนงานและงบประมาณ",
+                    },
+                  },
+                  {
+                    marker: "(8)",
+                    text: {
+                      en: "the TUSU committee member for the protection of rights and promotion of student welfare;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายพิทักษ์สิทธิและส่งเสริมสวัสดิการนักศึกษา",
+                    },
+                  },
+                  {
+                    marker: "(9)",
+                    text: {
+                      en: "the TUSU committee member for student activities;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายกิจกรรมนักศึกษา",
+                    },
+                  },
+                  {
+                    marker: "(10)",
+                    text: {
+                      en: "the TUSU committee member for rules and regulations;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายกฎระเบียบ",
+                    },
+                  },
+                  {
+                    marker: "(11)",
+                    text: {
+                      en: "the TUSU committee member for public relations.",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายประชาสัมพันธ์",
+                    },
+                  },
                 ],
               },
               {
@@ -145,14 +241,62 @@ export const title3Chapters1to3: Section[] = [
               {
                 kind: "list",
                 items: [
-                  { marker: "(1)", text: { en: "the Vice-President of the TUSU of that campus;", th: "อุปนายกองค์การนักศึกษา ระดับศูนย์" } },
-                  { marker: "(2)", text: { en: "the Secretary-General of the TUSU of that campus;", th: "เลขาธิการองค์การนักศึกษา ระดับศูนย์" } },
-                  { marker: "(3)", text: { en: "the TUSU committee member for planning and budget;", th: "กรรมการองค์การนักศึกษาฝ่ายแผนงานและงบประมาณ" } },
-                  { marker: "(4)", text: { en: "the TUSU committee member for sports and health promotion;", th: "กรรมการองค์การนักศึกษาฝ่ายกีฬาและสร้างเสริมสุขภาพ" } },
-                  { marker: "(5)", text: { en: "the TUSU committee member for arts and culture;", th: "กรรมการองค์การนักศึกษาฝ่ายศิลปะและวัฒนธรรม" } },
-                  { marker: "(6)", text: { en: "the TUSU committee member for public service;", th: "กรรมการองค์การนักศึกษาฝ่ายบำเพ็ญประโยชน์" } },
-                  { marker: "(7)", text: { en: "the TUSU committee member for religion and ethics;", th: "กรรมการองค์การนักศึกษาฝ่ายศาสนาและจริยธรรม" } },
-                  { marker: "(8)", text: { en: "such other TUSU committee members, numbering no more than 4 further persons.", th: "กรรมการองค์การนักศึกษาอื่น อีกจำนวนไม่เกินสี่คน" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "the Vice-President of the TUSU of that campus;",
+                      th: "อุปนายกองค์การนักศึกษา ระดับศูนย์",
+                    },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "the Secretary-General of the TUSU of that campus;",
+                      th: "เลขาธิการองค์การนักศึกษา ระดับศูนย์",
+                    },
+                  },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "the TUSU committee member for planning and budget;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายแผนงานและงบประมาณ",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "the TUSU committee member for sports and health promotion;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายกีฬาและสร้างเสริมสุขภาพ",
+                    },
+                  },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "the TUSU committee member for arts and culture;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายศิลปะและวัฒนธรรม",
+                    },
+                  },
+                  {
+                    marker: "(6)",
+                    text: {
+                      en: "the TUSU committee member for public service;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายบำเพ็ญประโยชน์",
+                    },
+                  },
+                  {
+                    marker: "(7)",
+                    text: {
+                      en: "the TUSU committee member for religion and ethics;",
+                      th: "กรรมการองค์การนักศึกษาฝ่ายศาสนาและจริยธรรม",
+                    },
+                  },
+                  {
+                    marker: "(8)",
+                    text: {
+                      en: "such other TUSU committee members, numbering no more than 4 further persons.",
+                      th: "กรรมการองค์การนักศึกษาอื่น อีกจำนวนไม่เกินสี่คน",
+                    },
+                  },
                 ],
               },
             ],
@@ -162,7 +306,10 @@ export const title3Chapters1to3: Section[] = [
       {
         kind: { en: "Division", th: "ส่วนที่" },
         number: "2",
-        title: { en: "Powers and duties of the TUSU Executive Committee", th: "อำนาจหน้าที่ของคณะกรรมการบริหารองค์การนักศึกษา" },
+        title: {
+          en: "Powers and duties of the TUSU Executive Committee",
+          th: "อำนาจหน้าที่ของคณะกรรมการบริหารองค์การนักศึกษา",
+        },
         provisions: [
           {
             num: 39,
@@ -293,7 +440,10 @@ export const title3Chapters1to3: Section[] = [
         provisions: [
           {
             num: 41,
-            title: { en: "Term and vacation of office", th: "วาระการดำรงตำแหน่งและการพ้นจากตำแหน่ง" },
+            title: {
+              en: "Term and vacation of office",
+              th: "วาระการดำรงตำแหน่งและการพ้นจากตำแหน่ง",
+            },
             body: [
               {
                 kind: "para",
@@ -314,9 +464,27 @@ export const title3Chapters1to3: Section[] = [
                 items: [
                   { marker: "(1)", text: { en: "death;", th: "ตาย" } },
                   { marker: "(2)", text: { en: "resignation;", th: "ลาออก" } },
-                  { marker: "(3)", text: { en: "being subject to severe student disciplinary punishment;", th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง" } },
-                  { marker: "(4)", text: { en: "losing the qualifications or having a prohibited characteristic;", th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม" } },
-                  { marker: "(5)", text: { en: "ceasing to have the status of a student of the University;", th: "พ้นสภาพการเป็นนักศึกษาของมหาวิทยาลัย" } },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "being subject to severe student disciplinary punishment;",
+                      th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "losing the qualifications or having a prohibited characteristic;",
+                      th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม",
+                    },
+                  },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "ceasing to have the status of a student of the University;",
+                      th: "พ้นสภาพการเป็นนักศึกษาของมหาวิทยาลัย",
+                    },
+                  },
                   {
                     marker: "(6)",
                     text: {
@@ -347,7 +515,10 @@ export const title3Chapters1to3: Section[] = [
       {
         kind: { en: "Division", th: "ส่วนที่" },
         number: "4",
-        title: { en: "Election of the President and Vice-Presidents", th: "การเลือกตั้งนายกองค์การนักศึกษาและอุปนายกองค์การนักศึกษา" },
+        title: {
+          en: "Election of the President and Vice-Presidents",
+          th: "การเลือกตั้งนายกองค์การนักศึกษาและอุปนายกองค์การนักศึกษา",
+        },
         provisions: [
           {
             num: 42,
@@ -400,8 +571,20 @@ export const title3Chapters1to3: Section[] = [
                     marker: "A.",
                     text: { en: "Qualifications", th: "คุณสมบัติ" },
                     children: [
-                      { marker: "(1)", text: { en: "being an undergraduate student;", th: "เป็นนักศึกษาระดับปริญญาตรี" } },
-                      { marker: "(2)", text: { en: "having an academic record of not lower than 2.00;", th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "being an undergraduate student;",
+                          th: "เป็นนักศึกษาระดับปริญญาตรี",
+                        },
+                      },
+                      {
+                        marker: "(2)",
+                        text: {
+                          en: "having an academic record of not lower than 2.00;",
+                          th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐",
+                        },
+                      },
                       {
                         marker: "(3)",
                         text: {
@@ -415,8 +598,17 @@ export const title3Chapters1to3: Section[] = [
                     marker: "B.",
                     text: { en: "Prohibited characteristics", th: "ลักษณะต้องห้าม" },
                     children: [
-                      { marker: "(1)", text: { en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;", th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
-                      { marker: "(2)", text: { en: "being a member of the TUSC;", th: "เป็นสมาชิกสภานักศึกษา" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;",
+                          th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
+                      {
+                        marker: "(2)",
+                        text: { en: "being a member of the TUSC;", th: "เป็นสมาชิกสภานักศึกษา" },
+                      },
                       {
                         marker: "(3)",
                         text: {
@@ -424,8 +616,20 @@ export const title3Chapters1to3: Section[] = [
                           th: "เป็นกรรมการในคณะกรรมการนักศึกษาประจำคณะ หรือเป็นกรรมการในคณะกรรมการหอพักนักศึกษา หรือเป็นกรรมการในคณะกรรมการบริหารชุมนุม",
                         },
                       },
-                      { marker: "(4)", text: { en: "being, or having been, a member of the Election Commission within the one-year period before the date of applying for election;", th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
-                      { marker: "(5)", text: { en: "having such other prohibited characteristics as the Rector determines by issuing a notice of the University.", th: "มีลักษณะต้องห้ามตามที่อธิการบดีกำหนดโดยออกเป็นประกาศมหาวิทยาลัย" } },
+                      {
+                        marker: "(4)",
+                        text: {
+                          en: "being, or having been, a member of the Election Commission within the one-year period before the date of applying for election;",
+                          th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
+                      {
+                        marker: "(5)",
+                        text: {
+                          en: "having such other prohibited characteristics as the Rector determines by issuing a notice of the University.",
+                          th: "มีลักษณะต้องห้ามตามที่อธิการบดีกำหนดโดยออกเป็นประกาศมหาวิทยาลัย",
+                        },
+                      },
                     ],
                   },
                 ],
@@ -466,8 +670,20 @@ export const title3Chapters1to3: Section[] = [
               {
                 kind: "list",
                 items: [
-                  { marker: "(1)", text: { en: "to be responsible for the administration of, and to supervise and oversee the operation of, the TUSU;", th: "รับผิดชอบการบริหารงานและกำกับดูแลการดำเนินงานขององค์การนักศึกษา" } },
-                  { marker: "(2)", text: { en: "to act as chairperson of the meetings of the TUSU Executive Committee;", th: "เป็นประธานของที่ประชุมคณะกรรมการบริหารองค์การนักศึกษา" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "to be responsible for the administration of, and to supervise and oversee the operation of, the TUSU;",
+                      th: "รับผิดชอบการบริหารงานและกำกับดูแลการดำเนินงานขององค์การนักศึกษา",
+                    },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "to act as chairperson of the meetings of the TUSU Executive Committee;",
+                      th: "เป็นประธานของที่ประชุมคณะกรรมการบริหารองค์การนักศึกษา",
+                    },
+                  },
                   {
                     marker: "(3)",
                     text: {
@@ -475,7 +691,13 @@ export const title3Chapters1to3: Section[] = [
                       th: "กำหนดอำนาจหน้าที่ของคณะกรรมการบริหารองค์การนักศึกษา ตามข้อ ๓๗ (5) ถึง (11) โดยออกเป็นประกาศองค์การนักศึกษา",
                     },
                   },
-                  { marker: "(4)", text: { en: "such other powers and duties as are assigned by the Rector or the Vice-Rector for Student Affairs.", th: "อำนาจและหน้าที่อื่นตามที่อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษามอบหมาย" } },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "such other powers and duties as are assigned by the Rector or the Vice-Rector for Student Affairs.",
+                      th: "อำนาจและหน้าที่อื่นตามที่อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษามอบหมาย",
+                    },
+                  },
                 ],
               },
             ],
@@ -494,9 +716,27 @@ export const title3Chapters1to3: Section[] = [
               {
                 kind: "list",
                 items: [
-                  { marker: "(1)", text: { en: "to be responsible for the administration of, and to supervise and oversee the operation of, the Campus TUSU Executive Committee;", th: "รับผิดชอบการบริหารงานและกำกับดูแลการดำเนินงานของคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์" } },
-                  { marker: "(2)", text: { en: "to act as chairperson of the meetings of the TUSU at that campus;", th: "เป็นประธานของที่ประชุมองค์การนักศึกษาระดับศูนย์" } },
-                  { marker: "(3)", text: { en: "to assist the President of the TUSU in the administration of the TUSU;", th: "ช่วยเหลืองานนายกองค์การนักศึกษาในการบริหารงานองค์การนักศึกษา" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "to be responsible for the administration of, and to supervise and oversee the operation of, the Campus TUSU Executive Committee;",
+                      th: "รับผิดชอบการบริหารงานและกำกับดูแลการดำเนินงานของคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์",
+                    },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "to act as chairperson of the meetings of the TUSU at that campus;",
+                      th: "เป็นประธานของที่ประชุมองค์การนักศึกษาระดับศูนย์",
+                    },
+                  },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "to assist the President of the TUSU in the administration of the TUSU;",
+                      th: "ช่วยเหลืองานนายกองค์การนักศึกษาในการบริหารงานองค์การนักศึกษา",
+                    },
+                  },
                   {
                     marker: "(4)",
                     text: {
@@ -504,7 +744,13 @@ export const title3Chapters1to3: Section[] = [
                       th: "กำหนดอำนาจหน้าที่ของคณะกรรมการบริหารองค์การนักศึกษา ระดับศูนย์ ตามข้อ ๓๘ (2) ถึง (8) โดยออกเป็นประกาศองค์การนักศึกษา ระดับศูนย์",
                     },
                   },
-                  { marker: "(5)", text: { en: "such other powers and duties as are assigned by the Rector or the Vice-Rector for Student Affairs.", th: "อำนาจและหน้าที่อื่นตามที่อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษามอบหมาย" } },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "such other powers and duties as are assigned by the Rector or the Vice-Rector for Student Affairs.",
+                      th: "อำนาจและหน้าที่อื่นตามที่อธิการบดีหรือรองอธิการบดีฝ่ายการนักศึกษามอบหมาย",
+                    },
+                  },
                 ],
               },
             ],
@@ -655,7 +901,10 @@ export const title3Chapters1to3: Section[] = [
       {
         kind: { en: "Division", th: "ส่วนที่" },
         number: "2",
-        title: { en: "Qualifications of the chair and members", th: "คุณสมบัติของประธานและกรรมการประจำคณะ" },
+        title: {
+          en: "Qualifications of the chair and members",
+          th: "คุณสมบัติของประธานและกรรมการประจำคณะ",
+        },
         provisions: [
           {
             num: 54,
@@ -675,7 +924,13 @@ export const title3Chapters1to3: Section[] = [
                     marker: "A.",
                     text: { en: "Qualifications", th: "คุณสมบัติ" },
                     children: [
-                      { marker: "(1)", text: { en: "being an undergraduate student;", th: "เป็นนักศึกษาระดับปริญญาตรี" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "being an undergraduate student;",
+                          th: "เป็นนักศึกษาระดับปริญญาตรี",
+                        },
+                      },
                       {
                         marker: "(2)",
                         text: {
@@ -696,7 +951,13 @@ export const title3Chapters1to3: Section[] = [
                     marker: "B.",
                     text: { en: "Prohibited characteristics", th: "ลักษณะต้องห้าม" },
                     children: [
-                      { marker: "(1)", text: { en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;", th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;",
+                          th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
                       {
                         marker: "(2)",
                         text: {
@@ -704,8 +965,20 @@ export const title3Chapters1to3: Section[] = [
                           th: "เป็นสมาชิกสภานักศึกษา หรือกรรมการบริหารองค์การนักศึกษา หรือกรรมการบริหารองค์การนักศึกษาระดับศูนย์ หรือกรรมการในคณะกรรมการหอพักนักศึกษา หรือกรรมการในคณะกรรมการบริหารชุมนุม",
                         },
                       },
-                      { marker: "(3)", text: { en: "being, or having been, a member of a Faculty-level election committee within the one-year period before the date of applying for election;", th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งระดับคณะ ในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
-                      { marker: "(4)", text: { en: "having such other prohibited characteristics as the Dean determines by issuing a faculty-unit notice.", th: "มีลักษณะต้องห้ามตามที่คณบดีกำหนดโดยออกเป็นประกาศส่วนงาน" } },
+                      {
+                        marker: "(3)",
+                        text: {
+                          en: "being, or having been, a member of a Faculty-level election committee within the one-year period before the date of applying for election;",
+                          th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งระดับคณะ ในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
+                      {
+                        marker: "(4)",
+                        text: {
+                          en: "having such other prohibited characteristics as the Dean determines by issuing a faculty-unit notice.",
+                          th: "มีลักษณะต้องห้ามตามที่คณบดีกำหนดโดยออกเป็นประกาศส่วนงาน",
+                        },
+                      },
                     ],
                   },
                 ],
@@ -773,9 +1046,27 @@ export const title3Chapters1to3: Section[] = [
                       th: "เสนอความคิดเห็นต่อองค์การนักศึกษา สภานักศึกษา คณบดี ในเรื่องที่มีผลกระทบต่อนักศึกษาของคณะ",
                     },
                   },
-                  { marker: "(2)", text: { en: "to administer all activities relating to the activities of the students in the Faculty;", th: "บริหารกิจกรรมทั้งปวงเกี่ยวกับกิจกรรมของนักศึกษาในคณะ" } },
-                  { marker: "(3)", text: { en: "to supervise, monitor, and examine the operation of Faculty-level student activity clubs;", th: "กำกับดูแล ติดตาม และตรวจสอบการทำงานของชมรมกิจกรรมนักศึกษาระดับคณะ" } },
-                  { marker: "(4)", text: { en: "to perform such other duties as are assigned by the Dean.", th: "ปฏิบัติหน้าที่อื่นตามที่คณบดีมอบหมาย" } },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "to administer all activities relating to the activities of the students in the Faculty;",
+                      th: "บริหารกิจกรรมทั้งปวงเกี่ยวกับกิจกรรมของนักศึกษาในคณะ",
+                    },
+                  },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "to supervise, monitor, and examine the operation of Faculty-level student activity clubs;",
+                      th: "กำกับดูแล ติดตาม และตรวจสอบการทำงานของชมรมกิจกรรมนักศึกษาระดับคณะ",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "to perform such other duties as are assigned by the Dean.",
+                      th: "ปฏิบัติหน้าที่อื่นตามที่คณบดีมอบหมาย",
+                    },
+                  },
                 ],
               },
             ],
@@ -823,9 +1114,27 @@ export const title3Chapters1to3: Section[] = [
                 items: [
                   { marker: "(1)", text: { en: "death;", th: "ตาย" } },
                   { marker: "(2)", text: { en: "resignation;", th: "ลาออก" } },
-                  { marker: "(3)", text: { en: "being subject to severe student disciplinary punishment;", th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง" } },
-                  { marker: "(4)", text: { en: "losing the qualifications or having a prohibited characteristic;", th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม" } },
-                  { marker: "(5)", text: { en: "ceasing to have the status of a student of the Faculty.", th: "พ้นสภาพการเป็นนักศึกษาของคณะ" } },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "being subject to severe student disciplinary punishment;",
+                      th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "losing the qualifications or having a prohibited characteristic;",
+                      th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม",
+                    },
+                  },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "ceasing to have the status of a student of the Faculty.",
+                      th: "พ้นสภาพการเป็นนักศึกษาของคณะ",
+                    },
+                  },
                 ],
               },
             ],

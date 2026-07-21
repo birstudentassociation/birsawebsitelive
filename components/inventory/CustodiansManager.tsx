@@ -391,9 +391,7 @@ function CreateSection({
               label={t.sortOrderLabel}
               optionalLabel={t.optional}
               value={form.sortOrder}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, sortOrder: event.target.value }))
-              }
+              onChange={(event) => setForm((prev) => ({ ...prev, sortOrder: event.target.value }))}
             />
           </div>
           <div>
@@ -611,9 +609,7 @@ function CustodianRow({
               type="number"
               label={t.sortOrderLabel}
               value={form.sortOrder}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, sortOrder: event.target.value }))
-              }
+              onChange={(event) => setForm((prev) => ({ ...prev, sortOrder: event.target.value }))}
             />
             <Field
               id={`${formId}-borrowNoteEn`}
@@ -644,10 +640,8 @@ function CustodianRow({
               id={`${formId}-isActive`}
               name="isActive"
               checked={form.isActive}
-              onChange={(event) =>
-                setForm((prev) => ({ ...prev, isActive: event.target.checked }))
-              }
-              className="focus-halo h-5 w-5 rounded border-input-border"
+              onChange={(event) => setForm((prev) => ({ ...prev, isActive: event.target.checked }))}
+              className="focus-halo border-input-border h-5 w-5 rounded"
             />
             <span className="text-ink text-sm font-semibold">{t.activeLabel}</span>
           </label>

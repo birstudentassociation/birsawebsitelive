@@ -73,7 +73,9 @@ export async function createLocation(input: {
   name: Bilingual;
   description?: Bilingual;
   sortOrder?: number;
-}): Promise<{ ok: true; location: Location } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
+}): Promise<
+  { ok: true; location: Location } | { ok: false; reason: "not-configured" | "duplicate" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -108,7 +110,8 @@ export async function updateLocation(
   id: string,
   patch: { slug?: string; name?: Bilingual; description?: Bilingual; sortOrder?: number }
 ): Promise<
-  { ok: true; location: Location } | { ok: false; reason: "not-configured" | "not-found" | "duplicate" | "error" }
+  | { ok: true; location: Location }
+  | { ok: false; reason: "not-configured" | "not-found" | "duplicate" | "error" }
 > {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };

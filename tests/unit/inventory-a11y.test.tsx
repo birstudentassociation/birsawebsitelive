@@ -325,12 +325,7 @@ describe("inventory console accessibility (axe)", () => {
 
   it("ReferenceManager has no axe violations", async () => {
     const { container } = render(
-      <ReferenceManager
-        categories={[category]}
-        locations={[location]}
-        role="admin"
-        locale="en"
-      />
+      <ReferenceManager categories={[category]} locations={[location]} role="admin" locale="en" />
     );
     await expectNoViolations(container);
   });

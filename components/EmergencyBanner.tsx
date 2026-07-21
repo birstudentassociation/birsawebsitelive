@@ -25,12 +25,7 @@ const severityClasses: Record<EmergencySeverity, string> = {
   info: "border-line bg-cream text-ink",
 };
 
-export default function EmergencyBanner({
-  href,
-  message,
-  cta,
-  severity,
-}: EmergencyBannerProps) {
+export default function EmergencyBanner({ href, message, cta, severity }: EmergencyBannerProps) {
   return (
     <Link
       href={href}

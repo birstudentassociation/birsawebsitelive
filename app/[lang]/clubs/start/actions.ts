@@ -36,7 +36,7 @@ function ipFromHeaders(h: Headers): string {
  */
 export async function submitStartClub(
   _prev: StartClubState,
-  formData: FormData,
+  formData: FormData
 ): Promise<StartClubState> {
   const values: StartClubValues = {
     name: String(formData.get("name") ?? ""),

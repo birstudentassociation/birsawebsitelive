@@ -85,7 +85,9 @@ function QuickLinkRow({
         ) : (
           <span className="text-ink block font-semibold">{copy.label}</span>
         )}
-        {copy.hint && !isEmail ? <span className="text-muted block text-sm">{copy.hint}</span> : null}
+        {copy.hint && !isEmail ? (
+          <span className="text-muted block text-sm">{copy.hint}</span>
+        ) : null}
       </span>
     </>
   );
@@ -126,7 +128,7 @@ function QuickLinkRow({
       <ExternalLink
         href={item.href}
         newTabLabel={newTabLabel}
-        className={`${rowClasses} hover:shadow-md focus-halo`}
+        className={`${rowClasses} focus-halo hover:shadow-md`}
       >
         {content}
         <ChevronIcon />
@@ -135,18 +137,14 @@ function QuickLinkRow({
   }
 
   return (
-    <a href={localeHref(locale, item.href)} className={`${rowClasses} hover:shadow-md focus-halo`}>
+    <a href={localeHref(locale, item.href)} className={`${rowClasses} focus-halo hover:shadow-md`}>
       {content}
       <ChevronIcon />
     </a>
   );
 }
 
-export default async function QuickActionsPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function QuickActionsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

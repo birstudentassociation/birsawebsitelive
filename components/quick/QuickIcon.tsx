@@ -15,7 +15,10 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
     case "register":
       return (
         <svg {...common}>
-          <path d="M5 3h7l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z" strokeLinejoin="round" />
+          <path
+            d="M5 3h7l3 3v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"
+            strokeLinejoin="round"
+          />
           <path d="M7 9h6M7 12h6M7 15h4" strokeLinecap="round" />
         </svg>
       );
@@ -47,7 +50,11 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
       return (
         <svg {...common}>
           <circle cx="10" cy="6.5" r="2.5" />
-          <path d="M4.5 17c0-3 2.5-5 5.5-5s5.5 2 5.5 5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M4.5 17c0-3 2.5-5 5.5-5s5.5 2 5.5 5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       );
     case "flag":
@@ -75,8 +82,16 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
     case "guide":
       return (
         <svg {...common}>
-          <path d="M10 5.5c-1.3-1-3-1.5-4.5-1.5-1 0-1.5.2-1.5.2v10.3s.5-.2 1.5-.2c1.5 0 3.2.5 4.5 1.5" strokeLinejoin="round" strokeLinecap="round" />
-          <path d="M10 5.5c1.3-1 3-1.5 4.5-1.5 1 0 1.5.2 1.5.2v10.3s-.5-.2-1.5-.2c-1.5 0-3.2.5-4.5 1.5V5.5Z" strokeLinejoin="round" strokeLinecap="round" />
+          <path
+            d="M10 5.5c-1.3-1-3-1.5-4.5-1.5-1 0-1.5.2-1.5.2v10.3s.5-.2 1.5-.2c1.5 0 3.2.5 4.5 1.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+          <path
+            d="M10 5.5c1.3-1 3-1.5 4.5-1.5 1 0 1.5.2 1.5.2v10.3s-.5-.2-1.5-.2c-1.5 0-3.2.5-4.5 1.5V5.5Z"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
         </svg>
       );
     case "loan":
@@ -100,8 +115,15 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
     case "review":
       return (
         <svg {...common}>
-          <path d="M4.5 3.5h8l3 3v10a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z" strokeLinejoin="round" />
-          <path d="M10 8.6l.9 1.8 2 .3-1.45 1.4.34 2-1.79-.95-1.79.94.34-1.99L7 10.7l2-.3.9-1.8Z" strokeLinejoin="round" strokeLinecap="round" />
+          <path
+            d="M4.5 3.5h8l3 3v10a1 1 0 0 1-1 1h-10a1 1 0 0 1-1-1v-12a1 1 0 0 1 1-1Z"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M10 8.6l.9 1.8 2 .3-1.45 1.4.34 2-1.79-.95-1.79.94.34-1.99L7 10.7l2-.3.9-1.8Z"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
         </svg>
       );
     case "instagram":
@@ -116,7 +138,11 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
       return (
         <svg {...common}>
           <circle cx="10" cy="10" r="7.5" />
-          <path d="M11.6 17V10.8h1.7l.3-2.2h-2V7.2c0-.6.2-1 1.1-1h1V4.2c-.2 0-.8-.1-1.6-.1-1.6 0-2.6 1-2.6 2.7v1.8H8v2.2h1.5V17" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M11.6 17V10.8h1.7l.3-2.2h-2V7.2c0-.6.2-1 1.1-1h1V4.2c-.2 0-.8-.1-1.6-.1-1.6 0-2.6 1-2.6 2.7v1.8H8v2.2h1.5V17"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       );
     case "email":
@@ -130,7 +156,11 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
       return (
         <svg {...common}>
           <rect x="2.5" y="4" width="15" height="10.5" rx="4" strokeLinejoin="round" />
-          <path d="M6 7.5v5M9 7.5v5M9 7.5l3 5v-5M14 7.5v5h1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M6 7.5v5M9 7.5v5M9 7.5l3 5v-5M14 7.5v5h1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       );
     case "external":

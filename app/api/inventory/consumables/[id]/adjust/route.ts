@@ -76,7 +76,11 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     action: "consumable.adjust",
     entityType: "item",
     entityId: id,
-    detail: { delta: parsed.data.delta, reason: parsed.data.reason, resultingQty: result.resultingQty },
+    detail: {
+      delta: parsed.data.delta,
+      reason: parsed.data.reason,
+      resultingQty: result.resultingQty,
+    },
   });
 
   return NextResponse.json({ ok: true, resultingQty: result.resultingQty }, { status: 200 });

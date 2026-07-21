@@ -103,7 +103,9 @@ export async function createUnit(input: {
   locationId?: string | null;
   notes?: string | null;
   photoUrl?: string | null;
-}): Promise<{ ok: true; unit: Unit } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
+}): Promise<
+  { ok: true; unit: Unit } | { ok: false; reason: "not-configured" | "duplicate" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -154,7 +156,9 @@ export async function updateUnit(
     notes: string | null;
     photoUrl: string | null;
   }>
-): Promise<{ ok: true; unit: Unit } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+): Promise<
+  { ok: true; unit: Unit } | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

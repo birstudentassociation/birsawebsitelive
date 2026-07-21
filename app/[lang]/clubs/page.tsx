@@ -17,8 +17,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
 
-  const title =
-    locale === "th" ? "ชมรม" : "Clubs";
+  const title = locale === "th" ? "ชมรม" : "Clubs";
   const description =
     locale === "th"
       ? "สำรวจชมรมนักศึกษา BIR ค้นหาสิ่งที่ใช่ หรือเริ่มชมรมของคุณเอง"

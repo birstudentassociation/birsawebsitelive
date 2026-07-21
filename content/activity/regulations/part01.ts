@@ -25,7 +25,10 @@ export const part01: Part = {
         },
         {
           marker: "(3)",
-          text: { en: "to foster unity and solidarity among students;", th: "เพื่อให้นักศึกษามีความสามัคคีเป็นอันหนึ่งอันเดียวกัน" },
+          text: {
+            en: "to foster unity and solidarity among students;",
+            th: "เพื่อให้นักศึกษามีความสามัคคีเป็นอันหนึ่งอันเดียวกัน",
+          },
         },
         {
           marker: "(4)",

@@ -8,12 +8,7 @@ import { getItemByKey } from "@/lib/inventory/items";
 import { renderOfficerNewRequest } from "@/lib/email/templates";
 
 export type LoanFieldName =
-  | "studentName"
-  | "studentId"
-  | "studentEmail"
-  | "phone"
-  | "startDate"
-  | "endDate";
+  "studentName" | "studentId" | "studentEmail" | "phone" | "startDate" | "endDate";
 
 /** Error codes (not messages): the form maps them to its localized labels. */
 export type LoanFieldErrorCode =
@@ -42,10 +37,20 @@ export type LoanValues = {
 
 export type LoanRequestState =
   | { status: "idle" }
-  | { status: "invalid"; errors: Partial<Record<LoanFieldName, LoanFieldErrorCode>>; values: LoanValues }
+  | {
+      status: "invalid";
+      errors: Partial<Record<LoanFieldName, LoanFieldErrorCode>>;
+      values: LoanValues;
+    }
   | { status: "success"; reference: string }
   | {
-      status: "unavailable" | "blocklisted" | "limit-exceeded" | "not-configured" | "rate-limited" | "error";
+      status:
+        | "unavailable"
+        | "blocklisted"
+        | "limit-exceeded"
+        | "not-configured"
+        | "rate-limited"
+        | "error";
       values?: LoanValues;
     };
 
@@ -81,7 +86,7 @@ const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
  */
 export async function submitLoanRequest(
   _prev: LoanRequestState,
-  formData: FormData,
+  formData: FormData
 ): Promise<LoanRequestState> {
   const itemKey = String(formData.get("itemKey") ?? "");
   const values: LoanValues = {
@@ -114,7 +119,8 @@ export async function submitLoanRequest(
   if (!values.studentName) errors.studentName = "nameRequired";
   if (!values.studentId) errors.studentId = "idRequired";
   if (!values.studentEmail) errors.studentEmail = "emailRequired";
-  else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.studentEmail)) errors.studentEmail = "emailInvalid";
+  else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(values.studentEmail))
+    errors.studentEmail = "emailInvalid";
 
   if (!values.startDate) errors.startDate = "startRequired";
   else if (!ISO_DATE.test(values.startDate)) errors.startDate = "startInvalid";

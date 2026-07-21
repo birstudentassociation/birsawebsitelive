@@ -66,7 +66,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const result = await updateBorrower(id, parsed.data);
   if (!result.ok) {
-    const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 500;
+    const status =
+      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 500;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

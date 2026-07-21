@@ -11,7 +11,8 @@ const healthAdvisory: EmergencyScenario = {
   id: "health-advisory",
   severity: "warning",
   en: {
-    bannerMessage: "Contagious illness advisory in effect at the faculty. Stay home if you feel unwell and follow the guidance below.",
+    bannerMessage:
+      "Contagious illness advisory in effect at the faculty. Stay home if you feel unwell and follow the guidance below.",
     title: "Contagious Illness Advisory: What to Do",
     lede: "The faculty is monitoring cases of a contagious illness among students and staff. Most people recover at home with rest and care. This page explains how to protect yourself and others and when to seek medical help.",
     immediateActions: [
@@ -65,14 +66,32 @@ const healthAdvisory: EmergencyScenario = {
       },
     ],
     extraContacts: [
-      { label: "Thai Department of Disease Control hotline (health advice, disease information)", value: "1422", href: "tel:1422" },
-      { label: "Medical emergency (EMS / ambulance), for severe symptoms", value: "1669", href: "tel:1669" },
-      { label: "Thammasat Tha Prachan campus student clinic (Virtual Clinic, 1st Floor, Student Activities Center, Building 21)", value: "0-2613-3961, Monday to Friday, 8:30 a.m. to 4:30 p.m., closed public holidays", href: "tel:026133961" },
-      { label: "TU Well-Being / Viva City Counselling Center (for stress or mental health support during illness or isolation)", value: "See Thammasat Office of International Affairs Well-Being Services page" },
+      {
+        label: "Thai Department of Disease Control hotline (health advice, disease information)",
+        value: "1422",
+        href: "tel:1422",
+      },
+      {
+        label: "Medical emergency (EMS / ambulance), for severe symptoms",
+        value: "1669",
+        href: "tel:1669",
+      },
+      {
+        label:
+          "Thammasat Tha Prachan campus student clinic (Virtual Clinic, 1st Floor, Student Activities Center, Building 21)",
+        value: "0-2613-3961, Monday to Friday, 8:30 a.m. to 4:30 p.m., closed public holidays",
+        href: "tel:026133961",
+      },
+      {
+        label:
+          "TU Well-Being / Viva City Counselling Center (for stress or mental health support during illness or isolation)",
+        value: "See Thammasat Office of International Affairs Well-Being Services page",
+      },
     ],
   },
   th: {
-    bannerMessage: "ขณะนี้มีประกาศเฝ้าระวังโรคติดต่อในคณะ หากรู้สึกไม่สบายให้หยุดพักที่บ้านและปฏิบัติตามคำแนะนำด้านล่าง",
+    bannerMessage:
+      "ขณะนี้มีประกาศเฝ้าระวังโรคติดต่อในคณะ หากรู้สึกไม่สบายให้หยุดพักที่บ้านและปฏิบัติตามคำแนะนำด้านล่าง",
     title: "ประกาศเฝ้าระวังโรคติดต่อ: สิ่งที่ควรทำ",
     lede: "ขณะนี้คณะกำลังเฝ้าระวังการแพร่ระบาดของโรคติดต่อในกลุ่มนักศึกษาและบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองด้วยการพักผ่อนที่บ้าน หน้านี้อธิบายวิธีดูแลตัวเองและผู้อื่น รวมถึงเมื่อใดควรไปพบแพทย์",
     immediateActions: [
@@ -126,10 +145,23 @@ const healthAdvisory: EmergencyScenario = {
       },
     ],
     extraContacts: [
-      { label: "สายด่วนกรมควบคุมโรค (ข้อมูลและคำแนะนำด้านสุขภาพ)", value: "1422", href: "tel:1422" },
+      {
+        label: "สายด่วนกรมควบคุมโรค (ข้อมูลและคำแนะนำด้านสุขภาพ)",
+        value: "1422",
+        href: "tel:1422",
+      },
       { label: "การแพทย์ฉุกเฉิน (รถพยาบาล) กรณีอาการรุนแรง", value: "1669", href: "tel:1669" },
-      { label: "คลินิกนักศึกษา มธ. ท่าพระจันทร์ (Virtual Clinic ชั้น 1 อาคารกิจกรรมนักศึกษา อาคาร 21)", value: "0-2613-3961 เปิดวันจันทร์ถึงศุกร์ 8.30 ถึง 16.30 น. ปิดวันหยุดนักขัตฤกษ์", href: "tel:026133961" },
-      { label: "ศูนย์ให้คำปรึกษา TU Well-Being / Viva City (สำหรับความเครียดหรือสุขภาพจิตระหว่างป่วยหรือแยกตัว)", value: "ดูรายละเอียดที่หน้า Well-Being Services ของสำนักงานการต่างประเทศ มธ." },
+      {
+        label:
+          "คลินิกนักศึกษา มธ. ท่าพระจันทร์ (Virtual Clinic ชั้น 1 อาคารกิจกรรมนักศึกษา อาคาร 21)",
+        value: "0-2613-3961 เปิดวันจันทร์ถึงศุกร์ 8.30 ถึง 16.30 น. ปิดวันหยุดนักขัตฤกษ์",
+        href: "tel:026133961",
+      },
+      {
+        label:
+          "ศูนย์ให้คำปรึกษา TU Well-Being / Viva City (สำหรับความเครียดหรือสุขภาพจิตระหว่างป่วยหรือแยกตัว)",
+        value: "ดูรายละเอียดที่หน้า Well-Being Services ของสำนักงานการต่างประเทศ มธ.",
+      },
     ],
   },
 };

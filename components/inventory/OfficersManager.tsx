@@ -89,7 +89,8 @@ const copy: Record<Locale, Copy> = {
     activeLabel: "Active",
     inactiveLabel: "Inactive",
     deactivateConfirm: (name) => `Deactivate ${name}? They will no longer be able to sign in.`,
-    roleChangeConfirm: (name, role) => `Change ${name}'s role to ${role}? This changes what they can access.`,
+    roleChangeConfirm: (name, role) =>
+      `Change ${name}'s role to ${role}? This changes what they can access.`,
     activateAction: "Activate",
     deactivateAction: "Deactivate",
     resetPasscodeAction: "Reset passcode",

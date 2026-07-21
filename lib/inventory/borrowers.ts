@@ -142,7 +142,9 @@ export async function updateBorrower(
     email: string;
     phone: string | null;
   }>
-): Promise<{ ok: true; borrower: Borrower } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+): Promise<
+  { ok: true; borrower: Borrower } | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

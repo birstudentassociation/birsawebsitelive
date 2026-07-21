@@ -62,13 +62,7 @@ function sectionLabel(section: Section, locale: Locale): string {
   return title;
 }
 
-function ItemList({
-  items,
-  pick,
-}: {
-  items: ProvisionItem[];
-  pick: (b: Bi) => string;
-}) {
+function ItemList({ items, pick }: { items: ProvisionItem[]; pick: (b: Bi) => string }) {
   return (
     <ul className="flex flex-col gap-2">
       {items.map((item, i) => (
@@ -124,7 +118,7 @@ function ProvisionView({
   headingLevel: number;
 }) {
   return (
-    <article id={`prov-${provision.num}`} className="scroll-mt-24 flex gap-3 sm:gap-4">
+    <article id={`prov-${provision.num}`} className="flex scroll-mt-24 gap-3 sm:gap-4">
       <div className="text-brand-deep font-display w-6 shrink-0 pt-0.5 text-sm font-semibold tabular-nums sm:w-8 sm:text-base">
         {provision.num}
       </div>
@@ -203,13 +197,7 @@ function ContentsNode({
   );
 }
 
-export default function RegulationView({
-  doc,
-  locale,
-}: {
-  doc: RegulationDoc;
-  locale: Locale;
-}) {
+export default function RegulationView({ doc, locale }: { doc: RegulationDoc; locale: Locale }) {
   const pick = (b: Bi) => b[locale];
   const t = ui[locale];
 
@@ -249,7 +237,14 @@ export default function RegulationView({
       {/* Body */}
       <div className="flex flex-col gap-10">
         {doc.sections.map((section, i) => (
-          <SectionViewResolved key={`sec-${i}`} section={section} locale={locale} pick={pick} depth={0} path={`sec-${i}`} />
+          <SectionViewResolved
+            key={`sec-${i}`}
+            section={section}
+            locale={locale}
+            pick={pick}
+            depth={0}
+            path={`sec-${i}`}
+          />
         ))}
       </div>
 
@@ -287,7 +282,7 @@ function SectionViewResolved({
   const headingLevel = Math.min(2 + depth, 6);
   const isTop = depth === 0;
   return (
-    <section id={path} className="scroll-mt-24 flex flex-col gap-6">
+    <section id={path} className="flex scroll-mt-24 flex-col gap-6">
       <Heading
         level={headingLevel}
         className={

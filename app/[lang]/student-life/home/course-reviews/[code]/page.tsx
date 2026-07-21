@@ -201,7 +201,10 @@ export default async function CourseDetailPage({
           </nav>
         ) : null}
 
-        <Link href={catalogHref} className="text-brand-deep hover:text-brand-dark text-sm font-semibold">
+        <Link
+          href={catalogHref}
+          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+        >
           &larr; {t.backToCatalog}
         </Link>
       </div>
@@ -227,12 +230,18 @@ function CourseReview({
       <div className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5">
         <RatingBar label={t.ratingOverall} value={review.overallRating} outOf={t.ratingOutOf} />
         <RatingBar label={t.ratingWorkload} value={review.workloadRating} outOf={t.ratingOutOf} />
-        <RatingBar label={t.ratingDifficulty} value={review.difficultyRating} outOf={t.ratingOutOf} />
+        <RatingBar
+          label={t.ratingDifficulty}
+          value={review.difficultyRating}
+          outOf={t.ratingOutOf}
+        />
       </div>
 
       <div className="flex flex-col gap-2">
         <h3 className="text-ink font-semibold">{t.workloadHeading}</h3>
-        <p className="text-muted max-w-[var(--measure)] leading-relaxed">{review.workload[locale]}</p>
+        <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+          {review.workload[locale]}
+        </p>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -256,7 +265,10 @@ function CourseReview({
           <h3 className="text-ink font-semibold">{t.quotesHeading}</h3>
           <ul className="flex flex-col gap-3">
             {review.quotes.map((quote, i) => (
-              <li key={i} className="border-brand bg-sunken text-ink rounded-md border-l-4 p-4 text-sm">
+              <li
+                key={i}
+                className="border-brand bg-sunken text-ink rounded-md border-l-4 p-4 text-sm"
+              >
                 <p className="italic">&ldquo;{quote.text[locale]}&rdquo;</p>
                 {quote.attribution ? (
                   <p className="text-muted mt-2 text-xs">&middot; {quote.attribution[locale]}</p>

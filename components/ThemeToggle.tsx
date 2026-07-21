@@ -78,11 +78,7 @@ export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel }: The
       onClick={handleClick}
       className="focus-halo border-line-strong text-ink hover:bg-sunken flex h-11 w-11 shrink-0 items-center justify-center rounded-full border"
     >
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 20 20"
-        className="theme-icon-sun h-4.5 w-4.5 shrink-0"
-      >
+      <svg aria-hidden="true" viewBox="0 0 20 20" className="theme-icon-sun h-4.5 w-4.5 shrink-0">
         <circle cx="10" cy="10" r="4.25" fill="none" stroke="currentColor" strokeWidth={1.75} />
         <path
           d="M10 1.5v2M10 16.5v2M18.5 10h-2M3.5 10h-2M15.66 4.34l-1.42 1.42M5.76 14.24l-1.42 1.42M15.66 15.66l-1.42-1.42M5.76 5.76 4.34 4.34"
@@ -91,11 +87,7 @@ export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel }: The
           strokeLinecap="round"
         />
       </svg>
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 20 20"
-        className="theme-icon-moon h-4.5 w-4.5 shrink-0"
-      >
+      <svg aria-hidden="true" viewBox="0 0 20 20" className="theme-icon-moon h-4.5 w-4.5 shrink-0">
         <path
           d="M17.3 12.5A7.4 7.4 0 0 1 7.5 2.7a7.4 7.4 0 1 0 9.8 9.8Z"
           fill="none"

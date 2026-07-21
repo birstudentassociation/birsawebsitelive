@@ -22,7 +22,9 @@ export async function generateMetadata({
   if (!item || item.isRetired) return {};
 
   const title =
-    locale === "th" ? `ขอยืม${item.name.th}` : `Request to borrow the ${item.name.en.toLowerCase()}`;
+    locale === "th"
+      ? `ขอยืม${item.name.th}`
+      : `Request to borrow the ${item.name.en.toLowerCase()}`;
   const description =
     locale === "th"
       ? `กรอกแบบฟอร์มออนไลน์เพื่อขอยืม${item.name.th}จาก BIRSA`
@@ -58,7 +60,8 @@ const copy: Record<
   },
   th: {
     unavailableTitle: "อุปกรณ์นี้ถูกยืมอยู่ในขณะนี้",
-    unavailableBody: "ขณะนี้ไม่มีอุปกรณ์ชิ้นนี้ว่างให้ยืม ลองกลับมาตรวจสอบใหม่ภายหลัง หรือติดต่อ BIRSA หากเร่งด่วน",
+    unavailableBody:
+      "ขณะนี้ไม่มีอุปกรณ์ชิ้นนี้ว่างให้ยืม ลองกลับมาตรวจสอบใหม่ภายหลัง หรือติดต่อ BIRSA หากเร่งด่วน",
     backToCatalogue: "กลับไปหน้ารายการอุปกรณ์",
     breadcrumbHub: "ข้อมูลและบริการ",
     breadcrumbCatalogue: "บริการยืมอุปกรณ์",

@@ -144,7 +144,10 @@ export default async function ClubDetailPage({
           ) : null}
         </dl>
 
-        <Link href={localeHref(locale, "/clubs")} className="text-brand-deep hover:text-brand-dark text-sm font-semibold">
+        <Link
+          href={localeHref(locale, "/clubs")}
+          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+        >
           &larr; {t.back}
         </Link>
       </div>

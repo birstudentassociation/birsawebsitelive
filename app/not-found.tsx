@@ -21,9 +21,24 @@ export const metadata: Metadata = {
  * The visited locale is unknown here, so we render in the default locale but
  * offer both language homepages so no visitor is stranded.
  */
-const fraunces = Fraunces({ subsets: ["latin"], weight: ["600"], variable: "--font-en-display", display: "swap" });
-const lexend = Lexend({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
-const sarabun = Sarabun({ subsets: ["thai", "latin"], weight: ["400", "500", "600", "700"], variable: "--font-th", display: "swap" });
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-en-display",
+  display: "swap",
+});
+const lexend = Lexend({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-en-body",
+  display: "swap",
+});
+const sarabun = Sarabun({
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-th",
+  display: "swap",
+});
 
 export default function GlobalNotFound() {
   const dict = getDictionary(defaultLocale);

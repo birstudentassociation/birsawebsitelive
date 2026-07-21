@@ -137,7 +137,11 @@ export function verifySessionToken(token: string | undefined): { sub: string; ro
       role?: unknown;
       exp?: unknown;
     };
-    if (typeof payload.sub !== "string" || typeof payload.role !== "string" || typeof payload.exp !== "number") {
+    if (
+      typeof payload.sub !== "string" ||
+      typeof payload.role !== "string" ||
+      typeof payload.exp !== "number"
+    ) {
       return null;
     }
     const nowSeconds = Math.floor(Date.now() / 1000);
@@ -151,7 +155,10 @@ export function verifySessionToken(token: string | undefined): { sub: string; ro
 }
 
 /** Verifies email + passcode, updates last_login_at on success, and returns the Officer (or null). Never throws. */
-export async function authenticateOfficer(email: string, passcode: string): Promise<Officer | null> {
+export async function authenticateOfficer(
+  email: string,
+  passcode: string
+): Promise<Officer | null> {
   if (!isInventoryConfigured()) {
     return null;
   }

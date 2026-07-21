@@ -45,9 +45,27 @@ export const title4: Section = {
           items: [
             { marker: "(1)", text: { en: "death;", th: "ตาย" } },
             { marker: "(2)", text: { en: "resignation;", th: "ลาออก" } },
-            { marker: "(3)", text: { en: "being subject to severe student disciplinary punishment;", th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง" } },
-            { marker: "(4)", text: { en: "losing the qualifications or having a prohibited characteristic;", th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม" } },
-            { marker: "(5)", text: { en: "ceasing to have the status of a student of the University.", th: "พ้นสภาพการเป็นนักศึกษาของมหาวิทยาลัย" } },
+            {
+              marker: "(3)",
+              text: {
+                en: "being subject to severe student disciplinary punishment;",
+                th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง",
+              },
+            },
+            {
+              marker: "(4)",
+              text: {
+                en: "losing the qualifications or having a prohibited characteristic;",
+                th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม",
+              },
+            },
+            {
+              marker: "(5)",
+              text: {
+                en: "ceasing to have the status of a student of the University.",
+                th: "พ้นสภาพการเป็นนักศึกษาของมหาวิทยาลัย",
+              },
+            },
           ],
         },
         {
@@ -78,7 +96,13 @@ export const title4: Section = {
               text: { en: "Qualifications", th: "คุณสมบัติ" },
               children: [
                 { marker: "(1)", text: { en: "being a student;", th: "เป็นนักศึกษา" } },
-                { marker: "(2)", text: { en: "having an academic record of not lower than 2.00.", th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐" } },
+                {
+                  marker: "(2)",
+                  text: {
+                    en: "having an academic record of not lower than 2.00.",
+                    th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐",
+                  },
+                },
               ],
             },
             {
@@ -92,8 +116,20 @@ export const title4: Section = {
                     th: "ศึกษาอยู่ในมหาวิทยาลัยไม่เกินกว่าสี่ปีการศึกษาสำหรับหลักสูตรที่มีระยะเวลาศึกษาสี่ปีการศึกษา หรือไม่เกินห้าปีการศึกษาสำหรับหลักสูตรที่มีระยะเวลาศึกษาห้าปีการศึกษา หรือไม่เกินหกปีการศึกษาสำหรับหลักสูตรที่มีระยะเวลาศึกษาหกปีการศึกษา",
                   },
                 },
-                { marker: "(2)", text: { en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;", th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
-                { marker: "(3)", text: { en: "being under student disciplinary proceedings;", th: "อยู่ระหว่างถูกดำเนินการทางวินัยนักศึกษา" } },
+                {
+                  marker: "(2)",
+                  text: {
+                    en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;",
+                    th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                  },
+                },
+                {
+                  marker: "(3)",
+                  text: {
+                    en: "being under student disciplinary proceedings;",
+                    th: "อยู่ระหว่างถูกดำเนินการทางวินัยนักศึกษา",
+                  },
+                },
                 {
                   marker: "(4)",
                   text: {

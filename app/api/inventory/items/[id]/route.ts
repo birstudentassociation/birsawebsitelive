@@ -75,7 +75,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const result = await updateItem(id, patch);
   if (!result.ok) {
-    const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
+    const status =
+      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 
@@ -113,7 +114,8 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
   const result = await updateItem(id, { isRetired: true });
   if (!result.ok) {
-    const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
+    const status =
+      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

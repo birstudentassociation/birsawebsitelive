@@ -94,7 +94,10 @@ export async function adjustStock(input: {
   officerId?: string | null;
 }): Promise<
   | { ok: true; resultingQty: number }
-  | { ok: false; reason: "not-configured" | "not-found" | "not-consumable" | "insufficient" | "error" }
+  | {
+      ok: false;
+      reason: "not-configured" | "not-found" | "not-consumable" | "insufficient" | "error";
+    }
 > {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };

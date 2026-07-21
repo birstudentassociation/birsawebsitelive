@@ -51,7 +51,8 @@ const content: Record<
     analyticsBody:
       "We use cookieless, privacy-friendly analytics that count things like page views in aggregate. This does not identify you personally and cannot be linked back to an individual visitor.",
     adsTitle: "No ads, no data sales",
-    adsBody: "We do not run advertising on this site, and we never sell or share your data with third parties.",
+    adsBody:
+      "We do not run advertising on this site, and we never sell or share your data with third parties.",
     choicesTitle: "Your choices and questions",
     choicesBody:
       "You can clear your cookies at any time using your browser settings. This just means we'll ask your language preference again. If you have any questions about this notice or your data, get in touch.",

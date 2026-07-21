@@ -103,7 +103,11 @@ export async function getItemAvailabilityForRange(
   }
 
   try {
-    const itemResult = await sql<{ id: string; tracking_mode: TrackingMode; qty_on_hand: number | null }>`
+    const itemResult = await sql<{
+      id: string;
+      tracking_mode: TrackingMode;
+      qty_on_hand: number | null;
+    }>`
       select id, tracking_mode, qty_on_hand from items
       where key = ${itemKey} and is_retired = false
       limit 1
@@ -154,7 +158,11 @@ export async function createLoanRequest(input: {
   borrower: { tuStudentId: string; name: string; email: string; phone?: string | null };
 }): Promise<
   | { ok: true; reference: string }
-  | { ok: false; reason: "not-configured" | "invalid" | "unavailable" | "blocklisted" | "limit-exceeded" | "error" }
+  | {
+      ok: false;
+      reason:
+        "not-configured" | "invalid" | "unavailable" | "blocklisted" | "limit-exceeded" | "error";
+    }
 > {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
@@ -201,7 +209,11 @@ export async function createLoanRequest(input: {
       return { ok: false, reason: "limit-exceeded" };
     }
 
-    const availability = await getItemAvailabilityForRange(input.itemKey, input.startDate, input.endDate);
+    const availability = await getItemAvailabilityForRange(
+      input.itemKey,
+      input.startDate,
+      input.endDate
+    );
     if (availability.available <= 0) {
       return { ok: false, reason: "unavailable" };
     }
@@ -260,7 +272,10 @@ export async function listLoans(opts?: {
     }
 
     const where = conditions.length > 0 ? `where ${conditions.join(" and ")}` : "";
-    const result = await sql.query<LoanRow>(`select * from loans ${where} order by created_at desc`, values);
+    const result = await sql.query<LoanRow>(
+      `select * from loans ${where} order by created_at desc`,
+      values
+    );
     return result.rows.map(mapRow);
   } catch {
     return [];
@@ -284,7 +299,10 @@ export async function getLoan(id: string): Promise<Loan | null> {
 }
 
 /** Case-insensitive email match with an exact reference, for student self-service lookup. */
-export async function getLoanByReferenceAndEmail(reference: string, email: string): Promise<Loan | null> {
+export async function getLoanByReferenceAndEmail(
+  reference: string,
+  email: string
+): Promise<Loan | null> {
   if (!isInventoryConfigured()) {
     return null;
   }
@@ -311,7 +329,16 @@ export async function decideLoan(input: {
   unitId?: string;
 }): Promise<
   | { ok: true; loan: Loan }
-  | { ok: false; reason: "not-configured" | "not-found" | "already-decided" | "unit-required" | "unavailable" | "error" }
+  | {
+      ok: false;
+      reason:
+        | "not-configured"
+        | "not-found"
+        | "already-decided"
+        | "unit-required"
+        | "unavailable"
+        | "error";
+    }
 > {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
@@ -378,7 +405,10 @@ export async function checkoutLoan(input: {
   id: string;
   officerId: string;
   conditionOut?: UnitCondition | null;
-}): Promise<{ ok: true; loan: Loan } | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }> {
+}): Promise<
+  | { ok: true; loan: Loan }
+  | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -420,7 +450,10 @@ export async function checkinLoan(input: {
   id: string;
   officerId: string;
   conditionIn?: UnitCondition | null;
-}): Promise<{ ok: true; loan: Loan } | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }> {
+}): Promise<
+  | { ok: true; loan: Loan }
+  | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -469,7 +502,10 @@ export async function checkinLoan(input: {
 export async function cancelLoan(input: {
   id: string;
   byOfficerId?: string | null;
-}): Promise<{ ok: true; loan: Loan } | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }> {
+}): Promise<
+  | { ok: true; loan: Loan }
+  | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

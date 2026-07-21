@@ -13,13 +13,12 @@ import { createPool } from "@vercel/postgres";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 
-const connectionString =
-  process.env.POSTGRES_URL_NON_POOLING || process.env.POSTGRES_URL;
+const connectionString = process.env.POSTGRES_URL_NON_POOLING || process.env.POSTGRES_URL;
 
 if (!connectionString) {
   console.error(
     "migrate: no POSTGRES_URL_NON_POOLING or POSTGRES_URL set in the environment. " +
-      "Run `vercel env pull` first, or set the variable directly.",
+      "Run `vercel env pull` first, or set the variable directly."
   );
   process.exit(1);
 }
@@ -42,9 +41,7 @@ async function main() {
       .filter((name) => name.endsWith(".sql"))
       .sort();
 
-    const { rows: appliedRows } = await client.query(
-      "select version from schema_migrations",
-    );
+    const { rows: appliedRows } = await client.query("select version from schema_migrations");
     const applied = new Set(appliedRows.map((row) => row.version));
 
     for (const file of files) {
@@ -59,10 +56,7 @@ async function main() {
       try {
         await client.query("BEGIN");
         await client.query(sqlText);
-        await client.query(
-          "insert into schema_migrations (version) values ($1)",
-          [file],
-        );
+        await client.query("insert into schema_migrations (version) values ($1)", [file]);
         await client.query("COMMIT");
         console.log(`apply: ${file}`);
       } catch (err) {

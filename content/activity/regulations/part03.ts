@@ -27,8 +27,17 @@ export const part03: Part = {
         { marker: "(2)", text: { en: "Vice-President;", th: "รองประธาน" } },
         { marker: "(3)", text: { en: "Secretary;", th: "เลขานุการ" } },
         { marker: "(4)", text: { en: "Treasurer;", th: "เหรัญญิก" } },
-        { marker: "(5)", text: { en: "Head of the Academic Promotion Division;", th: "หัวหน้าฝ่ายส่งเสริมวิชาการ" } },
-        { marker: "(6)", text: { en: "Head of the Public Relations Division;", th: "หัวหน้าฝ่ายประชาสัมพันธ์" } },
+        {
+          marker: "(5)",
+          text: {
+            en: "Head of the Academic Promotion Division;",
+            th: "หัวหน้าฝ่ายส่งเสริมวิชาการ",
+          },
+        },
+        {
+          marker: "(6)",
+          text: { en: "Head of the Public Relations Division;", th: "หัวหน้าฝ่ายประชาสัมพันธ์" },
+        },
         {
           marker: "(7)",
           text: {
@@ -62,7 +71,10 @@ export const part03: Part = {
         },
         {
           marker: "(2)",
-          text: { en: "to ensure compliance with this Notice;", th: "ดำเนินการให้เป็นไปตามประกาศนี้" },
+          text: {
+            en: "to ensure compliance with this Notice;",
+            th: "ดำเนินการให้เป็นไปตามประกาศนี้",
+          },
         },
         {
           marker: "(3)",
@@ -112,7 +124,7 @@ export const part03: Part = {
       num: 9,
       title: { en: "Role of the President", th: "อำนาจหน้าที่ของประธาน กนศ.ร." },
       lead: {
-        en: "The PSC President shall have the power and duty to control and organise the internal administration of the PSC, and to coordinate directly with the President of the Thammasat University Student Union (\"TUSU\").",
+        en: 'The PSC President shall have the power and duty to control and organise the internal administration of the PSC, and to coordinate directly with the President of the Thammasat University Student Union ("TUSU").',
         th: "ให้ประธาน กนศ.ร. มีอำนาจหน้าที่ควบคุมและจัดระเบียบการบริหารภายใน กนศ.ร. และประสานงานกับนายกองค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์โดยตรง",
       },
     },

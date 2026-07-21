@@ -30,7 +30,12 @@ export async function generateMetadata({
       ? "ยืมอุปกรณ์ของ BIRSA ได้ฟรี ส่งคำขอออนไลน์ รอผลอนุมัติทางอีเมล แล้วมารับที่สำนักงาน BIRSA"
       : "Borrow BIRSA equipment for free. Request online, get approved by email, then collect it from the BIRSA office.";
 
-  return buildMetadata({ locale, title, description, path: "/information-services/equipment-loan" });
+  return buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/information-services/equipment-loan",
+  });
 }
 
 const copy: Record<
@@ -195,13 +200,19 @@ export default async function EquipmentLoanPage({
   const custodiansById = new Map(custodians.map((c) => [c.id, c]));
 
   // Only offer categories/owners that actually have at least one (non-retired) listed item.
-  const usedCategoryIds = new Set(allItems.map((item) => item.categoryId).filter((id): id is string => Boolean(id)));
+  const usedCategoryIds = new Set(
+    allItems.map((item) => item.categoryId).filter((id): id is string => Boolean(id))
+  );
   const availableCategories = categories.filter((c) => usedCategoryIds.has(c.id));
 
-  const usedCustodianIds = new Set(allItems.map((item) => item.custodianId).filter((id): id is string => Boolean(id)));
+  const usedCustodianIds = new Set(
+    allItems.map((item) => item.custodianId).filter((id): id is string => Boolean(id))
+  );
   const availableOwners = custodians.filter((c) => usedCustodianIds.has(c.id));
 
-  const selectedCategory = categorySlug ? categories.find((c) => c.slug === categorySlug) : undefined;
+  const selectedCategory = categorySlug
+    ? categories.find((c) => c.slug === categorySlug)
+    : undefined;
   const selectedOwner = ownerSlug ? custodians.find((c) => c.slug === ownerSlug) : undefined;
 
   const filteredItems = allItems.filter((item) => {
@@ -243,7 +254,10 @@ export default async function EquipmentLoanPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: locale === "th" ? "ข้อมูลและบริการ" : "Information and services", href: "/information-services" },
+              {
+                label: locale === "th" ? "ข้อมูลและบริการ" : "Information and services",
+                href: "/information-services",
+              },
               { label: t.title },
             ]}
           />
@@ -295,7 +309,9 @@ export default async function EquipmentLoanPage({
         {availableCategories.length > 0 ? (
           <nav aria-label={t.filterNav} className="flex flex-col gap-4">
             <div>
-              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{t.categoryLabel}</p>
+              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+                {t.categoryLabel}
+              </p>
               <ul className="flex flex-wrap gap-2">
                 <li>
                   <a
@@ -333,7 +349,9 @@ export default async function EquipmentLoanPage({
         {availableOwners.length > 0 ? (
           <nav aria-label={t.ownerLabel} className="flex flex-col gap-4">
             <div>
-              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{t.ownerLabel}</p>
+              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+                {t.ownerLabel}
+              </p>
               <ul className="flex flex-wrap gap-2">
                 <li>
                   <a
@@ -372,11 +390,19 @@ export default async function EquipmentLoanPage({
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {items.map(({ item, availability }) => {
               const isAvailable = availability.available > 0;
-              const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
-              const categoryName = item.categoryId ? categoriesById.get(item.categoryId)?.name[locale] : undefined;
+              const requestHref = localeHref(
+                locale,
+                `/information-services/equipment-loan/${item.key}/request`
+              );
+              const categoryName = item.categoryId
+                ? categoriesById.get(item.categoryId)?.name[locale]
+                : undefined;
               const custodian = custodiansById.get(item.custodianId);
               const directoryHref = custodian
-                ? localeHref(locale, `/information-services/equipment-loan/directory#${custodian.slug}`)
+                ? localeHref(
+                    locale,
+                    `/information-services/equipment-loan/directory#${custodian.slug}`
+                  )
                 : localeHref(locale, "/information-services/equipment-loan/directory");
               return (
                 <Card key={item.key} className="gap-3 p-6">
@@ -397,7 +423,9 @@ export default async function EquipmentLoanPage({
                     ) : null}
                     {custodian ? <Tag variant="forest">{custodian.name[locale]}</Tag> : null}
                   </div>
-                  <h3 className="font-display text-ink text-lg leading-snug">{item.name[locale]}</h3>
+                  <h3 className="font-display text-ink text-lg leading-snug">
+                    {item.name[locale]}
+                  </h3>
                   <p className="text-muted text-sm leading-relaxed">{item.description[locale]}</p>
 
                   {item.onlineLoanable ? (
@@ -441,7 +469,9 @@ export default async function EquipmentLoanPage({
                           {t.viewInDirectory}
                         </Button>
                       </div>
-                      {custodian?.contactEmail || custodian?.contactInstagram || custodian?.contactOther ? (
+                      {custodian?.contactEmail ||
+                      custodian?.contactInstagram ||
+                      custodian?.contactOther ? (
                         <dl className="flex flex-col gap-1">
                           {custodian.contactEmail ? (
                             <div className="flex flex-wrap items-baseline gap-1">

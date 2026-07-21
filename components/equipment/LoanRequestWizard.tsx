@@ -9,7 +9,11 @@ import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import { inventoryLoanRequestSchema } from "@/lib/validation";
 import { localeHref, type Locale } from "@/lib/i18n";
-import type { LoanWizardItem, LoanWizardLabels, LoanWizardStep } from "@/components/equipment/loanWizardCopy";
+import type {
+  LoanWizardItem,
+  LoanWizardLabels,
+  LoanWizardStep,
+} from "@/components/equipment/loanWizardCopy";
 import {
   submitLoanRequest,
   type LoanFieldErrorCode,
@@ -23,7 +27,8 @@ export type LoanRequestWizardProps = {
   labels: LoanWizardLabels;
 };
 
-type FieldName = "studentName" | "studentId" | "studentEmail" | "phone" | "startDate" | "endDate" | "reason";
+type FieldName =
+  "studentName" | "studentId" | "studentEmail" | "phone" | "startDate" | "endDate" | "reason";
 
 type Values = Record<FieldName, string> & { nickname: string };
 
@@ -466,7 +471,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
         body={
           <p>
             {labels.results.notConfiguredBody}{" "}
-            <Link href={contactHref} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+            <Link
+              href={contactHref}
+              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            >
               {labels.results.contactLink}
             </Link>
             .
@@ -541,8 +549,15 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
 
   if (step === "start") {
     return (
-      <form onSubmit={(event) => handleStepSubmit(event, "start")} noValidate className="flex flex-col gap-6">
-        <Link href={catalogueHref} className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium">
+      <form
+        onSubmit={(event) => handleStepSubmit(event, "start")}
+        noValidate
+        className="flex flex-col gap-6"
+      >
+        <Link
+          href={catalogueHref}
+          className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium"
+        >
           &larr; {labels.start.backToCatalogue}
         </Link>
         <h2 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h2>
@@ -586,7 +601,11 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
   const primaryDisabled = submitState.status === "pending" || (step === "dates" && datesChecking);
 
   return (
-    <form onSubmit={(event) => handleStepSubmit(event, step)} noValidate className="flex flex-col gap-6">
+    <form
+      onSubmit={(event) => handleStepSubmit(event, step)}
+      noValidate
+      className="flex flex-col gap-6"
+    >
       <button
         type="button"
         onClick={goBack}
@@ -598,7 +617,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
 
       {step === "name" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentName"])} />
+          <ErrorSummary
+            title={labels.common.errorSummaryTitle}
+            errors={errorItemsFor(["studentName"])}
+          />
           <h2 className="font-display text-2xl sm:text-3xl">{labels.name.question}</h2>
           <Field
             id={fieldId("studentName")}
@@ -618,7 +640,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
 
       {step === "studentId" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentId"])} />
+          <ErrorSummary
+            title={labels.common.errorSummaryTitle}
+            errors={errorItemsFor(["studentId"])}
+          />
           <h2 className="font-display text-2xl sm:text-3xl">{labels.studentId.question}</h2>
           <Field
             id={fieldId("studentId")}
@@ -639,7 +664,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
 
       {step === "email" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["studentEmail"])} />
+          <ErrorSummary
+            title={labels.common.errorSummaryTitle}
+            errors={errorItemsFor(["studentEmail"])}
+          />
           <h2 className="font-display text-2xl sm:text-3xl">{labels.email.question}</h2>
           <Field
             id={fieldId("studentEmail")}
@@ -682,7 +710,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
 
       {step === "dates" ? (
         <>
-          <ErrorSummary title={labels.common.errorSummaryTitle} errors={errorItemsFor(["startDate", "endDate"])} />
+          <ErrorSummary
+            title={labels.common.errorSummaryTitle}
+            errors={errorItemsFor(["startDate", "endDate"])}
+          />
           <h2 className="font-display text-2xl sm:text-3xl">{labels.dates.title}</h2>
           <Field
             id={fieldId("startDate")}
@@ -727,7 +758,10 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
           {datesAvailability.status === "checked" ? (
             <Notice variant="success">
               <p role="status">
-                {labels.dates.availableTemplate.replace("{count}", String(datesAvailability.available))}
+                {labels.dates.availableTemplate.replace(
+                  "{count}",
+                  String(datesAvailability.available)
+                )}
               </p>
             </Notice>
           ) : null}
@@ -775,10 +809,7 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
             {labels.check.title}
           </h2>
           <dl className="border-line divide-line divide-y rounded-lg border">
-            <SummaryRow
-              label={labels.check.itemLabel}
-              value={item.name[locale]}
-            />
+            <SummaryRow label={labels.check.itemLabel} value={item.name[locale]} />
             <SummaryRow
               label={labels.check.nameLabel}
               value={values.studentName}
@@ -891,13 +922,16 @@ function LoanFallbackForm({ item, locale, labels }: LoanRequestWizardProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState<LoanRequestState, FormData>(
     submitLoanRequest,
-    { status: "idle" },
+    { status: "idle" }
   );
   const confirmationRef = useRef<HTMLDivElement>(null);
 
   const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
   const contactHref = localeHref(locale, "/contact");
-  const requestHref = localeHref(locale, `/information-services/equipment-loan/${item.key}/request`);
+  const requestHref = localeHref(
+    locale,
+    `/information-services/equipment-loan/${item.key}/request`
+  );
 
   useEffect(() => {
     if (state.status === "success") confirmationRef.current?.focus();
@@ -944,7 +978,10 @@ function LoanFallbackForm({ item, locale, labels }: LoanRequestWizardProps) {
         body={
           <p>
             {labels.results.notConfiguredBody}{" "}
-            <Link href={contactHref} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+            <Link
+              href={contactHref}
+              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            >
               {labels.results.contactLink}
             </Link>
             .
@@ -1028,7 +1065,10 @@ function LoanFallbackForm({ item, locale, labels }: LoanRequestWizardProps) {
   return (
     <form action={formAction} noValidate className="flex flex-col gap-6">
       <input type="hidden" name="itemKey" value={item.key} />
-      <Link href={catalogueHref} className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium">
+      <Link
+        href={catalogueHref}
+        className="text-brand-deep hover:text-brand-dark w-fit text-sm font-medium"
+      >
         &larr; {labels.start.backToCatalogue}
       </Link>
       <h2 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h2>
@@ -1115,7 +1155,13 @@ function LoanFallbackForm({ item, locale, labels }: LoanRequestWizardProps) {
       {/* Honeypot: real visitors never see or fill this field. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={fieldId("nickname")}>Leave this field empty</label>
-        <input id={fieldId("nickname")} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
+        <input
+          id={fieldId("nickname")}
+          name="nickname"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+        />
       </div>
 
       <div>

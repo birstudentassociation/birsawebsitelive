@@ -69,7 +69,9 @@ export async function createCategory(input: {
   slug: string;
   name: Bilingual;
   sortOrder?: number;
-}): Promise<{ ok: true; category: Category } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
+}): Promise<
+  { ok: true; category: Category } | { ok: false; reason: "not-configured" | "duplicate" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -97,7 +99,8 @@ export async function updateCategory(
   id: string,
   patch: { slug?: string; name?: Bilingual; sortOrder?: number }
 ): Promise<
-  { ok: true; category: Category } | { ok: false; reason: "not-configured" | "not-found" | "duplicate" | "error" }
+  | { ok: true; category: Category }
+  | { ok: false; reason: "not-configured" | "not-found" | "duplicate" | "error" }
 > {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };

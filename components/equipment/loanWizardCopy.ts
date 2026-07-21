@@ -157,10 +157,12 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       },
       start: {
         title: `ขอยืม${itemName}`,
-        intro:
-          "ก่อนเริ่ม เตรียมข้อมูลต่อไปนี้ให้พร้อม การกรอกแบบฟอร์มใช้เวลาไม่กี่นาที",
+        intro: "ก่อนเริ่ม เตรียมข้อมูลต่อไปนี้ให้พร้อม การกรอกแบบฟอร์มใช้เวลาไม่กี่นาที",
         needTitle: "สิ่งที่ต้องเตรียม",
-        needItems: ["รหัสนักศึกษามหาวิทยาลัยธรรมศาสตร์", "อีเมลนักศึกษามหาวิทยาลัยธรรมศาสตร์ (@dome.tu.ac.th หรือ @tu.ac.th)"],
+        needItems: [
+          "รหัสนักศึกษามหาวิทยาลัยธรรมศาสตร์",
+          "อีเมลนักศึกษามหาวิทยาลัยธรรมศาสตร์ (@dome.tu.ac.th หรือ @tu.ac.th)",
+        ],
         termsTitle: "เงื่อนไขการยืม",
         termsBody: `ยืมได้สูงสุด ${maxDays} วัน และต้องมารับที่สำนักงาน BIRSA ด้วยตนเองหลังคำขอได้รับการอนุมัติ`,
         cta: "เริ่มคำขอ",
@@ -273,9 +275,13 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     },
     start: {
       title: `Request to borrow the ${itemName.toLowerCase()}`,
-      intro: "Before you begin, have the following ready. The form takes a few minutes to complete.",
+      intro:
+        "Before you begin, have the following ready. The form takes a few minutes to complete.",
       needTitle: "What you will need",
-      needItems: ["Your Thammasat University student ID", "Your Thammasat University student email (@dome.tu.ac.th or @tu.ac.th)"],
+      needItems: [
+        "Your Thammasat University student ID",
+        "Your Thammasat University student email (@dome.tu.ac.th or @tu.ac.th)",
+      ],
       termsTitle: "Loan terms",
       termsBody: `You can borrow this item for up to ${maxDays} day(s). Collect it in person from the BIRSA office once your request is approved.`,
       cta: "Start now",

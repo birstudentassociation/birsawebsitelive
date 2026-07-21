@@ -38,13 +38,7 @@ function Chevron({ onDark }: { onDark?: boolean }) {
   );
 }
 
-export default function Breadcrumbs({
-  locale,
-  items,
-  label,
-  className,
-  onDark,
-}: BreadcrumbsProps) {
+export default function Breadcrumbs({ locale, items, label, className, onDark }: BreadcrumbsProps) {
   return (
     <nav aria-label={label} className={className}>
       <ol
@@ -66,9 +60,7 @@ export default function Breadcrumbs({
                 <Link
                   href={localeHref(locale, item.href)}
                   className={
-                    onDark
-                      ? "text-white underline hover:text-white/80"
-                      : "hover:text-brand-deep"
+                    onDark ? "text-white underline hover:text-white/80" : "hover:text-brand-deep"
                   }
                 >
                   {item.label}

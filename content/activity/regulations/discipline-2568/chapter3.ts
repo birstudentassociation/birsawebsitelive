@@ -79,7 +79,10 @@ export const chapter3: Section = {
           items: [
             {
               marker: "(1)",
-              text: { en: "having witnessed the events of the act;", th: "รู้เห็นเหตุการณ์ในการกระทำ" },
+              text: {
+                en: "having witnessed the events of the act;",
+                th: "รู้เห็นเหตุการณ์ในการกระทำ",
+              },
             },
             {
               marker: "(2)",

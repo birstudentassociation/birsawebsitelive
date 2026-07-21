@@ -14,8 +14,8 @@ export const preliminary: Section = {
         {
           kind: "para",
           text: {
-            en: "This Regulation is called the \"Regulation of Thammasat University on Student Discipline, B.E. 2568 (2025).\"",
-            th: "ข้อบังคับนี้เรียกว่า \"ข้อบังคับมหาวิทยาลัยธรรมศาสตร์ ว่าด้วยวินัยนักศึกษา พ.ศ. ๒๕๖๘\"",
+            en: 'This Regulation is called the "Regulation of Thammasat University on Student Discipline, B.E. 2568 (2025)."',
+            th: 'ข้อบังคับนี้เรียกว่า "ข้อบังคับมหาวิทยาลัยธรรมศาสตร์ ว่าด้วยวินัยนักศึกษา พ.ศ. ๒๕๖๘"',
           },
         },
       ],
@@ -61,33 +61,42 @@ export const preliminary: Section = {
           kind: "definitions",
           entries: [
             {
-              term: { en: "\"the University\"", th: "\"มหาวิทยาลัย\"" },
-              meaning: { en: "means Thammasat University;", th: "หมายความว่า มหาวิทยาลัยธรรมศาสตร์" },
+              term: { en: '"the University"', th: '"มหาวิทยาลัย"' },
+              meaning: {
+                en: "means Thammasat University;",
+                th: "หมายความว่า มหาวิทยาลัยธรรมศาสตร์",
+              },
             },
             {
-              term: { en: "\"the Rector\"", th: "\"อธิการบดี\"" },
-              meaning: { en: "means the Rector of Thammasat University;", th: "หมายความว่า อธิการบดีมหาวิทยาลัยธรรมศาสตร์" },
+              term: { en: '"the Rector"', th: '"อธิการบดี"' },
+              meaning: {
+                en: "means the Rector of Thammasat University;",
+                th: "หมายความว่า อธิการบดีมหาวิทยาลัยธรรมศาสตร์",
+              },
             },
             {
-              term: { en: "\"a Faculty\"", th: "\"คณะ\"" },
+              term: { en: '"a Faculty"', th: '"คณะ"' },
               meaning: {
                 en: "includes a College, Institute, or other unit however named that is responsible for providing instruction under the curricula of the University;",
                 th: "ให้หมายความรวมถึงวิทยาลัย สถาบัน หรือส่วนงานที่เรียกชื่ออย่างอื่นที่ทำหน้าที่ในการจัดให้มีการเรียนการสอนตามหลักสูตรของมหาวิทยาลัย",
               },
             },
             {
-              term: { en: "\"the Dean\"", th: "\"คณบดี\"" },
+              term: { en: '"the Dean"', th: '"คณบดี"' },
               meaning: {
                 en: "includes the Director of an Institute, or the head of a unit however named that is responsible for providing instruction under the curricula of the University;",
                 th: "ให้หมายความรวมถึงผู้อำนวยการสถาบัน หรือหัวหน้าส่วนงานที่เรียกชื่ออย่างอื่นที่ทำหน้าที่ในการจัดให้มีการเรียนการสอนตามหลักสูตรของมหาวิทยาลัย",
               },
             },
             {
-              term: { en: "\"a student\"", th: "\"นักศึกษา\"" },
-              meaning: { en: "means a student at any level who is registered as a student of the University;", th: "หมายความว่า นักศึกษาทุกระดับที่ขึ้นทะเบียนเป็นนักศึกษาของมหาวิทยาลัย" },
+              term: { en: '"a student"', th: '"นักศึกษา"' },
+              meaning: {
+                en: "means a student at any level who is registered as a student of the University;",
+                th: "หมายความว่า นักศึกษาทุกระดับที่ขึ้นทะเบียนเป็นนักศึกษาของมหาวิทยาลัย",
+              },
             },
             {
-              term: { en: "\"academic assessment\"", th: "\"การวัดผลการศึกษา\"" },
+              term: { en: '"academic assessment"', th: '"การวัดผลการศึกษา"' },
               meaning: {
                 en: "means academic assessment of any kind, whether inter-sessional assessment, final examinations, or assessment by any method prescribed by the instructor, comprehensive examinations, qualifying examinations, thesis-proposal examinations, independent study or thesis research, thesis examinations, independent study or thesis research, credit-transfer equivalency testing, or academic assessment of any other character.",
                 th: "หมายความว่า การวัดผลการศึกษาทั้งที่เป็นการวัดผลการศึกษาระหว่างภาค การสอบไล่ หรือวิธีการวัดผลตามวิธีการที่อาจารย์ผู้สอนกำหนด การสอบประมวลวิชา การสอบวัดคุณสมบัติ การสอบเค้าโครงสารนิพนธ์ การค้นคว้าอิสระหรือวิทยานิพนธ์ การสอบสารนิพนธ์ การค้นคว้าอิสระหรือวิทยานิพนธ์ การทดสอบเทียบความรู้แทนการวัดผลการศึกษา หรือการวัดผลการศึกษาในลักษณะอื่น",

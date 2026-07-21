@@ -33,7 +33,10 @@ export async function generateMetadata({
   });
 }
 
-const labels: Record<Locale, { activity: string; back: string; questions: string; contact: string }> = {
+const labels: Record<
+  Locale,
+  { activity: string; back: string; questions: string; contact: string }
+> = {
   en: {
     activity: "BIRSA activity",
     back: "Back to BIRSA activity",
@@ -96,7 +99,10 @@ export default async function ActivityDetailPage({
           </Link>
         </p>
 
-        <Link href={localeHref(locale, "/activity")} className="text-brand-deep hover:text-brand-dark text-sm font-semibold">
+        <Link
+          href={localeHref(locale, "/activity")}
+          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+        >
           &larr; {t.back}
         </Link>
       </div>

@@ -115,14 +115,24 @@ export default function ContactForm({
             />
           </p>
         </div>
-        <Field as="textarea" name="draft" label={dict.form.message} value={buildDraft()} readOnly rows={8} />
+        <Field
+          as="textarea"
+          name="draft"
+          label={dict.form.message}
+          value={buildDraft()}
+          readOnly
+          rows={8}
+        />
       </div>
     );
   }
 
   const errorItems: ErrorSummaryItem[] = Object.entries(state.errors ?? {})
     .filter(([, message]) => Boolean(message))
-    .map(([key, message]) => ({ id: fieldIds[key as keyof typeof fieldIds], message: message as string }));
+    .map(([key, message]) => ({
+      id: fieldIds[key as keyof typeof fieldIds],
+      message: message as string,
+    }));
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-5">
@@ -136,7 +146,13 @@ export default function ContactForm({
           explicit instruction rather than a trap. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
-        <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
+        <input
+          id={`${formId}-nickname`}
+          name="nickname"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+        />
       </div>
 
       <Field

@@ -49,7 +49,13 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const result = await updateLocation(id, parsed.data);
   if (!result.ok) {
     const status =
-      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : result.reason === "duplicate" ? 409 : 400;
+      result.reason === "not-configured"
+        ? 200
+        : result.reason === "not-found"
+          ? 404
+          : result.reason === "duplicate"
+            ? 409
+            : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

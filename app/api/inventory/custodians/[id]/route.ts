@@ -55,7 +55,8 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
   const result = await updateCustodian(id, parsed.data);
   if (!result.ok) {
-    const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
+    const status =
+      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

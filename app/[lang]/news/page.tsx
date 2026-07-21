@@ -19,10 +19,13 @@ export async function generateMetadata({
   const dict = getDictionary(lang);
   const title = lang === "th" ? "ข่าวและกิจกรรม" : "What's on";
   const description =
-    lang === "th"
-      ? "ข่าวสารและกิจกรรมล่าสุดจาก BIRSA"
-      : "The latest news and events from BIRSA.";
-  return buildMetadata({ locale: lang, title: `${title}: ${dict.site.name}`, description, path: "/news" });
+    lang === "th" ? "ข่าวสารและกิจกรรมล่าสุดจาก BIRSA" : "The latest news and events from BIRSA.";
+  return buildMetadata({
+    locale: lang,
+    title: `${title}: ${dict.site.name}`,
+    description,
+    path: "/news",
+  });
 }
 
 const copy = {
@@ -123,11 +126,19 @@ export default async function NewsPage({
       <div className="wrap py-10">
         <p className="text-muted mb-8 max-w-[var(--measure)] text-lg">
           {text.lede}{" "}
-          <ExternalLink href={instagram.href} newTabLabel={dict.a11y.newTab} className="text-brand-deep font-semibold">
+          <ExternalLink
+            href={instagram.href}
+            newTabLabel={dict.a11y.newTab}
+            className="text-brand-deep font-semibold"
+          >
             Instagram
           </ExternalLink>{" "}
           {text.and}{" "}
-          <ExternalLink href={facebook.href} newTabLabel={dict.a11y.newTab} className="text-brand-deep font-semibold">
+          <ExternalLink
+            href={facebook.href}
+            newTabLabel={dict.a11y.newTab}
+            className="text-brand-deep font-semibold"
+          >
             Facebook
           </ExternalLink>
           .
@@ -135,7 +146,9 @@ export default async function NewsPage({
 
         <nav aria-label={text.filterNav} className="mb-6 flex flex-col gap-4">
           <div>
-            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{text.typeLabel}</p>
+            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+              {text.typeLabel}
+            </p>
             <ul className="flex flex-wrap gap-2">
               <li>
                 <a
@@ -168,7 +181,9 @@ export default async function NewsPage({
           </div>
 
           <div>
-            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">{text.categoryLabel}</p>
+            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+              {text.categoryLabel}
+            </p>
             <ul className="flex flex-wrap gap-2">
               <li>
                 <a
@@ -194,7 +209,10 @@ export default async function NewsPage({
           </div>
 
           {hasFilter ? (
-            <a href={localeHref(locale, "/news")} className="text-brand-deep w-fit text-sm font-semibold hover:underline">
+            <a
+              href={localeHref(locale, "/news")}
+              className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+            >
               {dict.actions.clearFilters}
             </a>
           ) : null}
@@ -208,7 +226,13 @@ export default async function NewsPage({
         {filtered.length > 0 ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((entry) => (
-              <NewsCard key={entry.slug} locale={locale} dict={dict} slug={entry.slug} frontmatter={entry.frontmatter} />
+              <NewsCard
+                key={entry.slug}
+                locale={locale}
+                dict={dict}
+                slug={entry.slug}
+                frontmatter={entry.frontmatter}
+              />
             ))}
           </div>
         ) : (

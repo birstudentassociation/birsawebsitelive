@@ -25,7 +25,7 @@ const { ADMIN_EMAIL, ADMIN_NAME, ADMIN_PASSCODE } = process.env;
 if (!ADMIN_EMAIL || !ADMIN_NAME || !ADMIN_PASSCODE) {
   console.error(
     "seed-admin-officer: ADMIN_EMAIL, ADMIN_NAME, and ADMIN_PASSCODE must all be set in the environment.\n" +
-      "Example: ADMIN_EMAIL=you@example.com ADMIN_NAME=\"Your Name\" ADMIN_PASSCODE=your-passcode node scripts/seed-admin-officer.mjs"
+      'Example: ADMIN_EMAIL=you@example.com ADMIN_NAME="Your Name" ADMIN_PASSCODE=your-passcode node scripts/seed-admin-officer.mjs'
   );
   process.exit(1);
 }

@@ -166,13 +166,14 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
   );
 
   const firstEventDayOfMonth = useMemo(
-    () => (monthKey: string): string | null => {
-      const inMonth = events
-        .filter((e) => coversDay(e, e.start) && e.start.slice(0, 7) === monthKey)
-        .map((e) => e.start)
-        .sort();
-      return inMonth[0] ?? null;
-    },
+    () =>
+      (monthKey: string): string | null => {
+        const inMonth = events
+          .filter((e) => coversDay(e, e.start) && e.start.slice(0, 7) === monthKey)
+          .map((e) => e.start)
+          .sort();
+        return inMonth[0] ?? null;
+      },
     [events]
   );
 
@@ -217,12 +218,17 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
   // Multi-day events (periods) intersecting the visible month, with a
   // greedily-assigned lane so overlapping periods stack instead of collide.
   const { periods, laneOf, laneCount } = useMemo(() => {
-    if (!current) return { periods: [] as CalendarEvent[], laneOf: new Map<string, number>(), laneCount: 0 };
+    if (!current)
+      return { periods: [] as CalendarEvent[], laneOf: new Map<string, number>(), laneCount: 0 };
     const monthFirst = keyOf(current.year, current.month0, 1);
     const daysInMonth = new Date(current.year, current.month0 + 1, 0).getDate();
     const monthLast = keyOf(current.year, current.month0, daysInMonth);
-    const inMonth = events.filter((e) => isPeriod(e) && e.start <= monthLast && (e.end ?? e.start) >= monthFirst);
-    inMonth.sort((a, b) => (a.start < b.start ? -1 : a.start > b.start ? 1 : (a.end ?? "") > (b.end ?? "") ? -1 : 1));
+    const inMonth = events.filter(
+      (e) => isPeriod(e) && e.start <= monthLast && (e.end ?? e.start) >= monthFirst
+    );
+    inMonth.sort((a, b) =>
+      a.start < b.start ? -1 : a.start > b.start ? 1 : (a.end ?? "") > (b.end ?? "") ? -1 : 1
+    );
 
     const laneEnds: string[] = [];
     const lanes = new Map<string, number>();
@@ -281,7 +287,14 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
             aria-label={labels.prevMonth}
           >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
-              <path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M12.5 4.5 7 10l5.5 5.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
           <h3 className="font-display text-ink text-xl" aria-live="polite">
@@ -295,7 +308,14 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
             aria-label={labels.nextMonth}
           >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
-              <path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M7.5 4.5 13 10l-5.5 5.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.6}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
         </div>
@@ -323,7 +343,11 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
 
               const weekPeriods =
                 weekFirstKey !== null && weekLastKey !== null
-                  ? periods.filter((p) => p.start <= (weekLastKey as string) && (p.end ?? p.start) >= (weekFirstKey as string))
+                  ? periods.filter(
+                      (p) =>
+                        p.start <= (weekLastKey as string) &&
+                        (p.end ?? p.start) >= (weekFirstKey as string)
+                    )
                   : [];
 
               return (
@@ -349,7 +373,9 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                           aria-label={dayLabel(dayKey, dayEvents.length)}
                           className={clsx(
                             "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
-                            hasEvents ? "text-ink cursor-pointer font-semibold" : "text-muted cursor-default",
+                            hasEvents
+                              ? "text-ink cursor-pointer font-semibold"
+                              : "text-muted cursor-default",
                             isSelected
                               ? "bg-brand text-white"
                               : hasEvents
@@ -360,7 +386,10 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                         >
                           <span>{day}</span>
                           {singleEvents.length > 0 ? (
-                            <span className="flex flex-wrap items-center justify-center gap-0.5" aria-hidden="true">
+                            <span
+                              className="flex flex-wrap items-center justify-center gap-0.5"
+                              aria-hidden="true"
+                            >
                               {singleEvents.slice(0, 3).map((e) => {
                                 const Icon = KIND_ICON[e.kind];
                                 return (
@@ -372,7 +401,12 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                                       isSelected ? "bg-white/25" : KIND_TINT[e.kind]
                                     )}
                                   >
-                                    <Icon className={clsx("h-3 w-3", isSelected ? "text-white" : KIND_TEXT[e.kind])} />
+                                    <Icon
+                                      className={clsx(
+                                        "h-3 w-3",
+                                        isSelected ? "text-white" : KIND_TEXT[e.kind]
+                                      )}
+                                    />
                                   </span>
                                 );
                               })}
@@ -385,7 +419,7 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
 
                   {laneCount > 0 && (
                     <div
-                      className="grid grid-cols-7 gap-x-1 gap-y-0.5 mt-0.5"
+                      className="mt-0.5 grid grid-cols-7 gap-x-1 gap-y-0.5"
                       // Each period ribbon is a link; ≥1.5rem (24px) tall keeps
                       // the pointer target at the WCAG 2.5.8 (AA) minimum.
                       style={{ gridTemplateRows: `repeat(${laneCount}, 1.6rem)` }}
@@ -393,9 +427,11 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                       {weekFirstKey !== null && weekLastKey !== null
                         ? weekPeriods.map((p) => {
                             const segStart = p.start > weekFirstKey! ? p.start : weekFirstKey!;
-                            const segEnd = (p.end ?? p.start) < weekLastKey! ? (p.end ?? p.start) : weekLastKey!;
+                            const segEnd =
+                              (p.end ?? p.start) < weekLastKey! ? (p.end ?? p.start) : weekLastKey!;
                             const segStartCol = week.findIndex(
-                              (d) => d !== null && keyOf(current.year, current.month0, d) === segStart
+                              (d) =>
+                                d !== null && keyOf(current.year, current.month0, d) === segStart
                             );
                             const segEndCol = week.findIndex(
                               (d) => d !== null && keyOf(current.year, current.month0, d) === segEnd
@@ -453,11 +489,17 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
           </ul>
           <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
             <li className="flex items-center gap-1.5">
-              <span className="bg-brand-tint border-brand h-2.5 w-5 rounded-sm border-l-4" aria-hidden="true" />
+              <span
+                className="bg-brand-tint border-brand h-2.5 w-5 rounded-sm border-l-4"
+                aria-hidden="true"
+              />
               {labels.styleLegend.period}
             </li>
             <li className="flex items-center gap-1.5">
-              <span className="bg-brand-tint inline-flex h-4 w-4 items-center justify-center rounded" aria-hidden="true">
+              <span
+                className="bg-brand-tint inline-flex h-4 w-4 items-center justify-center rounded"
+                aria-hidden="true"
+              >
                 <StarIcon className="text-brand h-3 w-3" />
               </span>
               {labels.styleLegend.single}
@@ -471,7 +513,11 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
         className="border-line bg-sunken rounded-lg border p-4 sm:p-5"
         role="region"
         aria-live="polite"
-        aria-label={selectedDay ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay)) : undefined}
+        aria-label={
+          selectedDay
+            ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay))
+            : undefined
+        }
       >
         <p className="text-muted mb-3 text-sm font-semibold">
           {selectedDay ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay)) : ""}
@@ -488,10 +534,12 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
                   >
                     <Icon className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])} />
                     <span className="min-w-0">
-                      <span className="text-ink block text-sm font-semibold leading-snug group-hover:underline">
+                      <span className="text-ink block text-sm leading-snug font-semibold group-hover:underline">
                         {event.title[locale]}
                       </span>
-                      <span className="text-muted mt-0.5 block text-xs">{eventRangeLabel(event)}</span>
+                      <span className="text-muted mt-0.5 block text-xs">
+                        {eventRangeLabel(event)}
+                      </span>
                     </span>
                   </Link>
                 </li>

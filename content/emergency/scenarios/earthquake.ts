@@ -62,7 +62,11 @@ const earthquake: EmergencyScenario = {
     extraContacts: [
       { label: "Police / general emergency", value: "191", href: "tel:191" },
       { label: "Medical emergency (EMS, national)", value: "1669", href: "tel:1669" },
-      { label: "Department of Disaster Prevention and Mitigation (DDPM)", value: "1784", href: "tel:1784" },
+      {
+        label: "Department of Disaster Prevention and Mitigation (DDPM)",
+        value: "1784",
+        href: "tel:1784",
+      },
       { label: "Bangkok Erawan Emergency Medical Service", value: "1646", href: "tel:1646" },
     ],
   },
@@ -117,7 +121,7 @@ const earthquake: EmergencyScenario = {
         heading: "สำหรับนักศึกษาต่างชาติ",
         items: [
           "เหตุแผ่นดินไหวที่เมียนมาในเดือนมีนาคม 2568 แสดงให้เห็นว่าแม้แผ่นดินไหวขนาดใหญ่ที่อยู่ไกลออกไปก็สามารถรู้สึกได้ชัดเจนในอาคารสูงของกรุงเทพฯ และในบางกรณีอาจสร้างความเสียหายต่อโครงสร้างอย่างร้ายแรง จึงควรให้ความสำคัญกับแรงสั่นสะเทือนอย่างจริงจัง แม้จะคุ้นเคยกับการอยู่ในประเทศที่มีแผ่นดินไหวน้อย",
-          "จดจำตำแหน่งบันไดในอาคารที่ใช้งานบ่อย และฝึกนึกถึงขั้นตอน \"หมอบ ป้อง เกาะ\" ให้กลายเป็นความเคยชิน",
+          'จดจำตำแหน่งบันไดในอาคารที่ใช้งานบ่อย และฝึกนึกถึงขั้นตอน "หมอบ ป้อง เกาะ" ให้กลายเป็นความเคยชิน',
           "บันทึกเบอร์ฉุกเฉินของประเทศไทยไว้ในโทรศัพท์ตั้งแต่วันนี้",
         ],
       },

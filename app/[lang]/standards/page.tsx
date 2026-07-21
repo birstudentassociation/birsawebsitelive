@@ -87,7 +87,7 @@ const content: Record<
       "Every feature can be operated with a keyboard alone, with a visible focus indicator.",
       "Pages use correct heading structure and landmark regions so screen readers can navigate them predictably.",
       "Our colour palette is contrast-checked, and we never use colour as the only way to convey meaning.",
-      "Motion respects your system's \"reduce motion\" setting: we do not add animation that ignores it.",
+      'Motion respects your system\'s "reduce motion" setting: we do not add animation that ignores it.',
       "Pages stay readable and usable at 320px-wide screens and at 400% browser zoom.",
       "The whole site is bilingual, with the correct `lang` attribute set on every page.",
       "The site supports both light and dark colour modes, both checked against WCAG contrast requirements. It follows your device setting by default, and you can switch it any time with the toggle in the header.",
@@ -116,8 +116,10 @@ const content: Record<
       "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
     a11yReportCta: "Contact BIRSA",
     perfTitle: "Performance and data",
-    perfBody: "We use cookieless, privacy-friendly analytics to understand which pages are useful and where people get stuck, never to track individuals.",
-    perfNotice: "We'll publish usage statistics here once the site has launched and we have meaningful data to share.",
+    perfBody:
+      "We use cookieless, privacy-friendly analytics to understand which pages are useful and where people get stuck, never to track individuals.",
+    perfNotice:
+      "We'll publish usage statistics here once the site has launched and we have meaningful data to share.",
     maintainTitle: "How this site is maintained",
     maintainBody:
       "The content and code for this site live in a version-controlled repository. Changes are reviewed by the BIRSA committee before they go live, and we expect to iterate on this site frequently rather than treat it as a one-off project.",
@@ -145,7 +147,7 @@ const content: Record<
       },
       {
         title: "พัฒนาต่อเนื่องอย่างเปิดเผย",
-        body: "เนื้อหาในเว็บนี้ไม่มีวัน \"เสร็จสมบูรณ์\" จริง ๆ เราเลือกที่จะเผยแพร่สิ่งที่มีประโยชน์ตอนนี้ แล้วรีบแก้ไขจุดที่ขาดหาย แทนที่จะรอเวอร์ชันสมบูรณ์แบบที่ไม่มีวันมาถึง",
+        body: 'เนื้อหาในเว็บนี้ไม่มีวัน "เสร็จสมบูรณ์" จริง ๆ เราเลือกที่จะเผยแพร่สิ่งที่มีประโยชน์ตอนนี้ แล้วรีบแก้ไขจุดที่ขาดหาย แทนที่จะรอเวอร์ชันสมบูรณ์แบบที่ไม่มีวันมาถึง',
       },
     ],
     a11yTitle: "การเข้าถึงเว็บไซต์",
@@ -158,7 +160,7 @@ const content: Record<
       "ทุกฟีเจอร์ใช้งานได้ด้วยคีย์บอร์ดอย่างเดียว พร้อมเส้นโฟกัสที่มองเห็นชัดเจน",
       "แต่ละหน้าจัดโครงสร้างหัวข้อและแลนด์มาร์กอย่างถูกต้อง เพื่อให้โปรแกรมอ่านหน้าจอนำทางได้อย่างคาดเดาได้",
       "โทนสีของเราผ่านการตรวจสอบคอนทราสต์ และเราไม่ใช้สีเป็นวิธีเดียวในการสื่อความหมาย",
-      "การเคลื่อนไหวบนเว็บเคารพการตั้งค่า \"ลดการเคลื่อนไหว\" ของระบบคุณ เราไม่เพิ่มแอนิเมชันที่ไม่สนใจการตั้งค่านี้",
+      'การเคลื่อนไหวบนเว็บเคารพการตั้งค่า "ลดการเคลื่อนไหว" ของระบบคุณ เราไม่เพิ่มแอนิเมชันที่ไม่สนใจการตั้งค่านี้',
       "หน้าเว็บยังอ่านและใช้งานได้ที่ความกว้างหน้าจอ 320px และเมื่อซูมเบราว์เซอร์ 400%",
       "เว็บไซต์ทั้งหมดรองรับสองภาษา และตั้งค่า `lang` ที่ถูกต้องในทุกหน้า",
       "เว็บไซต์นี้มีทั้งโหมดสว่างและโหมดมืด ผ่านการตรวจสอบคอนทราสต์สีแล้วทั้งคู่ โดยค่าเริ่มต้นจะเป็นไปตามการตั้งค่าของอุปกรณ์คุณ และสลับได้ทุกเมื่อด้วยปุ่มที่ส่วนหัวของเว็บไซต์",
@@ -187,8 +189,10 @@ const content: Record<
       "ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่",
     a11yReportCta: "ติดต่อ BIRSA",
     perfTitle: "ข้อมูลการใช้งาน",
-    perfBody: "เราใช้ระบบวิเคราะห์ข้อมูลแบบไม่ใช้คุกกี้และเป็นมิตรกับความเป็นส่วนตัว เพื่อดูว่าหน้าไหนมีประโยชน์และตรงไหนที่คนใช้งานติดขัด โดยไม่ติดตามตัวบุคคล",
-    perfNotice: "เราจะเผยแพร่สถิติการใช้งานที่นี่หลังจากเว็บไซต์เปิดใช้งานจริงและมีข้อมูลที่พอจะแชร์ได้",
+    perfBody:
+      "เราใช้ระบบวิเคราะห์ข้อมูลแบบไม่ใช้คุกกี้และเป็นมิตรกับความเป็นส่วนตัว เพื่อดูว่าหน้าไหนมีประโยชน์และตรงไหนที่คนใช้งานติดขัด โดยไม่ติดตามตัวบุคคล",
+    perfNotice:
+      "เราจะเผยแพร่สถิติการใช้งานที่นี่หลังจากเว็บไซต์เปิดใช้งานจริงและมีข้อมูลที่พอจะแชร์ได้",
     maintainTitle: "การดูแลเว็บไซต์",
     maintainBody:
       "เนื้อหาและโค้ดของเว็บไซต์นี้เก็บอยู่ในระบบควบคุมเวอร์ชัน การเปลี่ยนแปลงทุกครั้งจะผ่านการตรวจสอบโดยคณะกรรมการ BIRSA ก่อนเผยแพร่ และเราตั้งใจจะปรับปรุงเว็บไซต์นี้อย่างต่อเนื่อง ไม่ใช่ทำครั้งเดียวจบ",
@@ -228,7 +232,7 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
           </ol>
         </section>
 
-        <section id="accessibility" className="flex flex-col gap-4 scroll-mt-24">
+        <section id="accessibility" className="flex scroll-mt-24 flex-col gap-4">
           <h2 className="font-display text-2xl">{t.a11yTitle}</h2>
           <p className="text-muted leading-relaxed">{t.a11yIntro}</p>
           <p className="text-muted leading-relaxed">{t.a11yComplianceStatus}</p>
@@ -262,7 +266,11 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
           <h3 className="text-ink font-semibold">{t.a11yReportTitle}</h3>
           <p className="text-muted leading-relaxed">
             {t.a11yReportBody}{" "}
-            <Email address={contact.email} className="text-brand-deep hover:text-brand-dark font-semibold" />.{" "}
+            <Email
+              address={contact.email}
+              className="text-brand-deep hover:text-brand-dark font-semibold"
+            />
+            .{" "}
             <Link
               href={localeHref(locale, "/contact")}
               className="text-brand-deep hover:text-brand-dark font-semibold underline"

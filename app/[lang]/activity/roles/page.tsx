@@ -59,11 +59,7 @@ const copy: Record<Locale, { activity: string; title: string; lede: string }> = 
   },
 };
 
-export default async function ActivityRolesPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function ActivityRolesPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

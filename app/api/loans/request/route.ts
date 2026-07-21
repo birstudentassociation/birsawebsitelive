@@ -35,7 +35,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const { itemKey, studentName, studentId, studentEmail, phone, startDate, endDate, reason } = result.data;
+  const { itemKey, studentName, studentId, studentEmail, phone, startDate, endDate, reason } =
+    result.data;
 
   const created = await createLoanRequest({
     itemKey,

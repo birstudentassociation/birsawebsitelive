@@ -17,7 +17,14 @@ import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import { localeHref, type Locale } from "@/lib/i18n";
-import type { Category, Custodian, Item, Location, Role, TrackingMode } from "@/lib/inventory/types";
+import type {
+  Category,
+  Custodian,
+  Item,
+  Location,
+  Role,
+  TrackingMode,
+} from "@/lib/inventory/types";
 
 export type ItemsManagerProps = {
   items: Item[];
@@ -348,8 +355,7 @@ export default function ItemsManager({
             ? item.isRetired
             : !item.isRetired;
       const matchesCategory = categoryFilter === "all" || item.categoryId === categoryFilter;
-      const matchesOwner =
-        !isGlobal || ownerFilter === "all" || item.custodianId === ownerFilter;
+      const matchesOwner = !isGlobal || ownerFilter === "all" || item.custodianId === ownerFilter;
       const matchesQuery =
         q.length === 0 ||
         item.key.toLowerCase().includes(q) ||
@@ -774,7 +780,7 @@ export default function ItemsManager({
               type="checkbox"
               checked={form.onlineLoanable}
               onChange={(event) => updateForm("onlineLoanable", event.target.checked)}
-              className="h-5 w-5 rounded border-input-border"
+              className="border-input-border h-5 w-5 rounded"
             />
             {t.onlineLoanableLabel}
           </label>

@@ -26,7 +26,10 @@ export default function PageFeedback({ locale, prompt, report }: PageFeedbackPro
       <div className="wrap py-6">
         <p className="text-muted text-sm">
           {prompt}{" "}
-          <Link href={href} className="text-brand-deep hover:text-brand-dark font-semibold underline">
+          <Link
+            href={href}
+            className="text-brand-deep hover:text-brand-dark font-semibold underline"
+          >
             {report}
           </Link>
         </p>

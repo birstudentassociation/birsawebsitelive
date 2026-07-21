@@ -37,30 +37,30 @@ browser's language (or a previously-set cookie).
 
 ## npm scripts
 
-| Script                 | What it does                                                  |
-| ---------------------- | -------------------------------------------------------------- |
-| `npm run dev`          | Start the Next.js dev server                                    |
-| `npm run build`        | Production build (`next build`)                                 |
-| `npm run start`        | Serve the production build (`next start`), run `build` first  |
-| `npm run lint`         | Run ESLint (`next lint`)                                        |
-| `npm run typecheck`    | Run the TypeScript compiler with no output (`tsc --noEmit`)     |
-| `npm run format`       | Format the repo with Prettier                                   |
-| `npm run format:check` | Check formatting without writing changes                        |
-| `npm run test`         | Run unit tests once (Vitest)                                     |
-| `npm run test:watch`   | Run unit tests in watch mode                                     |
-| `npm run e2e`          | Run Playwright end-to-end and accessibility tests                |
+| Script                 | What it does                                                 |
+| ---------------------- | ------------------------------------------------------------ |
+| `npm run dev`          | Start the Next.js dev server                                 |
+| `npm run build`        | Production build (`next build`)                              |
+| `npm run start`        | Serve the production build (`next start`), run `build` first |
+| `npm run lint`         | Run ESLint (`next lint`)                                     |
+| `npm run typecheck`    | Run the TypeScript compiler with no output (`tsc --noEmit`)  |
+| `npm run format`       | Format the repo with Prettier                                |
+| `npm run format:check` | Check formatting without writing changes                     |
+| `npm run test`         | Run unit tests once (Vitest)                                 |
+| `npm run test:watch`   | Run unit tests in watch mode                                 |
+| `npm run e2e`          | Run Playwright end-to-end and accessibility tests            |
 
 ## Environment variables
 
 None of these are required for the site to build or run. The contact and "start a club" forms
 fall back gracefully to an "email us directly" message when email is not configured.
 
-| Variable               | Purpose                                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL` | Public base URL of the deployed site, used for canonical URLs, the sitemap, and hreflang.  |
+| Variable               | Purpose                                                                                       |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL` | Public base URL of the deployed site, used for canonical URLs, the sitemap, and hreflang.     |
 | `RESEND_API_KEY`       | API key from [resend.com](https://resend.com). If unset, forms validate but don't send email. |
-| `BIRSA_INBOX`          | Inbox that form submissions are delivered to (default `birsa@tu.ac.th`).                     |
-| `CONTACT_FROM`         | Verified "from" address Resend sends on behalf of.                                          |
+| `BIRSA_INBOX`          | Inbox that form submissions are delivered to (default `birsa@tu.ac.th`).                      |
+| `CONTACT_FROM`         | Verified "from" address Resend sends on behalf of.                                            |
 
 ## Project structure
 

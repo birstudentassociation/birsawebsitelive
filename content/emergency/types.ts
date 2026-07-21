@@ -47,9 +47,6 @@ export type EmergencyScenario = {
 };
 
 /** Pick the content block for a locale. */
-export function scenarioContent(
-  scenario: EmergencyScenario,
-  locale: Locale,
-): EmergencyContent {
+export function scenarioContent(scenario: EmergencyScenario, locale: Locale): EmergencyContent {
   return scenario[locale];
 }

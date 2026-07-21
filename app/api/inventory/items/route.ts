@@ -86,7 +86,13 @@ export async function POST(request: Request) {
   });
   if (!result.ok) {
     const status =
-      result.reason === "not-configured" ? 200 : result.reason === "duplicate" ? 409 : result.reason === "invalid" ? 400 : 400;
+      result.reason === "not-configured"
+        ? 200
+        : result.reason === "duplicate"
+          ? 409
+          : result.reason === "invalid"
+            ? 400
+            : 400;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

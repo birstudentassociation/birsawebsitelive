@@ -54,7 +54,8 @@ export async function POST(request: Request) {
 
   const result = await openMaintenance({ ...parsed.data, officerId: auth.officer.id });
   if (!result.ok) {
-    const status = result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 500;
+    const status =
+      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : 500;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

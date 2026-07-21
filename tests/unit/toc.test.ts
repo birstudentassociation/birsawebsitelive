@@ -25,9 +25,13 @@ describe("extractH2Toc", () => {
   });
 
   it("skips headings inside fenced code blocks", () => {
-    const source = ["## Real heading", "```", "## Not a heading", "```", "## Another real heading"].join(
-      "\n"
-    );
+    const source = [
+      "## Real heading",
+      "```",
+      "## Not a heading",
+      "```",
+      "## Another real heading",
+    ].join("\n");
     const toc = extractH2Toc(source);
     expect(toc.map((item) => item.label)).toEqual(["Real heading", "Another real heading"]);
   });

@@ -28,11 +28,7 @@ export function generateStaticParams() {
   return scenarioIds.map((scenario) => ({ scenario }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<Params>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { lang, scenario } = await params;
   if (!isLocale(lang) || !hasScenario(scenario)) return {};
   const locale: Locale = lang;
@@ -51,11 +47,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function EmergencyScenarioPage({
-  params,
-}: {
-  params: Promise<Params>;
-}) {
+export default async function EmergencyScenarioPage({ params }: { params: Promise<Params> }) {
   const { lang, scenario } = await params;
   if (!isLocale(lang) || !hasScenario(scenario)) notFound();
   const locale: Locale = lang;

@@ -2,13 +2,16 @@ import type { Part } from "./types";
 
 export const part04: Part = {
   num: 4,
-  title: { en: "The BIR Student Association (BIRSA)", th: "สโมสรนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ" },
+  title: {
+    en: "The BIR Student Association (BIRSA)",
+    th: "สโมสรนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ",
+  },
   provisions: [
     {
       num: 24,
       title: { en: "Establishment of BIRSA", th: "การจัดตั้ง BIRSA" },
       lead: {
-        en: "There shall be a \"BIR Student Association\", responsible for conducting student activities within the Politics and International Relations (English) programme (\"the BIR programme\"), with the English name \"BIR Student Association\", abbreviated \"BIRSA\", under the supervision of the faculty executive appointed by the Dean to oversee the international-programme project.",
+        en: 'There shall be a "BIR Student Association", responsible for conducting student activities within the Politics and International Relations (English) programme ("the BIR programme"), with the English name "BIR Student Association", abbreviated "BIRSA", under the supervision of the faculty executive appointed by the Dean to oversee the international-programme project.',
         th: "ให้มี “สโมสรนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ” เป็นผู้รับผิดชอบดำเนินการเกี่ยวกับกิจกรรมนักศึกษาภายในสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ มีชื่อภาษาอังกฤษว่า BIR Student Association ใช้อักษรย่อ “BIRSA” อยู่ในความดูแลของผู้บริหารคณะที่คณบดีแต่งตั้งให้เป็นผู้ดูแลโครงการหลักสูตรนานาชาติ",
       },
     },
@@ -28,9 +31,24 @@ export const part04: Part = {
         { marker: "(6)", text: { en: "Spokesperson", th: "โฆษก" } },
         { marker: "(7)", text: { en: "Head of Academic Affairs", th: "กรรมการฝ่ายวิชาการ" } },
         { marker: "(8)", text: { en: "Head of Public Relations", th: "กรรมการฝ่ายประชาสัมพันธ์" } },
-        { marker: "(9)", text: { en: "Head of Student Activities", th: "กรรมการฝ่ายกิจกรรมนักศึกษา" } },
-        { marker: "(10)", text: { en: "Head of Internal and Rangsit Coordination", th: "กรรมการฝ่ายประสานงานกิจการภายในและรังสิต" } },
-        { marker: "(11)", text: { en: "Not more than 3 further committee members, holding such other positions as appropriate", th: "กรรมการอีกไม่เกิน 3 คน ซึ่งดำเนินตำแหน่งอื่นๆ ตามความเหมาะสม" } },
+        {
+          marker: "(9)",
+          text: { en: "Head of Student Activities", th: "กรรมการฝ่ายกิจกรรมนักศึกษา" },
+        },
+        {
+          marker: "(10)",
+          text: {
+            en: "Head of Internal and Rangsit Coordination",
+            th: "กรรมการฝ่ายประสานงานกิจการภายในและรังสิต",
+          },
+        },
+        {
+          marker: "(11)",
+          text: {
+            en: "Not more than 3 further committee members, holding such other positions as appropriate",
+            th: "กรรมการอีกไม่เกิน 3 คน ซึ่งดำเนินตำแหน่งอื่นๆ ตามความเหมาะสม",
+          },
+        },
       ],
     },
     {
@@ -41,11 +59,41 @@ export const part04: Part = {
         th: "BIRSA มีอำนาจหน้าที่และความรับผิดชอบร่วมกัน ดังต่อไปนี้",
       },
       items: [
-        { marker: "(1)", text: { en: "To manage and coordinate all affairs relating to student activities within the BIR programme", th: "บริหารจัดการและประสานงานกิจการทั้งปวงที่เกี่ยวกับกิจกรรมนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ" } },
-        { marker: "(2)", text: { en: "To set policy and prepare BIRSA's annual work plan, projects, and budget, for submission to the faculty executive appointed by the Dean to oversee the international-programme project", th: "กำหนดนโยบาย จัดทำแผนงาน โครงการ และงบประมาณประจำปีของ BIRSA เสนอต่อผู้บริหารคณะที่คณบดีแต่งตั้งให้เป็นผู้ดูแลโครงการหลักสูตรนานาชาติ" } },
-        { marker: "(3)", text: { en: "Removal of a committee member holding a position on BIRSA under section 25 shall be at the discretion of the President of BIRSA, who must nominate the person to the Dean for the Dean to sign the order of removal", th: "การถอดถอนกรรมการที่ดำรงตำแหน่งใน BIRSA ตามข้อ 25 ให้เป็นไปตามดุลยพินิจของนายก BIRSA โดย นายก BIRSA ต้องเสนอชื่อต่อคณบดีเพื่อให้คณบดีลงนามถอดถอน" } },
-        { marker: "(4)", text: { en: "To hear the opinions of students and faculty members on matters relating to student activities within the BIR programme", th: "รับฟังความคิดเห็นจากนักศึกษาและอาจารย์ในเรื่องเกี่ยวกับกิจกรรมนักศึกษาภายในสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ" } },
-        { marker: "(5)", text: { en: "To appoint subcommittees to perform functions relating to student activities within the BIR programme as it sees fit", th: "แต่งตั้งอนุกรรมการขึ้นเพื่อทำหน้าที่เกี่ยวกับกิจกรรมนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษตามที่เห็นสมควร" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "To manage and coordinate all affairs relating to student activities within the BIR programme",
+            th: "บริหารจัดการและประสานงานกิจการทั้งปวงที่เกี่ยวกับกิจกรรมนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "To set policy and prepare BIRSA's annual work plan, projects, and budget, for submission to the faculty executive appointed by the Dean to oversee the international-programme project",
+            th: "กำหนดนโยบาย จัดทำแผนงาน โครงการ และงบประมาณประจำปีของ BIRSA เสนอต่อผู้บริหารคณะที่คณบดีแต่งตั้งให้เป็นผู้ดูแลโครงการหลักสูตรนานาชาติ",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "Removal of a committee member holding a position on BIRSA under section 25 shall be at the discretion of the President of BIRSA, who must nominate the person to the Dean for the Dean to sign the order of removal",
+            th: "การถอดถอนกรรมการที่ดำรงตำแหน่งใน BIRSA ตามข้อ 25 ให้เป็นไปตามดุลยพินิจของนายก BIRSA โดย นายก BIRSA ต้องเสนอชื่อต่อคณบดีเพื่อให้คณบดีลงนามถอดถอน",
+          },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "To hear the opinions of students and faculty members on matters relating to student activities within the BIR programme",
+            th: "รับฟังความคิดเห็นจากนักศึกษาและอาจารย์ในเรื่องเกี่ยวกับกิจกรรมนักศึกษาภายในสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ",
+          },
+        },
+        {
+          marker: "(5)",
+          text: {
+            en: "To appoint subcommittees to perform functions relating to student activities within the BIR programme as it sees fit",
+            th: "แต่งตั้งอนุกรรมการขึ้นเพื่อทำหน้าที่เกี่ยวกับกิจกรรมนักศึกษาสาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษตามที่เห็นสมควร",
+          },
+        },
       ],
     },
     {
@@ -64,12 +112,48 @@ export const part04: Part = {
         th: "ผู้มีสิทธิรับเลือกตั้งเป็น BIRSA ต้องมีคุณสมบัติดังนี้",
       },
       items: [
-        { marker: "(1)", text: { en: "Be a student of the Faculty of Political Science, BIR programme, currently studying at undergraduate level at the University", th: "เป็นนักศึกษาคณะรัฐศาสตร์สาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษที่กำลังศึกษาอยู่ในชั้นปริญญาตรีของมหาวิทยาลัย" } },
-        { marker: "(2)", text: { en: "Have an academic record with a GPA not lower than 2.00", th: "ต้องมีผลการศึกษาอยู่ในเกณฑ์ไม่ต่ำกว่า 2.00" } },
-        { marker: "(3)", text: { en: "Not be a committee member of any group or other activity within the Faculty of Political Science, Thammasat University", th: "ไม่เป็นกรรมการกลุ่ม หรือกิจกรรมอื่นๆ ในคณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์" } },
-        { marker: "(4)", text: { en: "Have studied at the University for not more than 4 years as of the year of standing for election", th: "ได้ศึกษาอยู่ในมหาวิทยาลัยมาแล้วไม่เกิน 4 ปี ในปีที่สมัครเข้ารับเลือกตั้ง" } },
-        { marker: "(5)", text: { en: "Not be under disciplinary punishment under the University's regulations", th: "ไม่อยู่ในระหว่างถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย" } },
-        { marker: "(6)", text: { en: "Not be on a leave of absence during that academic year", th: "ไม่อยู่ในขณะลาพักการศึกษาในปีการศึกษานั้น" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "Be a student of the Faculty of Political Science, BIR programme, currently studying at undergraduate level at the University",
+            th: "เป็นนักศึกษาคณะรัฐศาสตร์สาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษที่กำลังศึกษาอยู่ในชั้นปริญญาตรีของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "Have an academic record with a GPA not lower than 2.00",
+            th: "ต้องมีผลการศึกษาอยู่ในเกณฑ์ไม่ต่ำกว่า 2.00",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "Not be a committee member of any group or other activity within the Faculty of Political Science, Thammasat University",
+            th: "ไม่เป็นกรรมการกลุ่ม หรือกิจกรรมอื่นๆ ในคณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์",
+          },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "Have studied at the University for not more than 4 years as of the year of standing for election",
+            th: "ได้ศึกษาอยู่ในมหาวิทยาลัยมาแล้วไม่เกิน 4 ปี ในปีที่สมัครเข้ารับเลือกตั้ง",
+          },
+        },
+        {
+          marker: "(5)",
+          text: {
+            en: "Not be under disciplinary punishment under the University's regulations",
+            th: "ไม่อยู่ในระหว่างถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(6)",
+          text: {
+            en: "Not be on a leave of absence during that academic year",
+            th: "ไม่อยู่ในขณะลาพักการศึกษาในปีการศึกษานั้น",
+          },
+        },
       ],
     },
     {
@@ -131,10 +215,28 @@ export const part04: Part = {
         { marker: "(1)", text: { en: "Retiring at the end of the term", th: "ออกตามวาระ" } },
         { marker: "(2)", text: { en: "Death", th: "ตาย" } },
         { marker: "(3)", text: { en: "Resignation", th: "ลาออก" } },
-        { marker: "(4)", text: { en: "Losing the qualifications required under section 28", th: "ขาดคุณสมบัติตามข้อ 28" } },
+        {
+          marker: "(4)",
+          text: {
+            en: "Losing the qualifications required under section 28",
+            th: "ขาดคุณสมบัติตามข้อ 28",
+          },
+        },
         { marker: "(5)", text: { en: "Removal under section 26(3)", th: "ออกตามข้อ 26 (3)" } },
-        { marker: "(6)", text: { en: "Being subject to disciplinary punishment under the University's regulations", th: "ถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย" } },
-        { marker: "(7)", text: { en: "More than one-half of all undergraduate students of the Faculty of Political Science in the BIR programme sign a petition for the member's removal, whether the whole committee or an individual member, with the Dean's approval", th: "นักศึกษาคณะรัฐศาสตร์ระดับปริญญาตรี สาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ เกินกว่ากึ่งหนึ่งของทั้งหมด เข้าชื่อกันให้ออก อาจเป็นทั้งคณะหรือรายบุคคล โดยความเห็นชอบของคณบดี" } },
+        {
+          marker: "(6)",
+          text: {
+            en: "Being subject to disciplinary punishment under the University's regulations",
+            th: "ถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(7)",
+          text: {
+            en: "More than one-half of all undergraduate students of the Faculty of Political Science in the BIR programme sign a petition for the member's removal, whether the whole committee or an individual member, with the Dean's approval",
+            th: "นักศึกษาคณะรัฐศาสตร์ระดับปริญญาตรี สาขาการเมืองและการระหว่างประเทศ ภาคภาษาอังกฤษ เกินกว่ากึ่งหนึ่งของทั้งหมด เข้าชื่อกันให้ออก อาจเป็นทั้งคณะหรือรายบุคคล โดยความเห็นชอบของคณบดี",
+          },
+        },
       ],
     },
     {
@@ -161,9 +263,27 @@ export const part04: Part = {
         th: "ให้มีการประชุม BIRSA ระหว่างเปิดภาคการศึกษา อย่างน้อยเดือนละ 2 ครั้ง",
       },
       items: [
-        { marker: "(1)", text: { en: "A BIRSA meeting requires the attendance of not less than one-half of all committee members to constitute a quorum", th: "ในการประชุม BIRSA ต้องมีกรรมการเข้าประชุมไม่น้อยกว่ากึ่งหนึ่งของจำนวนกรรมการทั้งหมด จึงถือว่าเป็นองค์ประชุม" } },
-        { marker: "(2)", text: { en: "The President of BIRSA shall chair the meeting; if the President of BIRSA is absent or unable to perform this duty, the Vice-President shall act in the President's place; if both are absent, the members present shall select one of themselves to chair the meeting", th: "ให้ นายก BIRSA เป็นประธานที่ประชุม ในกรณีที่ นายก BIRSA ไม่อยู่ หรือไม่อาจปฏิบัติหน้าที่ได้ ให้อุปนายกฯ ทำหน้าที่แทน กรณีที่บุคคลทั้งสองไม่อยู่ให้เลือกกรรมการคนใดคนหนึ่งที่เข้าร่วมประชุม เป็นประธานดำเนินการประชุมแทน" } },
-        { marker: "(3)", text: { en: "Resolutions shall be by majority vote of the meeting, each committee member having one vote. Where votes are tied and the chair of the meeting has not yet cast a vote, the chair shall have a casting vote, except that in matters BIRSA deems important, and in the cases under section 35(7) and section 86, a two-thirds majority of all BIRSA committee members shall be required", th: "การลงมติ ให้ถือเสียงข้างมากของที่ประชุม กรรมการคนหนึ่งออกเสียงได้หนึ่งเสียง ในกรณีที่คะแนนเสียงเท่ากันโดยประธานที่ประชุมยังไม่ได้ใช้สิทธิ์ออกเสียง ให้ประธานที่ประชุมมีสิทธิ์ออกเสียงชี้ขาด เฉพาะกรณีที่ BIRSA ถือเป็นเรื่องสำคัญและกรณีข้อ 35 (7) และข้อ 86 ให้ใช้มติ 2 ใน 3 ของจำนวนกรรมการ BIRSA ทั้งหมด" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "A BIRSA meeting requires the attendance of not less than one-half of all committee members to constitute a quorum",
+            th: "ในการประชุม BIRSA ต้องมีกรรมการเข้าประชุมไม่น้อยกว่ากึ่งหนึ่งของจำนวนกรรมการทั้งหมด จึงถือว่าเป็นองค์ประชุม",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "The President of BIRSA shall chair the meeting; if the President of BIRSA is absent or unable to perform this duty, the Vice-President shall act in the President's place; if both are absent, the members present shall select one of themselves to chair the meeting",
+            th: "ให้ นายก BIRSA เป็นประธานที่ประชุม ในกรณีที่ นายก BIRSA ไม่อยู่ หรือไม่อาจปฏิบัติหน้าที่ได้ ให้อุปนายกฯ ทำหน้าที่แทน กรณีที่บุคคลทั้งสองไม่อยู่ให้เลือกกรรมการคนใดคนหนึ่งที่เข้าร่วมประชุม เป็นประธานดำเนินการประชุมแทน",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "Resolutions shall be by majority vote of the meeting, each committee member having one vote. Where votes are tied and the chair of the meeting has not yet cast a vote, the chair shall have a casting vote, except that in matters BIRSA deems important, and in the cases under section 35(7) and section 86, a two-thirds majority of all BIRSA committee members shall be required",
+            th: "การลงมติ ให้ถือเสียงข้างมากของที่ประชุม กรรมการคนหนึ่งออกเสียงได้หนึ่งเสียง ในกรณีที่คะแนนเสียงเท่ากันโดยประธานที่ประชุมยังไม่ได้ใช้สิทธิ์ออกเสียง ให้ประธานที่ประชุมมีสิทธิ์ออกเสียงชี้ขาด เฉพาะกรณีที่ BIRSA ถือเป็นเรื่องสำคัญและกรณีข้อ 35 (7) และข้อ 86 ให้ใช้มติ 2 ใน 3 ของจำนวนกรรมการ BIRSA ทั้งหมด",
+          },
+        },
       ],
     },
     {

@@ -69,11 +69,15 @@ export function renderLoanApproved(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`ยินดีด้วย! คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`) +
+        paragraph(
+          `ยินดีด้วย! คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`
+        ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Congratulations! Your loan request has been approved. Bring your student ID when you come to collect the item.`) +
+        paragraph(
+          `Congratulations! Your loan request has been approved. Bring your student ID when you come to collect the item.`
+        ) +
         infoTable(rowsEn),
     });
 
@@ -119,11 +123,15 @@ export function renderLoanRejected(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`ขอบคุณที่สนใจใช้บริการยืมอุปกรณ์ของ BIRSA คำขอยืมของคุณไม่ได้รับการอนุมัติในครั้งนี้ หากมีข้อสงสัยหรือต้องการสอบถามเพิ่มเติม สามารถติดต่อ BIRSA ได้โดยตรง`) +
+        paragraph(
+          `ขอบคุณที่สนใจใช้บริการยืมอุปกรณ์ของ BIRSA คำขอยืมของคุณไม่ได้รับการอนุมัติในครั้งนี้ หากมีข้อสงสัยหรือต้องการสอบถามเพิ่มเติม สามารถติดต่อ BIRSA ได้โดยตรง`
+        ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. If you have any questions, feel free to contact BIRSA directly.`) +
+        paragraph(
+          `Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. If you have any questions, feel free to contact BIRSA directly.`
+        ) +
         infoTable(rowsEn),
     });
 
@@ -172,17 +180,24 @@ export function renderOverdue(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`อุปกรณ์ที่คุณยืมครบกำหนดคืนเมื่อวันที่ ${end} และขณะนี้เลยกำหนดคืนแล้ว กรุณานำมาคืนที่ห้อง BIRSA โดยเร็วที่สุด`) +
+        paragraph(
+          `อุปกรณ์ที่คุณยืมครบกำหนดคืนเมื่อวันที่ ${end} และขณะนี้เลยกำหนดคืนแล้ว กรุณานำมาคืนที่ห้อง BIRSA โดยเร็วที่สุด`
+        ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Your item was due back on ${end} and is now overdue. Return it to the BIRSA office as soon as possible.`) +
+        paragraph(
+          `Your item was due back on ${end} and is now overdue. Return it to the BIRSA office as soon as possible.`
+        ) +
         infoTable(rowsEn),
     });
 
   return {
     subject: `[BIRSA] อุปกรณ์ ${ref} เลยกำหนดคืน · Loan ${ref} is overdue`,
-    html: renderLayout({ previewText: `Your loan ${ref} was due on ${i.endDate} and is now overdue.`, bodyHtml }),
+    html: renderLayout({
+      previewText: `Your loan ${ref} was due on ${i.endDate} and is now overdue.`,
+      bodyHtml,
+    }),
     text: [
       `Hi ${i.borrowerName},`,
       "",
@@ -221,11 +236,15 @@ export function renderDueSoon(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`นี่คือข้อความแจ้งเตือนว่าอุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันดังกล่าว`) +
+        paragraph(
+          `นี่คือข้อความแจ้งเตือนว่าอุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันดังกล่าว`
+        ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Just a friendly reminder that your item is due back on ${end}. Return it to the BIRSA office on or before that date.`) +
+        paragraph(
+          `Just a friendly reminder that your item is due back on ${end}. Return it to the BIRSA office on or before that date.`
+        ) +
         infoTable(rowsEn),
     });
 
@@ -271,17 +290,24 @@ export function renderPickupReady(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`คำขอยืมของคุณได้รับการอนุมัติแล้ว และอุปกรณ์พร้อมให้มารับได้ตั้งแต่วันที่ ${start} กรุณามารับที่ห้อง BIRSA พร้อมนำบัตรนักศึกษามาแสดง`) +
+        paragraph(
+          `คำขอยืมของคุณได้รับการอนุมัติแล้ว และอุปกรณ์พร้อมให้มารับได้ตั้งแต่วันที่ ${start} กรุณามารับที่ห้อง BIRSA พร้อมนำบัตรนักศึกษามาแสดง`
+        ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
-        paragraph(`Your approved loan is ready for pickup starting ${start}. Collect it from the BIRSA office and bring your student ID.`) +
+        paragraph(
+          `Your approved loan is ready for pickup starting ${start}. Collect it from the BIRSA office and bring your student ID.`
+        ) +
         infoTable(rowsEn),
     });
 
   return {
     subject: `[BIRSA] อุปกรณ์ ${ref} พร้อมให้รับ · Loan ${ref} is ready for pickup`,
-    html: renderLayout({ previewText: `Your loan ${ref} is ready for pickup from ${i.startDate}.`, bodyHtml }),
+    html: renderLayout({
+      previewText: `Your loan ${ref} is ready for pickup from ${i.startDate}.`,
+      bodyHtml,
+    }),
     text: [
       `Hi ${i.borrowerName},`,
       "",
@@ -321,7 +347,10 @@ export function renderOfficerDigest(i: {
   const lowStockListTh =
     i.lowStock.length > 0
       ? `<ul style="margin:0 0 16px;padding-left:20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Sarabun','Noto Sans Thai',Tahoma,Arial,sans-serif;font-size:14px;line-height:1.7;color:#211c19;">${i.lowStock
-          .map((item) => `<li>${escapeHtml(thName(item.nameTh, item.nameEn))} (คงเหลือ ${item.qty})</li>`)
+          .map(
+            (item) =>
+              `<li>${escapeHtml(thName(item.nameTh, item.nameEn))} (คงเหลือ ${item.qty})</li>`
+          )
           .join("")}</ul>`
       : "";
   const lowStockListEn =
@@ -335,7 +364,10 @@ export function renderOfficerDigest(i: {
     heading(`สรุปประจำวัน ${date} &middot; Daily digest for ${date}`) +
     bilingualBlock({
       th: paragraph(`สรุปคลังอุปกรณ์ประจำวันของ BIRSA:`) + infoTable(rowsTh) + lowStockListTh,
-      en: paragraph(`Here is today's inventory summary for BIRSA:`) + infoTable(rowsEn) + lowStockListEn,
+      en:
+        paragraph(`Here is today's inventory summary for BIRSA:`) +
+        infoTable(rowsEn) +
+        lowStockListEn,
     });
 
   const textLowStock =
@@ -345,7 +377,10 @@ export function renderOfficerDigest(i: {
 
   return {
     subject: `[BIRSA] สรุปคลังอุปกรณ์ประจำวัน (${i.date}) · Daily inventory digest (${i.date})`,
-    html: renderLayout({ previewText: `Pending ${i.pending} · Overdue ${i.overdue} · Due soon ${i.dueSoon} · Low stock ${i.lowStock.length}`, bodyHtml }),
+    html: renderLayout({
+      previewText: `Pending ${i.pending} · Overdue ${i.overdue} · Due soon ${i.dueSoon} · Low stock ${i.lowStock.length}`,
+      bodyHtml,
+    }),
     text: [
       `Daily inventory summary for ${i.date}:`,
       "",
@@ -413,7 +448,10 @@ export function renderOfficerNewRequest(i: {
 
   return {
     subject: `[BIRSA] คำขอยืมใหม่ ${ref} · New loan request ${ref}`,
-    html: renderLayout({ previewText: `New loan request ${i.reference} from ${i.studentName}.`, bodyHtml }),
+    html: renderLayout({
+      previewText: `New loan request ${i.reference} from ${i.studentName}.`,
+      bodyHtml,
+    }),
     text: [
       `A new loan request is awaiting review.`,
       `Reference: ${i.reference}`,
@@ -454,13 +492,22 @@ export function renderContact(i: {
   const bodyHtml =
     heading("ข้อความติดต่อใหม่ &middot; New contact message") +
     bilingualBlock({
-      th: paragraph(`มีข้อความติดต่อใหม่ผ่านแบบฟอร์มบนเว็บไซต์:`) + infoTable(rowsTh) + paragraph(message),
-      en: paragraph(`A new message was submitted through the website contact form:`) + infoTable(rowsEn) + paragraph(message),
+      th:
+        paragraph(`มีข้อความติดต่อใหม่ผ่านแบบฟอร์มบนเว็บไซต์:`) +
+        infoTable(rowsTh) +
+        paragraph(message),
+      en:
+        paragraph(`A new message was submitted through the website contact form:`) +
+        infoTable(rowsEn) +
+        paragraph(message),
     });
 
   return {
     subject: `[BIRSA] ข้อความติดต่อใหม่: ${subjectLine} · New contact message: ${subjectLine}`,
-    html: renderLayout({ previewText: `New contact message from ${i.name}: ${i.subject}`, bodyHtml }),
+    html: renderLayout({
+      previewText: `New contact message from ${i.name}: ${i.subject}`,
+      bodyHtml,
+    }),
     text: [
       `A new message was submitted through the website contact form.`,
       `Category: ${i.categoryLabel}`,
@@ -499,13 +546,22 @@ export function renderStartClub(i: {
   const bodyHtml =
     heading("ข้อเสนอจัดตั้งชมรมใหม่ &middot; New start-a-club proposal") +
     bilingualBlock({
-      th: paragraph(`มีข้อเสนอจัดตั้งชมรมใหม่ผ่านเว็บไซต์:`) + infoTable(rowsTh) + paragraph(description),
-      en: paragraph(`A new club proposal was submitted through the website:`) + infoTable(rowsEn) + paragraph(description),
+      th:
+        paragraph(`มีข้อเสนอจัดตั้งชมรมใหม่ผ่านเว็บไซต์:`) +
+        infoTable(rowsTh) +
+        paragraph(description),
+      en:
+        paragraph(`A new club proposal was submitted through the website:`) +
+        infoTable(rowsEn) +
+        paragraph(description),
     });
 
   return {
     subject: `[BIRSA] ข้อเสนอจัดตั้งชมรม: ${clubName} · New start-a-club proposal: ${clubName}`,
-    html: renderLayout({ previewText: `New club proposal "${i.clubName}" from ${i.name}.`, bodyHtml }),
+    html: renderLayout({
+      previewText: `New club proposal "${i.clubName}" from ${i.name}.`,
+      bodyHtml,
+    }),
     text: [
       `A new club proposal was submitted through the website.`,
       `Proposed club: ${i.clubName}`,

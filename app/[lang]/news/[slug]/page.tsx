@@ -72,7 +72,9 @@ export default async function NewsDetailPage({
       />
       <div className="wrap py-10">
         <div className="mb-6 flex flex-wrap items-center gap-3">
-          <Tag variant={isEvent ? "brand" : "neutral"}>{isEvent ? dict.meta.event : dict.meta.news}</Tag>
+          <Tag variant={isEvent ? "brand" : "neutral"}>
+            {isEvent ? dict.meta.event : dict.meta.news}
+          </Tag>
           <span className="text-muted text-sm">
             {dict.meta.published} {formatDate(locale, frontmatter.date)}
           </span>
@@ -103,7 +105,11 @@ export default async function NewsDetailPage({
             <ul className="flex flex-col gap-2">
               {frontmatter.links.map((link) => (
                 <li key={link.href}>
-                  <ExternalLink href={link.href} newTabLabel={dict.a11y.newTab} className="text-brand-deep font-semibold">
+                  <ExternalLink
+                    href={link.href}
+                    newTabLabel={dict.a11y.newTab}
+                    className="text-brand-deep font-semibold"
+                  >
                     {link.label}
                   </ExternalLink>
                 </li>
@@ -113,7 +119,10 @@ export default async function NewsDetailPage({
         ) : null}
 
         <p className="mt-10">
-          <a href={localeHref(locale, "/news")} className="text-brand-deep font-semibold hover:underline">
+          <a
+            href={localeHref(locale, "/news")}
+            className="text-brand-deep font-semibold hover:underline"
+          >
             &larr; {backLabel[locale]}
           </a>
         </p>

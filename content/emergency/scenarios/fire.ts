@@ -4,7 +4,8 @@ const fire: EmergencyScenario = {
   id: "fire",
   severity: "critical",
   en: {
-    bannerMessage: "There is a fire alert for this building. Leave now by the stairs, do not use lifts.",
+    bannerMessage:
+      "There is a fire alert for this building. Leave now by the stairs, do not use lifts.",
     title: "Building Fire",
     lede: "If you see fire or smoke, or hear the fire alarm, act immediately. Fast, calm evacuation is the most important thing you can do to stay safe.",
     immediateActions: [
@@ -61,7 +62,11 @@ const fire: EmergencyScenario = {
     ],
     extraContacts: [
       { label: "Fire and rescue (national)", value: "199", href: "tel:199" },
-      { label: "Bangkok Erawan Emergency Medical Service (for injuries)", value: "1646", href: "tel:1646" },
+      {
+        label: "Bangkok Erawan Emergency Medical Service (for injuries)",
+        value: "1646",
+        href: "tel:1646",
+      },
     ],
   },
   th: {

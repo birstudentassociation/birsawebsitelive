@@ -44,7 +44,7 @@ function ipFromHeaders(h: Headers): string {
  */
 export async function submitContact(
   _prev: ContactState,
-  formData: FormData,
+  formData: FormData
 ): Promise<ContactState> {
   const values: ContactValues = {
     name: String(formData.get("name") ?? ""),
@@ -76,7 +76,9 @@ export async function submitContact(
       if (path === "name") errors.name = dict.form.errors.nameRequired;
       if (path === "email") {
         errors.email =
-          values.email.length === 0 ? dict.form.errors.emailRequired : dict.form.errors.emailInvalid;
+          values.email.length === 0
+            ? dict.form.errors.emailRequired
+            : dict.form.errors.emailInvalid;
       }
       if (path === "category") errors.category = dict.form.errors.categoryRequired;
       if (path === "subject") errors.subject = dict.form.errors.subjectRequired;

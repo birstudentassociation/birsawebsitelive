@@ -8,7 +8,7 @@ export const part05: Part = {
       num: 40,
       title: { en: "Meaning of a Faculty activity group", th: "ความหมายของกลุ่มกิจกรรมคณะ" },
       lead: {
-        en: "A \"Faculty activity group\" means a group of students who have joined together under the same set of rules and regulations to carry out activities for the common good, open in character to students generally, and operating under the supervision of the PSC.",
+        en: 'A "Faculty activity group" means a group of students who have joined together under the same set of rules and regulations to carry out activities for the common good, open in character to students generally, and operating under the supervision of the PSC.',
         th: "กลุ่มกิจกรรมคณะ หมายถึงกลุ่มของนักศึกษารวมตัวกันภายใต้ระเบียบข้อบังคับเดียวกัน เพื่อทำกิจกรรมให้แก่ส่วนรวม มีลักษณะสำหรับนักศึกษาทั่วไป และอยู่ภายใต้การกำกับของ กนศ.ร.",
       },
     },
@@ -21,9 +21,24 @@ export const part05: Part = {
       },
       items: [
         { marker: "(1)", text: { en: "The group's name", th: "ชื่อกลุ่ม" } },
-        { marker: "(2)", text: { en: "The group's membership register", th: "ทะเบียนสมาชิกกลุ่ม" } },
-        { marker: "(3)", text: { en: "The group's objectives, which must not contravene the University's rules and regulations", th: "วัตถุประสงค์ของกลุ่ม ที่ไม่ฝ่าฝืนต่อระเบียบข้อบังคับของมหาวิทยาลัย" } },
-        { marker: "(4)", text: { en: "The rules and methods for the group's administration", th: "ระเบียบวิธีการดำเนินการบริหารงานของกลุ่ม" } },
+        {
+          marker: "(2)",
+          text: { en: "The group's membership register", th: "ทะเบียนสมาชิกกลุ่ม" },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "The group's objectives, which must not contravene the University's rules and regulations",
+            th: "วัตถุประสงค์ของกลุ่ม ที่ไม่ฝ่าฝืนต่อระเบียบข้อบังคับของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "The rules and methods for the group's administration",
+            th: "ระเบียบวิธีการดำเนินการบริหารงานของกลุ่ม",
+          },
+        },
       ],
       tail: {
         en: "The formation or dissolution of a Faculty activity group may be effected only by order of the Dean.",
@@ -57,7 +72,13 @@ export const part05: Part = {
         { marker: "(1)", text: { en: "Chairperson", th: "ประธาน" } },
         { marker: "(2)", text: { en: "Secretary", th: "เลขานุการ" } },
         { marker: "(3)", text: { en: "Treasurer", th: "เหรัญญิก" } },
-        { marker: "(4)", text: { en: "Not less than 2 but not more than 7 other committee members, as the group committee sees fit", th: "กรรมการอื่นไม่น้อยกว่า 2 คน แต่ไม่เกิน 7 คน ตามที่คณะกรรมการกลุ่มเห็นสมควร" } },
+        {
+          marker: "(4)",
+          text: {
+            en: "Not less than 2 but not more than 7 other committee members, as the group committee sees fit",
+            th: "กรรมการอื่นไม่น้อยกว่า 2 คน แต่ไม่เกิน 7 คน ตามที่คณะกรรมการกลุ่มเห็นสมควร",
+          },
+        },
       ],
     },
     {
@@ -76,18 +97,45 @@ export const part05: Part = {
         th: "อำนาจหน้าที่ของคณะกรรมการกลุ่มมีดังต่อไปนี้",
       },
       items: [
-        { marker: "(1)", text: { en: "To act as the group's representative and be responsible for conducting the group's affairs in accordance with its objectives", th: "มีฐานะเป็นผู้แทน และเป็นผู้รับผิดชอบในการดำเนินงานของกลุ่ม ให้เป็นไปตามวัตถุประสงค์" } },
-        { marker: "(2)", text: { en: "To submit the annual work plan to the PSC", th: "เสนอแผนงานประจำปีต่อ กนศ.ร." } },
-        { marker: "(3)", text: { en: "To establish the group's rules of practice", th: "วางระเบียบปฏิบัติของกลุ่ม" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "To act as the group's representative and be responsible for conducting the group's affairs in accordance with its objectives",
+            th: "มีฐานะเป็นผู้แทน และเป็นผู้รับผิดชอบในการดำเนินงานของกลุ่ม ให้เป็นไปตามวัตถุประสงค์",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "To submit the annual work plan to the PSC",
+            th: "เสนอแผนงานประจำปีต่อ กนศ.ร.",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "To establish the group's rules of practice",
+            th: "วางระเบียบปฏิบัติของกลุ่ม",
+          },
+        },
         {
           marker: "(4)",
-          text: { en: "To consider the conduct of a member who has contravened the group's rules or brought disrepute upon the group", th: "พิจารณาการกระทำของสมาชิกที่ฝ่าฝืนระเบียบของกลุ่ม หรือนำความเสื่อมเสียมาสู่กลุ่ม" },
+          text: {
+            en: "To consider the conduct of a member who has contravened the group's rules or brought disrepute upon the group",
+            th: "พิจารณาการกระทำของสมาชิกที่ฝ่าฝืนระเบียบของกลุ่ม หรือนำความเสื่อมเสียมาสู่กลุ่ม",
+          },
           note: {
             en: "A resolution of the group committee suspending a member's rights or removing a member's name from the membership register must be passed by not less than a two-thirds majority of all members of the group committee.",
             th: "มติของคณะกรรมการกลุ่มที่ให้สมาชิกระงับการใช้สิทธิ์ หรือถอนชื่อออกจากเป็นสมาชิกกลุ่ม ต้องได้รับคะแนนเสียงไม่น้อยกว่า 2 ใน 3 ของจำนวนกรรมการกลุ่มทั้งหมด",
           },
         },
-        { marker: "(5)", text: { en: "To be responsible for the care and safekeeping of the group's documents and equipment", th: "รับผิดชอบ ดูแลรักษาเอกสารและวัสดุอุปกรณ์ต่าง ๆ ของกลุ่ม" } },
+        {
+          marker: "(5)",
+          text: {
+            en: "To be responsible for the care and safekeeping of the group's documents and equipment",
+            th: "รับผิดชอบ ดูแลรักษาเอกสารและวัสดุอุปกรณ์ต่าง ๆ ของกลุ่ม",
+          },
+        },
       ],
     },
     {
@@ -125,9 +173,27 @@ export const part05: Part = {
         { marker: "(1)", text: { en: "Retiring at the end of the term", th: "ออกตามวาระ" } },
         { marker: "(2)", text: { en: "Death", th: "ตาย" } },
         { marker: "(3)", text: { en: "Resignation", th: "ลาออก" } },
-        { marker: "(4)", text: { en: "Losing the qualifications required under section 45", th: "ขาดคุณสมบัติตามข้อ 45" } },
-        { marker: "(5)", text: { en: "Being subject to disciplinary punishment under the University's regulations", th: "ถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย" } },
-        { marker: "(6)", text: { en: "More than one-half of the group's members sign a petition for the member's removal", th: "สมาชิกกลุ่มจำนวนเกินกว่ากึ่งหนึ่งเข้าชื่อให้ออก" } },
+        {
+          marker: "(4)",
+          text: {
+            en: "Losing the qualifications required under section 45",
+            th: "ขาดคุณสมบัติตามข้อ 45",
+          },
+        },
+        {
+          marker: "(5)",
+          text: {
+            en: "Being subject to disciplinary punishment under the University's regulations",
+            th: "ถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(6)",
+          text: {
+            en: "More than one-half of the group's members sign a petition for the member's removal",
+            th: "สมาชิกกลุ่มจำนวนเกินกว่ากึ่งหนึ่งเข้าชื่อให้ออก",
+          },
+        },
       ],
     },
     {
@@ -146,11 +212,38 @@ export const part05: Part = {
         th: "กลุ่มกิจกรรมคณะ อาจเลิก หรือถูกยกเลิกได้โดยเหตุหนึ่งเหตุใดดังต่อไปนี้",
       },
       items: [
-        { marker: "(1)", text: { en: "Dissolution for a cause specified in that group's own rules and regulations", th: "เลิกโดยเหตุที่กำหนดไว้ในระเบียบข้อบังคับของกลุ่มนั้นๆ" } },
-        { marker: "(2)", text: { en: "Its membership falling below 20", th: "มีจำนวนสมาชิกลดลงต่ำกว่า 20 คน" } },
-        { marker: "(3)", text: { en: "Failing to pursue, or acting contrary to, the group's objectives", th: "ไม่ได้ดำเนินการตามวัตถุประสงค์ของกลุ่ม หรือดำเนินการฝ่าฝืนวัตถุประสงค์ของกลุ่ม" } },
-        { marker: "(4)", text: { en: "Contravening or failing to comply with this Notice", th: "ฝ่าฝืน ไม่ปฏิบัติตามระเบียบนี้" } },
-        { marker: "(5)", text: { en: "Bringing disrepute upon the reputation and honour of the Faculty or the University", th: "ทำความเสื่อมเสียต่อชื่อเสียง และเกียรติคุณของคณะ หรือมหาวิทยาลัย" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "Dissolution for a cause specified in that group's own rules and regulations",
+            th: "เลิกโดยเหตุที่กำหนดไว้ในระเบียบข้อบังคับของกลุ่มนั้นๆ",
+          },
+        },
+        {
+          marker: "(2)",
+          text: { en: "Its membership falling below 20", th: "มีจำนวนสมาชิกลดลงต่ำกว่า 20 คน" },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "Failing to pursue, or acting contrary to, the group's objectives",
+            th: "ไม่ได้ดำเนินการตามวัตถุประสงค์ของกลุ่ม หรือดำเนินการฝ่าฝืนวัตถุประสงค์ของกลุ่ม",
+          },
+        },
+        {
+          marker: "(4)",
+          text: {
+            en: "Contravening or failing to comply with this Notice",
+            th: "ฝ่าฝืน ไม่ปฏิบัติตามระเบียบนี้",
+          },
+        },
+        {
+          marker: "(5)",
+          text: {
+            en: "Bringing disrepute upon the reputation and honour of the Faculty or the University",
+            th: "ทำความเสื่อมเสียต่อชื่อเสียง และเกียรติคุณของคณะ หรือมหาวิทยาลัย",
+          },
+        },
       ],
     },
     {
@@ -161,9 +254,27 @@ export const part05: Part = {
         th: "ทะเบียนสมาชิกกลุ่ม โดยสมาชิกกลุ่มกิจกรรมคณะต้องมีคุณสมบัติดังต่อไปนี้",
       },
       items: [
-        { marker: "(1)", text: { en: "Be a student of the Faculty of Political Science currently studying at undergraduate level at the University", th: "เป็นนักศึกษาคณะรัฐศาสตร์ ที่กำลังศึกษาอยู่ในระดับปริญญาตรี ของมหาวิทยาลัย" } },
-        { marker: "(2)", text: { en: "Not be under disciplinary punishment under the University's regulations", th: "ไม่อยู่ในระหว่างถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย" } },
-        { marker: "(3)", text: { en: "Not be on a leave of absence during that academic year", th: "ไม่อยู่ในขณะลาพักการศึกษาในปีการศึกษานั้น" } },
+        {
+          marker: "(1)",
+          text: {
+            en: "Be a student of the Faculty of Political Science currently studying at undergraduate level at the University",
+            th: "เป็นนักศึกษาคณะรัฐศาสตร์ ที่กำลังศึกษาอยู่ในระดับปริญญาตรี ของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(2)",
+          text: {
+            en: "Not be under disciplinary punishment under the University's regulations",
+            th: "ไม่อยู่ในระหว่างถูกลงโทษทางวินัย ตามข้อบังคับของมหาวิทยาลัย",
+          },
+        },
+        {
+          marker: "(3)",
+          text: {
+            en: "Not be on a leave of absence during that academic year",
+            th: "ไม่อยู่ในขณะลาพักการศึกษาในปีการศึกษานั้น",
+          },
+        },
       ],
     },
     {

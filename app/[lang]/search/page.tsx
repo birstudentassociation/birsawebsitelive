@@ -123,7 +123,8 @@ export default async function SearchPage({
         title: entry.frontmatter.title,
         summary: entry.frontmatter.summary,
       }));
-    if (newsResults.length > 0) groups.push({ key: "news", label: t.groups.news, items: newsResults });
+    if (newsResults.length > 0)
+      groups.push({ key: "news", label: t.groups.news, items: newsResults });
 
     const activityResults: ResultItem[] = getEntries("activity", locale)
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
@@ -162,7 +163,8 @@ export default async function SearchPage({
         title: club[locale].name,
         summary: club[locale].tagline,
       }));
-    if (clubResults.length > 0) groups.push({ key: "clubs", label: t.groups.clubs, items: clubResults });
+    if (clubResults.length > 0)
+      groups.push({ key: "clubs", label: t.groups.clubs, items: clubResults });
   }
 
   const totalResults = groups.reduce((sum, group) => sum + group.items.length, 0);
@@ -181,7 +183,12 @@ export default async function SearchPage({
         }
       />
       <div className="wrap flex flex-col gap-8 py-10">
-        <form method="GET" action={localeHref(locale, "/search")} role="search" className="flex flex-col gap-3 sm:flex-row sm:items-end">
+        <form
+          method="GET"
+          action={localeHref(locale, "/search")}
+          role="search"
+          className="flex flex-col gap-3 sm:flex-row sm:items-end"
+        >
           <div className="flex max-w-sm flex-1 flex-col gap-1.5">
             <label htmlFor="search-q" className="text-ink text-sm font-semibold">
               {dict.actions.search}
@@ -213,7 +220,10 @@ export default async function SearchPage({
                   <h2 className="font-display text-2xl">{group.label}</h2>
                   <ul className="flex flex-col gap-4">
                     {group.items.map((item) => (
-                      <li key={item.slug} className="border-line border-b pb-4 last:border-b-0 last:pb-0">
+                      <li
+                        key={item.slug}
+                        className="border-line border-b pb-4 last:border-b-0 last:pb-0"
+                      >
                         <a
                           href={item.href}
                           className="text-brand-deep hover:text-brand-dark font-display text-lg font-semibold hover:underline"

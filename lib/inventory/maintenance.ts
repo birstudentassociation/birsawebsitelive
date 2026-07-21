@@ -48,7 +48,10 @@ export async function openMaintenance(input: {
   issue: string;
   conditionBefore?: UnitCondition | null;
   officerId?: string | null;
-}): Promise<{ ok: true; entry: MaintenanceEntry } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+}): Promise<
+  | { ok: true; entry: MaintenanceEntry }
+  | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -85,7 +88,11 @@ export async function openMaintenance(input: {
  */
 export async function closeMaintenance(
   id: string,
-  input: { actionTaken?: string | null; conditionAfter?: UnitCondition | null; officerId?: string | null }
+  input: {
+    actionTaken?: string | null;
+    conditionAfter?: UnitCondition | null;
+    officerId?: string | null;
+  }
 ): Promise<
   | { ok: true; entry: MaintenanceEntry }
   | { ok: false; reason: "not-configured" | "not-found" | "already-closed" | "error" }

@@ -21,7 +21,12 @@ export async function generateMetadata({
       ? "ตรวจสอบสถานะคำขอยืมอุปกรณ์ของ BIRSA ด้วยหมายเลขอ้างอิงและอีเมล พร้อมยกเลิกคำขอที่ยังรอดำเนินการได้"
       : "Check the status of a BIRSA equipment loan request with your reference number and email, and cancel a pending request if you need to.";
 
-  return buildMetadata({ locale, title, description, path: "/information-services/equipment-loan/status" });
+  return buildMetadata({
+    locale,
+    title,
+    description,
+    path: "/information-services/equipment-loan/status",
+  });
 }
 
 const copy: Record<
@@ -43,7 +48,8 @@ const copy: Record<
     breadcrumbStatus: "Check a request",
     labels: {
       referenceLabel: "Reference number",
-      referenceHint: "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
+      referenceHint:
+        "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
       emailLabel: "TU email",
       emailHint: "The email address you used on the request.",
       submit: "Check status",
@@ -109,7 +115,8 @@ const copy: Record<
         emailInvalid: "กรุณากรอกอีเมลให้ถูกต้อง",
       },
       notFoundTitle: "ไม่พบคำขอที่ตรงกัน",
-      notFoundBody: "กรุณาตรวจสอบหมายเลขอ้างอิงและอีเมลอีกครั้ง แล้วลองใหม่ หากยังพบปัญหา กรุณาติดต่อ BIRSA โดยตรง",
+      notFoundBody:
+        "กรุณาตรวจสอบหมายเลขอ้างอิงและอีเมลอีกครั้ง แล้วลองใหม่ หากยังพบปัญหา กรุณาติดต่อ BIRSA โดยตรง",
       rateLimitedTitle: "ลองใหม่บ่อยเกินไป",
       rateLimitedBody: "กรุณารอสักครู่แล้วลองใหม่อีกครั้ง",
       errorTitle: "เกิดข้อผิดพลาด",

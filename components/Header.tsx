@@ -64,7 +64,12 @@ export default function Header({ locale }: HeaderProps) {
           >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4.5 w-4.5 shrink-0">
               <circle cx="9" cy="9" r="6.25" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path d="m17 17-3.7-3.7" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
+              <path
+                d="m17 17-3.7-3.7"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+              />
             </svg>
           </Link>
           <ThemeToggle

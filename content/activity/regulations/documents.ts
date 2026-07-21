@@ -59,11 +59,7 @@ const politicalScience2565: RegulationDoc = {
 /** The regulations library, ordered: the University Regulation on student
  * activities, the Faculty Notice issued under it, then the University
  * Regulation on student discipline. */
-export const documents: RegulationDoc[] = [
-  university2563,
-  politicalScience2565,
-  discipline2568,
-];
+export const documents: RegulationDoc[] = [university2563, politicalScience2565, discipline2568];
 
 export function getDocument(slug: string): RegulationDoc | undefined {
   return documents.find((doc) => doc.slug === slug);

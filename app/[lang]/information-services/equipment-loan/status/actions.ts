@@ -40,7 +40,7 @@ function ipFromHeaders(h: Headers): string {
  */
 export async function submitLoanLookup(
   _prev: LoanLookupState,
-  formData: FormData,
+  formData: FormData
 ): Promise<LoanLookupState> {
   const values = {
     reference: String(formData.get("reference") ?? "").trim(),

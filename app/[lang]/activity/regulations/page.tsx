@@ -33,7 +33,12 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const t = copy[locale];
-  return buildMetadata({ locale, title: t.title, description: t.lede, path: "/activity/regulations" });
+  return buildMetadata({
+    locale,
+    title: t.title,
+    description: t.lede,
+    path: "/activity/regulations",
+  });
 }
 
 export default async function RegulationsIndexPage({

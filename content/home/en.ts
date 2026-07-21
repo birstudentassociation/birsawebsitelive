@@ -52,7 +52,8 @@ export const homeEn = {
       },
       informationServices: {
         label: "Information and services",
-        description: "Equipment loans and guides for settling in, whether you're a home or international student.",
+        description:
+          "Equipment loans and guides for settling in, whether you're a home or international student.",
       },
       news: {
         label: "What's on",
@@ -71,18 +72,19 @@ export const homeEn = {
       },
       regulations: {
         label: "Student regulations",
-        description: "The University's regulations and Faculty Notice on student activities and discipline.",
+        description:
+          "The University's regulations and Faculty Notice on student activities and discipline.",
       },
       overview: {
         label: "BIRSA activity",
-        description: "Officer roles, student regulations, transparency documents, and news, all in one place.",
+        description:
+          "Officer roles, student regulations, transparency documents, and news, all in one place.",
       },
     },
   },
   newHere: {
     title: "New here?",
-    body:
-      "Whether you've just arrived from a Thai school or you're joining us from abroad, our student-life guide has a track built for you.",
+    body: "Whether you've just arrived from a Thai school or you're joining us from abroad, our student-life guide has a track built for you.",
     cta: "Go to Information and services",
   },
 };

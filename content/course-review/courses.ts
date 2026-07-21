@@ -13,38 +13,120 @@ import type { Course, Instructor } from "./types";
  * under their teaching. Defined once here and referenced below so a name or URL
  * change is a single edit; teaching assignments can vary by term.
  */
-const THAME: Instructor = { name: { en: "Assoc. Prof. Dr. Charlie Thame", th: "รศ.ดร.ชาร์ลี เทม" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-charles-edward-morgan-thame/" };
-const AMPORN: Instructor = { name: { en: "Prof. Dr. Amporn Tamronglak", th: "ศ.ดร.อัมพร ธำรงลักษณ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-amporn-tamronglak/" };
-const JOSEPH: Instructor = { name: { en: "Dr. Joseph Lee", th: "ดร.โจเซฟ ลี" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-joseph-lee/" };
-const REBECCA: Instructor = { name: { en: "Rebecca Anne Goncharoff", th: "อ.รีเบคกา กอนชารอฟ" }, profileUrl: "https://polsci.tu.ac.th/en/team/rebecca-anne-goncharoff-2/" };
-const PEERA: Instructor = { name: { en: "Assoc. Prof. Dr. Peera Charoenvattananukul", th: "รศ.ดร.พีระ เจริญวัฒนนุกูล" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-peera-charoenvattananukul/" };
-const COWIE: Instructor = { name: { en: "Iain Cowie", th: "อ.เอียน โควี" }, profileUrl: "https://polsci.tu.ac.th/en/team/iain-cowie/" };
-const FUADI: Instructor = { name: { en: "Dr. Fuadi Pitsuwan", th: "อ.ดร.ฟูอาดี้ พิศสุวรรณ" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-fuadi-pitsuwan/" };
-const SUNIDA: Instructor = { name: { en: "Assoc. Prof. Dr. Sunida Aroonpipat", th: "รศ.ดร.สุนิดา อรุณพิพัฒน์" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunida-aroonpipat/" };
-const SIKARN: Instructor = { name: { en: "Assoc. Prof. Dr. Sikarn Issarachaiyos", th: "รศ.ดร.ศิกานต์ อิสสระชัยยศ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sikarn-lssarachaiyos/" };
-const PULI: Instructor = { name: { en: "Assoc. Prof. Dr. Puli Fuwongcharoen", th: "รศ.ดร.ภูริ ฟูวงศ์เจริญ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-puli-fuwongcharoen/" };
-const SUNISA: Instructor = { name: { en: "Assoc. Prof. Dr. Sunisa Chorkaew", th: "รศ.ดร.สุนิสา ช่อแก้ว" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunisa-chorkaew/" };
-const WASAN: Instructor = { name: { en: "Assoc. Prof. Dr. Wasan Luangprapat", th: "รศ.ดร.วสันต์ เหลืองประภัสร์" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-wasan-luangprapat/" };
-const JARAN: Instructor = { name: { en: "Prof. Dr. Jaran Maluleem", th: "ศ.ดร.จรัญ มะลูลีม" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-jaran-maluleem/" };
-const PONGKWAN: Instructor = { name: { en: "Dr. Pongkwan Sawasdipakdi", th: "ดร.ปองขวัญ สวัสดิภักดิ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-pongkwan-sawasdipakdi/" };
-const PINITBHAND: Instructor = { name: { en: "Assoc. Prof. Dr. M.L. Pinitbhand Paribatra", th: "รศ.ดร.ม.ล.พินิตพันธุ์ บริพัตร" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-m-l-pinitbhand-paribatra/" };
-const SIREMORN: Instructor = { name: { en: "Dr. Siremorn Asvapromtada", th: "อ.ดร.สิเรมอร อัศวพรหมธาดา" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-siremorn-asvapromtada/" };
-const CHAYANIT: Instructor = { name: { en: "Dr. Chayanit Poonyarat", th: "อ.ดร.ชญานิษฐ์ พูลยรัตน์" }, profileUrl: "https://polsci.tu.ac.th/en/team/r-chayanit-poonyarat/" };
-const CHALIDAPORN: Instructor = { name: { en: "Prof. Dr. Chalidaporn Songsamphan", th: "ศ.ดร.ชลิดาภรณ์ ส่งสัมพันธ์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-chalidaporn-songsamphan/" };
-const ATTAKRIT: Instructor = { name: { en: "Prof. Dr. Attakrit Patchimnan", th: "ศ.ดร.อรรถกฤต ปัจฉิมนันท์" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-attakrit-patchimnan/" };
-const KITTI: Instructor = { name: { en: "Prof. Dr. Kitti Prasirtsuk", th: "ศ.ดร.กิตติ ประเสริฐสุข" }, profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-kitti-prasirtsuk/" };
-const CHANINTIRA: Instructor = { name: { en: "Prof. Dr. Chanintira na Thalang", th: "ศ.ดร.ชนินท์ทิรา ณ ถลาง" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-chanintira-na-thalang/" };
-const PRAPIMPHAN: Instructor = { name: { en: "Assoc. Prof. Dr. Prapimphan Chiengkul", th: "ผศ.ดร.ประพิมพ์ฝัน เชียงกูล" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-prapimphan-chiengkul/" };
-const JITTIPAT: Instructor = { name: { en: "Assoc. Prof. Dr. Jittipat Poonkham", th: "รศ.ดร.จิตติภัทร พูนขำ" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-jittipat/" };
-const AJIRAPA: Instructor = { name: { en: "Asst. Prof. Dr. Ajirapa Pienkhuntod", th: "ผศ.ดร.อจิรภาส์ เพียรขุนทด" }, profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-ajirapa-pienkhuntod/" };
-const WASIN: Instructor = { name: { en: "Dr. Wasin Punthong", th: "ดร.วศิน ปั้นทอง" }, profileUrl: "https://polsci.tu.ac.th/en/team/dr-wasin-punthong/" };
-const GAMOLPORN: Instructor = { name: { en: "Assoc. Prof. Dr. Gamolporn Sonsri", th: "รศ.ดร.กมลพร สอนศรี" }, profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-gamolporn-sonsri/" };
+const THAME: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Charlie Thame", th: "รศ.ดร.ชาร์ลี เทม" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-charles-edward-morgan-thame/",
+};
+const AMPORN: Instructor = {
+  name: { en: "Prof. Dr. Amporn Tamronglak", th: "ศ.ดร.อัมพร ธำรงลักษณ์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-amporn-tamronglak/",
+};
+const JOSEPH: Instructor = {
+  name: { en: "Dr. Joseph Lee", th: "ดร.โจเซฟ ลี" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/dr-joseph-lee/",
+};
+const REBECCA: Instructor = {
+  name: { en: "Rebecca Anne Goncharoff", th: "อ.รีเบคกา กอนชารอฟ" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/rebecca-anne-goncharoff-2/",
+};
+const PEERA: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Peera Charoenvattananukul", th: "รศ.ดร.พีระ เจริญวัฒนนุกูล" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-peera-charoenvattananukul/",
+};
+const COWIE: Instructor = {
+  name: { en: "Iain Cowie", th: "อ.เอียน โควี" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/iain-cowie/",
+};
+const FUADI: Instructor = {
+  name: { en: "Dr. Fuadi Pitsuwan", th: "อ.ดร.ฟูอาดี้ พิศสุวรรณ" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/dr-fuadi-pitsuwan/",
+};
+const SUNIDA: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Sunida Aroonpipat", th: "รศ.ดร.สุนิดา อรุณพิพัฒน์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunida-aroonpipat/",
+};
+const SIKARN: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Sikarn Issarachaiyos", th: "รศ.ดร.ศิกานต์ อิสสระชัยยศ" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sikarn-lssarachaiyos/",
+};
+const PULI: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Puli Fuwongcharoen", th: "รศ.ดร.ภูริ ฟูวงศ์เจริญ" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-puli-fuwongcharoen/",
+};
+const SUNISA: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Sunisa Chorkaew", th: "รศ.ดร.สุนิสา ช่อแก้ว" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-sunisa-chorkaew/",
+};
+const WASAN: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Wasan Luangprapat", th: "รศ.ดร.วสันต์ เหลืองประภัสร์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-wasan-luangprapat/",
+};
+const JARAN: Instructor = {
+  name: { en: "Prof. Dr. Jaran Maluleem", th: "ศ.ดร.จรัญ มะลูลีม" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-jaran-maluleem/",
+};
+const PONGKWAN: Instructor = {
+  name: { en: "Dr. Pongkwan Sawasdipakdi", th: "ดร.ปองขวัญ สวัสดิภักดิ์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/dr-pongkwan-sawasdipakdi/",
+};
+const PINITBHAND: Instructor = {
+  name: { en: "Assoc. Prof. Dr. M.L. Pinitbhand Paribatra", th: "รศ.ดร.ม.ล.พินิตพันธุ์ บริพัตร" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-m-l-pinitbhand-paribatra/",
+};
+const SIREMORN: Instructor = {
+  name: { en: "Dr. Siremorn Asvapromtada", th: "อ.ดร.สิเรมอร อัศวพรหมธาดา" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/dr-siremorn-asvapromtada/",
+};
+const CHAYANIT: Instructor = {
+  name: { en: "Dr. Chayanit Poonyarat", th: "อ.ดร.ชญานิษฐ์ พูลยรัตน์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/r-chayanit-poonyarat/",
+};
+const CHALIDAPORN: Instructor = {
+  name: { en: "Prof. Dr. Chalidaporn Songsamphan", th: "ศ.ดร.ชลิดาภรณ์ ส่งสัมพันธ์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-chalidaporn-songsamphan/",
+};
+const ATTAKRIT: Instructor = {
+  name: { en: "Prof. Dr. Attakrit Patchimnan", th: "ศ.ดร.อรรถกฤต ปัจฉิมนันท์" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-attakrit-patchimnan/",
+};
+const KITTI: Instructor = {
+  name: { en: "Prof. Dr. Kitti Prasirtsuk", th: "ศ.ดร.กิตติ ประเสริฐสุข" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/prof-dr-kitti-prasirtsuk/",
+};
+const CHANINTIRA: Instructor = {
+  name: { en: "Prof. Dr. Chanintira na Thalang", th: "ศ.ดร.ชนินท์ทิรา ณ ถลาง" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-chanintira-na-thalang/",
+};
+const PRAPIMPHAN: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Prapimphan Chiengkul", th: "ผศ.ดร.ประพิมพ์ฝัน เชียงกูล" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-prapimphan-chiengkul/",
+};
+const JITTIPAT: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Jittipat Poonkham", th: "รศ.ดร.จิตติภัทร พูนขำ" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-jittipat/",
+};
+const AJIRAPA: Instructor = {
+  name: { en: "Asst. Prof. Dr. Ajirapa Pienkhuntod", th: "ผศ.ดร.อจิรภาส์ เพียรขุนทด" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/asst-prof-dr-ajirapa-pienkhuntod/",
+};
+const WASIN: Instructor = {
+  name: { en: "Dr. Wasin Punthong", th: "ดร.วศิน ปั้นทอง" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/dr-wasin-punthong/",
+};
+const GAMOLPORN: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Gamolporn Sonsri", th: "รศ.ดร.กมลพร สอนศรี" },
+  profileUrl: "https://polsci.tu.ac.th/en/team/assoc-prof-dr-gamolporn-sonsri/",
+};
 // No current faculty-directory profile (retired, or based in another faculty),
 // so no profileUrl, and their name renders as plain text on the detail page.
-const VIBOONPONG: Instructor = { name: { en: "Asst. Prof. Dr. Viboonpong Poonprasit", th: "ผศ.ดร.วิบูลพงศ์ พูนประสิทธิ์" } };
+const VIBOONPONG: Instructor = {
+  name: { en: "Asst. Prof. Dr. Viboonpong Poonprasit", th: "ผศ.ดร.วิบูลพงศ์ พูนประสิทธิ์" },
+};
 const TRIN: Instructor = { name: { en: "Asst. Prof. Dr. Trin Aiyara", th: "ผศ.ดร.ตฤณ ไอยะรา" } };
 const VIROT: Instructor = { name: { en: "Virot Ali", th: "อ.วิโรจน์ อาลี" } };
-const WIJITBUSABA: Instructor = { name: { en: "Assoc. Prof. Dr. Wijitbusaba Marome", th: "รศ.ดร.วิจิตรบุษบา มารมย์" } };
+const WIJITBUSABA: Instructor = {
+  name: { en: "Assoc. Prof. Dr. Wijitbusaba Marome", th: "รศ.ดร.วิจิตรบุษบา มารมย์" },
+};
 const THANES: Instructor = { name: { en: "Prof. Thanes Wongyannava", th: "ศ.ธเนศ วงศ์ยานนาวา" } };
 
 export const courses: Course[] = [
@@ -149,7 +231,10 @@ export const courses: Course[] = [
   {
     code: "PI241",
     instructors: [AMPORN],
-    title: { en: "Introduction to Public Administration and Public Policy", th: "ความรู้เบื้องต้นทางบริหารรัฐกิจและนโยบายสาธารณะ" },
+    title: {
+      en: "Introduction to Public Administration and Public Policy",
+      th: "ความรู้เบื้องต้นทางบริหารรัฐกิจและนโยบายสาธารณะ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
     track: "foundational",
@@ -175,7 +260,10 @@ export const courses: Course[] = [
   {
     code: "PI271",
     instructors: [JITTIPAT],
-    title: { en: "Introduction to International Relations", th: "ความรู้เบื้องต้นทางความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Introduction to International Relations",
+      th: "ความรู้เบื้องต้นทางความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
     track: "foundational",
@@ -201,7 +289,10 @@ export const courses: Course[] = [
   {
     code: "PI280",
     instructors: [PEERA],
-    title: { en: "International Relations Theories and Current Affairs", th: "ทฤษฎีความสัมพันธ์ระหว่างประเทศและเหตุการณ์ปัจจุบัน" },
+    title: {
+      en: "International Relations Theories and Current Affairs",
+      th: "ทฤษฎีความสัมพันธ์ระหว่างประเทศและเหตุการณ์ปัจจุบัน",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
     track: "foundational",
@@ -215,7 +306,10 @@ export const courses: Course[] = [
   {
     code: "PI282",
     instructors: [COWIE, REBECCA],
-    title: { en: "Reading and Analysis in International Relations", th: "การอ่านและการวิเคราะห์ในความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Reading and Analysis in International Relations",
+      th: "การอ่านและการวิเคราะห์ในความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
     track: "foundational",
@@ -321,7 +415,10 @@ export const courses: Course[] = [
   {
     code: "PI340",
     instructors: [AJIRAPA],
-    title: { en: "Public Policy and Management in the Global Context", th: "นโยบายและการจัดการสาธารณะในบริบทโลก" },
+    title: {
+      en: "Public Policy and Management in the Global Context",
+      th: "นโยบายและการจัดการสาธารณะในบริบทโลก",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "public-admin-policy",
@@ -334,7 +431,10 @@ export const courses: Course[] = [
   {
     code: "PI341",
     instructors: [SIKARN],
-    title: { en: "Policy Analysis and Evaluation: Concepts and Techniques", th: "การวิเคราะห์และประเมินผลนโยบาย: แนวคิดและเทคนิค" },
+    title: {
+      en: "Policy Analysis and Evaluation: Concepts and Techniques",
+      th: "การวิเคราะห์และประเมินผลนโยบาย: แนวคิดและเทคนิค",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "public-admin-policy",
@@ -347,7 +447,10 @@ export const courses: Course[] = [
   {
     code: "PI342",
     instructors: [SUNISA],
-    title: { en: "Organisation and Human Resources Management: Theories and Practices", th: "การจัดการองค์การและการบริหารทรัพยากรมนุษย์: ทฤษฎีและปฏิบัติ" },
+    title: {
+      en: "Organisation and Human Resources Management: Theories and Practices",
+      th: "การจัดการองค์การและการบริหารทรัพยากรมนุษย์: ทฤษฎีและปฏิบัติ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "public-admin-policy",
@@ -385,7 +488,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI345",
-    title: { en: "Disaster and Emergency Management", th: "การบริหารจัดการภัยพิบัติและภาวะฉุกเฉิน" },
+    title: {
+      en: "Disaster and Emergency Management",
+      th: "การบริหารจัดการภัยพิบัติและภาวะฉุกเฉิน",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "public-admin-policy",
@@ -436,7 +542,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI349",
-    title: { en: "Information Technology Management in the Public Sector", th: "การบริหารเทคโนโลยีสารสนเทศในภาครัฐ" },
+    title: {
+      en: "Information Technology Management in the Public Sector",
+      th: "การบริหารเทคโนโลยีสารสนเทศในภาครัฐ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "public-admin-policy",
@@ -477,7 +586,10 @@ export const courses: Course[] = [
   {
     code: "PI366",
     instructors: [PONGKWAN],
-    title: { en: "The United States of America in Global Politics", th: "สหรัฐอเมริกาในการเมืองโลก" },
+    title: {
+      en: "The United States of America in Global Politics",
+      th: "สหรัฐอเมริกาในการเมืองโลก",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-area",
     track: "international-relations",
@@ -584,7 +696,10 @@ export const courses: Course[] = [
   {
     code: "PI376",
     instructors: [THAME],
-    title: { en: "Alternative Approaches in International Relations", th: "ระเบียบวิธีศึกษาทางเลือกในความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Alternative Approaches in International Relations",
+      th: "ระเบียบวิธีศึกษาทางเลือกในความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -673,7 +788,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI383",
-    title: { en: "Ethics and International Relations", th: "จริยศาสตร์และความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Ethics and International Relations",
+      th: "จริยศาสตร์และความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "governance-transnational",
@@ -686,7 +804,10 @@ export const courses: Course[] = [
   {
     code: "PI384",
     instructors: [WASIN],
-    title: { en: "Selected Topics in Global Governance", th: "การศึกษาเฉพาะประเด็นเกี่ยวกับโลกาภิบาล" },
+    title: {
+      en: "Selected Topics in Global Governance",
+      th: "การศึกษาเฉพาะประเด็นเกี่ยวกับโลกาภิบาล",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "governance-transnational",
@@ -790,7 +911,10 @@ export const courses: Course[] = [
   {
     code: "PI395",
     instructors: [SUNIDA],
-    title: { en: "International Political Economy in Asia", th: "เศรษฐกิจการเมืองระหว่างประเทศในเอเชีย" },
+    title: {
+      en: "International Political Economy in Asia",
+      th: "เศรษฐกิจการเมืองระหว่างประเทศในเอเชีย",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "global-political-economy",
@@ -853,7 +977,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI413",
-    title: { en: "Seminar: Globalisation, Regional Grouping and the State", th: "สัมมนา: โลกาภิวัตน์ การรวมกลุ่มทางภูมิภาคและรัฐ" },
+    title: {
+      en: "Seminar: Globalisation, Regional Grouping and the State",
+      th: "สัมมนา: โลกาภิวัตน์ การรวมกลุ่มทางภูมิภาคและรัฐ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "governance-transnational",
@@ -866,7 +993,10 @@ export const courses: Course[] = [
   {
     code: "PI414",
     instructors: [COWIE],
-    title: { en: "Seminar: International Conflict and Resolutions", th: "สัมมนา: ความขัดแย้งและการจัดการความขัดแย้ง" },
+    title: {
+      en: "Seminar: International Conflict and Resolutions",
+      th: "สัมมนา: ความขัดแย้งและการจัดการความขัดแย้ง",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "governance-transnational",
@@ -891,7 +1021,10 @@ export const courses: Course[] = [
   {
     code: "PI444",
     instructors: [AMPORN],
-    title: { en: "Selected Topics in Public Administration", th: "การศึกษาเฉพาะประเด็นทางการบริหารรัฐกิจ" },
+    title: {
+      en: "Selected Topics in Public Administration",
+      th: "การศึกษาเฉพาะประเด็นทางการบริหารรัฐกิจ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "public-admin-policy",
@@ -904,7 +1037,10 @@ export const courses: Course[] = [
   {
     code: "PI470",
     instructors: [JITTIPAT],
-    title: { en: "Seminar: International Relations Theories", th: "สัมมนา: ทฤษฎีความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Seminar: International Relations Theories",
+      th: "สัมมนา: ทฤษฎีความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "required",
     track: "foundational",
@@ -970,7 +1106,10 @@ export const courses: Course[] = [
   {
     code: "PI478",
     instructors: [PONGKWAN],
-    title: { en: "Political Psychology and International Relations", th: "จิตวิทยาการเมืองและความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Political Psychology and International Relations",
+      th: "จิตวิทยาการเมืองและความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -996,7 +1135,10 @@ export const courses: Course[] = [
   {
     code: "PI480",
     instructors: [VIROT],
-    title: { en: "Seminar: Issues in Global Political Economy", th: "สัมมนา: ประเด็นปัญหาเศรษฐกิจการเมืองโลก" },
+    title: {
+      en: "Seminar: Issues in Global Political Economy",
+      th: "สัมมนา: ประเด็นปัญหาเศรษฐกิจการเมืองโลก",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-required",
     track: "global-political-economy",
@@ -1008,7 +1150,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI483",
-    title: { en: "Seminar: Non-Western International Relations Theories", th: "สัมมนา: ทฤษฎีความสัมพันธ์ระหว่างประเทศที่ไม่ใช่แบบตะวันตก" },
+    title: {
+      en: "Seminar: Non-Western International Relations Theories",
+      th: "สัมมนา: ทฤษฎีความสัมพันธ์ระหว่างประเทศที่ไม่ใช่แบบตะวันตก",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -1020,7 +1165,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI484",
-    title: { en: "Seminar: International Regimes, Institutions and Governance", th: "สัมมนา: ระบอบ สถาบัน และการอภิบาลระหว่างประเทศ" },
+    title: {
+      en: "Seminar: International Regimes, Institutions and Governance",
+      th: "สัมมนา: ระบอบ สถาบัน และการอภิบาลระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -1058,7 +1206,10 @@ export const courses: Course[] = [
   {
     code: "PI487",
     instructors: [JOSEPH],
-    title: { en: "The International Relations of Rising Powers", th: "ความสัมพันธ์ระหว่างประเทศของอำนาจใหม่" },
+    title: {
+      en: "The International Relations of Rising Powers",
+      th: "ความสัมพันธ์ระหว่างประเทศของอำนาจใหม่",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -1070,7 +1221,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI488",
-    title: { en: "Classical Theories in International Relations", th: "ทฤษฎีคลาสสิกในความสัมพันธ์ระหว่างประเทศ" },
+    title: {
+      en: "Classical Theories in International Relations",
+      th: "ทฤษฎีคลาสสิกในความสัมพันธ์ระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-approach",
     track: "international-relations",
@@ -1109,7 +1263,10 @@ export const courses: Course[] = [
   {
     code: "PI494",
     instructors: [PRAPIMPHAN],
-    title: { en: "Selected Topics in International Political Economy", th: "การศึกษาเฉพาะประเด็นทางเศรษฐกิจการเมืองระหว่างประเทศ" },
+    title: {
+      en: "Selected Topics in International Political Economy",
+      th: "การศึกษาเฉพาะประเด็นทางเศรษฐกิจการเมืองระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "global-political-economy",
@@ -1122,7 +1279,10 @@ export const courses: Course[] = [
   {
     code: "PI495",
     instructors: [TRIN],
-    title: { en: "Contemporary Debates in Global Political Economy", th: "ประเด็นโต้แย้งร่วมสมัยในเศรษฐกิจการเมืองโลก" },
+    title: {
+      en: "Contemporary Debates in Global Political Economy",
+      th: "ประเด็นโต้แย้งร่วมสมัยในเศรษฐกิจการเมืองโลก",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "global-political-economy",
@@ -1146,7 +1306,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI497",
-    title: { en: "Politics of International Trade in Services", th: "การเมืองว่าด้วยภาคบริการระหว่างประเทศ" },
+    title: {
+      en: "Politics of International Trade in Services",
+      th: "การเมืองว่าด้วยภาคบริการระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
     track: "global-political-economy",
@@ -1170,7 +1333,10 @@ export const courses: Course[] = [
   },
   {
     code: "PI574",
-    title: { en: "Internship in Politics and International Relations", th: "การฝึกงานในเรื่องการเมืองและการระหว่างประเทศ" },
+    title: {
+      en: "Internship in Politics and International Relations",
+      th: "การฝึกงานในเรื่องการเมืองและการระหว่างประเทศ",
+    },
     credits: { total: 3, lecture: 0, lab: 6, selfStudy: 3 },
     category: "free-elective",
     track: "foundational",

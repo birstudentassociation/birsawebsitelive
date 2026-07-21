@@ -82,7 +82,9 @@ export async function createOfficer(input: {
   role: Role;
   passcode: string;
   custodianId?: string | null;
-}): Promise<{ ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
+}): Promise<
+  { ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "duplicate" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -117,7 +119,9 @@ export async function updateOfficer(
     passcode: string;
     custodianId: string | null;
   }>
-): Promise<{ ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+): Promise<
+  { ok: true; officer: Officer } | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

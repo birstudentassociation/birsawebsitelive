@@ -14,8 +14,22 @@ export type NewsCardProps = {
 function CalendarIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 20 20" className="text-muted h-4 w-4 shrink-0">
-      <rect x="3" y="4.5" width="14" height="12" rx="1.5" fill="none" stroke="currentColor" strokeWidth={1.5} />
-      <path d="M3 8h14M6.5 3v3M13.5 3v3" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" />
+      <rect
+        x="3"
+        y="4.5"
+        width="14"
+        height="12"
+        rx="1.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      />
+      <path
+        d="M3 8h14M6.5 3v3M13.5 3v3"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      />
     </svg>
   );
 }

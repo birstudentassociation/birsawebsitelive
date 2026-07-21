@@ -25,11 +25,32 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "list",
             items: [
-              { marker: "(1)", text: { en: "sports and health-promotion activity clubs;", th: "ชุมนุมกิจกรรมกีฬาและสร้างเสริมสุขภาพ" } },
-              { marker: "(2)", text: { en: "public-service activity clubs;", th: "ชุมนุมกิจกรรมบำเพ็ญประโยชน์" } },
-              { marker: "(3)", text: { en: "academic activity clubs;", th: "ชุมนุมกิจกรรมวิชาการ" } },
-              { marker: "(4)", text: { en: "religious and ethics activity clubs;", th: "ชุมนุมกิจกรรมศาสนาและจริยธรรม" } },
-              { marker: "(5)", text: { en: "arts and culture activity clubs.", th: "ชุมนุมกิจกรรมศิลปวัฒนธรรม" } },
+              {
+                marker: "(1)",
+                text: {
+                  en: "sports and health-promotion activity clubs;",
+                  th: "ชุมนุมกิจกรรมกีฬาและสร้างเสริมสุขภาพ",
+                },
+              },
+              {
+                marker: "(2)",
+                text: { en: "public-service activity clubs;", th: "ชุมนุมกิจกรรมบำเพ็ญประโยชน์" },
+              },
+              {
+                marker: "(3)",
+                text: { en: "academic activity clubs;", th: "ชุมนุมกิจกรรมวิชาการ" },
+              },
+              {
+                marker: "(4)",
+                text: {
+                  en: "religious and ethics activity clubs;",
+                  th: "ชุมนุมกิจกรรมศาสนาและจริยธรรม",
+                },
+              },
+              {
+                marker: "(5)",
+                text: { en: "arts and culture activity clubs.", th: "ชุมนุมกิจกรรมศิลปวัฒนธรรม" },
+              },
             ],
           },
         ],
@@ -49,9 +70,27 @@ export const title3Chapters4to5: Section[] = [
             kind: "list",
             items: [
               { marker: "(1)", text: { en: "the club rules;", th: "ระเบียบชุมนุม" } },
-              { marker: "(2)", text: { en: "the list of names of the students who have signed to form the club;", th: "รายชื่อของนักศึกษาที่เข้าชื่อกันก่อตั้งชุมนุม" } },
-              { marker: "(3)", text: { en: "the list of names of the first club executive committee;", th: "รายชื่อของคณะกรรมการบริหารชุมนุมชุดแรก" } },
-              { marker: "(4)", text: { en: "the minutes of the club's founding meeting.", th: "รายงานการประชุมก่อตั้งชุมนุม" } },
+              {
+                marker: "(2)",
+                text: {
+                  en: "the list of names of the students who have signed to form the club;",
+                  th: "รายชื่อของนักศึกษาที่เข้าชื่อกันก่อตั้งชุมนุม",
+                },
+              },
+              {
+                marker: "(3)",
+                text: {
+                  en: "the list of names of the first club executive committee;",
+                  th: "รายชื่อของคณะกรรมการบริหารชุมนุมชุดแรก",
+                },
+              },
+              {
+                marker: "(4)",
+                text: {
+                  en: "the minutes of the club's founding meeting.",
+                  th: "รายงานการประชุมก่อตั้งชุมนุม",
+                },
+              },
             ],
           },
         ],
@@ -70,11 +109,32 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "list",
             items: [
-              { marker: "(1)", text: { en: "the name of the student activity club, which must include the word \"club\" as part of its name;", th: "ชื่อชุมนุมกิจกรรมนักศึกษา ซึ่งจะต้องมีคำว่าชุมนุมประกอบชื่อด้วย" } },
-              { marker: "(2)", text: { en: "the type of the club and its objectives;", th: "ประเภทของชุมนุมและวัตถุประสงค์" } },
-              { marker: "(3)", text: { en: "membership and cessation of membership;", th: "สมาชิกและการขาดจากสมาชิก" } },
+              {
+                marker: "(1)",
+                text: {
+                  en: 'the name of the student activity club, which must include the word "club" as part of its name;',
+                  th: "ชื่อชุมนุมกิจกรรมนักศึกษา ซึ่งจะต้องมีคำว่าชุมนุมประกอบชื่อด้วย",
+                },
+              },
+              {
+                marker: "(2)",
+                text: {
+                  en: "the type of the club and its objectives;",
+                  th: "ประเภทของชุมนุมและวัตถุประสงค์",
+                },
+              },
+              {
+                marker: "(3)",
+                text: {
+                  en: "membership and cessation of membership;",
+                  th: "สมาชิกและการขาดจากสมาชิก",
+                },
+              },
               { marker: "(4)", text: { en: "the club's income;", th: "รายได้ของชุมนุม" } },
-              { marker: "(5)", text: { en: "the club executive committee.", th: "คณะกรรมการบริหารชุมนุม" } },
+              {
+                marker: "(5)",
+                text: { en: "the club executive committee.", th: "คณะกรรมการบริหารชุมนุม" },
+              },
             ],
           },
         ],
@@ -171,8 +231,20 @@ export const title3Chapters4to5: Section[] = [
                 marker: "A.",
                 text: { en: "Qualifications", th: "คุณสมบัติ" },
                 children: [
-                  { marker: "(1)", text: { en: "being an undergraduate student;", th: "เป็นนักศึกษาระดับปริญญาตรี" } },
-                  { marker: "(2)", text: { en: "having an academic record of not lower than 2.00;", th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "being an undergraduate student;",
+                      th: "เป็นนักศึกษาระดับปริญญาตรี",
+                    },
+                  },
+                  {
+                    marker: "(2)",
+                    text: {
+                      en: "having an academic record of not lower than 2.00;",
+                      th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐",
+                    },
+                  },
                   {
                     marker: "(3)",
                     text: {
@@ -186,7 +258,13 @@ export const title3Chapters4to5: Section[] = [
                 marker: "B.",
                 text: { en: "Prohibited characteristics", th: "ลักษณะต้องห้าม" },
                 children: [
-                  { marker: "(1)", text: { en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;", th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
+                  {
+                    marker: "(1)",
+                    text: {
+                      en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;",
+                      th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                    },
+                  },
                   {
                     marker: "(2)",
                     text: {
@@ -217,7 +295,13 @@ export const title3Chapters4to5: Section[] = [
               { marker: "(1)", text: { en: "the club chairperson;", th: "ประธานชุมนุม" } },
               { marker: "(2)", text: { en: "the club vice-chairperson;", th: "รองประธานชุมนุม" } },
               { marker: "(3)", text: { en: "the club secretary;", th: "เลขานุการชุมนุม" } },
-              { marker: "(4)", text: { en: "no more than 4 further committee members.", th: "กรรมการอื่นอีกไม่เกินสี่คน" } },
+              {
+                marker: "(4)",
+                text: {
+                  en: "no more than 4 further committee members.",
+                  th: "กรรมการอื่นอีกไม่เกินสี่คน",
+                },
+              },
             ],
           },
           {
@@ -283,9 +367,27 @@ export const title3Chapters4to5: Section[] = [
           {
             kind: "list",
             items: [
-              { marker: "(1)", text: { en: "its membership falls below 50 persons;", th: "มีจำนวนสมาชิกไม่ถึงห้าสิบคน" } },
-              { marker: "(2)", text: { en: "the club's members resolve, by a vote of no fewer than two-thirds, to dissolve the club;", th: "สมาชิกชุมนุมลงมติด้วยคะแนนเสียงไม่น้อยกว่าสองในสาม ให้ยุบเลิกชุมนุม" } },
-              { marker: "(3)", text: { en: "the TUSU Executive Committee proposes to the TUSC that it consider dissolving the club;", th: "คณะกรรมการบริหารองค์การนักศึกษาเสนอความเห็นต่อสภานักศึกษาพิจารณายุบเลิกชุมนุม" } },
+              {
+                marker: "(1)",
+                text: {
+                  en: "its membership falls below 50 persons;",
+                  th: "มีจำนวนสมาชิกไม่ถึงห้าสิบคน",
+                },
+              },
+              {
+                marker: "(2)",
+                text: {
+                  en: "the club's members resolve, by a vote of no fewer than two-thirds, to dissolve the club;",
+                  th: "สมาชิกชุมนุมลงมติด้วยคะแนนเสียงไม่น้อยกว่าสองในสาม ให้ยุบเลิกชุมนุม",
+                },
+              },
+              {
+                marker: "(3)",
+                text: {
+                  en: "the TUSU Executive Committee proposes to the TUSC that it consider dissolving the club;",
+                  th: "คณะกรรมการบริหารองค์การนักศึกษาเสนอความเห็นต่อสภานักศึกษาพิจารณายุบเลิกชุมนุม",
+                },
+              },
               {
                 marker: "(4)",
                 text: {
@@ -354,9 +456,27 @@ export const title3Chapters4to5: Section[] = [
                     marker: "A.",
                     text: { en: "Qualifications", th: "คุณสมบัติ" },
                     children: [
-                      { marker: "(1)", text: { en: "being an undergraduate student;", th: "เป็นนักศึกษาระดับปริญญาตรี" } },
-                      { marker: "(2)", text: { en: "having an academic record of not lower than 2.00;", th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐" } },
-                      { marker: "(3)", text: { en: "being a student who resides in a student dormitory of the University;", th: "เป็นนักศึกษาซึ่งอาศัยอยู่ในหอพักนักศึกษาของมหาวิทยาลัย" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "being an undergraduate student;",
+                          th: "เป็นนักศึกษาระดับปริญญาตรี",
+                        },
+                      },
+                      {
+                        marker: "(2)",
+                        text: {
+                          en: "having an academic record of not lower than 2.00;",
+                          th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐",
+                        },
+                      },
+                      {
+                        marker: "(3)",
+                        text: {
+                          en: "being a student who resides in a student dormitory of the University;",
+                          th: "เป็นนักศึกษาซึ่งอาศัยอยู่ในหอพักนักศึกษาของมหาวิทยาลัย",
+                        },
+                      },
                       {
                         marker: "(4)",
                         text: {
@@ -370,7 +490,13 @@ export const title3Chapters4to5: Section[] = [
                     marker: "B.",
                     text: { en: "Prohibited characteristics", th: "ลักษณะต้องห้าม" },
                     children: [
-                      { marker: "(1)", text: { en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;", th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
+                      {
+                        marker: "(1)",
+                        text: {
+                          en: "having been subject to student disciplinary punishment within the one-year period before the date of applying for election;",
+                          th: "เคยเป็นผู้ถูกลงโทษวินัยนักศึกษาในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
                       {
                         marker: "(2)",
                         text: {
@@ -378,7 +504,13 @@ export const title3Chapters4to5: Section[] = [
                           th: "เป็นสมาชิกสภานักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษา หรือกรรมการในคณะกรรมการบริหารองค์การนักศึกษาระดับศูนย์ หรือกรรมการในคณะกรรมการนักศึกษาประจำคณะ หรือกรรมการในคณะกรรมการบริหารชุมนุม",
                         },
                       },
-                      { marker: "(3)", text: { en: "being, or having been, a member of a Faculty-level election committee within the one-year period before the date of applying for election;", th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งระดับคณะ ในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง" } },
+                      {
+                        marker: "(3)",
+                        text: {
+                          en: "being, or having been, a member of a Faculty-level election committee within the one-year period before the date of applying for election;",
+                          th: "เป็นกรรมการหรือเคยเป็นกรรมการการเลือกตั้งระดับคณะ ในระยะหนึ่งปีก่อนวันสมัครรับเลือกตั้ง",
+                        },
+                      },
                       {
                         marker: "(4)",
                         text: {
@@ -507,7 +639,10 @@ export const title3Chapters4to5: Section[] = [
         provisions: [
           {
             num: 78,
-            title: { en: "Term and vacation of office", th: "วาระการดำรงตำแหน่งและการพ้นจากตำแหน่ง" },
+            title: {
+              en: "Term and vacation of office",
+              th: "วาระการดำรงตำแหน่งและการพ้นจากตำแหน่ง",
+            },
             body: [
               {
                 kind: "para",
@@ -528,9 +663,27 @@ export const title3Chapters4to5: Section[] = [
                 items: [
                   { marker: "(1)", text: { en: "death;", th: "ตาย" } },
                   { marker: "(2)", text: { en: "resignation;", th: "ลาออก" } },
-                  { marker: "(3)", text: { en: "being subject to severe student disciplinary punishment;", th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง" } },
-                  { marker: "(4)", text: { en: "losing the qualifications or having a prohibited characteristic;", th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม" } },
-                  { marker: "(5)", text: { en: "ceasing to have the status of a dormitory student.", th: "พ้นสภาพการเป็นนักศึกษาหอพัก" } },
+                  {
+                    marker: "(3)",
+                    text: {
+                      en: "being subject to severe student disciplinary punishment;",
+                      th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง",
+                    },
+                  },
+                  {
+                    marker: "(4)",
+                    text: {
+                      en: "losing the qualifications or having a prohibited characteristic;",
+                      th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม",
+                    },
+                  },
+                  {
+                    marker: "(5)",
+                    text: {
+                      en: "ceasing to have the status of a dormitory student.",
+                      th: "พ้นสภาพการเป็นนักศึกษาหอพัก",
+                    },
+                  },
                 ],
               },
               {

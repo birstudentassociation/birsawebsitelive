@@ -19,7 +19,10 @@ import { loanLookupSchema } from "@/lib/validation";
 import { formatDate, localeHref } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import type { LoanStatus } from "@/lib/inventory/types";
-import { submitLoanLookup, type LoanLookupState } from "@/app/[lang]/information-services/equipment-loan/status/actions";
+import {
+  submitLoanLookup,
+  type LoanLookupState,
+} from "@/app/[lang]/information-services/equipment-loan/status/actions";
 
 /** The lookup API returns either a plain string or a bilingual pair for the item name. */
 type ApiItemName = string | { en: string; th: string } | null;
@@ -82,10 +85,7 @@ type LookupState =
   | { status: "success"; loan: LoanResult };
 
 type CancelState =
-  | { status: "idle" }
-  | { status: "pending" }
-  | { status: "done" }
-  | { status: "error" };
+  { status: "idle" } | { status: "pending" } | { status: "done" } | { status: "error" };
 
 type FieldErrors = Partial<Record<"reference" | "email", string>>;
 
@@ -164,7 +164,8 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
         const path = issue.path[0];
         if (path === "reference") nextErrors.reference = labels.errors.referenceRequired;
         if (path === "email") {
-          nextErrors.email = email.length === 0 ? labels.errors.emailRequired : labels.errors.emailInvalid;
+          nextErrors.email =
+            email.length === 0 ? labels.errors.emailRequired : labels.errors.emailInvalid;
         }
       }
       setErrors(nextErrors);
@@ -238,7 +239,10 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
 
   const errorItems: ErrorSummaryItem[] = Object.entries(errors)
     .filter(([, message]) => Boolean(message))
-    .map(([key, message]) => ({ id: fieldIds[key as keyof typeof fieldIds], message: message as string }));
+    .map(([key, message]) => ({
+      id: fieldIds[key as keyof typeof fieldIds],
+      message: message as string,
+    }));
 
   if (state.status === "success") {
     const { loan } = state;
@@ -246,7 +250,11 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
 
     return (
       <div className="flex flex-col gap-6">
-        <div role="status" aria-live="polite" className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-6">
+        <div
+          role="status"
+          aria-live="polite"
+          className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-6"
+        >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <p className="text-muted text-sm font-semibold">{labels.resultTitle}</p>
@@ -401,7 +409,7 @@ function StatusLookupFallback({ locale, labels }: StatusLookupProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState<LoanLookupState, FormData>(
     submitLoanLookup,
-    { status: "idle" },
+    { status: "idle" }
   );
   const resultRef = useRef<HTMLDivElement>(null);
   const statusHref = localeHref(locale, "/information-services/equipment-loan/status");
@@ -494,7 +502,13 @@ function StatusLookupFallback({ locale, labels }: StatusLookupProps) {
       {/* Honeypot: real visitors never see or fill this. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
-        <input id={`${formId}-nickname`} name="nickname" type="text" autoComplete="off" tabIndex={-1} />
+        <input
+          id={`${formId}-nickname`}
+          name="nickname"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+        />
       </div>
 
       <Field

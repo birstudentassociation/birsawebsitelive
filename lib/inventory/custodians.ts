@@ -108,7 +108,10 @@ export async function createCustodian(input: {
   contactOther?: string | null;
   borrowNote?: Bilingual;
   sortOrder?: number;
-}): Promise<{ ok: true; custodian: Custodian } | { ok: false; reason: "not-configured" | "duplicate" | "error" }> {
+}): Promise<
+  | { ok: true; custodian: Custodian }
+  | { ok: false; reason: "not-configured" | "duplicate" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -160,7 +163,10 @@ export async function updateCustodian(
     isActive: boolean;
     sortOrder: number;
   }>
-): Promise<{ ok: true; custodian: Custodian } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+): Promise<
+  | { ok: true; custodian: Custodian }
+  | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }

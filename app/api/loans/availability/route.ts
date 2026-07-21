@@ -20,7 +20,12 @@ export async function GET(request: Request) {
   const availability = await getItemAvailabilityForRange(itemKey, start, end);
 
   return NextResponse.json(
-    { ok: true, total: availability.total, available: availability.available, configured: availability.configured },
+    {
+      ok: true,
+      total: availability.total,
+      available: availability.available,
+      configured: availability.configured,
+    },
     { status: 200 }
   );
 }

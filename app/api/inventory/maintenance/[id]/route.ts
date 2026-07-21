@@ -57,7 +57,13 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const result = await closeMaintenance(id, { ...parsed.data, officerId: auth.officer.id });
   if (!result.ok) {
     const status =
-      result.reason === "not-configured" ? 200 : result.reason === "not-found" ? 404 : result.reason === "already-closed" ? 400 : 500;
+      result.reason === "not-configured"
+        ? 200
+        : result.reason === "not-found"
+          ? 404
+          : result.reason === "already-closed"
+            ? 400
+            : 500;
     return NextResponse.json({ ok: false, reason: result.reason }, { status });
   }
 

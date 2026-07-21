@@ -10,11 +10,7 @@ import Button from "@/components/Button";
  * with `params` omitted entirely, so treat it as optional and fall back to
  * the default locale's copy rather than destructuring blindly.
  */
-export default async function NotFound({
-  params,
-}: {
-  params?: Promise<{ lang: string }>;
-}) {
+export default async function NotFound({ params }: { params?: Promise<{ lang: string }> }) {
   const resolved = params ? await params : undefined;
   const lang = resolved?.lang;
   const locale: Locale = lang && isLocale(lang) ? lang : defaultLocale;

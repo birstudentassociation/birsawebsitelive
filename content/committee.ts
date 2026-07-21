@@ -54,7 +54,12 @@ export const committee: CommitteeMember[] = [
       nickname: "Pin",
       title: "Secretary 1",
     },
-    th: { firstName: "กิตติยา", lastName: "กันบุญมา", nickname: "ปิ่น", title: "เลขานุการ คนที่ 1" },
+    th: {
+      firstName: "กิตติยา",
+      lastName: "กันบุญมา",
+      nickname: "ปิ่น",
+      title: "เลขานุการ คนที่ 1",
+    },
   },
   {
     key: "nicharee-wutthironprasert",

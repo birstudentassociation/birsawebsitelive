@@ -144,7 +144,10 @@ export async function createItem(input: {
   reorderThreshold?: number | null;
   photoUrl?: string | null;
   createdBy?: string | null;
-}): Promise<{ ok: true; item: Item } | { ok: false; reason: "not-configured" | "duplicate" | "invalid" | "error" }> {
+}): Promise<
+  | { ok: true; item: Item }
+  | { ok: false; reason: "not-configured" | "duplicate" | "invalid" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -211,7 +214,9 @@ export async function updateItem(
     photoUrl: string | null;
     isRetired: boolean;
   }>
-): Promise<{ ok: true; item: Item } | { ok: false; reason: "not-configured" | "not-found" | "error" }> {
+): Promise<
+  { ok: true; item: Item } | { ok: false; reason: "not-configured" | "not-found" | "error" }
+> {
   if (!isInventoryConfigured()) {
     return { ok: false, reason: "not-configured" };
   }
@@ -270,7 +275,7 @@ export async function getItemAvailabilitySummary(
   const kind = item.trackingMode;
 
   if (!isInventoryConfigured()) {
-    const qty = kind === "consumable" ? item.qtyOnHand ?? 0 : 0;
+    const qty = kind === "consumable" ? (item.qtyOnHand ?? 0) : 0;
     return { total: qty, available: qty, kind };
   }
 

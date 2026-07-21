@@ -72,7 +72,8 @@ const labels: Record<
     previous: "Previous",
     next: "Next",
     helpTitle: "Something wrong or missing?",
-    helpBody: "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
+    helpBody:
+      "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
     helpCta: "Tell BIRSA",
     back: {
       home: "Back to the student life and culture guides",
@@ -170,14 +171,17 @@ export default async function StudentLifeSectionPage({
         <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
         {prevEntry || nextEntry ? (
-          <nav aria-label={t.prevNextNav} className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2">
+          <nav
+            aria-label={t.prevNextNav}
+            className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2"
+          >
             <div>
               {prevEntry ? (
                 <Link
                   href={localeHref(locale, `/student-life/${audience}/${prevEntry.slug}`)}
                   className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4"
                 >
-                  <span className="text-muted text-xs font-semibold uppercase tracking-wide">
+                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
                     &larr; {t.previous}
                   </span>
                   <span className="text-ink font-semibold">{prevEntry.frontmatter.title}</span>
@@ -190,7 +194,7 @@ export default async function StudentLifeSectionPage({
                   href={localeHref(locale, `/student-life/${audience}/${nextEntry.slug}`)}
                   className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4 text-right"
                 >
-                  <span className="text-muted text-xs font-semibold uppercase tracking-wide">
+                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
                     {t.next} &rarr;
                   </span>
                   <span className="text-ink font-semibold">{nextEntry.frontmatter.title}</span>
@@ -206,7 +210,10 @@ export default async function StudentLifeSectionPage({
           <Button href={localeHref(locale, "/contact")}>{t.helpCta}</Button>
         </div>
 
-        <Link href={trackHref} className="text-brand-deep hover:text-brand-dark text-sm font-semibold">
+        <Link
+          href={trackHref}
+          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+        >
           &larr; {t.back[audience]}
         </Link>
       </div>

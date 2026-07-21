@@ -13,9 +13,24 @@ import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
  * default locale. No inline theme script (which the CSP would block without a
  * nonce); system dark-mode users are still covered by the CSS media query.
  */
-const fraunces = Fraunces({ subsets: ["latin"], weight: ["600"], variable: "--font-en-display", display: "swap" });
-const lexend = Lexend({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-en-body", display: "swap" });
-const sarabun = Sarabun({ subsets: ["thai", "latin"], weight: ["400", "500", "600", "700"], variable: "--font-th", display: "swap" });
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-en-display",
+  display: "swap",
+});
+const lexend = Lexend({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-en-body",
+  display: "swap",
+});
+const sarabun = Sarabun({
+  subsets: ["thai", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-th",
+  display: "swap",
+});
 
 export default function GlobalError({
   error,

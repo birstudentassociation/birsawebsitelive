@@ -34,7 +34,13 @@ function PortraitPlaceholder() {
   );
 }
 
-function MemberCard({ locale, member }: { locale: "en" | "th"; member: (typeof committee)[number] }) {
+function MemberCard({
+  locale,
+  member,
+}: {
+  locale: "en" | "th";
+  member: (typeof committee)[number];
+}) {
   const t = member[locale];
   const portraitSrc = findPortrait(member.key);
 
@@ -58,7 +64,9 @@ function MemberCard({ locale, member }: { locale: "en" | "th"; member: (typeof c
         <p data-roster-line className="text-ink font-semibold whitespace-nowrap">
           {t.lastName}
         </p>
-        <p data-roster-line className="text-muted text-sm whitespace-nowrap">({t.nickname})</p>
+        <p data-roster-line className="text-muted text-sm whitespace-nowrap">
+          ({t.nickname})
+        </p>
         <p className="text-muted mt-1 text-sm">{t.title}</p>
       </div>
     </li>
@@ -79,7 +87,7 @@ export default function CommitteeRoster({ locale }: CommitteeRosterProps) {
         return (
           <section key={group} className="flex flex-col gap-4">
             <h3>{committeeGroupLabels[group][locale]}</h3>
-            <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))]">
+            <ul className="grid [grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr))] gap-4">
               {members.map((member) => (
                 <MemberCard key={member.key} locale={locale} member={member} />
               ))}

@@ -8,7 +8,7 @@ import type { Section } from "../types";
 export const title2: Section = {
   kind: { en: "Title", th: "ลักษณะ" },
   number: "2",
-  title: { en: "The Thammasat University Student Council (\"TUSC\")", th: "สภานักศึกษา" },
+  title: { en: 'The Thammasat University Student Council ("TUSC")', th: "สภานักศึกษา" },
   children: [
     {
       kind: { en: "Chapter", th: "หมวด" },
@@ -78,13 +78,49 @@ export const title2: Section = {
             {
               kind: "list",
               items: [
-                { marker: "(1)", text: { en: "the President of the TUSC;", th: "ประธานสภานักศึกษา" } },
-                { marker: "(2)", text: { en: "the First Vice-President of the TUSC;", th: "รองประธานสภานักศึกษา คนที่ ๑" } },
-                { marker: "(3)", text: { en: "the Second Vice-President of the TUSC;", th: "รองประธานสภานักศึกษา คนที่ ๒" } },
-                { marker: "(4)", text: { en: "the Secretary-General of the TUSC;", th: "เลขาธิการสภานักศึกษา" } },
-                { marker: "(5)", text: { en: "the First Deputy Secretary-General of the TUSC;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๑" } },
-                { marker: "(6)", text: { en: "the Second Deputy Secretary-General of the TUSC;", th: "รองเลขาธิการสภานักศึกษา คนที่ ๒" } },
-                { marker: "(7)", text: { en: "the Chair of the TUSC's Standing Committee.", th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษา" } },
+                {
+                  marker: "(1)",
+                  text: { en: "the President of the TUSC;", th: "ประธานสภานักศึกษา" },
+                },
+                {
+                  marker: "(2)",
+                  text: {
+                    en: "the First Vice-President of the TUSC;",
+                    th: "รองประธานสภานักศึกษา คนที่ ๑",
+                  },
+                },
+                {
+                  marker: "(3)",
+                  text: {
+                    en: "the Second Vice-President of the TUSC;",
+                    th: "รองประธานสภานักศึกษา คนที่ ๒",
+                  },
+                },
+                {
+                  marker: "(4)",
+                  text: { en: "the Secretary-General of the TUSC;", th: "เลขาธิการสภานักศึกษา" },
+                },
+                {
+                  marker: "(5)",
+                  text: {
+                    en: "the First Deputy Secretary-General of the TUSC;",
+                    th: "รองเลขาธิการสภานักศึกษา คนที่ ๑",
+                  },
+                },
+                {
+                  marker: "(6)",
+                  text: {
+                    en: "the Second Deputy Secretary-General of the TUSC;",
+                    th: "รองเลขาธิการสภานักศึกษา คนที่ ๒",
+                  },
+                },
+                {
+                  marker: "(7)",
+                  text: {
+                    en: "the Chair of the TUSC's Standing Committee.",
+                    th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษา",
+                  },
+                },
               ],
             },
             {
@@ -105,7 +141,10 @@ export const title2: Section = {
         },
         {
           num: 9,
-          title: { en: "Campus Council Executive Board", th: "คณะกรรมการบริหารสภานักศึกษาระดับศูนย์" },
+          title: {
+            en: "Campus Council Executive Board",
+            th: "คณะกรรมการบริหารสภานักศึกษาระดับศูนย์",
+          },
           body: [
             {
               kind: "para",
@@ -117,13 +156,55 @@ export const title2: Section = {
             {
               kind: "list",
               items: [
-                { marker: "(1)", text: { en: "the President of the Campus Student Council;", th: "ประธานสภานักศึกษาระดับศูนย์" } },
-                { marker: "(2)", text: { en: "the First Vice-President of the Campus Student Council;", th: "รองประธานสภานักศึกษาระดับศูนย์ คนที่ ๑" } },
-                { marker: "(3)", text: { en: "the Second Vice-President of the Campus Student Council;", th: "รองประธานสภานักศึกษาระดับศูนย์ คนที่ ๒" } },
-                { marker: "(4)", text: { en: "the Secretary-General of the Campus Student Council;", th: "เลขาธิการสภานักศึกษาระดับศูนย์" } },
-                { marker: "(5)", text: { en: "the First Deputy Secretary-General of the Campus Student Council;", th: "รองเลขาธิการสภานักศึกษาระดับศูนย์ คนที่ ๑" } },
-                { marker: "(6)", text: { en: "the Second Deputy Secretary-General of the Campus Student Council;", th: "รองเลขาธิการสภานักศึกษาระดับศูนย์ คนที่ ๒" } },
-                { marker: "(7)", text: { en: "the Chair of the Campus Student Council's Standing Committee.", th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษาระดับศูนย์" } },
+                {
+                  marker: "(1)",
+                  text: {
+                    en: "the President of the Campus Student Council;",
+                    th: "ประธานสภานักศึกษาระดับศูนย์",
+                  },
+                },
+                {
+                  marker: "(2)",
+                  text: {
+                    en: "the First Vice-President of the Campus Student Council;",
+                    th: "รองประธานสภานักศึกษาระดับศูนย์ คนที่ ๑",
+                  },
+                },
+                {
+                  marker: "(3)",
+                  text: {
+                    en: "the Second Vice-President of the Campus Student Council;",
+                    th: "รองประธานสภานักศึกษาระดับศูนย์ คนที่ ๒",
+                  },
+                },
+                {
+                  marker: "(4)",
+                  text: {
+                    en: "the Secretary-General of the Campus Student Council;",
+                    th: "เลขาธิการสภานักศึกษาระดับศูนย์",
+                  },
+                },
+                {
+                  marker: "(5)",
+                  text: {
+                    en: "the First Deputy Secretary-General of the Campus Student Council;",
+                    th: "รองเลขาธิการสภานักศึกษาระดับศูนย์ คนที่ ๑",
+                  },
+                },
+                {
+                  marker: "(6)",
+                  text: {
+                    en: "the Second Deputy Secretary-General of the Campus Student Council;",
+                    th: "รองเลขาธิการสภานักศึกษาระดับศูนย์ คนที่ ๒",
+                  },
+                },
+                {
+                  marker: "(7)",
+                  text: {
+                    en: "the Chair of the Campus Student Council's Standing Committee.",
+                    th: "ประธานคณะกรรมาธิการสามัญประจำสภานักศึกษาระดับศูนย์",
+                  },
+                },
               ],
             },
             {
@@ -225,7 +306,10 @@ export const title2: Section = {
         },
         {
           num: 11,
-          title: { en: "Powers of a Campus Student Council", th: "อำนาจหน้าที่ของสภานักศึกษาระดับศูนย์" },
+          title: {
+            en: "Powers of a Campus Student Council",
+            th: "อำนาจหน้าที่ของสภานักศึกษาระดับศูนย์",
+          },
           body: [
             {
               kind: "para",
@@ -351,7 +435,13 @@ export const title2: Section = {
                   text: { en: "Qualifications", th: "คุณสมบัติ" },
                   children: [
                     { marker: "(1)", text: { en: "being a student;", th: "เป็นนักศึกษา" } },
-                    { marker: "(2)", text: { en: "having a cumulative grade point average of not less than 2.00;", th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐" } },
+                    {
+                      marker: "(2)",
+                      text: {
+                        en: "having a cumulative grade point average of not less than 2.00;",
+                        th: "มีผลการศึกษาเฉลี่ยไม่ต่ำกว่า ๒.๐๐",
+                      },
+                    },
                     {
                       marker: "(3)",
                       text: {
@@ -517,7 +607,10 @@ export const title2: Section = {
         },
         {
           num: 22,
-          title: { en: "First meeting of Campus Councils", th: "การประชุมสภานักศึกษาระดับศูนย์ครั้งแรก" },
+          title: {
+            en: "First meeting of Campus Councils",
+            th: "การประชุมสภานักศึกษาระดับศูนย์ครั้งแรก",
+          },
           body: [
             {
               kind: "para",
@@ -610,7 +703,10 @@ export const title2: Section = {
         },
         {
           num: 25,
-          title: { en: "Acting President of a Campus Council", th: "ผู้ทำหน้าที่แทนประธานสภานักศึกษาระดับศูนย์" },
+          title: {
+            en: "Acting President of a Campus Council",
+            th: "ผู้ทำหน้าที่แทนประธานสภานักศึกษาระดับศูนย์",
+          },
           body: [
             {
               kind: "para",
@@ -840,10 +936,34 @@ export const title2: Section = {
               items: [
                 { marker: "(1)", text: { en: "death;", th: "ตาย" } },
                 { marker: "(2)", text: { en: "resignation;", th: "ลาออก" } },
-                { marker: "(3)", text: { en: "being subject to severe student disciplinary punishment;", th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง" } },
-                { marker: "(4)", text: { en: "lacking the qualifications or having a prohibited characteristic;", th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม" } },
-                { marker: "(5)", text: { en: "ceasing to have the status of a student of the University;", th: "พ้นจากสภาพการเป็นนักศึกษาของมหาวิทยาลัย" } },
-                { marker: "(6)", text: { en: "being absent from meetings for more than three consecutive occasions, under section 33.", th: "ขาดประชุมติดต่อกันเกินกว่าสามครั้ง ตามข้อ ๓๓" } },
+                {
+                  marker: "(3)",
+                  text: {
+                    en: "being subject to severe student disciplinary punishment;",
+                    th: "ถูกลงโทษวินัยนักศึกษาอย่างร้ายแรง",
+                  },
+                },
+                {
+                  marker: "(4)",
+                  text: {
+                    en: "lacking the qualifications or having a prohibited characteristic;",
+                    th: "ขาดคุณสมบัติหรือมีลักษณะต้องห้าม",
+                  },
+                },
+                {
+                  marker: "(5)",
+                  text: {
+                    en: "ceasing to have the status of a student of the University;",
+                    th: "พ้นจากสภาพการเป็นนักศึกษาของมหาวิทยาลัย",
+                  },
+                },
+                {
+                  marker: "(6)",
+                  text: {
+                    en: "being absent from meetings for more than three consecutive occasions, under section 33.",
+                    th: "ขาดประชุมติดต่อกันเกินกว่าสามครั้ง ตามข้อ ๓๓",
+                  },
+                },
               ],
             },
           ],

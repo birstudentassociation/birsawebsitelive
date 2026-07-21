@@ -39,7 +39,11 @@ export default function CourseStats({ courses, locale, dict }: CourseStatsProps)
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tiles.map((tile) => (
-          <StatTile key={tile.key} label={tile.label} value={tile.count.toLocaleString(numberFormat)} />
+          <StatTile
+            key={tile.key}
+            label={tile.label}
+            value={tile.count.toLocaleString(numberFormat)}
+          />
         ))}
       </div>
     </section>
