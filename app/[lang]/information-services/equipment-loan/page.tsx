@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, pluralize, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { listItems, getItemAvailabilitySummary } from "@/lib/inventory/items";
 import { listCategories } from "@/lib/inventory/categories";
@@ -86,14 +86,15 @@ const copy: Record<
     contactLink: "Contact BIRSA",
     availableLabel: (available, total) => `Available (${available} of ${total})`,
     unavailableLabel: "On loan / unavailable",
-    maxLoanLabel: (days) => `Borrow for up to ${days} day(s)`,
+    maxLoanLabel: (days) =>
+      `Borrow for up to ${pluralize(days, { one: "1 day", other: `${days} days` })}`,
     requestCta: "Request to borrow",
     unavailableCta: "Currently unavailable",
     categoryLabel: "Category",
     allCategories: "All categories",
     filterNav: "Filter equipment",
     clearFilters: "Clear filters",
-    noResults: "No equipment matched this category.",
+    noResults: "Nothing matched your filters. Try clearing them.",
     ownerLabel: "Owner",
     allOwners: "All owners",
     directoryNoticeTitle: "Looking for club equipment?",
@@ -129,7 +130,7 @@ const copy: Record<
     allCategories: "ทุกหมวดหมู่",
     filterNav: "ตัวกรองอุปกรณ์",
     clearFilters: "ล้างตัวกรอง",
-    noResults: "ไม่พบอุปกรณ์ในหมวดหมู่นี้",
+    noResults: "ไม่พบรายการที่ตรงกับตัวกรอง ลองล้างตัวกรองแล้วค้นหาใหม่",
     ownerLabel: "เจ้าของ",
     allOwners: "ทุกเจ้าของ",
     directoryNoticeTitle: "ตามหาอุปกรณ์ของชมรมอยู่หรือเปล่า",
@@ -189,6 +190,7 @@ export default async function EquipmentLoanPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
   const configured = isInventoryConfigured();
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
   const { category: categorySlug, owner: ownerSlug } = await searchParams;
 
   const [allItems, categories, custodians] = await Promise.all([
@@ -254,10 +256,7 @@ export default async function EquipmentLoanPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              {
-                label: locale === "th" ? "ข้อมูลและบริการ" : "Information and services",
-                href: "/information-services",
-              },
+              { label: infoServicesLabel, href: "/information-services" },
               { label: t.title },
             ]}
           />

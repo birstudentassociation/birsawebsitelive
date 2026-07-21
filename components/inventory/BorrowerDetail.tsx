@@ -10,6 +10,7 @@ import clsx from "clsx";
 import Field from "@/components/Field";
 import Button from "@/components/Button";
 import StatusPill from "@/components/inventory/StatusPill";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import { formatDate } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import type { Borrower, Loan, Item, Role } from "@/lib/inventory/types";
@@ -34,8 +35,11 @@ type Copy = {
   blockCta: string;
   unblockCta: string;
   saving: string;
-  confirmBlock: string;
-  confirmUnblock: string;
+  confirmBlockTitle: string;
+  confirmBlockBody: string;
+  confirmUnblockTitle: string;
+  confirmLabel: string;
+  cancelLabel: string;
   maxLoansTitle: string;
   maxLoansLabel: string;
   maxLoansHint: string;
@@ -64,8 +68,11 @@ const copy: Record<Locale, Copy> = {
     blockCta: "Blocklist this borrower",
     unblockCta: "Remove from blocklist",
     saving: "Saving...",
-    confirmBlock: "Blocklist this borrower? They will not be able to request new loans.",
-    confirmUnblock: "Remove this borrower from the blocklist?",
+    confirmBlockTitle: "Blocklist this borrower?",
+    confirmBlockBody: "They will not be able to request new loans.",
+    confirmUnblockTitle: "Remove this borrower from the blocklist?",
+    confirmLabel: "Confirm",
+    cancelLabel: "Cancel",
     maxLoansTitle: "Loan limit",
     maxLoansLabel: "Max concurrent loans",
     maxLoansHint: "Leave blank to use the site default.",
@@ -92,8 +99,11 @@ const copy: Record<Locale, Copy> = {
     blockCta: "ระงับสิทธิ์ผู้ยืมรายนี้",
     unblockCta: "ยกเลิกการระงับสิทธิ์",
     saving: "กำลังบันทึก...",
-    confirmBlock: "ระงับสิทธิ์ผู้ยืมรายนี้ใช่หรือไม่ ผู้ยืมจะไม่สามารถขอยืมใหม่ได้",
-    confirmUnblock: "ยกเลิกการระงับสิทธิ์ผู้ยืมรายนี้ใช่หรือไม่",
+    confirmBlockTitle: "ระงับสิทธิ์ผู้ยืมรายนี้ใช่หรือไม่",
+    confirmBlockBody: "ผู้ยืมจะไม่สามารถขอยืมใหม่ได้",
+    confirmUnblockTitle: "ยกเลิกการระงับสิทธิ์ผู้ยืมรายนี้ใช่หรือไม่",
+    confirmLabel: "ยืนยัน",
+    cancelLabel: "ยกเลิก",
     maxLoansTitle: "จำนวนที่ยืมได้พร้อมกัน",
     maxLoansLabel: "จำนวนสูงสุดที่ยืมพร้อมกันได้",
     maxLoansHint: "เว้นว่างไว้เพื่อใช้ค่าเริ่มต้นของระบบ",
@@ -146,6 +156,10 @@ export default function BorrowerDetail({
   const t = copy[locale];
   const statusLabels = locale === "th" ? STATUS_LABELS_TH : STATUS_LABELS_EN;
   const canManage = role === "admin" || role === "loan_officer";
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: t.confirmLabel,
+    cancelLabel: t.cancelLabel,
+  });
 
   const [borrower, setBorrower] = useState<Borrower>(initialBorrower);
   const [reason, setReason] = useState(borrower.blocklistReason ?? "");
@@ -186,10 +200,10 @@ export default function BorrowerDetail({
 
   async function handleBlocklistToggle() {
     const goingToBlock = !borrower.blocklisted;
-    const confirmText = goingToBlock ? t.confirmBlock : t.confirmUnblock;
-    if (typeof window !== "undefined" && !window.confirm(confirmText)) {
-      return;
-    }
+    const ok = goingToBlock
+      ? await confirm({ title: t.confirmBlockTitle, body: t.confirmBlockBody, danger: true })
+      : await confirm({ title: t.confirmUnblockTitle });
+    if (!ok) return;
     setSavingBlocklist(true);
     await patchBorrower({
       blocklisted: goingToBlock,
@@ -330,6 +344,8 @@ export default function BorrowerDetail({
           </div>
         )}
       </section>
+
+      {dialog}
     </div>
   );
 }

@@ -9,11 +9,12 @@
  */
 import { useActionState, useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import clsx from "clsx";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import StatusPill from "@/components/inventory/StatusPill";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import { loanLookupSchema } from "@/lib/validation";
 import { formatDate, localeHref } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
@@ -61,7 +62,10 @@ export type StatusLookupLabels = {
   datesLabel: string;
   statusLabels: Record<LoanStatus, string>;
   cancelButton: string;
-  cancelConfirm: string;
+  cancelConfirmTitle: string;
+  cancelConfirmBody: string;
+  confirmLabel: string;
+  cancelLabel: string;
   cancelling: string;
   cancelledTitle: string;
   cancelledBody: string;
@@ -88,35 +92,10 @@ type CancelState =
 
 type FieldErrors = Partial<Record<"reference" | "email", string>>;
 
-/** Tints mirror the officer console's StatusPill so the same status always reads the same colour everywhere. */
-const statusTint: Record<LoanStatus, string> = {
-  pending: "bg-warning-tint text-warning",
-  approved: "bg-success-tint text-success",
-  checked_out: "bg-info-tint text-info",
-  overdue: "bg-error-tint text-error",
-  returned: "bg-sunken text-muted",
-  rejected: "bg-error-tint text-error",
-  cancelled: "bg-sunken text-muted",
-  no_show: "bg-sunken text-muted",
-};
-
 function resolveItemName(name: ApiItemName, locale: Locale): string | null {
   if (name == null) return null;
   if (typeof name === "string") return name;
   return name[locale] ?? name.en ?? null;
-}
-
-function StatusPill({ status, label }: { status: LoanStatus; label: string }) {
-  return (
-    <span
-      className={clsx(
-        "inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide",
-        statusTint[status]
-      )}
-    >
-      {label}
-    </span>
-  );
 }
 
 /**
@@ -141,6 +120,10 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [state, setState] = useState<LookupState>({ status: "idle" });
   const [cancelState, setCancelState] = useState<CancelState>({ status: "idle" });
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: labels.confirmLabel,
+    cancelLabel: labels.cancelLabel,
+  });
 
   const fieldIds = {
     reference: `${formId}-reference`,
@@ -207,7 +190,12 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
     if (state.status !== "success") return;
     // Confirm before the irreversible cancel, otherwise the student would have
     // to submit a whole new request (GDS error prevention).
-    if (!window.confirm(labels.cancelConfirm)) return;
+    const ok = await confirm({
+      title: labels.cancelConfirmTitle,
+      body: labels.cancelConfirmBody,
+      danger: true,
+    });
+    if (!ok) return;
 
     setCancelState({ status: "pending" });
 
@@ -316,6 +304,8 @@ function InteractiveStatusLookup({ locale, labels }: StatusLookupProps) {
             {labels.newSearch}
           </Button>
         </div>
+
+        {dialog}
       </div>
     );
   }

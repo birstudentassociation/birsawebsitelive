@@ -53,6 +53,16 @@ export function swapLocalePath(pathname: string, to: Locale): string {
 }
 
 /**
+ * Pick the correct string form for a count, e.g.
+ * `pluralize(1, { one: "1 day", other: "2 days" })` -> `"1 day"`. English
+ * only has two forms; Thai carries no plural marking, so callers building
+ * Thai strings don't need this.
+ */
+export function pluralize(count: number, forms: { one: string; other: string }): string {
+  return count === 1 ? forms.one : forms.other;
+}
+
+/**
  * Format an ISO date (YYYY-MM-DD or full ISO datetime) per-locale using the
  * Gregorian calendar (never Buddhist Era) with a long month.
  */

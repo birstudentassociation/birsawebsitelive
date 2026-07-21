@@ -2,8 +2,10 @@ import clsx from "clsx";
 import type { LoanStatus } from "@/lib/inventory/types";
 
 /**
- * Small coloured pill for a loan's lifecycle status. Shared between
- * LoanQueue and BorrowerDetail so a given status always reads the same way.
+ * Small coloured pill for a loan's lifecycle status. Single source of truth
+ * for status colours: shared by the officer console (LoanQueue,
+ * BorrowerDetail) and the public loan-status lookup (StatusLookup), so a
+ * given status always reads the same colour everywhere.
  * Colour never travels alone: the status word is always shown alongside it.
  */
 const STATUS_STYLES: Record<LoanStatus, string> = {

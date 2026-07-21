@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatDate, isLocale, localeHref, swapLocalePath } from "@/lib/i18n";
+import { formatDate, isLocale, localeHref, pluralize, swapLocalePath } from "@/lib/i18n";
 
 describe("localeHref", () => {
   it("prefixes the root path with just the locale", () => {
@@ -39,6 +39,17 @@ describe("isLocale", () => {
     expect(isLocale("fr")).toBe(false);
     expect(isLocale("")).toBe(false);
     expect(isLocale("EN")).toBe(false);
+  });
+});
+
+describe("pluralize", () => {
+  it("uses the singular form for a count of exactly 1", () => {
+    expect(pluralize(1, { one: "1 day", other: "days" })).toBe("1 day");
+  });
+
+  it("uses the other form for any other count, including 0", () => {
+    expect(pluralize(0, { one: "1 day", other: "0 days" })).toBe("0 days");
+    expect(pluralize(2, { one: "1 day", other: "2 days" })).toBe("2 days");
   });
 });
 

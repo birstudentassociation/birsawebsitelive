@@ -23,6 +23,7 @@ import {
   renderLayout,
   type InfoRow,
 } from "@/lib/email/layout";
+import { pluralize } from "@/lib/i18n";
 
 export type RenderedEmail = { subject: string; html: string; text: string };
 
@@ -340,7 +341,10 @@ export function renderOfficerDigest(i: {
   const rowsEn: InfoRow[] = [
     { label: "Pending requests", value: String(i.pending) },
     { label: "Overdue loans", value: String(i.overdue) },
-    { label: `Due within ${i.dueSoonDays} day(s)`, value: String(i.dueSoon) },
+    {
+      label: `Due within ${pluralize(i.dueSoonDays, { one: "1 day", other: `${i.dueSoonDays} days` })}`,
+      value: String(i.dueSoon),
+    },
     { label: "Low-stock items", value: String(i.lowStock.length) },
   ];
 
@@ -386,7 +390,7 @@ export function renderOfficerDigest(i: {
       "",
       `Pending loan requests: ${i.pending}`,
       `Overdue loans: ${i.overdue}`,
-      `Due within ${i.dueSoonDays} day(s): ${i.dueSoon}`,
+      `Due within ${pluralize(i.dueSoonDays, { one: "1 day", other: `${i.dueSoonDays} days` })}: ${i.dueSoon}`,
       `Low-stock consumables: ${i.lowStock.length}`,
       ...textLowStock,
     ].join("\n"),

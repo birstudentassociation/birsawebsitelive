@@ -8,7 +8,7 @@ import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import { inventoryLoanRequestSchema } from "@/lib/validation";
-import { localeHref, type Locale } from "@/lib/i18n";
+import { localeHref, pluralize, type Locale } from "@/lib/i18n";
 import type {
   LoanWizardItem,
   LoanWizardLabels,
@@ -758,7 +758,7 @@ function InteractiveLoanWizard({ item, locale, labels }: LoanRequestWizardProps)
           {datesAvailability.status === "checked" ? (
             <Notice variant="success">
               <p role="status">
-                {labels.dates.availableTemplate.replace(
+                {pluralize(datesAvailability.available, labels.dates.availableTemplate).replace(
                   "{count}",
                   String(datesAvailability.available)
                 )}

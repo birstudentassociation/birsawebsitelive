@@ -34,7 +34,6 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    breadcrumbHub: string;
     breadcrumbCatalogue: string;
     breadcrumbStatus: string;
     labels: StatusLookupLabels;
@@ -43,7 +42,6 @@ const copy: Record<
   en: {
     title: "Check a loan request",
     lede: "Enter your reference number and TU email to see where your equipment loan request stands.",
-    breadcrumbHub: "Information and services",
     breadcrumbCatalogue: "Equipment loan service",
     breadcrumbStatus: "Check a request",
     labels: {
@@ -53,7 +51,7 @@ const copy: Record<
       emailLabel: "TU email",
       emailHint: "The email address you used on the request.",
       submit: "Check status",
-      submitting: "Checking...",
+      submitting: "Checking…",
       errorSummaryTitle: "There is a problem",
       required: "required",
       errors: {
@@ -84,9 +82,11 @@ const copy: Record<
         no_show: "Not collected",
       },
       cancelButton: "Cancel this request",
-      cancelConfirm:
-        "Cancel this loan request? If you change your mind, you'll need to submit a new request.",
-      cancelling: "Cancelling...",
+      cancelConfirmTitle: "Cancel this loan request?",
+      cancelConfirmBody: "If you change your mind, you'll need to submit a new request.",
+      confirmLabel: "Confirm",
+      cancelLabel: "Cancel",
+      cancelling: "Cancelling…",
       cancelledTitle: "Request cancelled",
       cancelledBody: "Your loan request has been cancelled.",
       cancelErrorTitle: "Could not cancel this request",
@@ -97,7 +97,6 @@ const copy: Record<
   th: {
     title: "ตรวจสอบคำขอยืม",
     lede: "กรอกหมายเลขอ้างอิงและอีเมลมหาวิทยาลัยธรรมศาสตร์ของคุณเพื่อดูสถานะคำขอยืมอุปกรณ์",
-    breadcrumbHub: "ข้อมูลและบริการ",
     breadcrumbCatalogue: "บริการยืมอุปกรณ์",
     breadcrumbStatus: "ตรวจสอบคำขอ",
     labels: {
@@ -106,7 +105,7 @@ const copy: Record<
       emailLabel: "อีเมลมหาวิทยาลัยธรรมศาสตร์",
       emailHint: "อีเมลที่คุณใช้ตอนส่งคำขอ",
       submit: "ตรวจสอบสถานะ",
-      submitting: "กำลังตรวจสอบ...",
+      submitting: "กำลังตรวจสอบ…",
       errorSummaryTitle: "พบข้อผิดพลาด",
       required: "จำเป็นต้องกรอก",
       errors: {
@@ -137,8 +136,11 @@ const copy: Record<
         no_show: "ไม่มารับอุปกรณ์",
       },
       cancelButton: "ยกเลิกคำขอนี้",
-      cancelConfirm: "ยืนยันการยกเลิกคำขอยืมนี้หรือไม่? หากเปลี่ยนใจ คุณจะต้องส่งคำขอใหม่อีกครั้ง",
-      cancelling: "กำลังยกเลิก...",
+      cancelConfirmTitle: "ยืนยันการยกเลิกคำขอยืมนี้หรือไม่",
+      cancelConfirmBody: "หากเปลี่ยนใจ คุณจะต้องส่งคำขอใหม่อีกครั้ง",
+      confirmLabel: "ยืนยัน",
+      cancelLabel: "ยกเลิก",
+      cancelling: "กำลังยกเลิก…",
       cancelledTitle: "ยกเลิกคำขอแล้ว",
       cancelledBody: "คำขอยืมของคุณถูกยกเลิกแล้ว",
       cancelErrorTitle: "ไม่สามารถยกเลิกคำขอนี้ได้",
@@ -158,6 +160,7 @@ export default async function EquipmentLoanStatusPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   return (
     <>
@@ -170,7 +173,7 @@ export default async function EquipmentLoanStatusPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: t.breadcrumbHub, href: "/information-services" },
+              { label: infoServicesLabel, href: "/information-services" },
               { label: t.breadcrumbCatalogue, href: "/information-services/equipment-loan" },
               { label: t.breadcrumbStatus },
             ]}

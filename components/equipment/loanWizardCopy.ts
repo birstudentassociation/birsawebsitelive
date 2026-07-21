@@ -8,7 +8,7 @@
  * added or changed on one side, update the other immediately below it.
  */
 import type { Bilingual } from "@/lib/inventory/types";
-import type { Locale } from "@/lib/i18n";
+import { pluralize, type Locale } from "@/lib/i18n";
 
 /** Slim view of an inventory item, just the fields the wizard needs. */
 export type LoanWizardItem = {
@@ -86,9 +86,9 @@ export type LoanWizardLabels = {
     errorTooLong: string;
     checkCta: string;
     checking: string;
-    // Template with a {count} placeholder, kept as a plain string for the
-    // same serializability reason as common.stepOf.
-    availableTemplate: string;
+    // One/other forms with a {count} placeholder, kept as plain strings for
+    // the same serializability reason as common.stepOf.
+    availableTemplate: { one: string; other: string };
     noneFreeTitle: string;
     noneFreeBody: string;
     checkErrorTitle: string;
@@ -202,8 +202,11 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         errorEndBeforeStart: "วันที่คืนต้องไม่ก่อนวันที่รับอุปกรณ์",
         errorTooLong: `ระยะเวลายืมต้องไม่เกิน ${maxDays} วัน`,
         checkCta: "ตรวจสอบความพร้อมให้ยืม",
-        checking: "กำลังตรวจสอบความพร้อมให้ยืม...",
-        availableTemplate: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
+        checking: "กำลังตรวจสอบความพร้อมให้ยืม…",
+        availableTemplate: {
+          one: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
+          other: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
+        },
         noneFreeTitle: "ไม่มีอุปกรณ์ว่างในช่วงวันที่เลือก",
         noneFreeBody: "กรุณาเลือกช่วงวันที่อื่นแล้วลองใหม่อีกครั้ง",
         checkErrorTitle: "ตรวจสอบความพร้อมให้ยืมไม่สำเร็จ",
@@ -227,7 +230,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         reasonLabel: "เหตุผลในการยืม",
         reasonEmpty: "ไม่ได้ระบุ",
         submit: "ยอมรับและส่งคำขอ",
-        submitting: "กำลังส่งคำขอ...",
+        submitting: "กำลังส่งคำขอ…",
       },
       confirmation: {
         title: "ส่งคำขอเรียบร้อยแล้ว",
@@ -283,7 +286,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         "Your Thammasat University student email (@dome.tu.ac.th or @tu.ac.th)",
       ],
       termsTitle: "Loan terms",
-      termsBody: `You can borrow this item for up to ${maxDays} day(s). Collect it in person from the BIRSA office once your request is approved.`,
+      termsBody: `You can borrow this item for up to ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })}. Collect it in person from the BIRSA office once your request is approved.`,
       cta: "Start now",
       backToCatalogue: "Back to the equipment list",
     },
@@ -310,19 +313,22 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     dates: {
       title: "When do you need to borrow it",
       startQuestion: "Date you will collect the item",
-      startHint: `Choose the date you will collect it from the BIRSA office. Maximum loan length is ${maxDays} day(s).`,
+      startHint: `Choose the date you will collect it from the BIRSA office. Maximum loan length is ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })}.`,
       endQuestion: "Date you will return the item",
-      endHint: `Must be within ${maxDays} day(s) of the collection date.`,
+      endHint: `Must be within ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })} of the collection date.`,
       errorStartRequired: "Enter the date you want to collect the item",
       errorStartInvalid: "Enter a valid date",
       errorStartPast: "The collection date cannot be in the past",
       errorEndRequired: "Enter the date you will return the item",
       errorEndInvalid: "Enter a valid date",
       errorEndBeforeStart: "The return date must be on or after the collection date",
-      errorTooLong: `The loan period cannot exceed ${maxDays} day(s)`,
+      errorTooLong: `The loan period cannot exceed ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })}`,
       checkCta: "Check availability",
-      checking: "Checking availability...",
-      availableTemplate: "{count} unit(s) available for your dates",
+      checking: "Checking availability…",
+      availableTemplate: {
+        one: "1 unit available for your dates",
+        other: "{count} units available for your dates",
+      },
       noneFreeTitle: "Nothing is free for those dates",
       noneFreeBody: "Try a different date range and check again.",
       checkErrorTitle: "Could not check availability",
@@ -346,7 +352,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       reasonLabel: "Reason for borrowing",
       reasonEmpty: "Not given",
       submit: "Accept and send request",
-      submitting: "Sending your request...",
+      submitting: "Sending your request…",
     },
     confirmation: {
       title: "Your request has been sent",

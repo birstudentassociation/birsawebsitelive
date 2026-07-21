@@ -14,6 +14,7 @@ import Field from "@/components/Field";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import type { Locale } from "@/lib/i18n";
 import type { Custodian, Officer, Role } from "@/lib/inventory/types";
 
@@ -46,8 +47,12 @@ type Copy = {
   listEmpty: string;
   activeLabel: string;
   inactiveLabel: string;
-  deactivateConfirm: (name: string) => string;
-  roleChangeConfirm: (name: string, role: string) => string;
+  deactivateConfirmTitle: (name: string) => string;
+  deactivateConfirmBody: string;
+  roleChangeConfirmTitle: (name: string, role: string) => string;
+  roleChangeConfirmBody: string;
+  confirmLabel: string;
+  cancelLabel: string;
   activateAction: string;
   deactivateAction: string;
   resetPasscodeAction: string;
@@ -88,9 +93,12 @@ const copy: Record<Locale, Copy> = {
     listEmpty: "No officer accounts yet.",
     activeLabel: "Active",
     inactiveLabel: "Inactive",
-    deactivateConfirm: (name) => `Deactivate ${name}? They will no longer be able to sign in.`,
-    roleChangeConfirm: (name, role) =>
-      `Change ${name}'s role to ${role}? This changes what they can access.`,
+    deactivateConfirmTitle: (name) => `Deactivate ${name}?`,
+    deactivateConfirmBody: "They will no longer be able to sign in.",
+    roleChangeConfirmTitle: (name, role) => `Change ${name}'s role to ${role}?`,
+    roleChangeConfirmBody: "This changes what they can access.",
+    confirmLabel: "Confirm",
+    cancelLabel: "Cancel",
     activateAction: "Activate",
     deactivateAction: "Deactivate",
     resetPasscodeAction: "Reset passcode",
@@ -134,10 +142,12 @@ const copy: Record<Locale, Copy> = {
     listEmpty: "ยังไม่มีบัญชีเจ้าหน้าที่",
     activeLabel: "ใช้งานอยู่",
     inactiveLabel: "ปิดใช้งาน",
-    deactivateConfirm: (name) =>
-      `ปิดใช้งานบัญชีของ ${name} ใช่หรือไม่ พวกเขาจะไม่สามารถเข้าสู่ระบบได้อีก`,
-    roleChangeConfirm: (name, role) =>
-      `เปลี่ยนบทบาทของ ${name} เป็น ${role} ใช่หรือไม่ การเข้าถึงของพวกเขาจะเปลี่ยนไป`,
+    deactivateConfirmTitle: (name) => `ปิดใช้งานบัญชีของ ${name} ใช่หรือไม่`,
+    deactivateConfirmBody: "พวกเขาจะไม่สามารถเข้าสู่ระบบได้อีก",
+    roleChangeConfirmTitle: (name, role) => `เปลี่ยนบทบาทของ ${name} เป็น ${role} ใช่หรือไม่`,
+    roleChangeConfirmBody: "การเข้าถึงของพวกเขาจะเปลี่ยนไป",
+    confirmLabel: "ยืนยัน",
+    cancelLabel: "ยกเลิก",
     activateAction: "เปิดใช้งาน",
     deactivateAction: "ปิดใช้งาน",
     resetPasscodeAction: "ตั้งรหัสผ่านใหม่",
@@ -189,6 +199,10 @@ export default function OfficersManager({
 }: OfficersManagerProps) {
   const t = copy[locale];
   const formId = useId();
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: t.confirmLabel,
+    cancelLabel: t.cancelLabel,
+  });
 
   const activeCustodians = custodians.filter((c) => c.isActive);
   const custodianById = new Map(custodians.map((c) => [c.id, c]));
@@ -327,14 +341,15 @@ export default function OfficersManager({
     }
   }
 
-  function handleRoleChange(officerRow: Officer, nextRole: Role) {
+  async function handleRoleChange(officerRow: Officer, nextRole: Role) {
     if (nextRole === officerRow.role) return;
     // Role changes grant/revoke access, so confirm first, consistent with the
     // deactivate action (GDS error prevention).
-    const confirmText = t.roleChangeConfirm(officerRow.name, t.roleLabels[nextRole]);
-    if (typeof window !== "undefined" && !window.confirm(confirmText)) {
-      return;
-    }
+    const ok = await confirm({
+      title: t.roleChangeConfirmTitle(officerRow.name, t.roleLabels[nextRole]),
+      body: t.roleChangeConfirmBody,
+    });
+    if (!ok) return;
     void patchOfficer(officerRow.id, { role: nextRole }, t.updatedMessage);
   }
 
@@ -344,12 +359,14 @@ export default function OfficersManager({
     void patchOfficer(officerRow.id, { custodianId: normalized }, t.updatedMessage);
   }
 
-  function handleToggleActive(officerRow: Officer) {
+  async function handleToggleActive(officerRow: Officer) {
     if (officerRow.isActive) {
-      const confirmText = t.deactivateConfirm(officerRow.name);
-      if (typeof window !== "undefined" && !window.confirm(confirmText)) {
-        return;
-      }
+      const ok = await confirm({
+        title: t.deactivateConfirmTitle(officerRow.name),
+        body: t.deactivateConfirmBody,
+        danger: true,
+      });
+      if (!ok) return;
     }
     void patchOfficer(officerRow.id, { isActive: !officerRow.isActive }, t.updatedMessage);
   }
@@ -535,7 +552,9 @@ export default function OfficersManager({
                       as="select"
                       label={t.roleLabel}
                       value={officerRow.role}
-                      onChange={(event) => handleRoleChange(officerRow, event.target.value as Role)}
+                      onChange={(event) =>
+                        void handleRoleChange(officerRow, event.target.value as Role)
+                      }
                       disabled={isBusy}
                       options={ROLES.map((r) => ({ value: r, label: t.roleLabels[r] }))}
                       className="min-w-[10rem]"
@@ -555,7 +574,7 @@ export default function OfficersManager({
 
                     <Button
                       variant="secondary"
-                      onClick={() => handleToggleActive(officerRow)}
+                      onClick={() => void handleToggleActive(officerRow)}
                       disabled={isBusy}
                     >
                       {officerRow.isActive ? t.deactivateAction : t.activateAction}
@@ -618,6 +637,8 @@ export default function OfficersManager({
           </div>
         )}
       </section>
+
+      {dialog}
     </div>
   );
 }

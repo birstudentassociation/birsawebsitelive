@@ -2,7 +2,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "danger";
 
 type CommonProps = {
   variant?: Variant;
@@ -29,6 +29,11 @@ const variants: Record<Variant, string> = {
   primary: "focus-halo bg-brand text-white hover:bg-brand-strong",
   secondary: "border-[1.5px] border-ink text-ink hover:bg-sunken",
   ghost: "text-ink hover:bg-sunken",
+  // `--color-brand-strong` (#b3161c) is defined identically in light and
+  // dark mode, unlike `--color-error`, which is lightened for text-on-tint
+  // use in dark mode and would fail contrast as a solid white-text fill. It
+  // doubles as this site's destructive-action colour for that reason.
+  danger: "focus-halo bg-brand-strong text-white hover:opacity-85",
 };
 
 /**

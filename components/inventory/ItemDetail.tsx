@@ -16,6 +16,7 @@ import Button from "@/components/Button";
 import Notice from "@/components/Notice";
 import Accordion from "@/components/Accordion";
 import PhotoUpload from "@/components/inventory/PhotoUpload";
+import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import { formatDate, type Locale } from "@/lib/i18n";
 import type {
   Category,
@@ -87,7 +88,10 @@ type Copy = {
   retiring: string;
   restore: string;
   restoring: string;
-  confirmRetire: string;
+  confirmRetireTitle: string;
+  confirmRetireBody: string;
+  confirmLabel: string;
+  cancelLabel: string;
   retiredMessage: string;
   restoredMessage: string;
 
@@ -192,7 +196,10 @@ const copy: Record<Locale, Copy> = {
     retiring: "Retiring...",
     restore: "Restore item",
     restoring: "Restoring...",
-    confirmRetire: "Retire this item? It will be hidden from active loans but kept in records.",
+    confirmRetireTitle: "Retire this item?",
+    confirmRetireBody: "It will be hidden from active loans but kept in records.",
+    confirmLabel: "Confirm",
+    cancelLabel: "Cancel",
     retiredMessage: "Item retired.",
     restoredMessage: "Item restored.",
 
@@ -302,7 +309,10 @@ const copy: Record<Locale, Copy> = {
     retiring: "กำลังเลิกใช้...",
     restore: "กู้คืนรายการ",
     restoring: "กำลังกู้คืน...",
-    confirmRetire: "เลิกใช้รายการนี้ใช่หรือไม่ รายการจะถูกซ่อนจากการยืมแต่ยังเก็บประวัติไว้",
+    confirmRetireTitle: "เลิกใช้รายการนี้ใช่หรือไม่",
+    confirmRetireBody: "รายการจะถูกซ่อนจากการยืมแต่ยังเก็บประวัติไว้",
+    confirmLabel: "ยืนยัน",
+    cancelLabel: "ยกเลิก",
     retiredMessage: "เลิกใช้รายการแล้ว",
     restoredMessage: "กู้คืนรายการแล้ว",
 
@@ -463,6 +473,10 @@ export default function ItemDetail({
   const t = copy[locale];
   const canWrite = CAN_WRITE.includes(role);
   const formId = useId();
+  const { confirm, dialog } = useConfirmDialog({
+    confirmLabel: t.confirmLabel,
+    cancelLabel: t.cancelLabel,
+  });
   const isGlobal = scopedCustodianId === null;
   const activeCustodians = custodians.filter((c) => c.isActive);
 
@@ -589,8 +603,13 @@ export default function ItemDetail({
   }
 
   async function handleRetireToggle() {
-    if (!item.isRetired && typeof window !== "undefined" && !window.confirm(t.confirmRetire)) {
-      return;
+    if (!item.isRetired) {
+      const ok = await confirm({
+        title: t.confirmRetireTitle,
+        body: t.confirmRetireBody,
+        danger: true,
+      });
+      if (!ok) return;
     }
     setRetireBusy(true);
     setRetireMessage(null);
@@ -1246,6 +1265,8 @@ export default function ItemDetail({
           </div>
         </section>
       ) : null}
+
+      {dialog}
     </div>
   );
 }
