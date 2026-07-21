@@ -11,6 +11,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
 import Email from "@/components/Email";
 import ExternalLink from "@/components/ExternalLink";
+import { clubs as clubsContent } from "@/content/clubs/clubs";
 
 /**
  * Live club inventory and per-item availability, which change as loans are made
@@ -60,6 +61,7 @@ const copy: Record<
     instagramLabel: string;
     backCta: string;
     itemsHeading: string;
+    clubPageCta: string;
   }
 > = {
   en: {
@@ -79,6 +81,7 @@ const copy: Record<
     instagramLabel: "Instagram",
     backCta: "Back to the equipment loan service",
     itemsHeading: "Items",
+    clubPageCta: "View this club's page",
   },
   th: {
     title: "ทำเนียบอุปกรณ์ของชมรม",
@@ -97,6 +100,7 @@ const copy: Record<
     instagramLabel: "Instagram",
     backCta: "กลับไปหน้าบริการยืมอุปกรณ์",
     itemsHeading: "รายการอุปกรณ์",
+    clubPageCta: "ดูหน้าของชมรมนี้",
   },
 };
 
@@ -166,7 +170,7 @@ export default async function EquipmentLoanDirectoryPage({
     );
   }
 
-  const infoServicesLabel = locale === "th" ? "ข้อมูลและบริการ" : "Information and services";
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
   const equipmentLoanLabel = locale === "th" ? "บริการยืมอุปกรณ์" : "Equipment loan service";
 
   const breadcrumbs = (
@@ -293,6 +297,10 @@ export default async function EquipmentLoanDirectoryPage({
           {clubs.map((club) => {
             const items = clubItems.get(club.id) ?? [];
             const contact = renderContact(club);
+            // Club slugs and custodian slugs are independent data sources;
+            // this link only appears when a club has explicitly opted in by
+            // setting `custodianSlug` to match this custodian.
+            const linkedClub = clubsContent.find((c) => c.custodianSlug === club.slug);
             return (
               <section
                 key={club.id}
@@ -341,6 +349,15 @@ export default async function EquipmentLoanDirectoryPage({
                 )}
 
                 {contact}
+
+                {linkedClub ? (
+                  <a
+                    href={localeHref(locale, `/clubs/${linkedClub.slug}`)}
+                    className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+                  >
+                    {t.clubPageCta} &rarr;
+                  </a>
+                ) : null}
               </section>
             );
           })}

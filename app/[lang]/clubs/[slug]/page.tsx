@@ -44,6 +44,8 @@ const labels: Record<
     contact: string;
     back: string;
     openToJoin: string;
+    equipment: string;
+    equipmentCta: string;
   }
 > = {
   en: {
@@ -54,6 +56,8 @@ const labels: Record<
     contact: "Contact",
     back: "Back to clubs",
     openToJoin: "Open to join",
+    equipment: "Equipment",
+    equipmentCta: "See what this club lends out",
   },
   th: {
     clubs: "ชมรม",
@@ -63,6 +67,8 @@ const labels: Record<
     contact: "ติดต่อ",
     back: "กลับไปหน้าชมรมทั้งหมด",
     openToJoin: "รับสมาชิกอยู่",
+    equipment: "อุปกรณ์",
+    equipmentCta: "ดูอุปกรณ์ที่ชมรมนี้ให้ยืม",
   },
 };
 
@@ -127,6 +133,22 @@ export default async function ClubDetailPage({
             <dt className="text-ink text-sm font-semibold">{t.howToJoin}</dt>
             <dd className="text-muted mt-1 text-sm">{content.howToJoin}</dd>
           </div>
+          {club.custodianSlug ? (
+            <div>
+              <dt className="text-ink text-sm font-semibold">{t.equipment}</dt>
+              <dd className="mt-1 text-sm">
+                <Link
+                  href={localeHref(
+                    locale,
+                    `/information-services/equipment-loan/directory#${club.custodianSlug}`
+                  )}
+                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                >
+                  {t.equipmentCta}
+                </Link>
+              </dd>
+            </div>
+          ) : null}
           {club.email || club.instagram ? (
             <div>
               <dt className="text-ink text-sm font-semibold">{t.contact}</dt>

@@ -44,7 +44,6 @@ const copy: Record<
     unavailableTitle: string;
     unavailableBody: string;
     backToCatalogue: string;
-    breadcrumbHub: string;
     breadcrumbCatalogue: string;
     breadcrumbRequest: string;
   }
@@ -54,7 +53,6 @@ const copy: Record<
     unavailableBody:
       "There are no units of this item available to borrow right now. Check back later, or contact BIRSA if it's urgent.",
     backToCatalogue: "Back to the equipment list",
-    breadcrumbHub: "Information and services",
     breadcrumbCatalogue: "Equipment loan service",
     breadcrumbRequest: "Request",
   },
@@ -63,7 +61,6 @@ const copy: Record<
     unavailableBody:
       "ขณะนี้ไม่มีอุปกรณ์ชิ้นนี้ว่างให้ยืม ลองกลับมาตรวจสอบใหม่ภายหลัง หรือติดต่อ BIRSA หากเร่งด่วน",
     backToCatalogue: "กลับไปหน้ารายการอุปกรณ์",
-    breadcrumbHub: "ข้อมูลและบริการ",
     breadcrumbCatalogue: "บริการยืมอุปกรณ์",
     breadcrumbRequest: "ส่งคำขอ",
   },
@@ -85,6 +82,7 @@ export default async function EquipmentLoanRequestPage({
 
   const availability = await getItemAvailabilitySummary(item);
   const catalogueHref = localeHref(locale, "/information-services/equipment-loan");
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
 
   const breadcrumbs = (
     <Breadcrumbs
@@ -92,7 +90,7 @@ export default async function EquipmentLoanRequestPage({
       label={dict.a11y.breadcrumb}
       items={[
         { label: dict.site.name, href: "/" },
-        { label: t.breadcrumbHub, href: "/information-services" },
+        { label: infoServicesLabel, href: "/information-services" },
         { label: t.breadcrumbCatalogue, href: "/information-services/equipment-loan" },
         { label: t.breadcrumbRequest },
       ]}

@@ -35,6 +35,15 @@ export type Club = {
   email?: string;
   instagram?: string;
   join: { open: boolean };
+  /**
+   * Slug of this club's matching Custodian in the inventory system
+   * (`db/migrations/009_custodians.sql`). Club slugs here and custodian
+   * slugs there are independent, unrelated data sources, so this is set
+   * manually and only when confirmed, never assumed from a matching slug
+   * string. When set, the club page links to this club's section of the
+   * equipment directory; when unset, no link is rendered.
+   */
+  custodianSlug?: string;
   en: ClubLocaleContent;
   th: ClubLocaleContent;
 };
@@ -54,6 +63,7 @@ export const clubs: Club[] = [
     category: "community",
     instagram: "https://www.instagram.com/asa.ir.tu/",
     join: { open: true },
+    custodianSlug: "asa-ir",
     en: {
       name: "ASA IR",
       tagline: "Student volunteer camps built around sustainable development.",
@@ -208,6 +218,7 @@ export const clubs: Club[] = [
     category: "sports",
     instagram: "https://www.instagram.com/birfootballclub/",
     join: { open: true },
+    custodianSlug: "bir-football",
     en: {
       name: "BIR Football",
       tagline: "Casual football and friendly matches, all levels welcome.",
@@ -238,6 +249,7 @@ export const clubs: Club[] = [
     slug: "bir-volleyball",
     category: "sports",
     join: { open: true },
+    custodianSlug: "bir-volleyball",
     en: {
       name: "BIR Volleyball",
       tagline: "Volleyball for BIR students, from first-timers to regulars.",
@@ -269,6 +281,7 @@ export const clubs: Club[] = [
     category: "sports",
     instagram: "https://www.instagram.com/bir.basketballclub/",
     join: { open: true },
+    custodianSlug: "bir-basketball",
     en: {
       name: "BIR Basketball",
       tagline: "Pick-up games and a BIR team to play for.",
