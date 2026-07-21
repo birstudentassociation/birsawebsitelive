@@ -151,7 +151,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "BIR18 pre-session",
       th: "ปฐมนิเทศเบื้องต้น BIR18",
     },
-    slug: "july-2026-activity-calendar",
+    slug: "bir18-pre-session",
     kind: "birsa",
   },
   {
