@@ -9,7 +9,6 @@
  */
 import { useActionState, useEffect, useId, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import Link from "next/link";
 import clsx from "clsx";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";

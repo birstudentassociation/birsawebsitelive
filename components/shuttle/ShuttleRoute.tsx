@@ -31,7 +31,6 @@
  * Used from `content/student-life/{en,th}/home/shuttle-bus.mdx` via the MDX
  * component map in `lib/mdx.tsx`.
  */
-import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
 import { shuttleLines, getLine, type LineId, type Stop } from "@/lib/shuttle";
 import Tag from "@/components/Tag";
