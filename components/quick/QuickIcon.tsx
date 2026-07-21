@@ -163,6 +163,14 @@ export default function QuickIconGlyph({ icon }: { icon: QuickIcon }) {
           />
         </svg>
       );
+    case "alert":
+      return (
+        <svg {...common}>
+          <path d="M10 2 1 17h18L10 2Z" strokeLinejoin="round" strokeLinecap="round" />
+          <path d="M10 8v4" strokeLinecap="round" />
+          <circle cx="10" cy="14.5" r="0.9" fill="currentColor" stroke="none" />
+        </svg>
+      );
     case "external":
     default:
       return (

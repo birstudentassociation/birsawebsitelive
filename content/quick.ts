@@ -22,6 +22,7 @@ export type QuickIcon =
   | "facebook"
   | "email"
   | "line"
+  | "alert"
   | "external";
 
 export type QuickItem = {
@@ -71,7 +72,7 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "course-reviews",
-        href: "/student-life/home/course-reviews",
+        href: "/student-life/course-reviews",
         icon: "review",
         en: { label: "Course reviews", hint: "For finding out what a course is like" },
         th: { label: "รีวิววิชาเรียน", hint: "ฐานข้อมูลรีวิววิชา PI" },
@@ -113,10 +114,17 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "student-life-guide",
-        href: "/information-services",
+        href: "/student-life",
         icon: "guide",
         en: { label: "Student-life guide", hint: "For home and international students" },
         th: { label: "คู่มือชีวิตนักศึกษา", hint: "สำหรับนักศึกษาไทยและนักศึกษาต่างชาติ" },
+      },
+      {
+        key: "emergency-guidance",
+        href: "/emergency",
+        icon: "alert",
+        en: { label: "Emergency guidance", hint: "What to do in a campus emergency" },
+        th: { label: "คำแนะนำฉุกเฉิน", hint: "สิ่งที่ควรทำเมื่อเกิดเหตุฉุกเฉินในคณะ" },
       },
     ],
   },

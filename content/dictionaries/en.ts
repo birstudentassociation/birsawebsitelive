@@ -98,6 +98,8 @@ export const en = {
     noResults: "Nothing matched your filters. Try clearing them.",
     required: "required",
     optional: "optional",
+    confirm: "Confirm",
+    cancel: "Cancel",
   },
 
   form: {
@@ -139,8 +141,9 @@ export const en = {
     accessibility: "Accessibility",
     privacy: "Privacy",
     standards: "How this site works",
+    emergency: "Emergency guidance",
     openInfo:
-      "This is an unofficial student-run site. For official programme matters, use the BIR Programme links.",
+      "This is BIRSA's official site, run by students. BIRSA is not a university office. For official programme matters, use the BIR Programme links.",
     rights: "BIR Student Association",
     builtNote: "Built to be usable by everyone.",
   },
