@@ -188,6 +188,11 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
             <Email
               address="birsa@tu.ac.th"
               className="text-brand-deep hover:text-brand-dark font-medium"
+            />{" "}
+            /{" "}
+            <Email
+              address="birstudentassociation@gmail.com"
+              className="text-brand-deep hover:text-brand-dark font-medium"
             />
           </p>
         </div>

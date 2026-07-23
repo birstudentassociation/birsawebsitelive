@@ -45,6 +45,7 @@ export const contact = {
   } satisfies LocalizedText,
   phone: "02-221-6111 ext. 3409",
   email: "birsa@tu.ac.th",
+  secondaryEmail: "birstudentassociation@gmail.com",
 };
 
 export type OfficialLink = {

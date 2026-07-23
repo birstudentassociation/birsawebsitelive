@@ -110,8 +110,12 @@ export default async function ContactPage({
           <dl className="flex flex-col gap-3 text-sm">
             <div>
               <dt className="text-ink font-semibold">{t.emailLabel}</dt>
-              <dd>
+              <dd className="flex flex-col gap-1">
                 <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
+                <Email
+                  address={contact.secondaryEmail}
+                  className="text-brand-deep hover:text-brand-dark"
+                />
               </dd>
             </div>
             {visibleSocials

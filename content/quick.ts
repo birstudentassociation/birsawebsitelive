@@ -178,6 +178,13 @@ export const quickGroups: QuickGroup[] = [
         en: { label: "Email", hint: "birsa@tu.ac.th" },
         th: { label: "อีเมล", hint: "birsa@tu.ac.th" },
       },
+      {
+        key: "email-secondary",
+        href: "mailto:birstudentassociation@gmail.com",
+        icon: "email",
+        en: { label: "Email (secondary)", hint: "birstudentassociation@gmail.com" },
+        th: { label: "อีเมล (สำรอง)", hint: "birstudentassociation@gmail.com" },
+      },
     ],
   },
   {

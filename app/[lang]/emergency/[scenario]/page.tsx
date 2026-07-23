@@ -173,6 +173,9 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
               <Email address={contact.email} className="hover:text-brand-deep underline" />
             </li>
             <li>
+              <Email address={contact.secondaryEmail} className="hover:text-brand-deep underline" />
+            </li>
+            <li>
               {t.phone}: {contact.phone}
             </li>
             <li>

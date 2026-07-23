@@ -269,6 +269,11 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
             <Email
               address={contact.email}
               className="text-brand-deep hover:text-brand-dark font-semibold"
+            />{" "}
+            /{" "}
+            <Email
+              address={contact.secondaryEmail}
+              className="text-brand-deep hover:text-brand-dark font-semibold"
             />
             .{" "}
             <Link

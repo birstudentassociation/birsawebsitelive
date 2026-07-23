@@ -87,6 +87,9 @@ export default function Footer({ locale }: FooterProps) {
             <li>
               <Email address={contact.email} className="hover:text-brand-deep" />
             </li>
+            <li>
+              <Email address={contact.secondaryEmail} className="hover:text-brand-deep" />
+            </li>
             <li>{contact.phone}</li>
             <li className="max-w-[32ch]">{contact.address[locale]}</li>
           </ul>

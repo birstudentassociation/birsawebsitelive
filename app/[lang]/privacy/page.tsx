@@ -130,7 +130,9 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
             >
               {t.contactCta}
             </Link>{" "}
-            {locale === "th" ? `หรืออีเมล ${contact.email}` : `or email ${contact.email}.`}
+            {locale === "th"
+              ? `หรืออีเมล ${contact.email} หรือ ${contact.secondaryEmail}`
+              : `or email ${contact.email} or ${contact.secondaryEmail}.`}
           </p>
         </section>
       </div>

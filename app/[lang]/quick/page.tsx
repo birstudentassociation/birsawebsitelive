@@ -8,7 +8,6 @@ import Email from "@/components/Email";
 import Tag from "@/components/Tag";
 import QuickIconGlyph from "@/components/quick/QuickIcon";
 import { quickGroups, type QuickItem } from "@/content/quick";
-import { contact } from "@/content/site";
 
 export async function generateMetadata({
   params,
@@ -104,6 +103,10 @@ function QuickLinkRow({
   }
 
   if (isEmail) {
+    // Each email row links to its own address, derived from the item's own
+    // `mailto:` href rather than a hardcoded contact address, so multiple
+    // email items (primary/secondary) can share this row treatment.
+    const address = item.href.replace(/^mailto:/, "");
     return (
       <div className={`${rowClasses} relative`}>
         {content}
@@ -115,7 +118,7 @@ function QuickLinkRow({
             above already show the same information to sighted users; the
             global :focus-visible outline still renders on top. */}
         <Email
-          address={contact.email}
+          address={address}
           label={copy.label}
           className="absolute inset-0 rounded-lg text-transparent"
         />
