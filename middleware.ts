@@ -77,6 +77,10 @@ const SHARED_CSP_DIRECTIVES = [
   `img-src 'self' data: blob:`,
   `font-src 'self'`,
   `connect-src 'self' https://va.vercel-scripts.com`,
+  // Google Forms embeds (e.g. event registration on What's on) are framed from
+  // docs.google.com. Scoped to that host only; `frame-ancestors 'none'` below
+  // still stops anyone from framing us.
+  `frame-src https://docs.google.com`,
   `frame-ancestors 'none'`,
   `base-uri 'self'`,
   `form-action 'self'`,

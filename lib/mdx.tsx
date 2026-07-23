@@ -12,6 +12,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import Email from "@/components/Email";
+import GoogleForm, { type GoogleFormProps } from "@/components/GoogleForm";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
 import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
 import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
@@ -65,6 +66,11 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     },
     Notice,
     Email,
+    // Forward the MDX-authored props (src/title/height) and inject the page
+    // locale so the fallback copy matches the article language.
+    GoogleForm: (props: Omit<GoogleFormProps, "locale">) => (
+      <GoogleForm {...props} locale={locale} />
+    ),
     CommitteeRoster: () => <CommitteeRoster locale={locale} />,
     ShuttleTimer: () => <ShuttleTimer locale={locale} />,
     ShuttleRoute: () => <ShuttleRoute locale={locale} />,
