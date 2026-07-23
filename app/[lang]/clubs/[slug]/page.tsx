@@ -116,6 +116,26 @@ export default async function ClubDetailPage({
           ))}
         </div>
 
+        {content.welcome ? (
+          <section className="border-line prose border-t pt-8">
+            <h2>{content.welcome.heading}</h2>
+            {content.welcome.intro.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+            <h3>{content.welcome.activitiesHeading}</h3>
+            <ul>
+              {content.welcome.activities.map((activity, index) => (
+                <li key={index}>
+                  <strong>{activity.label}:</strong> {activity.body}
+                </li>
+              ))}
+            </ul>
+            {content.welcome.outro.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </section>
+        ) : null}
+
         <dl className="border-line grid grid-cols-1 gap-6 border-t pt-6 sm:grid-cols-2">
           {content.meets ? (
             <div>

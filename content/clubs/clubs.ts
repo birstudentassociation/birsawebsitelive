@@ -17,11 +17,34 @@ import type { Locale } from "@/lib/i18n";
 
 export type ClubCategory = "academic" | "sports" | "arts" | "community" | "social";
 
+/** A single labelled item in a club's activities list. */
+export type ClubActivity = {
+  label: string;
+  body: string;
+};
+
+/**
+ * An optional longer welcome from the club itself, in the club's own voice.
+ * Kept separate from the neutral `description`. Each locale supplies its own,
+ * written entirely in that one language (no mixing).
+ */
+export type ClubWelcome = {
+  heading: string;
+  /** Paragraphs before the activities list. */
+  intro: string[];
+  activitiesHeading: string;
+  activities: ClubActivity[];
+  /** Paragraphs after the activities list. */
+  outro: string[];
+};
+
 export type ClubLocaleContent = {
   name: string;
   tagline: string;
   /** 2-3 paragraphs. */
   description: string[];
+  /** Optional longer message from the club, in its own voice. */
+  welcome?: ClubWelcome;
   meets?: string;
   /** Role title only, e.g. "President". Never a person's name. */
   lead?: string;
@@ -227,6 +250,27 @@ export const clubs: Club[] = [
         "The club is a relaxed way to play regularly, meet people across year groups, and represent BIR when there is a match on.",
         "No trials and no experience required. Bring trainers and water and turn up.",
       ],
+      welcome: {
+        heading: "A word from the club",
+        intro: [
+          "Congratulations on becoming part of BIR — reaching this point took real effort, and every one of you should be proud. On behalf of BIR Football Club, congratulations, and if football sounds like your thing, we would love for you to come join us.",
+          "If we had to sum up our club in one word, it would be “family.” We care most about having fun and building togetherness, carrying forward the warm community culture that Singh Daeng, the Red Lion, is known for.",
+        ],
+        activitiesHeading: "What we get up to",
+        activities: [
+          {
+            label: "Practice",
+            body: "Training is relaxed and unpressured, held a few times a month depending on everyone's availability. We usually head out for good food together afterwards, which is where a lot of the good vibes happen — a great way to build connections and camaraderie across year groups.",
+          },
+          {
+            label: "Matches",
+            body: "Beyond our own training and socials, we also get chances to play friendly matches against other universities and faculties.",
+          },
+        ],
+        outro: [
+          "One more thing worth knowing: we are not just a men's team — we have a women's team too. And if playing isn't your thing but you'd still like to be part of it, we would love to have you on board behind the scenes. You don't need any football experience — just an open mind, a willingness to learn, and a readiness to have fun together. See you on the pitch! ⚽",
+        ],
+      },
       lead: "Team captain",
       howToJoin:
         "Follow the club on Instagram at @birfootballclub, where match days and new-player sign-ups are posted. New players are usually welcomed at the start of each semester.",
@@ -239,6 +283,27 @@ export const clubs: Club[] = [
         "เป็นวิธีชิล ๆ ที่จะได้เล่นบอลสม่ำเสมอ ได้รู้จักเพื่อนต่างชั้นปี และได้เป็นตัวแทน BIR เมื่อมีแมตช์",
         "ไม่มีการคัดตัว ไม่ต้องมีประสบการณ์ แค่เตรียมรองเท้าผ้าใบกับน้ำแล้วมาได้เลย",
       ],
+      welcome: {
+        heading: "คำทักทายจากชมรมฟุตบอล BIR",
+        intro: [
+          "ยินดีต้อนรับน้อง ๆ และทุกคนที่สนใจเข้าร่วมชมรมฟุตบอล BIR ครับ ไม่ว่าจะเพิ่งก้าวเข้ามาเป็นส่วนหนึ่งของ BIR หรือกำลังมองหาที่ที่ได้เตะบอลไปพร้อมกับสร้างมิตรภาพดี ๆ พวกพี่ขอเชิญชวนให้ลองเข้ามาร่วมกลุ่มกับพวกเราครับ",
+          "ถ้าให้อธิบายภาพรวมของชมรมเรา คำว่า “ครอบครัว” น่าจะเป็นคำที่เหมาะที่สุด พวกเราให้ความสำคัญกับความสนุกและความสามัคคีกลมเกลียว เพื่อสืบทอดวัฒนธรรมชุมชนสิงห์แดงที่อบอุ่นให้คงอยู่ต่อไป",
+        ],
+        activitiesHeading: "กิจกรรมหลักของชมรม",
+        activities: [
+          {
+            label: "การซ้อมฟุตบอล",
+            body: "ซ้อมกันแบบสบาย ๆ หลายครั้งต่อเดือน ขึ้นอยู่กับความสะดวกและความสมัครใจของทุกคน หลังซ้อมเสร็จก็มักจะชวนกันไปหาของอร่อยกินต่อ ซึ่งเป็นช่วงเวลาดี ๆ ที่ช่วยสร้างบรรยากาศเป็นกันเองและความสนิทสนมระหว่างรุ่นพี่รุ่นน้อง",
+          },
+          {
+            label: "การแข่งขัน",
+            body: "นอกจากกิจกรรมภายในชมรมแล้ว เรายังมีโอกาสไปแข่งกระชับมิตรกับมหาวิทยาลัยและคณะอื่น ๆ ด้วยครับ",
+          },
+        ],
+        outro: [
+          "ที่สำคัญ ชมรมเราไม่ได้มีแค่ทีมชายเท่านั้น แต่ยังมีทีมฟุตบอลหญิงด้วย และถ้าใครไม่อยากลงเล่นแต่อยากมาช่วยเป็นทีมงานเบื้องหลัง พวกเราก็ยินดีต้อนรับอย่างยิ่ง ไม่จำเป็นต้องมีประสบการณ์หรือเล่นเก่งมาก่อน ขอแค่เปิดใจ พร้อมเรียนรู้ และสนุกไปด้วยกัน แล้วเจอกันในสนามนะครับ ⚽",
+        ],
+      },
       lead: "กัปตันทีม",
       howToJoin:
         "ติดตามชมรมได้ทาง Instagram @birfootballclub ซึ่งจะประกาศวันแข่งและการรับผู้เล่นใหม่ โดยปกติจะเปิดรับผู้เล่นใหม่ช่วงต้นเทอมแต่ละเทอม",
