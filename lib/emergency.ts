@@ -71,7 +71,7 @@ export type EmergencyState = {
   severity: EmergencySeverity;
 };
 
-/** The serialisable subset the banner needs — safe to send over the wire. */
+/** The serialisable subset the banner needs: safe to send over the wire. */
 export type EmergencyBannerData = {
   active: boolean;
   scenarioId: string;

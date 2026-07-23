@@ -253,14 +253,14 @@ export const clubs: Club[] = [
       welcome: {
         heading: "A word from the club",
         intro: [
-          "Congratulations on becoming part of BIR — reaching this point took real effort, and every one of you should be proud. On behalf of BIR Football Club, congratulations, and if football sounds like your thing, we would love for you to come join us.",
+          "Congratulations on becoming part of BIR: reaching this point took real effort, and every one of you should be proud. On behalf of BIR Football Club, congratulations, and if football sounds like your thing, we would love for you to come join us.",
           "If we had to sum up our club in one word, it would be “family.” We care most about having fun and building togetherness, carrying forward the warm community culture that Singh Daeng, the Red Lion, is known for.",
         ],
         activitiesHeading: "What we get up to",
         activities: [
           {
             label: "Practice",
-            body: "Training is relaxed and unpressured, held a few times a month depending on everyone's availability. We usually head out for good food together afterwards, which is where a lot of the good vibes happen — a great way to build connections and camaraderie across year groups.",
+            body: "Training is relaxed and unpressured, held a few times a month depending on everyone's availability. We usually head out for good food together afterwards, which is where a lot of the good vibes happen: a great way to build connections and camaraderie across year groups.",
           },
           {
             label: "Matches",
@@ -268,7 +268,7 @@ export const clubs: Club[] = [
           },
         ],
         outro: [
-          "One more thing worth knowing: we are not just a men's team — we have a women's team too. And if playing isn't your thing but you'd still like to be part of it, we would love to have you on board behind the scenes. You don't need any football experience — just an open mind, a willingness to learn, and a readiness to have fun together. See you on the pitch! ⚽",
+          "One more thing worth knowing: we are not just a men's team; we have a women's team too. And if playing isn't your thing but you'd still like to be part of it, we would love to have you on board behind the scenes. You don't need any football experience: just an open mind, a willingness to learn, and a readiness to have fun together. See you on the pitch! ⚽",
         ],
       },
       lead: "Team captain",

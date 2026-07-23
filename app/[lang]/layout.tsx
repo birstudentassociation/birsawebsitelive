@@ -75,7 +75,7 @@ export default async function RootLayout({
   // Runtime emergency mode, toggled via Edge Config without a redeploy. The read
   // is cached (see lib/emergency.ts) so it does not force dynamic rendering; the
   // banner is server-rendered here for no-JS visitors and then refreshed
-  // client-side. No `headers()`/nonce read here — that would force every page
+  // client-side. No `headers()`/nonce read here: that would force every page
   // dynamic; the inline theme script is authorised by hash on strict routes and
   // by `'unsafe-inline'` on the static ones (see middleware.ts).
   const emergency = await getEmergencyBannerData(locale);

@@ -1,5 +1,5 @@
 /**
- * Content model for "Starting at BIR: step by step" — a GOV.UK-style step by
+ * Content model for "Starting at BIR: step by step": a GOV.UK-style step by
  * step navigation for new BIR students, one track per audience. Copy is
  * authored natively in both languages inline (site convention: see
  * `content/student-life/tracks.ts` and the `copy` object in
@@ -23,7 +23,7 @@ export type OnboardingTask = {
   /** Optional supporting detail shown under the label. */
   hint?: Bi;
   /** Path relative to the locale root, e.g. "/student-life/home/shuttle-bus".
-   * Never locale-prefixed — build the real link with `localeHref`. Omit for
+   * Never locale-prefixed; build the real link with `localeHref`. Omit for
    * a plain (non-linked) task. */
   href?: string;
   /** True when `href` is an absolute external URL (opens in a new tab). */

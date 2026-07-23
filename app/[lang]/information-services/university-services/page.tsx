@@ -239,7 +239,7 @@ const copy: Record<
     },
     domeAccount: {
       title: "Your Dome account",
-      body: "Every Thammasat student is issued a Dome account — the single university login used across TU's online systems, including course registration (TU REG), your university email, campus Wi-Fi, and apps such as TU GREATS.",
+      body: "Every Thammasat student is issued a Dome account: the single university login used across TU's online systems, including course registration (TU REG), your university email, campus Wi-Fi, and apps such as TU GREATS.",
     },
     counselling: {
       title: "Counselling and mental-health support",

@@ -1,7 +1,7 @@
 /**
- * "Starting at BIR: step by step" — home (Thai) student track. See
+ * "Starting at BIR: step by step": home (Thai) student track. See
  * `content/onboarding/types.ts` for the shape and `content/onboarding/index.ts`
- * for how this is looked up. Every `href` below is a real route — verified
+ * for how this is looked up. Every `href` below is a real route, verified
  * against `content/student-life/en/home/*.mdx` and the other static routes it
  * points to at the time of writing.
  */
@@ -14,7 +14,7 @@ export const homeTrack: OnboardingTrack = {
     th: "เริ่มต้นที่ BIR: สำหรับนักศึกษาไทย",
   },
   lede: {
-    en: "Everything to do, roughly in order, before and during your first weeks at BIR. Tick tasks off as you complete them — nothing is sent anywhere, it all stays on this device.",
+    en: "Everything to do, roughly in order, before and during your first weeks at BIR. Tick tasks off as you complete them. Nothing is sent anywhere, it all stays on this device.",
     th: "สิ่งที่ควรทำเรียงตามลำดับคร่าว ๆ ก่อนและระหว่างสัปดาห์แรกที่ BIR ติ๊กในช่องเมื่อทำเสร็จได้เลย ข้อมูลจะถูกเก็บไว้ในอุปกรณ์นี้เท่านั้น ไม่ถูกส่งไปที่ใด",
   },
   steps: [

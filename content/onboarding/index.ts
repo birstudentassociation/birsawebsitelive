@@ -1,5 +1,5 @@
 /**
- * "Starting at BIR: step by step" — track registry and shared UI microcopy.
+ * "Starting at BIR: step by step", track registry and shared UI microcopy.
  * All copy is authored natively in both languages inline (site convention:
  * see `content/student-life/tracks.ts`), never through `content/dictionaries`.
  */
@@ -30,15 +30,15 @@ export function getOnboardingTrack(audience: string): OnboardingTrack | null {
 }
 
 export type OnboardingUiCopy = {
-  /** "Step" — followed by a number, e.g. "Step 1". */
+  /** "Step", followed by a number, e.g. "Step 1". */
   step: string;
   and: string;
   or: string;
-  /** "(opens in a new tab)" — visually-hidden suffix for external links. */
+  /** "(opens in a new tab)": visually-hidden suffix for external links. */
   newTab: string;
-  /** "Mark "<label>" as done" — the checkbox's accessible name. */
+  /** "Mark "<label>" as done": the checkbox's accessible name. */
   markDone: (label: string) => string;
-  /** "You have marked X of Y tasks as done." — the live progress line. */
+  /** "You have marked X of Y tasks as done.": the live progress line. */
   progressLine: (done: number, total: number) => string;
   resetLabel: string;
   gettingStarted: string;
@@ -75,7 +75,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
     gettingStarted: "Getting started",
     chooser: {
       title: "Starting at BIR: step by step",
-      lede: "A step-by-step checklist for your first weeks at BIR, tailored to you. Tick things off as you go — your progress stays in your browser and is never sent to us.",
+      lede: "A step-by-step checklist for your first weeks at BIR, tailored to you. Tick things off as you go. Your progress stays in your browser and is never sent to us.",
       homeTitle: "I'm a Thai or home student",
       homeBody:
         "Start here if you're joining BIR from a Thai high school, or you already live in Thailand.",

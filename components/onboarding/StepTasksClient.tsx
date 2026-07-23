@@ -232,7 +232,7 @@ export default function StepTasksClient({ stepId, locale, audience, tasks }: Ste
                 />
               </label>
             ) : // No-JS / pre-mount: no checkbox exists yet, so no space is
-            // reserved for one — this keeps the plain-list fallback clean.
+            // reserved for one, which keeps the plain-list fallback clean.
             null}
             <div className="min-w-0 flex-1 py-2.5">
               <div className={clsx("flex items-center gap-2", isDone && "text-muted")}>

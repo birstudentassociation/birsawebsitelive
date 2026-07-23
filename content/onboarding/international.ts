@@ -1,7 +1,7 @@
 /**
- * "Starting at BIR: step by step" — international student track. See
+ * "Starting at BIR: step by step": international student track. See
  * `content/onboarding/types.ts` for the shape and `content/onboarding/index.ts`
- * for how this is looked up. Every `href` below is a real route — verified
+ * for how this is looked up. Every `href` below is a real route, verified
  * against `content/student-life/en/international/*.mdx` and the other static
  * routes it points to at the time of writing.
  *
@@ -9,7 +9,7 @@
  * this track): the Thai international guides are condensed summaries written
  * for Thai buddies and staff who support international students, not the
  * international student themself. Thai task copy here is phrased the same
- * way — an overview a buddy/staff reader can skim — rather than second-person
+ * way (an overview a buddy/staff reader can skim) rather than second-person
  * instructions aimed at the student.
  */
 import type { OnboardingTrack } from "./types";
@@ -21,7 +21,7 @@ export const internationalTrack: OnboardingTrack = {
     th: "เริ่มต้นที่ BIR: สำหรับนักศึกษาต่างชาติ",
   },
   lede: {
-    en: "Everything to sort out, roughly in order, before and after you arrive in Bangkok to study at BIR. Tick tasks off as you complete them — nothing is sent anywhere, it all stays on this device.",
+    en: "Everything to sort out, roughly in order, before and after you arrive in Bangkok to study at BIR. Tick tasks off as you complete them. Nothing is sent anywhere, it all stays on this device.",
     th: "ภาพรวมสิ่งที่นักศึกษาต่างชาติควรจัดการ เรียงตามลำดับคร่าว ๆ ก่อนและหลังเดินทางมาเรียนที่ BIR ในกรุงเทพฯ หน้านี้เป็นเวอร์ชันสรุปย่อ เขียนไว้ให้เพื่อนบัดดี้ไทยและเจ้าหน้าที่ที่ช่วยดูแลนักศึกษาต่างชาติเข้าใจภาพรวม เนื้อหาฉบับเต็มอยู่ในเวอร์ชันภาษาอังกฤษ ติ๊กในช่องเมื่อทำแต่ละอย่างเสร็จได้ ข้อมูลจะถูกเก็บไว้ในอุปกรณ์นี้เท่านั้น",
   },
   steps: [
@@ -49,7 +49,7 @@ export const internationalTrack: OnboardingTrack = {
       title: { en: "Arrive and settle in", th: "เดินทางมาถึงและเริ่มตั้งตัว" },
       connector: "and",
       blurb: {
-        en: "The first week is mostly logistics — here's what to expect.",
+        en: "The first week is mostly logistics: here's what to expect.",
         th: "สัปดาห์แรกส่วนใหญ่เป็นเรื่องการจัดการเบื้องต้น สรุปสิ่งที่ควรรู้ไว้ให้",
       },
       tasks: [
@@ -84,7 +84,7 @@ export const internationalTrack: OnboardingTrack = {
       title: { en: "Open a bank account", th: "เปิดบัญชีธนาคาร" },
       connector: "and",
       blurb: {
-        en: "Sort out money matters early — some other things, like SIM registration, need a Thai address or ID first.",
+        en: "Sort out money matters early; some other things, like SIM registration, need a Thai address or ID first.",
         th: "แนะนำให้จัดการเรื่องการเงินไว้แต่เนิ่น ๆ เพราะบางเรื่อง เช่น การลงทะเบียนซิม อาจต้องใช้ที่อยู่หรือเอกสารประจำตัวในไทยก่อน",
       },
       tasks: [

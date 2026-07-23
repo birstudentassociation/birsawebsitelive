@@ -8,7 +8,7 @@ import Card, { CardTitle } from "@/components/Card";
 import { onboardingUiCopy } from "@/content/onboarding";
 
 // "Student life" breadcrumb label, authored locally to match the wording of
-// `app/[lang]/student-life/page.tsx`'s own (unexported) title copy — that
+// `app/[lang]/student-life/page.tsx`'s own (unexported) title copy: that
 // page's `copy` object isn't shared, so this is intentionally duplicated as
 // a small, stable string rather than reaching into another owned page.
 const studentLifeLabel: Record<Locale, string> = {

@@ -15,13 +15,13 @@ export type StepByStepProps = {
  * GOV.UK-style "step by step" navigation for one onboarding track: a
  * numbered, connected list of steps, each a native `<details>` disclosure
  * (closed by default, no JS required) containing a short blurb and the
- * step's tasks. Fully readable and navigable with JavaScript disabled —
+ * step's tasks. Fully readable and navigable with JavaScript disabled:
  * every task is a real link or plain text; `StepTasksClient` only adds
  * checkboxes and the progress/reset panel once mounted in the browser.
  *
  * Each step's `<summary>` contains exactly one heading element (an `<h2>`)
  * per its content model (`summary` accepts either phrasing content, or a
- * single heading-content element) — that keeps the disclosure's visible
+ * single heading-content element), which keeps the disclosure's visible
  * label doubling as a real, navigable heading for screen reader users,
  * without producing invalid heading-inside-inline-content markup.
  */

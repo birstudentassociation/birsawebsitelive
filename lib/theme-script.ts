@@ -12,7 +12,7 @@
  * and fails the build if a single byte drifts, so the CSP can never silently
  * start blocking this script.
  *
- * If you edit THEME_SCRIPT, run the test — it prints the new hash to paste back.
+ * If you edit THEME_SCRIPT, run the test, which prints the new hash to paste back.
  */
 export const THEME_SCRIPT = `try {
   var t = localStorage.getItem("birsa-theme");

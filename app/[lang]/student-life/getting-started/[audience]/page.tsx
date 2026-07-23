@@ -14,7 +14,7 @@ import {
   onboardingUiCopy,
 } from "@/content/onboarding";
 
-// "Student life" breadcrumb label, authored locally — see the same constant
+// "Student life" breadcrumb label, authored locally: see the same constant
 // in `../page.tsx` for why it's duplicated rather than imported.
 const studentLifeLabel: Record<Locale, string> = {
   en: "Student life",
