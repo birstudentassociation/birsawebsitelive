@@ -1,50 +1,76 @@
 /**
- * Server component: renders one half of the "Food and places nearby" guide
+ * Server component: renders one half of the "Food and housing nearby" guide
  * (`content/student-life/{en,th}/home/places-nearby.mdx`) — either the food
- * groups or the single "places to know" list — as a small static map
- * (`PlacesMap`) followed by a matching, semantically real list.
+ * groups (spread across two neighbourhood maps, old town and Pinklao) or the
+ * single lettered housing list — as small static maps (`PlacesMap`) followed
+ * by a matching, semantically real list.
  *
  * The map markers and the list items share one numbering source
- * (`foodPlacesFlat` / `essentialPlacesLettered` in `lib/places.ts`), so the
+ * (`foodPlacesFlat` / `housingPlacesLettered` in `lib/places.ts`), so the
  * "1" on the map and the "1" in the list can never drift apart.
  *
- * Registered as `NearbyFood` / `NearbyEssentials` in `lib/mdx.tsx`'s MDX
+ * Registered as `NearbyFood` / `NearbyHousing` in `lib/mdx.tsx`'s MDX
  * component map. Group titles render as `<h3>` (the MDX page's own
  * headings are `<h2>`, so this keeps heading order sequential).
  */
+import type { ReactNode } from "react";
 import ExternalLink from "@/components/ExternalLink";
 import Tag from "@/components/Tag";
+import VisuallyHidden from "@/components/VisuallyHidden";
 import PlacesMap, { type PlaceMapEntry } from "@/components/places/PlacesMap";
 import type { Locale } from "@/lib/i18n";
 import {
-  essentialPlacesLettered,
+  fitZoom,
   foodGroups,
   foodPlacesFlat,
+  housingPlaces,
+  housingPlacesLettered,
   type NumberedPlace,
   type Place,
+  type PlaceArea,
 } from "@/lib/places";
 
 export type PlacesSectionProps = {
   locale: Locale;
-  section: "food" | "essentials";
+  section: "food" | "housing";
 };
 
 type Copy = {
   mapsLabel: string;
-  priceLabel: (price: string) => string;
   mapHeading: string;
+  areaMapCaption: Record<PlaceArea, string>;
+  areaTag: Record<PlaceArea, string>;
+  ratedTitle: (ratingText: string, countText: string) => string;
 };
 
 const copy: Record<Locale, Copy> = {
   en: {
     mapsLabel: "Open in Google Maps",
-    priceLabel: (price) => `Price range: ${price}`,
     mapHeading: "Map of the places listed below",
+    areaMapCaption: {
+      oldtown: "Tha Prachan, Wang Lang and the old town",
+      pinklao: "Pinklao and Charansanitwong",
+    },
+    areaTag: {
+      oldtown: "Old town side",
+      pinklao: "Pinklao side",
+    },
+    ratedTitle: (ratingText, countText) =>
+      `Rated ${ratingText} out of 5 from ${countText} Google reviews`,
   },
   th: {
     mapsLabel: "เปิดใน Google Maps",
-    priceLabel: (price) => `ช่วงราคา: ${price}`,
     mapHeading: "แผนที่แสดงตำแหน่งของสถานที่ในรายการด้านล่าง",
+    areaMapCaption: {
+      oldtown: "ฝั่งท่าพระจันทร์ วังหลัง และเมืองเก่า",
+      pinklao: "ฝั่งปิ่นเกล้าและจรัญสนิทวงศ์",
+    },
+    areaTag: {
+      oldtown: "ฝั่งพระนคร",
+      pinklao: "ฝั่งปิ่นเกล้า",
+    },
+    ratedTitle: (ratingText, countText) =>
+      `คะแนน ${ratingText} จาก 5 จากรีวิว ${countText} รายการใน Google`,
   },
 };
 
@@ -58,10 +84,15 @@ const chipFill: Record<"brand" | "forest", string> = {
 };
 
 function displayName(locale: Locale, place: Place): string {
-  if (locale === "en" && place.nameLocal) {
+  if (locale === "en" && place.nameLocal && !place.name.en.includes(place.nameLocal)) {
     return `${place.name.en} (${place.nameLocal})`;
   }
   return place.name[locale];
+}
+
+/** Interleaves `separator` between the given nodes; no separator before the first item. */
+function joinWithSeparator(nodes: ReactNode[], separator: string): ReactNode[] {
+  return nodes.flatMap((node, index) => (index === 0 ? [node] : [separator, node]));
 }
 
 function PlaceChip({ label, variant }: { label: string; variant: "brand" | "forest" }) {
@@ -81,26 +112,46 @@ function PlaceListItem({
   label,
   variant,
   locale,
+  section,
 }: {
   place: Place;
   label: string;
   variant: "brand" | "forest";
   locale: Locale;
+  section: "food" | "housing";
 }) {
   const t = copy[locale];
+  const name = displayName(locale, place);
+
+  const metaNodes: ReactNode[] = [];
+  if (section === "food") {
+    metaNodes.push(place.category[locale]);
+  }
+  if (place.rating !== undefined && place.ratingCount !== undefined) {
+    const ratingText = place.rating.toFixed(1);
+    const countText = place.ratingCount.toLocaleString(locale === "th" ? "th-TH" : "en-GB");
+    metaNodes.push(
+      <span key="rating">
+        <span aria-hidden="true">★</span> {ratingText} ({countText})
+        <VisuallyHidden> {t.ratedTitle(ratingText, countText)}</VisuallyHidden>
+      </span>
+    );
+  }
+
   return (
     <li id={`place-${place.id}`} className="flex scroll-mt-24 items-start gap-3">
       <PlaceChip label={label} variant={variant} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-ink font-semibold">{displayName(locale, place)}</p>
-          {place.price ? (
-            <Tag variant="neutral" aria-label={t.priceLabel(place.price)}>
-              {place.price}
-            </Tag>
-          ) : null}
+          <p className="text-ink font-semibold">{name}</p>
+          <Tag variant="neutral">
+            {section === "food" ? t.areaTag[place.area] : place.category[locale]}
+          </Tag>
         </div>
-        <p className="text-muted text-sm">{place.note[locale]}</p>
+        {metaNodes.length > 0 ? (
+          <p className="text-muted text-sm">{joinWithSeparator(metaNodes, " · ")}</p>
+        ) : null}
+        {place.note ? <p className="text-muted text-sm">{place.note[locale]}</p> : null}
         <p className="text-sm">
           <ExternalLink
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapsQuery)}`}
@@ -115,34 +166,46 @@ function PlaceListItem({
   );
 }
 
+const AREAS: PlaceArea[] = ["oldtown", "pinklao"];
+
 function FoodSection({ locale }: { locale: Locale }) {
   const numbered = foodPlacesFlat();
   const labelByPlaceId = new Map(numbered.map((entry) => [entry.place.id, entry.label]));
-  const mapEntries: PlaceMapEntry[] = numbered.map(({ place, label }) => ({ place, label }));
   const t = copy[locale];
-  const mapHeadingId = "places-food-map-label";
 
   let runningIndex = 0;
 
   return (
     <div className="flex flex-col gap-8">
-      <p id={mapHeadingId} className="sr-only">
-        {t.mapHeading}
-      </p>
-      <PlacesMap
-        places={mapEntries}
-        zoom={16}
-        markerVariant="brand"
-        locale={locale}
-        labelledBy={mapHeadingId}
-      />
+      {AREAS.map((area) => {
+        const areaEntries: NumberedPlace[] = numbered.filter((entry) => entry.place.area === area);
+        const mapEntries: PlaceMapEntry[] = areaEntries.map(({ place, label }) => ({
+          place,
+          label,
+        }));
+        const zoom = fitZoom(areaEntries.map((entry) => entry.place));
+        const headingId = `places-food-map-${area}-label`;
+        return (
+          <div key={area} className="flex flex-col gap-2">
+            <p id={headingId} className="text-ink text-sm font-semibold">
+              {t.areaMapCaption[area]}
+            </p>
+            <PlacesMap
+              places={mapEntries}
+              zoom={zoom}
+              markerVariant="brand"
+              locale={locale}
+              labelledBy={headingId}
+            />
+          </div>
+        );
+      })}
       {foodGroups.map((group) => {
         const startIndex = runningIndex + 1;
         runningIndex += group.places.length;
         return (
           <div key={group.id} className="flex flex-col gap-3">
             <h3 className="font-display text-lg">{group.title[locale]}</h3>
-            {group.blurb ? <p className="text-muted text-sm">{group.blurb[locale]}</p> : null}
             {/* `list-none` drops list semantics in WebKit/VoiceOver; the
                 explicit role restores them. */}
             <ol start={startIndex} role="list" className="flex list-none flex-col gap-4 pl-0">
@@ -153,6 +216,7 @@ function FoodSection({ locale }: { locale: Locale }) {
                   label={labelByPlaceId.get(place.id) ?? ""}
                   variant="brand"
                   locale={locale}
+                  section="food"
                 />
               ))}
             </ol>
@@ -163,11 +227,12 @@ function FoodSection({ locale }: { locale: Locale }) {
   );
 }
 
-function EssentialsSection({ locale }: { locale: Locale }) {
-  const lettered: NumberedPlace[] = essentialPlacesLettered();
+function HousingSection({ locale }: { locale: Locale }) {
+  const lettered: NumberedPlace[] = housingPlacesLettered();
   const mapEntries: PlaceMapEntry[] = lettered.map(({ place, label }) => ({ place, label }));
   const t = copy[locale];
-  const mapHeadingId = "places-essentials-map-label";
+  const mapHeadingId = "places-housing-map-label";
+  const zoom = fitZoom(housingPlaces);
 
   return (
     <div className="flex flex-col gap-6">
@@ -176,7 +241,7 @@ function EssentialsSection({ locale }: { locale: Locale }) {
       </p>
       <PlacesMap
         places={mapEntries}
-        zoom={16}
+        zoom={zoom}
         markerVariant="forest"
         locale={locale}
         labelledBy={mapHeadingId}
@@ -189,6 +254,7 @@ function EssentialsSection({ locale }: { locale: Locale }) {
             label={label}
             variant="forest"
             locale={locale}
+            section="housing"
           />
         ))}
       </ol>
@@ -197,9 +263,5 @@ function EssentialsSection({ locale }: { locale: Locale }) {
 }
 
 export default function PlacesSection({ locale, section }: PlacesSectionProps) {
-  return section === "food" ? (
-    <FoodSection locale={locale} />
-  ) : (
-    <EssentialsSection locale={locale} />
-  );
+  return section === "food" ? <FoodSection locale={locale} /> : <HousingSection locale={locale} />;
 }

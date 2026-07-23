@@ -77,7 +77,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     ShuttleRoute: () => <ShuttleRoute locale={locale} />,
     ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
     NearbyFood: () => <PlacesSection locale={locale} section="food" />,
-    NearbyEssentials: () => <PlacesSection locale={locale} section="essentials" />,
+    NearbyHousing: () => <PlacesSection locale={locale} section="housing" />,
   };
 }
 

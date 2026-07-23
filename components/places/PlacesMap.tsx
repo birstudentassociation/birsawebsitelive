@@ -16,7 +16,7 @@
  * production.
  *
  * Used from `content/student-life/{en,th}/home/places-nearby.mdx` via
- * `PlacesSection`, which is registered in `lib/mdx.tsx`.
+ * `PlacesSection` (food and housing), which is registered in `lib/mdx.tsx`.
  */
 import ExternalLink from "@/components/ExternalLink";
 import VisuallyHidden from "@/components/VisuallyHidden";

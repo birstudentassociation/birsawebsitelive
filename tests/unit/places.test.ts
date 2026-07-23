@@ -1,13 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
   computeMapView,
-  essentialPlaces,
-  essentialPlacesLettered,
+  fitZoom,
   foodGroups,
   foodPlacesFlat,
+  housingPlaces,
+  housingPlacesLettered,
   lonLatToTile,
   markerPosition,
   type Place,
+  type PlaceArea,
 } from "@/lib/places";
 
 describe("lonLatToTile", () => {
@@ -34,7 +36,14 @@ describe("lonLatToTile", () => {
   });
 });
 
-const allPlaces: Place[] = [...foodGroups.flatMap((group) => group.places), ...essentialPlaces];
+const foodPlacesAll: Place[] = foodGroups.flatMap((group) => group.places);
+const allPlaces: Place[] = [...foodPlacesAll, ...housingPlaces];
+
+const AREAS: PlaceArea[] = ["oldtown", "pinklao"];
+
+function placesByArea(area: PlaceArea): Place[] {
+  return foodPlacesAll.filter((place) => place.area === area);
+}
 
 describe("computeMapView", () => {
   it("throws for an empty place list", () => {
@@ -42,7 +51,7 @@ describe("computeMapView", () => {
   });
 
   it("covers every place's floored tile within the returned integer range, for each section", () => {
-    for (const places of [foodGroups.flatMap((g) => g.places), essentialPlaces]) {
+    for (const places of [foodPlacesAll, housingPlaces]) {
       const view = computeMapView(places, 16);
       for (const place of places) {
         const { x, y } = lonLatToTile(place.lng, place.lat, 16);
@@ -55,7 +64,7 @@ describe("computeMapView", () => {
   });
 
   it("returns cols/rows consistent with the min/max tile range", () => {
-    const view = computeMapView(essentialPlaces, 16);
+    const view = computeMapView(housingPlaces, 16);
     expect(view.cols).toBe(view.maxX - view.minX + 1);
     expect(view.rows).toBe(view.maxY - view.minY + 1);
     expect(view.cols).toBeGreaterThan(0);
@@ -70,21 +79,27 @@ describe("computeMapView", () => {
 });
 
 describe("markerPosition", () => {
-  it("returns a 0-100 percentage position for every food place within the food map view", () => {
-    const places = foodGroups.flatMap((g) => g.places);
-    const view = computeMapView(places, 16);
-    for (const place of places) {
-      const { leftPct, topPct } = markerPosition(place, view);
-      expect(leftPct).toBeGreaterThanOrEqual(0);
-      expect(leftPct).toBeLessThanOrEqual(100);
-      expect(topPct).toBeGreaterThanOrEqual(0);
-      expect(topPct).toBeLessThanOrEqual(100);
+  it("returns a 0-100 percentage position for every food place within its own area's map view", () => {
+    // Mirrors what PlacesSection actually renders: one map per area, sized
+    // with fitZoom, containing only that area's places.
+    for (const area of AREAS) {
+      const places = placesByArea(area);
+      const zoom = fitZoom(places);
+      const view = computeMapView(places, zoom);
+      for (const place of places) {
+        const { leftPct, topPct } = markerPosition(place, view);
+        expect(leftPct).toBeGreaterThanOrEqual(0);
+        expect(leftPct).toBeLessThanOrEqual(100);
+        expect(topPct).toBeGreaterThanOrEqual(0);
+        expect(topPct).toBeLessThanOrEqual(100);
+      }
     }
   });
 
-  it("returns a 0-100 percentage position for every essential place within the essentials map view", () => {
-    const view = computeMapView(essentialPlaces, 16);
-    for (const place of essentialPlaces) {
+  it("returns a 0-100 percentage position for every housing place within the housing map view", () => {
+    const zoom = fitZoom(housingPlaces);
+    const view = computeMapView(housingPlaces, zoom);
+    for (const place of housingPlaces) {
       const { leftPct, topPct } = markerPosition(place, view);
       expect(leftPct).toBeGreaterThanOrEqual(0);
       expect(leftPct).toBeLessThanOrEqual(100);
@@ -94,8 +109,38 @@ describe("markerPosition", () => {
   });
 });
 
+describe("fitZoom", () => {
+  it("returns an integer zoom within [minZoom, maxZoom]", () => {
+    for (const places of [...AREAS.map(placesByArea), housingPlaces]) {
+      const zoom = fitZoom(places);
+      expect(Number.isInteger(zoom)).toBe(true);
+      expect(zoom).toBeGreaterThanOrEqual(12);
+      expect(zoom).toBeLessThanOrEqual(17);
+    }
+  });
+
+  it("respects the default maxCols/maxRows budget for each food area and for housing", () => {
+    for (const places of [...AREAS.map(placesByArea), housingPlaces]) {
+      const zoom = fitZoom(places);
+      const view = computeMapView(places, zoom);
+      expect(view.cols).toBeLessThanOrEqual(5);
+      expect(view.rows).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it("returns maxZoom for a single place (a tiny bounding box always fits)", () => {
+    const zoom = fitZoom([allPlaces[0]!]);
+    expect(zoom).toBe(17);
+  });
+
+  it("honours custom maxCols/maxRows/minZoom/maxZoom options", () => {
+    const zoom = fitZoom(housingPlaces, { maxCols: 100, maxRows: 100, minZoom: 10, maxZoom: 15 });
+    expect(zoom).toBe(15);
+  });
+});
+
 describe("place data integrity", () => {
-  it("has a unique id across every food place and essential place", () => {
+  it("has a unique id across every food place and housing place", () => {
     const ids = allPlaces.map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);
   });
@@ -105,12 +150,21 @@ describe("place data integrity", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it("has non-empty en and th text for every place's name and note", () => {
+  it("has non-empty en and th text for every place's name and category", () => {
     for (const place of allPlaces) {
       expect(place.name.en.trim().length).toBeGreaterThan(0);
       expect(place.name.th.trim().length).toBeGreaterThan(0);
-      expect(place.note.en.trim().length).toBeGreaterThan(0);
-      expect(place.note.th.trim().length).toBeGreaterThan(0);
+      expect(place.category.en.trim().length).toBeGreaterThan(0);
+      expect(place.category.th.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has non-empty en and th text for every place's note, when present", () => {
+    for (const place of allPlaces) {
+      if (place.note) {
+        expect(place.note.en.trim().length).toBeGreaterThan(0);
+        expect(place.note.th.trim().length).toBeGreaterThan(0);
+      }
     }
   });
 
@@ -127,6 +181,27 @@ describe("place data integrity", () => {
       expect(place.lat).toBeLessThan(13.8);
       expect(place.lng).toBeGreaterThan(100.4);
       expect(place.lng).toBeLessThan(100.55);
+    }
+  });
+
+  it("has a valid area on every place", () => {
+    for (const place of allPlaces) {
+      expect(AREAS).toContain(place.area);
+    }
+  });
+});
+
+describe("ratings", () => {
+  it("every rating is between 1 and 5, every ratingCount is a positive integer", () => {
+    for (const place of allPlaces) {
+      if (place.rating !== undefined) {
+        expect(place.rating).toBeGreaterThanOrEqual(1);
+        expect(place.rating).toBeLessThanOrEqual(5);
+      }
+      if (place.ratingCount !== undefined) {
+        expect(Number.isInteger(place.ratingCount)).toBe(true);
+        expect(place.ratingCount).toBeGreaterThan(0);
+      }
     }
   });
 });
@@ -147,11 +222,14 @@ describe("global numbering helpers", () => {
     expect(flat.map((entry) => entry.place.id)).toEqual(expectedIds);
   });
 
-  it("essentialPlacesLettered has one entry per essential place, lettered A, B, C...", () => {
-    const lettered = essentialPlacesLettered();
-    expect(lettered.length).toBe(essentialPlaces.length);
+  it("housingPlacesLettered has one entry per housing place, lettered A..P for 16 entries", () => {
+    const lettered = housingPlacesLettered();
+    expect(housingPlaces.length).toBe(16);
+    expect(lettered.length).toBe(housingPlaces.length);
     expect(lettered.map((entry) => entry.label)).toEqual(
-      Array.from({ length: essentialPlaces.length }, (_, i) => String.fromCharCode(65 + i))
+      Array.from({ length: housingPlaces.length }, (_, i) => String.fromCharCode(65 + i))
     );
+    expect(lettered.map((entry) => entry.label)[0]).toBe("A");
+    expect(lettered.map((entry) => entry.label).at(-1)).toBe("P");
   });
 });
