@@ -403,6 +403,36 @@ export const clubs: Club[] = [
         "ติดตามชมรมได้ทาง Instagram @biresport.club ซึ่งจะประกาศทัวร์นาเมนต์และการรับสมาชิก โดยปกติจะเปิดรับสมาชิกใหม่ช่วงต้นเทอมแต่ละเทอม",
     },
   },
+  {
+    key: "tu-mun",
+    slug: "tu-mun",
+    category: "academic",
+    join: { open: true },
+    en: {
+      name: "TU MUN",
+      tagline: "Model United Nations: debate, diplomacy, and drafting resolutions.",
+      description: [
+        "TU MUN is Thammasat University's Model United Nations club, where students simulate United Nations committees and practise the diplomacy that happens in the real thing. Each member is assigned a country to represent, then researches that country's positions and speaks for it in committee sessions alongside everyone else.",
+        "Sessions run like the real thing: opening statements, caucusing, negotiating with other delegations, and eventually drafting and voting on resolutions. It is a hands-on way to build public speaking, research, negotiation, and formal writing skills, all while getting into the details of a global issue you might otherwise only read about.",
+        "The club also prepares members for and takes part in Model UN conferences, both at Thammasat and beyond, so training carries over into real competitive rounds.",
+      ],
+      lead: "Committee",
+      howToJoin:
+        "Recruitment and conference details are announced through the club and BIRSA's channels; watch for updates there rather than a fixed sign-up date.",
+    },
+    th: {
+      name: "TU MUN",
+      tagline: "จำลองการประชุมสหประชาชาติ ฝึกโต้วาที การทูต และร่างข้อมติ",
+      description: [
+        "TU MUN คือชมรมจำลองการประชุมสหประชาชาติ (Model United Nations) ของธรรมศาสตร์ ให้นักศึกษาได้จำลองคณะกรรมการของ UN และฝึกฝนงานการทูตแบบที่เกิดขึ้นจริง สมาชิกแต่ละคนจะได้รับมอบหมายให้เป็นตัวแทนประเทศหนึ่ง ต้องศึกษาจุดยืนของประเทศนั้นแล้วนำมาอภิปรายในที่ประชุมร่วมกับตัวแทนประเทศอื่น ๆ",
+        "การประชุมจำลองเดินตามรูปแบบจริง ทั้งการกล่าวถ้อยแถลงเปิด การล็อบบี้ การเจรจากับคณะผู้แทนอื่น ไปจนถึงการร่างและลงมติข้อมติในที่สุด เป็นวิธีฝึกทักษะการพูดในที่สาธารณะ การค้นคว้า การเจรจาต่อรอง และการเขียนเชิงทางการ พร้อมได้ลงลึกในประเด็นระดับโลกที่ปกติอาจได้แค่อ่านผ่าน ๆ",
+        "นอกจากนี้ชมรมยังเตรียมความพร้อมสมาชิกสำหรับการแข่งขัน Model UN และพาไปร่วมงานจริงทั้งในธรรมศาสตร์และที่อื่น ๆ ทำให้การฝึกซ้อมต่อยอดไปสู่สนามแข่งจริงได้",
+      ],
+      lead: "คณะกรรมการชมรม",
+      howToJoin:
+        "รายละเอียดการรับสมาชิกและการแข่งขันจะประกาศผ่านชมรมและช่องทางของ BIRSA คอยติดตามไว้แทนที่จะมีกำหนดวันตายตัว",
+    },
+  },
 ];
 
 export function getClub(slug: string): Club | undefined {

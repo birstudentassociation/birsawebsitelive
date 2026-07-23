@@ -28,6 +28,7 @@ const copy: Record<
     aboutHeading: string;
     rolesTitle: string;
     rolesSummary: string;
+    eventsHeading: string;
     governanceHeading: string;
     regsTitle: string;
     regsSummary: string;
@@ -42,6 +43,7 @@ const copy: Record<
     aboutHeading: "About BIRSA",
     rolesTitle: "Officer roles",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
+    eventsHeading: "Events and getting involved",
     governanceHeading: "Governance and transparency",
     regsTitle: "Student regulations and rules",
     regsSummary: "The University's regulations that apply to us.",
@@ -55,6 +57,7 @@ const copy: Record<
     aboutHeading: "เกี่ยวกับ BIRSA",
     rolesTitle: "บทบาทหน้าที่ของคณะกรรมการ",
     rolesSummary: "ใครอยู่ในคณะกรรมการ BIRSA บ้าง และแต่ละตำแหน่งรับผิดชอบเรื่องอะไร",
+    eventsHeading: "กิจกรรมและการมีส่วนร่วม",
     governanceHeading: "การกำกับดูแลและความโปร่งใส",
     regsTitle: "ระเบียบและข้อบังคับนักศึกษา",
     regsSummary: "บรรดาข้อบังคับมหาวิทยาลัยที่เกี่ยวข้องกับเรา",
@@ -85,7 +88,10 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   };
 
   const birsaEntry = findEntry("birsa");
+  const thisYearEntry = findEntry("this-year");
   const programmeEntry = findEntry("bir-programme");
+  const eventsEntry = findEntry("events");
+  const studentBodiesEntry = findEntry("student-bodies");
   const transparencyEntry = findEntry("transparency");
   const contactEntry = findEntry("contact");
 
@@ -112,12 +118,23 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {birsaEntry ? entryCard(birsaEntry) : null}
 
+            {thisYearEntry ? entryCard(thisYearEntry) : null}
+
             <Card href={rolesHref}>
               <CardTitle href={rolesHref}>{t.rolesTitle}</CardTitle>
               <p className="text-muted text-sm leading-relaxed">{t.rolesSummary}</p>
             </Card>
 
             {programmeEntry ? entryCard(programmeEntry) : null}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <h2 className="font-display text-2xl">{t.eventsHeading}</h2>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {eventsEntry ? entryCard(eventsEntry) : null}
+
+            {studentBodiesEntry ? entryCard(studentBodiesEntry) : null}
           </div>
         </section>
 

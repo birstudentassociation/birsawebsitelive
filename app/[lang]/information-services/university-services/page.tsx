@@ -71,6 +71,27 @@ const copy: Record<
       body: string;
       linkLabel: string;
     };
+    libraries: {
+      title: string;
+      intro: string;
+      librariesTitle: string;
+      libraries: TermDesc[];
+      studyRoomsTitle: string;
+      studyRoomsBody: string;
+      bookingLinkLabel: string;
+      printingTitle: string;
+      printingIntro: string;
+      printingFunds: TermDesc[];
+      libraryLinkLabel: string;
+    };
+    sportFitness: {
+      title: string;
+      body: string;
+    };
+    domeAccount: {
+      title: string;
+      body: string;
+    };
     counselling: {
       title: string;
       intro: string;
@@ -176,6 +197,49 @@ const copy: Record<
       title: "Online certificate requests",
       body: "Request official documents such as enrolment and graduation certificates online through the TU REG registration system.",
       linkLabel: "Open TU REG",
+    },
+    libraries: {
+      title: "Libraries, study rooms and printing",
+      intro:
+        "Your status as a Thammasat student gives you access to the University's libraries, bookable study rooms, and a printing allowance every semester.",
+      librariesTitle: "Libraries at and near Tha Prachan",
+      libraries: [
+        {
+          term: "Pridi Banomyong Library",
+          desc: "Thammasat's main central library, at Tha Prachan.",
+        },
+        {
+          term: "Professor Direk Jayanama Library",
+          desc: "The library for the Faculty of Political Science and other social-science faculties.",
+        },
+        {
+          term: "Puey Ungphakorn Library (Faculty of Economics)",
+          desc: "The Faculty of Economics library, at Tha Prachan.",
+        },
+        {
+          term: "Sanya Dharmasakti Library",
+          desc: "The Faculty of Law library.",
+        },
+      ],
+      studyRoomsTitle: "Study rooms",
+      studyRoomsBody: "Group study rooms across these libraries can be booked online in advance.",
+      bookingLinkLabel: "Book a study room",
+      printingTitle: "Printing allowance",
+      printingIntro:
+        "Every semester you receive a printing quota split between two funds, for 200 baht in total.",
+      printingFunds: [
+        { term: "Faculty fund", desc: "100 baht per semester" },
+        { term: "University fund", desc: "100 baht per semester" },
+      ],
+      libraryLinkLabel: "Thammasat University Library",
+    },
+    sportFitness: {
+      title: "Sport and fitness",
+      body: "The Thammasat University Sport and Fitness Center gives students access to fitness facilities and a gym on campus, so you can stay active alongside your studies.",
+    },
+    domeAccount: {
+      title: "Your Dome account",
+      body: "Every Thammasat student is issued a Dome account — the single university login used across TU's online systems, including course registration (TU REG), your university email, campus Wi-Fi, and apps such as TU GREATS.",
     },
     counselling: {
       title: "Counselling and mental-health support",
@@ -298,6 +362,50 @@ const copy: Record<
       body: "ขอเอกสารทางการ เช่น หนังสือรับรองการเป็นนักศึกษาและใบรับรองต่าง ๆ ผ่านระบบทะเบียน TU REG ออนไลน์",
       linkLabel: "เข้าสู่ระบบ TU REG",
     },
+    libraries: {
+      title: "ห้องสมุด ห้องอ่านหนังสือ และสิทธิ์การพิมพ์",
+      intro:
+        "สถานะนักศึกษาธรรมศาสตร์ของคุณให้สิทธิ์เข้าใช้ห้องสมุดของมหาวิทยาลัย จองห้องอ่านหนังสือ และรับสิทธิ์การพิมพ์เอกสารทุกภาคการศึกษา",
+      librariesTitle: "ห้องสมุดในและใกล้ท่าพระจันทร์",
+      libraries: [
+        {
+          term: "หอสมุดปรีดี พนมยงค์",
+          desc: "หอสมุดกลางหลักของมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+        },
+        {
+          term: "ห้องสมุดศาสตราจารย์ดิเรก ชัยนาม",
+          desc: "ห้องสมุดคณะรัฐศาสตร์และกลุ่มคณะทางสังคมศาสตร์",
+        },
+        {
+          term: "หอสมุดป๋วย อึ๊งภากรณ์ (คณะเศรษฐศาสตร์)",
+          desc: "ห้องสมุดคณะเศรษฐศาสตร์ ท่าพระจันทร์",
+        },
+        {
+          term: "หอสมุดสัญญา ธรรมศักดิ์",
+          desc: "ห้องสมุดคณะนิติศาสตร์",
+        },
+      ],
+      studyRoomsTitle: "ห้องอ่านหนังสือ",
+      studyRoomsBody:
+        "ห้องอ่านหนังสือแบบกลุ่มของห้องสมุดเหล่านี้สามารถจองล่วงหน้าผ่านระบบออนไลน์ได้",
+      bookingLinkLabel: "จองห้องอ่านหนังสือ",
+      printingTitle: "สิทธิ์การพิมพ์เอกสาร",
+      printingIntro:
+        "ทุกภาคการศึกษาคุณจะได้รับสิทธิ์การพิมพ์เอกสารจาก 2 กองทุน รวมทั้งสิ้น 200 บาท",
+      printingFunds: [
+        { term: "กองทุนจากคณะ", desc: "100 บาทต่อภาคการศึกษา" },
+        { term: "กองทุนจากมหาวิทยาลัย", desc: "100 บาทต่อภาคการศึกษา" },
+      ],
+      libraryLinkLabel: "หอสมุดมหาวิทยาลัยธรรมศาสตร์",
+    },
+    sportFitness: {
+      title: "กีฬาและการออกกำลังกาย",
+      body: "ศูนย์กีฬาและฟิตเนสของมหาวิทยาลัยธรรมศาสตร์เปิดให้นักศึกษาเข้าใช้สิ่งอำนวยความสะดวกด้านกีฬาและฟิตเนสภายในมหาวิทยาลัย เพื่อดูแลสุขภาพควบคู่ไปกับการเรียน",
+    },
+    domeAccount: {
+      title: "บัญชี Dome ของคุณ",
+      body: "นักศึกษาธรรมศาสตร์ทุกคนจะได้รับบัญชี Dome ซึ่งเป็นบัญชีเดียวที่ใช้เข้าสู่ระบบออนไลน์ต่าง ๆ ของมหาวิทยาลัย ทั้งระบบทะเบียน (TU REG) อีเมลมหาวิทยาลัย Wi-Fi ภายในมหาวิทยาลัย และแอปพลิเคชันต่าง ๆ เช่น TU GREATS",
+    },
     counselling: {
       title: "บริการให้คำปรึกษาและสุขภาพจิต",
       intro: "บริการฟรีและเป็นความลับสำหรับนักศึกษาธรรมศาสตร์ มี 3 ช่องทาง",
@@ -355,6 +463,9 @@ export default async function UniversityServicesPage({
     { id: "accident-insurance", label: t.accidentInsurance.title },
     { id: "military-service", label: t.militaryService.title },
     { id: "certificates", label: t.certificates.title },
+    { id: "libraries", label: t.libraries.title },
+    { id: "sport-fitness", label: t.sportFitness.title },
+    { id: "dome-account", label: t.domeAccount.title },
     { id: "counselling", label: t.counselling.title },
     { id: "it-support", label: t.itSupport.title },
   ];
@@ -547,6 +658,84 @@ export default async function UniversityServicesPage({
               {t.certificates.linkLabel}
             </ExternalLink>
           </p>
+        </section>
+
+        <section id="libraries" aria-labelledby="libraries-heading" className="flex flex-col gap-4">
+          <h2 id="libraries-heading" className="font-display text-2xl">
+            {t.libraries.title}
+          </h2>
+          <p className="text-muted leading-relaxed">{t.libraries.intro}</p>
+
+          <div>
+            <h3 className="font-display text-lg">{t.libraries.librariesTitle}</h3>
+            <dl className="mt-2 flex flex-col gap-3">
+              {t.libraries.libraries.map((row, index) => (
+                <div key={index} className="border-line border-b pb-2">
+                  <dt className="text-ink font-semibold">{row.term}</dt>
+                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <h3 className="font-display text-lg">{t.libraries.studyRoomsTitle}</h3>
+            <p className="text-muted text-sm leading-relaxed">{t.libraries.studyRoomsBody}</p>
+            <p>
+              <ExternalLink
+                href="https://booking.library.tu.ac.th"
+                newTabLabel={dict.a11y.newTab}
+                className={linkClass}
+              >
+                {t.libraries.bookingLinkLabel}
+              </ExternalLink>
+            </p>
+          </div>
+
+          <div>
+            <h3 className="font-display text-lg">{t.libraries.printingTitle}</h3>
+            <p className="text-muted mt-1 text-sm leading-relaxed">{t.libraries.printingIntro}</p>
+            <dl className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {t.libraries.printingFunds.map((row, index) => (
+                <div key={index} className="border-line bg-sunken rounded-lg border p-4">
+                  <dt className="text-ink font-semibold">{row.term}</dt>
+                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          <p>
+            <ExternalLink
+              href="https://library.tu.ac.th"
+              newTabLabel={dict.a11y.newTab}
+              className={linkClass}
+            >
+              {t.libraries.libraryLinkLabel}
+            </ExternalLink>
+          </p>
+        </section>
+
+        <section
+          id="sport-fitness"
+          aria-labelledby="sport-fitness-heading"
+          className="flex flex-col gap-4"
+        >
+          <h2 id="sport-fitness-heading" className="font-display text-2xl">
+            {t.sportFitness.title}
+          </h2>
+          <p className="text-muted leading-relaxed">{t.sportFitness.body}</p>
+        </section>
+
+        <section
+          id="dome-account"
+          aria-labelledby="dome-account-heading"
+          className="flex flex-col gap-4"
+        >
+          <h2 id="dome-account-heading" className="font-display text-2xl">
+            {t.domeAccount.title}
+          </h2>
+          <p className="text-muted leading-relaxed">{t.domeAccount.body}</p>
         </section>
 
         <section
