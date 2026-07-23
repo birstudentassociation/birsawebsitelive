@@ -85,7 +85,7 @@ export const homeEn = {
   },
   newHere: {
     title: "New here?",
-    body: "Whether you've just arrived from a Thai school or you're joining us from abroad, our student-life guide has a track built for you.",
-    cta: "Go to Information and services",
+    body: "Whether you've just arrived from a Thai school or you're joining us from abroad, there's a step-by-step checklist built for your first weeks at BIR.",
+    cta: "Start the step-by-step checklist",
   },
 };

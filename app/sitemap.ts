@@ -10,6 +10,8 @@ import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { clubs } from "@/content/clubs/clubs";
 import { documents } from "@/content/activity/regulations";
 import { courses } from "@/content/course-review/courses";
+import { flows } from "@/content/smart-answers";
+import { onboardingAudiences } from "@/content/onboarding";
 import { SITE_URL } from "@/lib/site-url";
 
 const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
@@ -35,6 +37,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/clubs/start",
       "/student-life",
       "/student-life/course-reviews",
+      "/student-life/getting-started",
+      "/answers",
       "/information-services",
       "/information-services/university-services",
       "/information-services/equipment-loan",
@@ -57,6 +61,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const doc of documents) {
       entries.push({ url: url(locale, `/activity/regulations/${doc.slug}`) });
+    }
+
+    // Smart Answers: only the start pages are indexed; the stateful /q step
+    // pages carry robots noindex and are deliberately absent here.
+    for (const flow of flows) {
+      entries.push({ url: url(locale, `/answers/${flow.slug}`) });
+    }
+
+    for (const audience of onboardingAudiences) {
+      entries.push({ url: url(locale, `/student-life/getting-started/${audience}`) });
     }
 
     for (const audience of guideAudiences) {

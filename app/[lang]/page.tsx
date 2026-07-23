@@ -216,7 +216,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <p>{copy.newHere.body}</p>
           <p className="mt-2">
             <a
-              href={localeHref(locale, "/information-services")}
+              href={localeHref(locale, "/student-life/getting-started")}
               className="text-brand-deep font-semibold hover:underline"
             >
               {copy.newHere.cta}

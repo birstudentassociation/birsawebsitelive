@@ -75,9 +75,7 @@ test.describe("forms work without JavaScript", () => {
     await expect(errorSummary.getByRole("link").first()).toBeVisible();
   });
 
-  test("officer sign-in: incorrect credentials server-render a generic error", async ({
-    page,
-  }) => {
+  test("officer sign-in: incorrect credentials server-render a generic error", async ({ page }) => {
     await page.goto("/en/officer/inventory");
 
     await page.locator('input[name="email"]').fill("not-a-real-officer@example.com");
@@ -92,6 +90,45 @@ test.describe("forms work without JavaScript", () => {
     const incorrect = page.getByText("Incorrect email or passcode");
     const notConfigured = page.getByText("Officer accounts are not set up yet");
     await expect(incorrect.or(notConfigured).first()).toBeVisible();
+  });
+
+  test("smart answers: a full journey to an outcome works with plain GET forms", async ({
+    page,
+  }) => {
+    await page.goto("/en/answers/who-to-contact");
+    await page.getByRole("link", { name: "Start now" }).click();
+
+    // Answer the first radio at every step until an outcome renders. Each
+    // question is a native GET form; the answer trail rides in `?a=` params.
+    for (let step = 0; step < 10; step++) {
+      const radios = page.getByRole("radio");
+      if ((await radios.count()) === 0) break;
+      await radios.first().check();
+      await page.getByRole("button", { name: "Continue" }).click();
+      await page.waitForLoadState("domcontentloaded");
+      expect(page.url()).toContain("a=");
+    }
+
+    // Outcome page: answer summary with per-answer Change links, plus a way
+    // to start over.
+    await expect(page.getByText("Your answers")).toBeVisible();
+    await expect(page.getByRole("link", { name: /Change/ }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: "Start again" })).toBeVisible();
+  });
+
+  test("getting started: steps and task links are usable, checkboxes stay JS-only", async ({
+    page,
+  }) => {
+    await page.goto("/en/student-life/getting-started/international");
+
+    // Native <details> steps toggle without JS; task links are plain anchors.
+    const firstStep = page.locator("details").first();
+    await firstStep.locator("summary").click();
+    await expect(firstStep.getByRole("link").first()).toBeVisible();
+
+    // The localStorage checklist is a client-side enhancement only: no
+    // checkboxes (and no reset button) may render in the no-JS document.
+    await expect(page.locator('input[type="checkbox"]')).toHaveCount(0);
   });
 
   test("the contact form posts to a server action, not a client fetch", async ({ page }) => {

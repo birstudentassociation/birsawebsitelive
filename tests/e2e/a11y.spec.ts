@@ -23,6 +23,9 @@ const publicPaths = [
   "/clubs/debate-society", // club detail
   "/clubs/start", // start-a-club form
   "/student-life", // track index (sideways nav)
+  "/student-life/getting-started", // step-by-step audience chooser
+  "/student-life/getting-started/international", // step-by-step track (client-enhanced checklist)
+  "/student-life/getting-started/home",
   "/student-life/home",
   "/student-life/international",
   "/student-life/international/visa-and-immigration", // guide article (MDX)
@@ -34,6 +37,9 @@ const publicPaths = [
   "/information-services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/information-services/equipment-loan/status", // status lookup form
   "/emergency", // calm emergency-preparedness landing
+  "/answers", // smart answers hub
+  "/answers/activity-approval", // smart answer start page
+  "/answers/activity-approval/q", // smart answer question page (first step)
 ];
 
 const locales = ["en", "th"] as const;

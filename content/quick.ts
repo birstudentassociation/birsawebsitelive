@@ -85,6 +85,13 @@ export const quickGroups: QuickGroup[] = [
         th: { label: "รถเวียน", hint: "เวลารถและตารางเดินรถ" },
       },
       {
+        key: "getting-started",
+        href: "/student-life/getting-started",
+        icon: "guide",
+        en: { label: "Getting started at BIR", hint: "Step-by-step checklist for new students" },
+        th: { label: "เริ่มต้นที่ BIR", hint: "เช็กลิสต์ทีละขั้นตอนสำหรับนักศึกษาใหม่" },
+      },
+      {
         key: "find-a-club",
         href: "/clubs",
         icon: "club",
@@ -104,6 +111,13 @@ export const quickGroups: QuickGroup[] = [
         icon: "help",
         en: { label: "Contact BIRSA", hint: "Questions, ideas or concerns" },
         th: { label: "ติดต่อ BIRSA", hint: "คำถาม ข้อเสนอแนะ หรือเรื่องกังวลใจ" },
+      },
+      {
+        key: "get-an-answer",
+        href: "/answers",
+        icon: "help",
+        en: { label: "Get an answer", hint: "Guided checks on rules and services" },
+        th: { label: "ค้นหาคำตอบ", hint: "แบบตอบคำถามสั้น ๆ เรื่องกฎระเบียบและบริการ" },
       },
       {
         key: "give-feedback",

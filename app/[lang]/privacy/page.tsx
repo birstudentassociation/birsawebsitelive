@@ -29,6 +29,8 @@ const content: Record<
     collectBody: string;
     cookiesTitle: string;
     cookiesBody: string;
+    onboardingTitle: string;
+    onboardingBody: string;
     analyticsTitle: string;
     analyticsBody: string;
     adsTitle: string;
@@ -47,6 +49,9 @@ const content: Record<
     cookiesTitle: "Cookies",
     cookiesBody:
       "This site sets one functional cookie, NEXT_LOCALE, which remembers whether you last read the site in Thai or English so we do not ask again. We do not set any tracking or advertising cookies. If you switch the light/dark mode toggle, we also save that choice in your browser's local storage (key birsa-theme) so the site remembers it next time. This stays on your device and is never sent to us.",
+    onboardingTitle: '"Starting at BIR: step by step" checklist',
+    onboardingBody:
+      "If you tick off tasks on the Getting started step-by-step pages, that progress is saved only in your browser's local storage (one key per track, e.g. birsa-onboarding-home). We never see it, and it is never sent to BIRSA or anyone else. Use the \"Reset your progress\" button on that page to clear it, or clear it at any time by clearing your browser's site data.",
     analyticsTitle: "Analytics",
     analyticsBody:
       "We use cookieless, privacy-friendly analytics that count things like page views in aggregate. This does not identify you personally and cannot be linked back to an individual visitor.",
@@ -67,6 +72,9 @@ const content: Record<
     cookiesTitle: "คุกกี้",
     cookiesBody:
       "เว็บไซต์นี้ใช้คุกกี้เพื่อการทำงานเพียงตัวเดียวคือ NEXT_LOCALE ซึ่งจดจำว่าครั้งล่าสุดคุณอ่านเว็บนี้เป็นภาษาไทยหรืออังกฤษ เพื่อไม่ต้องถามซ้ำ เราไม่ใช้คุกกี้เพื่อติดตามหรือโฆษณา นอกจากนี้ หากคุณสลับโหมดสว่าง/มืดด้วยปุ่มที่ส่วนหัวเว็บไซต์ เราจะบันทึกตัวเลือกนั้นไว้ใน local storage ของเบราว์เซอร์คุณ (คีย์ birsa-theme) เพื่อจดจำไว้ใช้ครั้งถัดไป ข้อมูลนี้อยู่บนอุปกรณ์ของคุณเท่านั้น ไม่ถูกส่งมาหาเรา",
+    onboardingTitle: 'เช็กลิสต์ "เริ่มต้นที่ BIR: ทีละขั้นตอน"',
+    onboardingBody:
+      'หากคุณติ๊กรายการในหน้าเริ่มต้นที่ BIR แบบทีละขั้นตอน ความคืบหน้านั้นจะถูกบันทึกไว้ใน local storage ของเบราว์เซอร์คุณเท่านั้น (คีย์แยกตามแต่ละเส้นทาง เช่น birsa-onboarding-home) เราไม่เห็นข้อมูลนี้ และไม่ถูกส่งไปให้ BIRSA หรือใครทั้งสิ้น ใช้ปุ่ม "ล้างความคืบหน้า" ในหน้านั้นเพื่อล้างข้อมูล หรือล้างได้ทุกเมื่อจากการล้างข้อมูลเว็บไซต์ในเบราว์เซอร์',
     analyticsTitle: "การวิเคราะห์ข้อมูลการใช้งาน",
     analyticsBody:
       "เราใช้ระบบวิเคราะห์ข้อมูลแบบไม่ใช้คุกกี้และเป็นมิตรกับความเป็นส่วนตัว ซึ่งนับจำนวนการเข้าชมหน้าต่าง ๆ แบบภาพรวมเท่านั้น ไม่สามารถระบุตัวตนของคุณ หรือเชื่อมโยงกลับไปหาผู้เข้าชมรายใดรายหนึ่งได้",
@@ -108,6 +116,11 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.cookiesTitle}</h2>
           <p className="text-muted leading-relaxed">{t.cookiesBody}</p>
+        </section>
+
+        <section className="flex flex-col gap-2">
+          <h2 className="font-display text-2xl">{t.onboardingTitle}</h2>
+          <p className="text-muted leading-relaxed">{t.onboardingBody}</p>
         </section>
 
         <section className="flex flex-col gap-2">
