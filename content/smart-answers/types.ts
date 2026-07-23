@@ -2,7 +2,7 @@
  * Typed model for BIRSA's "Smart Answers": short, question-driven flows that
  * turn the site's regulations and service content into plain-language guided
  * answers (GOV.UK "smart answers" pattern). Every step is a URL, every
- * question a plain GET form — no client-side state.
+ * question a plain GET form, with no client-side state.
  *
  * Mirrors the site's bilingual-string convention (see
  * `content/activity/regulations/types.ts`) with a local `Bi` so this content

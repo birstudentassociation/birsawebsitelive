@@ -1,7 +1,7 @@
 /**
  * Pure engine for Smart Answers: resolving a flow's current step from a list
  * of answers, and validating a flow's shape at build/test time. No React, no
- * side effects — this is unit-testable in isolation (see
+ * side effects, so this is unit-testable in isolation (see
  * `tests/unit/smart-answers.test.ts`).
  */
 import type {
@@ -45,7 +45,7 @@ export function resolveFlow(flow: SmartAnswerFlow, answerIds: string[]): Resolve
   }
 
   // `current` can only be missing here if the flow itself is malformed (a
-  // dangling `next` id) — `validateFlow` is expected to catch that before a
+  // dangling `next` id): `validateFlow` is expected to catch that before a
   // flow ships. Fall back to a blank, clearly-unreachable outcome rather than
   // throwing, so a bad content edit degrades instead of crashing the page.
   const node: SmartAnswerNode = current ?? {

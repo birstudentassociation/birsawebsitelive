@@ -3,7 +3,7 @@
  * first, then the specific services the site already offers (equipment
  * loans, clubs), then a clear hand-off to the BIR Programme site for
  * official academic/records matters (BIRSA is a student association, not a
- * university office — see `content/site.ts` `officialLinks`), then news and
+ * university office; see `content/site.ts` `officialLinks`), then news and
  * a general contact fallback.
  */
 import type { SmartAnswerFlow } from "./types";
@@ -15,7 +15,7 @@ export const whoToContact: SmartAnswerFlow = {
     th: "หาคนที่ใช่สำหรับติดต่อ",
   },
   lede: {
-    en: "A couple of quick questions to point you to the right place — from an emergency to a club question.",
+    en: "A couple of quick questions to point you to the right place, from an emergency to a club question.",
     th: "ตอบคำถามสั้น ๆ เพื่อหาช่องทางที่ใช่ ไม่ว่าจะเป็นเหตุฉุกเฉินหรือคำถามเรื่องชมรม",
   },
   whatYoullNeed: [
@@ -47,7 +47,7 @@ export const whoToContact: SmartAnswerFlow = {
         {
           id: "clubs",
           label: {
-            en: "Clubs — joining or starting one",
+            en: "Clubs: joining or starting one",
             th: "เรื่องชมรม (เข้าร่วมหรือเริ่มใหม่)",
           },
           next: "q-club-detail",
@@ -100,7 +100,7 @@ export const whoToContact: SmartAnswerFlow = {
       id: "out-safety",
       title: { en: "Contact emergency services now", th: "ติดต่อหน่วยฉุกเฉินทันที" },
       summary: {
-        en: "For anything genuinely urgent, don't wait for BIRSA — call the emergency services directly, then let BIRSA know.",
+        en: "For anything genuinely urgent, don't wait for BIRSA: call the emergency services directly, then let BIRSA know.",
         th: "หากเป็นเหตุฉุกเฉินจริง อย่ารอติดต่อ BIRSA ให้โทรหาหน่วยฉุกเฉินโดยตรงก่อน แล้วค่อยแจ้ง BIRSA ทีหลัง",
       },
       body: [
@@ -162,7 +162,7 @@ export const whoToContact: SmartAnswerFlow = {
       id: "out-academic",
       title: { en: "Contact the BIR Programme office", th: "ติดต่อสำนักงานหลักสูตร BIR" },
       summary: {
-        en: "BIRSA is a student association, not a university office — for official records, grades, registration, or programme matters, go to the BIR Programme site.",
+        en: "BIRSA is a student association, not a university office; for official records, grades, registration, or programme matters, go to the BIR Programme site.",
         th: "BIRSA เป็นองค์กรนักศึกษา ไม่ใช่หน่วยงานของมหาวิทยาลัย สำหรับเรื่องผลการเรียน การลงทะเบียน หรือเรื่องทางการของหลักสูตร กรุณาติดต่อผ่านเว็บไซต์หลักสูตร BIR",
       },
       actions: [
@@ -188,7 +188,7 @@ export const whoToContact: SmartAnswerFlow = {
       id: "out-other",
       title: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" },
       summary: {
-        en: "For anything else — welfare concerns, feedback, or a question you're not sure who handles — the contact form reaches BIRSA directly.",
+        en: "For anything else (welfare concerns, feedback, or a question you're not sure who handles), the contact form reaches BIRSA directly.",
         th: "สำหรับเรื่องอื่น ๆ เช่น ความกังวลใจ ข้อเสนอแนะ หรือคำถามที่ไม่แน่ใจว่าใครดูแล ใช้แบบฟอร์มติดต่อเพื่อส่งถึง BIRSA โดยตรง",
       },
       actions: [{ label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" }],

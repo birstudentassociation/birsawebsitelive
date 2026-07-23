@@ -13,7 +13,7 @@ import VisuallyHidden from "@/components/VisuallyHidden";
 /**
  * The Smart Answers step engine: one URL per state, driven entirely by the
  * `a` query param (one value per answer given so far, in order). No
- * `generateStaticParams` here beyond what the dynamic segments require —
+ * `generateStaticParams` here beyond what the dynamic segments require:
  * this route depends on `searchParams`, so it renders dynamically per
  * request, which is expected and fine (every state is still a plain,
  * bookmarkable, no-JS-required GET URL).
@@ -46,7 +46,7 @@ export async function generateMetadata({
 
   const base = buildMetadata({
     locale,
-    title: `${stepTitle} — ${flow.title[locale]}`,
+    title: `${stepTitle}: ${flow.title[locale]}`,
     description: flow.lede[locale],
     path: `/answers/${flow.slug}/q`,
   });

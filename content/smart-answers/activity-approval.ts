@@ -20,7 +20,7 @@ export const activityApproval: SmartAnswerFlow = {
     th: "เช็กว่ากิจกรรมของคุณต้องขออนุมัติหรือไม่",
   },
   lede: {
-    en: "Answer a few quick questions to see whether your activity needs sign-off from BIRSA, the PSC, or the Faculty — and who to ask.",
+    en: "Answer a few quick questions to see whether your activity needs sign-off from BIRSA, the PSC, or the Faculty, and who to ask.",
     th: "ตอบคำถามสั้น ๆ เพื่อเช็กว่ากิจกรรมที่จะจัดต้องขออนุมัติจาก BIRSA กนศ.ร. หรือคณะหรือไม่ และต้องติดต่อใคร",
   },
   whatYoullNeed: [
@@ -43,7 +43,7 @@ export const activityApproval: SmartAnswerFlow = {
       kind: "question",
       id: "q-affiliated",
       question: {
-        en: "Is the activity organised by an official body — BIRSA itself, the PSC (กนศ.ร.), a recognised Faculty activity group, a club, or your year's cohort committee (คกร.)?",
+        en: "Is the activity organised by an official body: BIRSA itself, the PSC (กนศ.ร.), a recognised Faculty activity group, a club, or your year's cohort committee (คกร.)?",
         th: "กิจกรรมนี้จัดโดยองค์กรที่เป็นทางการหรือไม่ เช่น BIRSA เอง กนศ.ร. กลุ่มกิจกรรมคณะที่จดทะเบียนแล้ว ชมรม หรือ คกร. ของรุ่นคุณ",
       },
       hint: {
@@ -139,7 +139,7 @@ export const activityApproval: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-likely-fine",
       title: {
-        en: "Likely fine under your group's existing plan — but check with your committee",
+        en: "Likely fine under your group's existing plan, but check with your committee",
         th: "น่าจะไม่ต้องขออนุมัติเพิ่ม แต่ควรเช็กกับคณะกรรมการของกลุ่มก่อน",
       },
       summary: {
@@ -148,7 +148,7 @@ export const activityApproval: SmartAnswerFlow = {
       },
       body: [
         {
-          en: "BIRSA and Faculty activity groups prepare and submit an annual work plan, projects, and budget each year — activities inside that plan are already covered.",
+          en: "BIRSA and Faculty activity groups prepare and submit an annual work plan, projects, and budget each year; activities inside that plan are already covered.",
           th: "BIRSA และกลุ่มกิจกรรมคณะต้องจัดทำและเสนอแผนงาน โครงการ และงบประมาณประจำปีไว้ล่วงหน้า กิจกรรมที่อยู่ในแผนนี้จึงไม่ต้องขออนุมัติซ้ำอีก",
         },
       ],
@@ -161,15 +161,15 @@ export const activityApproval: SmartAnswerFlow = {
       citations: [
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 26 — Powers and duties (BIRSA's annual work plan and budget)",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 26 — อำนาจหน้าที่ (แผนงานและงบประมาณประจำปีของ BIRSA)",
+            en: "Notice B.E. 2565, ข้อ 26: Powers and duties (BIRSA's annual work plan and budget)",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 26 อำนาจหน้าที่ (แผนงานและงบประมาณประจำปีของ BIRSA)",
           },
           href: "/activity/regulations/political-science-2565#prov-26",
         },
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 46 — Powers and duties of the group committee (submits its annual work plan to the PSC)",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 46 — อำนาจหน้าที่คณะกรรมการกลุ่ม (เสนอแผนงานประจำปีต่อ กนศ.ร.)",
+            en: "Notice B.E. 2565, ข้อ 46: Powers and duties of the group committee (submits its annual work plan to the PSC)",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 46 อำนาจหน้าที่คณะกรรมการกลุ่ม (เสนอแผนงานประจำปีต่อ กนศ.ร.)",
           },
           href: "/activity/regulations/political-science-2565#prov-46",
         },
@@ -183,7 +183,7 @@ export const activityApproval: SmartAnswerFlow = {
         th: "ต้องขออนุมัติงบประมาณหรือสถานที่เพิ่มเติมก่อน",
       },
       summary: {
-        en: "Spending outside your group's approved budget needs the Faculty's approval before you go ahead — this is a formal step, not just a courtesy.",
+        en: "Spending outside your group's approved budget needs the Faculty's approval before you go ahead; this is a formal step, not just a courtesy.",
         th: "การใช้จ่ายนอกเหนือจากงบประมาณที่อนุมัติไว้แล้ว ต้องได้รับความเห็นชอบจากคณะก่อนดำเนินการ ไม่ใช่แค่แจ้งให้ทราบ",
       },
       body: [
@@ -204,8 +204,8 @@ export const activityApproval: SmartAnswerFlow = {
       citations: [
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 84 — Special disbursements outside the budget",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 84 — การสั่งจ่ายกรณีพิเศษ",
+            en: "Notice B.E. 2565, ข้อ 84: Special disbursements outside the budget",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 84 การสั่งจ่ายกรณีพิเศษ",
           },
           href: "/activity/regulations/political-science-2565#prov-84",
         },
@@ -215,7 +215,7 @@ export const activityApproval: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-start-a-club",
       title: {
-        en: "You're starting something new — that's a different check",
+        en: "You're starting something new: that's a different check",
         th: "นี่คือการเริ่มสิ่งใหม่ ต้องเช็กอีกแบบหนึ่ง",
       },
       summary: {
@@ -256,7 +256,7 @@ export const activityApproval: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-ask-faculty-offcampus",
       title: {
-        en: "Ask before you go ahead — off-campus needs extra care",
+        en: "Ask before you go ahead, since off-campus needs extra care",
         th: "สอบถามก่อนดำเนินการ กิจกรรมนอกสถานที่ต้องระวังเป็นพิเศษ",
       },
       summary: {

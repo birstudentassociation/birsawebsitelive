@@ -4,11 +4,11 @@
  * Grounded in BIRSA's actual on-ramp (`/clubs/start`: an informal "tell us
  * your idea" form, no minimum numbers) and, where the flow points at
  * something more formal, the Faculty Notice B.E. 2565's rules for a
- * "Faculty activity group" (ข้อ 41 forming a group — 30 signatures to the
+ * "Faculty activity group" (ข้อ 41 forming a group: 30 signatures to the
  * Dean; ข้อ 43 a 20-member minimum; ข้อ 44 committee positions). The two are
- * genuinely different steps — BIRSA's on-ramp is the easy first move; the
+ * genuinely different steps: BIRSA's on-ramp is the easy first move; the
  * Notice's thresholds only bite once a group wants formal, faculty-wide
- * recognition and its own budget — and the flow says so rather than
+ * recognition and its own budget, and the flow says so rather than
  * conflating them.
  */
 import type { SmartAnswerFlow } from "./types";
@@ -63,7 +63,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       kind: "question",
       id: "q-members",
       question: {
-        en: "Do you already have at least a few other students — roughly 5 or more — who want to join in?",
+        en: "Do you already have at least a few other students (roughly 5 or more) who want to join in?",
         th: "ตอนนี้มีเพื่อนนักศึกษาคนอื่นที่อยากเข้าร่วมด้วยแล้วหรือยัง อย่างน้อยประมาณ 5 คน",
       },
       options: [
@@ -79,7 +79,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       kind: "question",
       id: "q-committee",
       question: {
-        en: "Could a few of you take on committee roles — like chair, secretary, or treasurer — to help run it?",
+        en: "Could a few of you take on committee roles (like chair, secretary, or treasurer) to help run it?",
         th: "มีใครในกลุ่มพร้อมรับตำแหน่งกรรมการ เช่น ประธาน เลขานุการ หรือเหรัญญิก เพื่อช่วยดูแลชมรมไหม",
       },
       options: [
@@ -147,7 +147,7 @@ export const startAClubCheck: SmartAnswerFlow = {
         th: "สุดท้ายแล้วจะต้องมีคณะกรรมการเล็ก ๆ",
       },
       summary: {
-        en: "Running a recognised group means someone has to hold basic roles — even a Faculty activity group needs at least 5 committee members. You don't need this on day one, but start thinking about who could take these on.",
+        en: "Running a recognised group means someone has to hold basic roles: even a Faculty activity group needs at least 5 committee members. You don't need this on day one, but start thinking about who could take these on.",
         th: "การดูแลกลุ่มที่เป็นทางการต้องมีคนรับหน้าที่พื้นฐาน แม้แต่กลุ่มกิจกรรมคณะก็ยังต้องมีกรรมการอย่างน้อย 5 คน ไม่จำเป็นต้องมีครบตั้งแต่วันแรก แต่เริ่มมองหาคนที่พร้อมรับตำแหน่งเหล่านี้ได้เลย",
       },
       actions: [
@@ -159,8 +159,8 @@ export const startAClubCheck: SmartAnswerFlow = {
       citations: [
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 44 — Group committee positions",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 44 — องค์ประกอบคณะกรรมการกลุ่ม",
+            en: "Notice B.E. 2565, ข้อ 44: Group committee positions",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 44 องค์ประกอบคณะกรรมการกลุ่ม",
           },
           href: "/activity/regulations/political-science-2565#prov-44",
         },
@@ -170,7 +170,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-ready-bir",
       title: {
-        en: "You're ready — tell BIRSA your idea",
+        en: "You're ready: tell BIRSA your idea",
         th: "พร้อมแล้ว บอกไอเดียกับ BIRSA ได้เลย",
       },
       summary: {
@@ -187,8 +187,8 @@ export const startAClubCheck: SmartAnswerFlow = {
       citations: [
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 24 — Establishment of BIRSA",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 24 — การจัดตั้ง BIRSA",
+            en: "Notice B.E. 2565, ข้อ 24: Establishment of BIRSA",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 24 การจัดตั้ง BIRSA",
           },
           href: "/activity/regulations/political-science-2565#prov-24",
         },
@@ -198,7 +198,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-ready-faculty",
       title: {
-        en: "You're ready — start with BIRSA, then formalise it",
+        en: "You're ready: start with BIRSA, then formalise it",
         th: "พร้อมแล้ว เริ่มคุยกับ BIRSA ก่อน แล้วค่อยทำให้เป็นทางการ",
       },
       summary: {
@@ -207,7 +207,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       },
       body: [
         {
-          en: "That's a separate, more formal step than the BIRSA on-ramp — BIRSA can help you figure out whether you need it yet.",
+          en: "That's a separate, more formal step than the BIRSA on-ramp; BIRSA can help you figure out whether you need it yet.",
           th: "ขั้นตอนนี้เป็นคนละเรื่องกับการเริ่มผ่าน BIRSA และเป็นทางการมากกว่า BIRSA ช่วยดูได้ว่าตอนนี้จำเป็นต้องทำถึงขั้นนั้นหรือยัง",
         },
       ],
@@ -215,15 +215,15 @@ export const startAClubCheck: SmartAnswerFlow = {
       citations: [
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 41 — Forming a group",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 41 — การจัดตั้งกลุ่ม",
+            en: "Notice B.E. 2565, ข้อ 41: Forming a group",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 41 การจัดตั้งกลุ่ม",
           },
           href: "/activity/regulations/political-science-2565#prov-41",
         },
         {
           label: {
-            en: "Notice B.E. 2565, ข้อ 43 — Membership minimum and its end",
-            th: "ประกาศ พ.ศ. 2565 ข้อ 43 — จำนวนสมาชิกและสิ้นสุดสมาชิกภาพ",
+            en: "Notice B.E. 2565, ข้อ 43: Membership minimum and its end",
+            th: "ประกาศ พ.ศ. 2565 ข้อ 43 จำนวนสมาชิกและสิ้นสุดสมาชิกภาพ",
           },
           href: "/activity/regulations/political-science-2565#prov-43",
         },
