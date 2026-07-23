@@ -74,7 +74,8 @@ function generateNonce(): string {
 const SHARED_CSP_DIRECTIVES = [
   `default-src 'self'`,
   `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob:`,
+  // OSM tiles for the places map on the student-life guide.
+  `img-src 'self' data: blob: https://tile.openstreetmap.org`,
   `font-src 'self'`,
   `connect-src 'self' https://va.vercel-scripts.com`,
   // Google Forms embeds (e.g. event registration on What's on) are framed from

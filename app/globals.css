@@ -105,6 +105,14 @@ html[data-theme="dark"] .theme-icon-moon {
   display: none;
 }
 
+/* OpenStreetMap raster tiles (places map, `.osm-tile-layer` in
+   PlacesMap.tsx) are pre-rendered bright/white-heavy imagery; darken and
+   desaturate them slightly in dark mode so they don't glare against the
+   rest of the page. */
+html[data-theme="dark"] .osm-tile-layer img {
+  filter: brightness(0.85) contrast(1.05) saturate(0.9);
+}
+
 @media (prefers-color-scheme: dark) {
   html:not([data-theme="light"]) {
     color-scheme: dark;
@@ -147,6 +155,9 @@ html[data-theme="dark"] .theme-icon-moon {
   }
   html:not([data-theme="light"]) .theme-icon-moon {
     display: none;
+  }
+  html:not([data-theme="light"]) .osm-tile-layer img {
+    filter: brightness(0.85) contrast(1.05) saturate(0.9);
   }
 }
 

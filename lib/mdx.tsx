@@ -17,6 +17,7 @@ import CommitteeRoster from "@/components/about/CommitteeRoster";
 import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
 import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
 import ShuttleTimetable from "@/components/shuttle/ShuttleTimetable";
+import PlacesSection from "@/components/places/PlacesSection";
 import type { Locale } from "@/lib/i18n";
 
 export type MdxProps = {
@@ -75,6 +76,8 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     ShuttleTimer: () => <ShuttleTimer locale={locale} />,
     ShuttleRoute: () => <ShuttleRoute locale={locale} />,
     ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
+    NearbyFood: () => <PlacesSection locale={locale} section="food" />,
+    NearbyEssentials: () => <PlacesSection locale={locale} section="essentials" />,
   };
 }
 

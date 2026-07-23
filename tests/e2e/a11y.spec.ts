@@ -30,6 +30,7 @@ const publicPaths = [
   "/student-life/international",
   "/student-life/international/visa-and-immigration", // guide article (MDX)
   "/student-life/home/food-and-budgeting",
+  "/student-life/home/places-nearby", // OSM tile map with anchor markers
   "/student-life/course-reviews", // course catalogue browser
   "/student-life/course-reviews/PI121", // course detail
   "/information-services",
