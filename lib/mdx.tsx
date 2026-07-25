@@ -4,11 +4,12 @@
  * of MDX content in the site gets the same headings/links/tables behaviour
  * and accessibility handling for free.
  */
-import type { AnchorHTMLAttributes, TableHTMLAttributes, ThHTMLAttributes } from "react";
+import type { AnchorHTMLAttributes, ReactNode, TableHTMLAttributes, ThHTMLAttributes } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import Accordion from "@/components/Accordion";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import Email from "@/components/Email";
@@ -68,6 +69,12 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     },
     Notice,
     Email,
+    // `defaultOpen` is deliberately not exposed to MDX: next-mdx-remote strips
+    // JSX attribute expressions, so a boolean prop could only ever arrive as a
+    // string. Authors get the collapsed-by-default disclosure.
+    Accordion: ({ summary, children }: { summary: string; children: ReactNode }) => (
+      <Accordion summary={summary}>{children}</Accordion>
+    ),
     // Forward the MDX-authored props (src/title/height) and inject the page
     // locale so the fallback copy matches the article language.
     GoogleForm: (props: Omit<GoogleFormProps, "locale">) => (
