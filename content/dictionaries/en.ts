@@ -69,6 +69,7 @@ export const en = {
     onThisPage: "On this page",
     newTab: "opens in a new tab",
     externalLink: "external link",
+    table: "Table",
     languageSelector: "Language",
     logoHome: "BIRSA, go to the home page",
     loading: "Loading",

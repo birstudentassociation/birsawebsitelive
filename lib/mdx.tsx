@@ -18,6 +18,7 @@ import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
 import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
 import ShuttleTimetable from "@/components/shuttle/ShuttleTimetable";
 import PlacesSection from "@/components/places/PlacesSection";
+import RelatedClubs from "@/components/clubs/RelatedClubs";
 import type { Locale } from "@/lib/i18n";
 
 export type MdxProps = {
@@ -78,6 +79,18 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
     NearbyFood: () => <PlacesSection locale={locale} section="food" />,
     NearbyHousing: () => <PlacesSection locale={locale} section="housing" />,
+    // `slugs` is a comma-separated string because next-mdx-remote compiles with
+    // `blockJS` enabled, which strips JSX attribute expressions: an authored
+    // `slugs={[...]}` would silently arrive as `undefined`.
+    RelatedClubs: ({ slugs }: { slugs: string }) => (
+      <RelatedClubs
+        slugs={slugs
+          .split(",")
+          .map((slug) => slug.trim())
+          .filter(Boolean)}
+        locale={locale}
+      />
+    ),
   };
 }
 

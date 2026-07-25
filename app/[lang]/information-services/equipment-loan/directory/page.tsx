@@ -11,7 +11,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
 import Email from "@/components/Email";
 import ExternalLink from "@/components/ExternalLink";
-import { clubs as clubsContent } from "@/content/clubs/clubs";
+import { getClubEntries } from "@/lib/content";
 
 /**
  * Live club inventory and per-item availability, which change as loans are made
@@ -150,6 +150,7 @@ export default async function EquipmentLoanDirectoryPage({
 
   const custodians = await listCustodians();
   const clubs = custodians.filter((c) => c.kind === "club");
+  const clubsContent = getClubEntries(locale);
 
   const clubItems = new Map<
     string,
@@ -299,8 +300,8 @@ export default async function EquipmentLoanDirectoryPage({
             const contact = renderContact(club);
             // Club slugs and custodian slugs are independent data sources;
             // this link only appears when a club has explicitly opted in by
-            // setting `custodianSlug` to match this custodian.
-            const linkedClub = clubsContent.find((c) => c.custodianSlug === club.slug);
+            // setting `custodian` in its MDX frontmatter to match this custodian.
+            const linkedClub = clubsContent.find((c) => c.frontmatter.custodian === club.slug);
             return (
               <section
                 key={club.id}

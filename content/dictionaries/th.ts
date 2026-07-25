@@ -69,6 +69,7 @@ export const th: typeof en = {
     onThisPage: "ในหน้านี้",
     newTab: "เปิดในแท็บใหม่",
     externalLink: "ลิงก์ภายนอก",
+    table: "ตาราง",
     languageSelector: "ภาษา",
     logoHome: "BIRSA, กลับหน้าแรก",
     loading: "กำลังโหลด",

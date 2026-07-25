@@ -118,13 +118,17 @@ content/news/{en,th}/<slug>.mdx     # same slug in both locales
 content/activity/{en,th}/<slug>.mdx
 content/student-life/{en,th}/{home,international}/<slug>.mdx
 content/about/{en,th}/<slug>.mdx
-content/clubs/clubs.ts              # typed array, en+th fields inline
+content/clubs/{en,th}/<slug>.mdx    # one file per club per locale
+content/clubs/clubs.ts              # category vocabulary + the client-safe ClubSummary type
 ```
 
 News frontmatter: `title, summary, date (YYYY-MM-DD), type ("news"|"event"), category,
 location?, start? (ISO datetime), end?, links? [{label,href}]`.
 Activity frontmatter: `title, summary, order, updated, placeholder?`.
 Student-life frontmatter: `title, summary, order, updated, audience`.
+Club frontmatter: `title, tagline, category, order, updated, joinOpen, lead?, meets?, where?,
+custodian?, links? [{label,href}], placeholder?`. The body is the club's own write-up; only the
+card/sidebar fields live in frontmatter.
 Validate all frontmatter with zod in `lib/content.ts`; build must fail loudly on bad content.
 
 ## Design system

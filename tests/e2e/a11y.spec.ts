@@ -20,7 +20,8 @@ const publicPaths = [
   "/activity/regulations/university-2563", // long-form legal document
   "/activity/contact",
   "/clubs",
-  "/clubs/debate-society", // club detail
+  "/clubs/tu-mun", // club detail: MDX body with a table and a related-clubs block
+  "/clubs/bir-mock-fund", // club detail: MDX body with a Notice callout
   "/clubs/start", // start-a-club form
   "/student-life", // track index (sideways nav)
   "/student-life/getting-started", // step-by-step audience chooser

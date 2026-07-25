@@ -6,7 +6,8 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import ClubsExplorer from "@/components/clubs/ClubsExplorer";
-import { clubs } from "@/content/clubs/clubs";
+import { getClubEntries } from "@/lib/content";
+import type { ClubSummary } from "@/content/clubs/clubs";
 
 export async function generateMetadata({
   params,
@@ -38,7 +39,7 @@ const copy: Record<
 > = {
   en: {
     title: "Clubs",
-    lede: "Clubs are small groups of BIR students who share an interest, such as sport, music, volunteering, gaming, or making a podcast. Anyone can join one, and anyone can start a new one.",
+    lede: "Clubs are small groups of BIR students who share an interest, such as sport, music, volunteering, gaming, writing, or simulating a parliament. Anyone can join one, and anyone can start a new one.",
     startTitle: "Don't see your thing? Start a club.",
     startBody:
       "If a handful of you share an interest that is not covered yet, BIRSA can help you set up a new club. It's a simpler process than you'd think.",
@@ -46,7 +47,7 @@ const copy: Record<
   },
   th: {
     title: "ชมรม",
-    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม หรือการทำพอดแคสต์ ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้เช่นกัน",
+    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม งานเขียน หรือการจำลองการประชุมรัฐสภา ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้เช่นกัน",
     startTitle: "ยังไม่มีชมรมที่ใช่? เริ่มชมรมของคุณเองได้",
     startBody:
       "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ BIRSA ช่วยตั้งชมรมใหม่ให้ได้ ขั้นตอนง่ายกว่าที่คิด",
@@ -60,6 +61,15 @@ export default async function ClubsPage({ params }: { params: Promise<{ lang: st
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+
+  // Only the card fields cross into the client explorer; MDX bodies stay here.
+  const clubs: ClubSummary[] = getClubEntries(locale).map((entry) => ({
+    slug: entry.slug,
+    title: entry.frontmatter.title,
+    tagline: entry.frontmatter.tagline,
+    category: entry.frontmatter.category,
+    joinOpen: entry.frontmatter.joinOpen,
+  }));
 
   return (
     <>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
+import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { clubs } from "@/content/clubs/clubs";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
@@ -155,13 +154,13 @@ export default async function SearchPage({
       }
     }
 
-    const clubResults: ResultItem[] = clubs
-      .filter((club) => matches(query, club[locale].name, club[locale].tagline))
+    const clubResults: ResultItem[] = getClubEntries(locale)
+      .filter((club) => matches(query, club.frontmatter.title, club.frontmatter.tagline))
       .map((club) => ({
         slug: club.slug,
         href: localeHref(locale, `/clubs/${club.slug}`),
-        title: club[locale].name,
-        summary: club[locale].tagline,
+        title: club.frontmatter.title,
+        summary: club.frontmatter.tagline,
       }));
     if (clubResults.length > 0)
       groups.push({ key: "clubs", label: t.groups.clubs, items: clubResults });

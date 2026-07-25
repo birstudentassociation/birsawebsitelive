@@ -89,6 +89,40 @@ const aboutFrontmatterSchema = z.object({
   placeholder: z.boolean().optional(),
 });
 
+/**
+ * Clubs. Card/sidebar data lives in frontmatter; the club's own write-up is
+ * the MDX body, so a club can describe itself with headings, tables, and
+ * notices instead of a fixed set of string fields.
+ *
+ * `links` is an open list rather than named `email`/`instagram` fields:
+ * clubs reach students on whatever they actually use (Instagram, LINE
+ * OpenChat, Discord, Spotify, YouTube), and that set differs per club.
+ */
+const clubFrontmatterSchema = z.object({
+  title: z.string().min(1),
+  tagline: z.string().min(1),
+  category: z.enum(["academic", "sports", "arts", "community", "social"]),
+  order: z.number(),
+  updated: dateOnly,
+  /** Whether the club is currently taking new members. */
+  joinOpen: z.boolean(),
+  /** Role title only, e.g. "President". Never a person's name. */
+  lead: z.string().optional(),
+  /** When the club meets, only when confirmed. */
+  meets: z.string().optional(),
+  /** Where the club meets, only when confirmed. */
+  where: z.string().optional(),
+  /**
+   * Slug of this club's matching Custodian in the inventory system
+   * (`db/migrations/009_custodians.sql`). Club slugs here and custodian slugs
+   * there are independent data sources, so this is set manually and only when
+   * confirmed, never assumed from a matching slug string.
+   */
+  custodian: z.string().optional(),
+  links: z.array(linkSchema).optional(),
+  placeholder: z.boolean().optional(),
+});
+
 const frontmatterSchemas = {
   news: newsFrontmatterSchema,
   activity: activityFrontmatterSchema,
@@ -99,6 +133,7 @@ export type NewsFrontmatter = z.infer<typeof newsFrontmatterSchema>;
 export type ActivityFrontmatter = z.infer<typeof activityFrontmatterSchema>;
 export type StudentLifeFrontmatter = z.infer<typeof studentLifeFrontmatterSchema>;
 export type AboutFrontmatter = z.infer<typeof aboutFrontmatterSchema>;
+export type ClubFrontmatter = z.infer<typeof clubFrontmatterSchema>;
 
 export type Section = "news" | "activity" | "about";
 
@@ -233,4 +268,29 @@ export function getGuideEntry(
   slug: string
 ): Entry<StudentLifeFrontmatter> | null {
   return getGuideEntries(locale, audience).find((entry) => entry.slug === slug) ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Clubs
+// ---------------------------------------------------------------------------
+
+/** Returns all clubs for a locale, sorted by `order` asc. */
+export function getClubEntries(locale: Locale): Entry<ClubFrontmatter>[] {
+  const cacheKey = `clubs:${locale}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached as Entry<ClubFrontmatter>[];
+
+  const dir = path.join(CONTENT_ROOT, "clubs", locale);
+  const entries = readMdxDir(dir).map(({ slug, raw, filePath }) =>
+    parseEntry(clubFrontmatterSchema, slug, raw, filePath)
+  );
+
+  const sorted = [...entries].sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+  cache.set(cacheKey, sorted as Entry[]);
+  return sorted;
+}
+
+/** Returns a single club by slug, or `null` if it doesn't exist. */
+export function getClubEntry(locale: Locale, slug: string): Entry<ClubFrontmatter> | null {
+  return getClubEntries(locale).find((entry) => entry.slug === slug) ?? null;
 }

@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { getEntries, getGuideEntries, type Section } from "@/lib/content";
+import { getClubEntries, getEntries, getGuideEntries, type Section } from "@/lib/content";
 import { locales, type Locale } from "@/lib/i18n";
-import { clubs } from "@/content/clubs/clubs";
 import { committee } from "@/content/committee";
 
 const sections: Section[] = ["news", "activity"];
@@ -89,25 +88,102 @@ describe("student-life guides are sorted order-asc", () => {
   }
 });
 
-describe("clubs.ts", () => {
+describe("clubs", () => {
   const localesToCheck: Locale[] = ["en", "th"];
 
-  it("every club has both en and th content blocks with non-empty fields", () => {
-    for (const club of clubs) {
-      for (const locale of localesToCheck) {
-        const content = club[locale];
-        expect(content, `club "${club.slug}" is missing "${locale}" content`).toBeDefined();
-        expect(content.name.length).toBeGreaterThan(0);
-        expect(content.tagline.length).toBeGreaterThan(0);
-        expect(content.description.length).toBeGreaterThan(0);
-        expect(content.howToJoin.length).toBeGreaterThan(0);
+  for (const locale of localesToCheck) {
+    it(`getClubEntries("${locale}") loads and validates every club`, () => {
+      expect(() => getClubEntries(locale)).not.toThrow();
+      expect(getClubEntries(locale).length).toBeGreaterThan(0);
+    });
+  }
+
+  it("every club has a unique slug and a non-empty body", () => {
+    for (const locale of localesToCheck) {
+      const entries = getClubEntries(locale);
+      const slugs = entries.map((entry) => entry.slug);
+      expect(new Set(slugs).size, `duplicate club slug in "${locale}"`).toBe(slugs.length);
+      for (const entry of entries) {
+        expect(
+          entry.content.trim().length,
+          `club "${entry.slug}" (${locale}) has an empty body`
+        ).toBeGreaterThan(0);
       }
     }
   });
 
-  it("every club has a unique slug", () => {
-    const slugs = clubs.map((club) => club.slug);
-    expect(new Set(slugs).size).toBe(slugs.length);
+  it("every club exists in both locales, with matching category and order", () => {
+    const en = getClubEntries("en");
+    const th = getClubEntries("th");
+    expect(th.map((entry) => entry.slug).sort()).toEqual(en.map((entry) => entry.slug).sort());
+
+    for (const entry of en) {
+      const twin = th.find((other) => other.slug === entry.slug);
+      expect(twin, `club "${entry.slug}" is missing its Thai page`).toBeDefined();
+      expect(twin?.frontmatter.category, `category differs for "${entry.slug}"`).toBe(
+        entry.frontmatter.category
+      );
+      expect(twin?.frontmatter.order, `order differs for "${entry.slug}"`).toBe(
+        entry.frontmatter.order
+      );
+      expect(twin?.frontmatter.custodian, `custodian differs for "${entry.slug}"`).toBe(
+        entry.frontmatter.custodian
+      );
+    }
+  });
+
+  // `RelatedClubs` skips unknown slugs at render time rather than throwing, so
+  // a typo would silently drop a link. Catch it here instead.
+  it("every slug referenced by <RelatedClubs> resolves to a real club", () => {
+    for (const locale of localesToCheck) {
+      const entries = getClubEntries(locale);
+      const known = new Set(entries.map((entry) => entry.slug));
+      for (const entry of entries) {
+        for (const match of entry.content.matchAll(/<RelatedClubs\s+slugs="([^"]*)"/g)) {
+          const referenced = (match[1] ?? "")
+            .split(",")
+            .map((slug) => slug.trim())
+            .filter(Boolean);
+          expect(
+            referenced.length,
+            `club "${entry.slug}" (${locale}) has an empty slugs list`
+          ).toBeGreaterThan(0);
+          for (const slug of referenced) {
+            expect(
+              known.has(slug),
+              `club "${entry.slug}" (${locale}) links to unknown "${slug}"`
+            ).toBe(true);
+          }
+          expect(referenced, `club "${entry.slug}" (${locale}) links to itself`).not.toContain(
+            entry.slug
+          );
+        }
+      }
+    }
+  });
+
+  // The `blockJS` stripping that makes `slugs` a string applies to every
+  // attribute, so an authored expression anywhere in club MDX would be dropped
+  // silently at render time rather than failing the build.
+  it("no club page passes a JSX attribute expression to a component", () => {
+    for (const locale of localesToCheck) {
+      for (const entry of getClubEntries(locale)) {
+        expect(
+          entry.content,
+          `club "${entry.slug}" (${locale}) uses an attribute expression, which next-mdx-remote strips`
+        ).not.toMatch(/<[A-Z]\w*[^>]*\s\w+=\{/);
+      }
+    }
+  });
+
+  it("no club page uses em dashes or en dashes", () => {
+    for (const locale of localesToCheck) {
+      for (const entry of getClubEntries(locale)) {
+        expect(entry.content, `club "${entry.slug}" (${locale}) contains a dash`).not.toMatch(
+          /[—–]/
+        );
+      }
+    }
   });
 });
 

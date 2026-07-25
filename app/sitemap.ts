@@ -1,13 +1,12 @@
 /**
  * Sitemap: enumerates every route in both locales. Slugs are derived from
- * the same content loaders the pages themselves use (`lib/content.ts` and
- * `content/clubs/clubs.ts`), never hardcoded, so the sitemap can't drift
- * out of sync with what actually gets built.
+ * the same content loaders the pages themselves use (`lib/content.ts`),
+ * never hardcoded, so the sitemap can't drift out of sync with what
+ * actually gets built.
  */
 import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
-import { getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
-import { clubs } from "@/content/clubs/clubs";
+import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { documents } from "@/content/activity/regulations";
 import { courses } from "@/content/course-review/courses";
 import { flows } from "@/content/smart-answers";
@@ -86,7 +85,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: url(locale, `/student-life/course-reviews/${course.code}`) });
     }
 
-    for (const club of clubs) {
+    for (const club of getClubEntries(locale)) {
       entries.push({ url: url(locale, `/clubs/${club.slug}`) });
     }
   }

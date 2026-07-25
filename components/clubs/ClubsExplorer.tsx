@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Button from "@/components/Button";
 import ClubCard from "@/components/clubs/ClubCard";
 import type { Locale } from "@/lib/i18n";
-import { clubCategories, type Club, type ClubCategory } from "@/content/clubs/clubs";
+import { clubCategories, type ClubSummary, type ClubCategory } from "@/content/clubs/clubs";
 
 export type ClubsExplorerDict = {
   search: string;
@@ -21,7 +21,7 @@ export type ClubsExplorerDict = {
 };
 
 export type ClubsExplorerProps = {
-  clubs: Club[];
+  clubs: ClubSummary[];
   locale: Locale;
   dict: ClubsExplorerDict;
 };
@@ -70,15 +70,14 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return clubs.filter((club) => {
-      const content = club[locale];
       const matchesCategory = category === "all" || club.category === category;
       const matchesQuery =
         q.length === 0 ||
-        content.name.toLowerCase().includes(q) ||
-        content.tagline.toLowerCase().includes(q);
+        club.title.toLowerCase().includes(q) ||
+        club.tagline.toLowerCase().includes(q);
       return matchesCategory && matchesQuery;
     });
-  }, [clubs, locale, query, category]);
+  }, [clubs, query, category]);
 
   const hasFilters = query.trim().length > 0 || category !== "all";
 
