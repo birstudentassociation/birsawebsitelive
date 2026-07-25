@@ -96,7 +96,7 @@ export const quickGroups: QuickGroup[] = [
         href: "/clubs",
         icon: "club",
         en: { label: "Find a club", hint: "Join one, or start your own" },
-        th: { label: "หาชมรม", hint: "รวบรวมข้อมูลชมรมต่าง ๆ (ตอนนี้ยังไม่มีข้อมูลจริง)" },
+        th: { label: "หาชมรม", hint: "รวบรวมข้อมูลชมรมต่าง ๆ" },
       },
     ],
   },

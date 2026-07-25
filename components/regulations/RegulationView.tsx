@@ -28,14 +28,14 @@ const ui: Record<
     contents: "Arrangement of provisions",
     aboutTitle: "About this document",
     aboutBody:
-      "This is a reference rendering of an official Thai-language instrument, with a short summary heading added to each provision to aid navigation. The Thai text is authoritative; the English is a translation.",
+      "This is a reference rendering of an official Thai-language instrument. A short summary heading has been added to each provision. The Thai text is authoritative; the English is a translation.",
     back: "Back to the regulations library",
   },
   th: {
     contents: "สารบัญข้อกำหนด",
     aboutTitle: "เกี่ยวกับเอกสารนี้",
     aboutBody:
-      "นี่คือการนำเสนอเอกสารฉบับทางการภาษาไทย โดยเพิ่มหัวข้อสรุปสั้น ๆ ไว้ที่แต่ละข้อเพื่อช่วยในการค้นหา ทั้งนี้ให้ถือข้อความภาษาไทยเป็นฉบับที่มีผลบังคับ ส่วนภาษาอังกฤษเป็นคำแปล",
+      "นี่คือการนำเสนอเอกสารฉบับทางการภาษาไทย โดยเพิ่มหัวข้อสรุปสั้น ๆ ไว้ที่แต่ละข้อ ให้ถือข้อความภาษาไทยเป็นฉบับที่มีผลบังคับ ส่วนภาษาอังกฤษเป็นคำแปล",
     back: "กลับไปที่คลังระเบียบข้อบังคับ",
   },
 };

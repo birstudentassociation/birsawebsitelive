@@ -12,7 +12,7 @@ const generic: EmergencyScenario = {
   en: {
     bannerMessage: "There is an emergency affecting the faculty. Follow official instructions.",
     title: "Emergency information",
-    lede: "An emergency is currently affecting the faculty. This page carries important guidance. Follow the instructions of the emergency services and Thammasat University at all times.",
+    lede: "An emergency is currently affecting the faculty. Follow the instructions of the emergency services and Thammasat University at all times.",
     immediateActions: [
       "If you or anyone near you is in immediate danger, call the emergency services first: police 191, medical 1669, fire 199.",
       "Follow any instructions from Thammasat University staff and the emergency services.",
@@ -44,7 +44,7 @@ const generic: EmergencyScenario = {
   th: {
     bannerMessage: "มีเหตุฉุกเฉินที่ส่งผลต่อคณะ กรุณาปฏิบัติตามคำแนะนำจากทางการ",
     title: "ข้อมูลสถานการณ์ฉุกเฉิน",
-    lede: "ขณะนี้มีเหตุฉุกเฉินที่ส่งผลต่อคณะ หน้านี้รวบรวมคำแนะนำสำคัญ โปรดปฏิบัติตามคำแนะนำของหน่วยงานฉุกเฉินและมหาวิทยาลัยธรรมศาสตร์เสมอ",
+    lede: "ขณะนี้มีเหตุฉุกเฉินที่ส่งผลต่อคณะ โปรดปฏิบัติตามคำแนะนำของหน่วยงานฉุกเฉินและมหาวิทยาลัยธรรมศาสตร์เสมอ",
     immediateActions: [
       "หากคุณหรือคนใกล้ตัวตกอยู่ในอันตรายเฉพาะหน้า ให้โทรหาหน่วยงานฉุกเฉินก่อน: ตำรวจ 191 การแพทย์ 1669 ดับเพลิง 199",
       "ปฏิบัติตามคำแนะนำของเจ้าหน้าที่มหาวิทยาลัยธรรมศาสตร์และหน่วยงานฉุกเฉิน",

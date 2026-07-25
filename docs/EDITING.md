@@ -208,11 +208,57 @@ Before telling students a piece of content is final, go through this checklist:
 - **Write natively, not by translating.** The Thai and English versions should read like two
   people who each know their own audience wrote them, not like one was run through a
   translator.
-- **English**: plain, direct, warm. Short sentences, active verbs, sentence case even in
-  headings. "You" is the student, "we" is BIRSA.
-- **Thai**: เขียนใหม่สำหรับผู้อ่านไทยโดยตรง ไม่แปลตรงตัวจากอังกฤษ น้ำเสียงเหมือนรุ่นพี่ที่เชื่อถือได้
-  สุภาพ เป็นกันเอง กระชับ ใช้ "คุณ" กับผู้อ่าน เลี่ยงภาษาราชการแข็ง ๆ และเลี่ยงทับศัพท์ที่ไม่จำเป็น
-  (คำเฉพาะอย่าง BIRSA, TU Greats, Resend คงรูปอังกฤษได้) ตัวเลขใช้เลขอารบิก
+- **English**: plain, direct, neutral. Short sentences, active verbs, sentence case even in
+  headings. "You" is the student, "we" is BIRSA. Aim for GOV.UK guidance prose: factual and
+  unhurried, with no warmth performed at the reader.
+- **Thai**: เขียนใหม่สำหรับผู้อ่านไทยโดยตรง ไม่แปลตรงตัวจากอังกฤษ น้ำเสียงเป็นทางการ สุภาพ กระชับ
+  และเป็นกลาง ใช้ "คุณ" กับผู้อ่านหรือละสรรพนามไปเลยเมื่ออ่านแล้วเป็นทางการกว่า (อย่าใช้ "ท่าน")
+  เลี่ยงน้ำเสียงกันเองแบบรุ่นพี่คุยกับรุ่นน้อง และเลี่ยงภาษาราชการแข็ง ๆ อย่าง "ทั้งนี้ อนึ่ง ดังกล่าว"
+  เลี่ยงทับศัพท์ที่ไม่จำเป็น (คำเฉพาะอย่าง BIRSA, TU Greats, Resend คงรูปอังกฤษได้) ตัวเลขใช้เลขอารบิก
+
+### The one test to apply to every sentence
+
+Does this sentence deliver a fact the reader needs, or does it describe, justify, or soften the
+facts around it? If it is the second kind, delete it. If a sentence does both, keep only the fact.
+
+**Do not write text that talks about itself.** Cut anything in these families:
+
+- Self-narration and mission-framing: "At the core, BIRSA exists to be...", "We do this mostly
+  by starting things", "that is all part of the same job".
+- Meta-commentary about the page or site: "this page explains", "below you'll find", "here's
+  what you need to know", "read on", "this is where you will find guidance". A genuine pointer
+  to *another* page is fine and should stay.
+- Rationale padding tacked onto a fact: "...so neither side is guessing what the other needs",
+  "which is useful because...", "that way you...".
+- Hedging and editorialising: "is a reasonable first step", "it's worth", "in practice",
+  "a good idea", "don't worry", "the good news is", "it's simpler than you'd think".
+- Chatty scaffolding: "That said,", "Of course,", "Think of it as", "The short answer is",
+  and rhetorical questions used as openers or headings.
+- Filler intensifiers: "really", "very", "simply", "just", "actually", "basically".
+
+Recruitment-pitch voice is the same failure in club and event copy. "Whether you're a total
+beginner or a seasoned player, there's a place for you" is a fact about who may join, buried in
+a sales line. Write the fact: "Open to players at any level."
+
+### Thai: no sarcasm
+
+Thai copy must not land as a dig at anyone or as a knowing wink at the reader. Watch for:
+
+- "กันเอง" / "เอง" used to imply insularity or blame
+- "ก็แค่", "ก็เท่านั้น", "นั่นแหละ", "ซะ", "เสียที", "จริง ๆ" used as emphasis
+- Rhetorical questions, "ไม่ต้องห่วง", "อย่าเพิ่งตกใจ", "เชื่อเถอะ"
+- Irony or understatement: "ก็ไม่ได้แย่ขนาดนั้น", "เท่าที่ควร" used snidely
+- Chatty softeners: "ก็", "นะ", "ล่ะ", "เลย" as filler, "แบบว่า", "ประมาณว่า"
+
+Any sentence a reader could hear in a raised eyebrow needs rewriting. State the function or the
+procedure plainly instead. Do not add ครับ/ค่ะ.
+
+### Never trade a fact for tone
+
+This is a tone standard, not a licence to cut content. Dates, times, venues, prices, phone
+numbers, eligibility rules, and links always survive. If a sentence's only content was fluff,
+delete it; never replace it with invented substance. Keep attributed claims attributed: if a club
+"calls itself the biggest music club in BIR", do not promote that to a flat statement of fact.
 
 ## How publishing works
 

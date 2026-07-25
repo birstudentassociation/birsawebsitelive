@@ -41,9 +41,9 @@ const copy: Record<
     clubs: "Clubs",
     stepsTitle: "How it works",
     steps: [
-      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for, you do not need a full plan yet.",
+      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for.",
       "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and figure out what support you need (a room, a small budget, promotion).",
-      "Start meeting. Once the basics are sorted, you're free to run your first session, and BIRSA can help spread the word to other students.",
+      "Start meeting. Run your first session, and BIRSA can help spread the word to other students.",
     ],
     formTitle: "Tell us your idea",
   },
@@ -53,9 +53,9 @@ const copy: Record<
     clubs: "ชมรม",
     stepsTitle: "ขั้นตอนการเริ่มชมรม",
     steps: [
-      "บอกไอเดียของคุณกับ BIRSA กรอกแบบฟอร์มด้านล่างว่าชมรมนี้จะทำอะไรและเหมาะกับใคร ยังไม่ต้องมีแผนที่สมบูรณ์แบบก็ได้",
+      "บอกไอเดียของคุณกับ BIRSA กรอกแบบฟอร์มด้านล่างว่าชมรมนี้จะทำอะไรและเหมาะกับใคร",
       "คุยรายละเอียดกับกรรมการ กรรมการ BIRSA จะติดต่อกลับเพื่อช่วยปรับไอเดียให้ชัดเจน และดูว่าต้องการการสนับสนุนอะไรบ้าง เช่น ห้องประชุม งบประมาณเล็กน้อย หรือการประชาสัมพันธ์",
-      "เริ่มนัดพบกันได้เลย เมื่อเรื่องพื้นฐานเรียบร้อย คุณก็จัดกิจกรรมแรกของชมรมได้ทันที BIRSA ช่วยกระจายข่าวให้เพื่อนนักศึกษาคนอื่น ๆ รู้จักด้วย",
+      "เริ่มนัดพบ จัดกิจกรรมแรกของชมรม BIRSA ช่วยกระจายข่าวให้เพื่อนนักศึกษาคนอื่น ๆ รู้จักด้วย",
     ],
     formTitle: "บอกไอเดียของคุณ",
   },

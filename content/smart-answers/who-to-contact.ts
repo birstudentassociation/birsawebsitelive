@@ -100,7 +100,7 @@ export const whoToContact: SmartAnswerFlow = {
       id: "out-safety",
       title: { en: "Contact emergency services now", th: "ติดต่อหน่วยฉุกเฉินทันที" },
       summary: {
-        en: "For anything genuinely urgent, don't wait for BIRSA: call the emergency services directly, then let BIRSA know.",
+        en: "For anything genuinely urgent, do not wait for BIRSA: call the emergency services directly, then let BIRSA know.",
         th: "หากเป็นเหตุฉุกเฉินจริง อย่ารอติดต่อ BIRSA ให้โทรหาหน่วยฉุกเฉินโดยตรงก่อน แล้วค่อยแจ้ง BIRSA ทีหลัง",
       },
       body: [
@@ -146,7 +146,7 @@ export const whoToContact: SmartAnswerFlow = {
       id: "out-clubs-start",
       title: { en: "Start a new club", th: "เริ่มชมรมใหม่" },
       summary: {
-        en: "If your interest isn't covered by an existing club, BIRSA can help you get one going.",
+        en: "If your interest is not covered by an existing club, BIRSA can help you start one.",
         th: "ถ้ายังไม่มีชมรมที่ตรงกับความสนใจของคุณ BIRSA ช่วยให้เกิดขึ้นจริงได้",
       },
       actions: [

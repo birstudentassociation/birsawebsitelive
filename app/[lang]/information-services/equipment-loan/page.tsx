@@ -78,7 +78,7 @@ const copy: Record<
       "Pick an item below and fill in the online request form.",
       "BIRSA reviews your request and emails you the outcome.",
       "Once approved, collect the item in person from the BIRSA office.",
-      "Return it by the date you agreed to, so it's ready for the next student.",
+      "Return it by the date you agreed to.",
     ],
     notConfiguredTitle: "Online requests are still being set up",
     notConfiguredBody:
@@ -97,7 +97,7 @@ const copy: Record<
     noResults: "Nothing matched your filters. Try clearing them.",
     ownerLabel: "Owner",
     allOwners: "All owners",
-    directoryNoticeTitle: "Looking for club equipment?",
+    directoryNoticeTitle: "Club equipment",
     directoryNoticeBody:
       "Some equipment is managed by clubs and borrowed directly from them. See the club equipment directory.",
     directoryLinkCta: "Open the club equipment directory",
@@ -115,7 +115,7 @@ const copy: Record<
       "เลือกอุปกรณ์ที่ต้องการด้านล่างแล้วกรอกแบบฟอร์มคำขอออนไลน์",
       "BIRSA ตรวจสอบคำขอของคุณและแจ้งผลทางอีเมล",
       "เมื่อคำขอได้รับการอนุมัติ ให้มารับอุปกรณ์ที่สำนักงาน BIRSA ด้วยตนเอง",
-      "คืนอุปกรณ์ตามวันที่ตกลงไว้ เพื่อให้เพื่อนนักศึกษาคนต่อไปยืมได้",
+      "คืนอุปกรณ์ตามวันที่ตกลงไว้",
     ],
     notConfiguredTitle: "ระบบส่งคำขอออนไลน์กำลังอยู่ระหว่างการเตรียมการ",
     notConfiguredBody:

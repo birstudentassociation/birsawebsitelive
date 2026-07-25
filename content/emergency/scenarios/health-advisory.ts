@@ -14,7 +14,7 @@ const healthAdvisory: EmergencyScenario = {
     bannerMessage:
       "Contagious illness advisory in effect at the faculty. Stay home if you feel unwell and follow the guidance below.",
     title: "Contagious Illness Advisory: What to Do",
-    lede: "The faculty is monitoring cases of a contagious illness among students and staff. Most people recover at home with rest and care. This page explains how to protect yourself and others and when to seek medical help.",
+    lede: "The faculty is monitoring cases of a contagious illness among students and staff. Most people recover at home with rest and care.",
     immediateActions: [
       "If you feel unwell, stay home and away from classes, events, and shared spaces.",
       "Wash your hands often with soap and water, or use alcohol-based hand sanitiser.",
@@ -93,7 +93,7 @@ const healthAdvisory: EmergencyScenario = {
     bannerMessage:
       "ขณะนี้มีประกาศเฝ้าระวังโรคติดต่อในคณะ หากรู้สึกไม่สบายให้หยุดพักที่บ้านและปฏิบัติตามคำแนะนำด้านล่าง",
     title: "ประกาศเฝ้าระวังโรคติดต่อ: สิ่งที่ควรทำ",
-    lede: "ขณะนี้คณะกำลังเฝ้าระวังการแพร่ระบาดของโรคติดต่อในกลุ่มนักศึกษาและบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองด้วยการพักผ่อนที่บ้าน หน้านี้อธิบายวิธีดูแลตัวเองและผู้อื่น รวมถึงเมื่อใดควรไปพบแพทย์",
+    lede: "ขณะนี้คณะกำลังเฝ้าระวังการแพร่ระบาดของโรคติดต่อในกลุ่มนักศึกษาและบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองด้วยการพักผ่อนที่บ้าน",
     immediateActions: [
       "หากรู้สึกไม่สบาย ให้หยุดเรียน งดกิจกรรม และหลีกเลี่ยงพื้นที่ส่วนรวม",
       "ล้างมือบ่อย ๆ ด้วยสบู่และน้ำ หรือใช้เจลแอลกอฮอล์ล้างมือ",

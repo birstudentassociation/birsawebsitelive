@@ -2,7 +2,7 @@
  * Server component: renders a small, static OpenStreetMap raster-tile map
  * as a grid of `<img>` tiles, with a layer of real anchor markers on top
  * that link down to the matching `id="place-<id>"` list item rendered by
- * `PlacesSection`. No JavaScript is involved — the markers are plain,
+ * `PlacesSection`. No JavaScript is involved. The markers are plain,
  * always-focusable links, so the map is progressively enhanced by
  * construction rather than requiring any client-side code.
  *

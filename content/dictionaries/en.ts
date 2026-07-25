@@ -3,7 +3,9 @@
  * Page and article prose lives in the MDX / content modules, authored
  * natively per language; this file is only the reusable interface strings.
  *
- * English voice: plain, direct, friendly. Short sentences. Active verbs.
+ * English voice: plain, direct, neutral. Short sentences. Active verbs.
+ * GOV.UK guidance register: state the fact, do not describe or soften it.
+ * See docs/EDITING.md "Voice and language" for the full standard.
  */
 export const en = {
   locale: "en",
@@ -51,8 +53,7 @@ export const en = {
     disclaimer:
       "This is general guidance from a student-run site. In an emergency, always follow the instructions of the emergency services and Thammasat University.",
     noActiveTitle: "No active emergency",
-    noActiveLede:
-      "There is no emergency affecting the faculty right now. If one occurs, this is where you will find guidance.",
+    noActiveLede: "There is no emergency affecting the faculty right now.",
     noActiveBody:
       "If you have an urgent safety concern, contact the emergency services directly: police 191, medical 1669, fire 199.",
     backHome: "Go to the home page",

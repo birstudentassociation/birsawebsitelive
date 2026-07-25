@@ -143,7 +143,7 @@ export const activityApproval: SmartAnswerFlow = {
         th: "น่าจะไม่ต้องขออนุมัติเพิ่ม แต่ควรเช็กกับคณะกรรมการของกลุ่มก่อน",
       },
       summary: {
-        en: "Activities carried out under an existing group's approved annual plan don't need separate sign-off for each event. Just confirm with your group's own committee that it's covered.",
+        en: "Activities carried out under an existing group's approved annual plan do not need separate sign-off for each event. Confirm with your group's own committee that it's covered.",
         th: "กิจกรรมที่อยู่ในแผนงานประจำปีที่กลุ่มของคุณเสนอไว้แล้ว ไม่ต้องขออนุมัติแยกเป็นรายกิจกรรมอีก แค่เช็กกับคณะกรรมการของกลุ่มว่าอยู่ในแผนจริง",
       },
       body: [
@@ -215,12 +215,12 @@ export const activityApproval: SmartAnswerFlow = {
       kind: "outcome",
       id: "out-start-a-club",
       title: {
-        en: "You're starting something new: that's a different check",
-        th: "นี่คือการเริ่มสิ่งใหม่ ต้องเช็กอีกแบบหนึ่ง",
+        en: "Starting a club or group is a separate check",
+        th: "การเริ่มชมรมหรือกลุ่มใหม่ต้องใช้แบบสอบถามอีกชุดหนึ่ง",
       },
       summary: {
-        en: "Starting an ongoing club or group is a bigger step than a one-off activity, with its own requirements. Use our other check to see if you're ready.",
-        th: "การเริ่มชมรมหรือกลุ่มที่ทำต่อเนื่อง เป็นก้าวที่ใหญ่กว่ากิจกรรมครั้งเดียว และมีเงื่อนไขของตัวเอง ลองเช็กความพร้อมด้วยแบบสอบถามอีกชุดหนึ่ง",
+        en: "Starting an ongoing club or group is a bigger step than a one-off activity, with its own requirements.",
+        th: "การเริ่มชมรมหรือกลุ่มที่ทำต่อเนื่อง เป็นก้าวที่ใหญ่กว่ากิจกรรมครั้งเดียว และมีเงื่อนไขของตัวเอง",
       },
       actions: [
         {
@@ -241,8 +241,8 @@ export const activityApproval: SmartAnswerFlow = {
         th: "ติดต่อ BIRSA หรือสำนักงานคณะก่อนดำเนินการ",
       },
       summary: {
-        en: "We don't have a clear-cut rule on file for a one-off activity that isn't run by an existing body, even when it's on campus. The safest route is to ask first.",
-        th: "สำหรับกิจกรรมครั้งเดียวที่ไม่มีองค์กรที่เป็นทางการรองรับ แม้จะจัดในคณะ เราไม่มีระเบียบที่ระบุขั้นตอนไว้ชัดเจน ทางที่ปลอดภัยที่สุดคือสอบถามก่อนดำเนินการ",
+        en: "We do not have a clear-cut rule on file for a one-off activity that is not run by an existing body, even when it's on campus. Ask BIRSA or the Faculty office before you go ahead.",
+        th: "สำหรับกิจกรรมครั้งเดียวที่ไม่มีองค์กรที่เป็นทางการรองรับ แม้จะจัดในคณะ เราไม่มีระเบียบที่ระบุขั้นตอนไว้ชัดเจน สอบถาม BIRSA หรือสำนักงานคณะก่อนดำเนินการ",
       },
       body: [
         {
@@ -260,7 +260,7 @@ export const activityApproval: SmartAnswerFlow = {
         th: "สอบถามก่อนดำเนินการ กิจกรรมนอกสถานที่ต้องระวังเป็นพิเศษ",
       },
       summary: {
-        en: "We don't have a clear-cut rule on file for an unaffiliated one-off activity, and off-campus trips add real questions around safety, transport, and who's responsible if something goes wrong. Ask BIRSA or the Faculty office first.",
+        en: "We do not have a clear-cut rule on file for an unaffiliated one-off activity, and off-campus trips add real questions around safety, transport, and who's responsible if something goes wrong. Ask BIRSA or the Faculty office first.",
         th: "สำหรับกิจกรรมครั้งเดียวที่ไม่มีองค์กรรองรับ เราไม่มีระเบียบที่ระบุขั้นตอนไว้ชัดเจน และการจัดนอกสถานที่ยังมีเรื่องความปลอดภัย การเดินทาง และผู้รับผิดชอบหากเกิดเหตุ ควรสอบถาม BIRSA หรือสำนักงานคณะก่อน",
       },
       body: [

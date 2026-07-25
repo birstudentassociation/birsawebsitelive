@@ -69,9 +69,8 @@ const labels: Record<
     prevNextNav: "Previous and next sections",
     previous: "Previous",
     next: "Next",
-    helpTitle: "Something wrong or missing?",
-    helpBody:
-      "Tell BIRSA and we'll look into it. This guide is written and kept up to date by students.",
+    helpTitle: "Report a problem with this guide",
+    helpBody: "Tell BIRSA. This guide is written and kept up to date by students.",
     helpCta: "Tell BIRSA",
     back: {
       home: "Back to the student life and culture guides",
@@ -90,8 +89,8 @@ const labels: Record<
     prevNextNav: "หัวข้อก่อนหน้าและถัดไป",
     previous: "ก่อนหน้า",
     next: "ถัดไป",
-    helpTitle: "มีอะไรผิดพลาดหรือขาดหายไปไหม",
-    helpBody: "บอก BIRSA ได้เลย เราจะตรวจสอบให้ คู่มือนี้เขียนและดูแลโดยนักศึกษาด้วยกัน",
+    helpTitle: "แจ้งปัญหาเกี่ยวกับคู่มือนี้",
+    helpBody: "แจ้ง BIRSA ได้ คู่มือนี้เขียนและดูแลโดยนักศึกษาด้วยกัน",
     helpCta: "แจ้ง BIRSA",
     back: {
       home: "กลับไปคู่มือชีวิตนักศึกษาและวัฒนธรรม",

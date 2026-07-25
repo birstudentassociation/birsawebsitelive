@@ -127,7 +127,7 @@ export const startAClubCheck: SmartAnswerFlow = {
       title: { en: "Find a few more people first", th: "หาเพื่อนร่วมทางเพิ่มก่อน" },
       summary: {
         en: "A club needs people to run with, not just an idea. Talk to classmates or your year group before taking the next step.",
-        th: "ชมรมต้องมีคนช่วยกันทำ ไม่ใช่แค่มีไอเดีย ลองชวนเพื่อนร่วมชั้นหรือรุ่นเดียวกันก่อนไปขั้นตอนถัดไป",
+        th: "ชมรมต้องมีคนช่วยกันทำ ไม่ใช่แค่มีไอเดีย ชวนเพื่อนร่วมชั้นหรือรุ่นเดียวกันก่อนไปขั้นตอนถัดไป",
       },
       actions: [
         {
@@ -147,12 +147,12 @@ export const startAClubCheck: SmartAnswerFlow = {
         th: "สุดท้ายแล้วจะต้องมีคณะกรรมการเล็ก ๆ",
       },
       summary: {
-        en: "Running a recognised group means someone has to hold basic roles: even a Faculty activity group needs at least 5 committee members. You don't need this on day one, but start thinking about who could take these on.",
-        th: "การดูแลกลุ่มที่เป็นทางการต้องมีคนรับหน้าที่พื้นฐาน แม้แต่กลุ่มกิจกรรมคณะก็ยังต้องมีกรรมการอย่างน้อย 5 คน ไม่จำเป็นต้องมีครบตั้งแต่วันแรก แต่เริ่มมองหาคนที่พร้อมรับตำแหน่งเหล่านี้ได้เลย",
+        en: "Running a recognised group means someone has to hold basic roles: even a Faculty activity group needs at least 5 committee members. This is not required on day one, but identify who could take these roles on early.",
+        th: "การดูแลกลุ่มที่เป็นทางการต้องมีคนรับหน้าที่พื้นฐาน แม้แต่กลุ่มกิจกรรมคณะก็ยังต้องมีกรรมการอย่างน้อย 5 คน ไม่จำเป็นต้องมีครบตั้งแต่วันแรก แต่เริ่มมองหาคนที่พร้อมรับตำแหน่งเหล่านี้ไว้ล่วงหน้า",
       },
       actions: [
         {
-          label: { en: "Talk to BIRSA about your idea anyway", th: "คุยไอเดียกับ BIRSA ได้เลย" },
+          label: { en: "Talk to BIRSA about your idea", th: "คุยไอเดียกับ BIRSA" },
           href: "/clubs/start",
         },
       ],
@@ -171,16 +171,16 @@ export const startAClubCheck: SmartAnswerFlow = {
       id: "out-ready-bir",
       title: {
         en: "You're ready: tell BIRSA your idea",
-        th: "พร้อมแล้ว บอกไอเดียกับ BIRSA ได้เลย",
+        th: "พร้อมแล้ว บอกไอเดียกับ BIRSA",
       },
       summary: {
-        en: "You have an idea, people, and potential committee members. For a BIR-programme club, BIRSA can take it from here.",
-        th: "คุณมีไอเดีย มีคนร่วม และมีคนพร้อมเป็นกรรมการแล้ว สำหรับชมรมที่เน้นสาขา BIR ให้ BIRSA ช่วยดำเนินการต่อได้เลย",
+        en: "You have an idea, people, and potential committee members. For a BIR-programme club, contact BIRSA next.",
+        th: "คุณมีไอเดีย มีคนร่วม และมีคนพร้อมเป็นกรรมการแล้ว สำหรับชมรมที่เน้นสาขา BIR ให้ติดต่อ BIRSA เพื่อดำเนินการต่อ",
       },
       body: [
         {
-          en: "BIRSA is responsible for student activities within the BIR programme, so this is exactly the kind of thing to bring to them first.",
-          th: "BIRSA รับผิดชอบกิจกรรมนักศึกษาภายในสาขา BIR โดยตรง จึงเป็นจุดแรกที่ควรนำไอเดียนี้ไปเสนอ",
+          en: "BIRSA is responsible for student activities within the BIR programme.",
+          th: "BIRSA รับผิดชอบกิจกรรมนักศึกษาภายในสาขา BIR โดยตรง",
         },
       ],
       actions: [{ label: { en: "Start a club", th: "เริ่มชมรมใหม่" }, href: "/clubs/start" }],
@@ -202,12 +202,12 @@ export const startAClubCheck: SmartAnswerFlow = {
         th: "พร้อมแล้ว เริ่มคุยกับ BIRSA ก่อน แล้วค่อยทำให้เป็นทางการ",
       },
       summary: {
-        en: "Talk to BIRSA first to get moving. If you want it to become an official, faculty-wide activity group with its own budget, that formally needs 30 students of the Faculty of Political Science signing a petition for the Dean to consider.",
-        th: "เริ่มคุยกับ BIRSA ก่อนเพื่อให้เริ่มได้เลย แต่ถ้าต้องการให้เป็น “กลุ่มกิจกรรมคณะ” อย่างเป็นทางการที่มีงบประมาณของตัวเอง ต้องมีนักศึกษาคณะรัฐศาสตร์ไม่น้อยกว่า 30 คน ร่วมลงชื่อยื่นเรื่องให้คณบดีพิจารณา",
+        en: "Talk to BIRSA first. If you want it to become an official, faculty-wide activity group with its own budget, that formally needs 30 students of the Faculty of Political Science signing a petition for the Dean to consider.",
+        th: "เริ่มคุยกับ BIRSA ก่อน แต่ถ้าต้องการให้เป็น “กลุ่มกิจกรรมคณะ” อย่างเป็นทางการที่มีงบประมาณของตัวเอง ต้องมีนักศึกษาคณะรัฐศาสตร์ไม่น้อยกว่า 30 คน ร่วมลงชื่อยื่นเรื่องให้คณบดีพิจารณา",
       },
       body: [
         {
-          en: "That's a separate, more formal step than the BIRSA on-ramp; BIRSA can help you figure out whether you need it yet.",
+          en: "That's a separate, more formal step than the BIRSA on-ramp; BIRSA can help you assess whether you need it yet.",
           th: "ขั้นตอนนี้เป็นคนละเรื่องกับการเริ่มผ่าน BIRSA และเป็นทางการมากกว่า BIRSA ช่วยดูได้ว่าตอนนี้จำเป็นต้องทำถึงขั้นนั้นหรือยัง",
         },
       ],

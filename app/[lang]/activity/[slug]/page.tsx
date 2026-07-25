@@ -47,7 +47,7 @@ const labels: Record<
     activity: "การดำเนินงานของ BIRSA",
     back: "กลับไปหน้าการดำเนินงานของ BIRSA",
     questions: "มีคำถาม?",
-    contact: "ติดต่อ BIRSA ได้เลย",
+    contact: "ติดต่อ BIRSA",
   },
 };
 

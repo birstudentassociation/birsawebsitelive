@@ -11,7 +11,7 @@ const campusClosure: EmergencyScenario = {
     bannerMessage:
       "Thammasat University's Tha Prachan campus is closed. Do not travel to campus until further notice; check official channels for updates.",
     title: "Tha Prachan Campus Closure: What to Do",
-    lede: "The whole Tha Prachan campus, not just one faculty, may occasionally close, for example for a safety issue, a citywide emergency, or an order from the university or authorities. This page explains how to find reliable information and what to do while the campus is closed.",
+    lede: "The whole Tha Prachan campus, not just one faculty, may occasionally close, for example for a safety issue, a citywide emergency, or an order from the university or authorities.",
     immediateActions: [
       "Do not travel to campus until you have seen an official announcement confirming it is safe and open.",
       "Check Thammasat University's official website and Facebook page, and the Faculty of Political Science's channels, for the closure notice.",
@@ -116,7 +116,7 @@ const campusClosure: EmergencyScenario = {
     bannerMessage:
       "มหาวิทยาลัยธรรมศาสตร์ ศูนย์ท่าพระจันทร์ ปิดทำการ งดเดินทางมามหาวิทยาลัยจนกว่าจะมีประกาศเพิ่มเติม โปรดติดตามช่องทางทางการ",
     title: "การปิดมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์: สิ่งที่ควรทำ",
-    lede: "บางครั้งมหาวิทยาลัยธรรมศาสตร์ ศูนย์ท่าพระจันทร์ทั้งหมด ไม่ใช่เพียงคณะใดคณะหนึ่ง อาจปิดทำการ เช่น เนื่องจากปัญหาด้านความปลอดภัย เหตุฉุกเฉินระดับเมือง หรือคำสั่งจากมหาวิทยาลัยหรือหน่วยงานราชการ หน้านี้อธิบายวิธีหาข้อมูลที่เชื่อถือได้และสิ่งที่ควรทำระหว่างที่มหาวิทยาลัยปิดทำการ",
+    lede: "บางครั้งมหาวิทยาลัยธรรมศาสตร์ ศูนย์ท่าพระจันทร์ทั้งหมด ไม่ใช่เพียงคณะใดคณะหนึ่ง อาจปิดทำการ เช่น เนื่องจากปัญหาด้านความปลอดภัย เหตุฉุกเฉินระดับเมือง หรือคำสั่งจากมหาวิทยาลัยหรือหน่วยงานราชการ",
     immediateActions: [
       "อย่าเดินทางมามหาวิทยาลัยจนกว่าจะเห็นประกาศทางการยืนยันว่าปลอดภัยและเปิดทำการแล้ว",
       "ตรวจสอบเว็บไซต์และเฟซบุ๊กทางการของมหาวิทยาลัยธรรมศาสตร์ รวมถึงช่องทางของคณะรัฐศาสตร์ เพื่อดูประกาศการปิดทำการ",

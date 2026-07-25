@@ -53,7 +53,7 @@ const content: Record<
 > = {
   en: {
     title: "How this site works",
-    lede: "We build this site openly, against a clear set of standards: here's what we aim for, and where we're still catching up.",
+    lede: "We build this site openly, against a clear set of standards.",
     principlesTitle: "Our design principles",
     principles: [
       {
@@ -94,10 +94,9 @@ const content: Record<
     ],
     a11yTestTitle: "How we test",
     a11yTest:
-      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users. That is the main gap between “we test” and “we are certain”.",
+      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users. That is the main gap in our current testing.",
     a11yLimitsTitle: "Known issues",
-    a11yLimitsIntro:
-      "We would rather name what is not done than imply everything is perfect. These are the things we know about:",
+    a11yLimitsIntro: "These are the known issues:",
     a11yIssues: [
       {
         title: "No full independent audit yet",
@@ -126,7 +125,7 @@ const content: Record<
   },
   th: {
     title: "เว็บไซต์นี้ทำงานอย่างไร",
-    lede: "เราสร้างเว็บไซต์นี้อย่างเปิดเผย โดยยึดมาตรฐานที่ชัดเจน นี่คือสิ่งที่เราตั้งใจทำ และส่วนที่เรายังต้องพัฒนาต่อ",
+    lede: "เราสร้างเว็บไซต์นี้อย่างเปิดเผย โดยยึดมาตรฐานที่ชัดเจน",
     principlesTitle: "หลักการออกแบบของเรา",
     principles: [
       {
@@ -167,10 +166,9 @@ const content: Record<
     ],
     a11yTestTitle: "เราตรวจสอบอย่างไร",
     a11yTest:
-      "ทุกครั้งที่เราแก้โค้ด ระบบจะรันการตรวจสอบอัตโนมัติ (axe-core) กับทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด โดยเทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA นอกจากนี้เรายังตรวจด้วยตัวเองผ่านการใช้คีย์บอร์ดและโปรแกรมอ่านหน้าจอเป็นระยะ เรายังไม่ได้จ้างผู้ตรวจสอบอิสระเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือ ซึ่งเป็นช่องว่างหลักระหว่าง “เราตรวจแล้ว” กับ “เรามั่นใจแล้ว”",
+      "ทุกครั้งที่เราแก้โค้ด ระบบจะรันการตรวจสอบอัตโนมัติ (axe-core) กับทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด โดยเทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA นอกจากนี้เรายังตรวจด้วยตัวเองผ่านการใช้คีย์บอร์ดและโปรแกรมอ่านหน้าจอเป็นระยะ เรายังไม่ได้จ้างผู้ตรวจสอบอิสระเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือ นี่คือช่องว่างหลักของการตรวจสอบในปัจจุบัน",
     a11yLimitsTitle: "ข้อจำกัดที่เรารู้",
-    a11yLimitsIntro:
-      "เราขอบอกสิ่งที่ยังทำไม่เสร็จ ดีกว่าทำเหมือนทุกอย่างสมบูรณ์แบบ นี่คือสิ่งที่เรารู้:",
+    a11yLimitsIntro: "ข้อจำกัดที่ทราบมีดังนี้",
     a11yIssues: [
       {
         title: "ยังไม่มีการตรวจสอบอิสระเต็มรูปแบบ",

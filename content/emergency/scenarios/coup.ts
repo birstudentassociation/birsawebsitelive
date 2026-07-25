@@ -21,7 +21,7 @@ const coup: EmergencyScenario = {
     bannerMessage:
       "A coup or political emergency has been declared. Stay safe, stay informed, know your rights, and look out for one another.",
     title: "Coup or Political Crisis: Your Safety and Your Rights",
-    lede: "A coup breaks the constitutional order that democratic life depends on. Thammasat has stood with democracy through moments like this before, and as students here you are citizens with rights, not bystanders. This page is here to help you stay safe, stay informed, understand your rights, and make your own considered decisions during a political emergency such as a coup, martial law, or a declared state of emergency.",
+    lede: "A coup breaks the constitutional order that democratic life depends on. Thammasat has stood with democracy through moments like this before, and as students here you are citizens with rights, not bystanders. Stay safe, stay informed, understand your rights, and make your own considered decisions during a political emergency such as a coup, martial law, or a declared state of emergency.",
     immediateActions: [
       "Make sure you are somewhere safe, and let a friend, housemate, or family member know where you are and that you are okay.",
       "Get your information from independent and official sources, and be careful with rumours. Check anything alarming before you act on it or share it.",
@@ -156,7 +156,7 @@ const coup: EmergencyScenario = {
     bannerMessage:
       "มีการประกาศรัฐประหารหรือสถานการณ์ฉุกเฉินทางการเมือง ขอให้ดูแลความปลอดภัย ติดตามข้อมูล รู้สิทธิของตนเอง และดูแลกันและกัน",
     title: "รัฐประหารหรือวิกฤตการเมือง: ความปลอดภัยและสิทธิของคุณ",
-    lede: "รัฐประหารคือการล้มล้างระเบียบตามรัฐธรรมนูญที่ชีวิตในระบอบประชาธิปไตยตั้งอยู่ ธรรมศาสตร์เคยยืนเคียงข้างประชาธิปไตยในช่วงเวลาเช่นนี้มาแล้ว และในฐานะนักศึกษาที่นี่ คุณคือพลเมืองที่มีสิทธิ ไม่ใช่เพียงผู้เฝ้าดู หน้านี้มีขึ้นเพื่อช่วยให้คุณปลอดภัย ติดตามข้อมูล เข้าใจสิทธิของตนเอง และตัดสินใจอย่างรอบคอบด้วยตัวเองในช่วงสถานการณ์ฉุกเฉินทางการเมือง เช่น รัฐประหาร กฎอัยการศึก หรือการประกาศสถานการณ์ฉุกเฉิน",
+    lede: "รัฐประหารคือการล้มล้างระเบียบตามรัฐธรรมนูญที่ชีวิตในระบอบประชาธิปไตยตั้งอยู่ ธรรมศาสตร์เคยยืนเคียงข้างประชาธิปไตยในช่วงเวลาเช่นนี้มาแล้ว และในฐานะนักศึกษาที่นี่ คุณคือพลเมืองที่มีสิทธิ ไม่ใช่เพียงผู้เฝ้าดู ดูแลความปลอดภัยของตนเอง ติดตามข้อมูล เข้าใจสิทธิของตนเอง และตัดสินใจอย่างรอบคอบด้วยตัวเองในช่วงสถานการณ์ฉุกเฉินทางการเมือง เช่น รัฐประหาร กฎอัยการศึก หรือการประกาศสถานการณ์ฉุกเฉิน",
     immediateActions: [
       "ให้แน่ใจว่าคุณอยู่ในที่ปลอดภัย และแจ้งเพื่อน เพื่อนร่วมหอ หรือครอบครัวว่าคุณอยู่ที่ไหนและปลอดภัยดี",
       "รับข้อมูลจากแหล่งข่าวอิสระและแหล่งทางการ และใช้วิจารณญาณกับข่าวลือ ตรวจสอบเรื่องที่น่าตกใจก่อนเชื่อหรือแชร์ต่อ",

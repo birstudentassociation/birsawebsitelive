@@ -150,8 +150,8 @@ export const courses: Course[] = [
       workloadRating: 2,
       difficultyRating: 1.5,
       workload: {
-        en: "Light. There's no textbook to keep up with; most weeks are just showing up for the guest lecture and writing a short reflection afterward. Budget an hour or so per reflection if you want it to be more than a summary.",
-        th: "เบามาก ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ ถ้าอยากเขียนให้ดีกว่าแค่สรุปเนื้อหา ควรกันเวลาไว้สักชั่วโมงต่อชิ้น",
+        en: "Light. There's no textbook to keep up with. Most weeks involve attending the guest lecture and writing a short reflection afterward. Budget about an hour per reflection for more than a summary.",
+        th: "เบา ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ หากต้องการเขียนให้ดีกว่าการสรุปเนื้อหา ควรกันเวลาไว้ประมาณหนึ่งชั่วโมงต่อชิ้น",
       },
       assessmentStyle: {
         en: "Graded on short reflective write-ups submitted after each guest lecture, plus in-class participation. No midterm, no final exam.",
@@ -159,16 +159,16 @@ export const courses: Course[] = [
       },
       tips: [
         {
-          en: "Go to every lecture in person. Reflection prompts usually reference something specific the speaker said, so it's hard to write a good one from the recording alone.",
-          th: "พยายามไปฟังบรรยายให้ครบทุกครั้ง เพราะโจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง ถ้าดูย้อนหลังอย่างเดียวจะเขียนได้ไม่ดีเท่าไป",
+          en: "Go to every lecture in person. Reflection prompts usually reference something specific the speaker said, and are difficult to write from the recording alone.",
+          th: "ควรไปฟังบรรยายให้ครบทุกครั้ง โจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง การดูย้อนหลังอย่างเดียวทำให้เขียนได้ยากกว่า",
         },
         {
-          en: "Keep reflections short, specific, and tied to that week's speaker. Generic essays about social science in general tend to score lower.",
-          th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้นจริง ๆ ถ้าเขียนกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
+          en: "Keep reflections short, specific, and tied to that week's speaker. Generic essays about social science tend to score lower.",
+          th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้น เรียงความกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
         },
         {
-          en: "A good first-semester pick if you want something low-stress while you adjust to university workload elsewhere.",
-          th: "เหมาะเป็นวิชาแรก ๆ ของเทอมแรกถ้าอยากได้วิชาที่ไม่กดดัน ระหว่างที่ยังปรับตัวกับภาระงานวิชาอื่น ๆ ในมหาวิทยาลัย",
+          en: "Suitable as a first-semester course for a low-stress option while adjusting to university workload elsewhere.",
+          th: "เหมาะเป็นวิชาของเทอมแรกสำหรับผู้ที่ต้องการวิชาที่ไม่กดดัน ระหว่างปรับตัวกับภาระงานวิชาอื่นในมหาวิทยาลัย",
         },
       ],
       quotes: [

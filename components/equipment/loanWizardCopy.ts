@@ -157,7 +157,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       },
       start: {
         title: `ขอยืม${itemName}`,
-        intro: "ก่อนเริ่ม เตรียมข้อมูลต่อไปนี้ให้พร้อม การกรอกแบบฟอร์มใช้เวลาไม่กี่นาที",
+        intro: "เตรียมข้อมูลต่อไปนี้ให้พร้อมก่อนเริ่มกรอกแบบฟอร์ม",
         needTitle: "สิ่งที่ต้องเตรียม",
         needItems: [
           "รหัสนักศึกษามหาวิทยาลัยธรรมศาสตร์",
@@ -215,7 +215,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       reason: {
         question: "คุณต้องการยืมไปใช้ทำอะไร",
         hint: "อธิบายสั้น ๆ ว่าจะนำอุปกรณ์ไปใช้ในกิจกรรมหรือเหตุการณ์ใด",
-        optionalNote: "ข้อมูลนี้ไม่บังคับ แต่ช่วยให้ BIRSA พิจารณาคำขอได้เร็วขึ้น",
+        optionalNote: "ไม่บังคับ แต่ช่วยให้ BIRSA พิจารณาคำขอได้เร็วขึ้น",
       },
       check: {
         title: "ตรวจสอบคำตอบของคุณ",
@@ -246,7 +246,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       results: {
         unavailableTitle: "อุปกรณ์เพิ่งถูกยืมไป",
         unavailableBody:
-          "ขออภัย อุปกรณ์ชิ้นนี้เพิ่งถูกยืมไปโดยผู้อื่นก่อนที่คำขอของคุณจะเสร็จสมบูรณ์ ลองเลือกช่วงวันที่อื่นหรือตรวจสอบรายการอุปกรณ์อีกครั้งในภายหลัง",
+          "อุปกรณ์ชิ้นนี้เพิ่งถูกยืมไปโดยผู้อื่นก่อนที่คำขอของคุณจะเสร็จสมบูรณ์ ลองเลือกช่วงวันที่อื่นหรือตรวจสอบรายการอุปกรณ์อีกครั้งในภายหลัง",
         blocklistedTitle: "ไม่สามารถส่งคำขอได้",
         blocklistedBody:
           "บัญชีของคุณไม่สามารถส่งคำขอยืมอุปกรณ์ได้ในขณะนี้ กรุณาติดต่อ BIRSA เพื่อขอทราบรายละเอียดเพิ่มเติม",
@@ -278,8 +278,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     },
     start: {
       title: `Request to borrow the ${itemName.toLowerCase()}`,
-      intro:
-        "Before you begin, have the following ready. The form takes a few minutes to complete.",
+      intro: "Have the following ready before you begin.",
       needTitle: "What you will need",
       needItems: [
         "Your Thammasat University student ID",
@@ -337,7 +336,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     reason: {
       question: "What will you use it for",
       hint: "A short description of the event or activity you need it for.",
-      optionalNote: "This is optional, but it helps BIRSA review your request faster.",
+      optionalNote: "Optional. Giving a reason helps BIRSA review your request faster.",
     },
     check: {
       title: "Check your answers",
@@ -368,7 +367,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     results: {
       unavailableTitle: "This item was just borrowed",
       unavailableBody:
-        "Sorry, someone else's request for this item went through just before yours. Try a different date range, or check the equipment list again later.",
+        "Someone else's request for this item went through first. Try a different date range, or check the equipment list again later.",
       blocklistedTitle: "We cannot accept this request",
       blocklistedBody:
         "Your account cannot request equipment loans right now. Contact BIRSA for more details.",

@@ -15,7 +15,7 @@ export const homeTrack: OnboardingTrack = {
   },
   lede: {
     en: "Everything to do, roughly in order, before and during your first weeks at BIR. Tick tasks off as you complete them. Nothing is sent anywhere, it all stays on this device.",
-    th: "สิ่งที่ควรทำเรียงตามลำดับคร่าว ๆ ก่อนและระหว่างสัปดาห์แรกที่ BIR ติ๊กในช่องเมื่อทำเสร็จได้เลย ข้อมูลจะถูกเก็บไว้ในอุปกรณ์นี้เท่านั้น ไม่ถูกส่งไปที่ใด",
+    th: "สิ่งที่ควรทำเรียงตามลำดับคร่าว ๆ ก่อนและระหว่างสัปดาห์แรกที่ BIR ติ๊กในช่องเมื่อทำเสร็จ ข้อมูลจะถูกเก็บไว้ในอุปกรณ์นี้เท่านั้น ไม่ถูกส่งไปที่ใด",
   },
   steps: [
     {
@@ -54,7 +54,7 @@ export const homeTrack: OnboardingTrack = {
       title: { en: "Get set up around campus", th: "เตรียมตัวใช้ชีวิตรอบมหาวิทยาลัย" },
       connector: "and",
       blurb: {
-        en: "Work out how you'll actually get to and around Tha Prachan.",
+        en: "Work out how you'll get to and around Tha Prachan.",
         th: "หาทางเดินทางไปและรอบท่าพระจันทร์",
       },
       tasks: [
@@ -162,15 +162,15 @@ export const homeTrack: OnboardingTrack = {
       title: { en: "Get involved", th: "เข้าร่วมกิจกรรม" },
       connector: "and",
       blurb: {
-        en: "BIR gets better once you know people. Here's where to start.",
-        th: "ชีวิต BIR จะดีขึ้นเมื่อคุณรู้จักคนรอบตัว เริ่มต้นได้จากที่นี่",
+        en: "Ways to meet people and get involved in your first weeks.",
+        th: "วิธีเริ่มรู้จักคนและเข้าร่วมกิจกรรมในช่วงแรกที่ BIR",
       },
       tasks: [
         {
           id: "read-getting-involved",
           label: { en: "Read about getting involved", th: "อ่านเรื่องการเข้าร่วมกิจกรรม" },
           hint: {
-            en: "Clubs, BIRSA events, volunteering and why it's worth your time.",
+            en: "Clubs, BIRSA events, and volunteering.",
             th: "ชมรม กิจกรรมของ BIRSA งานอาสา และเหตุผลที่ควรลองเข้าร่วม",
           },
           href: "/student-life/home/getting-involved",
@@ -196,8 +196,8 @@ export const homeTrack: OnboardingTrack = {
       title: { en: "Plan your studies", th: "วางแผนการเรียน" },
       connector: "and",
       blurb: {
-        en: "Look further ahead: choosing courses and understanding the rules that govern your degree.",
-        th: "มองไปข้างหน้า ทั้งการเลือกวิชาเรียนและกติกาที่เกี่ยวกับการสำเร็จการศึกษา",
+        en: "Choosing courses and understanding the rules that govern your degree.",
+        th: "การเลือกวิชาเรียนและกติกาที่เกี่ยวกับการสำเร็จการศึกษา",
       },
       tasks: [
         {

@@ -84,7 +84,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
         "Start here if you're moving to Bangkok from abroad to study at BIR. A condensed Thai-language summary is also available for buddies and staff.",
       allGuidesTitle: "Browse all student life guides",
       allGuidesBody:
-        "Not sure which track fits, or want to explore everything at your own pace? See every guide.",
+        "See every guide if no track fits, or if you want to explore at your own pace.",
     },
     track: {
       privacyTitle: "Your progress stays on this device",
@@ -105,7 +105,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
     gettingStarted: "เริ่มต้นที่ BIR",
     chooser: {
       title: "เริ่มต้นที่ BIR: ทีละขั้นตอน",
-      lede: "เช็กลิสต์ทีละขั้นตอนสำหรับช่วงแรกที่ BIR ออกแบบตามกลุ่มนักศึกษา ติ๊กเมื่อทำเสร็จได้เลย ความคืบหน้าจะถูกบันทึกไว้ในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งมาหาเรา",
+      lede: "เช็กลิสต์ทีละขั้นตอนสำหรับช่วงแรกที่ BIR ออกแบบตามกลุ่มนักศึกษา ติ๊กในช่องเมื่อทำเสร็จ ความคืบหน้าจะถูกบันทึกไว้ในเบราว์เซอร์ของคุณเท่านั้น ไม่ถูกส่งมาหาเรา",
       homeTitle: "ฉันเป็นนักศึกษาไทย",
       homeBody: "เริ่มที่นี่ถ้าคุณเข้าเรียน BIR ต่อจากโรงเรียนไทย หรืออาศัยอยู่ในประเทศไทยอยู่แล้ว",
       internationalTitle: "ฉันเป็นนักศึกษาต่างชาติ",
@@ -113,7 +113,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
         "หน้านี้สรุปขั้นตอนสำหรับนักศึกษาต่างชาติที่ย้ายมาเรียนที่กรุงเทพฯ เขียนแบบสรุปย่อสำหรับเพื่อนบัดดี้และเจ้าหน้าที่ที่ดูแล",
       allGuidesTitle: "ดูคู่มือชีวิตนักศึกษาทั้งหมด",
       allGuidesBody:
-        "ยังไม่แน่ใจว่าเหมาะกับกลุ่มไหน หรืออยากดูคู่มือทั้งหมดด้วยตัวเอง ดูคู่มือทุกหัวข้อได้ที่นี่",
+        "ดูคู่มือทุกหัวข้อได้ หากไม่แน่ใจว่าเหมาะกับกลุ่มใด หรือต้องการดูภาพรวมทั้งหมดด้วยตัวเอง",
     },
     track: {
       privacyTitle: "ความคืบหน้าของคุณอยู่ในอุปกรณ์นี้เท่านั้น",

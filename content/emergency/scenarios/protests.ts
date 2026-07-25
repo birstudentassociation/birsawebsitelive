@@ -12,7 +12,7 @@ const protests: EmergencyScenario = {
     bannerMessage:
       "A demonstration has been reported near campus. Avoid the area and leave calmly if you are nearby.",
     title: "Protests and Crowds Near Campus: Staying Safe",
-    lede: "Tha Prachan campus sits close to Sanam Luang and other places sometimes used for public gatherings. This page explains how to stay safe if a demonstration forms near or on campus. It is safety guidance only.",
+    lede: "Tha Prachan campus sits close to Sanam Luang and other places sometimes used for public gatherings. This is safety guidance only.",
     immediateActions: [
       "If you see or hear a crowd forming, move away calmly in the opposite direction. Do not walk toward it to look.",
       "Leave the area early rather than waiting to see what happens.",
@@ -124,7 +124,7 @@ const protests: EmergencyScenario = {
   th: {
     bannerMessage: "มีรายงานการชุมนุมใกล้มหาวิทยาลัย ขอให้หลีกเลี่ยงพื้นที่และเดินทางออกอย่างสงบ",
     title: "ความปลอดภัยเมื่อมีการชุมนุมหรือฝูงชนใกล้มหาวิทยาลัย",
-    lede: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ ตั้งอยู่ใกล้สนามหลวงและพื้นที่ที่บางครั้งใช้เป็นจุดชุมนุมสาธารณะ หน้านี้อธิบายวิธีดูแลความปลอดภัยของคุณ หากมีการชุมนุมเกิดขึ้นใกล้หรือในมหาวิทยาลัย เนื้อหานี้เป็นคำแนะนำด้านความปลอดภัยเท่านั้น",
+    lede: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ ตั้งอยู่ใกล้สนามหลวงและพื้นที่ที่บางครั้งใช้เป็นจุดชุมนุมสาธารณะ เนื้อหานี้เป็นคำแนะนำด้านความปลอดภัยเท่านั้น",
     immediateActions: [
       "หากเห็นหรือได้ยินว่ามีฝูงชนกำลังรวมตัว ให้เดินออกไปในทิศทางตรงข้ามอย่างสงบ อย่าเดินเข้าไปดู",
       "ออกจากพื้นที่แต่เนิ่น ๆ ดีกว่ารอดูว่าจะเกิดอะไรขึ้น",

@@ -63,7 +63,7 @@ const copy: Record<
 > = {
   en: {
     title: "Information and services",
-    lede: "The place to find BIRSA's services and guides in one spot. Borrow equipment, read course reviews and student-life guides written by students, or get the logistics sorted if you're new to Bangkok.",
+    lede: "Borrow equipment, read course reviews and student-life guides written by students, or get logistics guidance if you're new to Bangkok.",
     equipmentLoan: {
       eyebrow: "Service",
       title: "Equipment Loan Service",
@@ -83,7 +83,7 @@ const copy: Record<
     servicesHeading: "Services",
     informationHeading: "Information",
     informationLede:
-      "Course reviews, and the kind of student-life knowledge that does not fit in a syllabus: practical guides, cultural notes, and things students wish they'd known sooner. And so on.",
+      "Course reviews, plus practical guides, cultural notes, and other student-life knowledge that does not fit in a syllabus.",
     studentLifeIndexLine: "Want everything in one list?",
     studentLifeIndexCta: "See the student life index",
     courseReviews: {
@@ -96,13 +96,13 @@ const copy: Record<
     guides: {
       title: "Student life and culture guides",
       description:
-        "Everyday guidance for all BIR students, plus the non-obvious stuff: getting around Tha Prachan, budgeting, health and safety, culture, and getting involved.",
+        "Guidance for all BIR students on getting around Tha Prachan, budgeting, health and safety, culture, and getting involved.",
       topicsLabel: "Top topics",
       cta: "Explore the guides",
     },
     international: {
       eyebrow: "For international students",
-      title: "New to Bangkok?",
+      title: "Arriving in Bangkok",
       description:
         "Arrival, visas, banking, phones, healthcare, and everyday culture and language: everything for your first weeks and beyond.",
       topicsLabel: "Top topics",
@@ -116,14 +116,13 @@ const copy: Record<
       topicsLabel: "In this handbook",
       cta: "Read the student handbook",
     },
-    howToUseTitle: "How to use this page",
-    howToUseBody:
-      "This page is built to work well with screen readers and keyboard navigation, and every section stands on its own, so you do not need to read start to finish. If you spot something missing, out of date, or wrong, tell BIRSA.",
+    howToUseTitle: "Report a problem with this page",
+    howToUseBody: "If you spot something missing, out of date, or wrong, tell BIRSA.",
     reportGaps: "Report a gap",
   },
   th: {
     title: "ข้อมูลและบริการ",
-    lede: "รวมบริการและคู่มือของ BIRSA ไว้ในที่เดียว ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ ถ้าคุณเป็นนักศึกษาต่างชาติ",
+    lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ สำหรับนักศึกษาต่างชาติ",
     equipmentLoan: {
       eyebrow: "บริการ",
       title: "บริการยืมอุปกรณ์",
@@ -143,7 +142,7 @@ const copy: Record<
     servicesHeading: "บริการ",
     informationHeading: "ข้อมูล",
     informationLede:
-      "รีวิวรายวิชา และเกร็ดความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ และอื่น ๆ อีกมากมาย",
+      "รีวิวรายวิชา และความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ",
     studentLifeIndexLine: "อยากดูรวมทุกอย่างในที่เดียวไหม",
     studentLifeIndexCta: "ไปที่หน้ารวมชีวิตนักศึกษา",
     courseReviews: {
@@ -156,13 +155,13 @@ const copy: Record<
     guides: {
       title: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
       description:
-        "คำแนะนำในชีวิตประจำวันสำหรับนักศึกษา BIR ทุกคน พร้อมเรื่องที่ไม่ค่อยมีใครพูดถึง ทั้งการเดินทางแถวท่าพระจันทร์ การจัดการเงิน สุขภาพและความปลอดภัย วัฒนธรรม และการเข้าร่วมกิจกรรม",
+        "คำแนะนำสำหรับนักศึกษา BIR ทุกคน ครอบคลุมการเดินทางแถวท่าพระจันทร์ การจัดการเงิน สุขภาพและความปลอดภัย วัฒนธรรม และการเข้าร่วมกิจกรรม",
       topicsLabel: "หัวข้อยอดนิยม",
       cta: "ดูคู่มือทั้งหมด",
     },
     international: {
       eyebrow: "สำหรับนักศึกษาต่างชาติ",
-      title: "เพิ่งมาถึงกรุงเทพฯ ใช่ไหม",
+      title: "การเดินทางมาถึงกรุงเทพฯ",
       description:
         "การเดินทางมาถึง วีซ่า บัญชีธนาคาร มือถือ การรักษาพยาบาล และวัฒนธรรมในชีวิตประจำวัน ครบทุกอย่างสำหรับสัปดาห์แรกและหลังจากนั้น",
       topicsLabel: "หัวข้อยอดนิยม",
@@ -176,9 +175,8 @@ const copy: Record<
       topicsLabel: "ในคู่มือนี้",
       cta: "อ่านคู่มือนักศึกษา",
     },
-    howToUseTitle: "วิธีใช้หน้านี้",
-    howToUseBody:
-      "หน้านี้ออกแบบมาให้ใช้งานได้ดีกับโปรแกรมอ่านหน้าจอและการกดคีย์บอร์ด แต่ละหัวข้ออ่านแยกกันได้ ไม่จำเป็นต้องอ่านตามลำดับ ถ้าคุณพบว่ามีข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด บอก BIRSA ได้เลย",
+    howToUseTitle: "แจ้งปัญหาเกี่ยวกับหน้านี้",
+    howToUseBody: "หากพบข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด แจ้ง BIRSA ได้",
     reportGaps: "แจ้งข้อมูลที่ขาดหาย",
   },
 };

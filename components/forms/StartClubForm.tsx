@@ -77,7 +77,7 @@ const copy: Record<
     email: "อีเมล",
     emailHint: "เราจะใช้อีเมลนี้เพื่อตอบกลับคุณเท่านั้น",
     clubName: "ชื่อชมรมที่เสนอ",
-    clubNameHint: "เปลี่ยนภายหลังได้ ไม่ต้องเป๊ะตอนนี้",
+    clubNameHint: "เปลี่ยนภายหลังได้",
     description: "ชมรมนี้จะทำอะไร",
     descriptionHint: "อธิบายไอเดียสั้น ๆ กลุ่มเป้าหมายคือใคร และคาดว่าจะนัดพบกันบ่อยแค่ไหน",
     members: "มีใครสนใจร่วมด้วยอีกไหม",
@@ -85,7 +85,7 @@ const copy: Record<
     send: "ส่งไอเดีย",
     sending: "กำลังส่ง…",
     successTitle: "ขอบคุณ ไอเดียชมรมของคุณถูกส่งแล้ว",
-    successBody: "กรรมการ BIRSA จะติดต่อกลับทางอีเมลเพื่อคุยขั้นตอนถัดไป",
+    successBody: "กรรมการ BIRSA จะติดต่อกลับทางอีเมลเพื่อแจ้งขั้นตอนถัดไป",
     errorSummaryTitle: "มีข้อมูลที่ต้องแก้ไข",
     errors: {
       nameRequired: "กรอกชื่อของคุณ",
@@ -93,7 +93,7 @@ const copy: Record<
       emailInvalid: "กรอกอีเมลให้ถูกต้อง เช่น name@example.com",
       clubNameRequired: "กรอกชื่อชมรมที่ต้องการเสนอ",
       descriptionRequired: "บอกเราว่าชมรมนี้จะทำอะไร",
-      descriptionShort: "กรุณาเล่ารายละเอียดเพิ่มอีกนิด",
+      descriptionShort: "กรอกรายละเอียดเพิ่มเติม",
     },
   },
 };

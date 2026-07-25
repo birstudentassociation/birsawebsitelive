@@ -39,18 +39,18 @@ const copy: Record<
 > = {
   en: {
     title: "Clubs",
-    lede: "Clubs are small groups of BIR students who share an interest, such as sport, music, volunteering, gaming, writing, or simulating a parliament. Anyone can join one, and anyone can start a new one.",
-    startTitle: "Don't see your thing? Start a club.",
+    lede: "Clubs are groups of BIR students with a shared interest, such as sport, music, volunteering, gaming, writing, or a model parliament. Anyone can join one, and anyone can start a new one.",
+    startTitle: "Start a new club",
     startBody:
-      "If a handful of you share an interest that is not covered yet, BIRSA can help you set up a new club. It's a simpler process than you'd think.",
+      "If a handful of you share an interest that is not covered yet, BIRSA can help you set up a new club.",
     startCta: "Start a club",
   },
   th: {
     title: "ชมรม",
-    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม งานเขียน หรือการจำลองการประชุมรัฐสภา ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้เช่นกัน",
-    startTitle: "ยังไม่มีชมรมที่ใช่? เริ่มชมรมของคุณเองได้",
+    lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม งานเขียน หรือการจำลองการประชุมรัฐสภา ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้",
+    startTitle: "การตั้งชมรมใหม่",
     startBody:
-      "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ BIRSA ช่วยตั้งชมรมใหม่ให้ได้ ขั้นตอนง่ายกว่าที่คิด",
+      "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ BIRSA ช่วยตั้งชมรมใหม่ให้ได้",
     startCta: "เริ่มชมรมใหม่",
   },
 };

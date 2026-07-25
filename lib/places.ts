@@ -9,7 +9,7 @@
  * captured at that date, so treat them as a snapshot rather than live data.
  *
  * Coordinates are approximate (eyeballed to the right street or block, not
- * surveyed) and are only precise enough for the small orientation maps —
+ * surveyed) and are only precise enough for the small orientation maps;
  * the "Open in Google Maps" link on each entry is the authoritative
  * location. When editing, keep `id` values stable: list items use them as
  * anchor targets for the map markers.
@@ -54,7 +54,7 @@ const cat = {
   thai: { en: "Thai", th: "อาหารไทย" },
   noodles: { en: "Noodle shop", th: "ร้านก๋วยเตี๋ยว" },
   chineseNoodles: { en: "Chinese noodles", th: "บะหมี่จีน" },
-  porridge: { en: "Rice porridge", th: "ข้าวต้ม–โจ๊ก" },
+  porridge: { en: "Rice porridge", th: "ข้าวต้ม-โจ๊ก" },
   chinese: { en: "Chinese", th: "อาหารจีน" },
   dimSum: { en: "Dim sum", th: "ติ่มซำ" },
   korean: { en: "Korean", th: "อาหารเกาหลี" },
@@ -342,8 +342,8 @@ export const foodGroups: PlaceGroup[] = [
         rating: 4.5,
         ratingCount: 2803,
         note: {
-          en: "Isan–Trat family recipes with a river view; good for a treat-yourself dinner.",
-          th: "ตำรับอีสาน–ตราด วิวแม่น้ำ เหมาะมื้อพิเศษให้รางวัลตัวเอง",
+          en: "Isan-Trat family recipes with a river view; good for a treat-yourself dinner.",
+          th: "ตำรับอีสาน-ตราด วิวแม่น้ำ เหมาะมื้อพิเศษให้รางวัลตัวเอง",
         },
         mapsQuery: "Supanniga Eating Room Tha Tien",
       },
@@ -406,7 +406,7 @@ export const foodGroups: PlaceGroup[] = [
       },
       {
         id: "grandmas",
-        name: { en: "Grandma's (Thai–Portuguese home food)", th: "Grandma's อาหารไทย–โปรตุเกส" },
+        name: { en: "Grandma's (Thai-Portuguese home food)", th: "Grandma's อาหารไทย-โปรตุเกส" },
         category: cat.restaurant,
         area: "oldtown",
         lat: 13.7392,
@@ -414,8 +414,8 @@ export const foodGroups: PlaceGroup[] = [
         rating: 4.9,
         ratingCount: 116,
         note: {
-          en: "Home cooking from the Kudi Chin Thai–Portuguese community across the river.",
-          th: "อาหารบ้าน ๆ ตำรับชุมชนไทย–โปรตุเกสกุฎีจีน ฝั่งธนฯ",
+          en: "Home cooking from the Kudi Chin Thai-Portuguese community across the river.",
+          th: "อาหารบ้าน ๆ ตำรับชุมชนไทย-โปรตุเกสกุฎีจีน ฝั่งธนฯ",
         },
         mapsQuery: "Grandma's Thai Portuguese home food Bangkok",
       },
@@ -798,7 +798,7 @@ export const foodGroups: PlaceGroup[] = [
         rating: 4.5,
         ratingCount: 2243,
         note: {
-          en: "Old-school Thai–Chinese breakfast house on Charoen Krung, famous for eggs and toast.",
+          en: "Old-school Thai-Chinese breakfast house on Charoen Krung, famous for eggs and toast.",
           th: "สภากาแฟโบราณบนถนนเจริญกรุง ขึ้นชื่อเรื่องไข่กระทะและขนมปังปิ้ง",
         },
         mapsQuery: "On Lok Yun Bangkok",
@@ -814,8 +814,8 @@ export const foodGroups: PlaceGroup[] = [
         rating: 4.4,
         ratingCount: 6229,
         note: {
-          en: "Toast-and-fresh-milk institution on Dinso Road — a classic after-class stop.",
-          th: "ร้านขนมปังปิ้ง–นมสดในตำนานบนถนนดินสอ เหมาะแวะหลังเลิกเรียน",
+          en: "Toast-and-fresh-milk institution on Dinso Road, a classic after-class stop.",
+          th: "ร้านขนมปังปิ้ง-นมสดในตำนานบนถนนดินสอ เหมาะแวะหลังเลิกเรียน",
         },
         mapsQuery: "Mont Nom Sod Dinso Road Bangkok",
       },
@@ -843,7 +843,7 @@ export const foodGroups: PlaceGroup[] = [
       },
       {
         id: "hia-mak-tofu",
-        name: { en: "Hia Mak Tofu Pudding & Grass Jelly", th: "Hia Mak เต้าฮวย–เฉาก๊วย" },
+        name: { en: "Hia Mak Tofu Pudding & Grass Jelly", th: "Hia Mak เต้าฮวย-เฉาก๊วย" },
         category: cat.hawker,
         area: "oldtown",
         lat: 13.7447,
@@ -960,7 +960,7 @@ export const foodGroups: PlaceGroup[] = [
         rating: 4.5,
         ratingCount: 4490,
         note: {
-          en: "Street-food and snack paradise across the river — the classic Thammasat lunch run.",
+          en: "Street-food and snack paradise across the river, the classic Thammasat lunch run.",
           th: "สวรรค์สตรีทฟู้ดฝั่งธนฯ ตรงข้ามมหาวิทยาลัย ข้ามเรือไปกินมื้อเที่ยงกันประจำ",
         },
         mapsQuery: "Wang Lang Market Bangkok",
@@ -1108,7 +1108,7 @@ export const housingPlaces: Place[] = [
   },
   {
     id: "aspire-pinklao",
-    name: { en: "Aspire Pinklao – Arunammarin", th: "แอสปาย ปิ่นเกล้า–อรุณอมรินทร์" },
+    name: { en: "Aspire Pinklao-Arunammarin", th: "แอสปาย ปิ่นเกล้า-อรุณอมรินทร์" },
     category: cat.condo,
     area: "pinklao",
     lat: 13.7655,
@@ -1119,7 +1119,7 @@ export const housingPlaces: Place[] = [
   },
   {
     id: "parkland-charan",
-    name: { en: "The Parkland Charan–Pinklao", th: "เดอะ พาร์คแลนด์ จรัญ–ปิ่นเกล้า" },
+    name: { en: "The Parkland Charan-Pinklao", th: "เดอะ พาร์คแลนด์ จรัญ-ปิ่นเกล้า" },
     category: cat.condo,
     area: "pinklao",
     lat: 13.773,

@@ -5,8 +5,7 @@
 export const homeEn = {
   hero: {
     heading: "Your student association, standing by you.",
-    intro:
-      "BIRSA runs events, support and representation for every BIR student. You can find the latest updates, clubs, and practical help here.",
+    intro: "BIRSA runs events, support and representation for every BIR student.",
     primaryCta: "Quick actions",
     secondaryCta: "Information and services",
   },
@@ -64,8 +63,7 @@ export const homeEn = {
   },
   activityHighlight: {
     heading: "BIRSA activity",
-    intro:
-      "The section that explains who runs BIRSA and how: officer roles, the regulations that govern student activities, and more.",
+    intro: "Officer roles, the regulations that govern student activities, and more.",
     items: {
       roles: {
         label: "Officer roles",

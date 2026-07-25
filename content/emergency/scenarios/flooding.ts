@@ -7,7 +7,7 @@ const flooding: EmergencyScenario = {
     bannerMessage:
       "Severe flooding is affecting the Tha Prachan area. Move to higher ground and avoid floodwater.",
     title: "Severe Flooding",
-    lede: "Tha Prachan campus sits on the bank of the Chao Phraya River, so heavy monsoon rain and high river tides can flood roads and low-lying areas with little warning. Here is what to do to stay safe.",
+    lede: "Tha Prachan campus sits on the bank of the Chao Phraya River, so heavy monsoon rain and high river tides can flood roads and low-lying areas with little warning.",
     immediateActions: [
       "Move yourself and your belongings to higher ground or an upper floor immediately, especially electronics, documents, and anything that cannot get wet.",
       "Do not walk, cycle, or drive through moving floodwater. Just 15 cm of moving water can knock you off your feet, and 30 cm can sweep away a car.",
@@ -63,7 +63,7 @@ const flooding: EmergencyScenario = {
         items: [
           "Save the BMA hotline (1555) and Thai emergency numbers in your phone now, before an emergency happens.",
           "If you do not read Thai, follow the English-language Thammasat University announcements and ask a Thai-speaking classmate or the BIRSA group chat to help interpret local news and warnings.",
-          "Embassies sometimes issue their own flood advisories. It is worth knowing how to contact your embassy in Bangkok.",
+          "Embassies sometimes issue their own flood advisories. Know how to contact your embassy in Bangkok.",
         ],
       },
     ],

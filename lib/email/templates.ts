@@ -71,13 +71,13 @@ export function renderLoanApproved(i: {
       th:
         paragraph(`สวัสดีคุณ${name},`) +
         paragraph(
-          `ยินดีด้วย! คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`
+          `คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`
         ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
         paragraph(
-          `Congratulations! Your loan request has been approved. Bring your student ID when you come to collect the item.`
+          `Your loan request has been approved. Bring your student ID when you come to collect the item.`
         ) +
         infoTable(rowsEn),
     });
@@ -131,7 +131,7 @@ export function renderLoanRejected(i: {
       en:
         paragraph(`Hi ${name},`) +
         paragraph(
-          `Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. If you have any questions, feel free to contact BIRSA directly.`
+          `Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. Contact BIRSA directly if you have questions.`
         ) +
         infoTable(rowsEn),
     });
@@ -146,7 +146,7 @@ export function renderLoanRejected(i: {
       `Reference: ${i.reference}`,
       `Item: ${i.itemNameEn}`,
       "",
-      "If you have any questions, feel free to contact BIRSA directly.",
+      "Contact BIRSA directly if you have questions.",
     ].join("\n"),
   };
 }
@@ -238,13 +238,13 @@ export function renderDueSoon(i: {
       th:
         paragraph(`สวัสดีคุณ${name},`) +
         paragraph(
-          `นี่คือข้อความแจ้งเตือนว่าอุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันดังกล่าว`
+          `อุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันดังกล่าว`
         ) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
         paragraph(
-          `Just a friendly reminder that your item is due back on ${end}. Return it to the BIRSA office on or before that date.`
+          `Your item is due back on ${end}. Return it to the BIRSA office on or before that date.`
         ) +
         infoTable(rowsEn),
     });

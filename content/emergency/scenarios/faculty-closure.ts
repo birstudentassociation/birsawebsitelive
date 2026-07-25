@@ -11,7 +11,7 @@ const facultyClosure: EmergencyScenario = {
     bannerMessage:
       "The Faculty of Political Science building is closed. Do not come to campus until further notice; check official channels for updates.",
     title: "Faculty of Political Science Closure: What to Do",
-    lede: "The Faculty of Political Science building or programme may occasionally close for reasons such as a safety issue, a utilities failure, or another incident. This page explains how to find out what is happening and what to do while the building is closed.",
+    lede: "The Faculty of Political Science building or programme may occasionally close for reasons such as a safety issue, a utilities failure, or another incident.",
     immediateActions: [
       "Do not travel to the faculty building until you have seen an official announcement that it is safe to do so.",
       "Check the Faculty of Political Science's official Facebook page and Thammasat University's official channels for the closure notice and any instructions.",
@@ -104,7 +104,7 @@ const facultyClosure: EmergencyScenario = {
     bannerMessage:
       "อาคารคณะรัฐศาสตร์ปิดทำการ งดเดินทางมามหาวิทยาลัยจนกว่าจะมีประกาศเพิ่มเติม โปรดติดตามช่องทางทางการ",
     title: "คณะรัฐศาสตร์ปิดทำการ: สิ่งที่ควรทำ",
-    lede: "อาคารคณะรัฐศาสตร์หรือการเรียนการสอนของคณะอาจปิดทำการเป็นครั้งคราว ด้วยเหตุผลต่าง ๆ เช่น ปัญหาด้านความปลอดภัย ระบบสาธารณูปโภคขัดข้อง หรือเหตุการณ์อื่น ๆ หน้านี้อธิบายวิธีติดตามสถานการณ์และสิ่งที่ควรทำระหว่างที่อาคารปิดทำการ",
+    lede: "อาคารคณะรัฐศาสตร์หรือการเรียนการสอนของคณะอาจปิดทำการเป็นครั้งคราว ด้วยเหตุผลต่าง ๆ เช่น ปัญหาด้านความปลอดภัย ระบบสาธารณูปโภคขัดข้อง หรือเหตุการณ์อื่น ๆ",
     immediateActions: [
       "อย่าเดินทางมาที่อาคารคณะจนกว่าจะเห็นประกาศทางการยืนยันว่าปลอดภัย",
       "ตรวจสอบเพจเฟซบุ๊กทางการของคณะรัฐศาสตร์และช่องทางทางการของมหาวิทยาลัยธรรมศาสตร์ เพื่อดูประกาศการปิดทำการและคำแนะนำ",

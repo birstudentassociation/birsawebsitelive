@@ -49,8 +49,8 @@ export const internationalTrack: OnboardingTrack = {
       title: { en: "Arrive and settle in", th: "เดินทางมาถึงและเริ่มตั้งตัว" },
       connector: "and",
       blurb: {
-        en: "The first week is mostly logistics: here's what to expect.",
-        th: "สัปดาห์แรกส่วนใหญ่เป็นเรื่องการจัดการเบื้องต้น สรุปสิ่งที่ควรรู้ไว้ให้",
+        en: "The first week is mostly logistics.",
+        th: "สัปดาห์แรกส่วนใหญ่เป็นเรื่องการจัดการเบื้องต้น",
       },
       tasks: [
         {
@@ -85,7 +85,7 @@ export const internationalTrack: OnboardingTrack = {
       connector: "and",
       blurb: {
         en: "Sort out money matters early; some other things, like SIM registration, need a Thai address or ID first.",
-        th: "แนะนำให้จัดการเรื่องการเงินไว้แต่เนิ่น ๆ เพราะบางเรื่อง เช่น การลงทะเบียนซิม อาจต้องใช้ที่อยู่หรือเอกสารประจำตัวในไทยก่อน",
+        th: "จัดการเรื่องการเงินไว้แต่เนิ่น ๆ เพราะบางเรื่อง เช่น การลงทะเบียนซิม อาจต้องใช้ที่อยู่หรือเอกสารประจำตัวในไทยก่อน",
       },
       tasks: [
         {
@@ -163,7 +163,7 @@ export const internationalTrack: OnboardingTrack = {
           id: "read-getting-involved",
           label: { en: "Read about getting involved", th: "อ่านเรื่องการเข้าร่วมกิจกรรม" },
           hint: {
-            en: "Clubs, BIRSA events, volunteering and why it's worth your time.",
+            en: "Clubs, BIRSA events, and volunteering.",
             th: "ชมรม กิจกรรมของ BIRSA งานอาสา และเหตุผลที่ควรลองเข้าร่วม",
           },
           href: "/student-life/home/getting-involved",
@@ -185,8 +185,8 @@ export const internationalTrack: OnboardingTrack = {
       title: { en: "Plan your studies", th: "วางแผนการเรียน" },
       connector: "and",
       blurb: {
-        en: "Once things have settled, look ahead to courses and the rules that govern the degree.",
-        th: "เมื่อเริ่มตั้งตัวได้แล้ว ให้มองไปข้างหน้าเรื่องการเลือกวิชาเรียนและกติกาที่เกี่ยวกับการสำเร็จการศึกษา",
+        en: "After settling in, plan courses and the rules that govern the degree.",
+        th: "เมื่อเริ่มตั้งตัวได้แล้ว วางแผนเรื่องการเลือกวิชาเรียนและกติกาที่เกี่ยวกับการสำเร็จการศึกษา",
       },
       tasks: [
         {

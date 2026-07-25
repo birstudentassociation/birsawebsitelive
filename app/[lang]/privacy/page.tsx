@@ -42,7 +42,7 @@ const content: Record<
 > = {
   en: {
     title: "Privacy",
-    lede: "A plain-language summary of what we collect on this site, and why: there's less than you might think.",
+    lede: "A plain-language summary of what we collect on this site, and why.",
     collectTitle: "What we collect",
     collectBody:
       "When you use a contact form on this site, we collect what you type in: your name, email address, and message. We use this only to reply to you, and it's sent to us by email. We do not store form submissions in a database.",
@@ -60,12 +60,12 @@ const content: Record<
       "We do not run advertising on this site, and we never sell or share your data with third parties.",
     choicesTitle: "Your choices and questions",
     choicesBody:
-      "You can clear your cookies at any time using your browser settings. This just means we'll ask your language preference again. If you have any questions about this notice or your data, get in touch.",
+      "You can clear your cookies at any time using your browser settings. This means we'll ask your language preference again. If you have any questions about this notice or your data, get in touch.",
     contactCta: "Contact BIRSA",
   },
   th: {
     title: "ความเป็นส่วนตัว",
-    lede: "สรุปสั้น ๆ แบบเข้าใจง่ายว่าเว็บไซต์นี้เก็บข้อมูลอะไรบ้างและทำไม ซึ่งน้อยกว่าที่คุณอาจคิด",
+    lede: "สรุปสั้น ๆ แบบเข้าใจง่ายว่าเว็บไซต์นี้เก็บข้อมูลอะไรบ้างและทำไม",
     collectTitle: "ข้อมูลที่เราเก็บ",
     collectBody:
       "เมื่อคุณใช้แบบฟอร์มติดต่อในเว็บไซต์นี้ เราจะเก็บสิ่งที่คุณกรอก ได้แก่ ชื่อ อีเมล และข้อความ เราใช้ข้อมูลนี้เพื่อตอบกลับคุณเท่านั้น โดยส่งถึงเราทางอีเมล เราไม่เก็บข้อมูลที่ส่งในฐานข้อมูลใด ๆ",
@@ -82,7 +82,7 @@ const content: Record<
     adsBody: "เว็บไซต์นี้ไม่มีการลงโฆษณา และเราไม่ขายหรือแบ่งปันข้อมูลของคุณให้บุคคลที่สามเด็ดขาด",
     choicesTitle: "ทางเลือกของคุณและคำถามเพิ่มเติม",
     choicesBody:
-      "คุณสามารถล้างคุกกี้ได้ทุกเมื่อผ่านการตั้งค่าเบราว์เซอร์ ซึ่งแปลว่าเราจะถามภาษาที่คุณต้องการอีกครั้งเท่านั้น หากมีคำถามเกี่ยวกับประกาศนี้หรือข้อมูลของคุณ ติดต่อเราได้เลย",
+      "คุณสามารถล้างคุกกี้ได้ทุกเมื่อผ่านการตั้งค่าเบราว์เซอร์ ซึ่งแปลว่าเราจะถามภาษาที่คุณต้องการอีกครั้งเท่านั้น หากมีคำถามเกี่ยวกับประกาศนี้หรือข้อมูลของคุณ ติดต่อเรา",
     contactCta: "ติดต่อ BIRSA",
   },
 };

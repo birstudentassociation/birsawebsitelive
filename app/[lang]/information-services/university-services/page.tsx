@@ -235,7 +235,7 @@ const copy: Record<
     },
     sportFitness: {
       title: "Sport and fitness",
-      body: "The Thammasat University Sport and Fitness Center gives students access to fitness facilities and a gym on campus, so you can stay active alongside your studies.",
+      body: "The Thammasat University Sport and Fitness Center gives students access to fitness facilities and a gym on campus.",
     },
     domeAccount: {
       title: "Your Dome account",
@@ -273,8 +273,8 @@ const copy: Record<
       },
     },
     closing: {
-      title: "Something out of date?",
-      body: "These services are run by the University, so details can change. If you spot something wrong or outdated on this page, tell BIRSA.",
+      title: "Report a problem with this page",
+      body: "If you spot something wrong or outdated on this page, tell BIRSA.",
       cta: "Report a gap",
     },
   },
@@ -400,7 +400,7 @@ const copy: Record<
     },
     sportFitness: {
       title: "กีฬาและการออกกำลังกาย",
-      body: "ศูนย์กีฬาและฟิตเนสของมหาวิทยาลัยธรรมศาสตร์เปิดให้นักศึกษาเข้าใช้สิ่งอำนวยความสะดวกด้านกีฬาและฟิตเนสภายในมหาวิทยาลัย เพื่อดูแลสุขภาพควบคู่ไปกับการเรียน",
+      body: "ศูนย์กีฬาและฟิตเนสของมหาวิทยาลัยธรรมศาสตร์เปิดให้นักศึกษาเข้าใช้สิ่งอำนวยความสะดวกด้านกีฬาและฟิตเนสภายในมหาวิทยาลัย",
     },
     domeAccount: {
       title: "บัญชี Dome ของคุณ",
@@ -438,8 +438,8 @@ const copy: Record<
       },
     },
     closing: {
-      title: "พบข้อมูลที่ล้าสมัย?",
-      body: "บริการเหล่านี้ดำเนินการโดยมหาวิทยาลัย ข้อมูลจึงอาจเปลี่ยนแปลงได้ หากพบข้อมูลผิดหรือล้าสมัยในหน้านี้ แจ้ง BIRSA ได้เลย",
+      title: "แจ้งปัญหาเกี่ยวกับหน้านี้",
+      body: "หากพบข้อมูลผิดหรือล้าสมัยในหน้านี้ แจ้ง BIRSA ได้",
       cta: "แจ้งข้อมูลที่ขาดหาย",
     },
   },

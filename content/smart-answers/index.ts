@@ -37,7 +37,7 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
   en: {
     hub: "Get an answer",
     hubLede:
-      "Short, guided checks that turn BIRSA's rules and services into plain answers. Answer a few questions to see where you stand.",
+      "Guided checks based on BIRSA's rules and services. Answer a few questions to see where you stand.",
     startNow: "Start now",
     whatYoullBeAsked: "What you'll be asked",
     continueLabel: "Continue",
@@ -52,7 +52,7 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
   th: {
     hub: "ค้นหาคำตอบ",
     hubLede:
-      "แบบตอบคำถามสั้น ๆ ที่แปลงกฎระเบียบและบริการของ BIRSA ให้เป็นคำตอบที่เข้าใจง่าย ตอบไม่กี่คำถามเพื่อเช็กสถานะของคุณ",
+      "แบบตอบคำถามสั้น ๆ เกี่ยวกับกฎระเบียบและบริการของ BIRSA ตอบไม่กี่คำถามเพื่อเช็กสถานะของคุณ",
     startNow: "เริ่มทำแบบสอบถาม",
     whatYoullBeAsked: "คำถามที่จะเจอ",
     continueLabel: "ถัดไป",
