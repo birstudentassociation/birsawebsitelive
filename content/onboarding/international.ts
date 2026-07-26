@@ -1,9 +1,17 @@
 /**
  * "Starting at BIR: step by step": international student track. See
  * `content/onboarding/types.ts` for the shape and `content/onboarding/index.ts`
- * for how this is looked up. Every `href` below is a real route, verified
- * against `content/student-life/en/international/*.mdx` and the other static
- * routes it points to at the time of writing.
+ * for how this is looked up. Deep-links specific handbook chapters (fees,
+ * curriculum and study plan, assessment and degree), the rights-and-welfare,
+ * study-support and places-nearby home guides, the elected student bodies
+ * ladder and BIRSA committee pages, and /contact, rather than pointing only
+ * at each section's index. Hints for the visa-and-immigration,
+ * banking-and-money and culture-and-language guides, which each still carry
+ * a placeholder Notice marking their specifics as unverified, name only the
+ * topics those guides cover, not settled details. Every `href` below is a
+ * real route, verified against `content/student-life/en/**\/*.mdx`,
+ * `content/activity/en/*.mdx` and the other static routes it points to at
+ * the time of writing.
  *
  * Thai copy note (matches `content/student-life/tracks.ts`'s convention for
  * this track): the Thai international guides are condensed summaries written
@@ -77,6 +85,18 @@ export const internationalTrack: OnboardingTrack = {
           },
           href: "/student-life/international/culture-and-language",
         },
+        {
+          id: "browse-places-nearby",
+          label: {
+            en: "Browse places to live and eat nearby",
+            th: "อ่านเรื่องที่พักและร้านอาหารใกล้เคียง",
+          },
+          hint: {
+            en: "Recommended places to live and where to eat around Tha Prachan and Pinklao.",
+            th: "ที่พักแนะนำและร้านอาหารรอบท่าพระจันทร์และปิ่นเกล้า",
+          },
+          href: "/student-life/home/places-nearby",
+        },
       ],
     },
     {
@@ -104,8 +124,8 @@ export const internationalTrack: OnboardingTrack = {
       title: { en: "Get connected", th: "เชื่อมต่อการสื่อสาร" },
       connector: "and",
       blurb: {
-        en: "A working phone and reliable internet make everything else easier.",
-        th: "การมีมือถือใช้งานได้และอินเทอร์เน็ตที่เสถียรช่วยให้เรื่องอื่น ๆ ง่ายขึ้น",
+        en: "A working phone, internet, and the campus apps you'll rely on make everything else easier.",
+        th: "การมีมือถือใช้งานได้ อินเทอร์เน็ตที่เสถียร และแอปที่ต้องใช้บนแคมปัส ช่วยให้เรื่องอื่น ๆ ง่ายขึ้น",
       },
       tasks: [
         {
@@ -116,6 +136,18 @@ export const internationalTrack: OnboardingTrack = {
             th: "การลงทะเบียนซิม การเลือกเครือข่าย และการเชื่อมต่อ wifi ของ มธ.",
           },
           href: "/student-life/international/phones-and-internet",
+        },
+        {
+          id: "read-rights-and-welfare",
+          label: {
+            en: "Read about the TU Greats App and campus rights",
+            th: "อ่านเรื่องแอป TU Greats และสิทธิบนแคมปัส",
+          },
+          hint: {
+            en: "The TU Greats App for your student card and booking services, plus campus facility hours.",
+            th: "แอป TU Greats สำหรับบัตรนักศึกษาและการจองบริการต่าง ๆ พร้อมเวลาเปิดให้บริการของสถานที่ในมหาวิทยาลัย",
+          },
+          href: "/student-life/home/rights-and-welfare",
         },
       ],
     },
@@ -163,8 +195,8 @@ export const internationalTrack: OnboardingTrack = {
           id: "read-getting-involved",
           label: { en: "Read about getting involved", th: "อ่านเรื่องการเข้าร่วมกิจกรรม" },
           hint: {
-            en: "Clubs, BIRSA events, and volunteering.",
-            th: "ชมรม กิจกรรมของ BIRSA งานอาสา และเหตุผลที่ควรลองเข้าร่วม",
+            en: "Clubs, elected student bodies, BIRSA events, and volunteering.",
+            th: "ชมรม องค์กรนักศึกษาที่มาจากการเลือกตั้ง กิจกรรมของ BIRSA และงานอาสา",
           },
           href: "/student-life/home/getting-involved",
         },
@@ -174,9 +206,42 @@ export const internationalTrack: OnboardingTrack = {
           href: "/clubs",
         },
         {
+          id: "read-student-bodies",
+          label: {
+            en: "Read about student bodies international students can run for",
+            th: "อ่านเรื่ององค์กรนักศึกษาที่ลงสมัครได้",
+          },
+          hint: {
+            en: "The ladder of elected student bodies open to BIR students, from BIRSA to Thammasat-wide.",
+            th: "บันไดองค์กรนักศึกษาแบบเลือกตั้งที่เปิดให้นักศึกษา BIR ลงสมัคร ตั้งแต่ BIRSA ถึงระดับมหาวิทยาลัย",
+          },
+          href: "/activity/student-bodies",
+        },
+        {
+          id: "join-birsa-committee",
+          label: {
+            en: "Read about joining BIRSA's committee",
+            th: "อ่านเรื่องการสมัครเข้าคณะกรรมการ BIRSA",
+          },
+          hint: {
+            en: "What BIRSA does, and how committee positions open each year.",
+            th: "หน้าที่ของ BIRSA และช่วงเวลาที่เปิดรับสมัครกรรมการแต่ละปี",
+          },
+          href: "/activity/birsa",
+        },
+        {
           id: "follow-birsa",
           label: { en: "Follow BIRSA's quick links", th: "ติดตามลิงก์ด่วนของ BIRSA" },
           href: "/quick",
+        },
+        {
+          id: "contact-birsa",
+          label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" },
+          hint: {
+            en: "Message the committee directly with a question or concern.",
+            th: "ส่งข้อความถึงกรรมการโดยตรงเมื่อมีคำถามหรือข้อกังวล",
+          },
+          href: "/contact",
         },
       ],
     },
@@ -197,11 +262,64 @@ export const internationalTrack: OnboardingTrack = {
         {
           id: "read-academic-rules",
           label: { en: "Read the academic rules chapter", th: "อ่านบทเรื่องระเบียบการเรียน" },
+          hint: {
+            en: "Course registration, exam absences, leave, and probation rules.",
+            th: "การลงทะเบียนเรียน การขาดสอบ การลาพัก และเกณฑ์การพ้นสภาพ",
+          },
           href: "/student-life/handbook/academic-life",
+        },
+        {
+          id: "read-admission-and-fees",
+          label: { en: "Read about admission and fees", th: "อ่านเรื่องการรับเข้าและค่าเล่าเรียน" },
+          hint: {
+            en: "Application requirements and estimated annual tuition: 125,000 baht for Thai students, 144,000 baht for non-Thai students.",
+            th: "เกณฑ์การสมัครและค่าเล่าเรียนโดยประมาณต่อปี นักศึกษาไทย 125,000 บาท นักศึกษาต่างชาติ 144,000 บาท",
+          },
+          href: "/student-life/handbook/admission-and-fees",
+        },
+        {
+          id: "read-curriculum-and-study-plan",
+          label: {
+            en: "Read the curriculum and study plan chapter",
+            th: "อ่านบทหลักสูตรและแผนการศึกษา",
+          },
+          hint: {
+            en: "The full course structure and the 127-credit total for BIR's 2023 revised curriculum.",
+            th: "โครงสร้างรายวิชาทั้งหมดและหน่วยกิตรวม 127 หน่วยกิตของหลักสูตร BIR ฉบับปรับปรุง พ.ศ. 2566",
+          },
+          href: "/student-life/handbook/curriculum-and-study-plan",
+        },
+        {
+          id: "read-assessment-and-degree",
+          label: {
+            en: "Read the assessment and degree chapter",
+            th: "อ่านบทการวัดผลและการสำเร็จการศึกษา",
+          },
+          hint: {
+            en: "Grading, the credit and GPA requirements for graduating, and honours criteria.",
+            th: "หลักการให้เกรด เงื่อนไขหน่วยกิตและเกรดเฉลี่ยสำหรับสำเร็จการศึกษา และเกณฑ์เกียรตินิยม",
+          },
+          href: "/student-life/handbook/assessment-and-degree",
+        },
+        {
+          id: "read-study-support",
+          label: {
+            en: "Read about libraries and study support",
+            th: "อ่านเรื่องห้องสมุดและบริการสนับสนุนการเรียน",
+          },
+          hint: {
+            en: "Libraries, printing quota, TU-GET, and plagiarism checking.",
+            th: "ห้องสมุด โควตาพรินต์ TU-GET และการตรวจสอบการคัดลอกผลงาน",
+          },
+          href: "/student-life/home/study-support",
         },
         {
           id: "read-activity-regulations",
           label: { en: "Check BIRSA activity regulations", th: "ตรวจสอบระเบียบกิจกรรมของ BIRSA" },
+          hint: {
+            en: "Three documents: the University's regulation on student activities, the Faculty's notice on student activities, and the University's regulation on student discipline (B.E. 2568).",
+            th: "เอกสารสามฉบับ ได้แก่ ข้อบังคับมหาวิทยาลัยว่าด้วยกิจกรรมนักศึกษา ประกาศคณะรัฐศาสตร์ว่าด้วยกิจกรรมนักศึกษา และข้อบังคับมหาวิทยาลัยว่าด้วยวินัยนักศึกษา พ.ศ. 2568",
+          },
           href: "/activity/regulations",
         },
       ],

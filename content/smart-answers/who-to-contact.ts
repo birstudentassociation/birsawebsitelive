@@ -1,10 +1,14 @@
 /**
  * Smart answer: "Find the right person to contact". A short triage: safety
- * first, then the specific services the site already offers (equipment
- * loans, clubs), then a clear hand-off to the BIR Programme site for
- * official academic/records matters (BIRSA is a student association, not a
- * university office; see `content/site.ts` `officialLinks`), then news and
- * a general contact fallback.
+ * first, then equipment loans (BIRSA's own and TUSU Tha Prachan's), clubs,
+ * raising a problem or complaint (routed by subject the way
+ * `content/student-life/en/home/rights-and-welfare.mdx` does: registration
+ * to the Registrar, programme matters to the faculty student committee,
+ * general matters to TUSU Tha Prachan), the ladder of elected student
+ * bodies (see `content/activity/en/student-bodies.mdx`), news, and a
+ * general contact fallback. BIRSA is a student association, not a
+ * university office (see `content/site.ts` `officialLinks`), so several
+ * outcomes hand off to the real office or elected body responsible instead.
  */
 import type { SmartAnswerFlow } from "./types";
 
@@ -53,12 +57,20 @@ export const whoToContact: SmartAnswerFlow = {
           next: "q-club-detail",
         },
         {
-          id: "academic",
+          id: "complaint",
           label: {
-            en: "Official academic records or programme matters",
-            th: "เรื่องผลการเรียนหรือเรื่องทางการของหลักสูตร",
+            en: "Raising a problem, complaint, or a records or programme question",
+            th: "แจ้งปัญหา ร้องเรียน หรือสอบถามเรื่องทะเบียน/หลักสูตร",
           },
-          next: "out-academic",
+          next: "q-complaint-subject",
+        },
+        {
+          id: "representation",
+          label: {
+            en: "Who represents me, or how to run for a student body",
+            th: "ใครเป็นตัวแทนนักศึกษา หรือวิธีลงสมัครองค์กรนักศึกษา",
+          },
+          next: "out-representation",
         },
         {
           id: "events",
@@ -96,6 +108,44 @@ export const whoToContact: SmartAnswerFlow = {
       ],
     },
     {
+      kind: "question",
+      id: "q-complaint-subject",
+      question: {
+        en: "What's it about?",
+        th: "เรื่องที่ต้องการติดต่อเกี่ยวกับอะไร",
+      },
+      hint: {
+        en: "The right office depends on the subject, not just that something is wrong.",
+        th: "หน่วยงานที่ดูแลขึ้นอยู่กับประเภทของเรื่อง ไม่ใช่แค่ว่ามีปัญหาเกิดขึ้น",
+      },
+      options: [
+        {
+          id: "registration",
+          label: {
+            en: "Registration, enrolment, or official transcripts",
+            th: "การลงทะเบียน การขึ้นทะเบียน หรือใบแสดงผลการเรียน",
+          },
+          next: "out-complaint-registration",
+        },
+        {
+          id: "programme",
+          label: {
+            en: "Course content, fees, or other programme matters",
+            th: "เนื้อหารายวิชา ค่าใช้จ่าย หรือเรื่องอื่นของหลักสูตร",
+          },
+          next: "out-complaint-programme",
+        },
+        {
+          id: "general",
+          label: {
+            en: "General or university-wide matters",
+            th: "เรื่องทั่วไปหรือเรื่องระดับมหาวิทยาลัย",
+          },
+          next: "out-complaint-general",
+        },
+      ],
+    },
+    {
       kind: "outcome",
       id: "out-safety",
       title: { en: "Contact emergency services now", th: "ติดต่อหน่วยฉุกเฉินทันที" },
@@ -107,6 +157,10 @@ export const whoToContact: SmartAnswerFlow = {
         {
           en: "Police 191, medical emergencies 1669, fire 199.",
           th: "ตำรวจ 191 การแพทย์ฉุกเฉิน 1669 ดับเพลิง 199",
+        },
+        {
+          en: "If BIRSA's site currently shows an active emergency, the emergency page takes you straight to guidance for that specific situation, not just general advice.",
+          th: "ถ้าเว็บไซต์ BIRSA แสดงสถานการณ์ฉุกเฉินที่กำลังเกิดขึ้นอยู่ หน้าฉุกเฉินจะพาไปยังคำแนะนำเฉพาะสถานการณ์นั้นโดยตรง ไม่ใช่แค่คำแนะนำทั่วไป",
         },
       ],
       actions: [
@@ -124,6 +178,12 @@ export const whoToContact: SmartAnswerFlow = {
         en: "BIRSA lends out equipment like cameras and speakers for free.",
         th: "BIRSA มีอุปกรณ์ให้ยืมฟรี เช่น กล้องและลำโพง",
       },
+      body: [
+        {
+          en: "For sports equipment, borrow from your own faculty, or from the TUSU Tha Prachan room on floor 2 of the student activity building. Bring your student card.",
+          th: "สำหรับอุปกรณ์กีฬา ยืมได้ที่คณะของตัวเอง หรือที่ห้อง อมธ. ท่าพระจันทร์ ชั้น 2 อาคารกิจกรรมนักศึกษา อย่าลืมนำบัตรนักศึกษาไปด้วย",
+        },
+      ],
       actions: [
         {
           label: { en: "Go to equipment loans", th: "ไปหน้าบริการยืมอุปกรณ์" },
@@ -159,17 +219,120 @@ export const whoToContact: SmartAnswerFlow = {
     },
     {
       kind: "outcome",
-      id: "out-academic",
-      title: { en: "Contact the BIR Programme office", th: "ติดต่อสำนักงานหลักสูตร BIR" },
+      id: "out-complaint-registration",
+      title: {
+        en: "Contact your faculty and the Registrar's office",
+        th: "ติดต่อคณะและสำนักงานทะเบียน",
+      },
       summary: {
-        en: "BIRSA is a student association, not a university office; for official records, grades, registration, or programme matters, go to the BIR Programme site.",
-        th: "BIRSA เป็นองค์กรนักศึกษา ไม่ใช่หน่วยงานของมหาวิทยาลัย สำหรับเรื่องผลการเรียน การลงทะเบียน หรือเรื่องทางการของหลักสูตร กรุณาติดต่อผ่านเว็บไซต์หลักสูตร BIR",
+        en: "Registration matters go to your faculty and the Registrar's office.",
+        th: "เรื่องการลงทะเบียนติดต่อคณะและสำนักงานทะเบียนนักศึกษา",
       },
       actions: [
+        {
+          label: { en: "TU Registrar", th: "สำนักทะเบียน มธ." },
+          href: "https://www.reg.tu.ac.th",
+          external: true,
+        },
+        {
+          label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
+          href: "/student-life/home/rights-and-welfare",
+        },
+      ],
+    },
+    {
+      kind: "outcome",
+      id: "out-complaint-programme",
+      title: {
+        en: "Contact your faculty student committee first",
+        th: "ติดต่อกรรมการนักศึกษาประจำคณะก่อน",
+      },
+      summary: {
+        en: "Anything about course content, fees, or your own programme goes to your faculty student committee first, because the rules differ between faculties. For the BIR programme, that's BIRSA.",
+        th: "เรื่องเนื้อหารายวิชา ค่าใช้จ่าย หรือเรื่องเฉพาะของหลักสูตร ให้ติดต่อกรรมการนักศึกษาประจำคณะของตัวเองก่อน เพราะแต่ละคณะมีเงื่อนไขต่างกัน สำหรับหลักสูตร BIR กรรมการนักศึกษาคือ BIRSA เอง",
+      },
+      body: [
+        {
+          en: "BIRSA is BIR's own elected faculty student committee (สโมสรนักศึกษาสาขาการเมืองการระหว่างประเทศ), so contact BIRSA directly for BIR programme matters.",
+          th: "BIRSA คือคณะกรรมการนักศึกษาประจำสาขา BIR ที่มาจากการเลือกตั้ง (สโมสรนักศึกษาสาขาการเมืองการระหว่างประเทศ) ให้ติดต่อ BIRSA โดยตรงสำหรับเรื่องของหลักสูตร BIR",
+        },
+      ],
+      actions: [
+        { label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" },
         {
           label: { en: "BIR Programme site", th: "เว็บไซต์หลักสูตร BIR" },
           href: "https://www.birpolsci.com",
           external: true,
+        },
+        {
+          label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
+          href: "/student-life/home/rights-and-welfare",
+        },
+      ],
+    },
+    {
+      kind: "outcome",
+      id: "out-complaint-general",
+      title: { en: "Contact TUSU Tha Prachan", th: "ติดต่อ อมธ. ท่าพระจันทร์" },
+      summary: {
+        en: "General matters can go to TUSU Tha Prachan (อมธ. ท่าพระจันทร์), the directly elected student union representing all Tha Prachan students.",
+        th: "เรื่องทั่วไปสามารถติดต่อ อมธ. ท่าพระจันทร์ ซึ่งเป็นองค์การนักศึกษาที่มาจากการเลือกตั้งโดยตรงและเป็นตัวแทนของนักศึกษาทั้งหมดที่ท่าพระจันทร์",
+      },
+      body: [
+        {
+          en: "Email tusu.thaprachan@tu.ac.th, or reach TUSU Tha Prachan on Instagram @tusu.tpc, X @tusu_tpc, or TikTok @tusu.tpc.",
+          th: "อีเมล tusu.thaprachan@tu.ac.th หรือติดต่อผ่าน Instagram @tusu.tpc, X @tusu_tpc หรือ TikTok @tusu.tpc",
+        },
+      ],
+      actions: [
+        {
+          label: { en: "Email TUSU Tha Prachan", th: "ส่งอีเมลถึง อมธ. ท่าพระจันทร์" },
+          href: "mailto:tusu.thaprachan@tu.ac.th",
+          external: true,
+        },
+        {
+          label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
+          href: "/student-life/home/rights-and-welfare",
+        },
+      ],
+    },
+    {
+      kind: "outcome",
+      id: "out-representation",
+      title: {
+        en: "The ladder of elected student bodies",
+        th: "บันไดองค์กรนักศึกษาแบบเลือกตั้ง",
+      },
+      summary: {
+        en: "BIR students are represented at four levels: your programme, your faculty, your campus, and the university as a whole.",
+        th: "นักศึกษา BIR มีตัวแทนถึง 4 ระดับ ได้แก่ ระดับหลักสูตร ระดับคณะ ระดับวิทยาเขต และระดับมหาวิทยาลัย",
+      },
+      body: [
+        {
+          en: "BIR (programme level): BIRSA and BIR class councils.",
+          th: "BIR (ระดับหลักสูตร): BIRSA และสภานักศึกษาประจำชั้นปีของ BIR",
+        },
+        {
+          en: "Faculty of Political Science (Singhadang): the Political Science Students' Committee and class councils.",
+          th: "คณะรัฐศาสตร์ (สิงห์แดง): คณะกรรมการนักศึกษาคณะรัฐศาสตร์ และสภานักศึกษาประจำชั้นปี",
+        },
+        {
+          en: "Tha Prachan Campus (TPC): TUSU TPC and TUSC TPC, the campus branches of the university student union and council.",
+          th: "ศูนย์ท่าพระจันทร์ (TPC): TUSU TPC และ TUSC TPC ซึ่งเป็นสาขาระดับวิทยาเขตของสภานักศึกษาและองค์การนักศึกษามหาวิทยาลัย",
+        },
+        {
+          en: "Thammasat University (all campuses): TUSU, TUSC, and ECTU.",
+          th: "มหาวิทยาลัยธรรมศาสตร์ (ทุกศูนย์): TUSU, TUSC และ ECTU",
+        },
+      ],
+      actions: [
+        {
+          label: { en: "Student bodies you can run for", th: "องค์กรนักศึกษาที่คุณลงสมัครได้" },
+          href: "/activity/student-bodies",
+        },
+        {
+          label: { en: "Getting involved", th: "มาร่วมกิจกรรม" },
+          href: "/student-life/home/getting-involved",
         },
       ],
     },

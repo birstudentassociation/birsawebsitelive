@@ -164,6 +164,8 @@ describe("onboarding task hrefs", () => {
     "/student-life/course-reviews",
     "/information-services/equipment-loan",
     "/activity/regulations",
+    "/activity/student-bodies",
+    "/activity/birsa",
   ]);
 
   const allowedRoutes = new Set<string>([...guideRoutes, ...staticRoutes]);

@@ -9,7 +9,11 @@
  * plan don't need separate sign-off (ข้อ 26, ข้อ 46); spending outside the
  * budget does (ข้อ 84); an activity with no recognised body behind it has no
  * clear-cut rule on file, so the outcome says so plainly and points to
- * BIRSA/the Faculty office rather than inventing a procedure.
+ * BIRSA/the Faculty office rather than inventing a procedure. The
+ * budget/space question now leads somewhere concrete: room and space
+ * bookings in the student activity building or the gym go through the SATU
+ * booking system plus the request form, per
+ * `content/student-life/en/home/getting-involved.mdx`.
  */
 import type { SmartAnswerFlow } from "./types";
 
@@ -151,11 +155,20 @@ export const activityApproval: SmartAnswerFlow = {
           en: "BIRSA and Faculty activity groups prepare and submit an annual work plan, projects, and budget each year; activities inside that plan are already covered.",
           th: "BIRSA และกลุ่มกิจกรรมคณะต้องจัดทำและเสนอแผนงาน โครงการ และงบประมาณประจำปีไว้ล่วงหน้า กิจกรรมที่อยู่ในแผนนี้จึงไม่ต้องขออนุมัติซ้ำอีก",
         },
+        {
+          en: "If it still needs a room, use the SATU booking system and attach the request form (แบบฟอร์มขอความอนุเคราะห์). This is separate from budget or plan approval.",
+          th: "ถ้ายังต้องใช้ห้อง ให้จองผ่านระบบจองห้อง SATU พร้อมแนบแบบฟอร์มขอความอนุเคราะห์ ขั้นตอนนี้แยกจากการขออนุมัติงบประมาณหรือแผนงาน",
+        },
       ],
       actions: [
         {
           label: { en: "Ask BIRSA if you're not sure", th: "ถ้าไม่แน่ใจ ติดต่อ BIRSA" },
           href: "/contact",
+        },
+        {
+          label: { en: "SATU booking system", th: "ระบบจองห้อง SATU" },
+          href: "https://sa.tu.ac.th/oth/SATU_booking/MENU_booking/",
+          external: true,
         },
       ],
       citations: [
@@ -191,6 +204,10 @@ export const activityApproval: SmartAnswerFlow = {
           en: "Talk to your group's committee first, then have them raise it with the Faculty (through BIRSA or the PSC, as relevant) before you book anything or spend money.",
           th: "คุยกับคณะกรรมการของกลุ่มคุณก่อน แล้วให้กรรมการนำเรื่องเสนอต่อคณะ (ผ่าน BIRSA หรือ กนศ.ร. แล้วแต่กรณี) ก่อนที่จะจองสถานที่หรือใช้จ่ายเงินใด ๆ",
         },
+        {
+          en: "Once approved, book a room in the student activity building or the gym through the SATU booking system and attach the request form (แบบฟอร์มขอความอนุเคราะห์).",
+          th: "เมื่อได้รับความเห็นชอบแล้ว จองห้องในอาคารกิจกรรมนักศึกษาหรือโรงยิมผ่านระบบจองห้อง SATU พร้อมแนบแบบฟอร์มขอความอนุเคราะห์",
+        },
       ],
       actions: [
         {
@@ -199,6 +216,11 @@ export const activityApproval: SmartAnswerFlow = {
             th: "ติดต่อ BIRSA เพื่อขอความช่วยเหลือ",
           },
           href: "/contact",
+        },
+        {
+          label: { en: "SATU booking system", th: "ระบบจองห้อง SATU" },
+          href: "https://sa.tu.ac.th/oth/SATU_booking/MENU_booking/",
+          external: true,
         },
       ],
       citations: [
