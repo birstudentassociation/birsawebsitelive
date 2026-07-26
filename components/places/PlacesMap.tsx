@@ -6,9 +6,9 @@
  * always-focusable links, so the map is progressively enhanced by
  * construction rather than requiring any client-side code.
  *
- * The tile grid and marker positions both come from the pure Web Mercator
- * helpers in `lib/places.ts` (`computeMapView` / `markerPosition`), which
- * are unit-tested independently of any rendering.
+ * The frame, tile grid and marker positions all come from the pure Web
+ * Mercator helpers in `lib/places.ts` (`computeMapView` / `markerPosition`),
+ * which are unit-tested independently of any rendering.
  *
  * Tile requests hit `https://tile.openstreetmap.org`, allow-listed in the
  * site CSP's `img-src` (see `middleware.ts`). In this sandbox those
@@ -80,8 +80,8 @@ export default function PlacesMap({
   );
 
   const tiles: { x: number; y: number }[] = [];
-  for (let y = view.minY; y <= view.maxY; y++) {
-    for (let x = view.minX; x <= view.maxX; x++) {
+  for (let y = view.tileMinY; y <= view.tileMaxY; y++) {
+    for (let x = view.tileMinX; x <= view.tileMaxX; x++) {
       tiles.push({ x, y });
     }
   }
@@ -95,9 +95,12 @@ export default function PlacesMap({
       className="border-line relative rounded-lg border"
       style={{ aspectRatio: `${view.cols} / ${view.rows}` }}
     >
-      {/* Tile layer: purely decorative imagery, clipped to the rounded
-          corners. Kept out of the accessibility tree entirely; the markers
-          below (real links) and the list under the map carry the content. */}
+      {/* Tile layer: purely decorative imagery. Whole tiles overhang the
+          frame on every side (the frame is cropped to the places' bounding
+          box, not rounded out to tile edges), so `overflow-hidden` is doing
+          real work here beyond the rounded corners. Kept out of the
+          accessibility tree entirely; the markers below (real links) and the
+          list under the map carry the content. */}
       <div
         className="osm-tile-layer absolute inset-0 overflow-hidden rounded-lg"
         aria-hidden="true"

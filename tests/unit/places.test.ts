@@ -55,20 +55,59 @@ describe("computeMapView", () => {
       const view = computeMapView(places, 16);
       for (const place of places) {
         const { x, y } = lonLatToTile(place.lng, place.lat, 16);
-        expect(Math.floor(x)).toBeGreaterThanOrEqual(view.minX);
-        expect(Math.floor(x)).toBeLessThanOrEqual(view.maxX);
-        expect(Math.floor(y)).toBeGreaterThanOrEqual(view.minY);
-        expect(Math.floor(y)).toBeLessThanOrEqual(view.maxY);
+        expect(Math.floor(x)).toBeGreaterThanOrEqual(view.tileMinX);
+        expect(Math.floor(x)).toBeLessThanOrEqual(view.tileMaxX);
+        expect(Math.floor(y)).toBeGreaterThanOrEqual(view.tileMinY);
+        expect(Math.floor(y)).toBeLessThanOrEqual(view.tileMaxY);
       }
     }
   });
 
-  it("returns cols/rows consistent with the min/max tile range", () => {
+  it("returns cols/rows consistent with the fractional frame bounds", () => {
     const view = computeMapView(housingPlaces, 16);
-    expect(view.cols).toBe(view.maxX - view.minX + 1);
-    expect(view.rows).toBe(view.maxY - view.minY + 1);
+    expect(view.cols).toBeCloseTo(view.maxX - view.minX);
+    expect(view.rows).toBeCloseTo(view.maxY - view.minY);
     expect(view.cols).toBeGreaterThan(0);
     expect(view.rows).toBeGreaterThan(0);
+  });
+
+  it("returns a tile range that covers the frame without falling short of it", () => {
+    for (const places of [...AREAS.map(placesByArea), housingPlaces]) {
+      const view = computeMapView(places, 16);
+      expect(view.tileMinX).toBeLessThanOrEqual(view.minX);
+      expect(view.tileMinY).toBeLessThanOrEqual(view.minY);
+      expect(view.tileMaxX + 1).toBeGreaterThanOrEqual(view.maxX);
+      expect(view.tileMaxY + 1).toBeGreaterThanOrEqual(view.maxY);
+      expect(view.tileCols).toBe(view.tileMaxX - view.tileMinX + 1);
+      expect(view.tileRows).toBe(view.tileMaxY - view.tileMinY + 1);
+    }
+  });
+
+  it("crops the frame to the places themselves: padding only, no rounding out to whole tiles", () => {
+    const padding = 0.1;
+    for (const places of [...AREAS.map(placesByArea), housingPlaces]) {
+      const view = computeMapView(places, 16, padding);
+      const tiles = places.map((place) => lonLatToTile(place.lng, place.lat, 16));
+      const spanX = Math.max(...tiles.map((t) => t.x)) - Math.min(...tiles.map((t) => t.x));
+      const spanY = Math.max(...tiles.map((t) => t.y)) - Math.min(...tiles.map((t) => t.y));
+      // The aspect clamp may widen one axis, so only the axis that was not
+      // widened is guaranteed to be exactly span + 2 * padding.
+      expect(view.cols).toBeGreaterThanOrEqual(spanX + 2 * padding - 1e-9);
+      expect(view.rows).toBeGreaterThanOrEqual(spanY + 2 * padding - 1e-9);
+      expect(Math.min(view.cols - spanX, view.rows - spanY)).toBeCloseTo(2 * padding);
+    }
+  });
+
+  it("widens the short axis of a lopsided set rather than rendering a sliver", () => {
+    // Four places strung along one road: a tall, thin bounding box.
+    const strip: Place[] = [13.75, 13.76, 13.77, 13.78].map((lat, i) => ({
+      ...housingPlaces[0]!,
+      id: `strip-${i}`,
+      lat,
+      lng: 100.48,
+    }));
+    const view = computeMapView(strip, 16);
+    expect(view.cols / view.rows).toBeCloseTo(0.75);
   });
 
   it("expands the view for a wider spread of places (more padding needed produces a >= view)", () => {
@@ -84,7 +123,7 @@ describe("markerPosition", () => {
     // with fitZoom, containing only that area's places.
     for (const area of AREAS) {
       const places = placesByArea(area);
-      const zoom = fitZoom(places);
+      const zoom = fitZoom(places, { maxRows: 10 });
       const view = computeMapView(places, zoom);
       for (const place of places) {
         const { leftPct, topPct } = markerPosition(place, view);
@@ -119,12 +158,12 @@ describe("fitZoom", () => {
     }
   });
 
-  it("respects the default maxCols/maxRows budget for each food area and for housing", () => {
+  it("respects the default maxCols/maxRows tile budget for each food area and for housing", () => {
     for (const places of [...AREAS.map(placesByArea), housingPlaces]) {
       const zoom = fitZoom(places);
       const view = computeMapView(places, zoom);
-      expect(view.cols).toBeLessThanOrEqual(5);
-      expect(view.rows).toBeLessThanOrEqual(6);
+      expect(view.tileCols).toBeLessThanOrEqual(7);
+      expect(view.tileRows).toBeLessThanOrEqual(9);
     }
   });
 

@@ -1214,23 +1214,48 @@ export function lonLatToTile(lng: number, lat: number, zoom: number): { x: numbe
 
 export type MapView = {
   zoom: number;
+  /**
+   * Fractional tile bounds of the *visible frame*: the places' bounding box
+   * plus `paddingTiles`. The frame is what the map element shows, so it is
+   * deliberately not rounded to whole tiles; the tile layer below is drawn
+   * larger and clipped to it.
+   */
   minX: number;
   maxX: number;
   minY: number;
   maxY: number;
-  /** Number of tile columns spanned, i.e. `maxX - minX + 1`. */
+  /** Frame width in tile units, i.e. `maxX - minX`. */
   cols: number;
-  /** Number of tile rows spanned, i.e. `maxY - minY + 1`. */
+  /** Frame height in tile units, i.e. `maxY - minY`. */
   rows: number;
+  /** Integer tile range (inclusive) that covers the frame. */
+  tileMinX: number;
+  tileMaxX: number;
+  tileMinY: number;
+  tileMaxY: number;
+  /** Number of tile columns/rows fetched, i.e. `tileMaxX - tileMinX + 1`. */
+  tileCols: number;
+  tileRows: number;
 };
 
 /**
- * Integer tile range (inclusive) covering every place, plus a little
- * padding so markers near the edge aren't flush against the map's border.
- * `paddingTiles` is applied to the fractional bounding box before flooring
- * / ceiling to integers.
+ * How far the frame may depart from square before the short axis is widened,
+ * as a width/height ratio. Without this a lopsided set of places (everything
+ * strung along one road) would render as an unreadable sliver. The portrait
+ * limit also bounds how tall a map gets: these render at the content column's
+ * full width, so 0.75 keeps even the north-south Pinklao strip inside roughly
+ * one screen.
  */
-export function computeMapView(places: Place[], zoom: number, paddingTiles = 0.25): MapView {
+const MIN_ASPECT = 0.75;
+const MAX_ASPECT = 2;
+
+/**
+ * The visible frame for `places` at `zoom`, plus the integer tile range
+ * covering it. `paddingTiles` keeps edge markers off the border: a marker is
+ * 28px against 256px tiles, so the default leaves room for one plus its
+ * focus ring.
+ */
+export function computeMapView(places: Place[], zoom: number, paddingTiles = 0.1): MapView {
   if (places.length === 0) {
     throw new Error("computeMapView requires at least one place");
   }
@@ -1239,10 +1264,30 @@ export function computeMapView(places: Place[], zoom: number, paddingTiles = 0.2
   const xs = tiles.map((t) => t.x);
   const ys = tiles.map((t) => t.y);
 
-  const minX = Math.floor(Math.min(...xs) - paddingTiles);
-  const maxX = Math.ceil(Math.max(...xs) + paddingTiles);
-  const minY = Math.floor(Math.min(...ys) - paddingTiles);
-  const maxY = Math.ceil(Math.max(...ys) + paddingTiles);
+  let minX = Math.min(...xs) - paddingTiles;
+  let maxX = Math.max(...xs) + paddingTiles;
+  let minY = Math.min(...ys) - paddingTiles;
+  let maxY = Math.max(...ys) + paddingTiles;
+
+  // Grow (never shrink) whichever axis is out of proportion, around the
+  // frame's own centre, so the places stay centred.
+  const aspect = (maxX - minX) / (maxY - minY);
+  if (aspect < MIN_ASPECT) {
+    const target = (maxY - minY) * MIN_ASPECT;
+    const midX = (minX + maxX) / 2;
+    minX = midX - target / 2;
+    maxX = midX + target / 2;
+  } else if (aspect > MAX_ASPECT) {
+    const target = (maxX - minX) / MAX_ASPECT;
+    const midY = (minY + maxY) / 2;
+    minY = midY - target / 2;
+    maxY = midY + target / 2;
+  }
+
+  const tileMinX = Math.floor(minX);
+  const tileMaxX = Math.max(Math.ceil(maxX) - 1, tileMinX);
+  const tileMinY = Math.floor(minY);
+  const tileMaxY = Math.max(Math.ceil(maxY) - 1, tileMinY);
 
   return {
     zoom,
@@ -1250,8 +1295,14 @@ export function computeMapView(places: Place[], zoom: number, paddingTiles = 0.2
     maxX,
     minY,
     maxY,
-    cols: maxX - minX + 1,
-    rows: maxY - minY + 1,
+    cols: maxX - minX,
+    rows: maxY - minY,
+    tileMinX,
+    tileMaxX,
+    tileMinY,
+    tileMaxY,
+    tileCols: tileMaxX - tileMinX + 1,
+    tileRows: tileMaxY - tileMinY + 1,
   };
 }
 
@@ -1265,13 +1316,15 @@ export type FitZoomOptions = {
 /**
  * The largest zoom whose tile grid for `places` stays within the given
  * column/row budget. Keeps each map detailed enough to read street names
- * while bounding how many tiles a single map requests.
+ * while bounding how many tiles a single map requests. The budget counts
+ * tiles fetched (`tileCols`/`tileRows`), not the visible frame, since that
+ * is what the zoom costs in requests.
  */
 export function fitZoom(places: Place[], options: FitZoomOptions = {}): number {
-  const { maxCols = 5, maxRows = 6, minZoom = 12, maxZoom = 17 } = options;
+  const { maxCols = 7, maxRows = 9, minZoom = 12, maxZoom = 17 } = options;
   for (let zoom = maxZoom; zoom > minZoom; zoom--) {
     const view = computeMapView(places, zoom);
-    if (view.cols <= maxCols && view.rows <= maxRows) {
+    if (view.tileCols <= maxCols && view.tileRows <= maxRows) {
       return zoom;
     }
   }

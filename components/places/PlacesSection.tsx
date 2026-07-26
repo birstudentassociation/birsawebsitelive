@@ -184,13 +184,13 @@ function FoodSection({ locale }: { locale: Locale }) {
           label,
         }));
         // The food trail spans Wang Lang to Nang Loeng on the old-town side,
-        // so allow a larger tile grid than the default budget: dropping a zoom
+        // so allow a taller tile grid than the default budget: dropping a zoom
         // level would stack the dense Tha Prachan cluster's markers on top of
         // each other. Tiles are lazy-loaded, so the bigger grid only costs
         // requests once the map scrolls into view.
         const zoom = fitZoom(
           areaEntries.map((entry) => entry.place),
-          { maxCols: 7, maxRows: 8 }
+          { maxRows: 10 }
         );
         const headingId = `places-food-map-${area}-label`;
         return (
