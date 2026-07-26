@@ -92,6 +92,19 @@ export const quickGroups: QuickGroup[] = [
         th: { label: "เริ่มต้นที่ BIR", hint: "เช็กลิสต์ทีละขั้นตอนสำหรับนักศึกษาใหม่" },
       },
       {
+        key: "internship",
+        href: "/student-life/handbook/internship",
+        icon: "register",
+        en: {
+          label: "Internship",
+          hint: "Forms, deadlines and marking for the third-year summer internship",
+        },
+        th: {
+          label: "การฝึกงาน",
+          hint: "แบบฟอร์ม กำหนดส่ง และเกณฑ์การประเมินของการฝึกงานชั้นปีที่ 3",
+        },
+      },
+      {
         key: "find-a-club",
         href: "/clubs",
         icon: "club",

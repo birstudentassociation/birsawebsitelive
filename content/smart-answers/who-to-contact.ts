@@ -1,6 +1,8 @@
 /**
  * Smart answer: "Find the right person to contact". A short triage: safety
  * first, then equipment loans (BIRSA's own and TUSU Tha Prachan's), clubs,
+ * the third-year summer internship (owned by the BIR programme office, see
+ * `content/student-life/en/handbook/internship.mdx`),
  * raising a problem or complaint (routed by subject the way
  * `content/student-life/en/home/rights-and-welfare.mdx` does: registration
  * to the Registrar, programme matters to the faculty student committee,
@@ -63,6 +65,14 @@ export const whoToContact: SmartAnswerFlow = {
             th: "แจ้งปัญหา ร้องเรียน หรือสอบถามเรื่องทะเบียน/หลักสูตร",
           },
           next: "q-complaint-subject",
+        },
+        {
+          id: "internship",
+          label: {
+            en: "The third-year summer internship",
+            th: "การฝึกงานภาคฤดูร้อนของชั้นปีที่ 3",
+          },
+          next: "out-internship",
         },
         {
           id: "representation",
@@ -293,6 +303,44 @@ export const whoToContact: SmartAnswerFlow = {
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
           href: "/student-life/home/rights-and-welfare",
+        },
+      ],
+    },
+    {
+      kind: "outcome",
+      id: "out-internship",
+      title: {
+        en: "Contact the BIR programme office",
+        th: "ติดต่อสำนักงานหลักสูตร BIR",
+      },
+      summary: {
+        en: "The internship is run by the BIR programme office, not by BIRSA. Forms, letters, deadlines, and grades all go through the programme.",
+        th: "การฝึกงานอยู่ในความรับผิดชอบของสำนักงานหลักสูตร BIR ไม่ใช่ BIRSA ทั้งแบบฟอร์ม หนังสือราชการ กำหนดส่ง และการประเมินผล ดำเนินการผ่านหลักสูตรทั้งหมด",
+      },
+      body: [
+        {
+          en: "You find the host organisation yourself. The programme office issues the request letter once you submit the Internship Request Form, and the organisation returns a letter of confirmation.",
+          th: "นักศึกษาต้องหาหน่วยงานที่รับฝึกงานด้วยตนเอง เมื่อส่งแบบฟอร์ม Internship Request Form แล้ว สำนักงานหลักสูตรจะออกหนังสือขอความอนุเคราะห์ และหน่วยงานจะส่งหนังสือตอบรับกลับมา",
+        },
+        {
+          en: "Email bir@tu.ac.th or call 02-221-6111 ext. 3409. Schedule changes are posted in the Internship Google Classroom.",
+          th: "อีเมล bir@tu.ac.th หรือโทร. 02-221-6111 ต่อ 3409 การเปลี่ยนแปลงกำหนดการจะประกาศใน Google Classroom ของวิชาฝึกงาน",
+        },
+      ],
+      actions: [
+        {
+          label: { en: "Internship: forms and deadlines", th: "การฝึกงาน: แบบฟอร์มและกำหนดส่ง" },
+          href: "/student-life/handbook/internship",
+        },
+        {
+          label: { en: "Email the BIR programme office", th: "ส่งอีเมลถึงสำนักงานหลักสูตร BIR" },
+          href: "mailto:bir@tu.ac.th",
+          external: true,
+        },
+        {
+          label: { en: "BIR internship page", th: "หน้าการฝึกงานของหลักสูตร BIR" },
+          href: "https://www.birpolsci.com/birinternship",
+          external: true,
         },
       ],
     },
