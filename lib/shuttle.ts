@@ -125,6 +125,90 @@ export const shuttleLines: ShuttleLine[] = [
   },
 ];
 
+/**
+ * A dated break in service announced by the university, e.g. the Tha Prachan
+ * suspension of 28 to 30 July 2026. Dates are Bangkok calendar dates in ISO
+ * `YYYY-MM-DD` form, so plain string comparison orders them correctly.
+ *
+ * The display strings are written out by hand rather than formatted from the
+ * dates: Thai copy uses the Buddhist era and its own phrasing, and the
+ * announcement's own wording is what students will have seen elsewhere.
+ */
+export type ServiceSuspension = {
+  /** First suspended date, inclusive. */
+  from: string;
+  /** Last suspended date, inclusive. */
+  to: string;
+  /** First date service runs again. */
+  resumes: string;
+  /** The suspended range as it should read on the page, e.g. "28 to 30 July 2026". */
+  dates: Bilingual;
+  /** The resumption date as it should read, e.g. "Friday 31 July 2026". */
+  resumesLabel: Bilingual;
+  /** How many days ahead of `from` the heads-up notice appears. Defaults to 14. */
+  noticeDaysBefore?: number;
+};
+
+/**
+ * Announced suspensions, ordered by date. Entries are kept until they expire
+ * on their own: everything that reads this list goes through
+ * `getSuspension`, which returns nothing once the Bangkok date has passed
+ * `to`, so a stale entry stops appearing on the page without an edit. Old
+ * entries can then be deleted at any convenient time.
+ */
+export const serviceSuspensions: ServiceSuspension[] = [
+  {
+    // Thammasat announcement: TU Shuttle Bus, Tha Prachan campus.
+    from: "2026-07-28",
+    to: "2026-07-30",
+    resumes: "2026-07-31",
+    dates: { en: "28 to 30 July 2026", th: "28 ถึง 30 กรกฎาคม 2569" },
+    resumesLabel: { en: "Friday 31 July 2026", th: "วันศุกร์ที่ 31 กรกฎาคม 2569" },
+  },
+];
+
+export type SuspensionPhase = "upcoming" | "active";
+
+export type SuspensionState = {
+  suspension: ServiceSuspension;
+  phase: SuspensionPhase;
+  /** Whole days from the given date until `from`; 0 once the suspension is active. */
+  daysUntil: number;
+};
+
+const DAY_MS = 86_400_000;
+
+/** Whole days from ISO date `a` to ISO date `b`; negative when `b` is earlier. */
+function daysBetween(a: string, b: string): number {
+  return Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / DAY_MS);
+}
+
+/**
+ * The suspension relevant to a given Bangkok date, if any: the one in
+ * progress, otherwise the next one close enough to warn about. Returns
+ * `undefined` once a suspension's last day has passed, which is what makes
+ * the notice disappear by itself.
+ */
+export function getSuspension(date: string): SuspensionState | undefined {
+  for (const suspension of serviceSuspensions) {
+    if (date > suspension.to) continue;
+
+    if (date >= suspension.from) {
+      return { suspension, phase: "active", daysUntil: 0 };
+    }
+
+    const daysUntil = daysBetween(date, suspension.from);
+    if (daysUntil <= (suspension.noticeDaysBefore ?? 14)) {
+      return { suspension, phase: "upcoming", daysUntil };
+    }
+
+    // The nearest suspension is still too far out to be worth a notice, and
+    // anything later in the list is further out again.
+    return undefined;
+  }
+  return undefined;
+}
+
 export function getLine(id: LineId): ShuttleLine {
   const line = shuttleLines.find((l) => l.id === id);
   if (!line) throw new Error(`Unknown shuttle line: ${id}`);
@@ -169,13 +253,15 @@ export type BangkokParts = {
   weekday: number;
   /** Minutes since midnight, 0-1439. */
   minutes: number;
+  /** Calendar date in Bangkok, ISO `YYYY-MM-DD`. */
+  date: string;
 };
 
 const WEEKDAY_ORDER = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 /**
- * Resolves the current weekday and minute-of-day in the Asia/Bangkok
- * timezone, independent of the viewer's device timezone. Uses
+ * Resolves the current calendar date, weekday and minute-of-day in the
+ * Asia/Bangkok timezone, independent of the viewer's device timezone. Uses
  * `Intl.DateTimeFormat` with an explicit `timeZone` and `formatToParts`
  * rather than trusting `Date`'s local getters.
  */
@@ -183,6 +269,9 @@ export function getBangkokParts(date: Date = new Date()): BangkokParts {
   const formatter = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Bangkok",
     weekday: "short",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
@@ -200,10 +289,12 @@ export function getBangkokParts(date: Date = new Date()): BangkokParts {
   return {
     weekday: weekday < 0 ? 0 : weekday,
     minutes: hour * 60 + minute,
+    date: `${lookup.get("year") ?? "1970"}-${lookup.get("month") ?? "01"}-${lookup.get("day") ?? "01"}`,
   };
 }
 
 export type NextDepartureResult =
+  | { status: "suspended"; suspension: ServiceSuspension }
   | { status: "no-service-weekend" }
   | { status: "not-in-service" }
   | {
@@ -225,8 +316,16 @@ export type NextDepartureResult =
  * an hour of that first departure, so the overnight and early-morning
  * window doesn't show a long, misleading countdown; the upcoming countdown
  * only appears once 60 minutes or less remain.
+ *
+ * An announced suspension covering the current Bangkok date wins over
+ * everything else, so no countdown is shown on a day with no buses.
  */
 export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartureResult {
+  const suspension = getSuspension(parts.date);
+  if (suspension?.phase === "active") {
+    return { status: "suspended", suspension: suspension.suspension };
+  }
+
   if (parts.weekday === 0 || parts.weekday === 6) {
     return { status: "no-service-weekend" };
   }

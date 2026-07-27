@@ -1,13 +1,20 @@
 import { describe, expect, it } from "vitest";
 import {
+  getBangkokParts,
   getDepartureMinutes,
   getDepartureTimes,
+  getSuspension,
   nextDeparture,
+  serviceSuspensions,
   type BangkokParts,
 } from "@/lib/shuttle";
 
-function parts(weekday: number, hh: number, mm: number): BangkokParts {
-  return { weekday, minutes: hh * 60 + mm };
+/**
+ * `date` defaults to a plain Monday well clear of any announced suspension,
+ * so the scheduling tests below stay about the timetable.
+ */
+function parts(weekday: number, hh: number, mm: number, date = "2026-09-07"): BangkokParts {
+  return { weekday, minutes: hh * 60 + mm, date };
 }
 
 describe("getDepartureTimes", () => {
@@ -27,6 +34,49 @@ describe("getDepartureTimes", () => {
     expect(getDepartureTimes("sanam-chai")).not.toContain("11:00");
     expect(getDepartureTimes("pinklao")).not.toContain("10:00");
     expect(getDepartureTimes("pinklao")).not.toContain("15:00");
+  });
+});
+
+describe("getSuspension", () => {
+  it("is active on each day of the July 2026 suspension", () => {
+    for (const date of ["2026-07-28", "2026-07-29", "2026-07-30"]) {
+      expect(getSuspension(date)).toMatchObject({ phase: "active", daysUntil: 0 });
+    }
+  });
+
+  it("gives a heads-up within the notice window before it starts", () => {
+    expect(getSuspension("2026-07-27")).toMatchObject({ phase: "upcoming", daysUntil: 1 });
+    expect(getSuspension("2026-07-14")).toMatchObject({ phase: "upcoming", daysUntil: 14 });
+  });
+
+  it("stays quiet before the notice window opens", () => {
+    expect(getSuspension("2026-07-13")).toBeUndefined();
+    expect(getSuspension("2026-01-01")).toBeUndefined();
+  });
+
+  it("expires by itself on the resumption day and after", () => {
+    expect(getSuspension("2026-07-31")).toBeUndefined();
+    expect(getSuspension("2026-08-15")).toBeUndefined();
+    expect(getSuspension("2027-01-01")).toBeUndefined();
+  });
+
+  it("keeps every announced suspension well formed and in date order", () => {
+    let previousTo = "";
+    for (const suspension of serviceSuspensions) {
+      expect(suspension.from).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(suspension.to >= suspension.from).toBe(true);
+      expect(suspension.resumes > suspension.to).toBe(true);
+      expect(suspension.from > previousTo).toBe(true);
+      previousTo = suspension.to;
+    }
+  });
+});
+
+describe("getBangkokParts", () => {
+  it("reads the Bangkok calendar date, not the host timezone's date", () => {
+    // 2026-07-27T18:30Z is already 01:30 on the 28th in Bangkok (UTC+7).
+    const result = getBangkokParts(new Date("2026-07-27T18:30:00Z"));
+    expect(result).toMatchObject({ date: "2026-07-28", weekday: 2, minutes: 90 });
   });
 });
 
@@ -89,6 +139,28 @@ describe("nextDeparture", () => {
     // yield 08:30, not 08:15 again.
     const result = nextDeparture("sanam-chai", parts(1, 8, 15));
     expect(result).toMatchObject({ status: "upcoming", hh: "08", mm: "30" });
+  });
+
+  it("reports suspended on every day of an announced suspension, weekday or not", () => {
+    // 28 to 30 July 2026 is Tuesday to Thursday.
+    for (const [weekday, date] of [
+      [2, "2026-07-28"],
+      [3, "2026-07-29"],
+      [4, "2026-07-30"],
+    ] as const) {
+      const result = nextDeparture("sanam-chai", parts(weekday, 9, 0, date));
+      expect(result.status).toBe("suspended");
+    }
+  });
+
+  it("a suspension wins over the normal countdown, even mid-service", () => {
+    const result = nextDeparture("pinklao", parts(3, 16, 10, "2026-07-29"));
+    expect(result).toMatchObject({ status: "suspended" });
+  });
+
+  it("runs normally on the day before and the resumption day", () => {
+    expect(nextDeparture("sanam-chai", parts(1, 9, 10, "2026-07-27")).status).toBe("upcoming");
+    expect(nextDeparture("sanam-chai", parts(5, 9, 10, "2026-07-31")).status).toBe("upcoming");
   });
 
   it("getDepartureMinutes stays consistent with getDepartureTimes", () => {

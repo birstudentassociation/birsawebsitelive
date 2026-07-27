@@ -17,6 +17,7 @@ import type { Locale } from "@/lib/i18n";
 import {
   shuttleLines,
   getBangkokParts,
+  getSuspension,
   nextDeparture,
   type LineId,
   type NextDepartureResult,
@@ -38,6 +39,9 @@ type Labels = {
   weekendBody: string;
   offTitle: string;
   offBody: string;
+  suspendedTitle: string;
+  suspendedBody: (resumes: string) => string;
+  upcomingSuspension: (dates: string, resumes: string) => string;
   minutes: (n: number) => string;
   seconds: (n: number) => string;
   caveat: string;
@@ -51,6 +55,10 @@ const labels: Record<Locale, Labels> = {
     weekendBody: "Service runs Monday to Friday. There's no shuttle at weekends.",
     offTitle: "Not in service",
     offBody: "The next bus shows here about an hour before it departs.",
+    suspendedTitle: "Service suspended today",
+    suspendedBody: (resumes) => `The shuttle resumes on ${resumes}.`,
+    upcomingSuspension: (dates, resumes) =>
+      `Service is suspended ${dates}, and resumes on ${resumes}.`,
     minutes: (n) => `in ${n} min`,
     seconds: (n) => `in ${n} sec`,
     caveat: "Times are scheduled departures. In heavy traffic, buses can run a few minutes late.",
@@ -62,6 +70,10 @@ const labels: Record<Locale, Labels> = {
     weekendBody: "ให้บริการวันจันทร์ถึงศุกร์เท่านั้น เสาร์อาทิตย์ไม่มีรถ",
     offTitle: "งดให้บริการ",
     offBody: "รถคันต่อไปจะแสดงที่นี่ประมาณหนึ่งชั่วโมงก่อนออก",
+    suspendedTitle: "วันนี้งดให้บริการ",
+    suspendedBody: (resumes) => `รถเวียนจะกลับมาให้บริการอีกครั้ง ${resumes}`,
+    upcomingSuspension: (dates, resumes) =>
+      `งดให้บริการวันที่ ${dates} และกลับมาให้บริการอีกครั้ง ${resumes}`,
     minutes: (n) => `อีก ${n} นาที`,
     seconds: (n) => `อีก ${n} วินาที`,
     caveat: "เวลาที่แสดงเป็นเวลาตามตารางเดินรถ ช่วงรถติดหนักอาจล่าช้ากว่าที่แจ้งไว้บ้าง",
@@ -71,12 +83,25 @@ const labels: Record<Locale, Labels> = {
 function StatusBlock({
   result,
   secondsPastMinute,
+  locale,
   t,
 }: {
   result: NextDepartureResult;
   secondsPastMinute: number;
+  locale: Locale;
   t: Labels;
 }) {
+  if (result.status === "suspended") {
+    return (
+      <div>
+        <p className="text-ink font-semibold">{t.suspendedTitle}</p>
+        <p className="text-muted text-sm">
+          {t.suspendedBody(result.suspension.resumesLabel[locale])}
+        </p>
+      </div>
+    );
+  }
+
   if (result.status === "no-service-weekend") {
     return (
       <div>
@@ -143,6 +168,16 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
 
   const parts = getBangkokParts(now);
   const secondsPastMinute = now.getSeconds();
+  // Only the heads-up case is shown here; an active suspension is already
+  // spelled out on each line's card by `StatusBlock`.
+  const upcoming = getSuspension(parts.date);
+  const upcomingNote =
+    upcoming?.phase === "upcoming"
+      ? t.upcomingSuspension(
+          upcoming.suspension.dates[locale],
+          upcoming.suspension.resumesLabel[locale]
+        )
+      : undefined;
 
   return (
     <div className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5">
@@ -157,11 +192,17 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
               aria-live="polite"
             >
               <h3 className="font-display mt-0 text-lg">{line.name[locale]}</h3>
-              <StatusBlock result={result} secondsPastMinute={secondsPastMinute} t={t} />
+              <StatusBlock
+                result={result}
+                secondsPastMinute={secondsPastMinute}
+                locale={locale}
+                t={t}
+              />
             </div>
           );
         })}
       </div>
+      {upcomingNote ? <p className="text-ink text-sm font-semibold">{upcomingNote}</p> : null}
       <p className="text-muted text-xs">{t.caveat}</p>
     </div>
   );
