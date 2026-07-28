@@ -14,8 +14,16 @@ export type LanguageToggleProps = {
 
 /**
  * Plain `<a>` (not a button) linking to the same page with the locale
- * segment swapped. Sets nothing itself: the middleware persists the
- * `NEXT_LOCALE` cookie once the link is followed.
+ * segment swapped, so the toggle still works with JavaScript disabled: the
+ * navigation never depends on the cookie being set.
+ *
+ * Middleware no longer runs on locale-prefixed paths (see `middleware.ts`),
+ * so it can't persist `NEXT_LOCALE` on the way through any more. Instead the
+ * click handler below sets the cookie itself, client-side, as a progressive
+ * enhancement, using the same attributes middleware used to. Without this,
+ * a visitor who switches language would land on the new locale for this one
+ * page but get redirected back to their old locale the next time they hit an
+ * unprefixed URL such as `/`.
  */
 export default function LanguageToggle({ locale, label, ariaLabel }: LanguageToggleProps) {
   const pathname = usePathname();
@@ -30,6 +38,10 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
       href={href}
       hrefLang={target}
       aria-label={ariaLabel}
+      onClick={() => {
+        const oneYear = 60 * 60 * 24 * 365;
+        document.cookie = `NEXT_LOCALE=${target}; path=/; max-age=${oneYear}; SameSite=Lax`;
+      }}
       className="focus-halo border-line-strong text-ink hover:bg-sunken inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold sm:px-3.5"
     >
       <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">

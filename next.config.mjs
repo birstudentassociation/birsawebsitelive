@@ -1,3 +1,5 @@
+import { buildStaticCsp } from "./lib/csp.mjs";
+
 /**
  * Next.js configuration.
  * Security headers support Service Standard point 9 (create a secure service).
@@ -55,6 +57,21 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        // The static CSP is a constant string with no per-request input
+        // (unlike the officer console's nonce-based policy), so it belongs
+        // here rather than in middleware: the CDN attaches it to the
+        // prerendered HTML at no compute cost, instead of paying for a
+        // middleware invocation on every page view.
+        //
+        // Officer routes are excluded by the negative lookahead below because
+        // middleware still sets the strict, nonce-based policy for them; a
+        // response can only carry one `Content-Security-Policy` header; two
+        // conflicting policies would leave the browser enforcing whichever
+        // one arrives, breaking the officer console silently.
+        source: "/:path((?!th/officer|en/officer).*)",
+        headers: [{ key: "Content-Security-Policy", value: buildStaticCsp() }],
       },
       {
         // Static image assets can be replaced in place without a filename
