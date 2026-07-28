@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
+import { THEME_SCRIPT } from "@/lib/theme-script";
 
 const rootDict = getDictionary(defaultLocale);
 
@@ -52,16 +53,10 @@ export default function GlobalNotFound() {
       suppressHydrationWarning
     >
       <body>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try {
-  var t = localStorage.getItem("birsa-theme");
-  if (t === "dark" || t === "light") {
-    document.documentElement.dataset.theme = t;
-  }
-} catch (e) {}`,
-          }}
-        />
+        {/* Same bootstrap as the root layout, from the shared constant so the
+            two cannot drift (and so this page keeps the guard that stops React
+            stripping `data-theme` off <html>). */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
           <p className="text-brand-deep text-sm font-semibold">404</p>
           <h1 className="font-display text-ink mt-2 text-3xl sm:text-4xl">{dict.notFound.title}</h1>

@@ -91,9 +91,11 @@ export default async function RootLayout({
           // Parser-blocking, first child of <body>; runs before paint so
           // there's no flash of the wrong theme. Only touches the DOM when
           // the visitor made an explicit choice; system-preference users
-          // need no JS at all (handled by the CSS media-query scope). Authorised
-          // by CSP hash (THEME_SCRIPT_HASH) on strict routes; edit via
-          // lib/theme-script.ts so the hash guard test stays in sync.
+          // need no JS at all (handled by the CSS media-query scope). It also
+          // stays resident to put `data-theme` back if React strips it off
+          // <html> during a hydration bail-out; see lib/theme-script.ts.
+          // Authorised by CSP hash (THEME_SCRIPT_HASH) on strict routes; edit
+          // via lib/theme-script.ts so the hash guard test stays in sync.
           dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
         <SkipLink label={dict.a11y.skip} />
