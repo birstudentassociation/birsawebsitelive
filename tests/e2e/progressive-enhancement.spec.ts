@@ -116,6 +116,29 @@ test.describe("forms work without JavaScript", () => {
     await expect(page.getByRole("link", { name: "Start again" })).toBeVisible();
   });
 
+  test("smart answers: the audience profile is set by a GET form and tailors the journey", async ({
+    page,
+  }) => {
+    await page.goto("/en/answers");
+    await page.getByRole("link", { name: "Set this" }).click();
+
+    // Three radio groups, all optional, submitted as one native GET form.
+    await page.getByRole("radio", { name: /From abroad/ }).check();
+    await page.getByRole("radio", { name: /Not started yet/ }).check();
+    await page.getByRole("button", { name: "Save and continue" }).click();
+    await page.waitForLoadState("domcontentloaded");
+
+    // The three fields are packed into one `p` token and the reader is sent
+    // back where they came from.
+    expect(page.url()).toContain("p=international.starting");
+    await expect(page.getByText("From abroad")).toBeVisible();
+
+    // The profile rides along into a topic, and the answer carries it back
+    // out again, so nothing is lost by navigating.
+    await page.getByRole("link", { name: "Start here" }).click();
+    expect(page.url()).toContain("p=international.starting");
+  });
+
   test("getting started: steps and task links are usable, checkboxes stay JS-only", async ({
     page,
   }) => {

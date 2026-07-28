@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
+import { matchTopics } from "@/lib/smart-answers";
+import { service as smartAnswers } from "@/content/smart-answers";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
@@ -36,6 +38,7 @@ const copy: Record<
     submit: string;
     resultsFor: (q: string) => string;
     groups: {
+      answers: string;
       news: string;
       activity: string;
       clubs: string;
@@ -47,11 +50,12 @@ const copy: Record<
 > = {
   en: {
     title: "Search",
-    lede: "Search news, BIRSA activity, clubs and the student-life guide.",
+    lede: "Search guided answers, news, BIRSA activity, clubs and the student-life guide.",
     inputLabel: "Search this site",
     submit: "Search",
     resultsFor: (q) => `${q ? `Results for "${q}"` : "Results"}`,
     groups: {
+      answers: "Guided answers",
       news: "News",
       activity: "BIRSA activity",
       clubs: "Clubs",
@@ -62,11 +66,12 @@ const copy: Record<
   },
   th: {
     title: "ค้นหา",
-    lede: "ค้นหาข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษา",
+    lede: "ค้นหาคำตอบแบบนำทาง ข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษา",
     inputLabel: "ค้นหาในเว็บไซต์นี้",
     submit: "ค้นหา",
     resultsFor: (q) => (q ? `ผลการค้นหาสำหรับ "${q}"` : "ผลการค้นหา"),
     groups: {
+      answers: "คำตอบแบบนำทาง",
       news: "ข่าวและกิจกรรม",
       activity: "การดำเนินงานของ BIRSA",
       clubs: "ชมรม",
@@ -114,6 +119,18 @@ export default async function SearchPage({
   const groups: ResultGroup[] = [];
 
   if (hasQuery) {
+    // Guided answers come first: a topic that resolves the question in three
+    // clicks is a better result than an article the reader has to read
+    // through and interpret for themselves.
+    const answerResults: ResultItem[] = matchTopics(smartAnswers, query).map((topic) => ({
+      slug: topic.slug,
+      href: localeHref(locale, `/answers/${topic.slug}`),
+      title: topic.title[locale],
+      summary: topic.lede[locale],
+    }));
+    if (answerResults.length > 0)
+      groups.push({ key: "answers", label: t.groups.answers, items: answerResults });
+
     const newsResults: ResultItem[] = getEntries("news", locale)
       .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
       .map((entry) => ({

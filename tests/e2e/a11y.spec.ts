@@ -40,8 +40,11 @@ const publicPaths = [
   "/information-services/equipment-loan/status", // status lookup form
   "/emergency", // calm emergency-preparedness landing
   "/answers", // smart answers hub
-  "/answers/activity-approval", // smart answer start page
+  "/answers/you", // audience profile form
+  "/answers/activity-approval", // smart answer topic start page
   "/answers/activity-approval/q", // smart answer question page (first step)
+  "/answers/start/q", // the "not sure where to start" triage question
+  "/answers/settle-in/q?p=international.starting", // a step tailored by profile
 ];
 
 const locales = ["en", "th"] as const;

@@ -1,249 +1,473 @@
 import { describe, expect, it } from "vitest";
-import { resolveFlow, validateFlow } from "@/lib/smart-answers";
-import { flows } from "@/content/smart-answers";
-import type { SmartAnswerFlow } from "@/content/smart-answers/types";
+import {
+  evaluate,
+  parseProfile,
+  resolveTopic,
+  serializeProfile,
+  stepQuery,
+  validateService,
+  visibleOptions,
+} from "@/lib/smart-answers";
+import { service } from "@/content/smart-answers";
+import type {
+  SmartAnswerNode,
+  SmartAnswerService,
+  SmartAnswerTopic,
+} from "@/content/smart-answers/types";
+import { audienceQuestions } from "@/content/smart-answers/audience";
 import { documents } from "@/content/activity/regulations";
+import type { Provision, Section } from "@/content/activity/regulations";
 import { locales } from "@/lib/i18n";
 
-const knownDocSlugs = new Set(documents.map((doc) => doc.slug));
+/* -------------------------------------------------------------------------- */
+/* The published service                                                      */
+/* -------------------------------------------------------------------------- */
 
-describe("validateFlow: every published flow is structurally sound", () => {
-  for (const flow of flows) {
-    it(`"${flow.slug}" has no problems`, () => {
-      expect(validateFlow(flow)).toEqual([]);
-    });
-  }
+describe("the published service is structurally sound", () => {
+  it("has no validation problems", () => {
+    expect(validateService(service)).toEqual([]);
+  });
+
+  it("keeps the topic slugs that are linked from elsewhere on the site", () => {
+    const slugs = new Set(service.topics.map((topic) => topic.slug));
+    for (const slug of ["start", "who-to-contact", "activity-approval", "start-a-club-check"]) {
+      expect(slugs).toContain(slug);
+    }
+  });
+
+  it("reaches an outcome from every topic, for every audience combination", () => {
+    // Exhaustive over the audience space, including "not set" on each
+    // dimension, since a condition that hides the last visible option would
+    // strand exactly one kind of reader and nobody else.
+    const optionsFor = (dimension: string) => [
+      undefined,
+      ...(audienceQuestions
+        .find((question) => question.dimension === dimension)
+        ?.choices.map((choice) => choice.value) ?? []),
+    ];
+
+    for (const origin of optionsFor("origin")) {
+      for (const stage of optionsFor("stage")) {
+        for (const role of optionsFor("role")) {
+          const profile = { origin, stage, role };
+          for (const topic of service.topics) {
+            const journey = walkFirstPath(service, topic, profile);
+            expect(
+              journey.node.kind,
+              `${topic.slug} with ${JSON.stringify(profile)} did not reach an outcome`
+            ).toBe("outcome");
+            expect(journey.node.id).not.toBe("__unresolved__");
+          }
+        }
+      }
+    }
+  });
 });
 
-describe("validateFlow: catches a deliberately broken flow", () => {
-  const broken: SmartAnswerFlow = {
-    slug: "broken",
-    title: { en: "Broken", th: "พัง" },
-    lede: { en: "Broken", th: "พัง" },
-    start: "q1",
+/** Always take the first visible option until an outcome is reached. */
+function walkFirstPath(
+  target: SmartAnswerService,
+  topic: SmartAnswerTopic,
+  profile: Record<string, string | undefined>
+) {
+  const answers: string[] = [];
+  let journey = resolveTopic(target, topic, profile, answers);
+  let guard = 0;
+
+  while (journey.node.kind === "question" && guard < 50) {
+    const options = visibleOptions(journey.node, journey.facts);
+    expect(
+      options.length,
+      `question "${journey.node.id}" left the reader no options`
+    ).toBeGreaterThan(0);
+    answers.push(options[0]!.id);
+    journey = resolveTopic(target, topic, profile, answers);
+    guard += 1;
+  }
+
+  return journey;
+}
+
+describe("every outcome links somewhere real", () => {
+  const provisionsByDoc = new Map<string, Set<number>>();
+  for (const doc of documents) {
+    const numbers = new Set<number>();
+    const walk = (sections: Section[]) => {
+      for (const section of sections) {
+        for (const provision of (section.provisions ?? []) as Provision[])
+          numbers.add(provision.num);
+        if (section.children) walk(section.children);
+      }
+    };
+    walk(doc.sections);
+    provisionsByDoc.set(doc.slug, numbers);
+  }
+
+  it("cites only provisions that exist in the document cited", () => {
+    for (const node of service.nodes) {
+      if (node.kind !== "outcome") continue;
+      for (const citation of node.citations ?? []) {
+        const match = /^\/activity\/regulations\/([^#]+)#prov-(\d+)$/.exec(citation.href);
+        expect(
+          match,
+          `outcome "${node.id}" has malformed citation "${citation.href}"`
+        ).not.toBeNull();
+        const [, slug, num] = match!;
+        const provisions = provisionsByDoc.get(slug!);
+        expect(provisions, `outcome "${node.id}" cites unknown document "${slug}"`).toBeDefined();
+        expect(
+          provisions!.has(Number(num)),
+          `outcome "${node.id}" cites ${slug} prov ${num}, which does not exist`
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("uses internal paths that are not locale-prefixed", () => {
+    for (const node of service.nodes) {
+      if (node.kind !== "outcome") continue;
+      const internal = [
+        ...(node.actions ?? []).filter((action) => !action.external).map((a) => a.href),
+        ...(node.citations ?? []).map((c) => c.href),
+        ...(node.related ?? []).map((r) => r.href),
+      ];
+      for (const href of internal) {
+        expect(href.startsWith("/"), `outcome "${node.id}" href "${href}"`).toBe(true);
+        expect(/^\/(en|th)\//.test(href), `outcome "${node.id}" href "${href}"`).toBe(false);
+      }
+    }
+  });
+
+  it("only sends people to a contact category the contact form accepts", () => {
+    const allowed = new Set(["question", "suggestion", "problem", "other"]);
+    for (const node of service.nodes) {
+      if (node.kind !== "outcome" || !node.contactCategory) continue;
+      expect(allowed, `outcome "${node.id}"`).toContain(node.contactCategory);
+    }
+  });
+});
+
+describe("copy is authored in both languages", () => {
+  it("has a non-empty title and lede for every topic, in both locales", () => {
+    for (const topic of service.topics) {
+      for (const locale of locales) {
+        expect(topic.title[locale].trim(), `topic "${topic.slug}" title`).not.toBe("");
+        expect(topic.lede[locale].trim(), `topic "${topic.slug}" lede`).not.toBe("");
+      }
+    }
+  });
+
+  it("uses no em dashes, in either language", () => {
+    // A site-wide writing rule (see docs/EDITING.md); easy to reintroduce by
+    // hand and invisible in review, so it is asserted rather than trusted.
+    const serialized = JSON.stringify(service);
+    expect(serialized.includes("—")).toBe(false);
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/* Conditions                                                                 */
+/* -------------------------------------------------------------------------- */
+
+describe("evaluate", () => {
+  const facts = { origin: "international", stage: "starting" };
+
+  it("matches a single value and a list of values", () => {
+    expect(evaluate({ fact: "origin", is: "international" }, facts)).toBe(true);
+    expect(evaluate({ fact: "origin", is: ["thai", "international"] }, facts)).toBe(true);
+    expect(evaluate({ fact: "origin", is: "thai" }, facts)).toBe(false);
+  });
+
+  it("treats an unknown fact as not matching, never as matching by default", () => {
+    expect(evaluate({ fact: "role", is: "officer" }, facts)).toBe(false);
+    expect(evaluate({ not: { fact: "role", is: "officer" } }, facts)).toBe(true);
+    expect(evaluate({ fact: "role", known: false }, facts)).toBe(true);
+    expect(evaluate({ fact: "role", known: true }, facts)).toBe(false);
+  });
+
+  it("combines with all, any and not", () => {
+    expect(
+      evaluate(
+        {
+          all: [
+            { fact: "origin", is: "international" },
+            { fact: "stage", is: "starting" },
+          ],
+        },
+        facts
+      )
+    ).toBe(true);
+    expect(
+      evaluate(
+        {
+          all: [
+            { fact: "origin", is: "international" },
+            { fact: "stage", is: "finishing" },
+          ],
+        },
+        facts
+      )
+    ).toBe(false);
+    expect(
+      evaluate(
+        {
+          any: [
+            { fact: "stage", is: "finishing" },
+            { fact: "origin", is: "international" },
+          ],
+        },
+        facts
+      )
+    ).toBe(true);
+  });
+
+  it("holds when there is no condition at all", () => {
+    expect(evaluate(undefined, {})).toBe(true);
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/* The profile in the URL                                                     */
+/* -------------------------------------------------------------------------- */
+
+describe("the audience profile round-trips through the URL", () => {
+  it("parses tokens in any order and drops what it does not recognise", () => {
+    expect(parseProfile("starting.international")).toEqual({
+      origin: "international",
+      stage: "starting",
+    });
+    expect(parseProfile("international.nonsense.officer")).toEqual({
+      origin: "international",
+      role: "officer",
+    });
+    expect(parseProfile(undefined)).toEqual({});
+    expect(parseProfile("")).toEqual({});
+  });
+
+  it("serializes to a stable order regardless of how it was built", () => {
+    expect(serializeProfile({ role: "officer", origin: "thai" })).toBe("thai.officer");
+    expect(serializeProfile(parseProfile("officer.thai"))).toBe("thai.officer");
+    expect(serializeProfile({})).toBe("");
+  });
+
+  it("builds a query carrying the profile and the answers in order", () => {
+    expect(stepQuery({ origin: "thai" }, ["a", "b"])).toBe("?p=thai&a=a&a=b");
+    expect(stepQuery({}, [])).toBe("");
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/* Resolution                                                                 */
+/* -------------------------------------------------------------------------- */
+
+const nodes: SmartAnswerNode[] = [
+  {
+    kind: "question",
+    id: "q1",
+    question: { en: "Where from?", th: "มาจากไหน" },
+    skipWhen: [{ when: { fact: "origin", is: "international" }, option: "abroad" }],
+    options: [
+      {
+        id: "abroad",
+        label: { en: "Abroad", th: "ต่างประเทศ" },
+        next: "q2",
+        set: { origin: "international" },
+      },
+      { id: "here", label: { en: "Thailand", th: "ไทย" }, next: "out-general" },
+    ],
+  },
+  {
+    kind: "question",
+    id: "q2",
+    question: { en: "Which?", th: "แบบไหน" },
+    options: [
+      { id: "visa", label: { en: "Visa", th: "วีซ่า" }, next: "out-visa" },
+      { id: "bank", label: { en: "Bank", th: "ธนาคาร" }, next: "out-general" },
+      {
+        id: "officer-only",
+        label: { en: "Committee duty", th: "หน้าที่กรรมการ" },
+        next: "out-general",
+        when: { fact: "role", is: "officer" },
+      },
+    ],
+  },
+  {
+    kind: "outcome",
+    id: "out-visa",
+    title: { en: "Visa", th: "วีซ่า" },
+    summary: { en: "Visa answer", th: "คำตอบเรื่องวีซ่า" },
+    actions: [{ label: { en: "Guide", th: "คู่มือ" }, href: "/student-life" }],
+  },
+  {
+    kind: "outcome",
+    id: "out-general",
+    title: { en: "General", th: "ทั่วไป" },
+    summary: { en: "General answer", th: "คำตอบทั่วไป" },
+    actions: [{ label: { en: "Contact", th: "ติดต่อ" }, href: "/contact" }],
+  },
+];
+
+const topic: SmartAnswerTopic = {
+  slug: "fixture",
+  title: { en: "Fixture", th: "ตัวอย่าง" },
+  lede: { en: "Fixture", th: "ตัวอย่าง" },
+  group: "help",
+  start: "q1",
+  keywords: ["fixture"],
+};
+
+const fixture: SmartAnswerService = { topics: [topic], nodes };
+
+describe("resolveTopic", () => {
+  it("with no answers, asks the first question and records nothing", () => {
+    const journey = resolveTopic(fixture, topic, {}, []);
+    expect(journey.node.id).toBe("q1");
+    expect(journey.trail).toEqual([]);
+    expect(journey.answerIds).toEqual([]);
+  });
+
+  it("walks the answers it is given to an outcome", () => {
+    const journey = resolveTopic(fixture, topic, {}, ["abroad", "visa"]);
+    expect(journey.node.id).toBe("out-visa");
+    expect(journey.trail.map((step) => step.option.id)).toEqual(["abroad", "visa"]);
+    expect(journey.facts.origin).toBe("international");
+  });
+
+  it("records facts set by an option, for later conditions to read", () => {
+    const journey = resolveTopic(fixture, topic, {}, ["abroad"]);
+    expect(journey.facts).toEqual({ origin: "international" });
+  });
+
+  it("stops at the first answer that does not match, and ignores the rest", () => {
+    const journey = resolveTopic(fixture, topic, {}, ["nonsense", "visa"]);
+    expect(journey.node.id).toBe("q1");
+    expect(journey.answerIds).toEqual([]);
+  });
+
+  it("ignores extra answers supplied after an outcome is reached", () => {
+    const journey = resolveTopic(fixture, topic, {}, ["here", "visa", "junk"]);
+    expect(journey.node.id).toBe("out-general");
+    expect(journey.answerIds).toEqual(["here"]);
+  });
+});
+
+describe("resolveTopic takes the audience into account", () => {
+  it("answers a question it already knows the answer to, and says it did", () => {
+    const journey = resolveTopic(fixture, topic, { origin: "international" }, []);
+    expect(journey.node.id).toBe("q2");
+    expect(journey.trail).toHaveLength(1);
+    expect(journey.trail[0]!.auto).toBe(true);
+    expect(journey.trail[0]!.option.id).toBe("abroad");
+    expect(journey.trail[0]!.answerIndex).toBeNull();
+  });
+
+  it("keeps an automatic step out of the URL, so changing the profile reroutes", () => {
+    const journey = resolveTopic(fixture, topic, { origin: "international" }, ["visa"]);
+    expect(journey.node.id).toBe("out-visa");
+    // Only the hand-given answer is carried forward.
+    expect(journey.answerIds).toEqual(["visa"]);
+
+    const rerouted = resolveTopic(fixture, topic, { origin: "thai" }, journey.answerIds);
+    expect(rerouted.node.id).toBe("q1");
+  });
+
+  it("hides an option the reader is not eligible for", () => {
+    const asStudent = resolveTopic(fixture, topic, { origin: "international" }, []);
+    expect(visibleOptions(asStudent.node as never, asStudent.facts).map((o) => o.id)).toEqual([
+      "visa",
+      "bank",
+    ]);
+
+    const asOfficer = resolveTopic(
+      fixture,
+      topic,
+      { origin: "international", role: "officer" },
+      []
+    );
+    expect(visibleOptions(asOfficer.node as never, asOfficer.facts).map((o) => o.id)).toEqual([
+      "visa",
+      "bank",
+      "officer-only",
+    ]);
+  });
+
+  it("refuses an answer naming an option this reader cannot see", () => {
+    const journey = resolveTopic(fixture, topic, { origin: "international" }, ["officer-only"]);
+    expect(journey.node.id).toBe("q2");
+    expect(journey.answerIds).toEqual([]);
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+/* Validation                                                                 */
+/* -------------------------------------------------------------------------- */
+
+describe("validateService catches a deliberately broken service", () => {
+  const broken: SmartAnswerService = {
+    topics: [
+      { ...topic, slug: "broken", start: "q1" },
+      { ...topic, slug: "broken", start: "does-not-exist", keywords: [] },
+    ],
     nodes: [
       {
         kind: "question",
         id: "q1",
         question: { en: "Q1?", th: "คำถาม 1" },
+        skipWhen: [{ when: { fact: "origin", is: "martian" }, option: "nope" }],
         options: [
-          { id: "a", label: { en: "A", th: "เอ" }, next: "q1" }, // duplicate node id "q1" reused below
-          { id: "b", label: { en: "B", th: "บี" }, next: "does-not-exist" }, // dangling next
+          { id: "a", label: { en: "A", th: "" }, next: "missing-node" },
+          {
+            id: "a",
+            label: { en: "B", th: "บี" },
+            next: "out-1",
+            when: { fact: "role", is: "officer" },
+          },
         ],
-      },
-      // Duplicate node id "q1" (should have been unique).
-      {
-        kind: "question",
-        id: "q1",
-        question: { en: "Q1 again?", th: "คำถาม 1 อีกครั้ง" },
-        options: [{ id: "a", label: { en: "A", th: "เอ" }, next: "out-1" }],
       },
       {
         kind: "outcome",
         id: "out-1",
         title: { en: "Out", th: "ผลลัพธ์" },
         summary: { en: "Out", th: "ผลลัพธ์" },
+        actions: [{ label: { en: "Bad", th: "แย่" }, href: "/en/contact" }],
       },
-      // Unreachable from start.
       {
         kind: "outcome",
         id: "out-orphan",
-        title: { en: "Orphan", th: "ไม่มีใครไปถึง" },
-        summary: { en: "Orphan", th: "ไม่มีใครไปถึง" },
+        title: { en: "Orphan", th: "กำพร้า" },
+        summary: { en: "Orphan", th: "กำพร้า" },
       },
     ],
   };
 
-  it("reports the dangling next, the duplicate id, and the unreachable node", () => {
-    const problems = validateFlow(broken);
-    expect(problems.length).toBeGreaterThan(0);
-    expect(problems.some((p) => p.includes('duplicate node id "q1"'))).toBe(true);
-    expect(problems.some((p) => p.includes("does-not-exist"))).toBe(true);
-    expect(problems.some((p) => p.includes('"out-orphan"') && p.includes("unreachable"))).toBe(
-      true
-    );
+  const problems = validateService(broken);
+
+  it("reports the dangling next", () => {
+    expect(problems.some((p) => p.includes('points to missing node "missing-node"'))).toBe(true);
   });
 
-  it("also flags a question with fewer than 2 options and a real cycle", () => {
-    const cyclic: SmartAnswerFlow = {
-      slug: "cyclic",
-      title: { en: "Cyclic", th: "วนซ้ำ" },
-      lede: { en: "Cyclic", th: "วนซ้ำ" },
-      start: "q1",
-      nodes: [
-        {
-          kind: "question",
-          id: "q1",
-          question: { en: "Q1?", th: "คำถาม 1" },
-          options: [{ id: "only", label: { en: "Only", th: "ตัวเดียว" }, next: "q2" }],
-        },
-        {
-          kind: "question",
-          id: "q2",
-          question: { en: "Q2?", th: "คำถาม 2" },
-          options: [{ id: "back", label: { en: "Back", th: "กลับ" }, next: "q1" }],
-        },
-      ],
-    };
-    const problems = validateFlow(cyclic);
-    expect(problems.some((p) => p.includes("fewer than 2 options"))).toBe(true);
-    expect(problems.some((p) => p.includes("cycle"))).toBe(true);
-    expect(problems.some((p) => p.includes("no reachable outcome"))).toBe(true);
-  });
-});
-
-describe("resolveFlow", () => {
-  const flow = flows[0]!;
-
-  it("with no answers, resolves to the first question with an empty trail", () => {
-    const { node, trail } = resolveFlow(flow, []);
-    expect(node.id).toBe(flow.start);
-    expect(node.kind).toBe("question");
-    expect(trail).toEqual([]);
+  it("reports the duplicate option id and the duplicate topic slug", () => {
+    expect(problems.some((p) => p.includes('duplicate option id "a"'))).toBe(true);
+    expect(problems.some((p) => p.includes('duplicate topic slug "broken"'))).toBe(true);
   });
 
-  it("a full valid path reaches an outcome with the full trail recorded", () => {
-    // Walk the flow greedily, always taking the first option, until an
-    // outcome is reached, recording the answers taken along the way.
-    const answers: string[] = [];
-    let node = flow.nodes.find((n) => n.id === flow.start)!;
-    let guard = 0;
-    while (node.kind === "question" && guard < 20) {
-      const option = node.options[0]!;
-      answers.push(option.id);
-      node = flow.nodes.find((n) => n.id === option.next)!;
-      guard++;
-    }
-    expect(node.kind).toBe("outcome");
-
-    const resolved = resolveFlow(flow, answers);
-    expect(resolved.node.kind).toBe("outcome");
-    expect(resolved.node.id).toBe(node.id);
-    expect(resolved.trail.length).toBe(answers.length);
-    expect(resolved.trail.map((step) => step.option.id)).toEqual(answers);
+  it("reports the missing start node and the topic with no keywords", () => {
+    expect(problems.some((p) => p.includes('starts at missing node "does-not-exist"'))).toBe(true);
+    expect(problems.some((p) => p.includes("has no keywords"))).toBe(true);
   });
 
-  it("stops at the first invalid answer, trail is the valid prefix", () => {
-    const start = flow.nodes.find((n) => n.id === flow.start);
-    if (start?.kind !== "question") throw new Error("expected a question start node");
-    const validFirst = start.options[0]!.id;
-
-    const { node, trail } = resolveFlow(flow, [validFirst, "not-a-real-option-id", "more-junk"]);
-    expect(trail).toHaveLength(1);
-    expect(trail[0]!.option.id).toBe(validFirst);
-    // The current node should be whatever the valid first answer led to,
-    // not something derived from the bogus answers.
-    const expectedNode = flow.nodes.find((n) => n.id === start.options[0]!.next)!;
-    expect(node.id).toBe(expectedNode.id);
+  it("reports the unreachable node and the dead-end outcome", () => {
+    expect(problems.some((p) => p.includes('node "out-orphan" is unreachable'))).toBe(true);
+    expect(problems.some((p) => p.includes('outcome "out-orphan" is a dead end'))).toBe(true);
   });
 
-  it("ignores extra answers supplied after an outcome is already reached", () => {
-    const answers: string[] = [];
-    let node = flow.nodes.find((n) => n.id === flow.start)!;
-    let guard = 0;
-    while (node.kind === "question" && guard < 20) {
-      const option = node.options[0]!;
-      answers.push(option.id);
-      node = flow.nodes.find((n) => n.id === option.next)!;
-      guard++;
-    }
-    expect(node.kind).toBe("outcome");
-
-    const withTrailingJunk = [...answers, "junk-after-outcome"];
-    const resolved = resolveFlow(flow, withTrailingJunk);
-    expect(resolved.node.id).toBe(node.id);
-    expect(resolved.trail.length).toBe(answers.length);
+  it("reports the condition typo and the skip to a non-existent option", () => {
+    expect(problems.some((p) => p.includes('unreachable value "martian"'))).toBe(true);
+    expect(problems.some((p) => p.includes('skips to option "nope"'))).toBe(true);
   });
-});
 
-describe("every flow: bilingual copy and link shapes", () => {
-  function expectNonEmptyBi(value: { en: string; th: string }, context: string) {
-    expect(value.en.trim().length, `${context} missing en`).toBeGreaterThan(0);
-    expect(value.th.trim().length, `${context} missing th`).toBeGreaterThan(0);
-  }
-
-  for (const flow of flows) {
-    describe(`"${flow.slug}"`, () => {
-      it("has non-empty title and lede in both languages", () => {
-        expectNonEmptyBi(flow.title, `${flow.slug} title`);
-        expectNonEmptyBi(flow.lede, `${flow.slug} lede`);
-      });
-
-      it("has non-empty whatYoullNeed entries, if present", () => {
-        for (const [index, item] of (flow.whatYoullNeed ?? []).entries()) {
-          expectNonEmptyBi(item, `${flow.slug} whatYoullNeed[${index}]`);
-        }
-      });
-
-      it("every question and option has non-empty en/th text", () => {
-        for (const node of flow.nodes) {
-          if (node.kind !== "question") continue;
-          expectNonEmptyBi(node.question, `${flow.slug}/${node.id} question`);
-          if (node.hint) expectNonEmptyBi(node.hint, `${flow.slug}/${node.id} hint`);
-          for (const option of node.options) {
-            expectNonEmptyBi(option.label, `${flow.slug}/${node.id}/${option.id} label`);
-            if (option.hint) {
-              expectNonEmptyBi(option.hint, `${flow.slug}/${node.id}/${option.id} hint`);
-            }
-          }
-        }
-      });
-
-      it("every outcome has non-empty en/th title, summary, and body paragraphs", () => {
-        for (const node of flow.nodes) {
-          if (node.kind !== "outcome") continue;
-          expectNonEmptyBi(node.title, `${flow.slug}/${node.id} title`);
-          expectNonEmptyBi(node.summary, `${flow.slug}/${node.id} summary`);
-          for (const [index, paragraph] of (node.body ?? []).entries()) {
-            expectNonEmptyBi(paragraph, `${flow.slug}/${node.id} body[${index}]`);
-          }
-        }
-      });
-
-      it("every action has non-empty en/th label, and internal hrefs start with /", () => {
-        for (const node of flow.nodes) {
-          if (node.kind !== "outcome") continue;
-          for (const action of node.actions ?? []) {
-            expectNonEmptyBi(action.label, `${flow.slug}/${node.id} action label`);
-            if (!action.external) {
-              expect(
-                action.href.startsWith("/"),
-                `${flow.slug}/${node.id} internal action href "${action.href}" should start with "/"`
-              ).toBe(true);
-            }
-          }
-        }
-      });
-
-      it("every citation has non-empty en/th label and points at a known regulations doc", () => {
-        for (const node of flow.nodes) {
-          if (node.kind !== "outcome") continue;
-          for (const citation of node.citations ?? []) {
-            expectNonEmptyBi(citation.label, `${flow.slug}/${node.id} citation label`);
-            expect(
-              citation.href.startsWith("/"),
-              `${flow.slug}/${node.id} citation href "${citation.href}" should start with "/"`
-            ).toBe(true);
-
-            const match = citation.href.match(/^\/activity\/regulations\/([^/#]+)(#prov-\d+)?$/);
-            expect(
-              match,
-              `${flow.slug}/${node.id} citation href "${citation.href}" should look like /activity/regulations/<slug>[#prov-N]`
-            ).not.toBeNull();
-            expect(
-              knownDocSlugs.has(match![1]!),
-              `${flow.slug}/${node.id} citation href "${citation.href}" references an unknown regulations doc slug "${match?.[1]}"`
-            ).toBe(true);
-          }
-        }
-      });
-    });
-  }
-});
-
-describe("locales", () => {
-  it("th is the default/primary locale and en is also configured", () => {
-    expect(locales).toContain("th");
-    expect(locales).toContain("en");
+  it("reports the missing Thai and the locale-prefixed link", () => {
+    expect(problems.some((p) => p.includes("is missing Thai"))).toBe(true);
+    expect(problems.some((p) => p.includes("hard-coded locale prefix"))).toBe(true);
   });
 });

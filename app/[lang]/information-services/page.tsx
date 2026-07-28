@@ -31,6 +31,7 @@ const copy: Record<
   {
     title: string;
     lede: string;
+    getAnswer: { eyebrow: string; title: string; description: string; cta: string };
     equipmentLoan: { eyebrow: string; title: string; description: string; cta: string };
     directoryLinkLine: string;
     directoryLinkCta: string;
@@ -64,6 +65,13 @@ const copy: Record<
   en: {
     title: "Information and services",
     lede: "Borrow equipment, read course reviews and student-life guides written by students, or get logistics guidance if you're new to Bangkok.",
+    getAnswer: {
+      eyebrow: "Service",
+      title: "Get an answer",
+      description:
+        "Answer a few questions and get the part of the rules, the handbook or the service that applies to you, with the provision it comes from.",
+      cta: "Get an answer",
+    },
     equipmentLoan: {
       eyebrow: "Service",
       title: "Equipment Loan Service",
@@ -123,6 +131,13 @@ const copy: Record<
   th: {
     title: "ข้อมูลและบริการ",
     lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ สำหรับนักศึกษาต่างชาติ",
+    getAnswer: {
+      eyebrow: "บริการ",
+      title: "ค้นหาคำตอบ",
+      description:
+        "ตอบคำถามไม่กี่ข้อ แล้วดูว่ากฎระเบียบ คู่มือนักศึกษา หรือบริการส่วนไหนที่ใช้กับกรณีของคุณ พร้อมข้ออ้างอิงที่มา",
+      cta: "ค้นหาคำตอบ",
+    },
     equipmentLoan: {
       eyebrow: "บริการ",
       title: "บริการยืมอุปกรณ์",
@@ -198,6 +213,7 @@ export default async function InformationServicesPage({
     locale,
     "/information-services/equipment-loan/directory"
   );
+  const answersHref = localeHref(locale, "/answers");
   const universityServicesHref = localeHref(locale, "/information-services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
   const studentLifeHref = localeHref(locale, "/student-life");
@@ -225,6 +241,17 @@ export default async function InformationServicesPage({
       <div className="wrap flex flex-col gap-12 py-10">
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
+          <Card href={answersHref}>
+            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+              {t.getAnswer.eyebrow}
+            </span>
+            <CardTitle href={answersHref} as="h3">
+              {t.getAnswer.title}
+            </CardTitle>
+            <p className="text-muted text-sm leading-relaxed">{t.getAnswer.description}</p>
+            <span className="text-brand-deep text-sm font-semibold">{t.getAnswer.cta} &rarr;</span>
+          </Card>
+
           <Card href={equipmentHref}>
             <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
               {t.equipmentLoan.eyebrow}

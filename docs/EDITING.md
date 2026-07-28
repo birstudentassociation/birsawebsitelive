@@ -151,6 +151,45 @@ internal path like `/activity/roles`, or a full external URL with `external: tru
 optional `hint`. Set `placeholder: true` on an item if the destination isn't real yet (e.g. a
 social channel that doesn't exist).
 
+## Guided answers (`content/smart-answers/`)
+
+`/answers` is one graph with many doors, not a set of separate quizzes. Topic files under
+`content/smart-answers/topics/` each export `{ topics, nodes }`, and
+`content/smart-answers/index.ts` concatenates them into a single service, so a question in one
+file can send someone to an outcome in another.
+
+To add or change an answer:
+
+- **Nodes** are either a `question` (an id, a bilingual question, and at least two options) or
+  an `outcome` (a title, a summary, and at least one action, related page, or citation). Give
+  every id a prefix matching its area (`q-money-…`, `out-money-…`) so files cannot collide.
+- **Citations** are `/activity/regulations/<doc-slug>#prov-<N>`. The provision number must
+  really exist: a unit test checks every citation against the regulation documents and fails
+  the build if one does not.
+- **Never invent a procedure.** If the regulations and guides do not cover the case, point the
+  option at `out-not-covered`, which tells the reader plainly that there is no rule on file and
+  sends them to a human. This is a rule, not a fallback of last resort.
+- **`owner`** says who actually decides, whenever it is not BIRSA. Use it. BIRSA is a student
+  association, and an answer that quietly implies otherwise sends people to the wrong desk.
+
+### Writing for a specific reader
+
+Three facts are known about the reader when they have filled in `/answers/you`: `origin`
+(`thai` or `international`), `stage` (`starting`, `studying` or `finishing`) and `role`
+(`student` or `officer`). Any of them can be unset, and an answer must still make sense when
+they all are.
+
+- Put audience-specific text in a `body` block with a `when`, rather than writing two outcomes.
+- Use `skipWhen` to stop asking a question the profile already answers. A question the reader
+  never saw is shown on the answer as an assumption they can correct, so this is honest as well
+  as shorter.
+- Add a condition only where the answer genuinely differs. A condition that produces the same
+  advice in both branches is noise that someone later has to maintain.
+
+`npm run test` validates the whole graph: dangling links, unreachable nodes, cycles, questions
+that could leave a reader with nothing to choose, conditions referring to facts nothing sets,
+missing Thai or English, and em dashes.
+
 ## BIRSA activity and student-life guides
 
 BIRSA activity (`content/activity/{en,th}/<slug>.mdx`) and student-life guide entries

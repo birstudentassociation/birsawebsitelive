@@ -9,7 +9,7 @@ import { locales, type Locale } from "@/lib/i18n";
 import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { documents } from "@/content/activity/regulations";
 import { courses } from "@/content/course-review/courses";
-import { flows } from "@/content/smart-answers";
+import { service as smartAnswers } from "@/content/smart-answers";
 import { onboardingAudiences } from "@/content/onboarding";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -62,10 +62,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push({ url: url(locale, `/activity/regulations/${doc.slug}`) });
     }
 
-    // Smart Answers: only the start pages are indexed; the stateful /q step
-    // pages carry robots noindex and are deliberately absent here.
-    for (const flow of flows) {
-      entries.push({ url: url(locale, `/answers/${flow.slug}`) });
+    // Smart Answers: only the topic start pages are indexed. The stateful /q
+    // step pages and the audience profile page carry robots noindex and are
+    // deliberately absent here.
+    for (const topic of smartAnswers.topics) {
+      entries.push({ url: url(locale, `/answers/${topic.slug}`) });
     }
 
     for (const audience of onboardingAudiences) {

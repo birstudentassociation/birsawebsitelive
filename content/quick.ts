@@ -129,8 +129,8 @@ export const quickGroups: QuickGroup[] = [
         key: "get-an-answer",
         href: "/answers",
         icon: "help",
-        en: { label: "Get an answer", hint: "Guided checks on rules and services" },
-        th: { label: "ค้นหาคำตอบ", hint: "แบบตอบคำถามสั้น ๆ เรื่องกฎระเบียบและบริการ" },
+        en: { label: "Get an answer", hint: "Guided answers on rules, study and student life" },
+        th: { label: "ค้นหาคำตอบ", hint: "คำตอบแบบนำทาง เรื่องกฎระเบียบ การเรียน และชีวิตนักศึกษา" },
       },
       {
         key: "give-feedback",

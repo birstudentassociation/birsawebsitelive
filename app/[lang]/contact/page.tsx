@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -32,6 +33,9 @@ const copy: Record<
   {
     title: string;
     lede: string;
+    answersTitle: string;
+    answersBody: string;
+    answersCta: string;
     otherWaysTitle: string;
     otherWaysBody: string;
     emailLabel: string;
@@ -40,6 +44,10 @@ const copy: Record<
   en: {
     title: "Contact BIRSA",
     lede: "Send us a message with the form below, or reach out directly.",
+    answersTitle: "Answer it yourself, faster",
+    answersBody:
+      "Rules, deadlines and services are covered by the guided answers, with the provision each answer comes from.",
+    answersCta: "Get an answer",
     otherWaysTitle: "Other ways to reach us",
     otherWaysBody: "Email or message us on social media directly.",
     emailLabel: "Email",
@@ -47,6 +55,10 @@ const copy: Record<
   th: {
     title: "ติดต่อ BIRSA",
     lede: "ส่งข้อความถึงเราผ่านแบบฟอร์มด้านล่าง หรือติดต่อโดยตรงตามที่สะดวก",
+    answersTitle: "หาคำตอบเองได้เร็วกว่า",
+    answersBody:
+      "เรื่องกฎระเบียบ กำหนดเวลา และบริการ มีคำตอบแบบนำทางให้แล้ว พร้อมข้ออ้างอิงที่มาของแต่ละคำตอบ",
+    answersCta: "ค้นหาคำตอบ",
     otherWaysTitle: "ช่องทางติดต่ออื่น ๆ",
     otherWaysBody: "อีเมลหรือติดต่อเราทางโซเชียลมีเดียได้โดยตรง",
     emailLabel: "อีเมล",
@@ -105,6 +117,20 @@ export default async function ContactPage({
         />
 
         <aside className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-6 lg:self-start">
+          {/* Answering the question without a round trip is faster for the
+              student and cheaper for the committee, so the guided route is
+              offered before the form's other channels, not after them. */}
+          <div className="border-line flex flex-col gap-2 border-b pb-4">
+            <h2 className="font-display text-xl">{t.answersTitle}</h2>
+            <p className="text-muted text-sm">{t.answersBody}</p>
+            <Link
+              href={localeHref(locale, "/answers")}
+              className="text-brand-deep text-sm font-semibold hover:underline"
+            >
+              {t.answersCta} &rarr;
+            </Link>
+          </div>
+
           <h2 className="font-display text-xl">{t.otherWaysTitle}</h2>
           <p className="text-muted text-sm">{t.otherWaysBody}</p>
           <dl className="flex flex-col gap-3 text-sm">

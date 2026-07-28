@@ -1,21 +1,43 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Button from "@/components/Button";
 import Card, { CardTitle } from "@/components/Card";
-import { flows, uiCopy } from "@/content/smart-answers";
+import ProfileSummary from "@/components/answers/ProfileSummary";
+import {
+  matchTopics,
+  orderTopics,
+  parseProfile,
+  profileToFacts,
+  serializeProfile,
+} from "@/lib/smart-answers";
+import { service, topicGroupList, TRIAGE_SLUG, uiCopy } from "@/content/smart-answers";
+import type { SmartAnswerTopic } from "@/content/smart-answers/types";
 
 /**
- * Smart Answers index: a short list of guided, question-driven checks (GOV.UK
- * "smart answers" pattern) built from the site's own regulations and service
- * content. Every step is a plain GET-form URL; nothing here needs JavaScript.
+ * The single front door to Smart Answers. Three ways in, because people
+ * arrive knowing different amounts about what they need:
+ *
+ *  - type what you need, and get matching topics;
+ *  - browse the topics, grouped by area;
+ *  - answer "what do you need?" and be routed, for people who cannot name
+ *    the area their problem belongs to, which is most people with an
+ *    unfamiliar problem.
+ *
+ * This page reads `searchParams` (the query box and the audience profile) so
+ * it renders per request, like `/search` and `/news`. Every state is still a
+ * plain, bookmarkable, no-JS GET URL.
  */
 
 export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
+
+type PageSearchParams = { q?: string | string[]; p?: string | string[] };
 
 export async function generateMetadata({
   params,
@@ -30,12 +52,49 @@ export async function generateMetadata({
   return buildMetadata({ locale, title: t.hub, description: t.hubLede, path: "/answers" });
 }
 
-export default async function AnswersIndexPage({ params }: { params: Promise<{ lang: string }> }) {
+function firstValue(value: string | string[] | undefined): string {
+  if (value === undefined) return "";
+  return Array.isArray(value) ? (value[0] ?? "") : value;
+}
+
+export default async function AnswersHubPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<PageSearchParams>;
+}) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = uiCopy[locale];
+
+  const { q, p } = await searchParams;
+  const query = firstValue(q).trim();
+  const profile = parseProfile(p);
+  const facts = profileToFacts(profile);
+  const profileToken = serializeProfile(profile);
+  const carry = profileToken ? `?p=${profileToken}` : "";
+
+  const matches = query ? matchTopics(service, query) : [];
+  const hubHref = localeHref(locale, "/answers");
+  const returnTo = `/answers${carry}`;
+
+  const topicHref = (topic: SmartAnswerTopic) =>
+    localeHref(locale, `/answers/${topic.slug}${carry}`);
+
+  const renderTopic = (topic: SmartAnswerTopic) => {
+    const href = topicHref(topic);
+    return (
+      <Card key={topic.slug} href={href}>
+        <CardTitle href={href} as="h3">
+          {topic.title[locale]}
+        </CardTitle>
+        <p className="text-muted text-sm leading-relaxed">{topic.lede[locale]}</p>
+      </Card>
+    );
+  };
 
   return (
     <>
@@ -50,20 +109,89 @@ export default async function AnswersIndexPage({ params }: { params: Promise<{ l
           />
         }
       />
-      <div className="wrap py-10">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          {flows.map((flow) => {
-            const href = localeHref(locale, `/answers/${flow.slug}`);
-            return (
-              <Card key={flow.slug} href={href}>
-                <CardTitle href={href} as="h2">
-                  {flow.title[locale]}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{flow.lede[locale]}</p>
-              </Card>
-            );
-          })}
-        </div>
+
+      <div className="wrap flex flex-col gap-10 py-10">
+        {/* Way in 1: say what you need. */}
+        <form method="GET" action={hubHref} className="flex max-w-[var(--measure)] flex-col gap-3">
+          {profileToken ? <input type="hidden" name="p" value={profileToken} /> : null}
+          <label htmlFor="answers-q" className="font-display text-ink text-xl">
+            {t.searchLabel}
+          </label>
+          <p id="answers-q-hint" className="text-muted text-sm">
+            {t.searchHint}
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <input
+              id="answers-q"
+              name="q"
+              type="search"
+              defaultValue={query}
+              aria-describedby="answers-q-hint"
+              className="focus-halo border-input-border bg-surface text-ink h-11 flex-1 rounded-lg border px-4"
+            />
+            <Button type="submit">{t.searchButton}</Button>
+          </div>
+        </form>
+
+        {query ? (
+          <section className="flex flex-col gap-4" aria-labelledby="answers-results">
+            <h2 id="answers-results" className="font-display text-2xl">
+              {matches.length > 0 ? t.searchResults : t.searchNoResults}
+            </h2>
+            {matches.length > 0 ? (
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {matches.map(renderTopic)}
+              </div>
+            ) : null}
+            <div>
+              <Link href={hubHref} className="text-brand-deep font-medium hover:underline">
+                {t.searchClear}
+              </Link>
+            </div>
+          </section>
+        ) : null}
+
+        {/* Way in 2: be routed by a question. */}
+        <section className="border-brand bg-brand-tint flex flex-col gap-4 rounded-lg border-l-4 p-6">
+          <h2 className="font-display text-2xl">{t.triageHeading}</h2>
+          <p className="text-ink max-w-[var(--measure)] leading-relaxed">{t.triageLede}</p>
+          <div>
+            <Button href={localeHref(locale, `/answers/${TRIAGE_SLUG}/q${carry}`)}>
+              {t.triageStart}
+            </Button>
+          </div>
+        </section>
+
+        <ProfileSummary locale={locale} profile={profile} returnTo={returnTo} />
+
+        {/* Way in 3: browse by area. */}
+        {topicGroupList.map((group) => {
+          const groupTopics = orderTopics(
+            service.topics.filter((topic) => topic.group === group.id && !topic.hideFromHub),
+            facts
+          );
+          if (groupTopics.length === 0) return null;
+
+          return (
+            <section
+              key={group.id}
+              className="flex flex-col gap-4"
+              aria-labelledby={`group-${group.id}`}
+            >
+              <div>
+                <h2 id={`group-${group.id}`} className="font-display text-2xl">
+                  {group.title[locale]}
+                </h2>
+                <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
+                  {group.description[locale]}
+                </p>
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {groupTopics.map(renderTopic)}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </>
   );
