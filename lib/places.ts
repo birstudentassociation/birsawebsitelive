@@ -1252,8 +1252,7 @@ const MAX_ASPECT = 2;
 /**
  * The visible frame for `places` at `zoom`, plus the integer tile range
  * covering it. `paddingTiles` keeps edge markers off the border: a marker is
- * 28px against 256px tiles, so the default leaves room for one plus its
- * focus ring.
+ * 28px against 256px tiles, so the default leaves room for one.
  */
 export function computeMapView(places: Place[], zoom: number, paddingTiles = 0.1): MapView {
   if (places.length === 0) {
@@ -1337,6 +1336,202 @@ export function markerPosition(place: Place, view: MapView): { leftPct: number; 
   const leftPct = ((x - view.minX) / view.cols) * 100;
   const topPct = ((y - view.minY) / view.rows) * 100;
   return { leftPct, topPct };
+}
+
+// ---------------------------------------------------------------------------
+// Marker collision layout. Markers sit at percentage positions derived from
+// real coordinates, and several old-town restaurants are genuinely next
+// door to each other, so their 28px numbered markers end up overlapping and
+// unclickable (WCAG 2.2 SC 2.5.8). The fix is a callout layout: a marker
+// that would collide gets fanned out from its true location, and the caller
+// draws a leader line back to the anchor. This module only computes the
+// geometry; see `components/places/PlacesMap.tsx` for the rendering.
+// ---------------------------------------------------------------------------
+
+/** Narrowest width, in CSS px, that a places map is ever laid out for. */
+export const MIN_MAP_WIDTH = 672;
+
+export type MarkerLayout = {
+  place: Place;
+  /** The place's true location, as a percentage of the map frame. */
+  anchor: { leftPct: number; topPct: number };
+  /** Where the numbered marker is drawn, as a percentage of the map frame. */
+  marker: { leftPct: number; topPct: number };
+  /** True when the marker had to be moved off its anchor to clear a neighbour. */
+  displaced: boolean;
+};
+
+export type LayoutMarkersOptions = {
+  /** Width, in CSS px, the layout is solved for. Defaults to MIN_MAP_WIDTH. */
+  mapWidth?: number;
+  /** Marker diameter in CSS px. Defaults to 28. */
+  markerSize?: number;
+  /** Extra clearance between marker edges in CSS px. Defaults to 2. */
+  gap?: number;
+  /**
+   * Space, in CSS px, reserved beyond the marker's own edge for its focus
+   * ring: `.focus-halo:focus-visible` (see app/globals.css) draws a 3px
+   * outline at a 2px offset, so a focused marker needs 5px of clearance
+   * past its own radius or the ring clips against the map frame's
+   * `overflow-x-auto` container, which computes `overflow-y` to `auto` too
+   * (WCAG 2.2 SC 2.4.11). Defaults to 5.
+   */
+  focusRing?: number;
+};
+
+/**
+ * How many rings of candidate positions to try before giving up on a
+ * marker. Twelve rings is already a fan wider than any map on this site, so
+ * hitting the cap means the cluster is too dense to resolve, not that the
+ * search needs to go further.
+ */
+const MAX_RING_SEARCH = 12;
+
+/** Whether (x, y) is at least `minSeparation` from every already-placed point on some axis. */
+function clearsAll(
+  x: number,
+  y: number,
+  placed: { x: number; y: number }[],
+  minSeparation: number
+): boolean {
+  for (const p of placed) {
+    if (Math.abs(x - p.x) < minSeparation && Math.abs(y - p.y) < minSeparation) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Ring-relative angle offsets, in units of the ring's angle step, ordered
+ * so the candidate closest to the outward direction comes first and ties
+ * break clockwise before anticlockwise: 0, +1, -1, +2, -2, ... This is what
+ * makes a fan bloom symmetrically away from the direction pointing out of
+ * the cluster, and makes the search order (so its output) deterministic.
+ */
+function ringOffsets(count: number): number[] {
+  const offsets: number[] = [0];
+  for (let k = 1; offsets.length < count; k++) {
+    offsets.push(k);
+    if (offsets.length < count) offsets.push(-k);
+  }
+  return offsets;
+}
+
+/** Nudges `v` into `[lo, hi]`, leaving it unchanged when it already fits. */
+function clampInto(v: number, lo: number, hi: number): number {
+  return Math.min(Math.max(v, lo), hi);
+}
+
+/**
+ * Resolves marker positions so no two overlap, by fanning colliding markers
+ * out from their true location along rings centred on that location. Solved
+ * in pixel space at `mapWidth` (the narrowest a map is ever rendered at)
+ * because a layout that clears at that width also clears wider, since
+ * markers keep a fixed pixel size while the percentage grid they sit on
+ * only grows.
+ *
+ * Every marker, not just the ones displaced for a collision, is also kept
+ * `focusRing` px clear of the frame edge: `computeMapView`'s padding is
+ * sized in tiles, not px, so at the reference width it can still leave an
+ * edge anchor close enough that its focus ring would be clipped by the map
+ * frame's scroll container. A marker nudged in for this reason is treated
+ * exactly like a marker nudged aside for a neighbour: `displaced: true` and
+ * a leader line back to the real spot, because the contract is the same
+ * either way, a marker that cannot sit on its true location points at it.
+ *
+ * Places are walked in input order, and callers pass them pre-sorted by
+ * label, so earlier places win contested spots and keep their anchor;
+ * later places are the ones that get displaced. That keeps the numbering
+ * legible even where the fan gets crowded.
+ */
+export function layoutMarkers(
+  places: Place[],
+  view: MapView,
+  options: LayoutMarkersOptions = {}
+): MarkerLayout[] {
+  const { mapWidth = MIN_MAP_WIDTH, markerSize = 28, gap = 2, focusRing = 5 } = options;
+  const mapHeight = (mapWidth * view.rows) / view.cols;
+  const minSeparation = markerSize + gap;
+  const step = minSeparation;
+  // Every marker centre, whether displaced or not, has to clear the frame
+  // edge by enough for its own focus ring to render unclipped.
+  const inset = markerSize / 2 + focusRing;
+
+  const anchorsPx = places.map((place) => {
+    const { leftPct, topPct } = markerPosition(place, view);
+    return { x: (leftPct / 100) * mapWidth, y: (topPct / 100) * mapHeight };
+  });
+
+  // The centroid of every anchor, computed once, is the "middle" that fans
+  // point away from: it decides, for each place, which direction counts as
+  // outward.
+  const centroid = {
+    x: anchorsPx.reduce((sum, p) => sum + p.x, 0) / anchorsPx.length,
+    y: anchorsPx.reduce((sum, p) => sum + p.y, 0) / anchorsPx.length,
+  };
+
+  const placed: { x: number; y: number }[] = [];
+  const results: MarkerLayout[] = [];
+
+  for (let i = 0; i < places.length; i++) {
+    const place = places[i]!;
+    const anchor = anchorsPx[i]!;
+
+    // Clamp first, so a corner anchor already starts from a legal position
+    // before it is ever tested against its neighbours.
+    const clampedAnchor = {
+      x: clampInto(anchor.x, inset, mapWidth - inset),
+      y: clampInto(anchor.y, inset, mapHeight - inset),
+    };
+    const anchorWasClamped = clampedAnchor.x !== anchor.x || clampedAnchor.y !== anchor.y;
+
+    let markerPx = clampedAnchor;
+    let displaced = anchorWasClamped;
+
+    if (!clearsAll(clampedAnchor.x, clampedAnchor.y, placed, minSeparation)) {
+      // The fan still radiates from the true anchor, clamped or not, so a
+      // clamped corner marker's leader line still points the right way.
+      const outward = Math.atan2(anchor.y - centroid.y, anchor.x - centroid.x);
+      let found: { x: number; y: number } | null = null;
+
+      for (let ring = 1; ring <= MAX_RING_SEARCH && !found; ring++) {
+        const r = ring * step;
+        const count = Math.max(8, Math.round((2 * Math.PI * r) / step));
+        const angleStep = (2 * Math.PI) / count;
+
+        for (const offset of ringOffsets(count)) {
+          const angle = outward + offset * angleStep;
+          const x = anchor.x + r * Math.cos(angle);
+          const y = anchor.y + r * Math.sin(angle);
+          if (x < inset || x > mapWidth - inset) continue;
+          if (y < inset || y > mapHeight - inset) continue;
+          if (clearsAll(x, y, placed, minSeparation)) {
+            found = { x, y };
+            break;
+          }
+        }
+      }
+
+      // Even a cluster too dense to fully resolve within the ring cap must
+      // still render something: fall back to the clamped anchor (never the
+      // raw one, which may sit outside the safe inset) rather than throw,
+      // and keep flagging it as displaced since the collision it was
+      // trying to escape is still there.
+      markerPx = found ?? clampedAnchor;
+      displaced = true;
+    }
+
+    placed.push(markerPx);
+    results.push({
+      place,
+      anchor: { leftPct: (anchor.x / mapWidth) * 100, topPct: (anchor.y / mapHeight) * 100 },
+      marker: { leftPct: (markerPx.x / mapWidth) * 100, topPct: (markerPx.y / mapHeight) * 100 },
+      displaced,
+    });
+  }
+
+  return results;
 }
 
 // ---------------------------------------------------------------------------

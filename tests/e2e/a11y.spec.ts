@@ -98,6 +98,50 @@ test("submitting an empty contact form shows a focused error summary with field 
   expect(await errorLinks.count()).toBeGreaterThan(0);
 });
 
+// Where places are genuinely next door, `layoutMarkers` fans the markers out
+// and draws a leader line back to the true spot, so every marker stays its own
+// hittable target (WCAG 2.2 SC 2.5.8). The layout is solved at MIN_MAP_WIDTH,
+// so the narrow viewport below is the one that would break first: it is the
+// case that regressed before. See components/places/PlacesMap.tsx.
+for (const width of [1280, 375]) {
+  test(`places map markers are links and never overlap at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/en/student-life/home/places-nearby");
+
+    const maps = page.locator('div[role="group"]');
+    expect(await maps.count()).toBeGreaterThan(0);
+
+    const overlaps = await page.evaluate(() => {
+      const found: string[] = [];
+      for (const map of document.querySelectorAll('div[role="group"]')) {
+        const pins = [...map.querySelectorAll('a[href^="#place-"]')].map((pin) => ({
+          id: pin.getAttribute("href") ?? "",
+          r: pin.getBoundingClientRect(),
+        }));
+        for (const [i, first] of pins.entries()) {
+          for (const second of pins.slice(i + 1)) {
+            const a = first.r;
+            const b = second.r;
+            const clears =
+              a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+            if (!clears) found.push(`${first.id} / ${second.id}`);
+          }
+        }
+      }
+      return found;
+    });
+    expect(overlaps, `overlapping markers: ${overlaps.join(", ")}`).toEqual([]);
+
+    // Every place on a map is reachable as its own link, and every list entry
+    // still carries its own full-size "Open in Google Maps" link.
+    const markerLinks = await page.locator('div[role="group"] a[href^="#place-"]').count();
+    expect(markerLinks).toBeGreaterThan(0);
+    expect(await page.locator('ol li a[href*="google.com/maps"]').count()).toBeGreaterThanOrEqual(
+      markerLinks
+    );
+  });
+}
+
 test.describe("email scrape-proofing", () => {
   const emailPages = ["/en/contact", "/en/activity/contact"];
 

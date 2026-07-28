@@ -6,8 +6,12 @@ import {
   foodPlacesFlat,
   housingPlaces,
   housingPlacesLettered,
+  layoutMarkers,
   lonLatToTile,
   markerPosition,
+  MIN_MAP_WIDTH,
+  type MapView,
+  type MarkerLayout,
   type Place,
   type PlaceArea,
 } from "@/lib/places";
@@ -242,6 +246,175 @@ describe("ratings", () => {
         expect(place.ratingCount).toBeGreaterThan(0);
       }
     }
+  });
+});
+
+describe("layoutMarkers", () => {
+  const MARKER_SIZE = 28;
+  const GAP = 2;
+  const FOCUS_RING = 5;
+  const MIN_SEPARATION = MARKER_SIZE + GAP;
+  const INSET = MARKER_SIZE / 2 + FOCUS_RING;
+
+  /** The three real place sets a places map is ever laid out for, by name. */
+  function foodByArea(area: PlaceArea): Place[] {
+    return foodPlacesFlat()
+      .filter((entry) => entry.place.area === area)
+      .map((entry) => entry.place);
+  }
+  const realSets: Record<string, Place[]> = {
+    "old-town food": foodByArea("oldtown"),
+    "pinklao food": foodByArea("pinklao"),
+    housing: housingPlaces,
+  };
+
+  /** `computeMapView` at the zoom PlacesSection actually picks for `places`/`kind`. */
+  function viewFor(places: Place[], kind: "food" | "housing"): ReturnType<typeof computeMapView> {
+    const zoom = kind === "food" ? fitZoom(places, { maxRows: 10 }) : fitZoom(places);
+    return computeMapView(places, zoom);
+  }
+
+  /** Marker centre in CSS px within a `mapWidth`-wide frame for `view`. */
+  function markerPx(
+    layout: MarkerLayout,
+    view: ReturnType<typeof computeMapView>,
+    mapWidth: number
+  ): { x: number; y: number } {
+    const mapHeight = (mapWidth * view.rows) / view.cols;
+    return {
+      x: (layout.marker.leftPct / 100) * mapWidth,
+      y: (layout.marker.topPct / 100) * mapHeight,
+    };
+  }
+
+  /** Axe's own rectangle-overlap check: clear on the x axis or the y axis is enough. */
+  function assertAllPairsClear(
+    layouts: MarkerLayout[],
+    view: ReturnType<typeof computeMapView>,
+    mapWidth: number
+  ) {
+    const points = layouts.map((layout) => markerPx(layout, view, mapWidth));
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        const dx = Math.abs(points[i]!.x - points[j]!.x);
+        const dy = Math.abs(points[i]!.y - points[j]!.y);
+        expect(
+          dx >= MIN_SEPARATION || dy >= MIN_SEPARATION,
+          `markers ${i} (${layouts[i]!.place.id}) and ${j} (${layouts[j]!.place.id}) overlap: dx=${dx}, dy=${dy}`
+        ).toBe(true);
+      }
+    }
+  }
+
+  it("leaves sparse markers on their anchor, undisplaced", () => {
+    // Two places far enough apart, at any sane zoom, that they can never
+    // collide: opposite corners of the plausible Bangkok bounding box.
+    const sparse: Place[] = [
+      { ...housingPlaces[0]!, id: "sparse-a", lat: 13.71, lng: 100.41 },
+      { ...housingPlaces[0]!, id: "sparse-b", lat: 13.79, lng: 100.54 },
+    ];
+    const view = computeMapView(sparse, 12);
+    const layouts = layoutMarkers(sparse, view);
+
+    for (const layout of layouts) {
+      expect(layout.displaced).toBe(false);
+      expect(layout.marker).toEqual(layout.anchor);
+    }
+  });
+
+  it("clears every pair of every real place set at the narrowest map width", () => {
+    // This is the actual regression case: 46 markers on the old-town food
+    // map, many of them genuine next-door neighbours, laid out exactly the
+    // way PlacesSection builds each map. Pinklao and housing are the sets
+    // where the frame-edge clamp below actually bites, so a fresh edge
+    // collision the clamp might introduce would show up here too.
+    for (const [name, places] of Object.entries(realSets)) {
+      const kind = name === "housing" ? "housing" : "food";
+      const view = viewFor(places, kind);
+      const layouts = layoutMarkers(places, view);
+      assertAllPairsClear(layouts, view, MIN_MAP_WIDTH);
+    }
+  });
+
+  it("keeps every marker's centre clear of the frame edge by markerSize/2 + focusRing", () => {
+    // The map frame sits in an overflow-x-auto container, and one non-visible
+    // overflow axis makes the other compute to auto too, so a marker that
+    // hugs the edge risks its focus ring (3px outline, 2px offset) getting
+    // clipped: WCAG 2.2 SC 2.4.11. Every marker needs this clearance, not
+    // just the ones displaced for a neighbour collision.
+    for (const [name, places] of Object.entries(realSets)) {
+      const kind = name === "housing" ? "housing" : "food";
+      const view = viewFor(places, kind);
+      const mapWidth = MIN_MAP_WIDTH;
+      const mapHeight = (mapWidth * view.rows) / view.cols;
+      const layouts = layoutMarkers(places, view, { mapWidth });
+
+      for (const layout of layouts) {
+        const { x, y } = markerPx(layout, view, mapWidth);
+        expect(x, `${name}: ${layout.place.id} x=${x}`).toBeGreaterThanOrEqual(INSET - 1e-6);
+        expect(x, `${name}: ${layout.place.id} x=${x}`).toBeLessThanOrEqual(
+          mapWidth - INSET + 1e-6
+        );
+        expect(y, `${name}: ${layout.place.id} y=${y}`).toBeGreaterThanOrEqual(INSET - 1e-6);
+        expect(y, `${name}: ${layout.place.id} y=${y}`).toBeLessThanOrEqual(
+          mapHeight - INSET + 1e-6
+        );
+      }
+    }
+  });
+
+  it("clamps a corner anchor inward and marks it displaced", () => {
+    // A place sitting right in the frame's corner: markerPosition would put
+    // it at (0%, 0%), well inside the focus-ring inset from both edges.
+    const corner: Place = { ...housingPlaces[0]!, id: "corner-place" };
+    const others = housingPlaces.slice(1, 4);
+    const places = [corner, ...others];
+    // Force a view whose frame starts exactly at the corner place's tile
+    // position, so markerPosition puts it at (0, 0) in pixel space.
+    const view = computeMapView(places, 16);
+    const cornerTile = lonLatToTile(corner.lng, corner.lat, 16);
+    const cornerView: MapView = {
+      ...view,
+      minX: cornerTile.x,
+      minY: cornerTile.y,
+      maxX: cornerTile.x + view.cols,
+      maxY: cornerTile.y + view.rows,
+    };
+
+    const layouts = layoutMarkers(places, cornerView);
+    const cornerLayout = layouts.find((layout) => layout.place.id === "corner-place")!;
+
+    expect(cornerLayout.anchor.leftPct).toBeCloseTo(0);
+    expect(cornerLayout.anchor.topPct).toBeCloseTo(0);
+    expect(cornerLayout.displaced).toBe(true);
+    expect(cornerLayout.marker).not.toEqual(cornerLayout.anchor);
+
+    const { x, y } = markerPx(cornerLayout, cornerView, MIN_MAP_WIDTH);
+    expect(x).toBeGreaterThanOrEqual(INSET - 1e-6);
+    expect(y).toBeGreaterThanOrEqual(INSET - 1e-6);
+  });
+
+  it("is deterministic: the same input produces deep-equal output every time", () => {
+    const oldtown = foodPlacesFlat()
+      .filter((entry) => entry.place.area === "oldtown")
+      .map((entry) => entry.place);
+    const zoom = fitZoom(oldtown, { maxRows: 10 });
+    const view = computeMapView(oldtown, zoom);
+
+    const first = layoutMarkers(oldtown, view);
+    const second = layoutMarkers(oldtown, view);
+    expect(second).toEqual(first);
+  });
+
+  it("returns exactly one entry per input place, in input order", () => {
+    const oldtown = foodPlacesFlat()
+      .filter((entry) => entry.place.area === "oldtown")
+      .map((entry) => entry.place);
+    const zoom = fitZoom(oldtown, { maxRows: 10 });
+    const view = computeMapView(oldtown, zoom);
+    const layouts = layoutMarkers(oldtown, view);
+
+    expect(layouts.map((layout) => layout.place.id)).toEqual(oldtown.map((place) => place.id));
   });
 });
 
