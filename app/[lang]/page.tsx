@@ -51,10 +51,10 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   }).format(new Date());
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/information-services/equipment-loan", key: "borrowEquipment" },
+    { href: "/answers", key: "getAnswer" },
     { href: "/student-life/course-reviews", key: "courseReviews" },
+    { href: "/information-services/equipment-loan", key: "borrowEquipment" },
     { href: "/student-life/home/shuttle-bus", key: "shuttleBus" },
-    { href: "/information-services", key: "informationServices" },
   ];
 
   const activityHighlightCards: {
@@ -105,6 +105,29 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               className="h-auto w-full max-w-[18rem] opacity-90"
               priority
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Quick links: top tasks, not a mirror of the header nav. Sits directly
+          under the hero, so it takes only a bottom border (the hero supplies
+          the line above it). */}
+      <section aria-labelledby="top-tasks-heading" className="bg-sunken border-line border-b">
+        <div className="wrap py-12 sm:py-16">
+          <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
+            {copy.quickLinks.heading}
+          </h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {quickLinkCards.map(({ href, key }) => {
+              const item = copy.quickLinks.items[key];
+              const fullHref = localeHref(locale, href);
+              return (
+                <Card key={key} href={fullHref}>
+                  <CardTitle href={fullHref}>{item.label}</CardTitle>
+                  <p className="text-muted text-sm leading-relaxed">{item.description}</p>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -185,27 +208,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               </Card>
             );
           })}
-        </div>
-      </section>
-
-      {/* Quick links: top tasks, not a mirror of the header nav */}
-      <section aria-labelledby="top-tasks-heading" className="bg-sunken border-line border-y">
-        <div className="wrap py-12 sm:py-16">
-          <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
-            {copy.quickLinks.heading}
-          </h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {quickLinkCards.map(({ href, key }) => {
-              const item = copy.quickLinks.items[key];
-              const fullHref = localeHref(locale, href);
-              return (
-                <Card key={key} href={fullHref}>
-                  <CardTitle href={fullHref}>{item.label}</CardTitle>
-                  <p className="text-muted text-sm leading-relaxed">{item.description}</p>
-                </Card>
-              );
-            })}
-          </div>
         </div>
       </section>
 

@@ -48,23 +48,23 @@ export const homeEn = {
   quickLinks: {
     heading: "Popular right now",
     items: {
-      borrowEquipment: {
-        label: "Borrow equipment",
-        description: "Free BIRSA equipment loans, from the first-aid kit to event gear.",
+      getAnswer: {
+        label: "Get an answer",
+        description:
+          "Guided answers on rules, your degree and student life. Say who you are and get the version that applies to you.",
       },
       courseReviews: {
         label: "Course reviews",
         description:
           "Student-written notes on BIR courses: workload, assessment style, and what to expect before you register.",
       },
+      borrowEquipment: {
+        label: "Borrow equipment",
+        description: "Free BIRSA equipment loans, from the first-aid kit to event gear.",
+      },
       shuttleBus: {
         label: "Shuttle bus",
         description: "Live departures and timetables for the campus shuttle.",
-      },
-      informationServices: {
-        label: "Information and services",
-        description:
-          "Equipment loans and guides for settling in, whether you're a home or international student.",
       },
     },
   },
