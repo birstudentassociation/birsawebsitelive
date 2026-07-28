@@ -150,6 +150,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             events={calendarEvents}
             locale={locale}
             todayKey={todayKey}
+            icsUrl={`${SITE_URL}/${locale}/calendar.ics`}
             labels={{
               prevMonth: copy.calendar.prevMonth,
               nextMonth: copy.calendar.nextMonth,
@@ -159,6 +160,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               eventCount: copy.calendar.eventCount,
               legend: copy.calendar.legend,
               styleLegend: copy.calendar.styleLegend,
+              subscribe: copy.calendar.subscribe,
             }}
           />
         </div>

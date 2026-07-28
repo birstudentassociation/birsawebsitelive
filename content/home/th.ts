@@ -39,6 +39,13 @@ export const homeTh: typeof homeEn = {
       period: "ช่วงหลายวัน",
       single: "กิจกรรมวันเดียว",
     },
+    subscribe: {
+      heading: "ติดตามปฏิทินนี้",
+      intro:
+        "เพิ่มวันสำคัญเหล่านี้ลงในแอปปฏิทินของคุณเอง แอปจะตรวจหาวันที่เพิ่มใหม่ให้เองโดยอัตโนมัติ",
+      webcal: "ติดตามปฏิทิน (Apple Calendar, Outlook)",
+      https: "ลิงก์ไฟล์ปฏิทิน (Google Calendar, ดาวน์โหลด)",
+    },
   },
   quickLinks: {
     heading: "บริการนิยม",

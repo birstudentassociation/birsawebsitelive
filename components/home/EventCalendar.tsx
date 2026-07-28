@@ -17,6 +17,13 @@ export type EventCalendarLabels = {
   eventCount: { one: string; other: string };
   legend: Record<CalendarEventKind, string>;
   styleLegend: { period: string; single: string };
+  /** Subscribe affordance shown under the calendar. */
+  subscribe: {
+    heading: string;
+    intro: string;
+    webcal: string; // link text for the webcal:// subscribe link
+    https: string; // link text for the plain https:// link
+  };
 };
 
 export type EventCalendarProps = {
@@ -26,6 +33,8 @@ export type EventCalendarProps = {
    *  SSR and hydration agree (no `new Date()` in the client render path). */
   todayKey: string;
   labels: EventCalendarLabels;
+  /** Absolute https:// URL of this locale's calendar.ics feed. */
+  icsUrl: string;
 };
 
 type IconProps = { className?: string };
@@ -141,7 +150,14 @@ function chunkWeeks(cells: (number | null)[]): Week[] {
   return weeks;
 }
 
-export default function EventCalendar({ events, locale, todayKey, labels }: EventCalendarProps) {
+export default function EventCalendar({
+  events,
+  locale,
+  todayKey,
+  labels,
+  icsUrl,
+}: EventCalendarProps) {
+  const webcalUrl = icsUrl.replace(/^https?:\/\//, "webcal://");
   const intlLocale = locale === "th" ? "th-TH-u-ca-gregory" : "en-GB";
 
   // Distinct months that actually contain events, sorted ascending.
@@ -275,280 +291,313 @@ export default function EventCalendar({ events, locale, todayKey, labels }: Even
     "focus-halo inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-40";
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
-      {/* Calendar grid */}
-      <div className="border-line bg-surface rounded-lg border p-4 shadow-sm sm:p-5">
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <button
-            type="button"
-            className={navBtn}
-            onClick={() => goToMonth(monthIndex - 1)}
-            disabled={monthIndex === 0}
-            aria-label={labels.prevMonth}
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
-              <path
-                d="M12.5 4.5 7 10l5.5 5.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.6}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-          <h3 className="font-display text-ink text-xl" aria-live="polite">
-            {monthLabel}
-          </h3>
-          <button
-            type="button"
-            className={navBtn}
-            onClick={() => goToMonth(monthIndex + 1)}
-            disabled={monthIndex === months.length - 1}
-            aria-label={labels.nextMonth}
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
-              <path
-                d="M7.5 4.5 13 10l-5.5 5.5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={1.6}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <div aria-label={monthLabel}>
-          <div className="text-muted grid grid-cols-7 gap-1 pb-1 text-center text-xs font-semibold">
-            {weekdays.map((w, i) => (
-              <div key={i} className="py-1">
-                {w}
-              </div>
-            ))}
+    <div className="flex flex-col gap-6">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+        {/* Calendar grid */}
+        <div className="border-line bg-surface rounded-lg border p-4 shadow-sm sm:p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <button
+              type="button"
+              className={navBtn}
+              onClick={() => goToMonth(monthIndex - 1)}
+              disabled={monthIndex === 0}
+              aria-label={labels.prevMonth}
+            >
+              <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
+                <path
+                  d="M12.5 4.5 7 10l5.5 5.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+            <h3 className="font-display text-ink text-xl" aria-live="polite">
+              {monthLabel}
+            </h3>
+            <button
+              type="button"
+              className={navBtn}
+              onClick={() => goToMonth(monthIndex + 1)}
+              disabled={monthIndex === months.length - 1}
+              aria-label={labels.nextMonth}
+            >
+              <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5">
+                <path
+                  d="M7.5 4.5 13 10l-5.5 5.5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={1.6}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
           </div>
 
-          <div className="flex flex-col gap-y-1.5">
-            {weeks.map((week, weekIndex) => {
-              // First/last real day keys within this week, for clamping ribbon segments.
-              let weekFirstKey: string | null = null;
-              let weekLastKey: string | null = null;
-              for (const day of week) {
-                if (day === null) continue;
-                const dk = keyOf(current.year, current.month0, day);
-                if (weekFirstKey === null) weekFirstKey = dk;
-                weekLastKey = dk;
-              }
-
-              const weekPeriods =
-                weekFirstKey !== null && weekLastKey !== null
-                  ? periods.filter(
-                      (p) =>
-                        p.start <= (weekLastKey as string) &&
-                        (p.end ?? p.start) >= (weekFirstKey as string)
-                    )
-                  : [];
-
-              return (
-                <div key={weekIndex} className="flex flex-col">
-                  <div className="grid grid-cols-7 gap-1">
-                    {week.map((day, i) => {
-                      if (day === null) return <div key={i} aria-hidden="true" />;
-                      const dayKey = keyOf(current.year, current.month0, day);
-                      const dayEvents = events.filter((e) => coversDay(e, dayKey));
-                      const singleEvents = dayEvents.filter((e) => !isPeriod(e));
-                      const hasEvents = dayEvents.length > 0;
-                      const isToday = dayKey === todayKey;
-                      const isSelected = dayKey === selectedDay;
-
-                      return (
-                        <button
-                          key={i}
-                          type="button"
-                          disabled={!hasEvents}
-                          onClick={() => setSelectedDay(dayKey)}
-                          aria-pressed={isSelected}
-                          aria-current={isToday ? "date" : undefined}
-                          aria-label={dayLabel(dayKey, dayEvents.length)}
-                          className={clsx(
-                            "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
-                            hasEvents
-                              ? "text-ink cursor-pointer font-semibold"
-                              : "text-muted cursor-default",
-                            isSelected
-                              ? "bg-brand text-white"
-                              : hasEvents
-                                ? "bg-sunken hover:bg-brand-tint"
-                                : "",
-                            isToday && !isSelected && "ring-line-strong ring-2 ring-inset"
-                          )}
-                        >
-                          <span>{day}</span>
-                          {singleEvents.length > 0 ? (
-                            <span
-                              className="flex flex-wrap items-center justify-center gap-0.5"
-                              aria-hidden="true"
-                            >
-                              {singleEvents.slice(0, 3).map((e) => {
-                                const Icon = KIND_ICON[e.kind];
-                                return (
-                                  <span
-                                    key={e.id}
-                                    title={e.title[locale]}
-                                    className={clsx(
-                                      "inline-flex h-4 w-4 items-center justify-center rounded",
-                                      isSelected ? "bg-white/25" : KIND_TINT[e.kind]
-                                    )}
-                                  >
-                                    <Icon
-                                      className={clsx(
-                                        "h-3 w-3",
-                                        isSelected ? "text-white" : KIND_TEXT[e.kind]
-                                      )}
-                                    />
-                                  </span>
-                                );
-                              })}
-                            </span>
-                          ) : null}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {laneCount > 0 && (
-                    <div
-                      className="mt-0.5 grid grid-cols-7 gap-x-1 gap-y-0.5"
-                      // Each period ribbon is a link; ≥1.5rem (24px) tall keeps
-                      // the pointer target at the WCAG 2.5.8 (AA) minimum.
-                      style={{ gridTemplateRows: `repeat(${laneCount}, 1.6rem)` }}
-                    >
-                      {weekFirstKey !== null && weekLastKey !== null
-                        ? weekPeriods.map((p) => {
-                            const segStart = p.start > weekFirstKey! ? p.start : weekFirstKey!;
-                            const segEnd =
-                              (p.end ?? p.start) < weekLastKey! ? (p.end ?? p.start) : weekLastKey!;
-                            const segStartCol = week.findIndex(
-                              (d) =>
-                                d !== null && keyOf(current.year, current.month0, d) === segStart
-                            );
-                            const segEndCol = week.findIndex(
-                              (d) => d !== null && keyOf(current.year, current.month0, d) === segEnd
-                            );
-                            if (segStartCol === -1 || segEndCol === -1) return null;
-                            const roundedLeft = p.start >= weekFirstKey!;
-                            const roundedRight = (p.end ?? p.start) <= weekLastKey!;
-                            const lane = laneOf.get(p.id) ?? 0;
-                            const Icon = KIND_ICON[p.kind];
-
-                            return (
-                              <Link
-                                key={p.id}
-                                href={localeHref(locale, `/news/${p.slug}`)}
-                                title={p.title[locale]}
-                                style={{
-                                  gridColumn: `${segStartCol + 1} / ${segEndCol + 2}`,
-                                  gridRow: lane + 1,
-                                }}
-                                className={clsx(
-                                  "focus-halo flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-xs font-semibold transition-opacity hover:opacity-80",
-                                  KIND_TINT[p.kind],
-                                  "text-ink",
-                                  roundedLeft ? "rounded-l-md" : "",
-                                  roundedRight ? "rounded-r-md" : "",
-                                  roundedLeft ? clsx("border-l-4", KIND_BORDER[p.kind]) : ""
-                                )}
-                              >
-                                <Icon className={clsx("h-3 w-3 shrink-0", KIND_TEXT[p.kind])} />
-                                <span className="truncate">{p.title[locale]}</span>
-                              </Link>
-                            );
-                          })
-                        : null}
-                    </div>
-                  )}
+          <div aria-label={monthLabel}>
+            <div className="text-muted grid grid-cols-7 gap-1 pb-1 text-center text-xs font-semibold">
+              {weekdays.map((w, i) => (
+                <div key={i} className="py-1">
+                  {w}
                 </div>
-              );
-            })}
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-y-1.5">
+              {weeks.map((week, weekIndex) => {
+                // First/last real day keys within this week, for clamping ribbon segments.
+                let weekFirstKey: string | null = null;
+                let weekLastKey: string | null = null;
+                for (const day of week) {
+                  if (day === null) continue;
+                  const dk = keyOf(current.year, current.month0, day);
+                  if (weekFirstKey === null) weekFirstKey = dk;
+                  weekLastKey = dk;
+                }
+
+                const weekPeriods =
+                  weekFirstKey !== null && weekLastKey !== null
+                    ? periods.filter(
+                        (p) =>
+                          p.start <= (weekLastKey as string) &&
+                          (p.end ?? p.start) >= (weekFirstKey as string)
+                      )
+                    : [];
+
+                return (
+                  <div key={weekIndex} className="flex flex-col">
+                    <div className="grid grid-cols-7 gap-1">
+                      {week.map((day, i) => {
+                        if (day === null) return <div key={i} aria-hidden="true" />;
+                        const dayKey = keyOf(current.year, current.month0, day);
+                        const dayEvents = events.filter((e) => coversDay(e, dayKey));
+                        const singleEvents = dayEvents.filter((e) => !isPeriod(e));
+                        const hasEvents = dayEvents.length > 0;
+                        const isToday = dayKey === todayKey;
+                        const isSelected = dayKey === selectedDay;
+
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            disabled={!hasEvents}
+                            onClick={() => setSelectedDay(dayKey)}
+                            aria-pressed={isSelected}
+                            aria-current={isToday ? "date" : undefined}
+                            aria-label={dayLabel(dayKey, dayEvents.length)}
+                            className={clsx(
+                              "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
+                              hasEvents
+                                ? "text-ink cursor-pointer font-semibold"
+                                : "text-muted cursor-default",
+                              isSelected
+                                ? "bg-brand text-white"
+                                : hasEvents
+                                  ? "bg-sunken hover:bg-brand-tint"
+                                  : "",
+                              isToday && !isSelected && "ring-line-strong ring-2 ring-inset"
+                            )}
+                          >
+                            <span>{day}</span>
+                            {singleEvents.length > 0 ? (
+                              <span
+                                className="flex flex-wrap items-center justify-center gap-0.5"
+                                aria-hidden="true"
+                              >
+                                {singleEvents.slice(0, 3).map((e) => {
+                                  const Icon = KIND_ICON[e.kind];
+                                  return (
+                                    <span
+                                      key={e.id}
+                                      title={e.title[locale]}
+                                      className={clsx(
+                                        "inline-flex h-4 w-4 items-center justify-center rounded",
+                                        isSelected ? "bg-white/25" : KIND_TINT[e.kind]
+                                      )}
+                                    >
+                                      <Icon
+                                        className={clsx(
+                                          "h-3 w-3",
+                                          isSelected ? "text-white" : KIND_TEXT[e.kind]
+                                        )}
+                                      />
+                                    </span>
+                                  );
+                                })}
+                              </span>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {laneCount > 0 && (
+                      <div
+                        className="mt-0.5 grid grid-cols-7 gap-x-1 gap-y-0.5"
+                        // Each period ribbon is a link; ≥1.5rem (24px) tall keeps
+                        // the pointer target at the WCAG 2.5.8 (AA) minimum.
+                        style={{ gridTemplateRows: `repeat(${laneCount}, 1.6rem)` }}
+                      >
+                        {weekFirstKey !== null && weekLastKey !== null
+                          ? weekPeriods.map((p) => {
+                              const segStart = p.start > weekFirstKey! ? p.start : weekFirstKey!;
+                              const segEnd =
+                                (p.end ?? p.start) < weekLastKey!
+                                  ? (p.end ?? p.start)
+                                  : weekLastKey!;
+                              const segStartCol = week.findIndex(
+                                (d) =>
+                                  d !== null && keyOf(current.year, current.month0, d) === segStart
+                              );
+                              const segEndCol = week.findIndex(
+                                (d) =>
+                                  d !== null && keyOf(current.year, current.month0, d) === segEnd
+                              );
+                              if (segStartCol === -1 || segEndCol === -1) return null;
+                              const roundedLeft = p.start >= weekFirstKey!;
+                              const roundedRight = (p.end ?? p.start) <= weekLastKey!;
+                              const lane = laneOf.get(p.id) ?? 0;
+                              const Icon = KIND_ICON[p.kind];
+
+                              return (
+                                <Link
+                                  key={p.id}
+                                  href={localeHref(locale, `/news/${p.slug}`)}
+                                  title={p.title[locale]}
+                                  style={{
+                                    gridColumn: `${segStartCol + 1} / ${segEndCol + 2}`,
+                                    gridRow: lane + 1,
+                                  }}
+                                  className={clsx(
+                                    "focus-halo flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-xs font-semibold transition-opacity hover:opacity-80",
+                                    KIND_TINT[p.kind],
+                                    "text-ink",
+                                    roundedLeft ? "rounded-l-md" : "",
+                                    roundedRight ? "rounded-r-md" : "",
+                                    roundedLeft ? clsx("border-l-4", KIND_BORDER[p.kind]) : ""
+                                  )}
+                                >
+                                  <Icon className={clsx("h-3 w-3 shrink-0", KIND_TEXT[p.kind])} />
+                                  <span className="truncate">{p.title[locale]}</span>
+                                </Link>
+                              );
+                            })
+                          : null}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="mt-4 flex flex-col gap-2">
+            <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
+              {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => {
+                const Icon = KIND_ICON[k];
+                return (
+                  <li key={k} className="flex items-center gap-1.5">
+                    <Icon className={clsx("h-3.5 w-3.5", KIND_TEXT[k])} />
+                    {labels.legend[k]}
+                  </li>
+                );
+              })}
+            </ul>
+            <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
+              <li className="flex items-center gap-1.5">
+                <span
+                  className="bg-brand-tint border-brand h-2.5 w-5 rounded-sm border-l-4"
+                  aria-hidden="true"
+                />
+                {labels.styleLegend.period}
+              </li>
+              <li className="flex items-center gap-1.5">
+                <span
+                  className="bg-brand-tint inline-flex h-4 w-4 items-center justify-center rounded"
+                  aria-hidden="true"
+                >
+                  <StarIcon className="text-brand h-3 w-3" />
+                </span>
+                {labels.styleLegend.single}
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="mt-4 flex flex-col gap-2">
-          <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
-            {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => {
-              const Icon = KIND_ICON[k];
-              return (
-                <li key={k} className="flex items-center gap-1.5">
-                  <Icon className={clsx("h-3.5 w-3.5", KIND_TEXT[k])} />
-                  {labels.legend[k]}
-                </li>
-              );
-            })}
-          </ul>
-          <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
-            <li className="flex items-center gap-1.5">
-              <span
-                className="bg-brand-tint border-brand h-2.5 w-5 rounded-sm border-l-4"
-                aria-hidden="true"
-              />
-              {labels.styleLegend.period}
-            </li>
-            <li className="flex items-center gap-1.5">
-              <span
-                className="bg-brand-tint inline-flex h-4 w-4 items-center justify-center rounded"
-                aria-hidden="true"
-              >
-                <StarIcon className="text-brand h-3 w-3" />
-              </span>
-              {labels.styleLegend.single}
-            </li>
-          </ul>
+        {/* Detail panel */}
+        <div
+          className="border-line bg-sunken rounded-lg border p-4 sm:p-5"
+          role="region"
+          aria-live="polite"
+          aria-label={
+            selectedDay
+              ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay))
+              : undefined
+          }
+        >
+          <p className="text-muted mb-3 text-sm font-semibold">
+            {selectedDay
+              ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay))
+              : ""}
+          </p>
+          {selectedEvents.length > 0 ? (
+            <ul className="flex flex-col gap-2">
+              {selectedEvents.map((event) => {
+                const Icon = KIND_ICON[event.kind];
+                return (
+                  <li key={event.id}>
+                    <Link
+                      href={localeHref(locale, `/news/${event.slug}`)}
+                      className="group border-line bg-surface hover:border-brand focus-halo flex gap-2.5 rounded-md border p-3 transition-colors"
+                    >
+                      <Icon className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])} />
+                      <span className="min-w-0">
+                        <span className="text-ink block text-sm leading-snug font-semibold group-hover:underline">
+                          {event.title[locale]}
+                        </span>
+                        <span className="text-muted mt-0.5 block text-xs">
+                          {eventRangeLabel(event)}
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <p className="text-muted text-sm">{labels.noEventsDay}</p>
+          )}
         </div>
       </div>
 
-      {/* Detail panel */}
-      <div
-        className="border-line bg-sunken rounded-lg border p-4 sm:p-5"
-        role="region"
-        aria-live="polite"
-        aria-label={
-          selectedDay
-            ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay))
-            : undefined
-        }
-      >
-        <p className="text-muted mb-3 text-sm font-semibold">
-          {selectedDay ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay)) : ""}
-        </p>
-        {selectedEvents.length > 0 ? (
-          <ul className="flex flex-col gap-2">
-            {selectedEvents.map((event) => {
-              const Icon = KIND_ICON[event.kind];
-              return (
-                <li key={event.id}>
-                  <Link
-                    href={localeHref(locale, `/news/${event.slug}`)}
-                    className="group border-line bg-surface hover:border-brand focus-halo flex gap-2.5 rounded-md border p-3 transition-colors"
-                  >
-                    <Icon className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])} />
-                    <span className="min-w-0">
-                      <span className="text-ink block text-sm leading-snug font-semibold group-hover:underline">
-                        {event.title[locale]}
-                      </span>
-                      <span className="text-muted mt-0.5 block text-xs">
-                        {eventRangeLabel(event)}
-                      </span>
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <p className="text-muted text-sm">{labels.noEventsDay}</p>
-        )}
+      {/* Subscribe */}
+      <div className="border-line bg-surface rounded-lg border p-4 sm:p-5">
+        <h3 className="font-display text-ink text-base font-semibold">
+          {labels.subscribe.heading}
+        </h3>
+        <p className="text-muted mt-1 text-sm">{labels.subscribe.intro}</p>
+        <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <li>
+            <a
+              href={webcalUrl}
+              className="focus-halo text-brand-deep rounded font-semibold hover:underline"
+            >
+              {labels.subscribe.webcal}
+            </a>
+          </li>
+          <li>
+            <a
+              href={icsUrl}
+              className="focus-halo text-brand-deep rounded font-semibold hover:underline"
+            >
+              {labels.subscribe.https}
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

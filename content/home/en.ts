@@ -37,6 +37,13 @@ export const homeEn = {
       period: "Multi-day period",
       single: "Single-day event",
     },
+    subscribe: {
+      heading: "Subscribe to this calendar",
+      intro:
+        "Add these dates to your own calendar app. Your app checks back for new dates on its own.",
+      webcal: "Subscribe (Apple Calendar, Outlook)",
+      https: "Calendar file link (Google Calendar, download)",
+    },
   },
   quickLinks: {
     heading: "Popular right now",
