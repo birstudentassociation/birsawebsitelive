@@ -9,9 +9,10 @@ import { defaultLocale, isLocale } from "@/lib/i18n";
  * The response is CDN-cached (`s-maxage`), so N visitors within the window
  * collapse to ~1 origin invocation per edge region rather than one per request.
  * `stale-while-revalidate` keeps serving instantly while the value refreshes in
- * the background. A flip goes live within `s-maxage` seconds; for an immediate
- * push, purge this route's cache (or `revalidateTag("emergency")`, which also
- * refreshes the server-rendered banner) after changing Edge Config.
+ * the background. A flip goes live within `s-maxage` seconds regardless; for an
+ * immediate push (including to the server-rendered banner, which otherwise only
+ * refreshes hourly), POST to `/api/emergency/revalidate` after changing Edge
+ * Config.
  *
  * The underlying read is already cached in `lib/emergency.ts` and never throws,
  * so this always returns 200 with a well-formed payload.

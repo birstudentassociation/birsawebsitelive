@@ -191,6 +191,18 @@ respond `{ ok: false, reason: "not-configured" }` so the client shows the "email
 fallback with `BIRSA_INBOX` (default `birsa@tu.ac.th`). Never store submissions. Never echo
 user input as HTML (plain-text email bodies). No secrets in client code.
 
+## Emergency mode (Edge Config toggle)
+
+The site-wide emergency banner is switched on by editing the `emergency` item in the
+project's Vercel Edge Config store (`lib/emergency.ts` documents the shape:
+`active`, `scenario`, optional `messageOverride`). To turn it on or off:
+
+1. Edit the `emergency` item in Edge Config (Vercel dashboard or `vercel env`/Edge Config CLI).
+2. `POST /api/emergency/revalidate` with header `Authorization: Bearer <CRON_SECRET>` to make
+   the change instant. Without this step the change still reaches everyone, just on the site's
+   normal hourly background refresh plus the client banner's 60-second poll, both of which are
+   slower than an emergency should be.
+
 ## Definition of done for your task
 
 1. `npx tsc --noEmit --incremental false` passes from repo root.

@@ -6,11 +6,21 @@
  *
  * The read is wrapped in `unstable_cache` (see `readEmergencyConfig`) so it does
  * NOT opt callers into dynamic rendering: the public pages stay static and
- * CDN-cached, and the emergency value refreshes in the background at most every
- * `REVALIDATE_SECONDS`. For an instant flip, call `revalidateTag(EMERGENCY_TAG)`
- * after changing the Edge Config value. The client banner (`EmergencyBanner
- * Client`) additionally polls `/api/emergency` so already-open tabs update
- * without a full navigation.
+ * CDN-cached. This value is also what ISR uses as the page's revalidation
+ * window, since the server-rendered banner in `app/[lang]/layout.tsx` awaits it
+ * on every page, so `REVALIDATE_SECONDS` is deliberately generous (one hour):
+ * a short window here would force the entire site to regenerate in the
+ * background on that same short cadence, which is compute the site does not
+ * need to spend. Three refresh paths exist, layered so an editor is never
+ * stuck waiting an hour for a real emergency to show:
+ *   1. The hourly background revalidation described above (baseline).
+ *   2. `POST /api/emergency/revalidate` calls `revalidateTag(EMERGENCY_TAG)`
+ *      on demand, which flips the baked-in server-rendered banner immediately
+ *      after changing the Edge Config value, without a redeploy or a wait.
+ *   3. The client banner (`EmergencyBannerClient`) separately polls
+ *      `/api/emergency` every 60 seconds, and also on mount and on tab
+ *      refocus, so a visitor with JavaScript sees a toggle within about a
+ *      minute even if nobody calls the revalidate route.
  *
  * Edge Config only SELECTS which pre-prepared scenario is live; the scenario
  * content lives in `content/emergency/`. Edge Config item, keyed `emergency`:
@@ -43,9 +53,15 @@ const configSchema = z.object({
 
 type EmergencyConfig = z.infer<typeof configSchema>;
 
-/** Cache tag for on-demand invalidation; also the background revalidation window. */
+/** Cache tag for on-demand invalidation via `/api/emergency/revalidate`. */
 export const EMERGENCY_TAG = "emergency";
-const REVALIDATE_SECONDS = 15;
+/**
+ * Background revalidation window, in seconds. This doubles as the ISR window
+ * for every page that renders the banner (effectively all of them), so keep it
+ * long: on-demand revalidation and the client poll are what make a toggle feel
+ * immediate, not this number.
+ */
+const REVALIDATE_SECONDS = 3600;
 
 /**
  * Cached read of the raw Edge Config value. `unstable_cache` means this never
