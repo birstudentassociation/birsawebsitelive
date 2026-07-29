@@ -110,6 +110,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4945,
         rating: 3.9,
         ratingCount: 3724,
+        note: {
+          en: "Stewed beef noodles on Phra Athit Road, served here for around 40 years.",
+          th: "ขายก๋วยเตี๋ยวเนื้อตุ๋นบนถนนพระอาทิตย์มากว่า 40 ปี",
+        },
         mapsQuery: "Nai Soie Beef Noodle Phra Athit Bangkok",
       },
       {
@@ -121,6 +125,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4987,
         rating: 4.5,
         ratingCount: 819,
+        note: {
+          en: "Fried to order in a brass wok over charcoal, the way the shop has done it for decades.",
+          th: "ผัดสดทีละจานในกระทะทองเหลืองบนเตาถ่านแบบเดิมมาหลายสิบปี",
+        },
         mapsQuery: "Kuay Teow Kua Gai Aunty Pien Bangkok",
       },
       {
@@ -136,6 +144,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4969,
         rating: 4.5,
         ratingCount: 193,
+        note: {
+          en: "Open since 1967, and known for noodles cut wider than most shops serve.",
+          th: "เปิดขายมาตั้งแต่ปี 2510 ขึ้นชื่อเรื่องเส้นใหญ่พิเศษที่หากินยากในร้านอื่น",
+        },
         mapsQuery: "ก๋วยเตี๋ยวเป็ดย่างบางลำพู เจ้าเก่า",
       },
       {
@@ -160,6 +172,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4992,
         rating: 4.2,
         ratingCount: 2164,
+        note: {
+          en: "A third-generation yentafo shop by Sao Chingcha, listed in the Michelin Guide.",
+          th: "ร้านเย็นตาโฟรุ่นที่ 3 ย่านเสาชิงช้า ติดโผมิชลินไกด์",
+        },
         mapsQuery: "นายอ้วนเย็นตาโฟ เสาชิงช้า",
       },
       {
@@ -193,6 +209,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.483,
         rating: 4.0,
         ratingCount: 1668,
+        note: {
+          en: "Opens in the late afternoon and runs to about 3am, so it works as a late dinner.",
+          th: "เปิดตั้งแต่ช่วงบ่ายแก่ ๆ ถึงราวตีสาม เหมาะกับมื้อดึก",
+        },
         mapsQuery: "Uncle and Aunt Pork Noodle Pinklao Bangkok",
       },
     ],
@@ -229,6 +249,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.5037,
         rating: 4.5,
         ratingCount: 714,
+        note: {
+          en: "A long-running duck porridge shop tucked into Soi Pratu Phi near Wat Thepthidaram.",
+          th: "ร้านโจ๊กเป็ดเจ้าเก่าในซอยประตูผี ใกล้วัดเทพธิดาราม",
+        },
         mapsQuery: "The Fat Duck rice porridge Bangkok",
       },
       {
@@ -240,6 +264,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4866,
         rating: 4.7,
         ratingCount: 1243,
+        note: {
+          en: "Red pork roasted over charcoal to a recipe the family has kept for generations.",
+          th: "หมูแดงย่างเตาถ่านตามสูตรที่สืบทอดกันมาหลายรุ่น",
+        },
         mapsQuery: "Khao Dong Moo Daeng Bangkok",
       },
       {
@@ -252,6 +280,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.5018,
         rating: 4.4,
         ratingCount: 493,
+        note: {
+          en: "Hainanese chicken rice from a recipe close to 90 years old, first sold in Yaowarat.",
+          th: "ข้าวมันไก่ไหหลำสูตรเกือบ 90 ปี เริ่มขายที่เยาวราชก่อนย้ายมาแถวนี้",
+        },
         mapsQuery: "ร้านโชคดี โกตา",
       },
       {
@@ -279,6 +311,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4851,
         rating: 4.0,
         ratingCount: 70,
+        note: {
+          en: "Sells one thing only: curry over rice, wrapped in banana leaf.",
+          th: "ขายอย่างเดียวคือข้าวแกงห่อใบตอง ไม่มีเมนูอื่น",
+        },
         mapsQuery: "ร้านข้าวแกงห่อจรัญ",
       },
     ],
@@ -307,6 +343,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.489,
         rating: 4.4,
         ratingCount: 110,
+        note: {
+          en: "Made-to-order dishes by the river, open for more than 40 years.",
+          th: "ร้านอาหารตามสั่งริมน้ำ เปิดมากว่า 40 ปี",
+        },
         mapsQuery: "Khun Ek restaurant Tha Prachan Bangkok",
       },
       {
@@ -318,6 +358,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4894,
         rating: 4.5,
         ratingCount: 135,
+        note: {
+          en: "Roast duck and red pork in a wooden shophouse opposite Thammasat, going back more than 50 years.",
+          th: "เป็ดย่างและหมูแดงในตึกไม้เก่าตรงข้ามธรรมศาสตร์ เปิดมากว่า 50 ปี",
+        },
         mapsQuery: "New Yong Hua Phochana Bangkok",
       },
       {
@@ -329,6 +373,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4701,
         rating: 4.3,
         ratingCount: 1311,
+        note: {
+          en: "Opens in the late afternoon and runs to about 6am, known for its fried crab rolls.",
+          th: "เปิดช่วงบ่ายแก่ ๆ ยาวถึงราวตีหก ขึ้นชื่อเรื่องแฮ่กึ๊นทอด",
+        },
         mapsQuery: "Watchara Phochana Bangkok",
       },
       {
@@ -357,6 +405,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.5011,
         rating: 4.4,
         ratingCount: 1255,
+        note: {
+          en: "On Dinso Road since 1966; the recipes are said to come from Pridi Banomyong's kitchen.",
+          th: "อยู่บนถนนดินสอมาตั้งแต่ปี 2509 เล่ากันว่าสูตรอาหารมาจากครัวของปรีดี พนมยงค์",
+        },
         mapsQuery: "Mit Ko Yuan Restaurant Bangkok",
       },
       {
@@ -368,6 +420,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4995,
         rating: 4.3,
         ratingCount: 269,
+        note: {
+          en: "Khao chae served inside an old mansion behind the 14 October Monument.",
+          th: "ข้าวแช่ในบ้านเก่าหลังอนุสรณ์สถาน 14 ตุลา",
+        },
         mapsQuery: "Ban Wannakovit Bangkok",
       },
       {
@@ -402,6 +458,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4963,
         rating: 4.9,
         ratingCount: 666,
+        note: {
+          en: "A tiny shophouse serving old-style Hainanese suki.",
+          th: "ตึกแถวเล็ก ๆ ขายสุกี้โบราณสูตรไหหลำ",
+        },
         mapsQuery: "Yong Seng Lee restaurant Bangkok",
       },
       {
@@ -429,6 +489,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4868,
         rating: 4.5,
         ratingCount: 87,
+        note: {
+          en: "Isan grills near Pinklao bridge, open into the late evening.",
+          th: "ร้านอีสานใกล้สะพานปิ่นเกล้า เปิดถึงดึก",
+        },
         mapsQuery: "S Laab Ped Yasothon Pinklao",
       },
       {
@@ -441,6 +505,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4834,
         rating: 4.0,
         ratingCount: 201,
+        note: {
+          en: "Beef noodles opposite PATA Pinklao, from the same recipe since 1970.",
+          th: "ก๋วยเตี๋ยวเนื้อตรงข้ามพาต้าปิ่นเกล้า สูตรเดิมตั้งแต่ปี 2513",
+        },
         mapsQuery: "Rod Dee Ded Pinklao",
       },
     ],
@@ -458,6 +526,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.505,
         rating: 4.8,
         ratingCount: 322,
+        note: {
+          en: "Only a couple of tables, so expect to queue or take it away.",
+          th: "มีโต๊ะแค่ไม่กี่ตัว อาจต้องรอคิวหรือซื้อกลับ",
+        },
         mapsQuery: "Dim sum zai Wang Lang Bangkok",
       },
       {
@@ -480,6 +552,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.488,
         rating: 4.3,
         ratingCount: 2176,
+        note: {
+          en: "A long-standing Chinese restaurant known for Peking duck, with a shabu buffet upstairs.",
+          th: "ภัตตาคารจีนเก่าแก่ ขึ้นชื่อเป็ดปักกิ่ง ชั้นบนมีบุฟเฟ่ต์ชาบู",
+        },
         mapsQuery: "Jade Garden restaurant Pinklao Bangkok",
       },
     ],
@@ -497,6 +573,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4945,
         rating: 4.2,
         ratingCount: 713,
+        note: {
+          en: "Korean grill buffet on Soi Rambuttri, with no time limit on the table.",
+          th: "บุฟเฟ่ต์ปิ้งย่างเกาหลีในซอยรามบุตรี ไม่จำกัดเวลา",
+        },
         mapsQuery: "Dong Dae Moon Restaurant Pinklao",
       },
       {
@@ -525,6 +605,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.5019,
         rating: 4.3,
         ratingCount: 824,
+        note: {
+          en: "A few open-air tables beside Khlong Ong Ang.",
+          th: "มีโต๊ะกลางแจ้งไม่กี่ตัวริมคลองโอ่งอ่าง",
+        },
         mapsQuery: "Tony's North Indian restaurant Banglamphu Bangkok",
       },
       {
@@ -562,6 +646,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4983,
         rating: 4.4,
         ratingCount: 1153,
+        note: {
+          en: "Halal biryani and satay, running since 1975 and listed in the Michelin Guide.",
+          th: "บิรยานีและสะเต๊ะฮาลาล เปิดมาตั้งแต่ปี 2518 และติดโผมิชลินไกด์",
+        },
         mapsQuery: "Aheesah roddee Halal Bangkok",
       },
     ],
@@ -594,6 +682,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4912,
         rating: 3.6,
         ratingCount: 581,
+        note: {
+          en: "Charcoal-grilled steak across the road from Wat Pho.",
+          th: "สเต็กย่างเตาถ่าน อยู่ตรงข้ามวัดโพธิ์",
+        },
         mapsQuery: "Medium Rare Tha Tian Bangkok",
       },
       {
@@ -646,6 +738,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.484,
         rating: 4.9,
         ratingCount: 601,
+        note: {
+          en: "Conveyor-belt shabu with a choice of soup bases.",
+          th: "ชาบูสายพาน เลือกน้ำซุปได้หลายแบบ",
+        },
         mapsQuery: "MHEESUK HOTPOT BUFFET Bangkok",
       },
       {
@@ -657,6 +753,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4876,
         rating: 4.3,
         ratingCount: 1438,
+        note: {
+          en: "A Thonburi-side fixture for decades, built around fish head hot pot and tom yum.",
+          th: "ร้านเก่าแก่ฝั่งธนฯ จุดเด่นคือหัวปลาหม้อไฟและต้มยำ",
+        },
         mapsQuery: "Pinklao Fish Head Hot Pot",
       },
       {
@@ -680,6 +780,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4711,
         rating: 4.7,
         ratingCount: 1279,
+        note: {
+          en: "Isan-style jaew hon hot pot with more than 100 dishes, open to midnight.",
+          th: "แจ่วฮ้อนสไตล์อีสาน มีเมนูกว่า 100 อย่าง เปิดถึงเที่ยงคืน",
+        },
         mapsQuery: "ฮ้อน บุฟเฟ่ต์ ปิ่นเกล้า",
       },
       {
@@ -691,6 +795,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4666,
         rating: 4.6,
         ratingCount: 1068,
+        note: {
+          en: "Grill and shabu with no time limit, open to about 3am.",
+          th: "ปิ้งย่างและชาบูแบบไม่จำกัดเวลา เปิดถึงราวตีสาม",
+        },
         mapsQuery: "Tidmunz Buffet Pinklao",
       },
       {
@@ -713,6 +821,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.476,
         rating: 4.5,
         ratingCount: 3036,
+        note: {
+          en: "A grill and seafood buffet chain, open to about 2am.",
+          th: "เชนบุฟเฟ่ต์ปิ้งย่างและซีฟู้ด เปิดถึงราวตีสอง",
+        },
         mapsQuery: "BAR B Q RESORT PINKLAO",
       },
       {
@@ -740,6 +852,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4897,
         rating: 3.9,
         ratingCount: 2025,
+        note: {
+          en: "The tables sit right on the river bank.",
+          th: "โต๊ะนั่งอยู่ริมแม่น้ำ",
+        },
         mapsQuery: "Rimnam BBQ Buffet Pin Klao",
       },
       {
@@ -828,6 +944,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4919,
         rating: 4.9,
         ratingCount: 462,
+        note: {
+          en: "Churros and coffee upstairs in an old Tha Tien shophouse, within sight of Wat Pho.",
+          th: "ชูโรสและกาแฟบนชั้นสองของตึกเก่าท่าเตียน มองเห็นวัดโพธิ์จากในร้าน",
+        },
         mapsQuery: "After Sunrise bakery Bangkok",
       },
       {
@@ -839,6 +959,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4922,
         rating: 4.8,
         ratingCount: 336,
+        note: {
+          en: "Gelato made in house, on the ground floor of a small guesthouse near Wat Pho.",
+          th: "เจลาโต้ทำเองในร้าน อยู่ชั้นล่างของเกสต์เฮาส์เล็ก ๆ ใกล้วัดโพธิ์",
+        },
         mapsQuery: "GHEE GELATO HOUSE Bangkok",
       },
       {
@@ -850,6 +974,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4934,
         rating: 4.8,
         ratingCount: 244,
+        note: {
+          en: "Run by the same family for more than 60 years, near Museum Siam.",
+          th: "ครอบครัวเดียวกันทำมากว่า 60 ปี อยู่ใกล้มิวเซียมสยาม",
+        },
         mapsQuery: "Hia Mak Tofu Pudding Grass Jelly Bangkok",
       },
       {
@@ -861,6 +989,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4864,
         rating: 4.6,
         ratingCount: 125,
+        note: {
+          en: "Upstairs above a dumpling shop, with outdoor seats facing the river.",
+          th: "อยู่ชั้นสองเหนือร้านเกี๊ยว มีที่นั่งด้านนอกหันออกแม่น้ำ",
+        },
         mapsQuery: "Second Cafe Wanglang Bangkok",
       },
       {
@@ -873,6 +1005,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4904,
         rating: 4.8,
         ratingCount: 220,
+        note: {
+          en: "Roasts its own beans, sourced from small farms in the north.",
+          th: "คั่วเมล็ดเอง รับเมล็ดจากไร่เล็ก ๆ ทางภาคเหนือ",
+        },
         mapsQuery: "ช่างคั่ว สาขาท่าพระจันทร์",
       },
       {
@@ -884,6 +1020,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4891,
         rating: 4.7,
         ratingCount: 96,
+        note: {
+          en: "A short walk from campus, with a bright upstairs room that suits working.",
+          th: "เดินจากมหาวิทยาลัยไม่ไกล ชั้นบนสว่าง เหมาะนั่งทำงาน",
+        },
         mapsQuery: "LUA Cafe BKK Bangkok",
       },
       {
@@ -906,6 +1046,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4936,
         rating: 4.9,
         ratingCount: 135,
+        note: {
+          en: "Matcha made with tea leaves from Kyoto.",
+          th: "มัทฉะจากใบชาเกียวโต",
+        },
         mapsQuery: "INOME Japanese TEA Bangkok",
       },
     ],
@@ -990,6 +1134,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4765,
         rating: 4.5,
         ratingCount: 27137,
+        note: {
+          en: "Open since 1995 and reopened in 2025 after a major renovation.",
+          th: "เปิดมาตั้งแต่ปี 2538 และกลับมาเปิดใหม่ในปี 2568 หลังรีโนเวตใหญ่",
+        },
         mapsQuery: "Central Pinklao",
       },
       {
@@ -1001,6 +1149,10 @@ export const foodGroups: PlaceGroup[] = [
         lng: 100.4712,
         rating: 4.6,
         ratingCount: 124,
+        note: {
+          en: "A petrol station that grew into a community mall, the largest in its chain.",
+          th: "ปั๊มน้ำมันที่ขยายเป็นคอมมูนิตี้มอลล์ ใหญ่ที่สุดในเครือ",
+        },
         mapsQuery: "Susco Square Pinklao",
       },
     ],
