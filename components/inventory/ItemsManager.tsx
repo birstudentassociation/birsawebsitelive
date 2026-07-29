@@ -823,7 +823,7 @@ export default function ItemsManager({
           </label>
 
           <fieldset className="flex flex-col gap-2">
-            <legend className="text-ink text-sm font-semibold">{t.trackingModeLabel}</legend>
+            <legend className="text-ink mb-2 text-sm font-semibold">{t.trackingModeLabel}</legend>
             <div className="flex flex-col gap-2 sm:flex-row">
               <label className="border-input-border has-checked:border-brand has-checked:bg-brand-tint flex items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
                 <input

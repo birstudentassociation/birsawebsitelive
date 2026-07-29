@@ -121,13 +121,16 @@ export default async function AnswersHubPage({
             {t.searchHint}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
+            {/* `flex-1` only from `sm:` up, where the wrapper is a row. Below
+                that it stacks, and flex-1 would size the input's height
+                rather than its width, collapsing it to a sliver. */}
             <input
               id="answers-q"
               name="q"
               type="search"
               defaultValue={query}
               aria-describedby="answers-q-hint"
-              className="focus-halo border-input-border bg-surface text-ink h-11 flex-1 rounded-lg border px-4"
+              className="focus-halo border-input-border bg-surface text-ink h-11 w-full rounded-lg border px-4 sm:flex-1"
             />
             <Button type="submit">{t.searchButton}</Button>
           </div>

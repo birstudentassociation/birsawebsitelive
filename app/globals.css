@@ -238,6 +238,14 @@ html[lang="th"] .font-display {
     text-wrap: pretty;
   }
 
+  /* A <legend> is lifted out of its fieldset's flow, so a fieldset laid out
+     with flex `gap` gets no space below its legend at all: the question ends
+     up flush against its first answer. Space it here so every question group
+     reads as a heading above its options. */
+  legend {
+    margin-bottom: 1.25rem;
+  }
+
   a {
     color: var(--color-brand-deep);
     text-underline-offset: 0.18em;
