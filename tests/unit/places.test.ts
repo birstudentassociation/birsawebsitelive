@@ -324,7 +324,7 @@ describe("layoutMarkers", () => {
     }
   });
 
-  it("clears every pair of every real place set at the narrowest map width", () => {
+  it("clears every pair of every real place set at MAP_LAYOUT_WIDTH", () => {
     // This is the actual regression case: 46 markers on the old-town food
     // map, many of them genuine next-door neighbours, laid out exactly the
     // way PlacesSection builds each map. Pinklao and housing are the sets
@@ -417,6 +417,152 @@ describe("layoutMarkers", () => {
     const layouts = layoutMarkers(oldtown, view);
 
     expect(layouts.map((layout) => layout.place.id)).toEqual(oldtown.map((place) => place.id));
+  });
+
+  it("keeps every marker's disc clear of every other place's anchor dot (C2)", () => {
+    // The "pointers still covered up" bug: a displaced marker landing on
+    // top of some *other* place's anchor dot, hiding it. Checked against
+    // every anchor, not only the anchors of displaced places, per the spec.
+    for (const [name, places] of Object.entries(realSets)) {
+      const kind = name === "housing" ? "housing" : "food";
+      const view = viewFor(places, kind);
+      const mapWidth = MAP_LAYOUT_WIDTH;
+      const layouts = layoutMarkers(places, view);
+      const anchorPx = (layout: MarkerLayout) =>
+        markerPx({ ...layout, marker: layout.anchor }, view, mapWidth);
+
+      for (let i = 0; i < layouts.length; i++) {
+        const marker = markerPx(layouts[i]!, view, mapWidth);
+        for (let j = 0; j < layouts.length; j++) {
+          if (i === j) continue;
+          const anchor = anchorPx(layouts[j]!);
+          const dist = Math.hypot(marker.x - anchor.x, marker.y - anchor.y);
+          expect(
+            dist,
+            `${name}: marker ${i} (${layouts[i]!.place.id}) covers anchor ${j} (${layouts[j]!.place.id})'s dot: dist=${dist}`
+          ).toBeGreaterThanOrEqual(DOT_RADIUS - 1e-6);
+        }
+      }
+    }
+  });
+
+  /**
+   * Builds `n` places arranged in a tight ring (radius `spreadDeg`, in
+   * degrees) around `housingPlaces[0]`'s coordinates, plus one far-off
+   * singleton at `farAngle` degrees to pull the cluster's outward direction
+   * away from due east (the degenerate case when a cluster is the only
+   * group on the map: its own centroid coincides with the overall one).
+   * `n`/`spreadDeg`/`farDeg`/`farAngle` below are chosen, by search, so the
+   * rosette formula alone clears every adjacent pair — no marker in the
+   * cluster needs the repair pass — which is what makes this fixture usable
+   * for an exact (not just "displaced") geometry assertion.
+   */
+  function tightCluster(
+    n: number,
+    spreadDeg: number,
+    farDeg: number,
+    farAngle: number
+  ): { places: Place[]; clusterIds: string[] } {
+    const base = housingPlaces[0]!;
+    const cluster: Place[] = Array.from({ length: n }, (_, i) => {
+      const angle = (2 * Math.PI * i) / n;
+      return {
+        ...base,
+        id: `cluster-${i}`,
+        lat: base.lat + spreadDeg * Math.sin(angle),
+        lng: base.lng + spreadDeg * Math.cos(angle),
+      };
+    });
+    const farRad = (farAngle * Math.PI) / 180;
+    const far: Place = {
+      ...base,
+      id: "cluster-far",
+      lat: base.lat + farDeg * Math.sin(farRad),
+      lng: base.lng + farDeg * Math.cos(farRad),
+    };
+    return { places: [...cluster, far], clusterIds: cluster.map((p) => p.id) };
+  }
+
+  it("lays a tight cluster out on a single circle around its own centroid", () => {
+    const { places, clusterIds } = tightCluster(5, 0.00025, 0.005, 75);
+    const view = computeMapView(places, 14);
+    const mapWidth = MAP_LAYOUT_WIDTH;
+    const layouts = layoutMarkers(places, view);
+    const clusterLayouts = clusterIds.map((id) => layouts.find((l) => l.place.id === id)!);
+
+    // Every member should have been moved off its own anchor onto the ring.
+    for (const layout of clusterLayouts) {
+      expect(layout.displaced).toBe(true);
+    }
+
+    const anchorCentroid = {
+      x:
+        clusterLayouts.reduce(
+          (sum, l) => sum + markerPx({ ...l, marker: l.anchor }, view, mapWidth).x,
+          0
+        ) / clusterLayouts.length,
+      y:
+        clusterLayouts.reduce(
+          (sum, l) => sum + markerPx({ ...l, marker: l.anchor }, view, mapWidth).y,
+          0
+        ) / clusterLayouts.length,
+    };
+    const dists = clusterLayouts.map((l) => {
+      const mp = markerPx(l, view, mapWidth);
+      return Math.hypot(mp.x - anchorCentroid.x, mp.y - anchorCentroid.y);
+    });
+
+    for (const dist of dists) {
+      expect(dist).toBeCloseTo(dists[0]!, 3);
+    }
+  });
+
+  it("orders rosette slots to match anchor angular order, so leader lines don't cross", () => {
+    const { places, clusterIds } = tightCluster(5, 0.00025, 0.005, 75);
+    const view = computeMapView(places, 14);
+    const mapWidth = MAP_LAYOUT_WIDTH;
+    const layouts = layoutMarkers(places, view);
+    const clusterLayouts = clusterIds.map((id) => layouts.find((l) => l.place.id === id)!);
+
+    const anchorCentroid = {
+      x:
+        clusterLayouts.reduce(
+          (sum, l) => sum + markerPx({ ...l, marker: l.anchor }, view, mapWidth).x,
+          0
+        ) / clusterLayouts.length,
+      y:
+        clusterLayouts.reduce(
+          (sum, l) => sum + markerPx({ ...l, marker: l.anchor }, view, mapWidth).y,
+          0
+        ) / clusterLayouts.length,
+    };
+    const angleAround = (p: { x: number; y: number }) =>
+      Math.atan2(p.y - anchorCentroid.y, p.x - anchorCentroid.x);
+    // Normalise into [0, 2*PI) so ties/wraparound sort the same way on both sides.
+    const normalise = (a: number) => ((a % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+
+    const byAnchorAngle = [...clusterLayouts].sort(
+      (a, b) =>
+        normalise(angleAround(markerPx({ ...a, marker: a.anchor }, view, mapWidth))) -
+        normalise(angleAround(markerPx({ ...b, marker: b.anchor }, view, mapWidth)))
+    );
+    const byMarkerAngle = [...clusterLayouts].sort(
+      (a, b) =>
+        normalise(angleAround(markerPx(a, view, mapWidth))) -
+        normalise(angleAround(markerPx(b, view, mapWidth)))
+    );
+
+    // Both lists walk the circle in the same (increasing-angle) direction,
+    // but "increasing from 0" can start at a different member on each side
+    // of the comparison depending on exactly where the 0/2*PI wraparound
+    // falls, so compare them as cyclic sequences rather than requiring the
+    // same starting element.
+    const anchorIds = byAnchorAngle.map((l) => l.place.id);
+    const markerIds = byMarkerAngle.map((l) => l.place.id);
+    const startIndex = markerIds.indexOf(anchorIds[0]!);
+    const rotatedMarkerIds = [...markerIds.slice(startIndex), ...markerIds.slice(0, startIndex)];
+
+    expect(rotatedMarkerIds).toEqual(anchorIds);
   });
 });
 

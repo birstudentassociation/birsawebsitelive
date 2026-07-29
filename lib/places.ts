@@ -1483,7 +1483,10 @@ function normaliseAngle(angle: number): number {
  * with another is in the same cluster, transitively, even if the two
  * anchors that triggered the union aren't the pair that's furthest apart.
  */
-function makeUnionFind(count: number): { find: (i: number) => number; union: (a: number, b: number) => void } {
+function makeUnionFind(count: number): {
+  find: (i: number) => number;
+  union: (a: number, b: number) => void;
+} {
   const parent = Array.from({ length: count }, (_, i) => i);
   function find(i: number): number {
     while (parent[i] !== i) {
@@ -1643,7 +1646,10 @@ export function layoutMarkers(
     const ordered = members
       .map((i) => ({
         i,
-        angle: normaliseAngle(Math.atan2(anchorsPx[i]!.y - clusterCentroid.y, anchorsPx[i]!.x - clusterCentroid.x) - outward),
+        angle: normaliseAngle(
+          Math.atan2(anchorsPx[i]!.y - clusterCentroid.y, anchorsPx[i]!.x - clusterCentroid.x) -
+            outward
+        ),
       }))
       .sort((a, b) => a.angle - b.angle || a.i - b.i);
 
@@ -1659,7 +1665,12 @@ export function layoutMarkers(
 
   // --- Pass 3: repair, in input order, anything the independent rosette
   // placements above still left in violation of C1/C2/C3. --------------------
-  const isValid = (x: number, y: number, ownIndex: number, placed: { x: number; y: number }[]): boolean => {
+  const isValid = (
+    x: number,
+    y: number,
+    ownIndex: number,
+    placed: { x: number; y: number }[]
+  ): boolean => {
     if (x < inset || x > mapWidth - inset) return false;
     if (y < inset || y > mapHeight - inset) return false;
     if (!clearsAll(x, y, placed, minSeparation)) return false;

@@ -257,9 +257,9 @@ export default function PlacesMap({
               // Sizing is inline (`markerBoxSize`/`markerFontSize`) rather than
               // Tailwind's `h-7 min-w-7 text-xs` because it has to respond to
               // container width, not a breakpoint. `min-width` matches the box
-              // size so a two-digit label like "68" still fits inside a circle
-              // at the reference width; `px-1` is what lets it grow into a
-              // pill past that rather than overflow. Tailwind's default
+              // size, rather than `width`, so a label wider than the circle
+              // grows the marker into a pill (with `px-1` for breathing room)
+              // instead of overflowing it. Tailwind's default
               // `box-border` puts the 2px border *inside* the box, so the
               // interactive target stays a true `MARKER_SIZE`px, which matters
               // now that this size is load-bearing for WCAG 2.5.8 Target Size.
@@ -268,7 +268,6 @@ export default function PlacesMap({
                 left: `${marker.marker.leftPct}%`,
                 top: `${marker.marker.topPct}%`,
                 backgroundColor: fill,
-                width: markerBoxSize,
                 height: markerBoxSize,
                 minWidth: markerBoxSize,
                 fontSize: markerFontSize,

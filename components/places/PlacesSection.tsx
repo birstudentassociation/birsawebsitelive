@@ -112,7 +112,6 @@ function PlaceChip({ label, variant }: { label: string; variant: "brand" | "fore
       className="flex shrink-0 items-center justify-center rounded-full border-2 border-white px-1 font-bold text-white shadow-sm"
       style={{
         backgroundColor: chipFill[variant],
-        width: MARKER_SIZE,
         height: MARKER_SIZE,
         minWidth: MARKER_SIZE,
         fontSize: CHIP_FONT_SIZE,
