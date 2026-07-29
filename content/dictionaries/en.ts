@@ -218,6 +218,10 @@ export const en = {
     backToGuides: "Back to the student life & culture guides",
     openCourse: "View course & reviews",
     reviewedBadge: "Reviewed",
+    sampleBadge: "Example review",
+    sampleReviewTitle: "Example content, not a real review",
+    sampleReviewBody:
+      "Everything in this section is made up to show how a finished course review will look. The ratings, workload notes, tips and quotes below are not real student feedback, so do not use them to decide whether to take this course. BIRSA will replace them once it has collected actual reviews.",
     descriptionHeading: "Course description",
     reviewHeading: "Student review",
     reviewBasedOn: "Based on {count} student reviews",

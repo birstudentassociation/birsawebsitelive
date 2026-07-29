@@ -81,7 +81,9 @@ export default async function CourseDetailPage({
         <div className="flex flex-wrap items-center gap-2">
           <Tag variant="brand">{t.tracks[course.track]}</Tag>
           <Tag variant="forest">{t.categories[course.category]}</Tag>
-          {course.review ? <Tag variant="neutral">{t.reviewedBadge}</Tag> : null}
+          {course.review ? (
+            <Tag variant="neutral">{course.review.sample ? t.sampleBadge : t.reviewedBadge}</Tag>
+          ) : null}
         </div>
 
         <div className="flex flex-wrap gap-2 text-sm">
@@ -213,6 +215,12 @@ function CourseReview({
 }) {
   return (
     <div className="flex flex-col gap-8">
+      {review.sample ? (
+        <Notice variant="placeholder" title={t.sampleReviewTitle}>
+          <p>{t.sampleReviewBody}</p>
+        </Notice>
+      ) : null}
+
       <p className="text-muted text-sm">
         {fillTemplate(t.reviewBasedOn, { count: review.reviewCount })}
       </p>

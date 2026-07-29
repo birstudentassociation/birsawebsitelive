@@ -145,6 +145,7 @@ export const courses: Course[] = [
     // Mockup content that demonstrates the student-review layout. Not a real
     // submission; replace once BIRSA collects an actual review for PI121.
     review: {
+      sample: true,
       reviewCount: 27,
       overallRating: 4.3,
       workloadRating: 2,

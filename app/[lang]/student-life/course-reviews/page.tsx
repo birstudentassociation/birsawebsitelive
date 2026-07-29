@@ -95,6 +95,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             prerequisite: t.prerequisite,
             instructor: t.instructorsHeading,
             reviewedBadge: t.reviewedBadge,
+            sampleBadge: t.sampleBadge,
             previous: t.previous,
             next: t.next,
             pageOf: t.pageOf,

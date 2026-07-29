@@ -53,10 +53,10 @@ export const homeEn = {
         description:
           "Guided answers on rules, your degree and student life. Say who you are and get the version that applies to you.",
       },
-      courseReviews: {
-        label: "Course reviews",
+      placesNearby: {
+        label: "Food and housing nearby",
         description:
-          "Student-written notes on BIR courses: workload, assessment style, and what to expect before you register.",
+          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos passed down by seniors, all mapped.",
       },
       borrowEquipment: {
         label: "Borrow equipment",

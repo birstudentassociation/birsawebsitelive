@@ -81,6 +81,13 @@ export type ReviewQuote = {
  * "no review yet" state, which invites students to write one via /contact).
  */
 export type StudentReview = {
+  /**
+   * Marks the review as made-up demonstration content rather than real
+   * student feedback, so the pages that render it can say so. Set this on
+   * any review written to show the layout, and remove it once the entry is
+   * replaced by an actual submission.
+   */
+  sample?: boolean;
   /** How many students' feedback this summary is drawn from. */
   reviewCount: number;
   /** 1 to 5, overall recommendation. */

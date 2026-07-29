@@ -36,6 +36,7 @@ export type CourseReviewDict = {
   prerequisite: string;
   instructor: string;
   reviewedBadge: string;
+  sampleBadge: string;
   previous: string;
   next: string;
   /** Template containing the literal placeholder "{current}" and "{total}". */
@@ -243,7 +244,11 @@ function CourseCard({
         <span className="text-ink font-mono text-sm font-semibold">{course.code}</span>
         <Tag variant="brand">{dict.tracks[course.track]}</Tag>
         <Tag variant="forest">{dict.categories[course.category]}</Tag>
-        {course.review ? <Tag variant="neutral">{dict.reviewedBadge}</Tag> : null}
+        {course.review ? (
+          <Tag variant="neutral">
+            {course.review.sample ? dict.sampleBadge : dict.reviewedBadge}
+          </Tag>
+        ) : null}
       </div>
       <div>
         <CardTitle href={href}>{course.title[locale]}</CardTitle>
