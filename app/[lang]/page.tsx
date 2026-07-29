@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
 import Card, { CardTitle } from "@/components/Card";
-import Notice from "@/components/Notice";
 import NewsCard from "@/components/news/NewsCard";
 import EventCalendar from "@/components/home/EventCalendar";
 import { calendarEvents } from "@/content/calendar/events";
@@ -209,24 +208,6 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             );
           })}
         </div>
-      </section>
-
-      {/* New here? */}
-      <section aria-labelledby="new-here-heading" className="wrap py-12 sm:py-16">
-        <h2 id="new-here-heading" className="sr-only">
-          {copy.newHere.title}
-        </h2>
-        <Notice variant="info" title={copy.newHere.title}>
-          <p>{copy.newHere.body}</p>
-          <p className="mt-2">
-            <a
-              href={localeHref(locale, "/student-life/getting-started")}
-              className="text-brand-deep font-semibold hover:underline"
-            >
-              {copy.newHere.cta}
-            </a>
-          </p>
-        </Notice>
       </section>
     </>
   );
