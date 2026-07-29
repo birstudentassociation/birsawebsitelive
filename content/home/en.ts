@@ -58,9 +58,10 @@ export const homeEn = {
         description:
           "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos passed down by seniors, all mapped.",
       },
-      borrowEquipment: {
-        label: "Borrow equipment",
-        description: "Free BIRSA equipment loans, from the first-aid kit to event gear.",
+      gettingStarted: {
+        label: "Getting started at BIR",
+        description:
+          "A step-by-step checklist for new students, whether you are moving to Bangkok or already here.",
       },
       shuttleBus: {
         label: "Shuttle bus",
