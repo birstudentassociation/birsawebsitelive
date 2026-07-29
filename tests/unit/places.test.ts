@@ -8,8 +8,9 @@ import {
   housingPlacesLettered,
   layoutMarkers,
   lonLatToTile,
+  MAP_LAYOUT_WIDTH,
   markerPosition,
-  MIN_MAP_WIDTH,
+  MARKER_SIZE,
   type MapView,
   type MarkerLayout,
   type Place,
@@ -250,11 +251,12 @@ describe("ratings", () => {
 });
 
 describe("layoutMarkers", () => {
-  const MARKER_SIZE = 28;
   const GAP = 2;
   const FOCUS_RING = 5;
+  const DOT_CLEARANCE = 4;
   const MIN_SEPARATION = MARKER_SIZE + GAP;
   const INSET = MARKER_SIZE / 2 + FOCUS_RING;
+  const DOT_RADIUS = MARKER_SIZE / 2 + DOT_CLEARANCE;
 
   /** The three real place sets a places map is ever laid out for, by name. */
   function foodByArea(area: PlaceArea): Place[] {
@@ -332,7 +334,7 @@ describe("layoutMarkers", () => {
       const kind = name === "housing" ? "housing" : "food";
       const view = viewFor(places, kind);
       const layouts = layoutMarkers(places, view);
-      assertAllPairsClear(layouts, view, MIN_MAP_WIDTH);
+      assertAllPairsClear(layouts, view, MAP_LAYOUT_WIDTH);
     }
   });
 
@@ -345,7 +347,7 @@ describe("layoutMarkers", () => {
     for (const [name, places] of Object.entries(realSets)) {
       const kind = name === "housing" ? "housing" : "food";
       const view = viewFor(places, kind);
-      const mapWidth = MIN_MAP_WIDTH;
+      const mapWidth = MAP_LAYOUT_WIDTH;
       const mapHeight = (mapWidth * view.rows) / view.cols;
       const layouts = layoutMarkers(places, view, { mapWidth });
 
@@ -389,7 +391,7 @@ describe("layoutMarkers", () => {
     expect(cornerLayout.displaced).toBe(true);
     expect(cornerLayout.marker).not.toEqual(cornerLayout.anchor);
 
-    const { x, y } = markerPx(cornerLayout, cornerView, MIN_MAP_WIDTH);
+    const { x, y } = markerPx(cornerLayout, cornerView, MAP_LAYOUT_WIDTH);
     expect(x).toBeGreaterThanOrEqual(INSET - 1e-6);
     expect(y).toBeGreaterThanOrEqual(INSET - 1e-6);
   });

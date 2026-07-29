@@ -12,11 +12,16 @@
  * dot at the actual location, so the map stays honest about where things
  * are even when the label isn't drawn exactly on top.
  *
- * `layoutMarkers` only guarantees no two 28px markers overlap at
- * `MIN_MAP_WIDTH` (672px); the guarantee holds at any wider rendered width
- * too, because percentages scale, but not narrower. That's why the map
- * carries a min-width and scrolls horizontally below it rather than
- * shrinking, see the wrapper below.
+ * `layoutMarkers` solves its collision layout in px at `MAP_LAYOUT_WIDTH`
+ * (360px) and hands back percentages of the frame, so the map itself is
+ * fully fluid: it has no min-width and never scrolls, it just renders at
+ * whatever width the content column gives it. Above `MAP_LAYOUT_WIDTH` the
+ * markers below are pinned to a fixed px size while the percentage grid
+ * they sit on keeps growing, so clearance only improves. Below it there's
+ * no slack left to spend, so the markers shrink in lockstep with the frame
+ * instead, using `@container` query units — that keeps each marker the same
+ * *proportion* of the frame it was solved for, which is what the solved
+ * percentages actually depend on. See the marker layer below for how.
  *
  * The frame, tile grid and marker layout all come from the pure Web
  * Mercator helpers in `lib/places.ts` (`computeMapView` / `layoutMarkers`),
@@ -33,7 +38,31 @@
 import ExternalLink from "@/components/ExternalLink";
 import VisuallyHidden from "@/components/VisuallyHidden";
 import type { Locale } from "@/lib/i18n";
-import { computeMapView, layoutMarkers, MIN_MAP_WIDTH, type Place } from "@/lib/places";
+import {
+  computeMapView,
+  layoutMarkers,
+  MAP_LAYOUT_WIDTH,
+  MARKER_SIZE,
+  type Place,
+} from "@/lib/places";
+
+// Glyph size, in CSS px, at `MAP_LAYOUT_WIDTH`. Not exported alongside
+// `MARKER_SIZE` because it's purely a rendering choice with no bearing on
+// the collision-layout maths in `lib/places.ts`; `PlacesSection.tsx`'s
+// `PlaceChip` duplicates this value for its own, non-container-query
+// sizing, so the two need to be kept in step by hand.
+const MARKER_FONT_SIZE = 11;
+
+/**
+ * `min(fixedPx, referenceCqw)`: exactly `fixedPx` at container widths at or
+ * above `MAP_LAYOUT_WIDTH`, and shrinking proportionally with the container
+ * below it, because `referenceCqw` is the percentage of `MAP_LAYOUT_WIDTH`
+ * that `fixedPx` represents. Requires `container-type: inline-size` on an
+ * ancestor, set on the map frame below.
+ */
+function fluidPx(fixedPx: number): string {
+  return `min(${fixedPx}px, ${((fixedPx / MAP_LAYOUT_WIDTH) * 100).toFixed(4)}cqw)`;
+}
 
 export type PlaceMapEntry = {
   place: Place;
@@ -113,24 +142,21 @@ export default function PlacesMap({
   const fill = markerFill[markerVariant];
 
   const groupProps = labelledBy ? { "aria-labelledby": labelledBy } : { "aria-label": t.mapLabel };
+  const markerBoxSize = fluidPx(MARKER_SIZE);
+  const markerFontSize = fluidPx(MARKER_FONT_SIZE);
 
   return (
-    // Outer wrapper: scrolls horizontally rather than letting the map
-    // shrink below `MIN_MAP_WIDTH`, the width `layoutMarkers` solved the
-    // collision layout for. WCAG 1.4.10 Reflow exempts content that
-    // genuinely needs two-dimensional layout to be meaningful, and a map
-    // (like a data table) is exactly that case: the alternative is
-    // markers close enough together to fail Target Size again. `tabIndex`
-    // makes the scrollable region itself keyboard-reachable.
-    <div
-      role="group"
-      {...groupProps}
-      className="border-line overflow-x-auto rounded-lg border"
-      tabIndex={0}
-    >
+    // Outer wrapper: purely a border/rounding frame now. There's nothing
+    // left to scroll — the map frame inside is `w-full` and always fits the
+    // content column — so this no longer needs `overflow-x-auto` or the
+    // `tabIndex` that made a scroll region keyboard-reachable.
+    <div role="group" {...groupProps} className="border-line rounded-lg border">
       <div
-        className="relative"
-        style={{ minWidth: MIN_MAP_WIDTH, aspectRatio: `${view.cols} / ${view.rows}` }}
+        // `container-type: inline-size` turns this frame into the `@container`
+        // context the markers below query against, so they can read their own
+        // size off *this* element's width rather than the viewport's.
+        className="relative w-full"
+        style={{ aspectRatio: `${view.cols} / ${view.rows}`, containerType: "inline-size" }}
       >
         {/* Tile layer: purely decorative imagery. Whole tiles overhang the
             frame on every side (the frame is cropped to the places' bounding
@@ -228,11 +254,24 @@ export default function PlacesMap({
             <a
               key={marker.place.id}
               href={`#place-${marker.place.id}`}
-              className="focus-halo absolute flex h-7 min-w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white px-1 text-xs font-bold text-white shadow-md"
+              // Sizing is inline (`markerBoxSize`/`markerFontSize`) rather than
+              // Tailwind's `h-7 min-w-7 text-xs` because it has to respond to
+              // container width, not a breakpoint. `min-width` matches the box
+              // size so a two-digit label like "68" still fits inside a circle
+              // at the reference width; `px-1` is what lets it grow into a
+              // pill past that rather than overflow. Tailwind's default
+              // `box-border` puts the 2px border *inside* the box, so the
+              // interactive target stays a true `MARKER_SIZE`px, which matters
+              // now that this size is load-bearing for WCAG 2.5.8 Target Size.
+              className="focus-halo absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-2 border-white px-1 font-bold text-white shadow-md"
               style={{
                 left: `${marker.marker.leftPct}%`,
                 top: `${marker.marker.topPct}%`,
                 backgroundColor: fill,
+                width: markerBoxSize,
+                height: markerBoxSize,
+                minWidth: markerBoxSize,
+                fontSize: markerFontSize,
               }}
             >
               {labelById.get(marker.place.id)}

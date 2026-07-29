@@ -25,6 +25,7 @@ import {
   foodPlacesFlat,
   housingPlaces,
   housingPlacesLettered,
+  MARKER_SIZE,
   type NumberedPlace,
   type Place,
   type PlaceArea,
@@ -83,6 +84,15 @@ const chipFill: Record<"brand" | "forest", string> = {
   forest: "#2f5e4e",
 };
 
+// A chip lives in the flowing list, not inside the map's `@container`
+// context, so it can't shrink itself the way a map marker does below
+// `MAP_LAYOUT_WIDTH` — it's sized flat at `MARKER_SIZE`px, `PlacesMap`'s
+// size at the reference width and above. `MARKER_FONT_SIZE` isn't exported
+// from `PlacesMap.tsx` (it's a rendering choice, not part of the shared
+// layout contract in `lib/places.ts`), so this 11 has to be kept in step
+// with it by hand.
+const CHIP_FONT_SIZE = 11;
+
 function displayName(locale: Locale, place: Place): string {
   if (locale === "en" && place.nameLocal && !place.name.en.includes(place.nameLocal)) {
     return `${place.name.en} (${place.nameLocal})`;
@@ -99,8 +109,14 @@ function PlaceChip({ label, variant }: { label: string; variant: "brand" | "fore
   return (
     <span
       aria-hidden="true"
-      className="flex h-7 min-w-7 shrink-0 items-center justify-center rounded-full border-2 border-white px-1 text-xs font-bold text-white shadow-sm"
-      style={{ backgroundColor: chipFill[variant] }}
+      className="flex shrink-0 items-center justify-center rounded-full border-2 border-white px-1 font-bold text-white shadow-sm"
+      style={{
+        backgroundColor: chipFill[variant],
+        width: MARKER_SIZE,
+        height: MARKER_SIZE,
+        minWidth: MARKER_SIZE,
+        fontSize: CHIP_FONT_SIZE,
+      }}
     >
       {label}
     </span>
