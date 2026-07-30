@@ -181,7 +181,17 @@ html[lang="th"] {
    over the Tailwind utility on Thai pages. */
 html[lang="th"] .font-display {
   font-family: var(--font-thai-display);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.06em;
+}
+
+/* Thai leading. Thai stacks tone marks above the loop and vowels below it, so
+   a Thai line inks close to a full em where the Latin equivalent inks about
+   0.7 -- and the display face is scaled to 140% on top of that. The heading
+   sizes come from Tailwind's `text-*` utilities, which set a line-height of
+   their own (1 at `text-5xl`), and that leaves consecutive Thai lines touching.
+   Unlayered so it wins over those utilities, as the rule above does. */
+html[lang="th"] :is(h1, h2, h3) {
+  line-height: 1.45;
 }
 
 /* ==========================================================================
@@ -231,13 +241,18 @@ html[lang="th"] .font-display {
   /* Thai display text: JenjrusVris ships one weight, and
      `font-synthesis-weight: none` means it renders at 400 regardless. The 700
      is kept for the Sarabun fallback, which needs the extra weight to read as
-     a heading rather than body. */
+     a heading rather than body. Size and leading are handled above the layer,
+     where they can beat the Tailwind `text-*` utilities.
+
+     The face is drawn with very tight sidebearings, so adjacent consonants
+     merge into each other at heading sizes without extra tracking. 0.06em
+     clears every collision; much beyond that and words start to fall apart,
+     since Thai does not put spaces between them. */
   html[lang="th"] h1,
   html[lang="th"] h2,
   html[lang="th"] h3 {
     font-weight: 700;
-    letter-spacing: 0.01em;
-    line-height: 1.3;
+    letter-spacing: 0.06em;
   }
 
   p {
