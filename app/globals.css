@@ -43,9 +43,13 @@
   --font-sans:
     var(--font-en-body), var(--font-th), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-thai: var(--font-th), var(--font-en-body), system-ui, sans-serif;
-  /* Thai display type. JenjrusVris covers the Thai block and basic Latin, so
-     Sarabun stays in the stack to pick up everything else. */
-  --font-thai-display: var(--font-th-display), var(--font-th), var(--font-en-body), sans-serif;
+  /* Thai display type. Font fallback runs per character, so the order does the
+     script splitting on its own: Fraunces has no Thai glyphs and picks up only
+     the Latin and the digits, every Thai character falls through to
+     JenjrusVris, and Sarabun catches anything neither of them draws. That
+     keeps names like BIRSA and dates identical across the two locales. */
+  --font-thai-display:
+    var(--font-en-display), var(--font-th-display), var(--font-th), var(--font-en-body), sans-serif;
 
   /* Radius + shadow (soft, warm) ----------------------------------------- */
   --radius-sm: 0.375rem;
