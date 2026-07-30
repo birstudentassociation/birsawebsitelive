@@ -1,98 +1,104 @@
 "use client";
 
 import { useActionState, useEffect, useId, useRef } from "react";
-import Field from "@/components/Field";
-import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import Email from "@/components/Email";
-import { submitContact, type ContactState } from "@/app/[lang]/contact/actions";
+import Field from "@/components/Field";
+import SummaryRow from "@/components/forms/SummaryRow";
+import FeedbackForm from "@/components/feedback/FeedbackForm";
+import type { ContactDraft, CheckState } from "@/app/[lang]/contact/actions";
+import type { FeedbackState } from "@/app/[lang]/feedback/actions";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { localeHref } from "@/lib/i18n";
+import { contactCategoryLabel, type ContactCategory } from "@/components/forms/contactWizardCopy";
 
-export type ContactFormProps = {
+export type ContactCheckFormProps = {
   locale: Locale;
   dict: Dictionary;
-  /** Preselected category, e.g. from `?category=` search param. */
-  initialCategory?: string;
-  /** Prefilled subject, e.g. from the "report a problem with this page" link. */
-  initialSubject?: string;
+  draft: ContactDraft;
+  action: (prevState: CheckState, formData: FormData) => Promise<CheckState>;
+  feedbackAction: (prevState: FeedbackState, formData: FormData) => Promise<FeedbackState>;
+  categoryLabel: string;
+  subjectLabel: string;
+  messageLabel: string;
+  nameLabel: string;
+  emailLabel: string;
+  changeLabel: string;
+  submitLabel: string;
+  submittingLabel: string;
 };
 
-const CATEGORY_VALUES = ["question", "suggestion", "problem", "other"] as const;
-
-function categoryLabel(locale: Locale, value: (typeof CATEGORY_VALUES)[number]): string {
-  const labels: Record<(typeof CATEGORY_VALUES)[number], string> = {
-    question: locale === "th" ? "คำถามทั่วไป" : "A question",
-    suggestion: locale === "th" ? "ข้อเสนอแนะ" : "A suggestion",
-    problem: locale === "th" ? "แจ้งปัญหา" : "A problem to report",
-    other: locale === "th" ? "เรื่องอื่น ๆ" : "Something else",
-  };
-  return labels[value];
-}
-
-const initialState: ContactState = { status: "idle" };
+const initialState: CheckState = { status: "idle" };
 
 /**
- * Contact BIRSA form. Posts to the `submitContact` server action, so it works
- * with HTML alone (a plain form POST re-renders the page with the result);
- * `useActionState` progressively enhances it with an inline error summary,
- * focus management, and a pending state: no full reload when JS is available.
- * Inputs are uncontrolled (`defaultValue` + `name`) so the no-JS path carries
- * values through `FormData`; on a validation error the server echoes them back.
+ * Final "check your answers" step of the contact journey: lists every
+ * answer collected across the previous steps (each with a "change" link
+ * that re-enters that step and returns here), then submits via the
+ * `submitContactCheck` server action. Posts with a plain form so it works
+ * without JavaScript; `useActionState` progressively enhances it with an
+ * inline result and focus management, same pattern as every other form on
+ * the site.
  */
 export default function ContactForm({
   locale,
   dict,
-  initialCategory,
-  initialSubject,
-}: ContactFormProps) {
+  draft,
+  action,
+  feedbackAction,
+  categoryLabel,
+  subjectLabel,
+  messageLabel,
+  nameLabel,
+  emailLabel,
+  changeLabel,
+  submitLabel,
+  submittingLabel,
+}: ContactCheckFormProps) {
   const formId = useId();
-  const [state, formAction, isPending] = useActionState(submitContact, initialState);
+  const [state, formAction, isPending] = useActionState(action, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // On success/fallback the form (and the focused submit button) unmounts, so
-  // move focus to the result message, otherwise focus falls back to <body>
-  // and keyboard users lose their place (2.4.3).
   useEffect(() => {
     if (state.status === "success" || state.status === "fallback") {
       resultRef.current?.focus();
     }
   }, [state.status]);
 
-  const fieldIds = {
-    name: `${formId}-name`,
-    email: `${formId}-email`,
-    category: `${formId}-category`,
-    subject: `${formId}-subject`,
-    message: `${formId}-message`,
-  };
-
-  const values = state.values;
-
-  function buildDraft(): string {
-    const v = state.values;
-    if (!v) return "";
-    const catLabel = categoryLabel(locale, v.category as (typeof CATEGORY_VALUES)[number]);
+  function buildDraftText(d: ContactDraft): string {
+    const catLabel = d.category
+      ? contactCategoryLabel(locale, d.category as ContactCategory)
+      : "";
     return [
-      `${dict.form.yourName}: ${v.name}`,
-      `${dict.form.email}: ${v.email}`,
+      `${dict.form.yourName}: ${d.name ?? ""}`,
+      `${dict.form.email}: ${d.email ?? ""}`,
       `${dict.form.category}: ${catLabel}`,
-      `${dict.form.subject}: ${v.subject}`,
+      `${dict.form.subject}: ${d.subject ?? ""}`,
       "",
-      v.message,
+      d.message ?? "",
     ].join("\n");
   }
 
   if (state.status === "success") {
+    // The journey is finished here, which is exactly where the Service Manual
+    // expects a satisfaction prompt ("you must allow users to tell you what
+    // they think of your service once they've finished using it").
     return (
-      <div
-        ref={resultRef}
-        tabIndex={-1}
-        role="status"
-        className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
-      >
-        <p className="font-semibold">{dict.form.successTitle}</p>
-        <p className="mt-1 text-sm">{dict.form.successBody}</p>
+      <div className="flex flex-col gap-8">
+        <div
+          ref={resultRef}
+          tabIndex={-1}
+          role="status"
+          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+        >
+          <p className="font-semibold">{dict.form.successTitle}</p>
+          <p className="mt-1 text-sm">{dict.form.successBody}</p>
+        </div>
+        <FeedbackForm
+          locale={locale}
+          sourcePath={localeHref(locale, "/contact")}
+          action={feedbackAction}
+        />
       </div>
     );
   }
@@ -124,7 +130,7 @@ export default function ContactForm({
           as="textarea"
           name="draft"
           label={dict.form.message}
-          value={buildDraft()}
+          value={buildDraftText(state.draft)}
           readOnly
           rows={8}
         />
@@ -132,19 +138,50 @@ export default function ContactForm({
     );
   }
 
-  const errorItems: ErrorSummaryItem[] = Object.entries(state.errors ?? {})
-    .filter(([, message]) => Boolean(message))
-    .map(([key, message]) => ({
-      id: fieldIds[key as keyof typeof fieldIds],
-      message: message as string,
-    }));
+  // The category step lives at the journey's entry URL (/contact), not
+  // /contact/category, so it needs its own href rather than the generic
+  // step-name pattern the other four fields use.
+  const categoryHref = localeHref(locale, "/contact?returnTo=check");
+  const stepHref = (step: string) => localeHref(locale, `/contact/${step}?returnTo=check`);
 
   return (
-    <form action={formAction} noValidate className="flex flex-col gap-5">
-      <input type="hidden" name="locale" value={locale} />
-      <ErrorSummary title={dict.form.errorSummaryTitle} errors={errorItems} />
-
+    <form action={formAction} noValidate className="flex flex-col gap-6">
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
+
+      <dl className="border-line divide-line divide-y rounded-lg border">
+        <SummaryRow
+          label={categoryLabel}
+          value={draft.category ? contactCategoryLabel(locale, draft.category as ContactCategory) : ""}
+          changeHref={categoryHref}
+          changeLabel={changeLabel}
+        />
+        <SummaryRow
+          label={subjectLabel}
+          value={draft.subject ?? ""}
+          changeHref={stepHref("subject")}
+          changeLabel={changeLabel}
+        />
+        <SummaryRow
+          label={messageLabel}
+          value={draft.message ?? ""}
+          changeHref={stepHref("message")}
+          changeLabel={changeLabel}
+        />
+        <SummaryRow
+          label={nameLabel}
+          value={draft.name ?? ""}
+          changeHref={stepHref("name")}
+          changeLabel={changeLabel}
+        />
+        <SummaryRow
+          label={emailLabel}
+          value={draft.email ?? ""}
+          changeHref={stepHref("email")}
+          changeLabel={changeLabel}
+        />
+      </dl>
+
+      <p className="text-muted text-sm">{dict.form.privacyNote}</p>
 
       {/* Honeypot: real visitors never see or fill this. Visually hidden,
           not display:none, so assistive tech that ignores CSS still gets an
@@ -160,68 +197,13 @@ export default function ContactForm({
         />
       </div>
 
-      <Field
-        id={fieldIds.name}
-        name="name"
-        label={dict.form.yourName}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.name}
-        error={state.errors?.name}
-        autoComplete="name"
-      />
-      <Field
-        id={fieldIds.email}
-        name="email"
-        type="email"
-        label={dict.form.email}
-        hint={dict.form.emailHint}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.email}
-        error={state.errors?.email}
-        autoComplete="email"
-      />
-      <Field
-        id={fieldIds.category}
-        name="category"
-        as="select"
-        label={dict.form.category}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.category ?? initialCategory ?? "question"}
-        error={state.errors?.category}
-        options={CATEGORY_VALUES.map((value) => ({ value, label: categoryLabel(locale, value) }))}
-      />
-      <Field
-        id={fieldIds.subject}
-        name="subject"
-        label={dict.form.subject}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.subject ?? initialSubject}
-        error={state.errors?.subject}
-      />
-      <Field
-        id={fieldIds.message}
-        name="message"
-        as="textarea"
-        label={dict.form.message}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.message}
-        error={state.errors?.message}
-      />
-
-      <p className="text-muted text-sm">{dict.form.privacyNote}</p>
-
       <div>
         <Button type="submit" disabled={isPending}>
-          {isPending ? dict.form.sending : dict.form.send}
+          {isPending ? submittingLabel : submitLabel}
         </Button>
         {isPending ? (
           <span role="status" className="sr-only">
-            {dict.form.sending}
+            {submittingLabel}
           </span>
         ) : null}
       </div>

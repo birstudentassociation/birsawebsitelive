@@ -56,7 +56,7 @@ export default async function StudentLifeTrackPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
   const track = studentLifeTracks[locale][audience];
-  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   const entries = getGuideEntries(locale, audience);
 
@@ -71,7 +71,7 @@ export default async function StudentLifeTrackPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: infoServicesLabel, href: "/information-services" },
+              { label: infoServicesLabel, href: "/services" },
               { label: track.title },
             ]}
           />
@@ -83,7 +83,12 @@ export default async function StudentLifeTrackPage({
             const href = localeHref(locale, `/student-life/${audience}/${entry.slug}`);
             return (
               <Card key={entry.slug} href={href}>
-                <CardTitle href={href}>{entry.frontmatter.title}</CardTitle>
+                {/* h2: these cards are the page's top-level sections, sitting
+                    directly under the h1 with no intervening heading, so the
+                    default h3 would skip a level. */}
+                <CardTitle href={href} as="h2">
+                  {entry.frontmatter.title}
+                </CardTitle>
                 <p className="text-muted text-sm leading-relaxed">{entry.frontmatter.summary}</p>
                 <p className="text-muted mt-auto text-xs">
                   {t.updated}: {formatDate(locale, entry.frontmatter.updated)}

@@ -10,7 +10,7 @@ import { studentLifeTracks } from "@/content/student-life/tracks";
 import { onboardingUiCopy } from "@/content/onboarding";
 
 // Sideways-navigation index for the three guide tracks plus course reviews.
-// Reached from the "/information-services" hub (and from `content/quick.ts`);
+// Reached from the "/services" hub (and from `content/quick.ts`);
 // not in the header nav, so this route has no [audience]-shaped ambiguity to
 // worry about beyond the literal "course-reviews" segment handled by its own
 // route.

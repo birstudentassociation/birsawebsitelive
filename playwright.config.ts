@@ -13,10 +13,29 @@ export default defineConfig({
     port: 3000,
     reuseExistingServer: true,
   },
+  // Browser/device coverage follows GOV.UK "designing for different
+  // browsers and devices" (as of February 2026), which lists Safari, Chrome,
+  // Firefox, Edge and Samsung Internet across iOS, Android, Windows and
+  // macOS as the browsers people actually use to reach government services.
+  // Desktop Chrome/Firefox/Safari plus a Chrome-on-Android device give
+  // engine coverage (Blink, Gecko, WebKit) across desktop and mobile without
+  // needing every named browser individually.
   projects: [
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+    },
+    {
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
+    },
+    {
+      name: "mobile-chrome",
+      use: { ...devices["Pixel 5"] },
     },
   ],
 });

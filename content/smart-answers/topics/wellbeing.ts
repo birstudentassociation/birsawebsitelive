@@ -205,6 +205,10 @@ export const wellbeing: SmartAnswerService = {
       kind: "question",
       id: "q-wellbeing-unwell",
       question: { en: "How does it feel?", th: "อาการเป็นอย่างไร" },
+      hint: {
+        en: "If you cannot judge how serious it is, treat it as the second option.",
+        th: "ถ้าประเมินความรุนแรงเองไม่ได้ ให้เลือกข้อที่สอง",
+      },
       options: [
         {
           id: "minor",
@@ -217,8 +221,8 @@ export const wellbeing: SmartAnswerService = {
         {
           id: "beyond-clinic",
           label: {
-            en: "More than a sick bay can handle",
-            th: "รุนแรงกว่าที่ห้องพยาบาลจะดูแลได้",
+            en: "More than a sick bay can handle, or I am not sure how serious it is",
+            th: "รุนแรงกว่าที่ห้องพยาบาลจะดูแลได้ หรือไม่แน่ใจว่ารุนแรงแค่ไหน",
           },
           next: "out-wellbeing-hospital",
         },

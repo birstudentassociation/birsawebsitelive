@@ -115,7 +115,7 @@ export default async function StudentLifeSectionPage({
   const t = labels[locale];
   const trackLabel = t.tracks[audience];
   const trackHref = localeHref(locale, `/student-life/${audience}`);
-  const infoServicesLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   const allEntries = getGuideEntries(locale, audience);
   const currentIndex = allEntries.findIndex((e) => e.slug === slug);
@@ -136,7 +136,7 @@ export default async function StudentLifeSectionPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: infoServicesLabel, href: "/information-services" },
+              { label: infoServicesLabel, href: "/services" },
               { label: trackLabel, href: `/student-life/${audience}` },
               { label: entry.frontmatter.title },
             ]}

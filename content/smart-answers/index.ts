@@ -114,10 +114,13 @@ export type SmartAnswersUiCopy = {
   assumed: string;
   change: string;
   startAgain: string;
+  /** Legend for the satisfaction feedback form shown once an outcome is reached. */
+  feedbackHeading: string;
   /** Outcome chrome. */
   whoDecides: string;
   basedOn: string;
   readMore: string;
+  /** The "challenge a decision" section: disagreeing with or querying this outcome. */
   notAnswered: string;
   notAnsweredAction: string;
   guidanceDisclaimer: string;
@@ -158,11 +161,12 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
     assumed: "From your profile",
     change: "Change",
     startAgain: "Start again",
+    feedbackHeading: "What did you think of getting this answer?",
     whoDecides: "Who decides this",
     basedOn: "Based on",
     readMore: "More detail",
-    notAnswered: "This did not answer your question?",
-    notAnsweredAction: "Ask BIRSA directly",
+    notAnswered: "Think this outcome is wrong, or does not fit your situation?",
+    notAnsweredAction: "Query this answer with BIRSA",
     guidanceDisclaimer:
       "This is guidance from BIRSA, a student association, not an official decision by the Faculty. If in doubt, confirm with the Faculty office.",
   },
@@ -198,11 +202,12 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
     assumed: "จากข้อมูลของคุณ",
     change: "แก้ไข",
     startAgain: "เริ่มใหม่",
+    feedbackHeading: "คุณคิดเห็นอย่างไรกับคำตอบที่ได้รับ",
     whoDecides: "ใครเป็นผู้ตัดสิน",
     basedOn: "อ้างอิงจาก",
     readMore: "อ่านเพิ่มเติม",
-    notAnswered: "ยังไม่ตรงกับคำถามของคุณ",
-    notAnsweredAction: "ถาม BIRSA โดยตรง",
+    notAnswered: "คิดว่าคำตอบนี้ไม่ถูกต้อง หรือไม่ตรงกับสถานการณ์ของคุณ",
+    notAnsweredAction: "สอบถามหรือโต้แย้งคำตอบนี้กับ BIRSA",
     guidanceDisclaimer:
       "นี่เป็นคำแนะนำจาก BIRSA ซึ่งเป็นองค์กรนักศึกษา ไม่ใช่คำวินิจฉัยอย่างเป็นทางการของคณะ หากไม่แน่ใจ กรุณาตรวจสอบกับสำนักงานคณะอีกครั้ง",
   },

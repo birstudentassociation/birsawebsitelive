@@ -95,15 +95,21 @@ export default async function OfficerInventoryCustodiansPage({
   const officer = await getSessionOfficer();
 
   if (!officer) {
+    // The signed-out branch still needs its own h1: returning just a Notice
+    // left the page with no top-level heading at all, so assistive tech had
+    // nothing to announce it by and the heading order started at h2.
     return (
-      <div className="wrap flex flex-col gap-6 py-10">
-        <Notice variant="info" title={t.signInNeededTitle}>
-          {t.signInNeededBody}
-        </Notice>
-        <div>
-          <Button href={localeHref(locale, "/officer/inventory")}>{t.signInLink}</Button>
+      <>
+        <PageHeader title={t.title} />
+        <div className="wrap flex flex-col gap-6 py-10">
+          <Notice variant="info" title={t.signInNeededTitle}>
+            {t.signInNeededBody}
+          </Notice>
+          <div>
+            <Button href={localeHref(locale, "/officer/inventory")}>{t.signInLink}</Button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 

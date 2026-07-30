@@ -21,6 +21,8 @@ import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import VisuallyHidden from "@/components/VisuallyHidden";
 import ProfileSummary from "@/components/answers/ProfileSummary";
+import FeedbackForm from "@/components/feedback/FeedbackForm";
+import { submitFeedbackAction } from "@/app/[lang]/feedback/actions";
 
 /**
  * The step engine: one URL per state, driven entirely by `?p=` (who the
@@ -178,9 +180,15 @@ export default async function TopicStepPage({
   const citations = filterWhen(node.citations, facts);
   const related = filterWhen(node.related, facts);
 
-  const contactHref = localeHref(
+  // The "challenge a decision" route: always a "problem" category, regardless
+  // of the outcome's own `contactCategory`, so the contact form prefills the
+  // subject with the exact answer state being disputed (see
+  // `app/[lang]/contact/page.tsx`'s `initialSubject`, which only fires for
+  // "problem"). Disagreeing with an outcome is a problem with what BIRSA
+  // told the reader, not a fresh question.
+  const challengeHref = localeHref(
     locale,
-    `/contact?category=${node.contactCategory ?? "question"}&from=${encodeURIComponent(returnTo)}`
+    `/contact?category=problem&from=${encodeURIComponent(returnTo)}`
   );
 
   return (
@@ -358,7 +366,7 @@ export default async function TopicStepPage({
       <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
         <h2 className="font-display text-ink text-lg">{t.notAnswered}</h2>
         <div>
-          <Button href={contactHref} variant="secondary">
+          <Button href={challengeHref} variant="secondary">
             {t.notAnsweredAction}
           </Button>
         </div>
@@ -369,6 +377,19 @@ export default async function TopicStepPage({
           {t.startAgain}
         </Link>
       </div>
+
+      {/*
+        The reader has reached an outcome, so the journey is finished. The
+        Service Manual requires a satisfaction prompt at that point. The
+        source path is the fixed topic route with no query string, so nothing
+        about the reader's own answers is recorded alongside the rating.
+      */}
+      <FeedbackForm
+        locale={locale}
+        sourcePath={localeHref(locale, qPath)}
+        heading={t.feedbackHeading}
+        action={submitFeedbackAction}
+      />
 
       <Notice variant="info">{t.guidanceDisclaimer}</Notice>
     </div>

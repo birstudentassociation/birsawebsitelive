@@ -88,6 +88,104 @@ function walkFirstPath(
   return journey;
 }
 
+/* -------------------------------------------------------------------------- */
+/* Exhaustive graph traversal: proving there are no dead ends                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * This is the deliverable that proves "no dead ends" as a property of the
+ * published service, not a sample of it: a breadth-first walk over every
+ * `option.next` edge from every topic's start node, regardless of any
+ * audience profile or `when` condition (those gate what a particular reader
+ * *sees*, they do not remove the edge from the graph itself). Every node
+ * the walk reaches, and every branch it follows, is asserted directly:
+ *
+ *  - a question node resolves every option to a node that exists;
+ *  - an outcome node reached this way is a genuine answer: both languages
+ *    say something, and there is at least one way to act on it (an action,
+ *    a citation, or a related page), never a page that just stops.
+ *
+ * `validateService` already checks most of this (reachability, dangling
+ * `next`, dead-end outcomes), but it is exercised elsewhere by a test that
+ * only asserts its output is empty. Re-deriving the walk here, independently
+ * of `lib/smart-answers.ts`'s own implementation, means a bug in that
+ * validator could not hide a real dead end from this suite.
+ */
+describe("exhaustive traversal: every node and every branch reaches a real outcome", () => {
+  const byId = new Map(service.nodes.map((node) => [node.id, node]));
+
+  it("walks the whole graph from every topic start with no missing or empty terminal", () => {
+    const visited = new Set<string>();
+    const queue: string[] = [...service.topics.map((topic) => topic.start)];
+    let branchCount = 0;
+
+    while (queue.length > 0) {
+      const id = queue.shift()!;
+      if (visited.has(id)) continue;
+      visited.add(id);
+
+      const node = byId.get(id);
+      expect(node, `node "${id}" is referenced but not defined in service.nodes`).toBeDefined();
+      if (!node) continue;
+
+      if (node.kind === "question") {
+        expect(node.options.length, `question "${id}" has no options at all`).toBeGreaterThan(0);
+
+        for (const option of node.options) {
+          branchCount += 1;
+          const target = byId.get(option.next);
+          expect(
+            target,
+            `question "${id}" option "${option.id}" points to missing node "${option.next}"`
+          ).toBeDefined();
+          if (target) queue.push(option.next);
+        }
+        continue;
+      }
+
+      // A terminal node: it must be a genuine outcome, not a blank stop.
+      expect(node.title.en.trim(), `outcome "${id}" has no English title`).not.toBe("");
+      expect(node.title.th.trim(), `outcome "${id}" has no Thai title`).not.toBe("");
+      expect(node.summary.en.trim(), `outcome "${id}" has no English summary`).not.toBe("");
+      expect(node.summary.th.trim(), `outcome "${id}" has no Thai summary`).not.toBe("");
+
+      const nextSteps =
+        (node.actions?.length ?? 0) + (node.related?.length ?? 0) + (node.citations?.length ?? 0);
+      expect(
+        nextSteps,
+        `outcome "${id}" is a dead end: it gives the reader no action, related page, or citation to follow`
+      ).toBeGreaterThan(0);
+    }
+
+    const questionsVisited = [...visited].filter((id) => byId.get(id)?.kind === "question").length;
+    const outcomesVisited = [...visited].filter((id) => byId.get(id)?.kind === "outcome").length;
+
+    // eslint-disable-next-line no-console -- deliberate: the counts are the proof of exhaustiveness.
+    console.log(
+      `[exhaustive traversal] visited ${visited.size} of ${service.nodes.length} nodes ` +
+        `(${questionsVisited} questions, ${outcomesVisited} outcomes) across ${branchCount} branches`
+    );
+
+    // Every authored node is reachable (validateService checks this too);
+    // restated here so this test does not silently pass over an orphan.
+    expect(
+      visited.size,
+      "the traversal did not reach every node in service.nodes: something is unreachable from every topic"
+    ).toBe(service.nodes.length);
+  });
+
+  it("lets a reader answer honestly when severity genuinely cannot be judged", () => {
+    // Spot-check for the one question in the service where "I don't know"
+    // is a plausible, expected reader state (self-assessed symptom
+    // severity), rather than mechanically requiring it everywhere.
+    const question = byId.get("q-wellbeing-unwell");
+    expect(question?.kind).toBe("question");
+    if (question?.kind !== "question") return;
+    const combined = question.options.map((option) => `${option.label.en} ${option.label.th}`).join(" ");
+    expect(combined).toMatch(/not sure|ไม่แน่ใจ/);
+  });
+});
+
 describe("every outcome links somewhere real", () => {
   const provisionsByDoc = new Map<string, Set<number>>();
   for (const doc of documents) {

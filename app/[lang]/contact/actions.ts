@@ -1,26 +1,34 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { contactSchema } from "@/lib/validation";
 import { checkRateLimit } from "@/app/api/_lib/guard";
 import { renderContact } from "@/lib/email/templates";
-import { defaultLocale, getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
+import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
+import { CONTACT_CATEGORY_VALUES, type ContactCategory } from "@/components/forms/contactWizardCopy";
+import { CONTACT_STEPS, type ContactStep } from "./steps";
 
-type ContactFieldName = "name" | "email" | "category" | "subject" | "message";
+const COOKIE = "birsa_contact_draft";
 
-export type ContactValues = Record<ContactFieldName, string>;
+/** Partial answers carried across the contact journey's steps in the draft cookie. */
+export type ContactDraft = {
+  category?: string;
+  subject?: string;
+  message?: string;
+  name?: string;
+  email?: string;
+};
 
-/**
- * Result of a contact submission, driving what the form renders next:
- * - `invalid`: validation failed; show field errors, keep the typed values
- * - `success`: message sent (or honeypot silently swallowed)
- * - `fallback`: email isn't configured; show the draft to send manually
- * - `error`: rate-limited or send failed; show a generic error, keep values
- */
-export type ContactState = {
-  status: "idle" | "invalid" | "success" | "fallback" | "error";
-  errors?: Partial<Record<ContactFieldName, string>>;
-  values?: ContactValues;
+export type ContactValues = Record<"name" | "email" | "category" | "subject" | "message", string>;
+
+const NEXT_STEP: Record<Exclude<ContactStep, "check">, ContactStep> = {
+  category: "subject",
+  subject: "message",
+  message: "name",
+  name: "email",
+  email: "check",
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -30,73 +38,192 @@ const CATEGORY_LABELS: Record<string, string> = {
   other: "Something else",
 };
 
+export type StepState = { status: "idle" | "invalid"; error?: string };
+
+export type CheckState =
+  | { status: "idle" }
+  | { status: "success" }
+  | { status: "fallback"; draft: ContactDraft }
+  | { status: "error" };
+
 function ipFromHeaders(h: Headers): string {
   const first = h.get("x-forwarded-for")?.split(",")[0]?.trim();
   return first || "unknown";
 }
 
 /**
- * Server action for the contact form. Runs on a normal form POST even without
- * JavaScript (Next serialises it to an endpoint), so the whole journey works
- * HTML-first; `useActionState` layers the inline behaviour on top. Mirrors the
- * JSON route handler at `app/api/contact/route.ts`: rate limit, honeypot,
- * shared zod schema, then Resend, never revealing the honeypot to bots.
+ * URL for a given step. The first step deliberately lives at the journey's
+ * own root (`/contact`) rather than at `/contact/category`, so the reader is
+ * asked the first question straight away instead of landing on a page whose
+ * only purpose is a "start" button. Every step therefore has exactly one URL,
+ * which is what the check-answers "change" links already point at.
  */
-export async function submitContact(
-  _prev: ContactState,
+function stepHref(locale: Locale, step: ContactStep): string {
+  const first = CONTACT_STEPS[0];
+  return localeHref(locale, step === first ? "/contact" : `/contact/${step}`);
+}
+
+function destinationHref(locale: Locale, step: Exclude<ContactStep, "check">, returnTo?: string): string {
+  const target = returnTo === "check" ? "check" : NEXT_STEP[step];
+  return stepHref(locale, target);
+}
+
+export async function getContactDraft(): Promise<ContactDraft> {
+  return readDraft<ContactDraft>(COOKIE);
+}
+
+/** Seeds the draft from the "report a problem with this page" deep link (`?category=&from=`), without overwriting anything already answered. */
+export async function seedContactDraft(locale: Locale, category?: string, from?: string): Promise<void> {
+  const current = await readDraft<ContactDraft>(COOKIE);
+  if (current.category || current.subject) return;
+
+  const validCategory = CONTACT_CATEGORY_VALUES.includes(category as ContactCategory)
+    ? category
+    : undefined;
+  if (!validCategory) return;
+
+  const subject =
+    validCategory === "problem" && typeof from === "string" && from.startsWith("/")
+      ? `${locale === "th" ? "ปัญหาในหน้า" : "Problem with page"}: ${from}`
+      : undefined;
+
+  await mergeDraft<ContactDraft>(COOKIE, { category: validCategory, subject });
+}
+
+export async function submitCategoryStep(
+  locale: Locale,
+  returnTo: string | undefined,
+  _prev: StepState,
   formData: FormData
-): Promise<ContactState> {
-  const values: ContactValues = {
-    name: String(formData.get("name") ?? ""),
-    email: String(formData.get("email") ?? ""),
-    category: String(formData.get("category") ?? ""),
-    subject: String(formData.get("subject") ?? ""),
-    message: String(formData.get("message") ?? ""),
-  };
-  const nickname = String(formData.get("nickname") ?? "");
-  const localeRaw = String(formData.get("locale") ?? "");
-  const locale: Locale = isLocale(localeRaw) ? localeRaw : defaultLocale;
+): Promise<StepState> {
   const dict = getDictionary(locale);
+  const value = String(formData.get("category") ?? "");
+  const result = contactSchema.shape.category.safeParse(value);
+  if (!result.success) {
+    return { status: "invalid", error: dict.form.errors.categoryRequired };
+  }
+  await mergeDraft<ContactDraft>(COOKIE, { category: result.data });
+  redirect(destinationHref(locale, "category", returnTo));
+}
+
+export async function submitSubjectStep(
+  locale: Locale,
+  returnTo: string | undefined,
+  _prev: StepState,
+  formData: FormData
+): Promise<StepState> {
+  const dict = getDictionary(locale);
+  const value = String(formData.get("subject") ?? "");
+  const result = contactSchema.shape.subject.safeParse(value);
+  if (!result.success) {
+    return { status: "invalid", error: dict.form.errors.subjectRequired };
+  }
+  await mergeDraft<ContactDraft>(COOKIE, { subject: result.data });
+  redirect(destinationHref(locale, "subject", returnTo));
+}
+
+export async function submitMessageStep(
+  locale: Locale,
+  returnTo: string | undefined,
+  _prev: StepState,
+  formData: FormData
+): Promise<StepState> {
+  const dict = getDictionary(locale);
+  const value = String(formData.get("message") ?? "");
+  const result = contactSchema.shape.message.safeParse(value);
+  if (!result.success) {
+    const tooShort = value.trim().length > 0;
+    return {
+      status: "invalid",
+      error: tooShort ? dict.form.errors.messageShort : dict.form.errors.messageRequired,
+    };
+  }
+  await mergeDraft<ContactDraft>(COOKIE, { message: result.data });
+  redirect(destinationHref(locale, "message", returnTo));
+}
+
+export async function submitNameStep(
+  locale: Locale,
+  returnTo: string | undefined,
+  _prev: StepState,
+  formData: FormData
+): Promise<StepState> {
+  const dict = getDictionary(locale);
+  const value = String(formData.get("name") ?? "");
+  const result = contactSchema.shape.name.safeParse(value);
+  if (!result.success) {
+    return { status: "invalid", error: dict.form.errors.nameRequired };
+  }
+  await mergeDraft<ContactDraft>(COOKIE, { name: result.data });
+  redirect(destinationHref(locale, "name", returnTo));
+}
+
+export async function submitEmailStep(
+  locale: Locale,
+  returnTo: string | undefined,
+  _prev: StepState,
+  formData: FormData
+): Promise<StepState> {
+  const dict = getDictionary(locale);
+  const value = String(formData.get("email") ?? "");
+  const result = contactSchema.shape.email.safeParse(value);
+  if (!result.success) {
+    return {
+      status: "invalid",
+      error: value.length === 0 ? dict.form.errors.emailRequired : dict.form.errors.emailInvalid,
+    };
+  }
+  await mergeDraft<ContactDraft>(COOKIE, { email: result.data });
+  redirect(destinationHref(locale, "email", returnTo));
+}
+
+/** Maps a contactSchema field name to the step that collects it, for redirect-to-first-problem. */
+const FIELD_TO_STEP: Record<string, ContactStep> = {
+  category: "category",
+  subject: "subject",
+  message: "message",
+  name: "name",
+  email: "email",
+};
+
+/**
+ * Final "check your answers" submission. Re-validates the whole draft with
+ * the shared schema (defense in depth, and a safety net if a step was
+ * reached directly without visiting the ones before it), then sends the
+ * email exactly as the single-page form used to.
+ */
+export async function submitContactCheck(
+  locale: Locale,
+  _prev: CheckState,
+  formData: FormData
+): Promise<CheckState> {
+  const draft = await readDraft<ContactDraft>(COOKIE);
+  const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
   if (!checkRateLimit(ipFromHeaders(h), "contact")) {
-    return { status: "error", values };
+    return { status: "error" };
   }
 
   // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
+    await clearDraft(COOKIE);
     return { status: "success" };
   }
 
-  const result = contactSchema.safeParse({ ...values, nickname });
+  const result = contactSchema.safeParse({ ...draft, nickname });
   if (!result.success) {
-    const errors: Partial<Record<ContactFieldName, string>> = {};
-    for (const issue of result.error.issues) {
-      const path = issue.path[0];
-      if (path === "name") errors.name = dict.form.errors.nameRequired;
-      if (path === "email") {
-        errors.email =
-          values.email.length === 0
-            ? dict.form.errors.emailRequired
-            : dict.form.errors.emailInvalid;
-      }
-      if (path === "category") errors.category = dict.form.errors.categoryRequired;
-      if (path === "subject") errors.subject = dict.form.errors.subjectRequired;
-      if (path === "message") {
-        errors.message =
-          values.message.length === 0
-            ? dict.form.errors.messageRequired
-            : dict.form.errors.messageShort;
-      }
-    }
-    return { status: "invalid", errors, values };
+    const firstIssue = result.error.issues[0];
+    const path = firstIssue?.path[0];
+    const step = typeof path === "string" ? FIELD_TO_STEP[path] : undefined;
+    redirect(`${stepHref(locale, step ?? "category")}?returnTo=check`);
   }
 
   const { name, email, category, subject, message } = result.data;
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    return { status: "fallback", values };
+    return { status: "fallback", draft };
   }
 
   try {
@@ -122,9 +249,11 @@ export async function submitContact(
       text: rendered.text,
     });
 
+    await clearDraft(COOKIE);
     return { status: "success" };
   } catch {
-    // Never log message bodies; a generic failure is all we surface.
-    return { status: "error", values };
+    // Never log message bodies; a generic failure is all we surface. Keep
+    // the draft so the reader can retry without retyping everything.
+    return { status: "error" };
   }
 }

@@ -65,7 +65,7 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "borrow-equipment",
-        href: "/information-services/equipment-loan",
+        href: "/services/equipment-loan",
         icon: "loan",
         en: { label: "Borrow equipment", hint: "Free BIRSA equipment loans" },
         th: { label: "ยืมอุปกรณ์", hint: "ยืมฟรีกับ BIRSA" },

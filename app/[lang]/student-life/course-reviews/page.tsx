@@ -42,7 +42,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
-  const sectionLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
+  const sectionLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   return (
     <>
@@ -55,7 +55,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel, href: "/information-services" },
+              { label: sectionLabel, href: "/services" },
               { label: t.title },
             ]}
           />

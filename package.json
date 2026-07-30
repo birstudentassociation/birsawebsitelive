@@ -13,7 +13,8 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "perf": "lhci autorun"
   },
   "dependencies": {
     "@vercel/analytics": "^1.4.1",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.49.1",
     "@tailwindcss/postcss": "^4.0.0",
     "@testing-library/jest-dom": "^6.6.3",

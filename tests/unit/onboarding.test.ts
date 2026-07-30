@@ -162,7 +162,7 @@ describe("onboarding task hrefs", () => {
     "/emergency",
     "/student-life",
     "/student-life/course-reviews",
-    "/information-services/equipment-loan",
+    "/services/equipment-loan",
     "/activity/regulations",
     "/activity/student-bodies",
     "/activity/birsa",

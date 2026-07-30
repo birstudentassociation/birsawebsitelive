@@ -9,6 +9,13 @@ export type NewsCardProps = {
   dict: Dictionary;
   slug: string;
   frontmatter: NewsFrontmatter;
+  /**
+   * Heading level for the card title. Defaults to h3, which is right on the
+   * home page where the cards sit under an h2 section heading. The news index
+   * has no such intervening heading, so it passes h2 to avoid skipping a
+   * level.
+   */
+  headingLevel?: "h2" | "h3";
 };
 
 function CalendarIcon() {
@@ -54,7 +61,13 @@ function PinIcon() {
  * "when" / "where" row using a `<dl>` so the relationship between the label
  * and value is conveyed to assistive tech, not just visually.
  */
-export default function NewsCard({ locale, dict, slug, frontmatter }: NewsCardProps) {
+export default function NewsCard({
+  locale,
+  dict,
+  slug,
+  frontmatter,
+  headingLevel = "h3",
+}: NewsCardProps) {
   const href = localeHref(locale, `/news/${slug}`);
   const isEvent = frontmatter.type === "event";
 
@@ -66,7 +79,9 @@ export default function NewsCard({ locale, dict, slug, frontmatter }: NewsCardPr
         </Tag>
         <span className="text-muted text-xs">{formatDate(locale, frontmatter.date)}</span>
       </div>
-      <CardTitle href={href}>{frontmatter.title}</CardTitle>
+      <CardTitle href={href} as={headingLevel}>
+        {frontmatter.title}
+      </CardTitle>
       <p className="text-muted text-sm leading-relaxed">{frontmatter.summary}</p>
       {isEvent && (frontmatter.start || frontmatter.location) ? (
         <dl className="mt-1 flex flex-col gap-1.5 text-sm">

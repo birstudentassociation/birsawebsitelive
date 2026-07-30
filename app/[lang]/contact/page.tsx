@@ -7,7 +7,12 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
 import Email from "@/components/Email";
-import ContactForm from "@/components/forms/ContactForm";
+import StepNav from "@/components/forms/StepNav";
+import QuestionStepForm from "@/components/forms/QuestionStepForm";
+import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
+import { buildContactWizardLabels, contactCategoryOptions } from "@/components/forms/contactWizardCopy";
+import { getContactDraft, seedContactDraft, submitCategoryStep } from "./actions";
+import { CONTACT_STEPS } from "./steps";
 import { socials, contact } from "@/content/site";
 
 export async function generateMetadata({
@@ -43,7 +48,7 @@ const copy: Record<
 > = {
   en: {
     title: "Contact BIRSA",
-    lede: "Send us a message with the form below, or reach out directly.",
+    lede: "Answer a few short questions and we'll get your message to the right person.",
     answersTitle: "Answer it yourself, faster",
     answersBody:
       "Rules, deadlines and services are covered by the guided answers, with the provision each answer comes from.",
@@ -54,7 +59,7 @@ const copy: Record<
   },
   th: {
     title: "ติดต่อ BIRSA",
-    lede: "ส่งข้อความถึงเราผ่านแบบฟอร์มด้านล่าง หรือติดต่อโดยตรงตามที่สะดวก",
+    lede: "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะส่งข้อความของคุณถึงผู้ที่เกี่ยวข้อง",
     answersTitle: "หาคำตอบเองได้เร็วกว่า",
     answersBody:
       "เรื่องกฎระเบียบ กำหนดเวลา และบริการ มีคำตอบแบบนำทางให้แล้ว พร้อมข้ออ้างอิงที่มาของแต่ละคำตอบ",
@@ -65,35 +70,30 @@ const copy: Record<
   },
 };
 
-const CATEGORY_VALUES = ["question", "suggestion", "problem", "other"] as const;
-
 export default async function ContactPage({
   params,
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ category?: string; from?: string }>;
+  searchParams: Promise<{ category?: string; from?: string; returnTo?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+  const chrome = buildWizardChromeLabels(locale);
+  const wizard = buildContactWizardLabels(locale);
 
-  const { category, from } = await searchParams;
-  const initialCategory = CATEGORY_VALUES.includes(category as (typeof CATEGORY_VALUES)[number])
-    ? category
-    : undefined;
-
-  // Arriving from the site-wide "report a problem with this page" link: prefill
-  // the subject with the page the report is about. Only same-site paths are
-  // accepted so the value can't be steered to arbitrary text.
-  const initialSubject =
-    initialCategory === "problem" && typeof from === "string" && from.startsWith("/")
-      ? `${locale === "th" ? "ปัญหาในหน้า" : "Problem with page"}: ${from}`
-      : undefined;
+  const { category, from, returnTo } = await searchParams;
+  await seedContactDraft(locale, category, from);
+  const draft = await getContactDraft();
 
   const visibleSocials = socials.filter((social) => !social.placeholder);
+  const backHref = returnTo === "check" ? localeHref(locale, "/contact/check") : undefined;
+  const progress = returnTo === "check"
+    ? undefined
+    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("category") + 1, CONTACT_STEPS.length);
 
   return (
     <>
@@ -109,12 +109,26 @@ export default async function ContactPage({
         }
       />
       <div className="wrap grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1.2fr_1fr]">
-        <ContactForm
-          locale={locale}
-          dict={dict}
-          initialCategory={initialCategory}
-          initialSubject={initialSubject}
-        />
+        <div className="flex flex-col gap-6">
+          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
+          <h2 className="font-display text-2xl sm:text-3xl">{wizard.categoryHeading}</h2>
+          <QuestionStepForm
+            action={submitCategoryStep.bind(null, locale, returnTo)}
+            initialState={{ status: "idle" }}
+            errorSummaryTitle={dict.form.errorSummaryTitle}
+            continueLabel={chrome.continueLabel}
+            continuingLabel={chrome.continuing}
+            field={{
+              name: "category",
+              label: dict.form.category,
+              as: "select",
+              required: true,
+              requiredLabel: dict.actions.required,
+              options: contactCategoryOptions(locale),
+              defaultValue: draft.category ?? "question",
+            }}
+          />
+        </div>
 
         <aside className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-6 lg:self-start">
           {/* Answering the question without a round trip is faster for the

@@ -1,0 +1,57 @@
+name: CI
+
+# Runs on every pull request and on pushes to master, so a broken build or
+# failing test never lands on the branch other work is based on.
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  test:
+    name: Typecheck, unit tests, e2e
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # `npm run lint` is intentionally not run here: this repo's ESLint
+      # config predates the flat-config migration that ESLint 9 requires, so
+      # `next lint` fails outright. Typecheck is the enforced static check
+      # until the ESLint config is migrated.
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+      # The Playwright config's `webServer` runs `npm run start` (`next
+      # start`), which needs a production build to already exist; `next
+      # dev` is not used here, so the build has to happen before Playwright
+      # starts the server itself. No env vars are set for the build or the
+      # server: every optional integration (Postgres, Vercel Blob, Resend,
+      # Edge Config, the officer session secret, the cron secret) is gated
+      # behind an `isXConfigured()` check that degrades to a "not
+      # configured" response rather than throwing, by design, so the app
+      # builds and serves its pages with zero configuration.
+      - name: Build
+        run: npm run build
+
+      # Installs exactly the three engines the Playwright config now covers
+      # (chromium, firefox, webkit); the mobile-chrome project reuses the
+      # chromium binary via a device profile, so it needs no separate
+      # install.
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: End-to-end tests
+        run: npm run e2e

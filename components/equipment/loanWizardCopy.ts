@@ -32,6 +32,7 @@ export type LoanWizardLabels = {
   common: {
     back: string;
     continueLabel: string;
+    continuing: string;
     change: string;
     errorSummaryTitle: string;
     required: string;
@@ -84,11 +85,7 @@ export type LoanWizardLabels = {
     errorEndInvalid: string;
     errorEndBeforeStart: string;
     errorTooLong: string;
-    checkCta: string;
     checking: string;
-    // One/other forms with a {count} placeholder, kept as plain strings for
-    // the same serializability reason as common.stepOf.
-    availableTemplate: { one: string; other: string };
     noneFreeTitle: string;
     noneFreeBody: string;
     checkErrorTitle: string;
@@ -149,6 +146,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       common: {
         back: "ย้อนกลับ",
         continueLabel: "ดำเนินการต่อ",
+        continuing: "กำลังดำเนินการ…",
         change: "แก้ไข",
         errorSummaryTitle: "พบข้อผิดพลาด กรุณาตรวจสอบ",
         required: "จำเป็น",
@@ -201,12 +199,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         errorEndInvalid: "กรุณาเลือกวันที่ให้ถูกต้อง",
         errorEndBeforeStart: "วันที่คืนต้องไม่ก่อนวันที่รับอุปกรณ์",
         errorTooLong: `ระยะเวลายืมต้องไม่เกิน ${maxDays} วัน`,
-        checkCta: "ตรวจสอบความพร้อมให้ยืม",
         checking: "กำลังตรวจสอบความพร้อมให้ยืม…",
-        availableTemplate: {
-          one: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
-          other: "มีอุปกรณ์ {count} ชิ้นพร้อมให้ยืมในช่วงวันที่คุณเลือก",
-        },
         noneFreeTitle: "ไม่มีอุปกรณ์ว่างในช่วงวันที่เลือก",
         noneFreeBody: "กรุณาเลือกช่วงวันที่อื่นแล้วลองใหม่อีกครั้ง",
         checkErrorTitle: "ตรวจสอบความพร้อมให้ยืมไม่สำเร็จ",
@@ -270,6 +263,7 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
     common: {
       back: "Back",
       continueLabel: "Continue",
+      continuing: "Continuing…",
       change: "Change",
       errorSummaryTitle: "There is a problem",
       required: "required",
@@ -290,27 +284,27 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       backToCatalogue: "Back to the equipment list",
     },
     name: {
-      question: "What is your full name",
+      question: "What is your full name?",
       errorRequired: "Enter your full name",
     },
     studentId: {
-      question: "What is your student ID",
+      question: "What is your student ID?",
       hint: "Your Thammasat University student ID number.",
       errorRequired: "Enter your student ID",
     },
     email: {
-      question: "What is your student email address",
+      question: "What is your student email address?",
       hint: "We will use this to let you know the outcome of your request.",
       errorRequired: "Enter your email address",
       errorInvalid: "Enter an email address in the correct format, like name@example.com",
     },
     phone: {
-      question: "What is your phone number",
+      question: "What is your phone number?",
       hint: "Optional. Used if BIRSA needs to reach you urgently about this request.",
       errorInvalid: "Enter a valid phone number",
     },
     dates: {
-      title: "When do you need to borrow it",
+      title: "When do you need to borrow it?",
       startQuestion: "Date you will collect the item",
       startHint: `Choose the date you will collect it from the BIRSA office. Maximum loan length is ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })}.`,
       endQuestion: "Date you will return the item",
@@ -322,19 +316,14 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       errorEndInvalid: "Enter a valid date",
       errorEndBeforeStart: "The return date must be on or after the collection date",
       errorTooLong: `The loan period cannot exceed ${pluralize(maxDays, { one: "1 day", other: `${maxDays} days` })}`,
-      checkCta: "Check availability",
       checking: "Checking availability…",
-      availableTemplate: {
-        one: "1 unit available for your dates",
-        other: "{count} units available for your dates",
-      },
       noneFreeTitle: "Nothing is free for those dates",
       noneFreeBody: "Try a different date range and check again.",
       checkErrorTitle: "Could not check availability",
       checkErrorBody: "Something went wrong while checking. Try again.",
     },
     reason: {
-      question: "What will you use it for",
+      question: "What will you use it for?",
       hint: "A short description of the event or activity you need it for.",
       optionalNote: "Optional. Giving a reason helps BIRSA review your request faster.",
     },

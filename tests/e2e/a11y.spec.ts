@@ -34,10 +34,10 @@ const publicPaths = [
   "/student-life/home/places-nearby", // OSM tile map with anchor markers
   "/student-life/course-reviews", // course catalogue browser
   "/student-life/course-reviews/PI121", // course detail
-  "/information-services",
-  "/information-services/equipment-loan", // DB-degraded "not configured" state
-  "/information-services/equipment-loan/directory", // club equipment directory (DB-degraded)
-  "/information-services/equipment-loan/status", // status lookup form
+  "/services",
+  "/services/equipment-loan", // DB-degraded "not configured" state
+  "/services/equipment-loan/directory", // club equipment directory (DB-degraded)
+  "/services/equipment-loan/status", // status lookup form
   "/emergency", // calm emergency-preparedness landing
   "/answers", // smart answers hub
   "/answers/you", // audience profile form
@@ -86,9 +86,13 @@ test("the 404 not-found page has no automatically detectable WCAG 2.2 AA violati
 test("submitting an empty contact form shows a focused error summary with field error links", async ({
   page,
 }) => {
-  await page.goto("/en/contact");
+  // The contact form is one question per page, so the error summary lives on
+  // whichever step failed validation. The subject step is the first one with
+  // a required field and no default, so submitting it empty is the smallest
+  // way to exercise the shared ErrorSummary behaviour.
+  await page.goto("/en/contact/subject");
 
-  await page.getByRole("button", { name: "Send message" }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
 
   const errorSummary = page.getByRole("alert").filter({ hasText: "There is a problem" });
   await expect(errorSummary).toBeVisible();
@@ -244,18 +248,18 @@ test("calendar day cells announce a localized event count", async ({ page }) => 
 test("the error summary does not steal focus back while the user edits a field", async ({
   page,
 }) => {
-  await page.goto("/en/contact");
+  await page.goto("/en/contact/subject");
 
-  await page.getByRole("button", { name: "Send message" }).click();
+  await page.getByRole("button", { name: "Continue" }).click();
   const errorSummary = page.getByRole("alert").filter({ hasText: "There is a problem" });
   await expect(errorSummary).toBeFocused();
 
-  // Start correcting the first field: focus must stay in the input across
+  // Start correcting the field: focus must stay in the input across
   // keystrokes, not jump back to the summary on every re-render (SC 3.2.2).
-  const nameField = page.getByLabel(/name/i).first();
-  await nameField.focus();
-  await nameField.pressSequentially("Jo");
-  await expect(nameField).toBeFocused();
+  const subjectField = page.getByLabel(/^subject/i).first();
+  await subjectField.focus();
+  await subjectField.pressSequentially("Jo");
+  await expect(subjectField).toBeFocused();
 });
 
 test.describe("dark mode (system preference)", () => {
@@ -320,4 +324,104 @@ test("dark mode via explicit localStorage override has no automatically detectab
     .analyze();
 
   expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+});
+
+// ---------------------------------------------------------------------------
+// Heading structure, document title/lang, and skip link: things axe-core
+// does not check (or checks only weakly, e.g. "page has a heading" but not
+// "heading levels never skip"). See GOV.UK "accessibility for developers: an
+// introduction", which calls out heading structure by name as something a
+// manual pass must confirm.
+// ---------------------------------------------------------------------------
+
+test.describe("heading structure", () => {
+  for (const path of pages) {
+    test(`${path} has exactly one h1 and no skipped heading levels`, async ({ page }) => {
+      await page.goto(path);
+
+      const levels = await page.evaluate(() =>
+        [...document.querySelectorAll("h1, h2, h3, h4, h5, h6")].map((heading) =>
+          Number(heading.tagName.slice(1))
+        )
+      );
+
+      const h1Count = levels.filter((level) => level === 1).length;
+      expect(h1Count, `expected exactly one h1, found ${h1Count}: levels were ${levels.join(", ")}`).toBe(
+        1
+      );
+
+      for (let i = 1; i < levels.length; i++) {
+        const previous = levels[i - 1] as number;
+        const current = levels[i] as number;
+        const jump = current - previous;
+        expect(
+          jump,
+          `heading level skipped from h${previous} to h${current} (full sequence: ${levels.join(", ")})`
+        ).toBeLessThanOrEqual(1);
+      }
+    });
+  }
+});
+
+test.describe("document title and lang attribute", () => {
+  // Serial: the uniqueness check accumulates titles in a Map held in the
+  // worker process. Split across parallel workers each worker gets its own
+  // Map, so a genuine collision can slip through or be reported against an
+  // arbitrary one of the two pages, depending on how the tests shard.
+  test.describe.configure({ mode: "serial" });
+
+  const seenTitles = new Map<string, string>();
+
+  for (const path of pages) {
+    test(`${path} has a unique, non-empty title and the correct lang attribute`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+
+      const title = await page.title();
+      expect(title.trim().length, `page title was empty`).toBeGreaterThan(0);
+
+      const expectedLang = path.startsWith("/th") ? "th" : "en";
+
+      // Uniqueness is scoped to a locale. The same page in both languages can
+      // legitimately share a title when that title is a proper noun that does
+      // not translate, for example the club "TU MUN". What must never happen
+      // is two different pages in the SAME language sharing a title, because
+      // then neither the tab strip nor a screen reader can tell them apart.
+      const key = `${expectedLang}::${title}`;
+      const owner = seenTitles.get(key);
+      expect(
+        owner,
+        `title "${title}" is also used by ${owner}: every page in a language needs a distinct title`
+      ).toBeUndefined();
+      seenTitles.set(key, path);
+
+      await expect(page.locator("html")).toHaveAttribute("lang", expectedLang);
+    });
+  }
+});
+
+test.describe("skip link", () => {
+  test("is the first focusable element and moves focus to the main landmark", async ({ page }) => {
+    await page.goto("/en");
+
+    // Nothing has been focused yet: the very first Tab press must land on
+    // the skip link, not on the header logo or nav behind it.
+    await page.keyboard.press("Tab");
+    const skipLink = page.locator("a.skip-link");
+    await expect(skipLink).toBeFocused();
+    await expect(skipLink).toHaveAttribute("href", "#main");
+
+    await page.keyboard.press("Enter");
+    const main = page.locator("#main");
+    await expect(main).toBeFocused();
+  });
+
+  test("is reachable and correctly labelled on the Thai locale too", async ({ page }) => {
+    await page.goto("/th");
+    await page.keyboard.press("Tab");
+    const skipLink = page.locator("a.skip-link");
+    await expect(skipLink).toBeFocused();
+    await expect(skipLink).not.toHaveText("");
+  });
 });

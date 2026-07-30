@@ -70,7 +70,7 @@ const content: Record<
       },
       {
         title: "Join up our channels",
-        body: "This site, our socials, and the official BIR office links should tell a consistent story. Where something is unofficial or student-run, we say so clearly.",
+        body: "This site, our socials, and the official BIR office links should tell a consistent story. Where information comes from the BIR office or the university rather than from BIRSA, we say so and link to the source.",
       },
       {
         title: "Keep improving in the open",
@@ -81,7 +81,7 @@ const content: Record<
     a11yIntro:
       "This is a voluntary accessibility statement, modelled on the one the UK Government Digital Service asks its services to publish. BIRSA is a student-run society, not a public body, so no law requires this. We publish it because we think every site should be honest about how usable it is.",
     a11yComplianceStatus:
-      "This site is partially compliant with the Web Content Accessibility Guidelines (WCAG) 2.2 level AA. “Partially” because of the known issues listed below, not because of a specific failure we are aware of.",
+      "This site is partially compliant with the Web Content Accessibility Guidelines (WCAG) 2.2 level AA. It is “partially” compliant because we have not yet tested it with real assistive technology, and because of the other known issues listed below, not because of a specific failure we are aware of.",
     a11yWhatWeDoTitle: "What we do",
     a11yWhatWeDo: [
       "Every feature can be operated with a keyboard alone, with a visible focus indicator.",
@@ -94,13 +94,13 @@ const content: Record<
     ],
     a11yTestTitle: "How we test",
     a11yTest:
-      "Every time we change the code, an automated check (axe-core) runs against every page template, in both Thai and English and in both light and dark mode, testing against the WCAG 2.0, 2.1 and 2.2 A and AA rules. On top of that we do manual keyboard and screen-reader spot checks. We have not yet commissioned a full independent audit with assistive-technology users. That is the main gap in our current testing.",
+      "Two automated test suites run on every code change, in Chrome, Firefox and Safari's rendering engines. The first (axe-core) sweeps every page template, in both Thai and English and in both light and dark colour mode, against the WCAG 2.0, 2.1 and 2.2 A and AA rules. The second drives every page with a keyboard only, checking things the first cannot: that focus is always visible and never trapped, that menus and dialogs open and close correctly, and that a complete form can be finished without a mouse. Automated testing alone does not prove a service is accessible: it catches a defined set of technical faults and nothing more. We have not yet tested this site with real assistive technology, such as a screen reader, a screen magnifier, or speech-recognition software. That is the biggest gap in our current testing, and the reason this statement says “partially compliant” rather than “compliant”.",
     a11yLimitsTitle: "Known issues",
     a11yLimitsIntro: "These are the known issues:",
     a11yIssues: [
       {
-        title: "No full independent audit yet",
-        body: "Our automated tests and manual checks catch a lot, but they are not a substitute for a full audit with real assistive-technology users. Until we arrange one, some barriers for screen reader or speech-recognition users may go unnoticed (WCAG 4.1.2 and others). Planned before we leave beta.",
+        title: "No assistive-technology testing yet",
+        body: "Our automated checks catch a defined set of technical faults, but automated testing alone cannot show whether the site actually works well for someone using a screen reader, a screen magnifier, or speech-recognition software. We have not carried out that testing yet, with any of those technologies, so some barriers may go unnoticed (WCAG 4.1.2 and others). Planned before we leave beta; use the reporting route below if you hit a barrier before then.",
       },
       {
         title: "Some placeholder content",
@@ -109,7 +109,7 @@ const content: Record<
     ],
     a11yPreparedTitle: "When we prepared this",
     a11yPrepared:
-      "This statement was first prepared on 14 July 2026 and last reviewed on 14 July 2026. We review it at least once a year, and whenever we make a significant change to the site.",
+      "This statement was first prepared on 14 July 2026 and last reviewed on 30 July 2026. We review it at least once a year, and whenever we make a significant change to the site.",
     a11yReportTitle: "Report a problem",
     a11yReportBody:
       "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
@@ -142,7 +142,7 @@ const content: Record<
       },
       {
         title: "เชื่อมโยงทุกช่องทางให้ไปด้วยกัน",
-        body: "เว็บไซต์นี้ โซเชียลของเรา และลิงก์ทางการของ BIR ควรให้ข้อมูลที่สอดคล้องกัน ตรงไหนที่ไม่เป็นทางการหรือดูแลโดยนักศึกษา เราจะบอกให้ชัดเจน",
+        body: "เว็บไซต์นี้ โซเชียลของเรา และลิงก์ทางการของ BIR ควรให้ข้อมูลที่สอดคล้องกัน ข้อมูลส่วนใดมาจากสำนักงาน BIR หรือมหาวิทยาลัยแทนที่จะมาจาก BIRSA เราจะระบุและลิงก์ไปยังแหล่งที่มา",
       },
       {
         title: "พัฒนาต่อเนื่องอย่างเปิดเผย",
@@ -153,7 +153,7 @@ const content: Record<
     a11yIntro:
       "นี่คือคำแถลงการเข้าถึงแบบสมัครใจ ซึ่งอิงตามแบบที่หน่วยงาน Government Digital Service ของสหราชอาณาจักรกำหนดให้บริการต่าง ๆ เผยแพร่ BIRSA เป็นสโมสรที่ดูแลโดยนักศึกษา ไม่ใช่หน่วยงานรัฐ จึงไม่มีกฎหมายบังคับ แต่เราเผยแพร่เพราะเชื่อว่าทุกเว็บไซต์ควรพูดตรง ๆ ว่าใช้งานได้ดีแค่ไหน",
     a11yComplianceStatus:
-      "เว็บไซต์นี้ผ่านมาตรฐาน WCAG 2.2 ระดับ AA เป็นบางส่วน คำว่า “บางส่วน” มาจากข้อจำกัดที่ระบุไว้ด้านล่าง ไม่ใช่เพราะมีจุดที่เรารู้ว่าไม่ผ่านโดยเฉพาะ",
+      "เว็บไซต์นี้ผ่านมาตรฐาน WCAG 2.2 ระดับ AA เป็นบางส่วน คำว่า “บางส่วน” มาจากการที่เรายังไม่ได้ทดสอบด้วยเทคโนโลยีสิ่งอำนวยความสะดวกจริง และข้อจำกัดอื่นที่ระบุไว้ด้านล่าง ไม่ใช่เพราะมีจุดที่เรารู้ว่าไม่ผ่านโดยเฉพาะ",
     a11yWhatWeDoTitle: "สิ่งที่เราทำ",
     a11yWhatWeDo: [
       "ทุกฟีเจอร์ใช้งานได้ด้วยคีย์บอร์ดอย่างเดียว พร้อมเส้นโฟกัสที่มองเห็นชัดเจน",
@@ -166,13 +166,13 @@ const content: Record<
     ],
     a11yTestTitle: "เราตรวจสอบอย่างไร",
     a11yTest:
-      "ทุกครั้งที่เราแก้โค้ด ระบบจะรันการตรวจสอบอัตโนมัติ (axe-core) กับทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด โดยเทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA นอกจากนี้เรายังตรวจด้วยตัวเองผ่านการใช้คีย์บอร์ดและโปรแกรมอ่านหน้าจอเป็นระยะ เรายังไม่ได้จ้างผู้ตรวจสอบอิสระเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือ นี่คือช่องว่างหลักของการตรวจสอบในปัจจุบัน",
+      "ทุกครั้งที่มีการแก้โค้ด ระบบทดสอบอัตโนมัติสองชุดจะทำงานบนเอนจินการแสดงผลของ Chrome, Firefox และ Safari ชุดแรก (axe-core) ตรวจทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด เทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA ชุดที่สองใช้งานทุกหน้าด้วยคีย์บอร์ดอย่างเดียว เพื่อตรวจสิ่งที่ชุดแรกตรวจไม่ได้ ได้แก่ โฟกัสต้องมองเห็นชัดเจนเสมอและไม่ติดค้าง เมนูและกล่องโต้ตอบเปิดปิดได้ถูกต้อง และแบบฟอร์มทั้งหมดกรอกจนจบได้โดยไม่ต้องใช้เมาส์ การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถพิสูจน์ได้ว่าบริการเข้าถึงได้จริง เพราะจับได้เฉพาะข้อบกพร่องทางเทคนิคชุดหนึ่งเท่านั้น เรายังไม่ได้ทดสอบเว็บไซต์นี้ด้วยเทคโนโลยีสิ่งอำนวยความสะดวกจริง เช่น โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง นี่คือช่องว่างที่ใหญ่ที่สุดในการทดสอบปัจจุบันของเรา และเป็นเหตุผลที่คำแถลงนี้ระบุว่า “ผ่านมาตรฐานบางส่วน” แทนที่จะเป็น “ผ่านมาตรฐานเต็มรูปแบบ”",
     a11yLimitsTitle: "ข้อจำกัดที่เรารู้",
     a11yLimitsIntro: "ข้อจำกัดที่ทราบมีดังนี้",
     a11yIssues: [
       {
-        title: "ยังไม่มีการตรวจสอบอิสระเต็มรูปแบบ",
-        body: "การตรวจอัตโนมัติและการตรวจด้วยตัวเองจับปัญหาได้มาก แต่แทนที่การตรวจสอบเต็มรูปแบบร่วมกับผู้ใช้เทคโนโลยีช่วยเหลือจริงไม่ได้ จนกว่าจะได้จัดให้มีขึ้น อุปสรรคบางอย่างสำหรับผู้ใช้โปรแกรมอ่านหน้าจอหรือการสั่งงานด้วยเสียงอาจยังไม่ถูกพบ (WCAG 4.1.2 และข้ออื่น ๆ) เราวางแผนจะทำก่อนออกจากช่วงเบต้า",
+        title: "ยังไม่มีการทดสอบด้วยเทคโนโลยีสิ่งอำนวยความสะดวก",
+        body: "การตรวจสอบอัตโนมัติของเราจับข้อบกพร่องทางเทคนิคได้เฉพาะชุดหนึ่งเท่านั้น แต่การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถบอกได้ว่าเว็บไซต์ใช้งานได้ดีจริงสำหรับผู้ใช้โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง เรายังไม่ได้ทดสอบด้วยเทคโนโลยีเหล่านี้เลย จึงอาจมีอุปสรรคบางอย่างที่ยังไม่ถูกพบ (WCAG 4.1.2 และข้ออื่น ๆ) เราวางแผนจะทำก่อนออกจากช่วงเบต้า หากพบอุปสรรคก่อนหน้านั้น ใช้ช่องทางแจ้งปัญหาด้านล่าง",
       },
       {
         title: "มีเนื้อหาตัวอย่างบางส่วน",
@@ -181,7 +181,7 @@ const content: Record<
     ],
     a11yPreparedTitle: "จัดทำเมื่อไร",
     a11yPrepared:
-      "คำแถลงนี้จัดทำครั้งแรกเมื่อวันที่ 14 กรกฎาคม 2026 และทบทวนล่าสุดเมื่อวันที่ 14 กรกฎาคม 2026 เราทบทวนอย่างน้อยปีละครั้ง และทุกครั้งที่มีการเปลี่ยนแปลงสำคัญกับเว็บไซต์",
+      "คำแถลงนี้จัดทำครั้งแรกเมื่อวันที่ 14 กรกฎาคม 2026 และทบทวนล่าสุดเมื่อวันที่ 30 กรกฎาคม 2026 เราทบทวนอย่างน้อยปีละครั้ง และทุกครั้งที่มีการเปลี่ยนแปลงสำคัญกับเว็บไซต์",
     a11yReportTitle: "แจ้งปัญหา",
     a11yReportBody:
       "ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่",

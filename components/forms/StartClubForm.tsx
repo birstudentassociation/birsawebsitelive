@@ -1,159 +1,55 @@
 "use client";
 
 import { useActionState, useEffect, useId, useRef } from "react";
-import Field from "@/components/Field";
-import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import Email from "@/components/Email";
-import {
-  submitStartClub,
-  type StartClubErrorCode,
-  type StartClubState,
-} from "@/app/[lang]/clubs/start/actions";
+import Field from "@/components/Field";
+import SummaryRow from "@/components/forms/SummaryRow";
+import type { StartClubDraft, CheckState } from "@/app/[lang]/clubs/start/actions";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { localeHref } from "@/lib/i18n";
+import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
+import { buildWizardChromeLabels } from "@/components/forms/wizardChromeCopy";
 
-export type StartClubFormProps = {
+export type StartClubCheckFormProps = {
   locale: Locale;
   dict: Dictionary;
+  draft: StartClubDraft;
+  action: (prevState: CheckState, formData: FormData) => Promise<CheckState>;
 };
 
-type StartClubField = "name" | "email" | "clubName" | "description";
-
-const copy: Record<
-  Locale,
-  {
-    yourName: string;
-    email: string;
-    emailHint: string;
-    clubName: string;
-    clubNameHint: string;
-    description: string;
-    descriptionHint: string;
-    members: string;
-    membersHint: string;
-    send: string;
-    sending: string;
-    successTitle: string;
-    successBody: string;
-    errorSummaryTitle: string;
-    errors: {
-      nameRequired: string;
-      emailRequired: string;
-      emailInvalid: string;
-      clubNameRequired: string;
-      descriptionRequired: string;
-      descriptionShort: string;
-    };
-  }
-> = {
-  en: {
-    yourName: "Your name",
-    email: "Email address",
-    emailHint: "We'll only use this to reply to you.",
-    clubName: "Proposed club name",
-    clubNameHint: "It's fine if this changes later.",
-    description: "What would the club do?",
-    descriptionHint: "A few sentences on the idea, who it's for, and roughly how often you'd meet.",
-    members: "Who else is interested?",
-    membersHint: "Optional: names or a rough headcount, if you have them.",
-    send: "Submit idea",
-    sending: "Sending…",
-    successTitle: "Thanks, your club idea is on its way",
-    successBody:
-      "A member of the BIRSA committee will get back to you by email to talk through next steps.",
-    errorSummaryTitle: "There is a problem",
-    errors: {
-      nameRequired: "Enter your name",
-      emailRequired: "Enter your email address",
-      emailInvalid: "Enter an email address in the correct format, like name@example.com",
-      clubNameRequired: "Enter a proposed club name",
-      descriptionRequired: "Tell us what the club would do",
-      descriptionShort: "Add a little more detail",
-    },
-  },
-  th: {
-    yourName: "ชื่อของคุณ",
-    email: "อีเมล",
-    emailHint: "เราจะใช้อีเมลนี้เพื่อตอบกลับคุณเท่านั้น",
-    clubName: "ชื่อชมรมที่เสนอ",
-    clubNameHint: "เปลี่ยนภายหลังได้",
-    description: "ชมรมนี้จะทำอะไร",
-    descriptionHint: "อธิบายไอเดียสั้น ๆ กลุ่มเป้าหมายคือใคร และคาดว่าจะนัดพบกันบ่อยแค่ไหน",
-    members: "มีใครสนใจร่วมด้วยอีกไหม",
-    membersHint: "ไม่บังคับ: ใส่ชื่อหรือจำนวนคร่าว ๆ ถ้ามี",
-    send: "ส่งไอเดีย",
-    sending: "กำลังส่ง…",
-    successTitle: "ขอบคุณ ไอเดียชมรมของคุณถูกส่งแล้ว",
-    successBody: "กรรมการ BIRSA จะติดต่อกลับทางอีเมลเพื่อแจ้งขั้นตอนถัดไป",
-    errorSummaryTitle: "มีข้อมูลที่ต้องแก้ไข",
-    errors: {
-      nameRequired: "กรอกชื่อของคุณ",
-      emailRequired: "กรอกอีเมลของคุณ",
-      emailInvalid: "กรอกอีเมลให้ถูกต้อง เช่น name@example.com",
-      clubNameRequired: "กรอกชื่อชมรมที่ต้องการเสนอ",
-      descriptionRequired: "บอกเราว่าชมรมนี้จะทำอะไร",
-      descriptionShort: "กรอกรายละเอียดเพิ่มเติม",
-    },
-  },
-};
-
-const initialState: StartClubState = { status: "idle" };
+const initialState: CheckState = { status: "idle" };
 
 /**
- * "Start a club" idea submission form: same HTML-first pattern as ContactForm,
- * posting to the `submitStartClub` server action (works without JavaScript) and
- * enhanced with `useActionState`. The action returns error codes, mapped here to
- * localized messages.
+ * Final "check your answers" step of the start-a-club journey: lists every
+ * answer collected across the previous steps, each with a "change" link
+ * that re-enters that step and returns here, then submits via the
+ * `submitStartClubCheck` server action. Posts with a plain form so it works
+ * without JavaScript; `useActionState` progressively enhances it with an
+ * inline result and focus management, the same pattern as the contact form.
  */
-export default function StartClubForm({ locale, dict }: StartClubFormProps) {
-  const t = copy[locale];
+export default function StartClubForm({ locale, dict, draft, action }: StartClubCheckFormProps) {
+  const wizard = buildStartClubWizardLabels(locale);
+  const chrome = buildWizardChromeLabels(locale);
   const formId = useId();
-  const [state, formAction, isPending] = useActionState(submitStartClub, initialState);
+  const [state, formAction, isPending] = useActionState(action, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // On success/fallback the form (and the focused submit button) unmounts, so
-  // move focus to the result message, otherwise focus falls back to <body>
-  // and keyboard users lose their place (2.4.3).
   useEffect(() => {
     if (state.status === "success" || state.status === "fallback") {
       resultRef.current?.focus();
     }
   }, [state.status]);
 
-  const fieldIds = {
-    name: `${formId}-name`,
-    email: `${formId}-email`,
-    clubName: `${formId}-clubName`,
-    description: `${formId}-description`,
-    members: `${formId}-members`,
-  };
-
-  function messageFor(field: StartClubField, code: StartClubErrorCode): string {
-    switch (field) {
-      case "name":
-        return t.errors.nameRequired;
-      case "email":
-        return code === "invalid" ? t.errors.emailInvalid : t.errors.emailRequired;
-      case "clubName":
-        return t.errors.clubNameRequired;
-      case "description":
-        return code === "short" ? t.errors.descriptionShort : t.errors.descriptionRequired;
-    }
-  }
-
-  const values = state.values;
-
-  function buildDraft(): string {
-    const v = state.values;
-    if (!v) return "";
+  function buildDraftText(d: StartClubDraft): string {
     return [
-      `${t.yourName}: ${v.name}`,
-      `${t.email}: ${v.email}`,
-      `${t.clubName}: ${v.clubName}`,
-      v.members ? `${t.members}: ${v.members}` : null,
+      `${wizard.fieldLabels.name}: ${d.name ?? ""}`,
+      `${wizard.fieldLabels.email}: ${d.email ?? ""}`,
+      `${wizard.fieldLabels.clubName}: ${d.clubName ?? ""}`,
+      d.members ? `${wizard.fieldLabels.members}: ${d.members}` : null,
       "",
-      v.description,
+      d.description ?? "",
     ]
       .filter((line): line is string => line !== null)
       .join("\n");
@@ -167,8 +63,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         role="status"
         className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
       >
-        <p className="font-semibold">{t.successTitle}</p>
-        <p className="mt-1 text-sm">{t.successBody}</p>
+        <p className="font-semibold">{wizard.successTitle}</p>
+        <p className="mt-1 text-sm">{wizard.successBody}</p>
       </div>
     );
   }
@@ -199,8 +95,8 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         <Field
           as="textarea"
           name="draft"
-          label={t.description}
-          value={buildDraft()}
+          label={wizard.fieldLabels.description}
+          value={buildDraftText(state.draft)}
           readOnly
           rows={8}
         />
@@ -208,19 +104,50 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
     );
   }
 
-  const errorItems: ErrorSummaryItem[] = Object.entries(state.errors ?? {})
-    .filter(([, code]) => Boolean(code))
-    .map(([key, code]) => ({
-      id: fieldIds[key as keyof typeof fieldIds],
-      message: messageFor(key as StartClubField, code as StartClubErrorCode),
-    }));
+  // The clubName step lives at the journey's entry URL (/clubs/start), not
+  // /clubs/start/clubName, so it needs its own href rather than the generic
+  // step-name pattern the other four fields use.
+  const clubNameHref = localeHref(locale, "/clubs/start?returnTo=check");
+  const stepHref = (step: string) => localeHref(locale, `/clubs/start/${step}?returnTo=check`);
 
   return (
-    <form action={formAction} noValidate className="flex flex-col gap-5">
-      <ErrorSummary title={t.errorSummaryTitle} errors={errorItems} />
-
+    <form action={formAction} noValidate className="flex flex-col gap-6">
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
 
+      <dl className="border-line divide-line divide-y rounded-lg border">
+        <SummaryRow
+          label={wizard.checkClubNameLabel}
+          value={draft.clubName ?? ""}
+          changeHref={clubNameHref}
+          changeLabel={chrome.change}
+        />
+        <SummaryRow
+          label={wizard.checkMembersLabel}
+          value={draft.members?.trim() || wizard.checkMembersEmpty}
+          changeHref={stepHref("members")}
+          changeLabel={chrome.change}
+        />
+        <SummaryRow
+          label={wizard.checkDescriptionLabel}
+          value={draft.description ?? ""}
+          changeHref={stepHref("description")}
+          changeLabel={chrome.change}
+        />
+        <SummaryRow
+          label={wizard.checkNameLabel}
+          value={draft.name ?? ""}
+          changeHref={stepHref("name")}
+          changeLabel={chrome.change}
+        />
+        <SummaryRow
+          label={wizard.checkEmailLabel}
+          value={draft.email ?? ""}
+          changeHref={stepHref("email")}
+          changeLabel={chrome.change}
+        />
+      </dl>
+
+      {/* Honeypot: real visitors never see or fill this. */}
       <div className="sr-only" aria-hidden="true">
         <label htmlFor={`${formId}-nickname`}>Leave this field empty</label>
         <input
@@ -232,69 +159,13 @@ export default function StartClubForm({ locale, dict }: StartClubFormProps) {
         />
       </div>
 
-      <Field
-        id={fieldIds.name}
-        name="name"
-        label={t.yourName}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.name}
-        error={state.errors?.name ? messageFor("name", state.errors.name) : undefined}
-        autoComplete="name"
-      />
-      <Field
-        id={fieldIds.email}
-        name="email"
-        type="email"
-        label={t.email}
-        hint={t.emailHint}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.email}
-        error={state.errors?.email ? messageFor("email", state.errors.email) : undefined}
-        autoComplete="email"
-      />
-      <Field
-        id={fieldIds.clubName}
-        name="clubName"
-        label={t.clubName}
-        hint={t.clubNameHint}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.clubName}
-        error={state.errors?.clubName ? messageFor("clubName", state.errors.clubName) : undefined}
-      />
-      <Field
-        id={fieldIds.description}
-        name="description"
-        as="textarea"
-        label={t.description}
-        hint={t.descriptionHint}
-        required
-        requiredLabel={dict.actions.required}
-        defaultValue={values?.description}
-        error={
-          state.errors?.description
-            ? messageFor("description", state.errors.description)
-            : undefined
-        }
-      />
-      <Field
-        id={fieldIds.members}
-        name="members"
-        label={t.members}
-        hint={t.membersHint}
-        optionalLabel={dict.actions.optional}
-        defaultValue={values?.members}
-      />
-
       <div>
         <Button type="submit" disabled={isPending}>
-          {isPending ? t.sending : t.send}
+          {isPending ? wizard.sending : wizard.send}
         </Button>
         {isPending ? (
           <span role="status" className="sr-only">
-            {t.sending}
+            {wizard.sending}
           </span>
         ) : null}
       </div>

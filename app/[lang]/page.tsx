@@ -90,7 +90,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <p className="text-muted mt-4 text-lg">{copy.hero.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>
-              <Button href={localeHref(locale, "/information-services")} variant="secondary">
+              <Button href={localeHref(locale, "/services")} variant="secondary">
                 {copy.hero.secondaryCta}
               </Button>
             </div>

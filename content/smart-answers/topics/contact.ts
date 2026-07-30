@@ -221,7 +221,7 @@ export const contact: SmartAnswerService = {
       actions: [
         {
           label: { en: "Go to equipment loans", th: "ไปหน้าบริการยืมอุปกรณ์" },
-          href: "/information-services/equipment-loan",
+          href: "/services/equipment-loan",
         },
       ],
       related: [

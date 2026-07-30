@@ -37,6 +37,11 @@ const nextConfig = {
     // route (nested under the "home" guide track) to a sibling of `[audience]`
     // at `student-life/course-reviews`, so it reads as its own section rather
     // than a guide topic.
+    //
+    // "Information and services" renamed to "/services" (nav label "Find a
+    // service"): a filing-cabinet category name replaced with a task-based
+    // one, per GOV.UK Service Manual naming guidance. Locale-prefixed sources
+    // preserve the visitor's language.
     return [
       { source: "/:lang/about", destination: "/:lang/activity", permanent: true },
       { source: "/:lang/about/:slug*", destination: "/:lang/activity/:slug*", permanent: true },
@@ -48,6 +53,16 @@ const nextConfig = {
       {
         source: "/:lang/student-life/home/course-reviews/:code",
         destination: "/:lang/student-life/course-reviews/:code",
+        permanent: true,
+      },
+      {
+        source: "/:lang/information-services",
+        destination: "/:lang/services",
+        permanent: true,
+      },
+      {
+        source: "/:lang/information-services/:slug*",
+        destination: "/:lang/services/:slug*",
         permanent: true,
       },
     ];

@@ -146,7 +146,7 @@ export default async function ClubDetailPage({
                 <Link
                   href={localeHref(
                     locale,
-                    `/information-services/equipment-loan/directory#${frontmatter.custodian}`
+                    `/services/equipment-loan/directory#${frontmatter.custodian}`
                   )}
                   className="text-brand-deep hover:text-brand-dark font-semibold underline"
                 >

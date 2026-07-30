@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { defaultLocale, getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import PageHeader from "@/components/PageHeader";
 import Button from "@/components/Button";
@@ -10,6 +11,26 @@ import Button from "@/components/Button";
  * with `params` omitted entirely, so treat it as optional and fall back to
  * the default locale's copy rather than destructuring blindly.
  */
+
+/**
+ * Without its own metadata, this boundary would keep whichever page title the
+ * visitor was navigating from, which is misleading in the browser tab and in
+ * any history entry. `params` is optional for the same reason as the default
+ * export below.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params?: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const resolved = params ? await params : undefined;
+  const lang = resolved?.lang;
+  const locale: Locale = lang && isLocale(lang) ? lang : defaultLocale;
+  const dict = getDictionary(locale);
+
+  return { title: `${dict.notFound.title} | ${dict.site.name}` };
+}
+
 export default async function NotFound({ params }: { params?: Promise<{ lang: string }> }) {
   const resolved = params ? await params : undefined;
   const lang = resolved?.lang;

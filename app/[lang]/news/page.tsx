@@ -232,6 +232,9 @@ export default async function NewsPage({
                 dict={dict}
                 slug={entry.slug}
                 frontmatter={entry.frontmatter}
+                // The results grid is this page's top-level content, directly
+                // under the h1, so the card default of h3 would skip a level.
+                headingLevel="h2"
               />
             ))}
           </div>

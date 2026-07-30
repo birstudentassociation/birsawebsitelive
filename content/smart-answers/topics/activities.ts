@@ -13,10 +13,10 @@
  *    the request form, and sports equipment via faculty/TUSU Tha Prachan).
  *  - `content/clubs/clubs.ts`, `app/[lang]/clubs/start/page.tsx` (BIRSA's
  *    informal "tell us your idea" on-ramp, no minimum numbers).
- *  - `app/[lang]/information-services/equipment-loan/page.tsx`,
+ *  - `app/[lang]/services/equipment-loan/page.tsx`,
  *    `components/equipment/loanWizardCopy.ts`,
- *    `app/[lang]/information-services/equipment-loan/directory/page.tsx`,
- *    `app/[lang]/information-services/equipment-loan/status/page.tsx`, and
+ *    `app/[lang]/services/equipment-loan/directory/page.tsx`,
+ *    `app/[lang]/services/equipment-loan/status/page.tsx`, and
  *    `lib/inventory/custodians.ts` for the three genuinely different
  *    equipment routes and what a request needs.
  *
@@ -776,7 +776,7 @@ export const activities: SmartAnswerService = {
     /* Topic 3: borrow-equipment                                         */
     /*                                                                    */
     /* Three genuinely different services, per                            */
-    /* app/[lang]/information-services/equipment-loan/page.tsx,           */
+    /* app/[lang]/services/equipment-loan/page.tsx,           */
     /* .../directory/page.tsx, .../status/page.tsx, and                   */
     /* content/student-life/en/home/getting-involved.mdx: BIRSA's own     */
     /* catalogue (online, approved, collected from the BIRSA office),     */
@@ -905,7 +905,7 @@ export const activities: SmartAnswerService = {
       actions: [
         {
           label: { en: "Go to the equipment loan catalogue", th: "ไปหน้ารายการอุปกรณ์" },
-          href: "/information-services/equipment-loan",
+          href: "/services/equipment-loan",
         },
       ],
     },
@@ -943,7 +943,7 @@ export const activities: SmartAnswerService = {
       actions: [
         {
           label: { en: "See what BIRSA has available", th: "ดูอุปกรณ์ที่ BIRSA มีให้ยืม" },
-          href: "/information-services/equipment-loan",
+          href: "/services/equipment-loan",
         },
       ],
     },
@@ -965,7 +965,7 @@ export const activities: SmartAnswerService = {
       actions: [
         {
           label: { en: "Open the club equipment directory", th: "เปิดทำเนียบอุปกรณ์ของชมรม" },
-          href: "/information-services/equipment-loan/directory",
+          href: "/services/equipment-loan/directory",
         },
         { label: { en: "Browse clubs", th: "ดูรายชื่อชมรม" }, href: "/clubs" },
       ],
@@ -1028,7 +1028,7 @@ export const activities: SmartAnswerService = {
       actions: [
         {
           label: { en: "Check a loan request", th: "ตรวจสอบคำขอยืม" },
-          href: "/information-services/equipment-loan/status",
+          href: "/services/equipment-loan/status",
         },
       ],
     },

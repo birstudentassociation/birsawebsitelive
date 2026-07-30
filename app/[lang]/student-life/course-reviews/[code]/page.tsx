@@ -49,7 +49,7 @@ export default async function CourseDetailPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
-  const sectionLabel = dict.nav.find((n) => n.href === "/information-services")!.label;
+  const sectionLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   const index = courses.findIndex((c) => c.code === code);
   const course = courses[index];
@@ -70,7 +70,7 @@ export default async function CourseDetailPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel, href: "/information-services" },
+              { label: sectionLabel, href: "/services" },
               { label: t.title, href: "/student-life/course-reviews" },
               { label: course.code },
             ]}

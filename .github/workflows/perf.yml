@@ -1,0 +1,38 @@
+name: Performance budget
+
+# GOV.UK "how to test frontend performance": set a budget early, then follow
+# it. This runs the Lighthouse CI budget in lighthouserc.js against a
+# production build on every pull request, and fails the check if any page
+# exceeds the budget (see lighthouserc.js for the numbers and the reasoning
+# behind each one).
+on:
+  pull_request:
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI budget
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Same rationale as the CI workflow's build step: every optional
+      # integration (Postgres, Vercel Blob, Resend, Edge Config, the officer
+      # session secret, the cron secret) degrades to "not configured" rather
+      # than throwing, so the production build and server need no env vars.
+      - name: Build
+        run: npm run build
+
+      # lighthouserc.js's `collect.startServerCommand` runs `npm run start`
+      # itself, so this only needs the build above to already exist.
+      - name: Run Lighthouse CI against the performance budget
+        run: npm run perf

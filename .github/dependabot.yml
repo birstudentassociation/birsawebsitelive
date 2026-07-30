@@ -1,0 +1,39 @@
+version: 2
+
+# GOV.UK Service Manual, "managing software dependencies": keep dependencies
+# current and subscribe to security alerts. Dependabot version updates cover
+# the "keep current" half; GitHub's Dependabot security alerts (Settings >
+# Code security > Dependabot alerts) cover the "subscribe to alerts" half.
+#
+# IMPORTANT: point Dependabot security alert notifications at a shared
+# committee address (for example the committee's own GitHub team or a
+# shared mailbox), not an individual maintainer's personal notifications.
+# The manual requires this explicitly, since a person-bound alert is lost
+# the moment that person moves on. Configure this in the repository's
+# Settings > Code security > Dependabot alerts, and in the org/team
+# notification settings; it is not something this file can set directly.
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      # Minor/patch updates are low-risk and noisy one-at-a-time, so batch
+      # them into a single PR a week. Majors stay ungrouped and arrive as
+      # their own PRs, since they're the ones likely to need a look before
+      # merging.
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"

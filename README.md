@@ -9,8 +9,8 @@ students), guided answers to common "what do I actually do here?" questions, the
 loan service, and a way to contact BIRSA directly, all written natively in Thai and English,
 not machine-translated.
 
-This is currently a student-run, unofficial site. For official programme matters, always use
-the BIR Program and Faculty links in the footer.
+This is BIRSA's official site, run by students. BIRSA is not a university office. For official
+programme matters, always use the BIR Program and Faculty links in the footer.
 
 ## What's on the site
 
@@ -22,8 +22,8 @@ the BIR Program and Faculty links in the footer.
 | Activity                 | `/[lang]/activity`                            | BIRSA's work, committee roles, and the regulations library                                |
 | Clubs                    | `/[lang]/clubs`                               | Club directory (MDX per club) plus a "start a club" form                                  |
 | Student life             | `/[lang]/student-life`                        | Guide tracks for home and international students, getting-started paths, course reviews   |
-| Information and services | `/[lang]/information-services`                | University services directory and the equipment loan service                              |
-| Equipment loan           | `/[lang]/information-services/equipment-loan` | Public catalogue, request form, and self-service status lookup                            |
+| Find a service           | `/[lang]/services`                            | University services directory and the equipment loan service                              |
+| Equipment loan           | `/[lang]/services/equipment-loan`             | Public catalogue, request form, and self-service status lookup                            |
 | Officer console          | `/[lang]/officer/inventory`                   | Passcode-protected inventory management suite (items, loans, borrowers, reports, audit)   |
 | Quick links              | `/[lang]/quick`                               | One-page list of the links students ask for most                                          |
 | Search                   | `/[lang]/search`                              | Site-wide content search                                                                  |

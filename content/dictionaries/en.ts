@@ -24,14 +24,14 @@ export const en = {
 
   nav: [
     { href: "/news", label: "What's on" },
-    { href: "/information-services", label: "Information and services" },
+    { href: "/services", label: "Find a service" },
     { href: "/clubs", label: "Clubs" },
     { href: "/activity", label: "BIRSA activity" },
   ],
   headerCta: { href: "/quick", label: "Quick actions" },
 
   emergencyBanner: {
-    cta: "Click for more information",
+    cta: "Read the emergency guidance",
   },
 
   emergencyPage: {
@@ -152,7 +152,7 @@ export const en = {
 
   notFound: {
     title: "We cannot find that page",
-    body: "It may have moved, or the link may be wrong. Try the main sections below.",
+    body: "It may have moved, or the link may be wrong. Use the main sections to find what you need.",
     home: "Go to the home page",
   },
 

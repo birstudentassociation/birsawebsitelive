@@ -23,14 +23,14 @@ export const th: typeof en = {
 
   nav: [
     { href: "/news", label: "ข่าวและกิจกรรม" },
-    { href: "/information-services", label: "ข้อมูลและบริการ" },
+    { href: "/services", label: "ค้นหาบริการ" },
     { href: "/clubs", label: "ชมรม" },
     { href: "/activity", label: "การดำเนินงานของ BIRSA" },
   ],
   headerCta: { href: "/quick", label: "ทางลัด" },
 
   emergencyBanner: {
-    cta: "คลิกเพื่อดูข้อมูลเพิ่มเติม",
+    cta: "อ่านคำแนะนำเหตุฉุกเฉิน",
   },
 
   emergencyPage: {
@@ -152,7 +152,7 @@ export const th: typeof en = {
 
   notFound: {
     title: "ไม่พบหน้าที่คุณต้องการ",
-    body: "หน้านี้อาจถูกย้าย หรือลิงก์อาจไม่ถูกต้อง ลองเริ่มจากเมนูหลักด้านล่าง",
+    body: "หน้านี้อาจถูกย้าย หรือลิงก์อาจไม่ถูกต้อง ใช้เมนูหลักเพื่อค้นหาสิ่งที่ต้องการ",
     home: "กลับหน้าแรก",
   },
 

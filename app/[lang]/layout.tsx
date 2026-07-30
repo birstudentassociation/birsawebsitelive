@@ -101,7 +101,17 @@ export default async function RootLayout({
         <SkipLink label={dict.a11y.skip} />
         <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
         <Header locale={locale} />
-        <main id="main">{children}</main>
+        {/*
+          `tabIndex={-1}` makes the skip link actually move focus, not just
+          scroll. Without it the browser scrolls to the landmark but leaves
+          focus on the link, so the next Tab returns the reader to the header
+          nav they were trying to skip (WCAG technique G1). The `outline-none`
+          suppresses the focus ring on the landmark itself, which is not an
+          interactive control and should not look like one.
+        */}
+        <main id="main" tabIndex={-1} className="outline-none">
+          {children}
+        </main>
         <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />
         <Footer locale={locale} />
         <ScrollToTop label={dict.actions.backToTop} />

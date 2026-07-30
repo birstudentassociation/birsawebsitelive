@@ -5,7 +5,12 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import StartClubForm from "@/components/forms/StartClubForm";
+import StepNav from "@/components/forms/StepNav";
+import QuestionStepForm from "@/components/forms/QuestionStepForm";
+import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
+import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
+import { getStartClubDraft, submitClubNameStep } from "./actions";
+import { START_CLUB_STEPS } from "./steps";
 
 export async function generateMetadata({
   params,
@@ -45,7 +50,7 @@ const copy: Record<
     clubs: "Clubs",
     stepsTitle: "How it works",
     steps: [
-      "Tell BIRSA your idea. Fill in the form below with what the club would do and who it's for.",
+      "Tell BIRSA your idea. Answer a few short questions about what the club would do and who it's for.",
       "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and figure out what support you need (a room, a small budget, promotion).",
       "Start meeting. Run your first session, and BIRSA can help spread the word to other students.",
     ],
@@ -61,7 +66,7 @@ const copy: Record<
     clubs: "ชมรม",
     stepsTitle: "ขั้นตอนการเริ่มชมรม",
     steps: [
-      "บอกไอเดียของคุณกับ BIRSA กรอกแบบฟอร์มด้านล่างว่าชมรมนี้จะทำอะไรและเหมาะกับใคร",
+      "บอกไอเดียของคุณกับ BIRSA ตอบคำถามสั้น ๆ ไม่กี่ข้อว่าชมรมนี้จะทำอะไรและเหมาะกับใคร",
       "คุยรายละเอียดกับกรรมการ กรรมการ BIRSA จะติดต่อกลับเพื่อช่วยปรับไอเดียให้ชัดเจน และดูว่าต้องการการสนับสนุนอะไรบ้าง เช่น ห้องประชุม งบประมาณเล็กน้อย หรือการประชาสัมพันธ์",
       "เริ่มนัดพบ จัดกิจกรรมแรกของชมรม BIRSA ช่วยกระจายข่าวให้เพื่อนนักศึกษาคนอื่น ๆ รู้จักด้วย",
     ],
@@ -73,12 +78,26 @@ const copy: Record<
   },
 };
 
-export default async function StartClubPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function StartClubPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ lang: string }>;
+  searchParams: Promise<{ returnTo?: string }>;
+}) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
+  const chrome = buildWizardChromeLabels(locale);
+  const wizard = buildStartClubWizardLabels(locale);
+  const draft = await getStartClubDraft();
+  const { returnTo } = await searchParams;
+  const backHref = returnTo === "check" ? localeHref(locale, "/clubs/start/check") : undefined;
+  const progress = returnTo === "check"
+    ? undefined
+    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("clubName") + 1, START_CLUB_STEPS.length);
 
   return (
     <>
@@ -122,11 +141,25 @@ export default async function StartClubPage({ params }: { params: Promise<{ lang
             </Link>
           </div>
         </div>
-        <div>
+        <div className="flex flex-col gap-6">
           <h2 className="font-display text-2xl">{t.formTitle}</h2>
-          <div className="mt-4">
-            <StartClubForm locale={locale} dict={dict} />
-          </div>
+          <StepNav backHref={backHref} progressText={progress} backLabel={chrome.back} />
+          <h3 className="font-display text-xl sm:text-2xl">{wizard.clubNameHeading}</h3>
+          <QuestionStepForm
+            action={submitClubNameStep.bind(null, locale, returnTo)}
+            initialState={{ status: "idle" }}
+            errorSummaryTitle={wizard.errorSummaryTitle}
+            continueLabel={chrome.continueLabel}
+            continuingLabel={chrome.continuing}
+            field={{
+              name: "clubName",
+              label: wizard.fieldLabels.clubName,
+              hint: wizard.clubNameHint,
+              required: true,
+              requiredLabel: dict.actions.required,
+              defaultValue: draft.clubName,
+            }}
+          />
         </div>
       </div>
     </>

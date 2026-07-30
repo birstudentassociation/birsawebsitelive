@@ -83,6 +83,15 @@ export function middleware(request: NextRequest) {
         path: "/",
         maxAge: 60 * 60 * 24 * 365,
         sameSite: "lax",
+        // GOV.UK Service Manual, "working with cookies and similar
+        // technologies": only send cookies with the Secure attribute and,
+        // where appropriate, HttpOnly. `secure: process.env.NODE_ENV ===
+        // "production"` matches the officer session cookie in
+        // app/api/officer/session/route.ts, so localhost HTTP dev still
+        // works. This cookie is only ever read server-side (here and in
+        // server components), never by client JS, so httpOnly costs nothing.
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: true,
       });
     }
 

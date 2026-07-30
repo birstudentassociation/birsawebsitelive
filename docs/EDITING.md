@@ -241,6 +241,9 @@ Before telling students a piece of content is final, go through this checklist:
 - [ ] Check both the Thai and English versions were updated, not just one.
 - [ ] Re-run `npm run test` locally (or check the next deploy) to confirm the content still
       passes validation (a required field can't be blank, dates must be `YYYY-MM-DD`, etc.).
+- [ ] For a form: every input has a label or legend, every error message is calm rather than
+      jokey, and no page title, heading, or URL for that flow contains a real person's name,
+      student ID, or other personal data.
 
 ## Voice and language
 
@@ -250,10 +253,22 @@ Before telling students a piece of content is final, go through this checklist:
 - **English**: plain, direct, neutral. Short sentences, active verbs, sentence case even in
   headings. "You" is the student, "we" is BIRSA. Aim for GOV.UK guidance prose: factual and
   unhurried, with no warmth performed at the reader.
+  - No em dashes or en dashes anywhere, including code comments. Use a full stop, a comma, or
+    two sentences instead. This is a hard rule: the content test suite fails the build on
+    either dash character.
+  - Ranges use "to": "June 15 to 25", not "June 15-25".
+  - British spelling throughout: organise, colour, licence (noun), defence, programme.
+  - Expand negative contractions (do not, cannot, is not); keep positive ones (you'll, it's,
+    we'll). "Do not" reads as an instruction; "don't" reads as reassurance, which is not the
+    register this site writes in.
+  - Drop "please" except where its absence would read as an order rather than a request (for
+    example, asking someone to bring a document is fine without it).
 - **Thai**: เขียนใหม่สำหรับผู้อ่านไทยโดยตรง ไม่แปลตรงตัวจากอังกฤษ น้ำเสียงเป็นทางการ สุภาพ กระชับ
   และเป็นกลาง ใช้ "คุณ" กับผู้อ่านหรือละสรรพนามไปเลยเมื่ออ่านแล้วเป็นทางการกว่า (อย่าใช้ "ท่าน")
   เลี่ยงน้ำเสียงกันเองแบบรุ่นพี่คุยกับรุ่นน้อง และเลี่ยงภาษาราชการแข็ง ๆ อย่าง "ทั้งนี้ อนึ่ง ดังกล่าว"
   เลี่ยงทับศัพท์ที่ไม่จำเป็น (คำเฉพาะอย่าง BIRSA, TU Greats, Resend คงรูปอังกฤษได้) ตัวเลขใช้เลขอารบิก
+  ห้ามใช้เครื่องหมาย em dash หรือ en dash เช่นกัน ใช้จุด จุลภาค หรือแยกประโยคแทน ส่วนคำว่า
+  กรุณา/โปรด ยังคงใช้ได้ตามความเหมาะสม เพราะภาษาไทยไม่มีกฎเรื่อง "please" หรือรูปย่อแบบภาษาอังกฤษ
 
 ### The one test to apply to every sentence
 
@@ -298,6 +313,49 @@ This is a tone standard, not a licence to cut content. Dates, times, venues, pri
 numbers, eligibility rules, and links always survive. If a sentence's only content was fluff,
 delete it; never replace it with invented substance. Keep attributed claims attributed: if a club
 "calls itself the biggest music club in BIR", do not promote that to a flat statement of fact.
+
+### Writing for forms, buttons, and errors
+
+These rules cover interface copy specifically: labels, buttons, links, help text, and error and
+validation messages. Some are English-only, marked below, since Thai has no letter case and its
+own contraction and abbreviation conventions already covered above.
+
+- **Sentence case everywhere except proper nouns** (English only; Thai has no letter case).
+  Headings and input labels are sentence case and take no full stop. A heading phrased as a
+  question keeps its question mark, for example "What is your name?": the mark is not decoration,
+  it is what makes the heading grammatical. This carve-out is English-only; Thai does not
+  conventionally punctuate questions with a question mark, so Thai headings stay as written. Other
+  copy is full sentences ending in a full stop.
+- **Say "sorry" only when something has genuinely gone wrong technically.** A 500-style error
+  page or a failed submission can apologise. An ordinary validation message ("Enter your email
+  address") never does: the reader has not been wronged, they just missed a field.
+- **Never use humorous error messages.** Aim to be boring. A reader hitting an error is already
+  frustrated; a joke reads as making light of their problem.
+- **No visual-only instructions.** Never "click the green button", "the menu on the left", "the
+  box below". These exclude screen reader users and break the moment the layout changes on a
+  different viewport. Refer to controls by their name instead: "select Try again".
+- **Link text must make sense read on its own**, because screen readers can list all links on a
+  page out of context. "Click here" and a bare "Read more" are not acceptable; say what the link
+  goes to, for example "Read the equipment loan policy".
+- **One `<h1>` per page, describing what the page does.** Do not add a second top-level heading
+  for a subsection.
+- **Page title format**: "Page name - Section - BIRSA Portal". Keep the same order everywhere so
+  the browser tab and search results stay predictable.
+- **Every input needs a programmatically associated question**, via a `<label>` or, for a group
+  of related fields, a `<fieldset>`/`<legend>`. If the design does not show the label visually,
+  it still has to exist for assistive technology (visually hidden, not removed).
+- **Pronouns**: when the site speaks, the reader is "you" and BIRSA is "we". When the reader is
+  speaking about themselves, for example a checkbox confirming something about their own
+  situation, use "I"/"my", not "you"/"your".
+- **Use "they", never "he or she" or "he/she"**, for a person whose gender is not specified.
+- **Use "for example", not "eg" or "ie"** (English only; this is not a Thai abbreviation issue).
+- **Do not rely on the reader remembering an acronym across pages.** Spell it out on each page
+  where it matters, even if an earlier page already did.
+- **Keep help text short and action-focused.** Do not use help text to explain how the interface
+  works ("this field has a dropdown"); if the interface needs that explanation, the interface is
+  wrong and should be fixed, not documented around.
+- **Never put personal information in a page title, an `<h1>`, or a URL.** These all leak into
+  analytics and browser history. Use a reference number or a generic label instead of a name.
 
 ## How publishing works
 
