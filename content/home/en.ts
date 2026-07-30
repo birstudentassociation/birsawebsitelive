@@ -72,9 +72,10 @@ export const homeEn = {
   featured: {
     heading: "Featured",
     items: {
-      courseCatalogue: {
-        label: "Course catalogue",
-        description: "All 84 PI courses, with credits, who teaches them and what each one covers.",
+      courseReviews: {
+        label: "Course reviews",
+        description:
+          "Student-written notes on BIR courses: workload, assessment, and what to expect before you register.",
       },
       equipmentLoan: {
         label: "Borrow equipment",

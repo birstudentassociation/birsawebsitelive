@@ -74,10 +74,10 @@ export const homeTh: typeof homeEn = {
   featured: {
     heading: "แนะนำ",
     items: {
-      courseCatalogue: {
-        label: "ทำเนียบรายวิชา",
+      courseReviews: {
+        label: "รีวิวรายวิชา",
         description:
-          "รายวิชา PI ทั้ง 84 วิชา ดูหน่วยกิต ผู้สอน และเนื้อหาของแต่ละวิชาได้ในที่เดียว",
+          "บันทึกจากนักศึกษาเกี่ยวกับรายวิชาของ BIR ทั้งปริมาณงาน การวัดผล และสิ่งที่ควรรู้ก่อนลงทะเบียน",
       },
       equipmentLoan: {
         label: "ยืมอุปกรณ์",

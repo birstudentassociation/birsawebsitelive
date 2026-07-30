@@ -72,7 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   // not already point at.
   const featuredItems: FeaturedItem[] = (
     [
-      { key: "courseCatalogue", href: "/student-life/course-reviews", icon: "review" },
+      { key: "courseReviews", href: "/student-life/course-reviews", icon: "review" },
       { key: "equipmentLoan", href: "/services/equipment-loan", icon: "loan" },
       { key: "clubs", href: "/clubs", icon: "club" },
     ] as const
