@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
+import { jenjrusVris } from "@/lib/fonts";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 
@@ -49,7 +50,7 @@ export default function GlobalNotFound() {
   return (
     <html
       lang={defaultLocale}
-      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable} ${jenjrusVris.variable}`}
       suppressHydrationWarning
     >
       <body>

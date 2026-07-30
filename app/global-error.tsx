@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
+import { jenjrusVris } from "@/lib/fonts";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 
 /**
@@ -48,7 +49,7 @@ export default function GlobalError({
   return (
     <html
       lang={defaultLocale}
-      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable} ${jenjrusVris.variable}`}
       suppressHydrationWarning
     >
       <body>

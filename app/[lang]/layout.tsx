@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
+import { jenjrusVris } from "@/lib/fonts";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
@@ -83,7 +84,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable}`}
+      className={`${fraunces.variable} ${lexend.variable} ${sarabun.variable} ${jenjrusVris.variable}`}
       suppressHydrationWarning
     >
       <body>

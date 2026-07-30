@@ -66,9 +66,11 @@ middleware.ts             # locale detection/redirect
   locale segment swapped (client component using `usePathname`).
 - `app/[lang]/layout.tsx` renders `<html lang={lang}>`, loads fonts, Header/Footer/SkipLink.
   `generateStaticParams` returns both locales. Invalid `lang` → `notFound()`.
-- Fonts (next/font/google) with CSS variables **exactly**: Fraunces → `--font-en-display`,
-  Inter → `--font-en-body`, Sarabun (weights 400/500/600/700, subsets `["thai","latin"]`) →
-  `--font-th`. `app/globals.css` already maps them per `html[lang]`.
+- Fonts with CSS variables **exactly**: Fraunces → `--font-en-display`, Inter →
+  `--font-en-body`, Sarabun (weights 400/500/600/700, subsets `["thai","latin"]`) →
+  `--font-th` (all `next/font/google`), and JenjrusVris → `--font-th-display`, the Thai
+  display face, self-hosted from `assets/fonts` via `lib/fonts.ts` (`next/font/local`).
+  `app/globals.css` already maps them per `html[lang]`.
 - UI strings come from `lib/i18n.ts#getDictionary(locale)` returning
   `content/dictionaries/{en,th}.ts` (READ both, they define tone). Never hard-code chrome
   strings in components.

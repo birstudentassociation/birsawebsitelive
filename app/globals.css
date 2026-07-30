@@ -38,11 +38,14 @@
 
   /* Typography ------------------------------------------------------------ */
   /* next/font sets --font-en-display (Fraunces), --font-en-body (Lexend),
-     --font-th (Sarabun) on <html>. */
+     --font-th (Sarabun) and --font-th-display (JenjrusVris) on <html>. */
   --font-display: var(--font-en-display), Georgia, "Times New Roman", serif;
   --font-sans:
     var(--font-en-body), var(--font-th), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-thai: var(--font-th), var(--font-en-body), system-ui, sans-serif;
+  /* Thai display type. JenjrusVris covers the Thai block and basic Latin, so
+     Sarabun stays in the stack to pick up everything else. */
+  --font-thai-display: var(--font-th-display), var(--font-th), var(--font-en-body), sans-serif;
 
   /* Radius + shadow (soft, warm) ----------------------------------------- */
   --radius-sm: 0.375rem;
@@ -162,21 +165,22 @@ html[data-theme="dark"] .osm-tile-layer img {
 }
 
 /* Language-conditional font mapping.
-   English: Fraunces headings + Lexend body.  Thai: Sarabun throughout. */
+   English: Fraunces headings + Lexend body.
+   Thai: JenjrusVris headings + Sarabun body. */
 html[lang="en"] {
   --font-body: var(--font-sans);
   --font-heading: var(--font-display);
 }
 html[lang="th"] {
   --font-body: var(--font-thai);
-  --font-heading: var(--font-thai);
+  --font-heading: var(--font-thai-display);
 }
 
 /* The `font-display` utility means "display type", which is language-
-   dependent: Fraunces for English, Sarabun for Thai. Unlayered so it wins
+   dependent: Fraunces for English, JenjrusVris for Thai. Unlayered so it wins
    over the Tailwind utility on Thai pages. */
 html[lang="th"] .font-display {
-  font-family: var(--font-thai);
+  font-family: var(--font-thai-display);
   letter-spacing: 0.01em;
 }
 
@@ -224,8 +228,10 @@ html[lang="th"] .font-display {
     font-weight: 600;
   }
 
-  /* Thai display text: Sarabun needs a touch more weight + tracking to read
-     as a heading rather than body. */
+  /* Thai display text: JenjrusVris ships one weight, and
+     `font-synthesis-weight: none` means it renders at 400 regardless. The 700
+     is kept for the Sarabun fallback, which needs the extra weight to read as
+     a heading rather than body. */
   html[lang="th"] h1,
   html[lang="th"] h2,
   html[lang="th"] h3 {
