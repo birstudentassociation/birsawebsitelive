@@ -6,6 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 
 export async function generateMetadata({
   params,
@@ -113,49 +114,65 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
       />
       <div className="wrap flex flex-col gap-10 py-10">
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.aboutHeading}</h2>
-          <NavList columns={2}>
-            {birsaEntry ? entryItem(birsaEntry) : null}
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.aboutHeading}</h2>
+              <NavList>
+                {birsaEntry ? entryItem(birsaEntry) : null}
 
-            {thisYearEntry ? entryItem(thisYearEntry) : null}
+                {thisYearEntry ? entryItem(thisYearEntry) : null}
 
-            <NavListItem href={rolesHref} title={t.rolesTitle}>
-              {t.rolesSummary}
-            </NavListItem>
+                <NavListItem href={rolesHref} title={t.rolesTitle}>
+                  {t.rolesSummary}
+                </NavListItem>
 
-            {programmeEntry ? entryItem(programmeEntry) : null}
-          </NavList>
+                {programmeEntry ? entryItem(programmeEntry) : null}
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.eventsHeading}</h2>
-          <NavList columns={2}>
-            {eventsEntry ? entryItem(eventsEntry) : null}
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.eventsHeading}</h2>
+              <NavList>
+                {eventsEntry ? entryItem(eventsEntry) : null}
 
-            {studentBodiesEntry ? entryItem(studentBodiesEntry) : null}
-          </NavList>
+                {studentBodiesEntry ? entryItem(studentBodiesEntry) : null}
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.governanceHeading}</h2>
-          <NavList columns={2}>
-            <NavListItem href={regsHref} title={t.regsTitle}>
-              {t.regsSummary}
-            </NavListItem>
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.governanceHeading}</h2>
+              <NavList>
+                <NavListItem href={regsHref} title={t.regsTitle}>
+                  {t.regsSummary}
+                </NavListItem>
 
-            {transparencyEntry ? entryItem(transparencyEntry) : null}
-          </NavList>
+                {transparencyEntry ? entryItem(transparencyEntry) : null}
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.connectHeading}</h2>
-          <NavList columns={2}>
-            {contactEntry ? entryItem(contactEntry) : null}
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.connectHeading}</h2>
+              <NavList>
+                {contactEntry ? entryItem(contactEntry) : null}
 
-            <NavListItem href={newsHref} title={t.newsTitle}>
-              {t.newsSummary}
-            </NavListItem>
-          </NavList>
+                <NavListItem href={newsHref} title={t.newsTitle}>
+                  {t.newsSummary}
+                </NavListItem>
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
       </div>
     </>

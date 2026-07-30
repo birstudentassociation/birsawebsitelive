@@ -2,30 +2,22 @@ import Link from "next/link";
 import clsx from "clsx";
 
 export type NavListProps = {
-  /** Lay the rows out in two columns from `sm` up, filling top-to-bottom then
-   * across. One column is the default and the mobile behaviour of both. */
-  columns?: 1 | 2;
   className?: string;
   children: React.ReactNode;
 };
 
 /**
- * Navigation link list: a run of hairline-separated rows, each a heading link
- * over a short description. Use this wherever the job is "pick where to go
- * next". `Card` stays for listings that carry dates, tags or images.
+ * Navigation link list: a single run of hairline-separated rows, each a
+ * heading link over a short description. Use this wherever the job is "pick
+ * where to go next". `Card` stays for listings that carry dates, tags or
+ * images.
+ *
+ * The list is always one column. Width comes from the column it sits in, which
+ * is `GridMain` on every page that uses it, so the rows keep a comfortable
+ * measure without the list having to know anything about the page.
  */
-export default function NavList({ columns = 1, className, children }: NavListProps) {
-  return (
-    <ul
-      className={clsx(
-        "border-line grid border-t",
-        columns === 2 && "sm:grid-cols-2 sm:gap-x-[30px]",
-        className
-      )}
-    >
-      {children}
-    </ul>
-  );
+export default function NavList({ className, children }: NavListProps) {
+  return <ul className={clsx("border-line border-t", className)}>{children}</ul>;
 }
 
 export type NavListItemProps = {

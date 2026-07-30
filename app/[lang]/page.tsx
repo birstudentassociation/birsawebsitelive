@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
 import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 import NewsCard from "@/components/news/NewsCard";
 import EventCalendar from "@/components/home/EventCalendar";
 import { calendarEvents } from "@/content/calendar/events";
@@ -113,19 +114,23 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           the line above it). */}
       <section aria-labelledby="top-tasks-heading" className="bg-sunken border-line border-b">
         <div className="wrap py-12 sm:py-16">
-          <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
-            {copy.quickLinks.heading}
-          </h2>
-          <NavList columns={2}>
-            {quickLinkCards.map(({ href, key }) => {
-              const item = copy.quickLinks.items[key];
-              return (
-                <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
-                  {item.description}
-                </NavListItem>
-              );
-            })}
-          </NavList>
+          <GridRow>
+            <GridMain>
+              <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
+                {copy.quickLinks.heading}
+              </h2>
+              <NavList>
+                {quickLinkCards.map(({ href, key }) => {
+                  const item = copy.quickLinks.items[key];
+                  return (
+                    <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
+                      {item.description}
+                    </NavListItem>
+                  );
+                })}
+              </NavList>
+            </GridMain>
+          </GridRow>
         </div>
       </section>
 
@@ -188,22 +193,26 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       {/* BIRSA activity highlight */}
       <section aria-labelledby="activity-highlight-heading" className="wrap py-12 sm:py-16">
-        <div className="mb-6 max-w-[var(--measure)]">
-          <h2 id="activity-highlight-heading" className="font-display text-2xl sm:text-3xl">
-            {copy.activityHighlight.heading}
-          </h2>
-          <p className="text-muted mt-2 text-lg">{copy.activityHighlight.intro}</p>
-        </div>
-        <NavList columns={2}>
-          {activityHighlightCards.map(({ href, key }) => {
-            const item = copy.activityHighlight.items[key];
-            return (
-              <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
-                {item.description}
-              </NavListItem>
-            );
-          })}
-        </NavList>
+        <GridRow>
+          <GridMain>
+            <div className="mb-6">
+              <h2 id="activity-highlight-heading" className="font-display text-2xl sm:text-3xl">
+                {copy.activityHighlight.heading}
+              </h2>
+              <p className="text-muted mt-2 text-lg">{copy.activityHighlight.intro}</p>
+            </div>
+            <NavList>
+              {activityHighlightCards.map(({ href, key }) => {
+                const item = copy.activityHighlight.items[key];
+                return (
+                  <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
+                    {item.description}
+                  </NavListItem>
+                );
+              })}
+            </NavList>
+          </GridMain>
+        </GridRow>
       </section>
     </>
   );

@@ -6,6 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 import { studentLifeTracks } from "@/content/student-life/tracks";
 import { onboardingUiCopy } from "@/content/onboarding";
 
@@ -72,25 +73,29 @@ export default async function StudentLifePage({ params }: { params: Promise<{ la
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <NavList columns={2}>
-          <NavListItem href={gettingStartedHref} title={gettingStarted.title} as="h2">
-            {gettingStarted.lede}
-          </NavListItem>
-
-          <NavListItem href={courseReviewsHref} title={courseReview.title} as="h2">
-            {courseReview.lede}
-          </NavListItem>
-
-          {trackOrder.map((audience) => {
-            const track = tracks[audience];
-            const href = localeHref(locale, `/student-life/${audience}`);
-            return (
-              <NavListItem key={audience} href={href} title={track.title} as="h2">
-                {track.lede}
+        <GridRow>
+          <GridMain>
+            <NavList>
+              <NavListItem href={gettingStartedHref} title={gettingStarted.title} as="h2">
+                {gettingStarted.lede}
               </NavListItem>
-            );
-          })}
-        </NavList>
+
+              <NavListItem href={courseReviewsHref} title={courseReview.title} as="h2">
+                {courseReview.lede}
+              </NavListItem>
+
+              {trackOrder.map((audience) => {
+                const track = tracks[audience];
+                const href = localeHref(locale, `/student-life/${audience}`);
+                return (
+                  <NavListItem key={audience} href={href} title={track.title} as="h2">
+                    {track.lede}
+                  </NavListItem>
+                );
+              })}
+            </NavList>
+          </GridMain>
+        </GridRow>
       </div>
     </>
   );

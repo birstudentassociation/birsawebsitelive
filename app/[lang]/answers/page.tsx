@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 import ProfileSummary from "@/components/answers/ProfileSummary";
 import {
   matchTopics,
@@ -134,16 +135,20 @@ export default async function AnswersHubPage({
         </form>
 
         {query ? (
-          <section className="flex flex-col gap-4" aria-labelledby="answers-results">
-            <h2 id="answers-results" className="font-display text-2xl">
-              {matches.length > 0 ? t.searchResults : t.searchNoResults}
-            </h2>
-            {matches.length > 0 ? <NavList columns={2}>{matches.map(renderTopic)}</NavList> : null}
-            <div>
-              <Link href={hubHref} className="text-brand-deep font-medium hover:underline">
-                {t.searchClear}
-              </Link>
-            </div>
+          <section aria-labelledby="answers-results">
+            <GridRow>
+              <GridMain className="flex flex-col gap-4">
+                <h2 id="answers-results" className="font-display text-2xl">
+                  {matches.length > 0 ? t.searchResults : t.searchNoResults}
+                </h2>
+                {matches.length > 0 ? <NavList>{matches.map(renderTopic)}</NavList> : null}
+                <div>
+                  <Link href={hubHref} className="text-brand-deep font-medium hover:underline">
+                    {t.searchClear}
+                  </Link>
+                </div>
+              </GridMain>
+            </GridRow>
           </section>
         ) : null}
 
@@ -169,20 +174,20 @@ export default async function AnswersHubPage({
           if (groupTopics.length === 0) return null;
 
           return (
-            <section
-              key={group.id}
-              className="flex flex-col gap-4"
-              aria-labelledby={`group-${group.id}`}
-            >
-              <div>
-                <h2 id={`group-${group.id}`} className="font-display text-2xl">
-                  {group.title[locale]}
-                </h2>
-                <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
-                  {group.description[locale]}
-                </p>
-              </div>
-              <NavList columns={2}>{groupTopics.map(renderTopic)}</NavList>
+            <section key={group.id} aria-labelledby={`group-${group.id}`}>
+              <GridRow>
+                <GridMain className="flex flex-col gap-4">
+                  <div>
+                    <h2 id={`group-${group.id}`} className="font-display text-2xl">
+                      {group.title[locale]}
+                    </h2>
+                    <p className="text-muted text-sm leading-relaxed">
+                      {group.description[locale]}
+                    </p>
+                  </div>
+                  <NavList>{groupTopics.map(renderTopic)}</NavList>
+                </GridMain>
+              </GridRow>
             </section>
           );
         })}

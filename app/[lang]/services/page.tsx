@@ -7,6 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 
 export async function generateMetadata({
   params,
@@ -239,106 +240,112 @@ export default async function InformationServicesPage({
       />
       <div className="wrap flex flex-col gap-12 py-10">
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
-          <NavList>
-            <NavListItem
-              href={answersHref}
-              title={t.getAnswer.title}
-              meta={t.getAnswer.eyebrow}
-              as="h3"
-            >
-              {t.getAnswer.description}
-            </NavListItem>
-            <NavListItem
-              href={equipmentHref}
-              title={t.equipmentLoan.title}
-              meta={t.equipmentLoan.eyebrow}
-              as="h3"
-            >
-              {t.equipmentLoan.description}
-            </NavListItem>
-          </NavList>
-          <p className="text-muted text-sm">
-            {t.directoryLinkLine}{" "}
-            <Link
-              href={equipmentDirectoryHref}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
-            >
-              {t.directoryLinkCta}
-            </Link>
-          </p>
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
+              <NavList>
+                <NavListItem
+                  href={answersHref}
+                  title={t.getAnswer.title}
+                  meta={t.getAnswer.eyebrow}
+                  as="h3"
+                >
+                  {t.getAnswer.description}
+                </NavListItem>
+                <NavListItem
+                  href={equipmentHref}
+                  title={t.equipmentLoan.title}
+                  meta={t.equipmentLoan.eyebrow}
+                  as="h3"
+                >
+                  {t.equipmentLoan.description}
+                </NavListItem>
+              </NavList>
+              <p className="text-muted text-sm">
+                {t.directoryLinkLine}{" "}
+                <Link
+                  href={equipmentDirectoryHref}
+                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                >
+                  {t.directoryLinkCta}
+                </Link>
+              </p>
 
-          <NavList>
-            <NavListItem
-              href={universityServicesHref}
-              title={t.universityServices.title}
-              meta={t.universityServices.eyebrow}
-              as="h3"
-            >
-              {t.universityServices.description}
-            </NavListItem>
-          </NavList>
+              <NavList>
+                <NavListItem
+                  href={universityServicesHref}
+                  title={t.universityServices.title}
+                  meta={t.universityServices.eyebrow}
+                  as="h3"
+                >
+                  {t.universityServices.description}
+                </NavListItem>
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
 
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-2xl">{t.informationHeading}</h2>
-          <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
-            {t.informationLede}
-          </p>
-          <p className="text-muted text-sm">
-            {t.studentLifeIndexLine}{" "}
-            <Link
-              href={studentLifeHref}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
-            >
-              {t.studentLifeIndexCta}
-            </Link>
-          </p>
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.informationHeading}</h2>
+              <p className="text-muted text-sm leading-relaxed">{t.informationLede}</p>
+              <p className="text-muted text-sm">
+                {t.studentLifeIndexLine}{" "}
+                <Link
+                  href={studentLifeHref}
+                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                >
+                  {t.studentLifeIndexCta}
+                </Link>
+              </p>
 
-          <NavList columns={2}>
-            <NavListItem
-              href={courseReviewsHref}
-              title={t.courseReviews.title}
-              meta={t.courseReviews.eyebrow}
-              as="h3"
-            >
-              {t.courseReviews.description}
-            </NavListItem>
+              <NavList>
+                <NavListItem
+                  href={courseReviewsHref}
+                  title={t.courseReviews.title}
+                  meta={t.courseReviews.eyebrow}
+                  as="h3"
+                >
+                  {t.courseReviews.description}
+                </NavListItem>
 
-            <NavListItem
-              href={guidesHref}
-              title={t.guides.title}
-              as="h3"
-              topics={{ label: t.guides.topicsLabel, items: topicTitles(guideTopics) }}
-            >
-              {t.guides.description}
-            </NavListItem>
-          </NavList>
+                <NavListItem
+                  href={guidesHref}
+                  title={t.guides.title}
+                  as="h3"
+                  topics={{ label: t.guides.topicsLabel, items: topicTitles(guideTopics) }}
+                >
+                  {t.guides.description}
+                </NavListItem>
+              </NavList>
 
-          <NavList columns={2}>
-            <NavListItem
-              href={handbookHref}
-              title={t.handbook.title}
-              meta={t.handbook.eyebrow}
-              as="h3"
-              topics={{ label: t.handbook.topicsLabel, items: topicTitles(handbookTopics) }}
-            >
-              {t.handbook.description}
-            </NavListItem>
+              <NavList>
+                <NavListItem
+                  href={handbookHref}
+                  title={t.handbook.title}
+                  meta={t.handbook.eyebrow}
+                  as="h3"
+                  topics={{ label: t.handbook.topicsLabel, items: topicTitles(handbookTopics) }}
+                >
+                  {t.handbook.description}
+                </NavListItem>
 
-            <NavListItem
-              href={internationalHref}
-              title={t.international.title}
-              meta={t.international.eyebrow}
-              as="h3"
-              topics={{
-                label: t.international.topicsLabel,
-                items: topicTitles(internationalTopics),
-              }}
-            >
-              {t.international.description}
-            </NavListItem>
-          </NavList>
+                <NavListItem
+                  href={internationalHref}
+                  title={t.international.title}
+                  meta={t.international.eyebrow}
+                  as="h3"
+                  topics={{
+                    label: t.international.topicsLabel,
+                    items: topicTitles(internationalTopics),
+                  }}
+                >
+                  {t.international.description}
+                </NavListItem>
+              </NavList>
+            </GridMain>
+          </GridRow>
         </section>
 
         <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">
