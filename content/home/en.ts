@@ -69,6 +69,24 @@ export const homeEn = {
       },
     },
   },
+  featured: {
+    heading: "Featured",
+    items: {
+      courseCatalogue: {
+        label: "Course catalogue",
+        description: "All 84 PI courses, with credits, who teaches them and what each one covers.",
+      },
+      equipmentLoan: {
+        label: "Borrow equipment",
+        description:
+          "Request BIRSA equipment online, then track the request through to collection.",
+      },
+      clubs: {
+        label: "BIR clubs",
+        description: "Twelve student clubs, what each one does, and how to join or start your own.",
+      },
+    },
+  },
   activityHighlight: {
     heading: "BIRSA activity",
     intro: "Officer roles, the regulations that govern student activities, and more.",

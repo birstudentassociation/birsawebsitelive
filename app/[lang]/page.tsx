@@ -7,7 +7,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
 import NavList, { NavListItem } from "@/components/NavList";
-import GridRow, { GridMain } from "@/components/GridRow";
+import GridRow, { GridMain, GridAside } from "@/components/GridRow";
+import FeaturedRail, { type FeaturedItem } from "@/components/home/FeaturedRail";
 import NewsCard from "@/components/news/NewsCard";
 import EventCalendar from "@/components/home/EventCalendar";
 import { calendarEvents } from "@/content/calendar/events";
@@ -65,6 +66,22 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     { href: "/activity/regulations", key: "regulations" },
     { href: "/activity", key: "overview" },
   ];
+
+  // The rail sits beside the top tasks, so it deliberately carries none of
+  // them. These are three things worth a look that the list next to it does
+  // not already point at.
+  const featuredItems: FeaturedItem[] = (
+    [
+      { key: "courseCatalogue", href: "/student-life/course-reviews", icon: "review" },
+      { key: "equipmentLoan", href: "/services/equipment-loan", icon: "loan" },
+      { key: "clubs", href: "/clubs", icon: "club" },
+    ] as const
+  ).map(({ key, href, icon }) => ({
+    href: localeHref(locale, href),
+    icon,
+    label: copy.featured.items[key].label,
+    description: copy.featured.items[key].description,
+  }));
 
   const instagram = socials.find((s) => s.id === "instagram");
   const facebook = socials.find((s) => s.id === "facebook");
@@ -130,6 +147,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
                 })}
               </NavList>
             </GridMain>
+            <GridAside>
+              <FeaturedRail
+                heading={copy.featured.heading}
+                headingId="featured-heading"
+                items={featuredItems}
+              />
+            </GridAside>
           </GridRow>
         </div>
       </section>
