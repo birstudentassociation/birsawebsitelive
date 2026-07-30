@@ -6,7 +6,7 @@ import { getGuideEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
 
 export async function generateMetadata({
   params,
@@ -209,10 +209,7 @@ export default async function InformationServicesPage({
   const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
-  const equipmentDirectoryHref = localeHref(
-    locale,
-    "/services/equipment-loan/directory"
-  );
+  const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
   const answersHref = localeHref(locale, "/answers");
   const universityServicesHref = localeHref(locale, "/services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
@@ -224,6 +221,8 @@ export default async function InformationServicesPage({
   const guideTopics = getGuideEntries(locale, "home").slice(0, 4);
   const internationalTopics = getGuideEntries(locale, "international").slice(0, 4);
   const handbookTopics = getGuideEntries(locale, "handbook").slice(0, 4);
+  const topicTitles = (entries: typeof guideTopics) =>
+    entries.map((entry) => entry.frontmatter.title);
 
   return (
     <>
@@ -241,29 +240,24 @@ export default async function InformationServicesPage({
       <div className="wrap flex flex-col gap-12 py-10">
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
-          <Card href={answersHref}>
-            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-              {t.getAnswer.eyebrow}
-            </span>
-            <CardTitle href={answersHref} as="h3">
-              {t.getAnswer.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{t.getAnswer.description}</p>
-            <span className="text-brand-deep text-sm font-semibold">{t.getAnswer.cta} &rarr;</span>
-          </Card>
-
-          <Card href={equipmentHref}>
-            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-              {t.equipmentLoan.eyebrow}
-            </span>
-            <CardTitle href={equipmentHref} as="h3">
-              {t.equipmentLoan.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{t.equipmentLoan.description}</p>
-            <span className="text-brand-deep text-sm font-semibold">
-              {t.equipmentLoan.cta} &rarr;
-            </span>
-          </Card>
+          <NavList>
+            <NavListItem
+              href={answersHref}
+              title={t.getAnswer.title}
+              meta={t.getAnswer.eyebrow}
+              as="h3"
+            >
+              {t.getAnswer.description}
+            </NavListItem>
+            <NavListItem
+              href={equipmentHref}
+              title={t.equipmentLoan.title}
+              meta={t.equipmentLoan.eyebrow}
+              as="h3"
+            >
+              {t.equipmentLoan.description}
+            </NavListItem>
+          </NavList>
           <p className="text-muted text-sm">
             {t.directoryLinkLine}{" "}
             <Link
@@ -274,18 +268,16 @@ export default async function InformationServicesPage({
             </Link>
           </p>
 
-          <Card href={universityServicesHref}>
-            <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-              {t.universityServices.eyebrow}
-            </span>
-            <CardTitle href={universityServicesHref} as="h3">
-              {t.universityServices.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{t.universityServices.description}</p>
-            <span className="text-brand-deep text-sm font-semibold">
-              {t.universityServices.cta} &rarr;
-            </span>
-          </Card>
+          <NavList>
+            <NavListItem
+              href={universityServicesHref}
+              title={t.universityServices.title}
+              meta={t.universityServices.eyebrow}
+              as="h3"
+            >
+              {t.universityServices.description}
+            </NavListItem>
+          </NavList>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -303,83 +295,50 @@ export default async function InformationServicesPage({
             </Link>
           </p>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Card href={courseReviewsHref}>
-              <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                {t.courseReviews.eyebrow}
-              </span>
-              <CardTitle href={courseReviewsHref} as="h3">
-                {t.courseReviews.title}
-              </CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.courseReviews.description}</p>
-              <span className="text-brand-deep text-sm font-semibold">
-                {t.courseReviews.cta} &rarr;
-              </span>
-            </Card>
+          <NavList columns={2}>
+            <NavListItem
+              href={courseReviewsHref}
+              title={t.courseReviews.title}
+              meta={t.courseReviews.eyebrow}
+              as="h3"
+            >
+              {t.courseReviews.description}
+            </NavListItem>
 
-            <Card href={guidesHref}>
-              <CardTitle href={guidesHref} as="h3">
-                {t.guides.title}
-              </CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.guides.description}</p>
-              {guideTopics.length > 0 ? (
-                <div className="mt-1">
-                  <p className="text-ink text-sm font-semibold">{t.guides.topicsLabel}</p>
-                  <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                    {guideTopics.map((entry) => (
-                      <li key={entry.slug}>{entry.frontmatter.title}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-            </Card>
-          </div>
+            <NavListItem
+              href={guidesHref}
+              title={t.guides.title}
+              as="h3"
+              topics={{ label: t.guides.topicsLabel, items: topicTitles(guideTopics) }}
+            >
+              {t.guides.description}
+            </NavListItem>
+          </NavList>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Card href={handbookHref}>
-              <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                {t.handbook.eyebrow}
-              </span>
-              <CardTitle href={handbookHref} as="h3">
-                {t.handbook.title}
-              </CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.handbook.description}</p>
-              {handbookTopics.length > 0 ? (
-                <div className="mt-1">
-                  <p className="text-ink text-sm font-semibold">{t.handbook.topicsLabel}</p>
-                  <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                    {handbookTopics.map((entry) => (
-                      <li key={entry.slug}>{entry.frontmatter.title}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              <span className="text-brand-deep text-sm font-semibold">{t.handbook.cta} &rarr;</span>
-            </Card>
+          <NavList columns={2}>
+            <NavListItem
+              href={handbookHref}
+              title={t.handbook.title}
+              meta={t.handbook.eyebrow}
+              as="h3"
+              topics={{ label: t.handbook.topicsLabel, items: topicTitles(handbookTopics) }}
+            >
+              {t.handbook.description}
+            </NavListItem>
 
-            <Card href={internationalHref}>
-              <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
-                {t.international.eyebrow}
-              </span>
-              <CardTitle href={internationalHref} as="h3">
-                {t.international.title}
-              </CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.international.description}</p>
-              {internationalTopics.length > 0 ? (
-                <div className="mt-1">
-                  <p className="text-ink text-sm font-semibold">{t.international.topicsLabel}</p>
-                  <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
-                    {internationalTopics.map((entry) => (
-                      <li key={entry.slug}>{entry.frontmatter.title}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-              <span className="text-brand-deep text-sm font-semibold">
-                {t.international.cta} &rarr;
-              </span>
-            </Card>
-          </div>
+            <NavListItem
+              href={internationalHref}
+              title={t.international.title}
+              meta={t.international.eyebrow}
+              as="h3"
+              topics={{
+                label: t.international.topicsLabel,
+                items: topicTitles(internationalTopics),
+              }}
+            >
+              {t.international.description}
+            </NavListItem>
+          </NavList>
         </section>
 
         <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">

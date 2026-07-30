@@ -469,3 +469,28 @@ html[lang="th"] :is(h1, h2, h3) {
     opacity: 1;
   }
 }
+
+/* ==========================================================================
+   GOV.UK focus highlight
+   For text links sitting in a run of other links (NavList rows), where a thin
+   ring is easy to lose. The yellow block plus the black underline bar carries
+   the focus on its own, so the default ring is dropped and the resting
+   underline is suppressed.
+
+   Deliberately unlayered. Tailwind's utilities layer beats anything in
+   @layer base regardless of specificity, so `text-brand-deep` and `underline`
+   on the link would otherwise survive focus and leave brand red on yellow,
+   which fails contrast. Unlayered rules outrank every layer.
+
+   Both colours are fixed rather than themed: the pairing is a high-contrast
+   signal in its own right and stays legible in dark mode.
+   ========================================================================== */
+.focus-highlight:focus-visible {
+  outline: 3px solid transparent;
+  color: #0b0c0c;
+  background-color: #fd0;
+  box-shadow:
+    0 -2px #fd0,
+    0 4px #0b0c0c;
+  text-decoration: none;
+}

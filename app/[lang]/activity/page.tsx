@@ -5,7 +5,7 @@ import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
 
 export async function generateMetadata({
   params,
@@ -77,13 +77,12 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const entries = getEntries("activity", locale);
   const findEntry = (slug: string) => entries.find((entry) => entry.slug === slug);
 
-  const entryCard = (entry: (typeof entries)[number]) => {
+  const entryItem = (entry: (typeof entries)[number]) => {
     const href = localeHref(locale, `/activity/${entry.slug}`);
     return (
-      <Card key={entry.slug} href={href}>
-        <CardTitle href={href}>{entry.frontmatter.title}</CardTitle>
-        <p className="text-muted text-sm leading-relaxed">{entry.frontmatter.summary}</p>
-      </Card>
+      <NavListItem key={entry.slug} href={href} title={entry.frontmatter.title}>
+        {entry.frontmatter.summary}
+      </NavListItem>
     );
   };
 
@@ -115,51 +114,48 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
       <div className="wrap flex flex-col gap-10 py-10">
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.aboutHeading}</h2>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {birsaEntry ? entryCard(birsaEntry) : null}
+          <NavList columns={2}>
+            {birsaEntry ? entryItem(birsaEntry) : null}
 
-            {thisYearEntry ? entryCard(thisYearEntry) : null}
+            {thisYearEntry ? entryItem(thisYearEntry) : null}
 
-            <Card href={rolesHref}>
-              <CardTitle href={rolesHref}>{t.rolesTitle}</CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.rolesSummary}</p>
-            </Card>
+            <NavListItem href={rolesHref} title={t.rolesTitle}>
+              {t.rolesSummary}
+            </NavListItem>
 
-            {programmeEntry ? entryCard(programmeEntry) : null}
-          </div>
+            {programmeEntry ? entryItem(programmeEntry) : null}
+          </NavList>
         </section>
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.eventsHeading}</h2>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {eventsEntry ? entryCard(eventsEntry) : null}
+          <NavList columns={2}>
+            {eventsEntry ? entryItem(eventsEntry) : null}
 
-            {studentBodiesEntry ? entryCard(studentBodiesEntry) : null}
-          </div>
+            {studentBodiesEntry ? entryItem(studentBodiesEntry) : null}
+          </NavList>
         </section>
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.governanceHeading}</h2>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            <Card href={regsHref}>
-              <CardTitle href={regsHref}>{t.regsTitle}</CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.regsSummary}</p>
-            </Card>
+          <NavList columns={2}>
+            <NavListItem href={regsHref} title={t.regsTitle}>
+              {t.regsSummary}
+            </NavListItem>
 
-            {transparencyEntry ? entryCard(transparencyEntry) : null}
-          </div>
+            {transparencyEntry ? entryItem(transparencyEntry) : null}
+          </NavList>
         </section>
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.connectHeading}</h2>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {contactEntry ? entryCard(contactEntry) : null}
+          <NavList columns={2}>
+            {contactEntry ? entryItem(contactEntry) : null}
 
-            <Card href={newsHref}>
-              <CardTitle href={newsHref}>{t.newsTitle}</CardTitle>
-              <p className="text-muted text-sm leading-relaxed">{t.newsSummary}</p>
-            </Card>
-          </div>
+            <NavListItem href={newsHref} title={t.newsTitle}>
+              {t.newsSummary}
+            </NavListItem>
+          </NavList>
         </section>
       </div>
     </>

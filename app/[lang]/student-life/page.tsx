@@ -5,7 +5,7 @@ import { type GuideAudience } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
 import { studentLifeTracks } from "@/content/student-life/tracks";
 import { onboardingUiCopy } from "@/content/onboarding";
 
@@ -72,34 +72,25 @@ export default async function StudentLifePage({ params }: { params: Promise<{ la
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-          <Card href={gettingStartedHref}>
-            <CardTitle href={gettingStartedHref} as="h2">
-              {gettingStarted.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{gettingStarted.lede}</p>
-          </Card>
+        <NavList columns={2}>
+          <NavListItem href={gettingStartedHref} title={gettingStarted.title} as="h2">
+            {gettingStarted.lede}
+          </NavListItem>
 
-          <Card href={courseReviewsHref}>
-            <CardTitle href={courseReviewsHref} as="h2">
-              {courseReview.title}
-            </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{courseReview.lede}</p>
-          </Card>
+          <NavListItem href={courseReviewsHref} title={courseReview.title} as="h2">
+            {courseReview.lede}
+          </NavListItem>
 
           {trackOrder.map((audience) => {
             const track = tracks[audience];
             const href = localeHref(locale, `/student-life/${audience}`);
             return (
-              <Card key={audience} href={href}>
-                <CardTitle href={href} as="h2">
-                  {track.title}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{track.lede}</p>
-              </Card>
+              <NavListItem key={audience} href={href} title={track.title} as="h2">
+                {track.lede}
+              </NavListItem>
             );
           })}
-        </div>
+        </NavList>
       </div>
     </>
   );

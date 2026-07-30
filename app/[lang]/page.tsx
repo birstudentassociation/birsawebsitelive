@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site-url";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
 import NewsCard from "@/components/news/NewsCard";
 import EventCalendar from "@/components/home/EventCalendar";
 import { calendarEvents } from "@/content/calendar/events";
@@ -116,18 +116,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
             {copy.quickLinks.heading}
           </h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <NavList columns={2}>
             {quickLinkCards.map(({ href, key }) => {
               const item = copy.quickLinks.items[key];
-              const fullHref = localeHref(locale, href);
               return (
-                <Card key={key} href={fullHref}>
-                  <CardTitle href={fullHref}>{item.label}</CardTitle>
-                  <p className="text-muted text-sm leading-relaxed">{item.description}</p>
-                </Card>
+                <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
+                  {item.description}
+                </NavListItem>
               );
             })}
-          </div>
+          </NavList>
         </div>
       </section>
 
@@ -196,18 +194,16 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
           </h2>
           <p className="text-muted mt-2 text-lg">{copy.activityHighlight.intro}</p>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <NavList columns={2}>
           {activityHighlightCards.map(({ href, key }) => {
             const item = copy.activityHighlight.items[key];
-            const fullHref = localeHref(locale, href);
             return (
-              <Card key={key} href={fullHref}>
-                <CardTitle href={fullHref}>{item.label}</CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{item.description}</p>
-              </Card>
+              <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
+                {item.description}
+              </NavListItem>
             );
           })}
-        </div>
+        </NavList>
       </section>
     </>
   );

@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
 import ProfileSummary from "@/components/answers/ProfileSummary";
 import {
   matchTopics,
@@ -87,12 +87,9 @@ export default async function AnswersHubPage({
   const renderTopic = (topic: SmartAnswerTopic) => {
     const href = topicHref(topic);
     return (
-      <Card key={topic.slug} href={href}>
-        <CardTitle href={href} as="h3">
-          {topic.title[locale]}
-        </CardTitle>
-        <p className="text-muted text-sm leading-relaxed">{topic.lede[locale]}</p>
-      </Card>
+      <NavListItem key={topic.slug} href={href} title={topic.title[locale]} as="h3">
+        {topic.lede[locale]}
+      </NavListItem>
     );
   };
 
@@ -141,11 +138,7 @@ export default async function AnswersHubPage({
             <h2 id="answers-results" className="font-display text-2xl">
               {matches.length > 0 ? t.searchResults : t.searchNoResults}
             </h2>
-            {matches.length > 0 ? (
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {matches.map(renderTopic)}
-              </div>
-            ) : null}
+            {matches.length > 0 ? <NavList columns={2}>{matches.map(renderTopic)}</NavList> : null}
             <div>
               <Link href={hubHref} className="text-brand-deep font-medium hover:underline">
                 {t.searchClear}
@@ -189,9 +182,7 @@ export default async function AnswersHubPage({
                   {group.description[locale]}
                 </p>
               </div>
-              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {groupTopics.map(renderTopic)}
-              </div>
+              <NavList columns={2}>{groupTopics.map(renderTopic)}</NavList>
             </section>
           );
         })}
