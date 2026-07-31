@@ -5,8 +5,8 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import { buildWizardChromeLabels } from "@/components/forms/wizardChromeCopy";
-import { getLoanStatusDraft, submitCancelConfirm } from "../actions";
-import { statusLookupLabels } from "../page";
+import { getLoanStatusDraft, resetLoanStatusDraft, submitCancelConfirm } from "../actions";
+import { statusLookupLabels } from "../statusLookupCopy";
 import CancelConfirmForm from "@/components/equipment/CancelConfirmForm";
 
 export async function generateMetadata({
@@ -50,6 +50,7 @@ export default async function LoanStatusCancelPage({ params }: { params: Promise
             labels={labels}
             reference={draft.reference}
             action={submitCancelConfirm}
+            resetAction={resetLoanStatusDraft.bind(null, locale)}
           />
         </div>
       </div>

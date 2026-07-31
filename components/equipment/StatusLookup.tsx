@@ -22,6 +22,9 @@ import type { Locale } from "@/lib/i18n";
 import type { LoanStatus } from "@/lib/inventory/types";
 import type { LookupState } from "@/app/[lang]/services/equipment-loan/status/actions";
 
+/** Clears the status-lookup draft cookie and returns to the start of the journey. */
+type ResetAction = (formData: FormData) => Promise<void>;
+
 /** The lookup result's item name is either a plain string or a bilingual pair. */
 type ApiItemName = string | { en: string; th: string } | null;
 
@@ -68,6 +71,7 @@ export type StatusLookupProps = {
   locale: Locale;
   labels: StatusLookupLabels;
   action: (prevState: LookupState, formData: FormData) => Promise<LookupState>;
+  resetAction: ResetAction;
   defaultEmail?: string;
 };
 
@@ -79,12 +83,10 @@ function resolveItemName(name: ApiItemName, locale: Locale): string | null {
 
 const initialState: LookupState = { status: "idle" };
 
-export default function StatusLookup({ locale, labels, action, defaultEmail }: StatusLookupProps) {
+export default function StatusLookup({ locale, labels, action, resetAction, defaultEmail }: StatusLookupProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
-  const statusHref = localeHref(locale, "/services/equipment-loan/status");
-  const newSearchHref = `${statusHref}?reset=1`;
   const cancelHref = localeHref(locale, "/services/equipment-loan/status/cancel");
 
   useEffect(() => {
@@ -132,11 +134,11 @@ export default function StatusLookup({ locale, labels, action, defaultEmail }: S
             </div>
           ) : null}
         </div>
-        <div>
-          <Button href={newSearchHref} variant="ghost">
+        <form action={resetAction}>
+          <Button type="submit" variant="ghost">
             {labels.newSearch}
           </Button>
-        </div>
+        </form>
       </div>
     );
   }

@@ -7,9 +7,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
-import type { StatusLookupLabels } from "@/components/equipment/StatusLookup";
-import { getLoanStatusDraft, resetLoanStatusDraft, submitReferenceStep } from "./actions";
+import { getLoanStatusDraft, submitReferenceStep } from "./actions";
 import { LOAN_STATUS_STEPS } from "./steps";
+import { statusLookupLabels } from "./statusLookupCopy";
 
 export async function generateMetadata({
   params,
@@ -49,111 +49,10 @@ const pageCopy: Record<Locale, { title: string; lede: string; breadcrumbCatalogu
   },
 };
 
-export const statusLookupLabels: Record<Locale, StatusLookupLabels> = {
-  en: {
-    referenceLabel: "Reference number",
-    referenceHint: "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
-    emailLabel: "TU email",
-    emailHint: "The email address you used on the request.",
-    submit: "Check status",
-    submitting: "Checking…",
-    errorSummaryTitle: "There is a problem",
-    required: "required",
-    errors: {
-      referenceRequired: "Enter your reference number",
-      emailRequired: "Enter your email address",
-      emailInvalid: "Enter a valid email address",
-    },
-    notFoundTitle: "We could not find a matching request",
-    notFoundBody:
-      "Double-check the reference number and email address, and try again. If you're still having trouble, contact BIRSA directly.",
-    rateLimitedTitle: "Too many attempts",
-    rateLimitedBody: "Wait a moment and try again.",
-    errorTitle: "Something went wrong",
-    errorBody: "We could not check your request right now. Try again in a moment.",
-    tryAgain: "Try again",
-    resultTitle: "Loan request",
-    statusLabel: "Status",
-    itemLabel: "Item",
-    datesLabel: "Pickup, return",
-    statusLabels: {
-      pending: "Pending",
-      approved: "Approved",
-      checked_out: "Checked out",
-      overdue: "Overdue",
-      returned: "Returned",
-      rejected: "Rejected",
-      cancelled: "Cancelled",
-      no_show: "Not collected",
-    },
-    cancelButton: "Cancel this request",
-    cancelConfirmTitle: "Cancel this loan request",
-    cancelConfirmBody: "If you change your mind, you'll need to submit a new request.",
-    confirmLabel: "Confirm",
-    cancelLabel: "Cancel",
-    cancelling: "Cancelling…",
-    cancelledTitle: "Request cancelled",
-    cancelledBody: "Your loan request has been cancelled.",
-    cancelErrorTitle: "Could not cancel this request",
-    cancelErrorBody: "Try again in a moment, or contact BIRSA if the problem continues.",
-    newSearch: "Check another request",
-  },
-  th: {
-    referenceLabel: "หมายเลขอ้างอิง",
-    referenceHint: "หมายเลขอ้างอิงที่คุณได้รับเมื่อส่งคำขอ เช่น BIRSA-1234",
-    emailLabel: "อีเมลมหาวิทยาลัยธรรมศาสตร์",
-    emailHint: "อีเมลที่คุณใช้ตอนส่งคำขอ",
-    submit: "ตรวจสอบสถานะ",
-    submitting: "กำลังตรวจสอบ…",
-    errorSummaryTitle: "พบข้อผิดพลาด",
-    required: "จำเป็นต้องกรอก",
-    errors: {
-      referenceRequired: "กรุณากรอกหมายเลขอ้างอิง",
-      emailRequired: "กรุณากรอกอีเมล",
-      emailInvalid: "กรุณากรอกอีเมลให้ถูกต้อง",
-    },
-    notFoundTitle: "ไม่พบคำขอที่ตรงกัน",
-    notFoundBody:
-      "กรุณาตรวจสอบหมายเลขอ้างอิงและอีเมลอีกครั้ง แล้วลองใหม่ หากยังพบปัญหา กรุณาติดต่อ BIRSA โดยตรง",
-    rateLimitedTitle: "ลองใหม่บ่อยเกินไป",
-    rateLimitedBody: "กรุณารอสักครู่แล้วลองใหม่อีกครั้ง",
-    errorTitle: "เกิดข้อผิดพลาด",
-    errorBody: "ขณะนี้ไม่สามารถตรวจสอบคำขอของคุณได้ กรุณาลองใหม่อีกครั้งในอีกสักครู่",
-    tryAgain: "ลองใหม่",
-    resultTitle: "คำขอยืม",
-    statusLabel: "สถานะ",
-    itemLabel: "อุปกรณ์",
-    datesLabel: "วันรับ, วันคืน",
-    statusLabels: {
-      pending: "รอดำเนินการ",
-      approved: "อนุมัติแล้ว",
-      checked_out: "รับอุปกรณ์แล้ว",
-      overdue: "เกินกำหนดคืน",
-      returned: "คืนแล้ว",
-      rejected: "ปฏิเสธแล้ว",
-      cancelled: "ยกเลิกแล้ว",
-      no_show: "ไม่มารับอุปกรณ์",
-    },
-    cancelButton: "ยกเลิกคำขอนี้",
-    cancelConfirmTitle: "ยืนยันการยกเลิกคำขอยืมนี้หรือไม่",
-    cancelConfirmBody: "หากเปลี่ยนใจ คุณจะต้องส่งคำขอใหม่อีกครั้ง",
-    confirmLabel: "ยืนยัน",
-    cancelLabel: "ยกเลิก",
-    cancelling: "กำลังยกเลิก…",
-    cancelledTitle: "ยกเลิกคำขอแล้ว",
-    cancelledBody: "คำขอยืมของคุณถูกยกเลิกแล้ว",
-    cancelErrorTitle: "ไม่สามารถยกเลิกคำขอนี้ได้",
-    cancelErrorBody: "กรุณาลองใหม่อีกครั้งในอีกสักครู่ หรือติดต่อ BIRSA หากยังพบปัญหา",
-    newSearch: "ตรวจสอบคำขออื่น",
-  },
-};
-
 export default async function EquipmentLoanStatusPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ reset?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -164,8 +63,6 @@ export default async function EquipmentLoanStatusPage({
   const chrome = buildWizardChromeLabels(locale);
   const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
-  const { reset } = await searchParams;
-  if (reset === "1") await resetLoanStatusDraft();
   const draft = await getLoanStatusDraft();
   const progress = formatStepOf(
     chrome.stepOf,

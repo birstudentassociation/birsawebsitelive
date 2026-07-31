@@ -53,8 +53,17 @@ export async function getLoanStatusDraft(): Promise<LoanStatusDraft> {
   return readDraft<LoanStatusDraft>(COOKIE);
 }
 
-export async function resetLoanStatusDraft(): Promise<void> {
+/**
+ * Clears the status-lookup draft cookie and sends the visitor back to the
+ * start of the journey. This has to be a Server Action behind a form POST
+ * rather than a plain `?reset=1` link: cookie writes are only legal inside a
+ * Server Action (or Route Handler), not while a Server Component renders, so
+ * a GET link to this route would throw. Bound with `.bind(null, locale)` for
+ * use as a `<form action>`, matching `submitReferenceStep`.
+ */
+export async function resetLoanStatusDraft(locale: Locale, _formData: FormData): Promise<void> {
   await clearDraft(COOKIE);
+  redirect(localeHref(locale, "/services/equipment-loan/status"));
 }
 
 export async function submitReferenceStep(

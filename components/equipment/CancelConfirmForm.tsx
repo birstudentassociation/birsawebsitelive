@@ -7,11 +7,15 @@ import { localeHref, type Locale } from "@/lib/i18n";
 import type { StatusLookupLabels } from "@/components/equipment/StatusLookup";
 import type { CancelState } from "@/app/[lang]/services/equipment-loan/status/actions";
 
+/** Clears the status-lookup draft cookie and returns to the start of the journey. */
+type ResetAction = (formData: FormData) => Promise<void>;
+
 export type CancelConfirmFormProps = {
   locale: Locale;
   labels: StatusLookupLabels;
   reference: string;
   action: (prevState: CancelState, formData: FormData) => Promise<CancelState>;
+  resetAction: ResetAction;
 };
 
 const initialState: CancelState = { status: "idle" };
@@ -25,12 +29,17 @@ const initialState: CancelState = { status: "idle" };
  * cancel from the status-lookup draft cookie, not from the URL, so no
  * personal data ever appears in a query string.
  */
-export default function CancelConfirmForm({ locale, labels, reference, action }: CancelConfirmFormProps) {
+export default function CancelConfirmForm({
+  locale,
+  labels,
+  reference,
+  action,
+  resetAction,
+}: CancelConfirmFormProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
   const emailStepHref = localeHref(locale, "/services/equipment-loan/status/email");
-  const newSearchHref = localeHref(locale, "/services/equipment-loan/status?reset=1");
 
   useEffect(() => {
     if (state.status === "done" || state.status === "not-found" || state.status === "error") {
@@ -48,11 +57,11 @@ export default function CancelConfirmForm({ locale, labels, reference, action }:
       >
         <p className="font-semibold">{labels.cancelledTitle}</p>
         <p className="mt-1 text-sm">{labels.cancelledBody}</p>
-        <div className="mt-4">
-          <Button href={newSearchHref} variant="secondary">
+        <form action={resetAction} className="mt-4">
+          <Button type="submit" variant="secondary">
             {labels.newSearch}
           </Button>
-        </div>
+        </form>
       </div>
     );
   }
@@ -63,11 +72,11 @@ export default function CancelConfirmForm({ locale, labels, reference, action }:
         <Notice variant="info" title={labels.notFoundTitle}>
           <p>{labels.notFoundBody}</p>
         </Notice>
-        <div className="mt-4">
-          <Button href={newSearchHref} variant="secondary">
+        <form action={resetAction} className="mt-4">
+          <Button type="submit" variant="secondary">
             {labels.newSearch}
           </Button>
-        </div>
+        </form>
       </div>
     );
   }
