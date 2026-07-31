@@ -5,7 +5,8 @@ import { getGuideEntries, type GuideAudience } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Card, { CardTitle } from "@/components/Card";
+import NavList, { NavListItem } from "@/components/NavList";
+import GridRow, { GridMain } from "@/components/GridRow";
 import { studentLifeTracks } from "@/content/student-life/tracks";
 
 const audiences: GuideAudience[] = ["home", "international", "handbook"];
@@ -78,25 +79,29 @@ export default async function StudentLifeTrackPage({
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry) => {
-            const href = localeHref(locale, `/student-life/${audience}/${entry.slug}`);
-            return (
-              <Card key={entry.slug} href={href}>
-                {/* h2: these cards are the page's top-level sections, sitting
-                    directly under the h1 with no intervening heading, so the
-                    default h3 would skip a level. */}
-                <CardTitle href={href} as="h2">
-                  {entry.frontmatter.title}
-                </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{entry.frontmatter.summary}</p>
-                <p className="text-muted mt-auto text-xs">
-                  {t.updated}: {formatDate(locale, entry.frontmatter.updated)}
-                </p>
-              </Card>
-            );
-          })}
-        </div>
+        <GridRow>
+          <GridMain>
+            <NavList>
+              {entries.map((entry) => {
+                const href = localeHref(locale, `/student-life/${audience}/${entry.slug}`);
+                return (
+                  // h2: these rows are the page's top-level sections, sitting
+                  // directly under the h1 with no intervening heading, so the
+                  // default h3 would skip a level.
+                  <NavListItem
+                    key={entry.slug}
+                    href={href}
+                    title={entry.frontmatter.title}
+                    as="h2"
+                    footnote={`${t.updated}: ${formatDate(locale, entry.frontmatter.updated)}`}
+                  >
+                    {entry.frontmatter.summary}
+                  </NavListItem>
+                );
+              })}
+            </NavList>
+          </GridMain>
+        </GridRow>
       </div>
     </>
   );

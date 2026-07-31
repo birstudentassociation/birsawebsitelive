@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getGuideEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -32,56 +30,50 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    getAnswer: { eyebrow: string; title: string; description: string; cta: string };
-    equipmentLoan: { eyebrow: string; title: string; description: string; cta: string };
-    directoryLinkLine: string;
-    directoryLinkCta: string;
+    getAnswer: { title: string; description: string; cta: string };
+    equipmentLoan: { title: string; description: string; cta: string };
+    equipmentDirectory: { title: string; description: string; cta: string };
     universityServices: { eyebrow: string; title: string; description: string; cta: string };
     servicesHeading: string;
     informationHeading: string;
     informationLede: string;
-    studentLifeIndexLine: string;
-    studentLifeIndexCta: string;
-    courseReviews: { eyebrow: string; title: string; description: string; cta: string };
-    guides: { title: string; description: string; topicsLabel: string; cta: string };
+    courseReviews: { title: string; description: string; cta: string };
+    guides: { title: string; description: string; cta: string };
     international: {
       eyebrow: string;
       title: string;
       description: string;
-      topicsLabel: string;
       cta: string;
     };
     handbook: {
       eyebrow: string;
       title: string;
       description: string;
-      topicsLabel: string;
       cta: string;
     };
-    howToUseTitle: string;
-    howToUseBody: string;
-    reportGaps: string;
   }
 > = {
   en: {
     title: "Information and services",
     lede: "Borrow equipment, read course reviews and student-life guides written by students, or get logistics guidance if you're new to Bangkok.",
     getAnswer: {
-      eyebrow: "Service",
       title: "Get an answer",
       description:
         "Answer a few questions and get the part of the rules, the handbook or the service that applies to you, with the provision it comes from.",
       cta: "Get an answer",
     },
     equipmentLoan: {
-      eyebrow: "Service",
       title: "Equipment Loan Service",
       description:
         "Borrow BIRSA equipment such as the first-aid kit for your event or everyday need.",
       cta: "Request equipment",
     },
-    directoryLinkLine: "Looking for equipment owned by a club instead of BIRSA?",
-    directoryLinkCta: "See the club equipment directory",
+    equipmentDirectory: {
+      title: "Club equipment directory",
+      description:
+        "Equipment owned by BIR clubs rather than BIRSA, with who to contact to borrow it.",
+      cta: "See the club equipment directory",
+    },
     universityServices: {
       eyebrow: "From the University",
       title: "University services",
@@ -93,10 +85,7 @@ const copy: Record<
     informationHeading: "Information",
     informationLede:
       "Course reviews, plus practical guides, cultural notes, and other student-life knowledge that does not fit in a syllabus.",
-    studentLifeIndexLine: "Want everything in one list?",
-    studentLifeIndexCta: "See the student life index",
     courseReviews: {
-      eyebrow: "New",
       title: "Course reviews",
       description:
         "Honest, student-written notes on BIR courses and electives: workload, assessment style, and what to expect before you register.",
@@ -106,7 +95,6 @@ const copy: Record<
       title: "Student life and culture guides",
       description:
         "Guidance for all BIR students on getting around Tha Prachan, budgeting, health and safety, culture, and getting involved.",
-      topicsLabel: "Top topics",
       cta: "Explore the guides",
     },
     international: {
@@ -114,7 +102,6 @@ const copy: Record<
       title: "Arriving in Bangkok",
       description:
         "Arrival, visas, banking, phones, healthcare, and everyday culture and language: everything for your first weeks and beyond.",
-      topicsLabel: "Top topics",
       cta: "Explore the international student guide",
     },
     handbook: {
@@ -122,32 +109,30 @@ const copy: Record<
       title: "Student handbook",
       description:
         "The BIR handbook: admission and fees, the curriculum and 2023 revised study plan, academic rules, the internship, and academic activities.",
-      topicsLabel: "In this handbook",
       cta: "Read the student handbook",
     },
-    howToUseTitle: "Report a problem with this page",
-    howToUseBody: "If you spot something missing, out of date, or wrong, tell BIRSA.",
-    reportGaps: "Report a gap",
   },
   th: {
     title: "ข้อมูลและบริการ",
     lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ สำหรับนักศึกษาต่างชาติ",
     getAnswer: {
-      eyebrow: "บริการ",
       title: "ค้นหาคำตอบ",
       description:
         "ตอบคำถามไม่กี่ข้อ แล้วดูว่ากฎระเบียบ คู่มือนักศึกษา หรือบริการส่วนไหนที่ใช้กับกรณีของคุณ พร้อมข้ออ้างอิงที่มา",
       cta: "ค้นหาคำตอบ",
     },
     equipmentLoan: {
-      eyebrow: "บริการ",
       title: "บริการยืมอุปกรณ์",
       description:
         "ยืมอุปกรณ์ของ BIRSA เช่น ชุดปฐมพยาบาล สำหรับกิจกรรมหรือความจำเป็นในชีวิตประจำวัน",
       cta: "ขอยืมอุปกรณ์",
     },
-    directoryLinkLine: "ตามหาอุปกรณ์ที่เป็นของชมรมแทน BIRSA อยู่หรือเปล่า",
-    directoryLinkCta: "ดูทำเนียบอุปกรณ์ของชมรม",
+    equipmentDirectory: {
+      title: "ทำเนียบอุปกรณ์ของชมรม",
+      description:
+        "อุปกรณ์ที่เป็นของชมรมต่าง ๆ ใน BIR ไม่ใช่ของ BIRSA พร้อมช่องทางติดต่อขอยืม",
+      cta: "ดูทำเนียบอุปกรณ์ของชมรม",
+    },
     universityServices: {
       eyebrow: "จากมหาวิทยาลัย",
       title: "บริการจากมหาวิทยาลัย",
@@ -159,10 +144,7 @@ const copy: Record<
     informationHeading: "ข้อมูล",
     informationLede:
       "รีวิวรายวิชา และความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ",
-    studentLifeIndexLine: "อยากดูรวมทุกอย่างในที่เดียวไหม",
-    studentLifeIndexCta: "ไปที่หน้ารวมชีวิตนักศึกษา",
     courseReviews: {
-      eyebrow: "ใหม่",
       title: "รีวิวรายวิชา",
       description:
         "บันทึกตรงไปตรงมาจากนักศึกษาเกี่ยวกับรายวิชาและวิชาเลือกของ BIR ทั้งปริมาณงาน รูปแบบการวัดผล และสิ่งที่ควรรู้ก่อนลงทะเบียน",
@@ -172,7 +154,6 @@ const copy: Record<
       title: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
       description:
         "คำแนะนำสำหรับนักศึกษา BIR ทุกคน ครอบคลุมการเดินทางแถวท่าพระจันทร์ การจัดการเงิน สุขภาพและความปลอดภัย วัฒนธรรม และการเข้าร่วมกิจกรรม",
-      topicsLabel: "หัวข้อยอดนิยม",
       cta: "ดูคู่มือทั้งหมด",
     },
     international: {
@@ -180,7 +161,6 @@ const copy: Record<
       title: "การเดินทางมาถึงกรุงเทพฯ",
       description:
         "การเดินทางมาถึง วีซ่า บัญชีธนาคาร มือถือ การรักษาพยาบาล และวัฒนธรรมในชีวิตประจำวัน ครบทุกอย่างสำหรับสัปดาห์แรกและหลังจากนั้น",
-      topicsLabel: "หัวข้อยอดนิยม",
       cta: "ดูคู่มือสำหรับนักศึกษาต่างชาติ",
     },
     handbook: {
@@ -188,12 +168,8 @@ const copy: Record<
       title: "คู่มือนักศึกษา",
       description:
         "คู่มือนักศึกษา BIR ทั้งการรับเข้าและค่าเล่าเรียน โครงสร้างหลักสูตรและแผนการศึกษาฉบับปรับปรุง พ.ศ. 2566 ระเบียบด้านการเรียน การฝึกงาน และกิจกรรมทางวิชาการ",
-      topicsLabel: "ในคู่มือนี้",
       cta: "อ่านคู่มือนักศึกษา",
     },
-    howToUseTitle: "แจ้งปัญหาเกี่ยวกับหน้านี้",
-    howToUseBody: "หากพบข้อมูลตกหล่น ล้าสมัย หรือผิดพลาด แจ้ง BIRSA ได้",
-    reportGaps: "แจ้งข้อมูลที่ขาดหาย",
   },
 };
 
@@ -214,16 +190,9 @@ export default async function InformationServicesPage({
   const answersHref = localeHref(locale, "/answers");
   const universityServicesHref = localeHref(locale, "/services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
-  const studentLifeHref = localeHref(locale, "/student-life");
   const guidesHref = localeHref(locale, "/student-life/home");
   const internationalHref = localeHref(locale, "/student-life/international");
   const handbookHref = localeHref(locale, "/student-life/handbook");
-
-  const guideTopics = getGuideEntries(locale, "home").slice(0, 4);
-  const internationalTopics = getGuideEntries(locale, "international").slice(0, 4);
-  const handbookTopics = getGuideEntries(locale, "handbook").slice(0, 4);
-  const topicTitles = (entries: typeof guideTopics) =>
-    entries.map((entry) => entry.frontmatter.title);
 
   return (
     <>
@@ -244,34 +213,19 @@ export default async function InformationServicesPage({
             <GridMain className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
               <NavList>
-                <NavListItem
-                  href={answersHref}
-                  title={t.getAnswer.title}
-                  meta={t.getAnswer.eyebrow}
-                  as="h3"
-                >
+                <NavListItem href={answersHref} title={t.getAnswer.title} as="h3">
                   {t.getAnswer.description}
                 </NavListItem>
-                <NavListItem
-                  href={equipmentHref}
-                  title={t.equipmentLoan.title}
-                  meta={t.equipmentLoan.eyebrow}
-                  as="h3"
-                >
+                <NavListItem href={equipmentHref} title={t.equipmentLoan.title} as="h3">
                   {t.equipmentLoan.description}
                 </NavListItem>
-              </NavList>
-              <p className="text-muted text-sm">
-                {t.directoryLinkLine}{" "}
-                <Link
+                <NavListItem
                   href={equipmentDirectoryHref}
-                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                  title={t.equipmentDirectory.title}
+                  as="h3"
                 >
-                  {t.directoryLinkCta}
-                </Link>
-              </p>
-
-              <NavList>
+                  {t.equipmentDirectory.description}
+                </NavListItem>
                 <NavListItem
                   href={universityServicesHref}
                   title={t.universityServices.title}
@@ -290,43 +244,21 @@ export default async function InformationServicesPage({
             <GridMain className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{t.informationHeading}</h2>
               <p className="text-muted text-sm leading-relaxed">{t.informationLede}</p>
-              <p className="text-muted text-sm">
-                {t.studentLifeIndexLine}{" "}
-                <Link
-                  href={studentLifeHref}
-                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
-                >
-                  {t.studentLifeIndexCta}
-                </Link>
-              </p>
 
               <NavList>
-                <NavListItem
-                  href={courseReviewsHref}
-                  title={t.courseReviews.title}
-                  meta={t.courseReviews.eyebrow}
-                  as="h3"
-                >
+                <NavListItem href={courseReviewsHref} title={t.courseReviews.title} as="h3">
                   {t.courseReviews.description}
                 </NavListItem>
 
-                <NavListItem
-                  href={guidesHref}
-                  title={t.guides.title}
-                  as="h3"
-                  topics={{ label: t.guides.topicsLabel, items: topicTitles(guideTopics) }}
-                >
+                <NavListItem href={guidesHref} title={t.guides.title} as="h3">
                   {t.guides.description}
                 </NavListItem>
-              </NavList>
 
-              <NavList>
                 <NavListItem
                   href={handbookHref}
                   title={t.handbook.title}
                   meta={t.handbook.eyebrow}
                   as="h3"
-                  topics={{ label: t.handbook.topicsLabel, items: topicTitles(handbookTopics) }}
                 >
                   {t.handbook.description}
                 </NavListItem>
@@ -336,29 +268,12 @@ export default async function InformationServicesPage({
                   title={t.international.title}
                   meta={t.international.eyebrow}
                   as="h3"
-                  topics={{
-                    label: t.international.topicsLabel,
-                    items: topicTitles(internationalTopics),
-                  }}
                 >
                   {t.international.description}
                 </NavListItem>
               </NavList>
             </GridMain>
           </GridRow>
-        </section>
-
-        <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">
-          <h2 className="font-display text-2xl">{t.howToUseTitle}</h2>
-          <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
-            {t.howToUseBody}{" "}
-            <a
-              href={localeHref(locale, "/contact")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
-            >
-              {t.reportGaps}
-            </a>
-          </p>
         </section>
       </div>
     </>

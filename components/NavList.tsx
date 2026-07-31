@@ -31,6 +31,10 @@ export type NavListItemProps = {
    * description. Plain text only: these are a taste of the destination, not
    * links of their own, so the row keeps a single click target. */
   topics?: { label: string; items: string[] };
+  /** A small muted line closing the row, for the kind of detail that trails
+   * the content rather than labelling it: a last-updated date, a count. Use
+   * `meta` instead for a category, which belongs above the title. */
+  footnote?: string;
   children?: React.ReactNode;
 };
 
@@ -45,6 +49,7 @@ export function NavListItem({
   meta,
   as: Heading = "h3",
   topics,
+  footnote,
   children,
 }: NavListItemProps) {
   return (
@@ -75,6 +80,7 @@ export function NavListItem({
               </ul>
             </>
           ) : null}
+          {footnote ? <p className="text-muted mt-2 text-xs">{footnote}</p> : null}
         </div>
         <svg
           aria-hidden="true"
