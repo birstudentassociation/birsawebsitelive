@@ -7,8 +7,8 @@ import { checkRateLimit } from "@/app/api/_lib/guard";
 import { renderContact } from "@/lib/email/templates";
 import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
 import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
-import { CONTACT_CATEGORY_VALUES, type ContactCategory } from "@/components/forms/contactWizardCopy";
 import { CONTACT_STEPS, type ContactStep } from "./steps";
+import { deriveContactSeed } from "./seed";
 
 const COOKIE = "birsa_contact_draft";
 
@@ -72,24 +72,6 @@ export async function getContactDraft(): Promise<ContactDraft> {
   return readDraft<ContactDraft>(COOKIE);
 }
 
-/** Seeds the draft from the "report a problem with this page" deep link (`?category=&from=`), without overwriting anything already answered. */
-export async function seedContactDraft(locale: Locale, category?: string, from?: string): Promise<void> {
-  const current = await readDraft<ContactDraft>(COOKIE);
-  if (current.category || current.subject) return;
-
-  const validCategory = CONTACT_CATEGORY_VALUES.includes(category as ContactCategory)
-    ? category
-    : undefined;
-  if (!validCategory) return;
-
-  const subject =
-    validCategory === "problem" && typeof from === "string" && from.startsWith("/")
-      ? `${locale === "th" ? "ปัญหาในหน้า" : "Problem with page"}: ${from}`
-      : undefined;
-
-  await mergeDraft<ContactDraft>(COOKIE, { category: validCategory, subject });
-}
-
 export async function submitCategoryStep(
   locale: Locale,
   returnTo: string | undefined,
@@ -102,7 +84,15 @@ export async function submitCategoryStep(
   if (!result.success) {
     return { status: "invalid", error: dict.form.errors.categoryRequired };
   }
-  await mergeDraft<ContactDraft>(COOKIE, { category: result.data });
+
+  // A deep link's seeded subject rides along as a hidden "seedFrom" field
+  // rather than trusting a client-supplied subject: only the page path is
+  // taken from the client, and it's re-validated by deriveContactSeed here.
+  const seedFrom = String(formData.get("seedFrom") ?? "");
+  const draft = await readDraft<ContactDraft>(COOKIE);
+  const subject = draft.subject ? undefined : deriveContactSeed(locale, result.data, seedFrom).subject;
+
+  await mergeDraft<ContactDraft>(COOKIE, { category: result.data, ...(subject ? { subject } : {}) });
   redirect(destinationHref(locale, "category", returnTo));
 }
 

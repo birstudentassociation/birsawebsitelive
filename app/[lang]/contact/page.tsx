@@ -11,8 +11,9 @@ import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels, contactCategoryOptions } from "@/components/forms/contactWizardCopy";
-import { getContactDraft, seedContactDraft, submitCategoryStep } from "./actions";
+import { getContactDraft, submitCategoryStep } from "./actions";
 import { CONTACT_STEPS } from "./steps";
+import { deriveContactSeed } from "./seed";
 import { socials, contact } from "@/content/site";
 
 export async function generateMetadata({
@@ -86,7 +87,7 @@ export default async function ContactPage({
   const wizard = buildContactWizardLabels(locale);
 
   const { category, from, returnTo } = await searchParams;
-  await seedContactDraft(locale, category, from);
+  const seed = deriveContactSeed(locale, category, from);
   const draft = await getContactDraft();
 
   const visibleSocials = socials.filter((social) => !social.placeholder);
@@ -125,8 +126,9 @@ export default async function ContactPage({
               required: true,
               requiredLabel: dict.actions.required,
               options: contactCategoryOptions(locale),
-              defaultValue: draft.category ?? "question",
+              defaultValue: draft.category ?? seed.category ?? "question",
             }}
+            {...(seed.subject && !draft.subject ? { hiddenFields: { seedFrom: from ?? "" } } : {})}
           />
         </div>
 
