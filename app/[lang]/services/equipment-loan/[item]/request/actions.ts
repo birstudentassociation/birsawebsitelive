@@ -8,7 +8,7 @@ import { createLoanRequest, getItemAvailabilityForRange } from "@/lib/inventory/
 import { getItemByKey } from "@/lib/inventory/items";
 import { renderOfficerNewRequest } from "@/lib/email/templates";
 import { localeHref, type Locale } from "@/lib/i18n";
-import { readDraft, mergeDraft, writeDraft, clearDraft } from "@/components/forms/draftCookie";
+import { readDraft, writeDraft, clearDraft } from "@/components/forms/draftCookie";
 import type { LoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import type { LoanStep } from "./steps";
 
@@ -103,24 +103,33 @@ function destinationHref(
 }
 
 /**
- * Reads the draft, resetting it first if it belongs to a different item (a
- * reader who abandoned a request for one item and started another). Keeps
- * the cookie scoped to a single in-progress request at a time, which also
- * keeps the payload small.
+ * Reads the draft. Runs during page render, where cookie writes are not
+ * allowed, so a draft belonging to a different item (a reader who abandoned
+ * a request for one item and started another) is ignored here rather than
+ * cleared: the returned value drops its answers, but the stale cookie is
+ * left in place until the next step submission corrects it via
+ * `mergeLoanDraft`.
  */
 export async function getLoanDraft(itemKey: string): Promise<LoanDraft> {
   const current = await readDraft<LoanDraft>(COOKIE);
   if (current.itemKey && current.itemKey !== itemKey) {
-    const fresh: LoanDraft = { itemKey };
-    await writeDraft(COOKIE, fresh);
-    return fresh;
+    return { itemKey };
   }
-  if (!current.itemKey) {
-    const fresh: LoanDraft = { ...current, itemKey };
-    await writeDraft(COOKIE, fresh);
-    return fresh;
-  }
-  return current;
+  return { ...current, itemKey };
+}
+
+/**
+ * Merges `patch` into the draft cookie, scoping it to `itemKey`. If the
+ * existing cookie belongs to a different item (abandoned request), starts
+ * from an empty base first so that item's answers can't leak into this one.
+ * This is the write-time counterpart of the reset `getLoanDraft` used to do
+ * during render, moved here because step actions are real Server Actions
+ * where cookie writes are legal.
+ */
+async function mergeLoanDraft(itemKey: string, patch: Partial<LoanDraft>): Promise<void> {
+  const current = await readDraft<LoanDraft>(COOKIE);
+  const base = current.itemKey && current.itemKey !== itemKey ? {} : current;
+  await writeDraft(COOKIE, { ...base, itemKey, ...patch });
 }
 
 export async function submitNameStep(
@@ -136,7 +145,7 @@ export async function submitNameStep(
   if (!schema.shape.studentName.safeParse(value).success) {
     return { status: "invalid", error: labels.name.errorRequired };
   }
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, studentName: value });
+  await mergeLoanDraft(itemKey, { studentName: value });
   redirect(destinationHref(locale, itemKey, "name", returnTo));
 }
 
@@ -153,7 +162,7 @@ export async function submitStudentIdStep(
   if (!schema.shape.studentId.safeParse(value).success) {
     return { status: "invalid", error: labels.studentId.errorRequired };
   }
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, studentId: value });
+  await mergeLoanDraft(itemKey, { studentId: value });
   redirect(destinationHref(locale, itemKey, "studentId", returnTo));
 }
 
@@ -173,7 +182,7 @@ export async function submitEmailStep(
   if (!schema.shape.studentEmail.safeParse(value).success) {
     return { status: "invalid", error: labels.email.errorInvalid };
   }
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, studentEmail: value });
+  await mergeLoanDraft(itemKey, { studentEmail: value });
   redirect(destinationHref(locale, itemKey, "email", returnTo));
 }
 
@@ -190,7 +199,7 @@ export async function submitPhoneStep(
   if (value.length > 0 && !schema.shape.phone.safeParse(value).success) {
     return { status: "invalid", error: labels.phone.errorInvalid };
   }
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, phone: value });
+  await mergeLoanDraft(itemKey, { phone: value });
   redirect(destinationHref(locale, itemKey, "phone", returnTo));
 }
 
@@ -214,7 +223,7 @@ export async function submitDatesStep(
 ): Promise<DatesStepState> {
   const startDate = String(formData.get("startDate") ?? "");
   const endDate = String(formData.get("endDate") ?? "");
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, startDate, endDate });
+  await mergeLoanDraft(itemKey, { startDate, endDate });
 
   const errors: { startDate?: string; endDate?: string } = {};
 
@@ -259,7 +268,7 @@ export async function submitReasonStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("reason") ?? "").trim();
-  await mergeDraft<LoanDraft>(COOKIE, { itemKey, reason: value });
+  await mergeLoanDraft(itemKey, { reason: value });
   redirect(destinationHref(locale, itemKey, "reason", returnTo));
 }
 
