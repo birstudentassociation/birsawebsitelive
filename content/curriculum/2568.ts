@@ -9,12 +9,19 @@
  * is marked `inferred` and surfaces as a notice on the confirm screen, the
  * plan screen and the print page.
  *
- * PI574 moved to 3 credits from this version, attested by BIRSA. It sits
- * outside the 126: the six remaining 3-credit concentration courses make 18
- * exactly, and the total fell from 127 to 126 when PI574's old single credit
- * left the count. The alternative reading, that PI574 stayed inside 18 and a
- * 3-credit course was dropped, needs a dropped course that appears in no
- * source.
+ * PI574 moved to 3 credits from this version. The comparison document does
+ * not state this value; the crawl of `comparison2568` could not resolve
+ * whether PI574 was 1 or 3 credits, and the 3-credit figure comes from
+ * BIRSA directly, attested on 2026-08-01, exactly like the cohort 69
+ * mapping. `courses.derivation` below is still `published`, because the
+ * catalogue as a whole comes from the document; PI574's credit value is the
+ * one course-level fact inside it that does not, and that gap is disclosed
+ * as its own contradiction rather than left implicit in this comment. It
+ * sits outside the 126: the six remaining 3-credit concentration courses
+ * make 18 exactly, and the total fell from 127 to 126 when PI574's old
+ * single credit left the count. The alternative reading, that PI574 stayed
+ * inside 18 and a 3-credit course was dropped, needs a dropped course that
+ * appears in no source.
  */
 import { SOURCES } from "./sources";
 import { curriculum2564rev2566 } from "./2564-rev2566";
@@ -54,7 +61,7 @@ export const curriculum2568: CurriculumVersion = {
     },
   },
   rules: curriculum2564rev2566.rules,
-  distinguishingCourses: ["EL105", "LAS101", "PD102"],
+  distinguishingCourses: curriculum2564rev2566.distinguishingCourses,
   verification: {
     verifiedBy: null,
     verifiedOn: null,
@@ -73,6 +80,15 @@ export const curriculum2568: CurriculumVersion = {
         disclosure: {
           en: "PI574 Internship is 3 credits on your curriculum, and we count it outside your 126. The document does not say where it sits, so if your plan looks 3 credits short or long, this is why. Ask your advisor.",
           th: "วิชา PI574 การฝึกงาน มีค่า 3 หน่วยกิตในหลักสูตรของท่าน และนับอยู่นอกยอดรวม 126 หน่วยกิต เอกสารมิได้ระบุว่าวิชานี้อยู่ในหมวดใด หากแผนของท่านขาดหรือเกิน 3 หน่วยกิต นี่คือสาเหตุ โปรดสอบถามอาจารย์ที่ปรึกษา",
+        },
+      },
+      {
+        id: "pi574-credits-attested",
+        summary:
+          "PI574's 3-credit value for this version is attested by BIRSA on 2026-08-01 and is stated in no source document. The 2568 comparison document is silent on the point.",
+        disclosure: {
+          en: "The 3-credit value for PI574 Internship is not printed in your curriculum document. BIRSA has told us this is correct for your year. Check it with your advisor before you count on it.",
+          th: "เอกสารหลักสูตรของท่านมิได้ระบุค่า 3 หน่วยกิตของวิชา PI574 การฝึกงานไว้ BIRSA แจ้งว่าค่านี้ถูกต้องสำหรับรุ่นของท่าน โปรดตรวจสอบกับอาจารย์ที่ปรึกษาก่อนนำไปใช้อ้างอิง",
         },
       },
       {

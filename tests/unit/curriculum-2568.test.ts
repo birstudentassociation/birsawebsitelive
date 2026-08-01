@@ -49,6 +49,13 @@ describe("curriculum2568", () => {
     expect(c?.disclosure).not.toBeNull();
   });
 
+  it("discloses that PI574's 3-credit value is attested, not printed in the source", () => {
+    const c = version.verification.contradictions.find((x) => x.id === "pi574-credits-attested");
+    expect(c?.disclosure).not.toBeNull();
+    expect(c?.disclosure?.en.length).toBeGreaterThan(0);
+    expect(c?.disclosure?.th.length).toBeGreaterThan(0);
+  });
+
   // Regression guard, not in the brief: the catalogue is unchanged between
   // the 2023 revision and 2568 (only PI574's credit value differs), so the
   // course count per category must be identical to the 2023 revision's. A
