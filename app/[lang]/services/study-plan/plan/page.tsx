@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { CURRICULUM_VERSIONS, type CategoryId, type TermKind, type TermRef } from "@/content/curriculum";
-import { remainingRequirements, termIndex } from "@/lib/study-plan/derive";
+import { nextTerm, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
+import Button from "@/components/Button";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import TermEditor from "@/components/study-plan/TermEditor";
 import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import {
   addCourseToTerm,
+  addTermToPlan,
   getStudyPlanDraft,
   removeCourseFromTerm,
   setTermFreeElectiveCredits,
@@ -119,15 +121,32 @@ export default async function StudyPlanPage({
   const projected = projectedGraduation(plan);
 
   // Every future term is offered for editing, whether or not the student has
-  // put anything in it yet: the recommended plan's own term list is the
-  // source of truth for which terms exist, exactly as `assumedHistory` uses
-  // it (via the same `termIndex` cutoff) to decide which terms are already
-  // in the past.
+  // put anything in it yet. The recommended plan's own term list seeds this
+  // (exactly as `assumedHistory` uses the same `termIndex` cutoff to decide
+  // which terms are already in the past), but it is not the only source: a
+  // student running behind the recommended plan's nominal end (see
+  // `addTermToPlan`) has appended terms of their own, and those have to keep
+  // showing up here too, or they would vanish again on the next render.
   const cutoff = termIndex(position);
-  const futureTerms = version.recommendedPlan.value
+  const recommendedFutureTerms = version.recommendedPlan.value
     .map((t) => t.term)
-    .filter((term) => termIndex(term) >= cutoff)
-    .sort((a, b) => termIndex(a) - termIndex(b));
+    .filter((term) => termIndex(term) >= cutoff);
+  const seenTermKeys = new Set<string>();
+  const futureTerms: TermRef[] = [];
+  for (const term of [...recommendedFutureTerms, ...plan.terms.map((t) => t.term)]) {
+    const key = `${term.year}-${term.kind}`;
+    if (seenTermKeys.has(key)) continue;
+    seenTermKeys.add(key);
+    futureTerms.push(term);
+  }
+  futureTerms.sort((a, b) => termIndex(a) - termIndex(b));
+
+  // The term "Add another term" would append: the term after the last one
+  // currently shown, or the student's own position when the list above is
+  // empty (a recommended plan shorter than where the student already is).
+  // Null once `nextTerm` hits the year-8 cap, which hides the control.
+  const lastShownTerm = futureTerms.at(-1) ?? null;
+  const nextTermRef = lastShownTerm ? nextTerm(lastShownTerm) : position;
 
   const plannedCodesSet = new Set(plannedCodes);
   const passedSet = new Set(plan.passed);
@@ -148,6 +167,7 @@ export default async function StudyPlanPage({
     freeElectiveLabel: copy.plan.freeElectiveLabel,
     updateFreeElectiveLabel: copy.plan.updateFreeElectiveButton,
     creditsUnit: copy.plan.creditsUnit,
+    errorSummaryTitle: copy.errorSummaryTitle,
   };
 
   return (
@@ -237,6 +257,17 @@ export default async function StudyPlanPage({
               />
             );
           })}
+
+          {nextTermRef ? (
+            <form action={addTermToPlan.bind(null, locale)}>
+              <input type="hidden" name={PLAN_FIELD} value={serialisedPlan} />
+              <input type="hidden" name="year" value={nextTermRef.year} />
+              <input type="hidden" name="kind" value={nextTermRef.kind} />
+              <Button type="submit" variant="secondary">
+                {copy.plan.addTermButton}
+              </Button>
+            </form>
+          ) : null}
         </div>
 
         <div>

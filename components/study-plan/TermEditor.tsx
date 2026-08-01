@@ -1,19 +1,21 @@
 /**
  * One future term on the plan screen: the courses already placed in it (each
  * with a "Remove" button), a select of courses not yet placed anywhere in
- * the plan with an "Add" button, and a number input for free elective
- * credits, since a free elective has no course code to select.
+ * the plan with an "Add" button, and (via `TermFreeElectiveForm`) a number
+ * input for free elective credits, since a free elective has no course code
+ * to select.
  *
- * Three separate `<form>`s, not one, because plain HTML only lets a form
- * post to a single action. Splitting them (rather than reaching for a client
- * component with `onClick` handlers) is what keeps every control on this
- * screen working with JavaScript off, matching the rest of this journey.
- * Multiple courses share one remove form: each course's button carries its
- * own `name="code"` value, so only the clicked course's code is submitted.
+ * Separate `<form>`s, not one, because plain HTML only lets a form post to a
+ * single action. Splitting them (rather than reaching for a client component
+ * with `onClick` handlers) is what keeps every control on this screen
+ * working with JavaScript off, matching the rest of this journey. Multiple
+ * courses share one remove form: each course's button carries its own
+ * `name="code"` value, so only the clicked course's code is submitted.
  */
 import Button from "@/components/Button";
 import { PLAN_FIELD } from "@/lib/study-plan/plan";
 import type { TermRef } from "@/content/curriculum";
+import TermFreeElectiveForm, { type TermFreeElectiveState } from "./TermFreeElectiveForm";
 
 export type TermEditorCourse = {
   code: string;
@@ -30,6 +32,7 @@ export type TermEditorCopy = {
   freeElectiveLabel: string;
   updateFreeElectiveLabel: string;
   creditsUnit: string;
+  errorSummaryTitle: string;
 };
 
 export type TermEditorProps = {
@@ -43,7 +46,7 @@ export type TermEditorProps = {
   availableCourses: TermEditorCourse[];
   addAction: (formData: FormData) => Promise<void>;
   removeAction: (formData: FormData) => Promise<void>;
-  freeElectiveAction: (formData: FormData) => Promise<void>;
+  freeElectiveAction: (prevState: TermFreeElectiveState, formData: FormData) => Promise<TermFreeElectiveState>;
   copy: TermEditorCopy;
 };
 
@@ -61,7 +64,6 @@ export default function TermEditor({
 }: TermEditorProps) {
   const termCredits = placed.reduce((sum, course) => sum + course.credits, 0) + freeElectiveCredits;
   const addFieldId = `add-course-${term.year}-${term.kind}`;
-  const freeElectiveFieldId = `free-elective-${term.year}-${term.kind}`;
 
   return (
     <section className="border-line flex flex-col gap-4 rounded-lg border p-5">
@@ -129,28 +131,15 @@ export default function TermEditor({
         <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
       )}
 
-      <form action={freeElectiveAction} className="flex flex-wrap items-end gap-3">
-        <input type="hidden" name={PLAN_FIELD} value={plan} />
-        <input type="hidden" name="year" value={term.year} />
-        <input type="hidden" name="kind" value={term.kind} />
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor={freeElectiveFieldId} className="text-ink text-sm font-semibold">
-            {copy.freeElectiveLabel}
-          </label>
-          <input
-            id={freeElectiveFieldId}
-            name="freeElectiveCredits"
-            type="number"
-            min={0}
-            max={21}
-            defaultValue={freeElectiveCredits}
-            className="focus-halo border-input-border bg-surface text-ink w-24 rounded-md border px-3.5 py-2.5 text-[0.95rem]"
-          />
-        </div>
-        <Button type="submit" variant="secondary">
-          {copy.updateFreeElectiveLabel}
-        </Button>
-      </form>
+      <TermFreeElectiveForm
+        term={term}
+        plan={plan}
+        freeElectiveCredits={freeElectiveCredits}
+        action={freeElectiveAction}
+        label={copy.freeElectiveLabel}
+        updateLabel={copy.updateFreeElectiveLabel}
+        errorSummaryTitle={copy.errorSummaryTitle}
+      />
     </section>
   );
 }

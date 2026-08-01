@@ -121,7 +121,11 @@ export type StudyPlanCopy = {
     removeCourseButton: string;
     freeElectiveLabel: string;
     updateFreeElectiveButton: string;
+    /** Shown when a term's free elective credit count is out of range. */
+    freeElectiveError: string;
     creditsUnit: string;
+    /** Label for the control that appends the next term after the last one shown. */
+    addTermButton: string;
     printLinkLabel: string;
     doesNotCheckHeading: string;
     doesNotCheck: string[];
@@ -132,6 +136,12 @@ export type StudyPlanCopy = {
     cohortLabel: string;
     curriculumLabel: string;
     minorLabel: string;
+    /** Heading for the flat list of every course in `passed`, not grouped by term. */
+    passedHeading: string;
+    /** Explains why passed courses are listed flat rather than grouped by term. */
+    passedHint: string;
+    /** Contains "{n}"; free elective credits already passed, shown as one line under the passed list. */
+    passedFreeElectiveTemplate: string;
     termsHeading: string;
     noCoursesInTerm: string;
     /** Contains "{n}"; the free elective credits recorded for one term. */
@@ -271,7 +281,9 @@ const en: StudyPlanCopy = {
     removeCourseButton: "Remove",
     freeElectiveLabel: "Free elective credits this term",
     updateFreeElectiveButton: "Update",
+    freeElectiveError: "Enter a number of credits between 0 and 21",
     creditsUnit: "credits",
+    addTermButton: "Add another term",
     printLinkLabel: "Print this plan for your advisor",
     doesNotCheckHeading: "What this does not check",
     doesNotCheck: [
@@ -286,7 +298,11 @@ const en: StudyPlanCopy = {
     cohortLabel: "Cohort",
     curriculumLabel: "Curriculum",
     minorLabel: "Minor",
-    termsHeading: "Terms",
+    passedHeading: "Courses you have passed",
+    passedHint:
+      "We do not record which term you took each course in, so they are listed together here, not grouped by term.",
+    passedFreeElectiveTemplate: "{n} free elective credits already passed",
+    termsHeading: "Terms you have planned",
     noCoursesInTerm: "No courses recorded.",
     freeElectiveCreditsTemplate: "{n} free elective credits",
     findingsHeading: "What we found",
@@ -415,7 +431,9 @@ const th: StudyPlanCopy = {
     removeCourseButton: "ลบออก",
     freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
     updateFreeElectiveButton: "บันทึก",
+    freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 21",
     creditsUnit: "หน่วยกิต",
+    addTermButton: "เพิ่มภาคการศึกษาอีกหนึ่งภาค",
     printLinkLabel: "พิมพ์แผนนี้เพื่อนำไปให้อาจารย์ที่ปรึกษา",
     doesNotCheckHeading: "สิ่งที่บริการนี้ไม่ได้ตรวจสอบ",
     doesNotCheck: [
@@ -430,7 +448,11 @@ const th: StudyPlanCopy = {
     cohortLabel: "รุ่น",
     curriculumLabel: "หลักสูตร",
     minorLabel: "วิชาโท",
-    termsHeading: "ภาคการศึกษา",
+    passedHeading: "รายวิชาที่ท่านผ่านแล้ว",
+    passedHint:
+      "ระบบไม่ได้บันทึกว่าท่านลงทะเบียนแต่ละวิชาในภาคการศึกษาใด จึงแสดงรายชื่อรวมกันไว้ในที่นี้ ไม่ได้แยกตามภาคการศึกษา",
+    passedFreeElectiveTemplate: "หน่วยกิตวิชาเลือกเสรีที่ผ่านแล้ว {n} หน่วยกิต",
+    termsHeading: "ภาคการศึกษาที่วางแผนไว้",
     noCoursesInTerm: "ไม่มีรายวิชาบันทึกไว้",
     freeElectiveCreditsTemplate: "วิชาเลือกเสรี {n} หน่วยกิต",
     findingsHeading: "สิ่งที่ตรวจพบ",

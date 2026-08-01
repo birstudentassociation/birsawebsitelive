@@ -1,8 +1,47 @@
 import { describe, expect, it } from "vitest";
-import { CURRICULUM_VERSIONS, type PlannedTerm } from "@/content/curriculum";
-import { assumedHistory, remainingRequirements } from "@/lib/study-plan/derive";
+import { CURRICULUM_VERSIONS, type PlannedTerm, type TermRef } from "@/content/curriculum";
+import { assumedHistory, nextTerm, remainingRequirements } from "@/lib/study-plan/derive";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
+
+describe("nextTerm", () => {
+  it("steps semester 1 to semester 2 within the same year", () => {
+    expect(nextTerm({ year: 4, kind: "semester1" })).toEqual({ year: 4, kind: "semester2" });
+  });
+
+  it("steps semester 2 to summer within the same year", () => {
+    expect(nextTerm({ year: 4, kind: "semester2" })).toEqual({ year: 4, kind: "summer" });
+  });
+
+  it("steps summer to semester 1 of the next year", () => {
+    expect(nextTerm({ year: 4, kind: "summer" })).toEqual({ year: 5, kind: "semester1" });
+  });
+
+  it("can extend a plan whose last term is year 4, semester 1, one step at a time", () => {
+    let term: TermRef = { year: 4, kind: "semester1" };
+    const sequence: TermRef[] = [term];
+    for (let i = 0; i < 3; i++) {
+      const next = nextTerm(term);
+      expect(next).not.toBeNull();
+      term = next!;
+      sequence.push(term);
+    }
+    expect(sequence).toEqual([
+      { year: 4, kind: "semester1" },
+      { year: 4, kind: "semester2" },
+      { year: 4, kind: "summer" },
+      { year: 5, kind: "semester1" },
+    ]);
+  });
+
+  it("returns null past year 8 summer, the cap `TermRef.year` and the plan schema both share", () => {
+    expect(nextTerm({ year: 8, kind: "summer" })).toBeNull();
+  });
+
+  it("still offers year 8 summer itself, only stopping one step further", () => {
+    expect(nextTerm({ year: 8, kind: "semester2" })).toEqual({ year: 8, kind: "summer" });
+  });
+});
 
 describe("assumedHistory", () => {
   it("assumes nothing for a student in their first term", () => {

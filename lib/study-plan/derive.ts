@@ -43,6 +43,32 @@ export function termIndex(term: TermRef): number {
   return term.year * 10 + TERM_ORDER[term.kind];
 }
 
+/** Term kinds in sequence within a year, used by `nextTerm` to step forward one at a time. */
+const TERM_SEQUENCE: TermKind[] = ["semester1", "semester2", "summer"];
+
+/**
+ * Matches `termRef`'s `year` cap in lib/study-plan/plan.ts: a plan can
+ * represent breaking the seven-year limit (`maxYears`), but not run forever,
+ * so a student adding terms one at a time eventually runs out of room to add
+ * more.
+ */
+const MAX_TERM_YEAR = 8;
+
+/**
+ * The term immediately after `term`: semester 1, then semester 2, then
+ * summer, then semester 1 of the next year. Returns null at the cap
+ * (`MAX_TERM_YEAR` summer), which is what tells the "Add another term"
+ * control on the plan screen to stop offering one.
+ */
+export function nextTerm(term: TermRef): TermRef | null {
+  const kindIndex = TERM_SEQUENCE.indexOf(term.kind);
+  if (kindIndex < TERM_SEQUENCE.length - 1) {
+    return { year: term.year, kind: TERM_SEQUENCE[kindIndex + 1]! };
+  }
+  const year = term.year + 1;
+  return year > MAX_TERM_YEAR ? null : { year, kind: "semester1" };
+}
+
 /**
  * Everything in the recommended plan strictly before `position`, split into
  * named courses and placeholder slots the student still has to fill in.

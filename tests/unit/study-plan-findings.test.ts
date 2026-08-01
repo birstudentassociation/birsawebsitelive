@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import { CURRICULUM_VERSIONS, type TermRef } from "@/content/curriculum";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
+import { nextTerm } from "@/lib/study-plan/derive";
 import type { StudyPlan } from "@/lib/study-plan/plan";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
@@ -155,6 +156,46 @@ describe("checkPlan completion and timing", () => {
 
     const late = planWith([{ term: { year: 8, kind: "semester1" }, codes: ["PI211"] }]);
     expect(checkPlan(version, late).some((f) => f.id === "maxYears")).toBe(true);
+  });
+});
+
+describe("extending a plan with nextTerm", () => {
+  it("stays clear of the seven-year finding for a few terms, then reaches it", () => {
+    // Mirrors what the "Add another term" control on the plan screen does:
+    // start from the last term shown (here, the recommended plan's nominal
+    // end for this version, year 4 semester 1) and step forward one term at
+    // a time with `nextTerm`, the same function that control uses to compute
+    // what it appends.
+    let term: TermRef = { year: 4, kind: "semester1" };
+    const codes = ["PI211"];
+
+    // A term or two past the nominal end does not, by itself, run past the
+    // seven-year limit.
+    let plan = planWith([{ term, codes }]);
+    expect(checkPlan(version, plan).some((f) => f.id === "maxYears")).toBe(false);
+
+    // Keep stepping forward with nextTerm until it reaches the cap (year 8
+    // summer) or checkPlan reports maxYears, whichever comes first; this
+    // plan's terms accumulate exactly the way the control accumulates them
+    // on the real plan screen.
+    const terms = [{ term, codes }];
+    let found = false;
+    for (let i = 0; i < 20; i++) {
+      const next = nextTerm(term);
+      if (!next) break;
+      term = next;
+      terms.push({ term, codes });
+      plan = planWith(terms);
+      if (checkPlan(version, plan).some((f) => f.id === "maxYears")) {
+        found = true;
+        break;
+      }
+    }
+
+    expect(found).toBe(true);
+    // Reached by year 8 at the latest: `maxYears` is 7, so year 8 is always
+    // over the limit regardless of which term within it.
+    expect(term.year).toBeLessThanOrEqual(8);
   });
 });
 

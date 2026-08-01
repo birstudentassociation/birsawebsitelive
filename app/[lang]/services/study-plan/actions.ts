@@ -15,6 +15,7 @@ import { localeHref, type Locale } from "@/lib/i18n";
 import { mergeDraft, readDraft } from "@/components/forms/draftCookie";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import type { QuestionStepState } from "@/components/forms/QuestionStepForm";
+import type { TermFreeElectiveState } from "@/components/study-plan/TermFreeElectiveForm";
 import { STUDY_PLAN_COOKIE, type StudyPlanDraft } from "./steps";
 
 /** First two digits of a student ID, e.g. "66". */
@@ -344,25 +345,71 @@ export async function removeCourseFromTerm(locale: Locale, formData: FormData): 
  * `addCourseToTerm`, because a free elective may be any Thammasat University
  * course and so is tracked as a credit count rather than a course code (see
  * `PlannedCourseTerm` in lib/study-plan/plan.ts).
+ *
+ * Unlike `addCourseToTerm` / `removeCourseFromTerm`, a bad value here is
+ * reported back rather than silently dropped: this field is freely typed,
+ * not chosen from a `<select>` that only ever offers valid values, so an
+ * out-of-range number is a plausible student mistake, not tampering. Bound
+ * with `.bind(null, locale)` and driven by `useActionState` in
+ * `TermFreeElectiveForm`, matching every step form in this journey.
  */
-export async function setTermFreeElectiveCredits(locale: Locale, formData: FormData): Promise<void> {
+export async function setTermFreeElectiveCredits(
+  locale: Locale,
+  _prev: TermFreeElectiveState,
+  formData: FormData
+): Promise<TermFreeElectiveState> {
+  const copy = buildStudyPlanCopy(locale);
   const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
   if (!current) {
     redirect(localeHref(locale, "/services/study-plan/minor"));
   }
 
   const term = parseTermFields(formData);
+  if (!term) {
+    // The hidden year/kind fields were tampered with, not mistyped by the
+    // student: nothing sensible to report, so the plan goes back unchanged.
+    redirectToPlan(locale, current);
+  }
+
   const creditsResult = termFreeElectiveCreditsSchema.safeParse(
     String(formData.get("freeElectiveCredits") ?? "")
   );
+  if (!creditsResult.success) {
+    return { status: "invalid", error: copy.plan.freeElectiveError };
+  }
 
+  const index = findTermEntryIndex(current, term);
+  const terms =
+    index === -1
+      ? [...current.terms, { term, codes: [], freeElectiveCredits: creditsResult.data }]
+      : current.terms.map((t, i) => (i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t));
+
+  redirectToPlan(locale, { ...current, terms });
+}
+
+/**
+ * Appends one blank term (no courses, no free elective credits) to the plan,
+ * for the "Add another term" control at the end of the term list. The plan
+ * screen computes which term comes next (`nextTerm` in derive.ts, following
+ * the same year/semester/summer ordering as `termIndex`) and carries it in
+ * this form's hidden `year`/`kind` fields; this action only has to persist
+ * it, so it survives being carried forward in the plan's own term list
+ * rather than disappearing again on the next render.
+ *
+ * Exists because the recommended plan's own term list ends at the nominal
+ * final year, which left a student running behind (exactly who most needs
+ * to plan) with no future term to add a course to.
+ */
+export async function addTermToPlan(locale: Locale, formData: FormData): Promise<void> {
+  const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!current) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+
+  const term = parseTermFields(formData);
   let terms = current.terms;
-  if (term && creditsResult.success) {
-    const index = findTermEntryIndex(current, term);
-    terms =
-      index === -1
-        ? [...current.terms, { term, codes: [], freeElectiveCredits: creditsResult.data }]
-        : current.terms.map((t, i) => (i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t));
+  if (term && findTermEntryIndex(current, term) === -1) {
+    terms = [...current.terms, { term, codes: [], freeElectiveCredits: 0 }];
   }
 
   redirectToPlan(locale, { ...current, terms });

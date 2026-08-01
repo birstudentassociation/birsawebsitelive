@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { CURRICULUM_VERSIONS, type CategoryId, type TermKind, type TermRef } from "@/content/curriculum";
-import { remainingRequirements, termIndex } from "@/lib/study-plan/derive";
+import { CURRICULUM_VERSIONS, type CategoryId, type TermRef } from "@/content/curriculum";
+import { remainingRequirements } from "@/lib/study-plan/derive";
 import { checkPlan } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
+import { passedCoursesForPrint, plannedTermsForPrint } from "@/lib/study-plan/print";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
-import { getStudyPlanDraft } from "../../actions";
 
 export async function generateMetadata({
   params,
@@ -53,18 +53,17 @@ function categoryLabel(
   }
 }
 
-type PrintTerm = {
-  term: TermRef;
-  courses: { code: string; title: string; credits: number }[];
-  freeElectiveCredits: number;
-};
-
 /**
  * The print page: everything on one page, no forms and no editing, meant to
- * be handed to an advisor. Terms before the student's current position come
- * from the recommended plan filtered to what they actually passed (the same
- * derivation `assumedHistory` uses for the "check what we have assumed"
- * step); terms at or after it come straight from the plan the student built.
+ * be handed to an advisor.
+ *
+ * Passed courses are listed flat, not grouped by term: `StudyPlan.passed` is
+ * a flat list with no term attribution, because the service never records
+ * which term a passed course was taken in (see the header comment on
+ * lib/study-plan/print.ts for why reconstructing that from the recommended
+ * plan would be presenting a guess as fact). Only the terms the student
+ * actually built (`plan.terms`) are grouped by term, because those carry
+ * real term attribution the student chose.
  */
 export default async function StudyPlanPrintPage({
   params,
@@ -84,45 +83,12 @@ export default async function StudyPlanPrintPage({
     redirect(localeHref(locale, "/services/study-plan/minor"));
   }
 
-  const draft = await getStudyPlanDraft();
-  if (!draft.positionYear || !draft.positionKind) {
-    redirect(localeHref(locale, "/services/study-plan/where"));
-  }
-  const position: TermRef = { year: Number(draft.positionYear), kind: draft.positionKind as TermKind };
-
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const chosenMinor = version.minors.find((m) => m.id === plan.minorId);
   const minorName = chosenMinor?.name[locale] ?? "";
-  const courseByCode = new Map(version.courses.value.map((c) => [c.code, c]));
-  const passedSet = new Set(plan.passed);
 
-  const cutoff = termIndex(position);
-  const pastTerms: PrintTerm[] = [];
-  for (const plannedTerm of version.recommendedPlan.value) {
-    if (termIndex(plannedTerm.term) >= cutoff) continue;
-    const courses: { code: string; title: string; credits: number }[] = [];
-    for (const entry of plannedTerm.entries) {
-      if (entry.kind !== "course" || !passedSet.has(entry.code)) continue;
-      const course = courseByCode.get(entry.code);
-      courses.push({ code: entry.code, title: course?.title ?? "", credits: course?.credits ?? 0 });
-    }
-    if (courses.length === 0) continue;
-    pastTerms.push({ term: plannedTerm.term, courses, freeElectiveCredits: 0 });
-  }
-
-  const futureTerms: PrintTerm[] = plan.terms
-    .filter((t) => t.codes.length > 0 || t.freeElectiveCredits > 0)
-    .sort((a, b) => termIndex(a.term) - termIndex(b.term))
-    .map((t) => ({
-      term: t.term,
-      courses: t.codes.map((code) => {
-        const course = courseByCode.get(code);
-        return { code, title: course?.title ?? "", credits: course?.credits ?? 0 };
-      }),
-      freeElectiveCredits: t.freeElectiveCredits,
-    }));
-
-  const allTerms = [...pastTerms, ...futureTerms];
+  const passedCourses = passedCoursesForPrint(version, plan.passed);
+  const plannedTerms = plannedTermsForPrint(version, plan.terms);
 
   const plannedCodes = plan.terms.flatMap((t) => t.codes);
   const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
@@ -165,13 +131,36 @@ export default async function StudyPlanPrintPage({
       <InferenceNotice version={version} cohortCode={plan.cohort} locale={locale} />
 
       <div>
+        <h2 className="font-display text-xl">{copy.print.passedHeading}</h2>
+        <p className="text-muted mt-1 text-sm">{copy.print.passedHint}</p>
+        {passedCourses.length > 0 ? (
+          <ul className="mt-3 flex flex-col gap-1 text-sm">
+            {passedCourses.map((course) => (
+              <li key={course.code}>
+                <span className="font-semibold">{course.code}</span>
+                {course.title ? ` ${course.title}` : ""} &middot; {course.credits} {copy.plan.creditsUnit}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        {plan.freeElectiveCreditsPassed > 0 ? (
+          <p className="text-ink mt-2 text-sm">
+            {copy.print.passedFreeElectiveTemplate.replace("{n}", String(plan.freeElectiveCreditsPassed))}
+          </p>
+        ) : null}
+      </div>
+
+      <div>
         <h2 className="font-display text-xl">{copy.print.termsHeading}</h2>
         <div className="mt-4 flex flex-col gap-4">
-          {allTerms.map((printTerm) => {
+          {plannedTerms.map((printTerm) => {
             const termCredits =
               printTerm.courses.reduce((n, c) => n + c.credits, 0) + printTerm.freeElectiveCredits;
             return (
-              <div key={`${printTerm.term.year}-${printTerm.term.kind}`} className="border-line rounded-lg border p-4">
+              <div
+                key={`${printTerm.term.year}-${printTerm.term.kind}`}
+                className="border-line rounded-lg border p-4"
+              >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-display text-lg">{formatTermLabel(copy, printTerm.term)}</h3>
                   <p className="text-muted text-sm">
