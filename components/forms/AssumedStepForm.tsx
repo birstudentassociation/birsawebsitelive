@@ -63,9 +63,16 @@ export default function AssumedStepForm({
 
       <div className="flex flex-col gap-6">
         {groups.map((group) => (
-          <div key={group.termLabel}>
-            <h2 className="font-display text-lg">{group.termLabel}</h2>
-            <div className="mt-3 flex flex-col gap-2">
+          <fieldset key={group.termLabel}>
+            {/* The heading already states the term visually; wrapping it in
+                <legend> (as app/[lang]/answers/you/page.tsx does) is what
+                actually announces the grouping to screen reader users, who
+                otherwise lose which term a checkbox belongs to as soon as
+                they move past its heading. */}
+            <legend>
+              <h2 className="font-display text-lg">{group.termLabel}</h2>
+            </legend>
+            <div className="flex flex-col gap-2">
               {group.courses.map((course) => (
                 <label
                   key={course.code}
@@ -85,7 +92,7 @@ export default function AssumedStepForm({
                 </label>
               ))}
             </div>
-          </div>
+          </fieldset>
         ))}
       </div>
 

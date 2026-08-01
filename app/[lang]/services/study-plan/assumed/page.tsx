@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { CURRICULUM_VERSIONS, type TermKind, type TermRef } from "@/content/curriculum";
-import { assumedHistory } from "@/lib/study-plan/derive";
+import { assumedHistory, termIndex } from "@/lib/study-plan/derive";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
@@ -12,20 +12,6 @@ import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizard
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft, submitAssumedStep } from "../actions";
 import { STUDY_PLAN_STEPS } from "../steps";
-
-/**
- * Duplicated from `lib/study-plan/derive.ts`'s private term-ordering helper.
- * `assumedHistory` already applies this cutoff to build `courses`; this page
- * needs the same cutoff again, term by term, purely to group the resulting
- * flat course list back under the term headings a student recognises. Not
- * exported from `derive.ts` because nothing there needs it split out; kept
- * here rather than promoting it, since a display grouping concern has no
- * business growing the shared module's surface.
- */
-const TERM_ORDER: Record<TermKind, number> = { semester1: 0, semester2: 1, summer: 2 };
-function termIndex(term: TermRef): number {
-  return term.year * 10 + TERM_ORDER[term.kind];
-}
 
 export async function generateMetadata({
   params,

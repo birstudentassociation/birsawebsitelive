@@ -32,8 +32,14 @@ export type CategoryShortfall = {
 
 const TERM_ORDER: Record<TermKind, number> = { semester1: 0, semester2: 1, summer: 2 };
 
-/** Sortable index so summer lands after semester 2 of the same year. */
-function termIndex(term: TermRef): number {
+/**
+ * Sortable index so summer lands after semester 2 of the same year. Exported
+ * so every place that orders terms (this module's own cutoff, the display
+ * grouping on the assumed screen, the findings engine's timeline) shares one
+ * rule; two copies of "summer sorts last" is exactly the kind of pair that
+ * quietly disagrees after someone edits only one of them.
+ */
+export function termIndex(term: TermRef): number {
   return term.year * 10 + TERM_ORDER[term.kind];
 }
 

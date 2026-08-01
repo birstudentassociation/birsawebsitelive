@@ -9,7 +9,7 @@
  */
 import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
 import type { StudyPlan } from "./plan";
-import { remainingRequirements } from "./derive";
+import { remainingRequirements, termIndex } from "./derive";
 
 export type Finding = {
   /** Stable id so a test can name one finding without matching on copy. */
@@ -18,12 +18,6 @@ export type Finding = {
   message: LocalizedText;
   source: { document: string; provision: string };
 };
-
-const TERM_ORDER = { semester1: 0, semester2: 1, summer: 2 } as const;
-
-function termIndex(term: TermRef): number {
-  return term.year * 10 + TERM_ORDER[term.kind];
-}
 
 function termLabel(term: TermRef): { en: string; th: string } {
   const kind = {
