@@ -80,7 +80,8 @@ export function assumedHistory(
 export function remainingRequirements(
   version: CurriculumVersion,
   passed: string[],
-  minorId: MinorId
+  minorId: MinorId,
+  freeElectiveCredits: number
 ): CategoryShortfall[] {
   const passedSet = new Set(passed);
   const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
@@ -94,6 +95,16 @@ export function remainingRequirements(
   };
 
   return version.categories.map((category) => {
+    // Free electives are counted, never matched: they may be any Thammasat
+    // course, so no catalogue entry exists to sum. Matching them like every
+    // other category would leave this bucket permanently unsatisfiable.
+    if (category.id === "freeElective") {
+      return {
+        category,
+        earned: freeElectiveCredits,
+        remaining: Math.max(0, category.credits - freeElectiveCredits),
+      };
+    }
     let earned = 0;
     for (const code of passedSet) {
       if (bucketFor(code) !== category.id) continue;

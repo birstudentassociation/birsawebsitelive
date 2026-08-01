@@ -14,7 +14,19 @@
 import { z } from "zod";
 import type { CurriculumVersionId, MinorId, TermRef } from "@/content/curriculum";
 
-export type PlannedCourseTerm = { term: TermRef; codes: string[] };
+/**
+ * One planned term. `freeElectiveCredits` carries free electives, which can be
+ * any Thammasat course and therefore never appear in the BIR catalogue. They
+ * are tracked as a credit count rather than as course codes, because the
+ * service cannot verify a course it does not hold data for. Without this the
+ * term credit total under-counts and the plan can never reach the graduation
+ * total.
+ */
+export type PlannedCourseTerm = {
+  term: TermRef;
+  codes: string[];
+  freeElectiveCredits: number;
+};
 
 export type StudyPlan = {
   versionId: CurriculumVersionId;
@@ -29,6 +41,11 @@ export type StudyPlan = {
   minorId: MinorId;
   /** Course codes the student has already passed. */
   passed: string[];
+  /**
+   * Free elective credits already earned. Counted, not named: a free elective
+   * may be any Thammasat course, so there is no catalogue entry to match.
+   */
+  freeElectiveCreditsPassed: number;
   /** Future terms the student has planned. */
   terms: PlannedCourseTerm[];
 };
@@ -49,8 +66,15 @@ const studyPlanSchema = z.object({
   startYear: z.number().int().min(2560).max(2599),
   minorId: z.enum(["governance", "publicAdministration", "globalPoliticalEconomy"]),
   passed: z.array(courseCode).max(120),
+  freeElectiveCreditsPassed: z.number().int().min(0).max(60),
   terms: z
-    .array(z.object({ term: termRef, codes: z.array(courseCode).max(15) }))
+    .array(
+      z.object({
+        term: termRef,
+        codes: z.array(courseCode).max(15),
+        freeElectiveCredits: z.number().int().min(0).max(21),
+      })
+    )
     .max(20),
 });
 

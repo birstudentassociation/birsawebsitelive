@@ -79,7 +79,7 @@ describe("assumedHistory", () => {
 
 describe("remainingRequirements", () => {
   it("owes the full requirement when nothing has been passed", () => {
-    const shortfalls = remainingRequirements(version, [], "governance");
+    const shortfalls = remainingRequirements(version, [], "governance", 0);
     const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
     expect(total).toBe(version.graduationCredits.value);
   });
@@ -89,14 +89,14 @@ describe("remainingRequirements", () => {
     // exclusion together: this version's total only comes out to 126, not
     // 127, if both of those apply.
     const v2568 = CURRICULUM_VERSIONS["2568"];
-    const shortfalls = remainingRequirements(v2568, [], "governance");
+    const shortfalls = remainingRequirements(v2568, [], "governance", 0);
     const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
     expect(total).toBe(126);
     expect(total).toBe(v2568.graduationCredits.value);
   });
 
   it("credits a passed course against its own category", () => {
-    const shortfalls = remainingRequirements(version, ["PI211"], "governance");
+    const shortfalls = remainingRequirements(version, ["PI211"], "governance", 0);
     const core = shortfalls.find((s) => s.category.id === "core");
     expect(core?.earned).toBe(3);
     expect(core?.remaining).toBe(27);
@@ -104,21 +104,34 @@ describe("remainingRequirements", () => {
 
   it("ignores courses excluded from the total", () => {
     const v2568 = CURRICULUM_VERSIONS["2568"];
-    const shortfalls = remainingRequirements(v2568, ["PI574"], "governance");
+    const shortfalls = remainingRequirements(v2568, ["PI574"], "governance", 0);
     const concentration = shortfalls.find((s) => s.category.id === "concentrationRequired");
     expect(concentration?.earned).toBe(0);
   });
 
   it("counts a minor course into the bucket the chosen minor puts it in", () => {
-    const asGovernance = remainingRequirements(version, ["PI380"], "governance");
+    const asGovernance = remainingRequirements(version, ["PI380"], "governance", 0);
     expect(asGovernance.find((s) => s.category.id === "minorRequired")?.earned).toBe(3);
     expect(asGovernance.find((s) => s.category.id === "minorElectiveOther")?.earned).toBe(0);
   });
 
   it("counts the same course into a different bucket for a different minor", () => {
-    const asGpe = remainingRequirements(version, ["PI380"], "globalPoliticalEconomy");
+    const asGpe = remainingRequirements(version, ["PI380"], "globalPoliticalEconomy", 0);
     expect(asGpe.find((s) => s.category.id === "minorRequired")?.earned).toBe(0);
     expect(asGpe.find((s) => s.category.id === "minorElectiveOther")?.earned).toBe(3);
+  });
+
+  it("satisfies the free elective category from a credit count, not matched courses", () => {
+    const withoutFreeElectives = remainingRequirements(version, [], "governance", 0);
+    const totalWithout = withoutFreeElectives.reduce((n, s) => n + s.remaining, 0);
+
+    const withFreeElectives = remainingRequirements(version, [], "governance", 6);
+    const freeElective = withFreeElectives.find((s) => s.category.id === "freeElective");
+    expect(freeElective?.earned).toBe(6);
+    expect(freeElective?.remaining).toBe(0);
+
+    const totalWith = withFreeElectives.reduce((n, s) => n + s.remaining, 0);
+    expect(totalWithout - totalWith).toBe(6);
   });
 
   it("resolves every minor course into a real bucket, never the pooled 'minor' category", () => {
@@ -129,7 +142,7 @@ describe("remainingRequirements", () => {
     // (publicAdministration's PI340), and check the credits land exactly
     // where resolveMinorCategory says they should, with nothing lost.
     const passed = ["PI380", "PI381", "PI382", "PI385", "PI340"];
-    const shortfalls = remainingRequirements(version, passed, "governance");
+    const shortfalls = remainingRequirements(version, passed, "governance", 0);
 
     const minorRequired = shortfalls.find((s) => s.category.id === "minorRequired");
     const minorElective = shortfalls.find((s) => s.category.id === "minorElective");
@@ -151,7 +164,7 @@ describe("remainingRequirements", () => {
 
   it("never reports a negative remaining", () => {
     const everything = version.courses.value.map((c) => c.code);
-    for (const s of remainingRequirements(version, everything, "governance")) {
+    for (const s of remainingRequirements(version, everything, "governance", 0)) {
       expect(s.remaining).toBeGreaterThanOrEqual(0);
     }
   });

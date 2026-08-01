@@ -7,9 +7,10 @@ const plan: StudyPlan = {
   startYear: 2566,
   minorId: "governance",
   passed: ["TU100", "TU101", "EL105"],
+  freeElectiveCreditsPassed: 3,
   terms: [
-    { term: { year: 3, kind: "semester1" }, codes: ["PI300", "PI390"] },
-    { term: { year: 3, kind: "summer" }, codes: ["PI574"] },
+    { term: { year: 3, kind: "semester1" }, codes: ["PI300", "PI390"], freeElectiveCredits: 3 },
+    { term: { year: 3, kind: "summer" }, codes: ["PI574"], freeElectiveCredits: 0 },
   ],
 };
 
@@ -45,6 +46,7 @@ describe("serialisePlan and deserialisePlan", () => {
       startYear: 2568,
       minorId: "publicAdministration",
       passed: [],
+      freeElectiveCreditsPassed: 0,
       terms: [],
     };
     expect(deserialisePlan(serialisePlan(empty))).toEqual(empty);
