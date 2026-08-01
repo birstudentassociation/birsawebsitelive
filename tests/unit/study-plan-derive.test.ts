@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import { CURRICULUM_VERSIONS, type PlannedTerm } from "@/content/curriculum";
 import { assumedHistory, remainingRequirements } from "@/lib/study-plan/derive";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
@@ -24,6 +24,17 @@ describe("assumedHistory", () => {
     expect(result.courses).not.toContain("PI300");
   });
 
+  it("keeps a real course in a summer term out until the summer itself is past", () => {
+    // Year 3 summer holds PI574 (an internship, not a placeholder), sitting
+    // strictly between year 3 semester 2 and year 4 semester 1. This is the
+    // case that would break if summer ever sorted before semester 2.
+    const beforeSummer = assumedHistory(version, { year: 3, kind: "semester2" });
+    expect(beforeSummer.courses).not.toContain("PI574");
+
+    const afterSummer = assumedHistory(version, { year: 4, kind: "semester1" });
+    expect(afterSummer.courses).toContain("PI574");
+  });
+
   it("returns placeholders separately from named courses", () => {
     const result = assumedHistory(version, { year: 3, kind: "semester2" });
     expect(result.placeholders.length).toBeGreaterThan(0);
@@ -40,8 +51,29 @@ describe("assumedHistory", () => {
   });
 
   it("does not double-count a course that appears in two terms", () => {
-    const result = assumedHistory(version, { year: 4, kind: "semester2" });
-    expect(new Set(result.courses).size).toBe(result.courses.length);
+    // No real curriculum repeats a course code across terms, so this has to
+    // be built as a synthetic fixture: spread a real version and override
+    // only `recommendedPlan` so the rest of the data (courses, categories,
+    // minors) stays valid.
+    const duplicatePlan: PlannedTerm[] = [
+      {
+        term: { year: 1, kind: "semester1" },
+        optional: false,
+        entries: [{ kind: "course", code: "PI211" }],
+      },
+      {
+        term: { year: 1, kind: "semester2" },
+        optional: false,
+        entries: [{ kind: "course", code: "PI211" }],
+      },
+    ];
+    const fixture = {
+      ...version,
+      recommendedPlan: { ...version.recommendedPlan, value: duplicatePlan },
+    };
+
+    const result = assumedHistory(fixture, { year: 2, kind: "semester1" });
+    expect(result.courses.filter((code) => code === "PI211").length).toBe(1);
   });
 });
 
@@ -50,6 +82,17 @@ describe("remainingRequirements", () => {
     const shortfalls = remainingRequirements(version, [], "governance");
     const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
     expect(total).toBe(version.graduationCredits.value);
+  });
+
+  it("owes the full 126 credits for the 2568 version, whose arithmetic differs most from the others", () => {
+    // Guards the concentrationRequired override (19 -> 18) and the PI574
+    // exclusion together: this version's total only comes out to 126, not
+    // 127, if both of those apply.
+    const v2568 = CURRICULUM_VERSIONS["2568"];
+    const shortfalls = remainingRequirements(v2568, [], "governance");
+    const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
+    expect(total).toBe(126);
+    expect(total).toBe(v2568.graduationCredits.value);
   });
 
   it("credits a passed course against its own category", () => {
@@ -78,8 +121,31 @@ describe("remainingRequirements", () => {
     expect(asGpe.find((s) => s.category.id === "minorElectiveOther")?.earned).toBe(3);
   });
 
-  it("never puts credit into the pooled 'minor' category itself", () => {
-    const shortfalls = remainingRequirements(version, ["PI380", "PI385"], "governance");
+  it("resolves every minor course into a real bucket, never the pooled 'minor' category", () => {
+    // No version defines a category with id "minor", so asserting that id's
+    // absence proves nothing about bucketFor. Exercise the resolution
+    // directly instead: pass in the three governance-required courses, one
+    // governance elective, and one course that belongs to a different minor
+    // (publicAdministration's PI340), and check the credits land exactly
+    // where resolveMinorCategory says they should, with nothing lost.
+    const passed = ["PI380", "PI381", "PI382", "PI385", "PI340"];
+    const shortfalls = remainingRequirements(version, passed, "governance");
+
+    const minorRequired = shortfalls.find((s) => s.category.id === "minorRequired");
+    const minorElective = shortfalls.find((s) => s.category.id === "minorElective");
+    const minorElectiveOther = shortfalls.find((s) => s.category.id === "minorElectiveOther");
+
+    // PI380, PI381, PI382 are governance's three required courses.
+    expect(minorRequired?.earned).toBe(9);
+    // PI385 is a governance elective.
+    expect(minorElective?.earned).toBe(3);
+    // PI340 is required in publicAdministration, so under governance it
+    // counts as an elective from another minor.
+    expect(minorElectiveOther?.earned).toBe(3);
+
+    const totalMinorCredit =
+      (minorRequired?.earned ?? 0) + (minorElective?.earned ?? 0) + (minorElectiveOther?.earned ?? 0);
+    expect(totalMinorCredit).toBe(15);
     expect(shortfalls.some((s) => s.category.id === "minor")).toBe(false);
   });
 
