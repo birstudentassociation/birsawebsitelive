@@ -57,14 +57,32 @@ const studyPlanSchema = z.object({
 /** Name of the hidden input that carries the plan across every form post. */
 export const PLAN_FIELD = "plan";
 
+/**
+ * base64url without Node's Buffer, because this module is imported from both
+ * server actions and client components. Next.js does not polyfill Buffer in
+ * client bundles, so using it here would throw a ReferenceError in the browser
+ * the first time a "use client" file imported anything from this file.
+ */
+function toBase64Url(text: string): string {
+  const bytes = new TextEncoder().encode(text);
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function fromBase64Url(encoded: string): string {
+  const binary = atob(encoded.replace(/-/g, "+").replace(/_/g, "/"));
+  return new TextDecoder().decode(Uint8Array.from(binary, (c) => c.charCodeAt(0)));
+}
+
 export function serialisePlan(plan: StudyPlan): string {
-  return Buffer.from(JSON.stringify(plan), "utf8").toString("base64url");
+  return toBase64Url(JSON.stringify(plan));
 }
 
 export function deserialisePlan(raw: string): StudyPlan | null {
   if (!raw) return null;
   try {
-    const json: unknown = JSON.parse(Buffer.from(raw, "base64url").toString("utf8"));
+    const json: unknown = JSON.parse(fromBase64Url(raw));
     const result = studyPlanSchema.safeParse(json);
     return result.success ? (result.data as StudyPlan) : null;
   } catch {

@@ -49,4 +49,24 @@ describe("serialisePlan and deserialisePlan", () => {
     };
     expect(deserialisePlan(serialisePlan(empty))).toEqual(empty);
   });
+
+  it("round-trips and survives non-ASCII input", () => {
+    const planWithUnicode: StudyPlan = {
+      ...plan,
+      cohort: "66",
+    };
+    const serialized = serialisePlan(planWithUnicode);
+    const deserialized = deserialisePlan(serialized);
+    expect(deserialized).toEqual(planWithUnicode);
+  });
+
+  it("rejects a plan exceeding the passed courses bound", () => {
+    const tooMany: string[] = [];
+    for (let i = 0; i < 121; i++) {
+      const code = `PI${String(i).padStart(3, "0")}`;
+      tooMany.push(code);
+    }
+    const tampered = serialisePlan({ ...plan, passed: tooMany });
+    expect(deserialisePlan(tampered)).toBeNull();
+  });
 });
