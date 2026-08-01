@@ -13,29 +13,49 @@ import { buildStudyPlanCopy } from "./studyPlanCopy";
 
 export type InferenceNoticeProps = {
   version: CurriculumVersion;
+  /** First two digits of the student's ID, used to scope cohort-specific disclosures. */
+  cohortCode: string;
   locale: Locale;
 };
 
-export default function InferenceNotice({ version, locale }: InferenceNoticeProps) {
+export default function InferenceNotice({ version, cohortCode, locale }: InferenceNoticeProps) {
   const parts = inferredParts(version);
-  const items = disclosures(version);
+  const items = disclosures(version, cohortCode);
 
   if (parts.length === 0 && items.length === 0) return null;
 
   const copy = buildStudyPlanCopy(locale);
 
+  // A derivation's `reason` and a contradiction's `disclosure` are
+  // independent records that are allowed to say the same thing (2568's
+  // borrowed study plan is both the reason recommendedPlan is "inferred" and
+  // the thing the "no-2568-study-plan" contradiction discloses), and they
+  // should stay independent: nulling one to avoid the repeat would let a
+  // later edit to the derivation silently delete the disclosure too. So the
+  // fix lives here, in what gets rendered, not in the data: collect every
+  // sentence once and drop exact repeats, comparing the locale string a
+  // reader would actually see.
+  const seen = new Set<string>();
+  const sentences: { key: string; text: string }[] = [];
+  for (const [index, part] of parts.entries()) {
+    if (part.kind !== "inferred") continue;
+    const text = part.reason[locale];
+    if (seen.has(text)) continue;
+    seen.add(text);
+    sentences.push({ key: `inferred-${index}`, text });
+  }
+  for (const item of items) {
+    const text = item.disclosure?.[locale];
+    if (!text || seen.has(text)) continue;
+    seen.add(text);
+    sentences.push({ key: item.id, text });
+  }
+
   return (
     <Notice variant="warning" title={copy.inference.heading}>
       <ul className="flex flex-col gap-2">
-        {parts.map((part, index) =>
-          // inferredParts() is typed Derivation[], not narrowed to the
-          // "inferred" branch, even though every element it returns already
-          // satisfies `kind === "inferred"`; narrow again here to reach
-          // `reason`, which only that branch carries.
-          part.kind === "inferred" ? <li key={`inferred-${index}`}>{part.reason[locale]}</li> : null
-        )}
-        {items.map((item) => (
-          <li key={item.id}>{item.disclosure?.[locale]}</li>
+        {sentences.map((sentence) => (
+          <li key={sentence.key}>{sentence.text}</li>
         ))}
       </ul>
       <p className="mt-2">{copy.inference.askAdvisor}</p>

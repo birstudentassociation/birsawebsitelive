@@ -153,6 +153,14 @@ export type Contradiction = {
   summary: string;
   /** Shown to the student when it changes a number they see. */
   disclosure: LocalizedText | null;
+  /**
+   * Cohort codes this disclosure applies to. Omitted means it applies to every
+   * cohort on this version. Scoping matters because a version can be documented
+   * for one cohort and merely attested for another, and telling a documented
+   * student about someone else's uncertainty is noise on the one screen that
+   * has to be worth reading.
+   */
+  cohorts?: string[];
 };
 
 export type Verification = {

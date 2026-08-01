@@ -55,9 +55,19 @@ export function inferredParts(version: CurriculumVersion): Derivation[] {
   return parts.filter((d) => d.kind === "inferred");
 }
 
-/** Contradictions with something to say to a student, as opposed to a maintainer. */
-export function disclosures(version: CurriculumVersion): Contradiction[] {
-  return version.verification.contradictions.filter((c) => c.disclosure !== null);
+/**
+ * Contradictions with something to say to a student, as opposed to a
+ * maintainer. Pass `cohortCode` to also drop contradictions scoped (via
+ * `cohorts`) to a different cohort than the one asking; omit it to get every
+ * disclosure on the version, which is what existing callers and tests expect.
+ */
+export function disclosures(version: CurriculumVersion, cohortCode?: string): Contradiction[] {
+  return version.verification.contradictions.filter((c) => {
+    if (c.disclosure === null) return false;
+    if (!c.cohorts) return true;
+    if (cohortCode === undefined) return true;
+    return c.cohorts.includes(cohortCode);
+  });
 }
 
 /**

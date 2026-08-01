@@ -12,11 +12,13 @@
 import { useActionState, useId } from "react";
 import Button from "@/components/Button";
 import ErrorSummary from "@/components/ErrorSummary";
-import type { QuestionStepState } from "@/components/forms/QuestionStepForm";
+import type { QuestionStepState } from "./QuestionStepForm";
 
 export type CurriculumConfirmFormProps = {
   action: (prevState: QuestionStepState, formData: FormData) => Promise<QuestionStepState>;
   legend: string;
+  /** Visible marker text for the required fieldset, e.g. dict.actions.required. */
+  requiredLabel: string;
   yesLabel: string;
   noLabel: string;
   errorSummaryTitle: string;
@@ -29,6 +31,7 @@ const initialState: QuestionStepState = { status: "idle" };
 export default function CurriculumConfirmForm({
   action,
   legend,
+  requiredLabel,
   yesLabel,
   noLabel,
   errorSummaryTitle,
@@ -51,7 +54,9 @@ export default function CurriculumConfirmForm({
         className="flex flex-col gap-4"
         aria-describedby={hasError ? `${groupId}-error` : undefined}
       >
-        <legend className="sr-only">{legend}</legend>
+        <legend className="sr-only">
+          {legend} ({requiredLabel})
+        </legend>
 
         {hasError ? (
           <p id={`${groupId}-error`} className="text-error flex items-center gap-1.5 text-sm font-medium">

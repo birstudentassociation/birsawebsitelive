@@ -62,6 +62,21 @@ describe("disclosures", () => {
     expect(shown.every((c) => c.disclosure !== null)).toBe(true);
     expect(shown.map((c) => c.id)).not.toContain("catalogue-identical");
   });
+
+  it("scopes a cohort-specific disclosure away from a cohort it does not name", () => {
+    const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
+    // Cohort 66's mapping to this version is printed in a document; the
+    // cohort-67 attestation disclosure would be false for a cohort-66 reader.
+    expect(disclosures(rev2566, "66").map((c) => c.id)).not.toContain("cohort-67-attested");
+    expect(disclosures(rev2566, "67").map((c) => c.id)).toContain("cohort-67-attested");
+  });
+
+  it("returns every disclosure when no cohort code is given", () => {
+    // Existing callers (and this file's other tests) call disclosures(version)
+    // with no cohort code and expect every disclosure back, unfiltered.
+    const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
+    expect(disclosures(rev2566).map((c) => c.id)).toContain("cohort-67-attested");
+  });
 });
 
 describe("resolveMinorCategory", () => {

@@ -97,6 +97,11 @@ export const curriculum2564rev2566: CurriculumVersion = {
           en: "No published document says which curriculum cohort 67 follows. BIRSA has told us it is this one. If you started in 2567 (2024), check with the Registrar's Office before relying on this plan.",
           th: "ไม่มีเอกสารเผยแพร่ระบุว่านักศึกษารหัส 67 ใช้หลักสูตรใด BIRSA แจ้งว่าเป็นหลักสูตรนี้ หากท่านเข้าศึกษาในปีการศึกษา 2567 โปรดตรวจสอบกับสำนักงานทะเบียนก่อนใช้แผนนี้",
         },
+        // Cohort 66's mapping to this version IS printed (BIR_64_rev66.pdf,
+        // page 1); telling a cohort-66 student that "no published document"
+        // covers their cohort would be false for them, and noise on the one
+        // screen whose entire purpose is to be worth reading.
+        cohorts: ["67"],
       },
       {
         id: "total-never-printed",

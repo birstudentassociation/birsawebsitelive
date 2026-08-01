@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { resolveCohort } from "@/content/curriculum";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import Notice from "@/components/Notice";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
-import CurriculumConfirmForm from "@/components/study-plan/CurriculumConfirmForm";
+import CurriculumConfirmForm from "@/components/forms/CurriculumConfirmForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft, submitCurriculumStep } from "../actions";
@@ -47,6 +47,7 @@ export default async function StudyPlanCurriculumPage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
+  const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const copy = buildStudyPlanCopy(locale);
 
@@ -116,11 +117,12 @@ export default async function StudyPlanCurriculumPage({
             ) : null}
           </div>
 
-          <InferenceNotice version={version} locale={locale} />
+          <InferenceNotice version={version} cohortCode={mapping.code} locale={locale} />
 
           <CurriculumConfirmForm
             action={submitCurriculumStep.bind(null, locale)}
             legend={copy.curriculum.legend}
+            requiredLabel={dict.actions.required}
             yesLabel={copy.curriculum.yes}
             noLabel={copy.curriculum.no}
             errorSummaryTitle={copy.errorSummaryTitle}
