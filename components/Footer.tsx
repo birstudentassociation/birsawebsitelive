@@ -130,6 +130,9 @@ export default function Footer({ locale }: FooterProps) {
             <Link href={localeHref(locale, "/privacy")} className="hover:text-brand-deep">
               {dict.footer.privacy}
             </Link>
+            <Link href={localeHref(locale, "/privacy/cookies")} className="hover:text-brand-deep">
+              {dict.footer.cookies}
+            </Link>
             <Link href={localeHref(locale, "/emergency")} className="hover:text-brand-deep">
               {dict.footer.emergency}
             </Link>

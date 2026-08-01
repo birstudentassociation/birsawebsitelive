@@ -7,6 +7,7 @@ import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
+import CollectionNotice from "@/components/forms/CollectionNotice";
 import { formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { getLoanDraft, submitNameStep } from "../actions";
 import { LOAN_STEPS } from "../steps";
@@ -72,6 +73,7 @@ export default async function LoanRequestNamePage({
               autoComplete: "name",
             }}
           />
+          <CollectionNotice activityId="equipment-loan" locale={locale} />
         </div>
       </div>
     </>

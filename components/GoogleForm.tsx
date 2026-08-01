@@ -1,5 +1,6 @@
+import Link from "next/link";
 import ExternalLink from "@/components/ExternalLink";
-import type { Locale } from "@/lib/i18n";
+import { localeHref, type Locale } from "@/lib/i18n";
 
 const copy = {
   en: {
@@ -7,12 +8,16 @@ const copy = {
     fallback: "If the form doesn't load,",
     openLink: "open it in a new tab",
     newTab: "opens in a new tab",
+    dataNotice: "This is a Google Form, not a BIRSA form. What you type goes straight to Google and to whoever set the form up, not to this site.",
+    dataNoticeLink: "Read more in the privacy notice",
   },
   th: {
     defaultTitle: "แบบฟอร์มลงทะเบียน",
     fallback: "หากแบบฟอร์มไม่แสดง",
     openLink: "เปิดในแท็บใหม่",
     newTab: "เปิดในแท็บใหม่",
+    dataNotice: "นี่คือ Google Form ไม่ใช่แบบฟอร์มของ BIRSA สิ่งที่คุณกรอกจะส่งตรงไปยัง Google และผู้สร้างแบบฟอร์ม ไม่ผ่านเว็บไซต์นี้",
+    dataNoticeLink: "อ่านเพิ่มเติมในประกาศความเป็นส่วนตัว",
   },
 } as const;
 
@@ -49,6 +54,13 @@ export default function GoogleForm({ src, title, height = 1100, locale = "en" }:
 
   return (
     <div className="my-6">
+      <p className="text-muted mb-3 text-sm">
+        {t.dataNotice}{" "}
+        <Link href={localeHref(locale, "/privacy")} className="text-brand-deep font-semibold">
+          {t.dataNoticeLink}
+        </Link>
+        .
+      </p>
       <div className="border-line bg-sunken overflow-hidden rounded-lg border">
         <iframe
           src={embedSrc}

@@ -523,6 +523,77 @@ export function renderContact(i: {
   };
 }
 
+/**
+ * `/privacy/your-data`: a reader exercising a PDPA right (sections 30 to 36,
+ * 19 or 73). The subject and opening line always name the section and the
+ * date section 30 requires an answer by, so this can never be mistaken for
+ * an ordinary contact message that happens to sit in the same inbox.
+ */
+export function renderRightsRequest(i: {
+  name: string;
+  email: string;
+  rightNameEn: string;
+  rightNameTh: string;
+  section: string;
+  details?: string | null;
+  deadlineEn: string;
+  deadlineTh: string;
+}): RenderedEmail {
+  const name = escapeHtml(i.name);
+  const email = escapeHtml(i.email);
+  const rightEn = escapeHtml(i.rightNameEn);
+  const rightTh = escapeHtml(thName(i.rightNameTh, i.rightNameEn));
+  const section = escapeHtml(i.section);
+  const deadlineEn = escapeHtml(i.deadlineEn);
+  const deadlineTh = escapeHtml(i.deadlineTh);
+  const details = i.details && i.details.trim().length > 0 ? escapeHtmlMultiline(i.details) : null;
+
+  const rowsTh: InfoRow[] = [
+    { label: "สิทธิที่ขอใช้", value: `${rightTh} (มาตรา ${section})` },
+    { label: "จาก", value: `${name} (${email})` },
+    { label: "ต้องตอบภายในวันที่", value: deadlineTh },
+  ];
+  const rowsEn: InfoRow[] = [
+    { label: "Right requested", value: `${rightEn} (section ${section})` },
+    { label: "From", value: `${name} (${email})` },
+    { label: "Respond by", value: deadlineEn },
+  ];
+
+  const bodyHtml =
+    heading("คำร้องตามสิทธิ PDPA ของคุณ &middot; A PDPA data rights request") +
+    badge(`มาตรา ${section} &middot; Section ${section}`, "warning") +
+    bilingualBlock({
+      th:
+        paragraph(
+          `มีคำร้องเกี่ยวกับข้อมูลส่วนบุคคลใหม่ผ่านเว็บไซต์ ยื่นภายใต้มาตรา ${section} แห่งพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 ต้องตอบกลับภายในวันที่ ${deadlineTh}:`
+        ) +
+        infoTable(rowsTh) +
+        (details ? paragraph(details) : ""),
+      en:
+        paragraph(
+          `A new data rights request was submitted through the website, made under section ${section} of the Personal Data Protection Act B.E. 2562. It must be answered by ${deadlineEn}:`
+        ) +
+        infoTable(rowsEn) +
+        (details ? paragraph(details) : ""),
+    });
+
+  return {
+    subject: `[BIRSA][PDPA มาตรา ${section}] คำร้องสิทธิข้อมูลส่วนบุคคล ตอบภายใน ${deadlineTh} · Data rights request, section ${section}, respond by ${deadlineEn}`,
+    html: renderLayout({
+      previewText: `PDPA section ${i.section} request from ${i.name}. Respond by ${i.deadlineEn}.`,
+      bodyHtml,
+    }),
+    text: [
+      `A new data rights request was submitted through the website.`,
+      `Made under section ${i.section} of the Personal Data Protection Act B.E. 2562.`,
+      `Must be answered by ${i.deadlineEn}.`,
+      `Right requested: ${i.rightNameEn}`,
+      `From: ${i.name} (${i.email})`,
+      ...(details ? ["", `Details: ${i.details}`] : []),
+    ].join("\n"),
+  };
+}
+
 export function renderStartClub(i: {
   name: string;
   email: string;

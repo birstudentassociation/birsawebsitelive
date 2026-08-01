@@ -5,11 +5,10 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
-import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
-import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
-import { getContactDraft, submitNameStep } from "../actions";
-import { CONTACT_STEPS } from "../steps";
+import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
+import { getRightsDraft, submitNameStep } from "../actions";
+import { RIGHTS_STEPS } from "../steps";
 
 export async function generateMetadata({
   params,
@@ -19,11 +18,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
-  return buildMetadata({ locale, title, description: title, path: "/contact/name" });
+  const title = locale === "th" ? "ยื่นคำร้องเกี่ยวกับข้อมูลของคุณ" : "Ask about your data";
+  return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/name" });
 }
 
-export default async function ContactNamePage({
+export default async function RightsNamePage({
   params,
   searchParams,
 }: {
@@ -35,14 +34,14 @@ export default async function ContactNamePage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
-  const wizard = buildContactWizardLabels(locale);
+  const wizard = buildRightsWizardLabels(locale);
   const { returnTo } = await searchParams;
 
-  const draft = await getContactDraft();
-  const backHref = localeHref(locale, returnTo === "check" ? "/contact/check" : "/contact/message");
+  const draft = await getRightsDraft();
+  const backHref = localeHref(locale, returnTo === "check" ? "/privacy/your-data/check" : "/privacy/your-data/what");
   const progress = returnTo === "check"
     ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("name") + 1, CONTACT_STEPS.length);
+    : formatStepOf(chrome.stepOf, RIGHTS_STEPS.indexOf("name") + 1, RIGHTS_STEPS.length);
 
   return (
     <>
@@ -65,7 +64,6 @@ export default async function ContactNamePage({
               autoComplete: "name",
             }}
           />
-          <CollectionNotice activityId="contact-message" locale={locale} />
         </div>
       </div>
     </>

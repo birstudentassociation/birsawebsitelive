@@ -6,6 +6,7 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import CollectionNotice from "@/components/forms/CollectionNotice";
 import type { FeedbackState } from "@/app/[lang]/feedback/actions";
 import { feedbackCopy, RATING_ORDER } from "@/components/feedback/feedbackCopy";
 import type { Locale } from "@/lib/i18n";
@@ -173,6 +174,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
           maxLength={1200}
         />
         <p className="text-muted text-sm">{t.privacyWarning}</p>
+        <CollectionNotice activityId="feedback" locale={locale} />
       </div>
 
       <div>

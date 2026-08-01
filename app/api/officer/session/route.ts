@@ -66,7 +66,6 @@ export async function POST(request: Request) {
     action: "officer.login",
     entityType: "officer",
     entityId: officer.id,
-    detail: { email: officer.email },
   });
 
   return response;

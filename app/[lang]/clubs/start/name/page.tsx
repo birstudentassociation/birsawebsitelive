@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
+import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
 import { getStartClubDraft, submitStartClubNameStep } from "../actions";
@@ -67,6 +68,7 @@ export default async function StartClubNamePage({
               autoComplete: "name",
             }}
           />
+          <CollectionNotice activityId="club-proposal" locale={locale} />
         </div>
       </div>
     </>

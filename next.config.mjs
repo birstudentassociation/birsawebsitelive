@@ -20,6 +20,14 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  /**
+   * Normally `.next`. Overridable so a second Next process (an agent
+   * verifying a change, a scratch production build) can run against this
+   * checkout without fighting an already-running dev server over the same
+   * build directory, which on Windows corrupts the shared manifests and
+   * produces confusing JSON parse errors on every route.
+   */
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   reactStrictMode: true,
   poweredByHeader: false,
   images: {

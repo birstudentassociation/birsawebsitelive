@@ -54,3 +54,18 @@ create index if not exists satisfaction_feedback_created_at_idx
 -- Lets the officer console group or filter feedback by the page it came from.
 create index if not exists satisfaction_feedback_source_path_idx
   on satisfaction_feedback (source_path);
+
+-- Enforced retention (PDPA s.37(3)): one row per daily purge run, evidence
+-- that personal data past its retention period is actually checked for and
+-- deleted, not just promised in the privacy notice. See
+-- lib/privacy/retention.ts and db/migrations/012_retention.sql, which this
+-- table mirrors.
+
+create table if not exists purge_log (
+  id uuid primary key default gen_random_uuid(),
+  ran_at timestamptz not null default now(),
+  counts jsonb not null
+);
+
+create index if not exists purge_log_ran_at_idx
+  on purge_log (ran_at desc);

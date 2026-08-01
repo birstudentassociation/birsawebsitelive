@@ -174,4 +174,6 @@ export type Loan = {
   conditionOut: UnitCondition | null;
   conditionIn: UnitCondition | null;
   createdAt: string;
+  /** When the loan closed (returned, rejected, or cancelled). Null while the loan is still open. Drives the two-year retention clock in lib/privacy/retention.ts. */
+  closedAt: string | null;
 };

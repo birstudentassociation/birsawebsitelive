@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     action: "officer.create",
     entityType: "officer",
     entityId: result.officer.id,
-    detail: { email: result.officer.email, role: result.officer.role },
+    detail: { role: result.officer.role },
   });
 
   return NextResponse.json({ ok: true, officer: result.officer }, { status: 200 });

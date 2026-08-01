@@ -44,6 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/services/equipment-loan/status",
       "/standards",
       "/privacy",
+      "/privacy/cookies",
+      "/privacy/processing-record",
+      // Entry point only, matching /contact and /clubs/start: the step pages
+      // of a form journey are not worth indexing on their own.
+      "/privacy/your-data",
     ];
 
     for (const path of staticPaths) {

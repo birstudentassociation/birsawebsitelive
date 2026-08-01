@@ -7,6 +7,13 @@
  * an explicit `{ ok: false, reason: "not-configured" }` rather than
  * throwing, so the site stays buildable and renderable with zero
  * environment configuration.
+ *
+ * Every function here that closes a loan (rejection in decideLoan, return in
+ * checkinLoan, cancellation in cancelLoan) sets `closed_at`, which starts
+ * the two-year retention clock in lib/privacy/retention.ts. There is no
+ * `no_show` transition function yet, but `no_show` is a terminal status
+ * (db/migrations/005_loans.sql) that retention.ts already treats as closed;
+ * if a no-show transition is ever added here, it must set `closed_at` too.
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import type { Loan, LoanStatus, TrackingMode, UnitCondition } from "@/lib/inventory/types";
@@ -35,6 +42,7 @@ type LoanRow = {
   condition_out: UnitCondition | null;
   condition_in: UnitCondition | null;
   created_at: string;
+  closed_at: string | null;
 };
 
 function mapRow(row: LoanRow): Loan {
@@ -58,6 +66,7 @@ function mapRow(row: LoanRow): Loan {
     conditionOut: row.condition_out,
     conditionIn: row.condition_in,
     createdAt: row.created_at,
+    closedAt: row.closed_at,
   };
 }
 
@@ -354,9 +363,11 @@ export async function decideLoan(input: {
     }
 
     if (input.decision === "rejected") {
+      // closed_at starts the two-year retention clock (lib/privacy/retention.ts);
+      // a rejected loan is closed the moment it's rejected.
       const result = await sql<LoanRow>`
         update loans
-        set status = 'rejected', decided_by = ${input.officerId}, decided_at = now()
+        set status = 'rejected', decided_by = ${input.officerId}, decided_at = now(), closed_at = now()
         where id = ${input.id} and status = 'pending'
         returning *
       `;
@@ -467,10 +478,12 @@ export async function checkinLoan(input: {
       return { ok: false, reason: "invalid-state" };
     }
 
+    // closed_at starts the two-year retention clock (lib/privacy/retention.ts);
+    // a returned loan is closed the moment it's checked back in.
     const result = await sql<LoanRow>`
       update loans
       set status = 'returned', checked_in_by = ${input.officerId}, checked_in_at = now(),
-          condition_in = ${input.conditionIn ?? null}
+          condition_in = ${input.conditionIn ?? null}, closed_at = now()
       where id = ${input.id} and status in ('checked_out', 'overdue')
       returning *
     `;
@@ -519,9 +532,11 @@ export async function cancelLoan(input: {
       return { ok: false, reason: "invalid-state" };
     }
 
+    // closed_at starts the two-year retention clock (lib/privacy/retention.ts);
+    // a cancelled loan is closed the moment it's cancelled.
     const result = await sql<LoanRow>`
       update loans
-      set status = 'cancelled'
+      set status = 'cancelled', closed_at = now()
       where id = ${input.id} and status in ('pending', 'approved')
       returning *
     `;

@@ -9,6 +9,7 @@
  * reveal that a honeypot exists.
  */
 import { z } from "zod";
+import { dataRights } from "@/content/privacy/register";
 
 const honeypot = z.string().max(0, "Leave this field empty").optional().or(z.literal(""));
 
@@ -109,3 +110,22 @@ export const feedbackSchema = z.object({
 });
 
 export type FeedbackInput = z.infer<typeof feedbackSchema>;
+
+/**
+ * The `/privacy/your-data` journey, through which a reader exercises a PDPA
+ * right (sections 30 to 36, 19 and 73). `right` is validated against the ids
+ * in `content/privacy/register.ts` (`dataRights`) rather than a separate
+ * hardcoded list, so a right can never be requested here that the register
+ * does not also document.
+ */
+const RIGHTS_IDS = dataRights.map((right) => right.id) as [string, ...string[]];
+
+export const rightsRequestSchema = z.object({
+  right: z.enum(RIGHTS_IDS),
+  name: z.string().min(1).max(100),
+  email: z.string().email().max(200),
+  details: z.string().max(2000).optional().or(z.literal("")),
+  nickname: honeypot,
+});
+
+export type RightsRequestInput = z.infer<typeof rightsRequestSchema>;

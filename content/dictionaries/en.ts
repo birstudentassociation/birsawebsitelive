@@ -142,6 +142,7 @@ export const en = {
     officialLinks: "Official links",
     accessibility: "Accessibility",
     privacy: "Privacy",
+    cookies: "Cookies",
     standards: "How this site works",
     emergency: "Emergency guidance",
     openInfo:

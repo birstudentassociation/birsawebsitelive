@@ -232,6 +232,7 @@ const pendingLoan: Loan = {
   conditionOut: null,
   conditionIn: null,
   createdAt: NOW,
+  closedAt: null,
 };
 
 const checkedOutLoan: Loan = {

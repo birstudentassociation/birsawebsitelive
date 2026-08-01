@@ -142,6 +142,7 @@ export const th: typeof en = {
     officialLinks: "ลิงก์ทางการ",
     accessibility: "การเข้าถึง",
     privacy: "ความเป็นส่วนตัว",
+    cookies: "คุกกี้",
     standards: "เว็บไซต์นี้ทำงานอย่างไร",
     emergency: "คำแนะนำฉุกเฉิน",
     openInfo:

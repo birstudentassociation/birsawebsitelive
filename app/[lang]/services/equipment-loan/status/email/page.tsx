@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import StatusLookup from "@/components/equipment/StatusLookup";
+import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { getLoanStatusDraft, resetLoanStatusDraft, submitLookupStep } from "../actions";
 import { LOAN_STATUS_STEPS } from "../steps";
@@ -61,6 +62,7 @@ export default async function LoanStatusEmailPage({ params }: { params: Promise<
             resetAction={resetLoanStatusDraft.bind(null, locale)}
             defaultEmail={draft.email}
           />
+          <CollectionNotice activityId="loan-status" locale={locale} />
         </div>
       </div>
     </>

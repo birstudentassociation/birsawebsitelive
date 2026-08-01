@@ -19,6 +19,7 @@ import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Notice from "@/components/Notice";
+import CollectionNotice from "@/components/forms/CollectionNotice";
 import type { Locale } from "@/lib/i18n";
 import { submitOfficerLogin, type OfficerLoginState } from "@/app/[lang]/officer/inventory/actions";
 
@@ -195,6 +196,7 @@ function InteractiveOfficerLogin({ locale }: OfficerLoginProps) {
           error={emailInvalid ? (error ?? undefined) : undefined}
           autoComplete="username"
         />
+        <CollectionNotice activityId="officer-account" locale={locale} className="-mt-3" />
 
         <Field
           id={passcodeId}
@@ -302,6 +304,7 @@ function OfficerLoginFallback({ locale }: OfficerLoginProps) {
           error={emailInvalid ? (error ?? undefined) : undefined}
           autoComplete="username"
         />
+        <CollectionNotice activityId="officer-account" locale={locale} className="-mt-3" />
 
         <Field
           id={passcodeId}

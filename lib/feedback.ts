@@ -80,9 +80,10 @@ export async function submitFeedback(input: SubmitFeedbackInput): Promise<boolea
 
 // Caps the on-screen recent-comments list so the officer console never loads
 // an unbounded result set into a client-paginated table (mirrors
-// lib/inventory/borrowers.ts, which loads its full list client-side too). The
-// CSV export below is deliberately NOT capped: the Service Manual expects
-// teams to be able to download all of their feedback.
+// lib/inventory/borrowers.ts, which loads its full list client-side too).
+// The CSV export below uses the same cap: the comment column is unmoderated
+// free text a visitor could have typed anything into, so this site holds no
+// more of it than it has to, per the data-minimisation audit.
 const RECENT_LIMIT = 500;
 
 /** Most recent feedback responses, newest first, capped at RECENT_LIMIT. For the officer console's on-screen list; see `feedbackCsv` for the uncapped export. */
@@ -181,11 +182,12 @@ const FEEDBACK_CSV_HEADER = ["rating", "comment", "locale", "path", "submittedAt
 
 /**
  * Every feedback response as a CSV file, oldest first (natural reading
- * order for a downloaded log), for the officer console's export link. Never
- * capped: the Service Manual expects teams to be able to download all of
- * their feedback. Returns a header-only string when the database isn't
- * configured or the query fails, so the download link always produces a
- * valid (if empty) file rather than an error page.
+ * order for a downloaded log), for the officer console's export link.
+ * Capped at RECENT_LIMIT, the same cap as `listRecentFeedback`, so the
+ * export cannot hold more unmoderated free text than the on-screen list
+ * does. Returns a header-only string when the database isn't configured or
+ * the query fails, so the download link always produces a valid (if empty)
+ * file rather than an error page.
  */
 export async function feedbackCsv(): Promise<string> {
   if (!isFeedbackConfigured()) {
@@ -193,8 +195,12 @@ export async function feedbackCsv(): Promise<string> {
   }
   try {
     const result = await sql<FeedbackRow>`
-      select id, rating, comment, locale, source_path, created_at
-      from satisfaction_feedback
+      select * from (
+        select id, rating, comment, locale, source_path, created_at
+        from satisfaction_feedback
+        order by created_at desc
+        limit ${RECENT_LIMIT}
+      ) recent
       order by created_at asc
     `;
     const rows = result.rows.map((row) => [

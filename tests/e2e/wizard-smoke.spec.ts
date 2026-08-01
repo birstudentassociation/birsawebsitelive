@@ -36,6 +36,7 @@ const journeyEntryPoints = [
   "/en/contact?category=problem&from=%2Fen",
   "/en/services/equipment-loan/status",
   "/en/clubs/start",
+  "/en/privacy/your-data",
 ];
 
 test.describe("wizard entry points render for a first-time visitor", () => {

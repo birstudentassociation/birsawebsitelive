@@ -5,11 +5,10 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
-import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
-import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
-import { getContactDraft, submitNameStep } from "../actions";
-import { CONTACT_STEPS } from "../steps";
+import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
+import { getRightsDraft, submitEmailStep } from "../actions";
+import { RIGHTS_STEPS } from "../steps";
 
 export async function generateMetadata({
   params,
@@ -19,11 +18,11 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
-  return buildMetadata({ locale, title, description: title, path: "/contact/name" });
+  const title = locale === "th" ? "ยื่นคำร้องเกี่ยวกับข้อมูลของคุณ" : "Ask about your data";
+  return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/email" });
 }
 
-export default async function ContactNamePage({
+export default async function RightsEmailPage({
   params,
   searchParams,
 }: {
@@ -35,37 +34,38 @@ export default async function ContactNamePage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
-  const wizard = buildContactWizardLabels(locale);
+  const wizard = buildRightsWizardLabels(locale);
   const { returnTo } = await searchParams;
 
-  const draft = await getContactDraft();
-  const backHref = localeHref(locale, returnTo === "check" ? "/contact/check" : "/contact/message");
+  const draft = await getRightsDraft();
+  const backHref = localeHref(locale, returnTo === "check" ? "/privacy/your-data/check" : "/privacy/your-data/name");
   const progress = returnTo === "check"
     ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("name") + 1, CONTACT_STEPS.length);
+    : formatStepOf(chrome.stepOf, RIGHTS_STEPS.indexOf("email") + 1, RIGHTS_STEPS.length);
 
   return (
     <>
-      <PageHeader title={wizard.nameHeading} />
+      <PageHeader title={wizard.emailHeading} />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
-            action={submitNameStep.bind(null, locale, returnTo)}
+            action={submitEmailStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
             errorSummaryTitle={dict.form.errorSummaryTitle}
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
-              name: "name",
-              label: dict.form.yourName,
+              name: "email",
+              type: "email",
+              label: dict.form.email,
+              hint: dict.form.emailHint,
               required: true,
               requiredLabel: dict.actions.required,
-              defaultValue: draft.name,
-              autoComplete: "name",
+              defaultValue: draft.email,
+              autoComplete: "email",
             }}
           />
-          <CollectionNotice activityId="contact-message" locale={locale} />
         </div>
       </div>
     </>
