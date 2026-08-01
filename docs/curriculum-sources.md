@@ -5,15 +5,16 @@ record: what each document is, how it was retrieved, and every contradiction
 found across them. Every fact in `content/curriculum/*` cites one of these
 documents by id (see `content/curriculum/sources.ts`).
 
-Thai text extraction degraded in all three large documents (`mko2561`,
-`handbook2021`, and `comparison2568`). Any Thai passage quoted from those
-three in this record, or anywhere downstream, is unverified and should be
-checked against the source PDF before it is relied on.
+Thai text extraction degraded in the three documents extracted with
+`pdftotext -layout` (`handbook2021`, `doubleDegree64`, and `comparison2568`),
+which dropped glyphs and ligatures from the Thai font. Any Thai passage
+quoted from those three in this record, or anywhere downstream, is
+unverified and should be checked against the source PDF before it is relied
+on. `mko2561` was extracted with pdfplumber instead and its Thai came out
+clean; it is the only source this record has reliable Thai course titles
+from.
 
-Exact page counts were not captured during the crawl for most documents; where
-a page count is not known it is marked "not recorded" below rather than
-guessed at. The one page count stated in the design spec (`comparison2568`,
-358 pages) is recorded as such.
+Page counts below are confirmed by the crawlers that read each document.
 
 ## Sources
 
@@ -22,7 +23,7 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/Sample_Study_Plan.pdf
 - What it is: the recommended term-by-term study plan for the 2561 curriculum,
   mostly a table of course codes and placeholders.
-- Page count: not recorded.
+- Page count: 1 page.
 - Extraction: PDF text extraction (English course codes and titles, Thai
   headings).
 - Contradictions: item 7 (major requirements stated as 94 in the structure
@@ -36,7 +37,7 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/Outline_BIR_Curr_2018.pdf
 - What it is: the structural outline of the 2561 curriculum, credit
   categories and their totals.
-- Page count: not recorded.
+- Page count: 4 pages.
 - Extraction: PDF text extraction.
 - Contradictions: item 7 (major requirements 94 here against 91 in the course
   listing), item 8 (`EE214` titled "Introductory Microeconomics" here, as in
@@ -47,7 +48,7 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_Curr2018_CourseDescription.pdf
 - What it is: the full course catalogue for the 2561 curriculum, one entry
   per course with description and credit weight.
-- Page count: not recorded.
+- Page count: 18 pages.
 - Extraction: PDF text extraction.
 - Contradictions: item 8 (`EE214` titled "Introductory Macroeconomics" here;
   this document takes precedence per item 8's resolution), item 9 (`TU100`
@@ -58,10 +59,10 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_%E0%B8%A1%E0%B8%84%E0%B8%AD_2561.pdf?v=202012190947
 - What it is: the official มคอ.2 curriculum specification document for the
   2561 curriculum, filed with the ministry. Large, mostly Thai.
-- Page count: not recorded. One of the three large documents whose Thai
-  extraction degraded; see the note at the top of this file.
-- Extraction: PDF text extraction; Thai text quality degraded, English course
-  codes and numeric fields generally intact.
+- Page count: 103 pages.
+- Extraction: extracted with pdfplumber rather than `pdftotext -layout`; its
+  Thai text came out clean. This is the only source in this record with
+  reliable Thai course titles; see the note at the top of this file.
 - Contradictions: item 10 (`PI574`'s title, taken as authoritative here per
   item 10's resolution, differs from its title in the other two 2561
   documents), item 12 (shows a Year 4 Semester 2 at 9 credits, where the 2564
@@ -70,10 +71,9 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 ### BIR Academic Handout, Curriculum 2021 (B.E. 2564), รหัส 64, 65 — `bir64`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_64.pdf?v=202305101549
-- What it is: the two-page student handout for the 2564 curriculum: sample
-  plan, credit categories, and totals. Governs cohorts 64 and 65.
-- Page count: not recorded (described in the design spec as "two pages of
-  tables").
+- What it is: the student handout for the 2564 curriculum: sample plan,
+  credit categories, and totals. Governs cohorts 64 and 65.
+- Page count: 7 pages.
 - Extraction: PDF text extraction.
 - Contradictions: item 4 (the 127 graduation total is never printed as a
   single figure here; it is reached by summing 30, 91 and 6), item 11
@@ -88,7 +88,7 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
   general education courses with new code families (`EL`, `LAS`, `PD`).
   Governs cohort 66, and cohort 67 by attestation (item 5). Also used as the
   basis for the inferred 2568 sequence (item 1).
-- Page count: not recorded.
+- Page count: 7 pages.
 - Extraction: PDF text extraction.
 - Contradictions: item 4 (same 127-total-as-sum issue as `bir64`), item 5
   (cohort 67's mapping to this revision is attested by BIRSA, not printed
@@ -100,38 +100,45 @@ guessed at. The one page count stated in the design spec (`comparison2568`,
 - What it is: the full student handbook, of which the curriculum chapter is
   one part; also the source of the academic rules (credit limits, GPA,
   semester minimums, the seven-year limit). Large, mixed English and Thai.
-- Page count: not recorded. One of the three large documents whose Thai
-  extraction degraded; see the note at the top of this file.
-- Extraction: PDF text extraction; Thai text quality degraded in places,
-  particularly in narrative sections rather than tables.
+- Page count: 55 pages (54 printed page numbers).
+- Extraction: `pdftotext -layout`; Thai text quality degraded, dropping
+  glyphs and ligatures. See the note at the top of this file.
 - Contradictions: item 14 (the 2561 free elective rule is grammatically
   broken in the source text; 2561 only, record only).
 
 ### BIR Double Degree, curriculum revision B.E. 2564 — `doubleDegree64`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_DoubleDegree_64.pdf?v=202012190947
-- What it is: the double degree route definitions for the 2564 revision,
-  covering five routes across three partner institutions. Out of scope for
-  this service; double degree students are routed to the stop page.
-- Page count: not recorded.
-- Extraction: PDF text extraction.
+- What it is: despite its filename, not a double-degree leaflet. It is the
+  full มคอ.2 programme specification for the 2564 curriculum revision, and is
+  the authoritative 2564 source. It happens to define three routes, two of
+  them with Meiji University, alongside the single-degree route. The double
+  degree routes are out of scope for this service; double degree students are
+  routed to the stop page.
+- Page count: 150 pages.
+- Extraction: `pdftotext -layout`; Thai text quality degraded, dropping
+  glyphs and ligatures. See the note at the top of this file.
 - Contradictions: not part of the section 9 list. Recorded separately in the
   design spec's scope section: the Aberystwyth and Bristol routes are counted
   in UK module credits that do not compare to Thai credits, and the Meiji
   route 3 total is given as 162, 142 and 144 in three different places within
-  this document and its companions.
+  this document and its companions. Within this document alone, its own
+  internal figures for Meiji route 3 already contradict each other: 162 in
+  the structure table against 142 in the graduation requirements section; the
+  third figure (144) comes from elsewhere.
 
 ### Curriculum comparison, B.E. 2564 against B.E. 2568 — `comparison2568`
 
 - URL: https://image.makewebcdn.com/makeweb/0/fAusajSlU/Document/68_2025.pdf?v=202405291424
-- What it is: a side-by-side comparison of the 2564 and 2568 curricula. The
-  2568 curriculum has no published study plan handout of its own; this
-  document is the only source for its credit structure, and it contains no
-  sample plan.
-- Page count: 358 pages. One of the three large documents whose Thai
-  extraction degraded; see the note at the top of this file.
-- Extraction: PDF text extraction; Thai text quality degraded, English course
-  codes and numeric fields generally intact.
+- What it is: a side-by-side comparison of the 2564 and 2568 curricula, not a
+  standalone programme specification. The 2568 curriculum has no published
+  study plan handout of its own, and this document contains no sample plan
+  either; it is the only source for the 2568 credit structure, but not for
+  its sequence. That absence is the reason the 2568 version has to borrow its
+  term sequence from `bir64rev66`, which Task 4 encodes.
+- Page count: 358 pages.
+- Extraction: `pdftotext -layout`; Thai text quality degraded, dropping
+  glyphs and ligatures. See the note at the top of this file.
 - Contradictions: item 1 (no sample plan for 2568; the semester sequence is
   inferred from `bir64rev66` instead), item 3 (with `PI574` at 3 credits from
   2568 onward, the stated concentration-required total of 18 only balances if
