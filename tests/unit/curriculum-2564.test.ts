@@ -115,6 +115,38 @@ describe("curriculum2564", () => {
     }
   });
 
+  it("has the expected number of courses in every category", () => {
+    const expected: Record<string, number> = {
+      genEdPart1: 8,
+      genEdPart2: 4,
+      core: 10,
+      concentrationRequired: 7,
+      economics: 1,
+      concentrationElectiveArea: 12,
+      concentrationElectiveApproaches: 13,
+      minor: 40,
+      freeElective: 0,
+    };
+    const actual: Record<string, number> = {};
+    for (const course of curriculum2564.courses.value) {
+      actual[course.category] = (actual[course.category] ?? 0) + 1;
+    }
+    for (const [category, count] of Object.entries(expected)) {
+      expect(actual[category] ?? 0, category).toBe(count);
+    }
+  });
+
+  it("has the expected number of electives in each minor", () => {
+    const expected: Record<string, number> = {
+      governance: 11,
+      publicAdministration: 9,
+      globalPoliticalEconomy: 11,
+    };
+    for (const minor of curriculum2564.minors) {
+      expect(minor.electives.length, minor.id).toBe(expected[minor.id]);
+    }
+  });
+
   it("applies the handbook credit-load rules", () => {
     expect(curriculum2564.rules.value.minCreditsRegularTerm).toBe(9);
     expect(curriculum2564.rules.value.maxCreditsRegularTerm).toBe(21);
