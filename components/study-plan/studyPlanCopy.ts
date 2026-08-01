@@ -95,6 +95,54 @@ export type StudyPlanCopy = {
     hint: string;
     notTakenLabel: string;
   };
+  plan: {
+    title: string;
+    hint: string;
+    cohortLabel: string;
+    creditsPlannedLabel: string;
+    projectedGraduationLabel: string;
+    noProjectedGraduation: string;
+    findingsHeading: string;
+    findingsEmpty: string;
+    owedHeading: string;
+    owedCategoryHeader: string;
+    owedEarnedHeader: string;
+    owedRemainingHeader: string;
+    /** Contains "{minor}"; the minor's own name is filled in, never a generic "Minor". */
+    minorRequiredTemplate: string;
+    minorElectiveTemplate: string;
+    minorElectiveOtherTemplate: string;
+    termsHeading: string;
+    /** Contains "{n}"; a term's running credit total. */
+    termCreditsTemplate: string;
+    addCourseLabel: string;
+    addCourseButton: string;
+    noCoursesAvailable: string;
+    removeCourseButton: string;
+    freeElectiveLabel: string;
+    updateFreeElectiveButton: string;
+    creditsUnit: string;
+    printLinkLabel: string;
+    doesNotCheckHeading: string;
+    doesNotCheck: string[];
+  };
+  print: {
+    title: string;
+    generatedOnLabel: string;
+    cohortLabel: string;
+    curriculumLabel: string;
+    minorLabel: string;
+    termsHeading: string;
+    noCoursesInTerm: string;
+    /** Contains "{n}"; the free elective credits recorded for one term. */
+    freeElectiveCreditsTemplate: string;
+    findingsHeading: string;
+    findingsEmpty: string;
+    owedHeading: string;
+    owedCategoryHeader: string;
+    owedEarnedHeader: string;
+    owedRemainingHeader: string;
+  };
 };
 
 export function buildStudyPlanCopy(locale: Locale): StudyPlanCopy {
@@ -199,6 +247,55 @@ const en: StudyPlanCopy = {
     hint: "Your plan holds a slot rather than a named course here. Choose what you actually took, or leave it if you have not taken it yet.",
     notTakenLabel: "I have not taken this yet",
   },
+  plan: {
+    title: "Your plan",
+    hint: "Check this against the rules, fill in the terms ahead of you, and take it to your advisor.",
+    cohortLabel: "Cohort",
+    creditsPlannedLabel: "Credits planned",
+    projectedGraduationLabel: "Projected graduation term",
+    noProjectedGraduation: "Plan at least one term to see a projected graduation term.",
+    findingsHeading: "What we found",
+    findingsEmpty: "We have not found anything to flag in this plan.",
+    owedHeading: "What you still owe",
+    owedCategoryHeader: "Category",
+    owedEarnedHeader: "Earned",
+    owedRemainingHeader: "Remaining",
+    minorRequiredTemplate: "{minor}, required courses",
+    minorElectiveTemplate: "{minor}, elective courses",
+    minorElectiveOtherTemplate: "Electives outside {minor}",
+    termsHeading: "Terms ahead of you",
+    termCreditsTemplate: "{n} credits so far",
+    addCourseLabel: "Add a course",
+    addCourseButton: "Add",
+    noCoursesAvailable: "Every course in the catalogue is already passed or placed in a term.",
+    removeCourseButton: "Remove",
+    freeElectiveLabel: "Free elective credits this term",
+    updateFreeElectiveButton: "Update",
+    creditsUnit: "credits",
+    printLinkLabel: "Print this plan for your advisor",
+    doesNotCheckHeading: "What this does not check",
+    doesNotCheck: [
+      "Whether a course actually runs in the term you have placed it in.",
+      "Anything at the Dean's or your advisor's discretion.",
+      "Anything depending on your GPA.",
+    ],
+  },
+  print: {
+    title: "Study plan",
+    generatedOnLabel: "Generated on",
+    cohortLabel: "Cohort",
+    curriculumLabel: "Curriculum",
+    minorLabel: "Minor",
+    termsHeading: "Terms",
+    noCoursesInTerm: "No courses recorded.",
+    freeElectiveCreditsTemplate: "{n} free elective credits",
+    findingsHeading: "What we found",
+    findingsEmpty: "We have not found anything to flag in this plan.",
+    owedHeading: "What you still owe",
+    owedCategoryHeader: "Category",
+    owedEarnedHeader: "Earned",
+    owedRemainingHeader: "Remaining",
+  },
 };
 
 const th: StudyPlanCopy = {
@@ -293,5 +390,54 @@ const th: StudyPlanCopy = {
     title: "ระบุว่ารายวิชาเหล่านี้คือวิชาใด",
     hint: "แผนของท่านในจุดนี้เป็นช่องว่างสำหรับเลือกวิชา ไม่ใช่วิชาที่ระบุไว้แน่นอน โปรดเลือกวิชาที่ท่านลงทะเบียนจริง หรือเว้นว่างไว้หากยังไม่ได้ลงทะเบียน",
     notTakenLabel: "ยังไม่ได้ลงทะเบียนวิชานี้",
+  },
+  plan: {
+    title: "แผนการศึกษาของท่าน",
+    hint: "โปรดตรวจสอบแผนนี้กับกฎเกณฑ์ กรอกรายวิชาในภาคการศึกษาที่เหลือ แล้วนำไปให้อาจารย์ที่ปรึกษาตรวจสอบ",
+    cohortLabel: "รุ่น",
+    creditsPlannedLabel: "หน่วยกิตที่วางแผนไว้",
+    projectedGraduationLabel: "ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
+    noProjectedGraduation: "โปรดวางแผนอย่างน้อยหนึ่งภาคการศึกษา เพื่อให้ระบบคำนวณภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
+    findingsHeading: "สิ่งที่ตรวจพบ",
+    findingsEmpty: "ระบบไม่พบข้อควรระวังในแผนนี้",
+    owedHeading: "สิ่งที่ท่านยังขาดอยู่",
+    owedCategoryHeader: "หมวดวิชา",
+    owedEarnedHeader: "ผ่านแล้ว",
+    owedRemainingHeader: "ยังขาดอยู่",
+    minorRequiredTemplate: "วิชาโท{minor} วิชาบังคับ",
+    minorElectiveTemplate: "วิชาโท{minor} วิชาเลือก",
+    minorElectiveOtherTemplate: "วิชาเลือกในวิชาโทอื่นนอกจาก{minor}",
+    termsHeading: "ภาคการศึกษาที่เหลืออยู่",
+    termCreditsTemplate: "{n} หน่วยกิตในภาคนี้",
+    addCourseLabel: "เพิ่มรายวิชา",
+    addCourseButton: "เพิ่ม",
+    noCoursesAvailable: "รายวิชาทั้งหมดในหลักสูตรผ่านแล้วหรือถูกจัดไว้ในภาคการศึกษาหนึ่งแล้ว",
+    removeCourseButton: "ลบออก",
+    freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
+    updateFreeElectiveButton: "บันทึก",
+    creditsUnit: "หน่วยกิต",
+    printLinkLabel: "พิมพ์แผนนี้เพื่อนำไปให้อาจารย์ที่ปรึกษา",
+    doesNotCheckHeading: "สิ่งที่บริการนี้ไม่ได้ตรวจสอบ",
+    doesNotCheck: [
+      "วิชาที่ท่านจัดไว้จะเปิดสอนในภาคการศึกษานั้นจริงหรือไม่",
+      "เรื่องใดก็ตามที่อยู่ในดุลยพินิจของคณบดีหรืออาจารย์ที่ปรึกษา",
+      "เรื่องใดก็ตามที่ขึ้นอยู่กับเกรดเฉลี่ยของท่าน",
+    ],
+  },
+  print: {
+    title: "แผนการศึกษา",
+    generatedOnLabel: "จัดทำเมื่อ",
+    cohortLabel: "รุ่น",
+    curriculumLabel: "หลักสูตร",
+    minorLabel: "วิชาโท",
+    termsHeading: "ภาคการศึกษา",
+    noCoursesInTerm: "ไม่มีรายวิชาบันทึกไว้",
+    freeElectiveCreditsTemplate: "วิชาเลือกเสรี {n} หน่วยกิต",
+    findingsHeading: "สิ่งที่ตรวจพบ",
+    findingsEmpty: "ระบบไม่พบข้อควรระวังในแผนนี้",
+    owedHeading: "สิ่งที่ท่านยังขาดอยู่",
+    owedCategoryHeader: "หมวดวิชา",
+    owedEarnedHeader: "ผ่านแล้ว",
+    owedRemainingHeader: "ยังขาดอยู่",
   },
 };

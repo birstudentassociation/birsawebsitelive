@@ -30,10 +30,40 @@ const freeElectiveCreditsSchema = z
   .transform(Number)
   .pipe(z.number().int().min(0).max(60));
 
+/** A single term's free elective credits, capped at 21 per `PlannedCourseTerm`'s schema in plan.ts. */
+const termFreeElectiveCreditsSchema = z
+  .string()
+  .regex(/^\d+$/)
+  .transform(Number)
+  .pipe(z.number().int().min(0).max(21));
+
+/** Course codes are two to four letters then three digits, matching plan.ts's `courseCode` schema. */
+const courseCodeSchema = z.string().regex(/^[A-Z]{2,4}\d{3}$/);
+
 /** Builds a `TermRef` from the draft's saved position, or null if either half is missing. */
 function draftPosition(draft: StudyPlanDraft): TermRef | null {
   if (!draft.positionYear || !draft.positionKind) return null;
   return { year: Number(draft.positionYear), kind: draft.positionKind as TermKind };
+}
+
+/** Reads and validates the `year` / `kind` fields every plan-editing form on `/plan` carries. */
+function parseTermFields(formData: FormData): TermRef | null {
+  const yearResult = yearSchema.safeParse(String(formData.get("year") ?? ""));
+  const kindResult = kindSchema.safeParse(String(formData.get("kind") ?? ""));
+  if (!yearResult.success || !kindResult.success) return null;
+  return { year: Number(yearResult.data), kind: kindResult.data as TermKind };
+}
+
+/** Index of the plan's term entry matching `term`, or -1 if that term has never been touched. */
+function findTermEntryIndex(plan: StudyPlan, term: TermRef): number {
+  return plan.terms.findIndex((t) => t.term.year === term.year && t.term.kind === term.kind);
+}
+
+/** Redirects back to `/plan` carrying `plan` in the query string, exactly as every step before it does. */
+function redirectToPlan(locale: Locale, plan: StudyPlan): never {
+  redirect(
+    `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(plan))}`
+  );
 }
 
 export async function getStudyPlanDraft(): Promise<StudyPlanDraft> {
@@ -241,4 +271,99 @@ export async function submitFillStep(
   redirect(
     `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(plan))}`
   );
+}
+
+/**
+ * Adds one course to one term. Bound with `.bind(null, locale)` for use as a
+ * plain `<form action>` on `/plan` (no `useActionState`: there is nothing to
+ * report back, only the plan to carry forward, exactly like
+ * `resetLoanStatusDraft`).
+ *
+ * Silently no-ops on a malformed `year`/`kind`/`code`, or on a code already
+ * passed or already placed somewhere in the plan, rather than surfacing an
+ * error: the form's own `<select>` only ever offers courses that are valid
+ * to add, so reaching this branch means the hidden fields were tampered
+ * with, not that the student made a mistake worth telling them about.
+ */
+export async function addCourseToTerm(locale: Locale, formData: FormData): Promise<void> {
+  const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!current) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+
+  const term = parseTermFields(formData);
+  const codeResult = courseCodeSchema.safeParse(String(formData.get("code") ?? ""));
+
+  let terms = current.terms;
+  if (term && codeResult.success) {
+    const code = codeResult.data;
+    const alreadyPlaced =
+      current.passed.includes(code) || current.terms.some((t) => t.codes.includes(code));
+    if (!alreadyPlaced) {
+      const index = findTermEntryIndex(current, term);
+      terms =
+        index === -1
+          ? [...current.terms, { term, codes: [code], freeElectiveCredits: 0 }]
+          : current.terms.map((t, i) => (i === index ? { ...t, codes: [...t.codes, code] } : t));
+    }
+  }
+
+  redirectToPlan(locale, { ...current, terms });
+}
+
+/**
+ * Removes one course from one term. The remove form on `/plan` puts every
+ * placed course's code on its own submit button
+ * (`<button name="code" value={code}>`), so only the clicked course's code
+ * ever reaches `formData`.
+ */
+export async function removeCourseFromTerm(locale: Locale, formData: FormData): Promise<void> {
+  const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!current) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+
+  const term = parseTermFields(formData);
+  const code = String(formData.get("code") ?? "");
+
+  let terms = current.terms;
+  if (term && code) {
+    const index = findTermEntryIndex(current, term);
+    if (index !== -1) {
+      terms = current.terms.map((t, i) =>
+        i === index ? { ...t, codes: t.codes.filter((c) => c !== code) } : t
+      );
+    }
+  }
+
+  redirectToPlan(locale, { ...current, terms });
+}
+
+/**
+ * Sets one term's free elective credit count. Its own action, separate from
+ * `addCourseToTerm`, because a free elective may be any Thammasat University
+ * course and so is tracked as a credit count rather than a course code (see
+ * `PlannedCourseTerm` in lib/study-plan/plan.ts).
+ */
+export async function setTermFreeElectiveCredits(locale: Locale, formData: FormData): Promise<void> {
+  const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!current) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+
+  const term = parseTermFields(formData);
+  const creditsResult = termFreeElectiveCreditsSchema.safeParse(
+    String(formData.get("freeElectiveCredits") ?? "")
+  );
+
+  let terms = current.terms;
+  if (term && creditsResult.success) {
+    const index = findTermEntryIndex(current, term);
+    terms =
+      index === -1
+        ? [...current.terms, { term, codes: [], freeElectiveCredits: creditsResult.data }]
+        : current.terms.map((t, i) => (i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t));
+  }
+
+  redirectToPlan(locale, { ...current, terms });
 }

@@ -40,7 +40,10 @@ function Chevron({ onDark }: { onDark?: boolean }) {
 
 export default function Breadcrumbs({ locale, items, label, className, onDark }: BreadcrumbsProps) {
   return (
-    <nav aria-label={label} className={className}>
+    // data-breadcrumbs is a stable print-stylesheet hook (globals.css'
+    // @media print block): aria-label is localized text, not a safe CSS
+    // selector, and this component has no other identifying attribute.
+    <nav aria-label={label} data-breadcrumbs className={className}>
       <ol
         className={`flex flex-wrap items-center gap-1.5 text-sm ${onDark ? "text-white/80" : "text-muted"}`}
       >
