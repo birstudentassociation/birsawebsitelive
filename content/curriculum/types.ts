@@ -41,6 +41,17 @@ export type CohortMapping = {
     | { kind: "attested"; by: string; on: string };
 };
 
+/**
+ * Two kinds of value share this union, which is worth stating plainly.
+ *
+ * `CreditCategory.id` uses the requirement buckets, including the three that
+ * split the minor: `minorRequired`, `minorElective`, `minorElectiveOther`.
+ *
+ * `Course.category` uses the same union, except that every minor course
+ * carries the pooled value `"minor"` and never one of those three. A minor
+ * course's bucket is not a property of the course; it depends on which minor
+ * the student chose, and is resolved by `resolveMinorCategory`.
+ */
 export type CategoryId =
   | "genEdPart1"
   | "genEdPart2"
@@ -49,10 +60,28 @@ export type CategoryId =
   | "economics"
   | "concentrationElectiveArea"
   | "concentrationElectiveApproaches"
+  | "minor"
   | "minorRequired"
   | "minorElective"
   | "minorElectiveOther"
   | "freeElective";
+
+export type MinorId = "governance" | "publicAdministration" | "globalPoliticalEconomy";
+
+/**
+ * One of the three minors a student picks between. `required` is the 9 credits
+ * every student in this minor must take; `electives` is the list they choose 2
+ * from. A course in neither list, but in another minor's lists, counts toward
+ * the 6 credits of "electives in other minors".
+ */
+export type Minor = {
+  id: MinorId;
+  name: LocalizedText;
+  /** Exactly 3 course codes, 9 credits. */
+  required: string[];
+  /** The pool this minor's own elective choice is made from. */
+  electives: string[];
+};
 
 export type CreditCategory = {
   id: CategoryId;
@@ -142,6 +171,7 @@ export type CurriculumVersion = {
   /** Credits needed to graduate. */
   graduationCredits: Derived<number>;
   categories: CreditCategory[];
+  minors: Minor[];
   courses: Derived<Course[]>;
   recommendedPlan: Derived<PlannedTerm[]>;
   rules: Derived<AcademicRules>;
