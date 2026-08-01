@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
+import Notice from "@/components/Notice";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
 export async function generateMetadata({
@@ -36,8 +37,10 @@ export async function generateMetadata({
  */
 export default async function StudyPlanStartPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<{ deleted?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -45,6 +48,11 @@ export default async function StudyPlanStartPage({
   const dict = getDictionary(locale);
   const copy = buildStudyPlanCopy(locale);
   const servicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
+
+  // Set by `deleteStudyPlan`'s redirect (app/[lang]/services/study-plan/actions.ts).
+  // Confirms, on the one page both a JavaScript-off and JavaScript-on reader
+  // land on, what the delete button on the plan screen actually cleared.
+  const { deleted } = await searchParams;
 
   return (
     <>
@@ -64,6 +72,12 @@ export default async function StudyPlanStartPage({
         }
       />
       <div className="wrap max-w-[var(--measure)] flex flex-col gap-8 py-10">
+        {deleted === "1" ? (
+          <Notice variant="success" title={copy.start.deletedTitle}>
+            {copy.start.deletedBody}
+          </Notice>
+        ) : null}
+
         <div>
           <h2 className="font-display text-xl">{copy.start.beforeYouStart}</h2>
           <ul className="text-muted mt-3 flex flex-col gap-2 text-sm leading-relaxed">

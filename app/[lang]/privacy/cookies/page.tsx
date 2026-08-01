@@ -63,14 +63,14 @@ const content: Record<Locale, Labels> = {
 
     storageTitle: "What we store in your browser",
     storageIntro:
-      "These two items aren't cookies: they're stored in your browser's local storage, which means they never get sent to us over the network. We only ever read or write them while you're using the relevant feature.",
+      "These items aren't cookies: they're stored in your browser's local storage, which means they never get sent to us over the network. We only ever read or write them while you're using the relevant feature.",
     colKey: "Key",
 
     clearingTitle: "Clearing cookies and site data",
     clearingBody1:
       "You can clear cookies at any time from your browser's settings, usually under \"privacy\" or \"site data\". Clearing them is safe: nothing on this site stops working permanently.",
     clearingBody2:
-      "Here's what happens if you clear everything: we'll ask your language preference again next visit. Any form you were partway through filling in will be lost, so you'll need to start it again. If you're a BIRSA officer signed in to the equipment console, you'll be signed out. Your light or dark mode choice and your onboarding checklist progress, both stored only on your device, will also reset.",
+      "Here's what happens if you clear everything: we'll ask your language preference again next visit. Any form you were partway through filling in will be lost, so you'll need to start it again. If you're a BIRSA officer signed in to the equipment console, you'll be signed out. Your light or dark mode choice, your onboarding checklist progress, and any study plan you have built, all stored only on your device, will also reset.",
   },
   th: {
     title: "คุกกี้",
@@ -91,14 +91,14 @@ const content: Record<Locale, Labels> = {
 
     storageTitle: "ข้อมูลที่จัดเก็บไว้ในเบราว์เซอร์ของท่าน",
     storageIntro:
-      "รายการทั้งสองต่อไปนี้มิใช่คุกกี้ แต่จัดเก็บไว้ใน local storage ของเบราว์เซอร์ของท่าน กล่าวคือ ไม่มีการส่งข้อมูลดังกล่าวมายัง BIRSA ผ่านเครือข่ายแต่อย่างใด และจะมีการอ่านหรือเขียนข้อมูลก็ต่อเมื่อท่านกำลังใช้บริการที่เกี่ยวข้องเท่านั้น",
+      "รายการต่อไปนี้มิใช่คุกกี้ แต่จัดเก็บไว้ใน local storage ของเบราว์เซอร์ของท่าน กล่าวคือ ไม่มีการส่งข้อมูลดังกล่าวมายัง BIRSA ผ่านเครือข่ายแต่อย่างใด และจะมีการอ่านหรือเขียนข้อมูลก็ต่อเมื่อท่านกำลังใช้บริการที่เกี่ยวข้องเท่านั้น",
     colKey: "คีย์",
 
     clearingTitle: "การลบคุกกี้และข้อมูลเว็บไซต์",
     clearingBody1:
       "ท่านสามารถลบคุกกี้ได้ทุกเมื่อผ่านการตั้งค่าเบราว์เซอร์ ซึ่งโดยทั่วไปอยู่ในหมวด \"ความเป็นส่วนตัว\" หรือ \"ข้อมูลเว็บไซต์\" การลบคุกกี้ไม่ก่อให้เกิดความเสียหายถาวรต่อการใช้งานเว็บไซต์นี้แต่อย่างใด",
     clearingBody2:
-      "ในกรณีที่ท่านลบข้อมูลทั้งหมด จะเกิดผลดังนี้ เว็บไซต์จะสอบถามภาษาที่ท่านประสงค์จะใช้อีกครั้งในการเข้าชมครั้งถัดไป ข้อมูลในแบบฟอร์มที่ท่านกรอกค้างไว้จะสูญหายและต้องเริ่มกรอกใหม่ หากท่านเป็นเจ้าหน้าที่ BIRSA ที่เข้าใช้งานระบบจัดการอุปกรณ์อยู่ ท่านจะออกจากระบบ ส่วนการเลือกโหมดสว่างหรือโหมดมืด และความคืบหน้าในรายการแนะนำเริ่มต้น ซึ่งทั้งสองรายการจัดเก็บไว้บนอุปกรณ์ของท่านเท่านั้น จะถูกลบไปด้วยเช่นกัน",
+      "ในกรณีที่ท่านลบข้อมูลทั้งหมด จะเกิดผลดังนี้ เว็บไซต์จะสอบถามภาษาที่ท่านประสงค์จะใช้อีกครั้งในการเข้าชมครั้งถัดไป ข้อมูลในแบบฟอร์มที่ท่านกรอกค้างไว้จะสูญหายและต้องเริ่มกรอกใหม่ หากท่านเป็นเจ้าหน้าที่ BIRSA ที่เข้าใช้งานระบบจัดการอุปกรณ์อยู่ ท่านจะออกจากระบบ ส่วนการเลือกโหมดสว่างหรือโหมดมืด ความคืบหน้าในรายการแนะนำเริ่มต้น และแผนการศึกษาที่ท่านจัดทำไว้ ซึ่งทั้งสามรายการจัดเก็บไว้บนอุปกรณ์ของท่านเท่านั้น จะถูกลบไปด้วยเช่นกัน",
   },
 };
 

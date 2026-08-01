@@ -25,6 +25,9 @@ export type StudyPlanCopy = {
     timeEstimate: string;
     notARecord: string;
     startButton: string;
+    /** Shown after `?deleted=1`, the redirect target of `deleteStudyPlan`. Confirms what the delete button on the plan screen actually cleared. */
+    deletedTitle: string;
+    deletedBody: string;
   };
   cohort: {
     title: string;
@@ -130,6 +133,17 @@ export type StudyPlanCopy = {
     doesNotCheckHeading: string;
     doesNotCheck: string[];
   };
+  /**
+   * The delete section at the bottom of the plan screen. Deliberately spells
+   * out that there is no server-side copy: a student who has used the
+   * equipment loan service, which does hold their data, should not have to
+   * guess whether this one is the same.
+   */
+  delete: {
+    heading: string;
+    body: string;
+    buttonLabel: string;
+  };
   print: {
     title: string;
     generatedOnLabel: string;
@@ -184,6 +198,9 @@ const en: StudyPlanCopy = {
     notARecord:
       "This is a plan, not your academic record. It is stored in this browser only, and nobody at BIRSA can see it.",
     startButton: "Start now",
+    deletedTitle: "Your plan has been deleted",
+    deletedBody:
+      "It has been cleared from this browser. BIRSA never held a copy of it, so there is nothing left anywhere to delete.",
   },
   cohort: {
     title: "What are the first two digits of your student ID?",
@@ -292,6 +309,11 @@ const en: StudyPlanCopy = {
       "Anything depending on your GPA.",
     ],
   },
+  delete: {
+    heading: "Delete your plan",
+    body: "This plan lives only in your browser. It was never sent to a BIRSA server, so there is nothing for us to delete on our side, unlike the equipment loan service, which does hold your data. Deleting it here clears the copy kept on this device.",
+    buttonLabel: "Delete this plan",
+  },
   print: {
     title: "Study plan",
     generatedOnLabel: "Generated on",
@@ -334,6 +356,9 @@ const th: StudyPlanCopy = {
     notARecord:
       "นี่คือแผนการศึกษา ไม่ใช่ระเบียนผลการศึกษาของท่าน ข้อมูลถูกเก็บไว้ในเบราว์เซอร์นี้เท่านั้น และไม่มีผู้ใดที่ BIRSA เห็นข้อมูลนี้",
     startButton: "เริ่มต้น",
+    deletedTitle: "ลบแผนการศึกษาของท่านเรียบร้อยแล้ว",
+    deletedBody:
+      "ข้อมูลถูกลบออกจากเบราว์เซอร์นี้แล้ว เนื่องจาก BIRSA ไม่เคยเก็บสำเนาข้อมูลนี้ไว้ จึงไม่มีข้อมูลใดหลงเหลืออยู่ที่ต้องลบอีก",
   },
   cohort: {
     title: "เลขรหัสนักศึกษาสองหลักแรกของท่านคืออะไร",
@@ -441,6 +466,11 @@ const th: StudyPlanCopy = {
       "เรื่องใดก็ตามที่อยู่ในดุลยพินิจของคณบดีหรืออาจารย์ที่ปรึกษา",
       "เรื่องใดก็ตามที่ขึ้นอยู่กับเกรดเฉลี่ยของท่าน",
     ],
+  },
+  delete: {
+    heading: "ลบแผนการศึกษาของท่าน",
+    body: "แผนการศึกษานี้จัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น มิได้มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ของ BIRSA แต่อย่างใด จึงไม่มีข้อมูลฝั่ง BIRSA ที่ต้องลบ ซึ่งแตกต่างจากบริการยืมอุปกรณ์ที่มีการเก็บข้อมูลของท่านไว้ การลบในหน้านี้เป็นการลบสำเนาที่จัดเก็บไว้บนอุปกรณ์นี้เท่านั้น",
+    buttonLabel: "ลบแผนการศึกษานี้",
   },
   print: {
     title: "แผนการศึกษา",

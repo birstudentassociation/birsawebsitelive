@@ -12,7 +12,7 @@ import {
   type StudyPlan,
 } from "@/lib/study-plan/plan";
 import { localeHref, type Locale } from "@/lib/i18n";
-import { mergeDraft, readDraft } from "@/components/forms/draftCookie";
+import { clearDraft, mergeDraft, readDraft } from "@/components/forms/draftCookie";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import type { QuestionStepState } from "@/components/forms/QuestionStepForm";
 import type { TermFreeElectiveState } from "@/components/study-plan/TermFreeElectiveForm";
@@ -413,4 +413,19 @@ export async function addTermToPlan(locale: Locale, formData: FormData): Promise
   }
 
   redirectToPlan(locale, { ...current, terms });
+}
+
+/**
+ * Deletes the plan. There is no server-side copy to delete: the plan lives
+ * only in the hidden field posted between steps and, once JavaScript has
+ * run, in the reader's own localStorage (`components/study-plan/PlanStore.tsx`
+ * clears that half; this clears the other half BIRSA ever holds, the draft
+ * cookie carrying the cohort/position/minor answers). Redirects to the
+ * journey start with `?deleted=1` so the start page can confirm what was
+ * cleared, the same for a JavaScript-off reader and a JavaScript-on one:
+ * this route is the one part of deletion that works identically either way.
+ */
+export async function deleteStudyPlan(locale: Locale, _formData: FormData): Promise<void> {
+  await clearDraft(STUDY_PLAN_COOKIE);
+  redirect(`${localeHref(locale, "/services/study-plan")}?deleted=1`);
 }

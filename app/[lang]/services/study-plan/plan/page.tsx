@@ -13,10 +13,13 @@ import Button from "@/components/Button";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import TermEditor from "@/components/study-plan/TermEditor";
+import PlanStore from "@/components/study-plan/PlanStore";
+import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
 import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import {
   addCourseToTerm,
   addTermToPlan,
+  deleteStudyPlan,
   getStudyPlanDraft,
   removeCourseFromTerm,
   setTermFreeElectiveCredits,
@@ -173,6 +176,8 @@ export default async function StudyPlanPage({
   return (
     <>
       <PageHeader title={copy.plan.title} lede={copy.plan.hint} />
+      {/* Renders nothing; only mirrors the plan to localStorage so it survives closing the tab. */}
+      <PlanStore plan={serialisedPlan} />
       <div className="wrap max-w-[var(--measure)] flex flex-col gap-10 py-10">
         <InferenceNotice version={version} cohortCode={plan.cohort} locale={locale} />
 
@@ -286,6 +291,14 @@ export default async function StudyPlanPage({
             ))}
           </ul>
         </Notice>
+
+        <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
+          <h2 className="font-display text-xl">{copy.delete.heading}</h2>
+          <p className="text-muted leading-relaxed">{copy.delete.body}</p>
+          <form action={deleteStudyPlan.bind(null, locale)}>
+            <DeletePlanButton>{copy.delete.buttonLabel}</DeletePlanButton>
+          </form>
+        </div>
       </div>
     </>
   );
