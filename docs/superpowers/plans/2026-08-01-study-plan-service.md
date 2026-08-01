@@ -1639,7 +1639,7 @@ git commit -m "Derive assumed history and remaining requirements from a position
 - Produces:
   - `type Finding = { id: string; severity: "problem" | "warning" | "note"; message: LocalizedText; source: { document: string; provision: string } }`
   - `checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[]`
-  - `projectedGraduation(version, plan): TermRef | null`
+  - `projectedGraduation(plan: StudyPlan): TermRef | null`
 
 Findings never block. They are shown as a list on the plan page, each citing the provision it came from.
 
@@ -1778,11 +1778,11 @@ describe("projectedGraduation", () => {
       { term: { year: 4, kind: "semester2" }, codes: ["PI470"] },
       { term: { year: 3, kind: "summer" }, codes: ["PI574"] },
     ]);
-    expect(projectedGraduation(version, plan)).toEqual({ year: 4, kind: "semester2" });
+    expect(projectedGraduation(plan)).toEqual({ year: 4, kind: "semester2" });
   });
 
   it("returns null for a plan with no terms", () => {
-    expect(projectedGraduation(version, planWith([]))).toBeNull();
+    expect(projectedGraduation(planWith([]))).toBeNull();
   });
 });
 ```
@@ -1931,10 +1931,7 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
 }
 
 /** The last term the plan places a course in, or null if nothing is planned. */
-export function projectedGraduation(
-  _version: CurriculumVersion,
-  plan: StudyPlan
-): TermRef | null {
+export function projectedGraduation(plan: StudyPlan): TermRef | null {
   const terms = [...plan.terms]
     .filter((t) => t.codes.length > 0)
     .sort((a, b) => termIndex(a.term) - termIndex(b.term));
@@ -2089,8 +2086,11 @@ const en = {
 } as const;
 
 const th: typeof en = {
-  // Thai copy in the formal official register used elsewhere on this site.
-  // Not a literal translation of the English.
+  // Write every key from `en` above, in Thai. This must be a complete object:
+  // `typeof en` makes a missing key a type error, which is the point.
+  // Use the formal official register this site uses elsewhere (see
+  // `content/student-life/th/**` and `content/privacy/`). Not a literal
+  // translation of the English.
 };
 ```
 
@@ -2430,7 +2430,7 @@ Add `birsa-study-plan` alongside `birsa-theme` and `birsa-onboarding-*`, with a 
  * The plan never reaches a BIRSA server. It is not in a cookie, which is
  * why it is here and not in `components/forms/draftCookie.ts`.
  */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const KEY = "birsa-study-plan";
 
@@ -2450,19 +2450,21 @@ export function clearStoredPlan(): void {
   }
 }
 
+/**
+ * Renders nothing. It exists only for its effect, so it needs no `mounted`
+ * hydration gate: there is no markup for the server and the client to
+ * disagree about. `StepTasksClient` needs that gate because it renders
+ * checkboxes; this does not.
+ */
 export default function PlanStore({ plan }: { plan: string }) {
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
     try {
       window.localStorage.setItem(KEY, plan);
     } catch {
-      // Progress just will not persist for this visit.
+      // The plan just will not persist for this visit.
     }
   }, [plan]);
 
-  if (!mounted) return null;
   return null;
 }
 ```
