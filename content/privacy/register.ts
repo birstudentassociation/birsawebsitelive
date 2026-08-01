@@ -569,6 +569,15 @@ export const cookieRecords: CookieRecord[] = [
     essential: true,
   },
   {
+    name: "birsa_study_plan_draft",
+    purpose: {
+      en: "The same, for the study plan service, while you work out which curriculum applies to you.",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับบริการวางแผนการศึกษา ระหว่างตรวจสอบว่าท่านใช้หลักสูตรใด",
+    },
+    expires: { en: "Thirty minutes", th: "สามสิบนาที" },
+    essential: true,
+  },
+  {
     name: "birsa_inventory",
     purpose: {
       en: "Keeps a BIRSA officer signed in to the equipment console. Only ever set for officers, never for ordinary visitors.",
