@@ -325,6 +325,138 @@ git commit -m "Record the curriculum sources and type the curriculum data"
 
 ---
 
+### Task 1b: The minor model
+
+**Files:**
+
+- Modify: `content/curriculum/types.ts`
+- Test: `tests/unit/curriculum-minors.test.ts`
+
+**Interfaces:**
+
+- Consumes: the types from Task 1.
+- Produces: `MinorId`, `Minor`, the `"minor"` course category, and
+  `CurriculumVersion.minors`. Tasks 2, 3, 4, 5, 6, 7 and 10 all depend on these.
+
+**Why this exists.** The 21 credits of minor are three separate requirements:
+9 credits of your minor's required courses, 6 of electives within it, and 6 of
+electives drawn from a different minor. Which bucket a course falls into
+depends on which minor the student chose. `PI380` is a required course for a
+Governance and Transnational Studies student and an elective-in-another-minor
+for a Global Political Economy one, and the same is true of about sixty
+courses. A single fixed `category` on the course cannot express that.
+
+The fix: minor courses all sit in one pool, `category: "minor"`. Which bucket
+they count toward is resolved at runtime from the student's chosen minor,
+by `resolveMinorCategory` in Task 5.
+
+- [ ] **Step 1: Write the failing test**
+
+```ts
+// tests/unit/curriculum-minors.test.ts
+import { describe, expect, it } from "vitest";
+import type { Minor, MinorId, CategoryId } from "@/content/curriculum/types";
+
+describe("the minor model", () => {
+  it("names the three minors", () => {
+    const ids: MinorId[] = ["governance", "publicAdministration", "globalPoliticalEconomy"];
+    expect(ids).toHaveLength(3);
+  });
+
+  it("gives a minor a required list and an elective list", () => {
+    const minor: Minor = {
+      id: "governance",
+      name: { en: "Governance and Transnational Studies", th: "ธรรมาภิบาลและการศึกษาข้ามชาติ" },
+      required: ["PI380", "PI381", "PI382"],
+      electives: ["PI385", "PI386"],
+    };
+    expect(minor.required).toHaveLength(3);
+    expect(minor.electives.length).toBeGreaterThan(0);
+  });
+
+  it("has a single pooled category for minor courses", () => {
+    const pooled: CategoryId = "minor";
+    expect(pooled).toBe("minor");
+  });
+});
+```
+
+- [ ] **Step 2: Run it and watch it fail**
+
+Run: `npx vitest run tests/unit/curriculum-minors.test.ts`
+Expected: FAIL, `MinorId` and `Minor` are not exported, and `"minor"` is not
+assignable to `CategoryId`.
+
+- [ ] **Step 3: Amend `content/curriculum/types.ts`**
+
+Add `"minor"` to `CategoryId`, keeping the three requirement buckets, and add
+the two new types plus the field on `CurriculumVersion`:
+
+```ts
+/**
+ * Two kinds of value share this union, which is worth stating plainly.
+ *
+ * `CreditCategory.id` uses the requirement buckets, including the three that
+ * split the minor: `minorRequired`, `minorElective`, `minorElectiveOther`.
+ *
+ * `Course.category` uses the same union, except that every minor course
+ * carries the pooled value `"minor"` and never one of those three. A minor
+ * course's bucket is not a property of the course; it depends on which minor
+ * the student chose, and is resolved by `resolveMinorCategory`.
+ */
+export type CategoryId =
+  | "genEdPart1"
+  | "genEdPart2"
+  | "core"
+  | "concentrationRequired"
+  | "economics"
+  | "concentrationElectiveArea"
+  | "concentrationElectiveApproaches"
+  | "minor"
+  | "minorRequired"
+  | "minorElective"
+  | "minorElectiveOther"
+  | "freeElective";
+
+export type MinorId = "governance" | "publicAdministration" | "globalPoliticalEconomy";
+
+/**
+ * One of the three minors a student picks between. `required` is the 9 credits
+ * every student in this minor must take; `electives` is the list they choose 2
+ * from. A course in neither list, but in another minor's lists, counts toward
+ * the 6 credits of "electives in other minors".
+ */
+export type Minor = {
+  id: MinorId;
+  name: LocalizedText;
+  /** Exactly 3 course codes, 9 credits. */
+  required: string[];
+  /** The pool this minor's own elective choice is made from. */
+  electives: string[];
+};
+```
+
+Add to `CurriculumVersion`, after `categories`:
+
+```ts
+  minors: Minor[];
+```
+
+- [ ] **Step 4: Run the test**
+
+Run: `npx vitest run tests/unit/curriculum-minors.test.ts`
+Expected: PASS, 3 tests.
+
+- [ ] **Step 5: Commit**
+
+```bash
+npm run typecheck
+git add content/curriculum/types.ts tests/unit/curriculum-minors.test.ts
+git commit -m "Model the minor as a runtime choice, not a fixed course category"
+```
+
+---
+
 ### Task 2: The 2564 curriculum module
 
 **Files:**
@@ -416,6 +548,50 @@ describe("curriculum2564", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  it("defines all three minors, each with exactly 3 required courses", () => {
+    expect(curriculum2564.minors.map((m) => m.id).sort()).toEqual([
+      "globalPoliticalEconomy",
+      "governance",
+      "publicAdministration",
+    ]);
+    for (const minor of curriculum2564.minors) {
+      expect(minor.required, `${minor.id} required`).toHaveLength(3);
+      expect(minor.electives.length, `${minor.id} electives`).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("pools every minor course under the single 'minor' category", () => {
+    const inMinors = new Set(
+      curriculum2564.minors.flatMap((m) => [...m.required, ...m.electives])
+    );
+    for (const course of curriculum2564.courses.value) {
+      if (inMinors.has(course.code)) {
+        expect(course.category, `${course.code}`).toBe("minor");
+      } else {
+        expect(course.category, `${course.code}`).not.toBe("minor");
+      }
+    }
+  });
+
+  it("gives every minor course code a course that exists", () => {
+    const codes = new Set(curriculum2564.courses.value.map((c) => c.code));
+    for (const minor of curriculum2564.minors) {
+      for (const code of [...minor.required, ...minor.electives]) {
+        expect(codes.has(code), `${minor.id} names missing ${code}`).toBe(true);
+      }
+    }
+  });
+
+  it("never lists the same course as required in two different minors", () => {
+    const seen = new Map<string, string>();
+    for (const minor of curriculum2564.minors) {
+      for (const code of minor.required) {
+        expect(seen.has(code), `${code} required by two minors`).toBe(false);
+        seen.set(code, minor.id);
+      }
+    }
+  });
+
   it("applies the handbook credit-load rules", () => {
     expect(curriculum2564.rules.value.minCreditsRegularTerm).toBe(9);
     expect(curriculum2564.rules.value.maxCreditsRegularTerm).toBe(21);
@@ -459,7 +635,7 @@ Skeleton, with the categories and rules complete and the course array shown by e
  * its course descriptions. The handout itself states none.
  */
 import { SOURCES } from "./sources";
-import type { CurriculumVersion, Course, CreditCategory, PlannedTerm } from "./types";
+import type { CurriculumVersion, Course, CreditCategory, Minor, PlannedTerm } from "./types";
 
 const categories: CreditCategory[] = [
   {
@@ -569,12 +745,80 @@ const courses: Course[] = [
   // Required course in Faculty of Economics (3 credits)
   { code: "EE210", title: "Introductory Economics", credits: 3, category: "economics", prerequisites: [] },
 
-  // Continue with the area studies group, the approaches and issues group,
-  // and all three minors, transcribed from
+  // Continue with the area studies group and the approaches and issues group,
+  // transcribed from
   // `content/student-life/en/handbook/curriculum-and-study-plan.mdx`.
   // Every area studies elective takes ["PI280"] as its prerequisite.
+  //
+  // Then every course belonging to any of the three minors, each with
+  // `category: "minor"` and NOT one of the three minor requirement buckets.
+  // Which bucket a minor course counts toward depends on which minor the
+  // student chose, so it cannot be a property of the course. See the
+  // `CategoryId` comment in types.ts.
+];
+
+/**
+ * The three minors, transcribed from the same MDX file. `required` is the
+ * 9 credits every student in that minor takes; `electives` is the pool they
+ * choose 2 courses from. A course in another minor's lists counts toward the
+ * 6 credits of "electives in other minors".
+ */
+const minors: Minor[] = [
+  {
+    id: "governance",
+    name: {
+      en: "Governance and Transnational Studies",
+      th: "ธรรมาภิบาลและการศึกษาข้ามชาติ",
+    },
+    required: ["PI380", "PI381", "PI382"],
+    electives: [
+      "PI313",
+      "PI373",
+      "PI383",
+      "PI384",
+      "PI385",
+      "PI386",
+      "PI387",
+      "PI388",
+      "PI389",
+      "PI413",
+      "PI414",
+    ],
+  },
+  {
+    id: "publicAdministration",
+    name: {
+      en: "Public Administration and Public Policy",
+      th: "บริหารรัฐกิจและนโยบายสาธารณะ",
+    },
+    required: ["PI340", "PI341", "PI342"],
+    electives: ["PI343", "PI344", "PI345", "PI346", "PI347", "PI348", "PI349", "PI443", "PI444"],
+  },
+  {
+    id: "globalPoliticalEconomy",
+    name: { en: "Global Political Economy", th: "เศรษฐศาสตร์การเมืองโลก" },
+    required: ["PI392", "PI480", "PI490"],
+    electives: [
+      "PI293",
+      "PI395",
+      "PI396",
+      "PI397",
+      "PI398",
+      "PI399",
+      "PI494",
+      "PI495",
+      "PI496",
+      "PI497",
+      "PI498",
+    ],
+  },
 ];
 ```
+
+The minor lists above are transcribed from the MDX and are complete for the
+2564 family. Cross-check them against the MDX as you go: the test
+"gives every minor course code a course that exists" will fail if the
+`courses` array is missing any of them.
 
 The recommended plan follows the handout's Year 1 to Year 4 tables, which the same MDX file reproduces under "Four-year study plan". Encode Year 1 with the 2564 general education codes from the table above, and Years 2 to 4 exactly as the MDX has them. Placeholders get stable ids: `minorRequired1`, `minorElective1`, `areaElective1`, `approachesElective1`, `freeElective1`, and so on.
 
@@ -604,6 +848,7 @@ export const curriculum2564: CurriculumVersion = {
   ],
   graduationCredits: { value: 127, derivation: { kind: "published", source: "bir64" } },
   categories,
+  minors,
   courses: { value: courses, derivation: { kind: "published", source: "bir64" } },
   recommendedPlan: { value: recommendedPlan, derivation: { kind: "published", source: "bir64" } },
   rules: {
@@ -835,6 +1080,7 @@ export const curriculum2564rev2566: CurriculumVersion = {
   ],
   graduationCredits: { value: 127, derivation: { kind: "published", source: "bir64rev66" } },
   categories: curriculum2564.categories,
+  minors: curriculum2564.minors,
   courses: { value: courses, derivation: { kind: "published", source: "bir64rev66" } },
   recommendedPlan: {
     value: recommendedPlan,
@@ -1015,6 +1261,7 @@ export const curriculum2568: CurriculumVersion = {
   ],
   graduationCredits: { value: 126, derivation: { kind: "published", source: "comparison2568" } },
   categories,
+  minors: curriculum2564rev2566.minors,
   courses: { value: courses, derivation: { kind: "published", source: "comparison2568" } },
   recommendedPlan: {
     value: curriculum2564rev2566.recommendedPlan.value,
@@ -1089,6 +1336,7 @@ git commit -m "Add the 2568 curriculum, sequence inferred from the 2023 revision
   - `type CohortResolution = { status: "supported"; version: CurriculumVersion; mapping: CohortMapping } | { status: "unsupported"; code: string }`
   - `inferredParts(version: CurriculumVersion): Derivation[]`
   - `disclosures(version: CurriculumVersion): Contradiction[]`
+  - `resolveMinorCategory(version, minorId, code): CategoryId | null`
 
 - [ ] **Step 1: Write the failing test**
 
@@ -1100,6 +1348,7 @@ import {
   resolveCohort,
   inferredParts,
   disclosures,
+  resolveMinorCategory,
 } from "@/content/curriculum";
 
 describe("resolveCohort", () => {
@@ -1158,6 +1407,37 @@ describe("disclosures", () => {
     expect(shown.map((c) => c.id)).not.toContain("catalogue-identical");
   });
 });
+
+describe("resolveMinorCategory", () => {
+  const version = CURRICULUM_VERSIONS["2564-rev2566"];
+
+  it("counts your own minor's required course as minorRequired", () => {
+    expect(resolveMinorCategory(version, "governance", "PI380")).toBe("minorRequired");
+  });
+
+  it("counts your own minor's elective as minorElective", () => {
+    expect(resolveMinorCategory(version, "governance", "PI385")).toBe("minorElective");
+  });
+
+  it("counts another minor's course as minorElectiveOther, required or not", () => {
+    expect(resolveMinorCategory(version, "globalPoliticalEconomy", "PI380")).toBe(
+      "minorElectiveOther"
+    );
+    expect(resolveMinorCategory(version, "globalPoliticalEconomy", "PI385")).toBe(
+      "minorElectiveOther"
+    );
+  });
+
+  it("gives the same course a different bucket for a different minor", () => {
+    expect(resolveMinorCategory(version, "governance", "PI380")).not.toBe(
+      resolveMinorCategory(version, "publicAdministration", "PI380")
+    );
+  });
+
+  it("returns null for a course that is in no minor at all", () => {
+    expect(resolveMinorCategory(version, "governance", "PI211")).toBeNull();
+  });
+});
 ```
 
 - [ ] **Step 2: Run it and watch it fail**
@@ -1178,11 +1458,13 @@ import { curriculum2564 } from "./2564";
 import { curriculum2564rev2566 } from "./2564-rev2566";
 import { curriculum2568 } from "./2568";
 import type {
+  CategoryId,
   CohortMapping,
   Contradiction,
   CurriculumVersion,
   CurriculumVersionId,
   Derivation,
+  MinorId,
 } from "./types";
 
 export * from "./types";
@@ -1227,6 +1509,33 @@ export function inferredParts(version: CurriculumVersion): Derivation[] {
 export function disclosures(version: CurriculumVersion): Contradiction[] {
   return version.verification.contradictions.filter((c) => c.disclosure !== null);
 }
+
+/**
+ * Which of the three minor requirement buckets a minor course counts toward,
+ * for this student.
+ *
+ * This is the whole reason minor courses are pooled under `category: "minor"`
+ * rather than carrying a fixed bucket. PI380 is a required course for a
+ * Governance student and an elective-in-another-minor for a Global Political
+ * Economy one. The bucket is a fact about the pairing, not about the course.
+ *
+ * Returns null when the code belongs to no minor, which callers should treat
+ * as "not a minor course" and fall back to the course's own category.
+ */
+export function resolveMinorCategory(
+  version: CurriculumVersion,
+  minorId: MinorId,
+  code: string
+): CategoryId | null {
+  const chosen = version.minors.find((m) => m.id === minorId);
+  if (!chosen) return null;
+  if (chosen.required.includes(code)) return "minorRequired";
+  if (chosen.electives.includes(code)) return "minorElective";
+  const inAnother = version.minors.some(
+    (m) => m.id !== minorId && (m.required.includes(code) || m.electives.includes(code))
+  );
+  return inAnother ? "minorElectiveOther" : null;
+}
 ```
 
 - [ ] **Step 4: Run the test**
@@ -1255,7 +1564,7 @@ git commit -m "Add the curriculum registry and cohort resolution"
 
 - Consumes: `CurriculumVersionId`, `TermRef`, `TermKind` from `@/content/curriculum`.
 - Produces:
-  - `type StudyPlan = { versionId: CurriculumVersionId; cohort: string; startYear: number; passed: string[]; terms: PlannedCourseTerm[] }`
+  - `type StudyPlan = { versionId: CurriculumVersionId; cohort: string; startYear: number; minorId: MinorId; passed: string[]; terms: PlannedCourseTerm[] }`
   - `type PlannedCourseTerm = { term: TermRef; codes: string[] }`
   - `serialisePlan(plan: StudyPlan): string`
   - `deserialisePlan(raw: string): StudyPlan | null`
@@ -1274,6 +1583,7 @@ const plan: StudyPlan = {
   versionId: "2564-rev2566",
   cohort: "66",
   startYear: 2566,
+  minorId: "governance",
   passed: ["TU100", "TU101", "EL105"],
   terms: [
     { term: { year: 3, kind: "semester1" }, codes: ["PI300", "PI390"] },
@@ -1311,6 +1621,7 @@ describe("serialisePlan and deserialisePlan", () => {
       versionId: "2568",
       cohort: "68",
       startYear: 2568,
+      minorId: "publicAdministration",
       passed: [],
       terms: [],
     };
@@ -1341,7 +1652,7 @@ Expected: FAIL, module not found.
  * the student starts again, never an error boundary.
  */
 import { z } from "zod";
-import type { CurriculumVersionId, TermRef } from "@/content/curriculum";
+import type { CurriculumVersionId, MinorId, TermRef } from "@/content/curriculum";
 
 export type PlannedCourseTerm = { term: TermRef; codes: string[] };
 
@@ -1350,6 +1661,12 @@ export type StudyPlan = {
   cohort: string;
   /** Buddhist Era year of entry, derived from the cohort code, e.g. 2566. */
   startYear: number;
+  /**
+   * Which of the three minors the student is taking. Required, because it is
+   * what decides whether a minor course counts as required, as an elective
+   * within the minor, or as one of the 6 credits from another minor.
+   */
+  minorId: MinorId;
   /** Course codes the student has already passed. */
   passed: string[];
   /** Future terms the student has planned. */
@@ -1370,6 +1687,7 @@ const studyPlanSchema = z.object({
   versionId: z.enum(["2564", "2564-rev2566", "2568"]),
   cohort: z.string().regex(/^\d{2}$/),
   startYear: z.number().int().min(2560).max(2599),
+  minorId: z.enum(["governance", "publicAdministration", "globalPoliticalEconomy"]),
   passed: z.array(courseCode).max(120),
   terms: z
     .array(z.object({ term: termRef, codes: z.array(courseCode).max(15) }))
@@ -1428,7 +1746,7 @@ git commit -m "Serialise a study plan into one string for the field and storage"
 - Produces:
   - `assumedHistory(version, position: TermRef): { courses: string[]; placeholders: PlaceholderSlot[] }`
   - `type PlaceholderSlot = { id: string; label: LocalizedText; category: CategoryId; term: TermRef }`
-  - `remainingRequirements(version, passed: string[]): CategoryShortfall[]`
+  - `remainingRequirements(version, passed: string[], minorId: MinorId): CategoryShortfall[]`
   - `type CategoryShortfall = { category: CreditCategory; earned: number; remaining: number }`
 
 `assumedHistory` is what makes the quick route work: everything in the recommended plan strictly before the student's current term is assumed passed. Placeholders come back separately because the student has to say what actually filled them.
@@ -1486,13 +1804,13 @@ describe("assumedHistory", () => {
 
 describe("remainingRequirements", () => {
   it("owes the full requirement when nothing has been passed", () => {
-    const shortfalls = remainingRequirements(version, []);
+    const shortfalls = remainingRequirements(version, [], "governance");
     const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
     expect(total).toBe(version.graduationCredits.value);
   });
 
   it("credits a passed course against its own category", () => {
-    const shortfalls = remainingRequirements(version, ["PI211"]);
+    const shortfalls = remainingRequirements(version, ["PI211"], "governance");
     const core = shortfalls.find((s) => s.category.id === "core");
     expect(core?.earned).toBe(3);
     expect(core?.remaining).toBe(27);
@@ -1500,14 +1818,31 @@ describe("remainingRequirements", () => {
 
   it("ignores courses excluded from the total", () => {
     const v2568 = CURRICULUM_VERSIONS["2568"];
-    const shortfalls = remainingRequirements(v2568, ["PI574"]);
+    const shortfalls = remainingRequirements(v2568, ["PI574"], "governance");
     const concentration = shortfalls.find((s) => s.category.id === "concentrationRequired");
     expect(concentration?.earned).toBe(0);
   });
 
+  it("counts a minor course into the bucket the chosen minor puts it in", () => {
+    const asGovernance = remainingRequirements(version, ["PI380"], "governance");
+    expect(asGovernance.find((s) => s.category.id === "minorRequired")?.earned).toBe(3);
+    expect(asGovernance.find((s) => s.category.id === "minorElectiveOther")?.earned).toBe(0);
+  });
+
+  it("counts the same course into a different bucket for a different minor", () => {
+    const asGpe = remainingRequirements(version, ["PI380"], "globalPoliticalEconomy");
+    expect(asGpe.find((s) => s.category.id === "minorRequired")?.earned).toBe(0);
+    expect(asGpe.find((s) => s.category.id === "minorElectiveOther")?.earned).toBe(3);
+  });
+
+  it("never puts credit into the pooled 'minor' category itself", () => {
+    const shortfalls = remainingRequirements(version, ["PI380", "PI385"], "governance");
+    expect(shortfalls.some((s) => s.category.id === "minor")).toBe(false);
+  });
+
   it("never reports a negative remaining", () => {
     const everything = version.courses.value.map((c) => c.code);
-    for (const s of remainingRequirements(version, everything)) {
+    for (const s of remainingRequirements(version, everything, "governance")) {
       expect(s.remaining).toBeGreaterThanOrEqual(0);
     }
   });
@@ -1530,13 +1865,15 @@ Expected: FAIL, module not found.
  * third of the published plan is slots rather than courses ("Minor Required
  * Course 1"), and only the student knows what filled them.
  */
-import type {
-  CategoryId,
-  CreditCategory,
-  CurriculumVersion,
-  LocalizedText,
-  TermKind,
-  TermRef,
+import {
+  resolveMinorCategory,
+  type CategoryId,
+  type CreditCategory,
+  type CurriculumVersion,
+  type LocalizedText,
+  type MinorId,
+  type TermKind,
+  type TermRef,
 } from "@/content/curriculum";
 
 export type PlaceholderSlot = {
@@ -1590,21 +1927,36 @@ export function assumedHistory(
   return { courses: [...courses], placeholders };
 }
 
-/** What the student still owes in each credit category. */
+/**
+ * What the student still owes in each credit category.
+ *
+ * Minor courses need the chosen minor to be counted at all: they are pooled
+ * under `category: "minor"` on the course, and only the pairing with a minor
+ * decides whether a given course is one of the 9 required credits, one of the
+ * 6 electives within the minor, or one of the 6 from another minor. Every
+ * other course is counted straight off its own category.
+ */
 export function remainingRequirements(
   version: CurriculumVersion,
-  passed: string[]
+  passed: string[],
+  minorId: MinorId
 ): CategoryShortfall[] {
   const passedSet = new Set(passed);
   const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
 
+  /** The requirement bucket this passed course counts toward, if any. */
+  const bucketFor = (code: string): CategoryId | null => {
+    const course = byCode.get(code);
+    if (!course || course.excludedFromTotal) return null;
+    if (course.category !== "minor") return course.category;
+    return resolveMinorCategory(version, minorId, code);
+  };
+
   return version.categories.map((category) => {
     let earned = 0;
     for (const code of passedSet) {
-      const course = byCode.get(code);
-      if (!course || course.category !== category.id) continue;
-      if (course.excludedFromTotal) continue;
-      earned += course.credits;
+      if (bucketFor(code) !== category.id) continue;
+      earned += byCode.get(code)?.credits ?? 0;
     }
     return { category, earned, remaining: Math.max(0, category.credits - earned) };
   });
@@ -1655,7 +2007,14 @@ import type { StudyPlan } from "@/lib/study-plan/plan";
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
 
 function planWith(terms: StudyPlan["terms"], passed: string[] = []): StudyPlan {
-  return { versionId: "2564-rev2566", cohort: "66", startYear: 2566, passed, terms };
+  return {
+    versionId: "2564-rev2566",
+    cohort: "66",
+    startYear: 2566,
+    minorId: "governance",
+    passed,
+    terms,
+  };
 }
 
 describe("checkPlan prerequisites", () => {
@@ -1899,7 +2258,7 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
   // Completion.
   const plannedCodes = terms.flatMap((t) => t.codes);
   const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
-  const shortfalls = remainingRequirements(version, allCodes);
+  const shortfalls = remainingRequirements(version, allCodes, plan.minorId);
   const remaining = shortfalls.reduce((n, s) => n + s.remaining, 0);
   if (remaining > 0) {
     findings.push({
@@ -2081,8 +2440,8 @@ const en = {
     heading: "Part of this plan is borrowed from an older curriculum",
     askAdvisor: "Confirm this with your advisor before you rely on it.",
   },
-  // ... plus `where`, `assumed`, `fill`, `plan`, `print` and `delete` groups,
-  // added by Tasks 10, 11 and 12.
+  // ... plus `where`, `minor`, `assumed`, `fill`, `plan`, `print` and `delete`
+  // groups, added by Tasks 10, 11 and 12.
 } as const;
 
 const th: typeof en = {
@@ -2101,7 +2460,14 @@ const th: typeof en = {
  * Step order and the draft cookie name. Lives outside actions.ts because a
  * "use server" file may only export async functions.
  */
-export const STUDY_PLAN_STEPS = ["cohort", "curriculum", "where", "assumed", "plan"] as const;
+export const STUDY_PLAN_STEPS = [
+  "cohort",
+  "curriculum",
+  "where",
+  "minor",
+  "assumed",
+  "plan",
+] as const;
 export type StudyPlanStep = (typeof STUDY_PLAN_STEPS)[number];
 
 export const STUDY_PLAN_COOKIE = "birsa_study_plan_draft";
@@ -2111,6 +2477,7 @@ export type StudyPlanDraft = {
   confirmed?: "yes" | "no";
   positionYear?: string;
   positionKind?: string;
+  minorId?: string;
 };
 ```
 
@@ -2161,6 +2528,7 @@ git commit -m "Add the study plan start page and the version gate"
 **Files:**
 
 - Create: `app/[lang]/services/study-plan/where/page.tsx`
+- Create: `app/[lang]/services/study-plan/minor/page.tsx`
 - Create: `app/[lang]/services/study-plan/assumed/page.tsx`
 - Create: `app/[lang]/services/study-plan/assumed/fill/page.tsx`
 - Modify: `app/[lang]/services/study-plan/actions.ts`
@@ -2170,7 +2538,7 @@ git commit -m "Add the study plan start page and the version gate"
 **Interfaces:**
 
 - Consumes: `assumedHistory`, `serialisePlan`, `startYearFromCohort`.
-- Produces: `submitWhereStep`, `submitAssumedStep`, `submitFillStep` in `actions.ts`; a serialised `StudyPlan` in the hidden field by the end of the journey.
+- Produces: `submitWhereStep`, `submitMinorStep`, `submitAssumedStep`, `submitFillStep` in `actions.ts`; a serialised `StudyPlan` in the hidden field by the end of the journey.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -2193,6 +2561,7 @@ describe("building the initial plan from a position", () => {
       versionId: version.id,
       cohort: "66",
       startYear: startYearFromCohort("66"),
+      minorId: "governance" as const,
       passed: history.courses,
       terms: [],
     };
@@ -2220,7 +2589,15 @@ Expected: FAIL until `startYearFromCohort` is exported. If Task 6 already export
 
 Two selects on one page, year (1 to 8, matching `TermRef`, because students on extended study exist and the seven-year rule needs to be able to fire) and term (semester 1, semester 2, summer), posting to `submitWhereStep`. Wording: "Which year and semester are you in now?" with the hint "Tell us where you are now. We will assume you have followed the standard plan up to this point, and you can correct that on the next page."
 
-`submitWhereStep` validates both, merges into the draft, builds the initial `StudyPlan` from `assumedHistory`, and redirects to `/services/study-plan/assumed`.
+`submitWhereStep` validates both, merges into the draft, and redirects to `/services/study-plan/minor`. It does NOT build the plan yet: the plan cannot exist until the minor is known.
+
+- [ ] **Step 3b: Write the `minor` step**
+
+Create `app/[lang]/services/study-plan/minor/page.tsx`. One question, three radios, one per entry in `version.minors`, each showing the minor name and its three required courses so the student can recognise theirs. Heading: "Which minor are you taking?" Hint: "Your minor decides how 21 of your credits are counted. If you have not chosen yet, pick the one you are leaning toward. You can come back and change it."
+
+This step is not optional and has no "not sure" answer. Without it the service cannot tell whether PI380 is one of your 9 required minor credits or one of your 6 credits from another minor, and it would silently count it wrong. That is the whole reason the step exists.
+
+`submitMinorStep` validates the id against `version.minors`, merges it into the draft, builds the initial `StudyPlan` from `assumedHistory` with the chosen `minorId`, and redirects to `/services/study-plan/assumed`.
 
 - [ ] **Step 4: Write the `assumed` step**
 
@@ -2239,7 +2616,7 @@ npx vitest run tests/unit/study-plan-journey.test.ts
 npm run typecheck
 ```
 
-Then in the browser: `66`, yes, year 3 semester 1, and confirm the assumed list contains roughly 23 courses and the fill page asks about the minor and elective slots.
+Then in the browser: `66`, yes, year 3 semester 1, Governance, and confirm the assumed list contains roughly 23 courses and the fill page asks about the minor and elective slots. Then repeat choosing Global Political Economy and confirm the minor credit buckets on the plan screen come out differently for the same passed courses.
 
 - [ ] **Step 7: Commit**
 
@@ -2339,7 +2716,7 @@ The plan page renders, in this order:
 1. `<InferenceNotice>`, so a borrowed sequence is the first thing seen.
 2. A summary: curriculum label, cohort, credits planned against `graduationCredits.value`, and the projected graduation term from `projectedGraduation`.
 3. `<FindingsList>`.
-4. What is still owed, from `remainingRequirements`, as a table of category, credits earned, credits remaining.
+4. What is still owed, from `remainingRequirements(version, allCodes, plan.minorId)`, as a table of category, credits earned, credits remaining. The three minor rows are named for the student's chosen minor, not generically, so "Governance and Transnational Studies, required courses" rather than "Minor required courses".
 5. One `<TermEditor>` per future term, each a small form with a `<select>` of courses not yet placed and an "Add" button posting to `addCourseToTerm`, plus a "Remove" button per placed course posting to `removeCourseFromTerm`.
 6. A link to `/services/study-plan/plan/print`.
 7. The "what this does not check" list: course availability, discretion, GPA.
@@ -2629,6 +3006,11 @@ test.describe("study plan without JavaScript", () => {
     await page.getByLabel(/term/i).selectOption("semester1");
     await page.getByRole("button", { name: /continue/i }).click();
 
+    // The minor step. Not skippable: without it the service cannot tell
+    // which of the three buckets a minor course counts toward.
+    await page.getByLabel(/governance and transnational studies/i).check();
+    await page.getByRole("button", { name: /continue/i }).click();
+
     await page.getByRole("button", { name: /continue/i }).click();
 
     await expect(page.getByText(ERROR_BOUNDARY_TEXT)).toHaveCount(0);
@@ -2676,7 +3058,7 @@ Spec coverage checked section by section:
 - Section 1 scope: Tasks 5 (cohorts 64 to 69), 9 (double degree to the stop page), 11 ("what this does not check" list).
 - Section 2 version gate: Task 9.
 - Section 3 data as code: Tasks 1 to 5. `Derivation` and cohort provenance both enforced by tests.
-- Section 4 journey: Tasks 9, 10, 11. All nine screens accounted for.
+- Section 4 journey: Tasks 9, 10, 11. All ten screens accounted for, including the minor step added after Task 1.
 - Section 5 storage and progressive enhancement: Tasks 6 and 12, with the no-JavaScript run in Task 13.
 - Section 6 what it checks: Task 8.
 - Section 7 information architecture: Task 13 steps 3 and 4.

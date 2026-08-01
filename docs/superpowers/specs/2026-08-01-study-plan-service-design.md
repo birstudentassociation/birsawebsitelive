@@ -173,7 +173,7 @@ the course codes cannot.
 
 ## 4. The journey
 
-Nine screens, each a server-rendered form posting to a server action, following
+Ten screens, each a server-rendered form posting to a server action, following
 the pattern already established by `app/[lang]/clubs/start`.
 
 | Path | Screen | Question |
@@ -183,6 +183,7 @@ the pattern already established by `app/[lang]/clubs/start`.
 | `.../curriculum` | Confirm | Is this your curriculum? |
 | `.../cannot-help` | Stop | Why not, who to ask, the sources |
 | `.../where` | Position | Which year and semester are you in now? |
+| `.../minor` | Minor | Which of the three minors are you taking? |
 | `.../assumed` | Check assumptions | The courses we think you have passed |
 | `.../assumed/fill` | Fill placeholders | Which course did you take for each slot? |
 | `.../plan` | The plan | What you still owe, your terms, findings |
@@ -204,6 +205,21 @@ Still far cheaper than ticking forty boxes, and honest about what it knows.
 
 Corrections on `.../assumed` are a checkbox list in the GOV.UK task list style:
 did not take, failed, or took something else.
+
+### Why the minor has to be asked
+
+The 21 credits of minor are not one requirement but three: 9 credits of your
+minor's required courses, 6 of electives within it, and 6 of electives from a
+different minor. Which bucket a course falls into depends on which minor you
+chose. `PI380 Nation-State and Transnationalism` is a required course for a
+Governance and Transnational Studies student and an elective-in-another-minor
+for a Global Political Economy one. The same is true of roughly sixty courses.
+
+So a course cannot carry a fixed category the way a core course can. Minor
+courses sit in one pool, the chosen minor resolves each into its bucket, and
+the chosen minor is part of the saved plan. Without it the service would
+silently mis-count every minor course, which is the kind of quiet wrongness
+this design exists to avoid.
 
 ## 5. Storage and progressive enhancement
 
