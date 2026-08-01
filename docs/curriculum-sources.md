@@ -18,7 +18,7 @@ Page counts below are confirmed by the crawlers that read each document.
 
 ## Sources
 
-### Sample Study Plan (Curri. 2561) — `sampleStudyPlan`
+### Sample Study Plan (Curri. 2561): `sampleStudyPlan`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/Sample_Study_Plan.pdf
 - What it is: the recommended term-by-term study plan for the 2561 curriculum,
@@ -32,7 +32,7 @@ Page counts below are confirmed by the crawlers that read each document.
   descriptions), item 12 (no Year 4 Semester 2 shown in the 2564 handout;
   contrast with the 2561 มคอ.2 which does show one).
 
-### Outline, BIR Curriculum 2018 — `outline2018`
+### Outline, BIR Curriculum 2018: `outline2018`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/Outline_BIR_Curr_2018.pdf
 - What it is: the structural outline of the 2561 curriculum, credit
@@ -43,7 +43,7 @@ Page counts below are confirmed by the crawlers that read each document.
   listing), item 8 (`EE214` titled "Introductory Microeconomics" here, as in
   the sample plan), item 9 (`TU100` titled "Civic Engagement" here).
 
-### BIR Curriculum 2018 Course Descriptions — `courseDescriptions2018`
+### BIR Curriculum 2018 Course Descriptions: `courseDescriptions2018`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_Curr2018_CourseDescription.pdf
 - What it is: the full course catalogue for the 2561 curriculum, one entry
@@ -54,7 +54,7 @@ Page counts below are confirmed by the crawlers that read each document.
   this document takes precedence per item 8's resolution), item 9 (`TU100`
   titled "Civic Education" here, against "Civic Engagement" elsewhere).
 
-### BIR มคอ.2 2561 — `mko2561`
+### BIR มคอ.2 2561: `mko2561`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_%E0%B8%A1%E0%B8%84%E0%B8%AD_2561.pdf?v=202012190947
 - What it is: the official มคอ.2 curriculum specification document for the
@@ -68,7 +68,7 @@ Page counts below are confirmed by the crawlers that read each document.
   documents), item 12 (shows a Year 4 Semester 2 at 9 credits, where the 2564
   handout's sample plan shows none).
 
-### BIR Academic Handout, Curriculum 2021 (B.E. 2564), รหัส 64, 65 — `bir64`
+### BIR Academic Handout, Curriculum 2021 (B.E. 2564), รหัส 64, 65: `bir64`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_64.pdf?v=202305101549
 - What it is: the student handout for the 2564 curriculum: sample plan,
@@ -81,7 +81,7 @@ Page counts below are confirmed by the crawlers that read each document.
   everywhere else, almost certainly a column artifact), item 12 (no Year 4
   Semester 2 shown).
 
-### BIR Academic Handout, Curriculum 2021 (B.E. 2564) Revision 2023, รหัส 66 — `bir64rev66`
+### BIR Academic Handout, Curriculum 2021 (B.E. 2564) Revision 2023, รหัส 66: `bir64rev66`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_64_rev66.pdf?v=202305101549
 - What it is: the 2023 revision of the 2564 handout, replacing five Year 1
@@ -94,7 +94,7 @@ Page counts below are confirmed by the crawlers that read each document.
   (cohort 67's mapping to this revision is attested by BIRSA, not printed
   here or anywhere else).
 
-### BIR Student Handbook, Revision 2021, Online Edition — `handbook2021`
+### BIR Student Handbook, Revision 2021, Online Edition: `handbook2021`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/Handbook2021_OnlineEdition_1.pdf?v=202012190947
 - What it is: the full student handbook, of which the curriculum chapter is
@@ -106,7 +106,7 @@ Page counts below are confirmed by the crawlers that read each document.
 - Contradictions: item 14 (the 2561 free elective rule is grammatically
   broken in the source text; 2561 only, record only).
 
-### BIR Double Degree, curriculum revision B.E. 2564 — `doubleDegree64`
+### BIR Double Degree, curriculum revision B.E. 2564: `doubleDegree64`
 
 - URL: https://image.makewebeasy.net/makeweb/0/fAusajSlU/Document/BIR_DoubleDegree_64.pdf?v=202012190947
 - What it is: despite its filename, not a double-degree leaflet. It is the
@@ -127,7 +127,7 @@ Page counts below are confirmed by the crawlers that read each document.
   the structure table against 142 in the graduation requirements section; the
   third figure (144) comes from elsewhere.
 
-### Curriculum comparison, B.E. 2564 against B.E. 2568 — `comparison2568`
+### Curriculum comparison, B.E. 2564 against B.E. 2568: `comparison2568`
 
 - URL: https://image.makewebcdn.com/makeweb/0/fAusajSlU/Document/68_2025.pdf?v=202405291424
 - What it is: a side-by-side comparison of the 2564 and 2568 curricula, not a
