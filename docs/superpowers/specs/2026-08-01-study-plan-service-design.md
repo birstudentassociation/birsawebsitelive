@@ -312,25 +312,26 @@ disclosed on screen rather than resolved by guesswork.
 | # | Issue | Affects | How the service handles it |
 | --- | --- | --- | --- |
 | 1 | The 2568 curriculum has no published study plan handout; the 358-page comparison document contains no sample plan. | Cohorts 68, 69 (Years 1 and 2) | The semester sequence is inferred from `BIR_64_rev66`, with the credit structure taken from `68_2025`. Disclosed as an `inferred` derivation on every screen. Replace as soon as the 2568 handout exists. |
-| 2 | `PI574` is either 1 or 3 credits in 2568, and may have moved category. This is the likeliest explanation for the total reading 126 against 2564's 127. | Cohorts 68, 69 | Encode the total as 126, the figure the source's own comparison table states. Flag `PI574`'s credit value as unresolved on the plan screen, since a 2-credit swing can change whether a term is inside the 9 to 21 range. |
-| 3 | The 2564 graduation total of 127 is never printed as a total anywhere. It is reached by adding 30, 91 and 6. | Cohorts 64 to 67 | Use 127, disclose that it is a sum rather than a quoted figure. Ask the faculty to confirm. |
-| 4 | Cohort 67 mapping to the 2023 revision, and cohort 69 to 2568, are attested by BIRSA and appear in no document. | Cohorts 67, 69 | Recorded as `provenance: attested` in the cohort map. Named on the confirm screen so the student can challenge it. |
-| 5 | The 2568 catalogue is code-for-code identical to 2564, so no course distinguishes cohort 66 from 68 on the confirm screen. | Cohorts 66 to 69 | The confirm screen leans on the graduation total and the inference notice instead. Accepted weakness. |
+| 2 | `PI574` is 1 credit up to the 2564 family and 3 credits from 2568 onward. Attested by BIRSA on 2026-08-01, not stated in any source. | All cohorts | Resolved. Encoded per version. What remains open is where its 3 credits sit: see item 3. |
+| 3 | With `PI574` at 3 credits, the stated 2568 concentration-required total of 18 only balances if `PI574` sits outside that category, which also explains the graduation total falling 127 to 126. The alternative, that it stays inside and a 3-credit course was dropped, requires a dropped course the crawl never found. | Cohorts 68, 69 | Encode reading (b): the six 3-credit courses make 18, `PI574` counts outside the 126. Disclosed on the plan screen, because it changes whether a plan reaching 126 is complete. Confirm with the faculty. |
+| 4 | The 2564 graduation total of 127 is never printed as a total anywhere. It is reached by adding 30, 91 and 6. | Cohorts 64 to 67 | Use 127, disclose that it is a sum rather than a quoted figure. Ask the faculty to confirm. |
+| 5 | Cohort 67 mapping to the 2023 revision, and cohort 69 to 2568, are attested by BIRSA and appear in no document. | Cohorts 67, 69 | Recorded as `provenance: attested` in the cohort map. Named on the confirm screen so the student can challenge it. |
+| 6 | The 2568 catalogue is code-for-code identical to 2564, so no course distinguishes cohort 66 from 68 on the confirm screen. | Cohorts 66 to 69 | The confirm screen leans on the graduation total and the inference notice instead. Accepted weakness. |
 
 ### Record only, no student-visible effect
 
 | # | Issue | Resolution |
 | --- | --- | --- |
-| 6 | The 2561 document states major requirements as 94 in its structure table and 91 in its course listing. | Out of scope: no enrolled cohort uses 2561. Record only. |
-| 7 | `EE214` is titled "Introductory Microeconomics" in the outline and sample plan, "Introductory Macroeconomics" in the course descriptions. | Course descriptions take precedence. 2561 only. |
-| 8 | `TU100` is "Civic Engagement" in two documents and "Civic Education" in a third. | Pick one, footnote the other. |
-| 9 | `PI574`'s title differs across all three 2561 documents. | Pick the มคอ.2 wording. |
-| 10 | `PI292` extracted as 1 credit from `BIR_64`, against 3 credits everywhere else. | Almost certainly a column artifact in text extraction. Verify visually. |
-| 11 | The 2564 handout's sample plan shows no Year 4 Semester 2. The 2561 มคอ.2 does show one, at 9 credits. | Treat the handout as incomplete rather than the year as empty. Ask the faculty. |
-| 12 | Whether the 21-credit minor sits inside the 91-credit major total or on top of it is never stated; the arithmetic implies inside. | Confirm. |
-| 13 | The 2561 free elective rule is grammatically broken in the source. | 2561 only. Record. |
+| 7 | The 2561 document states major requirements as 94 in its structure table and 91 in its course listing. | Out of scope: no enrolled cohort uses 2561. Record only. |
+| 8 | `EE214` is titled "Introductory Microeconomics" in the outline and sample plan, "Introductory Macroeconomics" in the course descriptions. | Course descriptions take precedence. 2561 only. |
+| 9 | `TU100` is "Civic Engagement" in two documents and "Civic Education" in a third. | Pick one, footnote the other. |
+| 10 | `PI574`'s title differs across all three 2561 documents. | Pick the มคอ.2 wording. |
+| 11 | `PI292` extracted as 1 credit from `BIR_64`, against 3 credits everywhere else. | Almost certainly a column artifact in text extraction. Verify visually. |
+| 12 | The 2564 handout's sample plan shows no Year 4 Semester 2. The 2561 มคอ.2 does show one, at 9 credits. | Treat the handout as incomplete rather than the year as empty. Ask the faculty. |
+| 13 | Whether the 21-credit minor sits inside the 91-credit major total or on top of it is never stated; the arithmetic implies inside. | Confirm. |
+| 14 | The 2561 free elective rule is grammatically broken in the source. | 2561 only. Record. |
 
-Items 1 to 5 are what "sorted out before the service can be used" means in
+Items 1 to 6 are what "sorted out before the service can be used" means in
 practice. They are not enforced in the build. What enforces them instead is the
 disclosure test in section 8: the service may ship uncertain data, but a
 student must be told which parts are uncertain and where they came from.
