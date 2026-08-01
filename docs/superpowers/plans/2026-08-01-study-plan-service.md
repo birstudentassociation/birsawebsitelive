@@ -1568,7 +1568,7 @@ git commit -m "Add the curriculum registry and cohort resolution"
   - `type PlannedCourseTerm = { term: TermRef; codes: string[] }`
   - `serialisePlan(plan: StudyPlan): string`
   - `deserialisePlan(raw: string): StudyPlan | null`
-  - `EMPTY_PLAN_FIELD = "plan"` (the hidden input name)
+  - `PLAN_FIELD = "plan"` (the hidden input name)
 
 The plan travels in a hidden form field on every post, so the whole service works with JavaScript off, and the same string is what gets mirrored to `localStorage`. One format, one parser.
 
@@ -1585,9 +1585,10 @@ const plan: StudyPlan = {
   startYear: 2566,
   minorId: "governance",
   passed: ["TU100", "TU101", "EL105"],
+  freeElectiveCreditsPassed: 3,
   terms: [
-    { term: { year: 3, kind: "semester1" }, codes: ["PI300", "PI390"] },
-    { term: { year: 3, kind: "summer" }, codes: ["PI574"] },
+    { term: { year: 3, kind: "semester1" }, codes: ["PI300", "PI390"], freeElectiveCredits: 3 },
+    { term: { year: 3, kind: "summer" }, codes: ["PI574"], freeElectiveCredits: 0 },
   ],
 };
 
@@ -1623,6 +1624,7 @@ describe("serialisePlan and deserialisePlan", () => {
       startYear: 2568,
       minorId: "publicAdministration",
       passed: [],
+      freeElectiveCreditsPassed: 0,
       terms: [],
     };
     expect(deserialisePlan(serialisePlan(empty))).toEqual(empty);
@@ -1654,7 +1656,19 @@ Expected: FAIL, module not found.
 import { z } from "zod";
 import type { CurriculumVersionId, MinorId, TermRef } from "@/content/curriculum";
 
-export type PlannedCourseTerm = { term: TermRef; codes: string[] };
+/**
+ * One planned term. `freeElectiveCredits` carries free electives, which can be
+ * any Thammasat course and therefore never appear in the BIR catalogue. They
+ * are tracked as a credit count rather than as course codes, because the
+ * service cannot verify a course it does not hold data for. Without this the
+ * term credit total under-counts and the plan can never reach the graduation
+ * total.
+ */
+export type PlannedCourseTerm = {
+  term: TermRef;
+  codes: string[];
+  freeElectiveCredits: number;
+};
 
 export type StudyPlan = {
   versionId: CurriculumVersionId;
@@ -1669,6 +1683,11 @@ export type StudyPlan = {
   minorId: MinorId;
   /** Course codes the student has already passed. */
   passed: string[];
+  /**
+   * Free elective credits already earned. Counted, not named: a free elective
+   * may be any Thammasat course, so there is no catalogue entry to match.
+   */
+  freeElectiveCreditsPassed: number;
   /** Future terms the student has planned. */
   terms: PlannedCourseTerm[];
 };
@@ -1689,8 +1708,15 @@ const studyPlanSchema = z.object({
   startYear: z.number().int().min(2560).max(2599),
   minorId: z.enum(["governance", "publicAdministration", "globalPoliticalEconomy"]),
   passed: z.array(courseCode).max(120),
+  freeElectiveCreditsPassed: z.number().int().min(0).max(60),
   terms: z
-    .array(z.object({ term: termRef, codes: z.array(courseCode).max(15) }))
+    .array(
+      z.object({
+        term: termRef,
+        codes: z.array(courseCode).max(15),
+        freeElectiveCredits: z.number().int().min(0).max(21),
+      })
+    )
     .max(20),
 });
 
@@ -1746,7 +1772,7 @@ git commit -m "Serialise a study plan into one string for the field and storage"
 - Produces:
   - `assumedHistory(version, position: TermRef): { courses: string[]; placeholders: PlaceholderSlot[] }`
   - `type PlaceholderSlot = { id: string; label: LocalizedText; category: CategoryId; term: TermRef }`
-  - `remainingRequirements(version, passed: string[], minorId: MinorId): CategoryShortfall[]`
+  - `remainingRequirements(version, passed: string[], minorId: MinorId, freeElectiveCredits: number): CategoryShortfall[]`
   - `type CategoryShortfall = { category: CreditCategory; earned: number; remaining: number }`
 
 `assumedHistory` is what makes the quick route work: everything in the recommended plan strictly before the student's current term is assumed passed. Placeholders come back separately because the student has to say what actually filled them.
@@ -1939,7 +1965,8 @@ export function assumedHistory(
 export function remainingRequirements(
   version: CurriculumVersion,
   passed: string[],
-  minorId: MinorId
+  minorId: MinorId,
+  freeElectiveCredits: number
 ): CategoryShortfall[] {
   const passedSet = new Set(passed);
   const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
@@ -1953,6 +1980,16 @@ export function remainingRequirements(
   };
 
   return version.categories.map((category) => {
+    // Free electives are counted, never matched: they may be any Thammasat
+    // course, so no catalogue entry exists to sum. Matching them like every
+    // other category would leave this bucket permanently unsatisfiable.
+    if (category.id === "freeElective") {
+      return {
+        category,
+        earned: freeElectiveCredits,
+        remaining: Math.max(0, category.credits - freeElectiveCredits),
+      };
+    }
     let earned = 0;
     for (const code of passedSet) {
       if (bucketFor(code) !== category.id) continue;
@@ -2006,13 +2043,22 @@ import type { StudyPlan } from "@/lib/study-plan/plan";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
 
-function planWith(terms: StudyPlan["terms"], passed: string[] = []): StudyPlan {
+/**
+ * Terms are given as [year, kind, codes] triples for brevity; free elective
+ * credits default to 0 and are set explicitly only by the tests that need them.
+ */
+function planWith(
+  terms: StudyPlan["terms"],
+  passed: string[] = [],
+  freeElectiveCreditsPassed = 0
+): StudyPlan {
   return {
     versionId: "2564-rev2566",
     cohort: "66",
     startYear: 2566,
     minorId: "governance",
     passed,
+    freeElectiveCreditsPassed,
     terms,
   };
 }
@@ -2230,8 +2276,12 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
 
   // Credit load per term.
   for (const term of terms) {
-    if (term.codes.length === 0) continue;
-    const credits = term.codes.reduce((n, code) => n + (byCode.get(code)?.credits ?? 0), 0);
+    if (term.codes.length === 0 && term.freeElectiveCredits === 0) continue;
+    // Free elective credits count toward the term load like any other, they
+    // just have no course code to look up.
+    const credits =
+      term.codes.reduce((n, code) => n + (byCode.get(code)?.credits ?? 0), 0) +
+      term.freeElectiveCredits;
     const isSummer = term.term.kind === "summer";
     const over = isSummer
       ? credits > rules.maxCreditsSummerTerm
@@ -2258,7 +2308,13 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
   // Completion.
   const plannedCodes = terms.flatMap((t) => t.codes);
   const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
-  const shortfalls = remainingRequirements(version, allCodes, plan.minorId);
+  const plannedFreeElectives = terms.reduce((n, t) => n + t.freeElectiveCredits, 0);
+  const shortfalls = remainingRequirements(
+    version,
+    allCodes,
+    plan.minorId,
+    plan.freeElectiveCreditsPassed + plannedFreeElectives
+  );
   const remaining = shortfalls.reduce((n, s) => n + s.remaining, 0);
   if (remaining > 0) {
     findings.push({
@@ -2292,7 +2348,7 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
 /** The last term the plan places a course in, or null if nothing is planned. */
 export function projectedGraduation(plan: StudyPlan): TermRef | null {
   const terms = [...plan.terms]
-    .filter((t) => t.codes.length > 0)
+    .filter((t) => t.codes.length > 0 || t.freeElectiveCredits > 0)
     .sort((a, b) => termIndex(a.term) - termIndex(b.term));
   return terms.at(-1)?.term ?? null;
 }
@@ -2563,6 +2619,7 @@ describe("building the initial plan from a position", () => {
       startYear: startYearFromCohort("66"),
       minorId: "governance" as const,
       passed: history.courses,
+      freeElectiveCreditsPassed: 0,
       terms: [],
     };
     const round = deserialisePlan(serialisePlan(plan));
@@ -2597,13 +2654,15 @@ Create `app/[lang]/services/study-plan/minor/page.tsx`. One question, three radi
 
 This step is not optional and has no "not sure" answer. Without it the service cannot tell whether PI380 is one of your 9 required minor credits or one of your 6 credits from another minor, and it would silently count it wrong. That is the whole reason the step exists.
 
-`submitMinorStep` validates the id against `version.minors`, merges it into the draft, builds the initial `StudyPlan` from `assumedHistory` with the chosen `minorId`, and redirects to `/services/study-plan/assumed`.
+`submitMinorStep` validates the id against `version.minors`, merges it into the draft, builds the initial `StudyPlan` from `assumedHistory` with the chosen `minorId` and `freeElectiveCreditsPassed: 0`, and redirects to `/services/study-plan/assumed`.
 
 - [ ] **Step 4: Write the `assumed` step**
 
 Render the assumed-passed courses as a checkbox list, all checked, grouped by term, with the heading "Check what we have assumed" and the hint "We have assumed you passed these. Uncheck anything you did not take, failed, or replaced with something else."
 
-Every checkbox is `name="passed" value="{code}"`. `submitAssumedStep` reads `formData.getAll("passed")`, rebuilds the plan's `passed` array from exactly those, and redirects to `/assumed/fill` if the version has placeholders before the student's position, or straight to `/plan` if not.
+Every checkbox is `name="passed" value="{code}"`. The same page also carries ONE number input, `name="freeElectiveCreditsPassed"`, labelled "How many free elective credits have you passed?" with the hint "Free electives can be any Thammasat University course, so we cannot list them. Tell us the credits and we will count them." It defaults to the credits implied by any free elective placeholders before the student position, which is 3 per placeholder.
+
+`submitAssumedStep` reads `formData.getAll("passed")`, rebuilds the plan's `passed` array from exactly those, reads and validates `freeElectiveCreditsPassed` as an integer from 0 to 60, and redirects to `/assumed/fill` if the version has non-free-elective placeholders before the student's position, or straight to `/plan` if not.
 
 - [ ] **Step 5: Write the `assumed/fill` step**
 
@@ -2643,7 +2702,7 @@ git commit -m "Ask where the student is and let them correct the assumed history
 **Interfaces:**
 
 - Consumes: `checkPlan`, `projectedGraduation`, `remainingRequirements`, `deserialisePlan`, `serialisePlan`.
-- Produces: `addCourseToTerm`, `removeCourseFromTerm` server actions.
+- Produces: `addCourseToTerm`, `removeCourseFromTerm`, `setTermFreeElectiveCredits` server actions.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -2717,7 +2776,7 @@ The plan page renders, in this order:
 2. A summary: curriculum label, cohort, credits planned against `graduationCredits.value`, and the projected graduation term from `projectedGraduation`.
 3. `<FindingsList>`.
 4. What is still owed, from `remainingRequirements(version, allCodes, plan.minorId)`, as a table of category, credits earned, credits remaining. The three minor rows are named for the student's chosen minor, not generically, so "Governance and Transnational Studies, required courses" rather than "Minor required courses".
-5. One `<TermEditor>` per future term, each a small form with a `<select>` of courses not yet placed and an "Add" button posting to `addCourseToTerm`, plus a "Remove" button per placed course posting to `removeCourseFromTerm`.
+5. One `<TermEditor>` per future term, each a small form with a `<select>` of courses not yet placed and an "Add" button posting to `addCourseToTerm`, plus a "Remove" button per placed course posting to `removeCourseFromTerm`. Each term also shows its free elective credits with a number input (`name="freeElectiveCredits"`, 0 to 21) posting to `setTermFreeElectiveCredits`, since a free elective has no course code to select. Label it "Free elective credits this term".
 6. A link to `/services/study-plan/plan/print`.
 7. The "what this does not check" list: course availability, discretion, GPA.
 
