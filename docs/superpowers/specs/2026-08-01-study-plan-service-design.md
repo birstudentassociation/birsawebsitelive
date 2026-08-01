@@ -1,7 +1,7 @@
 # Study plan service
 
 Date: 2026-08-01
-Status: design approved, blocked on curriculum verification (see section 9)
+Status: design approved
 
 ## Why
 
@@ -41,8 +41,8 @@ given a different degree.
 
 In scope:
 
-- The standard four-year Thammasat route, for each verified curriculum version.
-- Cohorts 64 to 69, which covers everyone currently enrolled.
+- The standard four-year Thammasat route, for cohorts 64 to 69, which covers
+  everyone currently enrolled.
 - Planning forward from where the student is now, with structural, credit-load
   and timing checks.
 - Both languages, like every other page on the site.
@@ -85,11 +85,11 @@ stop page.
 
 ### The stop page
 
-Reached by an unsupported cohort, an unverified curriculum version, a double
-degree student, or anyone who answered "no or not sure". It states which
-cohort was entered, what the service does not know and why it will not guess,
-the faculty contact, and direct links to the source documents so the student
-can do by hand what the service declined to do for them.
+Reached by a cohort outside 64 to 69, a double degree student, or anyone who
+answered "no or not sure". It states which cohort was entered, what the service
+does not know and why it will not guess, the faculty contact, and direct links
+to the source documents so the student can do by hand what the service declined
+to do for them.
 
 It never degrades quietly into a partial answer.
 
@@ -120,13 +120,27 @@ export type CohortMapping = {
 };
 
 export type Verification = {
-  status: "verified" | "unverified" | "contradictory";
-  verifiedBy: string | null;    // a named person at the faculty
+  verifiedBy: string | null;    // a named person at the faculty, once checked
   verifiedOn: string | null;    // ISO date
   sources: SourceDocument[];    // url, retrieved date, page
   contradictions: Contradiction[];
 };
+
+/** Where a part of a version's data actually came from. */
+export type Derivation =
+  | { kind: "published"; source: SourceDocument }
+  | {
+      kind: "inferred";
+      from: CurriculumVersionId;   // the version it was borrowed from
+      source: SourceDocument;
+      reason: LocalizedText;       // shown to the student, not just logged
+    };
 ```
+
+Nothing blocks on verification. A version ships whether or not the faculty has
+confirmed it, and the verification record is documentation: who checked it,
+when, against which pages, and what they could not resolve. Unverified data is
+carried, used, and disclosed rather than withheld.
 
 Two details carry most of the weight.
 
@@ -137,16 +151,25 @@ sources; BIRSA attests that 67 follows the 2023 revision and 69 follows the
 maintainer reading this code in 2028 must be able to see that it never came
 from a PDF, and the faculty sign-off must cover it explicitly.
 
-**Verification status is enforced, not documented.** A version whose status is
-not `verified` cannot be selected by any student; the cohort resolves to the
-stop page instead. A unit test asserts that every version reachable from the
-cohort map carries a `verified` record with a named verifier and a date. The
-service therefore cannot ship advice derived from unverified curriculum data,
-regardless of what anyone intended.
+**Inference is disclosed, per part, in the student's own words.** The 2568
+curriculum has no published study plan handout, so cohorts 68 and 69 are served
+by a hybrid: the credit structure comes from their own document
+(`68_2025.pdf`, which does state 126 credits and a 90-credit major), while the
+semester sequence is borrowed from the most recent handout that has one,
+`BIR_64_rev66.pdf`. That is a legitimate way to be useful rather than useless,
+but it is not something to bury. Every part of a version carries a
+`Derivation`, and any part marked `inferred` surfaces as a notice at the top of
+the confirm screen, again on the plan screen, and again on the printed page,
+naming what was borrowed, which document it came from, and what to ask an
+advisor to confirm.
 
-Every version ships `unverified`. Launch means someone at the faculty signed
-off, cohort by cohort. This is the thing that must be sorted out before the
-service can be used, and it is a build gate rather than a paragraph in a README.
+The disclosure has to be prominent for cohorts 68 and 69 in particular, because
+the confirm screen's usual evidence fails there. The crawl found the 2568
+course catalogue to be identical to 2564's, code for code. There is no
+distinctive course that separates a cohort-66 student from a cohort-68 one; the
+only difference visible to a student is the graduation total, 127 against 126.
+A single digit is thin evidence for a self-check, so the notice does the work
+the course codes cannot.
 
 ## 4. The journey
 
@@ -259,9 +282,11 @@ and `content/curriculum/` disagree, the build fails.
 
 ## 8. Testing
 
-- **Verification gate.** Every version reachable from the cohort map has
-  `status: "verified"` with a named verifier and a date. This test failing is
-  the intended state until the faculty signs off.
+- **Disclosure, not verification.** Every version part marked `inferred`
+  renders its notice on the confirm screen, the plan screen and the print page.
+  A version with an inferred part that renders no notice anywhere fails the
+  test. This is the service's one hard rule about uncertain data: it may ship,
+  but it may not ship silently.
 - **Data integrity, per version.** Category credits sum to the graduation
   total. Every course referenced by the recommended plan exists. Every
   prerequisite code exists. No course appears in two categories.
@@ -276,48 +301,60 @@ and `content/curriculum/` disagree, the build fails.
 - **Handbook agreement.** The credit table in the handbook MDX matches the
   active curriculum module.
 
-## 9. Blockers and contradictions
+## 9. Open questions and contradictions
 
-The service cannot launch for a cohort until its version is verified. This is
-the register of what verification must resolve.
+Nothing here blocks launch. Each item is carried in the version's
+`contradictions` list, and each one that changes a number a student sees is
+disclosed on screen rather than resolved by guesswork.
 
-### Blocking
+### Affects what a student is told
 
-| # | Issue | Affects | Needed |
+| # | Issue | Affects | How the service handles it |
 | --- | --- | --- | --- |
-| 1 | The 2568 sample study plan was never located in the 358-page comparison document. Without it there is no recommended plan to start from, which is the whole basis of the journey. | Cohorts 68, 69 (Years 1 and 2) | The 2568 study plan handout |
-| 2 | `PI574` is either 1 or 3 credits in 2568, and may move category. This is why the 2568 total reads 126 against 2564's 127. | Cohorts 68, 69 | Faculty confirmation |
-| 3 | The 2564 graduation total of 127 is never printed as a total in any source. It is arrived at by adding 30, 91 and 6. | Cohorts 64 to 67 | Faculty confirmation of the figure |
-| 4 | Cohort 67 to 2023 revision, and cohort 69 to 2568, are attested by BIRSA and documented nowhere. | Cohorts 67, 69 | Explicit faculty sign-off on the mapping |
+| 1 | The 2568 curriculum has no published study plan handout; the 358-page comparison document contains no sample plan. | Cohorts 68, 69 (Years 1 and 2) | The semester sequence is inferred from `BIR_64_rev66`, with the credit structure taken from `68_2025`. Disclosed as an `inferred` derivation on every screen. Replace as soon as the 2568 handout exists. |
+| 2 | `PI574` is either 1 or 3 credits in 2568, and may have moved category. This is the likeliest explanation for the total reading 126 against 2564's 127. | Cohorts 68, 69 | Encode the total as 126, the figure the source's own comparison table states. Flag `PI574`'s credit value as unresolved on the plan screen, since a 2-credit swing can change whether a term is inside the 9 to 21 range. |
+| 3 | The 2564 graduation total of 127 is never printed as a total anywhere. It is reached by adding 30, 91 and 6. | Cohorts 64 to 67 | Use 127, disclose that it is a sum rather than a quoted figure. Ask the faculty to confirm. |
+| 4 | Cohort 67 mapping to the 2023 revision, and cohort 69 to 2568, are attested by BIRSA and appear in no document. | Cohorts 67, 69 | Recorded as `provenance: attested` in the cohort map. Named on the confirm screen so the student can challenge it. |
+| 5 | The 2568 catalogue is code-for-code identical to 2564, so no course distinguishes cohort 66 from 68 on the confirm screen. | Cohorts 66 to 69 | The confirm screen leans on the graduation total and the inference notice instead. Accepted weakness. |
 
-### Non-blocking, to record and resolve
+### Record only, no student-visible effect
 
 | # | Issue | Resolution |
 | --- | --- | --- |
-| 5 | The 2561 document states major requirements as 94 in its structure table and 91 in its course listing. | Out of scope: no enrolled cohort uses 2561. Record only. |
-| 6 | `EE214` is titled "Introductory Microeconomics" in the outline and sample plan, "Introductory Macroeconomics" in the course descriptions. | Course descriptions take precedence. 2561 only. |
-| 7 | `TU100` is "Civic Engagement" in two documents and "Civic Education" in a third. | Pick one, footnote the other. |
-| 8 | `PI574`'s title differs across all three 2561 documents. | Pick the มคอ.2 wording. |
-| 9 | `PI292` extracted as 1 credit from `BIR_64`, against 3 credits everywhere else. | Almost certainly a column artifact in text extraction. Verify visually. |
-| 10 | The 2564 handout's sample plan shows no Year 4 Semester 2. The 2561 มคอ.2 does show one, at 9 credits. | Treat the handout as incomplete rather than the year as empty. Ask the faculty. |
-| 11 | Whether the 21-credit minor sits inside the 91-credit major total or on top of it is never stated; the arithmetic implies inside. | Confirm. |
-| 12 | The 2561 free elective rule is grammatically broken in the source. | 2561 only. Record. |
+| 6 | The 2561 document states major requirements as 94 in its structure table and 91 in its course listing. | Out of scope: no enrolled cohort uses 2561. Record only. |
+| 7 | `EE214` is titled "Introductory Microeconomics" in the outline and sample plan, "Introductory Macroeconomics" in the course descriptions. | Course descriptions take precedence. 2561 only. |
+| 8 | `TU100` is "Civic Engagement" in two documents and "Civic Education" in a third. | Pick one, footnote the other. |
+| 9 | `PI574`'s title differs across all three 2561 documents. | Pick the มคอ.2 wording. |
+| 10 | `PI292` extracted as 1 credit from `BIR_64`, against 3 credits everywhere else. | Almost certainly a column artifact in text extraction. Verify visually. |
+| 11 | The 2564 handout's sample plan shows no Year 4 Semester 2. The 2561 มคอ.2 does show one, at 9 credits. | Treat the handout as incomplete rather than the year as empty. Ask the faculty. |
+| 12 | Whether the 21-credit minor sits inside the 91-credit major total or on top of it is never stated; the arithmetic implies inside. | Confirm. |
+| 13 | The 2561 free elective rule is grammatically broken in the source. | 2561 only. Record. |
 
-Items 1 to 4 are what "sorted out before the service can be used" means in
-practice. The build gate in section 3 enforces it.
+Items 1 to 5 are what "sorted out before the service can be used" means in
+practice. They are not enforced in the build. What enforces them instead is the
+disclosure test in section 8: the service may ship uncertain data, but a
+student must be told which parts are uncertain and where they came from.
+
+Item 1 is the one to chase. Everything else is a number to confirm in one
+conversation with the faculty; item 1 needs a document that may not exist yet,
+and until it does, Years 1 and 2 are planning against a sequence written for a
+curriculum that is not theirs.
 
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its
    retrieval date and every contradiction found. Then the curriculum data
-   modules and the verification gate, all versions `unverified`, with the data
-   integrity tests. Nothing is user-facing yet.
-2. The version gate journey: cohort, confirm, stop page. Shipped early, because
-   the stop page is useful on its own and creates pressure to resolve section 9.
+   modules, with derivations recorded per part, and the data integrity tests.
+   Nothing is user-facing yet.
+2. The version gate journey: cohort, confirm, stop page, and the inference
+   notice. Shipped early, because the notice is the thing standing between a
+   cohort-68 student and a plan built on someone else's sequence.
 3. Position, assumptions and placeholder filling.
 4. The plan screen, findings engine, print page.
 5. Storage mirror, delete control, privacy register entry.
-6. Faculty verification, cohort by cohort, flipping versions to `verified`.
+6. Faculty confirmation of the section 9 items, cohort by cohort, recorded in
+   each version's `verification` block. Chase the 2568 study plan handout
+   first: it is the only item that replaces an inference with a fact.
 
 Step 6 is not a development task and does not depend on steps 2 to 5. It should
 start now.
