@@ -61,6 +61,40 @@ export type StudyPlanCopy = {
     heading: string;
     askAdvisor: string;
   };
+  /** Shared year/term labels, reused by the `where` select options and the `assumed` step's term-group headings, so both say the same thing. */
+  terms: {
+    /** Contains the literal placeholder "{n}"; the caller fills it in per year. */
+    yearTemplate: string;
+    semester1: string;
+    semester2: string;
+    summer: string;
+  };
+  where: {
+    title: string;
+    hint: string;
+    yearLabel: string;
+    termLabel: string;
+    errorRequired: string;
+  };
+  minor: {
+    title: string;
+    hint: string;
+    legend: string;
+    requiredCoursesLabel: string;
+    errorRequired: string;
+  };
+  assumed: {
+    title: string;
+    hint: string;
+    freeElectiveLabel: string;
+    freeElectiveHint: string;
+    freeElectiveError: string;
+  };
+  fill: {
+    title: string;
+    hint: string;
+    notTakenLabel: string;
+  };
 };
 
 export function buildStudyPlanCopy(locale: Locale): StudyPlanCopy {
@@ -132,6 +166,39 @@ const en: StudyPlanCopy = {
     heading: "Part of this plan is borrowed from an older curriculum",
     askAdvisor: "Confirm this with your advisor before you rely on it.",
   },
+  terms: {
+    yearTemplate: "Year {n}",
+    semester1: "Semester 1",
+    semester2: "Semester 2",
+    summer: "Summer",
+  },
+  where: {
+    title: "Which year and semester are you in now?",
+    hint: "Tell us where you are now. We will assume you have followed the standard plan up to this point, and you can correct that on the next page.",
+    yearLabel: "Year",
+    termLabel: "Semester",
+    errorRequired: "Select your year and semester",
+  },
+  minor: {
+    title: "Which minor are you taking?",
+    hint: "Your minor decides how 21 of your credits are counted. If you have not chosen yet, pick the one you are leaning toward. You can come back and change it.",
+    legend: "Which minor are you taking?",
+    requiredCoursesLabel: "Required courses",
+    errorRequired: "Select which minor you are taking",
+  },
+  assumed: {
+    title: "Check what we have assumed",
+    hint: "We have assumed you passed these. Uncheck anything you did not take, failed, or replaced with something else.",
+    freeElectiveLabel: "How many free elective credits have you passed?",
+    freeElectiveHint:
+      "Free electives can be any Thammasat University course, so we cannot list them. Tell us the credits and we will count them.",
+    freeElectiveError: "Enter a number of credits between 0 and 60",
+  },
+  fill: {
+    title: "Fill in what these courses were",
+    hint: "Your plan holds a slot rather than a named course here. Choose what you actually took, or leave it if you have not taken it yet.",
+    notTakenLabel: "I have not taken this yet",
+  },
 };
 
 const th: StudyPlanCopy = {
@@ -193,5 +260,38 @@ const th: StudyPlanCopy = {
   inference: {
     heading: "ส่วนหนึ่งของแผนนี้นำมาจากหลักสูตรฉบับเก่ากว่า",
     askAdvisor: "โปรดตรวจสอบกับอาจารย์ที่ปรึกษาก่อนนำไปใช้อ้างอิง",
+  },
+  terms: {
+    yearTemplate: "ชั้นปีที่ {n}",
+    semester1: "ภาคการศึกษาที่ 1",
+    semester2: "ภาคการศึกษาที่ 2",
+    summer: "ภาคฤดูร้อน",
+  },
+  where: {
+    title: "ขณะนี้ท่านอยู่ชั้นปีและภาคการศึกษาใด",
+    hint: "โปรดแจ้งตำแหน่งปัจจุบันของท่าน ระบบจะสันนิษฐานว่าท่านศึกษาตามแผนมาตรฐานจนถึงจุดนี้ และท่านสามารถแก้ไขข้อมูลนี้ได้ในหน้าถัดไป",
+    yearLabel: "ชั้นปี",
+    termLabel: "ภาคการศึกษา",
+    errorRequired: "เลือกชั้นปีและภาคการศึกษาของท่าน",
+  },
+  minor: {
+    title: "ท่านเลือกศึกษาวิชาโทใด",
+    hint: "วิชาโทของท่านเป็นตัวกำหนดวิธีนับหน่วยกิต 21 หน่วยกิต หากท่านยังไม่ได้ตัดสินใจ โปรดเลือกวิชาที่ท่านมีแนวโน้มจะเลือก และสามารถกลับมาเปลี่ยนแปลงได้ภายหลัง",
+    legend: "ท่านเลือกศึกษาวิชาโทใด",
+    requiredCoursesLabel: "วิชาบังคับ",
+    errorRequired: "เลือกวิชาโทที่ท่านกำลังศึกษา",
+  },
+  assumed: {
+    title: "ตรวจสอบรายวิชาที่ระบบสันนิษฐาน",
+    hint: "ระบบสันนิษฐานว่าท่านผ่านรายวิชาเหล่านี้แล้ว โปรดยกเลิกการทำเครื่องหมายในวิชาที่ท่านยังไม่ได้ลงทะเบียน สอบไม่ผ่าน หรือเปลี่ยนไปลงทะเบียนวิชาอื่นแทน",
+    freeElectiveLabel: "ท่านผ่านหน่วยกิตวิชาเลือกเสรีไปแล้วกี่หน่วยกิต",
+    freeElectiveHint:
+      "วิชาเลือกเสรีอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ เราจึงไม่สามารถแสดงรายชื่อวิชาได้ โปรดแจ้งจำนวนหน่วยกิต และระบบจะนับให้ท่าน",
+    freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 60",
+  },
+  fill: {
+    title: "ระบุว่ารายวิชาเหล่านี้คือวิชาใด",
+    hint: "แผนของท่านในจุดนี้เป็นช่องว่างสำหรับเลือกวิชา ไม่ใช่วิชาที่ระบุไว้แน่นอน โปรดเลือกวิชาที่ท่านลงทะเบียนจริง หรือเว้นว่างไว้หากยังไม่ได้ลงทะเบียน",
+    notTakenLabel: "ยังไม่ได้ลงทะเบียนวิชานี้",
   },
 };
