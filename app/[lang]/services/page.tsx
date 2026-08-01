@@ -31,6 +31,7 @@ const copy: Record<
     title: string;
     lede: string;
     getAnswer: { title: string; description: string; cta: string };
+    studyPlan: { title: string; description: string; cta: string };
     equipmentLoan: { title: string; description: string; cta: string };
     equipmentDirectory: { title: string; description: string; cta: string };
     universityServices: { eyebrow: string; title: string; description: string; cta: string };
@@ -61,6 +62,12 @@ const copy: Record<
       description:
         "Answer a few questions and get the part of the rules, the handbook or the service that applies to you, with the provision it comes from.",
       cta: "Get an answer",
+    },
+    studyPlan: {
+      title: "Plan your BIR degree",
+      description:
+        "Work out what you still need to take, put it into semesters, and check it against the rules.",
+      cta: "Plan your degree",
     },
     equipmentLoan: {
       title: "Equipment Loan Service",
@@ -120,6 +127,12 @@ const copy: Record<
       description:
         "ตอบคำถามไม่กี่ข้อ แล้วดูว่ากฎระเบียบ คู่มือนักศึกษา หรือบริการส่วนไหนที่ใช้กับกรณีของคุณ พร้อมข้ออ้างอิงที่มา",
       cta: "ค้นหาคำตอบ",
+    },
+    studyPlan: {
+      title: "วางแผนปริญญา BIR ของคุณ",
+      description:
+        "ดูว่าคุณยังต้องลงวิชาอะไรอีกบ้าง จัดเรียงเป็นภาคการศึกษา และตรวจสอบกับกฎระเบียบ",
+      cta: "วางแผนการเรียนของคุณ",
     },
     equipmentLoan: {
       title: "บริการยืมอุปกรณ์",
@@ -185,6 +198,7 @@ export default async function InformationServicesPage({
   const t = copy[locale];
   const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
+  const studyPlanHref = localeHref(locale, "/services/study-plan");
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
   const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
   const answersHref = localeHref(locale, "/answers");
@@ -215,6 +229,9 @@ export default async function InformationServicesPage({
               <NavList>
                 <NavListItem href={answersHref} title={t.getAnswer.title} as="h3">
                   {t.getAnswer.description}
+                </NavListItem>
+                <NavListItem href={studyPlanHref} title={t.studyPlan.title} as="h3">
+                  {t.studyPlan.description}
                 </NavListItem>
                 <NavListItem href={equipmentHref} title={t.equipmentLoan.title} as="h3">
                   {t.equipmentLoan.description}
