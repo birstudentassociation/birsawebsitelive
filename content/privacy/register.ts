@@ -15,6 +15,16 @@
  * the database enforces are therefore the same number, which is what section
  * 37(3) asks for: not a stated period, but a system that checks and deletes
  * when the period runs out.
+ *
+ * On the two languages: the English follows the site's usual plain-language
+ * standard, but the Thai is deliberately written in formal official register
+ * (ท่าน rather than คุณ, BIRSA named as the actor rather than เรา) and reuses
+ * the Act's own statutory vocabulary wherever the Act supplies it, for
+ * example เก็บรวบรวม ใช้ หรือเปิดเผย, เจ้าของข้อมูลส่วนบุคคล, and
+ * ผู้ควบคุมข้อมูลส่วนบุคคล. A privacy notice is a legal instrument that a
+ * regulator may read, and Thai readers expect a document of that kind to
+ * sound like one. Matching the Act's wording also removes any argument about
+ * whether a translated paraphrase means the same thing as the statute.
  */
 import type { Locale } from "@/lib/i18n";
 
@@ -54,7 +64,7 @@ export const BASIS_CONTRACT: LawfulBasis = {
   section: "24(3)",
   label: {
     en: "Necessary to do what you asked us to do, or to carry out an agreement with you",
-    th: "จำเป็นเพื่อดำเนินการตามที่คุณร้องขอ หรือเพื่อปฏิบัติตามข้อตกลงที่มีกับคุณ",
+    th: "ความจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งท่านเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของท่านก่อนเข้าทำสัญญานั้น",
   },
 };
 
@@ -62,7 +72,7 @@ export const BASIS_LEGITIMATE_INTEREST: LawfulBasis = {
   section: "24(5)",
   label: {
     en: "Necessary for BIRSA's legitimate interests, weighed against your rights",
-    th: "จำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายของ BIRSA โดยชั่งน้ำหนักกับสิทธิของคุณแล้ว",
+    th: "ความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายของ BIRSA โดยได้ชั่งน้ำหนักกับสิทธิขั้นพื้นฐานในข้อมูลส่วนบุคคลของท่านแล้ว",
   },
 };
 
@@ -93,20 +103,23 @@ export type ProcessingActivity = {
 export const activities: ProcessingActivity[] = [
   {
     id: "contact-message",
-    name: { en: "Messages you send us", th: "ข้อความที่คุณส่งถึงเรา" },
+    name: { en: "Messages you send us", th: "ข้อความที่ท่านส่งถึง BIRSA" },
     purpose: {
       en: "So a BIRSA officer can read your message and reply to you.",
-      th: "เพื่อให้เจ้าหน้าที่ BIRSA อ่านข้อความของคุณและตอบกลับได้",
+      th: "เพื่อให้เจ้าหน้าที่ BIRSA พิจารณาข้อความของท่านและติดต่อกลับ",
     },
     basis: BASIS_CONTRACT,
     collects: [
-      { en: "Your name", th: "ชื่อของคุณ" },
-      { en: "Your email address", th: "อีเมลของคุณ" },
-      { en: "What you write in the message, including the subject you pick", th: "เนื้อความที่คุณเขียน รวมถึงหัวข้อที่คุณเลือก" },
+      { en: "Your name", th: "ชื่อของท่าน" },
+      { en: "Your email address", th: "ที่อยู่อีเมลของท่าน" },
+      {
+        en: "What you write in the message, including the subject you pick",
+        th: "เนื้อหาข้อความที่ท่านกรอก รวมถึงหัวข้อเรื่องที่ท่านเลือก",
+      },
     ],
     ifYouDoNot: {
       en: "You have to give a name and an email address, because without them we have no way to reply. Nothing else is required.",
-      th: "คุณต้องกรอกชื่อและอีเมล เพราะหากไม่มี เราจะไม่มีช่องทางตอบกลับคุณ นอกจากนี้ไม่มีข้อมูลใดที่บังคับกรอก",
+      th: "ท่านต้องระบุชื่อและที่อยู่อีเมล เนื่องจาก BIRSA ไม่อาจติดต่อกลับได้หากไม่มีข้อมูลดังกล่าว ข้อมูลอื่นนอกเหนือจากนี้มิใช่ข้อมูลที่ต้องกรอก",
     },
     recipients: ["resend"],
     storage: "email",
@@ -114,20 +127,23 @@ export const activities: ProcessingActivity[] = [
   },
   {
     id: "club-proposal",
-    name: { en: "Proposals to start a club", th: "ข้อเสนอจัดตั้งชมรม" },
+    name: { en: "Proposals to start a club", th: "ข้อเสนอขอจัดตั้งชมรม" },
     purpose: {
       en: "So the committee can consider your proposal and get back to you about it.",
-      th: "เพื่อให้คณะกรรมการพิจารณาข้อเสนอของคุณและติดต่อกลับ",
+      th: "เพื่อให้คณะกรรมการพิจารณาข้อเสนอของท่านและแจ้งผลการพิจารณากลับ",
     },
     basis: BASIS_CONTRACT,
     collects: [
-      { en: "Your name and email address", th: "ชื่อและอีเมลของคุณ" },
-      { en: "The club name and what you want it to do", th: "ชื่อชมรมและสิ่งที่คุณต้องการให้ชมรมทำ" },
-      { en: "Any other people you list as interested members", th: "รายชื่อผู้ที่คุณระบุว่าสนใจเข้าร่วม" },
+      { en: "Your name and email address", th: "ชื่อและที่อยู่อีเมลของท่าน" },
+      { en: "The club name and what you want it to do", th: "ชื่อชมรมและวัตถุประสงค์ของชมรม" },
+      {
+        en: "Any other people you list as interested members",
+        th: "รายชื่อผู้ที่ท่านระบุว่าประสงค์จะเข้าร่วม",
+      },
     ],
     ifYouDoNot: {
       en: "The name, email address, club name and description are required, because the committee cannot consider a proposal without them. Listing other members is optional.",
-      th: "ชื่อ อีเมล ชื่อชมรม และคำอธิบาย เป็นข้อมูลที่ต้องกรอก เพราะคณะกรรมการพิจารณาไม่ได้หากขาดข้อมูลเหล่านี้ ส่วนการระบุรายชื่อสมาชิกอื่นเป็นทางเลือก",
+      th: "ชื่อ ที่อยู่อีเมล ชื่อชมรม และคำอธิบายวัตถุประสงค์ เป็นข้อมูลที่ต้องกรอก เนื่องจากคณะกรรมการไม่อาจพิจารณาข้อเสนอได้หากขาดข้อมูลดังกล่าว ส่วนการระบุรายชื่อผู้ประสงค์จะเข้าร่วมเป็นทางเลือกของท่าน",
     },
     recipients: ["resend"],
     storage: "email",
@@ -138,27 +154,39 @@ export const activities: ProcessingActivity[] = [
     name: { en: "Equipment loan requests", th: "คำขอยืมอุปกรณ์" },
     purpose: {
       en: "So an officer can decide on your request, hand the equipment over, and get it back.",
-      th: "เพื่อให้เจ้าหน้าที่พิจารณาคำขอ ส่งมอบอุปกรณ์ และรับคืน",
+      th: "เพื่อให้เจ้าหน้าที่พิจารณาคำขอ ส่งมอบอุปกรณ์ และติดตามการส่งคืน",
     },
     basis: BASIS_CONTRACT,
     collects: [
-      { en: "Your name", th: "ชื่อของคุณ" },
-      { en: "Your Thammasat student ID", th: "รหัสนักศึกษาธรรมศาสตร์ของคุณ" },
-      { en: "Your email address", th: "อีเมลของคุณ" },
-      { en: "Your phone number, if you give one", th: "เบอร์โทรศัพท์ หากคุณกรอก" },
-      { en: "The dates you want the equipment, and why", th: "วันที่คุณต้องการยืม และเหตุผล" },
-      { en: "What condition the equipment was in when it went out and came back", th: "สภาพอุปกรณ์ตอนส่งมอบและตอนรับคืน" },
+      { en: "Your name", th: "ชื่อของท่าน" },
+      {
+        en: "Your Thammasat student ID",
+        th: "รหัสนักศึกษามหาวิทยาลัยธรรมศาสตร์ของท่าน",
+      },
+      { en: "Your email address", th: "ที่อยู่อีเมลของท่าน" },
+      {
+        en: "Your phone number, if you give one",
+        th: "หมายเลขโทรศัพท์ หากท่านประสงค์จะระบุ",
+      },
+      {
+        en: "The dates you want the equipment, and why",
+        th: "ช่วงวันที่ที่ท่านประสงค์จะยืม และเหตุผลในการยืม",
+      },
+      {
+        en: "What condition the equipment was in when it went out and came back",
+        th: "สภาพอุปกรณ์ ณ เวลาส่งมอบและเวลารับคืน",
+      },
     ],
     ifYouDoNot: {
       en: "We need your name, student ID, email address and dates. Without the student ID we cannot check your loan limit, and without an email address we cannot tell you the decision, so we cannot take the request. Your phone number and your reason are optional, though a reason helps an officer decide.",
-      th: "เราจำเป็นต้องมีชื่อ รหัสนักศึกษา อีเมล และวันที่ หากไม่มีรหัสนักศึกษา เราตรวจสอบโควตาการยืมของคุณไม่ได้ และหากไม่มีอีเมล เราแจ้งผลให้คุณไม่ได้ จึงรับคำขอไว้ไม่ได้ ส่วนเบอร์โทรศัพท์และเหตุผลเป็นทางเลือก แม้เหตุผลจะช่วยให้เจ้าหน้าที่ตัดสินใจได้ง่ายขึ้น",
+      th: "ท่านต้องระบุชื่อ รหัสนักศึกษา ที่อยู่อีเมล และช่วงวันที่ที่ประสงค์จะยืม หากไม่มีรหัสนักศึกษา BIRSA ไม่อาจตรวจสอบโควตาการยืมของท่านได้ และหากไม่มีที่อยู่อีเมล BIRSA ไม่อาจแจ้งผลการพิจารณาได้ จึงไม่อาจรับคำขอไว้พิจารณา ส่วนหมายเลขโทรศัพท์และเหตุผลในการยืมเป็นทางเลือก แม้การระบุเหตุผลจะเป็นประโยชน์ต่อการพิจารณาของเจ้าหน้าที่",
     },
     recipients: ["resend", "vercel-postgres"],
     storage: "database",
     retentionTrigger: "closed",
     retentionNote: {
       en: "The two years run from the day the loan closes, not the day you ask. A loan that is still open is never deleted.",
-      th: "ระยะเวลาสองปีเริ่มนับจากวันที่รายการยืมสิ้นสุด ไม่ใช่วันที่คุณยื่นคำขอ รายการที่ยังไม่สิ้นสุดจะไม่ถูกลบ",
+      th: "ระยะเวลาสองปีเริ่มนับจากวันที่รายการยืมสิ้นสุด มิใช่วันที่ท่านยื่นคำขอ รายการยืมที่ยังไม่สิ้นสุดจะไม่ถูกลบ",
     },
   },
   {
@@ -166,17 +194,26 @@ export const activities: ProcessingActivity[] = [
     name: { en: "Borrower records", th: "ข้อมูลผู้ยืม" },
     purpose: {
       en: "So we can see someone's loan history, hold them to a sensible number of loans at once, and block a borrower who does not return equipment.",
-      th: "เพื่อให้เราเห็นประวัติการยืม จำกัดจำนวนรายการที่ยืมพร้อมกันได้ตามสมควร และระงับสิทธิผู้ที่ไม่คืนอุปกรณ์",
+      th: "เพื่อให้ BIRSA ตรวจสอบประวัติการยืม กำหนดจำนวนรายการที่ยืมพร้อมกันได้ตามสมควร และระงับสิทธิผู้ที่ไม่ส่งคืนอุปกรณ์",
     },
     basis: BASIS_LEGITIMATE_INTEREST,
     collects: [
-      { en: "Your name, student ID, email address and phone number", th: "ชื่อ รหัสนักศึกษา อีเมล และเบอร์โทรศัพท์ของคุณ" },
-      { en: "How many loans you may hold at once", th: "จำนวนรายการที่คุณยืมพร้อมกันได้" },
-      { en: "Whether you are blocked, and the reason an officer recorded", th: "สถานะการถูกระงับสิทธิ และเหตุผลที่เจ้าหน้าที่บันทึกไว้" },
+      {
+        en: "Your name, student ID, email address and phone number",
+        th: "ชื่อ รหัสนักศึกษา ที่อยู่อีเมล และหมายเลขโทรศัพท์ของท่าน",
+      },
+      {
+        en: "How many loans you may hold at once",
+        th: "จำนวนรายการที่ท่านยืมพร้อมกันได้",
+      },
+      {
+        en: "Whether you are blocked, and the reason an officer recorded",
+        th: "สถานะการระงับสิทธิ และเหตุผลที่เจ้าหน้าที่บันทึกไว้",
+      },
     ],
     ifYouDoNot: {
       en: "This record is built from what you give us when you request a loan. There is nothing separate to fill in.",
-      th: "ข้อมูลนี้สร้างจากสิ่งที่คุณกรอกตอนขอยืมอุปกรณ์ ไม่มีแบบฟอร์มแยกให้กรอกเพิ่ม",
+      th: "ข้อมูลนี้จัดทำขึ้นจากข้อมูลที่ท่านกรอกในการขอยืมอุปกรณ์ ท่านไม่ต้องกรอกแบบฟอร์มเพิ่มเติมแต่อย่างใด",
     },
     recipients: ["vercel-postgres"],
     storage: "database",
@@ -184,43 +221,58 @@ export const activities: ProcessingActivity[] = [
   },
   {
     id: "loan-status",
-    name: { en: "Checking a loan you already made", th: "การตรวจสอบรายการยืมที่มีอยู่" },
+    name: {
+      en: "Checking a loan you already made",
+      th: "การตรวจสอบสถานะรายการยืม",
+    },
     purpose: {
       en: "So you can look up or cancel your own request without asking an officer.",
-      th: "เพื่อให้คุณตรวจสอบหรือยกเลิกคำขอของตัวเองได้โดยไม่ต้องติดต่อเจ้าหน้าที่",
+      th: "เพื่อให้ท่านตรวจสอบหรือยกเลิกคำขอของท่านเองได้ โดยไม่ต้องติดต่อเจ้าหน้าที่",
     },
     basis: BASIS_CONTRACT,
     collects: [
-      { en: "Your reference number and the email address you used", th: "หมายเลขอ้างอิงและอีเมลที่คุณใช้ยื่นคำขอ" },
+      {
+        en: "Your reference number and the email address you used",
+        th: "หมายเลขอ้างอิงและที่อยู่อีเมลที่ท่านใช้ในการยื่นคำขอ",
+      },
     ],
     ifYouDoNot: {
       en: "Both are required. They are how we check the loan is yours before showing it to you.",
-      th: "ต้องกรอกทั้งสองอย่าง เพราะเป็นวิธีที่เราใช้ยืนยันว่ารายการนั้นเป็นของคุณก่อนแสดงข้อมูล",
+      th: "ท่านต้องระบุทั้งสองรายการ เนื่องจากเป็นวิธีการที่ BIRSA ใช้ตรวจสอบว่ารายการยืมดังกล่าวเป็นของท่านก่อนเปิดเผยข้อมูล",
     },
     recipients: ["vercel-postgres"],
     storage: "none",
     retentionTrigger: "created",
     retentionNote: {
       en: "Looking something up does not create a new record. Nothing is stored beyond the loan itself.",
-      th: "การตรวจสอบไม่ได้สร้างข้อมูลใหม่ ไม่มีการเก็บสิ่งใดเพิ่มเติมนอกจากตัวรายการยืมเอง",
+      th: "การตรวจสอบสถานะไม่ก่อให้เกิดการเก็บรวบรวมข้อมูลใหม่ และไม่มีการจัดเก็บข้อมูลเพิ่มเติมนอกเหนือจากรายการยืมที่มีอยู่เดิม",
     },
   },
   {
     id: "feedback",
-    name: { en: "Page feedback", th: "ความคิดเห็นเกี่ยวกับหน้าเว็บ" },
+    name: { en: "Page feedback", th: "ความคิดเห็นต่อหน้าเว็บไซต์" },
     purpose: {
       en: "So we can tell which pages work and which do not.",
-      th: "เพื่อให้เรารู้ว่าหน้าไหนใช้งานได้ดีและหน้าไหนยังไม่ดี",
+      th: "เพื่อให้ BIRSA ทราบว่าหน้าใดใช้งานได้ดีและหน้าใดควรปรับปรุง",
     },
     basis: BASIS_LEGITIMATE_INTEREST,
     collects: [
-      { en: "Whether you found the page useful", th: "ว่าคุณเห็นว่าหน้านั้นมีประโยชน์หรือไม่" },
-      { en: "Anything you type in the comment box", th: "ข้อความที่คุณพิมพ์ในช่องความคิดเห็น" },
-      { en: "Which page you were on, and whether you were reading in Thai or English", th: "หน้าที่คุณอยู่ และภาษาที่คุณกำลังอ่าน" },
+      {
+        en: "Whether you found the page useful",
+        th: "ความเห็นของท่านว่าหน้าดังกล่าวเป็นประโยชน์หรือไม่",
+      },
+      {
+        en: "Anything you type in the comment box",
+        th: "ข้อความที่ท่านกรอกในช่องความคิดเห็น",
+      },
+      {
+        en: "Which page you were on, and whether you were reading in Thai or English",
+        th: "หน้าเว็บไซต์ที่ท่านใช้งาน และภาษาที่ท่านเลือกอ่าน",
+      },
     ],
     ifYouDoNot: {
       en: "Feedback is entirely optional. We do not ask for your name, your email address or anything else that identifies you, so please do not type those into the comment box.",
-      th: "การให้ความคิดเห็นเป็นทางเลือกทั้งหมด เราไม่ได้ขอชื่อ อีเมล หรือสิ่งใดที่ระบุตัวคุณ จึงขอความกรุณาอย่าพิมพ์ข้อมูลเหล่านั้นลงในช่องความคิดเห็น",
+      th: "การแสดงความคิดเห็นเป็นไปตามความสมัครใจทั้งหมด BIRSA มิได้ขอชื่อ ที่อยู่อีเมล หรือข้อมูลอื่นใดที่ระบุตัวท่านได้ จึงขอความร่วมมือมิให้กรอกข้อมูลดังกล่าวลงในช่องความคิดเห็น",
     },
     recipients: ["vercel-postgres"],
     storage: "database",
@@ -228,19 +280,25 @@ export const activities: ProcessingActivity[] = [
   },
   {
     id: "rights-request",
-    name: { en: "Requests about your own data", th: "คำร้องเกี่ยวกับข้อมูลของคุณเอง" },
+    name: {
+      en: "Requests about your own data",
+      th: "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล",
+    },
     purpose: {
       en: "So we can find your data, act on your request, and prove we answered it in time.",
-      th: "เพื่อให้เราค้นหาข้อมูลของคุณ ดำเนินการตามคำร้อง และแสดงได้ว่าเราตอบภายในกำหนด",
+      th: "เพื่อให้ BIRSA ตรวจสอบข้อมูลของท่าน ดำเนินการตามคำร้อง และแสดงได้ว่าได้ตอบกลับภายในระยะเวลาที่กฎหมายกำหนด",
     },
     basis: BASIS_CONTRACT,
     collects: [
-      { en: "Your name and email address", th: "ชื่อและอีเมลของคุณ" },
-      { en: "Which right you are using, and anything you tell us to help us find your data", th: "สิทธิที่คุณต้องการใช้ และข้อมูลที่คุณแจ้งเพื่อช่วยให้เราค้นหาข้อมูลของคุณเจอ" },
+      { en: "Your name and email address", th: "ชื่อและที่อยู่อีเมลของท่าน" },
+      {
+        en: "Which right you are using, and anything you tell us to help us find your data",
+        th: "สิทธิที่ท่านประสงค์จะใช้ และข้อมูลประกอบที่ช่วยให้ BIRSA ค้นหาข้อมูลของท่านได้",
+      },
     ],
     ifYouDoNot: {
       en: "We need a name and an email address to answer you and to be reasonably sure the request is really yours.",
-      th: "เราจำเป็นต้องมีชื่อและอีเมลเพื่อตอบกลับคุณ และเพื่อให้มั่นใจตามสมควรว่าคำร้องนั้นเป็นของคุณจริง",
+      th: "BIRSA จำเป็นต้องมีชื่อและที่อยู่อีเมลเพื่อตอบกลับท่าน และเพื่อตรวจสอบตามสมควรว่าคำร้องดังกล่าวเป็นของท่านจริง",
     },
     recipients: ["resend"],
     storage: "email",
@@ -248,44 +306,62 @@ export const activities: ProcessingActivity[] = [
   },
   {
     id: "officer-account",
-    name: { en: "BIRSA officer accounts", th: "บัญชีเจ้าหน้าที่ BIRSA" },
+    name: {
+      en: "BIRSA officer accounts",
+      th: "บัญชีผู้ใช้งานของเจ้าหน้าที่ BIRSA",
+    },
     purpose: {
       en: "So the people who run the equipment service can sign in, and so each action has a name against it.",
-      th: "เพื่อให้ผู้ดูแลบริการยืมอุปกรณ์เข้าสู่ระบบได้ และเพื่อให้ทุกการกระทำมีชื่อผู้รับผิดชอบกำกับ",
+      th: "เพื่อให้ผู้ดูแลบริการยืมอุปกรณ์เข้าใช้งานระบบได้ และเพื่อให้การดำเนินการแต่ละรายการมีผู้รับผิดชอบกำกับ",
     },
-    basis: BASIS_CONTRACT,
     collects: [
-      { en: "The officer's name, email address and role", th: "ชื่อ อีเมล และบทบาทของเจ้าหน้าที่" },
-      { en: "A scrambled form of their passcode, which cannot be turned back into the passcode", th: "รหัสผ่านในรูปแบบที่เข้ารหัสแล้ว ซึ่งย้อนกลับเป็นรหัสเดิมไม่ได้" },
-      { en: "When they last signed in", th: "เวลาที่เข้าสู่ระบบครั้งล่าสุด" },
+      {
+        en: "The officer's name, email address and role",
+        th: "ชื่อ ที่อยู่อีเมล และบทบาทหน้าที่ของเจ้าหน้าที่",
+      },
+      {
+        en: "A scrambled form of their passcode, which cannot be turned back into the passcode",
+        th: "รหัสผ่านที่ผ่านการแปลงค่าด้วยวิธีการทางเทคนิค ซึ่งไม่อาจย้อนกลับเป็นรหัสผ่านเดิมได้",
+      },
+      { en: "When they last signed in", th: "เวลาที่เข้าใช้งานระบบครั้งล่าสุด" },
     ],
+    basis: BASIS_CONTRACT,
     ifYouDoNot: {
       en: "This only applies to BIRSA officers. An officer who does not want an account cannot run the equipment service.",
-      th: "ใช้กับเจ้าหน้าที่ BIRSA เท่านั้น เจ้าหน้าที่ที่ไม่ต้องการมีบัญชีจะดูแลบริการยืมอุปกรณ์ไม่ได้",
+      th: "รายการนี้ใช้กับเจ้าหน้าที่ BIRSA เท่านั้น เจ้าหน้าที่ที่ไม่ประสงค์จะมีบัญชีผู้ใช้งานจะไม่สามารถปฏิบัติหน้าที่ดูแลบริการยืมอุปกรณ์ได้",
     },
     recipients: ["vercel-postgres"],
     storage: "database",
     retentionTrigger: "last-active",
     retentionNote: {
       en: "After two years without signing in, an officer's name and email address are overwritten. The record itself stays, because the log of who approved which loan would otherwise lose its meaning.",
-      th: "หากไม่เข้าสู่ระบบเป็นเวลาสองปี ชื่อและอีเมลของเจ้าหน้าที่จะถูกเขียนทับ ตัวรายการยังคงอยู่ เพราะมิฉะนั้นบันทึกว่าใครอนุมัติรายการยืมใดจะไม่มีความหมาย",
+      th: "เมื่อไม่มีการเข้าใช้งานระบบเป็นเวลาสองปี ชื่อและที่อยู่อีเมลของเจ้าหน้าที่จะถูกแทนที่ด้วยข้อมูลที่ไม่ระบุตัวบุคคล โดยยังคงรายการไว้ เนื่องจากมิฉะนั้นบันทึกว่าผู้ใดอนุมัติรายการยืมใดย่อมสิ้นความหมาย",
     },
   },
   {
     id: "audit-log",
-    name: { en: "Log of officer actions", th: "บันทึกการกระทำของเจ้าหน้าที่" },
+    name: {
+      en: "Log of officer actions",
+      th: "บันทึกการดำเนินการของเจ้าหน้าที่",
+    },
     purpose: {
       en: "So that if something goes wrong with an item or a loan, we can see who did what and when.",
-      th: "เพื่อให้เมื่อเกิดปัญหากับอุปกรณ์หรือรายการยืม เราตรวจสอบได้ว่าใครทำอะไรเมื่อใด",
+      th: "เพื่อให้ตรวจสอบย้อนหลังได้ว่าผู้ใดดำเนินการสิ่งใดในเวลาใด เมื่อเกิดปัญหาเกี่ยวกับอุปกรณ์หรือรายการยืม",
     },
     basis: BASIS_LEGITIMATE_INTEREST,
     collects: [
-      { en: "Which officer acted, what they did, and when", th: "เจ้าหน้าที่คนใด ทำอะไร และเมื่อใด" },
-      { en: "Which item, loan or record they acted on", th: "อุปกรณ์ รายการยืม หรือข้อมูลที่ถูกดำเนินการ" },
+      {
+        en: "Which officer acted, what they did, and when",
+        th: "เจ้าหน้าที่ผู้ดำเนินการ ลักษณะการดำเนินการ และเวลาที่ดำเนินการ",
+      },
+      {
+        en: "Which item, loan or record they acted on",
+        th: "อุปกรณ์ รายการยืม หรือข้อมูลที่ถูกดำเนินการ",
+      },
     ],
     ifYouDoNot: {
       en: "This is written automatically when an officer acts. It records officers, not visitors, and it does not record your IP address or your browser.",
-      th: "ระบบบันทึกโดยอัตโนมัติเมื่อเจ้าหน้าที่ดำเนินการ บันทึกเฉพาะเจ้าหน้าที่ ไม่ใช่ผู้เข้าชม และไม่บันทึกหมายเลข IP หรือเบราว์เซอร์ของคุณ",
+      th: "ระบบบันทึกรายการโดยอัตโนมัติเมื่อเจ้าหน้าที่ดำเนินการ โดยบันทึกเฉพาะการกระทำของเจ้าหน้าที่ มิใช่ของผู้เข้าชม และไม่มีการบันทึกหมายเลขไอพีหรือข้อมูลเบราว์เซอร์ของท่าน",
     },
     recipients: ["vercel-postgres"],
     storage: "database",
@@ -293,25 +369,31 @@ export const activities: ProcessingActivity[] = [
   },
   {
     id: "rate-limiting",
-    name: { en: "Stopping form abuse", th: "การป้องกันการใช้แบบฟอร์มในทางที่ผิด" },
+    name: {
+      en: "Stopping form abuse",
+      th: "การป้องกันการใช้แบบฟอร์มโดยมิชอบ",
+    },
     purpose: {
       en: "So one person cannot flood a form with hundreds of submissions.",
-      th: "เพื่อไม่ให้ผู้ใดส่งแบบฟอร์มซ้ำจำนวนมากจนระบบล่ม",
+      th: "เพื่อป้องกันมิให้ผู้ใดส่งแบบฟอร์มซ้ำเป็นจำนวนมากจนกระทบต่อการให้บริการ",
     },
     basis: BASIS_LEGITIMATE_INTEREST,
     collects: [
-      { en: "Your IP address, and a count of how many times you submitted a form recently", th: "หมายเลข IP ของคุณ และจำนวนครั้งที่คุณส่งแบบฟอร์มในช่วงที่ผ่านมา" },
+      {
+        en: "Your IP address, and a count of how many times you submitted a form recently",
+        th: "หมายเลขไอพีของท่าน และจำนวนครั้งที่ส่งแบบฟอร์มในช่วงเวลาที่ผ่านมา",
+      },
     ],
     ifYouDoNot: {
       en: "This happens automatically on every form. There is no way to turn it off, and no way to use the forms without it.",
-      th: "ระบบทำงานอัตโนมัติกับทุกแบบฟอร์ม ไม่มีวิธีปิด และใช้แบบฟอร์มโดยไม่ผ่านขั้นตอนนี้ไม่ได้",
+      th: "ระบบดำเนินการโดยอัตโนมัติกับทุกแบบฟอร์ม ไม่อาจปิดการทำงานได้ และไม่อาจใช้แบบฟอร์มโดยไม่ผ่านขั้นตอนนี้",
     },
     recipients: [],
     storage: "memory",
     retentionTrigger: "created",
     retentionNote: {
       en: "Held in the server's memory for ten minutes and never written to a database. It disappears sooner if the server restarts.",
-      th: "เก็บไว้ในหน่วยความจำของเซิร์ฟเวอร์เป็นเวลาสิบนาที ไม่เคยบันทึกลงฐานข้อมูล และจะหายไปเร็วกว่านั้นหากเซิร์ฟเวอร์รีสตาร์ท",
+      th: "จัดเก็บไว้ในหน่วยความจำของเซิร์ฟเวอร์เป็นเวลาสิบนาที โดยไม่มีการบันทึกลงฐานข้อมูล และจะถูกลบเร็วกว่ากำหนดหากเซิร์ฟเวอร์เริ่มการทำงานใหม่",
     },
   },
 ];
@@ -330,67 +412,85 @@ export const processors: Processor[] = [
   {
     id: "resend",
     name: "Resend",
-    role: { en: "Delivers every email this site sends", th: "ส่งอีเมลทุกฉบับที่เว็บไซต์นี้ส่งออก" },
+    role: {
+      en: "Delivers every email this site sends",
+      th: "ให้บริการจัดส่งอีเมลทุกฉบับที่เว็บไซต์นี้ส่งออก",
+    },
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
       en: "Your name, email address, and anything in the message. For a loan, also your student ID, phone number, dates and reason.",
-      th: "ชื่อ อีเมล และเนื้อความของคุณ กรณีการยืมอุปกรณ์ รวมถึงรหัสนักศึกษา เบอร์โทรศัพท์ วันที่ และเหตุผลด้วย",
+      th: "ชื่อ ที่อยู่อีเมล และเนื้อหาข้อความของท่าน ในกรณีการยืมอุปกรณ์ รวมถึงรหัสนักศึกษา หมายเลขโทรศัพท์ ช่วงวันที่ และเหตุผลในการยืมด้วย",
     },
   },
   {
     id: "vercel-hosting",
     name: "Vercel",
-    role: { en: "Hosts the site and serves every page", th: "โฮสต์เว็บไซต์และให้บริการทุกหน้า" },
+    role: {
+      en: "Hosts the site and serves every page",
+      th: "ให้บริการโฮสติ้งและเผยแพร่หน้าเว็บไซต์",
+    },
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
       en: "Ordinary web server records of each request, which include your IP address. BIRSA does not add anything to these and does not use them to identify anyone.",
-      th: "บันทึกคำขอของเซิร์ฟเวอร์ตามปกติ ซึ่งรวมถึงหมายเลข IP ของคุณ BIRSA ไม่ได้เพิ่มข้อมูลใดลงในบันทึกนี้ และไม่ได้ใช้เพื่อระบุตัวบุคคล",
+      th: "บันทึกการเรียกใช้งานของเซิร์ฟเวอร์ตามปกติ ซึ่งรวมถึงหมายเลขไอพีของท่าน BIRSA มิได้เพิ่มเติมข้อมูลใดลงในบันทึกดังกล่าว และมิได้ใช้เพื่อระบุตัวบุคคล",
     },
   },
   {
     id: "vercel-postgres",
     name: "Vercel Postgres",
-    role: { en: "The database behind the equipment loan service", th: "ฐานข้อมูลเบื้องหลังบริการยืมอุปกรณ์" },
+    role: {
+      en: "The database behind the equipment loan service",
+      th: "ให้บริการฐานข้อมูลสำหรับบริการยืมอุปกรณ์",
+    },
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
       en: "Loan and borrower records, officer accounts, the log of officer actions, and page feedback.",
-      th: "รายการยืมและข้อมูลผู้ยืม บัญชีเจ้าหน้าที่ บันทึกการกระทำของเจ้าหน้าที่ และความคิดเห็นเกี่ยวกับหน้าเว็บ",
+      th: "รายการยืมและข้อมูลผู้ยืม บัญชีผู้ใช้งานของเจ้าหน้าที่ บันทึกการดำเนินการของเจ้าหน้าที่ และความคิดเห็นต่อหน้าเว็บไซต์",
     },
   },
   {
     id: "vercel-blob",
     name: "Vercel Blob",
-    role: { en: "Stores photographs of equipment", th: "เก็บรูปถ่ายอุปกรณ์" },
+    role: {
+      en: "Stores photographs of equipment",
+      th: "ให้บริการจัดเก็บภาพถ่ายอุปกรณ์",
+    },
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
       en: "Photographs of equipment that officers upload. No personal data.",
-      th: "รูปถ่ายอุปกรณ์ที่เจ้าหน้าที่อัปโหลด ไม่มีข้อมูลส่วนบุคคล",
+      th: "ภาพถ่ายอุปกรณ์ที่เจ้าหน้าที่อัปโหลด โดยไม่มีข้อมูลส่วนบุคคล",
     },
   },
   {
     id: "openstreetmap",
     name: "OpenStreetMap",
-    role: { en: "Supplies the map tiles on the places pages", th: "ให้บริการภาพแผนที่ในหน้าสถานที่" },
+    role: {
+      en: "Supplies the map tiles on the places pages",
+      th: "ให้บริการภาพแผนที่ในหน้าข้อมูลสถานที่",
+    },
     country: { en: "United Kingdom", th: "สหราชอาณาจักร" },
     outsideThailand: true,
     receives: {
       en: "If you open a page with a map, your browser fetches the map images directly from OpenStreetMap, so they see your IP address. BIRSA sends them nothing else.",
-      th: "หากคุณเปิดหน้าที่มีแผนที่ เบราว์เซอร์ของคุณจะดึงภาพแผนที่จาก OpenStreetMap โดยตรง ทำให้ผู้ให้บริการเห็นหมายเลข IP ของคุณ BIRSA ไม่ได้ส่งข้อมูลอื่นใดให้",
+      th: "เมื่อท่านเปิดหน้าที่มีแผนที่ เบราว์เซอร์ของท่านจะเรียกภาพแผนที่จาก OpenStreetMap โดยตรง ผู้ให้บริการดังกล่าวจึงทราบหมายเลขไอพีของท่าน ทั้งนี้ BIRSA มิได้ส่งข้อมูลอื่นใดให้",
     },
   },
   {
     id: "google-forms",
     name: "Google Forms",
-    role: { en: "Some club sign-up forms are Google Forms shown inside a page here", th: "แบบฟอร์มสมัครของบางชมรมเป็น Google Form ที่แสดงอยู่ในหน้าเว็บนี้" },
+    role: {
+      en: "Some club sign-up forms are Google Forms shown inside a page here",
+      th: "แบบฟอร์มรับสมัครของบางชมรมเป็น Google Form ที่แสดงผลอยู่ภายในหน้าเว็บไซต์นี้",
+    },
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
       en: "Whatever you type into that form goes straight to Google and to whoever set the form up. It does not pass through this site, and BIRSA cannot see it or delete it for you.",
-      th: "สิ่งที่คุณกรอกในแบบฟอร์มนั้นจะส่งตรงไปยัง Google และผู้สร้างแบบฟอร์ม ไม่ได้ผ่านเว็บไซต์นี้ BIRSA จึงไม่เห็นข้อมูลนั้นและลบให้คุณไม่ได้",
+      th: "ข้อมูลที่ท่านกรอกในแบบฟอร์มดังกล่าวจะถูกส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม โดยไม่ผ่านเว็บไซต์นี้ BIRSA จึงไม่อาจเข้าถึงหรือลบข้อมูลดังกล่าวแทนท่านได้",
     },
   },
 ];
@@ -418,7 +518,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "NEXT_LOCALE",
     purpose: {
       en: "Remembers whether you last read the site in Thai or English, so we do not ask again.",
-      th: "จดจำว่าครั้งล่าสุดคุณอ่านเว็บไซต์เป็นภาษาไทยหรืออังกฤษ เพื่อไม่ต้องถามซ้ำ",
+      th: "บันทึกภาษาที่ท่านเลือกอ่านครั้งล่าสุด ไทยหรืออังกฤษ เพื่อมิให้ต้องสอบถามซ้ำ",
     },
     expires: { en: "One year", th: "หนึ่งปี" },
     essential: true,
@@ -427,7 +527,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_contact_draft",
     purpose: {
       en: "Holds your answers as you move between the pages of the contact form, so going back does not lose them.",
-      th: "เก็บคำตอบของคุณระหว่างเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อไม่ให้ข้อมูลหายเมื่อย้อนกลับ",
+      th: "จัดเก็บคำตอบของท่านระหว่างการเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อมิให้ข้อมูลสูญหายเมื่อย้อนกลับ",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -436,7 +536,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_start_club_draft",
     purpose: {
       en: "The same, for the start-a-club form.",
-      th: "ทำหน้าที่เดียวกัน สำหรับแบบฟอร์มเสนอจัดตั้งชมรม",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับแบบฟอร์มขอจัดตั้งชมรม",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -445,7 +545,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_loan_request_draft",
     purpose: {
       en: "The same, for an equipment loan request.",
-      th: "ทำหน้าที่เดียวกัน สำหรับคำขอยืมอุปกรณ์",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับคำขอยืมอุปกรณ์",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -454,7 +554,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_loan_status_draft",
     purpose: {
       en: "The same, for looking up a loan you already made.",
-      th: "ทำหน้าที่เดียวกัน สำหรับการตรวจสอบรายการยืมที่มีอยู่",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับการตรวจสอบสถานะรายการยืม",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -463,7 +563,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_rights_draft",
     purpose: {
       en: "The same, for a request about your own data.",
-      th: "ทำหน้าที่เดียวกัน สำหรับคำร้องเกี่ยวกับข้อมูลของคุณเอง",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับคำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -472,7 +572,7 @@ export const cookieRecords: CookieRecord[] = [
     name: "birsa_inventory",
     purpose: {
       en: "Keeps a BIRSA officer signed in to the equipment console. Only ever set for officers, never for ordinary visitors.",
-      th: "รักษาสถานะการเข้าสู่ระบบของเจ้าหน้าที่ BIRSA ในระบบจัดการอุปกรณ์ ตั้งค่าเฉพาะกับเจ้าหน้าที่ ไม่เคยตั้งกับผู้เข้าชมทั่วไป",
+      th: "รักษาสถานะการเข้าใช้งานระบบจัดการอุปกรณ์ของเจ้าหน้าที่ BIRSA กำหนดเฉพาะกับเจ้าหน้าที่เท่านั้น มิได้กำหนดกับผู้เข้าชมทั่วไป",
     },
     expires: { en: "Twelve hours", th: "สิบสองชั่วโมง" },
     essential: true,
@@ -494,14 +594,14 @@ export const browserStorage: BrowserStorageRecord[] = [
     key: "birsa-theme",
     purpose: {
       en: "Remembers that you chose light or dark mode. Only set if you use the toggle.",
-      th: "จดจำว่าคุณเลือกโหมดสว่างหรือมืด ตั้งค่าเมื่อคุณกดปุ่มสลับเท่านั้น",
+      th: "บันทึกการเลือกโหมดสว่างหรือโหมดมืดของท่าน กำหนดเมื่อท่านใช้ปุ่มสลับโหมดเท่านั้น",
     },
   },
   {
     key: "birsa-onboarding-*",
     purpose: {
       en: "Remembers which tasks you ticked off on the step-by-step pages, one key per track. We never see this.",
-      th: "จดจำรายการที่คุณติ๊กในหน้าทีละขั้นตอน โดยแยกคีย์ตามแต่ละเส้นทาง เราไม่เห็นข้อมูลนี้",
+      th: "บันทึกรายการที่ท่านทำเครื่องหมายไว้ในหน้าแนะนำแบบทีละขั้นตอน โดยแยกคีย์ตามแต่ละเส้นทาง BIRSA ไม่สามารถเข้าถึงข้อมูลนี้ได้",
     },
   },
 ];
@@ -523,73 +623,91 @@ export const dataRights: DataRight[] = [
   {
     id: "access",
     section: "30",
-    name: { en: "See what we hold about you", th: "ขอดูข้อมูลที่เราเก็บเกี่ยวกับคุณ" },
+    name: {
+      en: "See what we hold about you",
+      th: "สิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคล",
+    },
     description: {
       en: "Ask us what personal data we hold about you, get a copy of it, and ask how we got it.",
-      th: "ขอทราบว่าเราเก็บข้อมูลส่วนบุคคลใดของคุณไว้ ขอสำเนา และขอทราบว่าเราได้ข้อมูลนั้นมาอย่างไร",
+      th: "ขอทราบว่า BIRSA เก็บรวบรวมข้อมูลส่วนบุคคลใดของท่านไว้ ขอรับสำเนาข้อมูลดังกล่าว และขอให้เปิดเผยถึงการได้มาซึ่งข้อมูลนั้น",
     },
   },
   {
     id: "portability",
     section: "31",
-    name: { en: "Get your data in a reusable format", th: "ขอรับข้อมูลในรูปแบบที่นำไปใช้ต่อได้" },
+    name: {
+      en: "Get your data in a reusable format",
+      th: "สิทธิขอให้โอนย้ายข้อมูลส่วนบุคคล",
+    },
     description: {
       en: "Ask for your data in a format you or another organisation can read with a computer.",
-      th: "ขอรับข้อมูลของคุณในรูปแบบที่คุณหรือองค์กรอื่นอ่านได้ด้วยเครื่องคอมพิวเตอร์",
+      th: "ขอรับข้อมูลส่วนบุคคลของท่านในรูปแบบที่สามารถอ่านหรือใช้งานได้ด้วยเครื่องมือหรืออุปกรณ์ที่ทำงานโดยอัตโนมัติ และขอให้ส่งหรือโอนข้อมูลดังกล่าวไปยังผู้ควบคุมข้อมูลส่วนบุคคลรายอื่น",
     },
   },
   {
     id: "correct",
     section: "35 and 36",
-    name: { en: "Correct something that is wrong", th: "ขอแก้ไขข้อมูลที่ไม่ถูกต้อง" },
+    name: {
+      en: "Correct something that is wrong",
+      th: "สิทธิขอให้แก้ไขข้อมูลส่วนบุคคลให้ถูกต้อง",
+    },
     description: {
       en: "Tell us to fix data that is wrong, out of date, incomplete or misleading.",
-      th: "แจ้งให้เราแก้ไขข้อมูลที่ผิด ล้าสมัย ไม่ครบถ้วน หรือทำให้เข้าใจผิด",
+      th: "ขอให้ BIRSA ดำเนินการให้ข้อมูลส่วนบุคคลของท่านถูกต้อง เป็นปัจจุบัน สมบูรณ์ และไม่ก่อให้เกิดความเข้าใจผิด",
     },
   },
   {
     id: "delete",
     section: "33",
-    name: { en: "Have your data deleted", th: "ขอให้ลบข้อมูลของคุณ" },
+    name: {
+      en: "Have your data deleted",
+      th: "สิทธิขอให้ลบหรือทำลายข้อมูลส่วนบุคคล",
+    },
     description: {
       en: "Ask us to delete or anonymise your data, for example when we no longer need it for the purpose we collected it.",
-      th: "ขอให้เราลบหรือทำให้ข้อมูลของคุณไม่สามารถระบุตัวตนได้ เช่น เมื่อเราไม่จำเป็นต้องใช้ตามวัตถุประสงค์ที่เก็บมาแล้ว",
+      th: "ขอให้ BIRSA ลบ ทำลาย หรือทำให้ข้อมูลส่วนบุคคลของท่านเป็นข้อมูลที่ไม่สามารถระบุตัวบุคคลได้ เช่น เมื่อหมดความจำเป็นในการเก็บรักษาตามวัตถุประสงค์ในการเก็บรวบรวม",
     },
   },
   {
     id: "object",
     section: "32",
-    name: { en: "Object to what we are doing with it", th: "ขอคัดค้านการใช้ข้อมูลของคุณ" },
+    name: {
+      en: "Object to what we are doing with it",
+      th: "สิทธิคัดค้านการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล",
+    },
     description: {
       en: "Object to us collecting, using or disclosing your data where we rely on our legitimate interests.",
-      th: "คัดค้านการเก็บ ใช้ หรือเปิดเผยข้อมูลของคุณ ในกรณีที่เราอาศัยฐานประโยชน์โดยชอบด้วยกฎหมาย",
+      th: "คัดค้านการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลของท่าน ในกรณีที่ BIRSA อาศัยฐานประโยชน์โดยชอบด้วยกฎหมาย",
     },
   },
   {
     id: "restrict",
     section: "34",
-    name: { en: "Ask us to pause using it", th: "ขอให้ระงับการใช้ข้อมูล" },
+    name: {
+      en: "Ask us to pause using it",
+      th: "สิทธิขอให้ระงับการใช้ข้อมูลส่วนบุคคล",
+    },
     description: {
       en: "Ask us to hold your data but stop using it, for example while we look into a correction you asked for.",
-      th: "ขอให้เราเก็บข้อมูลไว้แต่หยุดใช้งาน เช่น ระหว่างที่เรากำลังตรวจสอบการแก้ไขที่คุณขอ",
+      th: "ขอให้ BIRSA เก็บรักษาข้อมูลส่วนบุคคลไว้แต่ระงับการใช้งาน เช่น ระหว่างการตรวจสอบความถูกต้องของข้อมูลตามที่ท่านร้องขอ",
     },
   },
   {
     id: "withdraw",
     section: "19",
-    name: { en: "Withdraw consent", th: "ขอถอนความยินยอม" },
+    name: { en: "Withdraw consent", th: "สิทธิขอถอนความยินยอม" },
     description: {
       en: "Where we ever rely on your consent, take it back. It is as easy to withdraw as it was to give, and withdrawing does not undo what was already done lawfully.",
-      th: "ในกรณีที่เราอาศัยความยินยอมของคุณ คุณถอนคืนได้ การถอนทำได้ง่ายเท่ากับตอนให้ และไม่กระทบสิ่งที่ได้ดำเนินการไปแล้วโดยชอบ",
+      th: "ในกรณีที่ BIRSA อาศัยความยินยอมของท่าน ท่านมีสิทธิถอนความยินยอมเมื่อใดก็ได้ โดยกระทำได้โดยง่ายเช่นเดียวกับการให้ความยินยอม ทั้งนี้ การถอนความยินยอมย่อมไม่ส่งผลกระทบต่อการดำเนินการที่ได้กระทำไปแล้วโดยชอบด้วยกฎหมาย",
     },
   },
   {
     id: "complain",
     section: "73",
-    name: { en: "Complain about us", th: "ขอร้องเรียนเกี่ยวกับเรา" },
+    name: { en: "Complain about us", th: "สิทธิร้องเรียน" },
     description: {
       en: "Complain to the Personal Data Protection Committee's expert committee if you think we have broken the law.",
-      th: "ร้องเรียนต่อคณะกรรมการผู้เชี่ยวชาญของคณะกรรมการคุ้มครองข้อมูลส่วนบุคคล หากคุณเห็นว่าเราทำผิดกฎหมาย",
+      th: "ร้องเรียนต่อคณะกรรมการผู้เชี่ยวชาญ ในกรณีที่ท่านเห็นว่า BIRSA มิได้ปฏิบัติตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
     },
   },
 ];

@@ -31,23 +31,23 @@ export type RightsWizardLabels = {
 export function buildRightsWizardLabels(locale: Locale): RightsWizardLabels {
   if (locale === "th") {
     return {
-      whatHeading: "คุณต้องการใช้สิทธิใด",
-      whatLegend: "คุณต้องการใช้สิทธิใด",
-      nameHeading: "ชื่อของคุณคืออะไร",
-      emailHeading: "อีเมลของคุณคืออะไร",
-      detailsHeading: "มีอะไรที่ช่วยให้เราค้นหาข้อมูลของคุณเจอไหม",
+      whatHeading: "ท่านประสงค์จะใช้สิทธิใด",
+      whatLegend: "ท่านประสงค์จะใช้สิทธิใด",
+      nameHeading: "ชื่อของท่าน",
+      emailHeading: "ที่อยู่อีเมลของท่าน",
+      detailsHeading: "ข้อมูลประกอบที่ช่วยให้ค้นหาข้อมูลของท่านได้",
       detailsHint:
-        "เช่น หมายเลขอ้างอิงการยืมอุปกรณ์ หรืออีเมลที่คุณใช้ตอนยืม ไม่กรอกก็ได้",
-      checkTitle: "ตรวจสอบคำร้องของคุณ",
-      checkWhatLabel: "สิทธิที่ต้องการใช้",
+        "เช่น หมายเลขอ้างอิงการยืมอุปกรณ์ หรือที่อยู่อีเมลที่ท่านใช้ในการยืม ทั้งนี้ ไม่จำเป็นต้องกรอก",
+      checkTitle: "ตรวจสอบคำร้องของท่าน",
+      checkWhatLabel: "สิทธิที่ประสงค์จะใช้",
       checkNameLabel: "ชื่อ",
-      checkEmailLabel: "อีเมล",
-      checkDetailsLabel: "ข้อมูลเพิ่มเติม",
+      checkEmailLabel: "ที่อยู่อีเมล",
+      checkDetailsLabel: "ข้อมูลประกอบ",
       checkDetailsEmpty: "ไม่ได้ระบุ",
       send: "ส่งคำร้อง",
       sending: "กำลังส่ง…",
       errors: {
-        whatRequired: "เลือกสิทธิที่คุณต้องการใช้",
+        whatRequired: "โปรดเลือกสิทธิที่ท่านประสงค์จะใช้",
       },
     };
   }

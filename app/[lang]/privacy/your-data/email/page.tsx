@@ -18,7 +18,7 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "ยื่นคำร้องเกี่ยวกับข้อมูลของคุณ" : "Ask about your data";
+  const title = locale === "th" ? "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" : "Ask about your data";
   return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/email" });
 }
 
