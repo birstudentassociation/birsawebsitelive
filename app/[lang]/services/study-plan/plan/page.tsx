@@ -4,12 +4,18 @@ import Link from "next/link";
 import {
   CURRICULUM_VERSIONS,
   type CategoryId,
+  type CurriculumVersion,
   type TermKind,
   type TermRef,
 } from "@/content/curriculum";
 import { nextTerm, planTotals, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
+import {
+  suggestForTerm,
+  type SuggestedCourse,
+  type TermSuggestion,
+} from "@/lib/study-plan/suggest";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
@@ -17,7 +23,11 @@ import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
-import TermEditor from "@/components/study-plan/TermEditor";
+import TermEditor, {
+  type TermEditorCourse,
+  type TermEditorCourseGroup,
+  type TermEditorSlot,
+} from "@/components/study-plan/TermEditor";
 import PlanStore from "@/components/study-plan/PlanStore";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
 import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
@@ -80,11 +90,65 @@ function categoryLabel(
   }
 }
 
+/** Converts one engine-side suggested course into the shape `TermEditor` renders. */
+function toTermEditorCourse(course: SuggestedCourse): TermEditorCourse {
+  return {
+    code: course.code,
+    title: course.title,
+    credits: course.credits,
+    missingPrerequisites: course.missingPrerequisites,
+  };
+}
+
+/**
+ * Turns `suggestForTerm`'s groups into what `TermEditor` renders, resolving
+ * each group's label. The "recommended" and "other" groups get fixed copy
+ * and owe nothing (their `remaining` is always 0 from the engine, mapped to
+ * null here since the idea of "credits still needed" does not apply to
+ * them); a requirement bucket goes through `categoryLabel`, the same helper
+ * the "what you still owe" table above uses, so a minor bucket reads as the
+ * student's own minor in both places and the two can never quietly drift
+ * apart on how they name it.
+ */
+function buildCourseGroups(
+  copy: StudyPlanCopy,
+  version: CurriculumVersion,
+  locale: Locale,
+  minorName: string,
+  suggestion: TermSuggestion
+): TermEditorCourseGroup[] {
+  return suggestion.groups.map((group) => {
+    if (group.id === "recommended") {
+      return {
+        id: group.id,
+        label: copy.plan.pickRecommendedGroup,
+        remaining: null,
+        courses: group.courses.map(toTermEditorCourse),
+      };
+    }
+    if (group.id === "other") {
+      return {
+        id: group.id,
+        label: copy.plan.pickOtherGroup,
+        remaining: null,
+        courses: group.courses.map(toTermEditorCourse),
+      };
+    }
+    const categoryName = version.categories.find((c) => c.id === group.id)?.name[locale] ?? "";
+    return {
+      id: group.id,
+      label: categoryLabel(copy, group.id, categoryName, minorName),
+      remaining: group.remaining,
+      courses: group.courses.map(toTermEditorCourse),
+    };
+  });
+}
+
 /**
  * The plan screen: the destination the whole service exists to produce. Shows
  * the plan, checks it against the rules without ever blocking on what it
  * finds (see `lib/study-plan/findings.ts`), and lets the student edit every
- * term ahead of them before taking it to their advisor.
+ * term ahead of them.
  */
 export default async function StudyPlanPage({
   params,
@@ -162,13 +226,6 @@ export default async function StudyPlanPage({
   const lastShownTerm = futureTerms.at(-1) ?? null;
   const nextTermRef = lastShownTerm ? nextTerm(lastShownTerm) : position;
 
-  const plannedCodesSet = new Set(plan.terms.flatMap((t) => t.codes));
-  const passedSet = new Set(plan.passed);
-  const availableCourses = version.courses.value
-    .filter((course) => !passedSet.has(course.code) && !plannedCodesSet.has(course.code))
-    .sort((a, b) => a.code.localeCompare(b.code))
-    .map((course) => ({ code: course.code, title: course.title, credits: course.credits }));
-
   const serialisedPlan = serialisePlan(plan);
   const printHref = `${localeHref(locale, "/services/study-plan/plan/print")}?${PLAN_FIELD}=${encodeURIComponent(serialisedPlan)}`;
 
@@ -182,6 +239,13 @@ export default async function StudyPlanPage({
     updateFreeElectiveLabel: copy.plan.updateFreeElectiveButton,
     creditsUnit: copy.plan.creditsUnit,
     errorSummaryTitle: copy.errorSummaryTitle,
+    pickHeading: copy.plan.pickHeading,
+    pickSlotsHint: copy.plan.pickSlotsHint,
+    pickSlotCandidates: copy.plan.pickSlotCandidates,
+    pickSlotAnyCourse: copy.plan.pickSlotAnyCourse,
+    pickNothingOwed: copy.plan.pickNothingOwed,
+    pickRemainingTemplate: copy.plan.pickRemainingTemplate,
+    pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
   };
 
   return (
@@ -287,10 +351,29 @@ export default async function StudyPlanPage({
             const plannedTerm = plan.terms.find(
               (t) => t.term.year === term.year && t.term.kind === term.kind
             );
+            // Courses already placed in this term carry no prerequisite
+            // annotation: the picker annotates a course to warn before it is
+            // added, while a course already in the plan is checked by
+            // `checkPlan` and reported in the findings list at the top of this
+            // page, which states the same problem once for the whole plan
+            // rather than once per term. Repeating it on every placed course
+            // would be the same warning twice in two voices.
             const placed = (plannedTerm?.codes ?? []).map((code) => {
               const course = courseByCode.get(code);
-              return { code, title: course?.title ?? "", credits: course?.credits ?? 0 };
+              return {
+                code,
+                title: course?.title ?? "",
+                credits: course?.credits ?? 0,
+                missingPrerequisites: [],
+              };
             });
+            const suggestion = suggestForTerm(version, plan, term);
+            const courseGroups = buildCourseGroups(copy, version, locale, minorName, suggestion);
+            const openSlots: TermEditorSlot[] = suggestion.openSlots.map((slot) => ({
+              id: slot.id,
+              label: slot.label[locale],
+              candidates: slot.candidates.map(toTermEditorCourse),
+            }));
             return (
               <TermEditor
                 key={`${term.year}-${term.kind}`}
@@ -299,7 +382,8 @@ export default async function StudyPlanPage({
                 plan={serialisedPlan}
                 placed={placed}
                 freeElectiveCredits={plannedTerm?.freeElectiveCredits ?? 0}
-                availableCourses={availableCourses}
+                courseGroups={courseGroups}
+                openSlots={openSlots}
                 addAction={addCourseToTerm.bind(null, locale)}
                 removeAction={removeCourseFromTerm.bind(null, locale)}
                 freeElectiveAction={setTermFreeElectiveCredits.bind(null, locale)}

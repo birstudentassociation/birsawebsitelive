@@ -62,7 +62,7 @@ export type StudyPlanCopy = {
   };
   inference: {
     heading: string;
-    askAdvisor: string;
+    checkSources: string;
   };
   /** Shared year/term labels, reused by the `where` select options and the `assumed` step's term-group headings, so both say the same thing. */
   terms: {
@@ -126,6 +126,24 @@ export type StudyPlanCopy = {
     addCourseLabel: string;
     addCourseButton: string;
     noCoursesAvailable: string;
+    /** Heading for the panel above a term's add-course control that says what the term still needs. */
+    pickHeading: string;
+    /** Optgroup label for courses the recommended plan puts in this exact term. */
+    pickRecommendedGroup: string;
+    /** Optgroup label for courses that count toward nothing still owed: already-satisfied buckets, and courses outside the degree total. */
+    pickOtherGroup: string;
+    /** Contains "{n}"; credits still needed in one requirement bucket, shown after the bucket name in an optgroup label. */
+    pickRemainingTemplate: string;
+    /** Introduces the list of choices the recommended plan leaves open in this term. */
+    pickSlotsHint: string;
+    /** Introduces the courses that could fill one open choice. */
+    pickSlotCandidates: string;
+    /** Shown for an open choice the catalogue has no courses for, i.e. a free elective, which may be any Thammasat course. */
+    pickSlotAnyCourse: string;
+    /** Shown in place of the panel when the plan already covers every requirement and this term has no open choices left. */
+    pickNothingOwed: string;
+    /** Contains "{codes}"; appended to a course in the select when a prerequisite is not passed and not placed in an earlier term. The course is still offered: the service tells the student, it does not block them. */
+    pickPrerequisiteTemplate: string;
     removeCourseButton: string;
     freeElectiveLabel: string;
     updateFreeElectiveButton: string;
@@ -187,12 +205,12 @@ const en: StudyPlanCopy = {
   meta: {
     title: "Plan your BIR degree",
     description:
-      "Work out what you still need to take, put it into semesters, and check it against the rules before you see your advisor.",
+      "Work out what you still need to take, put it into semesters, and check it against the rules.",
   },
   errorSummaryTitle: "There is a problem",
   start: {
     title: "Plan your BIR degree",
-    lede: "Work out what you still need to take, put it into semesters, and check it against the rules before you see your advisor.",
+    lede: "Work out what you still need to take, put it into semesters, and check it against the rules.",
     beforeYouStart: "Before you start",
     needs: [
       "the first two digits of your student ID",
@@ -237,14 +255,14 @@ const en: StudyPlanCopy = {
       "Double degree routes are not covered. The credit totals differ between the source documents, and the UK routes are counted in credits that do not compare to Thai credits.",
     whatToDo: "What to do instead",
     whatToDoBody:
-      "Take your transcript to your academic advisor or the BIR programme office. They can confirm your curriculum and plan the rest of your degree with you.",
+      "Take your transcript to the BIR programme office. They can confirm your curriculum and plan the rest of your degree with you.",
     contactHeading: "Ask the faculty",
     sourcesHeading: "Read the source documents",
     backToServices: "Back to services",
   },
   inference: {
     heading: "Part of this plan is borrowed from an older curriculum",
-    askAdvisor: "Confirm this with your advisor before you rely on it.",
+    checkSources: "Check this against the source documents before you rely on it.",
   },
   terms: {
     yearTemplate: "Year {n}",
@@ -281,7 +299,7 @@ const en: StudyPlanCopy = {
   },
   plan: {
     title: "Your plan",
-    hint: "Check this against the rules, fill in the terms ahead of you, and take it to your advisor.",
+    hint: "Check this against the rules and fill in the terms ahead of you.",
     cohortLabel: "Cohort",
     creditsPlannedLabel: "Credits planned",
     projectedGraduationLabel: "Projected graduation term",
@@ -304,13 +322,24 @@ const en: StudyPlanCopy = {
     addCourseLabel: "Add a course",
     addCourseButton: "Add",
     noCoursesAvailable: "Every course in the catalogue is already passed or placed in a term.",
+    pickHeading: "What this term still needs",
+    pickRecommendedGroup: "Recommended for this term",
+    pickOtherGroup: "Everything else",
+    pickRemainingTemplate: "{n} credits still needed",
+    pickSlotsHint: "The recommended plan leaves these choices to you in this term.",
+    pickSlotCandidates: "Courses that fit",
+    pickSlotAnyCourse:
+      "Any Thammasat course counts here. Record it in the free elective credits box below rather than as a course.",
+    pickNothingOwed:
+      "This plan already covers every requirement. Anything you add here is on top of what you need.",
+    pickPrerequisiteTemplate: "needs {codes} first",
     removeCourseButton: "Remove",
     freeElectiveLabel: "Free elective credits this term",
     updateFreeElectiveButton: "Update",
     freeElectiveError: "Enter a number of credits between 0 and 21",
     creditsUnit: "credits",
     addTermButton: "Add another term",
-    printLinkLabel: "Print this plan for your advisor",
+    printLinkLabel: "Print this plan",
     doesNotCheckHeading: "What this does not check",
     doesNotCheck: [
       "Whether a course actually runs in the term you have placed it in.",
@@ -349,12 +378,12 @@ const th: StudyPlanCopy = {
   meta: {
     title: "วางแผนการศึกษาปริญญา BIR",
     description:
-      "ดูว่าท่านยังต้องลงทะเบียนวิชาใดบ้าง จัดเรียงเป็นรายภาคการศึกษา และตรวจสอบกับกฎเกณฑ์ ก่อนเข้าพบอาจารย์ที่ปรึกษา",
+      "ดูว่าท่านยังต้องลงทะเบียนวิชาใดบ้าง จัดเรียงเป็นรายภาคการศึกษา และตรวจสอบกับกฎเกณฑ์",
   },
   errorSummaryTitle: "มีข้อมูลที่ต้องแก้ไข",
   start: {
     title: "วางแผนการศึกษาปริญญา BIR",
-    lede: "ดูว่าท่านยังต้องลงทะเบียนวิชาใดบ้าง จัดเรียงเป็นรายภาคการศึกษา และตรวจสอบกับกฎเกณฑ์ ก่อนเข้าพบอาจารย์ที่ปรึกษา",
+    lede: "ดูว่าท่านยังต้องลงทะเบียนวิชาใดบ้าง จัดเรียงเป็นรายภาคการศึกษา และตรวจสอบกับกฎเกณฑ์",
     beforeYouStart: "ก่อนเริ่มต้น เตรียมข้อมูลต่อไปนี้",
     needs: [
       "เลขรหัสนักศึกษาสองหลักแรก",
@@ -399,14 +428,14 @@ const th: StudyPlanCopy = {
       "บริการนี้ไม่ครอบคลุมหลักสูตรควบสองปริญญา เนื่องจากยอดหน่วยกิตในเอกสารต้นทางแต่ละฉบับไม่ตรงกัน และหน่วยกิตของหลักสูตรฝั่งสหราชอาณาจักรไม่สามารถเทียบกับหน่วยกิตไทยได้โดยตรง",
     whatToDo: "สิ่งที่ควรทำแทน",
     whatToDoBody:
-      "นำใบแสดงผลการศึกษาของท่านไปพบอาจารย์ที่ปรึกษาหรือสำนักงานหลักสูตร BIR เพื่อยืนยันหลักสูตรและวางแผนการศึกษาที่เหลือร่วมกับท่าน",
+      "นำใบแสดงผลการศึกษาของท่านไปที่สำนักงานหลักสูตร BIR เพื่อยืนยันหลักสูตรและวางแผนการศึกษาที่เหลือร่วมกับท่าน",
     contactHeading: "ติดต่อคณะ",
     sourcesHeading: "อ่านเอกสารต้นทาง",
     backToServices: "กลับไปหน้าบริการ",
   },
   inference: {
     heading: "ส่วนหนึ่งของแผนนี้นำมาจากหลักสูตรฉบับเก่ากว่า",
-    askAdvisor: "โปรดตรวจสอบกับอาจารย์ที่ปรึกษาก่อนนำไปใช้อ้างอิง",
+    checkSources: "โปรดตรวจสอบกับเอกสารต้นทางก่อนนำไปใช้อ้างอิง",
   },
   terms: {
     yearTemplate: "ชั้นปีที่ {n}",
@@ -443,7 +472,7 @@ const th: StudyPlanCopy = {
   },
   plan: {
     title: "แผนการศึกษาของท่าน",
-    hint: "โปรดตรวจสอบแผนนี้กับกฎเกณฑ์ กรอกรายวิชาในภาคการศึกษาที่เหลือ แล้วนำไปให้อาจารย์ที่ปรึกษาตรวจสอบ",
+    hint: "โปรดตรวจสอบแผนนี้กับกฎเกณฑ์ และกรอกรายวิชาในภาคการศึกษาที่เหลือ",
     cohortLabel: "รุ่น",
     creditsPlannedLabel: "หน่วยกิตที่วางแผนไว้",
     projectedGraduationLabel: "ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
@@ -467,13 +496,24 @@ const th: StudyPlanCopy = {
     addCourseLabel: "เพิ่มรายวิชา",
     addCourseButton: "เพิ่ม",
     noCoursesAvailable: "รายวิชาทั้งหมดในหลักสูตรผ่านแล้วหรือถูกจัดไว้ในภาคการศึกษาหนึ่งแล้ว",
+    pickHeading: "สิ่งที่ภาคการศึกษานี้ยังขาดอยู่",
+    pickRecommendedGroup: "แนะนำสำหรับภาคการศึกษานี้",
+    pickOtherGroup: "รายวิชาอื่น ๆ",
+    pickRemainingTemplate: "ยังขาดอยู่ {n} หน่วยกิต",
+    pickSlotsHint: "แผนที่แนะนำเว้นตัวเลือกเหล่านี้ไว้ให้ท่านเลือกเองในภาคการศึกษานี้",
+    pickSlotCandidates: "รายวิชาที่เลือกได้",
+    pickSlotAnyCourse:
+      "ช่องนี้เป็นวิชาเลือกเสรี ซึ่งอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ โปรดบันทึกในช่องหน่วยกิตวิชาเลือกเสรีด้านล่างแทนการเลือกเป็นรายวิชา",
+    pickNothingOwed:
+      "แผนนี้ครอบคลุมทุกข้อกำหนดแล้ว รายวิชาใดที่ท่านเพิ่มในที่นี้ถือเป็นส่วนเกินจากที่ท่านต้องใช้",
+    pickPrerequisiteTemplate: "ต้องผ่าน {codes} ก่อน",
     removeCourseButton: "ลบออก",
     freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
     updateFreeElectiveButton: "บันทึก",
     freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 21",
     creditsUnit: "หน่วยกิต",
     addTermButton: "เพิ่มภาคการศึกษาอีกหนึ่งภาค",
-    printLinkLabel: "พิมพ์แผนนี้เพื่อนำไปให้อาจารย์ที่ปรึกษา",
+    printLinkLabel: "พิมพ์แผนนี้",
     doesNotCheckHeading: "สิ่งที่บริการนี้ไม่ได้ตรวจสอบ",
     doesNotCheck: [
       "วิชาที่ท่านจัดไว้จะเปิดสอนในภาคการศึกษานั้นจริงหรือไม่",
