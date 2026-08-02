@@ -506,15 +506,22 @@ export const curriculum2564: CurriculumVersion = {
     // (bir64 stays the source of record); it corroborates that both 64 and
     // 65 belong to this version.
     sources: [SOURCES.bir64, SOURCES.handbook2021, SOURCES.officialCurriculumPage],
+    // The `total-never-printed` contradiction was deleted on 2026-08-02, not
+    // suppressed. It said the 127-credit total is nowhere printed as a total
+    // and had to be worked out as 30 + 91 + 6. That is false: the Student
+    // Handbook 2021, this version's own handbook and already a source of
+    // record above, prints "Total 127" in the curriculum structure table on
+    // page 12 and states on page 10 that the degree needs "a minimum of 127
+    // credits including the general education courses of 30 credits, major
+    // courses of 91 credits and free elective courses of 6 credits". A
+    // statement that has become false is deleted rather than suppressed; see
+    // the note in 2564-rev2566.ts.
     contradictions: [
       {
-        id: "total-never-printed",
+        id: "pi470-free-elective-placement",
         summary:
-          "The 127-credit graduation total is never printed as a total in BIR_64.pdf. It is 30 + 91 + 6.",
-        disclosure: {
-          en: "The 127-credit total is not printed in the handout. We worked it out by adding the three parts together. Check it with your advisor.",
-          th: "เอกสารหลักสูตรไม่ได้ระบุยอดรวม 127 หน่วยกิตไว้โดยตรง ยอดนี้ได้จากการรวมสามหมวดเข้าด้วยกัน โปรดตรวจสอบกับอาจารย์ที่ปรึกษา",
-        },
+          "BIR_64.pdf and the Student Handbook 2021 disagree about where two Year 3 to 4 entries sit. The handout puts PI470 in Year 4 semester 1 and Free Elective 1 in Year 3 semester 1; the handbook puts PI470 in Year 3 semester 1 and Free Elective 1 in Year 3 semester 2. The handout is followed here because it is the version-specific document. Both readings give the same courses, the same per-term credit totals and the same graduation total, so nothing a student sees changes and there is no disclosure.",
+        disclosure: null,
       },
     ],
   },

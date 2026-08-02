@@ -49,14 +49,19 @@ test.describe("study plan version gate", () => {
     await expect(page.locator(".border-warning")).toHaveCount(0);
   });
 
-  // Companion to the test above: proves the notice mechanism still works
-  // for a cohort that should see it, rather than the suite only proving the
-  // notice has been switched off everywhere. Cohort 66 is on the 2023
-  // revision (content/curriculum/2564-rev2566.ts), whose one remaining
-  // contradiction, total-never-printed, is unscoped and still has a real
-  // disclosure: the 127-credit total is never printed as a total in the
-  // source document.
-  test("cohort 66 still sees an uncertainty notice", async ({ page }) => {
+  // This used to be the companion to the test above, proving the notice
+  // mechanism still fires for a cohort that should see one: cohort 66 carried
+  // the unscoped total-never-printed disclosure. That disclosure was stood
+  // down on 2026-08-02, when the Student Handbook 2021 was found to print
+  // "Total 127" outright on page 12, so the figure is no longer something the
+  // service has to tell a student it worked out for itself. No shipped
+  // curriculum version now has anything to disclose, so cohort 66 sees no
+  // notice either, and this test asserts that rather than the opposite.
+  //
+  // The notice component is not left untested by the change. Its render and
+  // no-render branches are both covered directly, on real and on synthetic
+  // versions, in tests/unit/inference-notice.test.tsx.
+  test("cohort 66 sees no uncertainty notice either", async ({ page }) => {
     await page.goto("/en/services/study-plan/cohort");
     await page.getByLabel(/first two digits/i).fill("66");
     await page.getByRole("button", { name: /continue/i }).click();
@@ -64,8 +69,8 @@ test.describe("study plan version gate", () => {
     await expect(page.getByRole("heading", { level: 1, name: copy.curriculum.title })).toBeVisible();
     await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
 
-    await expect(page.getByText(copy.inference.heading)).toBeVisible();
-    await expect(page.getByText(copy.inference.askAdvisor)).toBeVisible();
+    await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
+    await expect(page.getByText(copy.inference.askAdvisor)).toHaveCount(0);
   });
 
   test("answering not sure stops the journey", async ({ page }) => {
@@ -143,9 +148,9 @@ test.describe("study plan without JavaScript", () => {
     // curriculum2564rev2566's graduationCredits.value, the total for cohort
     // 66's curriculum, confirmed in content/curriculum/2564-rev2566.ts.
     // Matched on "/ 127" specifically because the bare digits "127" also
-    // appear twice more on this page, in the InferenceNotice's disclosure
-    // text and in a findings sentence, and a plain /127/ regex is ambiguous
-    // between all three.
+    // appear in a findings sentence on this page, so a plain /127/ regex is
+    // ambiguous. (Until 2026-08-02 they appeared a third time, in the
+    // InferenceNotice's total-never-printed disclosure, which is now gone.)
     await expect(page.getByText("/ 127")).toBeVisible();
   });
 });

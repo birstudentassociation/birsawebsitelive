@@ -57,10 +57,16 @@ describe("resolveCohort", () => {
 });
 
 describe("inferredParts", () => {
-  it("finds the borrowed study plan on 2568 only", () => {
-    expect(inferredParts(CURRICULUM_VERSIONS["2568"])).toHaveLength(1);
-    expect(inferredParts(CURRICULUM_VERSIONS["2564"])).toHaveLength(0);
-    expect(inferredParts(CURRICULUM_VERSIONS["2564-rev2566"])).toHaveLength(0);
+  // Every shipped version is now published in every part. 2568's borrowed
+  // study plan was the last inferred part, and it stopped being inferred on
+  // 2026-08-02 when the 2568 document's own study plan (section 4.3.2.3,
+  // pages 53 to 55) was read and carried across. This asserts zero rather
+  // than deleting the test: `inferredParts` still has to work, and a version
+  // that quietly acquires an inference should show up here as a change.
+  it("finds no inferred part on any shipped version", () => {
+    for (const id of ["2564", "2564-rev2566", "2568"] as const) {
+      expect(inferredParts(CURRICULUM_VERSIONS[id]), id).toHaveLength(0);
+    }
   });
 });
 
@@ -71,14 +77,16 @@ describe("disclosures", () => {
     expect(shown.map((c) => c.id)).not.toContain("catalogue-identical");
   });
 
-  it("returns every disclosure when no cohort code is given", () => {
-    // Existing callers (and this file's other tests) call disclosures(version)
-    // with no cohort code and expect every disclosure back, unfiltered.
-    // cohort-67-attested was deleted once the official curriculum page
-    // documented cohort 67, so total-never-printed is the remaining
-    // disclosure on this version to check for.
-    const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
-    expect(disclosures(rev2566).map((c) => c.id)).toContain("total-never-printed");
+  // No shipped version carries a student-facing disclosure any more. The last
+  // one, total-never-printed, was stood down on 2026-08-02: the Student
+  // Handbook 2021 prints "Total 127" outright, so the service no longer has to
+  // tell a student it added the figure up itself. The unfiltered-return
+  // behaviour this used to check is still checked, on the synthetic fixture in
+  // the scoping test below, which is the only place a disclosure now exists.
+  it("has nothing left to disclose on any shipped version", () => {
+    for (const id of ["2564", "2564-rev2566", "2568"] as const) {
+      expect(disclosures(CURRICULUM_VERSIONS[id]), id).toHaveLength(0);
+    }
   });
 
   it("scopes a cohort-limited contradiction away from non-matching cohorts", () => {

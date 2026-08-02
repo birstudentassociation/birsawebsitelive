@@ -8,6 +8,10 @@
  * The only changes from the base 2564 version are five Year 1 general
  * education courses. Everything from Year 2 onward is reused from
  * `./2564` rather than retyped, so the two cannot drift apart.
+ *
+ * PI121 and PI122 are kept, on BIRSA's instruction of 2026-08-02. The PD-coded
+ * pair printed against them in `BIR_64_rev66.pdf` is not the course list this
+ * revision actually runs, and must not be reintroduced from the document.
  */
 import { SOURCES } from "./sources";
 import { curriculum2564 } from "./2564";
@@ -102,11 +106,14 @@ export const curriculum2564rev2566: CurriculumVersion = {
       {
         id: "total-never-printed",
         summary:
-          "The 127-credit graduation total is never printed as a total. It is 30 + 91 + 6.",
-        disclosure: {
-          en: "The 127-credit total is not printed in the handout. We worked it out by adding the three parts together. Check it with your advisor.",
-          th: "เอกสารหลักสูตรไม่ได้ระบุยอดรวม 127 หน่วยกิตไว้โดยตรง ยอดนี้ได้จากการรวมสามหมวดเข้าด้วยกัน โปรดตรวจสอบกับอาจารย์ที่ปรึกษา",
-        },
+          "BIR_64_rev66.pdf prints the three parts (30 + 91 + 6) but no grand total. The student-facing disclosure was removed on 2026-08-02: the Student Handbook 2021, already a source of record for this version, prints 'Total 127' in the curriculum structure table on page 12 and states the 127-credit minimum on page 10, for a three-part structure this revision leaves unchanged. The number is corroborated, so only the maintainer's note remains.",
+        disclosure: null,
+      },
+      {
+        id: "pi470-free-elective-placement",
+        summary:
+          "The handout and the Student Handbook 2021 disagree about where two Year 3 to 4 entries sit. BIR_64.pdf puts PI470 in Year 4 semester 1 and Free Elective 1 in Year 3 semester 1; the handbook puts PI470 in Year 3 semester 1 and Free Elective 1 in Year 3 semester 2. The handout is followed here because it is the version-specific document. Both readings give the same courses, the same per-term credit totals and the same graduation total, so nothing a student sees changes and there is no disclosure.",
+        disclosure: null,
       },
     ],
   },

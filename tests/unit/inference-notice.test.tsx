@@ -2,34 +2,28 @@
 /**
  * Regression coverage for several related behaviours of the same component.
  *
- * Originally `content/curriculum/2568.ts` used the same string object for
- * `recommendedPlan.derivation.reason` (an `inferredParts()` result) and the
- * `no-2568-study-plan` contradiction's `disclosure` (a `disclosures()`
- * result), and the component deduplicated identical sentences across both
- * lists so a student never saw the same warning twice. As of 2026-08-02 that
- * pair no longer both render for cohort 68: BIRSA instructed the notice be
- * suppressed after Year 1 was verified, so `recommendedPlan.derivation`
- * carries `suppressed` and `no-2568-study-plan`'s `disclosure` is `null`. The
- * dedup logic in `InferenceNotice` is unchanged and still needed for other
- * versions, so one test here checks the other side: the sentence must not
- * appear at all for cohort 68, confirming the suppression actually reaches
- * the rendered notice and is not merely recorded in the data.
- *
  * A design doc once flagged the component's empty-return branch
  * (`parts.length === 0 && items.length === 0`) as unreachable and therefore
- * untested, because no real curriculum version yielded zero inferred parts
- * and zero applicable disclosures. That stopped being true once
- * pi574-credits-attested and cohort-69-attested were deleted as false on
- * 2026-08-02 (see content/curriculum/2568.ts): 2568's remaining derivation is
- * suppressed and its remaining contradictions both have `disclosure: null`,
- * so both 2568 cohorts hit that branch for real, but the component was
- * deciding whether to render from the raw, unfiltered `parts`/`items`
- * counts rather than from what would actually be shown, so it rendered an
- * empty warning box (heading and "ask your advisor" line, no content) instead
- * of nothing. The fix moved the render decision to the final, filtered
- * sentence list. The tests below cover the now-reachable branch with real
- * curriculum data rather than a synthetic fixture, and cohort 66 is the
- * control proving the fix doesn't just disable the component outright.
+ * untested, because no real curriculum version yielded zero inferred parts and
+ * zero applicable disclosures. That stopped being true on 2026-08-02, and then
+ * became true of every version. The component was deciding whether to render
+ * from the raw, unfiltered `parts`/`items` counts rather than from what would
+ * actually be shown, so it rendered an empty warning box (heading and "ask
+ * your advisor" line, no content) instead of nothing. The fix moved the render
+ * decision to the final, filtered sentence list.
+ *
+ * The tests below cover that branch with real curriculum data. What changed on
+ * the second pass through the sources is that the branch is no longer reached
+ * by suppressing and nulling things: 2568's plan turned out to be published
+ * (section 4.3.2.3 of its own document) and the 2023 revision's 127-credit
+ * total turned out to be printed (page 12 of the Student Handbook 2021), so
+ * there is genuinely nothing left to warn anyone about. That is also why the
+ * control test, which proves the fix did not simply disable the component, now
+ * has to build a version with a disclosure rather than borrow a real one.
+ *
+ * The dedup logic in `InferenceNotice` (identical sentences appearing as both
+ * an `inferredParts()` reason and a `disclosures()` entry) is unchanged and
+ * untouched by any of this.
  */
 import { afterEach, describe, expect, it } from "vitest";
 import { render, screen, cleanup } from "@testing-library/react";
@@ -38,20 +32,24 @@ import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import type { CurriculumVersion } from "@/content/curriculum";
 
 afterEach(() => {
   cleanup();
 });
 
-const SUPPRESSED_SENTENCE =
-  "There is no published study plan for the 2568 curriculum yet. The order of courses below is taken from the 2023 revision's study plan, which is the most recent one that exists. Your credit totals are from your own curriculum document and are correct. The order is a starting point, not your curriculum. Confirm it with your advisor.";
-
 describe("InferenceNotice", () => {
-  it("does not render the suppressed borrowed-study-plan sentence for cohort 68", () => {
+  // The borrowed-study-plan sentence used to be suppressed for cohort 68 by a
+  // flag in the data. It is now gone from the data altogether: the 2568
+  // document's own study plan was found at section 4.3.2.3 and the plan's
+  // derivation is `published`, so there is no inference left to describe. The
+  // check that it does not reach a student is kept, because it is the sentence
+  // this component exists to gate, but it holds for a stronger reason now.
+  it("does not render a borrowed-study-plan warning for cohort 68", () => {
     render(
       <InferenceNotice version={CURRICULUM_VERSIONS["2568"]} cohortCode="68" locale="en" />
     );
-    expect(screen.queryByText(SUPPRESSED_SENTENCE)).toBeNull();
+    expect(screen.queryByText(/no published study plan/i)).toBeNull();
   });
 
   // The two tests that used to live here (cohort 66 not seeing, cohort 67
@@ -88,24 +86,40 @@ describe("InferenceNotice", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("still renders normally for cohort 66, proving the fix did not disable the component", () => {
-    // Cohort 66 is on the 2023 revision (2564-rev2566), whose one remaining
-    // contradiction, total-never-printed, is unscoped and has a real
-    // disclosure. This is the control: it proves the empty-render fix above
-    // is conditional on there being nothing left to show, not an accidental
-    // way to silence the component for every version.
+  it("still renders normally when there is something to say, proving the fix did not disable the component", () => {
+    // The control for the two empty-render tests above: it proves the fix is
+    // conditional on there being nothing left to show, not an accidental way
+    // to silence the component for every version.
+    //
+    // This used to run on cohort 66 and the 2023 revision's real
+    // total-never-printed disclosure. That disclosure was stood down on
+    // 2026-08-02 once the Student Handbook 2021 was found to print "Total 127"
+    // outright, and no shipped version carries a student-facing disclosure any
+    // more, so the control has to be synthetic. It borrows a real version for
+    // every other field and overrides only the contradiction list, so the
+    // component is still driven by a well-formed CurriculumVersion.
+    const withSomethingToSay: CurriculumVersion = {
+      ...CURRICULUM_VERSIONS["2564-rev2566"],
+      verification: {
+        ...CURRICULUM_VERSIONS["2564-rev2566"].verification,
+        contradictions: [
+          {
+            id: "fixture-disclosure",
+            summary: "fixture: a contradiction with something to tell a student",
+            disclosure: {
+              en: "This is a fixture disclosure with a real sentence in it.",
+              th: "นี่คือข้อความเปิดเผยสำหรับการทดสอบ",
+            },
+          },
+        ],
+      },
+    };
     const { container } = render(
-      <InferenceNotice
-        version={CURRICULUM_VERSIONS["2564-rev2566"]}
-        cohortCode="66"
-        locale="en"
-      />
+      <InferenceNotice version={withSomethingToSay} cohortCode="66" locale="en" />
     );
     expect(container).not.toBeEmptyDOMElement();
     expect(
-      screen.getByText(
-        "The 127-credit total is not printed in the handout. We worked it out by adding the three parts together. Check it with your advisor."
-      )
+      screen.getByText("This is a fixture disclosure with a real sentence in it.")
     ).toBeInTheDocument();
   });
 

@@ -22,6 +22,11 @@ describe("curriculum2564rev2566", () => {
     }
   });
 
+  it("no longer carries a student-facing total-never-printed disclosure", () => {
+    const c = version.verification.contradictions.find((x) => x.id === "total-never-printed");
+    expect(c?.disclosure ?? null).toBeNull();
+  });
+
   it("keeps every course from Year 2 onward identical to 2564", () => {
     const laterCategories = new Set([
       "core",

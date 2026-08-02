@@ -6,12 +6,16 @@ describe("curriculum2564", () => {
     expect(curriculum2564.graduationCredits.value).toBe(127);
   });
 
-  it("records the 127 total as a sum rather than a quoted figure", () => {
-    const disclosed = curriculum2564.verification.contradictions.find(
-      (c) => c.id === "total-never-printed"
+  // The 127 total is printed, so the service no longer tells a student it
+  // worked the figure out itself. The Student Handbook 2021 prints "Total 127"
+  // in the curriculum structure table on page 12 and states the 127-credit
+  // minimum on page 10. total-never-printed said the opposite, so it is
+  // deleted rather than suppressed.
+  it("no longer carries the total-never-printed disclosure", () => {
+    const c = curriculum2564.verification.contradictions.find(
+      (x) => x.id === "total-never-printed"
     );
-    expect(disclosed).toBeDefined();
-    expect(disclosed?.disclosure).not.toBeNull();
+    expect(c).toBeUndefined();
   });
 
   it("category credits sum to the graduation total", () => {

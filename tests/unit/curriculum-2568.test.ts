@@ -25,13 +25,65 @@ describe("curriculum2568", () => {
     expect(sum).toBe(126);
   });
 
-  it("borrows its recommended plan from the 2023 revision and says so", () => {
+  // This version's plan is no longer borrowed from anywhere. The 2568
+  // document has its own study plan at section 4.3.2.3, pages 53 to 55, and
+  // that is what ships.
+  it("takes its recommended plan from its own document", () => {
     const derivation = version.recommendedPlan.derivation;
-    expect(derivation.kind).toBe("inferred");
-    if (derivation.kind !== "inferred") throw new Error("unreachable");
-    expect(derivation.from).toBe("2564-rev2566");
-    expect(derivation.reason.en.length).toBeGreaterThan(0);
-    expect(derivation.reason.th.length).toBeGreaterThan(0);
+    expect(derivation.kind).toBe("published");
+    expect(derivation).toMatchObject({ source: "comparison2568" });
+  });
+
+  it("no longer carries the no-2568-study-plan contradiction", () => {
+    const c = version.verification.contradictions.find((x) => x.id === "no-2568-study-plan");
+    expect(c).toBeUndefined();
+  });
+
+  // The published plan differs from the 2023 revision's in four ways, each of
+  // which a reuse-the-revision implementation would silently lose.
+  it("follows the document where it departs from the 2023 revision", () => {
+    const term = (year: number, kind: string) =>
+      version.recommendedPlan.value.find((t) => t.term.year === year && t.term.kind === kind);
+    const codes = (year: number, kind: string) =>
+      (term(year, kind)?.entries ?? [])
+        .filter((e) => e.kind === "course")
+        .map((e) => (e.kind === "course" ? e.code : ""));
+
+    // PI470 in Year 3 semester 1, not Year 4.
+    expect(codes(3, "semester1")).toContain("PI470");
+    expect(codes(4, "semester1")).not.toContain("PI470");
+    // PI270 in Year 2 semester 1 and PI280 in semester 2, not the reverse.
+    expect(codes(2, "semester1")).toContain("PI270");
+    expect(codes(2, "semester2")).toContain("PI280");
+    // The Year 2 summer is load-bearing here: without its 6 credits the plan
+    // does not reach 126, so it is not marked optional as it is in 2564.
+    expect(term(2, "summer")?.optional).toBe(false);
+    // No Year 3 summer at all, PI574 having become a free elective.
+    expect(term(3, "summer")).toBeUndefined();
+  });
+
+  it("plans exactly the 126 credits it takes to graduate", () => {
+    const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
+    const planned = version.recommendedPlan.value.reduce(
+      (total, term) =>
+        total +
+        term.entries.reduce(
+          (n, entry) => n + (entry.kind === "course" ? (byCode.get(entry.code)?.credits ?? 0) : 3),
+          0
+        ),
+      0
+    );
+    expect(planned).toBe(version.graduationCredits.value);
+  });
+
+  // The catalogue really is identical to the 2023 revision's, so this record
+  // stays. It has no disclosure: it tells a maintainer why the confirm screen
+  // cannot separate cohort 66 from cohort 68 by course code, which is not
+  // something a student needs read to them.
+  it("still records that its catalogue is identical to the 2023 revision's", () => {
+    const c = version.verification.contradictions.find((x) => x.id === "catalogue-identical");
+    expect(c).toBeDefined();
+    expect(c?.disclosure).toBeNull();
   });
 
   it("takes its credit structure from its own document, not the inference", () => {
