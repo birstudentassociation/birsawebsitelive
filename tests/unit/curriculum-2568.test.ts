@@ -39,10 +39,11 @@ describe("curriculum2568", () => {
     expect(version.graduationCredits.derivation).toMatchObject({ source: "comparison2568" });
   });
 
-  it("maps cohort 68 from the document and cohort 69 as attested", () => {
+  it("maps both cohort 68 and cohort 69 from the document", () => {
     const byCode = Object.fromEntries(version.cohorts.map((c) => [c.code, c.provenance]));
     expect(byCode["68"]?.kind).toBe("document");
-    expect(byCode["69"]?.kind).toBe("attested");
+    expect(byCode["69"]?.kind).toBe("document");
+    expect(byCode["69"]).toMatchObject({ source: "comparison2568", page: 1 });
   });
 
   it("no longer records PI574 as sitting outside the total", () => {
@@ -53,11 +54,19 @@ describe("curriculum2568", () => {
     expect(c).toBeUndefined();
   });
 
-  it("discloses that PI574's 3-credit value is attested, not printed in the source", () => {
+  // Regression guards: pi574-credits-attested and cohort-69-attested both
+  // claimed a fact was "printed in no document". BIRSA confirmed on
+  // 2026-08-02 that both are printed in comparison2568, so both claims are
+  // now false and both records must be gone, not merely suppressed, mirroring
+  // how cohort-67-attested was deleted in 2564-rev2566.test.ts.
+  it("no longer carries the pi574-credits-attested disclosure, now that the value is documented", () => {
     const c = version.verification.contradictions.find((x) => x.id === "pi574-credits-attested");
-    expect(c?.disclosure).not.toBeNull();
-    expect(c?.disclosure?.en.length).toBeGreaterThan(0);
-    expect(c?.disclosure?.th.length).toBeGreaterThan(0);
+    expect(c).toBeUndefined();
+  });
+
+  it("no longer carries the cohort-69-attested disclosure, now that cohort 69 is documented", () => {
+    const c = version.verification.contradictions.find((x) => x.id === "cohort-69-attested");
+    expect(c).toBeUndefined();
   });
 
   // Regression guard, not in the brief: the catalogue is unchanged between

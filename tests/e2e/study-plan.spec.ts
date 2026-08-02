@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
 const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with this page";
+const copy = buildStudyPlanCopy("en");
 
 test.describe("study plan version gate", () => {
   test("an unsupported cohort is refused, not guessed at", async ({ page }) => {
@@ -10,11 +12,60 @@ test.describe("study plan version gate", () => {
     await expect(page.getByRole("heading", { name: /cannot plan your degree/i })).toBeVisible();
   });
 
-  test("cohort 68 is told its study plan is borrowed", async ({ page }) => {
+  // pi574-credits-attested and cohort-69-attested were deleted from
+  // content/curriculum/2568.ts on 2026-08-02, once BIRSA confirmed both
+  // facts are printed in the 2568 comparison document (our own extraction of
+  // that PDF had failed to read them). The recommendedPlan borrow for 2568
+  // was separately suppressed for cohorts 68 and 69 once Year 1 was verified
+  // against real cohort 68 records. With all three gone, cohort 68 now has
+  // nothing left for InferenceNotice to disclose, and the notice renders
+  // nothing at all (see components/study-plan/InferenceNotice.tsx and its
+  // unit tests). This test used to assert the opposite; the old assertion's
+  // premise is what changed, not correct behaviour.
+  test("cohort 68 sees no uncertainty notice", async ({ page }) => {
     await page.goto("/en/services/study-plan/cohort");
     await page.getByLabel(/first two digits/i).fill("68");
     await page.getByRole("button", { name: /continue/i }).click();
-    await expect(page.getByText(/borrowed from an older curriculum/i)).toBeVisible();
+
+    // The page actually loaded the confirm screen, not an error boundary or
+    // a redirect elsewhere: the h1 is copy.curriculum.title, and 2568's
+    // graduation total (126, content/curriculum/2568.ts) is shown under
+    // copy.curriculum.totalLabel. Checking this first means the absence
+    // assertions below cannot pass by accident on a broken or blank page.
+    await expect(page.getByRole("heading", { level: 1, name: copy.curriculum.title })).toBeVisible();
+    await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
+    await expect(page.getByText("126", { exact: true })).toBeVisible();
+
+    // No warning notice of any kind: neither the shared InferenceNotice
+    // heading (copy.inference.heading, the only heading that component ever
+    // renders) nor a bare warning-styled box (Notice variant="warning",
+    // e.g. the separate attested-mapping notice on this same page, which
+    // also no longer applies now that cohort 69's mapping is documented
+    // too). Checking both the text and the structural class means this
+    // would fail if some other warning box appeared under a different
+    // heading, not just if this exact sentence were reworded.
+    await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
+    await expect(page.getByText(copy.inference.askAdvisor)).toHaveCount(0);
+    await expect(page.locator(".border-warning")).toHaveCount(0);
+  });
+
+  // Companion to the test above: proves the notice mechanism still works
+  // for a cohort that should see it, rather than the suite only proving the
+  // notice has been switched off everywhere. Cohort 66 is on the 2023
+  // revision (content/curriculum/2564-rev2566.ts), whose one remaining
+  // contradiction, total-never-printed, is unscoped and still has a real
+  // disclosure: the 127-credit total is never printed as a total in the
+  // source document.
+  test("cohort 66 still sees an uncertainty notice", async ({ page }) => {
+    await page.goto("/en/services/study-plan/cohort");
+    await page.getByLabel(/first two digits/i).fill("66");
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    await expect(page.getByRole("heading", { level: 1, name: copy.curriculum.title })).toBeVisible();
+    await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
+
+    await expect(page.getByText(copy.inference.heading)).toBeVisible();
+    await expect(page.getByText(copy.inference.askAdvisor)).toBeVisible();
   });
 
   test("answering not sure stops the journey", async ({ page }) => {

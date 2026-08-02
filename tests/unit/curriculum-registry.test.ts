@@ -6,6 +6,7 @@ import {
   disclosures,
   resolveMinorCategory,
 } from "@/content/curriculum";
+import type { CurriculumVersion } from "@/content/curriculum/types";
 
 describe("resolveCohort", () => {
   it("resolves every enrolled cohort to exactly one version", () => {
@@ -41,10 +42,17 @@ describe("resolveCohort", () => {
     }
   });
 
-  it("returns the mapping so callers can see attested from documented", () => {
+  it("returns the mapping so callers can see its provenance", () => {
+    // Cohort 69 used to be the example of an attested (as opposed to
+    // documented) mapping; BIRSA confirmed on 2026-08-02 that it is in fact
+    // printed in comparison2568 alongside cohort 68, so both are now
+    // `document`. No real curriculum version currently carries an `attested`
+    // cohort mapping; the scoping mechanism that would filter a disclosure
+    // for one is still exercised with a synthetic fixture below.
     const result = resolveCohort("69");
     if (result.status !== "supported") throw new Error("unreachable");
-    expect(result.mapping.provenance.kind).toBe("attested");
+    expect(result.mapping.provenance.kind).toBe("document");
+    expect(result.mapping.provenance).toMatchObject({ source: "comparison2568", page: 1 });
   });
 });
 
@@ -73,12 +81,69 @@ describe("disclosures", () => {
     expect(disclosures(rev2566).map((c) => c.id)).toContain("total-never-printed");
   });
 
-  it("scopes cohort 69's attestation disclosure away from cohort 68", () => {
-    const curriculum2568 = CURRICULUM_VERSIONS["2568"];
-    // Cohort 68's mapping to this version is printed in a document; the
-    // cohort-69 attestation disclosure would be false for a cohort-68 reader.
-    expect(disclosures(curriculum2568, "68").map((c) => c.id)).not.toContain("cohort-69-attested");
-    expect(disclosures(curriculum2568, "69").map((c) => c.id)).toContain("cohort-69-attested");
+  it("scopes a cohort-limited contradiction away from non-matching cohorts", () => {
+    // No real curriculum version carries a cohort-scoped contradiction any
+    // more (cohort-69-attested was deleted once BIRSA confirmed cohort 69's
+    // mapping is printed, mirroring cohort-67-attested's earlier deletion).
+    // The scoping mechanism in `disclosures` itself is unchanged and still
+    // needs a test, so this drives it with a synthetic fixture instead of a
+    // real version: only `verification.contradictions` is populated with
+    // real data (one contradiction scoped to a made-up cohort "99", one
+    // unscoped), every other required field is filled with an empty or
+    // trivial placeholder, and the object is cast through `unknown` because
+    // `CurriculumVersionId` is a closed union that a fixture id can't join.
+    const fixture = {
+      id: "2564",
+      label: { en: "", th: "" },
+      cohorts: [],
+      graduationCredits: { value: 0, derivation: { kind: "published", source: "handbook2021" } },
+      categories: [],
+      minors: [],
+      courses: { value: [], derivation: { kind: "published", source: "handbook2021" } },
+      recommendedPlan: { value: [], derivation: { kind: "published", source: "handbook2021" } },
+      rules: {
+        value: {
+          minCreditsRegularTerm: 0,
+          maxCreditsRegularTerm: 0,
+          maxCreditsSummerTerm: 0,
+          minSemesters: 0,
+          maxYears: 0,
+          minGpa: 0,
+          source: { document: "handbook2021", provision: "" },
+        },
+        derivation: { kind: "published", source: "handbook2021" },
+      },
+      distinguishingCourses: [],
+      verification: {
+        verifiedBy: null,
+        verifiedOn: null,
+        sources: [],
+        contradictions: [
+          {
+            id: "scoped-to-99",
+            summary: "fixture: scoped to a cohort that never asks",
+            disclosure: { en: "scoped disclosure text long enough", th: "ข้อความเปิดเผยเฉพาะกลุ่ม" },
+            cohorts: ["99"],
+          },
+          {
+            id: "unscoped",
+            summary: "fixture: applies to everyone",
+            disclosure: { en: "unscoped disclosure text long enough", th: "ข้อความเปิดเผยทั่วไป" },
+          },
+        ],
+      },
+    } as unknown as CurriculumVersion;
+
+    // Matching cohort code: both the scoped and unscoped disclosure show.
+    expect(disclosures(fixture, "99").map((c) => c.id)).toEqual(
+      expect.arrayContaining(["scoped-to-99", "unscoped"])
+    );
+    // Non-matching cohort code: the scoped disclosure is filtered out.
+    expect(disclosures(fixture, "68").map((c) => c.id)).toEqual(["unscoped"]);
+    // No cohort code at all: every disclosure is returned, unfiltered.
+    expect(disclosures(fixture).map((c) => c.id)).toEqual(
+      expect.arrayContaining(["scoped-to-99", "unscoped"])
+    );
   });
 });
 
