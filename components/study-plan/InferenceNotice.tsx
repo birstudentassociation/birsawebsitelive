@@ -38,8 +38,8 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
   // (so maintainers and tests can see it), and `disclosures` can return a
   // contradiction whose `disclosure` was nulled once it stopped applying.
   // Counting those raw entries used to produce an empty warning box, title
-  // and "ask your advisor" line with nothing underneath, for cohorts whose
-  // every part turned out to be suppressed or nulled. A warning that alarms
+  // and "check the source documents" line with nothing underneath, for
+  // cohorts whose every part turned out to be suppressed or nulled. A warning that alarms
   // without informing is worse than none, so the only correct check is
   // whether there is a sentence left to show once every filter has run.
   const seen = new Set<string>();
@@ -74,7 +74,7 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
           <li key={sentence.key}>{sentence.text}</li>
         ))}
       </ul>
-      <p className="mt-2">{copy.inference.askAdvisor}</p>
+      <p className="mt-2">{copy.inference.checkSources}</p>
     </Notice>
   );
 }

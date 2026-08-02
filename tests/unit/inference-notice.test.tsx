@@ -8,9 +8,9 @@
  * zero applicable disclosures. That stopped being true on 2026-08-02, and then
  * became true of every version. The component was deciding whether to render
  * from the raw, unfiltered `parts`/`items` counts rather than from what would
- * actually be shown, so it rendered an empty warning box (heading and "ask
- * your advisor" line, no content) instead of nothing. The fix moved the render
- * decision to the final, filtered sentence list.
+ * actually be shown, so it rendered an empty warning box (heading and "check
+ * the source documents" line, no content) instead of nothing. The fix moved
+ * the render decision to the final, filtered sentence list.
  *
  * The tests below cover that branch with real curriculum data. What changed on
  * the second pass through the sources is that the branch is no longer reached
@@ -65,9 +65,9 @@ describe("InferenceNotice", () => {
   // both have `disclosure: null`. Before the fix, InferenceNotice decided
   // whether to render from the raw `inferredParts`/`disclosures` counts,
   // which are non-zero even though every entry gets filtered out before
-  // anything is shown; that produced a warning box with a heading and an
-  // "ask your advisor" line but no actual warning underneath. The component
-  // now decides from the final, filtered sentence list, so it must render
+  // anything is shown; that produced a warning box with a heading and a
+  // "check the source documents" line but no actual warning underneath. The
+  // component now decides from the final, filtered sentence list, so it must render
   // nothing at all for both 2568 cohorts. Checking the container is empty is
   // the point of this test, not just that one string is missing: a shorter
   // check (queryByText for one sentence) previously passed even though the

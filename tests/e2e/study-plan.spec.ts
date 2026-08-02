@@ -47,7 +47,7 @@ test.describe("study plan version gate", () => {
     // would fail if some other warning box appeared under a different
     // heading, not just if this exact sentence were reworded.
     await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
-    await expect(page.getByText(copy.inference.askAdvisor)).toHaveCount(0);
+    await expect(page.getByText(copy.inference.checkSources)).toHaveCount(0);
     await expect(page.locator(".border-warning")).toHaveCount(0);
   });
 
@@ -74,7 +74,7 @@ test.describe("study plan version gate", () => {
     await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
 
     await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
-    await expect(page.getByText(copy.inference.askAdvisor)).toHaveCount(0);
+    await expect(page.getByText(copy.inference.checkSources)).toHaveCount(0);
   });
 
   test("answering not sure stops the journey", async ({ page }) => {

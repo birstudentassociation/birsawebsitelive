@@ -56,7 +56,7 @@ function categoryLabel(
 
 /**
  * The print page: everything on one page, no forms and no editing, meant to
- * be handed to an advisor.
+ * be kept or printed for the student's own reference.
  *
  * Passed courses are listed flat, not grouped by term: `StudyPlan.passed` is
  * a flat list with no term attribution, because the service never records
@@ -227,13 +227,13 @@ export default async function StudyPlanPrintPage({
       </div>
 
       {/*
-        The print page is the document a student hands to an advisor (see the
-        header comment above), so the advisor needs this caveat at least as
-        much as the student does: reading only the printout, they have no
-        other way to learn the plan does not check whether a course actually
-        runs in a term, anything at the Dean's or an advisor's discretion, or
-        anything depending on GPA. Reuses copy.plan's keys rather than a
-        second copy of the same text, because two copies would drift.
+        The printout is read away from the service (see the header comment
+        above), so it has to carry this caveat itself: reading only the paper,
+        a student has no other way to learn the plan does not check whether a
+        course actually runs in a term, anything at the Dean's or an advisor's
+        discretion, or anything depending on GPA. Reuses copy.plan's keys
+        rather than a second copy of the same text, because two copies would
+        drift.
       */}
       <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
         <ul className="flex flex-col gap-1.5">

@@ -43,8 +43,8 @@ export function passedCoursesForPrint(version: CurriculumVersion, passed: string
 /**
  * The plan's future terms, in order, dropping any term the student has
  * touched but left with nothing in it (no courses, no free elective
- * credits): an empty term is noise on a document meant to be read by an
- * advisor.
+ * credits): an empty term is noise on a document meant to be read away from
+ * the service.
  */
 export function plannedTermsForPrint(version: CurriculumVersion, terms: PlannedCourseTerm[]): PrintTerm[] {
   return terms

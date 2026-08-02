@@ -3,7 +3,7 @@
  *
  * Findings never block. A student may plan something the rules disallow;
  * the service says so, cites the provision, and leaves the decision with
- * them and their advisor. Three things are deliberately not checked: whether
+ * them. Three things are deliberately not checked: whether
  * a course runs in the term it was placed in, anything at the Dean's or an
  * advisor's discretion, and anything depending on GPA.
  */
