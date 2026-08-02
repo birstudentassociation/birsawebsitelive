@@ -434,6 +434,24 @@ render. The same records also corrected two course titles inherited from
 `2564.ts`: TU100 from "Civic Engagement" to "Civil Education", and TU102 from
 "Social Life Skills" to "Life & Aesthetics", matched in the handbook chapter.
 
+**Post-merge correction: official curriculum page adopted, cohort 67 documented
+(2026-08-02)**
+
+On 2026-08-02, BIRSA designated `https://www.birpolsci.com/bircurriculum` as
+the authoritative source for which student ID code uses which curriculum
+(`officialCurriculumPage` in `content/curriculum/sources.ts`). It documents
+cohorts 64 to 67 under Curriculum 2021 (B.E. 2564) and cohorts 61 to 63 under
+Curriculum 2018 (B.E. 2561), and lists no codes at all under Curriculum 2025
+(B.E. 2568). Cohort 67's mapping to the 2023 revision (`2564-rev2566.ts`) is
+now documented rather than attested: its provenance changed from `attested`
+to `document`, and the `cohort-67-attested` contradiction and its disclosure
+were deleted outright, not suppressed, because the statement it made ("no
+published document says which curriculum cohort 67 follows") is no longer
+true. Cohorts 68 and 69 are not listed on the official page, so they are
+unaffected: cohort 69 remains `attested` and its disclosure in `2568.ts` is
+untouched, and cohort 68 still rests on the 2568 comparison document's
+effective-year statement, not on the official page.
+
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its

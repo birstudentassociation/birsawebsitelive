@@ -35,22 +35,15 @@ describe("InferenceNotice", () => {
     expect(screen.queryByText(SUPPRESSED_SENTENCE)).toBeNull();
   });
 
-  it("does not show cohort 67's attested-mapping disclosure to a cohort 66 student", () => {
-    render(
-      <InferenceNotice
-        version={CURRICULUM_VERSIONS["2564-rev2566"]}
-        cohortCode="66"
-        locale="en"
-      />
-    );
-    // Cohort 66's mapping to this version is printed in a document, so
-    // telling them "no published document" covers their cohort is false.
-    expect(
-      screen.queryByText(/No published document says which curriculum cohort 67 follows/)
-    ).toBeNull();
-  });
+  // The two tests that used to live here (cohort 66 not seeing, cohort 67
+  // seeing, the "no published document" attestation disclosure) were removed
+  // on 2026-08-02: the official curriculum page now documents cohort 67
+  // directly, the cohort-67-attested contradiction was deleted, and neither
+  // cohort sees that notice anymore. Nothing replaces them here; the
+  // equivalent cohort-69/68 scoping is already covered in
+  // tests/unit/curriculum-registry.test.ts.
 
-  it("shows the attested-mapping disclosure to a cohort 67 student", () => {
+  it("no longer shows the deleted attestation disclosure to a cohort 67 student", () => {
     render(
       <InferenceNotice
         version={CURRICULUM_VERSIONS["2564-rev2566"]}
@@ -58,8 +51,12 @@ describe("InferenceNotice", () => {
         locale="en"
       />
     );
+    // total-never-printed, the one remaining contradiction on this version,
+    // is not cohort-scoped, so it would still render if InferenceNotice
+    // renders anything for cohort 67. Confirms the attestation notice truly
+    // stopped rendering rather than merely being replaced by a passing test.
     expect(
       screen.queryByText(/No published document says which curriculum cohort 67 follows/)
-    ).not.toBeNull();
+    ).toBeNull();
   });
 });

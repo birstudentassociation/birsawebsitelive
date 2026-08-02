@@ -83,6 +83,12 @@ export const SOURCES = {
     note: "Supplied directly by BIRSA as images, not published at a URL.",
     retrieved: "2026-08-02",
   },
+  officialCurriculumPage: {
+    id: "officialCurriculumPage",
+    title: "BIR curriculum page, birpolsci.com, student ID code to curriculum mapping",
+    url: "https://www.birpolsci.com/bircurriculum",
+    retrieved: "2026-08-02",
+  },
 } as const satisfies Record<string, SourceDocument>;
 
 export type SourceId = keyof typeof SOURCES;

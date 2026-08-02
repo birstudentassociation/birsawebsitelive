@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { SOURCES, type SourceDocument } from "@/content/curriculum/sources";
 
 describe("SOURCES", () => {
-  it("records all ten crawled or supplied documents", () => {
-    expect(Object.keys(SOURCES)).toHaveLength(10);
+  it("records all eleven crawled or supplied documents", () => {
+    expect(Object.keys(SOURCES)).toHaveLength(11);
   });
 
   it("gives every document either an absolute url or a note on how it was supplied, and an ISO retrieval date", () => {

@@ -42,7 +42,7 @@ describe("resolveCohort", () => {
   });
 
   it("returns the mapping so callers can see attested from documented", () => {
-    const result = resolveCohort("67");
+    const result = resolveCohort("69");
     if (result.status !== "supported") throw new Error("unreachable");
     expect(result.mapping.provenance.kind).toBe("attested");
   });
@@ -63,19 +63,14 @@ describe("disclosures", () => {
     expect(shown.map((c) => c.id)).not.toContain("catalogue-identical");
   });
 
-  it("scopes a cohort-specific disclosure away from a cohort it does not name", () => {
-    const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
-    // Cohort 66's mapping to this version is printed in a document; the
-    // cohort-67 attestation disclosure would be false for a cohort-66 reader.
-    expect(disclosures(rev2566, "66").map((c) => c.id)).not.toContain("cohort-67-attested");
-    expect(disclosures(rev2566, "67").map((c) => c.id)).toContain("cohort-67-attested");
-  });
-
   it("returns every disclosure when no cohort code is given", () => {
     // Existing callers (and this file's other tests) call disclosures(version)
     // with no cohort code and expect every disclosure back, unfiltered.
+    // cohort-67-attested was deleted once the official curriculum page
+    // documented cohort 67, so total-never-printed is the remaining
+    // disclosure on this version to check for.
     const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
-    expect(disclosures(rev2566).map((c) => c.id)).toContain("cohort-67-attested");
+    expect(disclosures(rev2566).map((c) => c.id)).toContain("total-never-printed");
   });
 
   it("scopes cohort 69's attestation disclosure away from cohort 68", () => {
