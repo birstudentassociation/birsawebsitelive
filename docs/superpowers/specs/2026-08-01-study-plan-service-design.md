@@ -471,6 +471,23 @@ whose PI574 stays at 1 credit inside `concentrationRequired`; moving it there
 too would contradict their documented 127 total and 91-credit major, which
 have already been checked and rest on PI574 at 1 credit.
 
+**Post-merge correction: PI574 credits and cohort 69's mapping were printed
+after all (2026-08-02)**
+
+On 2026-08-02, BIRSA confirmed that both PI574's 3-credit value and cohort
+69's mapping to the 2568 curriculum are printed in the 2568 comparison
+document; our own extraction of that PDF had failed to read them (it flagged
+the credit figure as unresolved and the Thai text layer as degraded, and
+recommended visual verification), it was not that the document stayed silent.
+Both `pi574-credits-attested` and `cohort-69-attested` were deleted outright,
+not suppressed, because the statements they made ("attested by BIRSA and
+printed in no document") are now false. Cohort 69's provenance in `2568.ts`
+changed from `attested` to `document` (`comparison2568`, page 1), matching
+cohort 68's. The 127-total warning on the 2564 family
+(`total-never-printed`) is unaffected by any of this: it records our own
+arithmetic derivation of a total the document never states as a total, not a
+BIRSA statement, so nothing about this correction touches it.
+
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its
