@@ -39,6 +39,11 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
   const sentences: { key: string; text: string }[] = [];
   for (const [index, part] of parts.entries()) {
     if (part.kind !== "inferred") continue;
+    // A suppressed derivation is still inferred and still returned by
+    // inferredParts, so maintainers and tests can see it; only the sentence
+    // shown to the student is withheld here, per the documented instruction
+    // recorded on the derivation itself (`suppressed.reason/by/on`).
+    if (part.suppressed) continue;
     const text = part.reason[locale];
     if (seen.has(text)) continue;
     seen.add(text);

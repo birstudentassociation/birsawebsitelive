@@ -80,9 +80,9 @@ const categories: CreditCategory[] = [
 const courses: Course[] = [
   // General education, part 1 (21 credits)
   { code: "TU050", title: "English Skill Development", credits: 0, category: "genEdPart1", prerequisites: [], excludedFromTotal: true },
-  { code: "TU100", title: "Civic Engagement", credits: 3, category: "genEdPart1", prerequisites: [] },
+  { code: "TU100", title: "Civil Education", credits: 3, category: "genEdPart1", prerequisites: [] },
   { code: "TU101", title: "Thailand, ASEAN and the World", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU102", title: "Social Life Skills", credits: 3, category: "genEdPart1", prerequisites: [] },
+  { code: "TU102", title: "Life & Aesthetics", credits: 3, category: "genEdPart1", prerequisites: [] },
   { code: "TU103", title: "Life and Sustainability", credits: 3, category: "genEdPart1", prerequisites: [] },
   { code: "TU104", title: "Critical Thinking, Reading, and Writing", credits: 3, category: "genEdPart1", prerequisites: [] },
   { code: "TU105", title: "Communication Skills in English", credits: 3, category: "genEdPart1", prerequisites: [] },

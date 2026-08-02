@@ -8,7 +8,14 @@
 export type SourceDocument = {
   id: string;
   title: string;
+  /**
+   * Empty when the evidence was supplied directly (e.g. as images handed to
+   * BIRSA) rather than published at a URL; `note` then explains how it was
+   * supplied. Every document must have either a url or a note, never neither.
+   */
   url: string;
+  /** How the document was supplied, required when `url` is empty. */
+  note?: string;
   /** ISO date the document was fetched. */
   retrieved: string;
 };
@@ -67,6 +74,14 @@ export const SOURCES = {
     title: "Curriculum comparison, B.E. 2564 against B.E. 2568",
     url: "https://image.makewebcdn.com/makeweb/0/fAusajSlU/Document/68_2025.pdf?v=202405291424",
     retrieved: "2026-08-01",
+  },
+  classSchedule2568Year1: {
+    id: "classSchedule2568Year1",
+    title:
+      "BIR Class Schedule Semester 1/2025 and registration record Semester 2/2568, first year",
+    url: "",
+    note: "Supplied directly by BIRSA as images, not published at a URL.",
+    retrieved: "2026-08-02",
   },
 } as const satisfies Record<string, SourceDocument>;
 
