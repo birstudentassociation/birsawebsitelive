@@ -118,7 +118,7 @@ export type StudyPlanCopy = {
     termsHeading: string;
     /** Heading for the block holding the button that fills in named courses from the recommended plan. */
     populateHeading: string;
-    /** Explains that the button only fills courses the recommended plan names, leaves elective slots for the student, and never changes a term the student has already filled in. */
+    /** Explains that the button fills courses the recommended plan names and the required courses for the student's minor, leaves choices like electives for the student, and never changes a term the student has already filled in. */
     populateHint: string;
     populateButton: string;
     /** Contains "{n}"; a term's running credit total. */
@@ -316,7 +316,7 @@ const en: StudyPlanCopy = {
     termsHeading: "Terms ahead of you",
     populateHeading: "Fill in the recommended plan",
     populateHint:
-      "This fills in the courses the recommended plan names for each term ahead of you. It leaves electives, like minor electives and free electives, for you to choose. It will not change or remove anything you have already put in a term.",
+      "This fills in the courses the recommended plan names for each term ahead of you, and the required courses for your minor. It leaves choices, like minor electives and free electives, for you to make. It will not change or remove anything you have already put in a term.",
     populateButton: "Fill in named courses",
     termCreditsTemplate: "{n} credits so far",
     addCourseLabel: "Add a course",
@@ -490,7 +490,7 @@ const th: StudyPlanCopy = {
     termsHeading: "ภาคการศึกษาที่เหลืออยู่",
     populateHeading: "กรอกแผนที่แนะนำให้อัตโนมัติ",
     populateHint:
-      "ปุ่มนี้จะกรอกเฉพาะรายวิชาที่แผนที่แนะนำระบุชื่อไว้ในแต่ละภาคการศึกษาที่เหลืออยู่ ส่วนวิชาที่ต้องเลือกเอง เช่น วิชาเลือกในวิชาโทและวิชาเลือกเสรี ยังคงเว้นไว้ให้ท่านเลือกเอง และจะไม่แก้ไขหรือลบรายวิชาที่ท่านกรอกไว้ในภาคการศึกษาใดอยู่แล้ว",
+      "ปุ่มนี้จะกรอกรายวิชาที่แผนที่แนะนำระบุชื่อไว้ในแต่ละภาคการศึกษาที่เหลืออยู่ รวมถึงวิชาบังคับของวิชาโทที่ท่านเลือกไว้ด้วย ส่วนวิชาที่ต้องเลือกเอง เช่น วิชาเลือกในวิชาโทและวิชาเลือกเสรี ยังคงเว้นไว้ให้ท่านเลือกเอง และจะไม่แก้ไขหรือลบรายวิชาที่ท่านกรอกไว้ในภาคการศึกษาใดอยู่แล้ว",
     populateButton: "กรอกรายวิชาที่ระบุชื่อไว้",
     termCreditsTemplate: "{n} หน่วยกิตในภาคนี้",
     addCourseLabel: "เพิ่มรายวิชา",

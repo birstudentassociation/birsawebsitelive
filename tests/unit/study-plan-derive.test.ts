@@ -244,7 +244,7 @@ describe("remainingRequirements", () => {
 
 describe("populateRecommendedTerms", () => {
   it("running it twice produces the same plan", () => {
-    const plan = { passed: [], terms: [] as PlannedCourseTerm[] };
+    const plan = { passed: [], terms: [] as PlannedCourseTerm[], minorId: "governance" as const };
     const once = populateRecommendedTerms(version, { year: 2, kind: "semester1" }, plan);
     const twice = populateRecommendedTerms(
       version,
@@ -252,6 +252,7 @@ describe("populateRecommendedTerms", () => {
       {
         passed: [],
         terms: once,
+        minorId: "governance",
       }
     );
     expect(twice).toEqual(once);
@@ -261,7 +262,7 @@ describe("populateRecommendedTerms", () => {
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
-      { passed: ["PI321"], terms: [] }
+      { passed: ["PI321"], terms: [], minorId: "governance" }
     );
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).not.toContain("PI321");
@@ -278,7 +279,7 @@ describe("populateRecommendedTerms", () => {
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
-      { passed: [], terms: [moved] }
+      { passed: [], terms: [moved], minorId: "governance" }
     );
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes.filter((c) => c === "PI321").length).toBe(1);
@@ -290,7 +291,7 @@ describe("populateRecommendedTerms", () => {
     const result = populateRecommendedTerms(
       version,
       { year: 1, kind: "semester1" },
-      { passed: [], terms: [] }
+      { passed: [], terms: [], minorId: "governance" }
     );
     const year2Summer = result.find((t) => t.term.year === 2 && t.term.kind === "summer");
     expect(year2Summer).toBeDefined();
@@ -301,7 +302,7 @@ describe("populateRecommendedTerms", () => {
     const result = populateRecommendedTerms(
       version,
       { year: 3, kind: "semester1" },
-      { passed: [], terms: [] }
+      { passed: [], terms: [], minorId: "governance" }
     );
     const past = result.find((t) => t.term.year === 1 && t.term.kind === "semester1");
     expect(past).toBeUndefined();
@@ -318,11 +319,96 @@ describe("populateRecommendedTerms", () => {
     const result = populateRecommendedTerms(
       version,
       { year: 3, kind: "semester1" },
-      { passed: [], terms: [edited] }
+      { passed: [], terms: [edited], minorId: "governance" }
     );
     const same = result.find((t) => t.term.year === 3 && t.term.kind === "semester1");
     expect(same?.codes[0]).toBe("TU100");
     expect(same?.codes).toContain("PI300");
     expect(same?.freeElectiveCredits).toBe(6);
+  });
+
+  it("fills in the chosen minor's three required courses, which sit in Year 3", () => {
+    // Governance's required courses are PI380, PI381, PI382. Autofilling from
+    // before Year 3 semester 1 (where the two minorRequired slots sit) and
+    // Year 3 semester 2 (where the third one sits) should place all three.
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: [], minorId: "governance" }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).toContain("PI380");
+    expect(allCodes).toContain("PI381");
+    expect(allCodes).toContain("PI382");
+  });
+
+  it("does not fill a minor elective slot, only the required slots", () => {
+    // PI385 is one of governance's electives, not one of its three required
+    // courses, so it must never be planned by autofill: the minorElective
+    // placeholders stay untouched, exactly as every other elective category.
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: [], minorId: "governance" }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).not.toContain("PI385");
+  });
+
+  it("does not plan a minor required course the student has already passed", () => {
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: ["PI380"], terms: [], minorId: "governance" }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).not.toContain("PI380");
+    expect(allCodes).toContain("PI381");
+    expect(allCodes).toContain("PI382");
+  });
+
+  it("does not duplicate a minor required course the student already placed in a different term", () => {
+    const moved: PlannedCourseTerm = {
+      term: { year: 4, kind: "semester1" },
+      codes: ["PI380"],
+      freeElectiveCredits: 0,
+    };
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: [moved], minorId: "governance" }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes.filter((c) => c === "PI380").length).toBe(1);
+    const movedResult = result.find((t) => t.term.year === 4 && t.term.kind === "semester1");
+    expect(movedResult?.codes).toContain("PI380");
+  });
+
+  it("running it twice still produces the same plan when a minor's required courses are involved", () => {
+    const plan = { passed: [], terms: [] as PlannedCourseTerm[], minorId: "governance" as const };
+    const once = populateRecommendedTerms(version, { year: 2, kind: "semester1" }, plan);
+    const twice = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: once, minorId: "governance" }
+    );
+    expect(twice).toEqual(once);
+  });
+
+  it("fills a different minor's required courses when a different minor is chosen", () => {
+    // Global Political Economy's required courses are PI392, PI480, PI490,
+    // disjoint from governance's PI380/PI381/PI382.
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: [], minorId: "globalPoliticalEconomy" }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).toContain("PI392");
+    expect(allCodes).toContain("PI480");
+    expect(allCodes).toContain("PI490");
+    expect(allCodes).not.toContain("PI380");
+    expect(allCodes).not.toContain("PI381");
+    expect(allCodes).not.toContain("PI382");
   });
 });

@@ -204,6 +204,18 @@ const MAX_TERMS = 20;
  * silently wrong guesses are worse than an empty box the placeholder step
  * already knows how to prompt for.
  *
+ * A `minorRequired` placeholder is the one exception to that rule, and it is
+ * an exception rather than a special case of it: the student has already
+ * told the service which minor they are taking (`plan.minorId` is required
+ * to have a plan at all), and a minor's `required` list is not a pool to
+ * choose from, it is the fixed 9 credits every student in that minor must
+ * take. "Minor required course 1" therefore has exactly one correct set of
+ * answers once the minor is known, so filling it applies a fact the student
+ * already gave the service rather than guessing at one they haven't. Every
+ * other placeholder category, including the same minor's own electives, is
+ * still a real choice from a list and is still skipped for exactly the
+ * reason above.
+ *
  * A term entry is created even for a recommended term that contributes no
  * course at all, such as Year 2 summer in content/curriculum/2564.ts, which
  * is entirely placeholders. Autofill still has to make that term exist and
@@ -214,7 +226,7 @@ const MAX_TERMS = 20;
 export function populateRecommendedTerms(
   version: CurriculumVersion,
   position: TermRef,
-  plan: { passed: string[]; terms: PlannedCourseTerm[] }
+  plan: { passed: string[]; terms: PlannedCourseTerm[]; minorId: MinorId }
 ): PlannedCourseTerm[] {
   const cutoff = termIndex(position);
   const passedSet = new Set(plan.passed);
@@ -227,6 +239,18 @@ export function populateRecommendedTerms(
 
   const placedCodes = new Set(result.flatMap((term) => term.codes));
   const indexByTermIndex = new Map(result.map((term, i) => [termIndex(term.term), i]));
+
+  // Consumed in the minor's own array order as `minorRequired` slots are
+  // reached, across terms, in recommended-plan order: which of the three
+  // (all mandatory regardless of order) lands in which slot is arbitrary in
+  // principle, but has to be stable and repeatable rather than decided by
+  // object key iteration or similar happenstance. Built once, up front, from
+  // what's already passed or already placed, so a second run of this same
+  // function (idempotency is tested) finds nothing left to queue.
+  const minor = version.minors.find((m) => m.id === plan.minorId);
+  const minorRequiredQueue = (minor?.required ?? []).filter(
+    (code) => !passedSet.has(code) && !placedCodes.has(code)
+  );
 
   for (const recommendedTerm of version.recommendedPlan.value) {
     const recommendedIndex = termIndex(recommendedTerm.term);
@@ -244,11 +268,23 @@ export function populateRecommendedTerms(
     if (!target) continue;
 
     for (const entry of recommendedTerm.entries) {
-      if (entry.kind !== "course") continue;
-      if (passedSet.has(entry.code) || placedCodes.has(entry.code)) continue;
+      if (entry.kind === "course") {
+        if (passedSet.has(entry.code) || placedCodes.has(entry.code)) continue;
+        if (target.codes.length >= MAX_CODES_PER_TERM) continue;
+        target.codes.push(entry.code);
+        placedCodes.add(entry.code);
+        continue;
+      }
+
+      if (entry.category !== "minorRequired") continue;
       if (target.codes.length >= MAX_CODES_PER_TERM) continue;
-      target.codes.push(entry.code);
-      placedCodes.add(entry.code);
+      // Left in the queue, not dropped, when the term is already full: a
+      // later term still needs the chance to take it.
+      const code = minorRequiredQueue[0];
+      if (!code) continue;
+      minorRequiredQueue.shift();
+      target.codes.push(code);
+      placedCodes.add(code);
     }
   }
 
