@@ -40,3 +40,7 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Scratch workspace for agent-driven development runs (ledgers, briefs, reports).
+# Never part of the repo: the git history is the durable record.
+.superpowers/
