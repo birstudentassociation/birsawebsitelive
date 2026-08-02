@@ -28,6 +28,14 @@ export type Derivation =
       source: SourceId;
       /** Shown to the student, not just logged. */
       reason: LocalizedText;
+      /**
+       * Set when the provenance is still inferred but the notice is deliberately
+       * not shown to students. Records WHY and on whose instruction, so that
+       * suppressing a warning is a visible decision in the data rather than a
+       * silent omission. `inferredParts` still returns these, so maintainers and
+       * tests can see them; only the rendered notice skips them.
+       */
+      suppressed?: { reason: string; by: string; on: string };
     };
 
 /** A part of a version's data, carrying its own provenance. */

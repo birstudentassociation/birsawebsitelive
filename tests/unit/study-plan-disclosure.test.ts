@@ -17,12 +17,24 @@ function read(relative: string): string {
 }
 
 describe("uncertain curriculum data is disclosed, never silent", () => {
-  it("gives every inferred part a reason in both locales", () => {
+  it("gives every non-suppressed inferred part a reason in both locales", () => {
     for (const version of Object.values(CURRICULUM_VERSIONS)) {
       for (const derivation of inferredParts(version)) {
         if (derivation.kind !== "inferred") throw new Error("unreachable");
+        if (derivation.suppressed) continue;
         expect(derivation.reason.en.trim().length, version.id).toBeGreaterThan(20);
         expect(derivation.reason.th.trim().length, version.id).toBeGreaterThan(20);
+      }
+    }
+  });
+
+  it("never lets a suppressed notice be anonymous or undated", () => {
+    for (const version of Object.values(CURRICULUM_VERSIONS)) {
+      for (const derivation of inferredParts(version)) {
+        if (derivation.kind !== "inferred" || !derivation.suppressed) continue;
+        expect(derivation.suppressed.reason.trim().length, version.id).toBeGreaterThan(0);
+        expect(derivation.suppressed.by.trim().length, version.id).toBeGreaterThan(0);
+        expect(derivation.suppressed.on, version.id).toMatch(/^\d{4}-\d{2}-\d{2}$/);
       }
     }
   });

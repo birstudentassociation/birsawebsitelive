@@ -415,6 +415,25 @@ the site's own handbook chapter, which listed the PD pair; BIRSA's word is
 treated as authoritative over both. This entry documents the correction
 without altering the account of what was believed true at merge time above.
 
+**Post-merge correction: 2568 Year 1 verified, notice suppressed (2026-08-02)**
+
+On 2026-08-02, BIRSA supplied real cohort 68 records for Year 1: a class
+schedule for Semester 1/2025 and a registration record for Semester 2/2568
+(`classSchedule2568Year1` in `content/curriculum/sources.ts`). Both matched
+the sequence borrowed from the 2023 revision exactly, course for course, term
+for term. Years 2 to 4 remain borrowed with no evidence either way, so
+`recommendedPlan.derivation.kind` for 2568 stays `"inferred"`, not
+`"published"`, which would misstate what the 2568 source document contains.
+On BIRSA's instruction, the borrowed-study-plan notice is no longer shown to
+cohort 68 and 69 students; the derivation now carries a `suppressed` record
+(reason, `by: "BIRSA"`, `on: "2026-08-02"`) so the decision is visible in the
+data, and `inferredParts` still returns it for maintainers. The
+`no-2568-study-plan` contradiction's `disclosure` was set to `null`
+accordingly. The PI574 and cohort-69 disclosures were untouched and still
+render. The same records also corrected two course titles inherited from
+`2564.ts`: TU100 from "Civic Engagement" to "Civil Education", and TU102 from
+"Social Life Skills" to "Life & Aesthetics", matched in the handbook chapter.
+
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its

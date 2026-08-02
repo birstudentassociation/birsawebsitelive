@@ -58,6 +58,12 @@ export const curriculum2568: CurriculumVersion = {
       from: "2564-rev2566",
       source: "bir64rev66",
       reason: INFERRED_PLAN_REASON,
+      suppressed: {
+        reason:
+          "Year 1 was verified on 2026-08-02 against real cohort 68 records: the BIR class schedule for Semester 1/2025 and the registration record for Semester 2/2568. Both matched the borrowed sequence exactly. Years 2 to 4 remain borrowed from the 2023 revision with no evidence either way. BIRSA instructed that the borrowed-study-plan notice be removed for cohorts 68 and 69.",
+        by: "BIRSA",
+        on: "2026-08-02",
+      },
     },
   },
   rules: curriculum2564rev2566.rules,
@@ -65,13 +71,18 @@ export const curriculum2568: CurriculumVersion = {
   verification: {
     verifiedBy: null,
     verifiedOn: null,
-    sources: [SOURCES.comparison2568, SOURCES.bir64rev66, SOURCES.handbook2021],
+    sources: [
+      SOURCES.comparison2568,
+      SOURCES.bir64rev66,
+      SOURCES.handbook2021,
+      SOURCES.classSchedule2568Year1,
+    ],
     contradictions: [
       {
         id: "no-2568-study-plan",
         summary:
-          "The 2568 comparison document contains no sample study plan. The sequence is borrowed from the 2023 revision.",
-        disclosure: INFERRED_PLAN_REASON,
+          "The 2568 comparison document contains no sample study plan; the sequence is borrowed from the 2023 revision. Year 1 is now verified against the BIR class schedule for Semester 1/2025 and the registration record for Semester 2/2568, and matched the borrowed sequence exactly. Years 2 to 4 remain borrowed from the 2023 revision with no evidence either way. The student-facing disclosure was removed on BIRSA's instruction on 2026-08-02; see recommendedPlan.derivation.suppressed.",
+        disclosure: null,
       },
       {
         id: "pi574-outside-total",
