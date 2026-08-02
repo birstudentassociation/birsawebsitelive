@@ -357,6 +357,48 @@ conversation with the faculty; item 1 needs a document that may not exist yet,
 and until it does, Years 1 and 2 are planning against a sequence written for a
 curriculum that is not theirs.
 
+## 9a. Known limitations at merge
+
+Recorded here because the build workspace that tracked them is scratch and
+does not survive. None of these blocked merge; all were reviewed and
+consciously deferred.
+
+**Verification**
+
+- End-to-end tests ran on Chromium and mobile Chrome only. Firefox and WebKit
+  Playwright binaries are absent from the development environment. This is
+  pre-existing and repo-wide, not specific to this service, but it means the
+  journey has not been exercised in those engines.
+- The preview browser used during development executes no client-side effects,
+  which was confirmed against the pre-existing theme toggle. Browser storage is
+  therefore covered by jsdom component tests rather than by real-browser
+  observation.
+
+**Test coverage gaps, all judged low risk**
+
+- `tests/unit/curriculum-sources.test.ts` checks document count, URL format and
+  id consistency. It does not guard the recorded page counts or the note about
+  which documents had degraded Thai text extraction. Those facts were verified
+  by hand against the crawl.
+- The minor-model tests in `tests/unit/curriculum-minors.test.ts` are
+  type-level and can only fail on a compile error.
+- `resolveCohort` trims whitespace, so " 64 " resolves. It never resolves to a
+  wrong cohort, but the behaviour is undocumented and untested.
+- No test isolates a term holding only free elective credits against the
+  empty-term guard in `checkPlan`.
+- `InferenceNotice`'s empty-return branch is untested, because no real
+  curriculum version yields zero inferred parts and zero applicable
+  disclosures. Covering it needs a synthetic fixture.
+
+**A limit of the disclosure test**
+
+`tests/unit/study-plan-disclosure.test.ts` checks page source for
+`<InferenceNotice`, not rendered output. It catches a deleted notice, a renamed
+component and an orphaned import. It would not catch a notice made
+conditional on something that never holds. That is the accepted cost of a
+source-text check on server components; a rendered-DOM check would need the
+whole page's async data.
+
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its
