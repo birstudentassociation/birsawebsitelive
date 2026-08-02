@@ -1,8 +1,9 @@
 /**
  * Curriculum 2021 (B.E. 2564), 2023 revision, as published for cohort 66 in
- * `BIR_64_rev66.pdf`. BIRSA attests that cohort 67 follows it too; no
- * document says so, which is recorded in the cohort provenance and disclosed
- * to the student.
+ * `BIR_64_rev66.pdf`. Cohort 67's mapping to this revision is now also
+ * documented, on the official BIR curriculum page at birpolsci.com
+ * (`officialCurriculumPage` in sources.ts, retrieved 2026-08-02), so it no
+ * longer needs BIRSA's attestation or a disclosure to the student.
  *
  * The only changes from the base 2564 version are five Year 1 general
  * education courses. Everything from Year 2 onward is reused from
@@ -70,7 +71,7 @@ export const curriculum2564rev2566: CurriculumVersion = {
   },
   cohorts: [
     { code: "66", provenance: { kind: "document", source: "bir64rev66", page: 1 } },
-    { code: "67", provenance: { kind: "attested", by: "BIRSA", on: "2026-08-01" } },
+    { code: "67", provenance: { kind: "document", source: "officialCurriculumPage", page: 1 } },
   ],
   graduationCredits: { value: 127, derivation: { kind: "published", source: "bir64rev66" } },
   categories: curriculum2564.categories,
@@ -89,22 +90,15 @@ export const curriculum2564rev2566: CurriculumVersion = {
   verification: {
     verifiedBy: null,
     verifiedOn: null,
-    sources: [SOURCES.bir64rev66, SOURCES.handbook2021],
+    sources: [SOURCES.bir64rev66, SOURCES.handbook2021, SOURCES.officialCurriculumPage],
+    // The cohort-67-attested contradiction that used to live here was
+    // deleted outright, not suppressed, when the official curriculum page
+    // documented cohort 67 directly. The statement it made ("no published
+    // document says which curriculum cohort 67 follows") became false, and a
+    // suppressed-but-present false record is worse than no record: suppression
+    // (see 2568.ts's `no-2568-study-plan`) is for statements that are still
+    // true but no longer worth surfacing, not for statements that are wrong.
     contradictions: [
-      {
-        id: "cohort-67-attested",
-        summary:
-          "Cohort 67 following this revision is attested by BIRSA on 2026-08-01 and printed in no document.",
-        disclosure: {
-          en: "No published document says which curriculum cohort 67 follows. BIRSA has told us it is this one. If you started in 2567 (2024), check with the Registrar's Office before relying on this plan.",
-          th: "ไม่มีเอกสารเผยแพร่ระบุว่านักศึกษารหัส 67 ใช้หลักสูตรใด BIRSA แจ้งว่าเป็นหลักสูตรนี้ หากท่านเข้าศึกษาในปีการศึกษา 2567 โปรดตรวจสอบกับสำนักงานทะเบียนก่อนใช้แผนนี้",
-        },
-        // Cohort 66's mapping to this version IS printed (BIR_64_rev66.pdf,
-        // page 1); telling a cohort-66 student that "no published document"
-        // covers their cohort would be false for them, and noise on the one
-        // screen whose entire purpose is to be worth reading.
-        cohorts: ["67"],
-      },
       {
         id: "total-never-printed",
         summary:

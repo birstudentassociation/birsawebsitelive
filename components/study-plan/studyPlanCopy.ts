@@ -204,10 +204,10 @@ const en: StudyPlanCopy = {
   },
   cohort: {
     title: "What are the first two digits of your student ID?",
-    hint: "For example, if your ID starts 6612, enter 66. This is what tells us which curriculum you are on.",
+    hint: "For example, if your ID starts 6703, enter 67. This is what tells us which curriculum you are on.",
     label: "First two digits",
     errorRequired: "Enter the first two digits of your student ID",
-    errorFormat: "Enter two digits, for example 66",
+    errorFormat: "Enter two digits, for example 67",
   },
   curriculum: {
     title: "Is this your curriculum?",
@@ -362,10 +362,10 @@ const th: StudyPlanCopy = {
   },
   cohort: {
     title: "เลขรหัสนักศึกษาสองหลักแรกของท่านคืออะไร",
-    hint: "ตัวอย่างเช่น หากรหัสนักศึกษาของท่านขึ้นต้นด้วย 6612 ให้กรอก 66 ตัวเลขนี้บอกว่าท่านใช้หลักสูตรใด",
+    hint: "ตัวอย่างเช่น หากรหัสนักศึกษาของท่านขึ้นต้นด้วย 6703 ให้กรอก 67 ตัวเลขนี้บอกว่าท่านใช้หลักสูตรใด",
     label: "เลขสองหลักแรก",
     errorRequired: "กรอกเลขรหัสนักศึกษาสองหลักแรกของท่าน",
-    errorFormat: "กรอกตัวเลขสองหลัก เช่น 66",
+    errorFormat: "กรอกตัวเลขสองหลัก เช่น 67",
   },
   curriculum: {
     title: "นี่คือหลักสูตรของท่านใช่หรือไม่",

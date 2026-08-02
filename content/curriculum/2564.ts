@@ -502,7 +502,10 @@ export const curriculum2564: CurriculumVersion = {
   verification: {
     verifiedBy: null,
     verifiedOn: null,
-    sources: [SOURCES.bir64, SOURCES.handbook2021],
+    // officialCurriculumPage does not change either cohort's provenance
+    // (bir64 stays the source of record); it corroborates that both 64 and
+    // 65 belong to this version.
+    sources: [SOURCES.bir64, SOURCES.handbook2021, SOURCES.officialCurriculumPage],
     contradictions: [
       {
         id: "total-never-printed",

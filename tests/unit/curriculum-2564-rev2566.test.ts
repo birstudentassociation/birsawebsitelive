@@ -41,16 +41,16 @@ describe("curriculum2564rev2566", () => {
     expect(pick(version)).toEqual(pick(curriculum2564));
   });
 
-  it("maps cohort 66 from the document and cohort 67 as attested", () => {
+  it("maps both cohort 66 and cohort 67 from documents", () => {
     const byCode = Object.fromEntries(version.cohorts.map((c) => [c.code, c.provenance]));
     expect(byCode["66"]?.kind).toBe("document");
-    expect(byCode["67"]?.kind).toBe("attested");
-    expect(byCode["67"]).toMatchObject({ by: "BIRSA", on: "2026-08-01" });
+    expect(byCode["67"]?.kind).toBe("document");
+    expect(byCode["67"]).toMatchObject({ source: "officialCurriculumPage", page: 1 });
   });
 
-  it("discloses the attested cohort 67 mapping", () => {
+  it("no longer carries the cohort-67-attested disclosure, now that cohort 67 is documented", () => {
     const c = version.verification.contradictions.find((x) => x.id === "cohort-67-attested");
-    expect(c?.disclosure).not.toBeNull();
+    expect(c).toBeUndefined();
   });
 
   it("carries PI574 at 1 credit, counted toward the total", () => {
