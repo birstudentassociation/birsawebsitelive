@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { CURRICULUM_VERSIONS, type CategoryId, type TermRef } from "@/content/curriculum";
-import { remainingRequirements } from "@/lib/study-plan/derive";
+import { planTotals, remainingRequirements } from "@/lib/study-plan/derive";
 import { checkPlan } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
 import { passedCoursesForPrint, plannedTermsForPrint } from "@/lib/study-plan/print";
@@ -9,6 +9,7 @@ import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
+import Notice from "@/components/Notice";
 import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
 export async function generateMetadata({
@@ -90,10 +91,7 @@ export default async function StudyPlanPrintPage({
   const passedCourses = passedCoursesForPrint(version, plan.passed);
   const plannedTerms = plannedTermsForPrint(version, plan.terms);
 
-  const plannedCodes = plan.terms.flatMap((t) => t.codes);
-  const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
-  const plannedFreeElectives = plan.terms.reduce((n, t) => n + t.freeElectiveCredits, 0);
-  const totalFreeElectiveCredits = plan.freeElectiveCreditsPassed + plannedFreeElectives;
+  const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
 
   const findings = checkPlan(version, plan);
   const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
@@ -227,6 +225,26 @@ export default async function StudyPlanPrintPage({
           </table>
         </div>
       </div>
+
+      {/*
+        The print page is the document a student hands to an advisor (see the
+        header comment above), so the advisor needs this caveat at least as
+        much as the student does: reading only the printout, they have no
+        other way to learn the plan does not check whether a course actually
+        runs in a term, anything at the Dean's or an advisor's discretion, or
+        anything depending on GPA. Reuses copy.plan's keys rather than a
+        second copy of the same text, because two copies would drift.
+      */}
+      <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
+        <ul className="flex flex-col gap-1.5">
+          {copy.plan.doesNotCheck.map((item) => (
+            <li key={item} className="flex gap-2">
+              <span aria-hidden="true">&bull;</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </Notice>
     </div>
   );
 }

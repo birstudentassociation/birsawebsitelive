@@ -9,7 +9,7 @@
  */
 import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
 import type { StudyPlan } from "./plan";
-import { remainingRequirements, termIndex } from "./derive";
+import { planTotals, remainingRequirements, termIndex } from "./derive";
 
 export type Finding = {
   /** Stable id so a test can name one finding without matching on copy. */
@@ -96,15 +96,8 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
   }
 
   // Completion.
-  const plannedCodes = terms.flatMap((t) => t.codes);
-  const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
-  const plannedFreeElectives = terms.reduce((n, t) => n + t.freeElectiveCredits, 0);
-  const shortfalls = remainingRequirements(
-    version,
-    allCodes,
-    plan.minorId,
-    plan.freeElectiveCreditsPassed + plannedFreeElectives
-  );
+  const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
+  const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
   const remaining = shortfalls.reduce((n, s) => n + s.remaining, 0);
   if (remaining > 0) {
     findings.push({

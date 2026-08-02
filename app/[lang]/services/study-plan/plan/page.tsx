@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { CURRICULUM_VERSIONS, type CategoryId, type TermKind, type TermRef } from "@/content/curriculum";
-import { nextTerm, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
+import { nextTerm, planTotals, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
@@ -111,10 +111,7 @@ export default async function StudyPlanPage({
   const minorName = chosenMinor?.name[locale] ?? "";
   const courseByCode = new Map(version.courses.value.map((c) => [c.code, c]));
 
-  const plannedCodes = plan.terms.flatMap((t) => t.codes);
-  const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
-  const plannedFreeElectives = plan.terms.reduce((n, t) => n + t.freeElectiveCredits, 0);
-  const totalFreeElectiveCredits = plan.freeElectiveCreditsPassed + plannedFreeElectives;
+  const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
 
   const findings = checkPlan(version, plan);
   const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
@@ -151,7 +148,7 @@ export default async function StudyPlanPage({
   const lastShownTerm = futureTerms.at(-1) ?? null;
   const nextTermRef = lastShownTerm ? nextTerm(lastShownTerm) : position;
 
-  const plannedCodesSet = new Set(plannedCodes);
+  const plannedCodesSet = new Set(plan.terms.flatMap((t) => t.codes));
   const passedSet = new Set(plan.passed);
   const availableCourses = version.courses.value
     .filter((course) => !passedSet.has(course.code) && !plannedCodesSet.has(course.code))

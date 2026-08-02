@@ -101,6 +101,28 @@ export function assumedHistory(
 }
 
 /**
+ * Combines a plan's passed and planned course codes (deduplicated) and its
+ * passed and planned free elective credits, the two values every caller of
+ * `remainingRequirements` needs to build first. Both the plan screen
+ * (`app/[lang]/services/study-plan/plan/page.tsx`) and the findings engine
+ * (`lib/study-plan/findings.ts`) computed this identically in two places
+ * until it was pulled out here; the term-ordering helper above went through
+ * the same three-copies-that-drifted history, so this one is factored out
+ * before it has the chance to.
+ */
+export function planTotals(plan: {
+  passed: string[];
+  freeElectiveCreditsPassed: number;
+  terms: { codes: string[]; freeElectiveCredits: number }[];
+}): { allCodes: string[]; totalFreeElectiveCredits: number } {
+  const plannedCodes = plan.terms.flatMap((t) => t.codes);
+  const allCodes = [...new Set([...plan.passed, ...plannedCodes])];
+  const plannedFreeElectives = plan.terms.reduce((n, t) => n + t.freeElectiveCredits, 0);
+  const totalFreeElectiveCredits = plan.freeElectiveCreditsPassed + plannedFreeElectives;
+  return { allCodes, totalFreeElectiveCredits };
+}
+
+/**
  * What the student still owes in each credit category.
  *
  * Minor courses need the chosen minor to be counted at all: they are pooled

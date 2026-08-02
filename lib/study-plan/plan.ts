@@ -87,14 +87,20 @@ export const PLAN_FIELD = "plan";
  * client bundles, so using it here would throw a ReferenceError in the browser
  * the first time a "use client" file imported anything from this file.
  */
-function toBase64Url(text: string): string {
+// Exported for tests only: every field StudyPlan can actually hold is
+// constrained to ASCII by studyPlanSchema (course codes, enum ids, digit-only
+// cohort strings), so no plan value can exercise the multi-byte path below.
+// The only way to prove the TextEncoder/TextDecoder round trip is UTF-8 safe
+// (the reason it replaced Node's Buffer, see the module comment) is to drive
+// these two functions directly with non-ASCII text.
+export function toBase64Url(text: string): string {
   const bytes = new TextEncoder().encode(text);
   let binary = "";
   for (const byte of bytes) binary += String.fromCharCode(byte);
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-function fromBase64Url(encoded: string): string {
+export function fromBase64Url(encoded: string): string {
   const binary = atob(encoded.replace(/-/g, "+").replace(/_/g, "/"));
   return new TextDecoder().decode(Uint8Array.from(binary, (c) => c.charCodeAt(0)));
 }

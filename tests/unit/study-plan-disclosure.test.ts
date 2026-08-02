@@ -37,19 +37,23 @@ describe("uncertain curriculum data is disclosed, never silent", () => {
   });
 
   // This is a source-text check, not a rendered-DOM check: it greps the page
-  // file for the literal string "InferenceNotice" rather than mounting the
+  // file for the literal string "<InferenceNotice" rather than mounting the
   // component. That is a crude way to catch a deleted notice, but it is the
   // cheapest one available here (no test harness in this repo renders a
   // Server Component page with cookies and searchParams), and crude still
   // beats nothing: a future edit that removes the import or the JSX usage
-  // trips this the moment it lands, before it ever reaches a student.
+  // trips this the moment it lands, before it ever reaches a student. It
+  // looks for the opening tag specifically, not the bare name "InferenceNotice",
+  // because the bare name also matches an orphaned `import InferenceNotice
+  // from ...` line left behind after the JSX itself was deleted; a page that
+  // only imports the component but never renders it must fail this check.
   it("renders the inference notice on the confirm, plan and print screens", () => {
     for (const page of [
       "app/[lang]/services/study-plan/curriculum/page.tsx",
       "app/[lang]/services/study-plan/plan/page.tsx",
       "app/[lang]/services/study-plan/plan/print/page.tsx",
     ]) {
-      expect(read(page), `${page} must render InferenceNotice`).toContain("InferenceNotice");
+      expect(read(page), `${page} must render <InferenceNotice`).toContain("<InferenceNotice");
     }
   });
 

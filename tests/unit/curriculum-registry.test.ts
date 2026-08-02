@@ -77,6 +77,14 @@ describe("disclosures", () => {
     const rev2566 = CURRICULUM_VERSIONS["2564-rev2566"];
     expect(disclosures(rev2566).map((c) => c.id)).toContain("cohort-67-attested");
   });
+
+  it("scopes cohort 69's attestation disclosure away from cohort 68", () => {
+    const curriculum2568 = CURRICULUM_VERSIONS["2568"];
+    // Cohort 68's mapping to this version is printed in a document; the
+    // cohort-69 attestation disclosure would be false for a cohort-68 reader.
+    expect(disclosures(curriculum2568, "68").map((c) => c.id)).not.toContain("cohort-69-attested");
+    expect(disclosures(curriculum2568, "69").map((c) => c.id)).toContain("cohort-69-attested");
+  });
 });
 
 describe("resolveMinorCategory", () => {

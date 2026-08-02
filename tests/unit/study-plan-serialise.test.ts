@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { serialisePlan, deserialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
+import {
+  serialisePlan,
+  deserialisePlan,
+  toBase64Url,
+  fromBase64Url,
+  type StudyPlan,
+} from "@/lib/study-plan/plan";
 
 const plan: StudyPlan = {
   versionId: "2564-rev2566",
@@ -52,14 +58,14 @@ describe("serialisePlan and deserialisePlan", () => {
     expect(deserialisePlan(serialisePlan(empty))).toEqual(empty);
   });
 
-  it("round-trips and survives non-ASCII input", () => {
-    const planWithUnicode: StudyPlan = {
-      ...plan,
-      cohort: "66",
-    };
-    const serialized = serialisePlan(planWithUnicode);
-    const deserialized = deserialisePlan(serialized);
-    expect(deserialized).toEqual(planWithUnicode);
+  // StudyPlan's own fields are all ASCII-constrained by studyPlanSchema (course
+  // codes, enum ids, digit-only cohort), so no StudyPlan value can carry
+  // multi-byte text through serialisePlan/deserialisePlan. The base64url
+  // helpers are exported (see the comment on toBase64Url) so the encoding
+  // path itself, not a contorted plan, is what gets exercised here.
+  it("round-trips non-ASCII text through the base64url helpers", () => {
+    const thai = "สวัสดี ยินดีต้อนรับ";
+    expect(fromBase64Url(toBase64Url(thai))).toBe(thai);
   });
 
   it("rejects a plan exceeding the passed courses bound", () => {

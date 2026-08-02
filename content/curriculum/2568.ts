@@ -97,6 +97,20 @@ export const curriculum2568: CurriculumVersion = {
           "The 2568 catalogue is code-for-code identical to 2564, so no course code distinguishes cohort 66 from cohort 68 on the confirm screen.",
         disclosure: null,
       },
+      {
+        id: "cohort-69-attested",
+        summary:
+          "Cohort 69 following this version is attested by BIRSA on 2026-08-01 and printed in no document.",
+        disclosure: {
+          en: "No published document says which curriculum cohort 69 follows. BIRSA has told us it is this one. If you started in 2569 (2026), check with the Registrar's Office before relying on this plan.",
+          th: "ไม่มีเอกสารเผยแพร่ระบุว่านักศึกษารหัส 69 ใช้หลักสูตรใด BIRSA แจ้งว่าเป็นหลักสูตรนี้ หากท่านเข้าศึกษาในปีการศึกษา 2569 โปรดตรวจสอบกับสำนักงานทะเบียนก่อนใช้แผนนี้",
+        },
+        // Cohort 68's mapping to this version IS printed (comparison2568,
+        // page 1); telling a cohort-68 student that "no published document"
+        // covers their cohort would be false for them, and noise on the one
+        // screen whose entire purpose is to be worth reading.
+        cohorts: ["69"],
+      },
     ],
   },
 };
