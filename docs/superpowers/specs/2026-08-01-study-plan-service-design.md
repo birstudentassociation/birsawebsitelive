@@ -76,8 +76,13 @@ card, and the faculty's own handouts are titled by it (`รหัส 64, 65` on
 evidence the student can check without leaving the page: the graduation credit
 total, three distinctive course codes that differ between adjacent versions,
 and a link to the source document. For cohort 66 or 67 it shows `EL105`,
-`LAS101`, `PD102`; for 64 or 65 it shows `TU105`, `TU104`, `PI121`. A student
+`LAS101`, `AH208`; for 64 or 65 it shows `TU105`, `TU104`, `PI131`. A student
 who took `TU105` and was told they are on the 2023 revision will notice.
+
+Note what a distinguishing course has to be: one the two adjacent versions do
+not share. `PI121` cannot serve, because both versions require it. The slot it
+sits in differs (`PI131` or `PI132` against `AH208` or `EL295`), so the choice
+courses carry the distinction and the shared ones cannot.
 
 The answer is a radio, not a tickbox: **Yes, this matches** or **No, or I am
 not sure**. A tickbox invites clicking through. The second answer goes to the
@@ -398,6 +403,17 @@ component and an orphaned import. It would not catch a notice made
 conditional on something that never holds. That is the accepted cost of a
 source-text check on server components; a rendered-DOM check would need the
 whole page's async data.
+
+**Post-merge correction: PD102/PD103 removed (2026-08-02)**
+
+On 2026-08-02, on BIRSA's direct instruction, PD102 "Social Sciences in the
+21st Century" and PD103 "Humanities in the Age of Disruption" were removed
+from the 2023 revision (`2564-rev2566.ts`, and `2568.ts` by inheritance).
+General education part 2 reverted to PI121 and PI122, the same pair the base
+2564 curriculum already uses. This contradicts both `BIR_64_rev66.pdf` and
+the site's own handbook chapter, which listed the PD pair; BIRSA's word is
+treated as authoritative over both. This entry documents the correction
+without altering the account of what was believed true at merge time above.
 
 ## 10. Sequencing
 
