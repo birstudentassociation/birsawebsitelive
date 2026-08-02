@@ -494,3 +494,19 @@ html[lang="th"] :is(h1, h2, h3) {
     0 4px #0b0c0c;
   text-decoration: none;
 }
+
+/* ==========================================================================
+   Print
+   Built for the study plan print page (a page handed to an advisor), but
+   written against the site chrome generally: any page printed loses the
+   sticky header, footer, breadcrumbs and skip link, none of which mean
+   anything on paper.
+   ========================================================================== */
+@media print {
+  header,
+  footer,
+  .skip-link,
+  [data-breadcrumbs] {
+    display: none !important;
+  }
+}

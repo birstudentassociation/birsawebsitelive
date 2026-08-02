@@ -113,6 +113,13 @@ describe("privacy register", () => {
     expect(undocumented).toEqual([]);
   });
 
+  it("documents the study plan localStorage key", () => {
+    const entry = browserStorage.find((k) => k.key === "birsa-study-plan");
+    expect(entry).toBeDefined();
+    expect(entry?.purpose.en.trim().length).toBeGreaterThan(0);
+    expect(entry?.purpose.th.trim().length).toBeGreaterThan(0);
+  });
+
   it("resolves every processor an activity names", () => {
     // s.23(4) requires the notice to name the categories of recipient. A
     // dangling id would render as a blank recipient rather than fail loudly.

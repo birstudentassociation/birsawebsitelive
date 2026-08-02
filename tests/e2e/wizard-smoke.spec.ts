@@ -37,6 +37,11 @@ const journeyEntryPoints = [
   "/en/services/equipment-loan/status",
   "/en/clubs/start",
   "/en/privacy/your-data",
+  "/en/services/study-plan",
+  "/en/services/study-plan/cohort",
+  // Takes a `reason` query parameter but must render cold with none, since a
+  // bare link or a mistyped URL can reach it without one.
+  "/en/services/study-plan/cannot-help",
 ];
 
 test.describe("wizard entry points render for a first-time visitor", () => {

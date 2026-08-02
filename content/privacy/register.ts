@@ -569,6 +569,15 @@ export const cookieRecords: CookieRecord[] = [
     essential: true,
   },
   {
+    name: "birsa_study_plan_draft",
+    purpose: {
+      en: "The same, for the study plan service, while you work out which curriculum applies to you.",
+      th: "ทำหน้าที่เช่นเดียวกัน สำหรับบริการวางแผนการศึกษา ระหว่างตรวจสอบว่าท่านใช้หลักสูตรใด",
+    },
+    expires: { en: "Thirty minutes", th: "สามสิบนาที" },
+    essential: true,
+  },
+  {
     name: "birsa_inventory",
     purpose: {
       en: "Keeps a BIRSA officer signed in to the equipment console. Only ever set for officers, never for ordinary visitors.",
@@ -602,6 +611,13 @@ export const browserStorage: BrowserStorageRecord[] = [
     purpose: {
       en: "Remembers which tasks you ticked off on the step-by-step pages, one key per track. We never see this.",
       th: "บันทึกรายการที่ท่านทำเครื่องหมายไว้ในหน้าแนะนำแบบทีละขั้นตอน โดยแยกคีย์ตามแต่ละเส้นทาง BIRSA ไม่สามารถเข้าถึงข้อมูลนี้ได้",
+    },
+  },
+  {
+    key: "birsa-study-plan",
+    purpose: {
+      en: "Keeps a copy of the study plan you built, so it is still there if you close the tab and come back. Only set once you reach the plan screen, never sent to BIRSA, and cleared straight away by the delete button on that screen.",
+      th: "เก็บสำเนาแผนการศึกษาที่ท่านจัดทำไว้ เพื่อให้ยังคงอยู่แม้ท่านปิดแท็บแล้วกลับมาใหม่ กำหนดค่าเมื่อท่านไปถึงหน้าแผนการศึกษาเท่านั้น ไม่มีการส่งข้อมูลนี้ไปยัง BIRSA แต่อย่างใด และจะถูกลบทันทีเมื่อท่านกดปุ่มลบในหน้าดังกล่าว",
     },
   },
 ];
