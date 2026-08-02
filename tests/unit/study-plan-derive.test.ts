@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { CURRICULUM_VERSIONS, type PlannedTerm, type TermRef } from "@/content/curriculum";
 import {
   assumedHistory,
+  clearInternshipSummers,
+  isInternshipSummer,
   nextTerm,
   populateRecommendedTerms,
   remainingRequirements,
@@ -89,6 +91,16 @@ describe("assumedHistory", () => {
     }
   });
 
+  it("carries a named-choice placeholder's `choices` through, and leaves it undefined for an open one", () => {
+    const result = assumedHistory(version, { year: 2, kind: "semester1" });
+    const genEdChoice = result.placeholders.find((slot) => slot.id === "genEdChoice1");
+    expect(genEdChoice?.choices).toEqual(["AH208", "EL295"]);
+
+    const laterResult = assumedHistory(version, { year: 3, kind: "semester1" });
+    const openSlot = laterResult.placeholders.find((slot) => slot.id === "minorElective1");
+    expect(openSlot?.choices).toBeUndefined();
+  });
+
   it("never returns a code that is not a real course", () => {
     const codes = new Set(version.courses.value.map((c) => c.code));
     const result = assumedHistory(version, { year: 4, kind: "semester1" });
@@ -119,6 +131,75 @@ describe("assumedHistory", () => {
 
     const result = assumedHistory(fixture, { year: 2, kind: "semester1" });
     expect(result.courses.filter((code) => code === "PI211").length).toBe(1);
+  });
+});
+
+describe("isInternshipSummer", () => {
+  it("is true for a summer term holding PI574", () => {
+    const term: PlannedCourseTerm = {
+      term: { year: 3, kind: "summer" },
+      codes: ["PI574"],
+      freeElectiveCredits: 0,
+    };
+    expect(isInternshipSummer(version, term)).toBe(true);
+  });
+
+  it("is false for a semester term holding PI574: the rule is about the summer being consumed, not the course", () => {
+    const term: PlannedCourseTerm = {
+      term: { year: 4, kind: "semester1" },
+      codes: ["PI574"],
+      freeElectiveCredits: 0,
+    };
+    expect(isInternshipSummer(version, term)).toBe(false);
+  });
+
+  it("is false for a summer term without the internship", () => {
+    const term: PlannedCourseTerm = {
+      term: { year: 2, kind: "summer" },
+      codes: [],
+      freeElectiveCredits: 0,
+    };
+    expect(isInternshipSummer(version, term)).toBe(false);
+  });
+});
+
+describe("clearInternshipSummers", () => {
+  it("drops every other course from an internship summer and zeroes its free elective credits", () => {
+    const terms: PlannedCourseTerm[] = [
+      {
+        term: { year: 3, kind: "summer" },
+        codes: ["PI574", "PI313"],
+        freeElectiveCredits: 3,
+      },
+    ];
+    const result = clearInternshipSummers(version, terms);
+    expect(result[0]?.codes).toEqual(["PI574"]);
+    expect(result[0]?.freeElectiveCredits).toBe(0);
+  });
+
+  it("leaves a term that is not an internship summer completely untouched", () => {
+    const terms: PlannedCourseTerm[] = [
+      {
+        term: { year: 2, kind: "semester1" },
+        codes: ["PI210", "PI241"],
+        freeElectiveCredits: 6,
+      },
+    ];
+    const result = clearInternshipSummers(version, terms);
+    expect(result[0]).toBe(terms[0]);
+  });
+
+  it("does not mutate its input", () => {
+    const terms: PlannedCourseTerm[] = [
+      {
+        term: { year: 3, kind: "summer" },
+        codes: ["PI574", "PI313"],
+        freeElectiveCredits: 3,
+      },
+    ];
+    const original = JSON.parse(JSON.stringify(terms));
+    clearInternshipSummers(version, terms);
+    expect(terms).toEqual(original);
   });
 });
 

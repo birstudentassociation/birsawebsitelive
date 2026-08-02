@@ -146,6 +146,20 @@ describe("curriculum2568", () => {
     });
   });
 
+  it("gives every named-choice placeholder's `choices` a real course in the same category", () => {
+    const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
+    for (const term of version.recommendedPlan.value) {
+      for (const entry of term.entries) {
+        if (entry.kind !== "placeholder" || !entry.choices) continue;
+        for (const code of entry.choices) {
+          const course = byCode.get(code);
+          expect(course, `${entry.id} names missing course ${code}`).toBeDefined();
+          expect(course?.category, `${entry.id}'s choice ${code}`).toBe(entry.category);
+        }
+      }
+    }
+  });
+
   // Regression guard, not in the brief: minor elective lists are inherited by
   // reference from 2564, so their lengths should match automatically.
   it("keeps each minor's elective-list length", () => {

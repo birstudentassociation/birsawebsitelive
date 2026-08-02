@@ -29,7 +29,12 @@ import {
   type TermRef,
 } from "@/content/curriculum";
 import type { StudyPlan } from "@/lib/study-plan/plan";
-import { planTotals, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
+import {
+  isInternshipSummer,
+  planTotals,
+  remainingRequirements,
+  termIndex,
+} from "@/lib/study-plan/derive";
 
 export type SuggestedCourse = {
   code: string;
@@ -52,10 +57,25 @@ export type OpenSlot = {
   id: string;
   label: LocalizedText;
   category: CategoryId;
+  /**
+   * Carried straight from `PlanEntry.choices` (content/curriculum/types.ts):
+   * present when the slot is an either/or between specific named courses, in
+   * which case it is also what narrowed `candidates` below to just those
+   * codes. Absent for the ordinary open-category slot.
+   */
+  choices?: string[];
   candidates: SuggestedCourse[];
 };
 
 export type TermSuggestion = {
+  /**
+   * True when this term is a summer given over to the internship (see
+   * `isInternshipSummer` in derive.ts). The internship is the whole of that
+   * term, so there is nothing left for a picker to offer: `openSlots` and
+   * `groups` are both empty whenever this is true, and the caller renders an
+   * explanation in their place rather than an empty picker.
+   */
+  internshipOnly: boolean;
   openSlots: OpenSlot[];
   groups: SuggestionGroup[];
 };
@@ -92,6 +112,18 @@ export function suggestForTerm(
   term: TermRef
 ): TermSuggestion {
   const cutoff = termIndex(term);
+
+  // A summer given over to the internship offers nothing: the whole point of
+  // the rule (see derive.ts's `isInternshipSummer` / `clearInternshipSummers`)
+  // is that nothing else belongs alongside it, so there is no group and no
+  // open slot for this module to compute. Worked out from the plan's own term
+  // matching `term`, not from `term` alone: a term the student has not
+  // touched yet cannot be an internship summer, only one where they have
+  // actually placed PI574 in it.
+  const thisPlannedTerm = plan.terms.find((t) => termIndex(t.term) === cutoff);
+  if (thisPlannedTerm && isInternshipSummer(version, thisPlannedTerm)) {
+    return { internshipOnly: true, openSlots: [], groups: [] };
+  }
 
   // Everything already spoken for, whether by a passed course or a course
   // placed anywhere in the plan, including this same term: a course already
@@ -245,18 +277,42 @@ export function suggestForTerm(
     // free elective from 2568 onward, needs no branch of its own either: it
     // simply is an available course whose bucket is freeElective, so it
     // shows up here the same way any other bucket match would.
-    const matchesSlot = (s: SuggestedCourse): boolean =>
-      isPooledMinorSlot
-        ? s.bucket !== null && MINOR_BUCKETS.includes(s.bucket)
-        : s.bucket === slotBucket;
+    //
+    // `entry.choices`, when present, replaces that whole bucket match: the
+    // slot is an either/or between specific named courses (e.g. "Choose
+    // AH208 ..., or EL295 ..."), and its own category also holds courses the
+    // label never offered (genEdPart2 also has PI121/PI122). Candidates are
+    // then exactly those named codes, in the order `choices` lists them,
+    // still subject to the same availability rule as everything else in this
+    // module: `suggestedByCode` already excludes anything passed or placed
+    // anywhere in the plan, so a named choice already used drops out here
+    // rather than being offered twice.
+    let candidates: SuggestedCourse[];
+    if (entry.choices) {
+      candidates = entry.choices.flatMap((code) => {
+        const suggested = suggestedByCode.get(code);
+        return suggested ? [suggested] : [];
+      });
+    } else {
+      const matchesSlot = (s: SuggestedCourse): boolean =>
+        isPooledMinorSlot
+          ? s.bucket !== null && MINOR_BUCKETS.includes(s.bucket)
+          : s.bucket === slotBucket;
 
-    const candidates =
-      slotBucket === null && !isPooledMinorSlot
-        ? []
-        : [...suggestedByCode.values()].filter(matchesSlot).sort(byCode);
+      candidates =
+        slotBucket === null && !isPooledMinorSlot
+          ? []
+          : [...suggestedByCode.values()].filter(matchesSlot).sort(byCode);
+    }
 
-    openSlots.push({ id: entry.id, label: entry.label, category: entry.category, candidates });
+    openSlots.push({
+      id: entry.id,
+      label: entry.label,
+      category: entry.category,
+      choices: entry.choices,
+      candidates,
+    });
   }
 
-  return { openSlots, groups };
+  return { internshipOnly: false, openSlots, groups };
 }

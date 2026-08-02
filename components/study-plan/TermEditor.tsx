@@ -70,6 +70,8 @@ export type TermEditorCopy = {
   pickRemainingTemplate: string;
   /** Contains "{codes}"; filled with a course's missing prerequisite codes, joined by ", ". */
   pickPrerequisiteTemplate: string;
+  /** Shown in place of the pick panel and the add-course form when `internshipOnly` is true. */
+  internshipOnlyTerm: string;
 };
 
 export type TermEditorProps = {
@@ -83,6 +85,19 @@ export type TermEditorProps = {
   courseGroups: TermEditorCourseGroup[];
   /** Choices the recommended plan leaves open in this term ("Minor Elective Course 1"). */
   openSlots: TermEditorSlot[];
+  /**
+   * True when this term is a summer given over to the internship (see
+   * `isInternshipSummer` in lib/study-plan/derive.ts). The internship is the
+   * whole of that term, so both the "what this term still needs" panel and
+   * the add-course form are replaced by one explanatory line, and the free
+   * elective input is hidden too: the rule zeroes a term's free elective
+   * credits the moment it holds the internship (`clearInternshipSummers`),
+   * and an input that silently resets whatever the student types is worse
+   * than no input at all. The remove buttons for placed courses still show,
+   * so a student can take the internship back out of the term if that is
+   * not actually what they meant to plan.
+   */
+  internshipOnly: boolean;
   addAction: (formData: FormData) => Promise<void>;
   removeAction: (formData: FormData) => Promise<void>;
   freeElectiveAction: (
@@ -130,6 +145,7 @@ export default function TermEditor({
   freeElectiveCredits,
   courseGroups,
   openSlots,
+  internshipOnly,
   addAction,
   removeAction,
   freeElectiveAction,
@@ -184,122 +200,136 @@ export default function TermEditor({
       ) : null}
 
       {/*
-        This panel is guidance sitting next to a form, not a finding or a
-        caveat about the plan, so it does not use `Notice`: `Notice` carries
-        a border colour and an icon that mean "pay attention to this
-        exception", and there is nothing exceptional about a term still
-        having open choices, that is the ordinary state of an unfinished
-        plan. A quiet bordered block matches how the rest of this screen
-        separates sections without raising an alarm.
+        An internship summer replaces BOTH the "what this term still needs"
+        panel and the add-course form with one explanatory line: there is
+        nothing to add, nothing to pick, because the internship is the whole
+        of this term (see the `internshipOnly` prop's own comment above).
+        The free elective form further down is skipped entirely for the same
+        reason, rather than left to render and silently reset to 0.
       */}
-      {showPickPanel ? (
-        <div className="border-line bg-surface flex flex-col gap-3 rounded-md border p-4 text-sm">
-          <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
-          {openSlots.length > 0 ? (
-            <div className="flex flex-col gap-2">
-              <p className="text-muted">{copy.pickSlotsHint}</p>
-              <ul className="flex flex-col gap-2">
-                {openSlots.map((slot) => (
-                  <li key={slot.id} className="leading-relaxed">
-                    <span className="text-ink font-semibold">{slot.label}</span>
-                    {slot.candidates.length > 0 ? (
-                      <span className="text-muted">
-                        {" "}
-                        {copy.pickSlotCandidates}:{" "}
-                        {slot.candidates.map((c) => `${c.code} ${c.title}`).join(", ")}
-                      </span>
-                    ) : (
-                      <span className="text-muted"> {copy.pickSlotAnyCourse}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
+      {internshipOnly ? (
+        <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
+      ) : (
+        <>
           {/*
-            The buckets still owed, but only for a term the recommended plan
-            has no open choices in: a term the student appended themselves, or
-            one they have already filled every recommended slot of. There the
-            question "what should go here?" has no term-specific answer, so
-            the honest one is what the degree as a whole still wants.
-
-            Deliberately not shown alongside the slots above. These figures are
-            about the whole plan, not this term, and they are already on this
-            page once in the "what you still owe" table; repeating all of them
-            under every term would bury the one thing on this panel that IS
-            specific to the term the student is looking at.
-
-            This is also what keeps the panel from ever being a heading with
-            nothing underneath: the panel shows when there are open slots OR an
-            owed bucket, and those are exactly the two branches here. That
-            empty-shell failure is one `InferenceNotice` has already shipped
-            once, on this same screen.
+            This panel is guidance sitting next to a form, not a finding or a
+            caveat about the plan, so it does not use `Notice`: `Notice` carries
+            a border colour and an icon that mean "pay attention to this
+            exception", and there is nothing exceptional about a term still
+            having open choices, that is the ordinary state of an unfinished
+            plan. A quiet bordered block matches how the rest of this screen
+            separates sections without raising an alarm.
           */}
-          {openSlots.length === 0 && hasRemainingGroup ? (
-            <ul className="flex flex-col gap-1">
-              {courseGroups
-                .filter((group) => group.remaining !== null && group.remaining > 0)
-                .map((group) => (
-                  <li key={group.id} className="leading-relaxed">
-                    <span className="text-ink font-semibold">{group.label}</span>
-                    <span className="text-muted">
-                      {": "}
-                      {copy.pickRemainingTemplate.replace("{n}", String(group.remaining))}
-                    </span>
-                  </li>
-                ))}
-            </ul>
-          ) : null}
-        </div>
-      ) : (
-        <p className="text-muted text-sm">{copy.pickNothingOwed}</p>
-      )}
-
-      {hasCourses ? (
-        <form action={addAction} className="flex flex-wrap items-end gap-3">
-          <input type="hidden" name={PLAN_FIELD} value={plan} />
-          <input type="hidden" name="year" value={term.year} />
-          <input type="hidden" name="kind" value={term.kind} />
-          <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <label htmlFor={addFieldId} className="text-ink text-sm font-semibold">
-              {copy.addLabel}
-            </label>
-            <select
-              id={addFieldId}
-              name="code"
-              className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
-            >
-              {courseGroups.map((group) =>
-                group.courses.length > 0 ? (
-                  <optgroup key={group.id} label={groupOptionLabel(copy, group)}>
-                    {group.courses.map((course) => (
-                      <option key={course.code} value={course.code}>
-                        {courseOptionLabel(copy, course)}
-                      </option>
+          {showPickPanel ? (
+            <div className="border-line bg-surface flex flex-col gap-3 rounded-md border p-4 text-sm">
+              <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
+              {openSlots.length > 0 ? (
+                <div className="flex flex-col gap-2">
+                  <p className="text-muted">{copy.pickSlotsHint}</p>
+                  <ul className="flex flex-col gap-2">
+                    {openSlots.map((slot) => (
+                      <li key={slot.id} className="leading-relaxed">
+                        <span className="text-ink font-semibold">{slot.label}</span>
+                        {slot.candidates.length > 0 ? (
+                          <span className="text-muted">
+                            {" "}
+                            {copy.pickSlotCandidates}:{" "}
+                            {slot.candidates.map((c) => `${c.code} ${c.title}`).join(", ")}
+                          </span>
+                        ) : (
+                          <span className="text-muted"> {copy.pickSlotAnyCourse}</span>
+                        )}
+                      </li>
                     ))}
-                  </optgroup>
-                ) : null
-              )}
-            </select>
-          </div>
-          <Button type="submit" variant="secondary">
-            {copy.addButtonLabel}
-          </Button>
-        </form>
-      ) : (
-        <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
-      )}
+                  </ul>
+                </div>
+              ) : null}
 
-      <TermFreeElectiveForm
-        term={term}
-        plan={plan}
-        freeElectiveCredits={freeElectiveCredits}
-        action={freeElectiveAction}
-        label={copy.freeElectiveLabel}
-        updateLabel={copy.updateFreeElectiveLabel}
-        errorSummaryTitle={copy.errorSummaryTitle}
-      />
+              {/*
+                The buckets still owed, but only for a term the recommended plan
+                has no open choices in: a term the student appended themselves, or
+                one they have already filled every recommended slot of. There the
+                question "what should go here?" has no term-specific answer, so
+                the honest one is what the degree as a whole still wants.
+
+                Deliberately not shown alongside the slots above. These figures are
+                about the whole plan, not this term, and they are already on this
+                page once in the "what you still owe" table; repeating all of them
+                under every term would bury the one thing on this panel that IS
+                specific to the term the student is looking at.
+
+                This is also what keeps the panel from ever being a heading with
+                nothing underneath: the panel shows when there are open slots OR an
+                owed bucket, and those are exactly the two branches here. That
+                empty-shell failure is one `InferenceNotice` has already shipped
+                once, on this same screen.
+              */}
+              {openSlots.length === 0 && hasRemainingGroup ? (
+                <ul className="flex flex-col gap-1">
+                  {courseGroups
+                    .filter((group) => group.remaining !== null && group.remaining > 0)
+                    .map((group) => (
+                      <li key={group.id} className="leading-relaxed">
+                        <span className="text-ink font-semibold">{group.label}</span>
+                        <span className="text-muted">
+                          {": "}
+                          {copy.pickRemainingTemplate.replace("{n}", String(group.remaining))}
+                        </span>
+                      </li>
+                    ))}
+                </ul>
+              ) : null}
+            </div>
+          ) : (
+            <p className="text-muted text-sm">{copy.pickNothingOwed}</p>
+          )}
+
+          {hasCourses ? (
+            <form action={addAction} className="flex flex-wrap items-end gap-3">
+              <input type="hidden" name={PLAN_FIELD} value={plan} />
+              <input type="hidden" name="year" value={term.year} />
+              <input type="hidden" name="kind" value={term.kind} />
+              <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+                <label htmlFor={addFieldId} className="text-ink text-sm font-semibold">
+                  {copy.addLabel}
+                </label>
+                <select
+                  id={addFieldId}
+                  name="code"
+                  className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+                >
+                  {courseGroups.map((group) =>
+                    group.courses.length > 0 ? (
+                      <optgroup key={group.id} label={groupOptionLabel(copy, group)}>
+                        {group.courses.map((course) => (
+                          <option key={course.code} value={course.code}>
+                            {courseOptionLabel(copy, course)}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ) : null
+                  )}
+                </select>
+              </div>
+              <Button type="submit" variant="secondary">
+                {copy.addButtonLabel}
+              </Button>
+            </form>
+          ) : (
+            <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
+          )}
+
+          <TermFreeElectiveForm
+            term={term}
+            plan={plan}
+            freeElectiveCredits={freeElectiveCredits}
+            action={freeElectiveAction}
+            label={copy.freeElectiveLabel}
+            updateLabel={copy.updateFreeElectiveLabel}
+            errorSummaryTitle={copy.errorSummaryTitle}
+          />
+        </>
+      )}
     </section>
   );
 }

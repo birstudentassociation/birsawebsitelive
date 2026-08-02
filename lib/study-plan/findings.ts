@@ -9,7 +9,7 @@
  */
 import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
 import type { StudyPlan } from "./plan";
-import { planTotals, remainingRequirements, termIndex } from "./derive";
+import { isInternshipSummer, planTotals, remainingRequirements, termIndex } from "./derive";
 
 export type Finding = {
   /** Stable id so a test can name one finding without matching on copy. */
@@ -95,9 +95,39 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
     });
   }
 
+  // The internship rule (a summer holding PI574 holds nothing else, see
+  // `isInternshipSummer` / `clearInternshipSummers` in derive.ts) is enforced
+  // going forward by `redirectToPlan` in actions.ts, on every mutation. It is
+  // not enforced retroactively: a plan carried in from localStorage or a URL
+  // made before this rule existed, or a plan a caller builds without going
+  // through that action, can still be in the polluted state on first render.
+  // This service tells the student rather than silently rewriting a plan
+  // under them (see this module's own header), so a warning fires here
+  // instead of the plan being corrected behind their back.
+  for (const term of terms) {
+    if (!isInternshipSummer(version, term)) continue;
+    const hasOtherCourses = term.codes.some((code) => byCode.get(code)?.internship !== true);
+    const hasFreeElectiveCredits = term.freeElectiveCredits > 0;
+    if (!hasOtherCourses && !hasFreeElectiveCredits) continue;
+    findings.push({
+      id: `internshipSummer:${term.term.year}-${term.term.kind}`,
+      severity: "warning",
+      message: {
+        en: `The internship takes up the whole of ${termLabel(term.term).en}. You have other courses or free elective credits placed there too; the internship is the whole term, so nothing else belongs alongside it.`,
+        th: `การฝึกงานใช้เวลาทั้งภาคการศึกษาของ${termLabel(term.term).th} ท่านมีรายวิชาอื่นหรือหน่วยกิตวิชาเลือกเสรีจัดไว้ในภาคเดียวกันด้วย เนื่องจากการฝึกงานถือเป็นภาคการศึกษาทั้งหมด จึงไม่ควรมีรายวิชาอื่นควบคู่ไปด้วย`,
+      },
+      source: curriculumSource,
+    });
+  }
+
   // Completion.
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
-  const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
+  const shortfalls = remainingRequirements(
+    version,
+    allCodes,
+    plan.minorId,
+    totalFreeElectiveCredits
+  );
   const remaining = shortfalls.reduce((n, s) => n + s.remaining, 0);
   if (remaining > 0) {
     findings.push({

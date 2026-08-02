@@ -43,6 +43,7 @@ const copy: TermEditorCopy = {
   pickNothingOwed: "This plan already covers every requirement.",
   pickRemainingTemplate: "{n} credits still needed",
   pickPrerequisiteTemplate: "needs {codes} first",
+  internshipOnlyTerm: "This summer is given over to the internship.",
 };
 
 const noop = async () => {};
@@ -51,16 +52,19 @@ const noopState = async (): Promise<TermFreeElectiveState> => ({ status: "idle" 
 function renderEditor(overrides: {
   courseGroups?: TermEditorCourseGroup[];
   openSlots?: TermEditorSlot[];
+  internshipOnly?: boolean;
+  placed?: TermEditorCourseGroup["courses"];
 }) {
   const { container } = render(
     <TermEditor
       term={{ year: 3, kind: "semester1" }}
       termLabel="Year 3, Semester 1"
       plan="PLAN"
-      placed={[]}
+      placed={overrides.placed ?? []}
       freeElectiveCredits={0}
       courseGroups={overrides.courseGroups ?? []}
       openSlots={overrides.openSlots ?? []}
+      internshipOnly={overrides.internshipOnly ?? false}
       addAction={noop}
       removeAction={noop}
       freeElectiveAction={noopState}
@@ -163,5 +167,33 @@ describe("TermEditor", () => {
     const { container, ui } = renderEditor({ courseGroups: [] });
     expect(container.querySelector("select")).toBeNull();
     expect(ui.getByText("No courses left to add.")).toBeDefined();
+  });
+});
+
+describe("TermEditor internshipOnly", () => {
+  it("hides the add-course select and the what-this-term-needs panel, and shows the explanatory line instead", () => {
+    const { container, ui } = renderEditor({
+      internshipOnly: true,
+      courseGroups: [recommended, minorRequired],
+      openSlots: [
+        {
+          id: "minorElective1",
+          label: "Minor Elective Course 1",
+          candidates: [],
+        },
+      ],
+    });
+    expect(container.querySelector("select")).toBeNull();
+    expect(ui.queryByText("What this term still needs")).toBeNull();
+    expect(ui.queryByText("Minor Elective Course 1")).toBeNull();
+    expect(ui.getByText("This summer is given over to the internship.")).toBeDefined();
+  });
+
+  it("still renders the remove buttons for placed courses", () => {
+    const { ui } = renderEditor({
+      internshipOnly: true,
+      placed: [{ code: "PI574", title: "Internship", credits: 1, missingPrerequisites: [] }],
+    });
+    expect(ui.getByText("Remove")).toBeDefined();
   });
 });

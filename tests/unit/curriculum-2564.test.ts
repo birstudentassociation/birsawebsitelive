@@ -67,6 +67,20 @@ describe("curriculum2564", () => {
     }
   });
 
+  it("gives every named-choice placeholder's `choices` a real course in the same category", () => {
+    const byCode = new Map(curriculum2564.courses.value.map((c) => [c.code, c]));
+    for (const term of curriculum2564.recommendedPlan.value) {
+      for (const entry of term.entries) {
+        if (entry.kind !== "placeholder" || !entry.choices) continue;
+        for (const code of entry.choices) {
+          const course = byCode.get(code);
+          expect(course, `${entry.id} names missing course ${code}`).toBeDefined();
+          expect(course?.category, `${entry.id}'s choice ${code}`).toBe(entry.category);
+        }
+      }
+    }
+  });
+
   it("gives every placeholder a unique id", () => {
     const ids = curriculum2564.recommendedPlan.value
       .flatMap((t) => t.entries)
@@ -88,9 +102,7 @@ describe("curriculum2564", () => {
   });
 
   it("pools every minor course under the single 'minor' category", () => {
-    const inMinors = new Set(
-      curriculum2564.minors.flatMap((m) => [...m.required, ...m.electives])
-    );
+    const inMinors = new Set(curriculum2564.minors.flatMap((m) => [...m.required, ...m.electives]));
     for (const course of curriculum2564.courses.value) {
       if (inMinors.has(course.code)) {
         expect(course.category, `${course.code}`).toBe("minor");

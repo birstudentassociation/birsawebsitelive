@@ -144,6 +144,8 @@ export type StudyPlanCopy = {
     pickNothingOwed: string;
     /** Contains "{codes}"; appended to a course in the select when a prerequisite is not passed and not placed in an earlier term. The course is still offered: the service tells the student, it does not block them. */
     pickPrerequisiteTemplate: string;
+    /** Shown in place of both the "what this term still needs" panel and the add-course form for a summer term given over to the internship (PI574): nothing may be added there, and this line says why. */
+    internshipOnlyTerm: string;
     removeCourseButton: string;
     freeElectiveLabel: string;
     updateFreeElectiveButton: string;
@@ -333,6 +335,8 @@ const en: StudyPlanCopy = {
     pickNothingOwed:
       "This plan already covers every requirement. Anything you add here is on top of what you need.",
     pickPrerequisiteTemplate: "needs {codes} first",
+    internshipOnlyTerm:
+      "This summer is given over to the internship. You do not take other courses alongside it, so nothing can be added to this term.",
     removeCourseButton: "Remove",
     freeElectiveLabel: "Free elective credits this term",
     updateFreeElectiveButton: "Update",
@@ -507,6 +511,8 @@ const th: StudyPlanCopy = {
     pickNothingOwed:
       "แผนนี้ครอบคลุมทุกข้อกำหนดแล้ว รายวิชาใดที่ท่านเพิ่มในที่นี้ถือเป็นส่วนเกินจากที่ท่านต้องใช้",
     pickPrerequisiteTemplate: "ต้องผ่าน {codes} ก่อน",
+    internshipOnlyTerm:
+      "ภาคฤดูร้อนนี้เป็นภาคที่ท่านฝึกงาน ท่านจะไม่ลงทะเบียนวิชาอื่นควบคู่ไปด้วย จึงไม่สามารถเพิ่มรายวิชาใดในภาคการศึกษานี้ได้",
     removeCourseButton: "ลบออก",
     freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
     updateFreeElectiveButton: "บันทึก",

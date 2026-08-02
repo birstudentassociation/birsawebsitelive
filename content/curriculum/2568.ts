@@ -38,6 +38,11 @@ import { SOURCES } from "./sources";
 import { curriculum2564rev2566 } from "./2564-rev2566";
 import type { Course, CreditCategory, CurriculumVersion, PlannedTerm } from "./types";
 
+// The spread carries PI574's `internship` flag through unchanged: only
+// `credits` and `category` are overridden here. The internship rule (a summer
+// holding it holds nothing else) is independent of category on purpose, so
+// PI574 becoming a free elective in this version must not, and does not,
+// touch that flag.
 const courses: Course[] = curriculum2564rev2566.courses.value.map((course) =>
   course.code === "PI574" ? { ...course, credits: 3, category: "freeElective" } : course
 );
@@ -92,6 +97,7 @@ const recommendedPlan: PlannedTerm[] = [
           th: "เลือก AH208 Exercise for Good Health and Well-Being หรือ EL295 Academic English and Study Skill 1",
         },
         category: "genEdPart2",
+        choices: ["AH208", "EL295"],
       },
       { kind: "course", code: "PI211" },
       { kind: "course", code: "PI271" },

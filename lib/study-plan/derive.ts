@@ -23,6 +23,13 @@ export type PlaceholderSlot = {
   label: LocalizedText;
   category: CategoryId;
   term: TermRef;
+  /**
+   * Carried straight from `PlanEntry`'s own `choices` (see content/curriculum/
+   * types.ts for what its presence or absence means). `assumedHistory` only
+   * passes it through; it does not interpret it, because interpreting it is
+   * the fill step's job, not this module's.
+   */
+  choices?: string[];
 };
 
 export type CategoryShortfall = {
@@ -46,6 +53,53 @@ export function termIndex(term: TermRef): number {
 
 /** Term kinds in sequence within a year, used by `nextTerm` to step forward one at a time. */
 const TERM_SEQUENCE: TermKind[] = ["semester1", "semester2", "summer"];
+
+/**
+ * True when `term` is a summer term holding the internship (PI574, flagged
+ * `internship: true` in the course data rather than matched by code, see
+ * content/curriculum/types.ts). Only a summer term counts: a non-summer term
+ * holding the internship is left alone, because the rule this helper serves
+ * is specifically about the internship consuming the summer it runs in, not
+ * about the internship in general. A student who has placed it somewhere
+ * else has made a different choice than the one this rule is about, and this
+ * service does not second-guess it.
+ */
+export function isInternshipSummer(version: CurriculumVersion, term: PlannedCourseTerm): boolean {
+  if (term.term.kind !== "summer") return false;
+  const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
+  return term.codes.some((code) => byCode.get(code)?.internship === true);
+}
+
+/**
+ * Enforces "the internship is the whole term": every summer holding it keeps
+ * only the internship course(s) and loses everything else placed alongside
+ * it, including its free elective credits.
+ *
+ * Free elective credits are zeroed, not merely left as they were, because
+ * they are as much a violation of the rule as another course would be: a
+ * summer that is "the internship and nothing else" cannot also carry free
+ * elective credits without its own credit total contradicting the rule this
+ * function exists to enforce.
+ *
+ * Returns new term objects; the input is never mutated, matching every other
+ * function in this module. Terms that are not internship summers pass
+ * through completely untouched (same reference), so a caller that only
+ * changed one term of many is not forced to treat the whole array as new.
+ */
+export function clearInternshipSummers(
+  version: CurriculumVersion,
+  terms: PlannedCourseTerm[]
+): PlannedCourseTerm[] {
+  const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
+  return terms.map((term) => {
+    if (!isInternshipSummer(version, term)) return term;
+    return {
+      term: term.term,
+      codes: term.codes.filter((code) => byCode.get(code)?.internship === true),
+      freeElectiveCredits: 0,
+    };
+  });
+}
 
 /**
  * Matches `termRef`'s `year` cap in lib/study-plan/plan.ts: a plan can
@@ -93,6 +147,7 @@ export function assumedHistory(
           label: entry.label,
           category: entry.category,
           term: term.term,
+          choices: entry.choices,
         });
       }
     }

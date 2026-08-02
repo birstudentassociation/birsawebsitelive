@@ -20,10 +20,34 @@ import type { Course, CurriculumVersion, PlannedTerm } from "./types";
 const REPLACED = new Set(["TU050", "TU104", "TU105", "PI131", "PI132"]);
 
 const newGenEd: Course[] = [
-  { code: "EL105", title: "English Communication Skills", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "LAS101", title: "Critical Thinking, Reading and Writing", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "AH208", title: "Exercise for Good Health and Well-Being", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "EL295", title: "Academic English and Study Skill 1", credits: 3, category: "genEdPart2", prerequisites: [] },
+  {
+    code: "EL105",
+    title: "English Communication Skills",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "LAS101",
+    title: "Critical Thinking, Reading and Writing",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "AH208",
+    title: "Exercise for Good Health and Well-Being",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "EL295",
+    title: "Academic English and Study Skill 1",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
 ];
 
 const courses: Course[] = [
@@ -59,6 +83,7 @@ const recommendedPlan: PlannedTerm[] = [
           th: "เลือก AH208 Exercise for Good Health and Well-Being หรือ EL295 Academic English and Study Skill 1",
         },
         category: "genEdPart2",
+        choices: ["AH208", "EL295"],
       },
       { kind: "course", code: "PI211" },
       { kind: "course", code: "PI271" },

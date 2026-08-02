@@ -46,10 +46,7 @@ describe("checkPlan prerequisites", () => {
   });
 
   it("accepts a prerequisite already passed", () => {
-    const plan = planWith(
-      [{ term: { year: 2, kind: "semester1" }, codes: ["PI300"] }],
-      ["PI211"]
-    );
+    const plan = planWith([{ term: { year: 2, kind: "semester1" }, codes: ["PI300"] }], ["PI211"]);
     expect(checkPlan(version, plan).some((f) => f.id === "prerequisite:PI300")).toBe(false);
   });
 
@@ -62,7 +59,10 @@ describe("checkPlan prerequisites", () => {
 describe("checkPlan credit load", () => {
   it("flags a regular term over 21 credits", () => {
     const codes = ["PI210", "PI211", "PI241", "PI271", "PI280", "PI282", "PI300", "PI320"];
-    const findings = checkPlan(version, planWith([{ term: { year: 2, kind: "semester1" }, codes }]));
+    const findings = checkPlan(
+      version,
+      planWith([{ term: { year: 2, kind: "semester1" }, codes }])
+    );
     const overload = findings.find((f) => f.id === "creditLoad:2-semester1");
     expect(overload?.severity).toBe("problem");
     expect(overload?.source.provision).toContain("10.4");
@@ -77,7 +77,9 @@ describe("checkPlan credit load", () => {
   });
 
   it("accepts a regular term of exactly 9 and exactly 21 credits", () => {
-    const nine = planWith([{ term: { year: 2, kind: "semester1" }, codes: ["PI210", "PI211", "PI241"] }]);
+    const nine = planWith([
+      { term: { year: 2, kind: "semester1" }, codes: ["PI210", "PI211", "PI241"] },
+    ]);
     expect(checkPlan(version, nine).some((f) => f.id.startsWith("creditLoad:"))).toBe(false);
 
     const twentyOne = planWith([
@@ -106,7 +108,10 @@ describe("checkPlan credit load", () => {
   });
 
   it("ignores empty terms entirely", () => {
-    const findings = checkPlan(version, planWith([{ term: { year: 2, kind: "semester1" }, codes: [] }]));
+    const findings = checkPlan(
+      version,
+      planWith([{ term: { year: 2, kind: "semester1" }, codes: [] }])
+    );
     expect(findings.some((f) => f.id.startsWith("creditLoad:"))).toBe(false);
   });
 
@@ -130,6 +135,36 @@ describe("checkPlan credit load", () => {
     expect(
       checkPlan(version, withFreeElective).some((f) => f.id === "creditLoad:2-semester1")
     ).toBe(true);
+  });
+});
+
+describe("checkPlan internship summer", () => {
+  it("fires for a summer holding the internship alongside another course", () => {
+    const plan = planWith([{ term: { year: 3, kind: "summer" }, codes: ["PI574", "PI313"] }]);
+    const findings = checkPlan(version, plan);
+    const finding = findings.find((f) => f.id === "internshipSummer:3-summer");
+    expect(finding?.severity).toBe("warning");
+  });
+
+  it("fires for a summer holding the internship alongside free elective credits", () => {
+    const plan: StudyPlan = {
+      ...planWith([]),
+      terms: [{ term: { year: 3, kind: "summer" }, codes: ["PI574"], freeElectiveCredits: 3 }],
+    };
+    const findings = checkPlan(version, plan);
+    expect(findings.some((f) => f.id === "internshipSummer:3-summer")).toBe(true);
+  });
+
+  it("does not fire for a clean internship summer, the internship and nothing else", () => {
+    const plan = planWith([{ term: { year: 3, kind: "summer" }, codes: ["PI574"] }]);
+    const findings = checkPlan(version, plan);
+    expect(findings.some((f) => f.id.startsWith("internshipSummer:"))).toBe(false);
+  });
+
+  it("does not fire for a summer term that does not hold the internship at all", () => {
+    const plan = planWith([{ term: { year: 2, kind: "summer" }, codes: ["PI313"] }]);
+    const findings = checkPlan(version, plan);
+    expect(findings.some((f) => f.id.startsWith("internshipSummer:"))).toBe(false);
   });
 });
 

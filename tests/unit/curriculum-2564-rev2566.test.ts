@@ -88,6 +88,20 @@ describe("curriculum2564rev2566", () => {
     expect(counts.freeElective ?? 0).toBe(0);
   });
 
+  it("gives every named-choice placeholder's `choices` a real course in the same category", () => {
+    const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
+    for (const term of version.recommendedPlan.value) {
+      for (const entry of term.entries) {
+        if (entry.kind !== "placeholder" || !entry.choices) continue;
+        for (const code of entry.choices) {
+          const course = byCode.get(code);
+          expect(course, `${entry.id} names missing course ${code}`).toBeDefined();
+          expect(course?.category, `${entry.id}'s choice ${code}`).toBe(entry.category);
+        }
+      }
+    }
+  });
+
   it("has the exact elective-list length for each minor", () => {
     const byId = Object.fromEntries(version.minors.map((m) => [m.id, m.electives.length]));
     expect(byId.governance).toBe(11);

@@ -246,6 +246,7 @@ export default async function StudyPlanPage({
     pickNothingOwed: copy.plan.pickNothingOwed,
     pickRemainingTemplate: copy.plan.pickRemainingTemplate,
     pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
+    internshipOnlyTerm: copy.plan.internshipOnlyTerm,
   };
 
   return (
@@ -384,6 +385,7 @@ export default async function StudyPlanPage({
                 freeElectiveCredits={plannedTerm?.freeElectiveCredits ?? 0}
                 courseGroups={courseGroups}
                 openSlots={openSlots}
+                internshipOnly={suggestion.internshipOnly}
                 addAction={addCourseToTerm.bind(null, locale)}
                 removeAction={removeCourseFromTerm.bind(null, locale)}
                 freeElectiveAction={setTermFreeElectiveCredits.bind(null, locale)}

@@ -117,6 +117,18 @@ export type Course = {
    * as a free elective (see content/curriculum/2568.ts), not as excluded.
    */
   excludedFromTotal?: boolean;
+  /**
+   * True only for PI574, the BIR internship. Deliberately independent of
+   * `category`: 2568 recategorises PI574 as a free elective (see
+   * content/curriculum/2568.ts), and the internship rule (a summer that
+   * holds it holds nothing else, see lib/study-plan/derive.ts's
+   * `isInternshipSummer`) has to keep applying regardless of which bucket
+   * the course counts toward that year. Logic that needs to know "is this
+   * the internship" asks the data for this flag rather than testing
+   * `code === "PI574"` directly, so the rule is not hardcoded to a course
+   * code that could in principle change.
+   */
+  internship?: boolean;
 };
 
 export type TermKind = "semester1" | "semester2" | "summer";
@@ -136,7 +148,27 @@ export type TermRef = { year: number; kind: TermKind };
  */
 export type PlanEntry =
   | { kind: "course"; code: string }
-  | { kind: "placeholder"; id: string; label: LocalizedText; category: CategoryId };
+  | {
+      kind: "placeholder";
+      id: string;
+      label: LocalizedText;
+      category: CategoryId;
+      /**
+       * Present only when the slot is an either/or between specific named
+       * courses ("Choose AH208 ..., or EL295 ..."), in which case these are the
+       * only codes that may fill it. Absent for the common case, an open
+       * choice from anywhere in `category` ("Minor elective course 1"). The
+       * prose in `label` names the allowed courses either way, but prose is
+       * not something a filter can read: without `choices`, a picker can only
+       * fall back to the whole category, which is wrong whenever the category
+       * also holds courses the label never offered (as `genEdPart2` does,
+       * holding PI121/PI122/AH208/EL295/PI131/PI132 at once). `choices` is
+       * the machine-readable copy of what the label already says in prose, so
+       * a slot like that offers exactly its two named courses and nothing
+       * else.
+       */
+      choices?: string[];
+    };
 
 export type PlannedTerm = {
   term: TermRef;

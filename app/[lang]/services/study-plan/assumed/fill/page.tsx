@@ -29,13 +29,37 @@ import { STUDY_PLAN_STEPS } from "../../steps";
  * category `"minor"`, and only pairing it with the student's chosen minor
  * (`resolveMinorCategory`) decides which of the three buckets it fills.
  * Every other category matches straight off the course's own category.
+ *
+ * `choices`, when present, overrides all of that: the slot is an either/or
+ * between specific named courses (e.g. "Choose AH208 ..., or EL295 ..."), not
+ * an open pick from the whole category, and `category` alone would also
+ * offer every other course sharing that category (genEdPart2 also holds
+ * PI121/PI122, which this slot never named). The result keeps `choices`'s own
+ * order, since that is the order the label lists them in, and silently skips
+ * a code with no catalogue entry rather than rendering a blank option.
  */
-function coursesForCategory(version: CurriculumVersion, minorId: MinorId, category: CategoryId): Course[] {
+function coursesForCategory(
+  version: CurriculumVersion,
+  minorId: MinorId,
+  category: CategoryId,
+  choices?: string[]
+): Course[] {
+  if (choices) {
+    const byCode = new Map(version.courses.value.map((course) => [course.code, course]));
+    return choices.flatMap((code) => {
+      const course = byCode.get(code);
+      return course ? [course] : [];
+    });
+  }
   const isMinorBucket =
-    category === "minorRequired" || category === "minorElective" || category === "minorElectiveOther";
+    category === "minorRequired" ||
+    category === "minorElective" ||
+    category === "minorElectiveOther";
   if (isMinorBucket) {
     return version.courses.value.filter(
-      (course) => course.category === "minor" && resolveMinorCategory(version, minorId, course.code) === category
+      (course) =>
+        course.category === "minor" &&
+        resolveMinorCategory(version, minorId, course.code) === category
     );
   }
   return version.courses.value.filter((course) => course.category === category);
@@ -92,7 +116,10 @@ export default async function StudyPlanFillPage({
   if (!draft.positionYear || !draft.positionKind) {
     redirect(localeHref(locale, "/services/study-plan/where"));
   }
-  const position: TermRef = { year: Number(draft.positionYear), kind: draft.positionKind as TermKind };
+  const position: TermRef = {
+    year: Number(draft.positionYear),
+    kind: draft.positionKind as TermKind,
+  };
 
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const { placeholders } = assumedHistory(version, position);
@@ -111,7 +138,7 @@ export default async function StudyPlanFillPage({
     label: slot.label[locale],
     options: [
       { value: "", label: copy.fill.notTakenLabel },
-      ...coursesForCategory(version, plan.minorId, slot.category).map((course) => ({
+      ...coursesForCategory(version, plan.minorId, slot.category, slot.choices).map((course) => ({
         value: course.code,
         label: `${course.code} ${course.title}`,
       })),

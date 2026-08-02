@@ -139,6 +139,55 @@ describe("suggestForTerm open slots", () => {
     const candidateCodes = slot!.candidates.map((c) => c.code).sort();
     expect(candidateCodes).toEqual([...governanceElectives].sort());
   });
+
+  it("offers exactly a named-choice slot's own courses, not the rest of its category", () => {
+    // genEdPart2Elective1 (Year 1 semester 2) names only PI131 and PI132, but
+    // genEdPart2 also holds PI121 and PI122, which this slot never offered.
+    const plan = planWith();
+    const suggestion = suggestForTerm(version, plan, { year: 1, kind: "semester2" });
+    const slot = suggestion.openSlots.find((s) => s.id === "genEdPart2Elective1");
+    expect(slot).toBeDefined();
+    expect(slot!.choices).toEqual(["PI131", "PI132"]);
+    const candidateCodes = slot!.candidates.map((c) => c.code).sort();
+    expect(candidateCodes).toEqual(["PI131", "PI132"]);
+  });
+
+  it("a slot without `choices` still offers the whole bucket, unaffected by the named-choice case", () => {
+    const governanceElectives = version.minors.find((m) => m.id === "governance")!.electives;
+    const plan = planWith();
+    const suggestion = suggestForTerm(version, plan, summerTerm);
+    const slot = suggestion.openSlots.find((s) => s.id === "minorElective1");
+    expect(slot?.choices).toBeUndefined();
+    expect(slot!.candidates.length).toBe(governanceElectives.length);
+  });
+});
+
+describe("suggestForTerm internshipOnly", () => {
+  const internshipSummer: TermRef = { year: 3, kind: "summer" };
+
+  it("is true, with no groups and no open slots, for a summer holding the internship", () => {
+    const plan = planWith({
+      terms: [{ term: internshipSummer, codes: ["PI574"], freeElectiveCredits: 0 }],
+    });
+    const suggestion = suggestForTerm(version, plan, internshipSummer);
+    expect(suggestion.internshipOnly).toBe(true);
+    expect(suggestion.groups).toEqual([]);
+    expect(suggestion.openSlots).toEqual([]);
+  });
+
+  it("is false for the ordinary case, an untouched or normally-filled term", () => {
+    const plan = planWith();
+    const suggestion = suggestForTerm(version, plan, internshipSummer);
+    expect(suggestion.internshipOnly).toBe(false);
+  });
+
+  it("is false for a summer term the student has not placed the internship in", () => {
+    const plan = planWith({
+      terms: [{ term: internshipSummer, codes: [], freeElectiveCredits: 3 }],
+    });
+    const suggestion = suggestForTerm(version, plan, internshipSummer);
+    expect(suggestion.internshipOnly).toBe(false);
+  });
 });
 
 describe("suggestForTerm group ordering", () => {

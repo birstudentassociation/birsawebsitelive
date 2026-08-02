@@ -8,7 +8,11 @@ import {
   type TermKind,
   type TermRef,
 } from "@/content/curriculum";
-import { assumedHistory, populateRecommendedTerms } from "@/lib/study-plan/derive";
+import {
+  assumedHistory,
+  clearInternshipSummers,
+  populateRecommendedTerms,
+} from "@/lib/study-plan/derive";
 import {
   deserialisePlan,
   PLAN_FIELD,
@@ -65,10 +69,27 @@ function findTermEntryIndex(plan: StudyPlan, term: TermRef): number {
   return plan.terms.findIndex((t) => t.term.year === term.year && t.term.kind === term.kind);
 }
 
-/** Redirects back to `/plan` carrying `plan` in the query string, exactly as every step before it does. */
+/**
+ * Redirects back to `/plan` carrying `plan` in the query string, exactly as
+ * every step before it does. This is also the one place the internship rule
+ * (a summer holding PI574 holds nothing else, see `clearInternshipSummers`
+ * in derive.ts) is enforced, rather than in each mutating action separately:
+ * every action below that changes the plan ends by calling this function, so
+ * putting the rule here means no future action can add a mutation and forget
+ * it, the same way `redirectToPlan` itself is the one place every action
+ * shares instead of each building its own redirect URL.
+ *
+ * One call here covers both directions of the rule for free: adding the
+ * internship to a summer bounces whatever else was already there (the next
+ * `redirectToPlan` after `addCourseToTerm` clears it), and adding another
+ * course to a summer that already holds the internship bounces straight back
+ * out again the same way.
+ */
 function redirectToPlan(locale: Locale, plan: StudyPlan): never {
+  const version = CURRICULUM_VERSIONS[plan.versionId];
+  const terms = clearInternshipSummers(version, plan.terms);
   redirect(
-    `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(plan))}`
+    `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan({ ...plan, terms }))}`
   );
 }
 
