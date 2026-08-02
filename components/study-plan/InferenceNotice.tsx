@@ -2,9 +2,10 @@
  * Warning shown wherever a curriculum version's data was borrowed from
  * another version, or carries a contradiction worth telling a student about
  * (`content/curriculum`'s `inferredParts` / `disclosures`). Renders nothing
- * when a version has neither, which is the case for cohorts whose curriculum
- * is fully published with no gaps: this notice earns its place on the page
- * only when there is something to disclose.
+ * once every suppressed derivation and every nulled disclosure has been
+ * filtered out and there is no sentence left to show: this notice earns its
+ * place on the page only when there is something to disclose, not merely
+ * when there is a record that something was once uncertain.
  */
 import Notice from "@/components/Notice";
 import { disclosures, inferredParts, type CurriculumVersion } from "@/content/curriculum";
@@ -22,10 +23,6 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
   const parts = inferredParts(version);
   const items = disclosures(version, cohortCode);
 
-  if (parts.length === 0 && items.length === 0) return null;
-
-  const copy = buildStudyPlanCopy(locale);
-
   // A derivation's `reason` and a contradiction's `disclosure` are
   // independent records that are allowed to say the same thing (2568's
   // borrowed study plan is both the reason recommendedPlan is "inferred" and
@@ -35,6 +32,16 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
   // fix lives here, in what gets rendered, not in the data: collect every
   // sentence once and drop exact repeats, comparing the locale string a
   // reader would actually see.
+  //
+  // The render decision below is made from THIS list, not from `parts` and
+  // `items` directly: `inferredParts` still returns a suppressed derivation
+  // (so maintainers and tests can see it), and `disclosures` can return a
+  // contradiction whose `disclosure` was nulled once it stopped applying.
+  // Counting those raw entries used to produce an empty warning box, title
+  // and "ask your advisor" line with nothing underneath, for cohorts whose
+  // every part turned out to be suppressed or nulled. A warning that alarms
+  // without informing is worse than none, so the only correct check is
+  // whether there is a sentence left to show once every filter has run.
   const seen = new Set<string>();
   const sentences: { key: string; text: string }[] = [];
   for (const [index, part] of parts.entries()) {
@@ -55,6 +62,10 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
     seen.add(text);
     sentences.push({ key: item.id, text });
   }
+
+  if (sentences.length === 0) return null;
+
+  const copy = buildStudyPlanCopy(locale);
 
   return (
     <Notice variant="warning" title={copy.inference.heading}>
