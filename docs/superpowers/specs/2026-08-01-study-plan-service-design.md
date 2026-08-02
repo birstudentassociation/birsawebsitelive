@@ -76,8 +76,13 @@ card, and the faculty's own handouts are titled by it (`รหัส 64, 65` on
 evidence the student can check without leaving the page: the graduation credit
 total, three distinctive course codes that differ between adjacent versions,
 and a link to the source document. For cohort 66 or 67 it shows `EL105`,
-`LAS101`, `PD102`; for 64 or 65 it shows `TU105`, `TU104`, `PI121`. A student
+`LAS101`, `AH208`; for 64 or 65 it shows `TU105`, `TU104`, `PI131`. A student
 who took `TU105` and was told they are on the 2023 revision will notice.
+
+Note what a distinguishing course has to be: one the two adjacent versions do
+not share. `PI121` cannot serve, because both versions require it. The slot it
+sits in differs (`PI131` or `PI132` against `AH208` or `EL295`), so the choice
+courses carry the distinction and the shared ones cannot.
 
 The answer is a radio, not a tickbox: **Yes, this matches** or **No, or I am
 not sure**. A tickbox invites clicking through. The second answer goes to the
