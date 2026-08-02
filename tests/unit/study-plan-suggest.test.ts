@@ -54,10 +54,10 @@ describe("suggestForTerm recommended grouping", () => {
     expect(recommendedGroup?.courses.some((c) => c.code === "TU100")).toBe(true);
 
     const genEdGroup = suggestion.groups.find((g) => g.id === "genEdPart1");
-    expect(genEdGroup).toBeUndefined();
+    expect(genEdGroup?.courses.some((c) => c.code === "TU100") ?? false).toBe(false);
   });
 
-  it("only offers courses the study plan schedules in this term", () => {
+  it("only recommends courses the study plan schedules in this term", () => {
     const suggestion = suggestForTerm(
       version2568,
       {
@@ -69,14 +69,35 @@ describe("suggestForTerm recommended grouping", () => {
       { year: 1, kind: "semester1" }
     );
 
-    // AH208 is an open choice in Year 1 semester 2, not an extra course for
-    // the already-full first semester shown in the reported issue.
-    expect(findCourse(suggestion, "AH208")).toBeUndefined();
-    expect(
-      allCourses(suggestion)
-        .map((course) => course.code)
-        .sort()
-    ).toEqual(["EL105", "LAS101", "PI121", "TU100", "TU101", "TU106"]);
+    // AH208 remains manually addable, but is not a first-semester
+    // recommendation. Only the six published first-semester courses are.
+    expect(findCourse(suggestion, "AH208")).toBeDefined();
+    const recommended = suggestion.groups.find((group) => group.id === "recommended");
+    expect(recommended?.courses.map((course) => course.code).sort()).toEqual([
+      "EL105",
+      "LAS101",
+      "PI121",
+      "TU100",
+      "TU101",
+      "TU106",
+    ]);
+    expect(recommended?.courses.some((course) => course.code === "AH208")).toBe(false);
+  });
+
+  it("recommends AH208 in Year 1 semester 2, where its published choice slot sits", () => {
+    const suggestion = suggestForTerm(
+      version2568,
+      {
+        ...planWith(),
+        versionId: "2568",
+        cohort: "68",
+        startYear: 2568,
+      },
+      { year: 1, kind: "semester2" }
+    );
+
+    const recommended = suggestion.groups.find((group) => group.id === "recommended");
+    expect(recommended?.courses.some((course) => course.code === "AH208")).toBe(true);
   });
 });
 
@@ -88,7 +109,12 @@ describe("suggestForTerm bucket satisfaction", () => {
     const plan = planWith({ passed: ["PI364", "PI365", "PI366"] });
     const suggestion = suggestForTerm(version, plan, { year: 1, kind: "semester1" });
 
-    expect(findCourse(suggestion, "PI367")).toBeUndefined();
+    expect(findCourse(suggestion, "PI367")).toBeDefined();
+    expect(
+      suggestion.groups
+        .find((group) => group.id === "recommended")
+        ?.courses.some((course) => course.code === "PI367") ?? false
+    ).toBe(false);
   });
 });
 
@@ -113,7 +139,8 @@ describe("suggestForTerm prescribed credit load", () => {
 
     expect(suggestion.recommendedCredits).toBe(18);
     expect(suggestion.recommendedTermComplete).toBe(true);
-    expect(suggestion.groups).toEqual([]);
+    expect(suggestion.groups.some((group) => group.id === "recommended")).toBe(false);
+    expect(allCourses(suggestion).length).toBeGreaterThan(0);
     expect(suggestion.openSlots).toEqual([]);
   });
 

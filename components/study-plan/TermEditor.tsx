@@ -54,6 +54,7 @@ export type TermEditorSlot = {
 export type TermEditorCopy = {
   creditsTemplate: string;
   addLabel: string;
+  addPrompt: string;
   addButtonLabel: string;
   noCoursesAvailable: string;
   removeLabel: string;
@@ -217,10 +218,6 @@ export default function TermEditor({
       */}
       {internshipOnly ? (
         <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
-      ) : recommendedTermComplete && recommendedCredits !== null ? (
-        <p className="text-muted text-sm">
-          {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
-        </p>
       ) : (
         <>
           {/*
@@ -232,7 +229,11 @@ export default function TermEditor({
             plan. A quiet bordered block matches how the rest of this screen
             separates sections without raising an alarm.
           */}
-          {showPickPanel ? (
+          {recommendedTermComplete && recommendedCredits !== null ? (
+            <p className="text-muted text-sm">
+              {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
+            </p>
+          ) : showPickPanel ? (
             <div className="border-line bg-surface flex flex-col gap-3 rounded-md border p-4 text-sm">
               <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
               {openSlots.length > 0 ? (
@@ -308,8 +309,12 @@ export default function TermEditor({
                 <select
                   id={addFieldId}
                   name="code"
+                  defaultValue=""
                   className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
                 >
+                  <option value="" disabled>
+                    {copy.addPrompt}
+                  </option>
                   {courseGroups.map((group) =>
                     group.courses.length > 0 ? (
                       <optgroup key={group.id} label={groupOptionLabel(copy, group)}>

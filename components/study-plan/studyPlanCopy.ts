@@ -124,6 +124,7 @@ export type StudyPlanCopy = {
     /** Contains "{n}"; a term's running credit total. */
     termCreditsTemplate: string;
     addCourseLabel: string;
+    addCoursePrompt: string;
     addCourseButton: string;
     noCoursesAvailable: string;
     /** Heading for the panel above a term's add-course control that says what the term still needs. */
@@ -324,6 +325,7 @@ const en: StudyPlanCopy = {
     populateButton: "Fill in named courses",
     termCreditsTemplate: "{n} credits so far",
     addCourseLabel: "Add a course",
+    addCoursePrompt: "Choose a course",
     addCourseButton: "Add",
     noCoursesAvailable: "Every course in the catalogue is already passed or placed in a term.",
     pickHeading: "What this term still needs",
@@ -502,6 +504,7 @@ const th: StudyPlanCopy = {
     populateButton: "กรอกรายวิชาที่ระบุชื่อไว้",
     termCreditsTemplate: "{n} หน่วยกิตในภาคนี้",
     addCourseLabel: "เพิ่มรายวิชา",
+    addCoursePrompt: "เลือกรายวิชา",
     addCourseButton: "เพิ่ม",
     noCoursesAvailable: "รายวิชาทั้งหมดในหลักสูตรผ่านแล้วหรือถูกจัดไว้ในภาคการศึกษาหนึ่งแล้ว",
     pickHeading: "สิ่งที่ภาคการศึกษานี้ยังขาดอยู่",

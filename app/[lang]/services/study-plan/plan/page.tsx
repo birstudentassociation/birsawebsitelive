@@ -232,6 +232,7 @@ export default async function StudyPlanPage({
   const termEditorCopy = {
     creditsTemplate: copy.plan.termCreditsTemplate,
     addLabel: copy.plan.addCourseLabel,
+    addPrompt: copy.plan.addCoursePrompt,
     addButtonLabel: copy.plan.addCourseButton,
     noCoursesAvailable: copy.plan.noCoursesAvailable,
     removeLabel: copy.plan.removeCourseButton,

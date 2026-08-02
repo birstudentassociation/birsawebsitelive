@@ -29,6 +29,7 @@ import type { TermFreeElectiveState } from "@/components/study-plan/TermFreeElec
 const copy: TermEditorCopy = {
   creditsTemplate: "{n} credits",
   addLabel: "Add a course",
+  addPrompt: "Choose a course",
   addButtonLabel: "Add",
   noCoursesAvailable: "No courses left to add.",
   removeLabel: "Remove",
@@ -175,7 +176,7 @@ describe("TermEditor", () => {
     expect(ui.getByText("No courses left to add.")).toBeDefined();
   });
 
-  it("hides further recommendations once the planned credit load is filled", () => {
+  it("ends recommendations but keeps manual add controls once the planned load is filled", () => {
     const { container, ui } = renderEditor({
       recommendedTermComplete: true,
       recommendedCredits: 18,
@@ -183,9 +184,13 @@ describe("TermEditor", () => {
       openSlots: [{ id: "minorElective1", label: "Minor Elective Course 1", candidates: [] }],
     });
 
-    expect(container.querySelector("select")).toBeNull();
-    expect(container.querySelector('input[name="freeElectiveCredits"]')).toBeNull();
+    const select = container.querySelector("select");
+    expect(select).not.toBeNull();
+    expect(select?.value).toBe("");
+    expect(select?.querySelector('option[value=""]')?.textContent).toBe("Choose a course");
+    expect(container.querySelector('input[name="freeElectiveCredits"]')).not.toBeNull();
     expect(ui.queryByText("What this term still needs")).toBeNull();
+    expect(ui.queryByText("Minor Elective Course 1")).toBeNull();
     expect(
       ui.getByText("This term already has the 18 credits the recommended plan schedules.")
     ).toBeDefined();

@@ -78,8 +78,9 @@ export type TermSuggestion = {
   internshipOnly: boolean;
   /**
    * True once this term has reached the credit load prescribed by the
-   * recommended plan. A completed prescribed term must not keep offering
-   * degree-wide courses simply because the rest of the degree is unfinished.
+   * recommended plan. This ends term-specific recommendations, while the
+   * ordinary course picker remains available for a student who wants to add
+   * more than the sample plan schedules.
    */
   recommendedTermComplete: boolean;
   /** The prescribed credit load for this term, or null for a student-added term. */
@@ -189,19 +190,6 @@ export function suggestForTerm(
   const recommendedTermComplete =
     recommendedCredits !== null && plannedCreditsHere >= recommendedCredits;
 
-  // A study-plan term is complete when it reaches the load that plan
-  // prescribes. In particular, do not turn degree-wide shortfalls into an
-  // invitation to overload an already-filled term (the old behaviour).
-  if (recommendedTermComplete) {
-    return {
-      internshipOnly: false,
-      recommendedTermComplete: true,
-      recommendedCredits,
-      openSlots: [],
-      groups: [],
-    };
-  }
-
   // The pool this whole module works from: every catalogue course not
   // already passed and not already placed anywhere, in any term.
   const available = version.courses.value.filter(
@@ -227,7 +215,7 @@ export function suggestForTerm(
       title: course.title,
       credits: course.credits,
       bucket: bucketFor(version, plan.minorId, course),
-      recommendedHere: recommendedCodesHere.has(course.code),
+      recommendedHere: !recommendedTermComplete && recommendedCodesHere.has(course.code),
       missingPrerequisites,
     };
   }
@@ -262,7 +250,7 @@ export function suggestForTerm(
     recommendedCredits === null
       ? Number.POSITIVE_INFINITY
       : recommendedCredits - plannedCreditsHere;
-  for (const entry of recommendedTerm?.entries ?? []) {
+  for (const entry of recommendedTermComplete ? [] : (recommendedTerm?.entries ?? [])) {
     if (entry.kind !== "placeholder") continue;
 
     // A free-elective placeholder is a three-credit slot just like the other
@@ -344,25 +332,19 @@ export function suggestForTerm(
     });
   }
 
-  // A prescribed term offers only what its own entries schedule: named
-  // courses and candidates for the still-open slots. A student-added term
-  // retains the wider catch-up picker, because no published term exists to
-  // say what belongs there.
+  // Slot candidates are recommendations for the term just as much as named
+  // entries are. AH208/EL295, for example, are the published either/or choice
+  // in Year 1 semester 2 and therefore belong in that term's recommended
+  // group, not in Year 1 semester 1's.
   const scheduledCandidateCodes = new Set(
     openSlots.flatMap((slot) => slot.candidates.map((c) => c.code))
   );
-  const pickerCourses = recommendedTerm
-    ? [...suggestedByCode.values()].filter(
-        (course) =>
-          (course.recommendedHere || scheduledCandidateCodes.has(course.code)) &&
-          course.credits <= remainingRecommendedCredits
-      )
-    : [...suggestedByCode.values()];
+  const pickerCourses = [...suggestedByCode.values()];
 
   const byGroup = new Map<SuggestionGroupId, SuggestedCourse[]>();
   for (const suggested of pickerCourses) {
     let groupId: SuggestionGroupId;
-    if (suggested.recommendedHere) {
+    if (suggested.recommendedHere || scheduledCandidateCodes.has(suggested.code)) {
       groupId = "recommended";
     } else if (suggested.bucket !== null && (remainingByBucket.get(suggested.bucket) ?? 0) > 0) {
       groupId = suggested.bucket;
@@ -401,7 +383,7 @@ export function suggestForTerm(
 
   return {
     internshipOnly: false,
-    recommendedTermComplete: false,
+    recommendedTermComplete,
     recommendedCredits,
     openSlots,
     groups,
