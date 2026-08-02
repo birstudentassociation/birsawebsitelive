@@ -126,9 +126,9 @@ describe("EventCalendar month navigation", () => {
   it("selects a day that has events when the month changes", () => {
     renderCalendar(calendarEvents, "2026-07-28");
 
-    clickNext(); // August 2026: semester 1 opens on the 3rd.
+    clickNext(); // August 2026: the faculty orientation falls on the 1st.
     const panel = screen.getByRole("region", { name: /^On / });
-    expect(within(panel).getByText("Semester 1 begins")).toBeInTheDocument();
+    expect(within(panel).getByText("Faculty of Political Science orientation")).toBeInTheDocument();
   });
 });
 

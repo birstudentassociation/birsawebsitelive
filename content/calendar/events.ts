@@ -1,6 +1,6 @@
 /**
  * Front-page activity calendar: the dated items pulled from BIRSA's monthly
- * "activity calendar" Instagram posts (June + July 2026), plus the
+ * "activity calendar" Instagram posts (June to August 2026), plus the
  * university-wide academic calendar for AY 2569 taken from the Registrar's
  * PDF (`ปฏิทินการศึกษา ระดับปริญญาตรี ภาคปกติ ประจำปีการศึกษา 2569`). Each
  * event links through to a news/event post via `slug` (locale-less; the
@@ -203,6 +203,93 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "singhadang-samphan-2026",
     kind: "birsa",
+  },
+
+  // ---- August 2026 (from the August activity calendar post) ----------------
+  // "Class begins" and the add-drop window are already carried by the AY 2569
+  // block below, so they are not repeated here.
+  {
+    id: "aug-polsci-orientation",
+    start: "2026-08-01",
+    title: {
+      en: "Faculty of Political Science orientation",
+      th: "ปฐมนิเทศนักศึกษาใหม่ คณะรัฐศาสตร์",
+    },
+    slug: "polsci-orientation-2026",
+    kind: "university",
+  },
+  {
+    id: "aug-tu-freshy-orientation",
+    start: "2026-08-02",
+    title: {
+      en: "TU Freshy Orientation",
+      th: "ปฐมนิเทศนักศึกษาใหม่ มหาวิทยาลัยธรรมศาสตร์ (TU Freshy Orientation)",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-bir18-id-cards",
+    start: "2026-08-03",
+    end: "2026-08-04",
+    title: {
+      en: "BIR18 student ID card pick-up",
+      th: "รับบัตรนักศึกษา BIR18",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "academic",
+  },
+  {
+    id: "aug-back-to-school",
+    start: "2026-08-11",
+    end: "2026-08-12",
+    title: {
+      en: "Back to School by TPC Music",
+      th: "Back to School by TPC Music",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-tpc-crazy-week",
+    start: "2026-08-11",
+    end: "2026-08-14",
+    title: {
+      en: "TPC Crazy Week",
+      th: "TPC Crazy Week",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-mothers-day",
+    start: "2026-08-12",
+    title: {
+      en: "Mother's Day (public holiday, no classes)",
+      th: "วันแม่แห่งชาติ (วันหยุดราชการ ไม่มีการเรียนการสอน)",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-thai-peace-day",
+    start: "2026-08-16",
+    title: {
+      en: "Thai Peace Day",
+      th: "วันสันติภาพไทย",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-tpc-firstmeet",
+    start: "2026-08-18",
+    title: {
+      en: "TPC Firstmeet",
+      th: "TPC Firstmeet",
+    },
+    slug: "august-2026-activity-calendar",
+    kind: "university",
   },
 
   // ---- AY 2569 academic calendar: semester 1 --------------------------------
