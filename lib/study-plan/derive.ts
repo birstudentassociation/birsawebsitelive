@@ -149,15 +149,23 @@ export function remainingRequirements(
   };
 
   return version.categories.map((category) => {
-    // Free electives are counted, never matched: they may be any Thammasat
-    // course, so no catalogue entry exists to sum. Matching them like every
-    // other category would leave this bucket permanently unsatisfiable.
+    // Free electives are usually counted, not matched: they may be any
+    // Thammasat course, so no catalogue entry exists to sum, and the student
+    // declares the credits themselves. But a curriculum can also name one
+    // (PI574 in 2568), which the catalogue does know about and which the
+    // student never declares separately, so it has to be matched like any
+    // other category and added to the declared total. The two sources
+    // cannot overlap: a named course is matched here by its own category,
+    // never folded into the student's declared count, so nothing is counted
+    // twice.
     if (category.id === "freeElective") {
-      return {
-        category,
-        earned: freeElectiveCredits,
-        remaining: Math.max(0, category.credits - freeElectiveCredits),
-      };
+      let namedEarned = 0;
+      for (const code of passedSet) {
+        if (bucketFor(code) !== category.id) continue;
+        namedEarned += byCode.get(code)?.credits ?? 0;
+      }
+      const earned = freeElectiveCredits + namedEarned;
+      return { category, earned, remaining: Math.max(0, category.credits - earned) };
     }
     let earned = 0;
     for (const code of passedSet) {
