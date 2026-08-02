@@ -66,6 +66,8 @@ export type TermEditorCopy = {
   pickSlotCandidates: string;
   pickSlotAnyCourse: string;
   pickNothingOwed: string;
+  /** Contains "{n}"; shown when this term has reached its prescribed load. */
+  recommendedTermCompleteTemplate: string;
   /** Contains "{n}"; filled with the credits still owed in a group. */
   pickRemainingTemplate: string;
   /** Contains "{codes}"; filled with a course's missing prerequisite codes, joined by ", ". */
@@ -85,6 +87,10 @@ export type TermEditorProps = {
   courseGroups: TermEditorCourseGroup[];
   /** Choices the recommended plan leaves open in this term ("Minor Elective Course 1"). */
   openSlots: TermEditorSlot[];
+  /** Whether this prescribed term has already reached its planned credit load. */
+  recommendedTermComplete: boolean;
+  /** The planned credit load used in `recommendedTermCompleteTemplate`. */
+  recommendedCredits: number | null;
   /**
    * True when this term is a summer given over to the internship (see
    * `isInternshipSummer` in lib/study-plan/derive.ts). The internship is the
@@ -145,6 +151,8 @@ export default function TermEditor({
   freeElectiveCredits,
   courseGroups,
   openSlots,
+  recommendedTermComplete,
+  recommendedCredits,
   internshipOnly,
   addAction,
   removeAction,
@@ -209,6 +217,10 @@ export default function TermEditor({
       */}
       {internshipOnly ? (
         <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
+      ) : recommendedTermComplete && recommendedCredits !== null ? (
+        <p className="text-muted text-sm">
+          {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
+        </p>
       ) : (
         <>
           {/*

@@ -244,6 +244,7 @@ export default async function StudyPlanPage({
     pickSlotCandidates: copy.plan.pickSlotCandidates,
     pickSlotAnyCourse: copy.plan.pickSlotAnyCourse,
     pickNothingOwed: copy.plan.pickNothingOwed,
+    recommendedTermCompleteTemplate: copy.plan.recommendedTermCompleteTemplate,
     pickRemainingTemplate: copy.plan.pickRemainingTemplate,
     pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
     internshipOnlyTerm: copy.plan.internshipOnlyTerm,
@@ -386,6 +387,8 @@ export default async function StudyPlanPage({
                 courseGroups={courseGroups}
                 openSlots={openSlots}
                 internshipOnly={suggestion.internshipOnly}
+                recommendedTermComplete={suggestion.recommendedTermComplete}
+                recommendedCredits={suggestion.recommendedCredits}
                 addAction={addCourseToTerm.bind(null, locale)}
                 removeAction={removeCourseFromTerm.bind(null, locale)}
                 freeElectiveAction={setTermFreeElectiveCredits.bind(null, locale)}

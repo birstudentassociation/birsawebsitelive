@@ -8,6 +8,7 @@ import {
 import type { StudyPlan } from "@/lib/study-plan/plan";
 
 const version = CURRICULUM_VERSIONS["2564"];
+const version2568 = CURRICULUM_VERSIONS["2568"];
 
 function planWith(overrides: Partial<StudyPlan> = {}): StudyPlan {
   return {
@@ -53,56 +54,130 @@ describe("suggestForTerm recommended grouping", () => {
     expect(recommendedGroup?.courses.some((c) => c.code === "TU100")).toBe(true);
 
     const genEdGroup = suggestion.groups.find((g) => g.id === "genEdPart1");
-    expect(genEdGroup?.courses.some((c) => c.code === "TU100")).toBe(false);
+    expect(genEdGroup).toBeUndefined();
+  });
+
+  it("only offers courses the study plan schedules in this term", () => {
+    const suggestion = suggestForTerm(
+      version2568,
+      {
+        ...planWith(),
+        versionId: "2568",
+        cohort: "68",
+        startYear: 2568,
+      },
+      { year: 1, kind: "semester1" }
+    );
+
+    // AH208 is an open choice in Year 1 semester 2, not an extra course for
+    // the already-full first semester shown in the reported issue.
+    expect(findCourse(suggestion, "AH208")).toBeUndefined();
+    expect(
+      allCourses(suggestion)
+        .map((course) => course.code)
+        .sort()
+    ).toEqual(["EL105", "LAS101", "PI121", "TU100", "TU101", "TU106"]);
   });
 });
 
 describe("suggestForTerm bucket satisfaction", () => {
-  it("falls back to 'other' once a bucket's requirement is already met by the plan", () => {
+  it("does not turn a satisfied bucket into an off-schedule recommendation", () => {
     // concentrationElectiveArea needs 9 of its 36 available credits (3 of 12
     // courses). Passing exactly 3 satisfies it; the other 9 remain
     // available, and should now land in 'other'.
     const plan = planWith({ passed: ["PI364", "PI365", "PI366"] });
     const suggestion = suggestForTerm(version, plan, { year: 1, kind: "semester1" });
 
-    expect(suggestion.groups.some((g) => g.id === "concentrationElectiveArea")).toBe(false);
+    expect(findCourse(suggestion, "PI367")).toBeUndefined();
+  });
+});
 
-    const otherGroup = suggestion.groups.find((g) => g.id === "other");
-    expect(otherGroup?.courses.some((c) => c.code === "PI367")).toBe(true);
+describe("suggestForTerm prescribed credit load", () => {
+  it("stops recommending courses once the term has the scheduled 18 credits", () => {
+    const firstSemester = { year: 1, kind: "semester1" } as const;
+    const plan: StudyPlan = {
+      ...planWith(),
+      versionId: "2568",
+      cohort: "68",
+      startYear: 2568,
+      terms: [
+        {
+          term: firstSemester,
+          codes: ["TU100", "TU101", "LAS101", "EL105", "TU106", "PI121"],
+          freeElectiveCredits: 0,
+        },
+      ],
+    };
+
+    const suggestion = suggestForTerm(version2568, plan, firstSemester);
+
+    expect(suggestion.recommendedCredits).toBe(18);
+    expect(suggestion.recommendedTermComplete).toBe(true);
+    expect(suggestion.groups).toEqual([]);
+    expect(suggestion.openSlots).toEqual([]);
+  });
+
+  it("counts free-elective credits toward a planned free-elective slot", () => {
+    const term = { year: 3, kind: "semester2" } as const;
+    const courseCodes = ["PI320", "PI380", "PI313", "PI364", "PI365"];
+    const partlyFilledPlan = planWith({
+      terms: [
+        {
+          term,
+          codes: courseCodes,
+          freeElectiveCredits: 0,
+        },
+      ],
+    });
+
+    expect(
+      suggestForTerm(version, partlyFilledPlan, term).openSlots.map((slot) => slot.id)
+    ).toContain("freeElective2");
+
+    const plan = {
+      ...partlyFilledPlan,
+      terms: [{ term, codes: courseCodes, freeElectiveCredits: 3 }],
+    };
+    const suggestion = suggestForTerm(version, plan, term);
+    expect(suggestion.recommendedTermComplete).toBe(true);
+    expect(suggestion.recommendedCredits).toBe(18);
+    expect(suggestion.openSlots).toEqual([]);
   });
 });
 
 describe("suggestForTerm missing prerequisites", () => {
+  const recommendedTerm: TermRef = { year: 3, kind: "semester1" };
+
   it("flags a prerequisite placed in the same term as still missing", () => {
     const plan = planWith({
-      terms: [{ term: { year: 2, kind: "semester1" }, codes: ["PI211"], freeElectiveCredits: 0 }],
+      terms: [{ term: recommendedTerm, codes: ["PI211"], freeElectiveCredits: 0 }],
     });
-    const suggestion = suggestForTerm(version, plan, { year: 2, kind: "semester1" });
+    const suggestion = suggestForTerm(version, plan, recommendedTerm);
     const pi300 = findCourse(suggestion, "PI300");
     expect(pi300?.missingPrerequisites).toContain("PI211");
   });
 
   it("clears the prerequisite when it sits in a strictly earlier term", () => {
     const plan = planWith({
-      terms: [{ term: { year: 1, kind: "semester2" }, codes: ["PI211"], freeElectiveCredits: 0 }],
+      terms: [{ term: { year: 2, kind: "semester2" }, codes: ["PI211"], freeElectiveCredits: 0 }],
     });
-    const suggestion = suggestForTerm(version, plan, { year: 2, kind: "semester1" });
+    const suggestion = suggestForTerm(version, plan, recommendedTerm);
     const pi300 = findCourse(suggestion, "PI300");
     expect(pi300?.missingPrerequisites).toEqual([]);
   });
 
   it("clears the prerequisite when it is already passed", () => {
     const plan = planWith({ passed: ["PI211"] });
-    const suggestion = suggestForTerm(version, plan, { year: 2, kind: "semester1" });
+    const suggestion = suggestForTerm(version, plan, recommendedTerm);
     const pi300 = findCourse(suggestion, "PI300");
     expect(pi300?.missingPrerequisites).toEqual([]);
   });
 
   it("still offers the course despite the missing prerequisite; findings never block", () => {
     const plan = planWith({
-      terms: [{ term: { year: 2, kind: "semester1" }, codes: ["PI211"], freeElectiveCredits: 0 }],
+      terms: [{ term: recommendedTerm, codes: ["PI211"], freeElectiveCredits: 0 }],
     });
-    const suggestion = suggestForTerm(version, plan, { year: 2, kind: "semester1" });
+    const suggestion = suggestForTerm(version, plan, recommendedTerm);
     expect(findCourse(suggestion, "PI300")).toBeDefined();
   });
 });
@@ -192,13 +267,11 @@ describe("suggestForTerm internshipOnly", () => {
 
 describe("suggestForTerm group ordering", () => {
   it("orders 'recommended' first and 'other' last", () => {
-    // Reuse the already-satisfied-bucket fixture from above so an 'other'
-    // group is guaranteed to exist alongside the recommended group that
-    // Year 1 semester 1 always produces.
+    // A student-added term has no prescribed sequence, so it keeps the
+    // catch-up picker and its category / other grouping.
     const plan = planWith({ passed: ["PI364", "PI365", "PI366"] });
-    const suggestion = suggestForTerm(version, plan, { year: 1, kind: "semester1" });
+    const suggestion = suggestForTerm(version, plan, { year: 8, kind: "semester1" });
 
-    expect(suggestion.groups[0]?.id).toBe("recommended");
     expect(suggestion.groups.at(-1)?.id).toBe("other");
   });
 });

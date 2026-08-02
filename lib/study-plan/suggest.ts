@@ -76,6 +76,14 @@ export type TermSuggestion = {
    * explanation in their place rather than an empty picker.
    */
   internshipOnly: boolean;
+  /**
+   * True once this term has reached the credit load prescribed by the
+   * recommended plan. A completed prescribed term must not keep offering
+   * degree-wide courses simply because the rest of the degree is unfinished.
+   */
+  recommendedTermComplete: boolean;
+  /** The prescribed credit load for this term, or null for a student-added term. */
+  recommendedCredits: number | null;
   openSlots: OpenSlot[];
   groups: SuggestionGroup[];
 };
@@ -86,6 +94,13 @@ export type TermSuggestion = {
  * code below).
  */
 const MINOR_BUCKETS: CategoryId[] = ["minorRequired", "minorElective", "minorElectiveOther"];
+
+/**
+ * Every unspecified choice in the published study plans is one ordinary
+ * three-credit course. Named courses obtain their real credit value from the
+ * catalogue below; placeholders have no course code from which to do that.
+ */
+const PLACEHOLDER_CREDITS = 3;
 
 /**
  * The requirement bucket a course counts toward for this student. Shared by
@@ -112,6 +127,7 @@ export function suggestForTerm(
   term: TermRef
 ): TermSuggestion {
   const cutoff = termIndex(term);
+  const thisTerm = plan.terms.find((t) => termIndex(t.term) === cutoff);
 
   // A summer given over to the internship offers nothing: the whole point of
   // the rule (see derive.ts's `isInternshipSummer` / `clearInternshipSummers`)
@@ -120,9 +136,14 @@ export function suggestForTerm(
   // matching `term`, not from `term` alone: a term the student has not
   // touched yet cannot be an internship summer, only one where they have
   // actually placed PI574 in it.
-  const thisPlannedTerm = plan.terms.find((t) => termIndex(t.term) === cutoff);
-  if (thisPlannedTerm && isInternshipSummer(version, thisPlannedTerm)) {
-    return { internshipOnly: true, openSlots: [], groups: [] };
+  if (thisTerm && isInternshipSummer(version, thisTerm)) {
+    return {
+      internshipOnly: true,
+      recommendedTermComplete: false,
+      recommendedCredits: null,
+      openSlots: [],
+      groups: [],
+    };
   }
 
   // Everything already spoken for, whether by a passed course or a course
@@ -148,6 +169,38 @@ export function suggestForTerm(
   const recommendedCodesHere = new Set(
     (recommendedTerm?.entries ?? []).flatMap((e) => (e.kind === "course" ? [e.code] : []))
   );
+
+  const courseByCode = new Map(version.courses.value.map((course) => [course.code, course]));
+  const plannedCreditsHere =
+    (thisTerm?.codes ?? []).reduce(
+      (total, code) => total + (courseByCode.get(code)?.credits ?? 0),
+      0
+    ) + (thisTerm?.freeElectiveCredits ?? 0);
+  const recommendedCredits = recommendedTerm
+    ? recommendedTerm.entries.reduce(
+        (total, entry) =>
+          total +
+          (entry.kind === "course"
+            ? (courseByCode.get(entry.code)?.credits ?? 0)
+            : PLACEHOLDER_CREDITS),
+        0
+      )
+    : null;
+  const recommendedTermComplete =
+    recommendedCredits !== null && plannedCreditsHere >= recommendedCredits;
+
+  // A study-plan term is complete when it reaches the load that plan
+  // prescribes. In particular, do not turn degree-wide shortfalls into an
+  // invitation to overload an already-filled term (the old behaviour).
+  if (recommendedTermComplete) {
+    return {
+      internshipOnly: false,
+      recommendedTermComplete: true,
+      recommendedCredits,
+      openSlots: [],
+      groups: [],
+    };
+  }
 
   // The pool this whole module works from: every catalogue course not
   // already passed and not already placed anywhere, in any term.
@@ -184,46 +237,7 @@ export function suggestForTerm(
   // Group assignment, first match wins: recommended-here beats its own
   // bucket, and an already-satisfied bucket falls through to "other" rather
   // than keep advertising credits the student does not need.
-  const byGroup = new Map<SuggestionGroupId, SuggestedCourse[]>();
-  for (const suggested of suggestedByCode.values()) {
-    let groupId: SuggestionGroupId;
-    if (suggested.recommendedHere) {
-      groupId = "recommended";
-    } else if (suggested.bucket !== null && (remainingByBucket.get(suggested.bucket) ?? 0) > 0) {
-      groupId = suggested.bucket;
-    } else {
-      groupId = "other";
-    }
-    const list = byGroup.get(groupId);
-    if (list) list.push(suggested);
-    else byGroup.set(groupId, [suggested]);
-  }
-
   const byCode = (a: SuggestedCourse, b: SuggestedCourse) => (a.code < b.code ? -1 : 1);
-
-  // Group order: "recommended" first, then buckets in the curriculum's own
-  // category order, then "other" last. Empty groups are dropped rather than
-  // returned with an empty course list, so the UI never has to special-case
-  // "a group with nothing in it".
-  const groups: SuggestionGroup[] = [];
-  const recommendedCourses = byGroup.get("recommended");
-  if (recommendedCourses?.length) {
-    groups.push({ id: "recommended", remaining: 0, courses: [...recommendedCourses].sort(byCode) });
-  }
-  for (const category of version.categories) {
-    const courses = byGroup.get(category.id);
-    if (courses?.length) {
-      groups.push({
-        id: category.id,
-        remaining: remainingByBucket.get(category.id) ?? 0,
-        courses: [...courses].sort(byCode),
-      });
-    }
-  }
-  const otherCourses = byGroup.get("other");
-  if (otherCourses?.length) {
-    groups.push({ id: "other", remaining: 0, courses: [...otherCourses].sort(byCode) });
-  }
 
   // Open slots: the recommended plan's placeholders for this term, minus the
   // ones the student has already effectively filled. A slot is "filled" when
@@ -231,9 +245,8 @@ export function suggestForTerm(
   // the slot's own bucket; slots are consumed one per matching placed course,
   // in the order they appear, because the recommended plan itself does not
   // distinguish "elective 1" from "elective 2" beyond their label.
-  const thisTerm = plan.terms.find((t) => termIndex(t.term) === cutoff);
   const placedCoursesHere = (thisTerm?.codes ?? [])
-    .map((code) => version.courses.value.find((c) => c.code === code))
+    .map((code) => courseByCode.get(code))
     .filter((c): c is Course => c !== undefined);
 
   const placedBucketCounts = new Map<CategoryId, number>();
@@ -244,8 +257,22 @@ export function suggestForTerm(
   }
 
   const openSlots: OpenSlot[] = [];
+  let freeElectiveCreditsHere = thisTerm?.freeElectiveCredits ?? 0;
+  const remainingRecommendedCredits =
+    recommendedCredits === null
+      ? Number.POSITIVE_INFINITY
+      : recommendedCredits - plannedCreditsHere;
   for (const entry of recommendedTerm?.entries ?? []) {
     if (entry.kind !== "placeholder") continue;
+
+    // A free-elective placeholder is a three-credit slot just like the other
+    // unnamed entries, but its fill is recorded as a credit count rather than
+    // a catalogue course. Consume it here so a recorded free elective does
+    // not remain falsely advertised as an open choice.
+    if (entry.category === "freeElective" && freeElectiveCreditsHere >= PLACEHOLDER_CREDITS) {
+      freeElectiveCreditsHere -= PLACEHOLDER_CREDITS;
+      continue;
+    }
 
     // A placeholder names its own bucket directly, with one case that cannot
     // be resolved at all: the pooled `"minor"` category. A course carrying it
@@ -291,7 +318,7 @@ export function suggestForTerm(
     if (entry.choices) {
       candidates = entry.choices.flatMap((code) => {
         const suggested = suggestedByCode.get(code);
-        return suggested ? [suggested] : [];
+        return suggested && suggested.credits <= remainingRecommendedCredits ? [suggested] : [];
       });
     } else {
       const matchesSlot = (s: SuggestedCourse): boolean =>
@@ -302,7 +329,10 @@ export function suggestForTerm(
       candidates =
         slotBucket === null && !isPooledMinorSlot
           ? []
-          : [...suggestedByCode.values()].filter(matchesSlot).sort(byCode);
+          : [...suggestedByCode.values()]
+              .filter((suggested) => matchesSlot(suggested))
+              .filter((suggested) => suggested.credits <= remainingRecommendedCredits)
+              .sort(byCode);
     }
 
     openSlots.push({
@@ -314,5 +344,66 @@ export function suggestForTerm(
     });
   }
 
-  return { internshipOnly: false, openSlots, groups };
+  // A prescribed term offers only what its own entries schedule: named
+  // courses and candidates for the still-open slots. A student-added term
+  // retains the wider catch-up picker, because no published term exists to
+  // say what belongs there.
+  const scheduledCandidateCodes = new Set(
+    openSlots.flatMap((slot) => slot.candidates.map((c) => c.code))
+  );
+  const pickerCourses = recommendedTerm
+    ? [...suggestedByCode.values()].filter(
+        (course) =>
+          (course.recommendedHere || scheduledCandidateCodes.has(course.code)) &&
+          course.credits <= remainingRecommendedCredits
+      )
+    : [...suggestedByCode.values()];
+
+  const byGroup = new Map<SuggestionGroupId, SuggestedCourse[]>();
+  for (const suggested of pickerCourses) {
+    let groupId: SuggestionGroupId;
+    if (suggested.recommendedHere) {
+      groupId = "recommended";
+    } else if (suggested.bucket !== null && (remainingByBucket.get(suggested.bucket) ?? 0) > 0) {
+      groupId = suggested.bucket;
+    } else {
+      groupId = "other";
+    }
+    const list = byGroup.get(groupId);
+    if (list) list.push(suggested);
+    else byGroup.set(groupId, [suggested]);
+  }
+
+  // Group order: "recommended" first, then buckets in the curriculum's own
+  // category order, then "other" last. Empty groups are dropped rather than
+  // returned with an empty course list, so the UI never has to special-case
+  // "a group with nothing in it". For a prescribed term, `remaining` stays
+  // at zero: its picker is term-specific, not a repeat of whole-degree debt.
+  const groups: SuggestionGroup[] = [];
+  const recommendedCourses = byGroup.get("recommended");
+  if (recommendedCourses?.length) {
+    groups.push({ id: "recommended", remaining: 0, courses: [...recommendedCourses].sort(byCode) });
+  }
+  for (const category of version.categories) {
+    const courses = byGroup.get(category.id);
+    if (courses?.length) {
+      groups.push({
+        id: category.id,
+        remaining: recommendedTerm ? 0 : (remainingByBucket.get(category.id) ?? 0),
+        courses: [...courses].sort(byCode),
+      });
+    }
+  }
+  const otherCourses = byGroup.get("other");
+  if (otherCourses?.length) {
+    groups.push({ id: "other", remaining: 0, courses: [...otherCourses].sort(byCode) });
+  }
+
+  return {
+    internshipOnly: false,
+    recommendedTermComplete: false,
+    recommendedCredits,
+    openSlots,
+    groups,
+  };
 }

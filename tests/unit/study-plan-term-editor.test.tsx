@@ -41,6 +41,8 @@ const copy: TermEditorCopy = {
   pickSlotCandidates: "Courses that fit",
   pickSlotAnyCourse: "Any Thammasat course counts here.",
   pickNothingOwed: "This plan already covers every requirement.",
+  recommendedTermCompleteTemplate:
+    "This term already has the {n} credits the recommended plan schedules.",
   pickRemainingTemplate: "{n} credits still needed",
   pickPrerequisiteTemplate: "needs {codes} first",
   internshipOnlyTerm: "This summer is given over to the internship.",
@@ -53,6 +55,8 @@ function renderEditor(overrides: {
   courseGroups?: TermEditorCourseGroup[];
   openSlots?: TermEditorSlot[];
   internshipOnly?: boolean;
+  recommendedTermComplete?: boolean;
+  recommendedCredits?: number | null;
   placed?: TermEditorCourseGroup["courses"];
 }) {
   const { container } = render(
@@ -65,6 +69,8 @@ function renderEditor(overrides: {
       courseGroups={overrides.courseGroups ?? []}
       openSlots={overrides.openSlots ?? []}
       internshipOnly={overrides.internshipOnly ?? false}
+      recommendedTermComplete={overrides.recommendedTermComplete ?? false}
+      recommendedCredits={overrides.recommendedCredits ?? null}
       addAction={noop}
       removeAction={noop}
       freeElectiveAction={noopState}
@@ -167,6 +173,22 @@ describe("TermEditor", () => {
     const { container, ui } = renderEditor({ courseGroups: [] });
     expect(container.querySelector("select")).toBeNull();
     expect(ui.getByText("No courses left to add.")).toBeDefined();
+  });
+
+  it("hides further recommendations once the planned credit load is filled", () => {
+    const { container, ui } = renderEditor({
+      recommendedTermComplete: true,
+      recommendedCredits: 18,
+      courseGroups: [recommended, minorRequired],
+      openSlots: [{ id: "minorElective1", label: "Minor Elective Course 1", candidates: [] }],
+    });
+
+    expect(container.querySelector("select")).toBeNull();
+    expect(container.querySelector('input[name="freeElectiveCredits"]')).toBeNull();
+    expect(ui.queryByText("What this term still needs")).toBeNull();
+    expect(
+      ui.getByText("This term already has the 18 credits the recommended plan schedules.")
+    ).toBeDefined();
   });
 });
 

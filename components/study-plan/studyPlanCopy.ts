@@ -142,6 +142,8 @@ export type StudyPlanCopy = {
     pickSlotAnyCourse: string;
     /** Shown in place of the panel when the plan already covers every requirement and this term has no open choices left. */
     pickNothingOwed: string;
+    /** Contains "{n}"; shown when a term has reached the published plan's credit load. */
+    recommendedTermCompleteTemplate: string;
     /** Contains "{codes}"; appended to a course in the select when a prerequisite is not passed and not placed in an earlier term. The course is still offered: the service tells the student, it does not block them. */
     pickPrerequisiteTemplate: string;
     /** Shown in place of both the "what this term still needs" panel and the add-course form for a summer term given over to the internship (PI574): nothing may be added there, and this line says why. */
@@ -334,6 +336,8 @@ const en: StudyPlanCopy = {
       "Any Thammasat course counts here. Record it in the free elective credits box below rather than as a course.",
     pickNothingOwed:
       "This plan already covers every requirement. Anything you add here is on top of what you need.",
+    recommendedTermCompleteTemplate:
+      "This term already has the {n} credits the recommended plan schedules.",
     pickPrerequisiteTemplate: "needs {codes} first",
     internshipOnlyTerm:
       "This summer is given over to the internship. You do not take other courses alongside it, so nothing can be added to this term.",
@@ -510,6 +514,7 @@ const th: StudyPlanCopy = {
       "ช่องนี้เป็นวิชาเลือกเสรี ซึ่งอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ โปรดบันทึกในช่องหน่วยกิตวิชาเลือกเสรีด้านล่างแทนการเลือกเป็นรายวิชา",
     pickNothingOwed:
       "แผนนี้ครอบคลุมทุกข้อกำหนดแล้ว รายวิชาใดที่ท่านเพิ่มในที่นี้ถือเป็นส่วนเกินจากที่ท่านต้องใช้",
+    recommendedTermCompleteTemplate: "ภาคการศึกษานี้มีครบ {n} หน่วยกิตตามที่แผนการศึกษาแนะนำแล้ว",
     pickPrerequisiteTemplate: "ต้องผ่าน {codes} ก่อน",
     internshipOnlyTerm:
       "ภาคฤดูร้อนนี้เป็นภาคที่ท่านฝึกงาน ท่านจะไม่ลงทะเบียนวิชาอื่นควบคู่ไปด้วย จึงไม่สามารถเพิ่มรายวิชาใดในภาคการศึกษานี้ได้",
