@@ -113,7 +113,8 @@ export type Course = {
   prerequisites: string[];
   /**
    * True for courses that do not count toward the graduation total, such as
-   * TU050, and PI574 from 2568 onward.
+   * TU050. PI574 no longer belongs on this list: from 2568 onward it counts
+   * as a free elective (see content/curriculum/2568.ts), not as excluded.
    */
   excludedFromTotal?: boolean;
 };

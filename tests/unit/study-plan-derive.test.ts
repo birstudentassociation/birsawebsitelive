@@ -124,9 +124,9 @@ describe("remainingRequirements", () => {
   });
 
   it("owes the full 126 credits for the 2568 version, whose arithmetic differs most from the others", () => {
-    // Guards the concentrationRequired override (19 -> 18) and the PI574
-    // exclusion together: this version's total only comes out to 126, not
-    // 127, if both of those apply.
+    // Guards the concentrationRequired override (19 -> 18) and PI574's move
+    // into freeElective together: this version's total only comes out to
+    // 126, not 127, if both of those apply.
     const v2568 = CURRICULUM_VERSIONS["2568"];
     const shortfalls = remainingRequirements(v2568, [], "governance", 0);
     const total = shortfalls.reduce((n, s) => n + s.remaining, 0);
@@ -142,10 +142,35 @@ describe("remainingRequirements", () => {
   });
 
   it("ignores courses excluded from the total", () => {
+    // TU050 is the one remaining excludedFromTotal course, and it carries 0
+    // credits, so passing it proves nothing by itself: earned would be 0
+    // whether or not the exclusion check ran. Build a fixture instead: take
+    // a real, currently-counted 3-credit core course and mark it excluded,
+    // so a passing test can only mean the exclusion check actually fired.
+    const excludedCore = version.courses.value.map((c) =>
+      c.code === "PI211" ? { ...c, excludedFromTotal: true } : c
+    );
+    const fixture = { ...version, courses: { ...version.courses, value: excludedCore } };
+
+    const shortfalls = remainingRequirements(fixture, ["PI211"], "governance", 0);
+    const core = shortfalls.find((s) => s.category.id === "core");
+    expect(core?.earned).toBe(0);
+  });
+
+  it("counts PI574 as a free elective for the 2568 version, which no longer sits outside the total", () => {
     const v2568 = CURRICULUM_VERSIONS["2568"];
     const shortfalls = remainingRequirements(v2568, ["PI574"], "governance", 0);
-    const concentration = shortfalls.find((s) => s.category.id === "concentrationRequired");
-    expect(concentration?.earned).toBe(0);
+    const freeElective = shortfalls.find((s) => s.category.id === "freeElective");
+    expect(freeElective?.earned).toBe(3);
+    expect(freeElective?.remaining).toBe(3);
+  });
+
+  it("adds a named free elective (PI574) to the student's declared free elective credits", () => {
+    const v2568 = CURRICULUM_VERSIONS["2568"];
+    const shortfalls = remainingRequirements(v2568, ["PI574"], "governance", 3);
+    const freeElective = shortfalls.find((s) => s.category.id === "freeElective");
+    expect(freeElective?.earned).toBe(6);
+    expect(freeElective?.remaining).toBe(0);
   });
 
   it("counts a minor course into the bucket the chosen minor puts it in", () => {

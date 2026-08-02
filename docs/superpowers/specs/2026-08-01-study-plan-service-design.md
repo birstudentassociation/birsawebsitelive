@@ -452,6 +452,25 @@ unaffected: cohort 69 remains `attested` and its disclosure in `2568.ts` is
 untouched, and cohort 68 still rests on the 2568 comparison document's
 effective-year statement, not on the official page.
 
+**Post-merge correction: PI574 counted as a free elective, 2568 only
+(2026-08-02)**
+
+On 2026-08-02, BIRSA stated that `PI574` counts as a free elective. Item 3
+above is resolved by this rather than by further crawling: the 3-credit value
+still balances the stated 18-credit concentration-required total (the six
+remaining 3-credit courses), and it now also balances the 6-credit free
+elective category, of which `PI574` supplies 3 and the student chooses the
+other 3, without putting a course outside the 126. This replaces the
+`pi574-outside-total` contradiction, deleted outright rather than suppressed,
+because its claim (PI574 sits outside the total) is no longer true.
+`pi574-credits-attested` is untouched: the 3-credit value is still attested by
+BIRSA rather than printed in any source, so that disclosure still has to
+reach students regardless of where the course sits. This applies to 2568
+only. It does not apply to the 2564 family (`2564.ts`, `2564-rev2566.ts`),
+whose PI574 stays at 1 credit inside `concentrationRequired`; moving it there
+too would contradict their documented 127 total and 91-credit major, which
+have already been checked and rest on PI574 at 1 credit.
+
 ## 10. Sequencing
 
 1. `docs/curriculum-sources.md`, recording every source document with its

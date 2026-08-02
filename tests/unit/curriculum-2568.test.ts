@@ -8,10 +8,11 @@ describe("curriculum2568", () => {
     expect(version.graduationCredits.value).toBe(126);
   });
 
-  it("carries PI574 at 3 credits, outside the graduation total", () => {
+  it("carries PI574 at 3 credits, counted as a free elective inside the total", () => {
     const internship = version.courses.value.find((c) => c.code === "PI574");
     expect(internship?.credits).toBe(3);
-    expect(internship?.excludedFromTotal).toBe(true);
+    expect(internship?.category).toBe("freeElective");
+    expect(internship?.excludedFromTotal).toBeUndefined();
   });
 
   it("counts concentration-required as 18 credits", () => {
@@ -44,9 +45,12 @@ describe("curriculum2568", () => {
     expect(byCode["69"]?.kind).toBe("attested");
   });
 
-  it("discloses where PI574's credits sit", () => {
+  it("no longer records PI574 as sitting outside the total", () => {
+    // pi574-outside-total was a record of a false inference (PI574 excluded
+    // from the 126); now that PI574 is a counted free elective, that record
+    // would itself be false, so it must be gone, not merely suppressed.
     const c = version.verification.contradictions.find((x) => x.id === "pi574-outside-total");
-    expect(c?.disclosure).not.toBeNull();
+    expect(c).toBeUndefined();
   });
 
   it("discloses that PI574's 3-credit value is attested, not printed in the source", () => {
@@ -57,10 +61,13 @@ describe("curriculum2568", () => {
   });
 
   // Regression guard, not in the brief: the catalogue is unchanged between
-  // the 2023 revision and 2568 (only PI574's credit value differs), so the
-  // course count per category must be identical to the 2023 revision's. A
-  // course silently dropped from a pool would still pass every test above.
-  it("keeps the exact course count per category from the 2023 revision", () => {
+  // the 2023 revision and 2568 apart from PI574 (credit value, and now
+  // category), so every other category's course count must be identical to
+  // the 2023 revision's. A course silently dropped from a pool would still
+  // pass every test above. concentrationRequired is 6, not the 2023
+  // revision's 7, and freeElective is 1, not 0, because PI574 moved
+  // categories; every other count is unchanged.
+  it("keeps the exact course count per category, PI574 moved to freeElective", () => {
     const counts: Record<string, number> = {};
     for (const course of version.courses.value) {
       counts[course.category] = (counts[course.category] ?? 0) + 1;
@@ -69,13 +76,13 @@ describe("curriculum2568", () => {
       genEdPart1: 7,
       genEdPart2: 4,
       core: 10,
-      concentrationRequired: 7,
+      concentrationRequired: 6,
       economics: 1,
       concentrationElectiveArea: 12,
       concentrationElectiveApproaches: 13,
       minor: 40,
+      freeElective: 1,
     });
-    expect(counts.freeElective ?? 0).toBe(0);
   });
 
   // Regression guard, not in the brief: minor elective lists are inherited by
