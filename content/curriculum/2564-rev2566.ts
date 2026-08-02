@@ -12,13 +12,11 @@ import { SOURCES } from "./sources";
 import { curriculum2564 } from "./2564";
 import type { Course, CurriculumVersion, PlannedTerm } from "./types";
 
-const REPLACED = new Set(["TU050", "TU104", "TU105", "PI121", "PI122", "PI131", "PI132"]);
+const REPLACED = new Set(["TU050", "TU104", "TU105", "PI131", "PI132"]);
 
 const newGenEd: Course[] = [
   { code: "EL105", title: "English Communication Skills", credits: 3, category: "genEdPart1", prerequisites: [] },
   { code: "LAS101", title: "Critical Thinking, Reading and Writing", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "PD102", title: "Social Sciences in the 21st Century", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "PD103", title: "Humanities in the Age of Disruption", credits: 3, category: "genEdPart2", prerequisites: [] },
   { code: "AH208", title: "Exercise for Good Health and Well-Being", credits: 3, category: "genEdPart2", prerequisites: [] },
   { code: "EL295", title: "Academic English and Study Skill 1", credits: 3, category: "genEdPart2", prerequisites: [] },
 ];
@@ -38,7 +36,7 @@ const recommendedPlan: PlannedTerm[] = [
       { kind: "course", code: "TU103" },
       { kind: "course", code: "EL105" },
       { kind: "course", code: "TU106" },
-      { kind: "course", code: "PD102" },
+      { kind: "course", code: "PI121" },
     ],
   },
   {
@@ -47,7 +45,7 @@ const recommendedPlan: PlannedTerm[] = [
     entries: [
       { kind: "course", code: "TU102" },
       { kind: "course", code: "LAS101" },
-      { kind: "course", code: "PD103" },
+      { kind: "course", code: "PI122" },
       {
         kind: "placeholder",
         id: "genEdChoice1",
@@ -83,7 +81,11 @@ export const curriculum2564rev2566: CurriculumVersion = {
     derivation: { kind: "published", source: "bir64rev66" },
   },
   rules: curriculum2564.rules,
-  distinguishingCourses: ["EL105", "LAS101", "PD102"],
+  // PI121 is not a distinguishing course here: the 2564 base version also
+  // has it, so it would tell a student nothing on the confirm screen. AH208
+  // is the one that actually separates this revision from 2564, which offers
+  // PI131/PI132 in that slot instead.
+  distinguishingCourses: ["EL105", "LAS101", "AH208"],
   verification: {
     verifiedBy: null,
     verifiedOn: null,

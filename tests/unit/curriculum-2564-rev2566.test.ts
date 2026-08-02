@@ -9,12 +9,15 @@ describe("curriculum2564rev2566", () => {
     expect(version.graduationCredits.value).toBe(127);
   });
 
-  it("replaces the five Year 1 general education courses", () => {
+  it("replaces the five Year 1 general education courses, keeping PI121 and PI122", () => {
     const codes = new Set(version.courses.value.map((c) => c.code));
-    for (const added of ["EL105", "LAS101", "PD102", "PD103", "AH208", "EL295"]) {
+    for (const added of ["EL105", "LAS101", "AH208", "EL295"]) {
       expect(codes.has(added), `expected ${added}`).toBe(true);
     }
-    for (const removed of ["TU050", "TU104", "TU105", "PI121", "PI122", "PI131", "PI132"]) {
+    for (const kept of ["PI121", "PI122"]) {
+      expect(codes.has(kept), `expected ${kept} to survive from the base version`).toBe(true);
+    }
+    for (const removed of ["TU050", "TU104", "TU105", "PI131", "PI132", "PD102", "PD103"]) {
       expect(codes.has(removed), `did not expect ${removed}`).toBe(false);
     }
   });

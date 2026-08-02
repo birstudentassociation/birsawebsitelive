@@ -53,7 +53,7 @@ describe("assumedHistory", () => {
   it("assumes the first semester for a student in their second", () => {
     const result = assumedHistory(version, { year: 1, kind: "semester2" });
     expect(result.courses).toContain("TU100");
-    expect(result.courses).toContain("PD102");
+    expect(result.courses).toContain("PI121");
     expect(result.courses).not.toContain("PI211");
   });
 
