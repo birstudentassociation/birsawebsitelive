@@ -32,7 +32,9 @@ test.describe("study plan version gate", () => {
     // graduation total (126, content/curriculum/2568.ts) is shown under
     // copy.curriculum.totalLabel. Checking this first means the absence
     // assertions below cannot pass by accident on a broken or blank page.
-    await expect(page.getByRole("heading", { level: 1, name: copy.curriculum.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: copy.curriculum.title })
+    ).toBeVisible();
     await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
     await expect(page.getByText("126", { exact: true })).toBeVisible();
 
@@ -66,7 +68,9 @@ test.describe("study plan version gate", () => {
     await page.getByLabel(/first two digits/i).fill("66");
     await page.getByRole("button", { name: /continue/i }).click();
 
-    await expect(page.getByRole("heading", { level: 1, name: copy.curriculum.title })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: copy.curriculum.title })
+    ).toBeVisible();
     await expect(page.getByText(copy.curriculum.totalLabel)).toBeVisible();
 
     await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
@@ -152,5 +156,31 @@ test.describe("study plan without JavaScript", () => {
     // ambiguous. (Until 2026-08-02 they appeared a third time, in the
     // InferenceNotice's total-never-printed disclosure, which is now gone.)
     await expect(page.getByText("/ 127")).toBeVisible();
+
+    // "Fill in the recommended plan" is the last control in this journey to
+    // make the no-JS claim, and the one with the most to lose by breaking
+    // it: without JavaScript it is the only alternative to pressing "Add"
+    // once per course, forty times. Cohort 66 sits at year 3 semester 1, so
+    // PI574 (the only named course in the 2564 plan's year 3 summer, see
+    // content/curriculum/2564.ts) is ahead of the student and lands in the
+    // plan. It is absent beforehand, which is what makes its appearance
+    // afterwards evidence the button did something rather than evidence the
+    // page always said so.
+    //
+    // The assertion is on the course's own "Remove" button, not on its code
+    // appearing anywhere on the page: every future term already offers
+    // PI574 in its "Add a course" select, so the bare code is on this screen
+    // four times over before the button is pressed. A remove button exists
+    // only for a course actually placed in a term, which is the thing being
+    // claimed here.
+    const removePi574 = page.getByRole("button", {
+      name: `${copy.plan.removeCourseButton} PI574`,
+    });
+    await expect(removePi574).toHaveCount(0);
+
+    await page.getByRole("button", { name: copy.plan.populateButton }).click();
+    await expect(page.getByRole("heading", { level: 1, name: "Your plan" })).toBeVisible();
+    await expect(page.getByText(ERROR_BOUNDARY_TEXT)).toHaveCount(0);
+    await expect(removePi574).toBeVisible();
   });
 });

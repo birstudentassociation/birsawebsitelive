@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { CURRICULUM_VERSIONS, type PlannedTerm, type TermRef } from "@/content/curriculum";
-import { assumedHistory, nextTerm, remainingRequirements } from "@/lib/study-plan/derive";
+import {
+  assumedHistory,
+  nextTerm,
+  populateRecommendedTerms,
+  remainingRequirements,
+} from "@/lib/study-plan/derive";
+import type { PlannedCourseTerm } from "@/lib/study-plan/plan";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
 
@@ -221,7 +227,9 @@ describe("remainingRequirements", () => {
     expect(minorElectiveOther?.earned).toBe(3);
 
     const totalMinorCredit =
-      (minorRequired?.earned ?? 0) + (minorElective?.earned ?? 0) + (minorElectiveOther?.earned ?? 0);
+      (minorRequired?.earned ?? 0) +
+      (minorElective?.earned ?? 0) +
+      (minorElectiveOther?.earned ?? 0);
     expect(totalMinorCredit).toBe(15);
     expect(shortfalls.some((s) => s.category.id === "minor")).toBe(false);
   });
@@ -231,5 +239,90 @@ describe("remainingRequirements", () => {
     for (const s of remainingRequirements(version, everything, "governance", 0)) {
       expect(s.remaining).toBeGreaterThanOrEqual(0);
     }
+  });
+});
+
+describe("populateRecommendedTerms", () => {
+  it("running it twice produces the same plan", () => {
+    const plan = { passed: [], terms: [] as PlannedCourseTerm[] };
+    const once = populateRecommendedTerms(version, { year: 2, kind: "semester1" }, plan);
+    const twice = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      {
+        passed: [],
+        terms: once,
+      }
+    );
+    expect(twice).toEqual(once);
+  });
+
+  it("does not plan a course already in passed", () => {
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: ["PI321"], terms: [] }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).not.toContain("PI321");
+  });
+
+  it("does not duplicate a course the student has already placed in a different term", () => {
+    // PI321 is recommended for year 2 semester 2, but the student has already
+    // moved it into year 4 semester 1 of their own plan.
+    const moved: PlannedCourseTerm = {
+      term: { year: 4, kind: "semester1" },
+      codes: ["PI321"],
+      freeElectiveCredits: 0,
+    };
+    const result = populateRecommendedTerms(
+      version,
+      { year: 2, kind: "semester1" },
+      { passed: [], terms: [moved] }
+    );
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes.filter((c) => c === "PI321").length).toBe(1);
+    const movedResult = result.find((t) => t.term.year === 4 && t.term.kind === "semester1");
+    expect(movedResult?.codes).toContain("PI321");
+  });
+
+  it("creates a term entry for Year 2 summer even though every entry in it is a placeholder", () => {
+    const result = populateRecommendedTerms(
+      version,
+      { year: 1, kind: "semester1" },
+      { passed: [], terms: [] }
+    );
+    const year2Summer = result.find((t) => t.term.year === 2 && t.term.kind === "summer");
+    expect(year2Summer).toBeDefined();
+    expect(year2Summer?.codes).toEqual([]);
+  });
+
+  it("does not create or fill terms before the student's position", () => {
+    const result = populateRecommendedTerms(
+      version,
+      { year: 3, kind: "semester1" },
+      { passed: [], terms: [] }
+    );
+    const past = result.find((t) => t.term.year === 1 && t.term.kind === "semester1");
+    expect(past).toBeUndefined();
+    const allCodes = result.flatMap((t) => t.codes);
+    expect(allCodes).not.toContain("TU100");
+  });
+
+  it("preserves existing codes and freeElectiveCredits in a term the student already edited", () => {
+    const edited: PlannedCourseTerm = {
+      term: { year: 3, kind: "semester1" },
+      codes: ["TU100"],
+      freeElectiveCredits: 6,
+    };
+    const result = populateRecommendedTerms(
+      version,
+      { year: 3, kind: "semester1" },
+      { passed: [], terms: [edited] }
+    );
+    const same = result.find((t) => t.term.year === 3 && t.term.kind === "semester1");
+    expect(same?.codes[0]).toBe("TU100");
+    expect(same?.codes).toContain("PI300");
+    expect(same?.freeElectiveCredits).toBe(6);
   });
 });

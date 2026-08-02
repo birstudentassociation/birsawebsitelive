@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { CURRICULUM_VERSIONS, type CategoryId, type TermKind, type TermRef } from "@/content/curriculum";
+import {
+  CURRICULUM_VERSIONS,
+  type CategoryId,
+  type TermKind,
+  type TermRef,
+} from "@/content/curriculum";
 import { nextTerm, planTotals, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
@@ -21,6 +26,7 @@ import {
   addTermToPlan,
   deleteStudyPlan,
   getStudyPlanDraft,
+  populatePlanFromRecommended,
   removeCourseFromTerm,
   setTermFreeElectiveCredits,
 } from "../actions";
@@ -104,7 +110,10 @@ export default async function StudyPlanPage({
   if (!draft.positionYear || !draft.positionKind) {
     redirect(localeHref(locale, "/services/study-plan/where"));
   }
-  const position: TermRef = { year: Number(draft.positionYear), kind: draft.positionKind as TermKind };
+  const position: TermRef = {
+    year: Number(draft.positionYear),
+    kind: draft.positionKind as TermKind,
+  };
 
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const chosenMinor = version.minors.find((m) => m.id === plan.minorId);
@@ -114,7 +123,12 @@ export default async function StudyPlanPage({
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
 
   const findings = checkPlan(version, plan);
-  const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
+  const shortfalls = remainingRequirements(
+    version,
+    allCodes,
+    plan.minorId,
+    totalFreeElectiveCredits
+  );
   const totalRemaining = shortfalls.reduce((n, s) => n + s.remaining, 0);
   const earnedCredits = version.graduationCredits.value - totalRemaining;
 
@@ -175,7 +189,7 @@ export default async function StudyPlanPage({
       <PageHeader title={copy.plan.title} lede={copy.plan.hint} />
       {/* Renders nothing; only mirrors the plan to localStorage so it survives closing the tab. */}
       <PlanStore plan={serialisedPlan} />
-      <div className="wrap max-w-[var(--measure)] flex flex-col gap-10 py-10">
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         <InferenceNotice version={version} cohortCode={plan.cohort} locale={locale} />
 
         <div className="border-line flex flex-col gap-4 rounded-lg border p-5">
@@ -192,7 +206,9 @@ export default async function StudyPlanPage({
               </dd>
             </div>
             <div>
-              <dt className="text-muted text-sm font-semibold">{copy.plan.projectedGraduationLabel}</dt>
+              <dt className="text-muted text-sm font-semibold">
+                {copy.plan.projectedGraduationLabel}
+              </dt>
               <dd className="text-ink text-lg font-semibold">
                 {projected ? formatTermLabel(copy, projected) : copy.plan.noProjectedGraduation}
               </dd>
@@ -203,7 +219,11 @@ export default async function StudyPlanPage({
         <div>
           <h2 className="font-display text-xl">{copy.plan.findingsHeading}</h2>
           <div className="mt-4">
-            <FindingsList findings={findings} locale={locale} emptyMessage={copy.plan.findingsEmpty} />
+            <FindingsList
+              findings={findings}
+              locale={locale}
+              emptyMessage={copy.plan.findingsEmpty}
+            />
           </div>
         </div>
 
@@ -213,8 +233,12 @@ export default async function StudyPlanPage({
             <table className="w-full min-w-[28rem] border-collapse text-sm">
               <thead>
                 <tr className="border-line border-b text-left">
-                  <th className="text-muted py-2 pr-3 font-semibold">{copy.plan.owedCategoryHeader}</th>
-                  <th className="text-muted py-2 pr-3 font-semibold">{copy.plan.owedEarnedHeader}</th>
+                  <th className="text-muted py-2 pr-3 font-semibold">
+                    {copy.plan.owedCategoryHeader}
+                  </th>
+                  <th className="text-muted py-2 pr-3 font-semibold">
+                    {copy.plan.owedEarnedHeader}
+                  </th>
                   <th className="text-muted py-2 font-semibold">{copy.plan.owedRemainingHeader}</th>
                 </tr>
               </thead>
@@ -222,7 +246,12 @@ export default async function StudyPlanPage({
                 {shortfalls.map((shortfall) => (
                   <tr key={shortfall.category.id} className="border-line border-b">
                     <td className="text-ink py-2 pr-3">
-                      {categoryLabel(copy, shortfall.category.id, shortfall.category.name[locale], minorName)}
+                      {categoryLabel(
+                        copy,
+                        shortfall.category.id,
+                        shortfall.category.name[locale],
+                        minorName
+                      )}
                     </td>
                     <td className="text-ink py-2 pr-3">{shortfall.earned}</td>
                     <td className="text-ink py-2">{shortfall.remaining}</td>
@@ -235,6 +264,25 @@ export default async function StudyPlanPage({
 
         <div className="flex flex-col gap-6">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
+
+          {/*
+            Before the term list, not after it: filling every term at once is
+            the shortcut past the forty add-a-course presses the list below
+            would otherwise cost, so it has to be visible before the student
+            starts making them. A plain form, like every other control here,
+            so it works with JavaScript off.
+          */}
+          <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
+            <h3 className="font-display text-lg">{copy.plan.populateHeading}</h3>
+            <p className="text-muted leading-relaxed">{copy.plan.populateHint}</p>
+            <form action={populatePlanFromRecommended.bind(null, locale)}>
+              <input type="hidden" name={PLAN_FIELD} value={serialisedPlan} />
+              <Button type="submit" variant="secondary">
+                {copy.plan.populateButton}
+              </Button>
+            </form>
+          </div>
+
           {futureTerms.map((term) => {
             const plannedTerm = plan.terms.find(
               (t) => t.term.year === term.year && t.term.kind === term.kind

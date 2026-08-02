@@ -116,6 +116,11 @@ export type StudyPlanCopy = {
     minorElectiveTemplate: string;
     minorElectiveOtherTemplate: string;
     termsHeading: string;
+    /** Heading for the block holding the button that fills in named courses from the recommended plan. */
+    populateHeading: string;
+    /** Explains that the button only fills courses the recommended plan names, leaves elective slots for the student, and never changes a term the student has already filled in. */
+    populateHint: string;
+    populateButton: string;
     /** Contains "{n}"; a term's running credit total. */
     termCreditsTemplate: string;
     addCourseLabel: string;
@@ -291,6 +296,10 @@ const en: StudyPlanCopy = {
     minorElectiveTemplate: "{minor}, elective courses",
     minorElectiveOtherTemplate: "Electives outside {minor}",
     termsHeading: "Terms ahead of you",
+    populateHeading: "Fill in the recommended plan",
+    populateHint:
+      "This fills in the courses the recommended plan names for each term ahead of you. It leaves electives, like minor electives and free electives, for you to choose. It will not change or remove anything you have already put in a term.",
+    populateButton: "Fill in named courses",
     termCreditsTemplate: "{n} credits so far",
     addCourseLabel: "Add a course",
     addCourseButton: "Add",
@@ -438,7 +447,8 @@ const th: StudyPlanCopy = {
     cohortLabel: "รุ่น",
     creditsPlannedLabel: "หน่วยกิตที่วางแผนไว้",
     projectedGraduationLabel: "ภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
-    noProjectedGraduation: "โปรดวางแผนอย่างน้อยหนึ่งภาคการศึกษา เพื่อให้ระบบคำนวณภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
+    noProjectedGraduation:
+      "โปรดวางแผนอย่างน้อยหนึ่งภาคการศึกษา เพื่อให้ระบบคำนวณภาคการศึกษาที่คาดว่าจะสำเร็จการศึกษา",
     findingsHeading: "สิ่งที่ตรวจพบ",
     findingsEmpty: "ระบบไม่พบข้อควรระวังในแผนนี้",
     owedHeading: "สิ่งที่ท่านยังขาดอยู่",
@@ -449,6 +459,10 @@ const th: StudyPlanCopy = {
     minorElectiveTemplate: "วิชาโท{minor} วิชาเลือก",
     minorElectiveOtherTemplate: "วิชาเลือกในวิชาโทอื่นนอกจาก{minor}",
     termsHeading: "ภาคการศึกษาที่เหลืออยู่",
+    populateHeading: "กรอกแผนที่แนะนำให้อัตโนมัติ",
+    populateHint:
+      "ปุ่มนี้จะกรอกเฉพาะรายวิชาที่แผนที่แนะนำระบุชื่อไว้ในแต่ละภาคการศึกษาที่เหลืออยู่ ส่วนวิชาที่ต้องเลือกเอง เช่น วิชาเลือกในวิชาโทและวิชาเลือกเสรี ยังคงเว้นไว้ให้ท่านเลือกเอง และจะไม่แก้ไขหรือลบรายวิชาที่ท่านกรอกไว้ในภาคการศึกษาใดอยู่แล้ว",
+    populateButton: "กรอกรายวิชาที่ระบุชื่อไว้",
     termCreditsTemplate: "{n} หน่วยกิตในภาคนี้",
     addCourseLabel: "เพิ่มรายวิชา",
     addCourseButton: "เพิ่ม",

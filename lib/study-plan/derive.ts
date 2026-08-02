@@ -16,6 +16,7 @@ import {
   type TermKind,
   type TermRef,
 } from "@/content/curriculum";
+import type { PlannedCourseTerm } from "@/lib/study-plan/plan";
 
 export type PlaceholderSlot = {
   id: string;
@@ -174,4 +175,82 @@ export function remainingRequirements(
     }
     return { category, earned, remaining: Math.max(0, category.credits - earned) };
   });
+}
+
+/**
+ * Matches the caps `studyPlanSchema` enforces in lib/study-plan/plan.ts: at
+ * most 15 codes in a term, at most 20 term entries in a plan. Enforced here,
+ * not left for serialisation to discover, because the whole point of an
+ * autofill button is that the student never sees the failure mode; a plan
+ * that silently refuses to save after the click is worse than one that just
+ * stops adding once it is full.
+ */
+const MAX_CODES_PER_TERM = 15;
+const MAX_TERMS = 20;
+
+/**
+ * Fills in every course the recommended plan names from `position` onward,
+ * skipping anything the student has already passed or has already placed
+ * somewhere else in their own plan. This is the "autofill" button: it turns
+ * "I haven't touched this term yet" into a populated draft the student is
+ * free to edit or delete from, never the other way around, which is why
+ * terms before `position` are never created or read from here at all (that
+ * is the student's real, already-lived history, not a suggestion).
+ *
+ * Placeholder entries ("Minor Elective Course 1") are skipped entirely
+ * rather than guessed at. A placeholder is a slot the recommended plan
+ * deliberately leaves open for the student to choose from a list; filling it
+ * with a guess would be inventing a choice that was never the student's, and
+ * silently wrong guesses are worse than an empty box the placeholder step
+ * already knows how to prompt for.
+ *
+ * A term entry is created even for a recommended term that contributes no
+ * course at all, such as Year 2 summer in content/curriculum/2564.ts, which
+ * is entirely placeholders. Autofill still has to make that term exist and
+ * appear on the plan screen (which lists terms, not recommended-plan
+ * entries), so the student sees there is a term to fill in rather than
+ * concluding the year has no summer term to plan for.
+ */
+export function populateRecommendedTerms(
+  version: CurriculumVersion,
+  position: TermRef,
+  plan: { passed: string[]; terms: PlannedCourseTerm[] }
+): PlannedCourseTerm[] {
+  const cutoff = termIndex(position);
+  const passedSet = new Set(plan.passed);
+
+  const result: PlannedCourseTerm[] = plan.terms.map((term) => ({
+    term: term.term,
+    codes: [...term.codes],
+    freeElectiveCredits: term.freeElectiveCredits,
+  }));
+
+  const placedCodes = new Set(result.flatMap((term) => term.codes));
+  const indexByTermIndex = new Map(result.map((term, i) => [termIndex(term.term), i]));
+
+  for (const recommendedTerm of version.recommendedPlan.value) {
+    const recommendedIndex = termIndex(recommendedTerm.term);
+    if (recommendedIndex < cutoff) continue;
+
+    let target: PlannedCourseTerm | undefined;
+    const existingIndex = indexByTermIndex.get(recommendedIndex);
+    if (existingIndex !== undefined) {
+      target = result[existingIndex];
+    } else if (result.length < MAX_TERMS) {
+      target = { term: recommendedTerm.term, codes: [], freeElectiveCredits: 0 };
+      indexByTermIndex.set(recommendedIndex, result.length);
+      result.push(target);
+    }
+    if (!target) continue;
+
+    for (const entry of recommendedTerm.entries) {
+      if (entry.kind !== "course") continue;
+      if (passedSet.has(entry.code) || placedCodes.has(entry.code)) continue;
+      if (target.codes.length >= MAX_CODES_PER_TERM) continue;
+      target.codes.push(entry.code);
+      placedCodes.add(entry.code);
+    }
+  }
+
+  return result;
 }

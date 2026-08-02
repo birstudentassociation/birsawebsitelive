@@ -2,8 +2,13 @@
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { CURRICULUM_VERSIONS, resolveCohort, type TermKind, type TermRef } from "@/content/curriculum";
-import { assumedHistory } from "@/lib/study-plan/derive";
+import {
+  CURRICULUM_VERSIONS,
+  resolveCohort,
+  type TermKind,
+  type TermRef,
+} from "@/content/curriculum";
+import { assumedHistory, populateRecommendedTerms } from "@/lib/study-plan/derive";
 import {
   deserialisePlan,
   PLAN_FIELD,
@@ -236,7 +241,9 @@ export async function submitAssumedStep(
     // above; only a *named-slot* placeholder needs the fill step.
     const hasSlotsToFill = placeholders.some((slot) => slot.category !== "freeElective");
     if (hasSlotsToFill) {
-      redirect(`${localeHref(locale, "/services/study-plan/assumed/fill")}?${PLAN_FIELD}=${encodedPlan}`);
+      redirect(
+        `${localeHref(locale, "/services/study-plan/assumed/fill")}?${PLAN_FIELD}=${encodedPlan}`
+      );
     }
   }
 
@@ -382,7 +389,9 @@ export async function setTermFreeElectiveCredits(
   const terms =
     index === -1
       ? [...current.terms, { term, codes: [], freeElectiveCredits: creditsResult.data }]
-      : current.terms.map((t, i) => (i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t));
+      : current.terms.map((t, i) =>
+          i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t
+        );
 
   redirectToPlan(locale, { ...current, terms });
 }
@@ -411,6 +420,46 @@ export async function addTermToPlan(locale: Locale, formData: FormData): Promise
   if (term && findTermEntryIndex(current, term) === -1) {
     terms = [...current.terms, { term, codes: [], freeElectiveCredits: 0 }];
   }
+
+  redirectToPlan(locale, { ...current, terms });
+}
+
+/**
+ * Fills every term ahead of the student with the courses the recommended
+ * plan names for those terms, in one go, for the "fill in the recommended
+ * courses" button on `/plan`.
+ *
+ * Exists because the alternative was choosing a course from a select and
+ * pressing "Add" once per course, roughly forty times, to reproduce a
+ * sequence the service already holds. A student who is following the
+ * recommended plan had the most work to do and the least to decide.
+ *
+ * The position comes from the draft cookie rather than the form, exactly as
+ * the plan screen reads it: it is the same answer the student gave on
+ * `/where`, and taking it from a hidden field would let a tampered post
+ * rewrite terms the student has already passed. A missing position sends
+ * them back to that question rather than guessing at year 1.
+ *
+ * All the actual rules live in `populateRecommendedTerms`, which is where
+ * they can be tested without a request.
+ */
+export async function populatePlanFromRecommended(
+  locale: Locale,
+  formData: FormData
+): Promise<void> {
+  const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!current) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+
+  const draft = await readDraft<StudyPlanDraft>(STUDY_PLAN_COOKIE);
+  const position = draftPosition(draft);
+  if (!position) {
+    redirect(localeHref(locale, "/services/study-plan/where"));
+  }
+
+  const version = CURRICULUM_VERSIONS[current.versionId];
+  const terms = populateRecommendedTerms(version, position, current);
 
   redirectToPlan(locale, { ...current, terms });
 }
