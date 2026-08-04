@@ -25,8 +25,28 @@
  * BIRSA is a student association, not a university office (see
  * `content/site.ts` `officialLinks`), so most outcomes in both topics hand
  * off to the real office or elected body responsible.
+ *
+ * Both harassment outcomes (`out-problem-harassment-student` and
+ * `out-problem-harassment-other`) also name the two official reporting
+ * channels from the BIRSA reporting poster, composed from
+ * `content/reporting.ts` the same way `content/smart-answers/topics/
+ * wellbeing.ts` does, so a reader who arrives here through "raise a
+ * problem" rather than "wellbeing" still reaches a named contact and not
+ * just "speak to a trusted committee member".
  */
 import type { SmartAnswerService } from "../types";
+import type { Bi } from "../types";
+import { reportingChannels, reportingCopy } from "@/content/reporting";
+
+/** Kept identical to the one in `topics/wellbeing.ts`: see that file for why. */
+const reportingLines: Bi[] = reportingChannels.map((channel) => ({
+  en: `${channel.organisation.en}, ${channel.person.en}. Call ${channel.phone}${
+    channel.extension ? `, extension ${channel.extension}` : ""
+  }, or email ${channel.email}.`,
+  th: `${channel.organisation.th} ${channel.person.th} โทร ${channel.phone}${
+    channel.extension ? ` ต่อ ${channel.extension}` : ""
+  } หรืออีเมล ${channel.email}`,
+}));
 
 export const contact: SmartAnswerService = {
   topics: [
@@ -80,11 +100,15 @@ export const contact: SmartAnswerService = {
         "complaint",
         "problem",
         "harassment",
+        "bullying",
+        "unsafe",
         "report",
         "rights",
         "ร้องเรียน",
         "แจ้งปัญหา",
         "คุกคาม",
+        "กลั่นแกล้ง",
+        "ไม่ปลอดภัย",
         "สิทธิ",
       ],
     },
@@ -601,10 +625,19 @@ export const contact: SmartAnswerService = {
       },
       body: [
         {
+          kind: "steps",
+          title: reportingCopy.heading,
+          items: reportingLines,
+        },
+        {
+          kind: "paragraph",
+          text: reportingCopy.assurance,
+        },
+        {
           kind: "paragraph",
           text: {
-            en: "You can speak to a trusted BIRSA committee member, report it to the Faculty office, or use BIRSA's contact form if you are unsure where else to start. You do not need a complete account or full evidence before asking for advice.",
-            th: "คุณสามารถคุยกับกรรมการ BIRSA ที่ไว้ใจได้ แจ้งสำนักงานคณะ หรือใช้แบบฟอร์มติดต่อ BIRSA หากไม่แน่ใจว่าจะเริ่มจากช่องทางใด ไม่จำเป็นต้องมีเรื่องราวครบถ้วนหรือหลักฐานสมบูรณ์ก่อนขอคำแนะนำ",
+            en: "You do not need a complete account or full evidence before asking for advice. Either channel above can start things moving, or the Faculty office directly, if you would rather.",
+            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนหรือหลักฐานสมบูรณ์ก่อนขอคำแนะนำ ช่องทางใดช่องทางหนึ่งข้างต้นเริ่มเรื่องให้ได้ หรือจะแจ้งสำนักงานคณะโดยตรงก็ได้เช่นกัน",
           },
         },
         {
@@ -690,10 +723,19 @@ export const contact: SmartAnswerService = {
       },
       body: [
         {
+          kind: "steps",
+          title: reportingCopy.heading,
+          items: reportingLines,
+        },
+        {
+          kind: "paragraph",
+          text: reportingCopy.assurance,
+        },
+        {
           kind: "paragraph",
           text: {
-            en: "You can speak to a trusted BIRSA committee member first, and BIRSA can help you find the right channel. You do not need a complete account before asking for advice.",
-            th: "คุณสามารถคุยกับกรรมการ BIRSA ที่ไว้ใจได้ก่อน และ BIRSA ช่วยหาช่องทางที่เหมาะสมให้ได้ ไม่จำเป็นต้องมีเรื่องราวครบถ้วนก่อนขอคำแนะนำ",
+            en: "You do not need a complete account before asking for advice. Either channel above can help you find the right place to take it from here.",
+            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนก่อนขอคำแนะนำ ช่องทางใดช่องทางหนึ่งข้างต้นช่วยหาทางที่เหมาะสมต่อไปให้ได้",
           },
         },
       ],

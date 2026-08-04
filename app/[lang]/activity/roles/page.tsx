@@ -1,13 +1,28 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import Link from "next/link";
+import { getDictionary, isLocale, locales, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { findPortrait } from "@/lib/committee-portrait";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { committee, committeeGroupLabels, type CommitteeGroup } from "@/content/committee";
 import { roleDescriptions } from "@/content/activity/roleInfo";
+
+/**
+ * The Rights Advocate and Student Welfare Officer is one of the two official
+ * harassment and bullying reporting channels (`content/reporting.ts`). No
+ * other card on this page carries contact details, so this points at the
+ * reporting section on /contact rather than printing a personal phone number
+ * on the card.
+ */
+const REPORTING_OFFICER_KEY = "punsak-ketmalasiri";
+
+const reportingLinkCopy: Record<Locale, string> = {
+  en: "How to report harassment or bullying",
+  th: "วิธีแจ้งเหตุคุกคามหรือการกลั่นแกล้ง",
+};
 
 function PortraitPlaceholder() {
   return (
@@ -121,6 +136,14 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
                         </div>
                         {description ? (
                           <p className="text-muted text-sm leading-relaxed">{description}</p>
+                        ) : null}
+                        {member.key === REPORTING_OFFICER_KEY ? (
+                          <Link
+                            href={`${localeHref(locale, "/contact")}#report-harassment`}
+                            className="text-brand-deep text-sm font-semibold hover:underline"
+                          >
+                            {reportingLinkCopy[locale]}
+                          </Link>
                         ) : null}
                       </div>
                     </li>

@@ -21,8 +21,32 @@
  * `out-rights-raise-something` and the eligibility note in
  * `out-rights-voting`, both as conditional body blocks rather than separate
  * questions, since the rest of the answer is identical either way.
+ *
+ * Harassment, bullying, or feeling unsafe is a first-class option on
+ * `q-wellbeing-need` itself (`out-wellbeing-harassment`), not something a
+ * reader has to recognise as "a safety concern" first: from the topic's
+ * start node it is one answer away. The outcome names both official
+ * reporting channels from the BIRSA reporting poster, composed from
+ * `content/reporting.ts` (the single source of truth for the numbers and
+ * addresses) rather than retyped here.
  */
 import type { SmartAnswerService } from "../types";
+import type { Bi } from "../types";
+import { reportingChannels, reportingCopy } from "@/content/reporting";
+
+/**
+ * One line per official channel, built from `content/reporting.ts` so the
+ * phone numbers and addresses shown here can never drift from the poster.
+ * Change the numbers there, not here.
+ */
+const reportingLines: Bi[] = reportingChannels.map((channel) => ({
+  en: `${channel.organisation.en}, ${channel.person.en}. Call ${channel.phone}${
+    channel.extension ? `, extension ${channel.extension}` : ""
+  }, or email ${channel.email}.`,
+  th: `${channel.organisation.th} ${channel.person.th} โทร ${channel.phone}${
+    channel.extension ? ` ต่อ ${channel.extension}` : ""
+  } หรืออีเมล ${channel.email}`,
+}));
 
 export const wellbeing: SmartAnswerService = {
   topics: [
@@ -58,6 +82,8 @@ export const wellbeing: SmartAnswerService = {
         "safety",
         "scam",
         "harassment",
+        "bullying",
+        "unsafe",
         "lost card",
         "สุขภาพ",
         "คลินิก",
@@ -68,6 +94,8 @@ export const wellbeing: SmartAnswerService = {
         "ปลอดภัย",
         "มิจฉาชีพ",
         "คุกคาม",
+        "กลั่นแกล้ง",
+        "ไม่ปลอดภัย",
         "บัตรหาย",
       ],
     },
@@ -170,6 +198,14 @@ export const wellbeing: SmartAnswerService = {
           next: "out-emergency-now",
         },
         {
+          id: "unsafe",
+          label: {
+            en: "I'm dealing with harassment, bullying, or something that made me feel unsafe",
+            th: "กำลังเจอการคุกคาม การกลั่นแกล้ง หรือรู้สึกไม่ปลอดภัย",
+          },
+          next: "out-wellbeing-harassment",
+        },
+        {
           id: "unwell",
           label: { en: "I feel unwell or I've been hurt", th: "รู้สึกไม่สบายหรือได้รับบาดเจ็บ" },
           next: "q-wellbeing-unwell",
@@ -193,8 +229,8 @@ export const wellbeing: SmartAnswerService = {
         {
           id: "safety",
           label: {
-            en: "A safety concern: a lost card, a scam, harassment, or something on campus",
-            th: "เรื่องความปลอดภัย เช่น บัตรหาย มิจฉาชีพ การคุกคาม หรือเรื่องในมหาวิทยาลัย",
+            en: "Another safety concern: a lost card, a scam, or something else on campus",
+            th: "เรื่องความปลอดภัยอื่น ๆ เช่น บัตรหาย มิจฉาชีพ หรือเรื่องในมหาวิทยาลัย",
           },
           next: "q-wellbeing-safety-kind",
         },
@@ -283,11 +319,6 @@ export const wellbeing: SmartAnswerService = {
             th: "มีคนเข้ามาชวน รู้สึกว่าน่าจะเป็นมิจฉาชีพ",
           },
           next: "out-wellbeing-scam",
-        },
-        {
-          id: "harassment",
-          label: { en: "I'm dealing with harassment", th: "กำลังเจอการคุกคาม" },
-          next: "out-wellbeing-harassment",
         },
         {
           id: "general",
@@ -635,34 +666,27 @@ export const wellbeing: SmartAnswerService = {
     },
 
     {
+      // Names both official channels from the BIRSA reporting poster, built
+      // from `content/reporting.ts` (see `reportingLines` above), so this
+      // stays correct automatically if the numbers or addresses change.
       kind: "outcome",
       id: "out-wellbeing-harassment",
-      title: { en: "You have the right to report it", th: "คุณมีสิทธิแจ้งเรื่องนี้" },
-      summary: {
-        en: "If you experience harassment, from another student, staff member, or member of the public, you have options for where to take it.",
-        th: "ถ้าคุณเจอการคุกคาม ไม่ว่าจะจากนักศึกษาด้วยกัน เจ้าหน้าที่ หรือบุคคลภายนอก คุณมีทางเลือกว่าจะแจ้งเรื่องกับใครได้บ้าง",
-      },
+      title: reportingCopy.heading,
+      summary: reportingCopy.intro,
       owner: {
-        en: "The faculty office or the university's relevant welfare channel decides on a formal report. BIRSA can help you get started.",
-        th: "สำนักงานคณะหรือช่องทางสวัสดิการที่เกี่ยวข้องของมหาวิทยาลัยเป็นผู้พิจารณาเรื่องร้องเรียนอย่างเป็นทางการ BIRSA ช่วยเริ่มเรื่องให้ได้",
+        en: "You choose who to tell. Either channel can act without waiting on the other.",
+        th: "คุณเลือกได้เองว่าจะแจ้งช่องทางไหน ไม่ว่าจะเลือกช่องทางใด ดำเนินการให้ได้ทันทีโดยไม่ต้องรอกัน",
       },
       body: [
         {
           kind: "steps",
-          items: [
-            {
-              en: "Speak to a trusted BIRSA committee member.",
-              th: "พูดคุยกับกรรมการ BIRSA ที่คุณไว้ใจ",
-            },
-            {
-              en: "Report it to the faculty office or the university's relevant welfare channel.",
-              th: "แจ้งสำนักงานคณะ หรือช่องทางสวัสดิการที่เกี่ยวข้องของมหาวิทยาลัย",
-            },
-            {
-              en: "Contact BIRSA if you're unsure where else to start.",
-              th: "ติดต่อ BIRSA ถ้าไม่แน่ใจว่าจะเริ่มจากตรงไหน",
-            },
-          ],
+          title: { en: "Report it through whichever channel you prefer", th: "แจ้งเรื่องผ่านช่องทางที่คุณสบายใจ" },
+          items: reportingLines,
+        },
+        {
+          kind: "note",
+          tone: "info",
+          text: reportingCopy.assurance,
         },
       ],
       actions: [{ label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" }],
@@ -670,6 +694,10 @@ export const wellbeing: SmartAnswerService = {
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
           href: "/student-life/home/safety-and-emergencies",
+          description: {
+            en: "The full reporting channels, and what happens after you report.",
+            th: "ช่องทางแจ้งเรื่องแบบเต็ม และขั้นตอนหลังจากแจ้งเรื่องแล้ว",
+          },
         },
       ],
       contactCategory: "problem",

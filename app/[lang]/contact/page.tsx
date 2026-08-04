@@ -9,6 +9,7 @@ import ExternalLink from "@/components/ExternalLink";
 import Email from "@/components/Email";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
+import ReportHarassment from "@/components/ReportHarassment";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels, contactCategoryOptions } from "@/components/forms/contactWizardCopy";
 import { getContactDraft, submitCategoryStep } from "./actions";
@@ -109,6 +110,12 @@ export default async function ContactPage({
           />
         }
       />
+      {/* Shown before the form itself: a student with a harassment or
+          bullying incident should reach the direct channels straight away,
+          not fill out a general question first. */}
+      <div className="wrap pt-10">
+        <ReportHarassment locale={locale} />
+      </div>
       <div className="wrap grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1.2fr_1fr]">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />

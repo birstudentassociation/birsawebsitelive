@@ -10,6 +10,17 @@ import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
 import { getContactDraft, submitSubjectStep } from "../actions";
 import { CONTACT_STEPS } from "../steps";
 
+const harassmentNoteCopy: Record<Locale, { text: string; cta: string }> = {
+  en: {
+    text: "If this is about harassment or bullying, you do not need to fill in the rest of this form.",
+    cta: "Go straight to the direct reporting channels",
+  },
+  th: {
+    text: "หากเรื่องนี้เกี่ยวข้องกับการคุกคามหรือการกลั่นแกล้ง ไม่จำเป็นต้องกรอกแบบฟอร์มนี้ต่อ",
+    cta: "ไปที่ช่องทางแจ้งเหตุโดยตรง",
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -42,6 +53,7 @@ export default async function ContactSubjectPage({
   const progress = returnTo === "check"
     ? undefined
     : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("subject") + 1, CONTACT_STEPS.length);
+  const harassmentNote = harassmentNoteCopy[locale];
 
   return (
     <>
@@ -49,6 +61,14 @@ export default async function ContactSubjectPage({
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
+          {draft.category === "problem" ? (
+            <p className="border-error bg-error-tint text-ink rounded-md border-l-4 p-4 text-sm">
+              {harassmentNote.text}{" "}
+              <a href={`${localeHref(locale, "/contact")}#report-harassment`} className="font-semibold underline">
+                {harassmentNote.cta}
+              </a>
+            </p>
+          ) : null}
           <QuestionStepForm
             action={submitSubjectStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}

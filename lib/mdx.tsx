@@ -15,6 +15,7 @@ import Notice from "@/components/Notice";
 import Email from "@/components/Email";
 import GoogleForm, { type GoogleFormProps } from "@/components/GoogleForm";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
+import ReportHarassment from "@/components/ReportHarassment";
 import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
 import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
 import ShuttleTimetable from "@/components/shuttle/ShuttleTimetable";
@@ -82,6 +83,9 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       <GoogleForm {...props} locale={locale} />
     ),
     CommitteeRoster: () => <CommitteeRoster locale={locale} />,
+    // Authored under an existing `##`, so the callout drops to `<h3>` to keep
+    // the heading order sequential.
+    ReportHarassment: () => <ReportHarassment locale={locale} headingLevel="h3" />,
     ShuttleTimer: () => <ShuttleTimer locale={locale} />,
     ShuttleRoute: () => <ShuttleRoute locale={locale} />,
     ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
