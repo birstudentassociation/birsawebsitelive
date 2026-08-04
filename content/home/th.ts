@@ -7,7 +7,7 @@ import type { homeEn } from "./en";
 export const homeTh: typeof homeEn = {
   hero: {
     heading: "เราพร้อมอยู่เคียงข้างคุณเสมอ",
-    intro: "BIRSA ดูแลกิจกรรม การเป็นตัวแทน และความช่วยเหลือให้นักศึกษา BIR ทุกคน",
+    intro: "BIRSA ดูแลกิจกรรม ให้ความช่วยเหลือ และเป็นกระบอกเสียงของนักศึกษา BIR ทุกคน",
     primaryCta: "ทางลัด",
     secondaryCta: "ข้อมูลและบริการ",
   },
