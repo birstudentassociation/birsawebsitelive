@@ -4,12 +4,19 @@
  * goes in it (`lib/study-plan/suggest.ts`, covered by
  * study-plan-suggest.test.ts).
  *
- * The case worth naming is the last but one: a panel that renders its heading
- * with nothing underneath. This screen's `InferenceNotice` shipped exactly
+ * Two cases are worth naming. The first is the panel that renders its heading
+ * with nothing underneath: this screen's `InferenceNotice` shipped exactly
  * that bug once, an alarming box with no sentence in it, and the picker panel
- * has the same shape of condition (show when there are open slots OR an owed
- * bucket), so it can fail the same way. A test that only checked "the panel
- * appears" would have passed for the broken version too.
+ * has the same shape of condition (show when there is an open slot OR a
+ * recommended course OR an owed bucket), so it can fail the same way. A test
+ * that only checked "the panel appears" would have passed for the broken
+ * version too.
+ *
+ * The second is the recommended course appearing twice. `suggestForTerm`
+ * files a slot's candidates in the "recommended" group as well, so that the
+ * select's grouping reflects them; rendering both without subtracting one
+ * from the other would print the same course under its slot's label and
+ * again under a generic heading, in the same panel.
  *
  * Every query is scoped to the render's own `container` with `within` rather
  * than going through `screen`. There is no global testing-library cleanup in
@@ -38,10 +45,11 @@ const copy: TermEditorCopy = {
   creditsUnit: "credits",
   errorSummaryTitle: "There is a problem",
   pickHeading: "What this term still needs",
-  pickSlotsHint: "The recommended plan leaves these choices to you in this term.",
-  pickSlotCandidates: "Courses that fit",
   pickSlotAnyCourse: "Any Thammasat course counts here.",
   pickNothingOwed: "This plan already covers every requirement.",
+  termEmpty: "Nothing planned yet",
+  moreOptionsLabel: "Add something else to this term",
+  moreCandidatesTemplate: "{n} more courses fit this choice.",
   recommendedTermCompleteTemplate:
     "This term already has the {n} credits the recommended plan schedules.",
   pickRemainingTemplate: "{n} credits still needed",
@@ -59,6 +67,8 @@ function renderEditor(overrides: {
   recommendedTermComplete?: boolean;
   recommendedCredits?: number | null;
   placed?: TermEditorCourseGroup["courses"];
+  freeElectiveCredits?: number;
+  defaultOpen?: boolean;
 }) {
   const { container } = render(
     <TermEditor
@@ -66,12 +76,13 @@ function renderEditor(overrides: {
       termLabel="Year 3, Semester 1"
       plan="PLAN"
       placed={overrides.placed ?? []}
-      freeElectiveCredits={0}
+      freeElectiveCredits={overrides.freeElectiveCredits ?? 0}
       courseGroups={overrides.courseGroups ?? []}
       openSlots={overrides.openSlots ?? []}
       internshipOnly={overrides.internshipOnly ?? false}
       recommendedTermComplete={overrides.recommendedTermComplete ?? false}
       recommendedCredits={overrides.recommendedCredits ?? null}
+      defaultOpen={overrides.defaultOpen ?? true}
       addAction={noop}
       removeAction={noop}
       freeElectiveAction={noopState}
@@ -81,21 +92,65 @@ function renderEditor(overrides: {
   return { container, ui: within(container) };
 }
 
+const pi470 = { code: "PI470", title: "Research Methods", credits: 3, missingPrerequisites: [] };
+const pi380 = {
+  code: "PI380",
+  title: "Public Policy",
+  credits: 3,
+  missingPrerequisites: ["PI121"],
+};
+
 const recommended: TermEditorCourseGroup = {
   id: "recommended",
   label: "Recommended for this term",
   remaining: null,
-  courses: [{ code: "PI470", title: "Research Methods", credits: 3, missingPrerequisites: [] }],
+  courses: [pi470],
 };
 
 const minorRequired: TermEditorCourseGroup = {
   id: "minorRequired",
   label: "Governance required courses",
   remaining: 6,
-  courses: [{ code: "PI380", title: "Public Policy", credits: 3, missingPrerequisites: ["PI121"] }],
+  courses: [pi380],
 };
 
+/** The submit buttons that add a course, as opposed to the ones that remove one. */
+function addButtonValues(container: HTMLElement): string[] {
+  return [...container.querySelectorAll<HTMLButtonElement>('button[name="code"]')]
+    .filter((button) => button.textContent?.includes(copy.addButtonLabel))
+    .map((button) => button.value);
+}
+
 describe("TermEditor", () => {
+  it("collapses to the term's own name, contents and credit total", () => {
+    const { container, ui } = renderEditor({
+      defaultOpen: false,
+      placed: [pi470],
+      freeElectiveCredits: 3,
+    });
+    expect(container.querySelector("details")?.open).toBe(false);
+    expect(ui.getByText("Year 3, Semester 1")).toBeDefined();
+    expect(ui.getByText("PI470 · 6 credits")).toBeDefined();
+  });
+
+  it("says so rather than showing a credit total when the term holds nothing", () => {
+    const { ui } = renderEditor({ defaultOpen: false });
+    expect(ui.getByText("Nothing planned yet")).toBeDefined();
+  });
+
+  it("opens the term the plan screen tells it to", () => {
+    const { container } = renderEditor({ defaultOpen: true });
+    expect(container.querySelector("details")?.open).toBe(true);
+  });
+
+  it("offers a recommended course as a button that adds it, not as prose to look up", () => {
+    // The change this component exists for: the same course used to be named
+    // in a sentence and then had to be found again in a select of the whole
+    // remaining catalogue.
+    const { container } = renderEditor({ courseGroups: [recommended] });
+    expect(addButtonValues(container)).toContain("PI470");
+  });
+
   it("groups the select by what each course counts toward, in the order given", () => {
     const { container } = renderEditor({ courseGroups: [recommended, minorRequired] });
     const groups = [...container.querySelectorAll("optgroup")];
@@ -120,8 +175,16 @@ describe("TermEditor", () => {
     expect(container.querySelector('option[value="PI380"]')).not.toBeNull();
   });
 
-  it("lists the open choices the recommended plan leaves in this term", () => {
-    const { ui } = renderEditor({
+  it("carries the unmet prerequisite on the quick-add button too", () => {
+    const { container } = renderEditor({
+      courseGroups: [{ ...recommended, courses: [pi380] }],
+    });
+    const button = container.querySelector<HTMLButtonElement>('button[value="PI380"]');
+    expect(button?.textContent).toContain("needs PI121 first");
+  });
+
+  it("puts each open choice under the recommended plan's own words for it", () => {
+    const { ui, container } = renderEditor({
       courseGroups: [minorRequired],
       openSlots: [
         {
@@ -135,6 +198,32 @@ describe("TermEditor", () => {
     });
     expect(ui.getByText("Minor Elective Course 1")).toBeDefined();
     expect(ui.getByText(/PI381 Local Government/)).toBeDefined();
+    expect(addButtonValues(container)).toContain("PI381");
+  });
+
+  it("does not offer a slot's candidate a second time under a generic heading", () => {
+    // suggestForTerm files slot candidates in the "recommended" group as well,
+    // so the select's grouping reflects them. Printing both unfiltered would
+    // put the same course on screen twice in the same panel.
+    const { container } = renderEditor({
+      courseGroups: [{ ...recommended, courses: [pi470] }],
+      openSlots: [{ id: "genEd1", label: "General Education Course 1", candidates: [pi470] }],
+    });
+    expect(addButtonValues(container)).toEqual(["PI470"]);
+  });
+
+  it("keeps the longest candidate lists out of the panel", () => {
+    const candidates = Array.from({ length: 9 }, (_, i) => ({
+      code: `PI4${String(i).padStart(2, "0")}`,
+      title: `Course ${i}`,
+      credits: 3,
+      missingPrerequisites: [],
+    }));
+    const { container, ui } = renderEditor({
+      openSlots: [{ id: "minorElective1", label: "Minor Elective Course 1", candidates }],
+    });
+    expect(addButtonValues(container)).toHaveLength(6);
+    expect(ui.getByText("3 more courses fit this choice.")).toBeDefined();
   });
 
   it("says any course counts for a slot the catalogue cannot list, such as a free elective", () => {
@@ -142,6 +231,27 @@ describe("TermEditor", () => {
       openSlots: [{ id: "freeElective1", label: "Free Elective 1", candidates: [] }],
     });
     expect(ui.getByText(/Any Thammasat course counts here/)).toBeDefined();
+  });
+
+  it("lifts the free elective box out of the drawer for a term with a free elective slot", () => {
+    // The box is the answer to that slot, so it sits next to the question
+    // rather than a press away behind the manual controls.
+    const { container } = renderEditor({
+      openSlots: [{ id: "freeElective1", label: "Free Elective 1", candidates: [] }],
+    });
+    // The nearest enclosing `<details>` is the term itself, not the drawer of
+    // manual controls, which is the one that carries no id.
+    const input = container.querySelector('input[name="freeElectiveCredits"]');
+    expect(input).not.toBeNull();
+    expect(input?.closest("details")?.id).toBe("term-3-semester1");
+  });
+
+  it("keeps the free elective box with the manual controls when no slot asks for one", () => {
+    const { container } = renderEditor({ courseGroups: [minorRequired] });
+    const input = container.querySelector('input[name="freeElectiveCredits"]');
+    expect(input?.closest("details")?.querySelector("summary")?.textContent).toBe(
+      "Add something else to this term"
+    );
   });
 
   it("names the buckets still owed even when the term has no open slots", () => {
@@ -162,10 +272,18 @@ describe("TermEditor", () => {
     expect(ui.queryByText(/6 credits still needed/)).toBeNull();
   });
 
+  it("does not repeat them under a term that has a recommended course either", () => {
+    const { ui } = renderEditor({ courseGroups: [recommended, minorRequired] });
+    expect(ui.queryByText(/6 credits still needed/)).toBeNull();
+  });
+
   it("never renders the panel heading with nothing underneath it", () => {
-    // The regression guard. With no open slots and no owed bucket the panel
-    // must not appear at all; the "nothing owed" line takes its place.
-    const { ui } = renderEditor({ courseGroups: [recommended] });
+    // The regression guard. With no open slot, no recommended course and no
+    // owed bucket the panel must not appear at all; the "nothing owed" line
+    // takes its place.
+    const { ui } = renderEditor({
+      courseGroups: [{ id: "other", label: "Everything else", remaining: null, courses: [pi470] }],
+    });
     expect(ui.queryByText("What this term still needs")).toBeNull();
     expect(ui.getByText("This plan already covers every requirement.")).toBeDefined();
   });
@@ -189,6 +307,7 @@ describe("TermEditor", () => {
     expect(select?.value).toBe("");
     expect(select?.querySelector('option[value=""]')?.textContent).toBe("Choose a course");
     expect(container.querySelector('input[name="freeElectiveCredits"]')).not.toBeNull();
+    expect(addButtonValues(container)).toEqual([]);
     expect(ui.queryByText("What this term still needs")).toBeNull();
     expect(ui.queryByText("Minor Elective Course 1")).toBeNull();
     expect(
@@ -213,6 +332,7 @@ describe("TermEditor internshipOnly", () => {
     expect(container.querySelector("select")).toBeNull();
     expect(ui.queryByText("What this term still needs")).toBeNull();
     expect(ui.queryByText("Minor Elective Course 1")).toBeNull();
+    expect(container.querySelector('input[name="freeElectiveCredits"]')).toBeNull();
     expect(ui.getByText("This summer is given over to the internship.")).toBeDefined();
   });
 

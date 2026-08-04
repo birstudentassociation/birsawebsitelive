@@ -173,14 +173,29 @@ test.describe("study plan without JavaScript", () => {
     // four times over before the button is pressed. A remove button exists
     // only for a course actually placed in a term, which is the thing being
     // claimed here.
+    //
+    // Each term is a `<details>` and the plan screen opens only one, so
+    // PI574's own term is opened on both sides of the button press. A closed
+    // `<details>` hides its contents from the accessibility tree, and this
+    // locator counts what is exposed there, so asserting the absence without
+    // opening the term first would pass whether or not the course was placed.
+    // Opening it is worth as much as the populate assertion anyway: a
+    // `<details>` is native HTML, so doing it here, in a context with
+    // JavaScript switched off, is the proof that collapsing the term list did
+    // not quietly make the plan screen depend on JavaScript.
     const removePi574 = page.getByRole("button", {
       name: `${copy.plan.removeCourseButton} PI574`,
     });
+    const summerTerm = page.locator("#term-3-summer > summary");
+    await summerTerm.click();
+    await expect(page.getByText(copy.plan.termEmpty).first()).toBeVisible();
     await expect(removePi574).toHaveCount(0);
 
     await page.getByRole("button", { name: copy.plan.populateButton }).click();
     await expect(page.getByRole("heading", { level: 1, name: "Your plan" })).toBeVisible();
     await expect(page.getByText(ERROR_BOUNDARY_TEXT)).toHaveCount(0);
+
+    await summerTerm.click();
     await expect(removePi574).toBeVisible();
   });
 });

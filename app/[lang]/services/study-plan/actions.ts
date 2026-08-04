@@ -84,12 +84,24 @@ function findTermEntryIndex(plan: StudyPlan, term: TermRef): number {
  * `redirectToPlan` after `addCourseToTerm` clears it), and adding another
  * course to a summer that already holds the internship bounces straight back
  * out again the same way.
+ *
+ * `focus`, when given, names the term the action just changed. The plan
+ * screen shows one term expanded at a time, so without this a student adding
+ * a course would be returned to a page that had closed the term they were
+ * working in and opened a different one. The term is carried in the query
+ * string rather than only in the fragment because the server decides what is
+ * open: a fragment would leave it to the browser to expand a `<details>` it
+ * happens to point inside, which is not something a JavaScript-off browser
+ * can be relied on to do. The fragment goes along too, so the browser also
+ * scrolls there.
  */
-function redirectToPlan(locale: Locale, plan: StudyPlan): never {
+function redirectToPlan(locale: Locale, plan: StudyPlan, focus?: TermRef | null): never {
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const terms = clearInternshipSummers(version, plan.terms);
+  const key = focus ? `${focus.year}-${focus.kind}` : null;
   redirect(
-    `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan({ ...plan, terms }))}`
+    `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan({ ...plan, terms }))}` +
+      (key ? `&term=${key}#term-${key}` : "")
   );
 }
 
@@ -337,7 +349,7 @@ export async function addCourseToTerm(locale: Locale, formData: FormData): Promi
     }
   }
 
-  redirectToPlan(locale, { ...current, terms });
+  redirectToPlan(locale, { ...current, terms }, term);
 }
 
 /**
@@ -365,7 +377,7 @@ export async function removeCourseFromTerm(locale: Locale, formData: FormData): 
     }
   }
 
-  redirectToPlan(locale, { ...current, terms });
+  redirectToPlan(locale, { ...current, terms }, term);
 }
 
 /**
@@ -414,7 +426,7 @@ export async function setTermFreeElectiveCredits(
           i === index ? { ...t, freeElectiveCredits: creditsResult.data } : t
         );
 
-  redirectToPlan(locale, { ...current, terms });
+  redirectToPlan(locale, { ...current, terms }, term);
 }
 
 /**
@@ -442,7 +454,7 @@ export async function addTermToPlan(locale: Locale, formData: FormData): Promise
     terms = [...current.terms, { term, codes: [], freeElectiveCredits: 0 }];
   }
 
-  redirectToPlan(locale, { ...current, terms });
+  redirectToPlan(locale, { ...current, terms }, term);
 }
 
 /**

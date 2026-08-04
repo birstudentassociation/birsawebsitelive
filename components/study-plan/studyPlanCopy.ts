@@ -123,8 +123,8 @@ export type StudyPlanCopy = {
     minorElectiveTemplate: string;
     minorElectiveOtherTemplate: string;
     termsHeading: string;
-    /** Heading for the block holding the button that fills in named courses from the recommended plan. */
-    populateHeading: string;
+    /** Explains that terms are collapsed and that opening one is how you plan it. */
+    termsHint: string;
     /** Explains that the button fills courses the recommended plan names and the required courses for the student's minor, leaves choices like electives for the student, and never changes a term the student has already filled in. */
     populateHint: string;
     populateButton: string;
@@ -142,12 +142,14 @@ export type StudyPlanCopy = {
     pickOtherGroup: string;
     /** Contains "{n}"; credits still needed in one requirement bucket, shown after the bucket name in an optgroup label. */
     pickRemainingTemplate: string;
-    /** Introduces the list of choices the recommended plan leaves open in this term. */
-    pickSlotsHint: string;
-    /** Introduces the courses that could fill one open choice. */
-    pickSlotCandidates: string;
     /** Shown for an open choice the catalogue has no courses for, i.e. a free elective, which may be any Thammasat course. */
     pickSlotAnyCourse: string;
+    /** Shown in a collapsed term that holds nothing at all. */
+    termEmpty: string;
+    /** Label of the disclosure holding the full course list and the free elective box, everything the recommended plan does not answer. */
+    moreOptionsLabel: string;
+    /** Contains "{n}"; how many further courses fit an open choice beyond the ones offered as buttons. */
+    moreCandidatesTemplate: string;
     /** Shown in place of the panel when the plan already covers every requirement and this term has no open choices left. */
     pickNothingOwed: string;
     /** Contains "{n}"; shown when a term has reached the published plan's credit load. */
@@ -342,7 +344,8 @@ const en: StudyPlanCopy = {
     minorElectiveTemplate: "{minor}, elective courses",
     minorElectiveOtherTemplate: "Electives outside {minor}",
     termsHeading: "Terms ahead of you",
-    populateHeading: "Fill in the recommended plan",
+    termsHint:
+      "Terms are closed until you open them. Open the one you want to plan, and it will suggest what belongs in it.",
     populateHint:
       "This fills in the courses the recommended plan names for each term ahead of you, and the required courses for your minor. It leaves choices, like minor electives and free electives, for you to make. It will not change or remove anything you have already put in a term.",
     populateButton: "Fill in named courses",
@@ -355,10 +358,11 @@ const en: StudyPlanCopy = {
     pickRecommendedGroup: "Recommended for this term",
     pickOtherGroup: "Everything else",
     pickRemainingTemplate: "{n} credits still needed",
-    pickSlotsHint: "The recommended plan leaves these choices to you in this term.",
-    pickSlotCandidates: "Courses that fit",
     pickSlotAnyCourse:
       "Any Thammasat course counts here. Record it in the free elective credits box below rather than as a course.",
+    termEmpty: "Nothing planned yet",
+    moreOptionsLabel: "Add something else to this term",
+    moreCandidatesTemplate: "{n} more courses fit this choice. They are in the full list below.",
     pickNothingOwed:
       "This plan already covers every requirement. Anything you add here is on top of what you need.",
     recommendedTermCompleteTemplate:
@@ -525,7 +529,8 @@ const th: StudyPlanCopy = {
     minorElectiveTemplate: "วิชาโท{minor} วิชาเลือก",
     minorElectiveOtherTemplate: "วิชาเลือกในวิชาโทอื่นนอกจาก{minor}",
     termsHeading: "ภาคการศึกษาที่เหลืออยู่",
-    populateHeading: "กรอกแผนที่แนะนำให้อัตโนมัติ",
+    termsHint:
+      "แต่ละภาคการศึกษาจะย่อไว้ โปรดกดเปิดภาคที่ท่านต้องการวางแผน ระบบจะแนะนำรายวิชาที่ควรลงทะเบียนในภาคนั้นให้ท่าน",
     populateHint:
       "ปุ่มนี้จะกรอกรายวิชาที่แผนที่แนะนำระบุชื่อไว้ในแต่ละภาคการศึกษาที่เหลืออยู่ รวมถึงวิชาบังคับของวิชาโทที่ท่านเลือกไว้ด้วย ส่วนวิชาที่ต้องเลือกเอง เช่น วิชาเลือกในวิชาโทและวิชาเลือกเสรี ยังคงเว้นไว้ให้ท่านเลือกเอง และจะไม่แก้ไขหรือลบรายวิชาที่ท่านกรอกไว้ในภาคการศึกษาใดอยู่แล้ว",
     populateButton: "กรอกรายวิชาที่ระบุชื่อไว้",
@@ -538,10 +543,11 @@ const th: StudyPlanCopy = {
     pickRecommendedGroup: "แนะนำสำหรับภาคการศึกษานี้",
     pickOtherGroup: "รายวิชาอื่น ๆ",
     pickRemainingTemplate: "ยังขาดอยู่ {n} หน่วยกิต",
-    pickSlotsHint: "แผนที่แนะนำเว้นตัวเลือกเหล่านี้ไว้ให้ท่านเลือกเองในภาคการศึกษานี้",
-    pickSlotCandidates: "รายวิชาที่เลือกได้",
     pickSlotAnyCourse:
       "ช่องนี้เป็นวิชาเลือกเสรี ซึ่งอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ โปรดบันทึกในช่องหน่วยกิตวิชาเลือกเสรีด้านล่างแทนการเลือกเป็นรายวิชา",
+    termEmpty: "ยังไม่มีรายวิชาในภาคนี้",
+    moreOptionsLabel: "เพิ่มรายวิชาอื่นในภาคการศึกษานี้",
+    moreCandidatesTemplate: "มีรายวิชาที่เลือกได้อีก {n} วิชา อยู่ในรายการทั้งหมดด้านล่าง",
     pickNothingOwed:
       "แผนนี้ครอบคลุมทุกข้อกำหนดแล้ว รายวิชาใดที่ท่านเพิ่มในที่นี้ถือเป็นส่วนเกินจากที่ท่านต้องใช้",
     recommendedTermCompleteTemplate: "ภาคการศึกษานี้มีครบ {n} หน่วยกิตตามที่แผนการศึกษาแนะนำแล้ว",

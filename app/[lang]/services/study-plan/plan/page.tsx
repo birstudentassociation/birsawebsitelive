@@ -24,6 +24,7 @@ import Button from "@/components/Button";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import TermEditor, {
+  termKey,
   type TermEditorCourse,
   type TermEditorCourseGroup,
   type TermEditorSlot,
@@ -155,14 +156,14 @@ export default async function StudyPlanPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ [PLAN_FIELD]?: string }>;
+  searchParams: Promise<{ [PLAN_FIELD]?: string; term?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const copy = buildStudyPlanCopy(locale);
 
-  const { [PLAN_FIELD]: rawPlan } = await searchParams;
+  const { [PLAN_FIELD]: rawPlan, term: requestedTermKey } = await searchParams;
   const plan = rawPlan ? deserialisePlan(rawPlan) : null;
   if (!plan) {
     redirect(localeHref(locale, "/services/study-plan/minor"));
@@ -212,12 +213,28 @@ export default async function StudyPlanPage({
   const seenTermKeys = new Set<string>();
   const futureTerms: TermRef[] = [];
   for (const term of [...recommendedFutureTerms, ...plan.terms.map((t) => t.term)]) {
-    const key = `${term.year}-${term.kind}`;
+    const key = termKey(term);
     if (seenTermKeys.has(key)) continue;
     seenTermKeys.add(key);
     futureTerms.push(term);
   }
   futureTerms.sort((a, b) => termIndex(a) - termIndex(b));
+
+  // Exactly one term is expanded, so the screen offers one thing to act on
+  // rather than ten. Which one is the server's decision, not the browser's:
+  // every plan-editing action redirects back here with `?term=` naming the
+  // term it just changed, so the student returns to the term they were
+  // working in with it still open. That keeps a JavaScript-off browser and a
+  // scripted one identical, rather than relying on a browser expanding a
+  // `<details>` because the URL fragment points inside it. Falling back to the
+  // nearest term is the right default on first arrival: it is the one the
+  // student is registering for now.
+  const openTermKey =
+    requestedTermKey && seenTermKeys.has(requestedTermKey)
+      ? requestedTermKey
+      : futureTerms[0]
+        ? termKey(futureTerms[0])
+        : null;
 
   // The term "Add another term" would append: the term after the last one
   // currently shown, or the student's own position when the list above is
@@ -241,10 +258,11 @@ export default async function StudyPlanPage({
     creditsUnit: copy.plan.creditsUnit,
     errorSummaryTitle: copy.errorSummaryTitle,
     pickHeading: copy.plan.pickHeading,
-    pickSlotsHint: copy.plan.pickSlotsHint,
-    pickSlotCandidates: copy.plan.pickSlotCandidates,
     pickSlotAnyCourse: copy.plan.pickSlotAnyCourse,
     pickNothingOwed: copy.plan.pickNothingOwed,
+    termEmpty: copy.plan.termEmpty,
+    moreOptionsLabel: copy.plan.moreOptionsLabel,
+    moreCandidatesTemplate: copy.plan.moreCandidatesTemplate,
     recommendedTermCompleteTemplate: copy.plan.recommendedTermCompleteTemplate,
     pickRemainingTemplate: copy.plan.pickRemainingTemplate,
     pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
@@ -329,18 +347,20 @@ export default async function StudyPlanPage({
           </div>
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
+          <p className="text-muted leading-relaxed">{copy.plan.termsHint}</p>
 
           {/*
             Before the term list, not after it: filling every term at once is
             the shortcut past the forty add-a-course presses the list below
             would otherwise cost, so it has to be visible before the student
-            starts making them. A plain form, like every other control here,
-            so it works with JavaScript off.
+            starts making them. Its own bordered card competed with the term
+            cards it sits above, so it is now a plain block: the same words,
+            the same plain form that works with JavaScript off, but visibly
+            introduction to the list rather than another item in it.
           */}
-          <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
-            <h3 className="font-display text-lg">{copy.plan.populateHeading}</h3>
+          <div className="flex flex-col gap-3">
             <p className="text-muted leading-relaxed">{copy.plan.populateHint}</p>
             <form action={populatePlanFromRecommended.bind(null, locale)}>
               <input type="hidden" name={PLAN_FIELD} value={serialisedPlan} />
@@ -379,8 +399,9 @@ export default async function StudyPlanPage({
             }));
             return (
               <TermEditor
-                key={`${term.year}-${term.kind}`}
+                key={termKey(term)}
                 term={term}
+                defaultOpen={termKey(term) === openTermKey}
                 termLabel={formatTermLabel(copy, term)}
                 plan={serialisedPlan}
                 placed={placed}

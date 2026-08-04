@@ -1,26 +1,41 @@
 /**
- * One future term on the plan screen: the courses already placed in it (each
- * with a "Remove" button), a panel showing what the term still needs, a
- * grouped select of courses not yet placed anywhere in the plan with an
- * "Add" button, and (via `TermFreeElectiveForm`) a number input for free
- * elective credits, since a free elective has no course code to select.
+ * One future term on the plan screen.
  *
- * Separate `<form>`s, not one, because plain HTML only lets a form post to a
- * single action. Splitting them (rather than reaching for a client component
- * with `onClick` handlers) is what keeps every control on this screen
- * working with JavaScript off, matching the rest of this journey. Multiple
- * courses share one remove form: each course's button carries its own
- * `name="code"` value, so only the clicked course's code is submitted.
+ * The screen this lives on shows every term ahead of the student at once,
+ * which used to mean ten stacked panels of prose, ten repetitions of a
+ * "what this term still needs" block, and ten selects each holding the entire
+ * remaining catalogue. Everything a student could possibly do was on screen
+ * at all times, so nothing on screen said what they should do next. Three
+ * things fix that, and they are the shape of this component:
  *
- * The add-course select groups courses with `<optgroup>` rather than a
- * scripted filtering combobox, for the same reason: an `<optgroup>` is
- * native HTML that works with JavaScript off and with a screen reader, while
- * a filtering widget would need client script to do anything at all. It
+ * 1. A term is a `<details>`. Collapsed, it is one line: the term's name, the
+ *    codes in it, and its credit total, which is what a student scanning for
+ *    the right term actually reads. The plan screen opens exactly one.
+ * 2. The recommendation IS the control. A course the recommended plan puts in
+ *    this term is a button that adds it, grouped under the plan's own words
+ *    for the choice ("Minor Elective Course 1"). Previously the same courses
+ *    were listed as prose and then had to be found again in a select, so the
+ *    student read the answer and then did the work of looking it up.
+ * 3. Everything else is behind one disclosure. The full catalogue select and
+ *    the free elective credits box are still there, unchanged and still
+ *    working with JavaScript off, but a student following the recommended
+ *    plan never has to open the drawer they live in.
+ *
+ * Every control is a plain `<form>` posting to a Server Action, as before, so
+ * the whole screen still works with JavaScript off. `<details>` is native, so
+ * the collapsing does too. Multiple courses share one add form: each button
+ * carries its own `name="code"` value, so only the clicked course's code is
+ * submitted, exactly as the remove buttons have always worked. The full
+ * picker needs a form of its own, because a `<select name="code">` and a
+ * `<button name="code">` in one form would both submit.
+ *
+ * The add-course select keeps its `<optgroup>`s rather than becoming a
+ * scripted filtering combobox, for the same reason as before: an `<optgroup>`
+ * is native HTML that works with JavaScript off and with a screen reader. It
  * also means an `<optgroup>`/`<option>` pair can carry no markup and no ARIA
- * description of its own, which is why a missing prerequisite is folded
- * into the option's plain text instead of, say, a title attribute or an
- * adjacent icon: text is the one channel every rendering of this control,
- * scripted or not, actually gets.
+ * description of its own, which is why a missing prerequisite is folded into
+ * the option's plain text. The quick-add buttons are real elements and could
+ * carry markup, but they say it the same way, so the two never disagree.
  */
 import Button from "@/components/Button";
 import { PLAN_FIELD } from "@/lib/study-plan/plan";
@@ -63,10 +78,14 @@ export type TermEditorCopy = {
   creditsUnit: string;
   errorSummaryTitle: string;
   pickHeading: string;
-  pickSlotsHint: string;
-  pickSlotCandidates: string;
   pickSlotAnyCourse: string;
   pickNothingOwed: string;
+  /** Shown in the collapsed summary of a term holding nothing at all. */
+  termEmpty: string;
+  /** Label of the disclosure holding the full catalogue picker and the free elective box. */
+  moreOptionsLabel: string;
+  /** Contains "{n}"; shown when a slot has more candidates than the quick-add row lists. */
+  moreCandidatesTemplate: string;
   /** Contains "{n}"; shown when this term has reached its prescribed load. */
   recommendedTermCompleteTemplate: string;
   /** Contains "{n}"; filled with the credits still owed in a group. */
@@ -93,6 +112,12 @@ export type TermEditorProps = {
   /** The planned credit load used in `recommendedTermCompleteTemplate`. */
   recommendedCredits: number | null;
   /**
+   * Whether this term starts expanded. The plan screen opens exactly one, so
+   * the student lands on a page with a single term to act on rather than ten
+   * competing for the same attention.
+   */
+  defaultOpen: boolean;
+  /**
    * True when this term is a summer given over to the internship (see
    * `isInternshipSummer` in lib/study-plan/derive.ts). The internship is the
    * whole of that term, so both the "what this term still needs" panel and
@@ -113,6 +138,21 @@ export type TermEditorProps = {
   ) => Promise<TermFreeElectiveState>;
   copy: TermEditorCopy;
 };
+
+/**
+ * How many candidate courses one open choice offers as buttons. A named
+ * either/or slot ("AH208 or EL295") has two; an open-category slot such as
+ * "Minor Elective Course 1" can match a dozen, and a dozen buttons is the
+ * wall of choices this component exists to get rid of. Past this many, the
+ * rest stay one disclosure away in the full picker, which lists every
+ * remaining course anyway.
+ */
+const MAX_CANDIDATE_BUTTONS = 6;
+
+/** The URL fragment and anchor id for one term, shared with the plan screen's `?term=` parameter. */
+export function termKey(term: TermRef): string {
+  return `${term.year}-${term.kind}`;
+}
 
 /**
  * An optgroup's visible label: the group's own name, plus how many credits
@@ -144,6 +184,38 @@ function courseOptionLabel(copy: TermEditorCopy, course: TermEditorCourse): stri
   return `${base} (${note})`;
 }
 
+/**
+ * One course as a button that adds it to this term. The visible text is the
+ * same sentence the select's option carries, so a student who uses one
+ * control and then the other is never told two different things about the
+ * same course. The accessible name gets the verb the plus sign only implies.
+ */
+function AddCourseButton({ course, copy }: { course: TermEditorCourse; copy: TermEditorCopy }) {
+  return (
+    <button
+      type="submit"
+      name="code"
+      value={course.code}
+      className="focus-halo border-line bg-surface text-ink hover:border-brand-deep hover:bg-brand-tint flex items-start gap-2 rounded-md border px-3 py-2 text-left text-sm transition-colors"
+    >
+      <span aria-hidden="true" className="text-brand-deep font-semibold">
+        +
+      </span>
+      <span className="min-w-0">
+        <span className="sr-only">{copy.addButtonLabel} </span>
+        {`${course.code} ${course.title}`}
+        <span className="text-muted">
+          {" · "}
+          {course.credits} {copy.creditsUnit}
+          {course.missingPrerequisites.length > 0
+            ? ` · ${copy.pickPrerequisiteTemplate.replace("{codes}", course.missingPrerequisites.join(", "))}`
+            : ""}
+        </span>
+      </span>
+    </button>
+  );
+}
+
 export default function TermEditor({
   term,
   termLabel,
@@ -154,6 +226,7 @@ export default function TermEditor({
   openSlots,
   recommendedTermComplete,
   recommendedCredits,
+  defaultOpen,
   internshipOnly,
   addAction,
   removeAction,
@@ -161,127 +234,191 @@ export default function TermEditor({
   copy,
 }: TermEditorProps) {
   const termCredits = placed.reduce((sum, course) => sum + course.credits, 0) + freeElectiveCredits;
-  const addFieldId = `add-course-${term.year}-${term.kind}`;
+  const addFieldId = `add-course-${termKey(term)}`;
   const hasCourses = courseGroups.some((group) => group.courses.length > 0);
-  const hasRemainingGroup = courseGroups.some(
+  const owedGroups = courseGroups.filter(
     (group) => group.remaining !== null && group.remaining > 0
   );
-  const showPickPanel = openSlots.length > 0 || hasRemainingGroup;
+
+  // The courses the recommended plan names for this exact term, minus any that
+  // an open slot below already offers. `suggestForTerm` deliberately files a
+  // slot's candidates in the "recommended" group too, so that the select's
+  // grouping reflects them; here that would print the same course twice, once
+  // under its slot's own label and once under a generic heading.
+  const slotCandidateCodes = new Set(
+    openSlots.flatMap((slot) => slot.candidates.map((c) => c.code))
+  );
+  const namedRecommended = (
+    courseGroups.find((group) => group.id === "recommended")?.courses ?? []
+  ).filter((course) => !slotCandidateCodes.has(course.code));
+
+  // The panel shows when it has something to put in it: an open choice, a
+  // recommended course, or, for a term the recommended plan says nothing
+  // about, the buckets the degree still owes. All three empty means no panel,
+  // not a heading with nothing underneath. That empty-shell failure is one
+  // `InferenceNotice` has already shipped once, on this same screen.
+  const showsOwedGroups = openSlots.length === 0 && namedRecommended.length === 0;
+  const showPickPanel =
+    !recommendedTermComplete &&
+    (openSlots.length > 0 ||
+      namedRecommended.length > 0 ||
+      (showsOwedGroups && owedGroups.length > 0));
+
+  // The free elective box is the answer to a free-elective slot, so it comes
+  // out of the drawer whenever this term has one; otherwise it stays with the
+  // rest of the manual controls. Never shown for an internship summer, where
+  // the rule zeroes it anyway (see `internshipOnly` above).
+  const freeElectiveInline =
+    !recommendedTermComplete && openSlots.some((slot) => slot.candidates.length === 0);
+
+  const summaryCodes = placed.map((course) => course.code).join(", ");
+
+  const freeElectiveForm = (
+    <TermFreeElectiveForm
+      term={term}
+      plan={plan}
+      freeElectiveCredits={freeElectiveCredits}
+      action={freeElectiveAction}
+      label={copy.freeElectiveLabel}
+      updateLabel={copy.updateFreeElectiveLabel}
+      errorSummaryTitle={copy.errorSummaryTitle}
+    />
+  );
 
   return (
-    <section className="border-line flex flex-col gap-4 rounded-lg border p-5">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="font-display text-lg">{termLabel}</h3>
-        <p className="text-muted text-sm">
-          {copy.creditsTemplate.replace("{n}", String(termCredits))}
-        </p>
-      </div>
+    <details
+      id={`term-${termKey(term)}`}
+      open={defaultOpen}
+      className="border-line group rounded-lg border"
+    >
+      <summary className="focus-halo flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg p-5 marker:content-none [&::-webkit-details-marker]:hidden">
+        <span className="min-w-0">
+          <span className="font-display text-ink text-lg">{termLabel}</span>
+          <span className="text-muted mt-0.5 block text-sm">
+            {placed.length === 0 && freeElectiveCredits === 0
+              ? copy.termEmpty
+              : `${summaryCodes}${summaryCodes ? " · " : ""}${copy.creditsTemplate.replace("{n}", String(termCredits))}`}
+          </span>
+        </span>
+        <span
+          aria-hidden="true"
+          className="text-muted shrink-0 transition-transform group-open:rotate-180"
+        >
+          &darr;
+        </span>
+      </summary>
 
-      {placed.length > 0 ? (
-        <form action={removeAction} className="flex flex-col gap-2">
-          <input type="hidden" name={PLAN_FIELD} value={plan} />
-          <input type="hidden" name="year" value={term.year} />
-          <input type="hidden" name="kind" value={term.kind} />
-          <ul className="flex flex-col gap-2">
-            {placed.map((course) => (
-              <li
-                key={course.code}
-                className="bg-surface flex items-center justify-between gap-3 rounded-md border p-3 text-sm"
-              >
-                <span className="text-ink">
-                  <span className="font-semibold">{course.code}</span>
-                  {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
-                  {copy.creditsUnit}
-                </span>
-                <button
-                  type="submit"
-                  name="code"
-                  value={course.code}
-                  className="focus-halo text-brand-deep shrink-0 text-sm font-semibold hover:underline"
+      <div className="border-line flex flex-col gap-4 border-t p-5">
+        {placed.length > 0 ? (
+          <form action={removeAction} className="flex flex-col gap-2">
+            <input type="hidden" name={PLAN_FIELD} value={plan} />
+            <input type="hidden" name="year" value={term.year} />
+            <input type="hidden" name="kind" value={term.kind} />
+            <ul className="flex flex-col gap-2">
+              {placed.map((course) => (
+                <li
+                  key={course.code}
+                  className="bg-surface border-line flex items-center justify-between gap-3 rounded-md border p-3 text-sm"
                 >
-                  {copy.removeLabel}
-                  <span className="sr-only"> {course.code}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </form>
-      ) : null}
+                  <span className="text-ink">
+                    <span className="font-semibold">{course.code}</span>
+                    {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
+                    {copy.creditsUnit}
+                  </span>
+                  <button
+                    type="submit"
+                    name="code"
+                    value={course.code}
+                    className="focus-halo text-brand-deep shrink-0 text-sm font-semibold hover:underline"
+                  >
+                    {copy.removeLabel}
+                    <span className="sr-only"> {course.code}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </form>
+        ) : null}
 
-      {/*
-        An internship summer replaces BOTH the "what this term still needs"
-        panel and the add-course form with one explanatory line: there is
-        nothing to add, nothing to pick, because the internship is the whole
-        of this term (see the `internshipOnly` prop's own comment above).
-        The free elective form further down is skipped entirely for the same
-        reason, rather than left to render and silently reset to 0.
-      */}
-      {internshipOnly ? (
-        <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
-      ) : (
-        <>
-          {/*
-            This panel is guidance sitting next to a form, not a finding or a
-            caveat about the plan, so it does not use `Notice`: `Notice` carries
-            a border colour and an icon that mean "pay attention to this
-            exception", and there is nothing exceptional about a term still
-            having open choices, that is the ordinary state of an unfinished
-            plan. A quiet bordered block matches how the rest of this screen
-            separates sections without raising an alarm.
-          */}
-          {recommendedTermComplete && recommendedCredits !== null ? (
-            <p className="text-muted text-sm">
-              {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
-            </p>
-          ) : showPickPanel ? (
-            <div className="border-line bg-surface flex flex-col gap-3 rounded-md border p-4 text-sm">
-              <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
-              {openSlots.length > 0 ? (
-                <div className="flex flex-col gap-2">
-                  <p className="text-muted">{copy.pickSlotsHint}</p>
-                  <ul className="flex flex-col gap-2">
-                    {openSlots.map((slot) => (
-                      <li key={slot.id} className="leading-relaxed">
-                        <span className="text-ink font-semibold">{slot.label}</span>
-                        {slot.candidates.length > 0 ? (
-                          <span className="text-muted">
-                            {" "}
-                            {copy.pickSlotCandidates}:{" "}
-                            {slot.candidates.map((c) => `${c.code} ${c.title}`).join(", ")}
-                          </span>
-                        ) : (
-                          <span className="text-muted"> {copy.pickSlotAnyCourse}</span>
-                        )}
-                      </li>
+        {/*
+          An internship summer replaces BOTH the "what this term still needs"
+          panel and the add-course form with one explanatory line: there is
+          nothing to add, nothing to pick, because the internship is the whole
+          of this term (see the `internshipOnly` prop's own comment above).
+          The free elective form is skipped entirely for the same reason,
+          rather than left to render and silently reset to 0.
+        */}
+        {internshipOnly ? (
+          <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
+        ) : (
+          <>
+            {recommendedTermComplete && recommendedCredits !== null ? (
+              <p className="text-muted text-sm">
+                {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
+              </p>
+            ) : showPickPanel ? (
+              <form action={addAction} className="flex flex-col gap-4">
+                <input type="hidden" name={PLAN_FIELD} value={plan} />
+                <input type="hidden" name="year" value={term.year} />
+                <input type="hidden" name="kind" value={term.kind} />
+
+                <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
+
+                {/*
+                  One block per open choice: the recommended plan's own label
+                  for the choice, then the courses that fill it as buttons that
+                  do the filling. A slot the catalogue cannot list, which in
+                  practice means a free elective, has no buttons to offer, so it
+                  says what does count instead, and the free elective credits
+                  box is lifted out of the drawer below to answer it.
+                */}
+                {openSlots.map((slot) => (
+                  <div key={slot.id} className="flex flex-col gap-2">
+                    <p className="text-ink text-sm font-semibold">{slot.label}</p>
+                    {slot.candidates.length > 0 ? (
+                      <>
+                        <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                          {slot.candidates.slice(0, MAX_CANDIDATE_BUTTONS).map((course) => (
+                            <AddCourseButton key={course.code} course={course} copy={copy} />
+                          ))}
+                        </div>
+                        {slot.candidates.length > MAX_CANDIDATE_BUTTONS ? (
+                          <p className="text-muted text-sm">
+                            {copy.moreCandidatesTemplate.replace(
+                              "{n}",
+                              String(slot.candidates.length - MAX_CANDIDATE_BUTTONS)
+                            )}
+                          </p>
+                        ) : null}
+                      </>
+                    ) : (
+                      <p className="text-muted text-sm">{copy.pickSlotAnyCourse}</p>
+                    )}
+                  </div>
+                ))}
+
+                {namedRecommended.length > 0 ? (
+                  <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                    {namedRecommended.map((course) => (
+                      <AddCourseButton key={course.code} course={course} copy={copy} />
                     ))}
-                  </ul>
-                </div>
-              ) : null}
+                  </div>
+                ) : null}
 
-              {/*
-                The buckets still owed, but only for a term the recommended plan
-                has no open choices in: a term the student appended themselves, or
-                one they have already filled every recommended slot of. There the
-                question "what should go here?" has no term-specific answer, so
-                the honest one is what the degree as a whole still wants.
-
-                Deliberately not shown alongside the slots above. These figures are
-                about the whole plan, not this term, and they are already on this
-                page once in the "what you still owe" table; repeating all of them
-                under every term would bury the one thing on this panel that IS
-                specific to the term the student is looking at.
-
-                This is also what keeps the panel from ever being a heading with
-                nothing underneath: the panel shows when there are open slots OR an
-                owed bucket, and those are exactly the two branches here. That
-                empty-shell failure is one `InferenceNotice` has already shipped
-                once, on this same screen.
-              */}
-              {openSlots.length === 0 && hasRemainingGroup ? (
-                <ul className="flex flex-col gap-1">
-                  {courseGroups
-                    .filter((group) => group.remaining !== null && group.remaining > 0)
-                    .map((group) => (
+                {/*
+                  The buckets still owed, but only for a term with no
+                  term-specific answer of its own: one the student appended
+                  after the recommended plan runs out. There the question "what
+                  should go here?" can only be answered by what the degree as a
+                  whole still wants. Deliberately not shown alongside the slots
+                  above: these figures are about the whole plan, they are
+                  already on this page once in the "what you still owe" table,
+                  and repeating them under every term would bury the one thing
+                  on this panel that IS specific to the term being looked at.
+                */}
+                {showsOwedGroups && owedGroups.length > 0 ? (
+                  <ul className="flex flex-col gap-1 text-sm">
+                    {owedGroups.map((group) => (
                       <li key={group.id} className="leading-relaxed">
                         <span className="text-ink font-semibold">{group.label}</span>
                         <span className="text-muted">
@@ -290,63 +427,73 @@ export default function TermEditor({
                         </span>
                       </li>
                     ))}
-                </ul>
-              ) : null}
-            </div>
-          ) : (
-            <p className="text-muted text-sm">{copy.pickNothingOwed}</p>
-          )}
+                  </ul>
+                ) : null}
+              </form>
+            ) : !recommendedTermComplete ? (
+              <p className="text-muted text-sm">{copy.pickNothingOwed}</p>
+            ) : null}
 
-          {hasCourses ? (
-            <form action={addAction} className="flex flex-wrap items-end gap-3">
-              <input type="hidden" name={PLAN_FIELD} value={plan} />
-              <input type="hidden" name="year" value={term.year} />
-              <input type="hidden" name="kind" value={term.kind} />
-              <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                <label htmlFor={addFieldId} className="text-ink text-sm font-semibold">
-                  {copy.addLabel}
-                </label>
-                <select
-                  id={addFieldId}
-                  name="code"
-                  defaultValue=""
-                  className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
-                >
-                  <option value="" disabled>
-                    {copy.addPrompt}
-                  </option>
-                  {courseGroups.map((group) =>
-                    group.courses.length > 0 ? (
-                      <optgroup key={group.id} label={groupOptionLabel(copy, group)}>
-                        {group.courses.map((course) => (
-                          <option key={course.code} value={course.code}>
-                            {courseOptionLabel(copy, course)}
-                          </option>
-                        ))}
-                      </optgroup>
-                    ) : null
-                  )}
-                </select>
+            {freeElectiveInline ? freeElectiveForm : null}
+
+            {/*
+              Everything the recommended plan does not answer, one press away
+              rather than always on screen: the whole remaining catalogue, and
+              (unless a free elective slot already lifted it out above) the
+              free elective credits box. A student following the plan never
+              opens this; a student who is not still has every option they had
+              before, in the same native controls.
+            */}
+            <details className="text-sm">
+              <summary className="focus-halo text-brand-deep cursor-pointer font-semibold">
+                {copy.moreOptionsLabel}
+              </summary>
+              <div className="mt-4 flex flex-col gap-4">
+                {hasCourses ? (
+                  <form action={addAction} className="flex flex-col gap-3 sm:flex-row sm:items-end">
+                    <input type="hidden" name={PLAN_FIELD} value={plan} />
+                    <input type="hidden" name="year" value={term.year} />
+                    <input type="hidden" name="kind" value={term.kind} />
+                    <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+                      <label htmlFor={addFieldId} className="text-ink text-sm font-semibold">
+                        {copy.addLabel}
+                      </label>
+                      <select
+                        id={addFieldId}
+                        name="code"
+                        defaultValue=""
+                        className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+                      >
+                        <option value="" disabled>
+                          {copy.addPrompt}
+                        </option>
+                        {courseGroups.map((group) =>
+                          group.courses.length > 0 ? (
+                            <optgroup key={group.id} label={groupOptionLabel(copy, group)}>
+                              {group.courses.map((course) => (
+                                <option key={course.code} value={course.code}>
+                                  {courseOptionLabel(copy, course)}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ) : null
+                        )}
+                      </select>
+                    </div>
+                    <Button type="submit" variant="secondary">
+                      {copy.addButtonLabel}
+                    </Button>
+                  </form>
+                ) : (
+                  <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
+                )}
+
+                {freeElectiveInline ? null : freeElectiveForm}
               </div>
-              <Button type="submit" variant="secondary">
-                {copy.addButtonLabel}
-              </Button>
-            </form>
-          ) : (
-            <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
-          )}
-
-          <TermFreeElectiveForm
-            term={term}
-            plan={plan}
-            freeElectiveCredits={freeElectiveCredits}
-            action={freeElectiveAction}
-            label={copy.freeElectiveLabel}
-            updateLabel={copy.updateFreeElectiveLabel}
-            errorSummaryTitle={copy.errorSummaryTitle}
-          />
-        </>
-      )}
-    </section>
+            </details>
+          </>
+        )}
+      </div>
+    </details>
   );
 }
