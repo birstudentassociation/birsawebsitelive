@@ -6,7 +6,8 @@ import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import WhereStepForm from "@/components/forms/WhereStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
-import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
+import { buildStudyPlanCopy, formatDerivedPosition } from "@/components/study-plan/studyPlanCopy";
+import { derivePosition } from "@/lib/study-plan/position";
 import { getStudyPlanDraft, submitWhereStep } from "../actions";
 import { STUDY_PLAN_STEPS } from "../steps";
 
@@ -36,6 +37,15 @@ export async function generateMetadata({
  * that decide the initial plan. The plan itself is not built here (it needs
  * the minor too), so this step only records the position in the draft
  * cookie and moves on.
+ *
+ * This is a confirm-and-correct step, matching `curriculum`'s pattern
+ * rather than a blind question: `derivePosition` works out the position
+ * from the cohort code (already known by this point) and today's date, and
+ * the selects are preselected with that answer. A student who already
+ * answered and pressed Back sees their own answer instead, since the
+ * derivation would otherwise silently overwrite a deliberate correction
+ * (leave of absence, repeating a year, graduating late) every time they
+ * revisit this page.
  */
 export default async function StudyPlanWherePage({
   params,
@@ -56,6 +66,18 @@ export default async function StudyPlanWherePage({
     redirect(localeHref(locale, "/services/study-plan/cohort"));
   }
 
+  // null here means the cohort's first year has not begun yet (possible
+  // right after enrolment opens, before there is any elapsed time to derive
+  // a position from), not that the cohort code itself is invalid: that case
+  // was already sent to /cannot-help back on the curriculum step. Falling
+  // back to today's blind-question behaviour is the only sensible move.
+  const derived = derivePosition(draft.cohort, new Date());
+
+  // A student who already answered and pressed Back must see their own
+  // answer, not have it overwritten by the derivation on every revisit.
+  const defaultYear = draft.positionYear ?? (derived ? String(derived.term.year) : undefined);
+  const defaultKind = draft.positionKind ?? derived?.term.kind;
+
   const yearOptions = YEARS.map((n) => ({
     value: n,
     label: copy.terms.yearTemplate.replace("{n}", n),
@@ -75,6 +97,22 @@ export default async function StudyPlanWherePage({
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
+
+          {derived ? (
+            <div className="flex flex-col gap-2">
+              {/* Not a fact when clamped: a raw study year past 8 means the
+                  ID alone cannot say where the student actually is, only
+                  that it is at least that far along, so this asks rather
+                  than asserts. */}
+              <p>
+                {derived.clamped
+                  ? copy.where.clampedExplanation
+                  : formatDerivedPosition(copy, derived.term.year, derived.term.kind)}
+              </p>
+              <p>{copy.where.correctIfWrong}</p>
+            </div>
+          ) : null}
+
           <WhereStepForm
             action={submitWhereStep.bind(null, locale)}
             yearLabel={copy.where.yearLabel}
@@ -82,8 +120,8 @@ export default async function StudyPlanWherePage({
             termLabel={copy.where.termLabel}
             termOptions={termOptions}
             requiredLabel={dict.actions.required}
-            defaultYear={draft.positionYear}
-            defaultKind={draft.positionKind}
+            defaultYear={defaultYear}
+            defaultKind={defaultKind}
             errorSummaryTitle={copy.errorSummaryTitle}
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}

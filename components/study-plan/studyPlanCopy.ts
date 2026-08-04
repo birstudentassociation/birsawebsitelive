@@ -12,6 +12,7 @@
  * guarantee without that trap.
  */
 import type { Locale } from "@/lib/i18n";
+import type { TermKind } from "@/content/curriculum";
 
 export type StudyPlanCopy = {
   meta: { title: string; description: string };
@@ -75,6 +76,12 @@ export type StudyPlanCopy = {
   where: {
     title: string;
     hint: string;
+    /** Contains "{year}" and "{term}"; the position worked out from the cohort code and today's date. Use `formatDerivedPosition`. */
+    derivedExplanation: string;
+    /** Tells the student to correct the preselected answer if it is wrong, naming the reasons this can happen. */
+    correctIfWrong: string;
+    /** Shown instead of `derivedExplanation` when the worked-out year is past 8 and was clamped: this does not claim year 8 as fact. */
+    clampedExplanation: string;
     yearLabel: string;
     termLabel: string;
     errorRequired: string;
@@ -206,6 +213,18 @@ export function formatUnsupportedCohort(copy: StudyPlanCopy, code: string): stri
   return copy.cannotHelp.unsupportedCohort.replace("{cohort}", code);
 }
 
+/**
+ * Fills the "{year}" and "{term}" placeholders in `where.derivedExplanation`
+ * with the same year/term names every other step uses (`copy.terms`), so the
+ * worked-out position is described identically to how the select options
+ * name it.
+ */
+export function formatDerivedPosition(copy: StudyPlanCopy, year: number, kind: TermKind): string {
+  return copy.where.derivedExplanation
+    .replace("{year}", copy.terms.yearTemplate.replace("{n}", String(year)))
+    .replace("{term}", copy.terms[kind]);
+}
+
 const en: StudyPlanCopy = {
   meta: {
     title: "Plan your BIR degree",
@@ -219,7 +238,6 @@ const en: StudyPlanCopy = {
     beforeYouStart: "Before you start",
     needs: [
       "the first two digits of your student ID",
-      "which year and semester you are in now",
       "your transcript, if you have taken anything outside the standard plan",
     ],
     timeEstimate: "This takes about 10 minutes.",
@@ -277,7 +295,12 @@ const en: StudyPlanCopy = {
   },
   where: {
     title: "Which year and semester are you in now?",
-    hint: "Tell us where you are now. We will assume you have followed the standard plan up to this point, and you can correct that on the next page.",
+    hint: "Everything after this assumes you have followed the standard plan up to this point. You can correct that on the next page.",
+    derivedExplanation: "Based on your student ID, we think you are in {year}, {term}.",
+    correctIfWrong:
+      "Change this if it is wrong, for example if you took a leave of absence, are repeating a year, or are taking longer than the standard plan.",
+    clampedExplanation:
+      "Your student ID suggests you are past year 8. Select where you actually are.",
     yearLabel: "Year",
     termLabel: "Semester",
     errorRequired: "Select your year and semester",
@@ -397,7 +420,6 @@ const th: StudyPlanCopy = {
     beforeYouStart: "ก่อนเริ่มต้น เตรียมข้อมูลต่อไปนี้",
     needs: [
       "เลขรหัสนักศึกษาสองหลักแรก",
-      "ชั้นปีและภาคการศึกษาปัจจุบันของท่าน",
       "ใบแสดงผลการศึกษา หากท่านเคยลงทะเบียนวิชานอกแผนการศึกษามาตรฐาน",
     ],
     timeEstimate: "ขั้นตอนนี้ใช้เวลาประมาณ 10 นาที",
@@ -455,7 +477,12 @@ const th: StudyPlanCopy = {
   },
   where: {
     title: "ขณะนี้ท่านอยู่ชั้นปีและภาคการศึกษาใด",
-    hint: "กรุณาระบุว่าท่านอยู่ชั้นปีและภาคการศึกษาใด ระบบจะดึงข้อมูลรายวิชาตามแผนการศึกษาโดยอัตโนมัติ และท่านสามารถปรับแก้ข้อมูลรายวิชาได้ในขั้นตอนถัดไป",
+    hint: "ขั้นตอนถัดจากนี้ระบบจะถือว่าท่านศึกษาตามแผนการศึกษามาตรฐานมาโดยตลอด และท่านสามารถปรับแก้ข้อมูลรายวิชาได้ในหน้าถัดไป",
+    derivedExplanation: "จากเลขรหัสนักศึกษาของท่าน ระบบคาดว่าท่านอยู่ใน{year} {term}",
+    correctIfWrong:
+      "โปรดแก้ไขข้อมูลนี้หากไม่ถูกต้อง เช่น ท่านเคยลาพักการศึกษา กำลังศึกษาซ้ำชั้นปีใดชั้นปีหนึ่ง หรือใช้เวลาศึกษานานกว่าแผนการศึกษามาตรฐาน",
+    clampedExplanation:
+      "เลขรหัสนักศึกษาของท่านบ่งชี้ว่าท่านอยู่เกินชั้นปีที่ 8 แล้ว โปรดเลือกชั้นปีและภาคการศึกษาที่ท่านอยู่จริง",
     yearLabel: "ชั้นปี",
     termLabel: "ภาคการศึกษา",
     errorRequired: "เลือกชั้นปีและภาคการศึกษาของท่าน",
