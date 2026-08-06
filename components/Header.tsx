@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import LanguageToggle from "@/components/LanguageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import HeaderNavClient, { DesktopNavItem } from "@/components/HeaderNavClient";
+import HeaderSearch from "@/components/search/HeaderSearch";
 
 export type HeaderProps = {
   locale: Locale;
@@ -57,21 +58,15 @@ export default function Header({ locale }: HeaderProps) {
         </nav>
 
         <div className="flex min-w-0 shrink-0 items-center gap-1.5 sm:gap-3">
-          <Link
+          <HeaderSearch
+            locale={locale}
             href={localeHref(locale, "/search")}
-            aria-label={dict.actions.search}
-            className="focus-halo border-line-strong text-ink hover:bg-sunken flex h-11 w-11 shrink-0 items-center justify-center rounded-full border"
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4.5 w-4.5 shrink-0">
-              <circle cx="9" cy="9" r="6.25" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path
-                d="m17 17-3.7-3.7"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                strokeLinecap="round"
-              />
-            </svg>
-          </Link>
+            label={dict.actions.search}
+            closeLabel={dict.a11y.closeSearch}
+            searchLabel={dict.actions.searchPlaceholder}
+            placeholder={dict.actions.searchPlaceholder}
+            submitLabel={dict.actions.search}
+          />
           <ThemeToggle
             neutralLabel={dict.a11y.theme}
             darkLabel={dict.a11y.themeDark}

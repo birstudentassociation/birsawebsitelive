@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { matchTopics } from "@/lib/smart-answers";
-import { service as smartAnswers } from "@/content/smart-answers";
+import { runSearch } from "@/lib/search/query";
+import { sectionLabel, sectionOrder } from "@/lib/search/sections";
+import type { SectionKey } from "@/lib/search/types";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Button from "@/components/Button";
+import Notice from "@/components/Notice";
+import SearchBox from "@/components/search/SearchBox";
+import BestBetCard from "@/components/search/BestBetCard";
+import ResultList from "@/components/search/ResultList";
 
 export async function generateMetadata({
   params,
@@ -21,169 +25,113 @@ export async function generateMetadata({
   const title = locale === "th" ? "ค้นหา" : "Search";
   const description =
     locale === "th"
-      ? "ค้นหาข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษาในเว็บไซต์ BIRSA"
-      : "Search news, BIRSA activity, clubs and the student-life guide on the BIRSA site.";
+      ? "ค้นหาคำตอบแบบนำทาง บริการ ชมรม ข่าว และคู่มือชีวิตนักศึกษาในเว็บไซต์ BIRSA"
+      : "Search guided answers, services, clubs, news and the student-life guide on the BIRSA site.";
 
-  return buildMetadata({ locale, title, description, path: "/search" });
+  return {
+    ...buildMetadata({ locale, title, description, path: "/search" }),
+    // `buildMetadata` has no `robots` option (checked lib/seo.ts): a results
+    // page is per-query, near-duplicate of itself for every search term, and
+    // has nothing an external index should rank; `follow` still lets crawlers
+    // reach the destination pages the results link to.
+    robots: { index: false, follow: true },
+  };
 }
-
-const guideAudiences: GuideAudience[] = ["home", "international"];
 
 const copy: Record<
   Locale,
   {
     title: string;
     lede: string;
-    inputLabel: string;
-    submit: string;
-    resultsFor: (q: string) => string;
-    groups: {
-      answers: string;
-      news: string;
-      activity: string;
-      clubs: string;
-      studentLifeHome: string;
-      studentLifeInternational: string;
-    };
     minChars: string;
+    popularHeading: string;
+    browseHeading: string;
+    allChip: string;
+    didYouMeanPrefix: string;
+    didYouMeanSuffix: string;
+    inSection: (label: string) => string;
+    showingOf: (shown: number, total: number) => string;
   }
 > = {
   en: {
     title: "Search",
-    lede: "Search guided answers, news, BIRSA activity, clubs and the student-life guide.",
-    inputLabel: "Search this site",
-    submit: "Search",
-    resultsFor: (q) => `${q ? `Results for "${q}"` : "Results"}`,
-    groups: {
-      answers: "Guided answers",
-      news: "News",
-      activity: "BIRSA activity",
-      clubs: "Clubs",
-      studentLifeHome: "Student life for home students",
-      studentLifeInternational: "Student life for international students",
-    },
-    minChars: "Type at least 2 characters and press search.",
+    lede: "Search guided answers, services, clubs, news and the student-life guide.",
+    minChars: "Type at least 2 characters to search.",
+    popularHeading: "Popular searches",
+    browseHeading: "Or browse a section",
+    allChip: "All",
+    didYouMeanPrefix: "Did you mean",
+    didYouMeanSuffix: "?",
+    inSection: (label) => `in ${label}`,
+    showingOf: (shown, total) => `Showing the first ${shown} of ${total} results`,
   },
   th: {
     title: "ค้นหา",
-    lede: "ค้นหาคำตอบแบบนำทาง ข่าว การดำเนินงานของ BIRSA ชมรม และคู่มือชีวิตนักศึกษา",
-    inputLabel: "ค้นหาในเว็บไซต์นี้",
-    submit: "ค้นหา",
-    resultsFor: (q) => (q ? `ผลการค้นหาสำหรับ "${q}"` : "ผลการค้นหา"),
-    groups: {
-      answers: "คำตอบแบบนำทาง",
-      news: "ข่าวและกิจกรรม",
-      activity: "การดำเนินงานของ BIRSA",
-      clubs: "ชมรม",
-      studentLifeHome: "ชีวิตนักศึกษาสำหรับนักศึกษาไทย",
-      studentLifeInternational: "ชีวิตนักศึกษาสำหรับนักศึกษาต่างชาติ",
-    },
-    minChars: "พิมพ์อย่างน้อย 2 ตัวอักษรแล้วกดค้นหา",
+    lede: "ค้นหาคำตอบแบบนำทาง บริการ ชมรม ข่าว และคู่มือชีวิตนักศึกษา",
+    minChars: "พิมพ์อย่างน้อย 2 ตัวอักษรเพื่อค้นหา",
+    popularHeading: "คำค้นหายอดนิยม",
+    browseHeading: "หรือเลือกดูตามหมวดหมู่",
+    allChip: "ทั้งหมด",
+    didYouMeanPrefix: "หมายถึง",
+    didYouMeanSuffix: "?",
+    inSection: (label) => `ในหมวด ${label}`,
+    showingOf: (shown, total) => `แสดง ${shown} รายการแรก จากทั้งหมด ${total} รายการ`,
   },
 };
 
-type ResultItem = {
-  slug: string;
-  href: string;
-  title: string;
-  summary: string;
-};
+/** The handful of top-level sections offered as "somewhere to go" on the
+ * empty and zero-result states — entry points, not every `SectionKey`. */
+const browseSections: { key: SectionKey; path: string }[] = [
+  { key: "answers", path: "/answers" },
+  { key: "services", path: "/services" },
+  { key: "student-life", path: "/student-life" },
+  { key: "clubs", path: "/clubs" },
+  { key: "news", path: "/news" },
+];
 
-type ResultGroup = {
-  key: string;
-  label: string;
-  items: ResultItem[];
-};
-
-function matches(query: string, ...fields: string[]): boolean {
-  const q = query.toLowerCase();
-  return fields.some((field) => field.toLowerCase().includes(q));
+function searchQueryHref(locale: Locale, query: string, section?: SectionKey): string {
+  const params = new URLSearchParams({ q: query });
+  if (section) params.set("section", section);
+  return `${localeHref(locale, "/search")}?${params.toString()}`;
 }
+
+const pillBase = "inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold";
+const pillActive = "border-2 border-ink bg-ink text-cream";
+const pillInactive = "border-line-strong text-ink hover:bg-sunken border";
 
 export default async function SearchPage({
   params,
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; section?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = copy[locale];
-  const { q } = await searchParams;
-  const query = (q ?? "").trim();
-  const hasQuery = query.length >= 2;
 
-  const groups: ResultGroup[] = [];
+  const { q, section: sectionParam } = await searchParams;
+  const query = q ?? "";
+  // Unknown section values are ignored rather than 404ing: a stale or
+  // hand-edited `?section=` should fall back to "all sections", not break
+  // the page.
+  const section: SectionKey | undefined =
+    sectionParam && (sectionOrder as string[]).includes(sectionParam)
+      ? (sectionParam as SectionKey)
+      : undefined;
 
-  if (hasQuery) {
-    // Guided answers come first: a topic that resolves the question in three
-    // clicks is a better result than an article the reader has to read
-    // through and interpret for themselves.
-    const answerResults: ResultItem[] = matchTopics(smartAnswers, query).map((topic) => ({
-      slug: topic.slug,
-      href: localeHref(locale, `/answers/${topic.slug}`),
-      title: topic.title[locale],
-      summary: topic.lede[locale],
-    }));
-    if (answerResults.length > 0)
-      groups.push({ key: "answers", label: t.groups.answers, items: answerResults });
-
-    const newsResults: ResultItem[] = getEntries("news", locale)
-      .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
-      .map((entry) => ({
-        slug: entry.slug,
-        href: localeHref(locale, `/news/${entry.slug}`),
-        title: entry.frontmatter.title,
-        summary: entry.frontmatter.summary,
-      }));
-    if (newsResults.length > 0)
-      groups.push({ key: "news", label: t.groups.news, items: newsResults });
-
-    const activityResults: ResultItem[] = getEntries("activity", locale)
-      .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
-      .map((entry) => ({
-        slug: entry.slug,
-        href: localeHref(locale, `/activity/${entry.slug}`),
-        title: entry.frontmatter.title,
-        summary: entry.frontmatter.summary,
-      }));
-    if (activityResults.length > 0)
-      groups.push({ key: "activity", label: t.groups.activity, items: activityResults });
-
-    for (const audience of guideAudiences) {
-      const guideResults: ResultItem[] = getGuideEntries(locale, audience)
-        .filter((entry) => matches(query, entry.frontmatter.title, entry.frontmatter.summary))
-        .map((entry) => ({
-          slug: entry.slug,
-          href: localeHref(locale, `/student-life/${audience}/${entry.slug}`),
-          title: entry.frontmatter.title,
-          summary: entry.frontmatter.summary,
-        }));
-      if (guideResults.length > 0) {
-        groups.push({
-          key: `student-life-${audience}`,
-          label: audience === "home" ? t.groups.studentLifeHome : t.groups.studentLifeInternational,
-          items: guideResults,
-        });
-      }
-    }
-
-    const clubResults: ResultItem[] = getClubEntries(locale)
-      .filter((club) => matches(query, club.frontmatter.title, club.frontmatter.tagline))
-      .map((club) => ({
-        slug: club.slug,
-        href: localeHref(locale, `/clubs/${club.slug}`),
-        title: club.frontmatter.title,
-        summary: club.frontmatter.tagline,
-      }));
-    if (clubResults.length > 0)
-      groups.push({ key: "clubs", label: t.groups.clubs, items: clubResults });
-  }
-
-  const totalResults = groups.reduce((sum, group) => sum + group.items.length, 0);
+  const response = runSearch(locale, query, { section });
+  const resultCount = response.results.length;
+  // How many matched the active view, which is the facet's count when a
+  // section filter is on and the overall total when it is not. Results are
+  // capped for page weight, so the count line has to say when it is showing
+  // only the first slice rather than claiming that is all there was.
+  const matchedInView = response.section
+    ? (response.facets.find((facet) => facet.key === response.section)?.count ?? resultCount)
+    : response.total;
+  const capped = resultCount < matchedInView;
 
   return (
     <>
@@ -199,67 +147,133 @@ export default async function SearchPage({
         }
       />
       <div className="wrap flex flex-col gap-8 py-10">
-        <form
-          method="GET"
+        <SearchBox
+          locale={locale}
+          defaultValue={response.query}
+          labelText={dict.actions.searchPlaceholder}
+          placeholder={dict.actions.searchPlaceholder}
+          submitLabel={dict.actions.search}
           action={localeHref(locale, "/search")}
-          role="search"
-          className="flex flex-col gap-3 sm:flex-row sm:items-end"
-        >
-          <div className="flex max-w-sm flex-1 flex-col gap-1.5">
-            <label htmlFor="search-q" className="text-ink text-sm font-semibold">
-              {dict.actions.search}
-            </label>
-            <input
-              id="search-q"
-              type="search"
-              name="q"
-              defaultValue={query}
-              placeholder={t.inputLabel}
-              className="focus-halo border-input-border bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
-            />
-          </div>
-          <Button type="submit">{t.submit}</Button>
-        </form>
+          id="search-q"
+        />
 
-        {hasQuery ? (
-          <div className="flex flex-col gap-8">
+        {!response.ran ? (
+          <div className="flex flex-col gap-6">
             <p role="status" className="text-muted text-sm">
-              {t.resultsFor(query)}: {dict.actions.showing} {totalResults}{" "}
-              {totalResults === 1 ? dict.actions.result : dict.actions.results}
+              {t.minChars}
             </p>
-
-            {totalResults === 0 ? (
-              <p className="text-muted">{dict.actions.noResults}</p>
-            ) : (
-              groups.map((group) => (
-                <section key={group.key} className="flex flex-col gap-3">
-                  <h2 className="font-display text-2xl">{group.label}</h2>
-                  <ul className="flex flex-col gap-4">
-                    {group.items.map((item) => (
-                      <li
-                        key={item.slug}
-                        className="border-line border-b pb-4 last:border-b-0 last:pb-0"
-                      >
-                        <a
-                          href={item.href}
-                          className="text-brand-deep hover:text-brand-dark font-display text-lg font-semibold hover:underline"
-                        >
-                          {item.title}
-                        </a>
-                        <p className="text-muted mt-1 text-sm leading-relaxed">{item.summary}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))
-            )}
+            <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
+            <BrowseSections locale={locale} heading={t.browseHeading} />
           </div>
         ) : (
-          <p role="status" className="text-muted text-sm">
-            {t.minChars}
-          </p>
+          <div className="flex flex-col gap-8">
+            {response.bestBet ? <BestBetCard bestBet={response.bestBet} /> : null}
+
+            {response.didYouMean ? (
+              <p className="text-ink text-sm">
+                {t.didYouMeanPrefix}{" "}
+                <Link
+                  href={searchQueryHref(locale, response.didYouMean)}
+                  className="text-brand-deep font-semibold underline"
+                >
+                  {response.didYouMean}
+                </Link>
+                {t.didYouMeanSuffix}
+              </p>
+            ) : null}
+
+            <p role="status" className="text-muted text-sm">
+              {capped
+                ? t.showingOf(resultCount, matchedInView)
+                : `${dict.actions.showing} ${resultCount} ${
+                    resultCount === 1 ? dict.actions.result : dict.actions.results
+                  }`}
+              {response.section ? ` ${t.inSection(sectionLabel(locale, response.section))}` : ""}
+            </p>
+
+            {response.facets.length > 0 ? (
+              <ul className="flex flex-wrap gap-2">
+                <li>
+                  <Link
+                    href={searchQueryHref(locale, response.query)}
+                    aria-current={!response.section ? "true" : undefined}
+                    className={`${pillBase} ${!response.section ? pillActive : pillInactive}`}
+                  >
+                    {t.allChip} ({response.total})
+                  </Link>
+                </li>
+                {response.facets.map((facet) => {
+                  const active = response.section === facet.key;
+                  return (
+                    <li key={facet.key}>
+                      <Link
+                        href={searchQueryHref(locale, response.query, facet.key)}
+                        aria-current={active ? "true" : undefined}
+                        className={`${pillBase} ${active ? pillActive : pillInactive}`}
+                      >
+                        {facet.label} ({facet.count})
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : null}
+
+            {resultCount === 0 ? (
+              <div className="flex flex-col gap-6">
+                <Notice variant="info">{dict.actions.noResults}</Notice>
+                <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
+                <BrowseSections locale={locale} heading={t.browseHeading} />
+              </div>
+            ) : (
+              <ResultList results={response.results} locale={locale} />
+            )}
+          </div>
         )}
       </div>
     </>
+  );
+}
+
+function PopularChips({
+  locale,
+  terms,
+  heading,
+}: {
+  locale: Locale;
+  terms: string[];
+  heading: string;
+}) {
+  if (terms.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-3">
+      <h2 className="font-display text-lg">{heading}</h2>
+      <ul className="flex flex-wrap gap-2">
+        {terms.map((term) => (
+          <li key={term}>
+            <Link href={searchQueryHref(locale, term)} className={`${pillBase} ${pillInactive}`}>
+              {term}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function BrowseSections({ locale, heading }: { locale: Locale; heading: string }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <h2 className="font-display text-lg">{heading}</h2>
+      <ul className="flex flex-wrap gap-2">
+        {browseSections.map(({ key, path }) => (
+          <li key={key}>
+            <Link href={localeHref(locale, path)} className={`${pillBase} ${pillInactive}`}>
+              {sectionLabel(locale, key)}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

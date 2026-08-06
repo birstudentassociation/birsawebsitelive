@@ -64,6 +64,7 @@ export const th: typeof en = {
     primaryNav: "เมนูหลัก",
     openMenu: "เมนู",
     closeMenu: "ปิดเมนู",
+    closeSearch: "ปิดการค้นหา",
     breadcrumb: "เส้นทางการนำทาง",
     youAreHere: "คุณอยู่ที่นี่",
     currentPage: "หน้าปัจจุบัน",

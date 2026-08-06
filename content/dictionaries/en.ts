@@ -64,6 +64,7 @@ export const en = {
     primaryNav: "Primary",
     openMenu: "Menu",
     closeMenu: "Close menu",
+    closeSearch: "Close search",
     breadcrumb: "Breadcrumb",
     youAreHere: "You are here",
     currentPage: "Current page",
