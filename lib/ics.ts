@@ -23,7 +23,7 @@ import type { Locale } from "@/lib/i18n";
  * subscribers should be nudged to notice. Never replace with `new Date()`:
  * that would make the static route's output non-deterministic per build.
  */
-export const ICS_REVISION = "2026-07-28T00:00:00Z";
+export const ICS_REVISION = "2026-08-07T00:00:00Z";
 
 const CALENDAR_NAME: Record<Locale, string> = {
   en: "BIRSA activity calendar",

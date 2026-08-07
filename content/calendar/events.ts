@@ -253,12 +253,12 @@ export const calendarEvents: CalendarEvent[] = [
   {
     id: "aug-tpc-crazy-week",
     start: "2026-08-11",
-    end: "2026-08-14",
+    end: "2026-08-19",
     title: {
       en: "TPC Crazy Week",
       th: "TPC Crazy Week",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "tpc-crazy-week-2026",
     kind: "university",
   },
   {
@@ -283,7 +283,7 @@ export const calendarEvents: CalendarEvent[] = [
   },
   {
     id: "aug-tpc-firstmeet",
-    start: "2026-08-18",
+    start: "2026-08-19",
     title: {
       en: "TPC Firstmeet",
       th: "TPC Firstmeet",
