@@ -52,7 +52,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   }).format(new Date());
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/answers", key: "getAnswer" },
+    { href: "/services/study-plan", key: "planDegree" },
     { href: "/student-life/home/places-nearby", key: "placesNearby" },
     { href: "/student-life/getting-started", key: "gettingStarted" },
     { href: "/student-life/home/shuttle-bus", key: "shuttleBus" },

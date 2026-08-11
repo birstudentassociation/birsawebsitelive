@@ -48,10 +48,10 @@ export const homeEn = {
   quickLinks: {
     heading: "Popular right now",
     items: {
-      getAnswer: {
-        label: "Get an answer",
+      planDegree: {
+        label: "Plan your BIR degree",
         description:
-          "Guided answers on rules, your degree and student life. Say who you are and get the version that applies to you.",
+          "Build a term-by-term study plan from your curriculum, see what you still owe, and print it out.",
       },
       placesNearby: {
         label: "Food and housing nearby",
