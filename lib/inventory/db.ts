@@ -10,6 +10,14 @@
  */
 export { sql } from "@vercel/postgres";
 
+/**
+ * The pooled client handed out by `sql.connect()`, for the multi-statement
+ * transactions in this suite (see `withTransaction` in lib/inventory/loans.ts).
+ * Re-exported here so those modules still have a single import site for the
+ * database, as described above.
+ */
+export type { VercelPoolClient } from "@vercel/postgres";
+
 export function isInventoryConfigured(): boolean {
   return !!process.env.POSTGRES_URL;
 }

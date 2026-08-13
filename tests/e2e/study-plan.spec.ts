@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./fixtures";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
 const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with this page";

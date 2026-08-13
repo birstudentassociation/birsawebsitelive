@@ -43,6 +43,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/services/equipment-loan",
       "/services/equipment-loan/status",
       "/standards",
+      // Indexable, and offered as a destination by the site's own search
+      // (lib/search/pages.ts), so it belongs here too. Its /feedback/sent
+      // confirmation carries robots noindex and stays out, like the other
+      // journey end points.
+      "/feedback",
       "/privacy",
       "/privacy/cookies",
       "/privacy/processing-record",

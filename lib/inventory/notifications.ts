@@ -9,6 +9,7 @@
  * status changes or throws out of this module.
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import { getLowStockItems } from "@/lib/inventory/consumables";
 import {
   renderOverdue,
@@ -99,11 +100,6 @@ async function sendMail(
   } catch {
     return false;
   }
-}
-
-/** Today's date in Asia/Bangkok, as YYYY-MM-DD. */
-function todayInBangkok(): string {
-  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Bangkok" });
 }
 
 export async function runDailyJob(): Promise<

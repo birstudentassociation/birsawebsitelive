@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { hasValidCronSecret } from "@/app/api/_lib/cronAuth";
 import { isCronConfigured, runDailyJob } from "@/lib/inventory/notifications";
 import { purgeExpiredPersonalData } from "@/lib/privacy/retention";
 
@@ -18,8 +19,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: false, reason: "not-configured" }, { status: 200 });
   }
 
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!hasValidCronSecret(request)) {
     return NextResponse.json({ ok: false, reason: "unauthorized" }, { status: 401 });
   }
 

@@ -115,17 +115,24 @@ export async function adjustStock(input: {
       return { ok: false, reason: "not-consumable" };
     }
 
-    const newQty = itemRow.qty_on_hand + input.delta;
-    if (newQty < 0) {
-      return { ok: false, reason: "insufficient" };
-    }
-
-    const updateResult = await sql`
-      update items set qty_on_hand = ${newQty}, updated_at = now()
-      where id = ${input.itemId}
+    // Apply the delta in the database rather than writing back a quantity
+    // computed from the row read above. Two officers drawing stock at the
+    // same time both read the same starting quantity, so a read-modify-write
+    // would let the second UPDATE overwrite the first — one adjustment
+    // silently lost, and stock able to go negative even though each call's
+    // own check passed. Re-checking `qty_on_hand + delta >= 0` inside the
+    // WHERE clause makes the insufficient-stock guard part of the same
+    // atomic statement: no matching row means another adjustment got there
+    // first and there is no longer enough stock.
+    const updateResult = await sql<{ qty_on_hand: number }>`
+      update items
+      set qty_on_hand = qty_on_hand + ${input.delta}, updated_at = now()
+      where id = ${input.itemId} and qty_on_hand + ${input.delta} >= 0
+      returning qty_on_hand
     `;
-    if (updateResult.rowCount === 0) {
-      return { ok: false, reason: "error" };
+    const newQty = updateResult.rows[0]?.qty_on_hand;
+    if (newQty === undefined) {
+      return { ok: false, reason: "insufficient" };
     }
 
     await sql`

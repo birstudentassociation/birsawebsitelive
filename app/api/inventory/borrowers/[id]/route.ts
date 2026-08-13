@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
+import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { getBorrower, updateBorrower } from "@/lib/inventory/borrowers";
 import { recordAudit } from "@/lib/inventory/audit";
 
@@ -27,6 +27,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     return NextResponse.json({ ok: false }, { status: auth.status });
   }
 
+  // Borrower records are BIRSA-global student PII; see the list route.
+  if (!isGlobalOfficer(auth.officer)) {
+    return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
+  }
+
   const { id } = await params;
   const borrower = await getBorrower(id);
   if (!borrower) {
@@ -45,6 +50,10 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const auth = await requireRole(["admin", "loan_officer"]);
   if (!auth.ok) {
     return NextResponse.json({ ok: false }, { status: auth.status });
+  }
+
+  if (!isGlobalOfficer(auth.officer)) {
+    return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
   }
 
   const { id } = await params;

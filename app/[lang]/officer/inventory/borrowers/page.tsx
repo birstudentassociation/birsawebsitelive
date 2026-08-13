@@ -42,6 +42,8 @@ type Copy = {
   signInCta: string;
   noAccessTitle: string;
   noAccessBody: string;
+  scopedNoticeTitle: string;
+  scopedNoticeBody: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -53,6 +55,9 @@ const copy: Record<Locale, Copy> = {
     signInCta: "Go to console home",
     noAccessTitle: "You do not have access to this page",
     noAccessBody: "Only admins and loan officers can view and manage borrowers.",
+    scopedNoticeTitle: "Borrower records are held by BIRSA officers",
+    scopedNoticeBody:
+      "Your club's items are managed from the Catalogue. Borrower details belong to the central loan process, so they are only visible to BIRSA officers.",
   },
   th: {
     title: "ผู้ยืม",
@@ -62,6 +67,9 @@ const copy: Record<Locale, Copy> = {
     signInCta: "ไปที่หน้าแรกคอนโซล",
     noAccessTitle: "คุณไม่มีสิทธิ์เข้าถึงหน้านี้",
     noAccessBody: "เฉพาะผู้ดูแลระบบและเจ้าหน้าที่จัดการการยืมเท่านั้นที่ดูและจัดการผู้ยืมได้",
+    scopedNoticeTitle: "ข้อมูลผู้ยืมอยู่ในความดูแลของเจ้าหน้าที่ BIRSA",
+    scopedNoticeBody:
+      "รายการของชมรมคุณจัดการได้ที่หน้ารายการครุภัณฑ์ ข้อมูลผู้ยืมเป็นส่วนหนึ่งของกระบวนการยืมส่วนกลาง จึงเปิดให้เฉพาะเจ้าหน้าที่ BIRSA เท่านั้น",
   },
 };
 
@@ -112,6 +120,22 @@ export default async function OfficerBorrowersPage({
         <div className="wrap py-10">
           <Notice variant="warning" title={t.noAccessTitle}>
             {t.noAccessBody}
+          </Notice>
+        </div>
+      </>
+    );
+  }
+
+  // Borrower records are BIRSA-global, like the loans queue they come from:
+  // a club-scoped officer manages their own items from the catalogue and has
+  // no loan workflow, so they never need this directory of student PII.
+  if (officer.custodianId !== null) {
+    return (
+      <>
+        <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
+        <div className="wrap py-10">
+          <Notice variant="info" title={t.scopedNoticeTitle}>
+            {t.scopedNoticeBody}
           </Notice>
         </div>
       </>

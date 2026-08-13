@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
+import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { listBorrowers } from "@/lib/inventory/borrowers";
 
 export async function GET(request: Request) {
@@ -12,6 +12,12 @@ export async function GET(request: Request) {
   const auth = await requireRole(["admin", "loan_officer"]);
   if (!auth.ok) {
     return NextResponse.json({ ok: false }, { status: auth.status });
+  }
+  // The borrower directory is student PII gathered by the BIRSA-central loan
+  // process; a club-scoped officer has no loan workflow and so no reason to
+  // read it.
+  if (!isGlobalOfficer(auth.officer)) {
+    return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
   }
 
   const { searchParams } = new URL(request.url);

@@ -16,6 +16,8 @@
  * if a no-show transition is ever added here, it must set `closed_at` too.
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
+import type { VercelPoolClient } from "@/lib/inventory/db";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import type { Loan, LoanStatus, TrackingMode, UnitCondition } from "@/lib/inventory/types";
 import { upsertBorrower, countActiveLoans } from "@/lib/inventory/borrowers";
 
@@ -76,6 +78,41 @@ function isUniqueViolation(err: unknown): boolean {
 
 function isExclusionViolation(err: unknown): boolean {
   return !!err && typeof err === "object" && (err as { code?: string }).code === "23P01";
+}
+
+/**
+ * Runs `body` inside a single database transaction, following the pattern in
+ * lib/privacy/retention.ts.
+ *
+ * Every loan transition below updates the loan row and then the state of the
+ * unit attached to it. Those two writes have to land together: if the process
+ * is killed between them (a serverless timeout or a dropped connection, both
+ * ordinary on Vercel), the loan and its unit disagree — a returned loan whose
+ * unit is still `on_loan` never becomes available again, and a unit stuck at
+ * `reserved` is quietly withdrawn from circulation with nothing in the UI to
+ * explain why. Rolling back is the only way to keep those two rows honest.
+ *
+ * Errors propagate to the caller after the rollback, so each function's
+ * existing `catch` still maps them to `{ ok: false, ... }`.
+ */
+async function withTransaction<T>(body: (client: VercelPoolClient) => Promise<T>): Promise<T> {
+  const client = await sql.connect();
+  try {
+    await client.query("begin");
+    const result = await body(client);
+    await client.query("commit");
+    return result;
+  } catch (err) {
+    try {
+      await client.query("rollback");
+    } catch {
+      // The connection is already unusable; the original error is the one
+      // worth reporting.
+    }
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 /** Builds a short human-friendly reference, e.g. "FAK-7Q2X" for "first-aid-kit". */
@@ -194,7 +231,10 @@ export async function createLoanRequest(input: {
       return { ok: false, reason: "invalid" };
     }
 
-    const today = new Date().toISOString().slice(0, 10);
+    // Bangkok's calendar day, not the server's UTC one: otherwise a pickup
+    // date that is already in the past in Thailand slips through for the
+    // seven hours a day the two disagree.
+    const today = todayInBangkok();
     if (input.startDate < today || input.endDate < input.startDate) {
       return { ok: false, reason: "invalid" };
     }
@@ -383,28 +423,39 @@ export async function decideLoan(input: {
       return { ok: false, reason: "unit-required" };
     }
 
-    let result;
+    const unitId = input.unitId;
+    let row: LoanRow | undefined;
     try {
-      result = await sql<LoanRow>`
-        update loans
-        set unit_id = ${input.unitId}, status = 'approved', decided_by = ${input.officerId}, decided_at = now()
-        where id = ${input.id} and status = 'pending'
-        returning *
-      `;
+      row = await withTransaction(async (client) => {
+        const result = await client.query<LoanRow>(
+          `update loans
+           set unit_id = $1, status = 'approved', decided_by = $2, decided_at = now()
+           where id = $3 and status = 'pending'
+           returning *`,
+          [unitId, input.officerId, input.id]
+        );
+        const updated = result.rows[0];
+        if (!updated) {
+          return undefined;
+        }
+
+        await client.query(
+          `update units set state = 'reserved', updated_at = now() where id = $1`,
+          [unitId]
+        );
+
+        return updated;
+      });
     } catch (err) {
       if (isExclusionViolation(err)) {
         return { ok: false, reason: "unavailable" };
       }
       throw err;
     }
-    const row = result.rows[0];
+
     if (!row) {
       return { ok: false, reason: "already-decided" };
     }
-
-    await sql`
-      update units set state = 'reserved', updated_at = now() where id = ${input.unitId}
-    `;
 
     return { ok: true, loan: mapRow(row) };
   } catch {
@@ -433,22 +484,31 @@ export async function checkoutLoan(input: {
       return { ok: false, reason: "invalid-state" };
     }
 
-    const result = await sql<LoanRow>`
-      update loans
-      set status = 'checked_out', checked_out_by = ${input.officerId}, checked_out_at = now(),
-          condition_out = ${input.conditionOut ?? null}
-      where id = ${input.id} and status = 'approved'
-      returning *
-    `;
-    const row = result.rows[0];
+    const row = await withTransaction(async (client) => {
+      const result = await client.query<LoanRow>(
+        `update loans
+         set status = 'checked_out', checked_out_by = $1, checked_out_at = now(),
+             condition_out = $2
+         where id = $3 and status = 'approved'
+         returning *`,
+        [input.officerId, input.conditionOut ?? null, input.id]
+      );
+      const updated = result.rows[0];
+      if (!updated) {
+        return undefined;
+      }
+
+      if (updated.unit_id) {
+        await client.query(`update units set state = 'on_loan', updated_at = now() where id = $1`, [
+          updated.unit_id,
+        ]);
+      }
+
+      return updated;
+    });
+
     if (!row) {
       return { ok: false, reason: "invalid-state" };
-    }
-
-    if (row.unit_id) {
-      await sql`
-        update units set state = 'on_loan', updated_at = now() where id = ${row.unit_id}
-      `;
     }
 
     return { ok: true, loan: mapRow(row) };
@@ -480,30 +540,41 @@ export async function checkinLoan(input: {
 
     // closed_at starts the two-year retention clock (lib/privacy/retention.ts);
     // a returned loan is closed the moment it's checked back in.
-    const result = await sql<LoanRow>`
-      update loans
-      set status = 'returned', checked_in_by = ${input.officerId}, checked_in_at = now(),
-          condition_in = ${input.conditionIn ?? null}, closed_at = now()
-      where id = ${input.id} and status in ('checked_out', 'overdue')
-      returning *
-    `;
-    const row = result.rows[0];
+    const row = await withTransaction(async (client) => {
+      const result = await client.query<LoanRow>(
+        `update loans
+         set status = 'returned', checked_in_by = $1, checked_in_at = now(),
+             condition_in = $2, closed_at = now()
+         where id = $3 and status in ('checked_out', 'overdue')
+         returning *`,
+        [input.officerId, input.conditionIn ?? null, input.id]
+      );
+      const updated = result.rows[0];
+      if (!updated) {
+        return undefined;
+      }
+
+      if (updated.unit_id) {
+        if (input.conditionIn) {
+          await client.query(
+            `update units
+             set state = 'available', condition = $1, updated_at = now()
+             where id = $2`,
+            [input.conditionIn, updated.unit_id]
+          );
+        } else {
+          await client.query(
+            `update units set state = 'available', updated_at = now() where id = $1`,
+            [updated.unit_id]
+          );
+        }
+      }
+
+      return updated;
+    });
+
     if (!row) {
       return { ok: false, reason: "invalid-state" };
-    }
-
-    if (row.unit_id) {
-      if (input.conditionIn) {
-        await sql`
-          update units
-          set state = 'available', condition = ${input.conditionIn}, updated_at = now()
-          where id = ${row.unit_id}
-        `;
-      } else {
-        await sql`
-          update units set state = 'available', updated_at = now() where id = ${row.unit_id}
-        `;
-      }
     }
 
     return { ok: true, loan: mapRow(row) };
@@ -534,21 +605,31 @@ export async function cancelLoan(input: {
 
     // closed_at starts the two-year retention clock (lib/privacy/retention.ts);
     // a cancelled loan is closed the moment it's cancelled.
-    const result = await sql<LoanRow>`
-      update loans
-      set status = 'cancelled', closed_at = now()
-      where id = ${input.id} and status in ('pending', 'approved')
-      returning *
-    `;
-    const row = result.rows[0];
+    const row = await withTransaction(async (client) => {
+      const result = await client.query<LoanRow>(
+        `update loans
+         set status = 'cancelled', closed_at = now()
+         where id = $1 and status in ('pending', 'approved')
+         returning *`,
+        [input.id]
+      );
+      const updated = result.rows[0];
+      if (!updated) {
+        return undefined;
+      }
+
+      if (updated.unit_id) {
+        await client.query(
+          `update units set state = 'available', updated_at = now() where id = $1`,
+          [updated.unit_id]
+        );
+      }
+
+      return updated;
+    });
+
     if (!row) {
       return { ok: false, reason: "invalid-state" };
-    }
-
-    if (row.unit_id) {
-      await sql`
-        update units set state = 'available', updated_at = now() where id = ${row.unit_id}
-      `;
     }
 
     return { ok: true, loan: mapRow(row) };

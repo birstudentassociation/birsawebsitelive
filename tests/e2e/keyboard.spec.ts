@@ -1,4 +1,4 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Page } from "./fixtures";
 
 /**
  * Keyboard-only operation checks. axe-core (tests/e2e/a11y.spec.ts) never

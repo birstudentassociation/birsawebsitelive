@@ -142,7 +142,15 @@ export default function PlacesMap({
   const fill = markerFill[markerVariant];
 
   const groupProps = labelledBy ? { "aria-labelledby": labelledBy } : { "aria-label": t.mapLabel };
-  const markerBoxSize = fluidPx(MARKER_SIZE);
+  // The marker box does NOT shrink with the container, unlike the glyph
+  // inside it. `MARKER_SIZE` is exactly the 24px floor WCAG 2.5.8 (Target
+  // Size, Minimum) sets, so scaling it down by container width put the
+  // target below the floor on any phone narrower than `MAP_LAYOUT_WIDTH`
+  // plus the page gutters — 23.4px on a 393px-wide viewport, which axe
+  // reports as a serious violation on /student-life/home/places-nearby. The
+  // markers sit close enough together that the spacing exemption doesn't
+  // apply either, so the size itself has to hold.
+  const markerBoxSize = `${MARKER_SIZE}px`;
   const markerFontSize = fluidPx(MARKER_FONT_SIZE);
 
   return (
@@ -150,7 +158,7 @@ export default function PlacesMap({
     // left to scroll — the map frame inside is `w-full` and always fits the
     // content column — so this no longer needs `overflow-x-auto` or the
     // `tabIndex` that made a scroll region keyboard-reachable.
-    <div role="group" {...groupProps} className="border-line rounded-lg border">
+    <div role="group" {...groupProps} className="border-line overflow-hidden rounded-lg border">
       <div
         // `container-type: inline-size` turns this frame into the `@container`
         // context the markers below query against, so they can read their own
@@ -278,12 +286,25 @@ export default function PlacesMap({
             </a>
           ))}
         </div>
+      </div>
 
-        <div className="bg-surface/85 text-muted absolute right-1 bottom-1 rounded px-2 py-1 text-[11px]">
-          <ExternalLink href="https://www.openstreetmap.org/copyright" newTabLabel={t.newTab}>
-            {t.attribution}
-          </ExternalLink>
-        </div>
+      {/* Attribution sits below the map frame rather than floating over its
+          bottom-right corner. Overlaid, it collided with any marker that
+          happened to land in that corner, and WCAG 2.5.8 counts a target as
+          undersized when another target obscures it: the two links ended up
+          clipping each other down to a few unobscured pixels. Out here
+          nothing can overlap it, and `min-h-6` holds it on the 24px floor,
+          which its ~19px `text-[11px]` line box would otherwise miss.
+          OpenStreetMap's licence only asks that the credit be visible, not
+          that it sit on top of the tiles. */}
+      <div className="text-muted border-line flex justify-end border-t px-2 py-0.5 text-[11px]">
+        <ExternalLink
+          href="https://www.openstreetmap.org/copyright"
+          newTabLabel={t.newTab}
+          className="min-h-6"
+        >
+          {t.attribution}
+        </ExternalLink>
       </div>
     </div>
   );

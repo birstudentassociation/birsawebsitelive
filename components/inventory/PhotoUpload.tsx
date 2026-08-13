@@ -117,7 +117,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
           id={inputId}
           name="file"
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
           onChange={handleFileChange}
           className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
         />

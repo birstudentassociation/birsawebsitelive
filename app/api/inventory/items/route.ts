@@ -33,7 +33,14 @@ export async function GET(request: Request) {
   const categoryId = url.searchParams.get("categoryId") ?? undefined;
   const includeRetired = url.searchParams.get("includeRetired") === "true";
 
-  const items = await listItems({ search, categoryId, includeRetired });
+  // Scope comes from the session, never from the caller: a club-scoped
+  // officer sees only their own custodian's items. The officer console page
+  // passes the same filter when it calls listItems directly, but relying on
+  // that alone would leave every other club's catalogue readable by anyone
+  // who calls this route by hand.
+  const custodianId = auth.officer.custodianId ?? undefined;
+
+  const items = await listItems({ search, categoryId, includeRetired, custodianId });
   return NextResponse.json({ ok: true, items }, { status: 200 });
 }
 

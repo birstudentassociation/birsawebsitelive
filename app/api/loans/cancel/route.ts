@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
+import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { cancelLoan, getLoanByReferenceAndEmail } from "@/lib/inventory/loans";
 import { recordAudit } from "@/lib/inventory/audit";
 
@@ -35,6 +35,14 @@ export async function POST(request: Request) {
 
   const auth = await requireRole(["admin", "loan_officer"]);
   if (auth.ok && bodyId) {
+    // Cancelling by loan id is the officer path, and loan management is
+    // BIRSA-global; a club-scoped officer must not reach it. Rejecting here
+    // rather than falling through keeps the failure honest instead of
+    // silently demoting them to the public reference+email path.
+    if (!isGlobalOfficer(auth.officer)) {
+      return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
+    }
+
     const cancelled = await cancelLoan({ id: bodyId, byOfficerId: auth.officer.id });
 
     if (!cancelled.ok) {

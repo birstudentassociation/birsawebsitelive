@@ -7,6 +7,9 @@ export default defineConfig({
   use: {
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
+    // Reduced motion is emulated per test in tests/e2e/fixtures.ts, not set
+    // here: `use: { reducedMotion }` silently has no effect in this
+    // Playwright version. See that file for why the suite needs it at all.
   },
   webServer: {
     command: "npm run start",
