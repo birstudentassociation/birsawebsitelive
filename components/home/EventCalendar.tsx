@@ -57,26 +57,6 @@ function StarIcon({ className }: IconProps) {
   );
 }
 
-/** Open book: academic. */
-function BookIcon({ className }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinejoin="round"
-      strokeLinecap="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M10 5.2c-1.1-1-2.7-1.5-4.6-1.5-.9 0-1.6.08-2.1.2v10.6c.5-.12 1.2-.2 2.1-.2 1.9 0 3.5.5 4.6 1.5" />
-      <path d="M10 5.2c1.1-1 2.7-1.5 4.6-1.5.9 0 1.6.08 2.1.2v10.6c-.5-.12-1.2-.2-2.1-.2-1.9 0-3.5.5-4.6 1.5Z" />
-      <path d="M10 5.2v10.6" />
-    </svg>
-  );
-}
-
 /** Columned building / landmark: university. */
 function BuildingIcon({ className }: IconProps) {
   return (
@@ -100,25 +80,21 @@ function BuildingIcon({ className }: IconProps) {
 
 const KIND_ICON: Record<CalendarEventKind, (props: IconProps) => ReactElement> = {
   birsa: StarIcon,
-  academic: BookIcon,
   university: BuildingIcon,
 };
 
 const KIND_TEXT: Record<CalendarEventKind, string> = {
   birsa: "text-brand",
-  academic: "text-forest",
   university: "text-warning",
 };
 
 const KIND_BORDER: Record<CalendarEventKind, string> = {
   birsa: "border-brand",
-  academic: "border-forest",
   university: "border-warning",
 };
 
 const KIND_TINT: Record<CalendarEventKind, string> = {
   birsa: "bg-brand-tint",
-  academic: "bg-forest-tint",
   university: "bg-warning-tint",
 };
 

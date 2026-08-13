@@ -82,8 +82,8 @@ describe("buildIcs", () => {
   });
 
   it("includes CATEGORIES from the event kind", () => {
-    const ics = buildIcs([makeEvent({ kind: "academic" })], "en", { siteUrl: SITE_URL });
-    expect(ics).toContain("CATEGORIES:academic");
+    const ics = buildIcs([makeEvent({ kind: "university" })], "en", { siteUrl: SITE_URL });
+    expect(ics).toContain("CATEGORIES:university");
   });
 
   it("uses the fixed ICS_REVISION for DTSTAMP and LAST-MODIFIED, never a live clock", () => {

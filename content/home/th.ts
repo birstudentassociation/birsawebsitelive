@@ -32,7 +32,6 @@ export const homeTh: typeof homeEn = {
     },
     legend: {
       birsa: "กิจกรรม BIRSA",
-      academic: "วันสำคัญด้านการเรียน",
       university: "มหาวิทยาลัยและคณะ",
     },
     styleLegend: {

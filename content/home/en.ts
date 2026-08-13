@@ -30,7 +30,6 @@ export const homeEn = {
     },
     legend: {
       birsa: "BIRSA activities",
-      academic: "Academic dates",
       university: "University and faculty",
     },
     styleLegend: {

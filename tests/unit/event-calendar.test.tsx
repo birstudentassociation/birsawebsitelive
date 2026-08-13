@@ -2,11 +2,12 @@
 /**
  * Unit tests for `EventCalendar`'s month navigation and subscribe panel.
  *
- * The calendar derives its month list from the events it is given, so adding
- * the university academic calendar for AY 2569 stretched that list from two
- * months to well over a year. These tests pin the behaviour that depends on
- * the list's length: the calendar opens on today's month, steps forward and
- * back one month at a time, and disables each arrow at the correct end.
+ * The calendar derives its month list from the events it is given, and only
+ * months that actually carry an event appear, so the list is sparse: paging
+ * forward can jump across a run of empty months. These tests pin the
+ * behaviour that depends on the list: the calendar opens on today's month,
+ * steps forward and back one entry at a time, and disables each arrow at the
+ * correct end.
  *
  * They also cover the subscribe links, which are the only route by which a
  * reader reaches the .ics feed.
@@ -29,7 +30,7 @@ const labels: EventCalendarLabels = {
   noEventsDay: "Nothing scheduled on this day.",
   open: "Read",
   eventCount: { one: "{n} event", other: "{n} events" },
-  legend: { birsa: "BIRSA", academic: "Academic", university: "University" },
+  legend: { birsa: "BIRSA", university: "University" },
   styleLegend: { period: "Multi-day period", single: "Single-day event" },
   subscribe: {
     heading: "Subscribe to this calendar",
@@ -83,14 +84,16 @@ describe("EventCalendar month navigation", () => {
     expect(currentMonth()).toBe("July 2026");
   });
 
-  it("steps forward into the AY 2569 months that were added from the Registrar's calendar", () => {
+  it("skips the months that carry no events", () => {
     renderCalendar(calendarEvents, "2026-07-28");
 
     clickNext();
     expect(currentMonth()).toBe("August 2026");
 
+    // Nothing is scheduled between September 2026 and March 2027, so the next
+    // step lands on the Songkran closure rather than on an empty month.
     clickNext();
-    expect(currentMonth()).toBe("September 2026");
+    expect(currentMonth()).toBe("April 2027");
   });
 
   it("steps back to the month before today", () => {
@@ -100,7 +103,7 @@ describe("EventCalendar month navigation", () => {
     expect(currentMonth()).toBe("June 2026");
   });
 
-  it("reaches the last month of the academic year and disables the next arrow there", () => {
+  it("reaches the last month with events and disables the next arrow there", () => {
     renderCalendar(calendarEvents, "2026-07-28");
 
     const keys = expectedMonthKeys(calendarEvents);
@@ -109,8 +112,8 @@ describe("EventCalendar month navigation", () => {
 
     for (let i = startIndex; i < keys.length - 1; i += 1) clickNext();
 
-    // The final I-grade deadline in the spec falls in October 2027.
-    expect(currentMonth()).toBe("October 2027");
+    // The Songkran closure is the last dated item on the calendar.
+    expect(currentMonth()).toBe("April 2027");
     expect(screen.getByRole("button", { name: labels.nextMonth })).toBeDisabled();
   });
 
