@@ -851,7 +851,7 @@ export const wellbeing: SmartAnswerService = {
           title: { en: "By boat, ferry or rail", th: "เรือ เรือข้ามฟาก หรือรถไฟ" },
           items: [
             {
-              en: "Chao Phraya Express Boat to Tha Phra Nok pier, then the cross-river ferry to Tha Wang Lang pier and walk to Tha Prachan.",
+              en: "Chao Phraya Express Boat to Tha Phrannok pier, then the cross-river ferry to Tha Wang Lang pier and walk to Tha Prachan.",
               th: "เรือด่วนเจ้าพระยาไปท่าพระนก แล้วต่อเรือข้ามฟากไปท่าวังหลัง เดินต่อไปท่าพระจันทร์",
             },
             {
