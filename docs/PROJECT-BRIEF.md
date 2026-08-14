@@ -37,7 +37,7 @@ visual identity**: warm "cream editorial" on BIR red. Do NOT imitate GOV.UK visu
 
 ## Stack & repo layout
 
-Next.js 15 App Router + React 19 + TypeScript strict + Tailwind CSS v4 (tokens in
+Next.js 16 App Router + React 19 + TypeScript strict + Tailwind CSS v4 (tokens in
 `app/globals.css` via `@theme`, READ IT before styling). MDX via `next-mdx-remote/rsc` +
 `gray-matter`; zod validation; Resend email (optional, env-gated); `next/font` fonts.
 Path alias `@/*` → repo root.

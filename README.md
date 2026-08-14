@@ -35,7 +35,7 @@ programme matters, always use the BIR Program and Faculty links in the footer.
 
 ## Tech stack
 
-- [Next.js 15](https://nextjs.org) (App Router) + React 19 + TypeScript (strict)
+- [Next.js 16](https://nextjs.org) (App Router) + React 19 + TypeScript (strict)
 - [Tailwind CSS v4](https://tailwindcss.com), with design tokens defined in `app/globals.css`
 - MDX content via `next-mdx-remote/rsc` + `gray-matter` (`remark-gfm`, `rehype-slug`,
   `rehype-autolink-headings`), validated with [Zod](https://zod.dev)
@@ -54,7 +54,7 @@ service is missing report themselves as "not configured" rather than throwing.
 
 ## Getting started
 
-Requires Node.js `>=18.18`.
+Requires Node.js `>=20.9` (the floor Next.js 16 sets).
 
 ```bash
 npm install
@@ -72,7 +72,7 @@ browser's language (or a previously-set cookie).
 | `npm run dev`          | Start the Next.js dev server                                 |
 | `npm run build`        | Production build (`next build`)                              |
 | `npm run start`        | Serve the production build (`next start`), run `build` first |
-| `npm run lint`         | Run ESLint (`next lint`)                                     |
+| `npm run lint`         | Run ESLint (`eslint .`, configured in `eslint.config.mjs`)   |
 | `npm run typecheck`    | Run the TypeScript compiler with no output (`tsc --noEmit`)  |
 | `npm run format`       | Format the repo with Prettier                                |
 | `npm run format:check` | Check formatting without writing changes                     |
