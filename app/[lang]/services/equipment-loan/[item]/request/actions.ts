@@ -144,7 +144,7 @@ export async function submitNameStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentName") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (!schema.shape.studentName.safeParse(value).success) {
     return { status: "invalid", error: labels.name.errorRequired };
   }
@@ -161,7 +161,7 @@ export async function submitStudentIdStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentId") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (!schema.shape.studentId.safeParse(value).success) {
     return { status: "invalid", error: labels.studentId.errorRequired };
   }
@@ -178,7 +178,7 @@ export async function submitEmailStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentEmail") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (value.length === 0) {
     return { status: "invalid", error: labels.email.errorRequired };
   }
@@ -198,7 +198,7 @@ export async function submitPhoneStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("phone") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (value.length > 0 && !schema.shape.phone.safeParse(value).success) {
     return { status: "invalid", error: labels.phone.errorInvalid };
   }
