@@ -17,10 +17,10 @@ export type LanguageToggleProps = {
  * segment swapped, so the toggle still works with JavaScript disabled: the
  * navigation never depends on the cookie being set.
  *
- * Middleware no longer runs on locale-prefixed paths (see `middleware.ts`),
+ * The proxy no longer runs on locale-prefixed paths (see `proxy.ts`),
  * so it can't persist `NEXT_LOCALE` on the way through any more. Instead the
  * click handler below sets the cookie itself, client-side, as a progressive
- * enhancement, using the same attributes middleware used to. Without this,
+ * enhancement, using the same attributes the proxy used to. Without this,
  * a visitor who switches language would land on the new locale for this one
  * page but get redirected back to their old locale the next time they hit an
  * unprefixed URL such as `/`.

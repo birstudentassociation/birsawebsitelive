@@ -223,7 +223,6 @@ export default async function OfficerFeedbackPage({
             {/* Plain anchor: this hits a route that streams a CSV file
                 download, not a page. next/link would intercept it as a
                 client navigation and mishandle the non-HTML response. */}
-            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href={localeHref(locale, "/officer/inventory/feedback/export")}
               className={EXPORT_LINK_CLASS}

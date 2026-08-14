@@ -74,6 +74,10 @@ export default function SearchBox({
   useEffect(() => {
     const trimmed = debounced.trim();
     if (trimmed.length === 0) {
+      // The empty-query branch of the fetch effect below: with nothing to
+      // request, the correct synchronisation is to drop any suggestions the
+      // previous query left behind and close the listbox.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSuggestions([]);
       setOpen(false);
       return;

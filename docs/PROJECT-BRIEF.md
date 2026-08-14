@@ -51,13 +51,13 @@ lib/*.ts(x)               # i18n, content loaders, mdx, seo, validation
 content/                  # ALL editable content (see Content model)
 docs/                     # this brief + editor guide
 public/                   # static assets; logo at public/birsa-logo.png
-middleware.ts             # locale detection/redirect
+proxy.ts                  # locale detection/redirect
 ```
 
 ## i18n architecture (contract)
 
 - Locales: `th` (default) and `en`. Type `Locale = "th" | "en"` in `lib/i18n.ts`.
-- Routes: `/{lang}/...` for every page. `middleware.ts` redirects unprefixed paths using
+- Routes: `/{lang}/...` for every page. `proxy.ts` redirects unprefixed paths using
   cookie `NEXT_LOCALE`, else `Accept-Language`, else `th`; it also refreshes the cookie to
   the locale of the page being visited (so a plain `<a>` toggle persists choice). Middleware
   must skip `/api`, `/_next`, and any path with a file extension.

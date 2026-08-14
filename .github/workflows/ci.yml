@@ -24,12 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # `npm run lint` is intentionally not run here: this repo's ESLint
-      # config predates the flat-config migration that ESLint 9 requires, so
-      # `next lint` fails outright. Typecheck is the enforced static check
-      # until the ESLint config is migrated.
       - name: Typecheck
         run: npm run typecheck
+
+      # Linting is enforced again. It used to be skipped because the repo's
+      # ESLint config predated the flat-config migration ESLint 9 requires;
+      # that config is now `eslint.config.mjs`, and since Next.js 16 removed
+      # the `next lint` wrapper, `npm run lint` calls the ESLint CLI directly.
+      - name: Lint
+        run: npm run lint
 
       - name: Unit tests
         run: npm run test

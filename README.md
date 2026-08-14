@@ -123,7 +123,7 @@ lib/                # i18n, content loaders, MDX rendering, SEO, validation, CSP
 public/             # Static assets (logo, committee portraits, etc.)
 scripts/            # migrate.mjs and seed-admin-officer.mjs
 tests/              # Vitest unit tests (tests/unit) and Playwright e2e tests (tests/e2e)
-middleware.ts       # Locale detection, redirects, and the nonce-based CSP for officer routes
+proxy.ts            # Locale detection, redirects, and the nonce-based CSP for officer routes
 ```
 
 ## Equipment loan and inventory suite
@@ -187,7 +187,7 @@ both properties.
 Security headers (HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
 `Permissions-Policy`) are set in `next.config.mjs`. Content-Security-Policy is built in
 `lib/csp.mjs`: public pages get a static policy attached at the CDN edge, while officer routes
-get a stricter nonce-based policy from `middleware.ts`.
+get a stricter nonce-based policy from `proxy.ts`.
 
 ## Editing content
 

@@ -25,7 +25,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, reason: "unauthorized" }, { status: 401 });
   }
 
-  revalidateTag(EMERGENCY_TAG);
+  // Next.js 16 made the cacheLife profile a required second argument. The
+  // usual recommendation is `"max"`, which marks the tag stale and serves
+  // stale-while-revalidate — but that would hand the *next* visitor the old
+  // banner while the new one is fetched in the background, and this endpoint
+  // exists precisely so a flood or campus-closure notice goes live at once.
+  // `{ expire: 0 }` expires the entry immediately, which is what the
+  // single-argument call used to do. `updateTag` would also expire
+  // immediately but is Server Action-only, and this is a route handler.
+  revalidateTag(EMERGENCY_TAG, { expire: 0 });
 
   return NextResponse.json(
     { ok: true, revalidated: EMERGENCY_TAG, now: new Date().toISOString() },

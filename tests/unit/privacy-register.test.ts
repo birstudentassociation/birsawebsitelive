@@ -36,7 +36,7 @@ import { locales } from "@/lib/i18n";
 const REPO_ROOT = join(__dirname, "..", "..");
 
 /** Directories worth scanning for cookie names. Excludes node_modules, build output and the tests themselves. */
-const SOURCE_DIRS = ["app", "components", "lib", "middleware.ts"];
+const SOURCE_DIRS = ["app", "components", "lib", "proxy.ts"];
 
 function collectSourceFiles(relativePath: string): string[] {
   const absolute = join(REPO_ROOT, relativePath);

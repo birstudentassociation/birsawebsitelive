@@ -40,7 +40,7 @@ export type GoogleFormProps = {
  * Embeds a Google Form in an accessible, responsive frame with a visible
  * "open in a new tab" fallback for when the iframe is blocked or scripting is
  * off. Loading the embed requires `frame-src https://docs.google.com` in the
- * site CSP (see `middleware.ts`). The frame is lazy-loaded so it never blocks
+ * site CSP (see `proxy.ts`). The frame is lazy-loaded so it never blocks
  * first paint of the article.
  */
 export default function GoogleForm({ src, title, height = 1100, locale = "en" }: GoogleFormProps) {

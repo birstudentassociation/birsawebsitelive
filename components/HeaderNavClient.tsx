@@ -43,6 +43,10 @@ export default function HeaderNavClient({
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    // Closing the menu is a reaction to navigation, and `pathname` arrives
+    // from a hook rather than a prop, so there is no key or parent render to
+    // reset this disclosure state from.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
   }, [pathname]);
 

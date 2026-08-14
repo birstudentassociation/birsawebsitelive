@@ -84,6 +84,10 @@ export function OnboardingProvider({ audience, children }: OnboardingProviderPro
   const [doneIds, setDoneIds] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
+    // localStorage is unavailable during SSR, so the completed-task state can
+    // only be read once mounted; rendering it server-side would mismatch on
+    // hydration.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDoneIds(readDoneIds(storageKeyFor(audience)));
     setMounted(true);
   }, [audience]);

@@ -225,6 +225,12 @@ function FoodSection({ locale }: { locale: Locale }) {
       })}
       {foodGroups.map((group) => {
         const startIndex = runningIndex + 1;
+        // `runningIndex` is declared inside this server component and
+        // reinitialised on every render; the mutation happens synchronously
+        // inside `.map()`, never in a callback that outlives the render. It
+        // carries the running count so each group's `<ol start>` continues
+        // the previous group's numbering.
+        // eslint-disable-next-line react-hooks/immutability
         runningIndex += group.places.length;
         return (
           <div key={group.id} className="flex flex-col gap-3">

@@ -160,7 +160,7 @@ describe("exhaustive traversal: every node and every branch reaches a real outco
     const questionsVisited = [...visited].filter((id) => byId.get(id)?.kind === "question").length;
     const outcomesVisited = [...visited].filter((id) => byId.get(id)?.kind === "outcome").length;
 
-    // eslint-disable-next-line no-console -- deliberate: the counts are the proof of exhaustiveness.
+     
     console.log(
       `[exhaustive traversal] visited ${visited.size} of ${service.nodes.length} nodes ` +
         `(${questionsVisited} questions, ${outcomesVisited} outcomes) across ${branchCount} branches`

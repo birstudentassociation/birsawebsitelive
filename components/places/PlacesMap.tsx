@@ -28,7 +28,7 @@
  * which are unit-tested independently of any rendering.
  *
  * Tile requests hit `https://tile.openstreetmap.org`, allow-listed in the
- * site CSP's `img-src` (see `middleware.ts`). In this sandbox those
+ * site CSP's `img-src` (see `proxy.ts`). In this sandbox those
  * requests 403 (network is blocked here); they resolve normally in
  * production.
  *
@@ -177,6 +177,13 @@ export default function PlacesMap({
           aria-hidden="true"
         >
           {tiles.map(({ x, y }) => (
+            /* Raw <img>, deliberately: these are third-party OpenStreetMap
+               raster tiles at fixed tile-grid coordinates, already sized by
+               the grid and lazy-loaded. Routing them through next/image would
+               proxy every tile through the site's own optimizer for no visual
+               gain, at a per-request cost, and OSM's tile usage policy expects
+               requests to reach their servers directly. */
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               key={`${x}-${y}`}
               src={`https://tile.openstreetmap.org/${view.zoom}/${x}/${y}.png`}
