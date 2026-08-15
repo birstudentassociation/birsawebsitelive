@@ -232,3 +232,17 @@ export async function requireRole(
 export function canManageCustodian(officer: Officer, targetCustodianId: string | null): boolean {
   return officer.custodianId === null || officer.custodianId === targetCustodianId;
 }
+
+/**
+ * True if `officer` is BIRSA-global rather than scoped to one club's custodian.
+ *
+ * Loans and borrowers are deliberately BIRSA-global: club custodians manage
+ * their own items from the catalogue, but loan decisions are made centrally
+ * (see app/[lang]/officer/inventory/loans/page.tsx). The officer console
+ * already hides those screens from club-scoped officers; this is the
+ * server-side half of the same rule, so the API cannot be called directly to
+ * bypass it.
+ */
+export function isGlobalOfficer(officer: Officer): boolean {
+  return officer.custodianId === null;
+}

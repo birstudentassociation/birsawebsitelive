@@ -33,6 +33,11 @@ export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel }: The
   const [resolved, setResolved] = useState<Resolved>("light");
 
   useEffect(() => {
+    // The resolved theme comes from matchMedia/localStorage, which do not
+    // exist during SSR. Reading them in render would produce markup that
+    // disagrees with the server's, so this mount gate is what keeps
+    // hydration consistent.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setResolved(getResolvedTheme());
     setMounted(true);
 

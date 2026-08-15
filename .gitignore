@@ -38,6 +38,10 @@ next-env.d.ts
 /test-results
 /.playwright
 
+# Lighthouse CI writes reports and its run manifest here whenever `npm run perf`
+# is run locally. CI uploads its own copies, so these are never worth committing.
+/.lighthouseci
+
 .vercel
 .env*
 

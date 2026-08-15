@@ -52,6 +52,13 @@ export const loanRequestSchema = z
 
 export type LoanRequestInput = z.infer<typeof loanRequestSchema>;
 
+/**
+ * Note for callers that reach for a single field: in Zod 4 `.refine()` returns
+ * the object schema itself rather than wrapping it in a `ZodEffects`, so
+ * `.shape.<field>` is reachable directly on this constant. The `.innerType()`
+ * unwrapping the loan wizard's step actions used under Zod 3 no longer exists,
+ * because there is no longer a wrapper to unwrap.
+ */
 export const inventoryLoanRequestSchema = z
   .object({
     itemKey: z.string().min(1),

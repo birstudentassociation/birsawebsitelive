@@ -145,6 +145,10 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
   const t = labels[locale];
 
   useEffect(() => {
+    // A live clock cannot be rendered on the server without the first client
+    // paint disagreeing with it. Gating on mount is what makes the countdown
+    // hydration-safe; the interval below is the ongoing subscription.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 1000);

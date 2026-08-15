@@ -1,7 +1,7 @@
 /**
  * The activity calendar as a subscribable iCalendar feed, one per locale
  * (`/en/calendar.ics`, `/th/calendar.ics`). The trailing dot in the path
- * segment means `middleware.ts`'s matcher never touches this route: no
+ * segment means `proxy.ts`'s matcher never touches this route: no
  * locale redirect, no CSP header, so the handler validates `lang` itself
  * and 404s on anything else.
  *

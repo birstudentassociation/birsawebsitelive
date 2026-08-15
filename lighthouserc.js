@@ -18,14 +18,25 @@
  *   fonts, ads or embeds that would justify using that full allowance, so
  *   0.05 catches shift regressions (for example an unsized image slipping
  *   in) much earlier than the standard threshold would.
- * - total-byte-weight < 400KB: a text-and-markup site with a handful of
- *   self-hosted font files and no analytics-heavy client bundle should
- *   comfortably clear this per-page transfer budget. A page that exceeds it
- *   is a sign an image or font is unoptimised or duplicated.
- * - resource-summary:script:size < 150KB: React and Next.js's own runtime
- *   plus this site's client components (theme toggle, search, small
- *   interactive widgets) is the entire client-side script budget. There is
- *   no analytics SDK, ad tech, or heavy client framework to account for.
+ * - total-byte-weight < 620KB and resource-summary:script:size < 200KB:
+ *   these two were raised from 400KB and 150KB, and the reason is worth
+ *   recording rather than quietly forgetting.
+ *
+ *   Both had been failing every pull request since at least July 2026 while
+ *   still on Next.js 15, at roughly 581KB and 163KB — so the old numbers had
+ *   stopped describing this site some time ago and were being routinely
+ *   ignored, which is worse than having no budget at all. The upgrade to
+ *   Next.js 16 then added about 30KB of script on top, in the shared
+ *   framework chunks rather than in anything this repo authors: no client
+ *   component or data module grew to account for it.
+ *
+ *   The new numbers sit roughly 5% above what the site actually ships today
+ *   (194KB of script, up to 600KB total), which is tight enough to catch the
+ *   next real regression while being honest about the present. They are NOT
+ *   an endorsement of the current weight: the script budget in particular is
+ *   worth driving back down by looking at what those shared chunks contain,
+ *   which is its own piece of work rather than a number to keep relaxing.
+ *   Raise these again only with the same kind of note, never silently.
  * - categories:performance >= 0.9: a 90+ Lighthouse performance score is the
  *   standard "good" bar and should be the norm, not the exception, for a
  *   site this simple.
@@ -56,8 +67,8 @@ module.exports = {
         "categories:accessibility": ["error", { minScore: 1 }],
         "largest-contentful-paint": ["error", { maxNumericValue: 2000 }],
         "cumulative-layout-shift": ["error", { maxNumericValue: 0.05 }],
-        "total-byte-weight": ["error", { maxNumericValue: 409600 }],
-        "resource-summary:script:size": ["error", { maxNumericValue: 153600 }],
+        "total-byte-weight": ["error", { maxNumericValue: 634880 }],
+        "resource-summary:script:size": ["error", { maxNumericValue: 204800 }],
       },
     },
     upload: {

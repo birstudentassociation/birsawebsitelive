@@ -12,6 +12,15 @@ import { put } from "@vercel/blob";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 
+/**
+ * Raster photo formats only. A blanket `image/*` check would also admit
+ * `image/svg+xml`, and an SVG is a document: it can carry `<script>`, and
+ * Vercel Blob serves these uploads publicly under its own origin with the
+ * declared content type, so opening one would execute that script. Item
+ * photos are camera/screenshot images, so an allowlist costs nothing here.
+ */
+const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"]);
+
 export function isBlobConfigured(): boolean {
   return !!process.env.BLOB_READ_WRITE_TOKEN;
 }
@@ -32,7 +41,7 @@ export async function uploadImage(
     return { ok: false, reason: "not-configured" };
   }
 
-  if (!file.type.startsWith("image/")) {
+  if (!ALLOWED_TYPES.has(file.type)) {
     return { ok: false, reason: "invalid" };
   }
 

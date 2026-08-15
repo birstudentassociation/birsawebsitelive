@@ -25,8 +25,21 @@ create index if not exists loans_status_closed_at_idx
 -- Powers the legacy equipment_loans age check. Nothing in the current app
 -- reads or writes this table any more (see db/migrations/005_loans.sql), so
 -- age alone is enough to purge a row.
-create index if not exists equipment_loans_created_at_idx
-  on equipment_loans (created_at);
+--
+-- Guarded on the table existing, because it does not always. `equipment_loans`
+-- is created by db/schema.sql, the one-time bootstrap for the pre-inventory
+-- tables — it is not created by any migration. A database stood up the way the
+-- README describes (attach Postgres, run scripts/migrate.mjs) therefore never
+-- has it, and an unguarded `create index` here failed the whole migration,
+-- taking 012 and everything after it down with it.
+do $$
+begin
+  if to_regclass('public.equipment_loans') is not null then
+    create index if not exists equipment_loans_created_at_idx
+      on equipment_loans (created_at);
+  end if;
+end
+$$;
 
 -- Powers the borrower age check (paired with a lookup against
 -- loans_borrower_id_status_idx to find borrowers with no remaining loans).

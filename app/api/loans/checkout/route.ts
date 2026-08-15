@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
-import { requireRole } from "@/lib/inventory/auth";
+import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { checkoutLoan } from "@/lib/inventory/loans";
 import { recordAudit } from "@/lib/inventory/audit";
 
@@ -28,6 +28,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
   }
   const { officer } = auth;
+  if (!isGlobalOfficer(officer)) {
+    return NextResponse.json({ ok: false, reason: "forbidden" }, { status: 403 });
+  }
 
   let body: unknown;
   try {

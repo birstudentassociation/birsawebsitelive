@@ -46,7 +46,7 @@ export default function OpengraphImage() {
           gap: 56,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element -- Satori needs a raw <img>, not next/image */}
+        {/* Satori needs a raw <img>, not next/image. */}
         <img src={logoSrc} width={220} height={220} alt="" />
         <div
           style={{

@@ -30,7 +30,7 @@ function detectLocale(request: NextRequest): Locale {
   return defaultLocale;
 }
 
-/** Generate a base64 nonce using Web Crypto (available in the Edge runtime). */
+/** Generate a base64 nonce using Web Crypto, a global in the Node.js runtime. */
 function generateNonce(): string {
   const bytes = new Uint8Array(16);
   crypto.getRandomValues(bytes);
@@ -40,7 +40,14 @@ function generateNonce(): string {
 }
 
 /**
- * This middleware used to run on every non-asset request and set the
+ * Next.js 16 renamed this file convention from `middleware.ts` to `proxy.ts`
+ * and the exported function from `middleware` to `proxy`; the old names are
+ * deprecated. The rename came with a runtime change — proxy always runs on
+ * the Node.js runtime, and that is no longer configurable — but nothing here
+ * depended on Edge-only behaviour: `crypto.getRandomValues` and `btoa` are
+ * both globals in Node 20+, which is the floor Next 16 sets anyway.
+ *
+ * This function used to run on every non-asset request and set the
  * Content-Security-Policy header for every response, static or not. That was
  * wasted compute: the CSP for ordinary pages (`buildStaticCsp` in
  * `lib/csp.mjs`) is a constant string with no per-request input, so it has
@@ -61,7 +68,7 @@ function generateNonce(): string {
  * enters this function at all; it is a pure CDN hit on static HTML with the
  * CSP already attached by `next.config.mjs`.
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const firstSegment = pathname.split("/")[1] ?? "";
 

@@ -8,6 +8,7 @@ import { createLoanRequest, getItemAvailabilityForRange } from "@/lib/inventory/
 import { getItemByKey } from "@/lib/inventory/items";
 import { renderOfficerNewRequest } from "@/lib/email/templates";
 import { localeHref, type Locale } from "@/lib/i18n";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import { readDraft, writeDraft, clearDraft } from "@/components/forms/draftCookie";
 import type { LoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import type { LoanStep } from "./steps";
@@ -71,12 +72,14 @@ function ipFromHeaders(h: Headers): string {
   return first || "unknown";
 }
 
+/**
+ * The student's own calendar day. This runs on a UTC server, so
+ * `now.getFullYear()`/`getMonth()`/`getDate()` would report yesterday for the
+ * first seven hours of every Bangkok day and let a pickup date that is
+ * already past slip through the check below.
+ */
 function todayISO(): string {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const d = String(now.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
+  return todayInBangkok();
 }
 
 function addDaysISO(iso: string, days: number): string {
@@ -141,7 +144,7 @@ export async function submitNameStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentName") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (!schema.shape.studentName.safeParse(value).success) {
     return { status: "invalid", error: labels.name.errorRequired };
   }
@@ -158,7 +161,7 @@ export async function submitStudentIdStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentId") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (!schema.shape.studentId.safeParse(value).success) {
     return { status: "invalid", error: labels.studentId.errorRequired };
   }
@@ -175,7 +178,7 @@ export async function submitEmailStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("studentEmail") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (value.length === 0) {
     return { status: "invalid", error: labels.email.errorRequired };
   }
@@ -195,7 +198,7 @@ export async function submitPhoneStep(
   formData: FormData
 ): Promise<StepState> {
   const value = String(formData.get("phone") ?? "").trim();
-  const schema = inventoryLoanRequestSchema.innerType();
+  const schema = inventoryLoanRequestSchema;
   if (value.length > 0 && !schema.shape.phone.safeParse(value).success) {
     return { status: "invalid", error: labels.phone.errorInvalid };
   }

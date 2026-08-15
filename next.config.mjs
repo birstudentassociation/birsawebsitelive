@@ -84,12 +84,12 @@ const nextConfig = {
       {
         // The static CSP is a constant string with no per-request input
         // (unlike the officer console's nonce-based policy), so it belongs
-        // here rather than in middleware: the CDN attaches it to the
+        // here rather than in the proxy: the CDN attaches it to the
         // prerendered HTML at no compute cost, instead of paying for a
-        // middleware invocation on every page view.
+        // proxy invocation on every page view.
         //
         // Officer routes are excluded by the negative lookahead below because
-        // middleware still sets the strict, nonce-based policy for them; a
+        // the proxy still sets the strict, nonce-based policy for them; a
         // response can only carry one `Content-Security-Policy` header; two
         // conflicting policies would leave the browser enforcing whichever
         // one arrives, breaking the officer console silently.

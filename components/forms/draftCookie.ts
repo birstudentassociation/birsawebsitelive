@@ -25,6 +25,37 @@ import { cookies } from "next/headers";
 
 const THIRTY_MINUTES = 60 * 30;
 
+/**
+ * Upper bound on any single string stored in a draft.
+ *
+ * Steps are ordinary form POSTs, so nothing stops a submission carrying a
+ * megabyte-long field: `maxlength` on the input is a client-side courtesy,
+ * not a guarantee. Most steps reject over-long values against the shared zod
+ * schema before writing, but a few deliberately save whatever the reader
+ * typed so a failed step can hand it straight back to them (the loan
+ * journey's date and reason steps do this) — and an unbounded value there
+ * becomes an unbounded `Cookie` header on every subsequent request from that
+ * reader, which browsers and proxies answer with a 431 rather than a page.
+ *
+ * The cap sits above the largest field any journey legitimately collects
+ * (the 5,000-character contact message), so it never truncates real input.
+ * Anything past it was already going to fail schema validation, and
+ * truncating rather than dropping the write keeps the reader's own answers
+ * in front of them.
+ */
+const MAX_VALUE_CHARS = 6000;
+
+function capValues<T extends Record<string, unknown>>(value: Partial<T>): Partial<T> {
+  const capped: Record<string, unknown> = {};
+  for (const [key, entry] of Object.entries(value)) {
+    capped[key] =
+      typeof entry === "string" && entry.length > MAX_VALUE_CHARS
+        ? entry.slice(0, MAX_VALUE_CHARS)
+        : entry;
+  }
+  return capped as Partial<T>;
+}
+
 function isProduction(): boolean {
   return process.env.NODE_ENV === "production";
 }
@@ -53,7 +84,7 @@ export async function writeDraft<T extends Record<string, unknown>>(
   value: Partial<T>
 ): Promise<void> {
   const store = await cookies();
-  const encoded = Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
+  const encoded = Buffer.from(JSON.stringify(capValues(value)), "utf8").toString("base64url");
   store.set(cookieName, encoded, {
     httpOnly: true,
     sameSite: "lax",

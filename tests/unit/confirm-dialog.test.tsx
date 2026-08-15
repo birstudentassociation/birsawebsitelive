@@ -16,7 +16,7 @@
  * scope for jsdom and would need a Playwright/e2e check instead.
  */
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent, cleanup, act } from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import axe from "axe-core";
 
 import ConfirmDialog from "@/components/ConfirmDialog";

@@ -91,6 +91,10 @@ type SessionResponse = {
  */
 export default function OfficerLogin(props: OfficerLoginProps) {
   const [enhanced, setEnhanced] = useState(false);
+  // The progressive-enhancement switch described above: the server and the
+  // first client render must both produce the no-JS fallback, so the
+  // interactive version can only be swapped in after mount.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setEnhanced(true), []);
 
   if (!enhanced) return <OfficerLoginFallback {...props} />;

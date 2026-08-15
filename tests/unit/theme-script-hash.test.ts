@@ -15,7 +15,6 @@ describe("THEME_SCRIPT_HASH", () => {
     const digest = createHash("sha256").update(THEME_SCRIPT, "utf8").digest("base64");
     const expected = `sha256-${digest}`;
     if (expected !== THEME_SCRIPT_HASH) {
-      // eslint-disable-next-line no-console
       console.error(`Theme script changed. Update THEME_SCRIPT_HASH to: ${expected}`);
     }
     expect(THEME_SCRIPT_HASH).toBe(expected);
