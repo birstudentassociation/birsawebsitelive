@@ -21,6 +21,20 @@ reasoning, the boundaries, and the honest costs are section 6. The roadmap's che
 (its section 4C, the GitHub issue form to pull request flow) is superseded as an end state and
 retained only as a bridge. Section 14 explains why.
 
+Three changes in this plan alter what the site is, rather than how it is built, and they are
+meant to be read together because the third pays for the first two:
+
+- **Content carries images** (section 4.7). The site is text-only today; a student association
+  that runs events and cannot show them is publishing a newspaper with no photographs. Done
+  properly this is six pieces of work, not a field, and one of them is a photography policy
+  with legal weight.
+- **Lost and found** (section 5.5), reportable by any student in either direction, specified in
+  full and built first, because it is the right first proof of the service chassis.
+- **A deliberate reduction in scope** (section 3.6). BIRSA is the bottom rung of a four-level
+  ladder and currently publishes a great deal that belongs to TUSU, TUSC or the faculty.
+  Roughly half of `content/student-life/` should become a signpost or a redirect. Removing it
+  is what makes the other two affordable for a committee of volunteers who all leave in June.
+
 **Source note.** This plan is informed by the GOV.UK Design System, the Government Design
 Principles, the GOV.UK Service Manual, Nielsen's usability heuristics, and cognitive load
 theory. Three sets of facts in this document could not be verified from this environment,
@@ -174,9 +188,11 @@ what a reviewer should hold a pull request against.
 
 1. **Start with user needs.** Every top-level nav item and every service start page names a
    thing a student is trying to do. If a heading names a committee portfolio, it is wrong.
-2. **Do less.** BIRSA is not a university office. Link to `reg.tu.ac.th` and the programme
-   office rather than rebuilding them, and reuse the loan chassis rather than writing a
-   second one.
+2. **Do less.** BIRSA is not a university office and it is the bottom rung of a four-level
+   ladder. Publish what only BIRSA can publish; signpost the rest to TUSU, TUSC, the faculty
+   or the registrar rather than keeping a second copy that will be wrong first. Section 3.6
+   turns this into an audit with dispositions, and it is what makes the rest of this plan
+   affordable for a volunteer committee.
 3. **Design with data.** BIRSA has almost no usage data, and roadmap section 6 forbids
    instrumenting welfare and complaint pages. So design with the data that is ethical to
    collect: search queries with no good result, page feedback, and completion rates on
@@ -285,6 +301,108 @@ services rather than two.
 Keep and rebuild: **Breadcrumbs**, **Back link** (currently missing, and it is the correct
 GDS answer for wizard steps rather than browser-back), **Skip link**, **Pagination**,
 **Footer**, **Header**.
+
+### 3.6 Scope: what BIRSA should stop publishing
+
+The other two additions to this plan (images, section 4.7, and lost and found, section 5.5)
+both make the site bigger. This one makes it smaller, and it is what pays for them. A 2.0 that
+only adds is a 2.0 that a twenty-one-person volunteer committee cannot maintain by November.
+
+#### The ladder already exists in BIRSA's own content
+
+`content/activity/{en,th}/student-bodies.mdx` sets out four levels, and it is the sharpest
+scoping tool in the repository:
+
+| Level                                     | Bodies                                                    |
+| ----------------------------------------- | --------------------------------------------------------- |
+| BIR (programme)                           | BIRSA, BIR class councils                                 |
+| Singhadang (Faculty of Political Science) | The Political Science Students' Committee, class councils |
+| TPC (Tha Prachan Campus)                  | TUSU TPC, TUSC TPC                                        |
+| TU (all campuses)                         | TUSU, TUSC, ECTU                                          |
+
+BIRSA is at the bottom rung. The rule that follows is:
+
+> **BIRSA publishes what only BIRSA can publish.** If a fact is equally true for a law student
+> at Rangsit, it is TUSU or TUSC's to publish, and BIRSA maintaining a second copy of it means
+> maintaining a copy that will be wrong first.
+
+This is Government Design Principle 2 (do less) and it is also `docs/EDITING.md`'s existing
+"say who actually decides" rule applied to whole pages rather than to sentences.
+
+#### The audit
+
+`content/student-life/` holds 24 documents per locale, 48 files. They split cleanly:
+
+| Track            | Documents                                                                                                                       | Level              | Disposition                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------- |
+| `handbook/`      | about-bir, academic-life, academic-activities, curriculum-and-study-plan, assessment-and-degree, admission-and-fees, internship | BIR                | **Keep all.** This is the programme. Nobody else will ever write it |
+| `home/`          | getting-involved, rights-and-welfare, study-support                                                                             | BIR and Singhadang | **Keep**, trimmed to the BIR-specific slice                         |
+| `home/`          | shuttle-bus, getting-around, places-nearby, food-and-budgeting                                                                  | TPC                | **Signpost.** TU runs the shuttle. BIRSA does not                   |
+| `home/`          | health-and-wellbeing, safety-and-emergencies, money-matters                                                                     | TU                 | **Signpost.** Health service, security, registrar                   |
+| `international/` | arrival-and-first-week                                                                                                          | Mixed              | **Absorb.** Keep the BIR week-one part, delegate the rest           |
+| `international/` | visa-and-immigration, healthcare-and-insurance, banking-and-money, phones-and-internet, culture-and-language                    | TU and national    | **Signpost, and see the warning below**                             |
+
+Also in scope for the same test: `/services/university-services`, the emergency scenario
+content, and any Smart Answers node whose `owner` is not BIRSA or the faculty.
+
+**A specific safety point about `visa-and-immigration.mdx`.** Immigration rules change without
+notice and the consequence of a stale sentence is a student out of status. BIRSA has no
+authority here and no mechanism to know when the rules move. That page should hold no
+procedural detail at all: it should say what the 90-day report is, that BIRSA runs a reminder
+service for it (roadmap, Foreign Students Assistance), and where the authoritative source is.
+This is principle 15 in its most consequential form.
+
+#### Four dispositions, and what each actually means
+
+- **Keep.** BIRSA is the authoritative source, or nobody else is.
+- **Signpost.** The route stays. The page becomes short and deliberately designed: the one
+  BIR-specific thing worth saying, the named body that owns the rest, and a link. A signpost is
+  a service, not an absence, and a good one is more useful than the copy it replaces. What it
+  must never be is a page of bare links with no editorial judgement.
+- **Absorb.** Keep the BIR-specific slice, fold it into a neighbouring page, delete the rest.
+- **Delete.** No BIR-specific slice, an authority exists. The URL 301s, per 3.4. **Nothing
+  404s.** A deleted page is a redirect, always.
+
+#### The gate: do not delegate into a void
+
+Delegation is only better than duplication when the destination holds. Before any document is
+signposted or deleted, all four must be true:
+
+1. An authoritative source exists and is publicly reachable.
+2. It is maintained. Check when it last changed.
+3. It is available in the language the reader needs. A Thai-only source fails an international
+   student; an English-only source fails many Thai students. Where only one language exists,
+   the signpost carries a short bilingual summary and says plainly that the source is in one
+   language.
+4. It is stable enough to link to.
+
+**If any of the four fails, keep the content**, and mark it: `maintainedBecause: "no
+authoritative source"`, with an owner and a review date (section 10). That label is not an
+excuse, it is a trigger: when TUSU does publish it, the review surfaces the page and BIRSA
+deletes it then. This turns a one-time cull into a standing policy, which is the only kind
+that survives turnover.
+
+#### Link rot is the cost, and it has to be engineered
+
+Trading forty pages for forty external links trades a maintenance burden for a decay problem.
+Untended, a delegated site becomes a page of dead links in about two years, which is worse than
+what it replaced. So:
+
+- **External links are a registered content type**, with the owning portfolio and the body they
+  point at (TUSU, TUSC, registrar, OIA, health service, faculty office).
+- **The daily cron checks them** and raises a dead or redirecting link to the owning portfolio
+  in the console. This is cheap: it is one more job in `/api/cron/daily`, which already runs
+  loan reminders and the PDPA purge.
+- **A link that has been dead for a fortnight escalates**, exactly as an unacknowledged case
+  does (roadmap section 4E).
+
+#### What this is worth
+
+Roughly half of `student-life/` stops being BIRSA's to maintain. That is not the point. The
+point is that a committee whose attention is finite stops spending it on where to buy lunch and
+spends it on the things in the capability roadmap that genuinely have no other owner:
+BIR course reviews, the study plan, the committee's own commitments, welfare casework, and the
+programme handbook. Removing content is how the rest of this plan becomes affordable.
 
 ---
 
@@ -459,6 +577,124 @@ schema (headings two and three only, bold, italic, links, lists, tables). An off
 produce an h1 inside a page body, which protects the heading order that the accessibility
 tests assert.
 
+### 4.7 Images: a paradigm shift, built properly
+
+Today the site is text-only by design. The only images anywhere are the logo, committee
+portraits read off the filesystem by `lib/committee-portrait.ts`, equipment photographs inside
+the console, and OpenStreetMap tiles. A news post cannot carry a picture. The cream-editorial
+identity is carried entirely by typography and whitespace.
+
+**In 2.0 content carries images, and this is a genuine paradigm shift rather than a new field.**
+A student association that runs events and cannot show them is publishing a newspaper with no
+photographs, and it is the reason committee news currently lives and dies on Instagram. Doing
+this properly means six things, and skipping any of them is how a text-forward site becomes a
+slow, inaccessible, legally exposed photo blog.
+
+#### A. The identity does not change
+
+Images are added to the cream-editorial system, not laid over it.
+
+- **A fixed set of aspect ratios** (16:9, 4:3, 1:1) declared in the schema. No arbitrary
+  heights, so cards never jump and cumulative layout shift stays at zero.
+- **Images sit on the page, they do not bleed off it.** Generous margins, a hairline
+  `--color-line` border or a soft inset so a white-heavy photo does not float against cream,
+  and the same treatment inverted in dark mode. The precedent already exists: the OSM tile
+  filter in `app/globals.css` darkens bright imagery in dark mode rather than letting it glare.
+- **Never text over an image.** The contrast cannot be guaranteed across arbitrary photographs,
+  and no amount of scrim makes it reliably AA. Captions sit below in the muted tone.
+- **Full-bleed heroes are rare and deliberate**, not the default for every post.
+- Display type stays the identity. A photograph supports the story; it does not become the
+  page.
+
+#### B. Components
+
+New in `components/bds/`, all on `/design`:
+
+| Component   | Job                                                              |
+| ----------- | ---------------------------------------------------------------- |
+| `Figure`    | Image with optional caption and credit, the workhorse            |
+| `HeroImage` | One per page at most, the LCP candidate, `priority` set          |
+| `CardImage` | The image variant of a card, fixed ratio                         |
+| `Gallery`   | An ordered set with a lightbox, keyboard operable, escapable     |
+| `Portrait`  | Committee portraits, 1:1, with the existing placeholder fallback |
+
+`Gallery` is the one to be careful with: a lightbox is a modal, and a modal needs focus
+trapping, an escape route, and a non-JavaScript fallback that is simply the images in a list.
+The site already has `ConfirmDialog` and `useConfirmDialog` to model that behaviour on.
+
+#### C. Accessibility, enforced not encouraged
+
+- **Alt text is required in both locales**, publish-blocking, exactly as body copy is
+  (principle 14). An English-only alt text is a Thai screen reader user reading English.
+- **Decorative is a deliberate choice, not a default.** A boolean in the schema; setting it
+  hides the alt field and renders `alt=""`. An officer must actively say an image carries no
+  information.
+- **Alt text describes the scene, not the people.** This is an accessibility rule and a privacy
+  rule at once: "students at the welcome fair" rather than a list of names.
+- Validation rejects the usual failures: empty alt on a non-decorative image, alt text that
+  begins "image of", alt text identical to the caption.
+- Captions and credits are real text, never baked into the image.
+- No image is the sole carrier of meaning, per the existing house rule.
+
+#### D. Performance, which is where this usually goes wrong
+
+- **Sanity's asset pipeline does the work**: one upload, served at every size, in AVIF or WebP
+  by negotiation, with a low-quality blur placeholder. The officer uploads a phone photograph
+  once and never thinks about formats.
+- **Hotspot and crop.** The officer marks the subject of the image once, and every aspect ratio
+  crops around it automatically. This is the single most important usability feature in the
+  whole image story, because the alternative is asking a non-technical editor to produce four
+  crops of every photograph, which they will not do, and the site fills with beheaded people.
+- **A source file size limit at upload**, with a clear message, so a 12MB original is rejected
+  at the door rather than stored forever.
+- **`lighthouserc.js` budgets are re-cut per template** with images counted, and a per-page
+  image budget (one hero plus a bounded number of body images). Only the hero gets `priority`;
+  everything else is lazy.
+- The LCP element on a news page becomes an image, so the budget for it is set deliberately
+  rather than discovered after launch.
+
+#### E. Photographs of students are personal data, and this is the hard part
+
+This is the requirement most likely to be skipped, and it is the one with legal weight.
+
+`content/privacy/register.ts` deliberately avoids relying on consent, because Thai majority is
+twenty and most first-year students are minors whose consent would need a guardian. A
+photograph of an identifiable student at a BIRSA event is personal data collected in exactly
+that setting. So:
+
+- **A new processing activity in the register** for event photography, with a lawful basis, a
+  retention trigger and a deletion path, like every other activity.
+- **A photography notice at events**, and a practical opt-out that does not require a student
+  to argue with a committee member holding a camera.
+- **Prefer wide shots.** Where an individual is the clear subject of a published photograph,
+  their agreement is obtained and recorded. Crowd and activity shots are the default.
+- **A fast takedown route.** `/privacy/your-data` already runs a rights-request wizard; add
+  "remove a photograph of me" as a category with a **service standard shorter than the general
+  one**, because a photograph someone wants removed is urgent in a way a data access request is
+  not. It should be measured in days.
+- **No names in alt text or captions for group photographs**, and no tagging of any kind.
+- **Nothing that looks like face matching**, ever, in any form.
+- Photographs of minors get the strictest treatment, and where age is unknown, assume it.
+
+#### F. Where images live
+
+- **Content images go to Sanity assets.** They are published content, they benefit from the
+  transform pipeline, and they contain no student submissions.
+- **Operational uploads stay in Vercel Blob**: equipment photographs, reimbursement receipts,
+  and found-item photographs (5.5). These may contain personal data, they are subject to
+  retention, and they must be deletable by the existing purge in `lib/privacy/retention.ts`.
+  The boundary in 6.3 holds without exception.
+- **Committee portraits migrate from the filesystem to Sanity.** Today replacing 21 portraits
+  each June means 21 files committed to `public/committee/`, which is the publishing bottleneck
+  in miniature. `lib/committee-portrait.ts` has served well and its placeholder fallback
+  behaviour should be preserved exactly; only the source changes.
+
+#### G. The house rules officers actually read
+
+Short enough to sit in the Studio field descriptions: photograph the activity, not the faces;
+ask before you make someone the subject; no screenshots of chat messages; no photographs of
+documents, ID cards or screens; if in doubt, do not publish it, and ask the Rights Advocate.
+
 ---
 
 ## 5. The service chassis
@@ -518,9 +754,10 @@ than taking the site down.
 
 ### 5.3 What this buys, concretely
 
-Reimbursement claims, club funding applications, event sign-ups with capacity, merchandise
-pre-orders, course review submissions, academic issue intake, translation help requests and
-Common Room booking each become a definition plus whatever is genuinely special about them.
+Lost and found (5.5), reimbursement claims, club funding applications, event sign-ups with
+capacity, merchandise pre-orders, course review submissions, academic issue intake, translation
+help requests and Common Room booking each become a definition plus whatever is genuinely
+special about them.
 Equipment loan keeps its own availability logic and its exclusion constraint from
 `007_btree_gist_exclude.sql`, which room booking then reuses unchanged, because a room is an
 item with a calendar.
@@ -541,6 +778,111 @@ can create a service; only a developer can mark one sensitive or unmark it, beca
 changes the retention, audit and access rules. Section 6.12.
 
 **Anything that mirrors a registrar function**, and **online voting**. Roadmap section 6.
+
+### 5.5 Lost and found, in full
+
+A service any student can report to, in either direction. It is specified here in full rather
+than listed, because it should be **the first service built on the chassis** and it is the one
+that proves the chassis works.
+
+#### Why this one first
+
+It is high frequency and low stakes, which is exactly the right combination for a first
+service. Every student loses something. Nobody is harmed if the first version is rough. And it
+exercises almost the whole chassis in one go: two intakes, a public listing, photographs
+(4.7), physical custody, matching, retention, and a boundary with the university. The welfare
+service exercises the same machinery and must be built last (5.4). Building lost and found
+first is how the chassis is proven before it carries something that matters.
+
+It also replaces something that currently works badly: a lost wallet is announced in an
+Instagram story that is gone in twenty-four hours and searchable by nobody.
+
+#### The three surfaces
+
+| Surface                     | Who                | What                                                                       |
+| --------------------------- | ------------------ | -------------------------------------------------------------------------- |
+| `/do/lost-and-found/lost`   | Any student        | Report something lost: what, where, roughly when, how to reach you         |
+| `/do/lost-and-found/found`  | Any student        | Report something found: what, where, when, a photograph, where you left it |
+| `/do/lost-and-found`        | Anyone, no account | Browse and search what has been handed in                                  |
+| `/do/lost-and-found/status` | The reporter       | Reference lookup, both directions, no account                              |
+| Console queue               | Owning portfolio   | Review, publish, match, mark claimed, age out                              |
+
+Everything except the browse listing is standard chassis behaviour and is therefore free.
+
+#### Custody: this is where CBEMS is reused, not rebuilt
+
+A found item is an item, in a location, held by a custodian. The inventory system already
+models all three, and `009_custodians.sql` and `010_backfill_items_custodian.sql` already
+separate club custodians from BIRSA's own stock, with `canManageCustodian` scoping so a club
+officer sees only their own. A found item handed to a club rather than to the BIRSA room is
+that same relationship.
+
+So the physical half of lost and found is an existing table with a new item state, not a new
+system. This is the roadmap's own argument about the Common Room ("a room is an item with a
+calendar") applied again.
+
+#### Claiming: the problem a naive build gets wrong
+
+If the public listing shows everything about an item, anyone can describe it back and claim it.
+So the listing **deliberately withholds one distinguishing detail**: a colour, a mark, what is
+inside, the lock screen, the name written in the cover. To claim, the student describes that
+detail, and the officer checks it against the record. Getting it wrong is not a rejection; it
+is a conversation.
+
+This has to be a schema field (`withheldDetail`, required, never rendered publicly) rather than
+a habit, or it will be forgotten by the second committee.
+
+#### What BIRSA must not take custody of
+
+The service says who actually decides, and for some categories the answer is not BIRSA. **A
+passport, a Thai national ID card, a student ID card, a bank card, or anything of real value
+does not go in a BIRSA drawer.** Those categories are routed at the point of reporting: the
+form tells the finder to hand the item to the faculty office or campus security, gives the
+location and the hours, and records only that it was routed there. No custody, no photograph,
+no listing.
+
+This is a legal and a practical boundary and it is also principle 15: BIRSA is not the
+university lost property office, and a service that implies otherwise sends a student to the
+wrong desk at the worst moment. The start page says where the university's own lost property is
+for anything lost outside the faculty.
+
+#### Photographs, which is where this meets 4.7
+
+Found-item photographs are the most likely place on the whole site for personal data to leak
+into public view: a name inside a book, an ID card in a wallet, a lock screen, a timetable with
+a student number.
+
+- Photographs go to **Vercel Blob, never to Sanity** (4.7F, 6.3).
+- **Nothing is published automatically.** An officer reviews every photograph before it appears
+  on the public listing. This is not a moderation nicety; it is the control that makes the
+  listing safe.
+- The report form warns, in both languages, not to photograph documents, screens or anything
+  with a name on it.
+- Categories that imply identity documents **never get a public photograph at all**, and are
+  routed away per the section above.
+- The photograph is deleted with the record on the retention trigger, not left in Blob.
+
+#### Retention, which is a real design decision
+
+- A found item is held for a **stated number of days**, published on the start page, and the
+  number is configuration rather than code (6.6) so the owning portfolio can change it.
+- The daily cron ages items, warns the custodian before the deadline, and prompts the handover
+  of unclaimed items to the university lost property.
+- Records and photographs purge on a trigger implemented in `lib/privacy/retention.ts`, with a
+  matching privacy register entry, before the service can publish (5.1 item 10, 6.7).
+- A lost report expires too. A student who found their keys in their bag does not come back to
+  close the record, so the cron closes it and says so.
+
+#### Ownership
+
+The **General Coordinator** owns it: their brief is internal affairs, Rangsit and the day-to-day
+running of BIRSA, and physical custody of things in the BIRSA room is exactly that. **Student
+Welfare is the second holder**, per principle 11, because nothing is held by one person.
+
+Rangsit matters here more than anywhere else on the site. An item lost at Rangsit and held at
+Tha Prachan is useless to the person who lost it, so location and campus are first-class fields
+and the listing filters on them. This is the roadmap's "campus as a reader fact" earning its
+keep.
 
 ---
 
@@ -635,6 +977,8 @@ not designed for it.
 | Minutes, decisions, announcements, budget, commitments | Secretaries, Treasurer, President | The transparency placeholder's actual contents      |
 | Service definitions                                    | Any                               | 6.7                                                 |
 | Site configuration singletons                          | President, Spokesperson           | 6.6                                                 |
+| Content images and committee portraits                 | Public Relations, Secretariat     | 4.7. Replaces the filesystem portrait drop          |
+| External link register                                 | Every portfolio                   | 3.6. Delegation is only safe if link rot is watched |
 | Curriculum data                                        | Academic Affairs                  | See the caution below                               |
 | Privacy register descriptive text                      | Secretariat                       | See the caution below                               |
 
@@ -820,17 +1164,39 @@ configured rather than crashing.
 ### 6.10 PDPA, processors, and the MDX migration
 
 **A new processor entry is required** in `content/privacy/register.ts`, in the shape the file
-already uses. Sanity receives the site's editorial content, which contains no student personal
-data by the boundary in 6.3, plus the names and email addresses of the committee members who
-edit it. Those editor accounts are personal data of the committee, and the existing
-`officer-account` activity is the entry that needs extending. `docs/pdpa/processor-agreements.md`
-needs a corresponding record, and dataset region should be chosen deliberately and recorded in
-the `country` field, since the register's section 28 analysis turns on it.
+already uses. Sanity receives the site's editorial content plus the names and email addresses
+of the committee members who edit it. Those editor accounts are personal data of the committee,
+and the existing `officer-account` activity is the entry that needs extending.
+`docs/pdpa/processor-agreements.md` needs a corresponding record, and dataset region should be
+chosen deliberately and recorded in the `country` field, since the register's section 28
+analysis turns on it.
 
-Two other register consequences: the `google-forms` processor entry should be removable once
-event sign-ups move onto the chassis (roadmap section 3, Student Activities), which is a real
-privacy improvement worth naming. And `vercel-blob` grows a new use, because service file
-uploads land there rather than in Sanity.
+**One qualification to the 6.3 boundary, introduced by images.** The boundary says the CMS
+holds no student personal data, and it holds for everything a student submits. Published
+photographs are the one place where content itself contains personal data: a photograph of an
+identifiable student at a BIRSA event is that student's personal data, whoever uploaded it. So
+the Sanity processor entry says so plainly rather than claiming "no personal data", and event
+photography gets its own processing activity with a lawful basis, a retention trigger and a
+deletion path (4.7E). The operational boundary is unchanged: submissions, receipts and
+found-item photographs never enter the CMS.
+
+**A new processing activity for lost and found**, covering the reporter's contact details, the
+item description and the photograph, with the holding period from 5.5 as its retention trigger
+and a deletion path that removes the Blob object as well as the row. The service cannot publish
+until both exist, which is the chassis rule from 5.1 item 10 doing its job on its first
+customer.
+
+Two register consequences that go the other way, and both are real privacy improvements worth
+naming. The `google-forms` processor entry should become removable once event sign-ups move
+onto the chassis (roadmap section 3, Student Activities), which retires a processor that
+currently receives student data BIRSA cannot see or delete. And section 3.6's delegation
+removes pages, which removes nothing from the register but does reduce the surface where a
+future feature could quietly start collecting something.
+
+`vercel-blob` grows two new uses: service file uploads, and found-item photographs. Its
+register entry currently reads "Photographs of equipment ... No personal data", and that
+sentence stops being true the moment lost and found ships. It must be updated in the same
+change, not afterwards.
 
 **MDX to Portable Text.** The site's long-form content is MDX with custom components
 (`<Notice>`, `<ReportHarassment>`, and the component map in `lib/mdx.tsx`). Portable Text is
@@ -1016,8 +1382,15 @@ types officers use most, and record what it finds in `docs/ACCESSIBILITY-TESTING
 something is unusable, that is a finding for the committee about who can hold which grant, and
 it is better known in advance.
 
-Performance: keep `lighthouserc.js` byte budgets and tighten them as the rebuild removes
-weight. The Studio route must be excluded from the public budgets and code-split so that not
+Performance: `lighthouserc.js` budgets are **re-cut per template rather than tightened
+globally**, because 2.0 pulls in two directions at once. Section 3.6 removes pages and section
+8.2 removes the calendar from the home page, both of which take weight out. Section 4.7 adds
+images, which puts weight in, and moves the LCP element on a news page from text to a
+photograph. A single site-wide budget hides both movements. Per-template budgets with an
+explicit image allowance make each one visible, and if removing the home page calendar does
+not show up as a measurable drop, that is a finding.
+
+The Studio route must be excluded from the public budgets and code-split so that not
 one byte of it reaches a student's phone.
 
 ---
@@ -1035,6 +1408,10 @@ one byte of it reaches a student's phone.
   Studio and appears on the owning portfolio's dashboard. Content that nobody will admit to
   owning is content nobody will dare to delete, and this is the field that prevents it.
 - `slugHistory`: previous slugs, so renames redirect automatically (3.4).
+- `maintainedBecause`: set only where section 3.6's delegation gate failed and BIRSA is keeping
+  content that properly belongs to TUSU, TUSC or the faculty. It names the reason, and the
+  review date is the trigger to delete the page once an authoritative source appears. Content
+  carrying this field appears in a standing list, so the cull is a policy rather than an event.
 
 **Bilingual parity is a publish-blocking validation**, not a review convention. A document
 without both locales cannot leave draft. This is principle 14 and it is one validation rule.
@@ -1043,6 +1420,10 @@ without both locales cannot leave draft. This is principle 14 and it is one vali
 no "click here") lives in one `lib/content/houseStyle.ts`, used by the Sanity validation, the
 build check and any remaining git-authored content, so the three cannot disagree. The message
 appears next to the field, in the editor's language.
+
+**Alt text is parity-checked like body copy** (4.7C). An image without alt text in both locales
+blocks publication, unless it is explicitly marked decorative, which is a choice the officer
+has to make rather than a default they fall into.
 
 **Content that a student's data depends on is validated against the code**, per the pattern in
 6.3: the privacy register's nightly integrity check, the service registry's retention
@@ -1123,9 +1504,19 @@ Nothing else starts until every item here is committed.
 7. **CMS schema conventions**: the lifecycle field set (§10), the localisation strategy
    (document-level, shared slug, matching the site's existing slug-parity architecture), the
    validation helper signatures, and the section palette type (§4.6). Frozen.
-8. `lib/redirects.ts` and its test: the exhaustive 1.0-to-2.0 URL map from §3.4.
-9. The route map, as a checked-in document, listing every 2.0 route and which agent owns it.
-10. Decide the two questions in §4.5 (cookie banner, phase banner) and confirm the Sanity
+8. **The image contract** (§4.7): the fixed aspect ratio set, the alt text and decorative
+   schema shape, the source file size limit, and the per-template image budgets. Frozen,
+   because every schema agent and every component agent depends on it.
+9. **The scope audit** (§3.6), run to a decision: every document in `content/student-life/`,
+   `/services/university-services` and the emergency scenarios assigned a level and a
+   disposition, with the four-part delegation gate applied and the failures marked
+   `maintainedBecause`. This is a committee judgement, not agent work, and it must land before
+   Wave 5 rebuilds pages and Wave 6 migrates content, or both will do work on pages that are
+   about to be deleted.
+10. `lib/redirects.ts` and its test: the exhaustive 1.0-to-2.0 URL map from §3.4, including
+    every redirect the scope audit creates.
+11. The route map, as a checked-in document, listing every 2.0 route and which agent owns it.
+12. Decide the two questions in §4.5 (cookie banner, phase banner) and confirm the Sanity
     project is created under `birsa@tu.ac.th` (§7.4), not under a student account.
 
 ### 11.4 Waves, agents and ownership
@@ -1142,16 +1533,16 @@ is how much diff one reviewer can hold in their head at a wave boundary.
 Every agent runs with `isolation: "worktree"` so it has its own checkout, and merges to a
 per-wave integration branch off `claude/website-2-redesign-plan-pifrc5`.
 
-| Wave                      | Agents        | Each owns                                                                                                                                                                                                                                                                                                                                                                                                      | Gate to pass                                                                                                 |
-| ------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **1. Foundations**        | 4             | A: type scale and colour utilities. B: layout primitives. C: icon sprite. D: test harness, `/design` skeleton, visual regression, `check:contrast`.                                                                                                                                                                                                                                                            | `/design` renders, both locales, both themes, snapshots baseline.                                            |
-| **2. Component library**  | 6             | One agent per cluster, each owning its `components/bds/` files and its dictionary namespace: **forms**; **navigation**; **status**; **content**; **service UI** (task list, start page, check answers, confirmation, status lookup, exit this page); **section palette** (§4.6, the eleven officer-composable sections).                                                                                       | Every component on `/design`, axe clean, keyboard clean, 320px and 400% zoom clean, both locales.            |
-| **3. Editorial platform** | 5             | A: Studio mount, `next-sanity` wiring, preview and draft mode. B: schema for editorial content (news, events, pages, guides, clubs). C: schema for organisational content (roster, minutes, decisions, budget, regulations). D: schema for configuration singletons, navigation, and the section palette types. E: validation library (bilingual parity, house style, link integrity) and the integrity crons. | An officer can create, preview, validate, schedule and revert a page in both locales, with no developer.     |
-| **4. Service chassis**    | 3             | A: `lib/services/*` and the generic `/do/[service]` routes. B: equipment loan migrated onto the chassis, which is the proof it works. C: console lift from `officer/inventory/` to `officer/`, portfolio permissions, and the access register (§6.8). **Opus review required: touches auth.**                                                                                                                  | Loan service passes its existing e2e suite unchanged through the chassis.                                    |
-| **5. Page rebuild**       | 6             | One agent per route family, each owning its `app/[lang]/…` subtree and its dictionary namespace: home and `/do` index; `/whats-on`; `/help`; `/studies`; `/about`; utility pages (privacy, standards, error pages, search, `/design` polish).                                                                                                                                                                  | Redirect test green. a11y and progressive-enhancement suites green. No route family imports another's parts. |
-| **6. Content migration**  | 4             | Scripted migration, one agent per content family: MDX to Portable Text; TypeScript content modules to documents; Smart Answers trees; curriculum. Each writes a migration script, a verification script, and a rollback. **No agent hand-writes content.**                                                                                                                                                     | Every 1.0 content item exists in the CMS, byte-comparable where it should be, with a diff report.            |
-| **7. Copy and guidance**  | 2             | EN agent and TH agent, each owning its locale's dictionary namespaces, field descriptions, and the in-Studio guide. Never the same file. **Copy is authored natively per language, never machine translated**, per `docs/EDITING.md`.                                                                                                                                                                          | Parity assertion compiles. House style passes. A human who reads Thai reviews the Thai.                      |
-| **8. Integration**        | 0, sequential | Orchestrator: full e2e, Lighthouse budgets, phase banners, redirect audit, `/design` completeness, and **the hardening acceptance test in §12, run by an actual officer rather than by an agent**.                                                                                                                                                                                                             | Everything green, and §12 passes with a real person driving.                                                 |
+| Wave                      | Agents        | Each owns                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Gate to pass                                                                                                                                                  |
+| ------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1. Foundations**        | 4             | A: type scale and colour utilities. B: layout primitives. C: icon sprite. D: test harness, `/design` skeleton, visual regression, `check:contrast`.                                                                                                                                                                                                                                                                                                                                                                                                         | `/design` renders, both locales, both themes, snapshots baseline.                                                                                             |
+| **2. Component library**  | 6             | One agent per cluster, each owning its `components/bds/` files and its dictionary namespace: **forms**; **navigation**; **status**; **content**; **service UI** (task list, start page, check answers, confirmation, status lookup, exit this page); **media and section palette** (§4.7 image components plus §4.6's eleven officer-composable sections, which share the ratio contract and belong together).                                                                                                                                              | Every component on `/design`, axe clean, keyboard clean, 320px and 400% zoom clean, both locales. Gallery is keyboard operable and works with JavaScript off. |
+| **3. Editorial platform** | 5             | A: Studio mount, `next-sanity` wiring, preview and draft mode. B: schema for editorial content (news, events, pages, guides, clubs). C: schema for organisational content (roster, minutes, decisions, budget, regulations). D: schema for configuration singletons, navigation, and the section palette types. E: validation library (bilingual parity, house style, link integrity) and the integrity crons.                                                                                                                                              | An officer can create, preview, validate, schedule and revert a page in both locales, with no developer.                                                      |
+| **4. Service chassis**    | 4             | A: `lib/services/*` and the generic `/do/[service]` routes. B: equipment loan migrated onto the chassis, which is the proof it works. C: console lift from `officer/inventory/` to `officer/`, portfolio permissions, and the access register (§6.8). D: **lost and found** (§5.5) as the first service built on the chassis rather than migrated onto it, including the public listing, the CBEMS custody reuse, the withheld-detail claim check and the retention path. **Opus review required on C (auth) and on D's retention and photo-review paths.** | Loan service passes its existing e2e suite unchanged. Lost and found runs end to end, and cannot publish without its register entry and retention path.       |
+| **5. Page rebuild**       | 6             | One agent per route family, each owning its `app/[lang]/…` subtree and its dictionary namespace: home and `/do` index; `/whats-on`; `/help`; `/studies`; `/about`; utility pages (privacy, standards, error pages, search, `/design` polish). The `/help` agent also builds the §3.6 signpost pages, which are a page type rather than a leftover.                                                                                                                                                                                                          | Redirect test green. a11y and progressive-enhancement suites green. No route family imports another's parts.                                                  |
+| **6. Content migration**  | 5             | Scripted migration, one agent per content family: MDX to Portable Text; TypeScript content modules to documents; Smart Answers trees; curriculum; and **the §3.6 dispositions** (delete, signpost, absorb) with their redirects and the external link register seeded. Each writes a migration script, a verification script, and a rollback. **No agent hand-writes content, and no agent decides a disposition.**                                                                                                                                         | Every 1.0 content item is migrated, signposted or redirected, none 404s, and the diff report accounts for every file.                                         |
+| **7. Copy and guidance**  | 2             | EN agent and TH agent, each owning its locale's dictionary namespaces, field descriptions, and the in-Studio guide. Never the same file. **Copy is authored natively per language, never machine translated**, per `docs/EDITING.md`.                                                                                                                                                                                                                                                                                                                       | Parity assertion compiles. House style passes. A human who reads Thai reviews the Thai.                                                                       |
+| **8. Integration**        | 0, sequential | Orchestrator: full e2e, Lighthouse budgets, phase banners, redirect audit, `/design` completeness, and **the hardening acceptance test in §12, run by an actual officer rather than by an agent**.                                                                                                                                                                                                                                                                                                                                                          | Everything green, and §12 passes with a real person driving.                                                                                                  |
 
 **Waves 3 and 4 can overlap**, since the schema work and the chassis work touch disjoint
 paths, and **Wave 5 can start against Wave 2's frozen component APIs** before either lands, as
@@ -1199,9 +1590,15 @@ FORBIDDEN
   New dependencies. Editing another agent's owned paths.
   Inventing institutional facts (see the brief's Facts section).
   Machine-translating copy between locales.
-  Putting personal data into a CMS schema (section 6.3).
+  Putting personal data into a CMS schema (section 6.3), including any
+  field that would hold a student submission or an operational upload.
   Adding a raw HTML, arbitrary embed, or custom CSS field to any
   schema (section 4.6).
+  Adding an image field without required bilingual alt text and an
+  explicit decorative flag (section 4.7C).
+  Deleting or signposting any content. Dispositions come from the
+  section 3.6 audit; execute the one you were given, and if a file is
+  not on the list, STOP and report it.
   Touching lib/inventory/auth.ts, content/privacy/register.ts,
   or lib/privacy/retention.ts.
 
@@ -1229,6 +1626,11 @@ REPORT
 - Design tokens and the type scale. One agent, Wave 0, or the system fractures during
   construction.
 - The IA and the route map. Decisions, not work.
+- **The section 3.6 dispositions.** Which pages BIRSA stops publishing is a committee judgement
+  about who serves students, and a subagent deciding it would be deleting BIRSA's content on
+  its own authority. Agents execute dispositions; they never choose them.
+- **The photography policy and the image contract.** Both are decisions with legal weight
+  (4.7E) and both are depended on by every schema.
 - The CMS schema conventions and the localisation strategy. One agent, Wave 0.
 - `lib/inventory/auth.ts` and the permission model. Security-critical, Opus, reviewed.
 - The privacy register, the retention paths, and the sensitive-service mode. One agent,
@@ -1246,43 +1648,56 @@ with if you think the plan overclaims. **Every row is performed by an actual BIR
 a phone, without a developer present and without opening a terminal.** An agent cannot pass
 this test on BIRSA's behalf.
 
-| #   | Task                                                  | Surface          | Passes when                                              |
-| --- | ----------------------------------------------------- | ---------------- | -------------------------------------------------------- |
-| 1   | Publish a news post in both languages                 | Studio           | Live within a minute, no deploy                          |
-| 2   | Schedule a post for Friday                            | Studio           | Appears Friday, unattended                               |
-| 3   | Correct a typo on a live page and revert it           | Studio           | Both directions, no developer                            |
-| 4   | Add an event to the activity calendar                 | Studio           | Appears on site and in the `.ics` feed                   |
-| 5   | Replace the whole committee roster for a new year     | Studio           | 21 people, both languages, portraits                     |
-| 6   | Add a brand-new page and put it in the navigation     | Studio           | Reachable, in nav, in search, in the sitemap             |
-| 7   | Rename a page's slug                                  | Studio           | Old URL 301s automatically                               |
-| 8   | Reorder the home page top tasks                       | Studio           | No developer, no deploy                                  |
-| 9   | Reorder the `/quick` links                            | Studio           | No developer                                             |
-| 10  | Add a club to the directory                           | Studio           | Card, page, category, both languages                     |
-| 11  | Publish a set of minutes and a decision               | Studio           | Appears on the transparency pages                        |
-| 12  | Publish the budget against actual spend               | Studio           | The transparency placeholder is no longer a placeholder  |
-| 13  | Edit a Smart Answers decision tree                    | Studio           | Validation blocks a broken tree before publish           |
-| 14  | Publish a regulation document                         | Studio           | Second approver required and enforced                    |
-| 15  | Try to publish English only                           | Studio           | **Blocked**, with a message in the editor's language     |
-| 16  | Try to publish with an em dash                        | Studio           | **Blocked**, inline, fixable in five seconds             |
-| 17  | Try to publish a link to nothing                      | Studio           | **Blocked**                                              |
-| 18  | Create a new intake service with six questions        | Studio           | Live at `/do/<slug>` with reference, status and queue    |
-| 19  | Try to create a service with no retention rule        | Studio           | **Blocked**                                              |
-| 20  | Change a service's standard from 48 to 72 hours       | Studio           | Acknowledgement email and escalation both follow         |
-| 21  | Open and close event sign-ups                         | Studio           | No developer                                             |
-| 22  | Change contact routing for one category               | Studio           | Mail reaches the new portfolio                           |
-| 23  | Turn a feature module off                             | Studio           | Site degrades cleanly, no error page                     |
-| 24  | Turn on emergency mode                                | Console          | Live in seconds, no Vercel dashboard                     |
-| 25  | Turn off emergency mode under pressure                | Console          | Two people can do it; both have done it once in practice |
-| 26  | Decide an equipment loan                              | Console          | Unchanged from 1.0                                       |
-| 27  | Acknowledge and close a welfare case                  | Console          | Reference, timestamps, audit, no narrative in the store  |
-| 28  | Approve a reimbursement claim with a receipt          | Console          | Photo in Blob, never in the CMS                          |
-| 29  | Export feedback as CSV                                | Console          | Unchanged from 1.0                                       |
-| 30  | Create a new officer account and grant a portfolio    | Console          | By the President, not by IT                              |
-| 31  | See everything one person can access, in both systems | Console          | The access register, one page                            |
-| 32  | Remove a graduating officer from everything           | Console + Studio | Both systems, from one checklist                         |
-| 33  | Generate a portfolio handover pack                    | Console          | Printable, from live data                                |
-| 34  | Find out why a page will not publish                  | Studio           | The message says what to fix, not what failed            |
-| 35  | Do all of the above with the IT officer unreachable   | Both             | **The whole test**                                       |
+| #   | Task                                                  | Surface          | Passes when                                                |
+| --- | ----------------------------------------------------- | ---------------- | ---------------------------------------------------------- |
+| 1   | Publish a news post in both languages                 | Studio           | Live within a minute, no deploy                            |
+| 2   | Schedule a post for Friday                            | Studio           | Appears Friday, unattended                                 |
+| 3   | Correct a typo on a live page and revert it           | Studio           | Both directions, no developer                              |
+| 4   | Add an event to the activity calendar                 | Studio           | Appears on site and in the `.ics` feed                     |
+| 5   | Replace the whole committee roster for a new year     | Studio           | 21 people, both languages, portraits                       |
+| 6   | Add a brand-new page and put it in the navigation     | Studio           | Reachable, in nav, in search, in the sitemap               |
+| 7   | Rename a page's slug                                  | Studio           | Old URL 301s automatically                                 |
+| 8   | Reorder the home page top tasks                       | Studio           | No developer, no deploy                                    |
+| 9   | Reorder the `/quick` links                            | Studio           | No developer                                               |
+| 10  | Add a club to the directory                           | Studio           | Card, page, category, both languages                       |
+| 11  | Publish a set of minutes and a decision               | Studio           | Appears on the transparency pages                          |
+| 12  | Publish the budget against actual spend               | Studio           | The transparency placeholder is no longer a placeholder    |
+| 13  | Edit a Smart Answers decision tree                    | Studio           | Validation blocks a broken tree before publish             |
+| 14  | Publish a regulation document                         | Studio           | Second approver required and enforced                      |
+| 15  | Try to publish English only                           | Studio           | **Blocked**, with a message in the editor's language       |
+| 16  | Try to publish with an em dash                        | Studio           | **Blocked**, inline, fixable in five seconds               |
+| 17  | Try to publish a link to nothing                      | Studio           | **Blocked**                                                |
+| 18  | Create a new intake service with six questions        | Studio           | Live at `/do/<slug>` with reference, status and queue      |
+| 19  | Try to create a service with no retention rule        | Studio           | **Blocked**                                                |
+| 20  | Change a service's standard from 48 to 72 hours       | Studio           | Acknowledgement email and escalation both follow           |
+| 21  | Open and close event sign-ups                         | Studio           | No developer                                               |
+| 22  | Change contact routing for one category               | Studio           | Mail reaches the new portfolio                             |
+| 23  | Turn a feature module off                             | Studio           | Site degrades cleanly, no error page                       |
+| 24  | Turn on emergency mode                                | Console          | Live in seconds, no Vercel dashboard                       |
+| 25  | Turn off emergency mode under pressure                | Console          | Two people can do it; both have done it once in practice   |
+| 26  | Decide an equipment loan                              | Console          | Unchanged from 1.0                                         |
+| 27  | Acknowledge and close a welfare case                  | Console          | Reference, timestamps, audit, no narrative in the store    |
+| 28  | Approve a reimbursement claim with a receipt          | Console          | Photo in Blob, never in the CMS                            |
+| 29  | Export feedback as CSV                                | Console          | Unchanged from 1.0                                         |
+| 30  | Create a new officer account and grant a portfolio    | Console          | By the President, not by IT                                |
+| 31  | See everything one person can access, in both systems | Console          | The access register, one page                              |
+| 32  | Remove a graduating officer from everything           | Console + Studio | Both systems, from one checklist                           |
+| 33  | Generate a portfolio handover pack                    | Console          | Printable, from live data                                  |
+| 34  | Find out why a page will not publish                  | Studio           | The message says what to fix, not what failed              |
+| 35  | Publish a news post with four event photographs       | Studio           | One upload each, no manual cropping, correct at every size |
+| 36  | Try to publish a photograph with no Thai alt text     | Studio           | **Blocked**, with the reason                               |
+| 37  | Mark a photograph decorative                          | Studio           | Alt field hides, renders `alt=""`, a deliberate choice     |
+| 38  | Replace all 21 committee portraits for a new year     | Studio           | No commit, no file paths, subject stays centred            |
+| 39  | Take down a photograph a student objects to           | Studio + Console | Gone from the live site in minutes, request recorded       |
+| 40  | Report a lost item as an ordinary student             | Public           | Reference, acknowledgement, status page, no account        |
+| 41  | Report a found item with a photograph                 | Public           | Not public until an officer reviews the photograph         |
+| 42  | Try to hand in a found student ID card                | Public           | **Routed away**, no custody taken, told where to go        |
+| 43  | Match a found item to a lost report and close both    | Console          | Withheld detail checked, both references resolved          |
+| 44  | Change how long found items are held                  | Studio           | Configuration, and the cron follows the new number         |
+| 45  | Let an unclaimed item age out                         | Console          | Custodian warned, record and photograph purged on time     |
+| 46  | Retire a delegated page once TUSU publishes it        | Studio           | Deleted, old URL 301s, no 404                              |
+| 47  | Find out that a link to TUSC has died                 | Console          | The cron found it before a student did                     |
+| 48  | Do all of the above with the IT officer unreachable   | Both             | **The whole test**                                         |
 
 Rows that remain code, deliberately and by §6.12: change the site's colours or typography, add
 a new page section type, add a new question type, change a retention rule, mark a service
@@ -1293,19 +1708,25 @@ shown that list too.
 
 ## 13. Risks
 
-| Risk                                             | Why it is real here                                                                                                                                                           | Mitigation                                                                                                                        |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Sanity's recurring cost is not affordable        | 21 committee members, a student association budget, and pricing that could not be verified from this environment.                                                             | §6.11 is a Wave 0 gate with a real number, before any Sanity work. An open "no" in June beats a discovery in November.            |
-| Granular per-portfolio roles need a higher tier  | Standard roles may not express "PR publishes news but not budgets".                                                                                                           | §6.11's fallback: structure and validation express intent, the access register and audit log carry accountability. Stated openly. |
-| A hosted dependency where there was none         | The site currently builds and runs with no environment at all. That property is genuinely rare and worth protecting.                                                          | §6.9 in full: cached reads, stale-over-absent, a committed content snapshot that is also a backup, and emergency mode kept out.   |
-| Officers are given the keys and do not use them  | The commonest outcome. A CMS nobody opens leaves publishing with whoever is comfortable with git, which is the defect this plan exists to fix.                                | §6.4 portfolio structure, §7.5 training, §12 run by real officers, and the two-person rule so it is never one person's habit.     |
-| Officers use them and the design fractures       | More pages, less context, no design training.                                                                                                                                 | §4.6 constrained composition, with no raw HTML, embed or CSS escape hatch. The palette is finite by construction.                 |
-| The MDX to Portable Text migration loses content | Long-form guides, custom components, the table of contents, and the search index all read MDX today.                                                                          | Wave 6 is scripted with a verification script and a rollback per family, and a diff report at the wave boundary.                  |
-| The rebuild loses a working thing                | 1.0 has five correct wizards, a working loan service and a passing a11y suite. Ground-up redesigns routinely regress exactly this kind of unglamorous correctness.            | The existing e2e suites are the acceptance criteria and must pass unchanged. Loan-on-chassis is the proof.                        |
-| The redesign never finishes                      | The commonest outcome for volunteer-run redesigns.                                                                                                                            | Phase banners and route-family-sized waves. Every wave leaves a shippable site.                                                   |
-| Contracts drift during parallel execution        | Twelve agents, one system.                                                                                                                                                    | §11.1, and `/design` as the single place drift becomes visible.                                                                   |
-| Thai quality degrades                            | Thai is the default locale and the harder half, and the half most likely to be quietly machine-translated under time pressure. Now also the language the Studio must work in. | §11.7. Native authoring is a hard rule; the parity assertion catches absence but not badness, so human review is the control.     |
-| Personal data leaks into the CMS                 | Someone will eventually think a welfare case is "content".                                                                                                                    | §6.3 as a stated boundary, in the agent brief's forbidden list, and enforced by the schema having nowhere to put it.              |
+| Risk                                                  | Why it is real here                                                                                                                                                                                                            | Mitigation                                                                                                                                                                                                                                                                                                |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sanity's recurring cost is not affordable             | 21 committee members, a student association budget, and pricing that could not be verified from this environment.                                                                                                              | §6.11 is a Wave 0 gate with a real number, before any Sanity work. An open "no" in June beats a discovery in November.                                                                                                                                                                                    |
+| Granular per-portfolio roles need a higher tier       | Standard roles may not express "PR publishes news but not budgets".                                                                                                                                                            | §6.11's fallback: structure and validation express intent, the access register and audit log carry accountability. Stated openly.                                                                                                                                                                         |
+| A hosted dependency where there was none              | The site currently builds and runs with no environment at all. That property is genuinely rare and worth protecting.                                                                                                           | §6.9 in full: cached reads, stale-over-absent, a committed content snapshot that is also a backup, and emergency mode kept out.                                                                                                                                                                           |
+| Officers are given the keys and do not use them       | The commonest outcome. A CMS nobody opens leaves publishing with whoever is comfortable with git, which is the defect this plan exists to fix.                                                                                 | §6.4 portfolio structure, §7.5 training, §12 run by real officers, and the two-person rule so it is never one person's habit.                                                                                                                                                                             |
+| Officers use them and the design fractures            | More pages, less context, no design training.                                                                                                                                                                                  | §4.6 constrained composition, with no raw HTML, embed or CSS escape hatch. The palette is finite by construction.                                                                                                                                                                                         |
+| The MDX to Portable Text migration loses content      | Long-form guides, custom components, the table of contents, and the search index all read MDX today.                                                                                                                           | Wave 6 is scripted with a verification script and a rollback per family, and a diff report at the wave boundary.                                                                                                                                                                                          |
+| The rebuild loses a working thing                     | 1.0 has five correct wizards, a working loan service and a passing a11y suite. Ground-up redesigns routinely regress exactly this kind of unglamorous correctness.                                                             | The existing e2e suites are the acceptance criteria and must pass unchanged. Loan-on-chassis is the proof.                                                                                                                                                                                                |
+| The redesign never finishes                           | The commonest outcome for volunteer-run redesigns.                                                                                                                                                                             | Phase banners and route-family-sized waves. Every wave leaves a shippable site.                                                                                                                                                                                                                           |
+| Contracts drift during parallel execution             | Twelve agents, one system.                                                                                                                                                                                                     | §11.1, and `/design` as the single place drift becomes visible.                                                                                                                                                                                                                                           |
+| Thai quality degrades                                 | Thai is the default locale and the harder half, and the half most likely to be quietly machine-translated under time pressure. Now also the language the Studio must work in.                                                  | §11.7. Native authoring is a hard rule; the parity assertion catches absence but not badness, so human review is the control.                                                                                                                                                                             |
+| Personal data leaks into the CMS                      | Someone will eventually think a welfare case is "content".                                                                                                                                                                     | §6.3 as a stated boundary, in the agent brief's forbidden list, and enforced by the schema having nowhere to put it.                                                                                                                                                                                      |
+| A published photograph exposes a student              | Photographs of identifiable students are personal data, most first-years are minors, and the register deliberately avoids relying on consent. A found-item photograph can show an ID card, a name in a book, or a lock screen. | §4.7E in full: an event photography activity in the register, a photography notice, wide shots by default, no names in alt text, and a takedown route measured in days. §5.5: no found-item photograph is public before an officer reviews it, and identity-document categories get no photograph at all. |
+| Images make the site slow, and it is noticed late     | A text-only site adding images is the classic way a performance budget quietly dies, and the LCP element on a news page moves from text to a photograph.                                                                       | Per-template budgets with an explicit image allowance (§9), a source file size limit at upload, `priority` on the hero only, and the transform pipeline doing format and size negotiation rather than the officer.                                                                                        |
+| Images turn a text-forward identity into a photo blog | Images are the fun part, and the cream-editorial identity is carried by typography and whitespace.                                                                                                                             | §4.7A as design rules rather than taste: fixed ratios, no text over images, full-bleed rare and deliberate, captions in the muted tone.                                                                                                                                                                   |
+| Delegation strands students in a void                 | §3.6 removes pages on the assumption that TUSU, TUSC or the faculty publishes the same thing. If they do not, or do so only in one language, the student is worse off than before.                                             | The four-part gate, and `maintainedBecause` on every failure so the content stays and is labelled. Delegation is refused by default, not granted by default.                                                                                                                                              |
+| The delegated site decays into dead links             | Trading forty pages for forty external links trades a maintenance burden for a decay problem, and untended that is worse in two years than what it replaced.                                                                   | The external link register as a content type, checked on the daily cron, with a fortnight's dead link escalating to the owning portfolio.                                                                                                                                                                 |
+| BIRSA is treated as the lost property office          | A well-built service looks official, and a student will eventually hand over a passport.                                                                                                                                       | §5.5: categories routed away at the point of reporting, no custody taken, and the start page names where the university's own lost property is.                                                                                                                                                           |
 
 ---
 
@@ -1364,3 +1785,14 @@ does rather than something anyone builds.
    President's decision, and it must be made before the Studio exists rather than after.
 8. **Who reviews Thai copy, and who is the second Studio administrator?** Named people, not
    "the committee". Without these two names, §11.7's control and §7.2's rule do not exist.
+9. **Which pages does BIRSA stop publishing?** §3.6, run to a decision before Wave 5. This is
+   the committee deciding what it is for, and it is the item most likely to be deferred because
+   deleting your predecessors' work feels like a judgement on them. It is not. It is the
+   difference between a site a volunteer committee can maintain and one it cannot.
+10. **Will BIRSA adopt a photography policy?** §4.7E. Publishing photographs of students is a
+    standing commitment to a notice at events, a takedown route with a real service standard,
+    and a default of wide shots. If the committee will not run that, the honest answer is to
+    keep images for things rather than people, which is a smaller but still worthwhile change.
+11. **How long are found items held, and where do they go afterwards?** §5.5. A number and a
+    destination, agreed with the faculty office, before the service launches rather than the
+    first time something valuable goes unclaimed.
