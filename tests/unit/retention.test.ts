@@ -162,7 +162,11 @@ describe("selectActiveCustodianIds / selectCustodiansToClear", () => {
   });
 
   it("counts a custodian as active from a recently-updated item", () => {
-    const active = selectActiveCustodianIds([], [{ custodianId: "c2", updatedAt: yearsAgoPlusDays(2, 1) }], cutoff);
+    const active = selectActiveCustodianIds(
+      [],
+      [{ custodianId: "c2", updatedAt: yearsAgoPlusDays(2, 1) }],
+      cutoff
+    );
     expect(active.has("c2")).toBe(true);
   });
 
@@ -183,24 +187,43 @@ describe("selectOfficersToAnonymise", () => {
 
   it("selects an officer inactive for two years, measured from last_login_at", () => {
     const officers = [
-      { id: "o1", lastLoginAt: yearsAgoPlusDays(2, -1), createdAt: yearsAgoPlusDays(5, 0), email: "o1@example.com" },
+      {
+        id: "o1",
+        lastLoginAt: yearsAgoPlusDays(2, -1),
+        createdAt: yearsAgoPlusDays(5, 0),
+        email: "o1@example.com",
+      },
     ];
     expect(selectOfficersToAnonymise(officers, cutoff)).toEqual(["o1"]);
   });
 
   it("falls back to created_at for an officer who never logged in", () => {
-    const officers = [{ id: "o2", lastLoginAt: null, createdAt: yearsAgoPlusDays(2, -1), email: "o2@example.com" }];
+    const officers = [
+      { id: "o2", lastLoginAt: null, createdAt: yearsAgoPlusDays(2, -1), email: "o2@example.com" },
+    ];
     expect(selectOfficersToAnonymise(officers, cutoff)).toEqual(["o2"]);
   });
 
   it("keeps a recently-active officer", () => {
-    const officers = [{ id: "o3", lastLoginAt: yearsAgoPlusDays(0, 0), createdAt: yearsAgoPlusDays(5, 0), email: "o3@example.com" }];
+    const officers = [
+      {
+        id: "o3",
+        lastLoginAt: yearsAgoPlusDays(0, 0),
+        createdAt: yearsAgoPlusDays(5, 0),
+        email: "o3@example.com",
+      },
+    ];
     expect(selectOfficersToAnonymise(officers, cutoff)).toEqual([]);
   });
 
   it("never re-selects an already-tombstoned officer", () => {
     const officers = [
-      { id: "o4", lastLoginAt: yearsAgoPlusDays(5, 0), createdAt: yearsAgoPlusDays(5, 0), email: "removed+o4@invalid" },
+      {
+        id: "o4",
+        lastLoginAt: yearsAgoPlusDays(5, 0),
+        createdAt: yearsAgoPlusDays(5, 0),
+        email: "removed+o4@invalid",
+      },
     ];
     expect(selectOfficersToAnonymise(officers, cutoff)).toEqual([]);
   });
@@ -218,6 +241,14 @@ type LoanRow = {
 };
 type Store = {
   loans: LoanRow[];
+  /**
+   * Whether the legacy `equipment_loans` table exists at all. It is created by
+   * db/schema.sql and by no migration, so a database stood up the way the
+   * README describes does not have it — hence the `to_regclass` probe the
+   * purge runs before touching it. Defaults to true so the fixtures below keep
+   * exercising the table-present path.
+   */
+  equipment_loans_table_exists: boolean;
   equipment_loans: { id: string; created_at: string }[];
   borrowers: { id: string; updated_at: string }[];
   audit_log: { id: string; created_at: string; officer_id: string | null }[];
@@ -279,7 +310,17 @@ function makeFakeClient(s: Store): FakeClient {
         return { rows: [] as T[], rowCount: before - s.loans.length };
       }
 
+      if (text.includes("to_regclass('public.equipment_loans')")) {
+        return {
+          rows: [{ present: s.equipment_loans_table_exists }] as unknown as T[],
+          rowCount: 1,
+        };
+      }
+
       if (text.includes("select id, created_at from equipment_loans")) {
+        if (!s.equipment_loans_table_exists) {
+          throw new Error('relation "equipment_loans" does not exist');
+        }
         return { rows: s.equipment_loans as unknown as T[], rowCount: s.equipment_loans.length };
       }
 
@@ -292,7 +333,10 @@ function makeFakeClient(s: Store): FakeClient {
 
       if (text.includes("distinct borrower_id from loans")) {
         const ids = Array.from(new Set(s.loans.map((l) => l.borrower_id)));
-        return { rows: ids.map((borrower_id) => ({ borrower_id })) as unknown as T[], rowCount: ids.length };
+        return {
+          rows: ids.map((borrower_id) => ({ borrower_id })) as unknown as T[],
+          rowCount: ids.length,
+        };
       }
 
       if (text.includes("select id, updated_at from borrowers")) {
@@ -323,7 +367,10 @@ function makeFakeClient(s: Store): FakeClient {
       if (text.includes("as last_active from officers")) {
         const rows = s.officers
           .filter((o) => o.custodian_id !== null)
-          .map((o) => ({ custodian_id: o.custodian_id, last_active: o.last_login_at ?? o.created_at }));
+          .map((o) => ({
+            custodian_id: o.custodian_id,
+            last_active: o.last_login_at ?? o.created_at,
+          }));
         return { rows: rows as unknown as T[], rowCount: rows.length };
       }
 
@@ -331,7 +378,11 @@ function makeFakeClient(s: Store): FakeClient {
         return { rows: s.items as unknown as T[], rowCount: s.items.length };
       }
 
-      if (text.includes("contact_name_en, contact_name_th, contact_email, contact_instagram, contact_other")) {
+      if (
+        text.includes(
+          "contact_name_en, contact_name_th, contact_email, contact_instagram, contact_other"
+        )
+      ) {
         return { rows: s.custodians as unknown as T[], rowCount: s.custodians.length };
       }
 
@@ -384,6 +435,7 @@ function makeFakeClient(s: Store): FakeClient {
 function freshStore(): Store {
   return {
     loans: [],
+    equipment_loans_table_exists: true,
     equipment_loans: [],
     borrowers: [],
     audit_log: [],
@@ -428,8 +480,18 @@ describe("purgeExpiredPersonalData", () => {
 
   it("keeps a loan closed just under two years ago and deletes one closed just over", async () => {
     store.loans.push(
-      { id: "loan-recent", status: "returned", closed_at: yearsAgoPlusDays(2, 1), borrower_id: "b1" },
-      { id: "loan-expired", status: "returned", closed_at: yearsAgoPlusDays(2, -1), borrower_id: "b2" }
+      {
+        id: "loan-recent",
+        status: "returned",
+        closed_at: yearsAgoPlusDays(2, 1),
+        borrower_id: "b1",
+      },
+      {
+        id: "loan-expired",
+        status: "returned",
+        closed_at: yearsAgoPlusDays(2, -1),
+        borrower_id: "b2",
+      }
     );
 
     const result = await purgeExpiredPersonalData(NOW);
@@ -438,8 +500,33 @@ describe("purgeExpiredPersonalData", () => {
     expect(remainingIds).toEqual(["loan-recent"]);
   });
 
+  it("still purges everything else when the legacy equipment_loans table does not exist", async () => {
+    // `equipment_loans` is created by db/schema.sql and by no migration, so a
+    // database stood up the way the README describes (attach Postgres, run
+    // scripts/migrate.mjs) never has it. Querying a missing relation aborts
+    // the surrounding transaction, which rolled back the whole purge and left
+    // every category of expired personal data in place, reported only as a
+    // generic error — verified against a real Postgres before the fix.
+    store.equipment_loans_table_exists = false;
+    store.loans.push({
+      id: "loan-expired",
+      status: "returned",
+      closed_at: yearsAgoPlusDays(2, -1),
+      borrower_id: "b1",
+    });
+
+    const result = await purgeExpiredPersonalData(NOW);
+    expect(result).toMatchObject({ ok: true, counts: { loans: 1, equipmentLoans: 0 } });
+    expect(store.loans).toHaveLength(0);
+  });
+
   it("does not delete a borrower who still has a surviving loan", async () => {
-    store.loans.push({ id: "loan-keep", status: "checked_out", closed_at: null, borrower_id: "b-active" });
+    store.loans.push({
+      id: "loan-keep",
+      status: "checked_out",
+      closed_at: null,
+      borrower_id: "b-active",
+    });
     store.borrowers.push({ id: "b-active", updated_at: yearsAgoPlusDays(10, 0) });
 
     const result = await purgeExpiredPersonalData(NOW);
@@ -458,7 +545,11 @@ describe("purgeExpiredPersonalData", () => {
       is_active: true,
       custodian_id: null,
     });
-    store.audit_log.push({ id: "audit-1", created_at: yearsAgoPlusDays(0, 0), officer_id: "officer-1" });
+    store.audit_log.push({
+      id: "audit-1",
+      created_at: yearsAgoPlusDays(0, 0),
+      officer_id: "officer-1",
+    });
 
     const result = await purgeExpiredPersonalData(NOW);
     expect(result).toMatchObject({ ok: true, counts: { officersAnonymised: 1 } });
@@ -487,7 +578,12 @@ describe("purgeExpiredPersonalData", () => {
       is_active: true,
       custodian_id: null,
     });
-    store.loans.push({ id: "loan-x", status: "returned", closed_at: yearsAgoPlusDays(3, 0), borrower_id: "bx" });
+    store.loans.push({
+      id: "loan-x",
+      status: "returned",
+      closed_at: yearsAgoPlusDays(3, 0),
+      borrower_id: "bx",
+    });
     store.audit_log.push({ id: "audit-x", created_at: yearsAgoPlusDays(3, 0), officer_id: null });
 
     const first = await purgeExpiredPersonalData(NOW);

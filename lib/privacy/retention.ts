@@ -234,19 +234,35 @@ export async function purgeExpiredPersonalData(
     // b. equipment_loans: the legacy table nothing in the current app reads
     // or writes any more (see db/migrations/005_loans.sql), so age alone is
     // enough.
-    const equipmentLoanRows = await client.query<{ id: string; created_at: string }>(
-      `select id, created_at from equipment_loans`,
+    //
+    // Its existence is checked first because the table is created by
+    // db/schema.sql, the one-time bootstrap for the pre-inventory tables, and
+    // by no migration. A database stood up the way the README describes never
+    // has it, and querying a missing relation aborts the surrounding
+    // transaction — which would roll back the entire purge and leave every
+    // other category of expired personal data in place, reported only as a
+    // generic error. Skipping a table that was never there is correct; there
+    // is nothing in it to purge.
+    const equipmentLoansExists = await client.query<{ present: boolean }>(
+      `select to_regclass('public.equipment_loans') is not null as present`,
       []
     );
-    const expiredEquipmentLoanIds = selectExpiredByTimestamp(
-      equipmentLoanRows.rows.map((row) => ({ id: row.id, timestamp: row.created_at })),
-      cutoff
-    );
-    if (expiredEquipmentLoanIds.length > 0) {
-      const deleted = await client.query(`delete from equipment_loans where id = any($1::uuid[])`, [
-        expiredEquipmentLoanIds,
-      ]);
-      counts.equipmentLoans = deleted.rowCount ?? 0;
+    if (equipmentLoansExists.rows[0]?.present) {
+      const equipmentLoanRows = await client.query<{ id: string; created_at: string }>(
+        `select id, created_at from equipment_loans`,
+        []
+      );
+      const expiredEquipmentLoanIds = selectExpiredByTimestamp(
+        equipmentLoanRows.rows.map((row) => ({ id: row.id, timestamp: row.created_at })),
+        cutoff
+      );
+      if (expiredEquipmentLoanIds.length > 0) {
+        const deleted = await client.query(
+          `delete from equipment_loans where id = any($1::uuid[])`,
+          [expiredEquipmentLoanIds]
+        );
+        counts.equipmentLoans = deleted.rowCount ?? 0;
+      }
     }
 
     // c. Borrowers: only once every loan row of theirs is already gone
@@ -306,7 +322,10 @@ export async function purgeExpiredPersonalData(
         custodianId: row.custodian_id,
         lastActive: row.last_active,
       })),
-      itemActivityRows.rows.map((row) => ({ custodianId: row.custodian_id, updatedAt: row.updated_at })),
+      itemActivityRows.rows.map((row) => ({
+        custodianId: row.custodian_id,
+        updatedAt: row.updated_at,
+      })),
       cutoff
     );
     const custodianRows = await client.query<{
