@@ -37,19 +37,30 @@ meant to be read together because the third pays for the first two:
 
 **Source note.** This plan is informed by the GOV.UK Design System, the Government Design
 Principles, the GOV.UK Service Manual, Nielsen's usability heuristics, and cognitive load
-theory. Three sets of facts in this document could not be verified from this environment,
-because the network egress proxy blocks `design-system.service.gov.uk`, `www.gov.uk` and
-`www.sanity.io`:
+theory.
 
-1. GDS component and pattern names (sections 3 and 4).
-2. Sanity plan tiers, seat counts, seat pricing, document history retention, and which tier
-   gates granular roles (section 6.11).
-3. Whether a Thai localisation bundle exists for the Sanity Studio interface (section 6.4).
+The organisation's egress policy blocks `design-system.service.gov.uk`, `www.gov.uk` and
+`www.sanity.io`, so those pages could not be read directly. The facts that depended on them
+have since been verified from primary sources that are reachable, and the document now states
+them rather than flagging them:
 
-All three are cited from knowledge, all three are flagged in place, and all three are Wave 0
-verification tasks. Treat them as claims to check, not facts to build on. Item 2 in
-particular carries a recurring cost for a student association and must be settled before
-anyone commits to this plan.
+| Fact set                                             | Source used                                                                                      | Result           |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------- |
+| GOV.UK component names (4.3)                         | `govuk-frontend` **6.4.0** from the npm registry, component directory listing                    | Verified, 35     |
+| GOV.UK pattern names (4.3b)                          | `alphagov/govuk-design-system` at commit `051c2d4`, `src/patterns/` and its frontmatter          | Verified, 35     |
+| The ten Government Design Principles (2)             | Search, corroborated across several independent reproductions                                    | Verified as held |
+| Sanity plans, seats, roles, history retention (6.11) | Sanity's own pricing and documentation pages via search index                                    | Verified         |
+| Thai Sanity Studio interface (6.4)                   | npm registry: `@sanity/locale-th-th` exists at 1.1.38, published with the rest of the locale set | Verified, exists |
+
+Two things follow. The component and pattern names in section 4 are now current rather than
+remembered, and section 4.3b is new: a pattern mapping the earlier draft did not have at all.
+And section 6.11, which was the largest open risk in this plan, has a different answer than
+expected. **Sanity operates a non-profit plan that mirrors Growth, costs nothing, and includes
+25 seats.** That changes the recommendation rather than merely confirming it.
+
+One thing remains genuinely undecidable here and always would have been: whether Sanity
+accepts BIRSA as eligible for that plan. That is their determination on an application, not a
+fact to look up. Section 6.11 sets out what to do in both cases.
 
 ---
 
@@ -467,8 +478,15 @@ set, all `aria-hidden`, none carrying meaning alone.
 
 ### 4.3 Component inventory, mapped against GDS
 
-Verify these names against the live component index in Wave 0. Status is what 2.0 does with
-each.
+Names below are the 35 components in `govuk-frontend` 6.4.0, taken from the package's own
+component directory. Status is what 2.0 does with each.
+
+Three notes on the list as it actually stands. `hint` and `label` exist in the frontend
+package but are not documented as standalone components, because they are parts of other
+components rather than things you reach for on their own; BIRSA's `Field.tsx` already treats
+them that way and should keep doing so. `text-input` is the documented name for what the
+package calls `input`. And `generic-header` is a v6 addition alongside `header`, which the
+navigation agent should look at before rebuilding the site header rather than after.
 
 | GDS component                                        | BIRSA 1.0                        | 2.0 status                                                                                                         |
 | ---------------------------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -504,6 +522,56 @@ each.
 BIRSA-specific components with no GDS equivalent, all keep-and-move: `EmergencyBanner`,
 `EmergencyHero`, `LanguageToggle`, `ThemeToggle`, `PageFeedback`, `ExternalLink`, `Email`,
 `ShuttleTimer`, `PlacesMap`, `EventCalendar`, `CommitteeRoster`, `RegulationView`.
+
+### 4.3b Patterns, and the two this plan had missed
+
+Components are the easy half. The 35 patterns in `alphagov/govuk-design-system` at `051c2d4`
+are guidance on solving whole problems, and reading the real list against this plan surfaced
+two BIRSA already needs and had no plan for.
+
+**Patterns the chassis implements, and should be read before building it** (section 5):
+`start-pages` and `start-using-a-service`; `question-pages`, which is the one-thing-per-page
+rule BIRSA already follows five times; `check-answers`; `confirmation-pages`;
+`validation`, documented as "recover from validation errors"; `task-list-pages` and
+`complete-multiple-tasks`; `navigate-a-service`.
+
+**Patterns that supply the question palette** (section 6.7). Each of these is guidance on how
+to ask for one kind of thing, and each maps to one entry in the palette: `names`, `dates`,
+`email-addresses`, `phone-numbers`, `addresses`. Building the palette without reading them
+means re-deriving, badly, work that has already been user-tested at national scale. `names` in
+particular matters here, because a bilingual Thai and English service that assumes a
+first-name and last-name shape will be wrong for a large share of its users.
+
+**Two patterns this plan had missed, both directly relevant:**
+
+- **`understand-the-impact-of-an-emergency`.** BIRSA has emergency mode, an
+  `EmergencyBanner`, `EmergencyHero`, per-scenario pages and an Edge Config toggle, all built
+  without this guidance because the drafting of this plan did not know it existed. It is the
+  single most relevant pattern on the list to a feature BIRSA has already shipped. Wave 0
+  reads it and records what the current implementation should change; this is exactly the
+  cheap kind of improvement that comes from checking rather than remembering.
+- **`interruption-pages`.** A full-page interruption used when a user must take in something
+  important before continuing. The natural home is the welfare and reporting flows, where a
+  student needs to understand what BIRSA can and cannot do before they start typing, and
+  section 5.4's boundary needs a place to be said at the moment it matters.
+
+**Two more worth adopting:** `contact-a-department-or-service-team`, which is the pattern
+behind roadmap section 3's "route by category to the right portfolio instead" of one shared
+inbox; and `check-a-service-is-suitable`, which is how a start page tells a student this
+service is not for them before they fill in six pages.
+
+**Patterns BIRSA deliberately does not use, and the reason is already on record.**
+`create-accounts`, `create-a-username` and `passwords` are the account patterns, and roadmap
+section 6 refuses student accounts outright: "Every proposal above works with a reference
+number and no account." Naming them here as a deliberate exclusion is worth more than leaving
+them unmentioned, because the next committee will otherwise rediscover the question.
+
+`equality-information`, `ethnic-group` and `gender-or-sex` are the demographic patterns. BIRSA
+should not collect any of it. The register avoids relying on consent, most first-years are
+minors, and ethnicity is sensitive data under PDPA section 26 with a much higher bar than the
+section 24 bases the register uses. If a future committee wants demographic data for a welfare
+report, these patterns are where to start reading, and the answer will still probably be an
+anonymous aggregate survey rather than a field on a form.
 
 ### 4.4 Three new components that change what BIRSA can offer
 
@@ -941,12 +1009,15 @@ Not a general endorsement; these are the properties that matter here.
 - **Webhooks to `revalidateTag` give instant publish with no redeploy.** The existing
   `/api/emergency/revalidate` route already establishes this pattern in the codebase.
 - **Document history and revert are built in**, so an officer's mistake is a click to undo
-  rather than a call to the IT officer. Retention of that history varies by plan; see 6.11.
+  rather than a call to the IT officer. How far back that goes is set by the plan, and it is
+  one of the two reasons the free plan is not an option; see 6.11.
+- **The Studio speaks Thai.** `@sanity/locale-th-th` is a maintained, current locale bundle
+  (6.4). For a committee whose default language is Thai, this is not a nicety.
 
 The honest costs, stated once and not softened: a new data processor to register, a second
-identity system to run (6.8), a recurring seat cost that is unverified (6.11), and a migration
-away from MDX to Portable Text (6.10). None of these is a reason not to do it. All of them are
-reasons to decide it deliberately.
+identity system to run (6.8), a plan application that BIRSA does not control the outcome of
+(6.11), and a migration away from MDX to Portable Text (6.10). None of these is a reason not to
+do it. All of them are reasons to decide it deliberately.
 
 ### 6.3 What goes in Sanity, and what must never
 
@@ -1023,11 +1094,14 @@ Beyond structure, four things make the Studio usable by a committee that has nev
 
 - **Every field has a description, authored in both languages**, saying what it is for and
   what good looks like. These are written by us, in the schema, so they are reviewed like code.
-- **The Studio interface language.** Whether Sanity ships a Thai localisation bundle for its
-  own interface is one of the three unverified facts flagged at the top of this document.
-  Wave 0 checks. If it does not exist, field titles and descriptions carry the whole burden of
-  making the Studio legible to a Thai-first editor, which raises their priority rather than
-  lowering it.
+- **The Studio interface language: Thai is available.** `@sanity/locale-th-th` exists on the
+  npm registry at 1.1.38 and ships on the same release train as every other locale bundle, so
+  it is maintained rather than abandoned. Install it and make Thai the Studio's default, not an
+  option a Thai-first officer has to find. This is a better outcome than this plan assumed, and
+  it matters: an editing surface in English only would have quietly excluded some of the
+  committee from holding a grant at all, which is section 7.2's two-person rule failing for a
+  reason nobody would have written down. Field titles and descriptions are still authored
+  bilingually, because the bundle translates Sanity's interface and not BIRSA's schema.
 - **An in-Studio guide.** A set of guide documents, visible in the Studio, covering the ten
   things officers actually do. Written by the outgoing committee, edited by the incoming one.
 - **A first-run checklist per portfolio**, so a new officer in June has a defined path from
@@ -1208,30 +1282,64 @@ format. Budget for it honestly. The upside is that Portable Text is structured d
 than a string, which makes the search index and the table of contents more reliable than
 parsing markdown ever was.
 
-### 6.11 Cost, seats and plan limits: verify before committing
+### 6.11 Cost, seats and plan limits
 
-**This is the most important unresolved item in the plan and it is a decision for the
-committee, not for the builder.** `www.sanity.io` is blocked from this environment, so none of
-the following could be checked and none of it should be relied on:
+This was the largest open risk in the plan. Researched, it resolves better than expected, and
+in a way that changes the recommendation rather than merely confirming it.
 
-- The number of user seats included in each plan tier, and the cost of additional seats.
-- Whether BIRSA's committee needs 21 seats or fewer. Realistically, perhaps eight to ten
-  people publish, and the rest need nothing or a viewer role. That estimate should be turned
-  into a real number by asking each portfolio.
-- Document history retention per tier, which determines how far back an officer can revert.
-  This directly affects 6.5.
-- Which tier gates granular or custom roles. Standard roles may not express "Public Relations
-  can publish news but not budgets". If granular roles are out of reach, the fallback is that
-  Studio structure and validation express the intent while enforcement stays coarse, and the
-  access register (6.8) plus the audit trail carry the accountability. That is a weaker
-  guarantee and the committee should know they are choosing it.
-- API request and bandwidth limits against the site's traffic.
+#### What the plans actually offer
 
-Wave 0 produces a one-page costing with real figures and a recommended tier. If the recurring
-cost is not acceptable to BIRSA, that is a legitimate answer, and the fallback is the
-roadmap's section 4C flow as a permanent arrangement rather than a bridge, with the governing
-requirement of this document knowingly unmet. Better to decide that openly in June than to
-discover it in November.
+|                            | **Free**                  | **Growth**                                                       | **Non-profit**                 |
+| -------------------------- | ------------------------- | ---------------------------------------------------------------- | ------------------------------ |
+| Cost                       | Free                      | $15 per seat per month                                           | **Free**                       |
+| Seats                      | 20                        | Up to 50                                                         | **25 included**, then $15 each |
+| Roles                      | **Admin and Viewer only** | Admin, Viewer, Editor, Developer, Contributor, plus custom roles | Mirrors Growth                 |
+| Document history retention | **3 days**                | 90 days                                                          | Mirrors Growth                 |
+| Scheduled publishing       | No                        | Yes                                                              | Yes                            |
+
+Two figures decide this, and neither is the price.
+
+**The free plan cannot carry this plan, and the reason is not seats.** It offers Admin and
+Viewer only. That means every officer who can edit anything is an administrator of everything:
+no `news:publish` without `finance:publish`, no scoping, no portfolio grants. Section 7.1 does
+not exist on the free plan, and section 7.2's two-person rule degrades into twenty
+administrators. And **3 days of history retention** guts section 6.5: "revert, one click, no
+developer" is only true for three days, after which an officer's mistake from last week is a
+developer's problem again. Twenty seats would also be tight against a committee of twenty-one
+before a single alumnus or adviser is counted.
+
+**The non-profit plan removes the cost question entirely, if BIRSA qualifies.** It mirrors
+Growth, costs nothing, and includes 25 seats, which covers all twenty-one committee members
+with room. Sanity's stated eligibility includes small and mid-sized organisations operated for
+collective, public or social benefit, and explicitly names educational and academic
+institutions of smaller sizes and budgets. A student association of a university faculty is a
+reasonable fit for that description.
+
+#### What follows
+
+1. **Apply for the non-profit plan.** This is now the first Sanity task, ahead of any schema
+   work, and it should be done by whoever owns `birsa@tu.ac.th` so the plan attaches to the
+   BIRSA account rather than a student's (7.4). It is an application, not a signup, so allow
+   time for it in the schedule.
+2. **Do not design against the free plan.** If the application is refused, the answer is not
+   to fall back to Free and hope; it is to choose between Growth at roughly ten editing seats,
+   about $150 a month, and the roadmap's section 4C flow as a permanent arrangement with the
+   governing requirement of this document knowingly unmet. Both are defensible. Free is not,
+   because it would deliver a Studio that quietly cannot enforce anything the operating model
+   in section 7 depends on.
+3. **Count the seats honestly before applying.** Twenty-one committee members does not mean
+   twenty-one editing seats. Ask each portfolio who actually publishes. The built-in Viewer
+   role is free on Growth, but note that a custom read-only role is billed as a full user, so
+   "give everyone a custom read-only role" is a trap.
+4. **Still verify at Wave 0**: API request and bandwidth quotas against the site's real
+   traffic, and asset storage against the image work in 4.7, which is new load this site has
+   never carried. The non-profit plan is free "within the quotas", so the quotas are the thing
+   to check, not the price.
+
+The one thing that cannot be settled in advance is whether Sanity accepts the application.
+That is their judgement, and it is a Wave 0 gate: no schema work starts until the plan is
+known, because the answer determines whether section 7's permission model is enforceable or
+merely documented.
 
 ### 6.12 What deliberately stays in code
 
@@ -1485,10 +1593,13 @@ one file per content domain, composed by a frozen index, so schema agents never 
 
 Nothing else starts until every item here is committed.
 
-1. **Verify the three blocked fact sets** flagged at the top of this document: the GDS
-   component and pattern indexes, Sanity's plan limits and pricing (6.11), and whether a Thai
-   Studio interface bundle exists (6.4). Correct this document against what is found. The
-   Sanity costing goes to the committee as a decision before any Sanity work starts.
+1. **Apply for the Sanity non-profit plan** (6.11), from the `birsa@tu.ac.th` account, and get
+   an answer before any schema work starts. It determines whether section 7's permission model
+   is enforceable or merely documented. While waiting, verify the quota side: API requests,
+   bandwidth and asset storage against real traffic plus the new image load from 4.7.
+   Separately, **read the two patterns this plan had missed** (4.3b):
+   `understand-the-impact-of-an-emergency` against BIRSA's existing emergency mode, and
+   `interruption-pages` against the welfare flows. Record what should change.
 2. Rewrite `docs/PROJECT-BRIEF.md` as `docs/BUILD-BRIEF-2.0.md`: correct fonts (Lexend, not
    Inter), correct environment, correct lib contracts, and a new "how to work as a subagent
    on this project" section. Every agent brief points at it. A wrong brief is a systematic
@@ -1710,8 +1821,8 @@ shown that list too.
 
 | Risk                                                  | Why it is real here                                                                                                                                                                                                            | Mitigation                                                                                                                                                                                                                                                                                                |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Sanity's recurring cost is not affordable             | 21 committee members, a student association budget, and pricing that could not be verified from this environment.                                                                                                              | §6.11 is a Wave 0 gate with a real number, before any Sanity work. An open "no" in June beats a discovery in November.                                                                                                                                                                                    |
-| Granular per-portfolio roles need a higher tier       | Standard roles may not express "PR publishes news but not budgets".                                                                                                                                                            | §6.11's fallback: structure and validation express intent, the access register and audit log carry accountability. Stated openly.                                                                                                                                                                         |
+| The non-profit application is refused                 | It is Sanity's judgement on BIRSA's eligibility, not a fact to look up, and everything in §7 assumes the roles that come with it.                                                                                              | §6.11: choose openly between Growth at roughly $150 a month and the roadmap's §4C flow as a permanent arrangement. **Not** the free plan, whose Admin-and-Viewer-only roles and 3-day history would silently disable §7.1 and §6.5.                                                                       |
+| BIRSA drifts onto the free plan to save money         | It is free, it has 20 seats, and the two things wrong with it are invisible until they bite: everyone who can edit is an administrator, and an officer's mistake becomes unrevertable after three days.                        | Stated as a named non-option in §6.11 rather than left as a judgement call for whoever sets the project up in a hurry in June.                                                                                                                                                                            |
 | A hosted dependency where there was none              | The site currently builds and runs with no environment at all. That property is genuinely rare and worth protecting.                                                                                                           | §6.9 in full: cached reads, stale-over-absent, a committed content snapshot that is also a backup, and emergency mode kept out.                                                                                                                                                                           |
 | Officers are given the keys and do not use them       | The commonest outcome. A CMS nobody opens leaves publishing with whoever is comfortable with git, which is the defect this plan exists to fix.                                                                                 | §6.4 portfolio structure, §7.5 training, §12 run by real officers, and the two-person rule so it is never one person's habit.                                                                                                                                                                             |
 | Officers use them and the design fractures            | More pages, less context, no design training.                                                                                                                                                                                  | §4.6 constrained composition, with no raw HTML, embed or CSS escape hatch. The palette is finite by construction.                                                                                                                                                                                         |
@@ -1768,9 +1879,12 @@ does rather than something anyone builds.
 
 ## 15. Decisions needed before Wave 0
 
-1. **Is the Sanity cost acceptable?** §6.11. This is the first question and the plan does not
-   proceed past Wave 0 without a real number and a committee answer. If the answer is no, say
-   so and adopt the bridge flow permanently, with the governing requirement knowingly unmet.
+1. **Who applies for the Sanity non-profit plan, and from which account?** §6.11. This is no
+   longer "can BIRSA afford it": the plan mirrors Growth, costs nothing and includes 25 seats,
+   which covers the committee. It is an application, it must go from `birsa@tu.ac.th` rather
+   than a student account, and the answer gates every later wave. Decide in advance what BIRSA
+   does if it is refused, because deciding that under time pressure is how a project ends up on
+   the free plan by accident.
 2. **Is the IA in §3.2 right?** It is the decision every later wave depends on, and it is a
    decision about students, not about code. Test it with ten students and a card sort before
    Wave 0 ends. This is the highest-value hour in the whole plan.
