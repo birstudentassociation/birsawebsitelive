@@ -33,6 +33,11 @@ language versions correct and keep the site's automated checks (`npm run test`) 
 News posts and events live in `content/news/en/<slug>.mdx` and `content/news/th/<slug>.mdx`.
 Create both files with the **same `<slug>.mdx` filename**.
 
+**Read [NEWS-STYLE.md](NEWS-STYLE.md) before writing one.** It is the authoring rule for this
+folder: how the English is written to GOV.UK standards, how the Thai is written natively rather
+than translated, and the checklist to run before publishing. This section covers the file shape
+only.
+
 ### News frontmatter template
 
 ```mdx
@@ -247,6 +252,9 @@ Before telling students a piece of content is final, go through this checklist:
 
 ## Voice and language
 
+These rules apply to all content. News posts and events have a fuller rule of their own in
+[NEWS-STYLE.md](NEWS-STYLE.md), which builds on this section.
+
 - **Write natively, not by translating.** The Thai and English versions should read like two
   people who each know their own audience wrote them, not like one was run through a
   translator.
@@ -281,7 +289,7 @@ facts around it? If it is the second kind, delete it. If a sentence does both, k
   by starting things", "that is all part of the same job".
 - Meta-commentary about the page or site: "this page explains", "below you'll find", "here's
   what you need to know", "read on", "this is where you will find guidance". A genuine pointer
-  to *another* page is fine and should stay.
+  to _another_ page is fine and should stay.
 - Rationale padding tacked onto a fact: "...so neither side is guessing what the other needs",
   "which is useful because...", "that way you...".
 - Hedging and editorialising: "is a reasonable first step", "it's worth", "in practice",
