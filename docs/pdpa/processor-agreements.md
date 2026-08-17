@@ -22,14 +22,14 @@ document exists so the gap is visible and trackable, not so it looks solved.
 
 ## The register
 
-| Processor | What it does for BIRSA | What personal data it receives | Country | Agreement in place? |
-| --- | --- | --- | --- | --- |
-| Resend | Delivers every email the site sends | Name, email address, and message content for every form journey; for a loan request, also student ID, phone number, dates and reason | United States | Outstanding |
-| Vercel (hosting) | Hosts the site and serves every page | Ordinary web server request records, including IP address; BIRSA does not add to these or use them to identify anyone | United States | Outstanding |
-| Vercel Postgres | The database behind the equipment loan service | Loan and borrower records, officer accounts, the audit log, and page feedback | United States | Outstanding |
-| Vercel Blob | Stores photographs of equipment | Photographs officers upload; no personal data | United States | Outstanding |
-| OpenStreetMap | Supplies map tiles on the places pages | No data sent by BIRSA; a visitor's browser fetches tiles directly, so OpenStreetMap sees that visitor's IP address | United Kingdom | Not applicable, see below |
-| Google Forms | Some club sign-up forms are Google Forms embedded in a page | Whatever a visitor types goes straight to Google and to whoever built that form; it never passes through this site | United States | Outstanding, and different in kind, see below |
+| Processor        | What it does for BIRSA                                      | What personal data it receives                                                                                                       | Country        | Agreement in place?                           |
+| ---------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------- | --------------------------------------------- |
+| Resend           | Delivers every email the site sends                         | Name, email address, and message content for every form journey; for a loan request, also student ID, phone number, dates and reason | United States  | Outstanding                                   |
+| Vercel (hosting) | Hosts the site and serves every page                        | Ordinary web server request records, including IP address; BIRSA does not add to these or use them to identify anyone                | United States  | Outstanding                                   |
+| Vercel Postgres  | The database behind the equipment loan service              | Loan and borrower records, officer accounts, the audit log, and page feedback                                                        | United States  | Outstanding                                   |
+| Vercel Blob      | Stores photographs of equipment                             | Photographs officers upload; no personal data                                                                                        | United States  | Outstanding                                   |
+| OpenStreetMap    | Supplies map tiles on the places pages                      | No data sent by BIRSA; a visitor's browser fetches tiles directly, so OpenStreetMap sees that visitor's IP address                   | United Kingdom | Not applicable, see below                     |
+| Google Forms     | Some club sign-up forms are Google Forms embedded in a page | Whatever a visitor types goes straight to Google and to whoever built that form; it never passes through this site                   | United States  | Outstanding, and different in kind, see below |
 
 ## Notes on the two rows that aren't a normal processor relationship
 

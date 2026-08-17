@@ -42,7 +42,11 @@ export default async function LoanRequestCheckPage({
   const labels = buildLoanWizardLabels(locale, item);
   const draft = await getLoanDraft(itemKey);
   const base = `/services/equipment-loan/${itemKey}/request`;
-  const progress = formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("check") + 1, LOAN_STEPS.length);
+  const progress = formatStepOf(
+    labels.common.stepOf,
+    LOAN_STEPS.indexOf("check") + 1,
+    LOAN_STEPS.length
+  );
 
   return (
     <>

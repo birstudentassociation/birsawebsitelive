@@ -90,7 +90,7 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
         <div className="max-w-sm">
-          <label htmlFor={searchId} className="text-ink mb-1.5 block text-sm font-semibold">
+          <label htmlFor={searchId} className="mb-1.5 block text-sm font-semibold text-ink">
             {dict.search}
           </label>
           <input
@@ -99,7 +99,7 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={dict.searchPlaceholder}
-            className="focus-halo border-input-border bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
           />
         </div>
 
@@ -133,13 +133,13 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
         </div>
       </div>
 
-      <p role="status" className="text-muted text-sm">
+      <p role="status" className="text-sm text-muted">
         {dict.showing} {filtered.length} {filtered.length === 1 ? dict.result : dict.results}
       </p>
 
       {filtered.length === 0 ? (
-        <div className="border-line bg-sunken flex flex-col items-start gap-3 rounded-lg border p-6">
-          <p className="text-ink text-sm">{dict.noResults}</p>
+        <div className="flex flex-col items-start gap-3 rounded-lg border border-line bg-sunken p-6">
+          <p className="text-sm text-ink">{dict.noResults}</p>
           <Button variant="secondary" onClick={clearFilters}>
             {dict.clearFilters}
           </Button>

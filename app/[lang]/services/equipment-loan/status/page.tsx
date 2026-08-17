@@ -34,7 +34,10 @@ export async function generateMetadata({
   });
 }
 
-const pageCopy: Record<Locale, { title: string; lede: string; breadcrumbCatalogue: string; breadcrumbStatus: string }> = {
+const pageCopy: Record<
+  Locale,
+  { title: string; lede: string; breadcrumbCatalogue: string; breadcrumbStatus: string }
+> = {
   en: {
     title: "Check a loan request",
     lede: "Answer two short questions to see where your equipment loan request stands.",

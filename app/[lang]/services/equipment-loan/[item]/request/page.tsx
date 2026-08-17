@@ -115,10 +115,7 @@ export default async function EquipmentLoanRequestPage({
   }
 
   const labels = buildLoanWizardLabels(locale, item);
-  const nameStepHref = localeHref(
-    locale,
-    `/services/equipment-loan/${item.key}/request/name`
-  );
+  const nameStepHref = localeHref(locale, `/services/equipment-loan/${item.key}/request/name`);
 
   return (
     <>
@@ -127,17 +124,17 @@ export default async function EquipmentLoanRequestPage({
         <div className="flex flex-col gap-6">
           <h2 className="font-display text-2xl sm:text-3xl">{labels.start.title}</h2>
           <p className="text-muted">{labels.start.intro}</p>
-          <div className="border-line bg-sunken rounded-lg border p-5">
-            <h2 className="text-ink text-base font-semibold">{labels.start.needTitle}</h2>
-            <ul className="text-muted mt-2 list-inside list-disc space-y-1 text-sm">
+          <div className="rounded-lg border border-line bg-sunken p-5">
+            <h2 className="text-base font-semibold text-ink">{labels.start.needTitle}</h2>
+            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-muted">
               {labels.start.needItems.map((need) => (
                 <li key={need}>{need}</li>
               ))}
             </ul>
           </div>
-          <div className="border-line bg-sunken rounded-lg border p-5">
-            <h2 className="text-ink text-base font-semibold">{labels.start.termsTitle}</h2>
-            <p className="text-muted mt-2 text-sm">{labels.start.termsBody}</p>
+          <div className="rounded-lg border border-line bg-sunken p-5">
+            <h2 className="text-base font-semibold text-ink">{labels.start.termsTitle}</h2>
+            <p className="mt-2 text-sm text-muted">{labels.start.termsBody}</p>
           </div>
           <div>
             <Button href={nameStepHref}>{labels.start.cta}</Button>

@@ -142,8 +142,7 @@ const copy: Record<
     },
     equipmentDirectory: {
       title: "ทำเนียบอุปกรณ์ของชมรม",
-      description:
-        "อุปกรณ์ที่เป็นของชมรมต่าง ๆ ใน BIR ไม่ใช่ของ BIRSA พร้อมช่องทางติดต่อขอยืม",
+      description: "อุปกรณ์ที่เป็นของชมรมต่าง ๆ ใน BIR ไม่ใช่ของ BIRSA พร้อมช่องทางติดต่อขอยืม",
       cta: "ดูทำเนียบอุปกรณ์ของชมรม",
     },
     universityServices: {
@@ -260,7 +259,7 @@ export default async function InformationServicesPage({
           <GridRow>
             <GridMain className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{t.informationHeading}</h2>
-              <p className="text-muted text-sm leading-relaxed">{t.informationLede}</p>
+              <p className="text-sm leading-relaxed text-muted">{t.informationLede}</p>
 
               <NavList>
                 <NavListItem href={courseReviewsHref} title={t.courseReviews.title} as="h3">

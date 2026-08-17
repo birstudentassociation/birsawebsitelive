@@ -39,9 +39,10 @@ export default async function ContactMessagePage({
 
   const draft = await getContactDraft();
   const backHref = localeHref(locale, returnTo === "check" ? "/contact/check" : "/contact/subject");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("message") + 1, CONTACT_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("message") + 1, CONTACT_STEPS.length);
 
   return (
     <>

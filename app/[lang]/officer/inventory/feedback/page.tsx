@@ -7,7 +7,12 @@ import Notice from "@/components/Notice";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { getSessionOfficer } from "@/lib/inventory/auth";
-import { isFeedbackConfigured, getRatingCounts, listRecentFeedback, satisfactionRate } from "@/lib/feedback";
+import {
+  isFeedbackConfigured,
+  getRatingCounts,
+  listRecentFeedback,
+  satisfactionRate,
+} from "@/lib/feedback";
 import { RATING_ORDER, feedbackCopy } from "@/components/feedback/feedbackCopy";
 import FeedbackManager from "@/app/[lang]/officer/inventory/feedback/FeedbackManager";
 
@@ -69,7 +74,8 @@ const copy: Record<Locale, Copy> = {
     signInBody: "You need an active officer session to view feedback.",
     signInCta: "Go to console home",
     dbNotConfiguredTitle: "The feedback database is not connected",
-    dbNotConfiguredBody: "POSTGRES_URL is not configured, so there is no feedback data to show yet.",
+    dbNotConfiguredBody:
+      "POSTGRES_URL is not configured, so there is no feedback data to show yet.",
     distributionTitle: "Ratings",
     satisfactionRateLabel: "Satisfied or very satisfied",
     commentsTitle: "Recent comments",
@@ -93,7 +99,8 @@ const copy: Record<Locale, Copy> = {
     signInBody: "คุณต้องเข้าสู่ระบบเจ้าหน้าที่ก่อนจึงจะดูความคิดเห็นได้",
     signInCta: "ไปที่หน้าแรกคอนโซล",
     dbNotConfiguredTitle: "ยังไม่ได้เชื่อมต่อฐานข้อมูลความคิดเห็น",
-    dbNotConfiguredBody: "ยังไม่ได้ตั้งค่า POSTGRES_URL จึงยังไม่มีข้อมูลความคิดเห็นให้แสดงในขณะนี้",
+    dbNotConfiguredBody:
+      "ยังไม่ได้ตั้งค่า POSTGRES_URL จึงยังไม่มีข้อมูลความคิดเห็นให้แสดงในขณะนี้",
     distributionTitle: "ระดับความพึงพอใจ",
     satisfactionRateLabel: "พึงพอใจหรือพึงพอใจมาก",
     commentsTitle: "ความคิดเห็นล่าสุด",
@@ -175,25 +182,25 @@ export default async function OfficerFeedbackPage({
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-10 py-10">
         <section aria-labelledby="distribution-heading" className="flex flex-col gap-4">
-          <h2 id="distribution-heading" className="font-display text-ink text-xl">
+          <h2 id="distribution-heading" className="font-display text-xl text-ink">
             {t.distributionTitle}
           </h2>
           <Card className="w-fit">
-            <p className="text-muted text-sm font-semibold">{t.satisfactionRateLabel}</p>
-            <p className="font-display text-ink text-2xl">{rate}%</p>
+            <p className="text-sm font-semibold text-muted">{t.satisfactionRateLabel}</p>
+            <p className="font-display text-2xl text-ink">{rate}%</p>
           </Card>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-5">
             {RATING_ORDER.map((rating) => (
               <Card key={rating}>
-                <p className="text-muted text-sm font-semibold">{ratingLabels[rating]}</p>
-                <p className="font-display text-ink text-2xl">{counts[rating]}</p>
+                <p className="text-sm font-semibold text-muted">{ratingLabels[rating]}</p>
+                <p className="font-display text-2xl text-ink">{counts[rating]}</p>
               </Card>
             ))}
           </div>
         </section>
 
         <section aria-labelledby="comments-heading" className="flex flex-col gap-4">
-          <h2 id="comments-heading" className="font-display text-ink text-xl">
+          <h2 id="comments-heading" className="font-display text-xl text-ink">
             {t.commentsTitle}
           </h2>
           <FeedbackManager
@@ -215,10 +222,10 @@ export default async function OfficerFeedbackPage({
         </section>
 
         <section aria-labelledby="exports-heading" className="flex flex-col gap-4">
-          <h2 id="exports-heading" className="font-display text-ink text-xl">
+          <h2 id="exports-heading" className="font-display text-xl text-ink">
             {t.exportsTitle}
           </h2>
-          <p className="text-muted text-sm">{t.exportsLede}</p>
+          <p className="text-sm text-muted">{t.exportsLede}</p>
           <div className="flex flex-wrap gap-3">
             {/* Plain anchor: this hits a route that streams a CSV file
                 download, not a page. next/link would intercept it as a

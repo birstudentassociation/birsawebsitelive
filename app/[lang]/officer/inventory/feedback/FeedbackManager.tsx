@@ -42,16 +42,16 @@ export default function FeedbackManager({
   const { page, totalPages, pageItems, goToPage } = usePagination(entries, PAGE_SIZE);
 
   if (entries.length === 0) {
-    return <p className="text-muted text-sm">{copy.empty}</p>;
+    return <p className="text-sm text-muted">{copy.empty}</p>;
   }
 
   return (
     <div className="flex flex-col gap-4">
       <div className="overflow-x-auto">
-        <table className="text-ink w-full text-left text-sm">
+        <table className="w-full text-left text-sm text-ink">
           <caption className="sr-only">{copy.commentHeader}</caption>
           <thead>
-            <tr className="border-line border-b">
+            <tr className="border-b border-line">
               <th scope="col" className="py-2 pr-4 font-semibold">
                 {copy.dateHeader}
               </th>
@@ -71,8 +71,10 @@ export default function FeedbackManager({
           </thead>
           <tbody>
             {pageItems.map((entry) => (
-              <tr key={entry.id} className="border-line border-b last:border-0 align-top">
-                <td className="py-2 pr-4 whitespace-nowrap">{formatDate(locale, entry.createdAt)}</td>
+              <tr key={entry.id} className="border-b border-line align-top last:border-0">
+                <td className="py-2 pr-4 whitespace-nowrap">
+                  {formatDate(locale, entry.createdAt)}
+                </td>
                 <td className="py-2 pr-4 whitespace-nowrap">{ratingLabels[entry.rating]}</td>
                 <td className="py-2 pr-4 break-words">{entry.comment}</td>
                 <td className="py-2 pr-4 uppercase">{entry.locale}</td>

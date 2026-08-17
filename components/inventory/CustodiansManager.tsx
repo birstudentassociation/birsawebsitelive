@@ -156,7 +156,7 @@ export default function CustodiansManager({
       <CreateSection t={t} setCustodians={setCustodians} />
 
       {custodians.length === 0 ? (
-        <p className="text-muted text-sm">{t.noCustodians}</p>
+        <p className="text-sm text-muted">{t.noCustodians}</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {custodians.map((custodian) => (
@@ -270,7 +270,7 @@ function CreateSection({
       </div>
 
       {message ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {message}
         </p>
       ) : null}
@@ -281,10 +281,10 @@ function CreateSection({
           onSubmit={handleCreate}
           noValidate
           aria-live="polite"
-          className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5"
+          className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}
@@ -487,17 +487,17 @@ function CustodianRow({
   ].filter((bit): bit is string => !!bit && bit.trim() !== "");
 
   return (
-    <li className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4">
+    <li className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-ink font-semibold">{custodian.name[locale]}</p>
-          <p className="text-muted text-sm">
+          <p className="font-semibold text-ink">{custodian.name[locale]}</p>
+          <p className="text-sm text-muted">
             {custodian.slug} &middot; {t.kindBadge(custodian.kind)} &middot;{" "}
             <span className={custodian.isActive ? "text-success" : "text-error"}>
               {custodian.isActive ? t.statusActive : t.statusInactive}
             </span>
           </p>
-          <p className="text-ink mt-1 text-sm">
+          <p className="mt-1 text-sm text-ink">
             {contactBits.length > 0 ? contactBits.join(" · ") : t.noContact}
           </p>
         </div>
@@ -515,7 +515,7 @@ function CustodianRow({
       </div>
 
       {savedMessage && !editing ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {savedMessage}
         </p>
       ) : null}
@@ -526,10 +526,10 @@ function CustodianRow({
           onSubmit={handleSave}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}
@@ -641,9 +641,9 @@ function CustodianRow({
               name="isActive"
               checked={form.isActive}
               onChange={(event) => setForm((prev) => ({ ...prev, isActive: event.target.checked }))}
-              className="focus-halo border-input-border h-5 w-5 rounded"
+              className="focus-halo h-5 w-5 rounded border-input-border"
             />
-            <span className="text-ink text-sm font-semibold">{t.activeLabel}</span>
+            <span className="text-sm font-semibold text-ink">{t.activeLabel}</span>
           </label>
           <div>
             <Button type="submit" disabled={saving}>

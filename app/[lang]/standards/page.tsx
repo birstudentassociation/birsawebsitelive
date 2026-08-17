@@ -223,8 +223,8 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
           <ol className="flex flex-col gap-4">
             {t.principles.map((principle) => (
               <li key={principle.title}>
-                <h3 className="text-ink font-semibold">{principle.title}</h3>
-                <p className="text-muted mt-1 leading-relaxed">{principle.body}</p>
+                <h3 className="font-semibold text-ink">{principle.title}</h3>
+                <p className="mt-1 leading-relaxed text-muted">{principle.body}</p>
               </li>
             ))}
           </ol>
@@ -232,51 +232,51 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
 
         <section id="accessibility" className="flex scroll-mt-24 flex-col gap-4">
           <h2 className="font-display text-2xl">{t.a11yTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.a11yIntro}</p>
-          <p className="text-muted leading-relaxed">{t.a11yComplianceStatus}</p>
+          <p className="leading-relaxed text-muted">{t.a11yIntro}</p>
+          <p className="leading-relaxed text-muted">{t.a11yComplianceStatus}</p>
 
-          <h3 className="text-ink font-semibold">{t.a11yWhatWeDoTitle}</h3>
+          <h3 className="font-semibold text-ink">{t.a11yWhatWeDoTitle}</h3>
           <ul className="flex flex-col gap-2">
             {t.a11yWhatWeDo.map((item) => (
-              <li key={item} className="text-muted leading-relaxed">
+              <li key={item} className="leading-relaxed text-muted">
                 {item}
               </li>
             ))}
           </ul>
 
-          <h3 className="text-ink font-semibold">{t.a11yTestTitle}</h3>
-          <p className="text-muted leading-relaxed">{t.a11yTest}</p>
+          <h3 className="font-semibold text-ink">{t.a11yTestTitle}</h3>
+          <p className="leading-relaxed text-muted">{t.a11yTest}</p>
 
-          <h3 className="text-ink font-semibold">{t.a11yLimitsTitle}</h3>
-          <p className="text-muted leading-relaxed">{t.a11yLimitsIntro}</p>
+          <h3 className="font-semibold text-ink">{t.a11yLimitsTitle}</h3>
+          <p className="leading-relaxed text-muted">{t.a11yLimitsIntro}</p>
           <ul className="flex flex-col gap-3">
             {t.a11yIssues.map((issue) => (
               <li key={issue.title}>
-                <h4 className="text-ink font-semibold">{issue.title}</h4>
-                <p className="text-muted mt-1 leading-relaxed">{issue.body}</p>
+                <h4 className="font-semibold text-ink">{issue.title}</h4>
+                <p className="mt-1 leading-relaxed text-muted">{issue.body}</p>
               </li>
             ))}
           </ul>
 
-          <h3 className="text-ink font-semibold">{t.a11yPreparedTitle}</h3>
-          <p className="text-muted leading-relaxed">{t.a11yPrepared}</p>
+          <h3 className="font-semibold text-ink">{t.a11yPreparedTitle}</h3>
+          <p className="leading-relaxed text-muted">{t.a11yPrepared}</p>
 
-          <h3 className="text-ink font-semibold">{t.a11yReportTitle}</h3>
-          <p className="text-muted leading-relaxed">
+          <h3 className="font-semibold text-ink">{t.a11yReportTitle}</h3>
+          <p className="leading-relaxed text-muted">
             {t.a11yReportBody}{" "}
             <Email
               address={contact.email}
-              className="text-brand-deep hover:text-brand-dark font-semibold"
+              className="font-semibold text-brand-deep hover:text-brand-dark"
             />{" "}
             /{" "}
             <Email
               address={contact.secondaryEmail}
-              className="text-brand-deep hover:text-brand-dark font-semibold"
+              className="font-semibold text-brand-deep hover:text-brand-dark"
             />
             .{" "}
             <Link
               href={localeHref(locale, "/contact")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.a11yReportCta}
             </Link>
@@ -285,13 +285,13 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.perfTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.perfBody}</p>
+          <p className="leading-relaxed text-muted">{t.perfBody}</p>
           <Notice variant="info">{t.perfNotice}</Notice>
         </section>
 
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.maintainTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.maintainBody}</p>
+          <p className="leading-relaxed text-muted">{t.maintainBody}</p>
         </section>
       </div>
     </>

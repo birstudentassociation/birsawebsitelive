@@ -86,7 +86,8 @@ export const feedbackCopy: Record<Locale, FeedbackCopy> = {
     },
     commentLabel: "บริการนี้ควรปรับปรุงอย่างไร",
     commentHint: "ไม่ต้องระบุข้อมูลส่วนบุคคลหรือข้อมูลทางการเงิน",
-    privacyWarning: "ไม่ต้องระบุชื่อ รหัสนักศึกษา ข้อมูลติดต่อ หรือข้อมูลทางการเงินใด ๆ ในความคิดเห็น",
+    privacyWarning:
+      "ไม่ต้องระบุชื่อ รหัสนักศึกษา ข้อมูลติดต่อ หรือข้อมูลทางการเงินใด ๆ ในความคิดเห็น",
     requiredLabel: "จำเป็น",
     optionalLabel: "ไม่จำเป็น",
     errorSummaryTitle: "พบข้อผิดพลาด",

@@ -47,9 +47,10 @@ export default async function LoanRequestReasonPage({
   const draft = await getLoanDraft(itemKey);
   const base = `/services/equipment-loan/${itemKey}/request`;
   const backHref = localeHref(locale, returnTo === "check" ? `${base}/check` : `${base}/dates`);
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("reason") + 1, LOAN_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("reason") + 1, LOAN_STEPS.length);
 
   return (
     <>
@@ -73,7 +74,7 @@ export default async function LoanRequestReasonPage({
               rows: 6,
             }}
           />
-          <p className="text-muted text-sm">{labels.reason.optionalNote}</p>
+          <p className="text-sm text-muted">{labels.reason.optionalNote}</p>
         </div>
       </div>
     </>

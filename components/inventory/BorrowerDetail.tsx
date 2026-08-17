@@ -231,19 +231,19 @@ export default function BorrowerDetail({
       <section className="flex flex-col gap-2">
         <dl className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-muted font-semibold">{t.emailLabel}</dt>
-            <dd className="text-ink break-all">{borrower.email}</dd>
+            <dt className="font-semibold text-muted">{t.emailLabel}</dt>
+            <dd className="break-all text-ink">{borrower.email}</dd>
           </div>
           {borrower.phone ? (
             <div>
-              <dt className="text-muted font-semibold">{t.phoneLabel}</dt>
+              <dt className="font-semibold text-muted">{t.phoneLabel}</dt>
               <dd className="text-ink">{borrower.phone}</dd>
             </div>
           ) : null}
         </dl>
-        <p className="text-muted text-sm">{t.activeLoansLabel(activeCount)}</p>
+        <p className="text-sm text-muted">{t.activeLoansLabel(activeCount)}</p>
         {borrower.blocklisted ? (
-          <span className="bg-error-tint text-error inline-flex w-fit items-center rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide">
+          <span className="inline-flex w-fit items-center rounded-full bg-error-tint px-2.5 py-1 text-xs font-semibold tracking-wide text-error">
             {t.blocklistedNotice(borrower.blocklistReason)}
           </span>
         ) : null}
@@ -265,8 +265,8 @@ export default function BorrowerDetail({
       ) : null}
 
       {canManage ? (
-        <section className="border-line flex flex-col gap-4 rounded-lg border p-5">
-          <h2 className="font-display text-ink text-lg">{t.blocklistTitle}</h2>
+        <section className="flex flex-col gap-4 rounded-lg border border-line p-5">
+          <h2 className="font-display text-lg text-ink">{t.blocklistTitle}</h2>
           {!borrower.blocklisted ? (
             <Field
               label={t.reasonLabel}
@@ -289,8 +289,8 @@ export default function BorrowerDetail({
       ) : null}
 
       {canManage ? (
-        <section className="border-line flex flex-col gap-4 rounded-lg border p-5">
-          <h2 className="font-display text-ink text-lg">{t.maxLoansTitle}</h2>
+        <section className="flex flex-col gap-4 rounded-lg border border-line p-5">
+          <h2 className="font-display text-lg text-ink">{t.maxLoansTitle}</h2>
           <Field
             label={t.maxLoansLabel}
             name="max-loans"
@@ -315,11 +315,11 @@ export default function BorrowerDetail({
       ) : null}
 
       <section className="flex flex-col gap-4">
-        <h2 className="font-display text-ink text-xl">
+        <h2 className="font-display text-xl text-ink">
           {t.historyTitle} ({loans.length})
         </h2>
         {loans.length === 0 ? (
-          <p className="text-muted text-sm">{t.historyEmpty}</p>
+          <p className="text-sm text-muted">{t.historyEmpty}</p>
         ) : (
           <div className="flex flex-col gap-3">
             {loans.map((loan) => {
@@ -327,12 +327,12 @@ export default function BorrowerDetail({
               return (
                 <article
                   key={loan.id}
-                  className="border-line bg-surface flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4"
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-surface p-4"
                 >
                   <div>
-                    <p className="text-ink font-semibold">{loan.reference}</p>
-                    <p className="text-muted text-sm">{item ? item.name[locale] : loan.itemId}</p>
-                    <p className="text-muted text-sm">
+                    <p className="font-semibold text-ink">{loan.reference}</p>
+                    <p className="text-sm text-muted">{item ? item.name[locale] : loan.itemId}</p>
+                    <p className="text-sm text-muted">
                       {t.datesLabel}: {formatDate(locale, loan.startDate)} &rarr;{" "}
                       {formatDate(locale, loan.endDate)}
                     </p>

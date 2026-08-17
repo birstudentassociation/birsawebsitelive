@@ -41,16 +41,16 @@ export default function ProfileSummary({
 
   if (isEmpty) {
     return (
-      <div className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="font-display text-ink text-lg">{t.profilePrompt}</h2>
+          <h2 className="font-display text-lg text-ink">{t.profilePrompt}</h2>
           {variant === "full" ? (
-            <p className="text-muted mt-1 text-sm leading-relaxed">{t.profileLede}</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{t.profileLede}</p>
           ) : null}
         </div>
         <Link
           href={editHref}
-          className="focus-halo border-ink text-ink hover:bg-brand-tint inline-flex h-11 shrink-0 items-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+          className="focus-halo inline-flex h-11 shrink-0 items-center rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink hover:bg-brand-tint"
         >
           {t.profileSet}
         </Link>
@@ -59,10 +59,10 @@ export default function ProfileSummary({
   }
 
   return (
-    <div className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-5">
+    <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-display text-ink text-lg">{t.profileHeading}</h2>
-        <Link href={editHref} className="text-brand-deep text-sm font-medium hover:underline">
+        <h2 className="font-display text-lg text-ink">{t.profileHeading}</h2>
+        <Link href={editHref} className="text-sm font-medium text-brand-deep hover:underline">
           {t.profileEdit}
         </Link>
       </div>
@@ -72,10 +72,10 @@ export default function ProfileSummary({
           const choice = value ? getAudienceChoice(question.dimension, value) : undefined;
           return (
             <div key={question.dimension} className="flex flex-col">
-              <dt className="text-muted text-xs tracking-wide uppercase">
+              <dt className="text-xs tracking-wide text-muted uppercase">
                 {question.summaryLabel[locale]}
               </dt>
-              <dd className="text-ink text-sm font-medium">
+              <dd className="text-sm font-medium text-ink">
                 {choice ? choice.label[locale] : t.profileNone}
               </dd>
             </div>

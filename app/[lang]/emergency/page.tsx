@@ -53,8 +53,8 @@ export default async function EmergencyIndexPage({
     <>
       <PageHeader title={t.noActiveTitle} lede={t.noActiveLede} />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-6 py-10">
-        <p className="text-muted leading-relaxed">{t.noActiveBody}</p>
-        <Link href={localeHref(locale, "/")} className="text-brand-deep font-medium underline">
+        <p className="leading-relaxed text-muted">{t.noActiveBody}</p>
+        <Link href={localeHref(locale, "/")} className="font-medium text-brand-deep underline">
           {t.backHome}
         </Link>
       </div>

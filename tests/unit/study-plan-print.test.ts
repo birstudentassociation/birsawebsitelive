@@ -48,7 +48,9 @@ describe("plannedTermsForPrint", () => {
     const result = plannedTermsForPrint(version, [
       { term: { year: 3, kind: "semester1" }, codes: [], freeElectiveCredits: 3 },
     ]);
-    expect(result).toEqual([{ term: { year: 3, kind: "semester1" }, courses: [], freeElectiveCredits: 3 }]);
+    expect(result).toEqual([
+      { term: { year: 3, kind: "semester1" }, courses: [], freeElectiveCredits: 3 },
+    ]);
   });
 
   it("sorts terms in order, summer after semester 2 of the same year", () => {

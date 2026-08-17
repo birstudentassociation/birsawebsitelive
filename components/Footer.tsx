@@ -21,9 +21,9 @@ function SocialLink({
 }) {
   if (social.placeholder) {
     return (
-      <span className="text-muted inline-flex items-center gap-1.5">
+      <span className="inline-flex items-center gap-1.5 text-muted">
         {social.label}
-        <span className="bg-sunken rounded-full px-2 py-0.5 text-xs font-semibold">
+        <span className="rounded-full bg-sunken px-2 py-0.5 text-xs font-semibold">
           {locale === "th" ? "เร็ว ๆ นี้" : "coming soon"}
         </span>
       </span>
@@ -46,15 +46,15 @@ export default function Footer({ locale }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-brand bg-sunken border-t-2">
+    <footer className="border-t-2 border-brand bg-sunken">
       <div className="wrap grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <h2 className="font-display text-lg">{dict.site.name}</h2>
-          <p className="text-muted mt-2 max-w-[28ch] text-sm">{dict.footer.tagline}</p>
+          <p className="mt-2 max-w-[28ch] text-sm text-muted">{dict.footer.tagline}</p>
         </div>
 
         <div>
-          <h2 className="text-muted text-sm font-semibold tracking-wide uppercase">
+          <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
             {dict.footer.explore}
           </h2>
           <ul className="mt-3 space-y-2 text-sm">
@@ -69,7 +69,7 @@ export default function Footer({ locale }: FooterProps) {
         </div>
 
         <div>
-          <h2 className="text-muted text-sm font-semibold tracking-wide uppercase">
+          <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
             {dict.footer.followUs}
           </h2>
           <ul className="mt-3 space-y-2 text-sm">
@@ -80,10 +80,10 @@ export default function Footer({ locale }: FooterProps) {
             ))}
           </ul>
 
-          <h2 className="text-muted mt-6 text-sm font-semibold tracking-wide uppercase">
+          <h2 className="mt-6 text-sm font-semibold tracking-wide text-muted uppercase">
             {dict.footer.contact}
           </h2>
-          <ul className="text-muted mt-3 space-y-2 text-sm">
+          <ul className="mt-3 space-y-2 text-sm text-muted">
             <li>
               <Email address={contact.email} className="hover:text-brand-deep" />
             </li>
@@ -96,7 +96,7 @@ export default function Footer({ locale }: FooterProps) {
         </div>
 
         <div>
-          <h2 className="text-muted text-sm font-semibold tracking-wide uppercase">
+          <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
             {dict.footer.officialLinks}
           </h2>
           <ul className="mt-3 space-y-2 text-sm">
@@ -115,8 +115,8 @@ export default function Footer({ locale }: FooterProps) {
         </div>
       </div>
 
-      <div className="border-line-strong border-t">
-        <div className="wrap text-muted flex flex-col gap-3 py-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-line-strong">
+        <div className="wrap flex flex-col gap-3 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <Link
               href={localeHref(locale, "/standards#accessibility")}
@@ -139,7 +139,7 @@ export default function Footer({ locale }: FooterProps) {
           </div>
           <p className="max-w-[48ch]">{dict.footer.openInfo}</p>
         </div>
-        <div className="wrap text-muted flex flex-col gap-1 pb-6 text-xs sm:flex-row sm:items-center sm:justify-between">
+        <div className="wrap flex flex-col gap-1 pb-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {dict.footer.rights}
           </p>

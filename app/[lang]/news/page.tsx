@@ -124,12 +124,12 @@ export default async function NewsPage({
         }
       />
       <div className="wrap py-10">
-        <p className="text-muted mb-8 max-w-[var(--measure)] text-lg">
+        <p className="mb-8 max-w-[var(--measure)] text-lg text-muted">
           {text.lede}{" "}
           <ExternalLink
             href={instagram.href}
             newTabLabel={dict.a11y.newTab}
-            className="text-brand-deep font-semibold"
+            className="font-semibold text-brand-deep"
           >
             Instagram
           </ExternalLink>{" "}
@@ -137,7 +137,7 @@ export default async function NewsPage({
           <ExternalLink
             href={facebook.href}
             newTabLabel={dict.a11y.newTab}
-            className="text-brand-deep font-semibold"
+            className="font-semibold text-brand-deep"
           >
             Facebook
           </ExternalLink>
@@ -146,7 +146,7 @@ export default async function NewsPage({
 
         <nav aria-label={text.filterNav} className="mb-6 flex flex-col gap-4">
           <div>
-            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+            <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
               {text.typeLabel}
             </p>
             <ul className="flex flex-wrap gap-2">
@@ -181,7 +181,7 @@ export default async function NewsPage({
           </div>
 
           <div>
-            <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+            <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
               {text.categoryLabel}
             </p>
             <ul className="flex flex-wrap gap-2">
@@ -211,14 +211,14 @@ export default async function NewsPage({
           {hasFilter ? (
             <a
               href={localeHref(locale, "/news")}
-              className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+              className="w-fit text-sm font-semibold text-brand-deep hover:underline"
             >
               {dict.actions.clearFilters}
             </a>
           ) : null}
         </nav>
 
-        <p className="text-muted mb-6 text-sm" role="status">
+        <p className="mb-6 text-sm text-muted" role="status">
           {dict.actions.showing} {filtered.length}{" "}
           {filtered.length === 1 ? dict.actions.result : dict.actions.results}
         </p>

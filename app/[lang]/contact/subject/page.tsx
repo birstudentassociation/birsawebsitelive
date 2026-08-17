@@ -50,9 +50,10 @@ export default async function ContactSubjectPage({
 
   const draft = await getContactDraft();
   const backHref = localeHref(locale, returnTo === "check" ? "/contact/check" : "/contact");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("subject") + 1, CONTACT_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("subject") + 1, CONTACT_STEPS.length);
   const harassmentNote = harassmentNoteCopy[locale];
 
   return (
@@ -62,9 +63,12 @@ export default async function ContactSubjectPage({
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           {draft.category === "problem" ? (
-            <p className="border-error bg-error-tint text-ink rounded-md border-l-4 p-4 text-sm">
+            <p className="rounded-md border-l-4 border-error bg-error-tint p-4 text-sm text-ink">
               {harassmentNote.text}{" "}
-              <a href={`${localeHref(locale, "/contact")}#report-harassment`} className="font-semibold underline">
+              <a
+                href={`${localeHref(locale, "/contact")}#report-harassment`}
+                className="font-semibold underline"
+              >
                 {harassmentNote.cta}
               </a>
             </p>

@@ -52,9 +52,9 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
           <div key={line.id} className="flex flex-col gap-3">
             <h3 className="font-display text-lg">{line.name[locale]}</h3>
             <div className="overflow-x-auto">
-              <table className="border-line w-full border-collapse text-sm">
+              <table className="w-full border-collapse border-line text-sm">
                 <thead>
-                  <tr className="border-line border-b text-left">
+                  <tr className="border-b border-line text-left">
                     <th scope="col" className="p-2 font-semibold">
                       {t.hour}
                     </th>
@@ -67,7 +67,7 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
                   {hours.map((hour) => {
                     const minutes = line.schedule[hour] ?? [];
                     return (
-                      <tr key={hour} className="border-line border-b">
+                      <tr key={hour} className="border-b border-line">
                         <td className="p-2 align-top font-mono">{pad2(hour)}:00</td>
                         <td className="p-2 align-top">
                           {minutes.map((minute, i) => {
@@ -78,10 +78,10 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
                               <span key={time} className="mr-2 inline-block whitespace-nowrap">
                                 {time}
                                 {marker ? (
-                                  <sup className="text-brand-deep font-semibold">*</sup>
+                                  <sup className="font-semibold text-brand-deep">*</sup>
                                 ) : null}
                                 {isLastBus ? (
-                                  <sup className="text-muted font-semibold">&dagger;</sup>
+                                  <sup className="font-semibold text-muted">&dagger;</sup>
                                 ) : null}
                                 {i < minutes.length - 1 ? "," : ""}
                               </span>
@@ -95,22 +95,22 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
               </table>
             </div>
             {line.dormitoryMarkers?.length ? (
-              <ul className="text-muted flex flex-col gap-1 text-xs">
+              <ul className="flex flex-col gap-1 text-xs text-muted">
                 {line.dormitoryMarkers.map((marker) => (
                   <li key={marker.time}>
-                    <sup className="text-brand-deep font-semibold">*</sup> {marker.time}:{" "}
+                    <sup className="font-semibold text-brand-deep">*</sup> {marker.time}:{" "}
                     {marker.label[locale]}
                   </li>
                 ))}
                 <li>
-                  <sup className="text-muted font-semibold">&dagger;</sup> {lastBusTime}:{" "}
+                  <sup className="font-semibold text-muted">&dagger;</sup> {lastBusTime}:{" "}
                   {t.lastBus}
                 </li>
               </ul>
             ) : (
-              <ul className="text-muted flex flex-col gap-1 text-xs">
+              <ul className="flex flex-col gap-1 text-xs text-muted">
                 <li>
-                  <sup className="text-muted font-semibold">&dagger;</sup> {lastBusTime}:{" "}
+                  <sup className="font-semibold text-muted">&dagger;</sup> {lastBusTime}:{" "}
                   {t.lastBus}
                 </li>
               </ul>

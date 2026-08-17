@@ -31,7 +31,11 @@ export default async function ContactCheckPage({ params }: { params: Promise<{ l
   const chrome = buildWizardChromeLabels(locale);
   const wizard = buildContactWizardLabels(locale);
   const draft = await getContactDraft();
-  const progress = formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("check") + 1, CONTACT_STEPS.length);
+  const progress = formatStepOf(
+    chrome.stepOf,
+    CONTACT_STEPS.indexOf("check") + 1,
+    CONTACT_STEPS.length
+  );
 
   return (
     <>

@@ -130,11 +130,7 @@ describe("ConfirmDialog", () => {
  * (`useConfirmDialog` explicitly has no provider: each caller renders
  * `{dialog}` inline in its own tree).
  */
-function ConfirmHarness({
-  onPending,
-}: {
-  onPending: (pending: Promise<boolean>) => void;
-}) {
+function ConfirmHarness({ onPending }: { onPending: (pending: Promise<boolean>) => void }) {
   const { confirm, dialog } = useConfirmDialog({ confirmLabel: "Confirm", cancelLabel: "Cancel" });
   return (
     <>

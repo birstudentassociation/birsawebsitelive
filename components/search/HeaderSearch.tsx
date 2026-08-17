@@ -91,7 +91,7 @@ export default function HeaderSearch({
         aria-expanded={open}
         aria-controls={panelId}
         onClick={handleClick}
-        className="focus-halo border-line-strong text-ink hover:bg-sunken flex h-11 w-11 shrink-0 items-center justify-center rounded-full border"
+        className="focus-halo flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line-strong text-ink hover:bg-sunken"
       >
         <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4.5 w-4.5 shrink-0">
           {open ? (
@@ -118,7 +118,7 @@ export default function HeaderSearch({
 
       {open ? (
         <div id={panelId} className="absolute inset-x-0 top-full px-3 pb-3">
-          <div className="border-line bg-surface ml-auto max-w-md rounded-lg border p-4 shadow-lg">
+          <div className="ml-auto max-w-md rounded-lg border border-line bg-surface p-4 shadow-lg">
             <SearchBox
               locale={locale}
               labelText={searchLabel}

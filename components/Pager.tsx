@@ -26,9 +26,7 @@ export type PagerProps = {
 };
 
 function fillPageOf(template: string, current: number, total: number): string {
-  return template
-    .replaceAll("{current}", String(current))
-    .replaceAll("{total}", String(total));
+  return template.replaceAll("{current}", String(current)).replaceAll("{total}", String(total));
 }
 
 export default function Pager({
@@ -75,7 +73,7 @@ export default function Pager({
       >
         {previousLabel}
       </Button>
-      <span aria-hidden="true" className="text-muted text-sm">
+      <span aria-hidden="true" className="text-sm text-muted">
         {pageOfText}
       </span>
       <Button

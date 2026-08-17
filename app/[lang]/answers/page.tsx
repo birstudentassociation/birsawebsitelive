@@ -112,10 +112,10 @@ export default async function AnswersHubPage({
         {/* Way in 1: say what you need. */}
         <form method="GET" action={hubHref} className="flex max-w-[var(--measure)] flex-col gap-3">
           {profileToken ? <input type="hidden" name="p" value={profileToken} /> : null}
-          <label htmlFor="answers-q" className="font-display text-ink text-xl">
+          <label htmlFor="answers-q" className="font-display text-xl text-ink">
             {t.searchLabel}
           </label>
-          <p id="answers-q-hint" className="text-muted text-sm">
+          <p id="answers-q-hint" className="text-sm text-muted">
             {t.searchHint}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
@@ -128,7 +128,7 @@ export default async function AnswersHubPage({
               type="search"
               defaultValue={query}
               aria-describedby="answers-q-hint"
-              className="focus-halo border-input-border bg-surface text-ink h-11 w-full rounded-lg border px-4 sm:flex-1"
+              className="focus-halo h-11 w-full rounded-lg border border-input-border bg-surface px-4 text-ink sm:flex-1"
             />
             <Button type="submit">{t.searchButton}</Button>
           </div>
@@ -143,7 +143,7 @@ export default async function AnswersHubPage({
                 </h2>
                 {matches.length > 0 ? <NavList>{matches.map(renderTopic)}</NavList> : null}
                 <div>
-                  <Link href={hubHref} className="text-brand-deep font-medium hover:underline">
+                  <Link href={hubHref} className="font-medium text-brand-deep hover:underline">
                     {t.searchClear}
                   </Link>
                 </div>
@@ -153,9 +153,9 @@ export default async function AnswersHubPage({
         ) : null}
 
         {/* Way in 2: be routed by a question. */}
-        <section className="border-brand bg-brand-tint flex flex-col gap-4 rounded-lg border-l-4 p-6">
+        <section className="flex flex-col gap-4 rounded-lg border-l-4 border-brand bg-brand-tint p-6">
           <h2 className="font-display text-2xl">{t.triageHeading}</h2>
-          <p className="text-ink max-w-[var(--measure)] leading-relaxed">{t.triageLede}</p>
+          <p className="max-w-[var(--measure)] leading-relaxed text-ink">{t.triageLede}</p>
           <div>
             <Button href={localeHref(locale, `/answers/${TRIAGE_SLUG}/q${carry}`)}>
               {t.triageStart}
@@ -181,7 +181,7 @@ export default async function AnswersHubPage({
                     <h2 id={`group-${group.id}`} className="font-display text-2xl">
                       {group.title[locale]}
                     </h2>
-                    <p className="text-muted text-sm leading-relaxed">
+                    <p className="text-sm leading-relaxed text-muted">
                       {group.description[locale]}
                     </p>
                   </div>

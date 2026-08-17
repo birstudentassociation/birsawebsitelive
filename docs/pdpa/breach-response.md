@@ -63,9 +63,9 @@ Do these in order. Don't wait for permission to start step 1.
      production yourself unless you are that developer.
    - Lost device: report it lost through the normal university/BIRSA channel
      for lost equipment as well, that's a separate but related step.
-   Do not delete logs, database rows, or files to "clean up." They are
-   evidence of what happened and how many people are affected. Deleting them
-   makes the 72-hour report harder to write, not easier.
+     Do not delete logs, database rows, or files to "clean up." They are
+     evidence of what happened and how many people are affected. Deleting them
+     makes the 72-hour report harder to write, not easier.
 3. **Tell the BIRSA committee chair and the privacy contact named in the
    privacy notice at `/privacy`, immediately, by whatever channel gets a
    response fastest** (phone call beats a message that might not be read
@@ -80,13 +80,13 @@ Do these in order. Don't wait for permission to start step 1.
 
 ## Who to tell, and when
 
-| Who | When | Why |
-| --- | --- | --- |
-| BIRSA committee chair and privacy contact | Immediately, within the first hour | They decide whether this is reportable and run the response |
-| A developer with access to the affected system | Immediately, if the cause is technical (a bug, a compromised account, a processor incident) | Only they can stop an ongoing technical exposure |
-| The PDPC | Within 72 hours of becoming aware, unless the breach is unlikely to affect people's rights and freedoms | Section 37(4) requires this |
-| Affected people | Without delay, once the scope is known, if the risk to them is high | Section 37(4) requires this when risk is high, and it's the right thing to do regardless |
-| Everyone else at BIRSA | Once the chair decides it's appropriate | Avoid rumour and inconsistent messages while the facts are still being established |
+| Who                                            | When                                                                                                    | Why                                                                                      |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| BIRSA committee chair and privacy contact      | Immediately, within the first hour                                                                      | They decide whether this is reportable and run the response                              |
+| A developer with access to the affected system | Immediately, if the cause is technical (a bug, a compromised account, a processor incident)             | Only they can stop an ongoing technical exposure                                         |
+| The PDPC                                       | Within 72 hours of becoming aware, unless the breach is unlikely to affect people's rights and freedoms | Section 37(4) requires this                                                              |
+| Affected people                                | Without delay, once the scope is known, if the risk to them is high                                     | Section 37(4) requires this when risk is high, and it's the right thing to do regardless |
+| Everyone else at BIRSA                         | Once the chair decides it's appropriate                                                                 | Avoid rumour and inconsistent messages while the facts are still being established       |
 
 "Without delay" for affected people does not mean "immediately with no
 information." It means as soon as BIRSA reasonably can once it knows who is

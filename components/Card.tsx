@@ -19,7 +19,7 @@ export default function Card({ href, className, children }: CardProps) {
   return (
     <div
       className={clsx(
-        "group border-line bg-surface relative flex flex-col gap-2 rounded-lg border p-5 shadow-sm transition-shadow duration-150",
+        "group relative flex flex-col gap-2 rounded-lg border border-line bg-surface p-5 shadow-sm transition-shadow duration-150",
         href && "hover:shadow-md",
         className
       )}
@@ -43,7 +43,7 @@ export type CardTitleProps = {
  */
 export function CardTitle({ href, children, className, as: Heading = "h3" }: CardTitleProps) {
   return (
-    <Heading className={clsx("font-display text-ink text-lg leading-snug", className)}>
+    <Heading className={clsx("font-display text-lg leading-snug text-ink", className)}>
       {href ? (
         <Link href={href} className="after:absolute after:inset-0 hover:underline">
           {children}

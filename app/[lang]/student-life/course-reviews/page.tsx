@@ -104,7 +104,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
 
         <Link
           href={localeHref(locale, "/student-life/home")}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.backToGuides}
         </Link>

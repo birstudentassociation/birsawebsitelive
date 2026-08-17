@@ -153,7 +153,9 @@ export async function getRatingCounts(): Promise<Record<FeedbackRating, number>>
       from satisfaction_feedback
       group by rating
     `;
-    return mergeRatingCounts(result.rows.map((row) => ({ rating: row.rating, count: Number(row.count) })));
+    return mergeRatingCounts(
+      result.rows.map((row) => ({ rating: row.rating, count: Number(row.count) }))
+    );
   } catch {
     return zeroRatingCounts();
   }

@@ -94,8 +94,8 @@ function StatusBlock({
   if (result.status === "suspended") {
     return (
       <div>
-        <p className="text-ink font-semibold">{t.suspendedTitle}</p>
-        <p className="text-muted text-sm">
+        <p className="font-semibold text-ink">{t.suspendedTitle}</p>
+        <p className="text-sm text-muted">
           {t.suspendedBody(result.suspension.resumesLabel[locale])}
         </p>
       </div>
@@ -105,8 +105,8 @@ function StatusBlock({
   if (result.status === "no-service-weekend") {
     return (
       <div>
-        <p className="text-ink font-semibold">{t.weekendTitle}</p>
-        <p className="text-muted text-sm">{t.weekendBody}</p>
+        <p className="font-semibold text-ink">{t.weekendTitle}</p>
+        <p className="text-sm text-muted">{t.weekendBody}</p>
       </div>
     );
   }
@@ -114,8 +114,8 @@ function StatusBlock({
   if (result.status === "not-in-service") {
     return (
       <div>
-        <p className="text-ink font-semibold">{t.offTitle}</p>
-        <p className="text-muted text-sm">{t.offBody}</p>
+        <p className="font-semibold text-ink">{t.offTitle}</p>
+        <p className="text-sm text-muted">{t.offBody}</p>
       </div>
     );
   }
@@ -132,7 +132,7 @@ function StatusBlock({
           {result.hh}:{result.mm}
         </span>
       </p>
-      <p aria-hidden="true" className="text-brand-deep text-sm font-semibold">
+      <p aria-hidden="true" className="text-sm font-semibold text-brand-deep">
         {countdown}
       </p>
     </div>
@@ -157,11 +157,11 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
 
   if (!mounted) {
     return (
-      <div className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5">
-        <p className="text-muted text-sm">{t.loading}</p>
+      <div className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5">
+        <p className="text-sm text-muted">{t.loading}</p>
         <ul className="flex flex-col gap-2">
           {shuttleLines.map((line) => (
-            <li key={line.id} className="text-ink font-semibold">
+            <li key={line.id} className="font-semibold text-ink">
               {line.name[locale]}
             </li>
           ))}
@@ -184,18 +184,18 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
       : undefined;
 
   return (
-    <div className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5">
+    <div className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5">
       <div className="grid gap-4 sm:grid-cols-2">
         {shuttleLines.map((line) => {
           const result = nextDeparture(line.id, parts);
           return (
             <div
               key={line.id}
-              className="border-line bg-surface rounded-lg border p-4"
+              className="rounded-lg border border-line bg-surface p-4"
               style={{ borderLeftWidth: "4px", borderLeftColor: lineAccents[line.id] }}
               aria-live="polite"
             >
-              <h3 className="font-display mt-0 text-lg">{line.name[locale]}</h3>
+              <h3 className="mt-0 font-display text-lg">{line.name[locale]}</h3>
               <StatusBlock
                 result={result}
                 secondsPastMinute={secondsPastMinute}
@@ -206,8 +206,8 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
           );
         })}
       </div>
-      {upcomingNote ? <p className="text-ink text-sm font-semibold">{upcomingNote}</p> : null}
-      <p className="text-muted text-xs">{t.caveat}</p>
+      {upcomingNote ? <p className="text-sm font-semibold text-ink">{upcomingNote}</p> : null}
+      <p className="text-xs text-muted">{t.caveat}</p>
     </div>
   );
 }

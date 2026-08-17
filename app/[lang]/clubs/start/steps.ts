@@ -8,5 +8,12 @@
  * settled isn't asked to write the full description before finding out;
  * contact details come last, after the substance of the idea.
  */
-export const START_CLUB_STEPS = ["clubName", "members", "description", "name", "email", "check"] as const;
+export const START_CLUB_STEPS = [
+  "clubName",
+  "members",
+  "description",
+  "name",
+  "email",
+  "check",
+] as const;
 export type StartClubStep = (typeof START_CLUB_STEPS)[number];

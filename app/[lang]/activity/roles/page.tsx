@@ -28,14 +28,14 @@ function PortraitPlaceholder() {
   return (
     <div
       aria-hidden="true"
-      className="bg-sunken border-line flex aspect-[3/4] w-full items-center justify-center border-b"
+      className="flex aspect-[3/4] w-full items-center justify-center border-b border-line bg-sunken"
     >
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth={1.5}
-        className="text-muted h-16 w-16"
+        className="h-16 w-16 text-muted"
       >
         <circle cx="12" cy="8" r="3.5" />
         <path d="M4.5 20c1.4-3.8 4.7-6 7.5-6s6.1 2.2 7.5 6" strokeLinecap="round" />
@@ -114,7 +114,7 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
                   return (
                     <li
                       key={member.key}
-                      className="bg-surface border-line flex flex-col gap-3 overflow-hidden rounded-lg border shadow-sm"
+                      className="flex flex-col gap-3 overflow-hidden rounded-lg border border-line bg-surface shadow-sm"
                     >
                       {portraitSrc ? (
                         <Image
@@ -129,18 +129,18 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
                       )}
                       <div className="flex flex-col gap-3 px-4 pb-4">
                         <div>
-                          <p className="text-ink font-semibold">
+                          <p className="font-semibold text-ink">
                             {m.firstName} {m.lastName} ({m.nickname})
                           </p>
-                          <p className="text-muted text-sm">{m.title}</p>
+                          <p className="text-sm text-muted">{m.title}</p>
                         </div>
                         {description ? (
-                          <p className="text-muted text-sm leading-relaxed">{description}</p>
+                          <p className="text-sm leading-relaxed text-muted">{description}</p>
                         ) : null}
                         {member.key === REPORTING_OFFICER_KEY ? (
                           <Link
                             href={`${localeHref(locale, "/contact")}#report-harassment`}
-                            className="text-brand-deep text-sm font-semibold hover:underline"
+                            className="text-sm font-semibold text-brand-deep hover:underline"
                           >
                             {reportingLinkCopy[locale]}
                           </Link>

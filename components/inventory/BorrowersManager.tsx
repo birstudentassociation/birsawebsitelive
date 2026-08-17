@@ -129,7 +129,7 @@ export default function BorrowersManager({
       </form>
 
       {borrowers.length === 0 ? (
-        <p className="text-muted text-sm">{t.emptyList}</p>
+        <p className="text-sm text-muted">{t.emptyList}</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {pageItems.map((borrower) => {
@@ -137,10 +137,10 @@ export default function BorrowersManager({
             return (
               <li
                 key={borrower.id}
-                className="border-line bg-surface group relative flex flex-wrap items-center justify-between gap-3 rounded-lg border p-4"
+                className="group relative flex flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-surface p-4"
               >
                 <div className="min-w-0">
-                  <p className="font-display text-ink text-lg">
+                  <p className="font-display text-lg text-ink">
                     <Link
                       href={localeHref(locale, `/officer/inventory/borrowers/${borrower.id}`)}
                       className="after:absolute after:inset-0 hover:underline"
@@ -149,13 +149,13 @@ export default function BorrowersManager({
                       {borrower.name}
                     </Link>
                   </p>
-                  <p className="text-muted text-sm">
+                  <p className="text-sm text-muted">
                     {t.studentIdLabel}: {borrower.tuStudentId} &middot; {t.emailLabel}:{" "}
                     {borrower.email}
                   </p>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
-                  <span className="text-muted text-sm">{t.activeLoansLabel(activeCount)}</span>
+                  <span className="text-sm text-muted">{t.activeLoansLabel(activeCount)}</span>
                   {borrower.blocklisted ? (
                     <span
                       className={clsx(

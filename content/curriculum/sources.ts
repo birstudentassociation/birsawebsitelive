@@ -77,8 +77,7 @@ export const SOURCES = {
   },
   classSchedule2568Year1: {
     id: "classSchedule2568Year1",
-    title:
-      "BIR Class Schedule Semester 1/2025 and registration record Semester 2/2568, first year",
+    title: "BIR Class Schedule Semester 1/2025 and registration record Semester 2/2568, first year",
     url: "",
     note: "Supplied directly by BIRSA as images, not published at a URL.",
     retrieved: "2026-08-02",

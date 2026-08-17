@@ -71,17 +71,17 @@ export default async function StudyPlanCannotHelpPage({
   return (
     <>
       <PageHeader title={copy.cannotHelp.title} />
-      <div className="wrap max-w-[var(--measure)] flex flex-col gap-8 py-10">
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <Notice variant="info">{body}</Notice>
 
         <div>
           <h2 className="font-display text-xl">{copy.cannotHelp.whatToDo}</h2>
-          <p className="text-muted mt-2 text-sm leading-relaxed">{copy.cannotHelp.whatToDoBody}</p>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{copy.cannotHelp.whatToDoBody}</p>
         </div>
 
         <div>
           <h2 className="font-display text-xl">{copy.cannotHelp.contactHeading}</h2>
-          <ul className="text-muted mt-2 flex flex-col gap-1 text-sm">
+          <ul className="mt-2 flex flex-col gap-1 text-sm text-muted">
             <li>{contact.address[locale]}</li>
             <li>
               <a href={`mailto:${contact.email}`} className="text-brand-deep hover:underline">

@@ -53,7 +53,7 @@ export default function CancelConfirmForm({
         ref={resultRef}
         tabIndex={-1}
         role="status"
-        className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+        className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
       >
         <p className="font-semibold">{labels.cancelledTitle}</p>
         <p className="mt-1 text-sm">{labels.cancelledBody}</p>

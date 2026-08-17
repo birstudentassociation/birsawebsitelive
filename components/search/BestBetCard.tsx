@@ -14,10 +14,10 @@ export type BestBetCardProps = {
  */
 export default function BestBetCard({ bestBet }: BestBetCardProps) {
   return (
-    <div className="border-brand bg-brand-tint/40 flex flex-col gap-4 rounded-lg border-2 p-6">
+    <div className="flex flex-col gap-4 rounded-lg border-2 border-brand bg-brand-tint/40 p-6">
       <div className="flex flex-col gap-2">
-        <h2 className="font-display text-ink text-xl">{bestBet.title}</h2>
-        <p className="text-ink text-sm leading-relaxed">{bestBet.description}</p>
+        <h2 className="font-display text-xl text-ink">{bestBet.title}</h2>
+        <p className="text-sm leading-relaxed text-ink">{bestBet.description}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">

@@ -680,7 +680,10 @@ export const wellbeing: SmartAnswerService = {
       body: [
         {
           kind: "steps",
-          title: { en: "Report it through whichever channel you prefer", th: "แจ้งเรื่องผ่านช่องทางที่คุณสบายใจ" },
+          title: {
+            en: "Report it through whichever channel you prefer",
+            th: "แจ้งเรื่องผ่านช่องทางที่คุณสบายใจ",
+          },
           items: reportingLines,
         },
         {

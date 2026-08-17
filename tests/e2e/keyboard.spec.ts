@@ -61,14 +61,16 @@ test.describe("header navigation: keyboard-only", () => {
       if (info.inMain) reachedMain = true;
       // Never falls out of both the header and the eventual main content
       // (e.g. onto <body> with nothing focused).
-      expect(info.inHeader || info.inMain, `focus escaped to neither header nor main (${seen.join(" > ")})`).toBe(
-        true
-      );
+      expect(
+        info.inHeader || info.inMain,
+        `focus escaped to neither header nor main (${seen.join(" > ")})`
+      ).toBe(true);
     }
 
-    expect(reachedMain, `Tab never reached <main>; focus stayed in the header (${seen.join(" > ")})`).toBe(
-      true
-    );
+    expect(
+      reachedMain,
+      `Tab never reached <main>; focus stayed in the header (${seen.join(" > ")})`
+    ).toBe(true);
   });
 
   test("mobile menu: Tab reaches the toggle, opens it with Enter, tabs through every item, and is not trapped", async ({

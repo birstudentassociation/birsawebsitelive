@@ -59,10 +59,18 @@ export default function CurriculumConfirmForm({
         </legend>
 
         {hasError ? (
-          <p id={`${groupId}-error`} className="text-error flex items-center gap-1.5 text-sm font-medium">
+          <p
+            id={`${groupId}-error`}
+            className="flex items-center gap-1.5 text-sm font-medium text-error"
+          >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
               <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path d="M10 6.5v4.2" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
+              <path
+                d="M10 6.5v4.2"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+              />
               <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
             </svg>
             {state.error}
@@ -72,7 +80,7 @@ export default function CurriculumConfirmForm({
         <div className="flex flex-col gap-3">
           <label
             htmlFor={`${groupId}-yes`}
-            className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border p-4"
+            className="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint"
           >
             <input
               id={`${groupId}-yes`}
@@ -80,13 +88,13 @@ export default function CurriculumConfirmForm({
               name="confirmed"
               value="yes"
               required
-              className="focus-halo border-input-border accent-brand h-5 w-5 shrink-0"
+              className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
             />
-            <span className="text-ink font-semibold">{yesLabel}</span>
+            <span className="font-semibold text-ink">{yesLabel}</span>
           </label>
           <label
             htmlFor={`${groupId}-no`}
-            className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border p-4"
+            className="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint"
           >
             <input
               id={`${groupId}-no`}
@@ -94,9 +102,9 @@ export default function CurriculumConfirmForm({
               name="confirmed"
               value="no"
               required
-              className="focus-halo border-input-border accent-brand h-5 w-5 shrink-0"
+              className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
             />
-            <span className="text-ink font-semibold">{noLabel}</span>
+            <span className="font-semibold text-ink">{noLabel}</span>
           </label>
         </div>
       </fieldset>

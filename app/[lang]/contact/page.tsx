@@ -11,7 +11,10 @@ import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import ReportHarassment from "@/components/ReportHarassment";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
-import { buildContactWizardLabels, contactCategoryOptions } from "@/components/forms/contactWizardCopy";
+import {
+  buildContactWizardLabels,
+  contactCategoryOptions,
+} from "@/components/forms/contactWizardCopy";
 import { getContactDraft, submitCategoryStep } from "./actions";
 import { CONTACT_STEPS } from "./steps";
 import { deriveContactSeed } from "./seed";
@@ -93,9 +96,10 @@ export default async function ContactPage({
 
   const visibleSocials = socials.filter((social) => !social.placeholder);
   const backHref = returnTo === "check" ? localeHref(locale, "/contact/check") : undefined;
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("category") + 1, CONTACT_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("category") + 1, CONTACT_STEPS.length);
 
   return (
     <>
@@ -139,26 +143,26 @@ export default async function ContactPage({
           />
         </div>
 
-        <aside className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-6 lg:self-start">
+        <aside className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-6 lg:self-start">
           {/* Answering the question without a round trip is faster for the
               student and cheaper for the committee, so the guided route is
               offered before the form's other channels, not after them. */}
-          <div className="border-line flex flex-col gap-2 border-b pb-4">
+          <div className="flex flex-col gap-2 border-b border-line pb-4">
             <h2 className="font-display text-xl">{t.answersTitle}</h2>
-            <p className="text-muted text-sm">{t.answersBody}</p>
+            <p className="text-sm text-muted">{t.answersBody}</p>
             <Link
               href={localeHref(locale, "/answers")}
-              className="text-brand-deep text-sm font-semibold hover:underline"
+              className="text-sm font-semibold text-brand-deep hover:underline"
             >
               {t.answersCta} &rarr;
             </Link>
           </div>
 
           <h2 className="font-display text-xl">{t.otherWaysTitle}</h2>
-          <p className="text-muted text-sm">{t.otherWaysBody}</p>
+          <p className="text-sm text-muted">{t.otherWaysBody}</p>
           <dl className="flex flex-col gap-3 text-sm">
             <div>
-              <dt className="text-ink font-semibold">{t.emailLabel}</dt>
+              <dt className="font-semibold text-ink">{t.emailLabel}</dt>
               <dd className="flex flex-col gap-1">
                 <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
                 <Email
@@ -171,7 +175,7 @@ export default async function ContactPage({
               .filter((social) => social.id !== "email")
               .map((social) => (
                 <div key={social.id}>
-                  <dt className="text-ink font-semibold">{social.label}</dt>
+                  <dt className="font-semibold text-ink">{social.label}</dt>
                   <dd>
                     <ExternalLink href={social.href} newTabLabel={dict.a11y.newTab}>
                       {social.label}

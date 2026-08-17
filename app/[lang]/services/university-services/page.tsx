@@ -489,7 +489,7 @@ export default async function UniversityServicesPage({
       />
       <div className="wrap flex flex-col gap-10 py-10">
         <nav aria-label={t.onThisPageLabel} className="flex flex-col gap-2">
-          <p className="text-muted text-sm font-semibold tracking-wide uppercase">
+          <p className="text-sm font-semibold tracking-wide text-muted uppercase">
             {t.onThisPageLabel}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-1">
@@ -518,14 +518,14 @@ export default async function UniversityServicesPage({
           <h2 id="accident-insurance-heading" className="font-display text-2xl">
             {t.accidentInsurance.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.accidentInsurance.intro}</p>
+          <p className="leading-relaxed text-muted">{t.accidentInsurance.intro}</p>
 
-          <div className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-6">
+          <div className="flex flex-col gap-3 rounded-lg border border-line bg-sunken p-6">
             <h3 className="font-display text-lg">{t.accidentInsurance.claimTitle}</h3>
-            <ol className="text-muted flex flex-col gap-2 text-sm leading-relaxed">
+            <ol className="flex flex-col gap-2 text-sm leading-relaxed text-muted">
               {t.accidentInsurance.claimSteps.map((step, index) => (
                 <li key={index} className="flex gap-2">
-                  <span aria-hidden="true" className="text-ink font-semibold">
+                  <span aria-hidden="true" className="font-semibold text-ink">
                     {index + 1}.
                   </span>
                   <span>
@@ -536,9 +536,9 @@ export default async function UniversityServicesPage({
             </ol>
           </div>
 
-          <div className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-6">
+          <div className="flex flex-col gap-3 rounded-lg border border-line bg-sunken p-6">
             <h3 className="font-display text-lg">{t.accidentInsurance.documentsTitle}</h3>
-            <ul className="text-muted flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed">
+            <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-muted">
               {t.accidentInsurance.documents.map((doc, index) => (
                 <li key={index}>{doc}</li>
               ))}
@@ -549,9 +549,9 @@ export default async function UniversityServicesPage({
             <h3 className="font-display text-lg">{t.accidentInsurance.coverageTitle}</h3>
             <dl className="mt-2 flex flex-col gap-3">
               {t.accidentInsurance.coverage.map((row, index) => (
-                <div key={index} className="border-line border-b pb-2">
-                  <dt className="text-ink font-semibold">{row.term}</dt>
-                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                <div key={index} className="border-b border-line pb-2">
+                  <dt className="font-semibold text-ink">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-muted">{row.desc}</dd>
                 </div>
               ))}
             </dl>
@@ -561,9 +561,9 @@ export default async function UniversityServicesPage({
             <h3 className="font-display text-lg">{t.accidentInsurance.contactTitle}</h3>
             <dl className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {t.accidentInsurance.contacts.map((row, index) => (
-                <div key={index} className="border-line bg-sunken rounded-lg border p-4">
-                  <dt className="text-ink font-semibold">{row.term}</dt>
-                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                <div key={index} className="rounded-lg border border-line bg-sunken p-4">
+                  <dt className="font-semibold text-ink">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-muted">{row.desc}</dd>
                 </div>
               ))}
             </dl>
@@ -588,26 +588,26 @@ export default async function UniversityServicesPage({
           <h2 id="military-service-heading" className="font-display text-2xl">
             {t.militaryService.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.militaryService.intro}</p>
+          <p className="leading-relaxed text-muted">{t.militaryService.intro}</p>
 
           <div>
             <h3 className="font-display text-lg">{t.militaryService.roundsTitle}</h3>
             <dl className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {t.militaryService.rounds.map((row, index) => (
-                <div key={index} className="border-line bg-sunken rounded-lg border p-4">
-                  <dt className="text-ink font-semibold">{row.term}</dt>
-                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                <div key={index} className="rounded-lg border border-line bg-sunken p-4">
+                  <dt className="font-semibold text-ink">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-muted">{row.desc}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <div className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-6">
+          <div className="flex flex-col gap-3 rounded-lg border border-line bg-sunken p-6">
             <h3 className="font-display text-lg">{t.militaryService.stepsTitle}</h3>
-            <ol className="text-muted flex flex-col gap-2 text-sm leading-relaxed">
+            <ol className="flex flex-col gap-2 text-sm leading-relaxed text-muted">
               {t.militaryService.steps.map((step, index) => (
                 <li key={index} className="flex gap-2">
-                  <span aria-hidden="true" className="text-ink font-semibold">
+                  <span aria-hidden="true" className="font-semibold text-ink">
                     {index + 1}.
                   </span>
                   <span>{step}</span>
@@ -637,7 +637,7 @@ export default async function UniversityServicesPage({
             </li>
           </ul>
 
-          <p className="text-muted text-sm leading-relaxed">{t.militaryService.contactLine}</p>
+          <p className="text-sm leading-relaxed text-muted">{t.militaryService.contactLine}</p>
         </section>
 
         <section
@@ -648,7 +648,7 @@ export default async function UniversityServicesPage({
           <h2 id="certificates-heading" className="font-display text-2xl">
             {t.certificates.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.certificates.body}</p>
+          <p className="leading-relaxed text-muted">{t.certificates.body}</p>
           <p>
             <ExternalLink
               href="https://www.reg.tu.ac.th/"
@@ -664,23 +664,23 @@ export default async function UniversityServicesPage({
           <h2 id="libraries-heading" className="font-display text-2xl">
             {t.libraries.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.libraries.intro}</p>
+          <p className="leading-relaxed text-muted">{t.libraries.intro}</p>
 
           <div>
             <h3 className="font-display text-lg">{t.libraries.librariesTitle}</h3>
             <dl className="mt-2 flex flex-col gap-3">
               {t.libraries.libraries.map((row, index) => (
-                <div key={index} className="border-line border-b pb-2">
-                  <dt className="text-ink font-semibold">{row.term}</dt>
-                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                <div key={index} className="border-b border-line pb-2">
+                  <dt className="font-semibold text-ink">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-muted">{row.desc}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+          <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
             <h3 className="font-display text-lg">{t.libraries.studyRoomsTitle}</h3>
-            <p className="text-muted text-sm leading-relaxed">{t.libraries.studyRoomsBody}</p>
+            <p className="text-sm leading-relaxed text-muted">{t.libraries.studyRoomsBody}</p>
             <p>
               <ExternalLink
                 href="https://booking.library.tu.ac.th"
@@ -694,12 +694,12 @@ export default async function UniversityServicesPage({
 
           <div>
             <h3 className="font-display text-lg">{t.libraries.printingTitle}</h3>
-            <p className="text-muted mt-1 text-sm leading-relaxed">{t.libraries.printingIntro}</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{t.libraries.printingIntro}</p>
             <dl className="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {t.libraries.printingFunds.map((row, index) => (
-                <div key={index} className="border-line bg-sunken rounded-lg border p-4">
-                  <dt className="text-ink font-semibold">{row.term}</dt>
-                  <dd className="text-muted text-sm leading-relaxed">{row.desc}</dd>
+                <div key={index} className="rounded-lg border border-line bg-sunken p-4">
+                  <dt className="font-semibold text-ink">{row.term}</dt>
+                  <dd className="text-sm leading-relaxed text-muted">{row.desc}</dd>
                 </div>
               ))}
             </dl>
@@ -724,7 +724,7 @@ export default async function UniversityServicesPage({
           <h2 id="sport-fitness-heading" className="font-display text-2xl">
             {t.sportFitness.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.sportFitness.body}</p>
+          <p className="leading-relaxed text-muted">{t.sportFitness.body}</p>
         </section>
 
         <section
@@ -735,7 +735,7 @@ export default async function UniversityServicesPage({
           <h2 id="dome-account-heading" className="font-display text-2xl">
             {t.domeAccount.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.domeAccount.body}</p>
+          <p className="leading-relaxed text-muted">{t.domeAccount.body}</p>
         </section>
 
         <section
@@ -746,12 +746,12 @@ export default async function UniversityServicesPage({
           <h2 id="counselling-heading" className="font-display text-2xl">
             {t.counselling.title}
           </h2>
-          <p className="text-muted leading-relaxed">{t.counselling.intro}</p>
+          <p className="leading-relaxed text-muted">{t.counselling.intro}</p>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
               <h3 className="font-display text-lg">{t.counselling.wellBeing.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{t.counselling.wellBeing.body}</p>
+              <p className="text-sm leading-relaxed text-muted">{t.counselling.wellBeing.body}</p>
               <p>
                 <ExternalLink
                   href="https://www.facebook.com/permalink.php?story_fbid=1139583574836463&id=100063544931301&locale=th_TH"
@@ -763,9 +763,9 @@ export default async function UniversityServicesPage({
               </p>
             </div>
 
-            <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
               <h3 className="font-display text-lg">{t.counselling.psychologist.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed text-muted">
                 {t.counselling.psychologist.body}
               </p>
               <p>
@@ -779,9 +779,9 @@ export default async function UniversityServicesPage({
               </p>
             </div>
 
-            <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
               <h3 className="font-display text-lg">{t.counselling.bedee.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{t.counselling.bedee.body}</p>
+              <p className="text-sm leading-relaxed text-muted">{t.counselling.bedee.body}</p>
             </div>
           </div>
         </section>
@@ -796,9 +796,9 @@ export default async function UniversityServicesPage({
           </h2>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
               <h3 className="font-display text-lg">{t.itSupport.helpdesk.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{t.itSupport.helpdesk.body}</p>
+              <p className="text-sm leading-relaxed text-muted">{t.itSupport.helpdesk.body}</p>
               <p>
                 <ExternalLink
                   href="https://page.line.me/pib5088f"
@@ -810,9 +810,9 @@ export default async function UniversityServicesPage({
               </p>
             </div>
 
-            <div className="border-line bg-sunken flex flex-col gap-2 rounded-lg border p-6">
+            <div className="flex flex-col gap-2 rounded-lg border border-line bg-sunken p-6">
               <h3 className="font-display text-lg">{t.itSupport.appStore.title}</h3>
-              <p className="text-muted text-sm leading-relaxed">{t.itSupport.appStore.body}</p>
+              <p className="text-sm leading-relaxed text-muted">{t.itSupport.appStore.body}</p>
               <p>
                 <ExternalLink
                   href="https://ict.tu.ac.th/index.php/th/it-ict/personnel-information-system/tu-application-store"
@@ -826,9 +826,9 @@ export default async function UniversityServicesPage({
           </div>
         </section>
 
-        <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-8">
+        <section className="flex flex-col gap-3 rounded-lg border border-line bg-sunken p-8">
           <h2 className="font-display text-2xl">{t.closing.title}</h2>
-          <p className="text-muted max-w-[var(--measure)] text-sm leading-relaxed">
+          <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted">
             {t.closing.body}{" "}
             <a href={localeHref(locale, "/contact")} className={linkClass}>
               {t.closing.cta}

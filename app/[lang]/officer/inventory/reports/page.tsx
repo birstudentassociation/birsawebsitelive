@@ -201,31 +201,31 @@ export default async function OfficerReportsPage({
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-10 py-10">
         <section aria-labelledby="status-summary-heading" className="flex flex-col gap-4">
-          <h2 id="status-summary-heading" className="font-display text-ink text-xl">
+          <h2 id="status-summary-heading" className="font-display text-xl text-ink">
             {t.statusSummaryTitle}
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {STATUS_ORDER.map((status) => (
               <Card key={status}>
-                <p className="text-muted text-sm font-semibold">{t.statusLabels[status]}</p>
-                <p className="font-display text-ink text-2xl">{countsByStatus.get(status) ?? 0}</p>
+                <p className="text-sm font-semibold text-muted">{t.statusLabels[status]}</p>
+                <p className="font-display text-2xl text-ink">{countsByStatus.get(status) ?? 0}</p>
               </Card>
             ))}
           </div>
         </section>
 
         <section aria-labelledby="utilisation-heading" className="flex flex-col gap-4">
-          <h2 id="utilisation-heading" className="font-display text-ink text-xl">
+          <h2 id="utilisation-heading" className="font-display text-xl text-ink">
             {t.utilisationTitle}
           </h2>
           {utilisation.length === 0 ? (
-            <p className="text-muted text-sm">{t.utilisationEmpty}</p>
+            <p className="text-sm text-muted">{t.utilisationEmpty}</p>
           ) : (
             <div className="overflow-x-auto">
-              <table className="text-ink w-full text-left text-sm">
+              <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.utilisationTitle}</caption>
                 <thead>
-                  <tr className="border-line border-b">
+                  <tr className="border-b border-line">
                     <th scope="col" className="py-2 pr-4 font-semibold">
                       {t.itemHeader}
                     </th>
@@ -245,7 +245,7 @@ export default async function OfficerReportsPage({
                 </thead>
                 <tbody>
                   {utilisation.map((row) => (
-                    <tr key={row.itemId} className="border-line border-b last:border-0">
+                    <tr key={row.itemId} className="border-b border-line last:border-0">
                       <th scope="row" className="py-2 pr-4 text-left font-normal">
                         {locale === "th" ? row.nameTh : row.nameEn}
                       </th>
@@ -264,10 +264,10 @@ export default async function OfficerReportsPage({
         </section>
 
         <section aria-labelledby="exports-heading" className="flex flex-col gap-4">
-          <h2 id="exports-heading" className="font-display text-ink text-xl">
+          <h2 id="exports-heading" className="font-display text-xl text-ink">
             {t.exportsTitle}
           </h2>
-          <p className="text-muted text-sm">{t.exportsLede}</p>
+          <p className="text-sm text-muted">{t.exportsLede}</p>
           <div className="flex flex-wrap gap-3">
             {/* Plain anchors: these hit an API route that streams a CSV file
                 download, not a page. next/link would intercept them as client

@@ -38,10 +38,18 @@ export default async function StartClubDescriptionPage({
   const { returnTo } = await searchParams;
 
   const draft = await getStartClubDraft();
-  const backHref = localeHref(locale, returnTo === "check" ? "/clubs/start/check" : "/clubs/start/members");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("description") + 1, START_CLUB_STEPS.length);
+  const backHref = localeHref(
+    locale,
+    returnTo === "check" ? "/clubs/start/check" : "/clubs/start/members"
+  );
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(
+          chrome.stepOf,
+          START_CLUB_STEPS.indexOf("description") + 1,
+          START_CLUB_STEPS.length
+        );
 
   return (
     <>

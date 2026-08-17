@@ -184,7 +184,8 @@ const copy: Record<Locale, Copy> = {
     approveAllLabel: "Approve all pending",
     approvingAllLabel: "Approving all...",
     confirmApproveAll: (count) => `Approve all ${count} pending requests?`,
-    bulkApprovedAll: (count) => (count === 1 ? "Approved 1 request." : `Approved ${count} requests.`),
+    bulkApprovedAll: (count) =>
+      count === 1 ? "Approved 1 request." : `Approved ${count} requests.`,
     bulkApprovedSummary: (successCount, failures) => {
       const approvedPart =
         successCount === 1 ? "Approved 1 request." : `Approved ${successCount} requests.`;
@@ -257,7 +258,8 @@ const copy: Record<Locale, Copy> = {
     approveAllLabel: "อนุมัติที่รอดำเนินการทั้งหมด",
     approvingAllLabel: "กำลังอนุมัติทั้งหมด...",
     confirmApproveAll: (count) => `อนุมัติคำขอยืมที่รอดำเนินการทั้งหมด ${count} รายการใช่หรือไม่`,
-    bulkApprovedAll: (count) => (count === 1 ? "อนุมัติแล้ว 1 รายการ" : `อนุมัติแล้ว ${count} รายการ`),
+    bulkApprovedAll: (count) =>
+      count === 1 ? "อนุมัติแล้ว 1 รายการ" : `อนุมัติแล้ว ${count} รายการ`,
     bulkApprovedSummary: (successCount, failures) => {
       const approvedPart =
         successCount === 1 ? "อนุมัติแล้ว 1 รายการ" : `อนุมัติแล้ว ${successCount} รายการ`;
@@ -422,7 +424,9 @@ export default function LoanQueue({
   // caller's responsibility (handleApprove wraps a single confirm + row busy
   // state; handleApproveAll confirms once and drives its own bulk busy
   // state around a sequential loop of this function).
-  async function performApprove(loan: Loan): Promise<{ ok: true } | { ok: false; reasonText: string }> {
+  async function performApprove(
+    loan: Loan
+  ): Promise<{ ok: true } | { ok: false; reasonText: string }> {
     const unitId = selectedUnit[loan.id];
     if (!unitId) {
       setUnitErrors((prev) => ({ ...prev, [loan.id]: t.unitRequiredMessage }));
@@ -576,36 +580,36 @@ export default function LoanQueue({
           else articleRefs.current.delete(loan.id);
         }}
         tabIndex={-1}
-        className="border-line bg-surface focus-halo flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+        className="focus-halo flex flex-col gap-3 rounded-lg border border-line bg-surface p-4 sm:p-5"
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="font-display text-ink text-lg">{loan.reference}</p>
-            <p className="text-muted text-sm">{item ? item.name[locale] : loan.itemId}</p>
+            <p className="font-display text-lg text-ink">{loan.reference}</p>
+            <p className="text-sm text-muted">{item ? item.name[locale] : loan.itemId}</p>
           </div>
           <StatusPill status={loan.status} label={t.statusLabels[loan.status]} />
         </div>
 
         <dl className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-muted font-semibold">{t.borrowerLabel}</dt>
+            <dt className="font-semibold text-muted">{t.borrowerLabel}</dt>
             <dd className="text-ink">
               {borrower ? `${borrower.name} (${borrower.tuStudentId})` : loan.borrowerId}
             </dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.emailLabel}</dt>
-            <dd className="text-ink break-all">{borrower?.email ?? "Not provided"}</dd>
+            <dt className="font-semibold text-muted">{t.emailLabel}</dt>
+            <dd className="break-all text-ink">{borrower?.email ?? "Not provided"}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.datesLabel}</dt>
+            <dt className="font-semibold text-muted">{t.datesLabel}</dt>
             <dd className="text-ink">
               {formatDate(locale, loan.startDate)} &rarr; {formatDate(locale, loan.endDate)}
             </dd>
           </div>
           {loan.reason ? (
             <div className="sm:col-span-2">
-              <dt className="text-muted font-semibold">{t.reasonLabel}</dt>
+              <dt className="font-semibold text-muted">{t.reasonLabel}</dt>
               <dd className="text-ink">{loan.reason}</dd>
             </div>
           ) : null}
@@ -730,7 +734,7 @@ export default function LoanQueue({
   if (loans.length === 0) {
     return (
       <>
-        <p className="text-muted text-sm">{t.emptyList}</p>
+        <p className="text-sm text-muted">{t.emptyList}</p>
         {dialog}
       </>
     );
@@ -749,7 +753,7 @@ export default function LoanQueue({
     <div className="flex flex-col gap-10">
       <section aria-labelledby="loan-queue-pending-heading" className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="loan-queue-pending-heading" className="font-display text-ink text-xl">
+          <h2 id="loan-queue-pending-heading" className="font-display text-xl text-ink">
             {t.pendingTitle} ({pendingLoans.length})
           </h2>
           {canAct && pendingLoans.length >= 2 ? (
@@ -777,14 +781,14 @@ export default function LoanQueue({
           </div>
         ) : null}
         {pendingLoans.length === 0 ? (
-          <p className="text-muted text-sm">{t.emptyList}</p>
+          <p className="text-sm text-muted">{t.emptyList}</p>
         ) : (
           <div className="flex flex-col gap-4">{pendingLoans.map((loan) => renderLoan(loan))}</div>
         )}
       </section>
 
       <section aria-labelledby="loan-queue-other-heading" className="flex flex-col gap-6">
-        <h2 id="loan-queue-other-heading" className="font-display text-ink text-xl">
+        <h2 id="loan-queue-other-heading" className="font-display text-xl text-ink">
           {t.otherTitle} ({otherCount})
         </h2>
         {otherStatuses.map((status) => {
@@ -793,7 +797,7 @@ export default function LoanQueue({
           if (statusLoans.length === 0) return null;
           return (
             <div key={status} className="flex flex-col gap-4">
-              <h3 className="text-ink text-sm font-semibold">
+              <h3 className="text-sm font-semibold text-ink">
                 {t.statusLabels[status]} ({statusTotal})
               </h3>
               <div className="flex flex-col gap-4">

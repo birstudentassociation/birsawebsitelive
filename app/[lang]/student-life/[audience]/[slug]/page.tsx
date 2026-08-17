@@ -145,8 +145,8 @@ export default async function StudentLifeSectionPage({
       />
       <div className="wrap flex flex-col gap-8 py-10">
         {toc.length >= 2 ? (
-          <nav aria-label={t.onThisPage} className="border-line bg-sunken rounded-lg border p-5">
-            <h2 className="text-muted text-sm font-semibold tracking-wide uppercase">
+          <nav aria-label={t.onThisPage} className="rounded-lg border border-line bg-sunken p-5">
+            <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
               {t.onThisPage}
             </h2>
             <ul className="mt-3 flex flex-col gap-2 text-sm">
@@ -161,7 +161,7 @@ export default async function StudentLifeSectionPage({
           </nav>
         ) : null}
 
-        <p className="text-muted text-sm">
+        <p className="text-sm text-muted">
           {t.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
@@ -170,18 +170,18 @@ export default async function StudentLifeSectionPage({
         {prevEntry || nextEntry ? (
           <nav
             aria-label={t.prevNextNav}
-            className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2"
+            className="grid grid-cols-1 gap-4 border-t border-line pt-8 sm:grid-cols-2"
           >
             <div>
               {prevEntry ? (
                 <Link
                   href={localeHref(locale, `/student-life/${audience}/${prevEntry.slug}`)}
-                  className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4"
+                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 hover:border-brand"
                 >
-                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
+                  <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     &larr; {t.previous}
                   </span>
-                  <span className="text-ink font-semibold">{prevEntry.frontmatter.title}</span>
+                  <span className="font-semibold text-ink">{prevEntry.frontmatter.title}</span>
                 </Link>
               ) : null}
             </div>
@@ -189,27 +189,27 @@ export default async function StudentLifeSectionPage({
               {nextEntry ? (
                 <Link
                   href={localeHref(locale, `/student-life/${audience}/${nextEntry.slug}`)}
-                  className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4 text-right"
+                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 text-right hover:border-brand"
                 >
-                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
+                  <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     {t.next} &rarr;
                   </span>
-                  <span className="text-ink font-semibold">{nextEntry.frontmatter.title}</span>
+                  <span className="font-semibold text-ink">{nextEntry.frontmatter.title}</span>
                 </Link>
               ) : null}
             </div>
           </nav>
         ) : null}
 
-        <div className="border-line bg-sunken flex flex-col items-start gap-4 rounded-lg border p-8">
+        <div className="flex flex-col items-start gap-4 rounded-lg border border-line bg-sunken p-8">
           <h2 className="font-display text-xl">{t.helpTitle}</h2>
-          <p className="text-muted max-w-[var(--measure)]">{t.helpBody}</p>
+          <p className="max-w-[var(--measure)] text-muted">{t.helpBody}</p>
           <Button href={localeHref(locale, "/contact")}>{t.helpCta}</Button>
         </div>
 
         <Link
           href={trackHref}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.back[audience]}
         </Link>

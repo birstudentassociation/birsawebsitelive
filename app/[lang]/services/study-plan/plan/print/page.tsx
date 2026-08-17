@@ -94,7 +94,12 @@ export default async function StudyPlanPrintPage({
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
 
   const findings = checkPlan(version, plan);
-  const shortfalls = remainingRequirements(version, allCodes, plan.minorId, totalFreeElectiveCredits);
+  const shortfalls = remainingRequirements(
+    version,
+    allCodes,
+    plan.minorId,
+    totalFreeElectiveCredits
+  );
 
   const generatedOn = new Date().toLocaleDateString(locale === "th" ? "th-TH" : "en-GB", {
     year: "numeric",
@@ -103,24 +108,24 @@ export default async function StudyPlanPrintPage({
   });
 
   return (
-    <div className="wrap max-w-[var(--measure)] flex flex-col gap-8 py-10">
+    <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
       <div>
         <h1 className="font-display text-3xl">{copy.print.title}</h1>
         <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-muted font-semibold">{copy.print.curriculumLabel}</dt>
+            <dt className="font-semibold text-muted">{copy.print.curriculumLabel}</dt>
             <dd className="text-ink">{version.label[locale]}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{copy.print.cohortLabel}</dt>
+            <dt className="font-semibold text-muted">{copy.print.cohortLabel}</dt>
             <dd className="text-ink">{plan.cohort}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{copy.print.minorLabel}</dt>
+            <dt className="font-semibold text-muted">{copy.print.minorLabel}</dt>
             <dd className="text-ink">{minorName}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{copy.print.generatedOnLabel}</dt>
+            <dt className="font-semibold text-muted">{copy.print.generatedOnLabel}</dt>
             <dd className="text-ink">{generatedOn}</dd>
           </div>
         </dl>
@@ -130,20 +135,24 @@ export default async function StudyPlanPrintPage({
 
       <div>
         <h2 className="font-display text-xl">{copy.print.passedHeading}</h2>
-        <p className="text-muted mt-1 text-sm">{copy.print.passedHint}</p>
+        <p className="mt-1 text-sm text-muted">{copy.print.passedHint}</p>
         {passedCourses.length > 0 ? (
           <ul className="mt-3 flex flex-col gap-1 text-sm">
             {passedCourses.map((course) => (
               <li key={course.code}>
                 <span className="font-semibold">{course.code}</span>
-                {course.title ? ` ${course.title}` : ""} &middot; {course.credits} {copy.plan.creditsUnit}
+                {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
+                {copy.plan.creditsUnit}
               </li>
             ))}
           </ul>
         ) : null}
         {plan.freeElectiveCreditsPassed > 0 ? (
-          <p className="text-ink mt-2 text-sm">
-            {copy.print.passedFreeElectiveTemplate.replace("{n}", String(plan.freeElectiveCreditsPassed))}
+          <p className="mt-2 text-sm text-ink">
+            {copy.print.passedFreeElectiveTemplate.replace(
+              "{n}",
+              String(plan.freeElectiveCreditsPassed)
+            )}
           </p>
         ) : null}
       </div>
@@ -157,11 +166,11 @@ export default async function StudyPlanPrintPage({
             return (
               <div
                 key={`${printTerm.term.year}-${printTerm.term.kind}`}
-                className="border-line rounded-lg border p-4"
+                className="rounded-lg border border-line p-4"
               >
                 <div className="flex items-baseline justify-between gap-4">
                   <h3 className="font-display text-lg">{formatTermLabel(copy, printTerm.term)}</h3>
-                  <p className="text-muted text-sm">
+                  <p className="text-sm text-muted">
                     {termCredits} {copy.plan.creditsUnit}
                   </p>
                 </div>
@@ -177,7 +186,7 @@ export default async function StudyPlanPrintPage({
                   </ul>
                 ) : null}
                 {printTerm.freeElectiveCredits > 0 ? (
-                  <p className="text-muted mt-2 text-sm">
+                  <p className="mt-2 text-sm text-muted">
                     {copy.print.freeElectiveCreditsTemplate.replace(
                       "{n}",
                       String(printTerm.freeElectiveCredits)
@@ -185,7 +194,7 @@ export default async function StudyPlanPrintPage({
                   </p>
                 ) : null}
                 {printTerm.courses.length === 0 && printTerm.freeElectiveCredits === 0 ? (
-                  <p className="text-muted mt-2 text-sm">{copy.print.noCoursesInTerm}</p>
+                  <p className="mt-2 text-sm text-muted">{copy.print.noCoursesInTerm}</p>
                 ) : null}
               </div>
             );
@@ -196,7 +205,11 @@ export default async function StudyPlanPrintPage({
       <div>
         <h2 className="font-display text-xl">{copy.print.findingsHeading}</h2>
         <div className="mt-4">
-          <FindingsList findings={findings} locale={locale} emptyMessage={copy.print.findingsEmpty} />
+          <FindingsList
+            findings={findings}
+            locale={locale}
+            emptyMessage={copy.print.findingsEmpty}
+          />
         </div>
       </div>
 
@@ -205,20 +218,29 @@ export default async function StudyPlanPrintPage({
         <div className="mt-4 overflow-x-auto">
           <table className="w-full min-w-[28rem] border-collapse text-sm">
             <thead>
-              <tr className="border-line border-b text-left">
-                <th className="text-muted py-2 pr-3 font-semibold">{copy.print.owedCategoryHeader}</th>
-                <th className="text-muted py-2 pr-3 font-semibold">{copy.print.owedEarnedHeader}</th>
-                <th className="text-muted py-2 font-semibold">{copy.print.owedRemainingHeader}</th>
+              <tr className="border-b border-line text-left">
+                <th className="py-2 pr-3 font-semibold text-muted">
+                  {copy.print.owedCategoryHeader}
+                </th>
+                <th className="py-2 pr-3 font-semibold text-muted">
+                  {copy.print.owedEarnedHeader}
+                </th>
+                <th className="py-2 font-semibold text-muted">{copy.print.owedRemainingHeader}</th>
               </tr>
             </thead>
             <tbody>
               {shortfalls.map((shortfall) => (
-                <tr key={shortfall.category.id} className="border-line border-b">
-                  <td className="text-ink py-2 pr-3">
-                    {categoryLabel(copy, shortfall.category.id, shortfall.category.name[locale], minorName)}
+                <tr key={shortfall.category.id} className="border-b border-line">
+                  <td className="py-2 pr-3 text-ink">
+                    {categoryLabel(
+                      copy,
+                      shortfall.category.id,
+                      shortfall.category.name[locale],
+                      minorName
+                    )}
                   </td>
-                  <td className="text-ink py-2 pr-3">{shortfall.earned}</td>
-                  <td className="text-ink py-2">{shortfall.remaining}</td>
+                  <td className="py-2 pr-3 text-ink">{shortfall.earned}</td>
+                  <td className="py-2 text-ink">{shortfall.remaining}</td>
                 </tr>
               ))}
             </tbody>

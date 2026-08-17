@@ -8,7 +8,8 @@ const copy = {
     fallback: "If the form doesn't load,",
     openLink: "open it in a new tab",
     newTab: "opens in a new tab",
-    dataNotice: "This is a Google Form, not a BIRSA form. What you type goes straight to Google and to whoever set the form up, not to this site.",
+    dataNotice:
+      "This is a Google Form, not a BIRSA form. What you type goes straight to Google and to whoever set the form up, not to this site.",
     dataNoticeLink: "Read more in the privacy notice",
   },
   th: {
@@ -16,7 +17,8 @@ const copy = {
     fallback: "หากแบบฟอร์มไม่แสดง",
     openLink: "เปิดในแท็บใหม่",
     newTab: "เปิดในแท็บใหม่",
-    dataNotice: "แบบฟอร์มนี้เป็น Google Form มิใช่แบบฟอร์มของ BIRSA ข้อมูลที่ท่านกรอกจะถูกส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม โดยไม่ผ่านเว็บไซต์นี้",
+    dataNotice:
+      "แบบฟอร์มนี้เป็น Google Form มิใช่แบบฟอร์มของ BIRSA ข้อมูลที่ท่านกรอกจะถูกส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม โดยไม่ผ่านเว็บไซต์นี้",
     dataNoticeLink: "อ่านรายละเอียดในประกาศความเป็นส่วนตัว",
   },
 } as const;
@@ -54,14 +56,14 @@ export default function GoogleForm({ src, title, height = 1100, locale = "en" }:
 
   return (
     <div className="my-6">
-      <p className="text-muted mb-3 text-sm">
+      <p className="mb-3 text-sm text-muted">
         {t.dataNotice}{" "}
-        <Link href={localeHref(locale, "/privacy")} className="text-brand-deep font-semibold">
+        <Link href={localeHref(locale, "/privacy")} className="font-semibold text-brand-deep">
           {t.dataNoticeLink}
         </Link>
         .
       </p>
-      <div className="border-line bg-sunken overflow-hidden rounded-lg border">
+      <div className="overflow-hidden rounded-lg border border-line bg-sunken">
         <iframe
           src={embedSrc}
           title={label}
@@ -72,9 +74,9 @@ export default function GoogleForm({ src, title, height = 1100, locale = "en" }:
           {label}
         </iframe>
       </div>
-      <p className="text-muted mt-3 text-sm">
+      <p className="mt-3 text-sm text-muted">
         {t.fallback}{" "}
-        <ExternalLink href={src} newTabLabel={t.newTab} className="text-brand-deep font-semibold">
+        <ExternalLink href={src} newTabLabel={t.newTab} className="font-semibold text-brand-deep">
           {t.openLink}
         </ExternalLink>
         .

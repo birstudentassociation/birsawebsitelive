@@ -70,9 +70,7 @@ export function renderLoanApproved(i: {
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(
-          `คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`
-        ) +
+        paragraph(`คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +

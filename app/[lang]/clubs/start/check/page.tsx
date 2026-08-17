@@ -22,7 +22,11 @@ export async function generateMetadata({
   return buildMetadata({ locale, title, description: title, path: "/clubs/start/check" });
 }
 
-export default async function StartClubCheckPage({ params }: { params: Promise<{ lang: string }> }) {
+export default async function StartClubCheckPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

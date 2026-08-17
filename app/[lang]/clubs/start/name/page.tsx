@@ -43,9 +43,10 @@ export default async function StartClubNamePage({
     locale,
     returnTo === "check" ? "/clubs/start/check" : "/clubs/start/description"
   );
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("name") + 1, START_CLUB_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("name") + 1, START_CLUB_STEPS.length);
 
   return (
     <>

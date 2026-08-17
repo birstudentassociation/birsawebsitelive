@@ -35,7 +35,11 @@ export default async function RightsCheckPage({ params }: { params: Promise<{ la
   const chrome = buildWizardChromeLabels(locale);
   const wizard = buildRightsWizardLabels(locale);
   const draft = await getRightsDraft();
-  const progress = formatStepOf(chrome.stepOf, RIGHTS_STEPS.indexOf("check") + 1, RIGHTS_STEPS.length);
+  const progress = formatStepOf(
+    chrome.stepOf,
+    RIGHTS_STEPS.indexOf("check") + 1,
+    RIGHTS_STEPS.length
+  );
 
   return (
     <>

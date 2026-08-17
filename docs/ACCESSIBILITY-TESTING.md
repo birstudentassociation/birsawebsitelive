@@ -42,14 +42,14 @@ Test with at least all of the following before public beta, and again
 whenever a feature significant enough to change page structure, a form, or
 an interactive component ships afterwards:
 
-| # | Assistive technology | Browser | Minimum version |
-|---|---|---|---|
-| 1 | JAWS | Chrome or Edge | JAWS 2019 or later |
-| 2 | NVDA | Chrome, Firefox or Edge | latest |
-| 3 | VoiceOver (iOS) | Safari | latest iOS, latest Safari |
-| 4 | TalkBack | Chrome | latest |
-| 5 | Windows Magnifier or Apple Zoom | any browser | at least 4x magnification |
-| 6 | Dragon | Chrome | Dragon 15 or later |
+| #   | Assistive technology            | Browser                 | Minimum version           |
+| --- | ------------------------------- | ----------------------- | ------------------------- |
+| 1   | JAWS                            | Chrome or Edge          | JAWS 2019 or later        |
+| 2   | NVDA                            | Chrome, Firefox or Edge | latest                    |
+| 3   | VoiceOver (iOS)                 | Safari                  | latest iOS, latest Safari |
+| 4   | TalkBack                        | Chrome                  | latest                    |
+| 5   | Windows Magnifier or Apple Zoom | any browser             | at least 4x magnification |
+| 6   | Dragon                          | Chrome                  | Dragon 15 or later        |
 
 ## What to check on every combination
 
@@ -156,8 +156,8 @@ form for ten minutes" is a valid, useful row; do not wait for a full pass
 before recording anything.
 
 | Date | Tester | AT + version | Browser + OS | Pages/journey covered | Result | Issues found (link) |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+| ---- | ------ | ------------ | ------------ | --------------------- | ------ | ------------------- |
+|      |        |              |              |                       |        |                     |
 
 Result is one of: **Pass** (no barrier found), **Fail** (a barrier was
 found; link the issue), **Partial** (some pages covered, not all; note

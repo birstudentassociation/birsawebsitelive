@@ -353,14 +353,14 @@ export default function ShuttleRoute({ locale }: ShuttleRouteProps) {
                 borderColor: "var(--color-ink)",
               }}
             />
-            <span className="text-ink font-medium">{line.name[locale]}</span>
+            <span className="font-medium text-ink">{line.name[locale]}</span>
             <span className="text-muted">{t.kind[line.kind]}</span>
           </li>
         ))}
         <li className="flex items-center gap-2">
           <span
             aria-hidden="true"
-            className="border-ink bg-surface inline-block h-4 w-4 rounded-full border-2"
+            className="inline-block h-4 w-4 rounded-full border-2 border-ink bg-surface"
           />
           <Tag variant="brand">{t.campus}</Tag>
           <span className="text-muted">{t.hubNote}</span>

@@ -78,8 +78,8 @@ export default async function RegulationsIndexPage({
                 <CardTitle href={href} as="h2">
                   {doc.shortTitle[locale]}
                 </CardTitle>
-                <p className="text-muted text-sm leading-relaxed">{doc.citation[locale]}</p>
-                <p className="text-muted mt-auto pt-2 text-xs">{doc.made[locale]}</p>
+                <p className="text-sm leading-relaxed text-muted">{doc.citation[locale]}</p>
+                <p className="mt-auto pt-2 text-xs text-muted">{doc.made[locale]}</p>
               </Card>
             );
           })}

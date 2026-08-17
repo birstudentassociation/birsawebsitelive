@@ -64,13 +64,13 @@ export default function ConfirmDialog({
         // is sized to its content. Treat it as Cancel.
         if (event.target === dialogRef.current) onCancel();
       }}
-      className="border-line bg-surface m-auto w-[min(28rem,calc(100vw-2rem))] rounded-lg border p-0 shadow-lg backdrop:bg-ink/50"
+      className="m-auto w-[min(28rem,calc(100vw-2rem))] rounded-lg border border-line bg-surface p-0 shadow-lg backdrop:bg-ink/50"
     >
       <div className="flex flex-col gap-4 p-6">
-        <h2 id={titleId} className="font-display text-ink text-lg">
+        <h2 id={titleId} className="font-display text-lg text-ink">
           {title}
         </h2>
-        {body ? <p className="text-ink text-sm leading-relaxed">{body}</p> : null}
+        {body ? <p className="text-sm leading-relaxed text-ink">{body}</p> : null}
         <div className="flex flex-wrap justify-end gap-3 pt-1">
           <Button variant="secondary" onClick={onCancel}>
             {cancelLabel}

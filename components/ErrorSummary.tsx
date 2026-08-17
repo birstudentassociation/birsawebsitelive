@@ -41,13 +41,13 @@ export default function ErrorSummary({ title, errors }: ErrorSummaryProps) {
       ref={ref}
       role="alert"
       tabIndex={-1}
-      className="focus-halo border-error bg-error-tint rounded-lg border-l-4 p-4"
+      className="focus-halo rounded-lg border-l-4 border-error bg-error-tint p-4"
     >
-      <h2 className="text-ink text-base font-semibold">{title}</h2>
+      <h2 className="text-base font-semibold text-ink">{title}</h2>
       <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
         {errors.map((error) => (
           <li key={error.id}>
-            <a href={`#${error.id}`} className="text-brand-deep hover:text-brand-dark font-medium">
+            <a href={`#${error.id}`} className="font-medium text-brand-deep hover:text-brand-dark">
               {error.message}
             </a>
           </li>

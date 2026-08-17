@@ -20,7 +20,7 @@ export type NewsCardProps = {
 
 function CalendarIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-muted h-4 w-4 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-muted">
       <rect
         x="3"
         y="4.5"
@@ -43,7 +43,7 @@ function CalendarIcon() {
 
 function PinIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-muted h-4 w-4 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-muted">
       <path
         d="M10 18s6-5.2 6-9.5A6 6 0 0 0 4 8.5C4 12.8 10 18 10 18Z"
         fill="none"
@@ -77,25 +77,25 @@ export default function NewsCard({
         <Tag variant={isEvent ? "brand" : "neutral"}>
           {isEvent ? dict.meta.event : dict.meta.news}
         </Tag>
-        <span className="text-muted text-xs">{formatDate(locale, frontmatter.date)}</span>
+        <span className="text-xs text-muted">{formatDate(locale, frontmatter.date)}</span>
       </div>
       <CardTitle href={href} as={headingLevel}>
         {frontmatter.title}
       </CardTitle>
-      <p className="text-muted text-sm leading-relaxed">{frontmatter.summary}</p>
+      <p className="text-sm leading-relaxed text-muted">{frontmatter.summary}</p>
       {isEvent && (frontmatter.start || frontmatter.location) ? (
         <dl className="mt-1 flex flex-col gap-1.5 text-sm">
           {frontmatter.start ? (
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
-              <dt className="text-muted font-medium">{dict.meta.when}</dt>
+              <dt className="font-medium text-muted">{dict.meta.when}</dt>
               <dd>{formatDate(locale, frontmatter.start)}</dd>
             </div>
           ) : null}
           {frontmatter.location ? (
             <div className="flex items-center gap-1.5">
               <PinIcon />
-              <dt className="text-muted font-medium">{dict.meta.where}</dt>
+              <dt className="font-medium text-muted">{dict.meta.where}</dt>
               <dd>{frontmatter.location}</dd>
             </div>
           ) : null}

@@ -36,7 +36,9 @@ test.describe("forms work without JavaScript", () => {
       await expect(page).toHaveURL(/\/contact\/message/);
       await expect(questionControls(page)).toHaveCount(1); // message
 
-      await page.locator('textarea[name="message"]').fill("A question about clubs and how to join one.");
+      await page
+        .locator('textarea[name="message"]')
+        .fill("A question about clubs and how to join one.");
       await page.getByRole("button", { name: "Continue" }).click();
       await expect(page).toHaveURL(/\/contact\/name/);
       await expect(questionControls(page)).toHaveCount(1); // name

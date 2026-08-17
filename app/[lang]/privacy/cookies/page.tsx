@@ -68,7 +68,7 @@ const content: Record<Locale, Labels> = {
 
     clearingTitle: "Clearing cookies and site data",
     clearingBody1:
-      "You can clear cookies at any time from your browser's settings, usually under \"privacy\" or \"site data\". Clearing them is safe: nothing on this site stops working permanently.",
+      'You can clear cookies at any time from your browser\'s settings, usually under "privacy" or "site data". Clearing them is safe: nothing on this site stops working permanently.',
     clearingBody2:
       "Here's what happens if you clear everything: we'll ask your language preference again next visit. Any form you were partway through filling in will be lost, so you'll need to start it again. If you're a BIRSA officer signed in to the equipment console, you'll be signed out. Your light or dark mode choice, your onboarding checklist progress, and any study plan you have built, all stored only on your device, will also reset.",
   },
@@ -96,7 +96,7 @@ const content: Record<Locale, Labels> = {
 
     clearingTitle: "การลบคุกกี้และข้อมูลเว็บไซต์",
     clearingBody1:
-      "ท่านสามารถลบคุกกี้ได้ทุกเมื่อผ่านการตั้งค่าเบราว์เซอร์ ซึ่งโดยทั่วไปอยู่ในหมวด \"ความเป็นส่วนตัว\" หรือ \"ข้อมูลเว็บไซต์\" การลบคุกกี้ไม่ก่อให้เกิดความเสียหายถาวรต่อการใช้งานเว็บไซต์นี้แต่อย่างใด",
+      'ท่านสามารถลบคุกกี้ได้ทุกเมื่อผ่านการตั้งค่าเบราว์เซอร์ ซึ่งโดยทั่วไปอยู่ในหมวด "ความเป็นส่วนตัว" หรือ "ข้อมูลเว็บไซต์" การลบคุกกี้ไม่ก่อให้เกิดความเสียหายถาวรต่อการใช้งานเว็บไซต์นี้แต่อย่างใด',
     clearingBody2:
       "ในกรณีที่ท่านลบข้อมูลทั้งหมด จะเกิดผลดังนี้ เว็บไซต์จะสอบถามภาษาที่ท่านประสงค์จะใช้อีกครั้งในการเข้าชมครั้งถัดไป ข้อมูลในแบบฟอร์มที่ท่านกรอกค้างไว้จะสูญหายและต้องเริ่มกรอกใหม่ หากท่านเป็นเจ้าหน้าที่ BIRSA ที่เข้าใช้งานระบบจัดการอุปกรณ์อยู่ ท่านจะออกจากระบบ ส่วนการเลือกโหมดสว่างหรือโหมดมืด ความคืบหน้าในรายการแนะนำเริ่มต้น และแผนการศึกษาที่ท่านจัดทำไว้ ซึ่งทั้งสามรายการจัดเก็บไว้บนอุปกรณ์ของท่านเท่านั้น จะถูกลบไปด้วยเช่นกัน",
   },
@@ -129,19 +129,19 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.noBannerTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.noBannerBody1}</p>
-          <p className="text-muted leading-relaxed">{t.noBannerBody2}</p>
+          <p className="leading-relaxed text-muted">{t.noBannerBody1}</p>
+          <p className="leading-relaxed text-muted">{t.noBannerBody2}</p>
         </section>
 
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.cookiesTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.cookiesIntro}</p>
+            <p className="leading-relaxed text-muted">{t.cookiesIntro}</p>
           </div>
           <div className="overflow-x-auto">
-            <table className="border-line w-full border-collapse text-sm">
+            <table className="w-full border-collapse border-line text-sm">
               <thead>
-                <tr className="border-line border-b text-left">
+                <tr className="border-b border-line text-left">
                   <th scope="col" className="p-2 font-semibold">
                     {t.colName}
                   </th>
@@ -155,9 +155,9 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
               </thead>
               <tbody>
                 {cookieRecords.map((cookie) => (
-                  <tr key={cookie.name} className="border-line border-b">
+                  <tr key={cookie.name} className="border-b border-line">
                     <td className="p-2 align-top font-mono">{cookie.name}</td>
-                    <td className="p-2 align-top text-muted leading-relaxed">
+                    <td className="p-2 align-top leading-relaxed text-muted">
                       {cookie.purpose[locale]}
                     </td>
                     <td className="p-2 align-top whitespace-nowrap">{cookie.expires[locale]}</td>
@@ -171,12 +171,12 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.storageTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.storageIntro}</p>
+            <p className="leading-relaxed text-muted">{t.storageIntro}</p>
           </div>
           <div className="overflow-x-auto">
-            <table className="border-line w-full border-collapse text-sm">
+            <table className="w-full border-collapse border-line text-sm">
               <thead>
-                <tr className="border-line border-b text-left">
+                <tr className="border-b border-line text-left">
                   <th scope="col" className="p-2 font-semibold">
                     {t.colKey}
                   </th>
@@ -187,9 +187,9 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
               </thead>
               <tbody>
                 {browserStorage.map((item) => (
-                  <tr key={item.key} className="border-line border-b">
+                  <tr key={item.key} className="border-b border-line">
                     <td className="p-2 align-top font-mono">{item.key}</td>
-                    <td className="p-2 align-top text-muted leading-relaxed">
+                    <td className="p-2 align-top leading-relaxed text-muted">
                       {item.purpose[locale]}
                     </td>
                   </tr>
@@ -201,8 +201,8 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.clearingTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.clearingBody1}</p>
-          <p className="text-muted leading-relaxed">{t.clearingBody2}</p>
+          <p className="leading-relaxed text-muted">{t.clearingBody1}</p>
+          <p className="leading-relaxed text-muted">{t.clearingBody2}</p>
         </section>
       </div>
     </>

@@ -37,14 +37,11 @@ export default function ReportHarassment({
   return (
     <section
       aria-labelledby="report-harassment"
-      className={clsx(
-        "border-error bg-error-tint text-ink rounded-md border-l-4 p-5",
-        className
-      )}
+      className={clsx("rounded-md border-l-4 border-error bg-error-tint p-5 text-ink", className)}
     >
       <Heading
         id="report-harassment"
-        className="text-brand-deep m-0 border-b-0 pb-0 text-xl font-bold"
+        className="m-0 border-b-0 pb-0 text-xl font-bold text-brand-deep"
       >
         {reportingCopy.heading[locale]}
       </Heading>
@@ -55,7 +52,7 @@ export default function ReportHarassment({
         {reportingChannels.map((channel) => (
           <li key={channel.id} className="m-0 p-0">
             <p className="m-0 text-sm font-semibold">{channel.organisation[locale]}</p>
-            <p className="text-muted m-0 text-sm">{channel.person[locale]}</p>
+            <p className="m-0 text-sm text-muted">{channel.person[locale]}</p>
             <p className="mt-2 mb-0 text-sm">
               {reportingCopy.callLabel[locale]}{" "}
               <a href={channel.phoneHref} className="font-semibold">

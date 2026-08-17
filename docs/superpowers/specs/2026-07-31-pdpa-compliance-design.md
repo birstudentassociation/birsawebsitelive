@@ -20,23 +20,23 @@ Read from the Act itself
 (<https://ratchakitcha.soc.go.th/documents/17082307.pdf>), the provisions that
 bite here are:
 
-| Section | Obligation | Current state |
-| --- | --- | --- |
-| s.19 | Consent must be express, separable, plain, freely given; withdrawal as easy as giving | Consent claimed as the basis for everything, never actually collected |
-| s.20 | A minor's consent needs a guardian unless the act is one a minor may do alone | Not addressed. Majority in Thailand is 20, so most first-years are minors |
-| s.21 | Use only for the purpose notified at collection | Met in practice |
-| s.22 | Collect only what is necessary | Met, with two exceptions noted below |
-| s.23 | Six-item notice before or at collection | (2) missing entirely, (3) placeholder, (6) lists 4 of 8 rights |
-| s.24 | A lawful basis for collection | Only consent claimed |
-| s.27 | Use and disclosure limits | Met |
-| s.28 | Cross-border transfer needs adequacy or an exception | Placeholder |
-| s.30 to s.36 | Data-subject rights, 30-day deadline on s.30 | No route to exercise them |
-| s.37(1) | Appropriate security measures | Strong already |
-| s.37(3) | **A system that checks and deletes on expiry** | Does not exist |
-| s.37(4) | Breach notification within 72 hours | No procedure |
-| s.39 | Record of processing activities, inspectable | Does not exist |
-| s.40 | Processor agreements | Not recorded |
-| s.41 | DPO | Not required for BIRSA; contact point still needed under s.23(5) |
+| Section      | Obligation                                                                            | Current state                                                             |
+| ------------ | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| s.19         | Consent must be express, separable, plain, freely given; withdrawal as easy as giving | Consent claimed as the basis for everything, never actually collected     |
+| s.20         | A minor's consent needs a guardian unless the act is one a minor may do alone         | Not addressed. Majority in Thailand is 20, so most first-years are minors |
+| s.21         | Use only for the purpose notified at collection                                       | Met in practice                                                           |
+| s.22         | Collect only what is necessary                                                        | Met, with two exceptions noted below                                      |
+| s.23         | Six-item notice before or at collection                                               | (2) missing entirely, (3) placeholder, (6) lists 4 of 8 rights            |
+| s.24         | A lawful basis for collection                                                         | Only consent claimed                                                      |
+| s.27         | Use and disclosure limits                                                             | Met                                                                       |
+| s.28         | Cross-border transfer needs adequacy or an exception                                  | Placeholder                                                               |
+| s.30 to s.36 | Data-subject rights, 30-day deadline on s.30                                          | No route to exercise them                                                 |
+| s.37(1)      | Appropriate security measures                                                         | Strong already                                                            |
+| s.37(3)      | **A system that checks and deletes on expiry**                                        | Does not exist                                                            |
+| s.37(4)      | Breach notification within 72 hours                                                   | No procedure                                                              |
+| s.39         | Record of processing activities, inspectable                                          | Does not exist                                                            |
+| s.40         | Processor agreements                                                                  | Not recorded                                                              |
+| s.41         | DPO                                                                                   | Not required for BIRSA; contact point still needed under s.23(5)          |
 
 s.41 is worth stating plainly: BIRSA is not a state agency, does not monitor
 personal data on a large scale as a core activity, and does not process s.26
@@ -58,9 +58,9 @@ export type ProcessingActivity = {
   purpose: LocalizedText;
   lawfulBasis: { section: string; text: LocalizedText };
   dataCollected: LocalizedText[];
-  required: LocalizedText;      // s.23(2): is it required, and what if you don't give it
-  recipients: string[];         // processor ids
-  retention: LocalizedText;     // derived from RETENTION_YEARS
+  required: LocalizedText; // s.23(2): is it required, and what if you don't give it
+  recipients: string[]; // processor ids
+  retention: LocalizedText; // derived from RETENTION_YEARS
   storage: "email" | "postgres" | "cookie" | "none";
 };
 
@@ -80,15 +80,15 @@ period and the enforced period are the same number.
 
 ### 2. Lawful bases, remapped off consent
 
-| Activity | Basis |
-| --- | --- |
-| Contact and start-a-club messages | s.24(3), steps taken at your request |
-| Equipment loan request and record | s.24(3), performance of a contract |
+| Activity                           | Basis                                                  |
+| ---------------------------------- | ------------------------------------------------------ |
+| Contact and start-a-club messages  | s.24(3), steps taken at your request                   |
+| Equipment loan request and record  | s.24(3), performance of a contract                     |
 | Borrower blocklist and loan limits | s.24(5), legitimate interest in getting equipment back |
-| Officer accounts | s.24(3) |
-| Audit log | s.24(5), accountability and security |
-| Satisfaction feedback | s.24(5), improving the service |
-| Rate-limiting IP addresses | s.24(5), security. Held in memory, never stored |
+| Officer accounts                   | s.24(3)                                                |
+| Audit log                          | s.24(5), accountability and security                   |
+| Satisfaction feedback              | s.24(5), improving the service                         |
+| Rate-limiting IP addresses         | s.24(5), security. Held in memory, never stored        |
 
 Consent is then reserved for anything genuinely optional. This removes the s.20
 guardian problem: none of these rest on a minor's consent. The notice will say
@@ -127,7 +127,7 @@ A `db/migrations/012_retention.sql` adds the indexes the purge needs and a
 
 ### 4. Notice at the point of collection (s.23)
 
-s.23 requires the notice *before or at* collection, so a separate page is not
+s.23 requires the notice _before or at_ collection, so a separate page is not
 enough on its own. Each journey gets a short privacy line linking to `/privacy`,
 on the step where the first identifying field is asked:
 

@@ -115,7 +115,7 @@ export default async function TopicStepPage({
         {breadcrumbs}
 
         <form method="GET" action={qHref} className="flex flex-col gap-6">
-          <p className="text-muted text-sm font-medium">{topic.title[locale]}</p>
+          <p className="text-sm font-medium text-muted">{topic.title[locale]}</p>
 
           {/* The profile and every prior answer travel forward as hidden
               fields, in order, so a fresh `a=...` for this step appends after
@@ -133,7 +133,7 @@ export default async function TopicStepPage({
               <h1 className="font-display text-2xl sm:text-3xl">{node.question[locale]}</h1>
             </legend>
             {node.hint ? (
-              <p id="question-hint" className="text-muted text-base leading-relaxed">
+              <p id="question-hint" className="text-base leading-relaxed text-muted">
                 {node.hint[locale]}
               </p>
             ) : null}
@@ -142,19 +142,19 @@ export default async function TopicStepPage({
               {options.map((option) => (
                 <label
                   key={option.id}
-                  className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border p-4"
+                  className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint"
                 >
                   <input
                     type="radio"
                     name="a"
                     value={option.id}
                     required
-                    className="focus-halo border-input-border accent-brand mt-0.5 h-5 w-5 shrink-0"
+                    className="focus-halo mt-0.5 h-5 w-5 shrink-0 border-input-border accent-brand"
                   />
                   <span className="flex flex-col gap-1">
-                    <span className="text-ink font-semibold">{option.label[locale]}</span>
+                    <span className="font-semibold text-ink">{option.label[locale]}</span>
                     {option.hint ? (
-                      <span className="text-muted text-sm">{option.hint[locale]}</span>
+                      <span className="text-sm text-muted">{option.hint[locale]}</span>
                     ) : null}
                   </span>
                 </label>
@@ -164,7 +164,7 @@ export default async function TopicStepPage({
 
           <div className="flex items-center gap-5">
             <Button type="submit">{t.continueLabel}</Button>
-            <Link href={backHref} className="text-brand-deep font-medium hover:underline">
+            <Link href={backHref} className="font-medium text-brand-deep hover:underline">
               {t.back}
             </Link>
           </div>
@@ -195,14 +195,14 @@ export default async function TopicStepPage({
     <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
       {breadcrumbs}
 
-      <div className="border-brand bg-brand-tint flex flex-col gap-4 rounded-lg border-l-4 p-6">
+      <div className="flex flex-col gap-4 rounded-lg border-l-4 border-brand bg-brand-tint p-6">
         <h1 className="font-display text-2xl sm:text-3xl">{node.title[locale]}</h1>
-        <p className="text-ink leading-relaxed">{node.summary[locale]}</p>
+        <p className="leading-relaxed text-ink">{node.summary[locale]}</p>
 
         {blocks.map((block, index) => {
           if (block.kind === "paragraph") {
             return (
-              <p key={index} className="text-ink leading-relaxed">
+              <p key={index} className="leading-relaxed text-ink">
                 {block.text[locale]}
               </p>
             );
@@ -217,9 +217,9 @@ export default async function TopicStepPage({
           return (
             <div key={index} className="flex flex-col gap-2">
               {block.title ? (
-                <h2 className="font-display text-ink text-lg">{block.title[locale]}</h2>
+                <h2 className="font-display text-lg text-ink">{block.title[locale]}</h2>
               ) : null}
-              <ol className="text-ink list-inside list-decimal space-y-2 leading-relaxed">
+              <ol className="list-inside list-decimal space-y-2 leading-relaxed text-ink">
                 {block.items.map((item, itemIndex) => (
                   <li key={itemIndex}>{item[locale]}</li>
                 ))}
@@ -229,9 +229,9 @@ export default async function TopicStepPage({
         })}
 
         {node.owner ? (
-          <div className="border-line/60 mt-2 border-t pt-4">
-            <h2 className="text-ink text-sm font-semibold">{t.whoDecides}</h2>
-            <p className="text-ink mt-1 text-sm leading-relaxed">{node.owner[locale]}</p>
+          <div className="mt-2 border-t border-line/60 pt-4">
+            <h2 className="text-sm font-semibold text-ink">{t.whoDecides}</h2>
+            <p className="mt-1 text-sm leading-relaxed text-ink">{node.owner[locale]}</p>
           </div>
         ) : null}
 
@@ -244,7 +244,7 @@ export default async function TopicStepPage({
                 <a
                   key={index}
                   href={action.href}
-                  className="focus-halo border-ink text-ink hover:bg-brand-tint inline-flex h-11 items-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+                  className="focus-halo inline-flex h-11 items-center rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink hover:bg-brand-tint"
                 >
                   {action.label[locale]}
                 </a>
@@ -253,7 +253,7 @@ export default async function TopicStepPage({
                   key={index}
                   href={action.href}
                   newTabLabel={dict.a11y.newTab}
-                  className="focus-halo bg-brand hover:bg-brand-strong h-11 rounded-lg px-5 text-[0.95rem] font-semibold text-white"
+                  className="focus-halo h-11 rounded-lg bg-brand px-5 text-[0.95rem] font-semibold text-white hover:bg-brand-strong"
                 >
                   {action.label[locale]}
                 </ExternalLink>
@@ -271,8 +271,8 @@ export default async function TopicStepPage({
         ) : null}
 
         {citations.length > 0 ? (
-          <div className="border-line/60 mt-2 border-t pt-4">
-            <h2 className="text-ink text-sm font-semibold">{t.basedOn}</h2>
+          <div className="mt-2 border-t border-line/60 pt-4">
+            <h2 className="text-sm font-semibold text-ink">{t.basedOn}</h2>
             <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
               {citations.map((citation, index) => (
                 <li key={index}>
@@ -294,17 +294,17 @@ export default async function TopicStepPage({
           <h2 id="answer-related" className="font-display text-xl">
             {t.readMore}
           </h2>
-          <ul className="divide-line flex flex-col divide-y">
+          <ul className="flex flex-col divide-y divide-line">
             {related.map((item, index) => (
               <li key={index} className="py-3">
                 <Link
                   href={localeHref(locale, item.href)}
-                  className="text-brand-deep font-medium hover:underline"
+                  className="font-medium text-brand-deep hover:underline"
                 >
                   {item.label[locale]}
                 </Link>
                 {item.description ? (
-                  <p className="text-muted mt-1 text-sm leading-relaxed">
+                  <p className="mt-1 text-sm leading-relaxed text-muted">
                     {item.description[locale]}
                   </p>
                 ) : null}
@@ -319,7 +319,7 @@ export default async function TopicStepPage({
           <h2 id="answer-trail" className="font-display text-xl">
             {t.yourAnswers}
           </h2>
-          <dl className="divide-line flex flex-col divide-y">
+          <dl className="flex flex-col divide-y divide-line">
             {trail.map((step, index) => {
               // An automatic step was never the reader's choice, so it is
               // labelled as an assumption and corrected by editing the
@@ -339,17 +339,17 @@ export default async function TopicStepPage({
                   className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
                 >
                   <div>
-                    <dt className="text-muted text-sm">{step.question.question[locale]}</dt>
-                    <dd className="text-ink font-medium">
+                    <dt className="text-sm text-muted">{step.question.question[locale]}</dt>
+                    <dd className="font-medium text-ink">
                       {step.option.label[locale]}
                       {step.auto ? (
-                        <span className="text-muted ml-2 text-xs font-normal">({t.assumed})</span>
+                        <span className="ml-2 text-xs font-normal text-muted">({t.assumed})</span>
                       ) : null}
                     </dd>
                   </div>
                   <Link
                     href={changeHref}
-                    className="text-brand-deep shrink-0 text-sm font-medium hover:underline"
+                    className="shrink-0 text-sm font-medium text-brand-deep hover:underline"
                   >
                     {t.change}
                     <VisuallyHidden>{`: ${step.question.question[locale]}`}</VisuallyHidden>
@@ -363,8 +363,8 @@ export default async function TopicStepPage({
 
       <ProfileSummary locale={locale} profile={profile} returnTo={returnTo} variant="compact" />
 
-      <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
-        <h2 className="font-display text-ink text-lg">{t.notAnswered}</h2>
+      <div className="flex flex-col gap-3 rounded-lg border border-line p-5">
+        <h2 className="font-display text-lg text-ink">{t.notAnswered}</h2>
         <div>
           <Button href={challengeHref} variant="secondary">
             {t.notAnsweredAction}
@@ -373,7 +373,7 @@ export default async function TopicStepPage({
       </div>
 
       <div>
-        <Link href={startHref} className="text-brand-deep font-medium hover:underline">
+        <Link href={startHref} className="font-medium text-brand-deep hover:underline">
           {t.startAgain}
         </Link>
       </div>

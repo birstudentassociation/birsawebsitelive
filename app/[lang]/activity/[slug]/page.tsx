@@ -83,17 +83,17 @@ export default async function ActivityDetailPage({
         }
       />
       <div className="wrap flex flex-col gap-8 py-10">
-        <p className="text-muted text-sm">
+        <p className="text-sm text-muted">
           {dict.meta.updated}: {formatDate(locale, entry.frontmatter.updated)}
         </p>
 
         <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
 
-        <p className="text-muted max-w-[var(--measure)] text-sm">
+        <p className="max-w-[var(--measure)] text-sm text-muted">
           {t.questions}{" "}
           <Link
             href={localeHref(locale, "/contact")}
-            className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            className="font-semibold text-brand-deep underline hover:text-brand-dark"
           >
             {t.contact}
           </Link>
@@ -101,7 +101,7 @@ export default async function ActivityDetailPage({
 
         <Link
           href={localeHref(locale, "/activity")}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.back}
         </Link>

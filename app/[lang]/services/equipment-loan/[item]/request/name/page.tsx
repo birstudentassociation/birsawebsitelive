@@ -48,9 +48,10 @@ export default async function LoanRequestNamePage({
   const draft = await getLoanDraft(itemKey);
   const base = `/services/equipment-loan/${itemKey}/request`;
   const backHref = localeHref(locale, returnTo === "check" ? `${base}/check` : base);
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("name") + 1, LOAN_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("name") + 1, LOAN_STEPS.length);
 
   return (
     <>

@@ -160,7 +160,6 @@ describe("exhaustive traversal: every node and every branch reaches a real outco
     const questionsVisited = [...visited].filter((id) => byId.get(id)?.kind === "question").length;
     const outcomesVisited = [...visited].filter((id) => byId.get(id)?.kind === "outcome").length;
 
-     
     console.log(
       `[exhaustive traversal] visited ${visited.size} of ${service.nodes.length} nodes ` +
         `(${questionsVisited} questions, ${outcomesVisited} outcomes) across ${branchCount} branches`
@@ -181,7 +180,9 @@ describe("exhaustive traversal: every node and every branch reaches a real outco
     const question = byId.get("q-wellbeing-unwell");
     expect(question?.kind).toBe("question");
     if (question?.kind !== "question") return;
-    const combined = question.options.map((option) => `${option.label.en} ${option.label.th}`).join(" ");
+    const combined = question.options
+      .map((option) => `${option.label.en} ${option.label.th}`)
+      .join(" ");
     expect(combined).toMatch(/not sure|ไม่แน่ใจ/);
   });
 });

@@ -73,10 +73,18 @@ export default function MinorStepForm({
         </legend>
 
         {hasError ? (
-          <p id={`${groupId}-error`} className="text-error flex items-center gap-1.5 text-sm font-medium">
+          <p
+            id={`${groupId}-error`}
+            className="flex items-center gap-1.5 text-sm font-medium text-error"
+          >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
               <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path d="M10 6.5v4.2" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
+              <path
+                d="M10 6.5v4.2"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+              />
               <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
             </svg>
             {state.error}
@@ -88,7 +96,7 @@ export default function MinorStepForm({
             <label
               key={minor.id}
               htmlFor={`${groupId}-${minor.id}`}
-              className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex cursor-pointer items-start gap-3 rounded-lg border p-4"
+              className="flex cursor-pointer items-start gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint"
             >
               <input
                 id={`${groupId}-${minor.id}`}
@@ -97,14 +105,17 @@ export default function MinorStepForm({
                 value={minor.id}
                 required
                 defaultChecked={defaultValue === minor.id}
-                className="focus-halo border-input-border accent-brand mt-0.5 h-5 w-5 shrink-0"
+                className="focus-halo mt-0.5 h-5 w-5 shrink-0 border-input-border accent-brand"
               />
               <span className="flex flex-col gap-1">
-                <span className="text-ink font-semibold">{minor.name[locale]}</span>
-                <span className="text-muted text-sm">
+                <span className="font-semibold text-ink">{minor.name[locale]}</span>
+                <span className="text-sm text-muted">
                   {requiredCoursesLabel}:{" "}
                   {minor.required
-                    .map((code) => `${code}${courseTitles.has(code) ? ` ${courseTitles.get(code)}` : ""}`)
+                    .map(
+                      (code) =>
+                        `${code}${courseTitles.has(code) ? ` ${courseTitles.get(code)}` : ""}`
+                    )
                     .join(", ")}
                 </span>
               </span>

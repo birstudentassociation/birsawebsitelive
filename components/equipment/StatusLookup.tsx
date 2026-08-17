@@ -83,7 +83,13 @@ function resolveItemName(name: ApiItemName, locale: Locale): string | null {
 
 const initialState: LookupState = { status: "idle" };
 
-export default function StatusLookup({ locale, labels, action, resetAction, defaultEmail }: StatusLookupProps) {
+export default function StatusLookup({
+  locale,
+  labels,
+  action,
+  resetAction,
+  defaultEmail,
+}: StatusLookupProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
   const resultRef = useRef<HTMLDivElement>(null);
@@ -103,24 +109,24 @@ export default function StatusLookup({ locale, labels, action, resetAction, defa
           tabIndex={-1}
           role="status"
           aria-live="polite"
-          className="border-line bg-surface focus-halo flex flex-col gap-4 rounded-lg border p-6"
+          className="focus-halo flex flex-col gap-4 rounded-lg border border-line bg-surface p-6"
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-muted text-sm font-semibold">{labels.resultTitle}</p>
-              <p className="font-display text-ink text-xl">{loan.reference}</p>
+              <p className="text-sm font-semibold text-muted">{labels.resultTitle}</p>
+              <p className="font-display text-xl text-ink">{loan.reference}</p>
             </div>
             <StatusPill status={loan.status} label={labels.statusLabels[loan.status]} />
           </div>
           <dl className="grid grid-cols-1 gap-x-6 gap-y-3 text-sm sm:grid-cols-2">
             {itemName ? (
               <div>
-                <dt className="text-muted font-semibold">{labels.itemLabel}</dt>
+                <dt className="font-semibold text-muted">{labels.itemLabel}</dt>
                 <dd className="text-ink">{itemName}</dd>
               </div>
             ) : null}
             <div>
-              <dt className="text-muted font-semibold">{labels.datesLabel}</dt>
+              <dt className="font-semibold text-muted">{labels.datesLabel}</dt>
               <dd className="text-ink">
                 {formatDate(locale, loan.startDate)} &rarr; {formatDate(locale, loan.endDate)}
               </dd>

@@ -101,11 +101,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
       />
       {/* Hero */}
-      <section className="border-line bg-cream border-b">
+      <section className="border-b border-line bg-cream">
         <div className="wrap grid gap-8 py-14 sm:py-20 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-10">
           <div className="max-w-[var(--measure)]">
             <h1 className="font-display text-4xl sm:text-5xl">{copy.hero.heading}</h1>
-            <p className="text-muted mt-4 text-lg">{copy.hero.intro}</p>
+            <p className="mt-4 text-lg text-muted">{copy.hero.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>
               <Button href={localeHref(locale, "/services")} variant="secondary">
@@ -129,11 +129,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       {/* Quick links: top tasks, not a mirror of the header nav. Sits directly
           under the hero, so it takes only a bottom border (the hero supplies
           the line above it). */}
-      <section aria-labelledby="top-tasks-heading" className="bg-sunken border-line border-b">
+      <section aria-labelledby="top-tasks-heading" className="border-b border-line bg-sunken">
         <div className="wrap py-12 sm:py-16">
           <GridRow>
             <GridMain>
-              <h2 id="top-tasks-heading" className="font-display mb-6 text-2xl sm:text-3xl">
+              <h2 id="top-tasks-heading" className="mb-6 font-display text-2xl sm:text-3xl">
                 {copy.quickLinks.heading}
               </h2>
               <NavList>
@@ -167,7 +167,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </h2>
             <a
               href={localeHref(locale, "/news")}
-              className="text-brand-deep text-sm font-semibold hover:underline"
+              className="text-sm font-semibold text-brand-deep hover:underline"
             >
               {copy.whatsOn.seeAll}
             </a>
@@ -187,13 +187,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
       ) : null}
 
       {/* Activity calendar */}
-      <section aria-labelledby="calendar-heading" className="bg-cream border-line border-y">
+      <section aria-labelledby="calendar-heading" className="border-y border-line bg-cream">
         <div className="wrap py-12 sm:py-16">
           <div className="mb-6 max-w-[var(--measure)]">
             <h2 id="calendar-heading" className="font-display text-2xl sm:text-3xl">
               {copy.calendar.heading}
             </h2>
-            <p className="text-muted mt-2 text-lg">{copy.calendar.intro}</p>
+            <p className="mt-2 text-lg text-muted">{copy.calendar.intro}</p>
           </div>
           <EventCalendar
             events={calendarEvents}
@@ -223,7 +223,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               <h2 id="activity-highlight-heading" className="font-display text-2xl sm:text-3xl">
                 {copy.activityHighlight.heading}
               </h2>
-              <p className="text-muted mt-2 text-lg">{copy.activityHighlight.intro}</p>
+              <p className="mt-2 text-lg text-muted">{copy.activityHighlight.intro}</p>
             </div>
             <NavList>
               {activityHighlightCards.map(({ href, key }) => {

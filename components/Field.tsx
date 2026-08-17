@@ -62,17 +62,17 @@ export default function Field({
   );
 
   const marker = required
-    ? requiredLabel && <span className="text-muted ml-1.5 font-normal">({requiredLabel})</span>
-    : optionalLabel && <span className="text-muted ml-1.5 font-normal">({optionalLabel})</span>;
+    ? requiredLabel && <span className="ml-1.5 font-normal text-muted">({requiredLabel})</span>
+    : optionalLabel && <span className="ml-1.5 font-normal text-muted">({optionalLabel})</span>;
 
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
-      <label htmlFor={fieldId} className="text-ink text-sm font-semibold">
+      <label htmlFor={fieldId} className="text-sm font-semibold text-ink">
         {label}
         {marker}
       </label>
       {hint ? (
-        <p id={hintId} className="text-muted text-sm">
+        <p id={hintId} className="text-sm text-muted">
           {hint}
         </p>
       ) : null}
@@ -114,7 +114,7 @@ export default function Field({
         />
       )}
       {error ? (
-        <p id={errorId} className="text-error flex items-center gap-1.5 text-sm font-medium">
+        <p id={errorId} className="flex items-center gap-1.5 text-sm font-medium text-error">
           <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
             <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
             <path d="M10 6.5v4.2" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />

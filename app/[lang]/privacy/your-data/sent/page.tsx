@@ -74,11 +74,7 @@ export async function generateMetadata({
   return { ...metadata, robots: { index: false, follow: true } };
 }
 
-export default async function RightsSentPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function RightsSentPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -104,19 +100,19 @@ export default async function RightsSentPage({
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <div
           role="status"
-          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
           <p className="text-sm">{t.confirmationBody}</p>
         </div>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.deadlineTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.deadlineBody(RIGHTS_RESPONSE_DAYS)}</p>
+          <p className="leading-relaxed text-muted">{t.deadlineBody(RIGHTS_RESPONSE_DAYS)}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.nextTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.nextBody}</p>
+          <p className="leading-relaxed text-muted">{t.nextBody}</p>
         </section>
 
         <div>

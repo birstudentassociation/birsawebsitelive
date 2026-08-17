@@ -28,7 +28,7 @@ export async function generateMetadata({
 
 function ChevronIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-muted h-4 w-4 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-muted">
       <path
         d="m7.5 4.5 5 5.5-5 5.5"
         fill="none"
@@ -65,7 +65,7 @@ function QuickLinkRow({
   const isEmail = item.icon === "email" && !item.placeholder;
 
   const icon = (
-    <span className="text-brand-deep bg-brand-tint flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
+    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-tint text-brand-deep">
       <QuickIconGlyph icon={item.icon} />
     </span>
   );
@@ -78,14 +78,14 @@ function QuickLinkRow({
           // The whole row is the <Email> stretched link (see below), so
           // this label is decorative markup duplicating its accessible
           // name; hide it from assistive tech to avoid double-announcing.
-          <span className="text-ink block font-semibold" aria-hidden="true">
+          <span className="block font-semibold text-ink" aria-hidden="true">
             {copy.label}
           </span>
         ) : (
-          <span className="text-ink block font-semibold">{copy.label}</span>
+          <span className="block font-semibold text-ink">{copy.label}</span>
         )}
         {copy.hint && !isEmail ? (
-          <span className="text-muted block text-sm">{copy.hint}</span>
+          <span className="block text-sm text-muted">{copy.hint}</span>
         ) : null}
       </span>
     </>
@@ -166,7 +166,7 @@ export default async function QuickActionsPage({ params }: { params: Promise<{ l
         <div className="flex flex-col gap-8">
           {quickGroups.map((group) => (
             <nav key={group.key} aria-label={group[locale].heading}>
-              <h2 className="text-muted mb-3 text-sm font-semibold tracking-wide uppercase">
+              <h2 className="mb-3 text-sm font-semibold tracking-wide text-muted uppercase">
                 {group[locale].heading}
               </h2>
               <ul className="flex flex-col gap-2.5">

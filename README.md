@@ -14,24 +14,24 @@ programme matters, always use the BIR Program and Faculty links in the footer.
 
 ## What's on the site
 
-| Section                  | Route                                         | What it is                                                                                |
-| ------------------------ | --------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Home                     | `/[lang]`                                     | Hero, top tasks, Smart Answers entry point, latest news                                   |
-| Smart Answers            | `/[lang]/answers`                             | Guided, step-by-step checks that give one reader one answer, based on an audience profile |
-| News and events          | `/[lang]/news`                                | MDX news posts and event announcements                                                    |
-| Activity                 | `/[lang]/activity`                            | BIRSA's work, committee roles, and the regulations library                                |
-| Clubs                    | `/[lang]/clubs`                               | Club directory (MDX per club) plus a "start a club" form                                  |
-| Student life             | `/[lang]/student-life`                        | Guide tracks for home and international students, getting-started paths, course reviews   |
-| Find a service           | `/[lang]/services`                            | University services directory and the equipment loan service                              |
-| Equipment loan           | `/[lang]/services/equipment-loan`             | Public catalogue, request form, and self-service status lookup                            |
-| Officer console          | `/[lang]/officer/inventory`                   | Passcode-protected inventory management suite (items, loans, borrowers, reports, audit)   |
-| Quick links              | `/[lang]/quick`                               | One-page list of the links students ask for most                                          |
-| Search                   | `/[lang]/search`                              | Site-wide content search                                                                  |
-| Contact                  | `/[lang]/contact`                             | Contact form, falls back to a mailto message when email is not configured                 |
-| Emergency                | `/[lang]/emergency`                           | Scenario pages shown when site-wide emergency mode is switched on                         |
-| Standards                | `/[lang]/standards`                           | Plain-language accessibility and design-standards statement                               |
-| Privacy                  | `/[lang]/privacy`                             | Privacy notice                                                                            |
-| Calendar feed            | `/[lang]/calendar.ics`                        | Subscribable iCalendar feed of the TU academic calendar and BIRSA events                  |
+| Section         | Route                             | What it is                                                                                |
+| --------------- | --------------------------------- | ----------------------------------------------------------------------------------------- |
+| Home            | `/[lang]`                         | Hero, top tasks, Smart Answers entry point, latest news                                   |
+| Smart Answers   | `/[lang]/answers`                 | Guided, step-by-step checks that give one reader one answer, based on an audience profile |
+| News and events | `/[lang]/news`                    | MDX news posts and event announcements                                                    |
+| Activity        | `/[lang]/activity`                | BIRSA's work, committee roles, and the regulations library                                |
+| Clubs           | `/[lang]/clubs`                   | Club directory (MDX per club) plus a "start a club" form                                  |
+| Student life    | `/[lang]/student-life`            | Guide tracks for home and international students, getting-started paths, course reviews   |
+| Find a service  | `/[lang]/services`                | University services directory and the equipment loan service                              |
+| Equipment loan  | `/[lang]/services/equipment-loan` | Public catalogue, request form, and self-service status lookup                            |
+| Officer console | `/[lang]/officer/inventory`       | Passcode-protected inventory management suite (items, loans, borrowers, reports, audit)   |
+| Quick links     | `/[lang]/quick`                   | One-page list of the links students ask for most                                          |
+| Search          | `/[lang]/search`                  | Site-wide content search                                                                  |
+| Contact         | `/[lang]/contact`                 | Contact form, falls back to a mailto message when email is not configured                 |
+| Emergency       | `/[lang]/emergency`               | Scenario pages shown when site-wide emergency mode is switched on                         |
+| Standards       | `/[lang]/standards`               | Plain-language accessibility and design-standards statement                               |
+| Privacy         | `/[lang]/privacy`                 | Privacy notice                                                                            |
+| Calendar feed   | `/[lang]/calendar.ics`            | Subscribable iCalendar feed of the TU academic calendar and BIRSA events                  |
 
 ## Tech stack
 
@@ -79,6 +79,17 @@ browser's language (or a previously-set cookie).
 | `npm run test`         | Run unit tests once (Vitest)                                 |
 | `npm run test:watch`   | Run unit tests in watch mode                                 |
 | `npm run e2e`          | Run Playwright end-to-end and accessibility tests            |
+
+CI runs `typecheck`, `format:check`, `lint`, `test`, `build` and `e2e` on every pull
+request, so run `npm run format` before committing — an unformatted file fails the build
+the same way a type error does.
+
+Prettier is configured in `.prettierrc.json`, with `.prettierignore` listing the generated
+paths it must not walk (Prettier does not read `.gitignore`). The config sets
+`tailwindStylesheet` to `app/globals.css` so that `prettier-plugin-tailwindcss` can resolve
+this project's Tailwind v4 theme; without it the plugin cannot see the custom colours
+defined in that file's `@theme` block, treats them as unknown classes, and sorts class
+lists into an order that is stable but wrong.
 
 Two database maintenance scripts are run directly with `node`, not through npm. Both need
 `POSTGRES_URL` (or `POSTGRES_URL_NON_POOLING`) in the environment, so pull the deployment's

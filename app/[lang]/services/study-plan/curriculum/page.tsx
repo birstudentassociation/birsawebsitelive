@@ -81,16 +81,16 @@ export default async function StudyPlanCurriculumPage({
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
 
-          <div className="border-line flex flex-col gap-4 rounded-lg border p-5">
+          <div className="flex flex-col gap-4 rounded-lg border border-line p-5">
             <h2 className="font-display text-2xl">{version.label[locale]}</h2>
 
             <div>
-              <p className="text-muted text-sm font-semibold">{copy.curriculum.totalLabel}</p>
-              <p className="text-ink text-lg font-semibold">{version.graduationCredits.value}</p>
+              <p className="text-sm font-semibold text-muted">{copy.curriculum.totalLabel}</p>
+              <p className="text-lg font-semibold text-ink">{version.graduationCredits.value}</p>
             </div>
 
             <div>
-              <p className="text-muted text-sm font-semibold">{copy.curriculum.coursesLabel}</p>
+              <p className="text-sm font-semibold text-muted">{copy.curriculum.coursesLabel}</p>
               <ul className="mt-1 flex flex-col gap-1 text-sm">
                 {version.distinguishingCourses.map((code) => (
                   <li key={code}>
@@ -106,7 +106,7 @@ export default async function StudyPlanCurriculumPage({
                 href={sourceDoc.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+                className="w-fit text-sm font-semibold text-brand-deep hover:underline"
               >
                 {copy.curriculum.sourceLabel} &rarr;
               </Link>

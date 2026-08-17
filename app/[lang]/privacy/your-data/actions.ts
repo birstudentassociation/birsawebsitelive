@@ -31,9 +31,7 @@ const NEXT_STEP: Record<Exclude<RightsStep, "check">, RightsStep> = {
 export type StepState = { status: "idle" | "invalid"; error?: string };
 
 export type CheckState =
-  | { status: "idle" }
-  | { status: "fallback"; draft: RightsDraft }
-  | { status: "error" };
+  { status: "idle" } | { status: "fallback"; draft: RightsDraft } | { status: "error" };
 
 function ipFromHeaders(h: Headers): string {
   const first = h.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -45,7 +43,11 @@ function stepHref(locale: Locale, step: RightsStep): string {
   return localeHref(locale, `/privacy/your-data/${step}`);
 }
 
-function destinationHref(locale: Locale, step: Exclude<RightsStep, "check">, returnTo?: string): string {
+function destinationHref(
+  locale: Locale,
+  step: Exclude<RightsStep, "check">,
+  returnTo?: string
+): string {
   const target = returnTo === "check" ? "check" : NEXT_STEP[step];
   return stepHref(locale, target);
 }

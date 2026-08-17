@@ -40,9 +40,10 @@ export default async function ContactNamePage({
 
   const draft = await getContactDraft();
   const backHref = localeHref(locale, returnTo === "check" ? "/contact/check" : "/contact/message");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("name") + 1, CONTACT_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, CONTACT_STEPS.indexOf("name") + 1, CONTACT_STEPS.length);
 
   return (
     <>

@@ -17,7 +17,7 @@ export type NavListProps = {
  * measure without the list having to know anything about the page.
  */
 export default function NavList({ className, children }: NavListProps) {
-  return <ul className={clsx("border-line border-t", className)}>{children}</ul>;
+  return <ul className={clsx("border-t border-line", className)}>{children}</ul>;
 }
 
 export type NavListItemProps = {
@@ -53,40 +53,40 @@ export function NavListItem({
   children,
 }: NavListItemProps) {
   return (
-    <li className="border-line group relative border-b">
+    <li className="group relative border-b border-line">
       <div className="flex items-start gap-4 py-5 pr-2">
         <div className="min-w-0 flex-1">
           {meta ? (
-            <span className="text-muted mb-1 block text-xs font-semibold tracking-wide uppercase">
+            <span className="mb-1 block text-xs font-semibold tracking-wide text-muted uppercase">
               {meta}
             </span>
           ) : null}
           <Heading className="font-display text-lg leading-snug">
             <Link
               href={href}
-              className="text-brand-deep focus-highlight underline decoration-1 underline-offset-4 after:absolute after:inset-0 hover:decoration-[3px]"
+              className="focus-highlight text-brand-deep underline decoration-1 underline-offset-4 after:absolute after:inset-0 hover:decoration-[3px]"
             >
               {title}
             </Link>
           </Heading>
-          {children ? <p className="text-muted mt-1 text-sm leading-relaxed">{children}</p> : null}
+          {children ? <p className="mt-1 text-sm leading-relaxed text-muted">{children}</p> : null}
           {topics && topics.items.length > 0 ? (
             <>
-              <p className="text-ink mt-2 text-sm font-semibold">{topics.label}</p>
-              <ul className="text-muted mt-1 flex flex-col gap-1 text-sm">
+              <p className="mt-2 text-sm font-semibold text-ink">{topics.label}</p>
+              <ul className="mt-1 flex flex-col gap-1 text-sm text-muted">
                 {topics.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
             </>
           ) : null}
-          {footnote ? <p className="text-muted mt-2 text-xs">{footnote}</p> : null}
+          {footnote ? <p className="mt-2 text-xs text-muted">{footnote}</p> : null}
         </div>
         <svg
           aria-hidden="true"
           focusable="false"
           viewBox="0 0 16 16"
-          className="text-muted mt-1.5 h-4 w-4 shrink-0 transition-transform duration-150 group-hover:translate-x-1"
+          className="mt-1.5 h-4 w-4 shrink-0 text-muted transition-transform duration-150 group-hover:translate-x-1"
         >
           <path
             d="M5 2l6 6-6 6"

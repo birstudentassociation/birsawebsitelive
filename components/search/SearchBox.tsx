@@ -185,7 +185,7 @@ export default function SearchBox({
         className="flex flex-col gap-3 sm:flex-row sm:items-end"
       >
         <div className="relative flex max-w-sm flex-1 flex-col gap-1.5">
-          <label htmlFor={inputId} className="text-ink text-sm font-semibold">
+          <label htmlFor={inputId} className="text-sm font-semibold text-ink">
             {labelText}
           </label>
           <input
@@ -206,7 +206,7 @@ export default function SearchBox({
               if (suggestions.length > 0) setOpen(true);
             }}
             placeholder={placeholder}
-            className="focus-halo border-input-border bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
           />
 
           {open ? (
@@ -218,7 +218,7 @@ export default function SearchBox({
               // pressed, so the click below always lands before any
               // outside-blur handler could close the list first.
               onMouseDown={(event) => event.preventDefault()}
-              className="border-line bg-surface absolute inset-x-0 top-full z-10 mt-1 overflow-hidden rounded-md border shadow-lg"
+              className="absolute inset-x-0 top-full z-10 mt-1 overflow-hidden rounded-md border border-line bg-surface shadow-lg"
             >
               {suggestions.map((suggestion, index) => (
                 <li
@@ -236,7 +236,7 @@ export default function SearchBox({
                     index === activeIndex ? "bg-sunken" : ""
                   }`}
                 >
-                  <span className="text-ink truncate">{suggestion.title}</span>
+                  <span className="truncate text-ink">{suggestion.title}</span>
                   <Tag className="shrink-0">{suggestion.sectionLabel}</Tag>
                 </li>
               ))}

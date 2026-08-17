@@ -22,13 +22,13 @@ export default function PageHeader({
   className,
 }: PageHeaderProps) {
   return (
-    <section className={clsx("border-line bg-cream border-b", className)}>
+    <section className={clsx("border-b border-line bg-cream", className)}>
       <div className="wrap flex flex-col gap-4 py-10 sm:py-14">
         {breadcrumbs}
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-[var(--measure)]">
             <h1 className="font-display text-3xl sm:text-4xl">{title}</h1>
-            {lede ? <p className="text-muted mt-3 text-lg">{lede}</p> : null}
+            {lede ? <p className="mt-3 text-lg text-muted">{lede}</p> : null}
           </div>
           {helpSlot ? <div className="shrink-0">{helpSlot}</div> : null}
         </div>

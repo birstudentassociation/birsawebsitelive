@@ -63,7 +63,10 @@ export default async function StudyPlanAssumedPage({
   if (!draft.positionYear || !draft.positionKind) {
     redirect(localeHref(locale, "/services/study-plan/where"));
   }
-  const position: TermRef = { year: Number(draft.positionYear), kind: draft.positionKind as TermKind };
+  const position: TermRef = {
+    year: Number(draft.positionYear),
+    kind: draft.positionKind as TermKind,
+  };
 
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const history = assumedHistory(version, position);

@@ -34,7 +34,13 @@ const initialState: CheckState = { status: "idle" };
  * the online service not being configured, rate limiting, and a generic
  * failure) is preserved here, alongside the success reference number.
  */
-export default function LoanRequestWizard({ item, locale, labels, draft, action }: LoanRequestWizardProps) {
+export default function LoanRequestWizard({
+  item,
+  locale,
+  labels,
+  draft,
+  action,
+}: LoanRequestWizardProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
   const confirmationRef = useRef<HTMLDivElement>(null);
@@ -45,10 +51,7 @@ export default function LoanRequestWizard({ item, locale, labels, draft, action 
 
   const catalogueHref = localeHref(locale, "/services/equipment-loan");
   const contactHref = localeHref(locale, "/contact");
-  const requestHref = localeHref(
-    locale,
-    `/services/equipment-loan/${item.key}/request`
-  );
+  const requestHref = localeHref(locale, `/services/equipment-loan/${item.key}/request`);
 
   if (state.status === "unavailable") {
     return (
@@ -96,7 +99,7 @@ export default function LoanRequestWizard({ item, locale, labels, draft, action 
             {labels.results.notConfiguredBody}{" "}
             <Link
               href={contactHref}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {labels.results.contactLink}
             </Link>
@@ -140,7 +143,7 @@ export default function LoanRequestWizard({ item, locale, labels, draft, action 
           ref={confirmationRef}
           tabIndex={-1}
           role="status"
-          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
           <p className="font-display text-xl">{labels.confirmation.title}</p>
           {state.reference ? (
@@ -152,7 +155,7 @@ export default function LoanRequestWizard({ item, locale, labels, draft, action 
         </div>
         <div>
           <h2 className="font-display text-lg">{labels.confirmation.nextStepsTitle}</h2>
-          <ul className="text-muted mt-3 flex flex-col gap-2 text-sm leading-relaxed">
+          <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-muted">
             {labels.confirmation.nextSteps.map((next, index) => (
               <li key={index} className="flex gap-2">
                 <span aria-hidden="true">{index + 1}.</span>
@@ -171,14 +174,11 @@ export default function LoanRequestWizard({ item, locale, labels, draft, action 
   }
 
   const stepHref = (step: string) =>
-    localeHref(
-      locale,
-      `/services/equipment-loan/${item.key}/request/${step}?returnTo=check`
-    );
+    localeHref(locale, `/services/equipment-loan/${item.key}/request/${step}?returnTo=check`);
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-6">
-      <dl className="border-line divide-line divide-y rounded-lg border">
+      <dl className="divide-y divide-line rounded-lg border border-line">
         <SummaryRow label={labels.check.itemLabel} value={item.name[locale]} />
         <SummaryRow
           label={labels.check.nameLabel}

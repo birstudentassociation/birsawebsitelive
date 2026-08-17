@@ -8,7 +8,14 @@
  * start page (`page.tsx`) explaining what the service needs and why, so the
  * root is spent on that instead of on the first question.
  */
-export const STUDY_PLAN_STEPS = ["cohort", "curriculum", "where", "minor", "assumed", "plan"] as const;
+export const STUDY_PLAN_STEPS = [
+  "cohort",
+  "curriculum",
+  "where",
+  "minor",
+  "assumed",
+  "plan",
+] as const;
 export type StudyPlanStep = (typeof STUDY_PLAN_STEPS)[number];
 
 export const STUDY_PLAN_COOKIE = "birsa_study_plan_draft";

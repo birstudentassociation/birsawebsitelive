@@ -46,10 +46,14 @@ export default async function LoanRequestEmailPage({
 
   const draft = await getLoanDraft(itemKey);
   const base = `/services/equipment-loan/${itemKey}/request`;
-  const backHref = localeHref(locale, returnTo === "check" ? `${base}/check` : `${base}/student-id`);
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("email") + 1, LOAN_STEPS.length);
+  const backHref = localeHref(
+    locale,
+    returnTo === "check" ? `${base}/check` : `${base}/student-id`
+  );
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(labels.common.stepOf, LOAN_STEPS.indexOf("email") + 1, LOAN_STEPS.length);
 
   return (
     <>

@@ -55,7 +55,7 @@ export default function Highlight({ text, terms }: HighlightProps) {
     <>
       {parts.map((part, index) =>
         index % 2 === 1 ? (
-          <mark key={index} className="bg-warning-tint text-ink rounded-sm">
+          <mark key={index} className="rounded-sm bg-warning-tint text-ink">
             {part}
           </mark>
         ) : (

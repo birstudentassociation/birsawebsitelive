@@ -95,9 +95,14 @@ export default async function StartClubPage({
   const draft = await getStartClubDraft();
   const { returnTo } = await searchParams;
   const backHref = returnTo === "check" ? localeHref(locale, "/clubs/start/check") : undefined;
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("clubName") + 1, START_CLUB_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(
+          chrome.stepOf,
+          START_CLUB_STEPS.indexOf("clubName") + 1,
+          START_CLUB_STEPS.length
+        );
 
   return (
     <>
@@ -119,10 +124,10 @@ export default async function StartClubPage({
       <div className="wrap grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1fr_1.2fr]">
         <div>
           <h2 className="font-display text-2xl">{t.stepsTitle}</h2>
-          <ol className="text-muted mt-4 flex flex-col gap-4 text-sm leading-relaxed">
+          <ol className="mt-4 flex flex-col gap-4 text-sm leading-relaxed text-muted">
             {t.steps.map((step, index) => (
               <li key={index} className="flex gap-3">
-                <span className="bg-brand-tint text-brand-deep flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-tint text-sm font-semibold text-brand-deep">
                   {index + 1}
                 </span>
                 <span className="pt-0.5">{step}</span>
@@ -130,12 +135,12 @@ export default async function StartClubPage({
             ))}
           </ol>
 
-          <div className="border-line mt-8 flex flex-col gap-2 rounded-lg border p-5">
-            <h3 className="font-display text-ink text-lg">{t.checkTitle}</h3>
-            <p className="text-muted text-sm leading-relaxed">{t.checkBody}</p>
+          <div className="mt-8 flex flex-col gap-2 rounded-lg border border-line p-5">
+            <h3 className="font-display text-lg text-ink">{t.checkTitle}</h3>
+            <p className="text-sm leading-relaxed text-muted">{t.checkBody}</p>
             <Link
               href={localeHref(locale, "/answers/start-a-club-check")}
-              className="text-brand-deep text-sm font-semibold hover:underline"
+              className="text-sm font-semibold text-brand-deep hover:underline"
             >
               {t.checkCta} &rarr;
             </Link>

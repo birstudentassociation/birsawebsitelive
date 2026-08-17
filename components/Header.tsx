@@ -22,7 +22,7 @@ export default function Header({ locale }: HeaderProps) {
   const dict = getDictionary(locale);
 
   return (
-    <header className="border-line bg-cream/95 supports-[backdrop-filter]:bg-cream/80 sticky top-0 z-40 border-b backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur supports-[backdrop-filter]:bg-cream/80">
       <div className="wrap flex h-16 items-center justify-between gap-4 sm:gap-6">
         <Link
           href={localeHref(locale, "/")}
@@ -35,7 +35,7 @@ export default function Header({ locale }: HeaderProps) {
               always carries the name. */}
           <span
             aria-hidden="true"
-            className="font-display text-ink hidden text-lg font-semibold min-[400px]:inline"
+            className="hidden font-display text-lg font-semibold text-ink min-[400px]:inline"
           >
             {dict.site.name}
           </span>
@@ -47,7 +47,7 @@ export default function Header({ locale }: HeaderProps) {
               <li key={item.href}>
                 <DesktopNavItem
                   href={localeHref(locale, item.href)}
-                  className="text-ink hover:text-brand-deep flex h-16 items-center border-b-2 border-transparent px-3 text-[0.95rem] font-semibold"
+                  className="flex h-16 items-center border-b-2 border-transparent px-3 text-[0.95rem] font-semibold text-ink hover:text-brand-deep"
                   activeClassName="!border-brand !text-brand-deep"
                 >
                   {item.label}

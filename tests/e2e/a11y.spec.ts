@@ -346,9 +346,10 @@ test.describe("heading structure", () => {
       );
 
       const h1Count = levels.filter((level) => level === 1).length;
-      expect(h1Count, `expected exactly one h1, found ${h1Count}: levels were ${levels.join(", ")}`).toBe(
-        1
-      );
+      expect(
+        h1Count,
+        `expected exactly one h1, found ${h1Count}: levels were ${levels.join(", ")}`
+      ).toBe(1);
 
       for (let i = 1; i < levels.length; i++) {
         const previous = levels[i - 1] as number;

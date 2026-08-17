@@ -186,7 +186,7 @@ function InteractiveOfficerLogin({ locale }: OfficerLoginProps) {
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
         <ErrorSummary title={t.errorSummaryTitle} errors={errorItems} />
 
-        <p className="text-muted text-sm">{t.intro}</p>
+        <p className="text-sm text-muted">{t.intro}</p>
 
         <Field
           id={emailId}
@@ -292,7 +292,7 @@ function OfficerLoginFallback({ locale }: OfficerLoginProps) {
       <form action={formAction} noValidate className="flex flex-col gap-5">
         <ErrorSummary title={t.errorSummaryTitle} errors={errorItems} />
 
-        <p className="text-muted text-sm">{t.intro}</p>
+        <p className="text-sm text-muted">{t.intro}</p>
 
         <input type="hidden" name="locale" value={locale} />
         <input type="hidden" name="returnTo" value="/officer/inventory" />

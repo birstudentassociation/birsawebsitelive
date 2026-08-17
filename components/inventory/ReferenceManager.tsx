@@ -214,7 +214,7 @@ function CategorySection({
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-display text-ink text-xl">{t.categoriesTitle}</h2>
+        <h2 className="font-display text-xl text-ink">{t.categoriesTitle}</h2>
         {canWrite ? (
           <Button
             variant={createOpen ? "secondary" : "primary"}
@@ -228,7 +228,7 @@ function CategorySection({
       </div>
 
       {message ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {message}
         </p>
       ) : null}
@@ -239,10 +239,10 @@ function CategorySection({
           onSubmit={handleCreate}
           noValidate
           aria-live="polite"
-          className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5"
+          className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}
@@ -294,7 +294,7 @@ function CategorySection({
       ) : null}
 
       {categories.length === 0 ? (
-        <p className="text-muted text-sm">{t.noCategories}</p>
+        <p className="text-sm text-muted">{t.noCategories}</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {categories.map((category) => (
@@ -376,11 +376,11 @@ function CategoryRow({
   }
 
   return (
-    <li className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4">
+    <li className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-ink font-semibold">{category.name[locale]}</p>
-          <p className="text-muted text-sm">{category.slug}</p>
+          <p className="font-semibold text-ink">{category.name[locale]}</p>
+          <p className="text-sm text-muted">{category.slug}</p>
         </div>
         {canWrite ? (
           <Button
@@ -398,7 +398,7 @@ function CategoryRow({
       </div>
 
       {savedMessage && !editing ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {savedMessage}
         </p>
       ) : null}
@@ -409,10 +409,10 @@ function CategoryRow({
           onSubmit={handleSave}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}
@@ -543,7 +543,7 @@ function LocationSection({
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-display text-ink text-xl">{t.locationsTitle}</h2>
+        <h2 className="font-display text-xl text-ink">{t.locationsTitle}</h2>
         {canWrite ? (
           <Button
             variant={createOpen ? "secondary" : "primary"}
@@ -557,7 +557,7 @@ function LocationSection({
       </div>
 
       {message ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {message}
         </p>
       ) : null}
@@ -568,10 +568,10 @@ function LocationSection({
           onSubmit={handleCreate}
           noValidate
           aria-live="polite"
-          className="border-line bg-sunken flex flex-col gap-4 rounded-lg border p-5"
+          className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}
@@ -645,7 +645,7 @@ function LocationSection({
       ) : null}
 
       {locations.length === 0 ? (
-        <p className="text-muted text-sm">{t.noLocations}</p>
+        <p className="text-sm text-muted">{t.noLocations}</p>
       ) : (
         <ul className="flex flex-col gap-3">
           {locations.map((location) => (
@@ -730,11 +730,11 @@ function LocationRow({
   }
 
   return (
-    <li className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4">
+    <li className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-ink font-semibold">{location.name[locale]}</p>
-          <p className="text-muted text-sm">{location.slug}</p>
+          <p className="font-semibold text-ink">{location.name[locale]}</p>
+          <p className="text-sm text-muted">{location.slug}</p>
         </div>
         {canWrite ? (
           <Button
@@ -751,11 +751,11 @@ function LocationRow({
         ) : null}
       </div>
       {location.description[locale] ? (
-        <p className="text-ink text-sm">{location.description[locale]}</p>
+        <p className="text-sm text-ink">{location.description[locale]}</p>
       ) : null}
 
       {savedMessage && !editing ? (
-        <p role="status" className="text-success text-sm font-medium">
+        <p role="status" className="text-sm font-medium text-success">
           {savedMessage}
         </p>
       ) : null}
@@ -766,10 +766,10 @@ function LocationRow({
           onSubmit={handleSave}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           {error ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {error}
             </p>
           ) : null}

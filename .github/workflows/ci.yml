@@ -27,6 +27,16 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      # Formatting is a CI check, not a convention people are asked to
+      # remember. `npm run format:check` existed for a long time but nothing
+      # ever ran it, so the repo drifted to 97 unformatted files before this
+      # step was added. The fix for a red check here is `npm run format`,
+      # which rewrites the files in place. This runs before the build so that
+      # Prettier never walks the `.next` output; `.prettierignore` excludes it
+      # too, so the ordering is belt and braces rather than load-bearing.
+      - name: Formatting
+        run: npm run format:check
+
       # Linting is enforced again. It used to be skipped because the repo's
       # ESLint config predated the flat-config migration ESLint 9 requires;
       # that config is now `eslint.config.mjs`, and since Next.js 16 removed

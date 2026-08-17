@@ -52,9 +52,9 @@ export default function CourseStats({ courses, locale, dict }: CourseStatsProps)
 
 function StatTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-5">
-      <span className="text-muted text-sm font-semibold">{label}</span>
-      <span className="font-display text-ink text-3xl">{value}</span>
+    <div className="flex flex-col gap-1 rounded-lg border border-line bg-surface p-5">
+      <span className="text-sm font-semibold text-muted">{label}</span>
+      <span className="font-display text-3xl text-ink">{value}</span>
     </div>
   );
 }

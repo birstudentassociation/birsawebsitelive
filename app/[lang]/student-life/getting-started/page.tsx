@@ -83,21 +83,21 @@ export default async function GettingStartedPage({
             <CardTitle href={homeHref} as="h2">
               {c.homeTitle}
             </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{c.homeBody}</p>
+            <p className="text-sm leading-relaxed text-muted">{c.homeBody}</p>
           </Card>
 
           <Card href={internationalHref}>
             <CardTitle href={internationalHref} as="h2">
               {c.internationalTitle}
             </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{c.internationalBody}</p>
+            <p className="text-sm leading-relaxed text-muted">{c.internationalBody}</p>
           </Card>
 
           <Card href={allGuidesHref}>
             <CardTitle href={allGuidesHref} as="h2">
               {c.allGuidesTitle}
             </CardTitle>
-            <p className="text-muted text-sm leading-relaxed">{c.allGuidesBody}</p>
+            <p className="text-sm leading-relaxed text-muted">{c.allGuidesBody}</p>
           </Card>
         </div>
       </div>

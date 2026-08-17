@@ -24,16 +24,16 @@ export default function Accordion({
 }: AccordionProps) {
   return (
     <details
-      className={`group border-line bg-surface rounded-lg border open:shadow-sm ${className ?? ""}`}
+      className={`group rounded-lg border border-line bg-surface open:shadow-sm ${className ?? ""}`}
       open={defaultOpen}
       onToggle={onToggle ? (event) => onToggle(event.currentTarget.open) : undefined}
     >
-      <summary className="focus-halo text-ink flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-3 font-semibold marker:content-none [&::-webkit-details-marker]:hidden">
+      <summary className="focus-halo flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg px-4 py-3 font-semibold text-ink marker:content-none [&::-webkit-details-marker]:hidden">
         <span>{summary}</span>
         <svg
           aria-hidden="true"
           viewBox="0 0 20 20"
-          className="text-muted h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+          className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180"
         >
           <path
             d="m5 7.5 5 5 5-5"
@@ -45,7 +45,7 @@ export default function Accordion({
           />
         </svg>
       </summary>
-      <div className="border-line text-ink border-t px-4 py-3 text-[0.95rem] leading-relaxed">
+      <div className="border-t border-line px-4 py-3 text-[0.95rem] leading-relaxed text-ink">
         {children}
       </div>
     </details>

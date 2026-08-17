@@ -270,7 +270,7 @@ export default function EventCalendar({
     <div className="flex flex-col gap-6">
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
         {/* Calendar grid */}
-        <div className="border-line bg-surface rounded-lg border p-4 shadow-sm sm:p-5">
+        <div className="rounded-lg border border-line bg-surface p-4 shadow-sm sm:p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
             <button
               type="button"
@@ -290,7 +290,7 @@ export default function EventCalendar({
                 />
               </svg>
             </button>
-            <h3 className="font-display text-ink text-xl" aria-live="polite">
+            <h3 className="font-display text-xl text-ink" aria-live="polite">
               {monthLabel}
             </h3>
             <button
@@ -314,7 +314,7 @@ export default function EventCalendar({
           </div>
 
           <div aria-label={monthLabel}>
-            <div className="text-muted grid grid-cols-7 gap-1 pb-1 text-center text-xs font-semibold">
+            <div className="grid grid-cols-7 gap-1 pb-1 text-center text-xs font-semibold text-muted">
               {weekdays.map((w, i) => (
                 <div key={i} className="py-1">
                   {w}
@@ -367,14 +367,14 @@ export default function EventCalendar({
                             className={clsx(
                               "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
                               hasEvents
-                                ? "text-ink cursor-pointer font-semibold"
-                                : "text-muted cursor-default",
+                                ? "cursor-pointer font-semibold text-ink"
+                                : "cursor-default text-muted",
                               isSelected
                                 ? "bg-brand text-white"
                                 : hasEvents
                                   ? "bg-sunken hover:bg-brand-tint"
                                   : "",
-                              isToday && !isSelected && "ring-line-strong ring-2 ring-inset"
+                              isToday && !isSelected && "ring-2 ring-line-strong ring-inset"
                             )}
                           >
                             <span>{day}</span>
@@ -472,7 +472,7 @@ export default function EventCalendar({
 
           {/* Legend */}
           <div className="mt-4 flex flex-col gap-2">
-            <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => {
                 const Icon = KIND_ICON[k];
                 return (
@@ -483,20 +483,20 @@ export default function EventCalendar({
                 );
               })}
             </ul>
-            <ul className="text-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               <li className="flex items-center gap-1.5">
                 <span
-                  className="bg-brand-tint border-brand h-2.5 w-5 rounded-sm border-l-4"
+                  className="h-2.5 w-5 rounded-sm border-l-4 border-brand bg-brand-tint"
                   aria-hidden="true"
                 />
                 {labels.styleLegend.period}
               </li>
               <li className="flex items-center gap-1.5">
                 <span
-                  className="bg-brand-tint inline-flex h-4 w-4 items-center justify-center rounded"
+                  className="inline-flex h-4 w-4 items-center justify-center rounded bg-brand-tint"
                   aria-hidden="true"
                 >
-                  <StarIcon className="text-brand h-3 w-3" />
+                  <StarIcon className="h-3 w-3 text-brand" />
                 </span>
                 {labels.styleLegend.single}
               </li>
@@ -506,7 +506,7 @@ export default function EventCalendar({
 
         {/* Detail panel */}
         <div
-          className="border-line bg-sunken rounded-lg border p-4 sm:p-5"
+          className="rounded-lg border border-line bg-sunken p-4 sm:p-5"
           role="region"
           aria-live="polite"
           aria-label={
@@ -515,7 +515,7 @@ export default function EventCalendar({
               : undefined
           }
         >
-          <p className="text-muted mb-3 text-sm font-semibold">
+          <p className="mb-3 text-sm font-semibold text-muted">
             {selectedDay
               ? labels.selectedFor.replace("{date}", formatDate(locale, selectedDay))
               : ""}
@@ -528,14 +528,14 @@ export default function EventCalendar({
                   <li key={event.id}>
                     <Link
                       href={localeHref(locale, `/news/${event.slug}`)}
-                      className="group border-line bg-surface hover:border-brand focus-halo flex gap-2.5 rounded-md border p-3 transition-colors"
+                      className="group focus-halo flex gap-2.5 rounded-md border border-line bg-surface p-3 transition-colors hover:border-brand"
                     >
                       <Icon className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])} />
                       <span className="min-w-0">
-                        <span className="text-ink block text-sm leading-snug font-semibold group-hover:underline">
+                        <span className="block text-sm leading-snug font-semibold text-ink group-hover:underline">
                           {event.title[locale]}
                         </span>
-                        <span className="text-muted mt-0.5 block text-xs">
+                        <span className="mt-0.5 block text-xs text-muted">
                           {eventRangeLabel(event)}
                         </span>
                       </span>
@@ -545,22 +545,22 @@ export default function EventCalendar({
               })}
             </ul>
           ) : (
-            <p className="text-muted text-sm">{labels.noEventsDay}</p>
+            <p className="text-sm text-muted">{labels.noEventsDay}</p>
           )}
         </div>
       </div>
 
       {/* Subscribe */}
-      <div className="border-line bg-surface rounded-lg border p-4 sm:p-5">
-        <h3 className="font-display text-ink text-base font-semibold">
+      <div className="rounded-lg border border-line bg-surface p-4 sm:p-5">
+        <h3 className="font-display text-base font-semibold text-ink">
           {labels.subscribe.heading}
         </h3>
-        <p className="text-muted mt-1 text-sm">{labels.subscribe.intro}</p>
+        <p className="mt-1 text-sm text-muted">{labels.subscribe.intro}</p>
         <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
           <li>
             <a
               href={webcalUrl}
-              className="focus-halo text-brand-deep rounded font-semibold hover:underline"
+              className="focus-halo rounded font-semibold text-brand-deep hover:underline"
             >
               {labels.subscribe.webcal}
             </a>
@@ -568,7 +568,7 @@ export default function EventCalendar({
           <li>
             <a
               href={icsUrl}
-              className="focus-halo text-brand-deep rounded font-semibold hover:underline"
+              className="focus-halo rounded font-semibold text-brand-deep hover:underline"
             >
               {labels.subscribe.https}
             </a>

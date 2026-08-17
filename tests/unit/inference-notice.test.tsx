@@ -46,9 +46,7 @@ describe("InferenceNotice", () => {
   // check that it does not reach a student is kept, because it is the sentence
   // this component exists to gate, but it holds for a stronger reason now.
   it("does not render a borrowed-study-plan warning for cohort 68", () => {
-    render(
-      <InferenceNotice version={CURRICULUM_VERSIONS["2568"]} cohortCode="68" locale="en" />
-    );
+    render(<InferenceNotice version={CURRICULUM_VERSIONS["2568"]} cohortCode="68" locale="en" />);
     expect(screen.queryByText(/no published study plan/i)).toBeNull();
   });
 
@@ -125,11 +123,7 @@ describe("InferenceNotice", () => {
 
   it("no longer shows the deleted attestation disclosure to a cohort 67 student", () => {
     render(
-      <InferenceNotice
-        version={CURRICULUM_VERSIONS["2564-rev2566"]}
-        cohortCode="67"
-        locale="en"
-      />
+      <InferenceNotice version={CURRICULUM_VERSIONS["2564-rev2566"]} cohortCode="67" locale="en" />
     );
     // total-never-printed, the one remaining contradiction on this version,
     // is not cohort-scoped, so it would still render if InferenceNotice

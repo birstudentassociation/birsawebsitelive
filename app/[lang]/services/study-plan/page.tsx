@@ -71,7 +71,7 @@ export default async function StudyPlanStartPage({
           />
         }
       />
-      <div className="wrap max-w-[var(--measure)] flex flex-col gap-8 py-10">
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         {deleted === "1" ? (
           <Notice variant="success" title={copy.start.deletedTitle}>
             {copy.start.deletedBody}
@@ -80,7 +80,7 @@ export default async function StudyPlanStartPage({
 
         <div>
           <h2 className="font-display text-xl">{copy.start.beforeYouStart}</h2>
-          <ul className="text-muted mt-3 flex flex-col gap-2 text-sm leading-relaxed">
+          <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-muted">
             {copy.start.needs.map((need) => (
               <li key={need} className="flex gap-2">
                 <span aria-hidden="true">&bull;</span>
@@ -90,8 +90,8 @@ export default async function StudyPlanStartPage({
           </ul>
         </div>
 
-        <p className="text-muted text-sm">{copy.start.timeEstimate}</p>
-        <p className="text-muted text-sm leading-relaxed">{copy.start.notARecord}</p>
+        <p className="text-sm text-muted">{copy.start.timeEstimate}</p>
+        <p className="text-sm leading-relaxed text-muted">{copy.start.notARecord}</p>
 
         <div>
           <Button href={localeHref(locale, "/services/study-plan/cohort")}>

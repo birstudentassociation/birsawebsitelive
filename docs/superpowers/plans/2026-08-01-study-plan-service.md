@@ -561,9 +561,7 @@ describe("curriculum2564", () => {
   });
 
   it("pools every minor course under the single 'minor' category", () => {
-    const inMinors = new Set(
-      curriculum2564.minors.flatMap((m) => [...m.required, ...m.electives])
-    );
+    const inMinors = new Set(curriculum2564.minors.flatMap((m) => [...m.required, ...m.electives]));
     for (const course of curriculum2564.courses.value) {
       if (inMinors.has(course.code)) {
         expect(course.category, `${course.code}`).toBe("minor");
@@ -610,15 +608,15 @@ Expected: FAIL, cannot resolve `@/content/curriculum/2564`.
 
 - [ ] **Step 3: Write `content/curriculum/2564.ts`**
 
-Transcribe the full course list. The authoritative in-repo transcription of the *2023 revision* already exists at `content/student-life/en/handbook/curriculum-and-study-plan.mdx` and lists every core, concentration, minor and elective course with its code and title. For this module, take that list and apply the three general education differences that make 2564 the earlier version:
+Transcribe the full course list. The authoritative in-repo transcription of the _2023 revision_ already exists at `content/student-life/en/handbook/curriculum-and-study-plan.mdx` and lists every core, concentration, minor and elective course with its code and title. For this module, take that list and apply the three general education differences that make 2564 the earlier version:
 
-| 2023 revision (`rev2566`) | 2564 |
-| --- | --- |
-| `EL105 English Communication Skills` | `TU050 English Skill Development` (0 credits, `excludedFromTotal: true`) and `TU105 Communication Skills in English` |
-| `LAS101 Critical Thinking, Reading and Writing` | `TU104 Critical Thinking, Reading, and Writing` |
-| `PD102 Social Sciences in the 21st Century` | `PI121 Introduction to Social Science` |
-| `PD103 Humanities in the Age of Disruption` | `PI122 Introduction to Humanities` |
-| choose `AH208` or `EL295` | choose `PI131 Sports and Politics` or `PI132 Data, Science and Technology Governance` |
+| 2023 revision (`rev2566`)                       | 2564                                                                                                                 |
+| ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `EL105 English Communication Skills`            | `TU050 English Skill Development` (0 credits, `excludedFromTotal: true`) and `TU105 Communication Skills in English` |
+| `LAS101 Critical Thinking, Reading and Writing` | `TU104 Critical Thinking, Reading, and Writing`                                                                      |
+| `PD102 Social Sciences in the 21st Century`     | `PI121 Introduction to Social Science`                                                                               |
+| `PD103 Humanities in the Age of Disruption`     | `PI122 Introduction to Humanities`                                                                                   |
+| choose `AH208` or `EL295`                       | choose `PI131 Sports and Politics` or `PI132 Data, Science and Technology Governance`                                |
 
 Everything else, Year 2 onward, is identical between the two.
 
@@ -706,44 +704,225 @@ const categories: CreditCategory[] = [
 
 const courses: Course[] = [
   // General education, part 1 (21 credits)
-  { code: "TU050", title: "English Skill Development", credits: 0, category: "genEdPart1", prerequisites: [], excludedFromTotal: true },
-  { code: "TU100", title: "Civic Engagement", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU101", title: "Thailand, ASEAN and the World", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU102", title: "Social Life Skills", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU103", title: "Life and Sustainability", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU104", title: "Critical Thinking, Reading, and Writing", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU105", title: "Communication Skills in English", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "TU106", title: "Creativity and Communication", credits: 3, category: "genEdPart1", prerequisites: [] },
+  {
+    code: "TU050",
+    title: "English Skill Development",
+    credits: 0,
+    category: "genEdPart1",
+    prerequisites: [],
+    excludedFromTotal: true,
+  },
+  {
+    code: "TU100",
+    title: "Civic Engagement",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU101",
+    title: "Thailand, ASEAN and the World",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU102",
+    title: "Social Life Skills",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU103",
+    title: "Life and Sustainability",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU104",
+    title: "Critical Thinking, Reading, and Writing",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU105",
+    title: "Communication Skills in English",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "TU106",
+    title: "Creativity and Communication",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
 
   // General education, part 2 (9 credits)
-  { code: "PI121", title: "Introduction to Social Science", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "PI122", title: "Introduction to Humanities", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "PI131", title: "Sports and Politics", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "PI132", title: "Data, Science and Technology Governance", credits: 3, category: "genEdPart2", prerequisites: [] },
+  {
+    code: "PI121",
+    title: "Introduction to Social Science",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "PI122",
+    title: "Introduction to Humanities",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "PI131",
+    title: "Sports and Politics",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "PI132",
+    title: "Data, Science and Technology Governance",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
 
   // Core courses (30 credits). Prerequisites from the Handbook.
-  { code: "PI210", title: "Introduction to Political Philosophy", credits: 3, category: "core", prerequisites: [] },
-  { code: "PI211", title: "Introduction to Political Science", credits: 3, category: "core", prerequisites: [] },
-  { code: "PI241", title: "Introduction to Public Administration and Public Policy", credits: 3, category: "core", prerequisites: [] },
-  { code: "PI271", title: "Introduction to International Relations", credits: 3, category: "core", prerequisites: [] },
-  { code: "PI280", title: "International Relations Theories and Current Affairs", credits: 3, category: "core", prerequisites: ["PI271"] },
-  { code: "PI282", title: "Reading and Analysis in International Relations", credits: 3, category: "core", prerequisites: [] },
-  { code: "PI300", title: "Social Science Methodology", credits: 3, category: "core", prerequisites: ["PI211"] },
-  { code: "PI320", title: "Comparative Politics", credits: 3, category: "core", prerequisites: ["PI211"] },
-  { code: "PI321", title: "Thai Politics and Government", credits: 3, category: "core", prerequisites: ["PI211"] },
-  { code: "PI390", title: "Global Political Economy", credits: 3, category: "core", prerequisites: ["PI271"] },
+  {
+    code: "PI210",
+    title: "Introduction to Political Philosophy",
+    credits: 3,
+    category: "core",
+    prerequisites: [],
+  },
+  {
+    code: "PI211",
+    title: "Introduction to Political Science",
+    credits: 3,
+    category: "core",
+    prerequisites: [],
+  },
+  {
+    code: "PI241",
+    title: "Introduction to Public Administration and Public Policy",
+    credits: 3,
+    category: "core",
+    prerequisites: [],
+  },
+  {
+    code: "PI271",
+    title: "Introduction to International Relations",
+    credits: 3,
+    category: "core",
+    prerequisites: [],
+  },
+  {
+    code: "PI280",
+    title: "International Relations Theories and Current Affairs",
+    credits: 3,
+    category: "core",
+    prerequisites: ["PI271"],
+  },
+  {
+    code: "PI282",
+    title: "Reading and Analysis in International Relations",
+    credits: 3,
+    category: "core",
+    prerequisites: [],
+  },
+  {
+    code: "PI300",
+    title: "Social Science Methodology",
+    credits: 3,
+    category: "core",
+    prerequisites: ["PI211"],
+  },
+  {
+    code: "PI320",
+    title: "Comparative Politics",
+    credits: 3,
+    category: "core",
+    prerequisites: ["PI211"],
+  },
+  {
+    code: "PI321",
+    title: "Thai Politics and Government",
+    credits: 3,
+    category: "core",
+    prerequisites: ["PI211"],
+  },
+  {
+    code: "PI390",
+    title: "Global Political Economy",
+    credits: 3,
+    category: "core",
+    prerequisites: ["PI271"],
+  },
 
   // Required courses in concentration (19 credits)
-  { code: "PI270", title: "Diplomatic History", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI272", title: "Foreign Policy Analysis", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI291", title: "International Law", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI292", title: "International Organizations and Regimes", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI370", title: "Thai Foreign Affairs", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI470", title: "Seminar: International Relations Theories", credits: 3, category: "concentrationRequired", prerequisites: [] },
-  { code: "PI574", title: "Internship in Politics and International Relations", credits: 1, category: "concentrationRequired", prerequisites: [] },
+  {
+    code: "PI270",
+    title: "Diplomatic History",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI272",
+    title: "Foreign Policy Analysis",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI291",
+    title: "International Law",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI292",
+    title: "International Organizations and Regimes",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI370",
+    title: "Thai Foreign Affairs",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI470",
+    title: "Seminar: International Relations Theories",
+    credits: 3,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
+  {
+    code: "PI574",
+    title: "Internship in Politics and International Relations",
+    credits: 1,
+    category: "concentrationRequired",
+    prerequisites: [],
+  },
 
   // Required course in Faculty of Economics (3 credits)
-  { code: "EE210", title: "Introductory Economics", credits: 3, category: "economics", prerequisites: [] },
+  {
+    code: "EE210",
+    title: "Introductory Economics",
+    credits: 3,
+    category: "economics",
+    prerequisites: [],
+  },
 
   // Continue with the area studies group and the approaches and issues group,
   // transcribed from
@@ -1012,12 +1191,48 @@ import type { Course, CurriculumVersion, PlannedTerm } from "./types";
 const REPLACED = new Set(["TU050", "TU104", "TU105", "PI121", "PI122", "PI131", "PI132"]);
 
 const newGenEd: Course[] = [
-  { code: "EL105", title: "English Communication Skills", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "LAS101", title: "Critical Thinking, Reading and Writing", credits: 3, category: "genEdPart1", prerequisites: [] },
-  { code: "PD102", title: "Social Sciences in the 21st Century", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "PD103", title: "Humanities in the Age of Disruption", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "AH208", title: "Exercise for Good Health and Well-Being", credits: 3, category: "genEdPart2", prerequisites: [] },
-  { code: "EL295", title: "Academic English and Study Skill 1", credits: 3, category: "genEdPart2", prerequisites: [] },
+  {
+    code: "EL105",
+    title: "English Communication Skills",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "LAS101",
+    title: "Critical Thinking, Reading and Writing",
+    credits: 3,
+    category: "genEdPart1",
+    prerequisites: [],
+  },
+  {
+    code: "PD102",
+    title: "Social Sciences in the 21st Century",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "PD103",
+    title: "Humanities in the Age of Disruption",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "AH208",
+    title: "Exercise for Good Health and Well-Being",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
+  {
+    code: "EL295",
+    title: "Academic English and Study Skill 1",
+    credits: 3,
+    category: "genEdPart2",
+    prerequisites: [],
+  },
 ];
 
 const courses: Course[] = [
@@ -1104,8 +1319,7 @@ export const curriculum2564rev2566: CurriculumVersion = {
       },
       {
         id: "total-never-printed",
-        summary:
-          "The 127-credit graduation total is never printed as a total. It is 30 + 91 + 6.",
+        summary: "The 127-credit graduation total is never printed as a total. It is 30 + 91 + 6.",
         disclosure: {
           en: "The 127-credit total is not printed in the handout. We worked it out by adding the three parts together. Check it with your advisor.",
           th: "เอกสารหลักสูตรไม่ได้ระบุยอดรวม 127 หน่วยกิตไว้โดยตรง ยอดนี้ได้จากการรวมสามหมวดเข้าด้วยกัน โปรดตรวจสอบกับอาจารย์ที่ปรึกษา",
@@ -2085,10 +2299,7 @@ describe("checkPlan prerequisites", () => {
   });
 
   it("accepts a prerequisite already passed", () => {
-    const plan = planWith(
-      [{ term: { year: 2, kind: "semester1" }, codes: ["PI300"] }],
-      ["PI211"]
-    );
+    const plan = planWith([{ term: { year: 2, kind: "semester1" }, codes: ["PI300"] }], ["PI211"]);
     expect(checkPlan(version, plan).some((f) => f.id === "prerequisite:PI300")).toBe(false);
   });
 
@@ -2101,7 +2312,10 @@ describe("checkPlan prerequisites", () => {
 describe("checkPlan credit load", () => {
   it("flags a regular term over 21 credits", () => {
     const codes = ["PI210", "PI211", "PI241", "PI271", "PI280", "PI282", "PI300", "PI320"];
-    const findings = checkPlan(version, planWith([{ term: { year: 2, kind: "semester1" }, codes }]));
+    const findings = checkPlan(
+      version,
+      planWith([{ term: { year: 2, kind: "semester1" }, codes }])
+    );
     const overload = findings.find((f) => f.id === "creditLoad:2-semester1");
     expect(overload?.severity).toBe("problem");
     expect(overload?.source.provision).toContain("10.4");
@@ -2116,7 +2330,9 @@ describe("checkPlan credit load", () => {
   });
 
   it("accepts a regular term of exactly 9 and exactly 21 credits", () => {
-    const nine = planWith([{ term: { year: 2, kind: "semester1" }, codes: ["PI210", "PI211", "PI241"] }]);
+    const nine = planWith([
+      { term: { year: 2, kind: "semester1" }, codes: ["PI210", "PI211", "PI241"] },
+    ]);
     expect(checkPlan(version, nine).some((f) => f.id.startsWith("creditLoad:"))).toBe(false);
 
     const twentyOne = planWith([
@@ -2145,7 +2361,10 @@ describe("checkPlan credit load", () => {
   });
 
   it("ignores empty terms entirely", () => {
-    const findings = checkPlan(version, planWith([{ term: { year: 2, kind: "semester1" }, codes: [] }]));
+    const findings = checkPlan(
+      version,
+      planWith([{ term: { year: 2, kind: "semester1" }, codes: [] }])
+    );
     expect(findings.some((f) => f.id.startsWith("creditLoad:"))).toBe(false);
   });
 });

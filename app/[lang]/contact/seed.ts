@@ -1,5 +1,8 @@
 import type { Locale } from "@/lib/i18n";
-import { CONTACT_CATEGORY_VALUES, type ContactCategory } from "@/components/forms/contactWizardCopy";
+import {
+  CONTACT_CATEGORY_VALUES,
+  type ContactCategory,
+} from "@/components/forms/contactWizardCopy";
 
 /**
  * Derives the "report a problem with this page" deep link (`?category=&from=`)
@@ -23,7 +26,10 @@ export function deriveContactSeed(
   // protocol-relative and can point off-site) and carry no backslash (which
   // some browsers also treat as a path separator, defeating the "//" check).
   const isSafePath =
-    typeof from === "string" && from.startsWith("/") && !from.startsWith("//") && !from.includes("\\");
+    typeof from === "string" &&
+    from.startsWith("/") &&
+    !from.startsWith("//") &&
+    !from.includes("\\");
 
   const subject =
     validCategory === "problem" && isSafePath

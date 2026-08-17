@@ -125,7 +125,10 @@ describe("privacy register", () => {
     // dangling id would render as a blank recipient rather than fail loudly.
     for (const activity of activities) {
       for (const id of activity.recipients) {
-        expect(processorById(id), `activity "${activity.id}" names unknown processor "${id}"`).toBeDefined();
+        expect(
+          processorById(id),
+          `activity "${activity.id}" names unknown processor "${id}"`
+        ).toBeDefined();
       }
     }
   });
@@ -156,7 +159,16 @@ describe("privacy register", () => {
 
   it("covers all eight rights the Act gives a data subject", () => {
     expect(dataRights.map((right) => right.id).sort()).toEqual(
-      ["access", "complain", "correct", "delete", "object", "portability", "restrict", "withdraw"].sort()
+      [
+        "access",
+        "complain",
+        "correct",
+        "delete",
+        "object",
+        "portability",
+        "restrict",
+        "withdraw",
+      ].sort()
     );
   });
 
@@ -169,7 +181,8 @@ describe("privacy register", () => {
       texts.push(...activity.collects);
       if (activity.retentionNote) texts.push(activity.retentionNote);
     }
-    for (const processor of processors) texts.push(processor.role, processor.country, processor.receives);
+    for (const processor of processors)
+      texts.push(processor.role, processor.country, processor.receives);
     for (const record of cookieRecords) texts.push(record.purpose, record.expires);
     for (const entry of browserStorage) texts.push(entry.purpose);
     for (const right of dataRights) texts.push(right.name, right.description);

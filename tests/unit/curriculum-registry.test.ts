@@ -130,7 +130,10 @@ describe("disclosures", () => {
           {
             id: "scoped-to-99",
             summary: "fixture: scoped to a cohort that never asks",
-            disclosure: { en: "scoped disclosure text long enough", th: "ข้อความเปิดเผยเฉพาะกลุ่ม" },
+            disclosure: {
+              en: "scoped disclosure text long enough",
+              th: "ข้อความเปิดเผยเฉพาะกลุ่ม",
+            },
             cohorts: ["99"],
           },
           {

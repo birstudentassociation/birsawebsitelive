@@ -84,7 +84,7 @@ export default async function OnboardingTrackPage({
           <p className="mt-2">
             <Link
               href={localeHref(locale, "/privacy")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.track.privacyLinkLabel}
             </Link>
@@ -93,7 +93,7 @@ export default async function OnboardingTrackPage({
 
         <Link
           href={localeHref(locale, "/student-life/getting-started")}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.track.backToChooser}
         </Link>

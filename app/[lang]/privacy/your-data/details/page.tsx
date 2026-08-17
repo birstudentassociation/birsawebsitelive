@@ -18,7 +18,8 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" : "Ask about your data";
+  const title =
+    locale === "th" ? "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" : "Ask about your data";
   return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/details" });
 }
 
@@ -38,10 +39,14 @@ export default async function RightsDetailsPage({
   const { returnTo } = await searchParams;
 
   const draft = await getRightsDraft();
-  const backHref = localeHref(locale, returnTo === "check" ? "/privacy/your-data/check" : "/privacy/your-data/email");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, RIGHTS_STEPS.indexOf("details") + 1, RIGHTS_STEPS.length);
+  const backHref = localeHref(
+    locale,
+    returnTo === "check" ? "/privacy/your-data/check" : "/privacy/your-data/email"
+  );
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, RIGHTS_STEPS.indexOf("details") + 1, RIGHTS_STEPS.length);
 
   return (
     <>

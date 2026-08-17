@@ -106,7 +106,7 @@ const copy: Record<
 
 function AvailableIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-success h-4 w-4 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-success">
       <path
         d="M4 10.5 8 14l8-8"
         fill="none"
@@ -121,7 +121,7 @@ function AvailableIcon() {
 
 function UnavailableIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-error h-4 w-4 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-error">
       <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={2} />
       <path d="m7 7 6 6M13 7l-6 6" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
     </svg>
@@ -199,7 +199,7 @@ export default async function EquipmentLoanDirectoryPage({
                 <>
                   <a
                     href={localeHref(locale, "/contact")}
-                    className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                    className="font-semibold text-brand-deep underline hover:text-brand-dark"
                   >
                     {t.contactLink}
                   </a>
@@ -210,7 +210,7 @@ export default async function EquipmentLoanDirectoryPage({
           </Notice>
           <a
             href={localeHref(locale, "/services/equipment-loan")}
-            className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+            className="w-fit text-sm font-semibold text-brand-deep hover:underline"
           >
             &larr; {t.backCta}
           </a>
@@ -225,35 +225,35 @@ export default async function EquipmentLoanDirectoryPage({
     return (
       <div className="flex flex-col gap-2 text-sm">
         {club.borrowNote[locale] ? (
-          <p className="text-muted leading-relaxed">{club.borrowNote[locale]}</p>
+          <p className="leading-relaxed text-muted">{club.borrowNote[locale]}</p>
         ) : null}
         {hasContact ? (
           <dl className="flex flex-col gap-1">
             {club.contactName[locale] ? (
               <div className="flex flex-wrap items-baseline gap-1">
-                <dt className="text-ink font-semibold">{t.contactHeading}:</dt>
+                <dt className="font-semibold text-ink">{t.contactHeading}:</dt>
                 <dd className="text-muted">{club.contactName[locale]}</dd>
               </div>
             ) : null}
             {club.contactEmail ? (
               <div className="flex flex-wrap items-baseline gap-1">
-                <dt className="text-ink font-semibold">Email:</dt>
+                <dt className="font-semibold text-ink">Email:</dt>
                 <dd>
                   <Email
                     address={club.contactEmail}
-                    className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                    className="font-semibold text-brand-deep underline hover:text-brand-dark"
                   />
                 </dd>
               </div>
             ) : null}
             {club.contactInstagram ? (
               <div className="flex flex-wrap items-baseline gap-1">
-                <dt className="text-ink font-semibold">{t.instagramLabel}:</dt>
+                <dt className="font-semibold text-ink">{t.instagramLabel}:</dt>
                 <dd>
                   <ExternalLink
                     href={instagramHref(club.contactInstagram)}
                     newTabLabel={dict.a11y.newTab}
-                    className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                    className="font-semibold text-brand-deep underline hover:text-brand-dark"
                   >
                     {club.contactInstagram}
                   </ExternalLink>
@@ -262,7 +262,7 @@ export default async function EquipmentLoanDirectoryPage({
             ) : null}
             {club.contactOther ? (
               <div className="flex flex-wrap items-baseline gap-1">
-                <dt className="text-ink font-semibold">{t.contactHeading}:</dt>
+                <dt className="font-semibold text-ink">{t.contactHeading}:</dt>
                 <dd className="text-muted">{club.contactOther}</dd>
               </div>
             ) : null}
@@ -276,8 +276,8 @@ export default async function EquipmentLoanDirectoryPage({
     <>
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-10 py-10">
-        <nav aria-label={t.jumpNavLabel} className="border-line bg-sunken rounded-lg border p-6">
-          <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+        <nav aria-label={t.jumpNavLabel} className="rounded-lg border border-line bg-sunken p-6">
+          <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
             {t.jumpNavLabel}
           </p>
           <ul className="flex flex-wrap gap-2">
@@ -285,7 +285,7 @@ export default async function EquipmentLoanDirectoryPage({
               <li key={club.id}>
                 <a
                   href={`#${club.slug}`}
-                  className="border-line bg-surface text-ink hover:bg-cream inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold transition-colors"
+                  className="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:bg-cream"
                 >
                   {club.name[locale]}
                 </a>
@@ -307,7 +307,7 @@ export default async function EquipmentLoanDirectoryPage({
                 key={club.id}
                 id={club.slug}
                 aria-labelledby={`${club.slug}-heading`}
-                className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-6 sm:p-8"
+                className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-6 sm:p-8"
               >
                 <h2 id={`${club.slug}-heading`} className="font-display text-2xl">
                   {club.name[locale]}
@@ -315,7 +315,7 @@ export default async function EquipmentLoanDirectoryPage({
 
                 {items.length > 0 ? (
                   <div>
-                    <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+                    <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
                       {t.itemsHeading}
                     </p>
                     <ul className="flex flex-col gap-3">
@@ -324,10 +324,10 @@ export default async function EquipmentLoanDirectoryPage({
                         return (
                           <li
                             key={item.id}
-                            className="border-line border-t pt-3 first:border-t-0 first:pt-0"
+                            className="border-t border-line pt-3 first:border-t-0 first:pt-0"
                           >
                             <div className="flex flex-wrap items-baseline justify-between gap-2">
-                              <span className="text-ink font-semibold">{item.name[locale]}</span>
+                              <span className="font-semibold text-ink">{item.name[locale]}</span>
                               <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
                                 {isAvailable ? <AvailableIcon /> : <UnavailableIcon />}
                                 <span className={isAvailable ? "text-success" : "text-error"}>
@@ -336,7 +336,7 @@ export default async function EquipmentLoanDirectoryPage({
                               </span>
                             </div>
                             {item.description[locale] ? (
-                              <p className="text-muted mt-1 text-sm leading-relaxed">
+                              <p className="mt-1 text-sm leading-relaxed text-muted">
                                 {item.description[locale]}
                               </p>
                             ) : null}
@@ -346,7 +346,7 @@ export default async function EquipmentLoanDirectoryPage({
                     </ul>
                   </div>
                 ) : (
-                  <p className="text-muted text-sm">{t.noItemsLine}</p>
+                  <p className="text-sm text-muted">{t.noItemsLine}</p>
                 )}
 
                 {contact}
@@ -354,7 +354,7 @@ export default async function EquipmentLoanDirectoryPage({
                 {linkedClub ? (
                   <a
                     href={localeHref(locale, `/clubs/${linkedClub.slug}`)}
-                    className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+                    className="w-fit text-sm font-semibold text-brand-deep hover:underline"
                   >
                     {t.clubPageCta} &rarr;
                   </a>
@@ -366,7 +366,7 @@ export default async function EquipmentLoanDirectoryPage({
 
         <a
           href={localeHref(locale, "/services/equipment-loan")}
-          className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+          className="w-fit text-sm font-semibold text-brand-deep hover:underline"
         >
           &larr; {t.backCta}
         </a>

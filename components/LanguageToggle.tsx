@@ -42,7 +42,7 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
         const oneYear = 60 * 60 * 24 * 365;
         document.cookie = `NEXT_LOCALE=${target}; path=/; max-age=${oneYear}; SameSite=Lax`;
       }}
-      className="focus-halo border-line-strong text-ink hover:bg-sunken inline-flex h-11 items-center gap-1.5 rounded-full border px-3 text-sm font-semibold sm:px-3.5"
+      className="focus-halo inline-flex h-11 items-center gap-1.5 rounded-full border border-line-strong px-3 text-sm font-semibold text-ink hover:bg-sunken sm:px-3.5"
     >
       <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
         <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.5} />

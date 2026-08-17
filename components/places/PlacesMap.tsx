@@ -158,7 +158,7 @@ export default function PlacesMap({
     // left to scroll — the map frame inside is `w-full` and always fits the
     // content column — so this no longer needs `overflow-x-auto` or the
     // `tabIndex` that made a scroll region keyboard-reachable.
-    <div role="group" {...groupProps} className="border-line overflow-hidden rounded-lg border">
+    <div role="group" {...groupProps} className="overflow-hidden rounded-lg border border-line">
       <div
         // `container-type: inline-size` turns this frame into the `@container`
         // context the markers below query against, so they can read their own
@@ -304,7 +304,7 @@ export default function PlacesMap({
           which its ~19px `text-[11px]` line box would otherwise miss.
           OpenStreetMap's licence only asks that the credit be visible, not
           that it sit on top of the tiles. */}
-      <div className="text-muted border-line flex justify-end border-t px-2 py-0.5 text-[11px]">
+      <div className="flex justify-end border-t border-line px-2 py-0.5 text-[11px] text-muted">
         <ExternalLink
           href="https://www.openstreetmap.org/copyright"
           newTabLabel={t.newTab}

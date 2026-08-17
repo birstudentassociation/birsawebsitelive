@@ -172,7 +172,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p role="status" className="text-muted text-sm">
+        <p role="status" className="text-sm text-muted">
           {statusText}
         </p>
         {hasFilters ? (
@@ -183,8 +183,8 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
       </div>
 
       {filtered.length === 0 ? (
-        <div className="border-line bg-sunken rounded-lg border p-6">
-          <p className="text-ink text-sm">{dict.noResults}</p>
+        <div className="rounded-lg border border-line bg-sunken p-6">
+          <p className="text-sm text-ink">{dict.noResults}</p>
         </div>
       ) : (
         <>
@@ -207,7 +207,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
               >
                 {dict.previous}
               </Button>
-              <span aria-hidden="true" className="text-muted text-sm">
+              <span aria-hidden="true" className="text-sm text-muted">
                 {fillTemplate(dict.pageOf, { current: currentPage, total: totalPages })}
               </span>
               <Button
@@ -241,7 +241,7 @@ function CourseCard({
   return (
     <Card href={href}>
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-ink font-mono text-sm font-semibold">{course.code}</span>
+        <span className="font-mono text-sm font-semibold text-ink">{course.code}</span>
         <Tag variant="brand">{dict.tracks[course.track]}</Tag>
         <Tag variant="forest">{dict.categories[course.category]}</Tag>
         {course.review ? (
@@ -252,26 +252,26 @@ function CourseCard({
       </div>
       <div>
         <CardTitle href={href}>{course.title[locale]}</CardTitle>
-        <p className="text-muted text-sm">{course.title[otherLocale]}</p>
+        <p className="text-sm text-muted">{course.title[otherLocale]}</p>
       </div>
       <div className="flex flex-wrap gap-2 text-xs">
-        <span className="bg-sunken text-ink rounded-full px-2.5 py-1 font-medium">
+        <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">
           {course.credits.total} {dict.credits} ({course.credits.lecture}-{course.credits.lab}-
           {course.credits.selfStudy})
         </span>
-        <span className="bg-sunken text-ink rounded-full px-2.5 py-1 font-medium">
+        <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">
           {formatYearLevel(course.yearLevel, dict.yearLabel)}
         </span>
       </div>
       {course.prerequisite ? (
-        <p className="text-muted text-sm">
-          <span className="text-ink font-semibold">{dict.prerequisite}: </span>
+        <p className="text-sm text-muted">
+          <span className="font-semibold text-ink">{dict.prerequisite}: </span>
           {course.prerequisite[locale]}
         </p>
       ) : null}
       {course.instructors && course.instructors.length > 0 ? (
-        <p className="text-muted text-sm">
-          <span className="text-ink font-semibold">{dict.instructor}: </span>
+        <p className="text-sm text-muted">
+          <span className="font-semibold text-ink">{dict.instructor}: </span>
           {course.instructors.map((instructor) => instructor.name[locale]).join(", ")}
         </p>
       ) : null}

@@ -103,15 +103,15 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
         <img
           src={currentUrl}
           alt={labels.photoAlt}
-          className="border-line max-h-48 w-auto rounded-lg border object-contain"
+          className="max-h-48 w-auto rounded-lg border border-line object-contain"
         />
       ) : null}
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor={inputId} className="text-ink text-sm font-semibold">
+        <label htmlFor={inputId} className="text-sm font-semibold text-ink">
           {labels.upload}
         </label>
-        <p className="text-muted text-sm">{labels.hint}</p>
+        <p className="text-sm text-muted">{labels.hint}</p>
         <input
           ref={inputRef}
           id={inputId}
@@ -119,7 +119,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
           onChange={handleFileChange}
-          className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+          className="focus-halo w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
         />
       </div>
 
@@ -152,8 +152,8 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
           role={message.kind === "success" ? "status" : "alert"}
           className={
             message.kind === "success"
-              ? "text-success text-sm font-medium"
-              : "text-error text-sm font-medium"
+              ? "text-sm font-medium text-success"
+              : "text-sm font-medium text-error"
           }
         >
           {message.text}

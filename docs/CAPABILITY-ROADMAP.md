@@ -20,18 +20,18 @@ Twenty-one people in two tiers.
 
 ### Officers
 
-| Role                                       | Scope recorded in `roleInfo.ts`                                  |
-| ------------------------------------------ | ---------------------------------------------------------------- |
-| President                                  | Leads BIRSA; represents BIR students to faculty, university, and outside partners |
-| Vice President and Public Relations Commissioner | Deputises for the President; owns communications and social media |
-| Secretary 1                                | Official records, committee minutes, documentation               |
-| Secretary 2                                | Shares the secretarial duties                                    |
-| Treasurer                                  | Finances and budget: income, expenses, funds raised for events   |
-| Spokesperson                               | BIRSA's official voice; public statements and committee positions |
-| Academic Affairs Officer                   | Academic liaison with the faculty; surfaces academic concerns    |
-| General Coordinator                        | Internal affairs and Rangsit campus matters; day-to-day running  |
-| Sport Coordinator                          | Sports activities, inter-faculty and inter-university competition |
-| Rights Advocate and Student Welfare Officer | Rights and welfare concerns; advocacy and resolution             |
+| Role                                             | Scope recorded in `roleInfo.ts`                                                   |
+| ------------------------------------------------ | --------------------------------------------------------------------------------- |
+| President                                        | Leads BIRSA; represents BIR students to faculty, university, and outside partners |
+| Vice President and Public Relations Commissioner | Deputises for the President; owns communications and social media                 |
+| Secretary 1                                      | Official records, committee minutes, documentation                                |
+| Secretary 2                                      | Shares the secretarial duties                                                     |
+| Treasurer                                        | Finances and budget: income, expenses, funds raised for events                    |
+| Spokesperson                                     | BIRSA's official voice; public statements and committee positions                 |
+| Academic Affairs Officer                         | Academic liaison with the faculty; surfaces academic concerns                     |
+| General Coordinator                              | Internal affairs and Rangsit campus matters; day-to-day running                   |
+| Sport Coordinator                                | Sports activities, inter-faculty and inter-university competition                 |
+| Rights Advocate and Student Welfare Officer      | Rights and welfare concerns; advocacy and resolution                              |
 
 ### Assistant officers
 
@@ -74,22 +74,22 @@ has to respect that boundary or it will mislead students about who can fix their
 
 ## 2. What the site does today, and who it serves
 
-| Surface                                    | Portfolio it serves        | How it is changed today       |
-| ------------------------------------------ | -------------------------- | ------------------------------ |
-| News and events (MDX)                      | Public Relations, Spokesperson | Git commit                 |
-| Activity calendar and the `.ics` feed      | Student Activities         | Git commit (`content/calendar/events.ts`) |
-| Committee roster and role descriptions     | Secretariat                | Git commit                     |
-| Regulations library                        | Rights and Welfare, Secretariat | Git commit                |
-| Club directory and "start a club" form     | Student Activities, Sport  | Git commit; form emails out    |
-| Student-life guides, home and international | Welfare, Foreign Students Assistance | Git commit          |
-| Smart Answers                              | Academic Affairs, Welfare  | Git commit                     |
-| Course review catalogue                    | Academic Affairs           | Git commit. Students are invited to submit a review "via /contact", which means an email that someone then hand-copies into a TypeScript file |
-| Study plan tool                            | Academic Affairs           | Client-side only; collects nothing |
-| Equipment loan and the CBEMS console       | Whoever holds the equipment | **Self-service console**      |
-| Satisfaction feedback and its console page | Whole committee            | **Self-service console**       |
-| Emergency mode                             | President, Spokesperson    | Vercel Edge Config dashboard   |
-| Contact, start-a-club, PDPA rights forms   | Everyone                   | Email out via Resend. No state, no reference number, no record that anyone replied |
-| Transparency page                          | Treasurer, Secretaries     | **Placeholder. Budget, minutes, election results, and bylaws are all empty** |
+| Surface                                     | Portfolio it serves                  | How it is changed today                                                                                                                       |
+| ------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| News and events (MDX)                       | Public Relations, Spokesperson       | Git commit                                                                                                                                    |
+| Activity calendar and the `.ics` feed       | Student Activities                   | Git commit (`content/calendar/events.ts`)                                                                                                     |
+| Committee roster and role descriptions      | Secretariat                          | Git commit                                                                                                                                    |
+| Regulations library                         | Rights and Welfare, Secretariat      | Git commit                                                                                                                                    |
+| Club directory and "start a club" form      | Student Activities, Sport            | Git commit; form emails out                                                                                                                   |
+| Student-life guides, home and international | Welfare, Foreign Students Assistance | Git commit                                                                                                                                    |
+| Smart Answers                               | Academic Affairs, Welfare            | Git commit                                                                                                                                    |
+| Course review catalogue                     | Academic Affairs                     | Git commit. Students are invited to submit a review "via /contact", which means an email that someone then hand-copies into a TypeScript file |
+| Study plan tool                             | Academic Affairs                     | Client-side only; collects nothing                                                                                                            |
+| Equipment loan and the CBEMS console        | Whoever holds the equipment          | **Self-service console**                                                                                                                      |
+| Satisfaction feedback and its console page  | Whole committee                      | **Self-service console**                                                                                                                      |
+| Emergency mode                              | President, Spokesperson              | Vercel Edge Config dashboard                                                                                                                  |
+| Contact, start-a-club, PDPA rights forms    | Everyone                             | Email out via Resend. No state, no reference number, no record that anyone replied                                                            |
+| Transparency page                           | Treasurer, Secretaries               | **Placeholder. Budget, minutes, election results, and bylaws are all empty**                                                                  |
 
 The pattern is stark. BIRSA has ten portfolios. The portal has industrialised exactly one
 workflow end to end, the equipment loan, and it is the workflow that belongs to no named
@@ -272,12 +272,12 @@ Almost every proposal above fails for the same reason if it is built the obvious
 is to stop treating "changing the site" as one activity. There are four, and they need
 different mechanisms and different people.
 
-| Kind              | Example                                              | Who should be able to do it     | Today                |
-| ----------------- | ---------------------------------------------------- | ------------------------------- | -------------------- |
-| **Content**       | A news post, an event date, a committee photo        | The portfolio that owns it      | Git commit (IT)      |
+| Kind              | Example                                              | Who should be able to do it       | Today                               |
+| ----------------- | ---------------------------------------------------- | --------------------------------- | ----------------------------------- |
+| **Content**       | A news post, an event date, a committee photo        | The portfolio that owns it        | Git commit (IT)                     |
 | **Configuration** | Emergency mode, contact routing, a feature on or off | An authorised officer, at runtime | Git commit or Vercel dashboard (IT) |
-| **Operations**    | A loan decision, a welfare case, a sign-up           | The officer on duty             | Console (correct already) |
-| **Code**          | A new feature, a schema change                       | IT and their successors         | Git commit (correct already) |
+| **Operations**    | A loan decision, a welfare case, a sign-up           | The officer on duty               | Console (correct already)           |
+| **Code**          | A new feature, a schema change                       | IT and their successors           | Git commit (correct already)        |
 
 Buckets one and two are currently stuck in bucket four. That is the whole defect, and it is
 also the whole fix.

@@ -209,7 +209,7 @@ const content: Record<Locale, Labels> = {
     basisBody2:
       "ข้อนี้มีนัยสำคัญในทางปฏิบัติ เนื่องจากบุคคลย่อมบรรลุนิติภาวะเมื่อมีอายุยี่สิบปีบริบูรณ์ตามกฎหมายไทย นักศึกษาชั้นปีที่หนึ่งส่วนใหญ่จึงยังเป็นผู้เยาว์ และโดยหลักแล้วการขอความยินยอมจากผู้เยาว์ต้องได้รับความยินยอมจากผู้ใช้อำนาจปกครองด้วย ตามมาตรา 20 แห่งพระราชบัญญัติดังกล่าว เมื่อ BIRSA มิได้อาศัยความยินยอมเป็นฐานในการประมวลผล กรณีจึงไม่ตกอยู่ภายใต้บังคับของบทบัญญัติดังกล่าว อนึ่ง การยืมอุปกรณ์ของชมรมเป็นการอันผู้เยาว์อาจกระทำได้โดยลำพัง เนื่องจากเป็นการสมแก่ฐานานุรูปและจำเป็นในการดำรงชีพตามสมควร ตามมาตรา 24 แห่งประมวลกฎหมายแพ่งและพาณิชย์",
     basisBody3:
-      "ในกรณีที่ BIRSA เพิ่มบริการซึ่งเป็นทางเลือกโดยแท้ และมิได้มีความจำเป็นต่อการให้บริการตามที่ท่านร้องขอ BIRSA จะขอความยินยอมจากท่านแยกต่างหากโดยชัดแจ้ง ด้วยข้อความที่เข้าถึงได้ง่ายและเข้าใจได้ และท่านมีอิสระที่จะปฏิเสธ ทั้งนี้ โปรดดูหัวข้อ \"สิทธิขอถอนความยินยอม\" ในรายการสิทธิด้านล่าง",
+      'ในกรณีที่ BIRSA เพิ่มบริการซึ่งเป็นทางเลือกโดยแท้ และมิได้มีความจำเป็นต่อการให้บริการตามที่ท่านร้องขอ BIRSA จะขอความยินยอมจากท่านแยกต่างหากโดยชัดแจ้ง ด้วยข้อความที่เข้าถึงได้ง่ายและเข้าใจได้ และท่านมีอิสระที่จะปฏิเสธ ทั้งนี้ โปรดดูหัวข้อ "สิทธิขอถอนความยินยอม" ในรายการสิทธิด้านล่าง',
 
     activitiesTitle: "ข้อมูลส่วนบุคคลที่เก็บรวบรวมและวัตถุประสงค์",
     activitiesIntro:
@@ -319,28 +319,32 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.controllerTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.controllerBody}</p>
-          <p className="text-muted leading-relaxed">
+          <p className="leading-relaxed text-muted">{t.controllerBody}</p>
+          <p className="leading-relaxed text-muted">
             {t.controllerAddressLabel} {contact.address[locale]}
           </p>
-          <p className="text-muted leading-relaxed">
-            {t.controllerEmailLabel} <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
+          <p className="leading-relaxed text-muted">
+            {t.controllerEmailLabel}{" "}
+            <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
             {locale === "th" ? " หรือ " : " or "}
-            <Email address={contact.secondaryEmail} className="text-brand-deep hover:text-brand-dark" />
+            <Email
+              address={contact.secondaryEmail}
+              className="text-brand-deep hover:text-brand-dark"
+            />
           </p>
         </section>
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl">{t.basisTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.basisBody1}</p>
-          <p className="text-muted leading-relaxed">{t.basisBody2}</p>
-          <p className="text-muted leading-relaxed">{t.basisBody3}</p>
+          <p className="leading-relaxed text-muted">{t.basisBody1}</p>
+          <p className="leading-relaxed text-muted">{t.basisBody2}</p>
+          <p className="leading-relaxed text-muted">{t.basisBody3}</p>
         </section>
 
         <section className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.activitiesTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.activitiesIntro}</p>
+            <p className="leading-relaxed text-muted">{t.activitiesIntro}</p>
           </div>
           <ul className="flex flex-col gap-6">
             {activities.map((activity) => {
@@ -349,24 +353,24 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
                 .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
               return (
-                <li key={activity.id} className="border-line rounded-md border p-5">
+                <li key={activity.id} className="rounded-md border border-line p-5">
                   <h3 className="font-display text-lg">{activity.name[locale]}</h3>
 
                   <dl className="mt-3 flex flex-col gap-3">
                     <div>
-                      <dt className="text-ink font-semibold">{t.purposeLabel}</dt>
-                      <dd className="text-muted leading-relaxed">{activity.purpose[locale]}</dd>
+                      <dt className="font-semibold text-ink">{t.purposeLabel}</dt>
+                      <dd className="leading-relaxed text-muted">{activity.purpose[locale]}</dd>
                     </div>
 
                     <div>
-                      <dt className="text-ink font-semibold">{t.ifYouDoNotLabel}</dt>
-                      <dd className="text-muted leading-relaxed">{activity.ifYouDoNot[locale]}</dd>
+                      <dt className="font-semibold text-ink">{t.ifYouDoNotLabel}</dt>
+                      <dd className="leading-relaxed text-muted">{activity.ifYouDoNot[locale]}</dd>
                     </div>
 
                     <div>
-                      <dt className="text-ink font-semibold">{t.collectsLabel}</dt>
+                      <dt className="font-semibold text-ink">{t.collectsLabel}</dt>
                       <dd>
-                        <ul className="text-muted flex list-disc flex-col gap-1 pl-5 leading-relaxed">
+                        <ul className="flex list-disc flex-col gap-1 pl-5 leading-relaxed text-muted">
                           {activity.collects.map((item) => (
                             <li key={item[locale]}>{item[locale]}</li>
                           ))}
@@ -375,8 +379,8 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
                     </div>
 
                     <div>
-                      <dt className="text-ink font-semibold">{t.recipientsLabel}</dt>
-                      <dd className="text-muted leading-relaxed">
+                      <dt className="font-semibold text-ink">{t.recipientsLabel}</dt>
+                      <dd className="leading-relaxed text-muted">
                         {recipients.length === 0
                           ? t.noRecipients
                           : recipients
@@ -386,18 +390,18 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
                     </div>
 
                     <div>
-                      <dt className="text-ink font-semibold">{t.retentionLabel}</dt>
-                      <dd className="text-muted leading-relaxed">
+                      <dt className="font-semibold text-ink">{t.retentionLabel}</dt>
+                      <dd className="leading-relaxed text-muted">
                         {retentionSentence(t, activity)}
                         {activity.retentionNote ? ` ${activity.retentionNote[locale]}` : ""}
                       </dd>
                     </div>
 
                     <div>
-                      <dt className="text-ink font-semibold">
+                      <dt className="font-semibold text-ink">
                         {t.legalBasisPrefix} {activity.basis.section}
                       </dt>
-                      <dd className="text-muted leading-relaxed">
+                      <dd className="leading-relaxed text-muted">
                         {t.legalBasisOfAct} {activity.basis.label[locale]}
                       </dd>
                     </div>
@@ -410,49 +414,49 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.retentionTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.retentionBody1}</p>
-          <p className="text-muted leading-relaxed">{t.retentionBody2}</p>
+          <p className="leading-relaxed text-muted">{t.retentionBody1}</p>
+          <p className="leading-relaxed text-muted">{t.retentionBody2}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.transferTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.transferBody1}</p>
-          <p className="text-muted leading-relaxed">{t.transferBody2}</p>
+          <p className="leading-relaxed text-muted">{t.transferBody1}</p>
+          <p className="leading-relaxed text-muted">{t.transferBody2}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.automatedTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.automatedBody}</p>
+          <p className="leading-relaxed text-muted">{t.automatedBody}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.noAdsTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.noAdsBody}</p>
+          <p className="leading-relaxed text-muted">{t.noAdsBody}</p>
         </section>
 
         <section id="your-rights" className="flex scroll-mt-24 flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.rightsTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.rightsIntro}</p>
+            <p className="leading-relaxed text-muted">{t.rightsIntro}</p>
           </div>
           <dl className="flex flex-col gap-3">
             {dataRights.map((right) => (
               <div key={right.id}>
-                <dt className="text-ink font-semibold">
+                <dt className="font-semibold text-ink">
                   {right.name[locale]}{" "}
-                  <span className="text-muted font-normal">
+                  <span className="font-normal text-muted">
                     ({t.rightsSectionLabel} {right.section})
                   </span>
                 </dt>
-                <dd className="text-muted leading-relaxed">{right.description[locale]}</dd>
+                <dd className="leading-relaxed text-muted">{right.description[locale]}</dd>
               </div>
             ))}
           </dl>
-          <p className="text-muted leading-relaxed">{t.rightsResponseNote}</p>
+          <p className="leading-relaxed text-muted">{t.rightsResponseNote}</p>
           <p>
             <Link
               href={localeHref(locale, "/privacy/your-data")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.rightsCta}
             </Link>
@@ -462,35 +466,35 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.linksTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.linksIntro}</p>
+            <p className="leading-relaxed text-muted">{t.linksIntro}</p>
           </div>
           <ul className="grid gap-4 sm:grid-cols-3">
-            <li className="border-line rounded-md border p-4">
-              <h3 className="text-ink font-semibold">{t.cookiesLinkTitle}</h3>
-              <p className="text-muted mt-1 text-sm leading-relaxed">{t.cookiesLinkBody}</p>
+            <li className="rounded-md border border-line p-4">
+              <h3 className="font-semibold text-ink">{t.cookiesLinkTitle}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{t.cookiesLinkBody}</p>
               <Link
                 href={localeHref(locale, "/privacy/cookies")}
-                className="text-brand-deep hover:text-brand-dark mt-2 inline-block text-sm font-semibold underline"
+                className="mt-2 inline-block text-sm font-semibold text-brand-deep underline hover:text-brand-dark"
               >
                 {t.cookiesLinkCta}
               </Link>
             </li>
-            <li className="border-line rounded-md border p-4">
-              <h3 className="text-ink font-semibold">{t.recordLinkTitle}</h3>
-              <p className="text-muted mt-1 text-sm leading-relaxed">{t.recordLinkBody}</p>
+            <li className="rounded-md border border-line p-4">
+              <h3 className="font-semibold text-ink">{t.recordLinkTitle}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{t.recordLinkBody}</p>
               <Link
                 href={localeHref(locale, "/privacy/processing-record")}
-                className="text-brand-deep hover:text-brand-dark mt-2 inline-block text-sm font-semibold underline"
+                className="mt-2 inline-block text-sm font-semibold text-brand-deep underline hover:text-brand-dark"
               >
                 {t.recordLinkCta}
               </Link>
             </li>
-            <li className="border-line rounded-md border p-4">
-              <h3 className="text-ink font-semibold">{t.yourDataLinkTitle}</h3>
-              <p className="text-muted mt-1 text-sm leading-relaxed">{t.yourDataLinkBody}</p>
+            <li className="rounded-md border border-line p-4">
+              <h3 className="font-semibold text-ink">{t.yourDataLinkTitle}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{t.yourDataLinkBody}</p>
               <Link
                 href={localeHref(locale, "/privacy/your-data")}
-                className="text-brand-deep hover:text-brand-dark mt-2 inline-block text-sm font-semibold underline"
+                className="mt-2 inline-block text-sm font-semibold text-brand-deep underline hover:text-brand-dark"
               >
                 {t.yourDataLinkCta}
               </Link>
@@ -499,11 +503,11 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
         </section>
 
         <section className="flex flex-col gap-2">
-          <p className="text-muted leading-relaxed">
+          <p className="leading-relaxed text-muted">
             {t.contactIntro}{" "}
             <Link
               href={localeHref(locale, "/contact")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.contactCta}
             </Link>

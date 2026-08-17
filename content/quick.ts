@@ -130,7 +130,10 @@ export const quickGroups: QuickGroup[] = [
         href: "/answers",
         icon: "help",
         en: { label: "Get an answer", hint: "Guided answers on rules, study and student life" },
-        th: { label: "ค้นหาคำตอบ", hint: "คำตอบแบบนำทาง เรื่องกฎระเบียบ การเรียน และชีวิตนักศึกษา" },
+        th: {
+          label: "ค้นหาคำตอบ",
+          hint: "คำตอบแบบนำทาง เรื่องกฎระเบียบ การเรียน และชีวิตนักศึกษา",
+        },
       },
       {
         key: "give-feedback",

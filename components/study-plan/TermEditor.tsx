@@ -196,9 +196,9 @@ function AddCourseButton({ course, copy }: { course: TermEditorCourse; copy: Ter
       type="submit"
       name="code"
       value={course.code}
-      className="focus-halo border-line bg-surface text-ink hover:border-brand-deep hover:bg-brand-tint flex items-start gap-2 rounded-md border px-3 py-2 text-left text-sm transition-colors"
+      className="focus-halo flex items-start gap-2 rounded-md border border-line bg-surface px-3 py-2 text-left text-sm text-ink transition-colors hover:border-brand-deep hover:bg-brand-tint"
     >
-      <span aria-hidden="true" className="text-brand-deep font-semibold">
+      <span aria-hidden="true" className="font-semibold text-brand-deep">
         +
       </span>
       <span className="min-w-0">
@@ -289,12 +289,12 @@ export default function TermEditor({
     <details
       id={`term-${termKey(term)}`}
       open={defaultOpen}
-      className="border-line group rounded-lg border"
+      className="group rounded-lg border border-line"
     >
       <summary className="focus-halo flex cursor-pointer list-none items-center justify-between gap-3 rounded-lg p-5 marker:content-none [&::-webkit-details-marker]:hidden">
         <span className="min-w-0">
-          <span className="font-display text-ink text-lg">{termLabel}</span>
-          <span className="text-muted mt-0.5 block text-sm">
+          <span className="font-display text-lg text-ink">{termLabel}</span>
+          <span className="mt-0.5 block text-sm text-muted">
             {placed.length === 0 && freeElectiveCredits === 0
               ? copy.termEmpty
               : `${summaryCodes}${summaryCodes ? " · " : ""}${copy.creditsTemplate.replace("{n}", String(termCredits))}`}
@@ -302,13 +302,13 @@ export default function TermEditor({
         </span>
         <span
           aria-hidden="true"
-          className="text-muted shrink-0 transition-transform group-open:rotate-180"
+          className="shrink-0 text-muted transition-transform group-open:rotate-180"
         >
           &darr;
         </span>
       </summary>
 
-      <div className="border-line flex flex-col gap-4 border-t p-5">
+      <div className="flex flex-col gap-4 border-t border-line p-5">
         {placed.length > 0 ? (
           <form action={removeAction} className="flex flex-col gap-2">
             <input type="hidden" name={PLAN_FIELD} value={plan} />
@@ -318,7 +318,7 @@ export default function TermEditor({
               {placed.map((course) => (
                 <li
                   key={course.code}
-                  className="bg-surface border-line flex items-center justify-between gap-3 rounded-md border p-3 text-sm"
+                  className="flex items-center justify-between gap-3 rounded-md border border-line bg-surface p-3 text-sm"
                 >
                   <span className="text-ink">
                     <span className="font-semibold">{course.code}</span>
@@ -329,7 +329,7 @@ export default function TermEditor({
                     type="submit"
                     name="code"
                     value={course.code}
-                    className="focus-halo text-brand-deep shrink-0 text-sm font-semibold hover:underline"
+                    className="focus-halo shrink-0 text-sm font-semibold text-brand-deep hover:underline"
                   >
                     {copy.removeLabel}
                     <span className="sr-only"> {course.code}</span>
@@ -349,11 +349,11 @@ export default function TermEditor({
           rather than left to render and silently reset to 0.
         */}
         {internshipOnly ? (
-          <p className="text-muted text-sm">{copy.internshipOnlyTerm}</p>
+          <p className="text-sm text-muted">{copy.internshipOnlyTerm}</p>
         ) : (
           <>
             {recommendedTermComplete && recommendedCredits !== null ? (
-              <p className="text-muted text-sm">
+              <p className="text-sm text-muted">
                 {copy.recommendedTermCompleteTemplate.replace("{n}", String(recommendedCredits))}
               </p>
             ) : showPickPanel ? (
@@ -362,7 +362,7 @@ export default function TermEditor({
                 <input type="hidden" name="year" value={term.year} />
                 <input type="hidden" name="kind" value={term.kind} />
 
-                <h4 className="text-ink font-display text-sm font-semibold">{copy.pickHeading}</h4>
+                <h4 className="font-display text-sm font-semibold text-ink">{copy.pickHeading}</h4>
 
                 {/*
                   One block per open choice: the recommended plan's own label
@@ -374,7 +374,7 @@ export default function TermEditor({
                 */}
                 {openSlots.map((slot) => (
                   <div key={slot.id} className="flex flex-col gap-2">
-                    <p className="text-ink text-sm font-semibold">{slot.label}</p>
+                    <p className="text-sm font-semibold text-ink">{slot.label}</p>
                     {slot.candidates.length > 0 ? (
                       <>
                         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -383,7 +383,7 @@ export default function TermEditor({
                           ))}
                         </div>
                         {slot.candidates.length > MAX_CANDIDATE_BUTTONS ? (
-                          <p className="text-muted text-sm">
+                          <p className="text-sm text-muted">
                             {copy.moreCandidatesTemplate.replace(
                               "{n}",
                               String(slot.candidates.length - MAX_CANDIDATE_BUTTONS)
@@ -392,7 +392,7 @@ export default function TermEditor({
                         ) : null}
                       </>
                     ) : (
-                      <p className="text-muted text-sm">{copy.pickSlotAnyCourse}</p>
+                      <p className="text-sm text-muted">{copy.pickSlotAnyCourse}</p>
                     )}
                   </div>
                 ))}
@@ -420,7 +420,7 @@ export default function TermEditor({
                   <ul className="flex flex-col gap-1 text-sm">
                     {owedGroups.map((group) => (
                       <li key={group.id} className="leading-relaxed">
-                        <span className="text-ink font-semibold">{group.label}</span>
+                        <span className="font-semibold text-ink">{group.label}</span>
                         <span className="text-muted">
                           {": "}
                           {copy.pickRemainingTemplate.replace("{n}", String(group.remaining))}
@@ -431,7 +431,7 @@ export default function TermEditor({
                 ) : null}
               </form>
             ) : !recommendedTermComplete ? (
-              <p className="text-muted text-sm">{copy.pickNothingOwed}</p>
+              <p className="text-sm text-muted">{copy.pickNothingOwed}</p>
             ) : null}
 
             {freeElectiveInline ? freeElectiveForm : null}
@@ -445,7 +445,7 @@ export default function TermEditor({
               before, in the same native controls.
             */}
             <details className="text-sm">
-              <summary className="focus-halo text-brand-deep cursor-pointer font-semibold">
+              <summary className="focus-halo cursor-pointer font-semibold text-brand-deep">
                 {copy.moreOptionsLabel}
               </summary>
               <div className="mt-4 flex flex-col gap-4">
@@ -455,14 +455,14 @@ export default function TermEditor({
                     <input type="hidden" name="year" value={term.year} />
                     <input type="hidden" name="kind" value={term.kind} />
                     <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                      <label htmlFor={addFieldId} className="text-ink text-sm font-semibold">
+                      <label htmlFor={addFieldId} className="text-sm font-semibold text-ink">
                         {copy.addLabel}
                       </label>
                       <select
                         id={addFieldId}
                         name="code"
                         defaultValue=""
-                        className="focus-halo border-input-border bg-surface text-ink w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+                        className="focus-halo w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
                       >
                         <option value="" disabled>
                           {copy.addPrompt}
@@ -485,7 +485,7 @@ export default function TermEditor({
                     </Button>
                   </form>
                 ) : (
-                  <p className="text-muted text-sm">{copy.noCoursesAvailable}</p>
+                  <p className="text-sm text-muted">{copy.noCoursesAvailable}</p>
                 )}
 
                 {freeElectiveInline ? null : freeElectiveForm}

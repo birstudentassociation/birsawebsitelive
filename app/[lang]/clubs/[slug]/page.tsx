@@ -120,35 +120,35 @@ export default async function ClubDetailPage({
           locale={locale}
         />
 
-        <dl className="border-line grid grid-cols-1 gap-6 border-t pt-6 sm:grid-cols-2">
+        <dl className="grid grid-cols-1 gap-6 border-t border-line pt-6 sm:grid-cols-2">
           {frontmatter.meets ? (
             <div>
-              <dt className="text-ink text-sm font-semibold">{t.meets}</dt>
-              <dd className="text-muted mt-1 text-sm">{frontmatter.meets}</dd>
+              <dt className="text-sm font-semibold text-ink">{t.meets}</dt>
+              <dd className="mt-1 text-sm text-muted">{frontmatter.meets}</dd>
             </div>
           ) : null}
           {frontmatter.where ? (
             <div>
-              <dt className="text-ink text-sm font-semibold">{t.where}</dt>
-              <dd className="text-muted mt-1 text-sm">{frontmatter.where}</dd>
+              <dt className="text-sm font-semibold text-ink">{t.where}</dt>
+              <dd className="mt-1 text-sm text-muted">{frontmatter.where}</dd>
             </div>
           ) : null}
           {frontmatter.lead ? (
             <div>
-              <dt className="text-ink text-sm font-semibold">{t.lead}</dt>
-              <dd className="text-muted mt-1 text-sm">{frontmatter.lead}</dd>
+              <dt className="text-sm font-semibold text-ink">{t.lead}</dt>
+              <dd className="mt-1 text-sm text-muted">{frontmatter.lead}</dd>
             </div>
           ) : null}
           {frontmatter.custodian ? (
             <div>
-              <dt className="text-ink text-sm font-semibold">{t.equipment}</dt>
+              <dt className="text-sm font-semibold text-ink">{t.equipment}</dt>
               <dd className="mt-1 text-sm">
                 <Link
                   href={localeHref(
                     locale,
                     `/services/equipment-loan/directory#${frontmatter.custodian}`
                   )}
-                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                  className="font-semibold text-brand-deep underline hover:text-brand-dark"
                 >
                   {t.equipmentCta}
                 </Link>
@@ -157,7 +157,7 @@ export default async function ClubDetailPage({
           ) : null}
           {frontmatter.links && frontmatter.links.length > 0 ? (
             <div>
-              <dt className="text-ink text-sm font-semibold">{t.contact}</dt>
+              <dt className="text-sm font-semibold text-ink">{t.contact}</dt>
               <dd className="mt-1 flex flex-col gap-1 text-sm">
                 {frontmatter.links.map((link) =>
                   link.href.startsWith("mailto:") ? (
@@ -179,7 +179,7 @@ export default async function ClubDetailPage({
 
         <Link
           href={localeHref(locale, "/clubs")}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.back}
         </Link>

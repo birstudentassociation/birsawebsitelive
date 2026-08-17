@@ -39,7 +39,7 @@ export default function DeletePlanButton({
         clearStoredPlan();
       }}
       className={clsx(
-        "focus-halo bg-brand-strong inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-[0.95rem] font-semibold whitespace-nowrap text-white transition-colors duration-150 hover:opacity-85",
+        "focus-halo inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-brand-strong px-5 text-[0.95rem] font-semibold whitespace-nowrap text-white transition-colors duration-150 hover:opacity-85",
         className
       )}
     >

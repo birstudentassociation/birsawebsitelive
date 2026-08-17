@@ -18,14 +18,14 @@ function PortraitPlaceholder() {
   return (
     <div
       aria-hidden="true"
-      className="bg-sunken border-line flex h-24 w-24 shrink-0 items-center justify-center rounded-full border"
+      className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full border border-line bg-sunken"
     >
       <svg
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth={1.5}
-        className="text-muted h-12 w-12"
+        className="h-12 w-12 text-muted"
       >
         <circle cx="12" cy="8" r="3.5" />
         <path d="M4.5 20c1.4-3.8 4.7-6 7.5-6s6.1 2.2 7.5 6" strokeLinecap="round" />
@@ -45,29 +45,29 @@ function MemberCard({
   const portraitSrc = findPortrait(member.key);
 
   return (
-    <li className="bg-surface border-line flex flex-col items-center gap-3 rounded-lg border p-4 text-center shadow-sm">
+    <li className="flex flex-col items-center gap-3 rounded-lg border border-line bg-surface p-4 text-center shadow-sm">
       {portraitSrc ? (
         <Image
           src={portraitSrc}
           alt=""
           width={160}
           height={160}
-          className="border-line h-24 w-24 shrink-0 rounded-full border object-cover"
+          className="h-24 w-24 shrink-0 rounded-full border border-line object-cover"
         />
       ) : (
         <PortraitPlaceholder />
       )}
       <div className="flex flex-col items-center">
-        <p data-roster-line className="text-ink font-semibold whitespace-nowrap">
+        <p data-roster-line className="font-semibold whitespace-nowrap text-ink">
           {t.firstName}
         </p>
-        <p data-roster-line className="text-ink font-semibold whitespace-nowrap">
+        <p data-roster-line className="font-semibold whitespace-nowrap text-ink">
           {t.lastName}
         </p>
-        <p data-roster-line className="text-muted text-sm whitespace-nowrap">
+        <p data-roster-line className="text-sm whitespace-nowrap text-muted">
           ({t.nickname})
         </p>
-        <p className="text-muted mt-1 text-sm">{t.title}</p>
+        <p className="mt-1 text-sm text-muted">{t.title}</p>
       </div>
     </li>
   );

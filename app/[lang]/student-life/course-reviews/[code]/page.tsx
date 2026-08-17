@@ -87,25 +87,25 @@ export default async function CourseDetailPage({
         </div>
 
         <div className="flex flex-wrap gap-2 text-sm">
-          <span className="bg-sunken text-ink rounded-full px-3 py-1.5 font-medium">
+          <span className="rounded-full bg-sunken px-3 py-1.5 font-medium text-ink">
             {course.credits.total} {t.credits} ({course.credits.lecture}-{course.credits.lab}-
             {course.credits.selfStudy})
           </span>
-          <span className="bg-sunken text-ink rounded-full px-3 py-1.5 font-medium">
+          <span className="rounded-full bg-sunken px-3 py-1.5 font-medium text-ink">
             {formatYearLevel(course.yearLevel, t.yearLabel)}
           </span>
         </div>
 
         {course.prerequisite ? (
           <p className="text-sm">
-            <span className="text-ink font-semibold">{t.prerequisite}: </span>
+            <span className="font-semibold text-ink">{t.prerequisite}: </span>
             <span className="text-muted">{course.prerequisite[locale]}</span>
           </p>
         ) : null}
 
         {course.instructors && course.instructors.length > 0 ? (
           <section className="flex flex-col gap-1.5">
-            <h2 className="text-ink text-sm font-semibold">{t.instructorsHeading}</h2>
+            <h2 className="text-sm font-semibold text-ink">{t.instructorsHeading}</h2>
             <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
               {course.instructors.map((instructor, i) => (
                 <li key={instructor.name.en} className="flex items-center gap-2">
@@ -114,12 +114,12 @@ export default async function CourseDetailPage({
                       href={instructor.profileUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-brand-deep hover:text-brand-dark font-medium underline underline-offset-2"
+                      className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
                     >
                       {instructor.name[locale]}
                     </a>
                   ) : (
-                    <span className="text-ink font-medium">{instructor.name[locale]}</span>
+                    <span className="font-medium text-ink">{instructor.name[locale]}</span>
                   )}
                   {i < course.instructors!.length - 1 ? (
                     <span aria-hidden className="text-muted">
@@ -129,13 +129,13 @@ export default async function CourseDetailPage({
                 </li>
               ))}
             </ul>
-            <p className="text-muted text-xs">{t.instructorsNote}</p>
+            <p className="text-xs text-muted">{t.instructorsNote}</p>
           </section>
         ) : null}
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-xl">{t.descriptionHeading}</h2>
-          <p className="text-ink max-w-[var(--measure)] leading-relaxed whitespace-pre-line">
+          <p className="max-w-[var(--measure)] leading-relaxed whitespace-pre-line text-ink">
             {course.description[locale]}
           </p>
         </section>
@@ -158,18 +158,18 @@ export default async function CourseDetailPage({
         {prevCourse || nextCourse ? (
           <nav
             aria-label={t.reviewHeading}
-            className="border-line grid grid-cols-1 gap-4 border-t pt-8 sm:grid-cols-2"
+            className="grid grid-cols-1 gap-4 border-t border-line pt-8 sm:grid-cols-2"
           >
             <div>
               {prevCourse ? (
                 <Link
                   href={localeHref(locale, `/student-life/course-reviews/${prevCourse.code}`)}
-                  className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4"
+                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 hover:border-brand"
                 >
-                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
+                  <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     &larr; {t.previous}
                   </span>
-                  <span className="text-ink font-semibold">
+                  <span className="font-semibold text-ink">
                     {prevCourse.code}: {prevCourse.title[locale]}
                   </span>
                 </Link>
@@ -179,12 +179,12 @@ export default async function CourseDetailPage({
               {nextCourse ? (
                 <Link
                   href={localeHref(locale, `/student-life/course-reviews/${nextCourse.code}`)}
-                  className="border-line bg-surface hover:border-brand flex h-full flex-col gap-1 rounded-lg border p-4 text-right"
+                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 text-right hover:border-brand"
                 >
-                  <span className="text-muted text-xs font-semibold tracking-wide uppercase">
+                  <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     {t.next} &rarr;
                   </span>
-                  <span className="text-ink font-semibold">
+                  <span className="font-semibold text-ink">
                     {nextCourse.code}: {nextCourse.title[locale]}
                   </span>
                 </Link>
@@ -195,7 +195,7 @@ export default async function CourseDetailPage({
 
         <Link
           href={catalogHref}
-          className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.backToCatalog}
         </Link>
@@ -221,11 +221,11 @@ function CourseReview({
         </Notice>
       ) : null}
 
-      <p className="text-muted text-sm">
+      <p className="text-sm text-muted">
         {fillTemplate(t.reviewBasedOn, { count: review.reviewCount })}
       </p>
 
-      <div className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5">
+      <div className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5">
         <RatingBar label={t.ratingOverall} value={review.overallRating} outOf={t.ratingOutOf} />
         <RatingBar label={t.ratingWorkload} value={review.workloadRating} outOf={t.ratingOutOf} />
         <RatingBar
@@ -236,22 +236,22 @@ function CourseReview({
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="text-ink font-semibold">{t.workloadHeading}</h3>
-        <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+        <h3 className="font-semibold text-ink">{t.workloadHeading}</h3>
+        <p className="max-w-[var(--measure)] leading-relaxed text-muted">
           {review.workload[locale]}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="text-ink font-semibold">{t.assessmentHeading}</h3>
-        <p className="text-muted max-w-[var(--measure)] leading-relaxed">
+        <h3 className="font-semibold text-ink">{t.assessmentHeading}</h3>
+        <p className="max-w-[var(--measure)] leading-relaxed text-muted">
           {review.assessmentStyle[locale]}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="text-ink font-semibold">{t.tipsHeading}</h3>
-        <ul className="text-muted flex list-disc flex-col gap-1.5 pl-5 leading-relaxed">
+        <h3 className="font-semibold text-ink">{t.tipsHeading}</h3>
+        <ul className="flex list-disc flex-col gap-1.5 pl-5 leading-relaxed text-muted">
           {review.tips.map((tip, i) => (
             <li key={i}>{tip[locale]}</li>
           ))}
@@ -260,16 +260,16 @@ function CourseReview({
 
       {review.quotes && review.quotes.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <h3 className="text-ink font-semibold">{t.quotesHeading}</h3>
+          <h3 className="font-semibold text-ink">{t.quotesHeading}</h3>
           <ul className="flex flex-col gap-3">
             {review.quotes.map((quote, i) => (
               <li
                 key={i}
-                className="border-brand bg-sunken text-ink rounded-md border-l-4 p-4 text-sm"
+                className="rounded-md border-l-4 border-brand bg-sunken p-4 text-sm text-ink"
               >
                 <p className="italic">&ldquo;{quote.text[locale]}&rdquo;</p>
                 {quote.attribution ? (
-                  <p className="text-muted mt-2 text-xs">&middot; {quote.attribution[locale]}</p>
+                  <p className="mt-2 text-xs text-muted">&middot; {quote.attribution[locale]}</p>
                 ) : null}
               </li>
             ))}

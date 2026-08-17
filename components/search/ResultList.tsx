@@ -28,22 +28,22 @@ export type ResultListProps = {
  */
 export default function ResultList({ results, locale }: ResultListProps) {
   return (
-    <ol className="border-line flex flex-col border-t">
+    <ol className="flex flex-col border-t border-line">
       {results.map((result) => (
-        <li key={result.doc.id} className="border-line border-b py-4">
+        <li key={result.doc.id} className="border-b border-line py-4">
           <div className="flex flex-wrap items-center gap-2">
             <Tag>{sectionLabel(locale, result.doc.section)}</Tag>
             {result.doc.badge ? (
-              <span className="text-muted text-xs font-medium">{result.doc.badge}</span>
+              <span className="text-xs font-medium text-muted">{result.doc.badge}</span>
             ) : null}
           </div>
           <a
             href={result.doc.href}
-            className="text-brand-deep font-display mt-1 block text-lg leading-snug font-semibold hover:underline"
+            className="mt-1 block font-display text-lg leading-snug font-semibold text-brand-deep hover:underline"
           >
             {result.doc.title}
           </a>
-          <p className="text-muted mt-1 text-sm leading-relaxed">
+          <p className="mt-1 text-sm leading-relaxed text-muted">
             {result.snippet ? (
               <Highlight text={result.snippet} terms={result.matched} />
             ) : (
@@ -51,7 +51,7 @@ export default function ResultList({ results, locale }: ResultListProps) {
             )}
           </p>
           {result.doc.date ? (
-            <p className="text-muted mt-1.5 text-xs">
+            <p className="mt-1.5 text-xs text-muted">
               {result.doc.upcoming ? `${eventLabel[locale]} · ` : null}
               {formatDate(locale, result.doc.date)}
             </p>

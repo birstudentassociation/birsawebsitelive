@@ -31,17 +31,17 @@ export default function RelatedClubs({ slugs, locale }: RelatedClubsProps) {
   if (related.length === 0) return null;
 
   return (
-    <ul className="not-prose border-line grid grid-cols-1 gap-3 border-t pt-5 sm:grid-cols-2">
+    <ul className="not-prose grid grid-cols-1 gap-3 border-t border-line pt-5 sm:grid-cols-2">
       {related.map((entry) => (
         <li key={entry.slug}>
           <Link
             href={localeHref(locale, `/clubs/${entry.slug}`)}
-            className="border-line hover:bg-sunken focus-halo block h-full rounded-lg border p-4 transition-colors"
+            className="focus-halo block h-full rounded-lg border border-line p-4 transition-colors hover:bg-sunken"
           >
-            <span className="text-brand-deep block text-sm font-semibold">
+            <span className="block text-sm font-semibold text-brand-deep">
               {entry.frontmatter.title}
             </span>
-            <span className="text-muted mt-1 block text-sm leading-relaxed">
+            <span className="mt-1 block text-sm leading-relaxed text-muted">
               {entry.frontmatter.tagline}
             </span>
           </Link>

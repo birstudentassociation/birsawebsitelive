@@ -77,7 +77,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <section
           aria-labelledby="at-a-glance"
-          className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5"
+          className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5"
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 id="at-a-glance" className="font-display text-xl">
@@ -96,23 +96,23 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
 
           {firstAction ? (
             <div className="flex flex-col gap-1">
-              <p className="text-muted text-sm font-medium">{t.doThisFirst}</p>
-              <p className="text-ink leading-relaxed">{firstAction}</p>
+              <p className="text-sm font-medium text-muted">{t.doThisFirst}</p>
+              <p className="leading-relaxed text-ink">{firstAction}</p>
             </div>
           ) : null}
 
           {keyNumbers.length > 0 ? (
             <div className="flex flex-col gap-2">
-              <p className="text-muted text-sm font-medium">{t.keyNumbers}</p>
+              <p className="text-sm font-medium text-muted">{t.keyNumbers}</p>
               <ul className="flex flex-wrap gap-2">
                 {keyNumbers.map((item) => (
                   <li key={item.label}>
                     <a
                       href={item.href}
-                      className="border-line bg-cream hover:border-brand-deep inline-flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm"
+                      className="inline-flex items-center gap-2 rounded-md border border-line bg-cream px-3 py-1.5 text-sm hover:border-brand-deep"
                     >
                       <span className="text-muted">{item.label}</span>
-                      <span className="text-ink font-semibold">{item.value}</span>
+                      <span className="font-semibold text-ink">{item.value}</span>
                     </a>
                   </li>
                 ))}
@@ -123,7 +123,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl">{t.whatToDo}</h2>
-          <ol className="text-ink flex list-decimal flex-col gap-2 pl-5 leading-relaxed">
+          <ol className="flex list-decimal flex-col gap-2 pl-5 leading-relaxed text-ink">
             {c.immediateActions.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -134,12 +134,12 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           <section key={section.heading} className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{section.heading}</h2>
             {section.body?.map((paragraph) => (
-              <p key={paragraph} className="text-muted leading-relaxed">
+              <p key={paragraph} className="leading-relaxed text-muted">
                 {paragraph}
               </p>
             ))}
             {section.items ? (
-              <ul className="text-muted flex list-disc flex-col gap-2 pl-5 leading-relaxed">
+              <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed text-muted">
                 {section.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
@@ -151,12 +151,12 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl">{t.usefulContacts}</h2>
           {c.extraContacts && c.extraContacts.length > 0 ? (
-            <ul className="text-ink flex flex-col gap-2">
+            <ul className="flex flex-col gap-2 text-ink">
               {c.extraContacts.map((item) => (
                 <li key={item.label} className="flex flex-wrap gap-x-2">
                   <span className="font-medium">{item.label}:</span>
                   {item.href ? (
-                    <a href={item.href} className="hover:text-brand-deep underline">
+                    <a href={item.href} className="underline hover:text-brand-deep">
                       {item.value}
                     </a>
                   ) : (
@@ -168,12 +168,12 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           ) : null}
 
           <h3 className="mt-2 font-medium">{t.birsaContacts}</h3>
-          <ul className="text-muted flex flex-col gap-2 text-sm">
+          <ul className="flex flex-col gap-2 text-sm text-muted">
             <li>
-              <Email address={contact.email} className="hover:text-brand-deep underline" />
+              <Email address={contact.email} className="underline hover:text-brand-deep" />
             </li>
             <li>
-              <Email address={contact.secondaryEmail} className="hover:text-brand-deep underline" />
+              <Email address={contact.secondaryEmail} className="underline hover:text-brand-deep" />
             </li>
             <li>
               {t.phone}: {contact.phone}
@@ -188,7 +188,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
                   <ExternalLink
                     href={social.href}
                     newTabLabel={dict.a11y.newTab}
-                    className="hover:text-brand-deep underline"
+                    className="underline hover:text-brand-deep"
                   >
                     {social.label}
                   </ExternalLink>
@@ -197,7 +197,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           </ul>
         </section>
 
-        <p className="text-muted border-line border-t pt-6 text-sm leading-relaxed">
+        <p className="border-t border-line pt-6 text-sm leading-relaxed text-muted">
           {t.disclaimer}
         </p>
       </div>

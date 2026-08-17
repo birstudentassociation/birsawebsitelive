@@ -158,20 +158,20 @@ function PlaceListItem({
       <PlaceChip label={label} variant={variant} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="text-ink font-semibold">{name}</p>
+          <p className="font-semibold text-ink">{name}</p>
           <Tag variant="neutral">
             {section === "food" ? t.areaTag[place.area] : place.category[locale]}
           </Tag>
         </div>
         {metaNodes.length > 0 ? (
-          <p className="text-muted text-sm">{joinWithSeparator(metaNodes, " · ")}</p>
+          <p className="text-sm text-muted">{joinWithSeparator(metaNodes, " · ")}</p>
         ) : null}
-        {place.note ? <p className="text-muted text-sm">{place.note[locale]}</p> : null}
+        {place.note ? <p className="text-sm text-muted">{place.note[locale]}</p> : null}
         <p className="text-sm">
           <ExternalLink
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapsQuery)}`}
             newTabLabel={locale === "en" ? "opens in a new tab" : "เปิดในแท็บใหม่"}
-            className="text-brand-deep font-medium"
+            className="font-medium text-brand-deep"
           >
             {t.mapsLabel}
           </ExternalLink>
@@ -210,7 +210,7 @@ function FoodSection({ locale }: { locale: Locale }) {
         const headingId = `places-food-map-${area}-label`;
         return (
           <div key={area} className="flex flex-col gap-2">
-            <p id={headingId} className="text-ink text-sm font-semibold">
+            <p id={headingId} className="text-sm font-semibold text-ink">
               {t.areaMapCaption[area]}
             </p>
             <PlacesMap

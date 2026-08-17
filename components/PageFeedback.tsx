@@ -22,13 +22,13 @@ export default function PageFeedback({ locale, prompt, report }: PageFeedbackPro
   const href = `${localeHref(locale, "/contact")}?category=problem&from=${encodeURIComponent(pathname)}`;
 
   return (
-    <section aria-label={prompt} className="border-line border-t">
+    <section aria-label={prompt} className="border-t border-line">
       <div className="wrap py-6">
-        <p className="text-muted text-sm">
+        <p className="text-sm text-muted">
           {prompt}{" "}
           <Link
             href={href}
-            className="text-brand-deep hover:text-brand-dark font-semibold underline"
+            className="font-semibold text-brand-deep underline hover:text-brand-dark"
           >
             {report}
           </Link>

@@ -143,14 +143,14 @@ export function OnboardingProgress({ locale, totalTasks }: OnboardingProgressPro
   const done = Object.values(doneIds).filter(Boolean).length;
 
   return (
-    <div className="border-line bg-sunken flex flex-wrap items-center justify-between gap-4 rounded-lg border p-4">
-      <p role="status" className="text-ink text-sm font-medium">
+    <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line bg-sunken p-4">
+      <p role="status" className="text-sm font-medium text-ink">
         {t.progressLine(done, totalTasks)}
       </p>
       <button
         type="button"
         onClick={reset}
-        className="focus-halo border-line-strong text-ink hover:bg-surface flex h-11 items-center rounded-lg border px-4 text-sm font-semibold"
+        className="focus-halo flex h-11 items-center rounded-lg border border-line-strong px-4 text-sm font-semibold text-ink hover:bg-surface"
       >
         {t.resetLabel}
       </button>
@@ -218,7 +218,7 @@ export default function StepTasksClient({ stepId, locale, audience, tasks }: Ste
         return (
           <li
             key={task.id}
-            className="border-line flex items-start gap-3 border-t py-2 first:border-t-0"
+            className="flex items-start gap-3 border-t border-line py-2 first:border-t-0"
           >
             {mounted ? (
               <label
@@ -232,7 +232,7 @@ export default function StepTasksClient({ stepId, locale, audience, tasks }: Ste
                   checked={isDone}
                   onChange={() => toggle(task.id)}
                   aria-describedby={hintId}
-                  className="focus-halo accent-brand h-5 w-5"
+                  className="focus-halo h-5 w-5 accent-brand"
                 />
               </label>
             ) : // No-JS / pre-mount: no checkbox exists yet, so no space is
@@ -244,7 +244,7 @@ export default function StepTasksClient({ stepId, locale, audience, tasks }: Ste
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 20 20"
-                    className="text-success h-4 w-4 shrink-0"
+                    className="h-4 w-4 shrink-0 text-success"
                   >
                     <path
                       d="M4 10.5 8 14l8-8"
@@ -268,7 +268,7 @@ export default function StepTasksClient({ stepId, locale, audience, tasks }: Ste
                 />
               </div>
               {task.hint ? (
-                <p id={hintId} className="text-muted mt-1 text-sm leading-relaxed">
+                <p id={hintId} className="mt-1 text-sm leading-relaxed text-muted">
                   {task.hint}
                 </p>
               ) : null}

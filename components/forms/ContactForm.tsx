@@ -66,9 +66,7 @@ export default function ContactForm({
   }, [state.status]);
 
   function buildDraftText(d: ContactDraft): string {
-    const catLabel = d.category
-      ? contactCategoryLabel(locale, d.category as ContactCategory)
-      : "";
+    const catLabel = d.category ? contactCategoryLabel(locale, d.category as ContactCategory) : "";
     return [
       `${dict.form.yourName}: ${d.name ?? ""}`,
       `${dict.form.email}: ${d.email ?? ""}`,
@@ -89,7 +87,7 @@ export default function ContactForm({
           ref={resultRef}
           tabIndex={-1}
           role="status"
-          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
           <p className="font-semibold">{dict.form.successTitle}</p>
           <p className="mt-1 text-sm">{dict.form.successBody}</p>
@@ -110,19 +108,19 @@ export default function ContactForm({
           ref={resultRef}
           tabIndex={-1}
           role="status"
-          className="border-warning bg-warning-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+          className="focus-halo rounded-lg border-l-4 border-warning bg-warning-tint p-6 text-ink"
         >
           <p className="font-semibold">{dict.form.fallbackTitle}</p>
           <p className="mt-1 text-sm">
             {dict.form.fallbackBody}{" "}
             <Email
               address="birsa@tu.ac.th"
-              className="text-brand-deep hover:text-brand-dark font-medium"
+              className="font-medium text-brand-deep hover:text-brand-dark"
             />{" "}
             /{" "}
             <Email
               address="birstudentassociation@gmail.com"
-              className="text-brand-deep hover:text-brand-dark font-medium"
+              className="font-medium text-brand-deep hover:text-brand-dark"
             />
           </p>
         </div>
@@ -148,10 +146,12 @@ export default function ContactForm({
     <form action={formAction} noValidate className="flex flex-col gap-6">
       {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
 
-      <dl className="border-line divide-line divide-y rounded-lg border">
+      <dl className="divide-y divide-line rounded-lg border border-line">
         <SummaryRow
           label={categoryLabel}
-          value={draft.category ? contactCategoryLabel(locale, draft.category as ContactCategory) : ""}
+          value={
+            draft.category ? contactCategoryLabel(locale, draft.category as ContactCategory) : ""
+          }
           changeHref={categoryHref}
           changeLabel={changeLabel}
         />
@@ -181,7 +181,7 @@ export default function ContactForm({
         />
       </dl>
 
-      <p className="text-muted text-sm">{dict.form.privacyNote}</p>
+      <p className="text-sm text-muted">{dict.form.privacyNote}</p>
 
       {/* Honeypot: real visitors never see or fill this. Visually hidden,
           not display:none, so assistive tech that ignores CSS still gets an

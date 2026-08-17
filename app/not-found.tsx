@@ -59,19 +59,19 @@ export default function GlobalNotFound() {
             stripping `data-theme` off <html>). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
-          <p className="text-brand-deep text-sm font-semibold">404</p>
-          <h1 className="font-display text-ink mt-2 text-3xl sm:text-4xl">{dict.notFound.title}</h1>
-          <p className="text-muted mt-3 max-w-[var(--measure)] text-lg">{dict.notFound.body}</p>
+          <p className="text-sm font-semibold text-brand-deep">404</p>
+          <h1 className="mt-2 font-display text-3xl text-ink sm:text-4xl">{dict.notFound.title}</h1>
+          <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.notFound.body}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href={localeHref(defaultLocale, "/")}
-              className="focus-halo bg-brand hover:bg-brand-strong inline-flex h-11 items-center rounded-md px-5 text-sm font-semibold text-white"
+              className="focus-halo inline-flex h-11 items-center rounded-md bg-brand px-5 text-sm font-semibold text-white hover:bg-brand-strong"
             >
               {dict.notFound.home}
             </Link>
             <Link
               href={localeHref(other, "/")}
-              className="focus-halo border-ink text-ink inline-flex h-11 items-center rounded-md border-[1.5px] px-5 text-sm font-semibold"
+              className="focus-halo inline-flex h-11 items-center rounded-md border-[1.5px] border-ink px-5 text-sm font-semibold text-ink"
             >
               {otherDict.notFound.home}
             </Link>

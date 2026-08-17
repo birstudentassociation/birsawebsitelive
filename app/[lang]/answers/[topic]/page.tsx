@@ -84,7 +84,7 @@ export default async function TopicStartPage({
         {topic.whatYoullNeed && topic.whatYoullNeed.length > 0 ? (
           <div>
             <h2 className="font-display text-xl">{t.whatYoullBeAsked}</h2>
-            <ul className="text-muted mt-3 list-inside list-disc space-y-2 text-sm leading-relaxed">
+            <ul className="mt-3 list-inside list-disc space-y-2 text-sm leading-relaxed text-muted">
               {topic.whatYoullNeed.map((item, index) => (
                 <li key={index}>{item[locale]}</li>
               ))}

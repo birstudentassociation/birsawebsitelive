@@ -53,7 +53,9 @@ export default function FillStepForm({
     <form action={formAction} noValidate className="flex flex-col gap-6">
       <ErrorSummary
         title={errorSummaryTitle}
-        errors={hasError ? [{ id: `slot-${slots[0]?.id ?? ""}`, message: state.error as string }] : []}
+        errors={
+          hasError ? [{ id: `slot-${slots[0]?.id ?? ""}`, message: state.error as string }] : []
+        }
       />
       <input type="hidden" name={PLAN_FIELD} value={plan} />
 

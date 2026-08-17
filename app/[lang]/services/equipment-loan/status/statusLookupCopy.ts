@@ -4,7 +4,8 @@ import type { StatusLookupLabels } from "@/components/equipment/StatusLookup";
 export const statusLookupLabels: Record<Locale, StatusLookupLabels> = {
   en: {
     referenceLabel: "Reference number",
-    referenceHint: "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
+    referenceHint:
+      "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
     emailLabel: "TU email",
     emailHint: "The email address you used on the request.",
     submit: "Check status",

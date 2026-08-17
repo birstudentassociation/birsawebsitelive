@@ -409,13 +409,13 @@ export default function OfficersManager({
   return (
     <div className="flex flex-col gap-10">
       <section aria-labelledby="add-officer-heading" className="flex flex-col gap-4">
-        <h2 id="add-officer-heading" className="font-display text-ink text-xl">
+        <h2 id="add-officer-heading" className="font-display text-xl text-ink">
           {t.addTitle}
         </h2>
         <form
           onSubmit={handleAdd}
           noValidate
-          className="border-line bg-surface flex flex-col gap-5 rounded-lg border p-5 sm:max-w-xl"
+          className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 sm:max-w-xl"
         >
           <ErrorSummary title={t.addErrorSummaryTitle} errors={addErrorItems} />
 
@@ -496,7 +496,7 @@ export default function OfficersManager({
           </div>
 
           {addMessage ? (
-            <p role="status" aria-live="polite" className="text-success text-sm font-medium">
+            <p role="status" aria-live="polite" className="text-sm font-medium text-success">
               {addMessage}
             </p>
           ) : null}
@@ -504,12 +504,12 @@ export default function OfficersManager({
       </section>
 
       <section aria-labelledby="officer-list-heading" className="flex flex-col gap-4">
-        <h2 id="officer-list-heading" className="font-display text-ink text-xl">
+        <h2 id="officer-list-heading" className="font-display text-xl text-ink">
           {t.listTitle}
         </h2>
 
         {officers.length === 0 ? (
-          <p className="text-muted text-sm">{t.listEmpty}</p>
+          <p className="text-sm text-muted">{t.listEmpty}</p>
         ) : (
           <div className="flex flex-col gap-4">
             {officers.map((officerRow) => {
@@ -520,12 +520,12 @@ export default function OfficersManager({
               return (
                 <article
                   key={officerRow.id}
-                  className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+                  className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4 sm:p-5"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                      <p className="font-display text-ink text-lg">{officerRow.name}</p>
-                      <p className="text-muted text-sm break-all">{officerRow.email}</p>
+                      <p className="font-display text-lg text-ink">{officerRow.name}</p>
+                      <p className="text-sm break-all text-muted">{officerRow.email}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Tag variant={officerRow.isActive ? "forest" : "neutral"}>
@@ -541,7 +541,7 @@ export default function OfficersManager({
                     </div>
                   </div>
 
-                  <p className="text-muted text-sm">
+                  <p className="text-sm text-muted">
                     {formatLastLogin(locale, t, officerRow.lastLoginAt)}
                   </p>
 

@@ -18,12 +18,7 @@ export type ClubCardProps = {
 };
 
 /** Card summarising a single club; the whole card links to its detail page. */
-export default function ClubCard({
-  club,
-  locale,
-  openLabel,
-  headingLevel = "h2",
-}: ClubCardProps) {
+export default function ClubCard({ club, locale, openLabel, headingLevel = "h2" }: ClubCardProps) {
   const href = localeHref(locale, `/clubs/${club.slug}`);
 
   return (
@@ -35,7 +30,7 @@ export default function ClubCard({
       <CardTitle href={href} as={headingLevel}>
         {club.title}
       </CardTitle>
-      <p className="text-muted text-sm leading-relaxed">{club.tagline}</p>
+      <p className="text-sm leading-relaxed text-muted">{club.tagline}</p>
     </Card>
   );
 }

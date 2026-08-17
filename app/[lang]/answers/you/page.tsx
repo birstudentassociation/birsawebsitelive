@@ -151,10 +151,10 @@ export default async function AudienceProfilePage({
                 aria-describedby={hintId}
               >
                 <legend>
-                  <h2 className="font-display text-ink text-xl">{question.question[locale]}</h2>
+                  <h2 className="font-display text-xl text-ink">{question.question[locale]}</h2>
                 </legend>
                 {question.hint ? (
-                  <p id={hintId} className="text-muted text-sm leading-relaxed">
+                  <p id={hintId} className="text-sm leading-relaxed text-muted">
                     {question.hint[locale]}
                   </p>
                 ) : null}
@@ -163,19 +163,19 @@ export default async function AudienceProfilePage({
                   {question.choices.map((choice) => (
                     <label
                       key={choice.value}
-                      className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border p-4"
+                      className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint"
                     >
                       <input
                         type="radio"
                         name={question.dimension}
                         value={choice.value}
                         defaultChecked={current === choice.value}
-                        className="focus-halo border-input-border accent-brand mt-0.5 h-5 w-5 shrink-0"
+                        className="focus-halo mt-0.5 h-5 w-5 shrink-0 border-input-border accent-brand"
                       />
                       <span className="flex flex-col gap-1">
-                        <span className="text-ink font-semibold">{choice.label[locale]}</span>
+                        <span className="font-semibold text-ink">{choice.label[locale]}</span>
                         {choice.hint ? (
-                          <span className="text-muted text-sm">{choice.hint[locale]}</span>
+                          <span className="text-sm text-muted">{choice.hint[locale]}</span>
                         ) : null}
                       </span>
                     </label>
@@ -185,15 +185,15 @@ export default async function AudienceProfilePage({
                       already-selected radio cannot be cleared with the
                       keyboard alone, so "prefer not to say" needs to be a
                       real choice rather than the absence of one. */}
-                  <label className="border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint focus-within:border-brand flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border p-4">
+                  <label className="flex min-h-11 cursor-pointer items-start gap-3 rounded-lg border border-input-border bg-surface p-4 focus-within:border-brand has-checked:border-brand has-checked:bg-brand-tint">
                     <input
                       type="radio"
                       name={question.dimension}
                       value=""
                       defaultChecked={current === undefined}
-                      className="focus-halo border-input-border accent-brand mt-0.5 h-5 w-5 shrink-0"
+                      className="focus-halo mt-0.5 h-5 w-5 shrink-0 border-input-border accent-brand"
                     />
-                    <span className="text-ink font-semibold">{t.profileSkip}</span>
+                    <span className="font-semibold text-ink">{t.profileSkip}</span>
                   </label>
                 </div>
               </fieldset>
@@ -204,7 +204,7 @@ export default async function AudienceProfilePage({
 
           <div className="flex items-center gap-5">
             <Button type="submit">{t.profileSave}</Button>
-            <Link href={cancelHref} className="text-brand-deep font-medium hover:underline">
+            <Link href={cancelHref} className="font-medium text-brand-deep hover:underline">
               {t.back}
             </Link>
           </div>

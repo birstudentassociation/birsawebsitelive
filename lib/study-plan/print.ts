@@ -46,7 +46,10 @@ export function passedCoursesForPrint(version: CurriculumVersion, passed: string
  * credits): an empty term is noise on a document meant to be read away from
  * the service.
  */
-export function plannedTermsForPrint(version: CurriculumVersion, terms: PlannedCourseTerm[]): PrintTerm[] {
+export function plannedTermsForPrint(
+  version: CurriculumVersion,
+  terms: PlannedCourseTerm[]
+): PrintTerm[] {
   return terms
     .filter((t) => t.codes.length > 0 || t.freeElectiveCredits > 0)
     .sort((a, b) => termIndex(a.term) - termIndex(b.term))

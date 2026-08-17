@@ -115,20 +115,25 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
         className="flex flex-col gap-4"
         aria-describedby={errors?.rating ? `${fieldIds.rating}-error` : undefined}
       >
-        <legend className="font-display text-ink text-xl">
+        <legend className="font-display text-xl text-ink">
           {heading ?? t.defaultHeading}
-          <span className="text-muted ml-1.5 text-sm font-normal">({t.requiredLabel})</span>
+          <span className="ml-1.5 text-sm font-normal text-muted">({t.requiredLabel})</span>
         </legend>
         <p className="sr-only">{t.ratingGroupLabel}</p>
 
         {errors?.rating ? (
           <p
             id={`${fieldIds.rating}-error`}
-            className="text-error flex items-center gap-1.5 text-sm font-medium"
+            className="flex items-center gap-1.5 text-sm font-medium text-error"
           >
             <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
               <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path d="M10 6.5v4.2" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
+              <path
+                d="M10 6.5v4.2"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                strokeLinecap="round"
+              />
               <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
             </svg>
             {errors.rating}
@@ -142,7 +147,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
               htmlFor={`${fieldIds.rating}-${rating}`}
               className={clsx(
                 "border-input-border bg-surface has-checked:border-brand has-checked:bg-brand-tint",
-                "focus-within:border-brand flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border p-4"
+                "flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border p-4 focus-within:border-brand"
               )}
             >
               <input
@@ -152,9 +157,9 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
                 value={rating}
                 required
                 defaultChecked={values?.rating === rating}
-                className="focus-halo border-input-border accent-brand h-5 w-5 shrink-0"
+                className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
               />
-              <span className="text-ink font-semibold">{t.ratingLabels[rating]}</span>
+              <span className="font-semibold text-ink">{t.ratingLabels[rating]}</span>
             </label>
           ))}
         </div>
@@ -173,7 +178,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
           rows={5}
           maxLength={1200}
         />
-        <p className="text-muted text-sm">{t.privacyWarning}</p>
+        <p className="text-sm text-muted">{t.privacyWarning}</p>
         <CollectionNotice activityId="feedback" locale={locale} />
       </div>
 

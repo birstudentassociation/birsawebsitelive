@@ -54,19 +54,19 @@ export default function GlobalError({
     >
       <body>
         <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
-          <h1 className="font-display text-ink text-3xl sm:text-4xl">{dict.error.title}</h1>
-          <p className="text-muted mt-3 max-w-[var(--measure)] text-lg">{dict.error.body}</p>
+          <h1 className="font-display text-3xl text-ink sm:text-4xl">{dict.error.title}</h1>
+          <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.error.body}</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <button
               type="button"
               onClick={reset}
-              className="focus-halo bg-brand hover:bg-brand-strong inline-flex h-11 items-center rounded-md px-5 text-sm font-semibold text-white"
+              className="focus-halo inline-flex h-11 items-center rounded-md bg-brand px-5 text-sm font-semibold text-white hover:bg-brand-strong"
             >
               {dict.error.tryAgain}
             </button>
             <a
               href={localeHref(defaultLocale, "/")}
-              className="focus-halo border-ink text-ink inline-flex h-11 items-center rounded-md border-[1.5px] px-5 text-sm font-semibold"
+              className="focus-halo inline-flex h-11 items-center rounded-md border-[1.5px] border-ink px-5 text-sm font-semibold text-ink"
             >
               {dict.error.home}
             </a>

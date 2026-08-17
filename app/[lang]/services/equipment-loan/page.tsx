@@ -147,7 +147,7 @@ const copy: Record<
 
 function AvailableIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-success h-5 w-5 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5 shrink-0 text-success">
       <path
         d="M4 10.5 8 14l8-8"
         fill="none"
@@ -162,7 +162,7 @@ function AvailableIcon() {
 
 function UnavailableIcon() {
   return (
-    <svg aria-hidden="true" viewBox="0 0 20 20" className="text-error h-5 w-5 shrink-0">
+    <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5 shrink-0 text-error">
       <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={2} />
       <path d="m7 7 6 6M13 7l-6 6" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
     </svg>
@@ -263,12 +263,12 @@ export default async function EquipmentLoanPage({
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <section className="border-line bg-sunken flex flex-col gap-3 rounded-lg border p-6 sm:p-8">
+        <section className="flex flex-col gap-3 rounded-lg border border-line bg-sunken p-6 sm:p-8">
           <h2 className="font-display text-xl">{t.howItWorksTitle}</h2>
-          <ol className="text-muted flex flex-col gap-2 text-sm leading-relaxed">
+          <ol className="flex flex-col gap-2 text-sm leading-relaxed text-muted">
             {t.steps.map((step, index) => (
               <li key={index} className="flex gap-2">
-                <span aria-hidden="true" className="text-ink font-semibold">
+                <span aria-hidden="true" className="font-semibold text-ink">
                   {index + 1}.
                 </span>
                 <span>{step}</span>
@@ -282,7 +282,7 @@ export default async function EquipmentLoanPage({
             {t.directoryNoticeBody}{" "}
             <a
               href={localeHref(locale, "/services/equipment-loan/directory")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.directoryLinkCta}
             </a>
@@ -296,7 +296,7 @@ export default async function EquipmentLoanPage({
               {t.notConfiguredBody}{" "}
               <a
                 href={localeHref(locale, "/contact")}
-                className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                className="font-semibold text-brand-deep underline hover:text-brand-dark"
               >
                 {t.contactLink}
               </a>
@@ -308,7 +308,7 @@ export default async function EquipmentLoanPage({
         {availableCategories.length > 0 ? (
           <nav aria-label={t.filterNav} className="flex flex-col gap-4">
             <div>
-              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+              <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
                 {t.categoryLabel}
               </p>
               <ul className="flex flex-wrap gap-2">
@@ -337,7 +337,7 @@ export default async function EquipmentLoanPage({
             {selectedCategory ? (
               <a
                 href={buildHref({ category: undefined })}
-                className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+                className="w-fit text-sm font-semibold text-brand-deep hover:underline"
               >
                 {t.clearFilters}
               </a>
@@ -348,7 +348,7 @@ export default async function EquipmentLoanPage({
         {availableOwners.length > 0 ? (
           <nav aria-label={t.ownerLabel} className="flex flex-col gap-4">
             <div>
-              <p className="text-muted mb-2 text-sm font-semibold tracking-wide uppercase">
+              <p className="mb-2 text-sm font-semibold tracking-wide text-muted uppercase">
                 {t.ownerLabel}
               </p>
               <ul className="flex flex-wrap gap-2">
@@ -377,7 +377,7 @@ export default async function EquipmentLoanPage({
             {selectedOwner ? (
               <a
                 href={buildHref({ owner: undefined })}
-                className="text-brand-deep w-fit text-sm font-semibold hover:underline"
+                className="w-fit text-sm font-semibold text-brand-deep hover:underline"
               >
                 {t.clearFilters}
               </a>
@@ -398,10 +398,7 @@ export default async function EquipmentLoanPage({
                 : undefined;
               const custodian = custodiansById.get(item.custodianId);
               const directoryHref = custodian
-                ? localeHref(
-                    locale,
-                    `/services/equipment-loan/directory#${custodian.slug}`
-                  )
+                ? localeHref(locale, `/services/equipment-loan/directory#${custodian.slug}`)
                 : localeHref(locale, "/services/equipment-loan/directory");
               return (
                 <Card key={item.key} className="gap-3 p-6">
@@ -411,21 +408,21 @@ export default async function EquipmentLoanPage({
                       src={item.photoUrl}
                       alt={item.name[locale]}
                       loading="lazy"
-                      className="border-line max-h-48 w-full rounded-lg border object-cover"
+                      className="max-h-48 w-full rounded-lg border border-line object-cover"
                     />
                   ) : null}
                   <div className="flex flex-wrap gap-2">
                     {categoryName ? (
-                      <span className="text-brand-deep bg-brand-tint w-fit rounded-full px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                      <span className="w-fit rounded-full bg-brand-tint px-3 py-1 text-xs font-semibold tracking-wide text-brand-deep uppercase">
                         {categoryName}
                       </span>
                     ) : null}
                     {custodian ? <Tag variant="forest">{custodian.name[locale]}</Tag> : null}
                   </div>
-                  <h3 className="font-display text-ink text-lg leading-snug">
+                  <h3 className="font-display text-lg leading-snug text-ink">
                     {item.name[locale]}
                   </h3>
-                  <p className="text-muted text-sm leading-relaxed">{item.description[locale]}</p>
+                  <p className="text-sm leading-relaxed text-muted">{item.description[locale]}</p>
 
                   {item.onlineLoanable ? (
                     <>
@@ -438,7 +435,7 @@ export default async function EquipmentLoanPage({
                         </span>
                       </div>
 
-                      <dl className="text-muted mt-1 flex flex-col gap-1 text-sm">
+                      <dl className="mt-1 flex flex-col gap-1 text-sm text-muted">
                         <div>{t.maxLoanLabel(item.maxLoanDays)}</div>
                       </dl>
 
@@ -448,7 +445,7 @@ export default async function EquipmentLoanPage({
                         ) : (
                           <span
                             aria-disabled="true"
-                            className="border-line text-muted inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] px-5 text-[0.95rem] font-semibold"
+                            className="inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] border-line px-5 text-[0.95rem] font-semibold text-muted"
                           >
                             {t.unavailableCta}
                           </span>
@@ -457,11 +454,11 @@ export default async function EquipmentLoanPage({
                     </>
                   ) : (
                     <div className="mt-1 flex flex-col gap-2 text-sm">
-                      <p className="text-muted leading-relaxed">
+                      <p className="leading-relaxed text-muted">
                         {custodian ? t.clubBorrowLine(custodian.name[locale]) : t.noContactBody}
                       </p>
                       {custodian?.borrowNote[locale] ? (
-                        <p className="text-muted leading-relaxed">{custodian.borrowNote[locale]}</p>
+                        <p className="leading-relaxed text-muted">{custodian.borrowNote[locale]}</p>
                       ) : null}
                       <div>
                         <Button href={directoryHref} variant="secondary">
@@ -474,23 +471,23 @@ export default async function EquipmentLoanPage({
                         <dl className="flex flex-col gap-1">
                           {custodian.contactEmail ? (
                             <div className="flex flex-wrap items-baseline gap-1">
-                              <dt className="text-ink font-semibold">{t.contactLabel}:</dt>
+                              <dt className="font-semibold text-ink">{t.contactLabel}:</dt>
                               <dd>
                                 <Email
                                   address={custodian.contactEmail}
-                                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                                  className="font-semibold text-brand-deep underline hover:text-brand-dark"
                                 />
                               </dd>
                             </div>
                           ) : null}
                           {custodian.contactInstagram ? (
                             <div className="flex flex-wrap items-baseline gap-1">
-                              <dt className="text-ink font-semibold">{t.instagramLabel}:</dt>
+                              <dt className="font-semibold text-ink">{t.instagramLabel}:</dt>
                               <dd>
                                 <ExternalLink
                                   href={instagramHref(custodian.contactInstagram)}
                                   newTabLabel={dict.a11y.newTab}
-                                  className="text-brand-deep hover:text-brand-dark font-semibold underline"
+                                  className="font-semibold text-brand-deep underline hover:text-brand-dark"
                                 >
                                   {custodian.contactInstagram}
                                 </ExternalLink>
@@ -499,13 +496,13 @@ export default async function EquipmentLoanPage({
                           ) : null}
                           {custodian.contactOther ? (
                             <div className="flex flex-wrap items-baseline gap-1">
-                              <dt className="text-ink font-semibold">{t.contactLabel}:</dt>
+                              <dt className="font-semibold text-ink">{t.contactLabel}:</dt>
                               <dd className="text-muted">{custodian.contactOther}</dd>
                             </div>
                           ) : null}
                         </dl>
                       ) : (
-                        <p className="text-muted leading-relaxed">{t.noContactBody}</p>
+                        <p className="leading-relaxed text-muted">{t.noContactBody}</p>
                       )}
                     </div>
                   )}

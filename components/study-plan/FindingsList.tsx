@@ -30,7 +30,7 @@ export type FindingsListProps = {
 
 export default function FindingsList({ findings, locale, emptyMessage }: FindingsListProps) {
   if (findings.length === 0) {
-    return <p className="text-muted text-sm">{emptyMessage}</p>;
+    return <p className="text-sm text-muted">{emptyMessage}</p>;
   }
 
   // A stable sort, not a filter: nothing here is ever dropped, only ordered
@@ -44,10 +44,10 @@ export default function FindingsList({ findings, locale, emptyMessage }: Finding
       {sorted.map((finding) => (
         <li
           key={finding.id}
-          className={`bg-surface rounded-md border-l-4 p-3 text-sm ${SEVERITY_BORDER[finding.severity]}`}
+          className={`rounded-md border-l-4 bg-surface p-3 text-sm ${SEVERITY_BORDER[finding.severity]}`}
         >
           <p className="text-ink">{finding.message[locale]}</p>
-          <p className="text-muted mt-1 text-xs">{finding.source.provision}</p>
+          <p className="mt-1 text-xs text-muted">{finding.source.provision}</p>
         </li>
       ))}
     </ul>

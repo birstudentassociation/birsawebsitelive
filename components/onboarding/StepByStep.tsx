@@ -45,26 +45,26 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
                   aria-hidden="true"
                   className="relative flex w-10 flex-none flex-col items-center self-stretch"
                 >
-                  <span className="border-brand bg-surface text-ink font-display flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 text-base font-semibold">
+                  <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border-2 border-brand bg-surface font-display text-base font-semibold text-ink">
                     {index + 1}
                   </span>
                   {!isLast ? (
-                    <span className="bg-line-strong absolute top-10 bottom-0 left-1/2 w-0.5 -translate-x-1/2" />
+                    <span className="absolute top-10 bottom-0 left-1/2 w-0.5 -translate-x-1/2 bg-line-strong" />
                   ) : null}
                 </div>
 
                 <div className="min-w-0 flex-1 pb-2">
                   {step.connector ? (
-                    <p className="border-line-strong text-muted bg-sunken mb-3 inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold tracking-wide uppercase">
+                    <p className="mb-3 inline-flex items-center rounded-full border border-line-strong bg-sunken px-3 py-1 text-xs font-semibold tracking-wide text-muted uppercase">
                       {t[step.connector]}
                     </p>
                   ) : null}
 
-                  <details className="group border-line bg-surface rounded-lg border open:shadow-sm">
+                  <details className="group rounded-lg border border-line bg-surface open:shadow-sm">
                     <summary className="focus-halo flex min-h-11 cursor-pointer list-none items-center gap-3 rounded-lg px-4 py-3 marker:content-none [&::-webkit-details-marker]:hidden">
-                      <h2 className="font-display text-ink flex flex-1 items-center justify-between gap-3 text-lg leading-snug">
+                      <h2 className="flex flex-1 items-center justify-between gap-3 font-display text-lg leading-snug text-ink">
                         <span>
-                          <span className="text-muted mr-2 text-sm font-semibold tracking-wide uppercase">
+                          <span className="mr-2 text-sm font-semibold tracking-wide text-muted uppercase">
                             {stepLabel}
                           </span>
                           {step.title[locale]}
@@ -72,7 +72,7 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
                         <svg
                           aria-hidden="true"
                           viewBox="0 0 20 20"
-                          className="text-muted h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180"
+                          className="h-4 w-4 shrink-0 text-muted transition-transform duration-200 group-open:rotate-180"
                         >
                           <path
                             d="m5 7.5 5 5 5-5"
@@ -85,9 +85,9 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
                         </svg>
                       </h2>
                     </summary>
-                    <div className="border-line flex flex-col gap-3 border-t px-4 py-4">
+                    <div className="flex flex-col gap-3 border-t border-line px-4 py-4">
                       {step.blurb ? (
-                        <p className="text-muted text-[0.95rem] leading-relaxed">
+                        <p className="text-[0.95rem] leading-relaxed text-muted">
                           {step.blurb[locale]}
                         </p>
                       ) : null}

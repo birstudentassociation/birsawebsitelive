@@ -58,7 +58,8 @@ const copy: Record<
     whatBody:
       "ท่านจะได้ตอบคำถามจำนวนไม่กี่ข้อ เพื่อระบุสิทธิที่ท่านประสงค์จะใช้และช่องทางการติดต่อกลับ จากนั้น BIRSA จะตรวจสอบตามสมควรว่าคำร้องดังกล่าวเป็นของท่านจริง แล้วจึงดำเนินการตามคำร้อง หรือชี้แจงเหตุผลในกรณีที่ไม่อาจดำเนินการได้",
     freeTitle: "ค่าใช้จ่าย",
-    freeBody: "BIRSA ไม่เรียกเก็บค่าใช้จ่ายใดจากท่านในการยื่นคำร้องนี้ ไม่ว่าจะเป็นการใช้สิทธิประการใด",
+    freeBody:
+      "BIRSA ไม่เรียกเก็บค่าใช้จ่ายใดจากท่านในการยื่นคำร้องนี้ ไม่ว่าจะเป็นการใช้สิทธิประการใด",
     deadlineTitle: "ระยะเวลาดำเนินการ",
     deadlineBody: (days) =>
       `ในกรณีที่ท่านใช้สิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคลตามมาตรา 30 กฎหมายกำหนดให้ BIRSA ดำเนินการโดยไม่ชักช้า แต่ต้องไม่เกิน ${days} วันนับแต่วันที่ได้รับคำขอ สำหรับคำร้องประเภทอื่น BIRSA จะดำเนินการโดยเร็วเช่นเดียวกัน`,
@@ -93,12 +94,12 @@ export default async function RightsStartPage({ params }: { params: Promise<{ la
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.whatTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.whatBody}</p>
+          <p className="leading-relaxed text-muted">{t.whatBody}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.freeTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.freeBody}</p>
+          <p className="leading-relaxed text-muted">{t.freeBody}</p>
         </section>
 
         <Notice variant="info" title={t.deadlineTitle}>

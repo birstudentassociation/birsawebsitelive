@@ -85,7 +85,7 @@ export default function HeaderNavClient({
         aria-controls={panelId}
         aria-label={open ? closeLabel : openLabel}
         onClick={() => setOpen((value) => !value)}
-        className="focus-halo border-line-strong text-ink flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border px-3 text-sm font-semibold"
+        className="focus-halo flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border border-line-strong px-3 text-sm font-semibold text-ink"
       >
         <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5 shrink-0">
           {open ? (
@@ -119,11 +119,11 @@ export default function HeaderNavClient({
         /* Full-width dropdown below the (sticky, i.e. positioned) header:
            absolutely positioned so it never stretches the header row. */
         <nav id={panelId} aria-label={openLabel} className="absolute inset-x-0 top-full px-3 pb-3">
-          <ul className="border-line bg-surface flex flex-col gap-1 rounded-lg border p-2 shadow-lg">
+          <ul className="flex flex-col gap-1 rounded-lg border border-line bg-surface p-2 shadow-lg">
             <li>
               <Link
                 href={localeHref(locale, ctaItem.href)}
-                className="border-ink flex min-h-11 items-center justify-center rounded-md border-[1.5px] px-3 py-2 text-sm font-semibold"
+                className="flex min-h-11 items-center justify-center rounded-md border-[1.5px] border-ink px-3 py-2 text-sm font-semibold"
               >
                 {ctaItem.label}
               </Link>

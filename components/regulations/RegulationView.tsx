@@ -67,7 +67,7 @@ function ItemList({ items, pick }: { items: ProvisionItem[]; pick: (b: Bi) => st
     <ul className="flex flex-col gap-2">
       {items.map((item, i) => (
         <li key={`${item.marker}-${i}`} className="flex gap-2.5">
-          <span className="text-ink shrink-0 tabular-nums">{item.marker}</span>
+          <span className="shrink-0 text-ink tabular-nums">{item.marker}</span>
           <div className="flex min-w-0 flex-col gap-1.5">
             <span>{pick(item.text)}</span>
             {item.note ? <span className="text-muted italic">{pick(item.note)}</span> : null}
@@ -91,10 +91,10 @@ function Definitions({
   pick: (b: Bi) => string;
 }) {
   return (
-    <dl className="border-line flex flex-col gap-2 border-l-2 pl-4">
+    <dl className="flex flex-col gap-2 border-l-2 border-line pl-4">
       {entries.map((def) => (
         <div key={def.term.en} className="flex flex-col gap-0.5 sm:flex-row sm:gap-2">
-          <dt className="text-ink font-semibold">{pick(def.term)}</dt>
+          <dt className="font-semibold text-ink">{pick(def.term)}</dt>
           <dd className="sm:before:mr-2 sm:before:content-[':']">{pick(def.meaning)}</dd>
         </div>
       ))}
@@ -119,17 +119,17 @@ function ProvisionView({
 }) {
   return (
     <article id={`prov-${provision.num}`} className="flex scroll-mt-24 gap-3 sm:gap-4">
-      <div className="text-brand-deep font-display w-6 shrink-0 pt-0.5 text-sm font-semibold tabular-nums sm:w-8 sm:text-base">
+      <div className="w-6 shrink-0 pt-0.5 font-display text-sm font-semibold text-brand-deep tabular-nums sm:w-8 sm:text-base">
         {provision.num}
       </div>
       <div className="min-w-0 flex-1">
         <Heading
           level={headingLevel}
-          className="font-display text-ink text-lg leading-snug font-semibold"
+          className="font-display text-lg leading-snug font-semibold text-ink"
         >
           {pick(provision.title)}
         </Heading>
-        <div className="text-muted mt-2 flex flex-col gap-3 leading-relaxed">
+        <div className="mt-2 flex flex-col gap-3 leading-relaxed text-muted">
           {provision.body ? (
             provision.body.map((block, i) => <BlockView key={i} block={block} pick={pick} />)
           ) : (
@@ -162,8 +162,8 @@ function ContentsNode({
   depth: number;
 }) {
   return (
-    <div className={depth > 0 ? "border-line mt-2 border-l pl-4" : undefined}>
-      <p className="text-ink font-semibold">
+    <div className={depth > 0 ? "mt-2 border-l border-line pl-4" : undefined}>
+      <p className="font-semibold text-ink">
         <Link href={`#${path}`} className="hover:text-brand-deep hover:underline">
           {sectionLabel(section, locale)}
         </Link>
@@ -174,7 +174,7 @@ function ContentsNode({
             <li key={provision.num} className="text-sm">
               <Link
                 href={`#prov-${provision.num}`}
-                className="text-muted hover:text-brand-deep flex gap-2 hover:underline"
+                className="flex gap-2 text-muted hover:text-brand-deep hover:underline"
               >
                 <span className="tabular-nums">{provision.num}.</span>
                 <span>{pick(provision.title)}</span>
@@ -205,8 +205,8 @@ export default function RegulationView({ doc, locale }: { doc: RegulationDoc; lo
     <div className="wrap flex max-w-[72ch] flex-col gap-10 py-10">
       {/* Prelims */}
       <div className="flex flex-col gap-4">
-        <p className="text-ink font-semibold">{doc.authority[locale]}</p>
-        <p className="text-muted leading-relaxed">{doc.preamble[locale]}</p>
+        <p className="font-semibold text-ink">{doc.authority[locale]}</p>
+        <p className="leading-relaxed text-muted">{doc.preamble[locale]}</p>
         <Notice variant="info" title={t.aboutTitle}>
           <p>{t.aboutBody}</p>
         </Notice>
@@ -215,9 +215,9 @@ export default function RegulationView({ doc, locale }: { doc: RegulationDoc; lo
       {/* Arrangement of provisions */}
       <nav
         aria-labelledby="contents-heading"
-        className="border-line bg-sunken rounded-lg border p-6"
+        className="rounded-lg border border-line bg-sunken p-6"
       >
-        <h2 id="contents-heading" className="font-display mb-4 text-xl">
+        <h2 id="contents-heading" className="mb-4 font-display text-xl">
           {t.contents}
         </h2>
         <div className="flex flex-col gap-4">
@@ -249,14 +249,14 @@ export default function RegulationView({ doc, locale }: { doc: RegulationDoc; lo
       </div>
 
       {/* Signature */}
-      <div className="border-line text-muted flex flex-col items-end gap-1 border-t pt-6 text-sm">
+      <div className="flex flex-col items-end gap-1 border-t border-line pt-6 text-sm text-muted">
         <p>{doc.made[locale]}</p>
-        <p className="text-ink font-semibold">{doc.signatory[locale]}</p>
+        <p className="font-semibold text-ink">{doc.signatory[locale]}</p>
       </div>
 
       <Link
         href={localeHref(locale, "/activity/regulations")}
-        className="text-brand-deep hover:text-brand-dark text-sm font-semibold"
+        className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
       >
         &larr; {t.back}
       </Link>
@@ -287,8 +287,8 @@ function SectionViewResolved({
         level={headingLevel}
         className={
           isTop
-            ? "border-brand font-display border-b-2 pb-2 text-2xl"
-            : "font-display text-ink text-xl"
+            ? "border-b-2 border-brand pb-2 font-display text-2xl"
+            : "font-display text-xl text-ink"
         }
       >
         {sectionLabel(section, locale)}

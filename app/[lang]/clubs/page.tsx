@@ -102,9 +102,9 @@ export default async function ClubsPage({ params }: { params: Promise<{ lang: st
           }}
         />
 
-        <div className="border-line bg-sunken flex flex-col items-start gap-4 rounded-lg border p-8">
+        <div className="flex flex-col items-start gap-4 rounded-lg border border-line bg-sunken p-8">
           <h2 className="font-display text-2xl">{t.startTitle}</h2>
-          <p className="text-muted max-w-[var(--measure)]">{t.startBody}</p>
+          <p className="max-w-[var(--measure)] text-muted">{t.startBody}</p>
           <Button href={localeHref(locale, "/clubs/start")}>{t.startCta}</Button>
         </div>
       </div>

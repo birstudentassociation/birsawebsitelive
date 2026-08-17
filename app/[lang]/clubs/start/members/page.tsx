@@ -39,9 +39,14 @@ export default async function StartClubMembersPage({
 
   const draft = await getStartClubDraft();
   const backHref = localeHref(locale, returnTo === "check" ? "/clubs/start/check" : "/clubs/start");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("members") + 1, START_CLUB_STEPS.length);
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(
+          chrome.stepOf,
+          START_CLUB_STEPS.indexOf("members") + 1,
+          START_CLUB_STEPS.length
+        );
 
   return (
     <>

@@ -277,24 +277,24 @@ export default async function StudyPlanPage({
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         <InferenceNotice version={version} cohortCode={plan.cohort} locale={locale} />
 
-        <div className="border-line flex flex-col gap-4 rounded-lg border p-5">
+        <div className="flex flex-col gap-4 rounded-lg border border-line p-5">
           <h2 className="font-display text-xl">{version.label[locale]}</h2>
           <dl className="grid gap-6 sm:grid-cols-3">
             <div>
-              <dt className="text-muted text-sm font-semibold">{copy.plan.cohortLabel}</dt>
-              <dd className="text-ink text-lg font-semibold">{plan.cohort}</dd>
+              <dt className="text-sm font-semibold text-muted">{copy.plan.cohortLabel}</dt>
+              <dd className="text-lg font-semibold text-ink">{plan.cohort}</dd>
             </div>
             <div>
-              <dt className="text-muted text-sm font-semibold">{copy.plan.creditsPlannedLabel}</dt>
-              <dd className="text-ink text-lg font-semibold">
+              <dt className="text-sm font-semibold text-muted">{copy.plan.creditsPlannedLabel}</dt>
+              <dd className="text-lg font-semibold text-ink">
                 {earnedCredits} / {version.graduationCredits.value}
               </dd>
             </div>
             <div>
-              <dt className="text-muted text-sm font-semibold">
+              <dt className="text-sm font-semibold text-muted">
                 {copy.plan.projectedGraduationLabel}
               </dt>
-              <dd className="text-ink text-lg font-semibold">
+              <dd className="text-lg font-semibold text-ink">
                 {projected ? formatTermLabel(copy, projected) : copy.plan.noProjectedGraduation}
               </dd>
             </div>
@@ -317,20 +317,20 @@ export default async function StudyPlanPage({
           <div className="mt-4 overflow-x-auto">
             <table className="w-full min-w-[28rem] border-collapse text-sm">
               <thead>
-                <tr className="border-line border-b text-left">
-                  <th className="text-muted py-2 pr-3 font-semibold">
+                <tr className="border-b border-line text-left">
+                  <th className="py-2 pr-3 font-semibold text-muted">
                     {copy.plan.owedCategoryHeader}
                   </th>
-                  <th className="text-muted py-2 pr-3 font-semibold">
+                  <th className="py-2 pr-3 font-semibold text-muted">
                     {copy.plan.owedEarnedHeader}
                   </th>
-                  <th className="text-muted py-2 font-semibold">{copy.plan.owedRemainingHeader}</th>
+                  <th className="py-2 font-semibold text-muted">{copy.plan.owedRemainingHeader}</th>
                 </tr>
               </thead>
               <tbody>
                 {shortfalls.map((shortfall) => (
-                  <tr key={shortfall.category.id} className="border-line border-b">
-                    <td className="text-ink py-2 pr-3">
+                  <tr key={shortfall.category.id} className="border-b border-line">
+                    <td className="py-2 pr-3 text-ink">
                       {categoryLabel(
                         copy,
                         shortfall.category.id,
@@ -338,8 +338,8 @@ export default async function StudyPlanPage({
                         minorName
                       )}
                     </td>
-                    <td className="text-ink py-2 pr-3">{shortfall.earned}</td>
-                    <td className="text-ink py-2">{shortfall.remaining}</td>
+                    <td className="py-2 pr-3 text-ink">{shortfall.earned}</td>
+                    <td className="py-2 text-ink">{shortfall.remaining}</td>
                   </tr>
                 ))}
               </tbody>
@@ -349,7 +349,7 @@ export default async function StudyPlanPage({
 
         <div className="flex flex-col gap-4">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
-          <p className="text-muted leading-relaxed">{copy.plan.termsHint}</p>
+          <p className="leading-relaxed text-muted">{copy.plan.termsHint}</p>
 
           {/*
             Before the term list, not after it: filling every term at once is
@@ -361,7 +361,7 @@ export default async function StudyPlanPage({
             introduction to the list rather than another item in it.
           */}
           <div className="flex flex-col gap-3">
-            <p className="text-muted leading-relaxed">{copy.plan.populateHint}</p>
+            <p className="leading-relaxed text-muted">{copy.plan.populateHint}</p>
             <form action={populatePlanFromRecommended.bind(null, locale)}>
               <input type="hidden" name={PLAN_FIELD} value={serialisedPlan} />
               <Button type="submit" variant="secondary">
@@ -432,7 +432,7 @@ export default async function StudyPlanPage({
         </div>
 
         <div>
-          <Link href={printHref} className="text-brand-deep font-semibold hover:underline">
+          <Link href={printHref} className="font-semibold text-brand-deep hover:underline">
             {copy.plan.printLinkLabel} &rarr;
           </Link>
         </div>
@@ -448,9 +448,9 @@ export default async function StudyPlanPage({
           </ul>
         </Notice>
 
-        <div className="border-line flex flex-col gap-3 rounded-lg border p-5">
+        <div className="flex flex-col gap-3 rounded-lg border border-line p-5">
           <h2 className="font-display text-xl">{copy.delete.heading}</h2>
-          <p className="text-muted leading-relaxed">{copy.delete.body}</p>
+          <p className="leading-relaxed text-muted">{copy.delete.body}</p>
           <form action={deleteStudyPlan.bind(null, locale)}>
             <DeletePlanButton>{copy.delete.buttonLabel}</DeletePlanButton>
           </form>

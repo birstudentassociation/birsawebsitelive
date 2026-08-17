@@ -63,7 +63,11 @@ function stepHref(locale: Locale, step: ContactStep): string {
   return localeHref(locale, step === first ? "/contact" : `/contact/${step}`);
 }
 
-function destinationHref(locale: Locale, step: Exclude<ContactStep, "check">, returnTo?: string): string {
+function destinationHref(
+  locale: Locale,
+  step: Exclude<ContactStep, "check">,
+  returnTo?: string
+): string {
   const target = returnTo === "check" ? "check" : NEXT_STEP[step];
   return stepHref(locale, target);
 }
@@ -90,9 +94,14 @@ export async function submitCategoryStep(
   // taken from the client, and it's re-validated by deriveContactSeed here.
   const seedFrom = String(formData.get("seedFrom") ?? "");
   const draft = await readDraft<ContactDraft>(COOKIE);
-  const subject = draft.subject ? undefined : deriveContactSeed(locale, result.data, seedFrom).subject;
+  const subject = draft.subject
+    ? undefined
+    : deriveContactSeed(locale, result.data, seedFrom).subject;
 
-  await mergeDraft<ContactDraft>(COOKIE, { category: result.data, ...(subject ? { subject } : {}) });
+  await mergeDraft<ContactDraft>(COOKIE, {
+    category: result.data,
+    ...(subject ? { subject } : {}),
+  });
   redirect(destinationHref(locale, "category", returnTo));
 }
 

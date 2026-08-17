@@ -390,12 +390,7 @@ export default function ItemsManager({
     });
   }, [items, query, categoryFilter, ownerFilter, statusFilter, isGlobal]);
 
-  const {
-    page,
-    totalPages,
-    pageItems: pagedItems,
-    goToPage,
-  } = usePagination(filtered, PAGE_SIZE);
+  const { page, totalPages, pageItems: pagedItems, goToPage } = usePagination(filtered, PAGE_SIZE);
   // Jump back to page 1 whenever a filter narrows/widens the result set, so
   // the list never opens mid-way through a new filter's results.
   useEffect(() => {
@@ -577,7 +572,7 @@ export default function ItemsManager({
           <div className="max-w-sm">
             <label
               htmlFor={`${formId}-search`}
-              className="text-ink mb-1.5 block text-sm font-semibold"
+              className="mb-1.5 block text-sm font-semibold text-ink"
             >
               {t.search}
             </label>
@@ -587,14 +582,14 @@ export default function ItemsManager({
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={t.searchPlaceholder}
-              className="focus-halo border-input-border bg-surface text-ink placeholder:text-muted h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
             />
           </div>
 
           <div className="max-w-xs">
             <label
               htmlFor={`${formId}-category`}
-              className="text-ink mb-1.5 block text-sm font-semibold"
+              className="mb-1.5 block text-sm font-semibold text-ink"
             >
               {t.category}
             </label>
@@ -602,7 +597,7 @@ export default function ItemsManager({
               id={`${formId}-category`}
               value={categoryFilter}
               onChange={(event) => setCategoryFilter(event.target.value)}
-              className="focus-halo border-input-border bg-surface text-ink h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
             >
               {categoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -616,7 +611,7 @@ export default function ItemsManager({
             <div className="max-w-xs">
               <label
                 htmlFor={`${formId}-owner-filter`}
-                className="text-ink mb-1.5 block text-sm font-semibold"
+                className="mb-1.5 block text-sm font-semibold text-ink"
               >
                 {t.ownerLabel}
               </label>
@@ -624,7 +619,7 @@ export default function ItemsManager({
                 id={`${formId}-owner-filter`}
                 value={ownerFilter}
                 onChange={(event) => setOwnerFilter(event.target.value)}
-                className="focus-halo border-input-border bg-surface text-ink h-11 w-full rounded-md border px-3.5 py-2.5 text-[0.95rem]"
+                className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
               >
                 <option value="all">{t.allOwners}</option>
                 {custodians.map((c) => (
@@ -681,7 +676,7 @@ export default function ItemsManager({
       {successMessage ? (
         <div
           role="status"
-          className="border-success bg-success-tint text-ink rounded-md border-l-4 p-3 text-sm"
+          className="rounded-md border-l-4 border-success bg-success-tint p-3 text-sm text-ink"
         >
           {successMessage}
         </div>
@@ -693,13 +688,13 @@ export default function ItemsManager({
           onSubmit={handleSubmit}
           noValidate
           aria-live="polite"
-          className="border-line bg-surface flex flex-col gap-5 rounded-lg border p-5 sm:p-6"
+          className="flex flex-col gap-5 rounded-lg border border-line bg-surface p-5 sm:p-6"
         >
-          <h2 className="font-display text-ink text-lg">{t.formTitle}</h2>
+          <h2 className="font-display text-lg text-ink">{t.formTitle}</h2>
 
           <ErrorSummary title={t.errorSummaryTitle} errors={errorItems} />
           {formError && errorItems.length === 0 ? (
-            <p role="alert" className="text-error text-sm font-medium">
+            <p role="alert" className="text-sm font-medium text-error">
               {formError}
             </p>
           ) : null}
@@ -812,20 +807,20 @@ export default function ItemsManager({
             ) : null}
           </div>
 
-          <label className="focus-halo border-input-border has-checked:border-brand has-checked:bg-brand-tint flex min-h-11 w-fit items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+          <label className="focus-halo flex min-h-11 w-fit items-center gap-2 rounded-md border border-input-border px-3.5 py-2.5 text-sm has-checked:border-brand has-checked:bg-brand-tint">
             <input
               type="checkbox"
               checked={form.onlineLoanable}
               onChange={(event) => updateForm("onlineLoanable", event.target.checked)}
-              className="border-input-border h-5 w-5 rounded"
+              className="h-5 w-5 rounded border-input-border"
             />
             {t.onlineLoanableLabel}
           </label>
 
           <fieldset className="flex flex-col gap-2">
-            <legend className="text-ink mb-2 text-sm font-semibold">{t.trackingModeLabel}</legend>
+            <legend className="mb-2 text-sm font-semibold text-ink">{t.trackingModeLabel}</legend>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <label className="border-input-border has-checked:border-brand has-checked:bg-brand-tint flex items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+              <label className="flex items-center gap-2 rounded-md border border-input-border px-3.5 py-2.5 text-sm has-checked:border-brand has-checked:bg-brand-tint">
                 <input
                   type="radio"
                   name="trackingMode"
@@ -834,7 +829,7 @@ export default function ItemsManager({
                 />
                 {t.trackingAsset}
               </label>
-              <label className="border-input-border has-checked:border-brand has-checked:bg-brand-tint flex items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+              <label className="flex items-center gap-2 rounded-md border border-input-border px-3.5 py-2.5 text-sm has-checked:border-brand has-checked:bg-brand-tint">
                 <input
                   type="radio"
                   name="trackingMode"
@@ -882,13 +877,13 @@ export default function ItemsManager({
         </form>
       ) : null}
 
-      <p role="status" className="text-muted text-sm">
+      <p role="status" className="text-sm text-muted">
         {t.showing} {filtered.length} {filtered.length === 1 ? t.result : t.results}
       </p>
 
       {filtered.length === 0 ? (
-        <div className="border-line bg-sunken flex flex-col items-start gap-3 rounded-lg border p-6">
-          <p className="text-ink text-sm">{t.noResults}</p>
+        <div className="flex flex-col items-start gap-3 rounded-lg border border-line bg-sunken p-6">
+          <p className="text-sm text-ink">{t.noResults}</p>
           <Button variant="secondary" onClick={clearFilters}>
             {t.clearFilters}
           </Button>
@@ -903,11 +898,11 @@ export default function ItemsManager({
             return (
               <li
                 key={item.id}
-                className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4 sm:p-5"
+                className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4 sm:p-5"
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-display text-ink text-lg">
+                    <p className="font-display text-lg text-ink">
                       <Link
                         href={localeHref(locale, `/officer/inventory/items/${item.id}`)}
                         className="hover:underline"
@@ -915,7 +910,7 @@ export default function ItemsManager({
                         {item.name[locale]}
                       </Link>
                     </p>
-                    <p className="text-muted text-sm">{item.key}</p>
+                    <p className="text-sm text-muted">{item.key}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     <Tag variant="brand">

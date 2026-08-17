@@ -75,22 +75,22 @@ export default async function NewsDetailPage({
           <Tag variant={isEvent ? "brand" : "neutral"}>
             {isEvent ? dict.meta.event : dict.meta.news}
           </Tag>
-          <span className="text-muted text-sm">
+          <span className="text-sm text-muted">
             {dict.meta.published} {formatDate(locale, frontmatter.date)}
           </span>
         </div>
 
         {isEvent && (frontmatter.start || frontmatter.location) ? (
-          <dl className="border-line bg-sunken mb-8 grid max-w-[var(--measure)] gap-3 rounded-lg border p-5 sm:grid-cols-2">
+          <dl className="mb-8 grid max-w-[var(--measure)] gap-3 rounded-lg border border-line bg-sunken p-5 sm:grid-cols-2">
             {frontmatter.start ? (
               <div>
-                <dt className="text-muted text-sm font-semibold">{dict.meta.when}</dt>
+                <dt className="text-sm font-semibold text-muted">{dict.meta.when}</dt>
                 <dd className="text-ink">{formatDate(locale, frontmatter.start)}</dd>
               </div>
             ) : null}
             {frontmatter.location ? (
               <div>
-                <dt className="text-muted text-sm font-semibold">{dict.meta.where}</dt>
+                <dt className="text-sm font-semibold text-muted">{dict.meta.where}</dt>
                 <dd className="text-ink">{frontmatter.location}</dd>
               </div>
             ) : null}
@@ -101,14 +101,14 @@ export default async function NewsDetailPage({
 
         {frontmatter.links && frontmatter.links.length > 0 ? (
           <div className="mt-8 max-w-[var(--measure)]">
-            <h2 className="font-display mb-3 text-xl">{detailsLabel[locale]}</h2>
+            <h2 className="mb-3 font-display text-xl">{detailsLabel[locale]}</h2>
             <ul className="flex flex-col gap-2">
               {frontmatter.links.map((link) => (
                 <li key={link.href}>
                   <ExternalLink
                     href={link.href}
                     newTabLabel={dict.a11y.newTab}
-                    className="text-brand-deep font-semibold"
+                    className="font-semibold text-brand-deep"
                   >
                     {link.label}
                   </ExternalLink>
@@ -121,7 +121,7 @@ export default async function NewsDetailPage({
         <p className="mt-10">
           <a
             href={localeHref(locale, "/news")}
-            className="text-brand-deep font-semibold hover:underline"
+            className="font-semibold text-brand-deep hover:underline"
           >
             &larr; {backLabel[locale]}
           </a>

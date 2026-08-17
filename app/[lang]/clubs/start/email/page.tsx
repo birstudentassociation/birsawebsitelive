@@ -38,10 +38,14 @@ export default async function StartClubEmailPage({
   const { returnTo } = await searchParams;
 
   const draft = await getStartClubDraft();
-  const backHref = localeHref(locale, returnTo === "check" ? "/clubs/start/check" : "/clubs/start/name");
-  const progress = returnTo === "check"
-    ? undefined
-    : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("email") + 1, START_CLUB_STEPS.length);
+  const backHref = localeHref(
+    locale,
+    returnTo === "check" ? "/clubs/start/check" : "/clubs/start/name"
+  );
+  const progress =
+    returnTo === "check"
+      ? undefined
+      : formatStepOf(chrome.stepOf, START_CLUB_STEPS.indexOf("email") + 1, START_CLUB_STEPS.length);
 
   return (
     <>

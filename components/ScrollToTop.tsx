@@ -31,7 +31,7 @@ export default function ScrollToTop({ label }: ScrollToTopProps) {
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
       onClick={handleClick}
-      className={`focus-halo border-line-strong bg-cream text-ink hover:bg-sunken fixed right-5 bottom-5 z-50 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border shadow-lg transition-opacity duration-200 ${
+      className={`focus-halo fixed right-5 bottom-5 z-50 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line-strong bg-cream text-ink shadow-lg transition-opacity duration-200 hover:bg-sunken ${
         visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
     >

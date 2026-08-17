@@ -800,7 +800,7 @@ export default function ItemDetail({
 
   return (
     <div className="flex flex-col gap-8">
-      <section className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5 sm:p-6">
+      <section className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5 sm:p-6">
         <div className="flex flex-wrap items-center gap-2">
           <Pill className="bg-brand-tint text-brand-deep">
             {item.trackingMode === "asset" ? t.assetTag : t.consumableTag}
@@ -820,15 +820,15 @@ export default function ItemDetail({
 
         <dl className="grid grid-cols-1 gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-muted font-semibold">{t.keyLabel}</dt>
+            <dt className="font-semibold text-muted">{t.keyLabel}</dt>
             <dd className="text-ink">{item.key}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.ownerLabel}</dt>
+            <dt className="font-semibold text-muted">{t.ownerLabel}</dt>
             <dd className="text-ink">{owner ? owner.name[locale] : ""}</dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.categoryLabel}</dt>
+            <dt className="font-semibold text-muted">{t.categoryLabel}</dt>
             <dd className="text-ink">
               {item.categoryId
                 ? (categories.find((c) => c.id === item.categoryId)?.name[locale] ?? t.noCategory)
@@ -836,7 +836,7 @@ export default function ItemDetail({
             </dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.locationLabel}</dt>
+            <dt className="font-semibold text-muted">{t.locationLabel}</dt>
             <dd className="text-ink">
               {item.defaultLocationId
                 ? (locations.find((l) => l.id === item.defaultLocationId)?.name[locale] ??
@@ -845,12 +845,12 @@ export default function ItemDetail({
             </dd>
           </div>
           <div>
-            <dt className="text-muted font-semibold">{t.maxLoanDaysLabel}</dt>
+            <dt className="font-semibold text-muted">{t.maxLoanDaysLabel}</dt>
             <dd className="text-ink">{item.maxLoanDays}</dd>
           </div>
         </dl>
         {item.description[locale] ? (
-          <p className="text-ink text-sm leading-relaxed">{item.description[locale]}</p>
+          <p className="text-sm leading-relaxed text-ink">{item.description[locale]}</p>
         ) : null}
 
         {canWrite ? (
@@ -870,8 +870,8 @@ export default function ItemDetail({
       </section>
 
       {canWrite ? (
-        <section className="border-line bg-surface flex flex-col gap-4 rounded-lg border p-5 sm:p-6">
-          <h2 className="font-display text-ink text-xl">{t.photoTitle}</h2>
+        <section className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5 sm:p-6">
+          <h2 className="font-display text-xl text-ink">{t.photoTitle}</h2>
           <PhotoUpload
             currentUrl={item.photoUrl}
             onUploaded={handlePhotoUploaded}
@@ -1018,14 +1018,14 @@ export default function ItemDetail({
               ) : null}
             </div>
 
-            <label className="focus-halo border-input-border has-checked:border-brand has-checked:bg-brand-tint flex min-h-11 w-fit items-center gap-2 rounded-md border px-3.5 py-2.5 text-sm">
+            <label className="focus-halo flex min-h-11 w-fit items-center gap-2 rounded-md border border-input-border px-3.5 py-2.5 text-sm has-checked:border-brand has-checked:bg-brand-tint">
               <input
                 type="checkbox"
                 checked={editForm.onlineLoanable}
                 onChange={(event) =>
                   setEditForm((prev) => ({ ...prev, onlineLoanable: event.target.checked }))
                 }
-                className="border-input-border h-5 w-5 rounded"
+                className="h-5 w-5 rounded border-input-border"
               />
               {t.onlineLoanableLabel}
             </label>
@@ -1042,7 +1042,7 @@ export default function ItemDetail({
       {item.trackingMode === "asset" ? (
         <section className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="font-display text-ink text-xl">{t.unitsTitle}</h2>
+            <h2 className="font-display text-xl text-ink">{t.unitsTitle}</h2>
             {canWrite ? (
               <Button
                 variant={addUnitOpen ? "secondary" : "primary"}
@@ -1063,7 +1063,7 @@ export default function ItemDetail({
               onSubmit={handleAddUnit}
               noValidate
               aria-live="polite"
-              className="border-line bg-sunken flex flex-col gap-5 rounded-lg border p-5"
+              className="flex flex-col gap-5 rounded-lg border border-line bg-sunken p-5"
             >
               <LiveMessage text={unitFormError} kind="error" />
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -1138,7 +1138,7 @@ export default function ItemDetail({
           ) : null}
 
           {units.length === 0 ? (
-            <p className="text-muted text-sm">{t.noUnits}</p>
+            <p className="text-sm text-muted">{t.noUnits}</p>
           ) : (
             <ul className="flex flex-col gap-3">
               {units.map((unit) => (
@@ -1170,8 +1170,8 @@ export default function ItemDetail({
 
       {item.trackingMode === "consumable" ? (
         <section className="flex flex-col gap-4">
-          <h2 className="font-display text-ink text-xl">{t.stockTitle}</h2>
-          <p className="text-ink text-sm">
+          <h2 className="font-display text-xl text-ink">{t.stockTitle}</h2>
+          <p className="text-sm text-ink">
             {t.currentQty}: <span className="font-semibold">{item.qtyOnHand ?? 0}</span>
           </p>
 
@@ -1180,7 +1180,7 @@ export default function ItemDetail({
               onSubmit={handleAdjust}
               noValidate
               aria-live="polite"
-              className="border-line bg-sunken flex flex-col gap-5 rounded-lg border p-5"
+              className="flex flex-col gap-5 rounded-lg border border-line bg-sunken p-5"
             >
               <LiveMessage text={adjustError} kind="error" />
               <LiveMessage text={adjustMessage} kind="success" />
@@ -1215,19 +1215,19 @@ export default function ItemDetail({
           ) : null}
 
           <div className="flex flex-col gap-3">
-            <h3 id={`${formId}-history-heading`} className="text-ink text-sm font-semibold">
+            <h3 id={`${formId}-history-heading`} className="text-sm font-semibold text-ink">
               {t.historyTitle}
             </h3>
             {adjustments.length === 0 ? (
-              <p className="text-muted text-sm">{t.historyEmpty}</p>
+              <p className="text-sm text-muted">{t.historyEmpty}</p>
             ) : (
               <div className="overflow-x-auto">
                 <table
                   aria-labelledby={`${formId}-history-heading`}
-                  className="text-ink w-full text-left text-sm"
+                  className="w-full text-left text-sm text-ink"
                 >
                   <thead>
-                    <tr className="border-line border-b">
+                    <tr className="border-b border-line">
                       <th scope="col" className="py-2 pr-4 font-semibold">
                         {t.historyDate}
                       </th>
@@ -1244,7 +1244,7 @@ export default function ItemDetail({
                   </thead>
                   <tbody>
                     {adjustments.map((adjustment) => (
-                      <tr key={adjustment.id} className="border-line border-b last:border-0">
+                      <tr key={adjustment.id} className="border-b border-line last:border-0">
                         <td className="py-2 pr-4">{formatDate(locale, adjustment.createdAt)}</td>
                         <td
                           className={clsx(
@@ -1427,11 +1427,11 @@ function UnitRow({
   }
 
   return (
-    <li className="border-line bg-surface flex flex-col gap-3 rounded-lg border p-4">
+    <li className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-4">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-ink font-semibold">{unit.label}</p>
-          <p className="text-muted text-sm">
+          <p className="font-semibold text-ink">{unit.label}</p>
+          <p className="text-sm text-muted">
             {unit.locationId
               ? (locations.find((l) => l.id === unit.locationId)?.name[locale] ?? t.noLocation)
               : t.noLocation}
@@ -1442,7 +1442,7 @@ function UnitRow({
           <Pill className={stateTint[unit.state]}>{t.stateLabels[unit.state]}</Pill>
         </div>
       </div>
-      {unit.notes ? <p className="text-ink text-sm">{unit.notes}</p> : null}
+      {unit.notes ? <p className="text-sm text-ink">{unit.notes}</p> : null}
 
       {canWrite ? (
         <div className="flex flex-wrap items-center gap-3">
@@ -1488,7 +1488,7 @@ function UnitRow({
           onSubmit={handleSave}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           <LiveMessage text={error} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1559,7 +1559,7 @@ function UnitRow({
           onSubmit={handleOpenMaintenance}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           <LiveMessage text={maintenanceError} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -1599,7 +1599,7 @@ function UnitRow({
           onSubmit={handleCloseMaintenance}
           noValidate
           aria-live="polite"
-          className="border-line flex flex-col gap-4 border-t pt-4"
+          className="flex flex-col gap-4 border-t border-line pt-4"
         >
           <LiveMessage text={closeError} kind="error" />
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

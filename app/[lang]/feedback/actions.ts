@@ -30,7 +30,11 @@ export type FeedbackValues = {
  */
 export type FeedbackState =
   | { status: "idle" }
-  | { status: "invalid"; errors: Partial<Record<FeedbackFieldName, string>>; values: FeedbackValues }
+  | {
+      status: "invalid";
+      errors: Partial<Record<FeedbackFieldName, string>>;
+      values: FeedbackValues;
+    }
   | { status: "not-configured" }
   | { status: "error"; values: FeedbackValues };
 

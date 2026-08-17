@@ -159,7 +159,7 @@ export default async function SearchPage({
 
         {!response.ran ? (
           <div className="flex flex-col gap-6">
-            <p role="status" className="text-muted text-sm">
+            <p role="status" className="text-sm text-muted">
               {t.minChars}
             </p>
             <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
@@ -170,11 +170,11 @@ export default async function SearchPage({
             {response.bestBet ? <BestBetCard bestBet={response.bestBet} /> : null}
 
             {response.didYouMean ? (
-              <p className="text-ink text-sm">
+              <p className="text-sm text-ink">
                 {t.didYouMeanPrefix}{" "}
                 <Link
                   href={searchQueryHref(locale, response.didYouMean)}
-                  className="text-brand-deep font-semibold underline"
+                  className="font-semibold text-brand-deep underline"
                 >
                   {response.didYouMean}
                 </Link>
@@ -182,7 +182,7 @@ export default async function SearchPage({
               </p>
             ) : null}
 
-            <p role="status" className="text-muted text-sm">
+            <p role="status" className="text-sm text-muted">
               {capped
                 ? t.showingOf(resultCount, matchedInView)
                 : `${dict.actions.showing} ${resultCount} ${

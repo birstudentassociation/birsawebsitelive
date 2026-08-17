@@ -227,17 +227,17 @@ async function ScopedDashboardBoards({
       </Notice>
 
       <section aria-labelledby="low-stock-heading" className="flex flex-col gap-4">
-        <h2 id="low-stock-heading" className="font-display text-ink text-xl">
+        <h2 id="low-stock-heading" className="font-display text-xl text-ink">
           {t.lowStockTitle}
         </h2>
         {lowStock.length === 0 ? (
-          <p className="text-muted text-sm">{t.lowStockEmpty}</p>
+          <p className="text-sm text-muted">{t.lowStockEmpty}</p>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {lowStock.map((item) => (
               <Card key={item.id}>
                 <CardTitle as="h3">{item.name[locale]}</CardTitle>
-                <p className="text-muted text-sm">
+                <p className="text-sm text-muted">
                   {t.lowStockQty(item.qtyOnHand ?? 0, item.reorderThreshold ?? 0)}
                 </p>
               </Card>
@@ -247,7 +247,7 @@ async function ScopedDashboardBoards({
       </section>
 
       <section aria-labelledby="quick-links-heading" className="flex flex-col gap-4">
-        <h2 id="quick-links-heading" className="font-display text-ink text-xl">
+        <h2 id="quick-links-heading" className="font-display text-xl text-ink">
           {t.quickLinksTitle}
         </h2>
         <div className="flex flex-wrap gap-3">
@@ -278,12 +278,12 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
   return (
     <div className="flex flex-col gap-10">
       <section aria-labelledby="needs-attention-heading" className="flex flex-col gap-4">
-        <h2 id="needs-attention-heading" className="font-display text-ink text-xl">
+        <h2 id="needs-attention-heading" className="font-display text-xl text-ink">
           {t.needsAttentionTitle}
         </h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Card>
-            <p className="text-muted text-sm font-semibold">{t.pendingLabel}</p>
+            <p className="text-sm font-semibold text-muted">{t.pendingLabel}</p>
             <p
               className={clsx(
                 "font-display text-3xl",
@@ -294,7 +294,7 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
             </p>
           </Card>
           <Card>
-            <p className="text-muted text-sm font-semibold">{t.overdueLabel}</p>
+            <p className="text-sm font-semibold text-muted">{t.overdueLabel}</p>
             <p
               className={clsx(
                 "font-display text-3xl",
@@ -308,31 +308,31 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
       </section>
 
       <section aria-labelledby="status-board-heading" className="flex flex-col gap-4">
-        <h2 id="status-board-heading" className="font-display text-ink text-xl">
+        <h2 id="status-board-heading" className="font-display text-xl text-ink">
           {t.statusBoardTitle}
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {STATUS_ORDER.map((status) => (
             <Card key={status}>
-              <p className="text-muted text-sm font-semibold">{t.statusLabels[status]}</p>
-              <p className="font-display text-ink text-2xl">{counts.get(status) ?? 0}</p>
+              <p className="text-sm font-semibold text-muted">{t.statusLabels[status]}</p>
+              <p className="font-display text-2xl text-ink">{counts.get(status) ?? 0}</p>
             </Card>
           ))}
         </div>
       </section>
 
       <section aria-labelledby="low-stock-heading" className="flex flex-col gap-4">
-        <h2 id="low-stock-heading" className="font-display text-ink text-xl">
+        <h2 id="low-stock-heading" className="font-display text-xl text-ink">
           {t.lowStockTitle}
         </h2>
         {lowStock.length === 0 ? (
-          <p className="text-muted text-sm">{t.lowStockEmpty}</p>
+          <p className="text-sm text-muted">{t.lowStockEmpty}</p>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {lowStock.map((item) => (
               <Card key={item.id}>
                 <CardTitle as="h3">{item.name[locale]}</CardTitle>
-                <p className="text-muted text-sm">
+                <p className="text-sm text-muted">
                   {t.lowStockQty(item.qtyOnHand ?? 0, item.reorderThreshold ?? 0)}
                 </p>
               </Card>
@@ -342,7 +342,7 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
       </section>
 
       <section aria-labelledby="quick-links-heading" className="flex flex-col gap-4">
-        <h2 id="quick-links-heading" className="font-display text-ink text-xl">
+        <h2 id="quick-links-heading" className="font-display text-xl text-ink">
           {t.quickLinksTitle}
         </h2>
         <div className="flex flex-wrap gap-3">

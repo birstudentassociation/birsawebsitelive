@@ -35,11 +35,7 @@ export async function generateMetadata({
   return { ...metadata, robots: { index: false, follow: true } };
 }
 
-export default async function FeedbackSentPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function FeedbackSentPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -61,7 +57,7 @@ export default async function FeedbackSentPage({
       <div className="wrap flex flex-col gap-6 py-10">
         <div
           role="status"
-          className="border-success bg-success-tint text-ink focus-halo rounded-lg border-l-4 p-6"
+          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
           <p className="text-sm">{t.confirmationBody}</p>
         </div>

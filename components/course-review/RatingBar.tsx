@@ -18,13 +18,13 @@ export default function RatingBar({ label, value, max = 5, outOf }: RatingBarPro
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-center justify-between gap-3 text-sm">
-        <span className="text-ink font-medium">{label}</span>
-        <span className="text-muted shrink-0">
+        <span className="font-medium text-ink">{label}</span>
+        <span className="shrink-0 text-muted">
           {value.toFixed(1)} {outOf}
         </span>
       </div>
-      <div className="bg-sunken h-1.5 w-full overflow-hidden rounded-full">
-        <div className="bg-brand h-full rounded-full" style={{ width: `${pct}%` }} />
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-sunken">
+        <div className="h-full rounded-full bg-brand" style={{ width: `${pct}%` }} />
       </div>
     </div>
   );

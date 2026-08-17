@@ -90,8 +90,7 @@ type Labels = {
 const content: Record<Locale, Labels> = {
   en: {
     title: "Record of processing activities",
-    lede:
-      "The formal record section 39 of the Personal Data Protection Act requires us to keep, open for you or the regulator to inspect.",
+    lede: "The formal record section 39 of the Personal Data Protection Act requires us to keep, open for you or the regulator to inspect.",
     privacyBreadcrumb: "Privacy",
 
     aboutTitle: "About this record",
@@ -105,8 +104,7 @@ const content: Record<Locale, Labels> = {
     controllerEmailLabel: "Email:",
 
     activitiesTitle: "Processing activities",
-    activitiesIntro:
-      "Every category of personal data this site processes, one row per activity.",
+    activitiesIntro: "Every category of personal data this site processes, one row per activity.",
     colCategory: "Category",
     colPurpose: "Purpose",
     colCollects: "Data collected",
@@ -136,8 +134,7 @@ const content: Record<Locale, Labels> = {
     rightsCta: "See your rights in full",
 
     securityTitle: "Security measures (section 37(1))",
-    securityIntro:
-      "In plain terms, here's what protects the personal data we hold:",
+    securityIntro: "In plain terms, here's what protects the personal data we hold:",
     securityItems: [
       "Officer passcodes are stored as a scrypt hash, a one-way scramble that cannot be turned back into the original passcode, even by us.",
       "Sign-in sessions use a cookie that's cryptographically signed (HMAC), so it can't be forged or edited by a visitor.",
@@ -159,8 +156,7 @@ const content: Record<Locale, Labels> = {
   },
   th: {
     title: "บันทึกรายการกิจกรรมการประมวลผลข้อมูลส่วนบุคคล",
-    lede:
-      "บันทึกรายการตามที่มาตรา 39 แห่งพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 กำหนดให้ผู้ควบคุมข้อมูลส่วนบุคคลต้องจัดทำ เพื่อให้เจ้าของข้อมูลส่วนบุคคลและสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลสามารถตรวจสอบได้",
+    lede: "บันทึกรายการตามที่มาตรา 39 แห่งพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 กำหนดให้ผู้ควบคุมข้อมูลส่วนบุคคลต้องจัดทำ เพื่อให้เจ้าของข้อมูลส่วนบุคคลและสำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลสามารถตรวจสอบได้",
     privacyBreadcrumb: "ประกาศความเป็นส่วนตัว",
 
     aboutTitle: "ความมุ่งหมายของบันทึกฉบับนี้",
@@ -263,16 +259,16 @@ export default async function ProcessingRecordPage({
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.aboutTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.aboutBody}</p>
+          <p className="leading-relaxed text-muted">{t.aboutBody}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.controllerTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.controllerBody}</p>
-          <p className="text-muted leading-relaxed">
+          <p className="leading-relaxed text-muted">{t.controllerBody}</p>
+          <p className="leading-relaxed text-muted">
             {t.controllerAddressLabel} {contact.address[locale]}
           </p>
-          <p className="text-muted leading-relaxed">
+          <p className="leading-relaxed text-muted">
             {t.controllerEmailLabel}{" "}
             <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
             {locale === "th" ? " หรือ " : " or "}
@@ -286,12 +282,12 @@ export default async function ProcessingRecordPage({
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.activitiesTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.activitiesIntro}</p>
+            <p className="leading-relaxed text-muted">{t.activitiesIntro}</p>
           </div>
           <div className="overflow-x-auto">
-            <table className="border-line w-full border-collapse text-sm">
+            <table className="w-full border-collapse border-line text-sm">
               <thead>
-                <tr className="border-line border-b text-left">
+                <tr className="border-b border-line text-left">
                   <th scope="col" className="p-2 font-semibold">
                     {t.colCategory}
                   </th>
@@ -319,27 +315,27 @@ export default async function ProcessingRecordPage({
                     .filter((p): p is NonNullable<typeof p> => Boolean(p));
 
                   return (
-                    <tr key={activity.id} className="border-line border-b align-top">
+                    <tr key={activity.id} className="border-b border-line align-top">
                       <td className="p-2 font-semibold whitespace-nowrap">
                         {activity.name[locale]}
                       </td>
-                      <td className="text-muted p-2 leading-relaxed">{activity.purpose[locale]}</td>
-                      <td className="text-muted p-2 leading-relaxed">
+                      <td className="p-2 leading-relaxed text-muted">{activity.purpose[locale]}</td>
+                      <td className="p-2 leading-relaxed text-muted">
                         <ul className="flex list-disc flex-col gap-1 pl-4">
                           {activity.collects.map((item) => (
                             <li key={item[locale]}>{item[locale]}</li>
                           ))}
                         </ul>
                       </td>
-                      <td className="text-muted p-2 leading-relaxed whitespace-nowrap">
+                      <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
                         {activity.basis.section}
                       </td>
-                      <td className="text-muted p-2 leading-relaxed">
+                      <td className="p-2 leading-relaxed text-muted">
                         {recipients.length === 0
                           ? t.noRecipients
                           : recipients.map((p) => p.name).join(locale === "th" ? " และ " : ", ")}
                       </td>
-                      <td className="text-muted p-2 leading-relaxed whitespace-nowrap">
+                      <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
                         {retentionCell(t, activity)}
                       </td>
                     </tr>
@@ -353,12 +349,12 @@ export default async function ProcessingRecordPage({
         <section className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.processorsTitle}</h2>
-            <p className="text-muted leading-relaxed">{t.processorsIntro}</p>
+            <p className="leading-relaxed text-muted">{t.processorsIntro}</p>
           </div>
           <div className="overflow-x-auto">
-            <table className="border-line w-full border-collapse text-sm">
+            <table className="w-full border-collapse border-line text-sm">
               <thead>
-                <tr className="border-line border-b text-left">
+                <tr className="border-b border-line text-left">
                   <th scope="col" className="p-2 font-semibold">
                     {t.colProcessor}
                   </th>
@@ -372,10 +368,10 @@ export default async function ProcessingRecordPage({
               </thead>
               <tbody>
                 {processors.map((processor) => (
-                  <tr key={processor.id} className="border-line border-b align-top">
+                  <tr key={processor.id} className="border-b border-line align-top">
                     <td className="p-2 font-semibold whitespace-nowrap">{processor.name}</td>
-                    <td className="text-muted p-2 leading-relaxed">{processor.role[locale]}</td>
-                    <td className="text-muted p-2 leading-relaxed whitespace-nowrap">
+                    <td className="p-2 leading-relaxed text-muted">{processor.role[locale]}</td>
+                    <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
                       {processor.country[locale]}
                     </td>
                   </tr>
@@ -387,19 +383,19 @@ export default async function ProcessingRecordPage({
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl">{t.rightsTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.rightsBody}</p>
-          <ul className="text-muted flex list-disc flex-col gap-1 pl-5 leading-relaxed">
+          <p className="leading-relaxed text-muted">{t.rightsBody}</p>
+          <ul className="flex list-disc flex-col gap-1 pl-5 leading-relaxed text-muted">
             {dataRights.map((right) => (
               <li key={right.id}>
                 {right.name[locale]} ({right.section})
               </li>
             ))}
           </ul>
-          <p className="text-muted leading-relaxed">{t.rightsResponseNote}</p>
+          <p className="leading-relaxed text-muted">{t.rightsResponseNote}</p>
           <p>
             <Link
               href={localeHref(locale, "/privacy#your-rights")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.rightsCta}
             </Link>
@@ -408,8 +404,8 @@ export default async function ProcessingRecordPage({
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-2xl">{t.securityTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.securityIntro}</p>
-          <ul className="text-muted flex list-disc flex-col gap-2 pl-5 leading-relaxed">
+          <p className="leading-relaxed text-muted">{t.securityIntro}</p>
+          <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed text-muted">
             {t.securityItems.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -418,16 +414,16 @@ export default async function ProcessingRecordPage({
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.breachTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.breachBody}</p>
+          <p className="leading-relaxed text-muted">{t.breachBody}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.dpoTitle}</h2>
-          <p className="text-muted leading-relaxed">{t.dpoBody}</p>
+          <p className="leading-relaxed text-muted">{t.dpoBody}</p>
           <p>
             <Link
               href={localeHref(locale, "/contact")}
-              className="text-brand-deep hover:text-brand-dark font-semibold underline"
+              className="font-semibold text-brand-deep underline hover:text-brand-dark"
             >
               {t.contactCta}
             </Link>
