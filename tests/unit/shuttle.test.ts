@@ -3,9 +3,13 @@ import {
   getBangkokParts,
   getDepartureMinutes,
   getDepartureTimes,
+  getExtension,
+  getExtraDepartureTimes,
   getSuspension,
   nextDeparture,
+  serviceExtensions,
   serviceSuspensions,
+  shuttleLines,
   type BangkokParts,
 } from "@/lib/shuttle";
 
@@ -69,6 +73,51 @@ describe("getSuspension", () => {
       expect(suspension.from > previousTo).toBe(true);
       previousTo = suspension.to;
     }
+  });
+});
+
+describe("getExtension", () => {
+  it("applies on the announced date only", () => {
+    expect(getExtension("2026-08-19")).toMatchObject({ lastDeparture: "23:30", everyMinutes: 30 });
+    expect(getExtension("2026-08-18")).toBeUndefined();
+    expect(getExtension("2026-08-20")).toBeUndefined();
+  });
+
+  it("keeps every announced extension well formed", () => {
+    for (const extension of serviceExtensions) {
+      expect(extension.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(extension.lastDeparture).toMatch(/^\d{2}:\d{2}$/);
+      expect(extension.everyMinutes).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("getExtraDepartureTimes", () => {
+  it("runs every half hour from the normal last bus to 23:30 on both lines", () => {
+    for (const line of shuttleLines) {
+      expect(getExtraDepartureTimes(line.id, "2026-08-19")).toEqual([
+        "22:00",
+        "22:30",
+        "23:00",
+        "23:30",
+      ]);
+    }
+  });
+
+  it("adds nothing on an ordinary day", () => {
+    expect(getExtraDepartureTimes("sanam-chai", "2026-09-07")).toEqual([]);
+    expect(getDepartureTimes("sanam-chai", "2026-09-07")).toEqual(getDepartureTimes("sanam-chai"));
+  });
+
+  it("leaves the printed timetable (no date) unchanged", () => {
+    const times = getDepartureTimes("pinklao");
+    expect(times[times.length - 1]).toBe("21:30");
+  });
+
+  it("extends the dated timetable to 23:30", () => {
+    const times = getDepartureTimes("pinklao", "2026-08-19");
+    expect(times[times.length - 1]).toBe("23:30");
+    expect(times.filter((t, i) => times.indexOf(t) !== i)).toEqual([]);
   });
 });
 
@@ -161,6 +210,35 @@ describe("nextDeparture", () => {
   it("runs normally on the day before and the resumption day", () => {
     expect(nextDeparture("sanam-chai", parts(1, 9, 10, "2026-07-27")).status).toBe("upcoming");
     expect(nextDeparture("sanam-chai", parts(5, 9, 10, "2026-07-31")).status).toBe("upcoming");
+  });
+
+  it("keeps counting down after 21:30 on an extension night", () => {
+    // 19 August 2026 is a Wednesday; the extra buses run to 23:30.
+    const result = nextDeparture("sanam-chai", parts(3, 21, 40, "2026-08-19"));
+    expect(result).toMatchObject({ status: "upcoming", hh: "22", mm: "00", minutesUntil: 20 });
+  });
+
+  it("counts down to the last extra bus of an extension night", () => {
+    const result = nextDeparture("pinklao", parts(3, 23, 0, "2026-08-19"));
+    expect(result).toMatchObject({ status: "upcoming", hh: "23", mm: "30", minutesUntil: 30 });
+  });
+
+  it("goes out of service once the extension's last bus has gone", () => {
+    expect(nextDeparture("pinklao", parts(3, 23, 30, "2026-08-19")).status).toBe("not-in-service");
+    expect(nextDeparture("sanam-chai", parts(3, 23, 45, "2026-08-19")).status).toBe(
+      "not-in-service"
+    );
+  });
+
+  it("leaves the daytime schedule alone on an extension night", () => {
+    const result = nextDeparture("sanam-chai", parts(3, 9, 10, "2026-08-19"));
+    expect(result).toMatchObject({ status: "upcoming", hh: "09", mm: "30" });
+  });
+
+  it("still stops at 21:30 on an ordinary evening", () => {
+    expect(nextDeparture("sanam-chai", parts(3, 21, 40, "2026-08-18")).status).toBe(
+      "not-in-service"
+    );
   });
 
   it("getDepartureMinutes stays consistent with getDepartureTimes", () => {

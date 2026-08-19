@@ -209,6 +209,49 @@ export function getSuspension(date: string): SuspensionState | undefined {
   return undefined;
 }
 
+/**
+ * A one-off, dated extension of the evening service, e.g. the late buses
+ * laid on for the night of 19 August 2026. Like a suspension it is keyed to
+ * a Bangkok calendar date in ISO `YYYY-MM-DD` form and read through
+ * `getExtension`, so it stops applying by itself once that date has passed.
+ *
+ * Extra departures are generated rather than listed: they carry on from each
+ * line's normal last bus at a fixed interval up to `lastDeparture`
+ * inclusive. Both lines currently end at 21:30, so a 30 minute interval and
+ * a 23:30 last bus give 22:00, 22:30, 23:00 and 23:30 on each line.
+ */
+export type ServiceExtension = {
+  /** The Bangkok date the extension applies to. */
+  date: string;
+  /** Gap between the extra departures, in minutes. */
+  everyMinutes: number;
+  /** Last extra departure of the night, "HH:MM". */
+  lastDeparture: string;
+  /** The date as it should read on the page, e.g. "Wednesday 19 August 2026". */
+  dateLabel: Bilingual;
+};
+
+/**
+ * Announced late-night extensions, ordered by date. As with suspensions,
+ * entries are safe to leave in place: nothing reads this list except
+ * `getExtension`, which only matches the current Bangkok date, so a past
+ * entry stops affecting the timetable and the countdown without an edit.
+ */
+export const serviceExtensions: ServiceExtension[] = [
+  {
+    // Thammasat announcement: late buses on both lines, Tha Prachan campus.
+    date: "2026-08-19",
+    everyMinutes: 30,
+    lastDeparture: "23:30",
+    dateLabel: { en: "Wednesday 19 August 2026", th: "วันพุธที่ 19 สิงหาคม 2569" },
+  },
+];
+
+/** The extension in force on a given Bangkok date, if any. */
+export function getExtension(date: string): ServiceExtension | undefined {
+  return serviceExtensions.find((extension) => extension.date === date);
+}
+
 export function getLine(id: LineId): ShuttleLine {
   const line = shuttleLines.find((l) => l.id === id);
   if (!line) throw new Error(`Unknown shuttle line: ${id}`);
@@ -219,8 +262,24 @@ function pad2(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-/** Sorted list of every departure for a line, expressed as minutes since midnight. */
-export function getDepartureMinutes(lineId: LineId): number[] {
+/** "HH:MM" -> minutes since midnight. */
+function parseTime(time: string): number {
+  const [hh, mm] = time.split(":");
+  return Number(hh) * 60 + Number(mm);
+}
+
+/** Minutes since midnight -> "HH:MM". */
+function formatTime(minutes: number): string {
+  return `${pad2(Math.floor(minutes / 60))}:${pad2(minutes % 60)}`;
+}
+
+/**
+ * Sorted list of every departure for a line, expressed as minutes since
+ * midnight. Pass a Bangkok date to include any late-night extension
+ * announced for that date; without one this is the ordinary weekday
+ * timetable, which is what the printed tables show.
+ */
+export function getDepartureMinutes(lineId: LineId, date?: string): number[] {
   const { schedule } = getLine(lineId);
   const minutes: number[] = [];
   for (const hourKey of Object.keys(schedule)) {
@@ -229,12 +288,41 @@ export function getDepartureMinutes(lineId: LineId): number[] {
       minutes.push(hour * 60 + minute);
     }
   }
-  return minutes.sort((a, b) => a - b);
+  minutes.sort((a, b) => a - b);
+  if (date) minutes.push(...getExtraDepartureMinutes(lineId, date));
+  return minutes;
 }
 
 /** Sorted list of every departure for a line, as "HH:MM" strings. */
-export function getDepartureTimes(lineId: LineId): string[] {
-  return getDepartureMinutes(lineId).map((m) => `${pad2(Math.floor(m / 60))}:${pad2(m % 60)}`);
+export function getDepartureTimes(lineId: LineId, date?: string): string[] {
+  return getDepartureMinutes(lineId, date).map(formatTime);
+}
+
+/**
+ * The extra late-night departures a line gains on a given Bangkok date,
+ * sorted, or an empty list when no extension applies. They carry on from the
+ * line's normal last bus at the extension's interval, up to and including
+ * its last departure.
+ */
+export function getExtraDepartureMinutes(lineId: LineId, date: string): number[] {
+  const extension = getExtension(date);
+  if (!extension) return [];
+
+  const scheduled = getDepartureMinutes(lineId);
+  const normalLast = scheduled[scheduled.length - 1];
+  if (normalLast === undefined) return [];
+
+  const last = parseTime(extension.lastDeparture);
+  const extra: number[] = [];
+  for (let m = normalLast + extension.everyMinutes; m <= last; m += extension.everyMinutes) {
+    extra.push(m);
+  }
+  return extra;
+}
+
+/** The extra late-night departures for a line on a date, as "HH:MM" strings. */
+export function getExtraDepartureTimes(lineId: LineId, date: string): string[] {
+  return getExtraDepartureMinutes(lineId, date).map(formatTime);
 }
 
 /** Looks up the dormitory-service footnote for a given "HH:MM" departure, if any. */
@@ -330,7 +418,7 @@ export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartur
     return { status: "no-service-weekend" };
   }
 
-  const departures = getDepartureMinutes(lineId);
+  const departures = getDepartureMinutes(lineId, parts.date);
   const first = departures[0];
   const next = departures.find((minutesOfDay) => minutesOfDay > parts.minutes);
 
