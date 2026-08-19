@@ -43,7 +43,7 @@ type Labels = {
   suspendedTitle: string;
   suspendedBody: (resumes: string) => string;
   upcomingSuspension: (dates: string, resumes: string) => string;
-  extension: (everyMinutes: number, lastDeparture: string) => string;
+  extension: (lines: string, everyMinutes: number, lastDeparture: string) => string;
   minutes: (n: number) => string;
   seconds: (n: number) => string;
   caveat: string;
@@ -61,8 +61,8 @@ const labels: Record<Locale, Labels> = {
     suspendedBody: (resumes) => `The shuttle resumes on ${resumes}.`,
     upcomingSuspension: (dates, resumes) =>
       `Service is suspended ${dates}, and resumes on ${resumes}.`,
-    extension: (everyMinutes, lastDeparture) =>
-      `Late buses tonight. Both lines carry on past 21:30, with a departure every ${everyMinutes} minutes until ${lastDeparture}. The countdown above includes them.`,
+    extension: (lines, everyMinutes, lastDeparture) =>
+      `Late buses tonight on the ${lines} only, every ${everyMinutes} minutes past its normal last bus, until ${lastDeparture}. The countdown above includes them.`,
     minutes: (n) => `in ${n} min`,
     seconds: (n) => `in ${n} sec`,
     caveat: "Times are scheduled departures. In heavy traffic, buses can run a few minutes late.",
@@ -78,8 +78,8 @@ const labels: Record<Locale, Labels> = {
     suspendedBody: (resumes) => `รถเวียนจะกลับมาให้บริการอีกครั้ง ${resumes}`,
     upcomingSuspension: (dates, resumes) =>
       `งดให้บริการวันที่ ${dates} และกลับมาให้บริการอีกครั้ง ${resumes}`,
-    extension: (everyMinutes, lastDeparture) =>
-      `คืนนี้มีรถรอบดึก ทั้งสองสายวิ่งต่อจาก 21:30 โดยออกทุก ${everyMinutes} นาที จนถึงรอบสุดท้าย ${lastDeparture} เวลาที่นับถอยหลังด้านบนรวมรอบพิเศษนี้แล้ว`,
+    extension: (lines, everyMinutes, lastDeparture) =>
+      `คืนนี้มีรถรอบดึกเฉพาะ ${lines} โดยออกทุก ${everyMinutes} นาที ต่อจากรอบสุดท้ายตามตารางปกติ จนถึง ${lastDeparture} เวลาที่นับถอยหลังด้านบนรวมรอบพิเศษนี้แล้ว`,
     minutes: (n) => `อีก ${n} นาที`,
     seconds: (n) => `อีก ${n} วินาที`,
     caveat: "เวลาที่แสดงเป็นเวลาตามตารางเดินรถ ช่วงรถติดหนักอาจล่าช้ากว่าที่แจ้งไว้บ้าง",
@@ -189,12 +189,20 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
         )
       : undefined;
 
-  // A late-night extension announced for today, e.g. the extra buses on
-  // 19 August 2026. `nextDeparture` already counts its departures in; this
-  // note is what tells the reader why the board is still live after 21:30.
+  // A late-night extension announced for today, e.g. the extra Pinklao buses
+  // on 19 August 2026. `nextDeparture` already counts its departures in for
+  // the lines it covers; this note is what tells the reader why one line's
+  // board is still live in the late evening and the other's is not.
   const extension = upcoming?.phase === "active" ? undefined : getExtension(parts.date);
   const extensionNote = extension
-    ? t.extension(extension.everyMinutes, extension.lastDeparture)
+    ? t.extension(
+        shuttleLines
+          .filter((line) => extension.lines.includes(line.id))
+          .map((line) => line.name[locale])
+          .join(locale === "en" ? " and " : " และ "),
+        extension.everyMinutes,
+        extension.lastDeparture
+      )
     : undefined;
 
   return (

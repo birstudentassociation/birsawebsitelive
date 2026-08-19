@@ -215,14 +215,20 @@ export function getSuspension(date: string): SuspensionState | undefined {
  * a Bangkok calendar date in ISO `YYYY-MM-DD` form and read through
  * `getExtension`, so it stops applying by itself once that date has passed.
  *
- * Extra departures are generated rather than listed: they carry on from each
- * line's normal last bus at a fixed interval up to `lastDeparture`
- * inclusive. Both lines currently end at 21:30, so a 30 minute interval and
- * a 23:30 last bus give 22:00, 22:30, 23:00 and 23:30 on each line.
+ * An extension covers only the lines named in `lines`; every other line
+ * keeps its ordinary timetable that night, which is the usual case, since
+ * the two lines are run and announced separately.
+ *
+ * Extra departures are generated rather than listed: for each extended line
+ * they carry on from that line's normal last bus at a fixed interval up to
+ * `lastDeparture` inclusive. Pinklao ends at 21:30, so a 30 minute interval
+ * and a 23:30 last bus give it 22:00, 22:30, 23:00 and 23:30.
  */
 export type ServiceExtension = {
   /** The Bangkok date the extension applies to. */
   date: string;
+  /** The lines running late that night. Lines left out keep their normal timetable. */
+  lines: LineId[];
   /** Gap between the extra departures, in minutes. */
   everyMinutes: number;
   /** Last extra departure of the night, "HH:MM". */
@@ -239,8 +245,10 @@ export type ServiceExtension = {
  */
 export const serviceExtensions: ServiceExtension[] = [
   {
-    // Thammasat announcement: late buses on both lines, Tha Prachan campus.
+    // Thammasat announcement: late Pinklao Line buses, Tha Prachan campus.
+    // Sanam Chai is not part of this and still finishes at 21:30.
     date: "2026-08-19",
+    lines: ["pinklao"],
     everyMinutes: 30,
     lastDeparture: "23:30",
     dateLabel: { en: "Wednesday 19 August 2026", th: "วันพุธที่ 19 สิงหาคม 2569" },
@@ -300,13 +308,13 @@ export function getDepartureTimes(lineId: LineId, date?: string): string[] {
 
 /**
  * The extra late-night departures a line gains on a given Bangkok date,
- * sorted, or an empty list when no extension applies. They carry on from the
- * line's normal last bus at the extension's interval, up to and including
- * its last departure.
+ * sorted, or an empty list when no extension applies to that line. They
+ * carry on from the line's normal last bus at the extension's interval, up
+ * to and including its last departure.
  */
 export function getExtraDepartureMinutes(lineId: LineId, date: string): number[] {
   const extension = getExtension(date);
-  if (!extension) return [];
+  if (!extension?.lines.includes(lineId)) return [];
 
   const scheduled = getDepartureMinutes(lineId);
   const normalLast = scheduled[scheduled.length - 1];

@@ -23,6 +23,7 @@ import {
   getExtraDepartureTimes,
   getSuspension,
   shuttleLines,
+  type ShuttleLine,
 } from "@/lib/shuttle";
 
 export type ShuttleServiceNoticeProps = {
@@ -40,8 +41,14 @@ const labels = {
     alternatives:
       "The timetable below applies on the days either side of this. During the suspension, use the Chao Phraya boat, the MRT at Sanam Chai, or a ride-hailing app.",
     extensionTitle: "Late buses tonight",
-    extensionBody: (dateLabel: string, everyMinutes: number, lastDeparture: string) =>
-      `Both lines run later than usual on ${dateLabel}. After the normal last bus at 21:30, a bus leaves every ${everyMinutes} minutes, and the last one of the night leaves at ${lastDeparture}.`,
+    extensionBody: (
+      lines: string,
+      dateLabel: string,
+      everyMinutes: number,
+      lastDeparture: string
+    ) =>
+      `Buses run later than usual on the ${lines} tonight, ${dateLabel}. They leave every ${everyMinutes} minutes after the line's normal last bus, up to a final departure at ${lastDeparture}.`,
+    extensionUnaffected: (lines: string) => `The ${lines} keeps its normal timetable tonight.`,
     extensionExtras: "Extra departures from campus tonight",
     extensionCaveat:
       "The timetable below is the normal weekday one and does not include tonight's extra buses. The live board above already counts them in.",
@@ -56,13 +63,26 @@ const labels = {
     alternatives:
       "ตารางเวลาด้านล่างใช้กับวันก่อนและหลังช่วงนี้ ระหว่างที่งดให้บริการ เดินทางด้วยเรือเจ้าพระยา MRT สนามไชย หรือแอปเรียกรถแทนได้",
     extensionTitle: "คืนนี้มีรถเวียนรอบดึก",
-    extensionBody: (dateLabel: string, everyMinutes: number, lastDeparture: string) =>
-      `${dateLabel} รถเวียนทั้งสองสายวิ่งดึกกว่าปกติ หลังรอบสุดท้ายตามตารางเวลา 21:30 จะมีรถออกทุก ${everyMinutes} นาที และรอบสุดท้ายของคืนนี้ออกเวลา ${lastDeparture}`,
+    extensionBody: (
+      lines: string,
+      dateLabel: string,
+      everyMinutes: number,
+      lastDeparture: string
+    ) =>
+      `${dateLabel} ${lines} มีรถรอบดึกเพิ่ม โดยออกทุก ${everyMinutes} นาที ต่อจากรอบสุดท้ายตามตารางปกติของสายนั้น จนถึงรอบสุดท้ายเวลา ${lastDeparture}`,
+    extensionUnaffected: (lines: string) => `${lines} ยังวิ่งตามตารางเวลาปกติในคืนนี้`,
     extensionExtras: "รอบพิเศษที่ออกจากมหาลัยคืนนี้",
     extensionCaveat:
       "ตารางเวลาด้านล่างเป็นตารางวันธรรมดาปกติ ยังไม่รวมรอบพิเศษของคืนนี้ ส่วนบอร์ดเวลาด้านบนรวมให้แล้ว",
   },
 } as const;
+
+/** Joins line names for prose, e.g. "Pinklao Line" or "Sanam Chai Line and Pinklao Line". */
+function listNames(lines: ShuttleLine[], locale: Locale): string {
+  const names = lines.map((line) => line.name[locale]);
+  if (names.length < 2) return names.join("");
+  return `${names.slice(0, -1).join(", ")} ${locale === "en" ? "and" : "และ"} ${names[names.length - 1]}`;
+}
 
 export default function ShuttleServiceNotice({ locale }: ShuttleServiceNoticeProps) {
   const [date, setDate] = useState<string | undefined>(undefined);
@@ -83,6 +103,8 @@ export default function ShuttleServiceNotice({ locale }: ShuttleServiceNoticePro
   // extension announced for the same date would only confuse; the suspension
   // is the message that matters.
   const extension = active ? undefined : getExtension(date);
+  const extendedLines = shuttleLines.filter((line) => extension?.lines.includes(line.id));
+  const unaffectedLines = shuttleLines.filter((line) => !extension?.lines.includes(line.id));
 
   if (!state && !extension) return null;
 
@@ -92,14 +114,18 @@ export default function ShuttleServiceNotice({ locale }: ShuttleServiceNoticePro
         <Notice variant="info" title={t.extensionTitle}>
           <p className="mb-2">
             {t.extensionBody(
+              listNames(extendedLines, locale),
               extension.dateLabel[locale],
               extension.everyMinutes,
               extension.lastDeparture
             )}
           </p>
+          {unaffectedLines.length ? (
+            <p className="mb-2">{t.extensionUnaffected(listNames(unaffectedLines, locale))}</p>
+          ) : null}
           <p className="mb-2">{t.extensionExtras}</p>
           <ul className="mb-2">
-            {shuttleLines.map((line) => (
+            {extendedLines.map((line) => (
               <li key={line.id}>
                 {line.name[locale]} {getExtraDepartureTimes(line.id, date).join(", ")}
               </li>
