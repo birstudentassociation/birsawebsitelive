@@ -112,6 +112,28 @@ export type ServiceDefinition = {
    * rejects a definition whose CMS copy disagrees with the code.
    */
   sensitive: boolean;
+
+  /**
+   * Whether `standardHours` is a commitment BIRSA has actually made, and may
+   * therefore be shown to a student, or an internal escalation threshold only.
+   *
+   * OMITTED MEANS DO NOT PROMISE, and the default is deliberate. Wave 4B found
+   * this the expensive way. `standardHours` is required, because escalation
+   * needs a threshold, but the equipment loan has no agreed turnaround time
+   * anywhere in 1.0 (§1.2 D3 says so outright), so it had to carry a
+   * documented placeholder to publish at all. Meanwhile the chassis
+   * confirmation page rendered `standardHours` straight into "We aim to
+   * respond within {hours} hours." Two defensible decisions composed into the
+   * site telling every student BIRSA had promised something no committee ever
+   * agreed to.
+   *
+   * Splitting the two uses fixes it: the number always drives escalation, and
+   * only a service that says so out loud states it to a reader. A service that
+   * forgets this field promises nothing, which is the failure everyone can
+   * live with. The opposite default would mean a forgotten field becomes a
+   * commitment, and nobody would find out until a student held BIRSA to it.
+   */
+  publishStandard?: boolean;
 };
 
 /**

@@ -72,7 +72,16 @@ export async function submitQuestionStep(
 }
 
 export type CheckAnswersState =
-  { status: "idle" } | { status: "rate-limited" } | { status: "error" };
+  | { status: "idle" }
+  | { status: "rate-limited" }
+  | { status: "error" }
+  /**
+   * The store took the answers and still could not create the thing: the item
+   * went out while the form was open, the borrower is blocklisted. Every
+   * answer is valid, so there is no question to send the student back to, and
+   * the check page shows `message` instead of highlighting a field.
+   */
+  | { status: "rejected"; message: string };
 
 /**
  * The final "confirm and send". Re-validates the WHOLE draft (defense in
@@ -116,8 +125,14 @@ export async function submitCheckAnswers(
     );
   }
 
-  const outcome = await submitService(definition, draft, locale, getSubmissionStore());
+  const outcome = await submitService(definition, draft, locale, getSubmissionStore(serviceId));
   if (!outcome.ok) {
+    if (outcome.reason === "rejected") {
+      // Keep the draft. The answers are all fine and the student may well be
+      // able to submit them unchanged once whatever blocked it clears, so
+      // throwing their work away here would be gratuitous.
+      return { status: "rejected", message: outcome.problem[locale] };
+    }
     redirect(
       localeHref(locale, `/do/${serviceId}/${outcome.firstInvalidQuestionId}?returnTo=check`)
     );

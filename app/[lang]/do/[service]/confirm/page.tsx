@@ -65,10 +65,14 @@ export default async function ServiceConfirmPage({ params }: { params: Promise<P
     );
   }
 
-  const standardMessage = doDict.do.confirmation.standardMessage.replace(
-    "{hours}",
-    String(definition.standardHours)
-  );
+  // Only a service that has actually agreed a turnaround states one. See
+  // `publishStandard` in `lib/services/defineService.ts` for why the default
+  // is silence: `standardHours` is required for escalation, so a service with
+  // no agreed standard still carries a working number, and rendering that
+  // number as a promise would commit BIRSA to something nobody decided.
+  const standardMessage = definition.publishStandard
+    ? doDict.do.confirmation.standardMessage.replace("{hours}", String(definition.standardHours))
+    : undefined;
 
   return (
     <>

@@ -121,6 +121,71 @@ every visit, forever. Establish the fact, then decide.
 
 ---
 
+## Gate 6: the equipment loan service standard. Open, and Wave 4B forced it
+
+**§1.2 D3, §5.1 item 7. Status: open. Committee decision, and an agent may not make it.**
+
+`ServiceDefinition.standardHours` is required, because §4E escalation needs a threshold to
+escalate against. The equipment loan has no agreed turnaround time. §1.2 D3 says so
+outright: the 1.0 service has "no shared service standard," and reading every file of it
+confirms no turnaround promise exists anywhere.
+
+So the migrated definition carries a documented placeholder of 48 hours in order to publish
+at all, and that is the honest state of it rather than a decision anyone made.
+
+**How this nearly became a promise.** The chassis confirmation page rendered `standardHours`
+directly into "We aim to respond within {hours} hours." Wave 4B used a placeholder because
+the field is required; Wave 4A rendered the field because a confirmation should say what
+happens next. Both are defensible alone. Composed, the site would have told every student
+who submitted a loan request that BIRSA commits to 48 hours, which no committee agreed and
+nobody would have noticed until a student held BIRSA to it.
+
+Fixed at the wave boundary by splitting the two uses. `standardHours` always drives
+escalation. A new optional `publishStandard` decides whether it is also stated to a reader,
+and OMITTING IT MEANS SAY NOTHING. A service that forgets the field promises nothing; the
+opposite default would mean a forgotten field becomes a commitment. Two tests hold the line,
+because the defect is invisible in review when each half looks correct on its own.
+
+**What has to happen, by a person:** the committee agrees a turnaround for equipment loan
+requests, in hours, that officers can actually meet in exam weeks as well as quiet ones. Then
+`standardHours` becomes that number and `publishStandard: true` states it. Until then the
+service runs, escalates internally on the placeholder, and promises nothing.
+
+**What this blocks:** nothing. It is recorded so the placeholder is never mistaken for a
+decision.
+
+---
+
+## Gate 7: which equipment item a chassis request is for. Open, and it is a design question
+
+**§5.2, §6.7. Status: open. Architectural, and it needs an orchestrator or committee answer.**
+
+Wave 4B migrated the loan onto the chassis and the definition publishes. But the loan is not
+one form. It is one form per catalogue item, chosen at `/services/equipment-loan/[item]/request`,
+and the chassis has no way to express that:
+
+- `/do/[service]/[step]` has one dynamic segment for the step and none for a subject.
+- `choose-one` and `choose-several` take statically authored options, while the catalogue is
+  rows in Postgres that officers add and retire through the console at any time.
+- The registry loads every definition once, synchronously, at process start, so it could not
+  fetch that list even if a question type existed for it.
+
+Nothing was dropped from the wizard's own questions: the item was never one of them. But a
+chassis submission cannot become a real loan without one, so the loan store rejects precisely
+rather than guessing.
+
+This is a finding about the chassis, not something a service definition could route around,
+and it is the single thing standing between the migrated loan and retiring the 1.0 routes.
+Three shapes are worth weighing: a subject segment on the route, a question type whose options
+are resolved at request time rather than load time, or a service that is parameterised by a
+catalogue at definition level. Each has consequences for the CMS, so it is recorded rather
+than picked here.
+
+**What this blocks:** retiring `app/[lang]/services/equipment-loan/**` in Wave 5. Both the
+old routes and the new definition coexist until it is answered.
+
+---
+
 ## Gate 5: the remaining §15 items. Open
 
 | #   | Decision                                                               | Who decides          | Blocks  |

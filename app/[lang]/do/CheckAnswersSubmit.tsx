@@ -34,12 +34,17 @@ export default function CheckAnswersSubmit({
     status: "idle",
   });
 
+  // A rejection carries its own message from the store, already in the
+  // reader's language and already saying what to do next, so it is shown
+  // verbatim rather than flattened into the generic error copy.
   const errorMessage =
     state.status === "rate-limited"
       ? labels.rateLimited
-      : state.status === "error"
-        ? labels.genericError
-        : undefined;
+      : state.status === "rejected"
+        ? state.message
+        : state.status === "error"
+          ? labels.genericError
+          : undefined;
 
   return (
     <form action={formAction}>

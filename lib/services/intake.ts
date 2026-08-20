@@ -35,7 +35,7 @@
  * migrates its ROUTES onto the chassis's rendering, not its storage).
  */
 import type { Locale } from "@/lib/i18n";
-import type { ServiceDefinition } from "@/lib/services/defineService";
+import type { ServiceDefinition, LocalizedText } from "@/lib/services/defineService";
 import type { Question } from "@/lib/services/questionTypes";
 import {
   answerToFormData,
@@ -229,8 +229,33 @@ export type Submission = {
  * `Submission[]` a caller already has), so replacing this store later never
  * touches those two files.
  */
+/**
+ * What a store reports back after persisting. `save` cannot be
+ * `Promise<void>`, and Wave 4B is what proved it.
+ *
+ * Two things a real store does that an in-memory map never has to. It may
+ * mint its OWN identifier: `lib/inventory/loans.ts` generates a loan
+ * reference internally, so a chassis that had already generated one and
+ * handed it to the student would be showing a number the database does not
+ * know. And it may REFUSE for a reason that is not a validation error: the
+ * borrower is blocklisted, the item went out while the form was open. Those
+ * are not bad answers, so no field is wrong and `validateFullDraft` has
+ * nothing to say about them, but the submission still did not happen.
+ *
+ * With a `void` return both cases were unrepresentable, so the student would
+ * have been shown a confirmation panel and a reference number for something
+ * that never persisted, which is the worst possible failure for a service
+ * whose confirmation tells them to keep that number.
+ */
+export type SaveOutcome = { ok: true; reference: string } | { ok: false; problem: LocalizedText };
+
 export type SubmissionStore = {
-  save(submission: Submission): Promise<void>;
+  /**
+   * Persist a submission. `submission.reference` is a PROPOSED reference the
+   * chassis generated; a store that mints its own returns that one instead,
+   * and the caller uses whatever comes back rather than what it sent.
+   */
+  save(submission: Submission): Promise<SaveOutcome>;
   findByReference(serviceId: string, reference: string): Promise<Submission | null>;
   listByService(serviceId: string): Promise<Submission[]>;
 };
@@ -247,10 +272,13 @@ export type SubmissionStore = {
 class InMemorySubmissionStore implements SubmissionStore {
   private byService = new Map<string, Map<string, Submission>>();
 
-  async save(submission: Submission): Promise<void> {
+  async save(submission: Submission): Promise<SaveOutcome> {
     const forService = this.byService.get(submission.serviceId) ?? new Map();
     forService.set(submission.reference, submission);
     this.byService.set(submission.serviceId, forService);
+    // Keeps the reference it was handed: an in-memory map has no identifier
+    // of its own and no business rule to refuse on.
+    return { ok: true, reference: submission.reference };
   }
 
   async findByReference(serviceId: string, reference: string): Promise<Submission | null> {
@@ -263,9 +291,36 @@ class InMemorySubmissionStore implements SubmissionStore {
 }
 
 let sharedStore: SubmissionStore | null = null;
+const storesByService = new Map<string, SubmissionStore>();
 
-/** The process-wide store instance. See `InMemorySubmissionStore`'s own header before reaching for this outside a demo or a test. */
-export function getSubmissionStore(): SubmissionStore {
+/**
+ * Register the store a particular service persists through.
+ *
+ * Wave 4B is why this exists. It implemented a real store for the equipment
+ * loan over `lib/inventory/loans.ts`, and then found there was no way to
+ * reach it: `getSubmissionStore` handed every service the same in-memory
+ * placeholder, so a correct store sat unreachable behind a hardcoded one.
+ *
+ * The selection lives here rather than on `ServiceDefinition` deliberately. A
+ * definition is a CMS document in 2.0 (§6.7), and a document cannot reference
+ * a code module. So a service names itself, and code claims it: the officer
+ * side stays data, the persistence side stays code, and neither has to know
+ * how the other is stored.
+ */
+export function registerSubmissionStore(serviceId: string, store: SubmissionStore): void {
+  storesByService.set(serviceId, store);
+}
+
+/**
+ * The store a service persists through: its registered one, or the in-memory
+ * placeholder. Read `InMemorySubmissionStore`'s header before relying on the
+ * fallback for anything a real student needs to survive.
+ */
+export function getSubmissionStore(serviceId?: string): SubmissionStore {
+  if (serviceId) {
+    const registered = storesByService.get(serviceId);
+    if (registered) return registered;
+  }
   if (!sharedStore) sharedStore = new InMemorySubmissionStore();
   return sharedStore;
 }
@@ -279,7 +334,14 @@ export function _resetSubmissionStoreForTests(): void {
 
 export type SubmitOutcome =
   | { ok: true; reference: string }
-  | { ok: false; reason: "invalid"; firstInvalidQuestionId: string };
+  | { ok: false; reason: "invalid"; firstInvalidQuestionId: string }
+  /**
+   * The store refused for a reason no answer can fix: the borrower is
+   * blocklisted, the item went out while the form was open. Distinct from
+   * "invalid" because there is no field to send the student back to, so the
+   * page shows the problem rather than highlighting a question.
+   */
+  | { ok: false; reason: "rejected"; problem: LocalizedText };
 
 /**
  * Validates the full draft, generates a reference, and persists the
@@ -308,10 +370,13 @@ export async function submitService(
     };
   }
 
-  const reference = generateReference(definition.id);
+  // A PROPOSED reference. A store backed by a real table may mint its own,
+  // and the student must be shown the one that was actually persisted rather
+  // than the one this function guessed.
+  const proposed = generateReference(definition.id);
   const now = new Date().toISOString();
-  await store.save({
-    reference,
+  const saved = await store.save({
+    reference: proposed,
     serviceId: definition.id,
     answers: draft,
     status: "received",
@@ -319,7 +384,11 @@ export async function submitService(
     closedAt: null,
   });
 
-  return { ok: true, reference };
+  if (!saved.ok) {
+    return { ok: false, reason: "rejected", problem: saved.problem };
+  }
+
+  return { ok: true, reference: saved.reference };
 }
 
 /** The one `email`-type question's answer, used as the acknowledgement recipient (rule 4, `defineService.ts`) and the default corroborating detail for `status.ts`. `undefined` only for a definition that somehow failed rule 4 and still reached here, which the registry never serves. */
