@@ -1,12 +1,7 @@
 import Link from "next/link";
 
 import ExternalLink from "@/components/bds/ExternalLink";
-// `Table` (content cluster) does not exist in this checkout yet. This
-// import is expected to fail typecheck until that cluster lands it; see
-// this cluster's report. Nothing else about this file depends on it.
-import Table from "@/components/bds/Table";
-// `InsetText` (status cluster, split from `Notice.tsx`) does not exist in
-// this checkout yet either. Same note as `Table` above.
+import Table, { type TableColumn } from "@/components/bds/Table";
 import InsetText from "@/components/bds/InsetText";
 import { Heading, Text } from "@/components/bds/Type";
 import { Stack } from "@/components/bds/Layout";
@@ -78,7 +73,8 @@ export type RichTextListBlock = {
 export type RichTextTableBlock = {
   type: "table";
   caption: string;
-  head: string[];
+  /** Column headers, in reading order. Rendered through `Table`'s real `<th scope="col">` markup, never a markdown pipe table. */
+  columns: string[];
   rows: string[][];
 };
 
@@ -146,7 +142,14 @@ function RichTextBlockNode({
   newTabLabel: string;
 }) {
   if (block.type === "table") {
-    return <Table caption={block.caption} head={block.head} rows={block.rows} />;
+    const columns: TableColumn[] = block.columns.map((header, index) => ({
+      key: String(index),
+      header,
+    }));
+    const rows = block.rows.map((row) =>
+      Object.fromEntries(row.map((cell, index) => [String(index), cell]))
+    );
+    return <Table caption={block.caption} columns={columns} rows={rows} />;
   }
 
   if (block.type === "ul" || block.type === "ol") {

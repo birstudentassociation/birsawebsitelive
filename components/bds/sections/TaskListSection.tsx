@@ -1,10 +1,4 @@
-// `TaskList` (service cluster, §4.4) does not exist in this checkout yet.
-// This import is expected to fail typecheck until that cluster lands it;
-// see this cluster's report. The prop shape below is this cluster's best
-// guess at the GDS task-list pattern `TaskList`'s manifest usage rule
-// describes ("several sections completed in any order, each with a status
-// Tag"), not a confirmed API.
-import TaskList from "@/components/bds/TaskList";
+import TaskList, { type TaskListItem } from "@/components/bds/TaskList";
 
 /**
  * BIRSA Design System: `TaskListSection` (REDESIGN-2.0 §4.6, media
@@ -12,33 +6,31 @@ import TaskList from "@/components/bds/TaskList";
  *
  * Renders the `task-list` entry of `components/bds/sectionPalette.ts`:
  * sections with status tags, through `TaskList` (service cluster).
- * `sectionPalette.ts` validates "every task has a status from the Tag
- * vocabulary"; `TaskStatus` below is this cluster's placeholder for that
- * vocabulary, kept local rather than imported, because neither `TaskList`
- * nor `Tag` (both service/status cluster work landing in this same wave)
- * exist yet to import a real vocabulary from. Reconciling this type with
- * whatever `TaskList` actually ships is cross-cluster work; see this
- * cluster's report.
+ *
+ * A CONTRACT TENSION WORTH FLAGGING, NOT SILENTLY WORKED AROUND. `TaskList`
+ * is documented, in its own file, as a PAGE-LEVEL component: "renders the
+ * page's own `<h1>`... do not wrap it in another component that also
+ * renders an `<h1>`". `sectionPalette.ts` treats `task-list` as one of
+ * eleven section types an officer can place ALONGSIDE OTHERS inside a
+ * page's body, where the page's one `<h1>` belongs to `PageHeader`, not to
+ * any section. Used as anything but the sole section on a page, this
+ * component therefore produces a second `<h1>` and breaks the heading
+ * order §9's accessibility suite asserts, the exact failure `RichTextSection`
+ * (this cluster) was built specifically to make impossible for rich text.
+ * This cluster does not own `TaskList` and does not alter it; see this
+ * cluster's report for the finding. Until it is resolved, treat `task-list`
+ * as safe only on a page where it is the one and only section.
+ *
+ * `items` takes `TaskList`'s own `TaskListItem` type directly rather than a
+ * section-local copy, so this section can never drift from whatever shape
+ * `TaskList` actually accepts.
  */
-export type TaskStatus = "not-started" | "in-progress" | "completed" | "cannot-start";
-
-export type TaskListSectionTask = {
-  id: string;
-  title: string;
-  href?: string;
-  status: TaskStatus;
-};
-
-export type TaskListSectionGroup = {
-  id: string;
-  title: string;
-  tasks: TaskListSectionTask[];
-};
-
 export type TaskListSectionProps = {
-  groups: TaskListSectionGroup[];
+  heading: string;
+  intro?: string;
+  items: TaskListItem[];
 };
 
-export default function TaskListSection({ groups }: TaskListSectionProps) {
-  return <TaskList groups={groups} />;
+export default function TaskListSection({ heading, intro, items }: TaskListSectionProps) {
+  return <TaskList heading={heading} intro={intro} items={items} />;
 }
