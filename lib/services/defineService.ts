@@ -32,6 +32,19 @@ import type { PortfolioId } from "@/lib/portfolios";
 import type { Locale } from "@/lib/i18n";
 import type { Question } from "@/lib/services/questionTypes";
 import { collectsPersonalData, questionTypes } from "@/lib/services/questionTypes";
+// Read-only import of the privacy register (never edited, per BUILD-BRIEF-2.0
+// §8). `context.knownPrivacyActivityIds` below carries only ids, deliberately,
+// so a test can exercise "unknown activity" and "no register entry" without
+// depending on the real register's contents. But checking that a definition's
+// `retentionTrigger` actually MATCHES the register activity's own trigger
+// needs the trigger value itself, which the frozen `context` type does not
+// carry (an agent that believes a contract is wrong stops and reports rather
+// than editing it, per BUILD-BRIEF-2.0 §10, and this file's own header says
+// the same for `defineService.ts` specifically). Importing the register
+// directly for this one lookup, rather than widening `context`, is the fix
+// that needs no signature change: it is a read, and this file's job already
+// requires the register to be the source of truth for what each activity
+// promises.
 
 export type LocalizedText = Record<Locale, string>;
 
@@ -138,18 +151,361 @@ export type ServiceProblem = {
  *   7. `owner` and `secondHolder` are different portfolios (§7.2).
  *   8. `sensitive` matches the code-side allowlist, never the document.
  */
+const URL_SAFE_ID = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+/** A fortnight in hours (§5.1 item 5's own ceiling): past this, "escalation" is not a standard any more, it is an apology. */
+const MAX_STANDARD_HOURS = 24 * 14;
+
+function bothLocalesPresent(text: LocalizedText | undefined): boolean {
+  return Boolean(text && text.en.trim() && text.th.trim());
+}
+
+function problem(field: string, en: string, th: string): ServiceProblem {
+  return { field, message: { en, th } };
+}
+
+/**
+ * Implements the eight rules named in this file's own TSDoc, in the order
+ * §5.1 and §6.7 state them. Every rule below is commented with WHY it
+ * exists, not just what it checks, because the failure mode this whole
+ * module exists to prevent is someone adding a bypass flag six months from
+ * now without understanding what the flag would let through.
+ *
+ * Returns every problem found rather than stopping at the first (this
+ * file's own TSDoc: "an officer fixing one error at a time across six
+ * round trips gives up"), so every branch below is additive: it pushes onto
+ * `problems` and keeps going, never returns early on a single bad field.
+ */
 export function validateServiceDefinition(
-  _definition: ServiceDefinition,
-  _context: {
+  definition: ServiceDefinition,
+  context: {
     /** Activity ids from `content/privacy/register.ts`. */
     knownPrivacyActivityIds: readonly string[];
     /** Activity ids `lib/privacy/retention.ts` actually implements a path for. */
     implementedRetentionActivityIds: readonly string[];
+    /**
+     * Each register activity's own `retentionTrigger`, keyed by activity id.
+     *
+     * Injected rather than read from the register directly, for the same
+     * reason every other register fact here is. The point of taking a context
+     * at all is that this stays a pure function of its two arguments: the
+     * Studio calls it at publish, the registry at load, and the tests with
+     * fixtures. A validator that reached into the real register behind the
+     * caller's back would ignore the fixture a test had just handed it and
+     * quietly assert against production data, which makes a passing test mean
+     * less than it appears to.
+     */
+    registerRetentionTriggers: Readonly<Record<string, RetentionTrigger>>;
     /** Service ids a developer has marked sensitive, in code (§6.12). */
     sensitiveServiceIds: readonly string[];
   }
 ): ServiceProblem[] {
-  throw new Error("validateServiceDefinition is a Wave 0 stub; Wave 4A implements it.");
+  const problems: ServiceProblem[] = [];
+
+  // Rule 1 (§5.1 item 1): every `start` field is publish-blocking in BOTH
+  // locales, because `StartPage` (components/bds/StartPage.tsx) renders
+  // every one of them unconditionally and has no fallback copy to fall
+  // back to. A definition missing one is not a service with a rough start
+  // page, it is a service that cannot render its start page at all.
+  if (!bothLocalesPresent(definition.start?.title)) {
+    problems.push(
+      problem(
+        "start.title",
+        "Enter the service title in both English and Thai.",
+        "กรุณากรอกชื่อบริการทั้งภาษาอังกฤษและภาษาไทย"
+      )
+    );
+  }
+  if (!bothLocalesPresent(definition.start?.whoFor)) {
+    problems.push(
+      problem(
+        "start.whoFor",
+        "Enter who this service is for (and who it is not for) in both languages.",
+        "กรุณาระบุว่าบริการนี้เหมาะกับใคร และไม่เหมาะกับใคร ทั้งสองภาษา"
+      )
+    );
+  }
+  if (!definition.start?.before || definition.start.before.length === 0) {
+    problems.push(
+      problem(
+        "start.before",
+        "List at least one thing the reader needs before they begin, in both languages.",
+        "กรุณาระบุสิ่งที่ต้องเตรียมก่อนเริ่มอย่างน้อยหนึ่งรายการ ทั้งสองภาษา"
+      )
+    );
+  } else {
+    definition.start.before.forEach((item, index) => {
+      if (!bothLocalesPresent(item)) {
+        problems.push(
+          problem(
+            `start.before[${index}]`,
+            "Enter this item in both English and Thai.",
+            "กรุณากรอกรายการนี้ทั้งภาษาอังกฤษและภาษาไทย"
+          )
+        );
+      }
+    });
+  }
+  if (!bothLocalesPresent(definition.start?.howLong)) {
+    problems.push(
+      problem(
+        "start.howLong",
+        "Enter how long the service takes to fill in, in both languages.",
+        "กรุณาระบุระยะเวลาที่ใช้กรอก ทั้งสองภาษา"
+      )
+    );
+  }
+  if (!bothLocalesPresent(definition.start?.whatNext)) {
+    problems.push(
+      problem(
+        "start.whatNext",
+        "Enter what happens after the reader submits, in both languages.",
+        "กรุณาระบุขั้นตอนหลังจากส่งคำขอ ทั้งสองภาษา"
+      )
+    );
+  }
+
+  // Rule 2 (§5.1 item 2): at least one question, and every id unique.
+  // A question id becomes a route segment (`serviceSteps`, this file) and
+  // the draft cookie's field name, so a duplicate does not just confuse an
+  // officer editing the Studio form, it makes two different questions
+  // silently share one draft field and one URL, and the second one always
+  // wins.
+  if (!definition.questions || definition.questions.length === 0) {
+    problems.push(
+      problem("questions", "Add at least one question.", "กรุณาเพิ่มคำถามอย่างน้อยหนึ่งข้อ")
+    );
+  }
+
+  const seenIds = new Set<string>();
+  const duplicateIds = new Set<string>();
+  for (const question of definition.questions ?? []) {
+    if (seenIds.has(question.id)) duplicateIds.add(question.id);
+    seenIds.add(question.id);
+  }
+  if (duplicateIds.size > 0) {
+    problems.push(
+      problem(
+        "questions",
+        `Question ids must be unique. These are repeated, ${[...duplicateIds].join(", ")}.`,
+        `รหัสคำถามต้องไม่ซ้ำกัน รายการที่ซ้ำ ${[...duplicateIds].join(" ")}`
+      )
+    );
+  }
+
+  (definition.questions ?? []).forEach((question, index) => {
+    // A question id becomes `/do/<service>/<id>` (`serviceSteps` below), so
+    // anything that is not URL safe breaks the route it is supposed to
+    // name rather than merely looking untidy.
+    if (!URL_SAFE_ID.test(question.id)) {
+      problems.push(
+        problem(
+          `questions[${index}].id`,
+          `Question id "${question.id}" must use only lowercase letters, numbers and hyphens, and cannot start or end with a hyphen, because it becomes a page address.`,
+          `รหัสคำถาม "${question.id}" ต้องใช้ตัวอักษรภาษาอังกฤษพิมพ์เล็ก ตัวเลข และเครื่องหมายขีดกลางเท่านั้น และห้ามขึ้นต้นหรือลงท้ายด้วยขีดกลาง เนื่องจากใช้เป็นส่วนหนึ่งของที่อยู่หน้าเว็บ`
+        )
+      );
+    }
+
+    // Rule for "a question whose type is not in questionTypes": the
+    // TypeScript type already restricts `question.type` for code written
+    // against this file, but a CMS document is data at runtime, not a type
+    // the compiler can see (§6.7's whole point: an officer edits a
+    // document, not TypeScript), so this is the runtime half of that
+    // guarantee.
+    if (!(question.type in questionTypes)) {
+      problems.push(
+        problem(
+          `questions[${index}].type`,
+          `"${question.type}" is not a question type this site supports.`,
+          `ประเภทคำถาม "${question.type}" ไม่ใช่ประเภทที่เว็บไซต์นี้รองรับ`
+        )
+      );
+      return;
+    }
+
+    // Rule 3 (§5.1 item 3, the §6.7 table): `choose-one` and
+    // `choose-several` need something to choose between. One option is not
+    // a choice.
+    if (
+      (question.type === "choose-one" || question.type === "choose-several") &&
+      (!question.options || question.options.length < 2)
+    ) {
+      problems.push(
+        problem(
+          `questions[${index}].options`,
+          "Give this question at least two options.",
+          "กรุณาระบุตัวเลือกอย่างน้อยสองรายการสำหรับคำถามนี้"
+        )
+      );
+    }
+  });
+
+  // Rule 4: exactly one `email` question. It is the acknowledgement
+  // recipient (§5.1 item 7's email, `intake.ts`), and a service with two
+  // email questions has no defined recipient, while a service with none
+  // can never send the acknowledgement §5.1 item 7 promises.
+  const emailQuestionCount = (definition.questions ?? []).filter((q) => q.type === "email").length;
+  if (emailQuestionCount !== 1) {
+    problems.push(
+      problem(
+        "questions",
+        `Add exactly one email address question (found ${emailQuestionCount}). It is where the acknowledgement is sent.`,
+        `กรุณาระบุคำถามประเภทที่อยู่อีเมลเพียงข้อเดียว (พบ ${emailQuestionCount} ข้อ) เนื่องจากใช้เป็นที่อยู่สำหรับส่งอีเมลยืนยัน`
+      )
+    );
+  }
+
+  // Rule 5 (§5.1 item 7, §4E): `standardHours` has to be a real, positive
+  // promise. `whatNext` on the start page and the acknowledgement email
+  // both state it, and `escalation.ts` depends on it existing to know when
+  // to chase anyone. A ceiling of a fortnight matches this file's own
+  // TSDoc: past that point, calling it a "standard" is not honest.
+  if (
+    typeof definition.standardHours !== "number" ||
+    !Number.isFinite(definition.standardHours) ||
+    definition.standardHours <= 0
+  ) {
+    problems.push(
+      problem(
+        "standardHours",
+        "Enter a service standard in hours, greater than zero.",
+        "กรุณาระบุระยะเวลามาตรฐานในการให้บริการเป็นชั่วโมง ต้องมากกว่าศูนย์"
+      )
+    );
+  } else if (definition.standardHours > MAX_STANDARD_HOURS) {
+    problems.push(
+      problem(
+        "standardHours",
+        "The service standard cannot be more than a fortnight (336 hours). Past that, it is not a standard any more.",
+        "ระยะเวลามาตรฐานต้องไม่เกินสองสัปดาห์ (336 ชั่วโมง) เกินกว่านั้นถือว่าไม่ใช่มาตรฐานที่แท้จริงอีกต่อไป"
+      )
+    );
+  }
+
+  // Rule 6 (§5.1 item 10). THE RULE THE WHOLE CHASSIS EXISTS FOR.
+  //
+  // If any question collects personal data, this service is a processing
+  // activity under the PDPA whether or not anyone remembered to write that
+  // down. `content/privacy/register.ts` is the site's one record of what
+  // personal data it handles (its own file header says so) and
+  // `lib/privacy/retention.ts` is the code that actually deletes it when
+  // the promised period runs out. A definition can name a `privacyActivityId`
+  // that does not exist, or that exists but whose `retentionTrigger` does
+  // not match what this definition claims, or that exists and matches but
+  // has no code path in `retention.ts` actually deleting anything on that
+  // trigger. Any of those three is a privacy notice that is, in effect, a
+  // lie, and built by hand across eleven services some of them WILL be
+  // forgotten (this file's own TSDoc). So this branch is the one place in
+  // the whole validator that must never grow a bypass: a flag that skips
+  // it is a flag that lets a service collect personal data with nowhere
+  // for it to legally rest and nothing that ever deletes it.
+  if (collectsPersonalData(definition.questions ?? [])) {
+    if (!definition.privacyActivityId) {
+      problems.push(
+        problem(
+          "privacyActivityId",
+          "This service collects personal data (it has an email question, at minimum). Name the privacy register activity it belongs to before publishing.",
+          "บริการนี้เก็บข้อมูลส่วนบุคคล (อย่างน้อยมีคำถามเกี่ยวกับอีเมล) กรุณาระบุกิจกรรมในทะเบียนข้อมูลส่วนบุคคลที่เกี่ยวข้องก่อนเผยแพร่"
+        )
+      );
+    } else if (!context.knownPrivacyActivityIds.includes(definition.privacyActivityId)) {
+      problems.push(
+        problem(
+          "privacyActivityId",
+          `"${definition.privacyActivityId}" is not an activity in the privacy register. Ask a developer to add one before this service can publish.`,
+          `"${definition.privacyActivityId}" ไม่ใช่กิจกรรมในทะเบียนข้อมูลส่วนบุคคล กรุณาแจ้งผู้พัฒนาให้เพิ่มรายการก่อนเผยแพร่บริการนี้`
+        )
+      );
+    }
+
+    if (!definition.retentionTrigger) {
+      problems.push(
+        problem(
+          "retentionTrigger",
+          "Set when the retention period starts for this service's submissions.",
+          "กรุณาระบุจุดเริ่มต้นของระยะเวลาการเก็บรักษาข้อมูลสำหรับบริการนี้"
+        )
+      );
+    }
+
+    if (
+      definition.privacyActivityId &&
+      context.knownPrivacyActivityIds.includes(definition.privacyActivityId) &&
+      !context.implementedRetentionActivityIds.includes(definition.privacyActivityId)
+    ) {
+      problems.push(
+        problem(
+          "privacyActivityId",
+          `The register has a "${definition.privacyActivityId}" activity, but lib/privacy/retention.ts has no code path that deletes it yet. Ask a developer to implement one before this service can publish.`,
+          `ทะเบียนมีกิจกรรม "${definition.privacyActivityId}" อยู่แล้ว แต่ lib/privacy/retention.ts ยังไม่มีขั้นตอนลบข้อมูลดังกล่าว กรุณาแจ้งผู้พัฒนาให้ดำเนินการก่อนเผยแพร่บริการนี้`
+        )
+      );
+    }
+
+    // The register is the promise and `retention.ts` is the code that keeps
+    // it (this file's own TSDoc on `RetentionTrigger`); a definition whose
+    // `retentionTrigger` disagrees with the register activity it names is a
+    // definition whose privacy notice would be wrong the moment someone
+    // reads the register entry next to it.
+    if (definition.retentionTrigger && definition.privacyActivityId) {
+      const registerTrigger = context.registerRetentionTriggers[definition.privacyActivityId];
+      if (registerTrigger && registerTrigger !== definition.retentionTrigger) {
+        problems.push(
+          problem(
+            "retentionTrigger",
+            `This service's retention trigger ("${definition.retentionTrigger}") does not match the "${definition.privacyActivityId}" register activity's trigger ("${registerTrigger}"). They must agree.`,
+            `จุดเริ่มต้นการเก็บรักษาข้อมูลของบริการนี้ ("${definition.retentionTrigger}") ไม่ตรงกับกิจกรรม "${definition.privacyActivityId}" ในทะเบียน ("${registerTrigger}") ทั้งสองรายการต้องตรงกัน`
+          )
+        );
+      }
+    }
+  }
+
+  // Rule 7 (§7.2): nobody is the only holder of anything. If `owner` and
+  // `secondHolder` are the same portfolio, an escalation has no second
+  // person to escalate to and the two-person rule the rest of the site
+  // enforces (`lib/portfolios.ts`'s own file header) has nowhere to point
+  // for this one service.
+  if (definition.owner && definition.secondHolder && definition.owner === definition.secondHolder) {
+    problems.push(
+      problem(
+        "secondHolder",
+        "The second holder must be a different portfolio from the owner. Nobody is the only holder of anything.",
+        "ผู้ถือครองรายที่สองต้องเป็นคนละฝ่ายกับเจ้าของบริการ เนื่องจากไม่มีฝ่ายใดถือครองสิ่งใดเพียงลำพัง"
+      )
+    );
+  }
+
+  // Rule 8 (§5.4, §6.12): `sensitive` is not officer-editable. The Studio
+  // renders the field read-only, but a CMS document is data, and data can
+  // disagree with the code that is supposed to control it (accidentally,
+  // or because someone edited the raw document). The registry is the
+  // backstop: if the code-side allowlist and the document disagree in
+  // EITHER direction, the definition is invalid, never merely "trusted
+  // less". This is what keeps the flag a developer decision rather than a
+  // checkbox an officer can tick.
+  const isAllowlistedSensitive = context.sensitiveServiceIds.includes(definition.id);
+  if (definition.sensitive && !isAllowlistedSensitive) {
+    problems.push(
+      problem(
+        "sensitive",
+        "This service is marked sensitive, but no developer has allowlisted it as one. Only a developer can mark a service sensitive.",
+        "บริการนี้ถูกทำเครื่องหมายว่ามีความอ่อนไหว แต่ยังไม่มีผู้พัฒนากำหนดไว้ในรายการที่อนุญาต การทำเครื่องหมายดังกล่าวทำได้โดยผู้พัฒนาเท่านั้น"
+      )
+    );
+  }
+  if (!definition.sensitive && isAllowlistedSensitive) {
+    problems.push(
+      problem(
+        "sensitive",
+        "A developer has allowlisted this service as sensitive, but the definition does not mark it. The document and the code must agree.",
+        "ผู้พัฒนากำหนดให้บริการนี้มีความอ่อนไหวไว้ในรายการที่อนุญาต แต่เอกสารบริการยังไม่ได้ทำเครื่องหมายไว้ เอกสารและโค้ดต้องตรงกัน"
+      )
+    );
+  }
+
+  return problems;
 }
 
 /**
