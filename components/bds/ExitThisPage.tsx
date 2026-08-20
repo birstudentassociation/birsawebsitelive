@@ -53,9 +53,27 @@ import { Text } from "@/components/bds/Type";
  *           directly on top of the decoy pile.
  *      The result: pressing Back from the external site steps through
  *      several neutral, identical-looking entries before it can reach
- *      anything that predates this visit, and the reporting page's own URL
- *      is gone from the visible history list entirely rather than one Back
- *      press away. `history.pushState`/`replaceState` only accept
+ *      anything that predates this visit.
+ *
+ *      BE PRECISE ABOUT WHAT THIS DOES AND DOES NOT PROTECT, because a page
+ *      that oversells it puts the reader in more danger than one that says
+ *      nothing. `replaceState` rewrites the entry in this TAB'S SESSION
+ *      HISTORY, the back and forward stack. It does NOT remove anything
+ *      from the browser's PERSISTENT history, the Ctrl+H list, the History
+ *      menu, omnibox autocomplete, or history synced to the reader's other
+ *      devices. That visit was recorded when the page loaded and no script
+ *      on the page can unrecord it.
+ *
+ *      So the protection this component actually provides is against
+ *      someone picking up the device and pressing Back, which is the
+ *      realistic shared-laptop threat and worth defending properly. It is
+ *      NOT protection against someone who deliberately opens the history
+ *      list and reads it. Any welfare or reporting page that offers this
+ *      control must not tell a reader their visit leaves no trace. If a
+ *      reader needs that, the honest advice is a private browsing window or
+ *      a different device, and the page should say so plainly.
+ *
+ *      `history.pushState`/`replaceState` only accept
  *      same-origin URLs (a cross-origin call throws `SecurityError`), which
  *      is why the decoy entries are same-origin and the actual escape to a
  *      neutral destination is a real navigation, not a history trick.
@@ -65,8 +83,7 @@ import { Text } from "@/components/bds/Type";
  *      does NOT manipulate the History API. It navigates with
  *      `window.location.href` and hides the page behind a "Loading" overlay
  *      while the browser processes that navigation, relying on the browser
- *      itself to make Back land one press away from the sensitive page (not
- *      zero presses, and not hidden from a browser history LIST at all).
+ *      itself to make Back land one press away from the sensitive page.
  *      This brief explicitly asked for history pollution in addition to
  *      that immediate navigation, which is the more defensive of the two
  *      designs, so that is what is implemented here. Both behaviours (2a
@@ -139,7 +156,11 @@ export type ExitThisPageProps = {
   className?: string;
 };
 
-function pollutHistoryAndLeave(exitHref: string, historyDecoyHref: string, decoyEntryCount: number) {
+function pollutHistoryAndLeave(
+  exitHref: string,
+  historyDecoyHref: string,
+  decoyEntryCount: number
+) {
   try {
     if (typeof window !== "undefined" && window.history) {
       // 2a: overwrite THIS page's own entry so it stops existing in history.

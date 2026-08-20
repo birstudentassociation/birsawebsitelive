@@ -83,10 +83,7 @@ export default function ServiceNavigation({
       <nav
         aria-label={ariaLabel}
         style={{ top: "var(--bds-header-height)" }}
-        className={clsx(
-          "sticky z-30 border-b border-line bg-surface",
-          className
-        )}
+        className={clsx("sticky z-30 border-b border-line bg-surface", className)}
       >
         <div className="wrap flex h-14 items-center gap-6 overflow-x-auto">
           <Text as="span" step="body" className="shrink-0 font-semibold text-brand-deep">

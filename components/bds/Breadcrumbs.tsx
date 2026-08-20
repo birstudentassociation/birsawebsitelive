@@ -46,10 +46,7 @@ export default function Breadcrumbs({ locale, items, label, className, onDark }:
           return (
             <li key={`${item.label}-${index}`} className="flex items-center gap-1.5">
               {index > 0 ? (
-                <Icon
-                  name="chevron-right"
-                  className={onDark ? "text-white/70" : "text-muted"}
-                />
+                <Icon name="chevron-right" className={onDark ? "text-white/70" : "text-muted"} />
               ) : null}
               {isLast || !item.href ? (
                 <span aria-current={isLast ? "page" : undefined}>

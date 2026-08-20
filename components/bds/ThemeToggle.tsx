@@ -38,7 +38,12 @@ function getResolvedTheme(): Resolved {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel, className }: ThemeToggleProps) {
+export default function ThemeToggle({
+  neutralLabel,
+  darkLabel,
+  lightLabel,
+  className,
+}: ThemeToggleProps) {
   const [mounted, setMounted] = useState(false);
   const [resolved, setResolved] = useState<Resolved>("light");
 

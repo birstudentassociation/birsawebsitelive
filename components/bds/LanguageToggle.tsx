@@ -31,7 +31,12 @@ export type LanguageToggleProps = {
   className?: string;
 };
 
-export default function LanguageToggle({ locale, label, ariaLabel, className }: LanguageToggleProps) {
+export default function LanguageToggle({
+  locale,
+  label,
+  ariaLabel,
+  className,
+}: LanguageToggleProps) {
   const pathname = usePathname();
   const target: Locale = locale === "th" ? "en" : "th";
   const href = swapLocalePath(pathname, target);

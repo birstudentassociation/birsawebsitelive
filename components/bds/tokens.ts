@@ -122,7 +122,62 @@ export const contrastPairs: ReadonlyArray<{
     min: 3,
     why: "form control boundary on a card (WCAG 1.4.11)",
   },
+
+  // The five below were added at the Wave 2 boundary. The status cluster agent
+  // needed all of them for Tag and WarningText, found that none was asserted,
+  // and correctly refused to use an unasserted pairing rather than assume it
+  // was fine. Checking them showed every one passes comfortably, so the gap was
+  // that they were unchecked, not that they were wrong. Asserting them is what
+  // lets the next component use them without repeating that investigation.
+  {
+    foreground: "forest",
+    background: "forest-tint",
+    min: 4.5,
+    why: "the supporting hue used as a status tone, e.g. a loan checked out",
+  },
+  {
+    foreground: "brand-deep",
+    background: "brand-tint",
+    min: 4.5,
+    why: "a filled brand chip, e.g. a category tag",
+  },
+  {
+    foreground: "muted",
+    background: "sunken",
+    min: 4.5,
+    why: "a de-emphasised status in a well, e.g. a cancelled loan",
+  },
+  {
+    foreground: "warning",
+    background: "cream",
+    min: 3,
+    why: "a warning label or icon on the page itself rather than on its tint",
+  },
+  {
+    foreground: "error",
+    background: "cream",
+    min: 4.5,
+    why: "an inline field error on the page itself rather than on its tint",
+  },
 ] as const;
+
+/**
+ * `forest` and `info` are the same colour. Not similar, identical, in every
+ * theme block: #2f5e4e on #e7efe9 in light, #93c4b1 on #22312a in dark.
+ *
+ * That is worth stating because two names for one value is a trap that springs
+ * later. Someone adjusts `info` for a contrast reason, does not know `forest`
+ * exists, and the two silently diverge while components written today treat
+ * them as interchangeable. Both are asserted above so that divergence fails the
+ * contrast gate rather than shipping.
+ *
+ * They are kept separate because they mean different things. `info` is a
+ * semantic status alongside success, warning and error. `forest` is the
+ * identity's supporting hue and could legitimately be re-tuned as a brand
+ * decision without that being a statement about informational messages. If the
+ * committee ever wants them to differ, this is the note saying nothing is
+ * relying on them being equal.
+ */
 
 /**
  * `line-strong` is deliberately NOT in the list above, and the reason is worth

@@ -137,11 +137,16 @@ export default function Pagination({
     );
   }
 
-  const previousHref = hrefFor && currentPage > 1 ? localeHref(locale, hrefFor(currentPage - 1)) : undefined;
-  const nextHref = hrefFor && currentPage < totalPages ? localeHref(locale, hrefFor(currentPage + 1)) : undefined;
+  const previousHref =
+    hrefFor && currentPage > 1 ? localeHref(locale, hrefFor(currentPage - 1)) : undefined;
+  const nextHref =
+    hrefFor && currentPage < totalPages ? localeHref(locale, hrefFor(currentPage + 1)) : undefined;
 
   return (
-    <nav aria-label={ariaLabel} className={clsx("flex items-center justify-between gap-2", className)}>
+    <nav
+      aria-label={ariaLabel}
+      className={clsx("flex items-center justify-between gap-2", className)}
+    >
       {currentPage > 1 ? (
         <Link
           href={previousHref ?? "#"}

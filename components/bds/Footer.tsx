@@ -102,13 +102,20 @@ export default function Footer({ locale, groups = defaultFooterGroups }: FooterP
             <Stack gap="lg">
               {groups.map((group) => (
                 <div key={group.id}>
-                  <Heading level={2} step="body-sm" className="font-semibold tracking-wide text-muted uppercase">
+                  <Heading
+                    level={2}
+                    step="body-sm"
+                    className="font-semibold tracking-wide text-muted uppercase"
+                  >
                     {group.title[locale]}
                   </Heading>
                   <Stack as="ul" gap="2xs" className="mt-3">
                     {group.links.map((link) => (
                       <li key={link.href}>
-                        <Link href={localeHref(locale, link.href)} className="hover:text-brand-deep">
+                        <Link
+                          href={localeHref(locale, link.href)}
+                          className="hover:text-brand-deep"
+                        >
                           <Text as="span" step="body-sm">
                             {link.label[locale]}
                           </Text>
@@ -122,7 +129,11 @@ export default function Footer({ locale, groups = defaultFooterGroups }: FooterP
           </nav>
 
           <div>
-            <Heading level={2} step="body-sm" className="font-semibold tracking-wide text-muted uppercase">
+            <Heading
+              level={2}
+              step="body-sm"
+              className="font-semibold tracking-wide text-muted uppercase"
+            >
               {dict.footer.followUs}
             </Heading>
             <Stack as="ul" gap="2xs" className="mt-3">
@@ -137,7 +148,11 @@ export default function Footer({ locale, groups = defaultFooterGroups }: FooterP
               ))}
             </Stack>
 
-            <Heading level={2} step="body-sm" className="mt-6 font-semibold tracking-wide text-muted uppercase">
+            <Heading
+              level={2}
+              step="body-sm"
+              className="mt-6 font-semibold tracking-wide text-muted uppercase"
+            >
               {dict.footer.contact}
             </Heading>
             <Stack as="ul" gap="2xs" className="mt-3 text-muted">
@@ -161,7 +176,11 @@ export default function Footer({ locale, groups = defaultFooterGroups }: FooterP
           </div>
 
           <div>
-            <Heading level={2} step="body-sm" className="font-semibold tracking-wide text-muted uppercase">
+            <Heading
+              level={2}
+              step="body-sm"
+              className="font-semibold tracking-wide text-muted uppercase"
+            >
               {dict.footer.officialLinks}
             </Heading>
             <Stack as="ul" gap="2xs" className="mt-3">
@@ -185,7 +204,10 @@ export default function Footer({ locale, groups = defaultFooterGroups }: FooterP
         <Wrap>
           <div className="flex flex-col gap-3 py-6 text-muted sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <Link href={localeHref(locale, "/standards#accessibility")} className="hover:text-brand-deep">
+              <Link
+                href={localeHref(locale, "/standards#accessibility")}
+                className="hover:text-brand-deep"
+              >
                 <Text as="span" step="body-sm">
                   {dict.footer.accessibility}
                 </Text>

@@ -101,7 +101,7 @@ export default function StatusLookup({
               required
               autoComplete="off"
               aria-describedby={referenceHintId}
-              className="focus-halo h-11 w-full rounded-lg border border-input-border bg-surface px-3 text-body text-ink"
+              className="focus-halo text-body h-11 w-full rounded-lg border border-input-border bg-surface px-3 text-ink"
             />
           </Stack>
 
@@ -125,7 +125,7 @@ export default function StatusLookup({
               required
               autoComplete="off"
               aria-describedby={detailHintId}
-              className="focus-halo h-11 w-full rounded-lg border border-input-border bg-surface px-3 text-body text-ink"
+              className="focus-halo text-body h-11 w-full rounded-lg border border-input-border bg-surface px-3 text-ink"
             />
           </Stack>
 

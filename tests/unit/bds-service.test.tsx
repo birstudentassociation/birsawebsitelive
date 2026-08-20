@@ -126,40 +126,43 @@ describe("ExitThisPage", () => {
     expect(window.location.replace).not.toHaveBeenCalled();
   });
 
-  it(
-    // WHY THIS MATTERS (see the exhaustive TSDoc on ExitThisPage.tsx for the
-    // full reasoning): a reader leaving a harassment report needs the Back
-    // button, and a browser's visible history list, to not lead a second
-    // person at the keyboard straight back to the page they left. Simply
-    // navigating away leaves the page's own URL sitting one Back press away.
-    // Overwriting that entry and padding several neutral entries ahead of it
-    // means Back has to be pressed multiple times through identical-looking
-    // decoys before it can reach anything, and the sensitive page's own URL
-    // no longer appears in the history list at all.
-    "replaces the current history entry and pushes decoy entries before navigating, in that order",
-    () => {
-      const calls: string[] = [];
-      const replaceStateSpy = vi
-        .spyOn(window.history, "replaceState")
-        .mockImplementation(() => calls.push("replaceState"));
-      const pushStateSpy = vi
-        .spyOn(window.history, "pushState")
-        .mockImplementation(() => calls.push("pushState"));
-      const locationReplaceSpy = window.location.replace as ReturnType<typeof vi.fn>;
-      locationReplaceSpy.mockImplementation(() => calls.push("location.replace"));
+  it(// WHY THIS MATTERS (see the exhaustive TSDoc on ExitThisPage.tsx for the
+  // full reasoning): a reader leaving a harassment report needs the Back
+  // button, and a browser's visible history list, to not lead a second
+  // person at the keyboard straight back to the page they left. Simply
+  // navigating away leaves the page's own URL sitting one Back press away.
+  // Overwriting that entry and padding several neutral entries ahead of it
+  // means Back has to be pressed multiple times through identical-looking
+  // decoys before it can reach anything, and the sensitive page's own URL
+  // no longer appears in the history list at all.
+  "replaces the current history entry and pushes decoy entries before navigating, in that order", () => {
+    const calls: string[] = [];
+    const replaceStateSpy = vi
+      .spyOn(window.history, "replaceState")
+      .mockImplementation(() => calls.push("replaceState"));
+    const pushStateSpy = vi
+      .spyOn(window.history, "pushState")
+      .mockImplementation(() => calls.push("pushState"));
+    const locationReplaceSpy = window.location.replace as ReturnType<typeof vi.fn>;
+    locationReplaceSpy.mockImplementation(() => calls.push("location.replace"));
 
-      render(<ExitThisPage {...props} decoyEntryCount={3} />);
-      fireEvent.click(screen.getByRole("link", { name: /leave this page now/i }));
+    render(<ExitThisPage {...props} decoyEntryCount={3} />);
+    fireEvent.click(screen.getByRole("link", { name: /leave this page now/i }));
 
-      expect(replaceStateSpy).toHaveBeenCalledTimes(1);
-      expect(pushStateSpy).toHaveBeenCalledTimes(3);
-      expect(locationReplaceSpy).toHaveBeenCalledTimes(1);
-      // Order matters: the history must be overwritten and padded BEFORE the
-      // real navigation runs, never after (once navigation starts, this
-      // page's script stops running and could never pollute anything).
-      expect(calls).toEqual(["replaceState", "pushState", "pushState", "pushState", "location.replace"]);
-    }
-  );
+    expect(replaceStateSpy).toHaveBeenCalledTimes(1);
+    expect(pushStateSpy).toHaveBeenCalledTimes(3);
+    expect(locationReplaceSpy).toHaveBeenCalledTimes(1);
+    // Order matters: the history must be overwritten and padded BEFORE the
+    // real navigation runs, never after (once navigation starts, this
+    // page's script stops running and could never pollute anything).
+    expect(calls).toEqual([
+      "replaceState",
+      "pushState",
+      "pushState",
+      "pushState",
+      "location.replace",
+    ]);
+  });
 
   it("still navigates away even if the History API throws", () => {
     vi.spyOn(window.history, "replaceState").mockImplementation(() => {
@@ -190,7 +193,9 @@ describe("StartPage", () => {
       <StartPage start={exampleStart} locale="en" href="/do/equipment-loan/name" labels={labels} />
     );
 
-    expect(screen.getByRole("heading", { level: 1, name: exampleStart.title.en })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: exampleStart.title.en })
+    ).toBeInTheDocument();
     expect(screen.getByText(exampleStart.whoFor.en)).toBeInTheDocument();
     for (const item of exampleStart.before) {
       expect(screen.getByText(item.en)).toBeInTheDocument();
@@ -207,7 +212,9 @@ describe("StartPage", () => {
     render(
       <StartPage start={exampleStart} locale="th" href="/do/equipment-loan/name" labels={labels} />
     );
-    expect(screen.getByRole("heading", { level: 1, name: exampleStart.title.th })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: exampleStart.title.th })
+    ).toBeInTheDocument();
     expect(screen.queryByText(exampleStart.title.en)).not.toBeInTheDocument();
   });
 
@@ -405,7 +412,9 @@ describe("TaskList", () => {
   });
 
   it("emits no raw Tailwind type utility", () => {
-    const { container } = render(<TaskList heading="International arrival checklist" items={items} />);
+    const { container } = render(
+      <TaskList heading="International arrival checklist" items={items} />
+    );
     assertNoRawTypeUtility(container);
   });
 });
@@ -428,7 +437,9 @@ describe("InterruptionPage", () => {
       screen.getByRole("heading", { level: 1, name: "Before you tell us what happened" })
     ).toBeInTheDocument();
     expect(
-      screen.getByText("BIRSA cannot investigate criminal matters. We can refer you to someone who can.")
+      screen.getByText(
+        "BIRSA cannot investigate criminal matters. We can refer you to someone who can."
+      )
     ).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Continue" })).toHaveAttribute(
       "href",

@@ -194,12 +194,7 @@ export default function Header({ locale, nav = defaultPrimaryNav, searchSlot }: 
         {/* Always visible at lg+; hidden (display:none) below it, so it
             never collides with the mobile panel below in the a11y tree. */}
         <nav aria-label={dict.a11y.primaryNav} className="hidden lg:block">
-          <NavLinkList
-            locale={locale}
-            nav={nav}
-            pathname={pathname}
-            variant="desktop"
-          />
+          <NavLinkList locale={locale} nav={nav} pathname={pathname} variant="desktop" />
         </nav>
 
         <div className="flex min-w-0 shrink-0 items-center gap-1.5 sm:gap-3">
@@ -237,12 +232,7 @@ export default function Header({ locale, nav = defaultPrimaryNav, searchSlot }: 
               className="absolute inset-x-0 top-full px-3 pb-3"
             >
               <div className="rounded-lg border border-line bg-surface shadow-lg">
-                <NavLinkList
-                  locale={locale}
-                  nav={nav}
-                  pathname={pathname}
-                  variant="mobile"
-                />
+                <NavLinkList locale={locale} nav={nav} pathname={pathname} variant="mobile" />
               </div>
             </nav>
           </div>
