@@ -1,0 +1,334 @@
+/* ==========================================================================
+   BIRSA Design System (BDS): design tokens
+   ==========================================================================
+
+   FROZEN CONTRACT. Wave 0 owns this file (REDESIGN-2.0 §11.1, §11.3 item 3).
+   Subagents READ it and never write it. An agent that believes a token is
+   wrong stops and reports; it does not edit.
+
+   Imported by `app/globals.css`, which keeps the base-layer rules (`.wrap`,
+   `.prose`, focus, reduced motion) and the language-conditional font mapping.
+
+   Three groups live here:
+
+     1. Colour, radius and shadow, moved verbatim out of `app/globals.css`.
+        The cream-editorial identity on BIR red is kept (§4.2); the values are
+        unchanged and remain contrast-verified in both themes.
+     2. The bilingual type scale (§4.2, defect D7). This is the new work.
+     3. The spacing scale and the chrome-height token (§4.2, §9).
+
+   `components/bds/tokens.ts` mirrors the names in TypeScript so tests can
+   reference a token by name rather than by string literal. The two files are
+   kept in step by `tests/unit/bds-tokens.test.ts`, which parses this file.
+   ========================================================================== */
+
+@theme {
+  /* Brand + surfaces ------------------------------------------------------ */
+  --color-cream: #fbf7ef; /* page background (paper) */
+  --color-surface: #fffdf8; /* raised cards */
+  --color-sunken: #f3ead9; /* wells / subtle fills */
+  --color-line: #e6dccb; /* hairline borders */
+  --color-line-strong: #d9cbb2;
+  --color-input-border: #8a7a64; /* form input/textarea/select boundary, ≥3:1 (WCAG 1.4.11) */
+
+  --color-ink: #211c19; /* body text, ~15:1 on cream */
+  --color-muted: #5b524a; /* secondary text, ~6.9:1 on cream */
+
+  --color-brand: #d81f26; /* BIR red, AA on cream + white-on-red */
+  --color-brand-dark: #b3161c; /* hover / active */
+  --color-brand-strong: #b3161c; /* primary button hover/active fill */
+  --color-brand-deep: #9e1319; /* red used as small text */
+  --color-brand-tint: #fbeae9; /* red-tinted fill */
+
+  --color-forest: #2f5e4e; /* restrained supporting hue */
+  --color-forest-tint: #e7efe9;
+
+  /* Semantic (tuned warm) ------------------------------------------------- */
+  --color-success: #2f6b3d;
+  --color-success-tint: #e8f1e8;
+  --color-warning: #8a5a00;
+  --color-warning-tint: #fbf0d9;
+  --color-error: #b3161c;
+  --color-error-tint: #fbeae9;
+  --color-info: #2f5e4e;
+  --color-info-tint: #e7efe9;
+
+  /* Typography families --------------------------------------------------- */
+  /* next/font sets --font-en-display (Fraunces), --font-en-body (Lexend),
+     --font-th (Sarabun) and --font-th-display (JenjrusVris) on <html>. */
+  --font-display: var(--font-en-display), Georgia, "Times New Roman", serif;
+  --font-sans:
+    var(--font-en-body), var(--font-th), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-thai: var(--font-th), var(--font-en-body), system-ui, sans-serif;
+  /* Thai display type. Font fallback runs per character, so the order does the
+     script splitting on its own: Fraunces has no Thai glyphs and picks up only
+     the Latin and the digits, every Thai character falls through to
+     JenjrusVris, and Sarabun catches anything neither of them draws. That
+     keeps names like BIRSA and dates identical across the two locales. */
+  --font-thai-display:
+    var(--font-en-display), var(--font-th-display), var(--font-th), var(--font-en-body), sans-serif;
+
+  /* Radius + shadow (soft, warm) ----------------------------------------- */
+  --radius-sm: 0.375rem;
+  --radius: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  --shadow-sm: 0 1px 2px rgba(33, 28, 25, 0.06);
+  --shadow-md: 0 6px 20px -8px rgba(33, 28, 25, 0.18);
+  --shadow-lg: 0 18px 40px -18px rgba(33, 28, 25, 0.28);
+}
+
+/* ==========================================================================
+   Dark mode: token overrides
+   Two identical scopes: an explicit user choice (`data-theme="dark"`) and a
+   system-preference fallback for users who haven't chosen (no `data-theme`,
+   or `data-theme="light"` explicitly opts back out). Contrast-verified: every
+   text pair ≥4.5:1, UI accents ≥3:1.
+   ========================================================================== */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-cream: #201b17;
+  --color-surface: #2a241e;
+  --color-sunken: #191512;
+  --color-line: #3d352c;
+  --color-line-strong: #7e6e5a;
+  --color-input-border: #7e6e5a;
+
+  --color-ink: #f0e9df;
+  --color-muted: #b3a79a;
+
+  --color-brand: #d62d34;
+  --color-brand-dark: #ffa9ac;
+  --color-brand-strong: #b3161c;
+  --color-brand-deep: #f9999c;
+  --color-brand-tint: #3c2422;
+
+  --color-forest: #93c4b1;
+  --color-forest-tint: #22312a;
+
+  --color-success: #96cba1;
+  --color-success-tint: #1f2f23;
+  --color-warning: #e4b266;
+  --color-warning-tint: #3a2e17;
+  --color-error: #f9999c;
+  --color-error-tint: #3c2422;
+  --color-info: #93c4b1;
+  --color-info-tint: #22312a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-cream: #201b17;
+    --color-surface: #2a241e;
+    --color-sunken: #191512;
+    --color-line: #3d352c;
+    --color-line-strong: #7e6e5a;
+    --color-input-border: #7e6e5a;
+
+    --color-ink: #f0e9df;
+    --color-muted: #b3a79a;
+
+    --color-brand: #d62d34;
+    --color-brand-dark: #ffa9ac;
+    --color-brand-strong: #b3161c;
+    --color-brand-deep: #f9999c;
+    --color-brand-tint: #3c2422;
+
+    --color-forest: #93c4b1;
+    --color-forest-tint: #22312a;
+
+    --color-success: #96cba1;
+    --color-success-tint: #1f2f23;
+    --color-warning: #e4b266;
+    --color-warning-tint: #3a2e17;
+    --color-error: #f9999c;
+    --color-error-tint: #3c2422;
+    --color-info: #93c4b1;
+    --color-info-tint: #22312a;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+    --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ==========================================================================
+   The bilingual type scale (§4.2, defect D7)
+   ==========================================================================
+
+   D7: 1.0 set heading sizes with Tailwind `text-*` utilities, each of which
+   carries a line-height Thai cannot use, and then beat those utilities with
+   unlayered `html[lang="th"] :is(h1,h2,h3)` overrides. The fix worked, but it
+   meant every new heading size was a fresh opportunity for Thai to break and
+   the override had to be remembered each time. Once officers create pages
+   (§4.6), "remembered each time" is not a mechanism that exists.
+
+   2.0 makes leading and tracking properties of the SCALE STEP rather than of
+   the utility, and makes them resolve through a per-script custom property.
+   `.text-heading-1` always reads `line-height: var(--leading-heading-1)`; the
+   value of that variable is swapped once, on `html[lang="th"]`. There is no
+   specificity contest and no Tailwind default to fight, so a new heading size
+   is correct in Thai by construction rather than by review.
+
+   RULE FOR COMPONENTS: use `text-display-2`, never `text-4xl`. A `bds/`
+   component that reaches for a Tailwind font-size utility is a bug.
+
+   The classes are deliberately UNLAYERED. Unlayered rules win over every
+   cascade layer, so a stray `text-4xl` or `leading-tight` cannot silently
+   reintroduce the Latin line-height on a Thai page.
+
+   The notes below on Thai loop height, tone marks and JenjrusVris
+   sidebearings are carried over verbatim from `app/globals.css`, where they
+   were the best documentation in the repository.
+
+   Sizes are fluid between a 320px and a 1280px viewport. Each clamp keeps a
+   `rem` term in the middle expression so text still scales with the user's
+   font size at 200% zoom (WCAG 1.4.4); a `vw`-only middle term would not.
+   ========================================================================== */
+
+:root {
+  /* Step sizes. Script-independent: Thai and Latin are set at the same size,
+     only leading and tracking differ. */
+  --type-display-1: clamp(2.25rem, 1.8333rem + 2.0833vw, 3.5rem); /* 36 → 56px */
+  --type-display-2: clamp(1.875rem, 1.6667rem + 1.0417vw, 2.5rem); /* 30 → 40px */
+  --type-heading-1: clamp(1.5rem, 1.375rem + 0.625vw, 1.875rem); /* 24 → 30px */
+  --type-heading-2: clamp(1.25rem, 1.1667rem + 0.4167vw, 1.5rem); /* 20 → 24px */
+  --type-heading-3: clamp(1.125rem, 1.0833rem + 0.2083vw, 1.25rem); /* 18 → 20px */
+  --type-body: clamp(1rem, 0.9792rem + 0.1042vw, 1.0625rem); /* 16 → 17px */
+  --type-body-sm: clamp(0.875rem, 0.8542rem + 0.1042vw, 0.9375rem); /* 14 → 15px */
+
+  /* Latin leading. Fraunces at display sizes sets tightly; Lexend body wants
+     a generous measure-friendly leading. */
+  --leading-display-1: 1.08;
+  --leading-display-2: 1.15;
+  --leading-heading-1: 1.2;
+  --leading-heading-2: 1.3;
+  --leading-heading-3: 1.35;
+  --leading-body: 1.65;
+  --leading-body-sm: 1.6;
+
+  /* Latin tracking. Display sizes are set slightly tight; body is untouched. */
+  --tracking-display-1: -0.015em;
+  --tracking-display-2: -0.01em;
+  --tracking-heading-1: -0.005em;
+  --tracking-heading-2: 0em;
+  --tracking-heading-3: 0em;
+  --tracking-body: 0em;
+  --tracking-body-sm: 0em;
+}
+
+/* Thai leading. Thai stacks tone marks above the loop and vowels below it, so
+   a Thai line inks close to a full em where the Latin equivalent inks about
+   0.7 -- and the display face is scaled to 140% on top of that. Every step
+   therefore gets more leading than its Latin counterpart, and the body steps
+   get more again, because Thai has no interword spaces to give the eye a
+   resting point mid-line.
+
+   Thai tracking. JenjrusVris is drawn with very tight sidebearings, so
+   adjacent consonants merge into each other at heading sizes without extra
+   tracking. 0.06em clears every collision; much beyond that and words start
+   to fall apart, since Thai does not put spaces between them. Sarabun, which
+   sets the body steps, does not need it. */
+html[lang="th"] {
+  --leading-display-1: 1.45;
+  --leading-display-2: 1.45;
+  --leading-heading-1: 1.45;
+  --leading-heading-2: 1.5;
+  --leading-heading-3: 1.55;
+  --leading-body: 1.85;
+  --leading-body-sm: 1.8;
+
+  --tracking-display-1: 0.06em;
+  --tracking-display-2: 0.06em;
+  --tracking-heading-1: 0.06em;
+  --tracking-heading-2: 0.06em;
+  --tracking-heading-3: 0.06em;
+  --tracking-body: 0em;
+  --tracking-body-sm: 0em;
+}
+
+.text-display-1 {
+  font-size: var(--type-display-1);
+  line-height: var(--leading-display-1);
+  letter-spacing: var(--tracking-display-1);
+}
+.text-display-2 {
+  font-size: var(--type-display-2);
+  line-height: var(--leading-display-2);
+  letter-spacing: var(--tracking-display-2);
+}
+.text-heading-1 {
+  font-size: var(--type-heading-1);
+  line-height: var(--leading-heading-1);
+  letter-spacing: var(--tracking-heading-1);
+}
+.text-heading-2 {
+  font-size: var(--type-heading-2);
+  line-height: var(--leading-heading-2);
+  letter-spacing: var(--tracking-heading-2);
+}
+.text-heading-3 {
+  font-size: var(--type-heading-3);
+  line-height: var(--leading-heading-3);
+  letter-spacing: var(--tracking-heading-3);
+}
+.text-body {
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+.text-body-sm {
+  font-size: var(--type-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
+}
+
+/* ==========================================================================
+   Spacing scale (§4.2)
+   ==========================================================================
+   1.0 spelled vertical rhythm as `py-12 sm:py-16` copy-pasted per page, so a
+   change to section rhythm was a change to every page. `.bds-section` is the
+   one place it is set. Officers never see either; the section palette (§4.6)
+   renders through `bds/` components which use these.
+   ========================================================================== */
+
+:root {
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Vertical rhythm between page sections, fluid on the same 320 → 1280
+     track as the type scale so rhythm and type grow together. */
+  --space-section: clamp(3rem, 2.3333rem + 3.3333vw, 5rem);
+
+  /* §9, WCAG 2.4.11 focus not obscured. The header is sticky, and adding the
+     service navigation bar (§3.5) makes the sticky region taller. 1.0 hard
+     coded `scroll-padding-top: 5.5rem`; 2.0 derives it from the two pieces of
+     chrome that can be sticky, so a taller header cannot silently start
+     hiding the focused element behind itself.
+
+     `--bds-service-nav-height` is 0 by default and is set to its real height
+     by the ServiceNavigation component's own scope. Asserted by
+     `tests/e2e/a11y.spec.ts`. */
+  --bds-header-height: 4.5rem;
+  --bds-service-nav-height: 0rem;
+  --bds-chrome-height: calc(var(--bds-header-height) + var(--bds-service-nav-height) + 1rem);
+}
+
+.bds-section {
+  padding-block: var(--space-section);
+}

@@ -1,109 +1,16 @@
 @import "tailwindcss";
+@import "../components/bds/tokens.css";
 
 /* ==========================================================================
-   BIRSA Portal: design tokens
-   "Cream editorial" identity built on BIR red (#d81f26).
-   Colour pairings below are chosen to meet WCAG 2.2 AA contrast.
+   BIRSA Portal: base layer, prose, and site chrome rules.
+
+   Design tokens moved to `components/bds/tokens.css` in Wave 0 of the 2.0
+   redesign (REDESIGN-2.0 §4.2, §11.3 item 3), and that file is now the frozen
+   contract every agent reads. Colour, radius, shadow, the font families, the
+   bilingual type scale and the spacing scale all live there. What stays here
+   is everything that is a rule rather than a token: the base layer, `.wrap`,
+   `.prose`, focus, reduced motion, and the language-conditional font mapping.
    ========================================================================== */
-@theme {
-  /* Brand + surfaces ------------------------------------------------------ */
-  --color-cream: #fbf7ef; /* page background (paper) */
-  --color-surface: #fffdf8; /* raised cards */
-  --color-sunken: #f3ead9; /* wells / subtle fills */
-  --color-line: #e6dccb; /* hairline borders */
-  --color-line-strong: #d9cbb2;
-  --color-input-border: #8a7a64; /* form input/textarea/select boundary, ≥3:1 (WCAG 1.4.11) */
-
-  --color-ink: #211c19; /* body text, ~15:1 on cream */
-  --color-muted: #5b524a; /* secondary text, ~6.9:1 on cream */
-
-  --color-brand: #d81f26; /* BIR red, AA on cream + white-on-red */
-  --color-brand-dark: #b3161c; /* hover / active */
-  --color-brand-strong: #b3161c; /* primary button hover/active fill */
-  --color-brand-deep: #9e1319; /* red used as small text */
-  --color-brand-tint: #fbeae9; /* red-tinted fill */
-
-  --color-forest: #2f5e4e; /* restrained supporting hue */
-  --color-forest-tint: #e7efe9;
-
-  /* Semantic (tuned warm) ------------------------------------------------- */
-  --color-success: #2f6b3d;
-  --color-success-tint: #e8f1e8;
-  --color-warning: #8a5a00;
-  --color-warning-tint: #fbf0d9;
-  --color-error: #b3161c;
-  --color-error-tint: #fbeae9;
-  --color-info: #2f5e4e;
-  --color-info-tint: #e7efe9;
-
-  /* Typography ------------------------------------------------------------ */
-  /* next/font sets --font-en-display (Fraunces), --font-en-body (Lexend),
-     --font-th (Sarabun) and --font-th-display (JenjrusVris) on <html>. */
-  --font-display: var(--font-en-display), Georgia, "Times New Roman", serif;
-  --font-sans:
-    var(--font-en-body), var(--font-th), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-thai: var(--font-th), var(--font-en-body), system-ui, sans-serif;
-  /* Thai display type. Font fallback runs per character, so the order does the
-     script splitting on its own: Fraunces has no Thai glyphs and picks up only
-     the Latin and the digits, every Thai character falls through to
-     JenjrusVris, and Sarabun catches anything neither of them draws. That
-     keeps names like BIRSA and dates identical across the two locales. */
-  --font-thai-display:
-    var(--font-en-display), var(--font-th-display), var(--font-th), var(--font-en-body), sans-serif;
-
-  /* Radius + shadow (soft, warm) ----------------------------------------- */
-  --radius-sm: 0.375rem;
-  --radius: 0.625rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-
-  --shadow-sm: 0 1px 2px rgba(33, 28, 25, 0.06);
-  --shadow-md: 0 6px 20px -8px rgba(33, 28, 25, 0.18);
-  --shadow-lg: 0 18px 40px -18px rgba(33, 28, 25, 0.28);
-}
-
-/* ==========================================================================
-   Dark mode: token overrides
-   Two identical scopes: an explicit user choice (`data-theme="dark"`) and a
-   system-preference fallback for users who haven't chosen (no `data-theme`,
-   or `data-theme="light"` explicitly opts back out). Contrast-verified: every
-   text pair ≥4.5:1, UI accents ≥3:1.
-   ========================================================================== */
-html[data-theme="dark"] {
-  color-scheme: dark;
-
-  --color-cream: #201b17;
-  --color-surface: #2a241e;
-  --color-sunken: #191512;
-  --color-line: #3d352c;
-  --color-line-strong: #7e6e5a;
-  --color-input-border: #7e6e5a;
-
-  --color-ink: #f0e9df;
-  --color-muted: #b3a79a;
-
-  --color-brand: #d62d34;
-  --color-brand-dark: #ffa9ac;
-  --color-brand-strong: #b3161c;
-  --color-brand-deep: #f9999c;
-  --color-brand-tint: #3c2422;
-
-  --color-forest: #93c4b1;
-  --color-forest-tint: #22312a;
-
-  --color-success: #96cba1;
-  --color-success-tint: #1f2f23;
-  --color-warning: #e4b266;
-  --color-warning-tint: #3a2e17;
-  --color-error: #f9999c;
-  --color-error-tint: #3c2422;
-  --color-info: #93c4b1;
-  --color-info-tint: #22312a;
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
-  --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
-}
 
 html[data-theme="dark"] .theme-icon-sun {
   display: inline;
@@ -121,42 +28,6 @@ html[data-theme="dark"] .osm-tile-layer img {
 }
 
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) {
-    color-scheme: dark;
-
-    --color-cream: #201b17;
-    --color-surface: #2a241e;
-    --color-sunken: #191512;
-    --color-line: #3d352c;
-    --color-line-strong: #7e6e5a;
-    --color-input-border: #7e6e5a;
-
-    --color-ink: #f0e9df;
-    --color-muted: #b3a79a;
-
-    --color-brand: #d62d34;
-    --color-brand-dark: #ffa9ac;
-    --color-brand-strong: #b3161c;
-    --color-brand-deep: #f9999c;
-    --color-brand-tint: #3c2422;
-
-    --color-forest: #93c4b1;
-    --color-forest-tint: #22312a;
-
-    --color-success: #96cba1;
-    --color-success-tint: #1f2f23;
-    --color-warning: #e4b266;
-    --color-warning-tint: #3a2e17;
-    --color-error: #f9999c;
-    --color-error-tint: #3c2422;
-    --color-info: #93c4b1;
-    --color-info-tint: #22312a;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
-    --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
-  }
-
   html:not([data-theme="light"]) .theme-icon-sun {
     display: inline;
   }
@@ -215,7 +86,12 @@ html[lang="th"] :is(h1, h2, h3) {
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem; /* offset sticky header for in-page anchors */
+    /* Offset the sticky chrome for in-page anchors. Derived from
+       `--bds-chrome-height` (components/bds/tokens.css) rather than hard
+       coded, so adding the service navigation bar (REDESIGN-2.0 §3.5) cannot
+       silently start hiding a focused element behind the header
+       (WCAG 2.4.11 focus not obscured). */
+    scroll-padding-top: var(--bds-chrome-height);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
