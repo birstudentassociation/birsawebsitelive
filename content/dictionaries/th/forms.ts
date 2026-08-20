@@ -40,4 +40,18 @@ export const forms: typeof EnForms = {
       categoryRequired: "เลือกเรื่องที่ต้องการติดต่อ",
     },
   },
+  field: {
+    day: "วัน",
+    month: "เดือน",
+    year: "ปี",
+    from: "จาก",
+    to: "ถึง",
+  },
+  characterCount: {
+    hint: "กรอกได้ไม่เกิน {max} ตัวอักษร",
+    remainingOne: "กรอกได้อีก 1 ตัวอักษร",
+    remainingOther: "กรอกได้อีก {count} ตัวอักษร",
+    overOne: "เกินขีดจำกัด 1 ตัวอักษร",
+    overOther: "เกินขีดจำกัด {count} ตัวอักษร",
+  },
 };

@@ -35,5 +35,17 @@ export const a11y = {
     theme: "Theme",
     themeDark: "Switch to dark mode",
     themeLight: "Switch to light mode",
+    back: "Back",
+    /** ServiceNavigation's accessible name. "{service}" is replaced with the service's name. */
+    serviceNavigation: "{service} navigation",
+    footerNav: "Footer links",
+    paginationNav: "Pagination",
+    paginationPrevious: "Previous",
+    paginationNext: "Next",
+    /** One page link's accessible name. "{page}" is replaced with the page number. */
+    paginationPage: "Page {page}",
+    /** The previous/next links' accessible name, carrying the page they go to rather than a bare "Previous"/"Next". "{page}" is replaced with the page number. */
+    paginationPreviousPage: "Previous, page {page}",
+    paginationNextPage: "Next, page {page}",
   },
 };

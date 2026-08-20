@@ -46,9 +46,7 @@ export default function ExternalLink({
       rel="noopener noreferrer"
       className={clsx("inline-flex items-center gap-1", className)}
     >
-      {children}
-      <Icon name="external-link" />
-      <VisuallyHidden> ({newTabLabel})</VisuallyHidden>
+      {children} <Icon name="external-link" /> <VisuallyHidden>({newTabLabel})</VisuallyHidden>
     </a>
   );
 }

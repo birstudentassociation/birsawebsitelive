@@ -93,6 +93,11 @@ export const chrome = {
     optional: "optional",
     confirm: "Confirm",
     cancel: "Cancel",
+    // Visible text on a SummaryList change link (components/bds/SummaryList.tsx).
+    // The link's accessible name is this word plus the row's own label, added as
+    // visually hidden text, so "Change" repeated down a check-answers page still
+    // reads uniquely to a screen reader.
+    change: "Change",
   },
 
   notFound: {

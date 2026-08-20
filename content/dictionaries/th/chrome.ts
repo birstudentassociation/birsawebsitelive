@@ -88,6 +88,7 @@ export const chrome: typeof EnChrome = {
     optional: "ไม่บังคับ",
     confirm: "ยืนยัน",
     cancel: "ยกเลิก",
+    change: "แก้ไข",
   },
 
   notFound: {

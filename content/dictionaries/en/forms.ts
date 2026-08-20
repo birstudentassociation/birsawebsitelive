@@ -14,6 +14,15 @@
  * English voice: plain, direct, neutral. Short sentences. Active verbs.
  * GOV.UK guidance register: state the fact, do not describe or soften it.
  * See docs/EDITING.md "Voice and language" for the full standard.
+ *
+ * `field` and `characterCount` are new in Wave 2 (REDESIGN-2.0 section 4.3,
+ * forms cluster): the structural microcopy the named form controls in
+ * `components/bds/` need (day/month/year sub-labels, a from/to pair,
+ * `CharacterCount`'s templates), as opposed to `form`, which holds one
+ * page's actual content and stays exactly as it was. `characterCount`'s
+ * values are small templates with a `{max}` or `{count}` placeholder, not
+ * full sentences, because the number they carry changes live as the reader
+ * types; see `components/bds/CharacterCount.tsx` for how they are filled.
  */
 export const forms = {
   form: {
@@ -43,5 +52,19 @@ export const forms = {
       messageShort: "Your message is a little short. Add more detail",
       categoryRequired: "Choose what this is about",
     },
+  },
+  field: {
+    day: "Day",
+    month: "Month",
+    year: "Year",
+    from: "From",
+    to: "To",
+  },
+  characterCount: {
+    hint: "You can enter up to {max} characters",
+    remainingOne: "You have 1 character left",
+    remainingOther: "You have {count} characters left",
+    overOne: "You have 1 character too many",
+    overOther: "You have {count} characters too many",
   },
 };
