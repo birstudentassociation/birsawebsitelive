@@ -1,7 +1,12 @@
 import Image from "next/image";
 import clsx from "clsx";
 
-import { assertValidImage, ratioClassName, resolveAlt, type ImageSource } from "@/components/bds/Figure";
+import {
+  assertValidImage,
+  ratioClassName,
+  resolveAlt,
+  type ImageSource,
+} from "@/components/bds/Figure";
 import type { ImageField } from "@/components/bds/imageContract";
 import type { Locale } from "@/lib/i18n";
 

@@ -92,7 +92,7 @@ describe("Figure", () => {
     );
   });
 
-  it("renders alt=\"\" for a decorative image, as a deliberate choice rather than a default", () => {
+  it('renders alt="" for a decorative image, as a deliberate choice rather than a default', () => {
     const decorative: ImageField = { ...validImage, decorative: true, alt: null };
     render(<Figure image={decorative} locale="en" source={source} />);
     const img = document.querySelector("img");

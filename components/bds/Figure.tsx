@@ -108,8 +108,8 @@ export function assertValidImage(image: ImageField, componentName: string): bool
     throw new Error(message);
   }
 
-  // eslint-disable-next-line no-console -- deliberate: the one place a
-  // production image failure gets recorded once it renders nothing.
+  // Deliberate: the one place a production image failure gets recorded
+  // once it renders nothing.
   console.error(message);
   return false;
 }

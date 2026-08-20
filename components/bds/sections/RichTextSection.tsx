@@ -89,9 +89,7 @@ export type RichTextSectionProps = {
 function renderMark(mark: RichTextMark, content: React.ReactNode): React.ReactNode {
   if (mark === "strong") return <strong>{content}</strong>;
   if (mark === "em") return <em>{content}</em>;
-  return (
-    <code className="rounded bg-sunken px-1 py-0.5 text-body-sm">{content}</code>
-  );
+  return <code className="text-body-sm rounded bg-sunken px-1 py-0.5">{content}</code>;
 }
 
 function InlineRun({
@@ -131,65 +129,69 @@ function InlineRun({
 
 /** Exported so `InsetTextSection` can render the same inline vocabulary without a second copy of this logic. */
 export function renderInline(nodes: RichTextInline[], newTabLabel: string): React.ReactNode {
-  return nodes.map((node, index) => <InlineRun key={index} node={node} newTabLabel={newTabLabel} />);
+  return nodes.map((node, index) => (
+    <InlineRun key={index} node={node} newTabLabel={newTabLabel} />
+  ));
 }
 
-function RichTextBlockNode({
-  block,
-  newTabLabel,
-}: {
-  block: RichTextBlock;
-  newTabLabel: string;
-}) {
-  if (block.type === "table") {
-    const columns: TableColumn[] = block.columns.map((header, index) => ({
-      key: String(index),
-      header,
-    }));
-    const rows = block.rows.map((row) =>
-      Object.fromEntries(row.map((cell, index) => [String(index), cell]))
-    );
-    return <Table caption={block.caption} columns={columns} rows={rows} />;
-  }
+function RichTextBlockNode({ block, newTabLabel }: { block: RichTextBlock; newTabLabel: string }) {
+  // A `switch` on `block.type`, not a chain of `if`s, deliberately: with a
+  // discriminant whose type is a single literal on some union members (a
+  // table's `"table"`) and a multi-value literal union on another (a
+  // list's `"ul" | "ol"`), TypeScript's narrowing after an `if (a || b)`
+  // does not fully exclude the multi-value member from what remains, even
+  // across `if`s tested separately. A `switch` narrows correctly in both
+  // shapes, which is why every branch below is a `case`, not an `if`.
+  switch (block.type) {
+    case "table": {
+      const columns: TableColumn[] = block.columns.map((header, index) => ({
+        key: String(index),
+        header,
+      }));
+      const rows = block.rows.map((row) =>
+        Object.fromEntries(row.map((cell, index) => [String(index), cell]))
+      );
+      return <Table caption={block.caption} columns={columns} rows={rows} />;
+    }
 
-  if (block.type === "ul" || block.type === "ol") {
-    const ListTag = block.type;
-    return (
-      <ListTag className={block.type === "ul" ? "list-disc pl-6" : "list-decimal pl-6"}>
-        {block.items.map((item, index) => (
-          <Text as="li" step="body" key={index}>
-            {renderInline(item, newTabLabel)}
-          </Text>
-        ))}
-      </ListTag>
-    );
-  }
+    case "ul":
+    case "ol": {
+      const ListTag = block.type;
+      return (
+        <ListTag className={block.type === "ul" ? "list-disc pl-6" : "list-decimal pl-6"}>
+          {block.items.map((item, index) => (
+            <Text as="li" step="body" key={index}>
+              {renderInline(item, newTabLabel)}
+            </Text>
+          ))}
+        </ListTag>
+      );
+    }
 
-  if (block.type === "blockquote") {
-    return <InsetText>{renderInline(block.children, newTabLabel)}</InsetText>;
-  }
+    case "blockquote":
+      return <InsetText>{renderInline(block.children, newTabLabel)}</InsetText>;
 
-  if (block.type === "h2") {
-    return (
-      <Heading level={2} step="heading-1">
-        {renderInline(block.children, newTabLabel)}
-      </Heading>
-    );
-  }
+    case "h2":
+      return (
+        <Heading level={2} step="heading-1">
+          {renderInline(block.children, newTabLabel)}
+        </Heading>
+      );
 
-  if (block.type === "h3") {
-    return (
-      <Heading level={3} step="heading-2">
-        {renderInline(block.children, newTabLabel)}
-      </Heading>
-    );
-  }
+    case "h3":
+      return (
+        <Heading level={3} step="heading-2">
+          {renderInline(block.children, newTabLabel)}
+        </Heading>
+      );
 
-  return (
-    <Text as="p" step="body">
-      {renderInline(block.children, newTabLabel)}
-    </Text>
-  );
+    default:
+      return (
+        <Text as="p" step="body">
+          {renderInline(block.children, newTabLabel)}
+        </Text>
+      );
+  }
 }
 
 /**

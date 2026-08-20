@@ -142,9 +142,7 @@ export default function Gallery({ items, locale, labels, className }: GalleryPro
                 aria-label={item.image.decorative ? accessibleName : undefined}
                 className="focus-halo group block overflow-hidden rounded-lg border border-line bg-sunken"
               >
-                <span
-                  className={clsx("relative block", ratioClassName[item.image.ratio])}
-                >
+                <span className={clsx("relative block", ratioClassName[item.image.ratio])}>
                   {valid ? (
                     <Image
                       src={item.source.src}
