@@ -441,14 +441,16 @@ describe("the loan store is reachable through the chassis", () => {
 // both halves look right on their own.
 // ---------------------------------------------------------------------
 
-describe("the loan promises no turnaround BIRSA has not agreed", () => {
-  it("does not mark its service standard as published", () => {
-    expect(equipmentLoan.publishStandard).toBeFalsy();
+describe("the loan states the standard it agreed, and only that", () => {
+  it("publishes its service standard, decided at gate 6", () => {
+    expect(equipmentLoan.publishStandard).toBe(true);
+    expect(equipmentLoan.standardHours).toBe(48);
   });
 
-  it("says nothing about how long BIRSA takes in its what-happens-next copy", () => {
+  // The number is stated on the confirmation page from `standardHours`. If the
+  // prose also carried a figure, the two could drift apart silently.
+  it("states no second, hardcoded turnaround in its what-happens-next copy", () => {
     for (const locale of ["en", "th"] as const) {
-      // Any digit followed by an hours or days word would be a turnaround claim.
       expect(equipmentLoan.start.whatNext[locale]).not.toMatch(
         /\d+\s*(hour|hours|day|days|ชั่วโมง|วัน)/i
       );

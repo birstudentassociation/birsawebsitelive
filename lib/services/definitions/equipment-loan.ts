@@ -243,12 +243,10 @@ export const equipmentLoan: ServiceDefinition = {
   // number is treated as a promise BIRSA has made, because right now it is
   // a developer's placeholder standing in for a decision nobody has made.
   standardHours: 48,
-  // Deliberately absent, which means the confirmation page states no
-  // turnaround at all. The number above is an escalation threshold, not a
-  // promise: BIRSA has never agreed a loan turnaround time (REDESIGN-2.0
-  // §1.2 D3), so stating one to a student would be inventing it. Set this
-  // to true only once a committee has actually decided the number.
-  // publishStandard: true,
+  // Decided by the operator, 2026-08-20 (gate 6). 48 hours is now a real
+  // commitment, so it is stated on the confirmation page rather than only
+  // driving escalation.
+  publishStandard: true,
   escalateTo: "rights-and-welfare",
 
   privacyActivityId: "equipment-loan",

@@ -121,9 +121,13 @@ every visit, forever. Establish the fact, then decide.
 
 ---
 
-## Gate 6: the equipment loan service standard. Open, and Wave 4B forced it
+## Gate 6: the equipment loan service standard. DECIDED, 48 hours
 
-**§1.2 D3, §5.1 item 7. Status: open. Committee decision, and an agent may not make it.**
+**§1.2 D3, §5.1 item 7. Status: decided by the operator on 2026-08-20. 48 hours.**
+
+`publishStandard: true` on the loan definition, so the confirmation page now states it. The
+split below still stands for every future service: a standard is stated only when someone
+says so out loud, and the reasoning is kept because the near miss is the useful part.
 
 `ServiceDefinition.standardHours` is required, because §4E escalation needs a threshold to
 escalate against. The equipment loan has no agreed turnaround time. §1.2 D3 says so
@@ -146,13 +150,10 @@ and OMITTING IT MEANS SAY NOTHING. A service that forgets the field promises not
 opposite default would mean a forgotten field becomes a commitment. Two tests hold the line,
 because the defect is invisible in review when each half looks correct on its own.
 
-**What has to happen, by a person:** the committee agrees a turnaround for equipment loan
-requests, in hours, that officers can actually meet in exam weeks as well as quiet ones. Then
-`standardHours` becomes that number and `publishStandard: true` states it. Until then the
-service runs, escalates internally on the placeholder, and promises nothing.
+**Still worth a committee sanity check:** that 48 hours is meetable in exam weeks as well as
+quiet ones, since it is now a promise rather than a threshold.
 
-**What this blocks:** nothing. It is recorded so the placeholder is never mistaken for a
-decision.
+**What this blocks:** nothing.
 
 ---
 
