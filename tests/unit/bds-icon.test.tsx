@@ -145,4 +145,43 @@ describe("icon sprite data (components/bds/icons.ts)", () => {
       seen.add(name);
     }
   });
+
+  it("has exactly the inventory the report names, no more, no fewer", () => {
+    // Every other test in this file iterates `Object.keys(iconPaths)`, which
+    // means a missing icon is invisible to it: a test that only ever asks
+    // "for each icon that exists, does it behave" can never notice that one
+    // was supposed to exist and doesn't. This is the one assertion in the
+    // file that does not iterate the record; it checks the record itself
+    // against a list written down independently of it, so a future edit
+    // that silently drops (or renames, or duplicates under a new key) an
+    // icon fails here even though every iterate-the-record test above it
+    // would still pass. Keep this list in sync with the inventory table in
+    // the Wave 1 Agent C report when an icon is deliberately added.
+    const expectedIconNames = [
+      "arrow-up",
+      "building",
+      "calendar",
+      "check",
+      "chevron-down",
+      "chevron-left",
+      "chevron-right",
+      "circle-alert",
+      "circle-x",
+      "close",
+      "external-link",
+      "globe",
+      "info-circle",
+      "menu",
+      "moon",
+      "pencil",
+      "person",
+      "pin",
+      "search",
+      "star",
+      "sun",
+      "warning-triangle",
+    ].sort();
+
+    expect(Object.keys(iconPaths).sort()).toEqual(expectedIconNames);
+  });
 });

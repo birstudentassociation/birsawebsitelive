@@ -122,10 +122,33 @@ export const contrastPairs: ReadonlyArray<{
     min: 3,
     why: "form control boundary on a card (WCAG 1.4.11)",
   },
-  {
-    foreground: "line-strong",
-    background: "cream",
-    min: 3,
-    why: "a hairline that carries meaning, e.g. a selected tab rule",
-  },
 ] as const;
+
+/**
+ * `line-strong` is deliberately NOT in the list above, and the reason is worth
+ * keeping because it is the first thing `check:contrast` found.
+ *
+ * It was declared as a 1.4.11 surface ("a hairline that carries meaning") and
+ * it failed: #d9cbb2 on cream is 1.50:1 against a 3:1 requirement, in the light
+ * theme only, since the dark theme already gives it the same value as
+ * `input-border`.
+ *
+ * Looking at where it was actually used settled which half was wrong. Eleven of
+ * its fifteen call sites were the BORDER OF AN INTERACTIVE CONTROL: the header
+ * menu button, the theme and language toggles, the search button, scroll to
+ * top, the calendar's month buttons, the ring marking today, and every filter
+ * pill on the site. WCAG 1.4.11 covers exactly that, so the requirement was
+ * right and the token was wrong for the job. The other four are genuine
+ * decoration: the footer rule, the step connector, a static label pill and a
+ * note border.
+ *
+ * The fix was to move those eleven onto `input-border`, which exists for
+ * precisely this ("form input/textarea/select boundary, >=3:1") and already
+ * passes at 3.89:1. In dark mode the two tokens are the same colour, so
+ * nothing changed there; in light mode only control outlines darkened, and the
+ * decorative hairlines that carry the cream-editorial identity are untouched.
+ *
+ * `line-strong` is now decorative only, so asserting a contrast minimum on it
+ * would be asserting something WCAG does not require. If a future component
+ * uses it to convey state, that component is the bug, not this list.
+ */

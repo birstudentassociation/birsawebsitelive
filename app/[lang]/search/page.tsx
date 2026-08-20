@@ -97,7 +97,7 @@ function searchQueryHref(locale: Locale, query: string, section?: SectionKey): s
 
 const pillBase = "inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold";
 const pillActive = "border-2 border-ink bg-ink text-cream";
-const pillInactive = "border-line-strong text-ink hover:bg-sunken border";
+const pillInactive = "border-input-border text-ink hover:bg-sunken border";
 
 export default async function SearchPage({
   params,

@@ -652,7 +652,7 @@ export default function ItemsManager({
                   "focus-halo rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors",
                   statusFilter === value
                     ? "border-brand bg-brand text-white"
-                    : "border-line-strong bg-surface text-ink hover:bg-sunken"
+                    : "border-input-border bg-surface text-ink hover:bg-sunken"
                 )}
               >
                 {label}

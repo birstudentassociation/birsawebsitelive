@@ -81,7 +81,7 @@ export default function ThemeToggle({ neutralLabel, darkLabel, lightLabel }: The
       aria-pressed={ariaPressed}
       aria-label={ariaLabel}
       onClick={handleClick}
-      className="focus-halo flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line-strong text-ink hover:bg-sunken"
+      className="focus-halo flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-input-border text-ink hover:bg-sunken"
     >
       <svg aria-hidden="true" viewBox="0 0 20 20" className="theme-icon-sun h-4.5 w-4.5 shrink-0">
         <circle cx="10" cy="10" r="4.25" fill="none" stroke="currentColor" strokeWidth={1.75} />

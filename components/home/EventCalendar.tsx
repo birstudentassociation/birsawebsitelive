@@ -264,7 +264,7 @@ export default function EventCalendar({
   if (!current) return null;
 
   const navBtn =
-    "focus-halo inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong bg-surface text-ink transition-colors hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-40";
+    "focus-halo inline-flex h-10 w-10 items-center justify-center rounded-full border border-input-border bg-surface text-ink transition-colors hover:bg-sunken disabled:cursor-not-allowed disabled:opacity-40";
 
   return (
     <div className="flex flex-col gap-6">
@@ -374,7 +374,7 @@ export default function EventCalendar({
                                 : hasEvents
                                   ? "bg-sunken hover:bg-brand-tint"
                                   : "",
-                              isToday && !isSelected && "ring-2 ring-line-strong ring-inset"
+                              isToday && !isSelected && "ring-2 ring-input-border ring-inset"
                             )}
                           >
                             <span>{day}</span>

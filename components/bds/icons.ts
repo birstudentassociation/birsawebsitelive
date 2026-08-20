@@ -167,7 +167,8 @@ export const iconPaths = {
    * A columned building. components/home/EventCalendar.tsx, BuildingIcon
    * (university-level events).
    */
-  building: "M2.5 7.2 10 2.5l7.5 4.7M3.3 7.6h13.4V16H3.3ZM5.8 7.6V16M9.9 7.6V16M14 7.6V16M2.5 16h15",
+  building:
+    "M2.5 7.2 10 2.5l7.5 4.7M3.3 7.6h13.4V16H3.3ZM5.8 7.6V16M9.9 7.6V16M14 7.6V16M2.5 16h15",
 
   /** An arrow leaving a small box, up and to the right. components/ExternalLink.tsx. */
   "external-link": "M7 13l6-6M8 7h5v5",

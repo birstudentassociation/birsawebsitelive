@@ -124,7 +124,7 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
                 "focus-halo rounded-full border px-3.5 py-2 text-sm font-semibold transition-colors",
                 category === value
                   ? "border-brand bg-brand text-white"
-                  : "border-line-strong bg-surface text-ink hover:bg-sunken"
+                  : "border-input-border bg-surface text-ink hover:bg-sunken"
               )}
             >
               {label}

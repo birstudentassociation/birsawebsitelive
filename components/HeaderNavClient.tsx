@@ -85,7 +85,7 @@ export default function HeaderNavClient({
         aria-controls={panelId}
         aria-label={open ? closeLabel : openLabel}
         onClick={() => setOpen((value) => !value)}
-        className="focus-halo flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border border-line-strong px-3 text-sm font-semibold text-ink"
+        className="focus-halo flex h-11 min-w-11 items-center justify-center gap-2 rounded-md border border-input-border px-3 text-sm font-semibold text-ink"
       >
         <svg aria-hidden="true" viewBox="0 0 20 20" className="h-5 w-5 shrink-0">
           {open ? (

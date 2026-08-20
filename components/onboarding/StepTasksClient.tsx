@@ -150,7 +150,7 @@ export function OnboardingProgress({ locale, totalTasks }: OnboardingProgressPro
       <button
         type="button"
         onClick={reset}
-        className="focus-halo flex h-11 items-center rounded-lg border border-line-strong px-4 text-sm font-semibold text-ink hover:bg-surface"
+        className="focus-halo flex h-11 items-center rounded-lg border border-input-border px-4 text-sm font-semibold text-ink hover:bg-surface"
       >
         {t.resetLabel}
       </button>
