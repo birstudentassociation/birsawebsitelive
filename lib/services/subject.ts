@@ -41,9 +41,7 @@ import type { LocalizedText } from "@/lib/services/defineService";
  * the KIND of thing ("item") and this names the ACTUAL one a reader chose
  * ("the tripod").
  */
-export type SubjectResolution =
-  | { ok: true; key: string; name: LocalizedText }
-  | { ok: false };
+export type SubjectResolution = { ok: true; key: string; name: LocalizedText } | { ok: false };
 
 export type SubjectResolver = {
   resolve(key: string): Promise<SubjectResolution>;

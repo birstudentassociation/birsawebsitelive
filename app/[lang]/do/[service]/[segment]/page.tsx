@@ -126,7 +126,14 @@ async function QuestionStepBranch({
           </div>
           <Heading level={1}>{question.label[locale]}</Heading>
           <QuestionStepForm
-            action={submitQuestionStep.bind(null, service, undefined, question.id, locale, returnTo)}
+            action={submitQuestionStep.bind(
+              null,
+              service,
+              undefined,
+              question.id,
+              locale,
+              returnTo
+            )}
             question={question}
             locale={locale}
             defaultValue={draft[question.id]}

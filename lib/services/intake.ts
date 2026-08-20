@@ -76,9 +76,7 @@ export function stepIndex(definition: ServiceDefinition, stepId: string): number
  * that does not ignores it entirely.
  */
 function baseHref(definition: ServiceDefinition, subject?: string): string {
-  return definition.subject && subject
-    ? `/do/${definition.id}/${subject}`
-    : `/do/${definition.id}`;
+  return definition.subject && subject ? `/do/${definition.id}/${subject}` : `/do/${definition.id}`;
 }
 
 /** Where a question step goes next: the next question, or `check`. `returnTo` overrides this to `check`, used by the `CheckAnswers` change links so editing one answer comes straight back rather than re-walking every later step. */

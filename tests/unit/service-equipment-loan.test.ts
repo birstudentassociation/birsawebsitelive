@@ -316,8 +316,12 @@ describe("loanSubmissionStore.save creates a real loan through lib/inventory/loa
   });
 
   it("throws the same precise error when subject is entirely absent, not just blank", async () => {
-    const submission = baseSubmission({}, undefined);
-    await expect(loanSubmissionStore.save(submission)).rejects.toThrow(/no item was specified/);
+    // Built directly rather than through baseSubmission: a default
+    // parameter's default fires on an explicit `undefined` too, so there is
+    // no way to ask baseSubmission itself for a Submission with the key
+    // dropped rather than blank.
+    const { subject: _subject, ...withoutSubject } = baseSubmission();
+    await expect(loanSubmissionStore.save(withoutSubject)).rejects.toThrow(/no item was specified/);
     expect(loans.createLoanRequest).not.toHaveBeenCalled();
   });
 

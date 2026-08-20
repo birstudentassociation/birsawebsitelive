@@ -204,7 +204,11 @@ describe("resolveSubject", () => {
 
   it("resolves a real subject to its name in both locales", async () => {
     const outcome = await resolveSubject(subjectDefinition(), "widget-1");
-    expect(outcome).toEqual({ ok: true, key: "widget-1", name: { en: "Widget one", th: "วิดเจ็ตหนึ่ง" } });
+    expect(outcome).toEqual({
+      ok: true,
+      key: "widget-1",
+      name: { en: "Widget one", th: "วิดเจ็ตหนึ่ง" },
+    });
   });
 
   it("does not resolve an unknown subject", async () => {
@@ -280,7 +284,11 @@ describe("validateServiceDefinition rule 9: subject.source needs a registered re
   it("requires both locales on subject.label", () => {
     registerSubjectResolver(TEST_SUBJECT_SOURCE, fakeResolver({}));
     const definition = subjectDefinition({
-      subject: { source: TEST_SUBJECT_SOURCE, paramName: "widget", label: { en: "widget", th: "" } },
+      subject: {
+        source: TEST_SUBJECT_SOURCE,
+        paramName: "widget",
+        label: { en: "widget", th: "" },
+      },
     });
     const problems = validateServiceDefinition(definition, baseContext());
     expect(problems.some((p) => p.field === "subject.label")).toBe(true);

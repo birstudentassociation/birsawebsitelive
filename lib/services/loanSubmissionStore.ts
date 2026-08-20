@@ -44,37 +44,29 @@
  *    near the bottom of this file is what lets `equipmentLoan`'s own
  *    `subject.source` publish at all (rule 9, `defineService.ts`).
  *
- * 3. TWO DIFFERENT REFERENCE NUMBERS. `lib/services/intake.ts`'s
- *    `submitService` (frozen) generates its own reference
- *    (`generateReference(definition.id)`, e.g. "EQL-7Q2X") and returns it to
- *    the caller BEFORE `store.save()` is even awaited; `SubmissionStore.save`
- *    returns `Promise<void>`, with no way to hand a different reference
- *    back. `createLoanRequest` generates ITS OWN reference internally
- *    (`lib/inventory/loans.ts`'s `generateReference(itemKey)`, e.g.
- *    "item-4f2a") with no parameter to accept one instead. The two
- *    therefore never match: whatever the chassis shows a reader on
- *    `/do/equipment-loan/confirm` is not the reference stored on the `loans`
- *    row this file creates. `findByReference`/`listByService` below resolve
- *    against the LOAN's own reference (`loans.reference`), since that is
- *    the only column that exists to query; a reader typing back the
- *    chassis-issued reference on `/do/equipment-loan/status` would get "not
- *    found" as a result, not the loan the chassis just created for them.
- *    Fixing this needs either `SubmissionStore.save` to return the
- *    reference it actually used, or `createLoanRequest` to accept one,
- *    neither of which this wave's owned files can change
- *    (`lib/services/intake.ts` and `lib/inventory/loans.ts` are both
- *    outside the owned path list).
+ * 3. TWO DIFFERENT REFERENCE NUMBERS, now reconciled. This was an open
+ *    defect and the note is kept, because the failure it caused was
+ *    invisible in review: each half looked correct on its own.
  *
- * `SubmissionStore.save` also has no failure channel beyond throwing
- * (`Promise<void>`, and `submitService` does not catch anything before
- * returning `{ ok: true, reference }`), so a real, legitimate
- * `createLoanRequest` rejection (blocklisted, no availability, too many
- * open loans) can only surface here as an unhandled exception, not as the
- * graceful `CheckState` variant (`"blocklisted"`, `"unavailable"`,
- * `"limit-exceeded"`) the existing wizard's own `submitLoanRequestCheck`
- * gives a reader today. That is this file's fourth finding, folded into
- * point 1 above: the chassis's outcome model is narrower than what a real
- * backing service can produce.
+ *    `submitService` generates a reference, and `createLoanRequest`
+ *    generates a different one internally with no parameter to accept one.
+ *    While `SubmissionStore.save` returned `Promise<void>` the two could
+ *    never be reconciled, so the number a student was told to keep on the
+ *    confirmation page was not the number on the `loans` row, and typing it
+ *    back into the status lookup returned not found for a loan that plainly
+ *    existed.
+ *
+ *    `save` now returns a `SaveOutcome`. The reference `submitService`
+ *    generates is a PROPOSAL; the one this store returns, which the database
+ *    actually minted, is what the student is shown. That is precisely why
+ *    the return type is not `void`.
+ *
+ *    The same change gave `save` a failure channel. A blocklisted borrower,
+ *    or an item that went out while the form was open, is not a bad answer
+ *    and no field is wrong, so `validateFullDraft` has nothing to say about
+ *    it. Those now return `{ ok: false, problem }` and the check page shows
+ *    the reason, where before they could only be thrown, showing a student a
+ *    crash for a situation the service understands perfectly well.
  */
 import { createLoanRequest, listLoans } from "@/lib/inventory/loans";
 import { getBorrower } from "@/lib/inventory/borrowers";
