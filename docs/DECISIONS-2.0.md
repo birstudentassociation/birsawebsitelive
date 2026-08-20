@@ -211,6 +211,84 @@ left silent so the committee knows it was assumed rather than decided.
 
 ---
 
+## Decisions taken by the operator on 2026-08-20
+
+All recorded here so a later reader can tell what was decided from what was assumed.
+
+### Gate 7: a chassis request names its subject in the route. DECIDED
+
+`/do/[service]/[subject]/[step]`. The loan is one form per catalogue item, and this
+mirrors the 1.0 URL `/services/equipment-loan/[item]/request`, so old links map cleanly
+and the catalogue stays live rows in Postgres rather than options frozen into a
+definition. A definition declares that it takes a subject; the chassis carries it to the
+submission store. The question palette is untouched.
+
+### Gate 3: photographs of people, with written consent per photo. DECIDED
+
+BIRSA may publish identifiable people. That makes consent a system, not a habit, and the
+work it implies is real:
+
+- A consent record per subject per photo, held where §6.3 says personal data lives, which
+  is NOT the CMS.
+- A takedown path, because consent can be withdrawn and a photo that cannot be removed
+  quickly is a photo that should not have been published.
+- A new processing activity in `content/privacy/register.ts` with a lawful basis and a
+  retention rule, and a matching branch in `lib/privacy/retention.ts`.
+
+Until those three exist, the image components stay as they are and no photograph of an
+identifiable person is published. The components already support the events-and-spaces
+case, so nothing is blocked by waiting.
+
+### Gate 4: no cookie banner, because no consent is required. DECIDED
+
+Conditional on every cookie remaining strictly necessary: the service draft cookies, the
+theme preference, the officer session. PDPA and GDPR both exempt those from consent. The
+condition is the decision: **the day anything non-essential is added, analytics above all,
+this answer expires and a reject-by-default banner becomes mandatory.** A test should hold
+that line rather than a comment, since the cost of getting it wrong is on every visit.
+
+### Decision 5: visible beta phase banners, with a feedback link. DECIDED
+
+`components/bds/PhaseBanner.tsx` already takes its text and its on/off state as props, so
+turning one off never needs a developer, which was §4.5's requirement.
+
+### Decision 6: no welfare service at all for now. DECIDED
+
+BIRSA signposts to university counselling and holds nothing. §5.4 already says the chassis
+must not be used here, and this makes that permanent rather than pending. The practical
+effect is that the question of whether BIRSA holds case records does not arise, and
+`ExitThisPage` remains what protects a reader on the reporting and rights pages that do
+exist.
+
+### Gate 11: found items are held indefinitely by the faculty office. DECIDED, with one gap
+
+That settles the PHYSICAL item: BIRSA hands it to the faculty office and does not become a
+warehouse.
+
+It does not settle BIRSA's own DATABASE RECORD of the claim, which is a separate thing and
+is what the chassis actually refuses to publish without. Recorded default, pending a
+correction from the operator: the record follows the register's existing
+`RETENTION_YEARS = 2`. "Indefinitely" cannot apply to a record containing a student's name
+and contact details, because a retention period with no end is not a retention period.
+
+### Gate 1: the free Sanity plan is accepted, knowingly. DECIDED
+
+The operator has accepted the free plan's compromises. §6.11 called this the one
+indefensible answer, so what is being accepted is recorded plainly rather than softened:
+
+- **Admin and Viewer roles only.** Every officer who can edit anything is an administrator
+  of everything. §7.1's permission model does not exist on this plan, and §7.2's
+  two-person rule becomes twenty administrators. `/officer/access` and the drift cron
+  become the only place the real access picture is visible, which raises their importance
+  rather than lowering it.
+- **Three day history retention.** §6.5's "revert, one click, no developer" is true for
+  three days. An officer's mistake from last week is a developer's problem again.
+
+Both defects are invisible until they bite, which is why they are written down here. The
+decision stands and Wave 3 is unblocked on this basis.
+
+---
+
 ## Decided, and by whom
 
 | Decision                                                                           | Decided by   | Where it lives                    |

@@ -134,6 +134,33 @@ export type ServiceDefinition = {
    * commitment, and nobody would find out until a student held BIRSA to it.
    */
   publishStandard?: boolean;
+
+  /**
+   * A service that is about a THING, and needs to know which one before it can
+   * ask anything (gate 7, decided 2026-08-20).
+   *
+   * The equipment loan is not one form. It is one form per catalogue item, and
+   * nothing in a definition could express that: the route had one dynamic
+   * segment and it was the step, `choose-one` takes options authored into the
+   * document, and the catalogue is rows in Postgres that officers add and
+   * retire at any time. Wave 4B migrated the loan, published it, and then
+   * found a submission could never become a real loan because no answer
+   * carried the item.
+   *
+   * When set, the service is served at `/do/<id>/<subject>/<step>` and the
+   * chosen subject reaches the submission store alongside the answers. It is
+   * NOT a question: the reader picks it before the service starts, the same
+   * way 1.0's `/services/equipment-loan/[item]/request` worked, so old links
+   * map across and the catalogue stays live rather than frozen into a
+   * document.
+   *
+   * `paramName` is the segment's name for humans reading a URL. `label` is
+   * what the service calls the thing, used where a page has to name it.
+   */
+  subject?: {
+    paramName: string;
+    label: LocalizedText;
+  };
 };
 
 /**
