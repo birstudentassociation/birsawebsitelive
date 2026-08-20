@@ -13,7 +13,7 @@
  * DOM anyway (`{...rest}` onto a native element, for instance).
  */
 import { afterEach, describe, expect, it } from "vitest";
-import { render, screen, cleanup, within } from "@testing-library/react";
+import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
@@ -429,7 +429,11 @@ describe("RelatedLinksSection", () => {
 });
 
 describe("EmbeddedServiceSection", () => {
-  it("renders through StartPage with the given service fields", () => {
+  // A section is never the page. It sits inside a page that already owns its
+  // `h1`, so this card's title must be an `h2` and the section must emit no
+  // `h1` at all. The earlier version of this test asserted level 1, which
+  // encoded the bug rather than catching it.
+  it("renders a start card whose title is an h2, never an h1", () => {
     render(
       <EmbeddedServiceSection
         start={{
@@ -441,18 +445,16 @@ describe("EmbeddedServiceSection", () => {
         }}
         locale="en"
         href="/do/equipment-loan"
-        labels={{
-          beforeHeading: "Before you begin",
-          howLongHeading: "How long it takes",
-          whatNextHeading: "What happens next",
-          startCta: "Start now",
-        }}
       />
     );
     expect(
-      screen.getByRole("heading", { level: 1, name: "Request equipment" })
+      screen.getByRole("heading", { level: 2, name: "Request equipment" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /Start now/ })).toHaveAttribute(
+    expect(screen.queryByRole("heading", { level: 1 })).toBeNull();
+    // `CardTitle`'s stretched link makes the whole card one target whose
+    // accessible name is the service title, so the link is found by that
+    // title rather than by a separate call to action.
+    expect(screen.getByRole("link", { name: "Request equipment" })).toHaveAttribute(
       "href",
       "/do/equipment-loan"
     );
@@ -525,12 +527,6 @@ describe("renderSection", () => {
           },
           locale: "en",
           href: "/do/a-service",
-          labels: {
-            beforeHeading: "Before",
-            howLongHeading: "How long",
-            whatNextHeading: "Next",
-            startCta: "Start",
-          },
         },
       },
     ];

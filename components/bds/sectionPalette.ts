@@ -139,7 +139,15 @@ export const sectionPalette: Record<SectionTypeId, SectionType> = {
   "embedded-service": {
     id: "embedded-service",
     does: "A link into a service, rendered as a start card",
-    component: "StartPage",
+    // Wave 2 correction. This named `StartPage`, which was wrong. `StartPage`
+    // is page level and renders the page's own `h1`, so using it as a section
+    // put a SECOND `h1` on any host page that already had one and broke the
+    // heading order §9 asserts. That is precisely what `allowedBlocks` below
+    // forbids an officer from doing through rich text, and a palette that
+    // blocks the officer and then does it itself is not a constraint. The
+    // description was always the truth: this is a start CARD that links out
+    // to the service's real start page, where `StartPage` belongs.
+    component: "Card",
     carriesImages: false,
     validates: "References a published service definition from the registry (§5.2).",
   },
