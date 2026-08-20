@@ -197,6 +197,8 @@ const officer: Officer = {
   role: "admin",
   custodianId: null,
   isActive: true,
+  portfolio: null,
+  termEnd: null,
   createdAt: NOW,
   lastLoginAt: NOW,
 };
@@ -208,6 +210,8 @@ const inactiveOfficer: Officer = {
   role: "loan_officer",
   custodianId: "cust-2",
   isActive: false,
+  portfolio: null,
+  termEnd: null,
   createdAt: NOW,
   lastLoginAt: null,
 };

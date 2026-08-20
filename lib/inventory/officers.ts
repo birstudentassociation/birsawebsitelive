@@ -22,6 +22,8 @@ type OfficerRow = {
   passcode_hash: string | null;
   custodian_id: string | null;
   is_active: boolean;
+  portfolio: string | null;
+  term_end: string | null;
   created_at: string;
   last_login_at: string | null;
 };
@@ -35,6 +37,8 @@ function mapRow(row: OfficerRow): Officer {
     role: row.role,
     custodianId: row.custodian_id,
     isActive: row.is_active,
+    portfolio: row.portfolio ?? null,
+    termEnd: row.term_end ?? null,
     createdAt: row.created_at,
     lastLoginAt: row.last_login_at,
   };
@@ -116,6 +120,8 @@ export async function updateOfficer(
     name: string;
     role: Role;
     isActive: boolean;
+    portfolio: string | null;
+    termEnd: string | null;
     passcode: string;
     custodianId: string | null;
   }>
@@ -143,6 +149,8 @@ export async function updateOfficer(
     if (patch.name !== undefined) push("name", patch.name);
     if (patch.role !== undefined) push("role", patch.role);
     if (patch.isActive !== undefined) push("is_active", patch.isActive);
+    if (patch.portfolio !== undefined) push("portfolio", patch.portfolio);
+    if (patch.termEnd !== undefined) push("term_end", patch.termEnd);
     if (patch.passcode !== undefined) push("passcode_hash", hashPasscode(patch.passcode));
     if ("custodianId" in patch) push("custodian_id", patch.custodianId ?? null);
 

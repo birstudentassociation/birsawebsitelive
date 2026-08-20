@@ -28,6 +28,8 @@ type OfficerRow = {
   passcode_hash: string | null;
   custodian_id: string | null;
   is_active: boolean;
+  portfolio: string | null;
+  term_end: string | null;
   created_at: string;
   last_login_at: string | null;
 };
@@ -41,6 +43,8 @@ function mapOfficer(row: OfficerRow): Officer {
     role: row.role,
     custodianId: row.custodian_id,
     isActive: row.is_active,
+    portfolio: row.portfolio ?? null,
+    termEnd: row.term_end ?? null,
     createdAt: row.created_at,
     lastLoginAt: row.last_login_at,
   };

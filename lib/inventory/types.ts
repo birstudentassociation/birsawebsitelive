@@ -127,6 +127,23 @@ export type Officer = {
   role: Role;
   custodianId: string | null;
   isActive: boolean;
+  /**
+   * The portfolio this officer holds (§7.1), or null for a global officer.
+   * Scopes what they see; `isGlobalOfficer` already treats null as a real
+   * state rather than a missing one.
+   */
+  portfolio: string | null;
+  /**
+   * The date this grant lapses (§6.8), or null for open ended.
+   *
+   * BIRSA turns over every June (§7.4) and `isActive` only records that
+   * somebody remembered to switch an account off. A term end makes an account
+   * expire by default instead. Null is a deliberate state, not a gap: the
+   * drift report flags both an officer past their term end and a grant with
+   * no end at all, because an account nobody ever has to renew is exactly
+   * what §6.8 exists to make visible.
+   */
+  termEnd: string | null;
   createdAt: string;
   lastLoginAt: string | null;
 };
