@@ -133,14 +133,45 @@ describe("privacy register", () => {
     }
   });
 
-  it("gives every activity a lawful basis that is not consent", () => {
-    // The design moved the whole site off consent onto s.24(3) and s.24(5),
-    // which is what removes the s.20 guardian requirement for the many
-    // students who are under twenty. If an activity ever reverts to consent,
-    // that analysis has to be redone, so fail here and force the conversation.
+  it("rests on consent for photographs only, and nothing else", () => {
+    // This test used to forbid consent outright. The reasoning was that
+    // s.24(3) and s.24(5) remove the s.20 guardian requirement for the many
+    // students who are under twenty, and it said that if an activity ever
+    // reverted to consent the analysis had to be redone and the conversation
+    // forced. Gate 3 forced it: the operator decided BIRSA may publish
+    // photographs of identifiable people, and publishing someone's face has
+    // no lawful basis other than their agreement.
+    //
+    // So the rule is narrowed rather than dropped. Consent is permitted for
+    // exactly one activity, and any second one fails here and forces the
+    // conversation again.
+    const onConsent = activities.filter((a) => a.basis.section === "19").map((a) => a.id);
+    expect(onConsent).toEqual(["photo-consent"]);
+
     for (const activity of activities) {
-      expect(["24(3)", "24(5)"]).toContain(activity.basis.section);
+      expect(["24(3)", "24(5)", "19"]).toContain(activity.basis.section);
     }
+  });
+
+  it("makes the photo consent record carry the s.20 guardian question", () => {
+    // The s.20 problem does not disappear for photographs, it gets worse: a
+    // photograph identifies someone for as long as it is published. BIRSA
+    // cannot publish a recognisable photograph of a student under twenty on
+    // the student's own say so. The consent record has to capture age and,
+    // where needed, the guardian's agreement, or the basis is not made out.
+    const photo = activities.find((a) => a.id === "photo-consent");
+    expect(photo).toBeDefined();
+    const collectsEn = photo!.collects.map((c) => c.en).join(" ");
+    expect(collectsEn).toMatch(/twenty/i);
+    expect(collectsEn).toMatch(/guardian/i);
+  });
+
+  it("tells a photo subject that refusing costs them nothing", () => {
+    // s.19 paragraph 4: consent must be freely given. A notice that leaves a
+    // student guessing what happens if they say no is not asking freely.
+    const photo = activities.find((a) => a.id === "photo-consent");
+    expect(photo!.ifYouDoNot.en).toMatch(/do not have to/i);
+    expect(photo!.ifYouDoNot.th.length).toBeGreaterThan(0);
   });
 
   it("has no duplicate ids", () => {

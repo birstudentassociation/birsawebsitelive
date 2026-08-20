@@ -76,6 +76,36 @@ export const BASIS_LEGITIMATE_INTEREST: LawfulBasis = {
   },
 };
 
+/**
+ * Section 19. The site relies on consent for exactly one thing, publishing a
+ * photograph of an identifiable person, and it is worth being explicit about
+ * why that one is different from everything else here.
+ *
+ * Nothing else on this site rests on consent, deliberately, for the reason
+ * given above `BASIS_CONTRACT`: Thai majority is twenty, so most first year
+ * students are minors, and section 20 makes a minor's consent the guardian's
+ * to give. That reasoning does not disappear for photographs. It applies with
+ * more force, because a photograph identifies someone for as long as it is
+ * published and cannot be pseudonymised after the fact.
+ *
+ * So a photo consent record MUST capture whether the subject was twenty or
+ * over at the time, and where they were not, that a guardian consented.
+ * BIRSA cannot publish a recognisable photograph of a student under twenty on
+ * the student's own say so, however willingly it is given.
+ *
+ * Consent is also withdrawable at any time under section 19 paragraph 5, which
+ * is why `photo-consent` carries a takedown commitment rather than a retention
+ * period alone. A photograph that cannot be removed quickly is a photograph
+ * that should not have been published.
+ */
+export const BASIS_CONSENT: LawfulBasis = {
+  section: "19",
+  label: {
+    en: "Your consent, which you can withdraw at any time",
+    th: "ความยินยอมของท่าน ซึ่งท่านสามารถถอนได้ทุกเมื่อ",
+  },
+};
+
 export type StorageKind = "email" | "database" | "memory" | "none";
 
 export type ProcessingActivity = {
@@ -366,6 +396,45 @@ export const activities: ProcessingActivity[] = [
     recipients: ["vercel-postgres"],
     storage: "database",
     retentionTrigger: "created",
+  },
+  {
+    id: "photo-consent",
+    name: {
+      en: "Photographs of identifiable people, and the consent to publish them",
+      th: "ภาพถ่ายบุคคลที่ระบุตัวตนได้ และความยินยอมในการเผยแพร่",
+    },
+    purpose: {
+      en: "So BIRSA can publish a photograph of you on this site, and can prove you agreed to it and take it down when you ask.",
+      th: "เพื่อให้ BIRSA เผยแพร่ภาพถ่ายของท่านบนเว็บไซต์นี้ได้ พร้อมทั้งพิสูจน์ได้ว่าท่านให้ความยินยอม และนำภาพออกเมื่อท่านร้องขอ",
+    },
+    basis: BASIS_CONSENT,
+    collects: [
+      { en: "The photograph itself", th: "ตัวภาพถ่าย" },
+      { en: "Your name", th: "ชื่อของท่าน" },
+      {
+        en: "A way to contact you to check or withdraw consent",
+        th: "ช่องทางติดต่อท่านเพื่อยืนยันหรือถอนความยินยอม",
+      },
+      {
+        en: "What you agreed the photograph could be used for, and when you agreed it",
+        th: "ขอบเขตการใช้ภาพที่ท่านให้ความยินยอม และวันที่ให้ความยินยอม",
+      },
+      {
+        en: "Whether you were twenty or over at the time, and if not, your guardian's consent",
+        th: "ข้อมูลว่าท่านมีอายุยี่สิบปีบริบูรณ์แล้วหรือไม่ ณ เวลาที่ให้ความยินยอม และหากยังไม่บรรลุนิติภาวะ ความยินยอมของผู้ใช้อำนาจปกครอง",
+      },
+    ],
+    ifYouDoNot: {
+      en: "You do not have to agree to anything. If you do not, BIRSA does not publish a photograph of you, and nothing else changes. Saying no costs you nothing and you do not have to give a reason.",
+      th: "ท่านไม่จำเป็นต้องให้ความยินยอม หากท่านไม่ให้ความยินยอม BIRSA จะไม่เผยแพร่ภาพถ่ายของท่าน และไม่มีผลกระทบอื่นใดต่อท่าน การปฏิเสธไม่มีค่าใช้จ่ายใด และท่านไม่จำเป็นต้องให้เหตุผล",
+    },
+    recipients: ["vercel-postgres", "vercel-blob"],
+    storage: "database",
+    retentionTrigger: "last-active",
+    retentionNote: {
+      en: "The photograph and the consent record are deleted together when consent is withdrawn, and BIRSA aims to remove a published photograph within two working days of being asked. Otherwise the two years run from the last time the photograph was still published.",
+      th: "ภาพถ่ายและบันทึกความยินยอมจะถูกลบพร้อมกันเมื่อท่านถอนความยินยอม โดย BIRSA ตั้งเป้านำภาพที่เผยแพร่แล้วออกภายในสองวันทำการนับแต่ได้รับการร้องขอ ในกรณีอื่น ระยะเวลาสองปีเริ่มนับจากวันสุดท้ายที่ภาพยังคงเผยแพร่อยู่",
+    },
   },
   {
     id: "rate-limiting",
