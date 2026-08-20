@@ -163,6 +163,46 @@ or what it promises a student. Those are the four gates above.
 
 ---
 
+## Deviations from §11's letter, and why
+
+Two. Both are recorded here rather than left for a reviewer to discover in a diff.
+
+### Subagents run in the shared checkout, not in git worktrees
+
+§11.4 says "every agent runs with `isolation: "worktree"` so it has its own checkout". Measured
+here, a git worktree of this repository has no `node_modules`, so an agent inside one cannot run
+`npm run typecheck`, `npm run lint` or `npm run test` without first paying an `npm ci` per
+worktree. The choice is therefore between isolation and verification, and §11.5's "VERIFY BEFORE
+REPORTING" is worth more: Rule 2 already guarantees the agents' file paths are disjoint, which
+is what worktrees would have been protecting against, and an unverified agent report is a defect
+that surfaces at the wave boundary instead of before it.
+
+What is lost is the merge step catching a Rule 2 violation as a conflict (§11.6 point 3). That
+check moves to the orchestrator, who reviews each agent's changed-file list against its brief at
+the wave boundary. Agents are told explicitly that others are working in the same checkout and
+that a failure in a file they do not own is to be reported, not fixed.
+
+### Wave 0 ships a component manifest rather than a stub file per component
+
+§11.3 item 4 asks for "every component in §4.3 as a typed, documented, non-implemented file.
+Props and TSDoc only", so that a Wave 4 page agent can import a component a Wave 2 agent is
+still writing.
+
+`components/bds/manifest.ts` carries the part of that which is genuinely a contract: the
+enumeration, the cluster ownership, the GDS mapping and the usage rule. The per-component prop
+signatures do not, yet, because a prop signature invented for an unimplemented `Gallery` is a
+guess, and a guessed contract that Wave 2 then has to break is worse than no contract, since
+breaking it costs an orchestrator decision under §11.1. The cluster agent that implements a
+component authors its signature, and the manifest is what stops two of them inventing the same
+component twice.
+
+**This deviation expires the moment Wave 5 starts.** Page agents genuinely do need to import
+components that are still being written, and at that point the signatures are real rather than
+guessed and can be frozen from the implementations. If Waves 2 and 5 are ever run concurrently
+before that, the stubs have to exist first.
+
+---
+
 ## Two things an agent cannot do at all, whatever the gates say
 
 **The §12 hardening acceptance test.** Forty-eight rows, and the plan is explicit: "every row
