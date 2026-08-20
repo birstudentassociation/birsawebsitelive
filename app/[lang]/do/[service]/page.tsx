@@ -43,6 +43,16 @@ export default async function ServiceStartPage({ params }: { params: Promise<Par
     return <ServiceUnavailable locale={locale} />;
   }
 
+  // A service that declares `subject` (gate 7, `docs/DECISIONS-2.0.md`,
+  // decided 2026-08-20) has no start page at this two-segment URL: its start
+  // page is `/do/<service>/<subject>`
+  // (`app/[lang]/do/[service]/[segment]/page.tsx`), because there is no
+  // single start page for "which thing" until a subject is chosen. Bare
+  // `/do/<service>` for such a service names no subject at all, which is
+  // exactly the same "unknown which one" case an unresolvable subject is,
+  // so it gets the same treatment: a proper not-found, not a crash.
+  if (definition.subject) notFound();
+
   const firstStep = definition.questions[0];
   const startHref = firstStep
     ? localeHref(locale, `/do/${definition.id}/${firstStep.id}`)

@@ -74,5 +74,9 @@ export const doNamespace: typeof EnDoNamespace = {
       no: "ไม่ใช่",
       listSeparator: ", ",
     },
+
+    subject: {
+      chosenNote: "คำขอนี้สำหรับ {subject}",
+    },
   },
 };

@@ -2,6 +2,19 @@ import type { ServiceNavLink } from "@/components/bds/ServiceNavigation";
 import type { ServiceDefinition } from "@/lib/services/defineService";
 import type { Locale } from "@/lib/i18n";
 import { getDoDictionary } from "@/app/[lang]/do/dictionary";
+// Side effect only: registers the loan's SubmissionStore and its subject
+// resolver (lib/services/loanSubmissionStore.ts's bottom two calls). This is
+// the fix for that file's own "finding 1, NOT WIRED IN": Wave 4B built a
+// correct store and found no route imported it, so `getSubmissionStore`
+// handed every request the in-memory placeholder regardless, and (as of gate
+// 7) `equipmentLoan`'s own `subject.source` would fail rule 9 the same way
+// for the same reason. Every chassis route under app/[lang]/do/** imports
+// this module already, for `chassisServiceNavLinks` below, so it is the one
+// place a side-effect import reaches every request before `getService` is
+// ever called, without adding an import solely for this to a route that
+// otherwise would not need one. A future second chassis service registers
+// its own store and resolver here the same way.
+import "@/lib/services/loanSubmissionStore";
 
 /**
  * The links every `ServiceNavigation` bar on a chassis route carries

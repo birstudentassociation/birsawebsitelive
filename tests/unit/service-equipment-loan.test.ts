@@ -213,10 +213,19 @@ vi.mock("@/lib/inventory/items", () => items);
 
 import { loanSubmissionStore } from "@/lib/services/loanSubmissionStore";
 
-function baseSubmission(overrides: Partial<Submission["answers"]> = {}): Submission {
+// `subject` (gate 7, `docs/DECISIONS-2.0.md`, decided 2026-08-20) carries
+// which item, not an `answers` entry: `equipmentLoan.subject` is not one of
+// its own questions (see the definitions and store headers), and
+// `submitService` (`lib/services/intake.ts`) puts the resolved subject on
+// `Submission.subject`, which is what `save()` now reads.
+function baseSubmission(
+  overrides: Partial<Submission["answers"]> = {},
+  subject: string | undefined = "test-projector"
+): Submission {
   return {
     reference: "EQL-TEST",
     serviceId: "equipment-loan",
+    subject,
     answers: {
       name: "Nueng Somchai",
       "student-id": "6412345678",
@@ -224,10 +233,6 @@ function baseSubmission(overrides: Partial<Submission["answers"]> = {}): Submiss
       phone: "0812345678",
       dates: "2027-01-10..2027-01-12",
       reason: "A club event",
-      // Not one of equipmentLoan's own questions (see the definitions and
-      // store headers): supplied directly here because save() has no other
-      // way to learn which item a real chassis submission is for.
-      item: "test-projector",
       ...overrides,
     },
     status: "received",
@@ -298,13 +303,21 @@ describe("loanSubmissionStore.save creates a real loan through lib/inventory/loa
     );
   });
 
-  // Finding 2 (see the store's own header): no chassis question can carry
-  // which item a real submission is for, so a submission with none is a
-  // real state the store must handle honestly, not silently guess through.
+  // Finding 2 (see the store's own header, and gate 7,
+  // docs/DECISIONS-2.0.md): the item is a route SUBJECT, not a chassis
+  // question, so a submission built outside the real /do/equipment-loan/*
+  // flow can still arrive with none, and the store must handle that
+  // honestly rather than silently guess through.
   it("throws a precise error when no item was specified, rather than guessing one", async () => {
-    await expect(loanSubmissionStore.save(baseSubmission({ item: "" }))).rejects.toThrow(
+    await expect(loanSubmissionStore.save(baseSubmission({}, ""))).rejects.toThrow(
       /no item was specified/
     );
+    expect(loans.createLoanRequest).not.toHaveBeenCalled();
+  });
+
+  it("throws the same precise error when subject is entirely absent, not just blank", async () => {
+    const submission = baseSubmission({}, undefined);
+    await expect(loanSubmissionStore.save(submission)).rejects.toThrow(/no item was specified/);
     expect(loans.createLoanRequest).not.toHaveBeenCalled();
   });
 

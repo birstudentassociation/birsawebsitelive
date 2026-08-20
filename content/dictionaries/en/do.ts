@@ -102,5 +102,16 @@ export const doNamespace = {
       no: "No",
       listSeparator: ", ",
     },
+
+    /**
+     * Gate 7 (`docs/DECISIONS-2.0.md`, decided 2026-08-20): a service that
+     * declares `ServiceDefinition["subject"]`. Shown on that service's own
+     * pages once a subject is resolved. `{subject}` is the chosen subject's
+     * own name (the resolver's `name`, e.g. "the tripod"), never
+     * `subject.label` (the generic kind of thing, e.g. "item").
+     */
+    subject: {
+      chosenNote: "This request is for {subject}.",
+    },
   },
 };

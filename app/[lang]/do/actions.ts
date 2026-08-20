@@ -31,7 +31,19 @@ import {
 import { nextStepHref, submitService, validateFullDraft } from "@/lib/services/intake";
 import { lookupSubmission } from "@/lib/services/status";
 import { getSubmissionStore } from "@/lib/services/intake";
+import { subjectDraftScope } from "@/lib/services/subject";
 import { checkRateLimit } from "@/app/api/_lib/guard";
+
+/**
+ * `/do/<serviceId>` with no subject, or `/do/<serviceId>/<subject>` (gate 7,
+ * `docs/DECISIONS-2.0.md`, decided 2026-08-20). Every redirect below that
+ * needs to land back inside the service builds its path from this, so a
+ * subject-taking service's redirects carry it and a service with none keeps
+ * its existing two-segment shape untouched.
+ */
+function serviceBaseHref(serviceId: string, subject: string | undefined): string {
+  return subject ? `/do/${serviceId}/${subject}` : `/do/${serviceId}`;
+}
 
 function ipFromHeaders(h: Headers): string {
   const first = h.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -44,12 +56,15 @@ export type QuestionStepState = { status: "idle" | "invalid"; error?: string };
  * Validates and saves ONE question's answer, then redirects to whatever
  * comes next (`nextStepHref`, which already knows about `returnTo=check`).
  * Bound by the step page as
- * `submitQuestionStep.bind(null, serviceId, stepId, locale, returnTo)`,
+ * `submitQuestionStep.bind(null, serviceId, subject, stepId, locale, returnTo)`,
  * mirroring the equipment loan wizard's own `.bind(null, locale, itemKey,
- * returnTo, labels)` pattern.
+ * returnTo, labels)` pattern. `subject` is `undefined` for a service that
+ * declares none, which every existing caller already passes through
+ * unchanged (gate 7, `docs/DECISIONS-2.0.md`, decided 2026-08-20).
  */
 export async function submitQuestionStep(
   serviceId: string,
+  subject: string | undefined,
   stepId: string,
   locale: Locale,
   returnTo: string | undefined,
@@ -57,18 +72,18 @@ export async function submitQuestionStep(
   formData: FormData
 ): Promise<QuestionStepState> {
   const definition = getService(serviceId);
-  if (!definition) redirect(localeHref(locale, `/do/${serviceId}`));
+  if (!definition) redirect(localeHref(locale, serviceBaseHref(serviceId, subject)));
 
   const question = definition.questions.find((q) => q.id === stepId);
-  if (!question) redirect(localeHref(locale, `/do/${serviceId}`));
+  if (!question) redirect(localeHref(locale, serviceBaseHref(serviceId, subject)));
 
   const result = validateAnswer(question, formData, locale);
   if (!result.ok) {
     return { status: "invalid", error: result.error };
   }
 
-  await mergeServiceDraftAnswer(serviceId, question.id, result.value);
-  redirect(localeHref(locale, nextStepHref(definition, question.id, returnTo)));
+  await mergeServiceDraftAnswer(subjectDraftScope(serviceId, subject), question.id, result.value);
+  redirect(localeHref(locale, nextStepHref(definition, question.id, returnTo, subject)));
 }
 
 export type CheckAnswersState =
@@ -94,14 +109,24 @@ export type CheckAnswersState =
  * than restarting the whole wizard, the same behaviour
  * `submitLoanRequestCheck` gives the loan journey.
  */
+/**
+ * Bound by the check page as
+ * `submitCheckAnswers.bind(null, serviceId, subject, locale)`. `subject` is
+ * `undefined` for a service that declares none (gate 7,
+ * `docs/DECISIONS-2.0.md`, decided 2026-08-20); every redirect and cookie
+ * scope below goes through `serviceBaseHref`/`subjectDraftScope` so that
+ * case is exactly today's behaviour, unchanged.
+ */
 export async function submitCheckAnswers(
   serviceId: string,
+  subject: string | undefined,
   locale: Locale,
   _prev: CheckAnswersState,
   formData: FormData
 ): Promise<CheckAnswersState> {
   const definition = getService(serviceId);
-  if (!definition) redirect(localeHref(locale, `/do/${serviceId}`));
+  const base = serviceBaseHref(serviceId, subject);
+  if (!definition) redirect(localeHref(locale, base));
 
   const nickname = String(formData.get("nickname") ?? "");
   const h = await headers();
@@ -109,23 +134,28 @@ export async function submitCheckAnswers(
     return { status: "rate-limited" };
   }
 
-  const draft = await readServiceDraft(serviceId);
+  const scope = subjectDraftScope(serviceId, subject);
+  const draft = await readServiceDraft(scope);
 
   // Honeypot filled: behave exactly as if the submission succeeded, never
   // reveal detection (matches `submitLoanRequestCheck`'s own comment).
   if (nickname) {
-    await clearServiceDraft(serviceId);
-    redirect(localeHref(locale, `/do/${serviceId}/confirm`));
+    await clearServiceDraft(scope);
+    redirect(localeHref(locale, `${base}/confirm`));
   }
 
   const validation = validateFullDraft(definition, draft, locale);
   if (!validation.ok) {
-    redirect(
-      localeHref(locale, `/do/${serviceId}/${validation.firstInvalidQuestionId}?returnTo=check`)
-    );
+    redirect(localeHref(locale, `${base}/${validation.firstInvalidQuestionId}?returnTo=check`));
   }
 
-  const outcome = await submitService(definition, draft, locale, getSubmissionStore(serviceId));
+  const outcome = await submitService(
+    definition,
+    draft,
+    locale,
+    getSubmissionStore(serviceId),
+    subject
+  );
   if (!outcome.ok) {
     if (outcome.reason === "rejected") {
       // Keep the draft. The answers are all fine and the student may well be
@@ -133,14 +163,12 @@ export async function submitCheckAnswers(
       // throwing their work away here would be gratuitous.
       return { status: "rejected", message: outcome.problem[locale] };
     }
-    redirect(
-      localeHref(locale, `/do/${serviceId}/${outcome.firstInvalidQuestionId}?returnTo=check`)
-    );
+    redirect(localeHref(locale, `${base}/${outcome.firstInvalidQuestionId}?returnTo=check`));
   }
 
-  await writeConfirmationCookie(serviceId, outcome.reference);
-  await clearServiceDraft(serviceId);
-  redirect(localeHref(locale, `/do/${serviceId}/confirm`));
+  await writeConfirmationCookie(scope, outcome.reference);
+  await clearServiceDraft(scope);
+  redirect(localeHref(locale, `${base}/confirm`));
 }
 
 export type StatusLookupState =

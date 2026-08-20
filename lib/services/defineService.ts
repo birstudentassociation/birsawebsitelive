@@ -32,6 +32,11 @@ import type { PortfolioId } from "@/lib/portfolios";
 import type { Locale } from "@/lib/i18n";
 import type { Question } from "@/lib/services/questionTypes";
 import { collectsPersonalData, questionTypes } from "@/lib/services/questionTypes";
+// Read-only, for rule 9 below: whether `subject.source` has a resolver
+// registered. Same exception this file's own header already grants the
+// privacy register read a few lines down, applied to a live registration
+// instead of frozen content; see `lib/services/subject.ts`'s own header.
+import { isSubjectSourceRegistered } from "@/lib/services/subject";
 // Read-only import of the privacy register (never edited, per BUILD-BRIEF-2.0
 // §8). `context.knownPrivacyActivityIds` below carries only ids, deliberately,
 // so a test can exercise "unknown activity" and "no register entry" without
@@ -156,8 +161,14 @@ export type ServiceDefinition = {
    *
    * `paramName` is the segment's name for humans reading a URL. `label` is
    * what the service calls the thing, used where a page has to name it.
+   * `source` is the id code registers a resolver against
+   * (`lib/services/subject.ts`), the same way a `ServiceDefinition` names
+   * itself and `registerSubmissionStore` (`intake.ts`) claims that name in
+   * code: a document cannot reference a code module, so it names the module
+   * instead and lets code claim the name.
    */
   subject?: {
+    source: string;
     paramName: string;
     label: LocalizedText;
   };
@@ -199,6 +210,10 @@ export type ServiceProblem = {
  *      the rule the whole chassis exists for.
  *   7. `owner` and `secondHolder` are different portfolios (§7.2).
  *   8. `sensitive` matches the code-side allowlist, never the document.
+ *   9. If `subject` is set, both locales are present on its `label`,
+ *      `paramName` is non-empty, and `subject.source` names a resolver code
+ *      has actually registered (gate 7, `docs/DECISIONS-2.0.md`, decided
+ *      2026-08-20).
  */
 const URL_SAFE_ID = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
@@ -214,7 +229,7 @@ function problem(field: string, en: string, th: string): ServiceProblem {
 }
 
 /**
- * Implements the eight rules named in this file's own TSDoc, in the order
+ * Implements the nine rules named in this file's own TSDoc, in the order
  * §5.1 and §6.7 state them. Every rule below is commented with WHY it
  * exists, not just what it checks, because the failure mode this whole
  * module exists to prevent is someone adding a bypass flag six months from
@@ -552,6 +567,45 @@ export function validateServiceDefinition(
         "ผู้พัฒนากำหนดให้บริการนี้มีความอ่อนไหวไว้ในรายการที่อนุญาต แต่เอกสารบริการยังไม่ได้ทำเครื่องหมายไว้ เอกสารและโค้ดต้องตรงกัน"
       )
     );
+  }
+
+  // Rule 9 (gate 7, docs/DECISIONS-2.0.md, decided 2026-08-20). A service
+  // that names a subject but whose source resolves to nothing is a service
+  // that will publish, render a start page, and then fail the moment a
+  // reader picks anything: exactly the class of problem rule 6 already
+  // exists to catch for personal data, applied here to "which thing is this
+  // request even for." `isSubjectSourceRegistered` is a live check
+  // (`lib/services/subject.ts`), not a frozen register, so this rule can
+  // fail today and pass tomorrow purely because a developer registered a
+  // resolver, with no change to the definition itself.
+  if (definition.subject) {
+    if (!definition.subject.paramName || !definition.subject.paramName.trim()) {
+      problems.push(
+        problem(
+          "subject.paramName",
+          "Name the URL segment this service's subject uses.",
+          "กรุณาระบุชื่อส่วนของที่อยู่เว็บสำหรับสิ่งที่บริการนี้อ้างอิงถึง"
+        )
+      );
+    }
+    if (!bothLocalesPresent(definition.subject.label)) {
+      problems.push(
+        problem(
+          "subject.label",
+          "Enter what this service calls its subject, in both English and Thai.",
+          "กรุณาระบุชื่อเรียกสิ่งที่บริการนี้อ้างอิงถึง ทั้งภาษาอังกฤษและภาษาไทย"
+        )
+      );
+    }
+    if (!definition.subject.source || !isSubjectSourceRegistered(definition.subject.source)) {
+      problems.push(
+        problem(
+          "subject.source",
+          `"${definition.subject.source || ""}" has no resolver registered for it. Ask a developer to register one before this service can publish.`,
+          `ยังไม่มีตัวแปลงข้อมูลสำหรับ "${definition.subject.source || ""}" กรุณาแจ้งผู้พัฒนาให้ลงทะเบียนก่อนเผยแพร่บริการนี้`
+        )
+      );
+    }
   }
 
   return problems;

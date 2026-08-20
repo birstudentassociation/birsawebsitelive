@@ -36,6 +36,7 @@
  */
 import type { Locale } from "@/lib/i18n";
 import type { ServiceDefinition, LocalizedText } from "@/lib/services/defineService";
+import { serviceSteps } from "@/lib/services/defineService";
 import type { Question } from "@/lib/services/questionTypes";
 import {
   answerToFormData,
@@ -66,40 +67,69 @@ export function stepIndex(definition: ServiceDefinition, stepId: string): number
  * itself) does not. Keeping these functions locale-agnostic is what lets
  * `tests/unit/service-chassis.test.ts` assert on them without threading a
  * `Locale` through every case.
+ *
+ * `subject` is the LAST, OPTIONAL parameter on every function below,
+ * deliberately, so every existing call site (a service with no subject)
+ * keeps compiling and keeps returning exactly the href it always has
+ * (gate 7, `docs/DECISIONS-2.0.md`, decided 2026-08-20). A definition that
+ * declares `subject` needs one supplied to build a real link; a definition
+ * that does not ignores it entirely.
  */
-function baseHref(definition: ServiceDefinition): string {
-  return `/do/${definition.id}`;
+function baseHref(definition: ServiceDefinition, subject?: string): string {
+  return definition.subject && subject
+    ? `/do/${definition.id}/${subject}`
+    : `/do/${definition.id}`;
 }
 
 /** Where a question step goes next: the next question, or `check`. `returnTo` overrides this to `check`, used by the `CheckAnswers` change links so editing one answer comes straight back rather than re-walking every later step. */
 export function nextStepHref(
   definition: ServiceDefinition,
   currentStepId: string,
-  returnTo?: string
+  returnTo?: string,
+  subject?: string
 ): string {
-  if (returnTo === "check") return `${baseHref(definition)}/check`;
+  if (returnTo === "check") return `${baseHref(definition, subject)}/check`;
   const ids = questionStepIds(definition);
   const index = ids.indexOf(currentStepId);
   const next = index >= 0 && index + 1 < ids.length ? ids[index + 1] : "check";
-  return `${baseHref(definition)}/${next}`;
+  return `${baseHref(definition, subject)}/${next}`;
 }
 
 /** Where a question step's `BackLink` goes: the previous question, or the service's start page for the first one. `returnTo=check` sends it back to check answers instead, so a reader editing one answer from the summary is not dropped back into the middle of the wizard. */
 export function previousStepHref(
   definition: ServiceDefinition,
   currentStepId: string,
-  returnTo?: string
+  returnTo?: string,
+  subject?: string
 ): string {
-  if (returnTo === "check") return `${baseHref(definition)}/check`;
+  if (returnTo === "check") return `${baseHref(definition, subject)}/check`;
   const ids = questionStepIds(definition);
   const index = ids.indexOf(currentStepId);
   const previous = index > 0 ? ids[index - 1] : null;
-  return previous ? `${baseHref(definition)}/${previous}` : baseHref(definition);
+  return previous ? `${baseHref(definition, subject)}/${previous}` : baseHref(definition, subject);
 }
 
 /** `CheckAnswers`' change link for one question: always the question's own step, carrying `returnTo=check` so its step action redirects back here rather than onward (§5.1 item 3, WCAG 3.3.7). */
-export function checkAnswersChangeHref(definition: ServiceDefinition, questionId: string): string {
-  return `${baseHref(definition)}/${questionId}?returnTo=check`;
+export function checkAnswersChangeHref(
+  definition: ServiceDefinition,
+  questionId: string,
+  subject?: string
+): string {
+  return `${baseHref(definition, subject)}/${questionId}?returnTo=check`;
+}
+
+/**
+ * Every step href for a service, in order, including `check` and `confirm`:
+ * `serviceSteps` (`defineService.ts`) turned into full paths. A service with
+ * no subject gets its existing two-segment shape (`/do/<id>/<step>`); a
+ * subject-taking service gets the three-segment shape gate 7 decided
+ * (`/do/<id>/<subject>/<step>`). Exists mainly so a test, or a future nav
+ * builder, can assert on the whole ordered shape at once rather than
+ * reconstructing it from `nextStepHref` calls.
+ */
+export function serviceStepHrefs(definition: ServiceDefinition, subject?: string): string[] {
+  const base = baseHref(definition, subject);
+  return serviceSteps(definition).map((step) => `${base}/${step}`);
 }
 
 // ---- Check answers ---------------------------------------------------------
@@ -122,7 +152,8 @@ export function buildCheckAnswersRows(
   definition: ServiceDefinition,
   draft: Record<string, AnswerValue>,
   locale: Locale,
-  labels: { notAnswered: string; yes: string; no: string; listSeparator: string }
+  labels: { notAnswered: string; yes: string; no: string; listSeparator: string },
+  subject?: string
 ): CheckAnswersRow[] {
   return definition.questions.map((question) => {
     const value = draft[question.id];
@@ -134,7 +165,7 @@ export function buildCheckAnswersRows(
           ? labels.notAnswered
           : formatAnswerForDisplay(question, value, locale, labels),
       /** Relative to the locale root; the calling page wraps it with `localeHref` (see the note on `baseHref` above). */
-      changeHref: checkAnswersChangeHref(definition, question.id),
+      changeHref: checkAnswersChangeHref(definition, question.id, subject),
     };
   });
 }
@@ -215,6 +246,19 @@ export type SubmissionStatus = "received" | "in-progress" | "done";
 export type Submission = {
   reference: string;
   serviceId: string;
+  /**
+   * The resolved subject key (gate 7, `docs/DECISIONS-2.0.md`, decided
+   * 2026-08-20), for a service whose definition declares one. `undefined`
+   * for a service with no subject, and never a question id or an answer: a
+   * subject is chosen from the route before the wizard starts, the same way
+   * 1.0's `/services/equipment-loan/[item]/request` worked, not asked as one
+   * of `definition.questions`. Optional, not required, so every existing
+   * `Submission` literal (every service built before this decision, and
+   * every test fixture written against them) keeps compiling unchanged; a
+   * store for a subject-taking service reads this field, not
+   * `answers[anything]`, to learn which thing a request is for.
+   */
+  subject?: string;
   answers: Record<string, AnswerValue>;
   status: SubmissionStatus;
   createdAt: string;
@@ -354,12 +398,23 @@ export type SubmitOutcome =
  * "email is optional, environment-gated" convention BUILD-BRIEF-2.0 §4
  * already documents for the rest of the site: an unset `RESEND_API_KEY`
  * degrades the acknowledgement, not the submission itself.
+ *
+ * `subject` is the resolved subject key (gate 7): the caller (a chassis
+ * route or a test) has already validated it against `definition.subject`'s
+ * registered resolver before this function is ever reached, exactly the way
+ * `draft` is already validated before `submitService` is called. This
+ * function does not re-resolve or re-check it, the same way it does not
+ * re-check that `draft` came from a real form; it only carries the value
+ * through to the `Submission` a store persists, which is the entire gap gate
+ * 7 closes (`lib/services/loanSubmissionStore.ts`'s own header names it as
+ * finding 2).
  */
 export async function submitService(
   definition: ServiceDefinition,
   draft: Record<string, AnswerValue>,
   locale: Locale,
-  store: SubmissionStore = getSubmissionStore()
+  store: SubmissionStore = getSubmissionStore(),
+  subject?: string
 ): Promise<SubmitOutcome> {
   const validation = validateFullDraft(definition, draft, locale);
   if (!validation.ok) {
@@ -378,6 +433,7 @@ export async function submitService(
   const saved = await store.save({
     reference: proposed,
     serviceId: definition.id,
+    subject,
     answers: draft,
     status: "received",
     createdAt: now,

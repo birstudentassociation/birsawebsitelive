@@ -29,15 +29,20 @@
  *    not yet load-bearing for a real request. THIS IS THE HEADLINE FINDING
  *    OF DELIVERABLE 2.
  *
- * 2. NO ITEM. `save()` below needs an item key to call `createLoanRequest`,
- *    and nothing in the chassis can supply one to a submission through
- *    `/do/equipment-loan` (see `lib/services/definitions/equipment-loan.ts`'s
- *    header for the full reasoning: no route segment for it, and no
- *    question type whose options can track a live, officer-managed
- *    catalogue). `save()` still reads `submission.answers.item` in case a
- *    future chassis change adds a question with that id; for every real
- *    submission today it will be `undefined`, and `save()` throws rather
- *    than guessing which item to attach the loan to.
+ * 2. NO ITEM, CLOSED (gate 7, `docs/DECISIONS-2.0.md`, decided 2026-08-20).
+ *    `save()` below needs an item key to call `createLoanRequest`. Before
+ *    gate 7, nothing in the chassis could supply one: no route segment, and
+ *    no question type whose options can track a live, officer-managed
+ *    catalogue (see `lib/services/definitions/equipment-loan.ts`'s header for
+ *    the finding as it stood then). The decision added a `subject` to
+ *    `ServiceDefinition` (`lib/services/defineService.ts`) precisely for
+ *    this: the route now carries `/do/equipment-loan/<item-key>/...`, and
+ *    `submitService` (`lib/services/intake.ts`) threads that key onto
+ *    `submission.subject`. `save()` below reads it from there, not from
+ *    `answers.item` (no chassis question is named that; the item was never
+ *    one of `LOAN_STEPS` and still is not), and `registerSubjectResolver`
+ *    near the bottom of this file is what lets `equipmentLoan`'s own
+ *    `subject.source` publish at all (rule 9, `defineService.ts`).
  *
  * 3. TWO DIFFERENT REFERENCE NUMBERS. `lib/services/intake.ts`'s
  *    `submitService` (frozen) generates its own reference
@@ -84,9 +89,17 @@ import type {
   SaveOutcome,
 } from "@/lib/services/intake";
 import { registerSubmissionStore } from "@/lib/services/intake";
+import { registerSubjectResolver } from "@/lib/services/subject";
 import { splitDateRange, type AnswerValue } from "@/lib/services/validate";
 
 const LOAN_SERVICE_ID = "equipment-loan";
+
+/**
+ * `equipmentLoan.subject!.source` (`lib/services/definitions/equipment-loan.ts`).
+ * Exported so that file can reference the exact same string rather than a
+ * second copy of it drifting out of sync.
+ */
+export const EQUIPMENT_ITEM_SUBJECT_SOURCE = "equipment-item";
 
 function asString(value: AnswerValue | undefined): string {
   if (value === undefined) return "";
@@ -187,19 +200,22 @@ export const loanSubmissionStore: SubmissionStore = {
     const datesRaw = asString(answers.dates);
     const range = datesRaw ? splitDateRange(datesRaw) : null;
 
-    // See the file header, finding 2. There is no chassis question that can
-    // carry this today; reading it here only matters if a future change
-    // adds one with this id.
-    const itemKey = asString(answers.item).trim();
+    // See the file header, finding 2 (gate 7). The item is the chassis
+    // SUBJECT, resolved from the route before the wizard ever starts, not an
+    // answer: `submitService` (lib/services/intake.ts) puts it on
+    // `submission.subject`, never in `answers`.
+    const itemKey = (submission.subject ?? "").trim();
 
     if (!range) {
       throw new Error('loanSubmissionStore.save: missing or invalid "dates" answer');
     }
     if (!itemKey) {
       throw new Error(
-        "loanSubmissionStore.save: no item was specified. The chassis has no question or " +
-          "route parameter that can carry which equipment item a request is for " +
-          "(see this file's header); a submission cannot become a real loan without one."
+        "loanSubmissionStore.save: no item was specified. equipmentLoan declares a subject " +
+          "(lib/services/definitions/equipment-loan.ts) and every route under " +
+          "/do/equipment-loan/<item>/... resolves and carries one; a submission reaching " +
+          "save() with none means it was built outside that flow (see this file's header, " +
+          "finding 2), and a loan cannot be created without knowing which item it is for."
       );
     }
 
@@ -318,3 +334,20 @@ export const loanSubmissionStore: SubmissionStore = {
 // definition is a CMS document and cannot name a code module, so code names
 // the service instead.
 registerSubmissionStore(LOAN_SERVICE_ID, loanSubmissionStore);
+
+// Claim `EQUIPMENT_ITEM_SUBJECT_SOURCE` for `lib/services/subject.ts`, the
+// resolver `equipmentLoan.subject` (`lib/services/definitions/equipment-loan.ts`)
+// names. Reuses `getItemByKey` and `isRetired`, exactly the same lookup
+// `save()` above already makes rather than a second one: "does not exist"
+// and "is retired" read the same to a reader picking from a URL as they do
+// to a reader who already filled in the whole form, a proper not-found in
+// both places, never a crash.
+registerSubjectResolver(EQUIPMENT_ITEM_SUBJECT_SOURCE, {
+  async resolve(key) {
+    const item = await getItemByKey(key);
+    if (!item || item.isRetired) {
+      return { ok: false };
+    }
+    return { ok: true, key: item.key, name: item.name };
+  },
+});

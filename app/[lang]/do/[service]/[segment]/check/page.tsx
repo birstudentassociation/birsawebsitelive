@@ -7,9 +7,11 @@ import { buildMetadata } from "@/lib/seo";
 import { getService } from "@/lib/services/registry";
 import { buildCheckAnswersRows, questionStepIds } from "@/lib/services/intake";
 import { readServiceDraft } from "@/lib/services/draft";
+import { resolveSubject, subjectDraftScope } from "@/lib/services/subject";
 import CheckAnswers from "@/components/bds/CheckAnswers";
 import ServiceNavigation from "@/components/bds/ServiceNavigation";
 import BackLink from "@/components/bds/BackLink";
+import { Text } from "@/components/bds/Type";
 import { Stack } from "@/components/bds/Layout";
 import ServiceUnavailable from "@/app/[lang]/do/ServiceUnavailable";
 import { chassisServiceNavLinks } from "@/app/[lang]/do/serviceNav";
@@ -17,30 +19,33 @@ import { getDoDictionary } from "@/app/[lang]/do/dictionary";
 import CheckAnswersSubmit from "@/app/[lang]/do/CheckAnswersSubmit";
 import { submitCheckAnswers } from "@/app/[lang]/do/actions";
 
-type Params = { lang: string; service: string };
+/**
+ * `/do/[service]/[subject]/check` (gate 7, `docs/DECISIONS-2.0.md`, decided
+ * 2026-08-20). Only for a service that declares `subject`; the no-subject
+ * equivalent is the sibling literal `app/[lang]/do/[service]/check/page.tsx`,
+ * which stays exactly as it was and refuses a subject-taking service the
+ * same way this file refuses one with none.
+ */
+type Params = { lang: string; service: string; segment: string };
 
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
-  const { lang, service } = await params;
+  const { lang, service, segment } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const definition = getService(service);
-  if (!definition) return {};
+  if (!definition?.subject) return {};
+  const resolution = await resolveSubject(definition, segment);
+  if (!resolution.ok) return {};
   return buildMetadata({
     locale,
     title: getDictionary(locale).service.checkAnswers.heading,
     description: definition.start.title[locale],
-    path: `/do/${service}/check`,
+    path: `/do/${service}/${segment}/check`,
   });
 }
 
-/**
- * `/do/[service]/check` (REDESIGN-2.0 §5.1 item 3). Every answer read back,
- * read-only, from the draft, each with a change link that returns to its
- * own question and comes back here afterwards (WCAG 3.3.7,
- * `lib/services/intake.ts`'s `checkAnswersChangeHref`).
- */
-export default async function ServiceCheckPage({ params }: { params: Promise<Params> }) {
-  const { lang, service } = await params;
+export default async function ServiceSubjectCheckPage({ params }: { params: Promise<Params> }) {
+  const { lang, service, segment } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
@@ -50,30 +55,30 @@ export default async function ServiceCheckPage({ params }: { params: Promise<Par
   if (!definition) {
     return <ServiceUnavailable locale={locale} />;
   }
+  if (!definition.subject) notFound();
 
-  // A subject-taking service's check page is `/do/<service>/<subject>/check`
-  // instead (gate 7, `docs/DECISIONS-2.0.md`, decided 2026-08-20,
-  // `app/[lang]/do/[service]/[segment]/check/page.tsx`); this two-segment
-  // URL names no subject, so it cannot be this service's real check page.
-  if (definition.subject) notFound();
+  const resolution = await resolveSubject(definition, segment);
+  if (!resolution.ok) notFound();
 
-  const draft = await readServiceDraft(service);
-  const rows = buildCheckAnswersRows(definition, draft, locale, {
-    notAnswered: doDict.do.checkAnswers.notAnswered,
-    yes: doDict.do.checkAnswers.yes,
-    no: doDict.do.checkAnswers.no,
-    listSeparator: doDict.do.checkAnswers.listSeparator,
-  });
+  const draft = await readServiceDraft(subjectDraftScope(service, segment));
+  const rows = buildCheckAnswersRows(
+    definition,
+    draft,
+    locale,
+    {
+      notAnswered: doDict.do.checkAnswers.notAnswered,
+      yes: doDict.do.checkAnswers.yes,
+      no: doDict.do.checkAnswers.no,
+      listSeparator: doDict.do.checkAnswers.listSeparator,
+    },
+    segment
+  );
 
-  // Check's own back link retraces the wizard to its last question, not the
-  // "returnTo=check" shortcut `previousStepHref` gives a question step (that
-  // shortcut exists so a CHANGE link's step comes straight back here; this
-  // page is the destination, not a step being edited).
   const ids = questionStepIds(definition);
   const lastQuestionId = ids[ids.length - 1];
   const backHref = lastQuestionId
-    ? `/do/${definition.id}/${lastQuestionId}`
-    : `/do/${definition.id}`;
+    ? `/do/${definition.id}/${segment}/${lastQuestionId}`
+    : `/do/${definition.id}/${segment}`;
 
   return (
     <>
@@ -86,6 +91,9 @@ export default async function ServiceCheckPage({ params }: { params: Promise<Par
       <div className="wrap max-w-[var(--measure)] py-10">
         <Stack gap="lg">
           <BackLink locale={locale} href={backHref} label={dict.a11y.back} />
+          <Text step="body-sm" className="text-muted">
+            {doDict.do.subject.chosenNote.replace("{subject}", resolution.name[locale])}
+          </Text>
           <CheckAnswers
             heading={dict.service.checkAnswers.heading}
             items={rows.map((row) => ({
@@ -95,7 +103,7 @@ export default async function ServiceCheckPage({ params }: { params: Promise<Par
             changeLabel={dict.service.checkAnswers.changeLabel}
           >
             <CheckAnswersSubmit
-              action={submitCheckAnswers.bind(null, service, undefined, locale)}
+              action={submitCheckAnswers.bind(null, service, segment, locale)}
               labels={{
                 confirmAndSend: doDict.do.confirmAndSend,
                 sending: doDict.do.sending,

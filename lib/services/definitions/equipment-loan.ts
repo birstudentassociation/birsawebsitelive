@@ -19,35 +19,31 @@
  *     `selectExpiredLoanIds` in `lib/privacy/retention.ts` and listed in
  *     `lib/services/registry.ts`'s `IMPLEMENTED_RETENTION_ACTIVITY_IDS`.
  *
- * THIS DEFINITION DOES NOT PUBLISH THE WHOLE LOAN SERVICE. Two things the
- * existing service does cannot be expressed here, and both are reported in
- * full in the Wave 4B report rather than papered over:
+ * THIS DEFINITION DOES NOT PUBLISH THE WHOLE LOAN SERVICE ON ITS OWN. Two
+ * things the existing service does needed more than a question list, and
+ * both are reported in full rather than papered over:
  *
- * 1. WHICH ITEM. The existing service is not one form, it is one form per
+ * 1. WHICH ITEM. RESOLVED, gate 7 (`docs/DECISIONS-2.0.md`, decided
+ *    2026-08-20). The existing service is not one form, it is one form per
  *    catalogue item (`/services/equipment-loan/[item]/request/*`), where the
  *    item is chosen by clicking a card on `/services/equipment-loan` before
  *    the wizard's own steps begin. `LOAN_STEPS` itself has no "which item"
  *    step, which is why this definition's `questions` do not have one
  *    either (nothing is dropped: every id in `LOAN_STEPS` bar `"check"` has
- *    a question below, in the same order). But a chassis submission through
- *    `/do/equipment-loan` still has to end up attached to a real item row,
- *    and nothing in the frozen chassis can carry that:
- *      - `app/[lang]/do/[service]/[step]/page.tsx` has one dynamic segment
- *        (`[step]`), not two, so there is no room in the URL for an item key
- *        the way `[item]/request/[step]` has one today.
- *      - `choose-one`/`choose-several` (`lib/services/questionTypes.ts`)
- *        take options an officer WRITES into the document. The equipment
- *        catalogue is rows in Postgres that officers add, edit and retire
- *        through the inventory console (`lib/inventory/items.ts`) at any
- *        time; there is no question type in the frozen palette for "choose
- *        from a list this service fetches live," and the registry
- *        (`lib/services/registry.ts`) loads every definition once,
- *        synchronously, at process start, which rules out fetching that
- *        list at definition-load time even if a type existed for it.
- *    See `lib/services/loanSubmissionStore.ts`'s header for how this plays
- *    out in the submission store, and the Wave 4B report for the full
- *    writeup. This is a finding about the chassis, not something a
- *    ServiceDefinition document could ever route around.
+ *    a question below, in the same order): the item was never one of the
+ *    wizard's own questions, and it still is not one here. Wave 4B found a
+ *    chassis submission through `/do/equipment-loan` could never carry
+ *    which item it was for, because the route had no segment for one and
+ *    `choose-one`/`choose-several` take options an officer writes into the
+ *    document while the catalogue is live rows in Postgres. The `subject`
+ *    field below is the fix: the service is served at
+ *    `/do/equipment-loan/<item-key>/...`, the same shape 1.0's own
+ *    `[item]/request` URL already has (old links map across), and
+ *    `submitService` (`lib/services/intake.ts`) carries the chosen item
+ *    through to `Submission.subject`, which
+ *    `lib/services/loanSubmissionStore.ts`'s `save()` now reads instead of
+ *    throwing. See that file's header for the resolver this `source`
+ *    registers against.
  *
  * 2. THE SERVICE STANDARD. `standardHours` below is NOT a real BIRSA
  *    commitment. Read its own comment before changing it.
@@ -69,6 +65,28 @@ import type { ServiceDefinition } from "@/lib/services/defineService";
 
 export const equipmentLoan: ServiceDefinition = {
   id: "equipment-loan",
+
+  // Gate 7 (docs/DECISIONS-2.0.md, decided 2026-08-20): the equipment loan
+  // is one form per catalogue item, not one form. `source` is a plain
+  // string id, matched by convention against
+  // `lib/services/loanSubmissionStore.ts`'s own
+  // `EQUIPMENT_ITEM_SUBJECT_SOURCE` (which registers the resolver for it),
+  // the same way this definition's own `id` above is matched by convention
+  // against that file's `LOAN_SERVICE_ID` rather than imported: a
+  // definition is a CMS document in 2.0 and cannot reference a code module
+  // (`defineService.ts`'s own header), so the two agree on a name rather
+  // than one importing the other. `paramName` is what the URL segment is
+  // called for a human reading it, and `label` is what this service calls
+  // the thing it is about, used anywhere a page has to name it generically
+  // rather than by its own name.
+  subject: {
+    source: "equipment-item",
+    paramName: "item",
+    label: {
+      en: "item",
+      th: "อุปกรณ์",
+    },
+  },
 
   // No portfolio owns this service by name. docs/CAPABILITY-ROADMAP.md says
   // so explicitly: "the equipment loan... is the workflow that belongs to no
