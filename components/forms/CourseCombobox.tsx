@@ -134,13 +134,24 @@ export default function CourseCombobox({
   const hintId = `${id}-hint`;
   const optionId = (index: number) => `${id}-option-${index}`;
 
-  // The options the current text matches, grouped the way they were given
-  // to us, plus their position in the flat list keyboard navigation moves
-  // over. A group with no surviving option is dropped entirely, and the
-  // empty option (when present) is filtered exactly like any other.
-  const emptyMatches = emptyOption ? filterCourseOptions([emptyOption], text) : [];
+  // What is actually being searched for, which is not always what is in the
+  // box. Selecting a course puts its whole label there, and the fill step
+  // arrives with "I have not taken this yet" already in it; filtering on
+  // that text would narrow the list to the one option already chosen, so
+  // reopening the widget would show a student their existing answer and
+  // nothing else to change it to. Text that is still exactly the selected
+  // option's label is therefore not a query at all, and the list opens on
+  // the whole catalogue until the student types something of their own.
+  const selectedOption = allOptions.find((option) => option.value === value) ?? null;
+  const query = selectedOption && text === selectedOption.label ? "" : text;
+
+  // The options the query matches, grouped the way they were given to us,
+  // plus their position in the flat list keyboard navigation moves over. A
+  // group with no surviving option is dropped entirely, and the empty option
+  // (when present) is filtered exactly like any other.
+  const emptyMatches = emptyOption ? filterCourseOptions([emptyOption], query) : [];
   const filteredGroups = groups
-    .map((group) => ({ ...group, options: filterCourseOptions(group.options, text) }))
+    .map((group) => ({ ...group, options: filterCourseOptions(group.options, query) }))
     .filter((group) => group.options.length > 0);
 
   const flatOptions: CourseComboboxOption[] = [

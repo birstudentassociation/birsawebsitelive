@@ -21,6 +21,7 @@ import {
   type StudyPlan,
 } from "@/lib/study-plan/plan";
 import { localeHref, type Locale } from "@/lib/i18n";
+import { resolveCourseCode } from "@/lib/study-plan/courseMatch";
 import { clearDraft, mergeDraft, readDraft } from "@/components/forms/draftCookie";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import type { QuestionStepState } from "@/components/forms/QuestionStepForm";
@@ -283,6 +284,16 @@ export async function submitAssumedStep(
   redirect(`${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodedPlan}`);
 }
 
+/**
+ * Each slot's field is `CourseCombobox`, so `slot-${slot.id}` normally
+ * arrives already resolved to a valid code by its hidden input, or empty
+ * for "I have not taken this yet"; but a blur that never fired, or a form
+ * submitted mid-typing, can still hand this a typed course name rather than
+ * a code. A value that is not a course code already offered for that slot is
+ * tried against `resolveCourseCode` before being treated as unresolved, so a
+ * name the student unambiguously typed is not silently dropped just because
+ * the browser never got to resolve it first.
+ */
 export async function submitFillStep(
   locale: Locale,
   _prev: QuestionStepState,
@@ -298,12 +309,15 @@ export async function submitFillStep(
   const position = draftPosition(draft);
   if (position) {
     const version = CURRICULUM_VERSIONS[current.versionId];
+    const catalogueCodes = new Set(version.courses.value.map((c) => c.code));
     const { placeholders } = assumedHistory(version, position);
     for (const slot of placeholders) {
       if (slot.category === "freeElective") continue;
-      const value = String(formData.get(`slot-${slot.id}`) ?? "");
+      const raw = String(formData.get(`slot-${slot.id}`) ?? "");
       // Empty value is "I have not taken this yet", a legitimate answer,
       // not a validation failure.
+      if (!raw) continue;
+      const value = catalogueCodes.has(raw) ? raw : resolveCourseCode(version.courses.value, raw);
       if (value) passed.add(value);
     }
   }
@@ -320,11 +334,22 @@ export async function submitFillStep(
  * report back, only the plan to carry forward, exactly like
  * `resetLoanStatusDraft`).
  *
- * Silently no-ops on a malformed `year`/`kind`/`code`, or on a code already
- * passed or already placed somewhere in the plan, rather than surfacing an
- * error: the form's own `<select>` only ever offers courses that are valid
- * to add, so reaching this branch means the hidden fields were tampered
- * with, not that the student made a mistake worth telling them about.
+ * The field is `CourseCombobox` (components/forms/CourseCombobox.tsx), so
+ * `code` normally arrives already resolved to a valid code by its hidden
+ * input; but a blur that never fired, or a form submitted mid-typing, can
+ * still hand this a typed course name rather than a code. When the raw value
+ * fails `courseCodeSchema`, or parses but names no course in this version's
+ * catalogue, `resolveCourseCode` is tried against the same text before
+ * giving up, so a name the student unambiguously typed is not silently
+ * dropped just because the browser never got to resolve it first.
+ *
+ * Silently no-ops when nothing resolves — a malformed `year`/`kind`, a code
+ * or name that matches nothing, or one already passed or already placed
+ * somewhere in the plan — rather than surfacing an error: the control only
+ * ever offers or resolves to courses that are valid to add, so reaching this
+ * branch means either the hidden fields were tampered with or the typed text
+ * was ambiguous or unmatched, neither of which is a mistake worth
+ * interrupting the student over.
  */
 export async function addCourseToTerm(locale: Locale, formData: FormData): Promise<void> {
   const current = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
@@ -333,11 +358,17 @@ export async function addCourseToTerm(locale: Locale, formData: FormData): Promi
   }
 
   const term = parseTermFields(formData);
-  const codeResult = courseCodeSchema.safeParse(String(formData.get("code") ?? ""));
+  const raw = String(formData.get("code") ?? "");
+  const codeResult = courseCodeSchema.safeParse(raw);
+  const version = CURRICULUM_VERSIONS[current.versionId];
+  const catalogueCodes = new Set(version.courses.value.map((c) => c.code));
+  const code =
+    codeResult.success && catalogueCodes.has(codeResult.data)
+      ? codeResult.data
+      : resolveCourseCode(version.courses.value, raw);
 
   let terms = current.terms;
-  if (term && codeResult.success) {
-    const code = codeResult.data;
+  if (term && code) {
     const alreadyPlaced =
       current.passed.includes(code) || current.terms.some((t) => t.codes.includes(code));
     if (!alreadyPlaced) {

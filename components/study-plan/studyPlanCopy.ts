@@ -151,6 +151,7 @@ export type StudyPlanCopy = {
     /** Contains "{n}"; a term's running credit total. */
     termCreditsTemplate: string;
     addCourseLabel: string;
+    /** The plan screen's own wording for `courseSearch.prompt`: the empty option of the no-JavaScript select, and the placeholder of the typeahead that replaces it. */
     addCoursePrompt: string;
     addCourseButton: string;
     noCoursesAvailable: string;

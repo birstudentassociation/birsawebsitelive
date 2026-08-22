@@ -25,7 +25,7 @@
  * "no courses left" line, say) would match an earlier case's markup.
  */
 import { describe, expect, it } from "vitest";
-import { render, within } from "@testing-library/react";
+import { render, within, fireEvent } from "@testing-library/react";
 import TermEditor, {
   type TermEditorCopy,
   type TermEditorCourseGroup,
@@ -36,7 +36,6 @@ import type { TermFreeElectiveState } from "@/components/study-plan/TermFreeElec
 const copy: TermEditorCopy = {
   creditsTemplate: "{n} credits",
   addLabel: "Add a course",
-  addPrompt: "Choose a course",
   addButtonLabel: "Add",
   noCoursesAvailable: "No courses left to add.",
   removeLabel: "Remove",
@@ -55,6 +54,13 @@ const copy: TermEditorCopy = {
   pickRemainingTemplate: "{n} credits still needed",
   pickPrerequisiteTemplate: "needs {codes} first",
   internshipOnlyTerm: "This summer is given over to the internship.",
+  courseSearch: {
+    prompt: "Choose a course",
+    typeaheadHint: "Start typing a course code or name.",
+    noMatches: "No courses match.",
+    resultsTemplate: "{n} results",
+    clearLabel: "Clear",
+  },
 };
 
 const noop = async () => {};
@@ -151,28 +157,46 @@ describe("TermEditor", () => {
     expect(addButtonValues(container)).toContain("PI470");
   });
 
-  it("groups the select by what each course counts toward, in the order given", () => {
+  // render() flushes effects, so the add-course field is already the
+  // enhanced ARIA combobox by the time these queries run (see
+  // CourseCombobox.tsx's header comment); its no-JS `<select>` baseline is
+  // covered separately, with `renderToStaticMarkup`, in
+  // tests/unit/course-combobox.test.tsx. Opening the listbox (a focus, same
+  // as a student tabbing in) is what makes the group headings and option
+  // rows queryable at all — closed, `open` is false and the `<ul>` does not
+  // render.
+  function openCombobox(container: HTMLElement): HTMLInputElement {
+    const input = container.querySelector<HTMLInputElement>('input[role="combobox"]');
+    if (!input) throw new Error("expected a CourseCombobox input");
+    fireEvent.focus(input);
+    return input;
+  }
+
+  it("groups the combobox listbox by what each course counts toward, in the order given", () => {
     const { container } = renderEditor({ courseGroups: [recommended, minorRequired] });
-    const groups = [...container.querySelectorAll("optgroup")];
-    expect(groups.map((g) => g.getAttribute("label"))).toEqual([
+    openCombobox(container);
+    const groups = [...container.querySelectorAll('ul[role="group"]')];
+    expect(groups.map((g) => g.getAttribute("aria-label"))).toEqual([
       "Recommended for this term",
       "Governance required courses (6 credits still needed)",
     ]);
   });
 
   it("puts the unmet prerequisite in the option's own text", () => {
-    // An optgroup/option pair carries no markup and no ARIA description, so
-    // text is the only channel a screen reader and a JavaScript-off browser
-    // both get. See the header comment of TermEditor.tsx.
-    const { container } = renderEditor({ courseGroups: [minorRequired] });
-    const option = container.querySelector('option[value="PI380"]');
-    expect(option?.textContent).toContain("needs PI121 first");
+    // An option row carries no markup and no ARIA description beyond its
+    // text, so text is the only channel a screen reader gets. See the
+    // header comment of TermEditor.tsx.
+    const { container, ui } = renderEditor({ courseGroups: [minorRequired] });
+    openCombobox(container);
+    const option = ui.getByRole("option", { name: /PI380/ });
+    expect(option.textContent).toContain("needs PI121 first");
   });
 
   it("still offers a course whose prerequisite is unmet, rather than hiding it", () => {
     // The service tells the student, it never blocks them. See findings.ts.
-    const { container } = renderEditor({ courseGroups: [minorRequired] });
-    expect(container.querySelector('option[value="PI380"]')).not.toBeNull();
+    const { container, ui } = renderEditor({ courseGroups: [minorRequired] });
+    openCombobox(container);
+    expect(ui.queryByRole("option", { name: /PI380/ })).not.toBeNull();
   });
 
   it("carries the unmet prerequisite on the quick-add button too", () => {
@@ -288,9 +312,9 @@ describe("TermEditor", () => {
     expect(ui.getByText("This plan already covers every requirement.")).toBeDefined();
   });
 
-  it("shows the no-courses-left line instead of an empty select", () => {
+  it("shows the no-courses-left line instead of an empty add-course field", () => {
     const { container, ui } = renderEditor({ courseGroups: [] });
-    expect(container.querySelector("select")).toBeNull();
+    expect(container.querySelector('input[role="combobox"]')).toBeNull();
     expect(ui.getByText("No courses left to add.")).toBeDefined();
   });
 
@@ -302,10 +326,12 @@ describe("TermEditor", () => {
       openSlots: [{ id: "minorElective1", label: "Minor Elective Course 1", candidates: [] }],
     });
 
-    const select = container.querySelector("select");
-    expect(select).not.toBeNull();
-    expect(select?.value).toBe("");
-    expect(select?.querySelector('option[value=""]')?.textContent).toBe("Choose a course");
+    const input = container.querySelector<HTMLInputElement>('input[role="combobox"]');
+    expect(input).not.toBeNull();
+    expect(input?.value).toBe("");
+    expect(input?.placeholder).toBe("Choose a course");
+    const hidden = container.querySelector<HTMLInputElement>('input[type="hidden"][name="code"]');
+    expect(hidden?.value).toBe("");
     expect(container.querySelector('input[name="freeElectiveCredits"]')).not.toBeNull();
     expect(addButtonValues(container)).toEqual([]);
     expect(ui.queryByText("What this term still needs")).toBeNull();
@@ -329,7 +355,7 @@ describe("TermEditor internshipOnly", () => {
         },
       ],
     });
-    expect(container.querySelector("select")).toBeNull();
+    expect(container.querySelector('input[role="combobox"]')).toBeNull();
     expect(ui.queryByText("What this term still needs")).toBeNull();
     expect(ui.queryByText("Minor Elective Course 1")).toBeNull();
     expect(container.querySelector('input[name="freeElectiveCredits"]')).toBeNull();

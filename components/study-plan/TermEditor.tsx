@@ -29,15 +29,24 @@
  * picker needs a form of its own, because a `<select name="code">` and a
  * `<button name="code">` in one form would both submit.
  *
- * The add-course select keeps its `<optgroup>`s rather than becoming a
- * scripted filtering combobox, for the same reason as before: an `<optgroup>`
- * is native HTML that works with JavaScript off and with a screen reader. It
- * also means an `<optgroup>`/`<option>` pair can carry no markup and no ARIA
- * description of its own, which is why a missing prerequisite is folded into
- * the option's plain text. The quick-add buttons are real elements and could
- * carry markup, but they say it the same way, so the two never disagree.
+ * The add-course control is `CourseCombobox`
+ * (components/forms/CourseCombobox.tsx): before mount, and therefore with
+ * JavaScript off, it is nothing but the same `<select>` with `<optgroup>`s
+ * this drawer has always held, because that is native HTML that works
+ * without JavaScript and with a screen reader. Only after mount does a
+ * scripted typeahead layer over that baseline, letting a student type a
+ * course name instead of hunting the whole remaining catalogue; it never
+ * replaces the no-JS select, it sits on top of it. `<optgroup>`/`<option>`
+ * still carries no markup and no ARIA description of its own, which is why
+ * a missing prerequisite stays folded into the option's plain text. The
+ * quick-add buttons are real elements and could carry markup, but they say
+ * it the same way, so the two never disagree.
  */
 import Button from "@/components/Button";
+import CourseCombobox, {
+  type CourseComboboxCopy,
+  type CourseComboboxGroup,
+} from "@/components/forms/CourseCombobox";
 import { PLAN_FIELD } from "@/lib/study-plan/plan";
 import type { TermRef } from "@/content/curriculum";
 import TermFreeElectiveForm, { type TermFreeElectiveState } from "./TermFreeElectiveForm";
@@ -69,7 +78,6 @@ export type TermEditorSlot = {
 export type TermEditorCopy = {
   creditsTemplate: string;
   addLabel: string;
-  addPrompt: string;
   addButtonLabel: string;
   noCoursesAvailable: string;
   removeLabel: string;
@@ -94,6 +102,8 @@ export type TermEditorCopy = {
   pickPrerequisiteTemplate: string;
   /** Shown in place of the pick panel and the add-course form when `internshipOnly` is true. */
   internshipOnlyTerm: string;
+  /** Copy for the add-course `CourseCombobox`; shared verbatim with the fill step's slots. */
+  courseSearch: CourseComboboxCopy;
 };
 
 export type TermEditorProps = {
@@ -236,6 +246,21 @@ export default function TermEditor({
   const termCredits = placed.reduce((sum, course) => sum + course.credits, 0) + freeElectiveCredits;
   const addFieldId = `add-course-${termKey(term)}`;
   const hasCourses = courseGroups.some((group) => group.courses.length > 0);
+  // The full-catalogue combobox's groups, in the same shape and the same
+  // text as the select they replace: same group label (groupOptionLabel)
+  // and option label (courseOptionLabel), so a student reads the identical
+  // sentence whether or not JavaScript has enhanced the control. Groups with
+  // nothing left in them are dropped, matching the select's own behaviour.
+  const courseComboboxGroups: CourseComboboxGroup[] = courseGroups
+    .filter((group) => group.courses.length > 0)
+    .map((group) => ({
+      id: group.id,
+      label: groupOptionLabel(copy, group),
+      options: group.courses.map((course) => ({
+        value: course.code,
+        label: courseOptionLabel(copy, course),
+      })),
+    }));
   const owedGroups = courseGroups.filter(
     (group) => group.remaining !== null && group.remaining > 0
   );
@@ -454,31 +479,14 @@ export default function TermEditor({
                     <input type="hidden" name={PLAN_FIELD} value={plan} />
                     <input type="hidden" name="year" value={term.year} />
                     <input type="hidden" name="kind" value={term.kind} />
-                    <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-                      <label htmlFor={addFieldId} className="text-sm font-semibold text-ink">
-                        {copy.addLabel}
-                      </label>
-                      <select
+                    <div className="min-w-0 flex-1">
+                      <CourseCombobox
                         id={addFieldId}
                         name="code"
-                        defaultValue=""
-                        className="focus-halo w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
-                      >
-                        <option value="" disabled>
-                          {copy.addPrompt}
-                        </option>
-                        {courseGroups.map((group) =>
-                          group.courses.length > 0 ? (
-                            <optgroup key={group.id} label={groupOptionLabel(copy, group)}>
-                              {group.courses.map((course) => (
-                                <option key={course.code} value={course.code}>
-                                  {courseOptionLabel(copy, course)}
-                                </option>
-                              ))}
-                            </optgroup>
-                          ) : null
-                        )}
-                      </select>
+                        label={copy.addLabel}
+                        groups={courseComboboxGroups}
+                        copy={copy.courseSearch}
+                      />
                     </div>
                     <Button type="submit" variant="secondary">
                       {copy.addButtonLabel}

@@ -199,3 +199,83 @@ test.describe("study plan without JavaScript", () => {
     await expect(removePi574).toBeVisible();
   });
 });
+
+/**
+ * The JavaScript-on counterpart of the walk above, added once the add-course
+ * field on `/plan` became `CourseCombobox`
+ * (components/forms/CourseCombobox.tsx): a student can now type a course's
+ * title, rather than hunt it in a long `<optgroup>`ed list, and this is the
+ * one place that claim is exercised against a real browser.
+ *
+ * The journey itself (cohort through the fill step) is walked exactly as the
+ * no-JS test above does, since none of those steps changed; only the
+ * add-course step at the end is new. `useActionState` still ends every step
+ * in a real navigation here (Next.js Server Actions redirect the same way
+ * with or without client JS), so the same `getByRole("heading", ...)`
+ * arrival checks apply.
+ */
+test.describe("study plan with JavaScript enabled", () => {
+  test("types a course's title into the enhanced combobox and adds it to a future term", async ({
+    page,
+  }) => {
+    await page.goto("/en/services/study-plan/cohort");
+    await page.getByLabel(/first two digits/i).fill("66");
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    await page.getByLabel(/yes, this matches/i).check();
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    await page.getByLabel(/year/i).selectOption("3");
+    await page.getByLabel(/semester/i).selectOption("semester1");
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    await page.getByLabel(/governance and transnational studies/i).check();
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    // Accept the assumed-courses defaults, same as the no-JS walk.
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    // Accept the fill-step defaults. Each slot is now a CourseCombobox too,
+    // but its default text is "I have not taken this yet" (the emptyOption),
+    // so leaving every slot untouched and continuing is still what "accept
+    // the defaults" means.
+    await page.getByRole("button", { name: /continue/i }).click();
+
+    await expect(page.getByRole("heading", { level: 1, name: "Your plan" })).toBeVisible();
+    await expect(page.getByText(ERROR_BOUNDARY_TEXT)).toHaveCount(0);
+
+    // Cohort 66 at year 3 semester 1 lands with that exact term already
+    // open (it is the student's own position, and the plan screen opens the
+    // nearest term by default); PI380 "Nation-State and Transnationalism" is
+    // a required course of the governance minor just chosen, and not yet
+    // placed anywhere in a fresh plan, so it is available to add here.
+    const term = page.locator("#term-3-semester1");
+    if (!(await term.evaluate((el) => (el as HTMLDetailsElement).open))) {
+      await term.locator("> summary").click();
+    }
+
+    const removePi380 = term.getByRole("button", {
+      name: `${copy.plan.removeCourseButton} PI380`,
+    });
+    await expect(removePi380).toHaveCount(0);
+
+    // The full-catalogue picker lives behind "more options"; opening it is
+    // itself proof the disclosure still works with JavaScript on.
+    await term.getByText(copy.plan.moreOptionsLabel).click();
+
+    const combobox = term.getByRole("combobox", { name: copy.plan.addCourseLabel });
+    await combobox.fill("Nation-State and Transnationalism");
+    await page.getByRole("option", { name: /PI380 Nation-State and Transnationalism/ }).click();
+    // `exact: true` because the quick-add buttons above (AddCourseButton in
+    // TermEditor.tsx) also start their accessible name with "Add " — this is
+    // the picker's own submit button, whose name is the bare label.
+    await term.getByRole("button", { name: copy.plan.addCourseButton, exact: true }).click();
+
+    // The add posts to a Server Action and redirects back to `/plan` with
+    // `?term=3-semester1`, which is what keeps this exact term open on
+    // return (see redirectToPlan's own comment in actions.ts).
+    await expect(page.getByRole("heading", { level: 1, name: "Your plan" })).toBeVisible();
+    await expect(page.getByText(ERROR_BOUNDARY_TEXT)).toHaveCount(0);
+    await expect(removePi380).toBeVisible();
+  });
+});

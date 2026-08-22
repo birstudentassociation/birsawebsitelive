@@ -20,6 +20,7 @@
 import { describe, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import { render, within, fireEvent } from "@testing-library/react";
+import axe from "axe-core";
 import {
   filterCourseOptions,
   normaliseCourseQuery,
@@ -260,5 +261,124 @@ describe("CourseCombobox", () => {
     const hidden = container.querySelector('input[type="hidden"][name="code"]') as HTMLInputElement;
     expect(hidden.value).toBe("");
     expect(input.value).toBe("");
+  });
+});
+
+/**
+ * Accessibility smoke test for the enhanced combobox, run with axe-core over
+ * jsdom-rendered output. Follows tests/unit/inventory-a11y.test.tsx exactly:
+ * `color-contrast` is disabled because jsdom has no layout engine to
+ * meaningfully evaluate contrast against.
+ */
+const AXE_OPTIONS: Parameters<typeof axe.run>[1] = {
+  runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"] },
+  rules: { "color-contrast": { enabled: false } },
+};
+
+describe("CourseCombobox with an unlabelled group", () => {
+  // The fill step gives each slot a single group whose heading would only
+  // repeat the field's own label, so it passes `label: ""`. That has to mean
+  // "no grouping" in both renderings: an `<optgroup label="">` would draw an
+  // empty heading in the native select, and an `aria-label=""` names nothing.
+  const ungrouped: CourseComboboxGroup[] = [{ id: "slot", label: "", options: groups[0]!.options }];
+  const notTaken = { value: "", label: "I have not taken this yet" };
+
+  it("puts the options straight into the server select, with no optgroup", () => {
+    const html = renderToStaticMarkup(
+      <CourseCombobox
+        id="slot-1"
+        name="slot-1"
+        label="Minor Required Course 1"
+        groups={ungrouped}
+        emptyOption={notTaken}
+        copy={copy}
+      />
+    );
+    expect(html).toContain("<select");
+    expect(html).not.toContain("<optgroup");
+    expect(html).toContain("PI380 Introduction to Political Institutions");
+    expect(html).toContain("I have not taken this yet");
+  });
+
+  it("renders no group heading in the enhanced listbox", async () => {
+    const { container } = render(
+      <CourseCombobox
+        id="slot-2"
+        name="slot-2"
+        label="Minor Required Course 1"
+        groups={ungrouped}
+        emptyOption={notTaken}
+        copy={copy}
+      />
+    );
+    const input = (await within(container).findByRole("combobox")) as HTMLInputElement;
+    fireEvent.focus(input);
+
+    expect(container.querySelector('ul[role="group"]')).toBeNull();
+    expect(within(container).getAllByRole("option").length).toBe(ungrouped[0]!.options.length + 1);
+  });
+
+  // The bug this guards: the fill step arrives with the empty option's label
+  // already in the box, and the plan screen puts a whole course label there
+  // the moment one is picked. Filtering on that text would narrow the list to
+  // the single option already chosen, so reopening the widget would show a
+  // student their existing answer and no way to change it.
+  it("offers the whole list, not just the current answer, when the box still holds the selected label", async () => {
+    const { container } = render(
+      <CourseCombobox
+        id="slot-3"
+        name="slot-3"
+        label="Minor Required Course 1"
+        groups={ungrouped}
+        emptyOption={notTaken}
+        copy={copy}
+      />
+    );
+    const input = (await within(container).findByRole("combobox")) as HTMLInputElement;
+    expect(input.value).toBe("I have not taken this yet");
+
+    fireEvent.focus(input);
+    expect(within(container).getAllByRole("option").length).toBe(ungrouped[0]!.options.length + 1);
+  });
+});
+
+describe("CourseCombobox accessibility (axe)", () => {
+  it("has no axe violations once enhanced, closed", async () => {
+    const { container } = render(
+      <CourseCombobox id="course" name="code" label="Course" groups={groups} copy={copy} />
+    );
+    await within(container).findByRole("combobox");
+    const results = await axe.run(container, AXE_OPTIONS);
+    expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+  });
+
+  it("has no axe violations with the listbox open and a group of results showing", async () => {
+    const { container } = render(
+      <CourseCombobox id="course" name="code" label="Course" groups={groups} copy={copy} />
+    );
+    const input = (await within(container).findByRole("combobox")) as HTMLInputElement;
+    fireEvent.focus(input);
+    fireEvent.change(input, { target: { value: "Political" } });
+
+    const results = await axe.run(container, AXE_OPTIONS);
+    expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
+  });
+
+  it("has no axe violations with an emptyOption present, unlabelled group", async () => {
+    const { container } = render(
+      <CourseCombobox
+        id="slot-1"
+        name="slot-1"
+        label="Minor Required Course 1"
+        groups={[{ id: "slot-1", label: "", options: groups.flatMap((g) => g.options) }]}
+        emptyOption={{ value: "", label: "I have not taken this yet" }}
+        copy={copy}
+      />
+    );
+    const input = await within(container).findByRole("combobox");
+    fireEvent.focus(input);
+
+    const results = await axe.run(container, AXE_OPTIONS);
+    expect(results.violations, JSON.stringify(results.violations, null, 2)).toEqual([]);
   });
 });
