@@ -132,7 +132,11 @@ export async function checkExternalLink(
     const response = await fetchImpl(url, { method: "HEAD", redirect: "manual" });
 
     if (response.status >= 300 && response.status < 400) {
-      return { kind: "redirect", httpStatus: response.status, location: response.headers.get("location") };
+      return {
+        kind: "redirect",
+        httpStatus: response.status,
+        location: response.headers.get("location"),
+      };
     }
     if (response.status >= 200 && response.status < 300) {
       return { kind: "ok", httpStatus: response.status };

@@ -129,7 +129,11 @@ function findOrThrow<T>(arr: readonly T[], predicate: (item: T) => boolean, labe
 }
 
 /** Same as `findOrThrow`, but for a type guard: the return value narrows to `S`. */
-function findTypedOrThrow<S>(arr: readonly unknown[], predicate: (item: unknown) => item is S, label: string): S {
+function findTypedOrThrow<S>(
+  arr: readonly unknown[],
+  predicate: (item: unknown) => item is S,
+  label: string
+): S {
   const found = arr.find(predicate);
   if (found === undefined) {
     throw new Error(`Expected to find ${label}, found none among ${arr.length} item(s)`);
@@ -244,10 +248,13 @@ type BlockArrayMember = {
     decorators: StyleOrListOption[];
     annotations: Array<{ name: string }>;
   };
+  validation?: unknown;
 };
 
 function isBlockArrayMember(value: unknown): value is BlockArrayMember {
-  return typeof value === "object" && value !== null && (value as { type?: unknown }).type === "block";
+  return (
+    typeof value === "object" && value !== null && (value as { type?: unknown }).type === "block"
+  );
 }
 
 function isTableArrayMember(value: unknown): value is { type: "object"; name: "table" } {
@@ -260,7 +267,11 @@ function isTableArrayMember(value: unknown): value is { type: "object"; name: "t
 }
 
 describe("portableText", () => {
-  const blockMember = findTypedOrThrow(portableText.of, isBlockArrayMember, "portableText's block array member");
+  const blockMember = findTypedOrThrow(
+    portableText.of,
+    isBlockArrayMember,
+    "portableText's block array member"
+  );
 
   it("offers exactly the non-list, non-table styles from allowedBlocks, and never h1", () => {
     const styles = blockMember.styles.map((s) => s.value);
@@ -286,7 +297,11 @@ describe("portableText", () => {
     findTypedOrThrow(portableText.of, isTableArrayMember, "portableText's table array member");
   });
 
-  const blockValidator = customValidatorAt(blockMember, 0, "portableText block style rule (blocking)");
+  const blockValidator = customValidatorAt(
+    blockMember,
+    0,
+    "portableText block style rule (blocking)"
+  );
   const blockWarning = customValidatorAt(blockMember, 1, "portableText block style rule (warning)");
 
   it("registers exactly one blocking validator and one warning validator on the block member", () => {
@@ -440,7 +455,7 @@ describe("imageField", () => {
 
   it("the alt field's validator blocks publication with neither locale filled, on a non-decorative image", () => {
     const alt = fieldByName(imageField.fields, "alt");
-    const [validator] = customValidatorsOf(alt);
+    const validator = customValidatorAt(alt, 0, "imageField.alt");
     const context = {
       parent: { decorative: false, image: { asset: { _ref: "img-1" } }, ratio: "16:9" },
     };
@@ -450,7 +465,7 @@ describe("imageField", () => {
 
   it("the alt field's validator blocks publication with only one locale filled", () => {
     const alt = fieldByName(imageField.fields, "alt");
-    const [validator] = customValidatorsOf(alt);
+    const validator = customValidatorAt(alt, 0, "imageField.alt");
     const context = {
       parent: { decorative: false, image: { asset: { _ref: "img-1" } }, ratio: "16:9" },
     };
@@ -460,7 +475,7 @@ describe("imageField", () => {
 
   it("the alt field's validator passes with both locales filled, on a non-decorative image", () => {
     const alt = fieldByName(imageField.fields, "alt");
-    const [validator] = customValidatorsOf(alt);
+    const validator = customValidatorAt(alt, 0, "imageField.alt");
     const context = {
       parent: { decorative: false, image: { asset: { _ref: "img-1" } }, ratio: "16:9" },
     };
@@ -471,7 +486,7 @@ describe("imageField", () => {
 
   it("a decorative image passes with no alt text at all, and fails if alt text sneaks in anyway", () => {
     const alt = fieldByName(imageField.fields, "alt");
-    const [validator] = customValidatorsOf(alt);
+    const validator = customValidatorAt(alt, 0, "imageField.alt");
     const decorativeContext = {
       parent: { decorative: true, image: { asset: { _ref: "img-1" } }, ratio: "16:9" },
     };
@@ -497,8 +512,8 @@ describe("imageField", () => {
   it("card-grid's optional image field is a full imageField, never a bare image type", () => {
     const cardGrid = sectionTypes["card-grid"];
     const cards = fieldByName(cardGrid.fields as unknown[], "cards");
-    const cardItem = (cards.of as Array<Record<string, unknown>>)[0];
-    const image = fieldByName(cardItem.fields as unknown[], "image");
+    const cardItem = at(cards.of as Array<Record<string, unknown>>, 0, "card-grid's card item");
+    const image = fieldByName(cardItem.fields, "image");
     expect(image.type).toBe("imageField");
   });
 });
@@ -512,8 +527,8 @@ describe("imageField", () => {
 describe("localizedString: bilingual parity is publish blocking, field by field", () => {
   const th = fieldByName(localizedString.fields, "th");
   const en = fieldByName(localizedString.fields, "en");
-  const [thValidator] = customValidatorsOf(th);
-  const [enValidator] = customValidatorsOf(en);
+  const thValidator = customValidatorAt(th, 0, "th");
+  const enValidator = customValidatorAt(en, 0, "en");
 
   it("fails when the value is undefined, the case an empty field actually arrives as", () => {
     expect(thValidator(undefined, {})).not.toBe(true);
@@ -541,8 +556,8 @@ describe("localizedString: bilingual parity is publish blocking, field by field"
 describe("localizedText: the same bilingual parity rule, for the paragraph field", () => {
   const th = fieldByName(localizedText.fields, "th");
   const en = fieldByName(localizedText.fields, "en");
-  const [thValidator] = customValidatorsOf(th);
-  const [enValidator] = customValidatorsOf(en);
+  const thValidator = customValidatorAt(th, 0, "th");
+  const enValidator = customValidatorAt(en, 0, "en");
 
   it("fails when undefined, empty, or one locale only, passes with both locales filled", () => {
     expect(thValidator(undefined, {})).not.toBe(true);
@@ -593,21 +608,21 @@ describe("lifecycle", () => {
 
   it("publishing scheduled with no publishAt date is a blocking finding, surfaced on the publishAt field", () => {
     const publishAt = fieldByName(lifecycle.fields, "publishAt");
-    const [validator] = customValidatorsOf(publishAt);
+    const validator = customValidatorAt(publishAt, 0, "lifecycle.publishAt");
     const context = { parent: { status: "scheduled", owner: "president" } };
     expect(validator(undefined, context)).not.toBe(true);
   });
 
   it("publishing published with no reviewBy date is a blocking finding, surfaced on the reviewBy field", () => {
     const reviewBy = fieldByName(lifecycle.fields, "reviewBy");
-    const [validator] = customValidatorsOf(reviewBy);
+    const validator = customValidatorAt(reviewBy, 0, "lifecycle.reviewBy");
     const context = { parent: { status: "published", owner: "president" } };
     expect(validator(undefined, context)).not.toBe(true);
   });
 
   it("a draft with no reviewBy date is fine; the block is specific to published", () => {
     const reviewBy = fieldByName(lifecycle.fields, "reviewBy");
-    const [validator] = customValidatorsOf(reviewBy);
+    const validator = customValidatorAt(reviewBy, 0, "lifecycle.reviewBy");
     const context = { parent: { status: "draft", owner: "president" } };
     expect(validator(undefined, context)).toBe(true);
   });

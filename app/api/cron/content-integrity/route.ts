@@ -155,10 +155,9 @@ export async function GET(request: Request) {
       perspective: "published",
     });
     documents =
-      (await client.fetch<Record<string, unknown>[]>(
-        `*[!(_id in path("drafts.**"))][0...$max]`,
-        { max: MAX_DOCUMENTS }
-      )) ?? [];
+      (await client.fetch<Record<string, unknown>[]>(`*[!(_id in path("drafts.**"))][0...$max]`, {
+        max: MAX_DOCUMENTS,
+      })) ?? [];
   } catch {
     // §6.9, restated for this cron: "Sanity may be unreachable. Your cron
     // must not fail the deploy or the site when it is." Degrade exactly like
@@ -245,7 +244,11 @@ export async function GET(request: Request) {
       houseStyleIssues: docSummaries
         .filter((d) => d.houseStyleBlocking > 0)
         .slice(0, MAX_LISTED_ISSUES)
-        .map((d) => ({ id: d.id, documentType: d.documentType, blockingFindings: d.houseStyleBlocking })),
+        .map((d) => ({
+          id: d.id,
+          documentType: d.documentType,
+          blockingFindings: d.houseStyleBlocking,
+        })),
       externalLinkIssues: sanitizeExternalLinkIssues(externalLinkFindings),
     },
     { status: 200 }

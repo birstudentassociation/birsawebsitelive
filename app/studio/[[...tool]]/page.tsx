@@ -10,22 +10,21 @@
  * itself (the structure tool, individual documents, the Presentation tool,
  * Vision), so this one route handler covers all of them.
  *
- * `NextStudio` (imported from `next-sanity/studio`, not the raw
- * `next-sanity/studio/client-component`) is a server component that
- * preloads Sanity's bridge script and lazily mounts the actual Studio
- * client-side; this file does not need `"use client"` itself.
+ * The Studio itself is rendered by `StudioClient`, a client component in
+ * this same folder. Read its header for why: `next-sanity/studio`'s lazy
+ * wrapper does not resolve under Turbopack, which Next 16 uses by default,
+ * and the failure appears only in a real build. This file stays a server
+ * component so it can export `metadata` and `viewport`.
  *
  * `viewport` and `metadata` are re-exported as-is: `next-sanity/studio`'s
  * defaults set `robots: noindex`, which matters because nothing about
  * `/studio` should turn up in search results, and the officer's job is
  * signing in, not being found by a search engine.
  */
-import { NextStudio } from "next-sanity/studio";
-
-import config from "@/sanity.config";
+import StudioClient from "./StudioClient";
 
 export { metadata, viewport } from "next-sanity/studio";
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  return <StudioClient />;
 }
