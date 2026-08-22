@@ -73,7 +73,13 @@ const LIFECYCLE_OWNED_TYPES: Array<{ type: string; title: string }> = [
 /** One portfolio branch item: a document list, filtered to this portfolio, wrapped as the `ListItemBuilder` a parent `S.list().items([...])` needs (`S.documentList()` alone is not a list item). */
 function scopedListItem(
   S: Parameters<StructureResolver>[0],
-  options: { id: string; title: string; schemaType: string; filter: string; params: Record<string, string> }
+  options: {
+    id: string;
+    title: string;
+    schemaType: string;
+    filter: string;
+    params: Record<string, string>;
+  }
 ) {
   return S.listItem()
     .id(options.id)
@@ -88,7 +94,10 @@ function scopedListItem(
     );
 }
 
-function portfolioBranch(S: Parameters<StructureResolver>[0], portfolio: { id: PortfolioId; label: { th: string; en: string } }) {
+function portfolioBranch(
+  S: Parameters<StructureResolver>[0],
+  portfolio: { id: PortfolioId; label: { th: string; en: string } }
+) {
   const items = [
     scopedListItem(S, {
       id: `${portfolio.id}-serviceDefinition`,
@@ -122,7 +131,12 @@ function portfolioBranch(S: Parameters<StructureResolver>[0], portfolio: { id: P
 }
 
 /** A singleton: exactly one document, at a fixed id, no create action, no list. */
-function singleton(S: Parameters<StructureResolver>[0], id: string, schemaType: string, title: string) {
+function singleton(
+  S: Parameters<StructureResolver>[0],
+  id: string,
+  schemaType: string,
+  title: string
+) {
   return S.listItem()
     .id(id)
     .title(title)

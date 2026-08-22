@@ -114,8 +114,10 @@ type MissingServiceDefinitionFields = Exclude<
 // about yet: add it above and to `serviceDefinition.fields` below.
 const _assertNoMissingServiceDefinitionFields: MissingServiceDefinitionFields extends never
   ? true
-  : ["ServiceDefinition field missing from SERVICE_DEFINITION_FIELDS", MissingServiceDefinitionFields] =
-  true;
+  : [
+      "ServiceDefinition field missing from SERVICE_DEFINITION_FIELDS",
+      MissingServiceDefinitionFields,
+    ] = true;
 void _assertNoMissingServiceDefinitionFields;
 
 const RETENTION_TRIGGER_TITLES: Record<RetentionTrigger, string> = {
@@ -124,9 +126,9 @@ const RETENTION_TRIGGER_TITLES: Record<RetentionTrigger, string> = {
   "last-active": "เมื่อมีการใช้งานล่าสุด / On last activity",
 };
 
-const RETENTION_TRIGGER_OPTIONS = (
-  Object.keys(RETENTION_TRIGGER_TITLES) as RetentionTrigger[]
-).map((value) => ({ title: RETENTION_TRIGGER_TITLES[value], value }));
+const RETENTION_TRIGGER_OPTIONS = (Object.keys(RETENTION_TRIGGER_TITLES) as RetentionTrigger[]).map(
+  (value) => ({ title: RETENTION_TRIGGER_TITLES[value], value })
+);
 
 const PRIVACY_ACTIVITY_OPTIONS = activities.map((activity) => ({
   title: `${activity.name.th} / ${activity.name.en} (${activity.id})`,
@@ -162,9 +164,7 @@ export function toServiceDefinition(doc: Record<string, unknown>): ServiceDefini
     owner: doc.owner as PortfolioId,
     secondHolder: doc.secondHolder as PortfolioId,
     start: (doc.start ?? {}) as ServiceDefinition["start"],
-    questions: ((doc.questions as ServiceDefinition["questions"] | undefined) ?? []).map(
-      (q) => q
-    ),
+    questions: ((doc.questions as ServiceDefinition["questions"] | undefined) ?? []).map((q) => q),
     standardHours: (doc.standardHours as number | undefined) ?? 0,
     escalateTo: doc.escalateTo as PortfolioId,
     privacyActivityId: (doc.privacyActivityId as string | undefined) ?? null,
@@ -366,7 +366,7 @@ export const serviceDefinition = defineType({
       title: "สิ่งที่บริการนี้อ้างอิงถึง / What this service is about",
       type: "object",
       description:
-        'สำหรับบริการที่ต้องเลือกสิ่งของก่อนเริ่ม เช่น การยืมอุปกรณ์ ผู้อ่านเลือกก่อนเริ่มกรอกแบบฟอร์ม เว้นว่างไว้หากบริการนี้ไม่เกี่ยวกับสิ่งของใดสิ่งหนึ่งโดยเฉพาะ (ไม่บังคับ) / For a service about a specific thing chosen before starting, like which item to borrow. Leave empty if this service is not about any one particular thing. Optional.',
+        "สำหรับบริการที่ต้องเลือกสิ่งของก่อนเริ่ม เช่น การยืมอุปกรณ์ ผู้อ่านเลือกก่อนเริ่มกรอกแบบฟอร์ม เว้นว่างไว้หากบริการนี้ไม่เกี่ยวกับสิ่งของใดสิ่งหนึ่งโดยเฉพาะ (ไม่บังคับ) / For a service about a specific thing chosen before starting, like which item to borrow. Leave empty if this service is not about any one particular thing. Optional.",
       fields: [
         defineField({
           name: "source",
@@ -379,13 +379,15 @@ export const serviceDefinition = defineType({
           name: "paramName",
           title: "ชื่อส่วนของที่อยู่เว็บ / URL segment name",
           type: "string",
-          description: "ชื่อส่วนของที่อยู่เว็บสำหรับมนุษย์อ่าน / The segment's name for humans reading a URL.",
+          description:
+            "ชื่อส่วนของที่อยู่เว็บสำหรับมนุษย์อ่าน / The segment's name for humans reading a URL.",
         }),
         defineField({
           name: "label",
           title: "ชื่อเรียกสิ่งที่อ้างอิงถึง / What the service calls it",
           type: "localizedString",
-          description: "คำที่บริการนี้ใช้เรียกสิ่งที่อ้างอิงถึง / What the service calls the thing, used where a page has to name it.",
+          description:
+            "คำที่บริการนี้ใช้เรียกสิ่งที่อ้างอิงถึง / What the service calls the thing, used where a page has to name it.",
         }),
       ],
     }),

@@ -84,7 +84,8 @@ export const contactRoute = defineType({
       name: "category",
       title: "หมวดหมู่ / Category",
       type: "localizedString",
-      description: "หัวข้อที่ผู้อ่านเลือกในแบบฟอร์มติดต่อ / The subject a reader picks on the contact form.",
+      description:
+        "หัวข้อที่ผู้อ่านเลือกในแบบฟอร์มติดต่อ / The subject a reader picks on the contact form.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -110,7 +111,8 @@ export const featureFlag = defineType({
       name: "id",
       title: "รหัสโมดูล / Module id",
       type: "string",
-      description: "รหัสคงที่ของโมดูลนี้ กำหนดโดยนักพัฒนาเมื่อสร้างโมดูล / The module's stable id, set by a developer when the module is built.",
+      description:
+        "รหัสคงที่ของโมดูลนี้ กำหนดโดยนักพัฒนาเมื่อสร้างโมดูล / The module's stable id, set by a developer when the module is built.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -158,7 +160,7 @@ export const siteSettings = defineType({
       title: "แถบแจ้งช่วงทดลอง / Phase banner",
       type: "object",
       description:
-        'แถบแจ้งด้านบนของหน้าที่ยังอยู่ในช่วงทดลอง พร้อมลิงก์รับความคิดเห็น ปิดได้เองเมื่อพื้นที่นั้นเชื่อถือได้แล้วโดยไม่ต้องพึ่งนักพัฒนา (§4.5) / The banner on a page still in beta, with a feedback link. Switch it off yourself once that area is trusted, no developer needed (§4.5).',
+        "แถบแจ้งด้านบนของหน้าที่ยังอยู่ในช่วงทดลอง พร้อมลิงก์รับความคิดเห็น ปิดได้เองเมื่อพื้นที่นั้นเชื่อถือได้แล้วโดยไม่ต้องพึ่งนักพัฒนา (§4.5) / The banner on a page still in beta, with a feedback link. Switch it off yourself once that area is trusted, no developer needed (§4.5).",
       fields: [
         defineField({
           name: "enabled",
@@ -176,7 +178,8 @@ export const siteSettings = defineType({
           name: "feedbackHref",
           title: "ลิงก์รับความคิดเห็น / Feedback link",
           type: "string",
-          description: 'เส้นทางภายในเว็บไซต์ เช่น "/feedback" (ไม่บังคับ) / An internal path, e.g. "/feedback". Optional.',
+          description:
+            'เส้นทางภายในเว็บไซต์ เช่น "/feedback" (ไม่บังคับ) / An internal path, e.g. "/feedback". Optional.',
         }),
       ],
     }),
@@ -235,7 +238,8 @@ export const siteSettings = defineType({
       title: "เปิดรับสมัคร / Sign-ups open",
       type: "boolean",
       initialValue: true,
-      description: "สวิตช์รวมสำหรับเปิดหรือปิดรับสมัครกิจกรรมและชมรม / The overall switch for whether activity and club sign-ups are open.",
+      description:
+        "สวิตช์รวมสำหรับเปิดหรือปิดรับสมัครกิจกรรมและชมรม / The overall switch for whether activity and club sign-ups are open.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -246,7 +250,10 @@ export const siteSettings = defineType({
         defineArrayMember({
           type: "string",
           options: {
-            list: HOMEPAGE_SECTION_IDS.map((id) => ({ title: HOMEPAGE_SECTION_TITLES[id], value: id })),
+            list: HOMEPAGE_SECTION_IDS.map((id) => ({
+              title: HOMEPAGE_SECTION_TITLES[id],
+              value: id,
+            })),
           },
         }),
       ],
@@ -259,7 +266,8 @@ export const siteSettings = defineType({
       title: "เส้นทางการติดต่อ / Contact routing",
       type: "array",
       of: [defineArrayMember({ type: "contactRoute" })],
-      description: "หมวดหมู่ในแบบฟอร์มติดต่อ และฝ่ายที่รับผิดชอบแต่ละหมวดหมู่ / The categories on the contact form, and which portfolio each one reaches.",
+      description:
+        "หมวดหมู่ในแบบฟอร์มติดต่อ และฝ่ายที่รับผิดชอบแต่ละหมวดหมู่ / The categories on the contact form, and which portfolio each one reaches.",
     }),
     defineField({
       name: "featureFlags",

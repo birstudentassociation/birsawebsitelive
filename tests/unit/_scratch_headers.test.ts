@@ -1,8 +1,17 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+const disable = vi.fn();
+vi.mock("next/headers", () => ({
+  draftMode: async () => ({ disable }),
+}));
+vi.mock("next/navigation", () => ({
+  redirect: (to: string) => { throw new Error(`redirect:${to}`); },
+}));
 
 describe("scratch", () => {
-  it("imports next-sanity draft-mode fine with no mock", async () => {
-    const mod = await import("next-sanity/draft-mode");
-    expect(typeof mod.defineEnableDraftMode).toBe("function");
+  it("disable route works when only our own route imports next/headers directly", async () => {
+    const { GET } = await import("@/app/api/draft-mode/disable/route");
+    await expect(GET()).rejects.toThrow("redirect:/");
+    expect(disable).toHaveBeenCalledTimes(1);
   });
 });

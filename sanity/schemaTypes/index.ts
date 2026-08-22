@@ -40,7 +40,11 @@ import { sectionTypeList } from "@/sanity/schemaTypes/objects/sectionTypes";
 // ---------------------------------------------------------------------------
 import { questionOption, question } from "@/sanity/schemaTypes/objects/question";
 import { navLink, footerNavGroup } from "@/sanity/schemaTypes/documents/navigation";
-import { labelledValue, contactRoute, featureFlag } from "@/sanity/schemaTypes/documents/siteSettings";
+import {
+  labelledValue,
+  contactRoute,
+  featureFlag,
+} from "@/sanity/schemaTypes/documents/siteSettings";
 
 // ---------------------------------------------------------------------------
 // Documents, Wave 3B.

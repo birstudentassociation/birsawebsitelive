@@ -196,10 +196,9 @@ describe("no forbidden escape hatch field", () => {
       const def = asFieldLike(entry);
       const names = collectFields(def).map((f) => f.name.toLowerCase());
       for (const forbidden of forbiddenSchemaFields) {
-        expect(
-          names,
-          `"${def.name}" must not have a field named "${forbidden}"`
-        ).not.toContain(forbidden);
+        expect(names, `"${def.name}" must not have a field named "${forbidden}"`).not.toContain(
+          forbidden
+        );
       }
     }
   });
@@ -257,9 +256,7 @@ describe("serviceDefinition mirrors ServiceDefinition field for field", () => {
     const startFieldNames = ((start.fields as FieldLike[] | undefined) ?? [])
       .map((f) => f.name)
       .sort();
-    expect(startFieldNames).toEqual(
-      ["title", "whoFor", "before", "howLong", "whatNext"].sort()
-    );
+    expect(startFieldNames).toEqual(["title", "whoFor", "before", "howLong", "whatNext"].sort());
   });
 
   it("subject, Gate 7's optional field, carries source, paramName and label", () => {
@@ -286,7 +283,7 @@ describe("owner and secondHolder cannot be the same portfolio", () => {
     expect(validators.length).toBeGreaterThan(0);
     const [validate] = validators;
     const owner = portfolioIds[0]!;
-    const result = validate(owner, { document: { owner } });
+    const result = validate!(owner, { document: { owner } });
     expect(result).not.toBe(true);
     expect(typeof result).toBe("string");
   });
@@ -296,7 +293,7 @@ describe("owner and secondHolder cannot be the same portfolio", () => {
     const [validate] = customValidatorsOf(secondHolder);
     const owner = portfolioIds[0]!;
     const different = portfolioIds[1]!;
-    expect(validate(different, { document: { owner } })).toBe(true);
+    expect(validate!(different, { document: { owner } })).toBe(true);
   });
 });
 
@@ -375,9 +372,7 @@ describe("the section 5.1 item 10 publish blocking rule", () => {
       baseFixture({ privacyActivityId: "contact-message", retentionTrigger: "created" })
     );
     expect(
-      problems.some(
-        (p) => p.field === "privacyActivityId" && p.message.en.includes("no code path")
-      )
+      problems.some((p) => p.field === "privacyActivityId" && p.message.en.includes("no code path"))
     ).toBe(true);
   });
 
@@ -607,7 +602,7 @@ describe("the desk structure is shaped by portfolio", () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fakeS = makeFakeS() as any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const root = structure(fakeS as any) as any as FakeNode;
+  const root = structure(fakeS as any, {} as any) as any as FakeNode;
 
   it("returns a top level list titled BIRSA", () => {
     expect(root._kind).toBe("list");
@@ -636,12 +631,15 @@ describe("the desk structure is shaped by portfolio", () => {
     // A structural guarantee the fake builder above cannot fully stand in
     // for (it would only surface as a runtime TypeError if called with an
     // unimplemented method), checked directly against this wave's own
-    // source instead.
+    // source instead. Block comments are stripped first: the file's own
+    // header explains, in prose, why this call is absent, and naming the
+    // method there is not the same thing as calling it.
     const source = readFileSync(
       path.join(__dirname, "..", "..", "sanity", "structure", "index.ts"),
       "utf-8"
     );
-    expect(source).not.toContain("documentTypeListItems");
+    const code = source.replace(/\/\*[\s\S]*?\*\//g, "");
+    expect(code).not.toContain("documentTypeListItems");
   });
 
   it("gives every one of the thirteen portfolios its own top level branch", () => {
@@ -650,7 +648,9 @@ describe("the desk structure is shaped by portfolio", () => {
       (i) => typeof i.id === "string" && i.id.startsWith("portfolio-")
     );
     expect(portfolioBranches.length).toBe(portfolioIds.length);
-    const branchPortfolioIds = portfolioBranches.map((b) => (b.id as string).replace("portfolio-", ""));
+    const branchPortfolioIds = portfolioBranches.map((b) =>
+      (b.id as string).replace("portfolio-", "")
+    );
     expect(new Set(branchPortfolioIds).size).toBe(portfolioIds.length);
     for (const id of portfolioIds) {
       expect(branchPortfolioIds).toContain(id);

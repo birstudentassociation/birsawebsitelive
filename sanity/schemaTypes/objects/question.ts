@@ -87,7 +87,8 @@ export const questionOption = defineType({
       name: "label",
       title: "ป้ายกำกับ / Label",
       type: "localizedString",
-      description: "ข้อความที่ผู้อ่านเห็นสำหรับตัวเลือกนี้ / The text a reader sees for this option.",
+      description:
+        "ข้อความที่ผู้อ่านเห็นสำหรับตัวเลือกนี้ / The text a reader sees for this option.",
       validation: (Rule) => Rule.required(),
     }),
   ],
