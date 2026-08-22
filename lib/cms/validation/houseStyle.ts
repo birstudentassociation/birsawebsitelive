@@ -43,11 +43,7 @@
  * false positive, so this can only ever be advice, and the message says so.
  */
 import type { Locale } from "@/lib/i18n";
-import {
-  blockingRules,
-  checkHouseStyle,
-  type HouseStyleRuleId,
-} from "@/lib/content/houseStyle";
+import { blockingRules, checkHouseStyle, type HouseStyleRuleId } from "@/lib/content/houseStyle";
 import type { LocalizedText } from "./bilingualParity";
 
 export type HouseStyleFieldInput = {
@@ -186,7 +182,7 @@ function checkEnglishExtras(path: string, text: string): HouseStyleFinding[] {
   // needs to flag the OBVIOUS run-ons, so a rough split that never fires on
   // "etc." mid-sentence is safer than a precise one that mis-splits a URL.
   const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z])/);
-  for (const sentence of sentences) {
+  sentences.forEach((sentence, index) => {
     const wordCount = sentence.trim().split(/\s+/).filter(Boolean).length;
     if (wordCount > SENTENCE_WORD_CEILING) {
       findings.push(
@@ -195,13 +191,19 @@ function checkEnglishExtras(path: string, text: string): HouseStyleFinding[] {
           "en",
           "advice",
           "long-sentence",
-          sentence.trim().slice(0, 40) + (sentence.length > 40 ? "…" : ""),
+          // Every other rule's `text` is the matched token itself (a dash, a
+          // weak word), never a slice of surrounding prose. A run-on
+          // sentence has no single matched token, but locating it by a
+          // content excerpt would put whatever the officer actually wrote,
+          // personal data included, into this finding. "sentence 2 of 5"
+          // locates it inside the field without quoting a single word of it.
+          `sentence ${index + 1} of ${sentences.length}`,
           `This sentence runs to about ${wordCount} words. GOV.UK style asks for around 25. Consider splitting it.`,
           `ประโยคนี้ยาวประมาณ ${wordCount} คำ รูปแบบ GOV.UK แนะนำประมาณ 25 คำ ลองแยกเป็นสองประโยค`
         )
       );
     }
-  }
+  });
 
   return findings;
 }

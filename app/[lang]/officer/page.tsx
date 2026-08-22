@@ -6,7 +6,6 @@ import { buildMetadata } from "@/lib/seo";
 import Breadcrumbs from "@/components/bds/Breadcrumbs";
 import PageHeader from "@/components/bds/PageHeader";
 import Notice from "@/components/bds/Notice";
-import Tag from "@/components/bds/Tag";
 import Card, { CardTitle } from "@/components/bds/Card";
 import Button from "@/components/bds/Button";
 import NavList, { NavListItem } from "@/components/bds/NavList";
@@ -15,6 +14,7 @@ import { Wrap, Stack, Section } from "@/components/bds/Layout";
 import OfficerLogin from "@/components/inventory/OfficerLogin";
 import { LogoutButton } from "@/components/inventory/ConsoleGate";
 import { getSessionOfficer, isInventoryAuthConfigured } from "@/lib/inventory/auth";
+import { SANITY_HISTORY_RETENTION_DAYS } from "@/sanity/projectConfig";
 
 /**
  * `/officer`, the single door (REDESIGN-2.0 section 6.8, ROUTE-MAP-2.0 "Wave
@@ -123,25 +123,53 @@ export default async function OfficerHubPage({ params }: { params: Promise<{ lan
               </NavList>
 
               {/*
-                The Studio link is deliberately not a NavListItem: it has
-                nowhere to navigate to yet (REDESIGN-2.0 section 6.9, gate 1
-                in docs/DECISIONS-2.0.md), and a NavListItem's whole contract
-                is a working href. Rendering it as a plain Card with an
-                explicit "not available yet" tag says so in the same place a
-                reader would otherwise expect a working link, in visible
-                text rather than only by the row being unclickable.
+                Gate 1 (docs/DECISIONS-2.0.md) is open: the Sanity project
+                exists and `/studio` is a real, mounted route
+                (`app/studio/[[...tool]]/page.tsx`), so the Studio link is
+                live rather than the "not available yet" placeholder this
+                card carried before.
+
+                Still a Card rather than a NavListItem alongside Inventory
+                and Access above. A NavListItem's contract is one link and
+                one short line; this row also has to carry the two facts an
+                officer needs before they click, per REDESIGN-2.0 §6.8 and
+                §6.11, and a Card is where the rest of this page puts
+                content that does not fit that shape:
+
+                  1. The Studio is a second, separate sign in from this
+                     console (§6.8: BIRSA genuinely has two identity
+                     systems, and saying nothing here reads as a bug the
+                     first time an officer meets a login screen they were
+                     not told to expect).
+                  2. This plan keeps document history for a matter of days,
+                     not indefinitely (`sanity/projectConfig.ts`'s
+                     `SANITY_HISTORY_RETENTION_DAYS`, §6.11 gate 1), read
+                     before an officer relies on "revert" as a permanent
+                     safety net. The Studio itself repeats this on every
+                     screen (`sanity.config.ts`'s `HistoryRetentionBanner`),
+                     but that is only visible after signing in to the
+                     second system; this is the one place an officer sees
+                     it before choosing to.
               */}
               <Card>
-                <div className="flex flex-wrap items-center gap-3">
-                  <CardTitle level={3}>{t.studioTitle}</CardTitle>
-                  <Tag variant="warning">{t.studioUnavailableTag}</Tag>
-                </div>
+                <CardTitle level={3}>{t.studioTitle}</CardTitle>
                 <Text step="body-sm" className="text-muted">
                   {t.studioBody}
                 </Text>
                 <Text step="body-sm" className="text-muted">
-                  {t.studioUnavailableBody}
+                  {t.studioSignInNote}
                 </Text>
+                <Text step="body-sm" className="text-muted">
+                  {t.studioHistoryNote.replace(
+                    "{days}",
+                    String(SANITY_HISTORY_RETENTION_DAYS)
+                  )}
+                </Text>
+                <div>
+                  <Button href="/studio" variant="secondary">
+                    {t.studioLinkLabel}
+                  </Button>
+                </div>
               </Card>
             </Stack>
           )}

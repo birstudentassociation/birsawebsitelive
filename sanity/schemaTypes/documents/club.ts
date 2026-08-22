@@ -55,7 +55,8 @@ export const club = defineType({
       name: "tagline",
       title: "คำโปรยสั้น / Tagline",
       type: "localizedString",
-      description: "ประโยคเดียวที่บอกว่าชมรมนี้ทำอะไร แสดงในรายการชมรม / One line saying what the club does, shown in the club listing.",
+      description:
+        "ประโยคเดียวที่บอกว่าชมรมนี้ทำอะไร แสดงในรายการชมรม / One line saying what the club does, shown in the club listing.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -92,7 +93,7 @@ export const club = defineType({
       title: "หัวหน้าชมรม (ไม่บังคับ) / Club lead (optional)",
       type: "localizedString",
       description:
-        "ใส่เฉพาะตำแหน่ง เช่น \"ประธานชมรม\" ห้ามใส่ชื่อบุคคลเด็ดขาด ชื่อบุคคลไม่ใช่เนื้อหาที่ CMS นี้เก็บได้ / Role title only, e.g. \"President\". Never a person's name; this CMS has nowhere to safely hold one.",
+        'ใส่เฉพาะตำแหน่ง เช่น "ประธานชมรม" ห้ามใส่ชื่อบุคคลเด็ดขาด ชื่อบุคคลไม่ใช่เนื้อหาที่ CMS นี้เก็บได้ / Role title only, e.g. "President". Never a person\'s name; this CMS has nowhere to safely hold one.',
     }),
     defineField({
       name: "meets",
@@ -127,7 +128,8 @@ export const club = defineType({
               name: "label",
               title: "ชื่อช่องทาง / Channel name",
               type: "localizedString",
-              description: 'เช่น "Instagram" หรือ "LINE OpenChat" / e.g. "Instagram" or "LINE OpenChat".',
+              description:
+                'เช่น "Instagram" หรือ "LINE OpenChat" / e.g. "Instagram" or "LINE OpenChat".',
               validation: (Rule) => Rule.required(),
             }),
             defineField({

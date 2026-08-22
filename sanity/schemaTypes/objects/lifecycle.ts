@@ -86,7 +86,7 @@ export const lifecycle = defineType({
       title: "เผยแพร่เมื่อ / Publish at",
       type: "datetime",
       description:
-        "จำเป็นเมื่อสถานะเป็น \"ตั้งเวลาเผยแพร่\" เท่านั้น / Required only when status is \"scheduled\".",
+        'จำเป็นเมื่อสถานะเป็น "ตั้งเวลาเผยแพร่" เท่านั้น / Required only when status is "scheduled".',
       hidden: ({ parent }) => (parent as { status?: string } | undefined)?.status !== "scheduled",
       validation: (Rule) => Rule.custom(lifecycleFieldProblem("publishAt")),
     }),
@@ -130,7 +130,7 @@ export const lifecycle = defineType({
       type: "text",
       rows: 2,
       description:
-        "กรอกเฉพาะเมื่อเนื้อหานี้ควรเป็นของ TUSU, TUSC หรือคณะ แต่ยังไม่มีหน่วยงานอื่นเผยแพร่ ระบุเหตุผล และตั้งวันตรวจสอบไว้เสมอ (ดูช่อง \"ต้องตรวจสอบภายในวันที่\") เพื่อให้ทราบเมื่อควรลบเนื้อหานี้ / Set only where this properly belongs to TUSU, TUSC or the faculty, and BIRSA is keeping it because nobody else publishes it yet. Name the reason, and always set a review date (see \"Review by\" above), so BIRSA finds out when someone does.",
+        'กรอกเฉพาะเมื่อเนื้อหานี้ควรเป็นของ TUSU, TUSC หรือคณะ แต่ยังไม่มีหน่วยงานอื่นเผยแพร่ ระบุเหตุผล และตั้งวันตรวจสอบไว้เสมอ (ดูช่อง "ต้องตรวจสอบภายในวันที่") เพื่อให้ทราบเมื่อควรลบเนื้อหานี้ / Set only where this properly belongs to TUSU, TUSC or the faculty, and BIRSA is keeping it because nobody else publishes it yet. Name the reason, and always set a review date (see "Review by" above), so BIRSA finds out when someone does.',
     }),
   ],
 });

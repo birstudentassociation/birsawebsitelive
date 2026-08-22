@@ -75,7 +75,10 @@ type ImageFieldParent = {
   ratio?: (typeof aspectRatios)[number];
 };
 
-const altValidator: CustomValidator<{ en?: string; th?: string } | undefined> = (value, context) => {
+const altValidator: CustomValidator<{ en?: string; th?: string } | undefined> = (
+  value,
+  context
+) => {
   const parent = (context.parent ?? {}) as ImageFieldParent;
   const asContract: ImageFieldContract = {
     assetId: parent.image?.asset?._ref ?? "",
@@ -89,10 +92,15 @@ const altValidator: CustomValidator<{ en?: string; th?: string } | undefined> = 
   };
   const problems = altTextProblems(asContract);
   if (problems.length === 0) return true;
-  return [...new Set(problems.map((p) => `${PROBLEM_MESSAGES[p].th} / ${PROBLEM_MESSAGES[p].en}`))].join(" ");
+  return [
+    ...new Set(problems.map((p) => `${PROBLEM_MESSAGES[p].th} / ${PROBLEM_MESSAGES[p].en}`)),
+  ].join(" ");
 };
 
-const sizeValidator: CustomValidator<{ asset?: { _ref?: string } } | undefined> = async (value, context) => {
+const sizeValidator: CustomValidator<{ asset?: { _ref?: string } } | undefined> = async (
+  value,
+  context
+) => {
   const assetRef = value?.asset?._ref;
   if (!assetRef) return true;
   try {
@@ -140,7 +148,7 @@ export const imageField = defineType({
       title: "คำอธิบายภาพ (Alt text) / Alt text",
       type: "localizedString",
       description:
-        "บรรยายสิ่งที่เห็นในภาพ ไม่ใช่รายชื่อบุคคล เช่น \"นักศึกษาในงานต้อนรับ\" ไม่ใช่รายชื่อคน จำเป็นทั้งสองภาษา เว้นแต่ทำเครื่องหมายว่าเป็นภาพตกแต่ง / Describe the scene, not the people, e.g. \"students at the welcome fair\", never a list of names. Required in both languages unless the image is decorative.",
+        'บรรยายสิ่งที่เห็นในภาพ ไม่ใช่รายชื่อบุคคล เช่น "นักศึกษาในงานต้อนรับ" ไม่ใช่รายชื่อคน จำเป็นทั้งสองภาษา เว้นแต่ทำเครื่องหมายว่าเป็นภาพตกแต่ง / Describe the scene, not the people, e.g. "students at the welcome fair", never a list of names. Required in both languages unless the image is decorative.',
       hidden: ({ parent }) => (parent as ImageFieldParent | undefined)?.decorative === true,
       validation: (Rule) => Rule.custom(altValidator),
     }),

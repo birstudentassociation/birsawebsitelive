@@ -60,8 +60,12 @@ function titleFor(map: Record<string, string>, value: string): string {
   return title;
 }
 
-const styleValues = allowedBlocks.filter((value) => value !== "ul" && value !== "ol" && value !== "table");
-const listValues = allowedBlocks.filter((value): value is "ul" | "ol" => value === "ul" || value === "ol");
+const styleValues = allowedBlocks.filter(
+  (value) => value !== "ul" && value !== "ol" && value !== "table"
+);
+const listValues = allowedBlocks.filter(
+  (value): value is "ul" | "ol" => value === "ul" || value === "ol"
+);
 
 const blockStyles = styleValues.map((value) => ({ title: titleFor(BLOCK_TITLES, value), value }));
 const blockLists = listValues.map((value) => ({ title: titleFor(LIST_TITLES, value), value }));
@@ -78,7 +82,7 @@ const blockDecorators = allowedMarks
  * a text block.
  */
 function blockStyle(block: PortableTextBlock): string | undefined {
-  return "style" in block ? block.style : undefined;
+  return "style" in block && typeof block.style === "string" ? block.style : undefined;
 }
 
 function blockText(block: PortableTextBlock): string {
@@ -98,7 +102,9 @@ const blockValidator: CustomValidator<PortableTextBlock | undefined> = (block) =
   const text = blockText(block);
   const findings = checkHouseStyle(text, { isHeading: style === "h2" || style === "h3" });
   if (blocksPublication(findings)) {
-    const blocking = findings.filter((f) => f.rule !== "heading-title-case" && f.rule !== "heading-full-stop");
+    const blocking = findings.filter(
+      (f) => f.rule !== "heading-title-case" && f.rule !== "heading-full-stop"
+    );
     const messages = blocking.map((f) => `${f.message.th} / ${f.message.en}`);
     return [...new Set(messages)].join(" ");
   }
@@ -111,7 +117,9 @@ const blockWarning: CustomValidator<PortableTextBlock | undefined> = (block) => 
   const style = blockStyle(block);
   if (style !== "h2" && style !== "h3") return true;
   const findings = checkHouseStyle(blockText(block), { isHeading: true });
-  const hints = findings.filter((f) => f.rule === "heading-title-case" || f.rule === "heading-full-stop");
+  const hints = findings.filter(
+    (f) => f.rule === "heading-title-case" || f.rule === "heading-full-stop"
+  );
   if (hints.length === 0) return true;
   return [...new Set(hints.map((f) => `${f.message.th} / ${f.message.en}`))].join(" ");
 };
@@ -178,9 +186,7 @@ export const portableText = defineType({
             },
           ],
           validation: (Rule) =>
-            Rule.min(1).error(
-              "ตารางต้องมีอย่างน้อยหนึ่งแถว / A table needs at least one row."
-            ),
+            Rule.min(1).error("ตารางต้องมีอย่างน้อยหนึ่งแถว / A table needs at least one row."),
         }),
       ],
     }),

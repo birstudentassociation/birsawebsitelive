@@ -23,6 +23,7 @@
  * its consent record should live.
  */
 import { defineField, defineType } from "sanity";
+import type { SanityDocument } from "sanity";
 import { localizedString } from "@/sanity/schemaTypes/objects/localizedString";
 import { imageField } from "@/sanity/schemaTypes/objects/imageField";
 import { lifecycle } from "@/sanity/schemaTypes/objects/lifecycle";
@@ -51,8 +52,18 @@ export const committeeMember = defineType({
         "A short English key for this member, kebab-case, for example jane-doe. Shared across both locales and used to match this record to a portrait file.",
       type: "slug",
       options: {
-        source: (doc: { firstName?: LocalizedStringDraft; lastName?: LocalizedStringDraft }) =>
-          `${doc.firstName?.en ?? ""} ${doc.lastName?.en ?? ""}`,
+        // `SlugSourceFn` receives a full `SanityDocument`, which has no
+        // properties in common with this document's own draft shape. Narrow
+        // inside the function rather than typing the parameter narrowly, so
+        // the signature stays honest about what Sanity actually calls this
+        // with.
+        source: (doc: SanityDocument) => {
+          const { firstName, lastName } = doc as {
+            firstName?: LocalizedStringDraft;
+            lastName?: LocalizedStringDraft;
+          };
+          return `${firstName?.en ?? ""} ${lastName?.en ?? ""}`;
+        },
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),

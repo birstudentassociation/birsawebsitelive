@@ -67,7 +67,8 @@ export const guide = defineType({
       name: "order",
       title: "ลำดับการแสดงผล / Display order",
       type: "number",
-      description: "เลขน้อยแสดงก่อน ใช้จัดลำดับสารบัญด้วยมือ ไม่ใช่ตามวันที่ / Lower numbers show first. A hand-set table of contents order, not by date.",
+      description:
+        "เลขน้อยแสดงก่อน ใช้จัดลำดับสารบัญด้วยมือ ไม่ใช่ตามวันที่ / Lower numbers show first. A hand-set table of contents order, not by date.",
       validation: (Rule) => Rule.required(),
     }),
     sectionsField("body"),

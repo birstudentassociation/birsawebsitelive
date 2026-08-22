@@ -55,7 +55,7 @@ export const questionTypeOptions = questionTypeIds.map((id) => ({
  */
 const ID_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
-const idValidator: CustomValidator<string> = (value) => {
+const idValidator: CustomValidator<string | undefined> = (value) => {
   if (!value || !value.trim()) {
     return "กรุณาระบุรหัสคำถาม / Enter a question id.";
   }

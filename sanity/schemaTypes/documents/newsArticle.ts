@@ -66,7 +66,8 @@ export const newsArticle = defineType({
       name: "date",
       title: "วันที่เผยแพร่ / Published date",
       type: "date",
-      description: "วันที่ของข่าวนี้ ใช้จัดเรียงรายการข่าว / The date this news item carries, used to sort the listing.",
+      description:
+        "วันที่ของข่าวนี้ ใช้จัดเรียงรายการข่าว / The date this news item carries, used to sort the listing.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

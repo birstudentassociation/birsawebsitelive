@@ -153,7 +153,8 @@ export const minutes = defineType({
             defineField({
               name: "itemNumber",
               title: "ลำดับที่ / Item number",
-              description: "หมายเลขวาระที่งดเผยแพร่ เช่น 4 / The agenda item number that was withheld, for example 4.",
+              description:
+                "หมายเลขวาระที่งดเผยแพร่ เช่น 4 / The agenda item number that was withheld, for example 4.",
               type: "number",
               validation: (Rule) => Rule.required().integer().positive(),
             }),

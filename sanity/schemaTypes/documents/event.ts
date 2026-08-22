@@ -49,21 +49,24 @@ export const event = defineType({
       name: "summary",
       title: "สรุปย่อ / Summary",
       type: "localizedText",
-      description: "ข้อความสั้นที่แสดงในรายการและใช้เป็นคำอธิบายเมื่อแชร์ลิงก์ / The short text shown in listings and used as the link preview description.",
+      description:
+        "ข้อความสั้นที่แสดงในรายการและใช้เป็นคำอธิบายเมื่อแชร์ลิงก์ / The short text shown in listings and used as the link preview description.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "category",
       title: "หมวดหมู่ / Category",
       type: "string",
-      description: "หมวดหมู่ เช่น กิจกรรม ปฐมนิเทศ กีฬา ใช้ตัวพิมพ์เล็กคั่นด้วยขีดกลาง / The category, e.g. orientation, sport. Lowercase, hyphen separated.",
+      description:
+        "หมวดหมู่ เช่น กิจกรรม ปฐมนิเทศ กีฬา ใช้ตัวพิมพ์เล็กคั่นด้วยขีดกลาง / The category, e.g. orientation, sport. Lowercase, hyphen separated.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "date",
       title: "วันที่เผยแพร่ข่าวนี้ / Published date",
       type: "date",
-      description: "วันที่ประกาศข่าวนี้ ซึ่งอาจไม่ใช่วันที่จัดกิจกรรม / When this announcement was published, which may differ from when the event happens.",
+      description:
+        "วันที่ประกาศข่าวนี้ ซึ่งอาจไม่ใช่วันที่จัดกิจกรรม / When this announcement was published, which may differ from when the event happens.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -84,7 +87,8 @@ export const event = defineType({
       name: "end",
       title: "สิ้นสุดกิจกรรม (ไม่บังคับ) / End (optional)",
       type: "datetime",
-      description: "ใส่เฉพาะเมื่อทราบเวลาสิ้นสุดหรือกิจกรรมมีหลายวัน / Set only when the end time is known, or the event runs over several days.",
+      description:
+        "ใส่เฉพาะเมื่อทราบเวลาสิ้นสุดหรือกิจกรรมมีหลายวัน / Set only when the end time is known, or the event runs over several days.",
       validation: (Rule) =>
         Rule.min(Rule.valueOfField("start")).error(
           "เวลาสิ้นสุดต้องไม่ก่อนเวลาเริ่ม / The end time cannot be before the start time."

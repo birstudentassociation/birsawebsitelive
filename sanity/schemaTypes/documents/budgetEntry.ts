@@ -62,7 +62,8 @@ export const budgetEntry = defineType({
     defineField({
       name: "entryDate",
       title: "Date / วันที่",
-      description: "The date this entry falls on, for comparing spending over time.\n\nวันที่ของรายการนี้ เพื่อใช้เปรียบเทียบการใช้จ่ายในแต่ละช่วงเวลา",
+      description:
+        "The date this entry falls on, for comparing spending over time.\n\nวันที่ของรายการนี้ เพื่อใช้เปรียบเทียบการใช้จ่ายในแต่ละช่วงเวลา",
       type: "date",
       validation: (Rule) => Rule.required(),
     }),

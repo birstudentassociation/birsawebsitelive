@@ -13,6 +13,8 @@
  * this token, kept here rather than invented, so a developer who has seen
  * a Sanity starter recognises it immediately.
  */
+import { projectId } from "@/sanity/env";
+
 const TOKEN_ENV_VAR = "SANITY_API_READ_TOKEN";
 
 /** Reads the token straight from the environment. `undefined` when unset. */
@@ -54,7 +56,7 @@ export function requireTokenOrDegrade(): string | undefined {
   }
   if (process.env.NODE_ENV === "development") {
     throw new Error(
-      `${TOKEN_ENV_VAR} is not set. Draft mode preview needs it to read unpublished content from Sanity. Add it to .env.local with a token that has at least Viewer access to the vbo54y9j project.`
+      `${TOKEN_ENV_VAR} is not set. Draft mode preview needs it to read unpublished content from Sanity. Add it to .env.local with a token that has at least Viewer access to the ${projectId} project.`
     );
   }
   return undefined;

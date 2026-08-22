@@ -27,8 +27,9 @@ export const officerConsole: typeof EnOfficerConsole = {
     accessBody: "บัญชีเจ้าหน้าที่ทุกคน ฝ่ายที่รับผิดชอบ และวันที่สิทธิ์การเข้าถึงจะสิ้นสุด",
     studioTitle: "สตูดิโอจัดการเนื้อหา",
     studioBody: "ที่เจ้าหน้าที่ใช้แก้ไขหน้าเว็บและบทความ",
-    studioUnavailableTag: "ยังใช้งานไม่ได้",
-    studioUnavailableBody: "BIRSA ยังไม่ได้ตั้งค่าระบบเข้าสู่ระบบแยกสำหรับแก้ไขหน้าเว็บ",
+    studioSignInNote: "สตูดิโอใช้ระบบเข้าสู่ระบบแยกจากคอนโซลนี้ ให้เข้าสู่ระบบด้วยบัญชี Sanity ที่ BIRSA มอบให้",
+    studioHistoryNote: "แผนนี้เก็บประวัติเอกสารไว้ {days} วัน หลังจากนั้นต้องให้ผู้ดูแลระบบกู้คืนเวอร์ชันเก่าจากข้อมูลสำรอง",
+    studioLinkLabel: "เปิดสตูดิโอจัดการเนื้อหา",
   },
   officerAccess: {
     metaTitle: "ทะเบียนสิทธิ์การเข้าถึง",

@@ -75,6 +75,49 @@ const PORTFOLIO_OPTIONS = portfolios.map((portfolio) => ({
   value: portfolio.id,
 }));
 
+/**
+ * Every field name of the frozen `ServiceDefinition` type, kept in sync with
+ * the type by the compiler rather than by a person remembering to update a
+ * list. `satisfies` below fails to compile if this array names something
+ * that is not a real key of `ServiceDefinition`, and `AssertNoMissingField`
+ * fails to compile if `ServiceDefinition` gains a key this array does not
+ * name. Between the two, the array cannot silently drift from the type it
+ * mirrors.
+ *
+ * `tests/unit/sanity-schema-config.test.ts` compares this, not a
+ * hand-written copy, against `serviceDefinition.fields.map((f) => f.name)`,
+ * so a field added to `ServiceDefinition` without a matching schema field
+ * fails the TEST, and a schema field added without a matching type key
+ * fails here at TYPECHECK, before either reaches an officer.
+ */
+export const SERVICE_DEFINITION_FIELDS = [
+  "id",
+  "owner",
+  "secondHolder",
+  "start",
+  "questions",
+  "standardHours",
+  "escalateTo",
+  "privacyActivityId",
+  "retentionTrigger",
+  "sensitive",
+  "publishStandard",
+  "subject",
+] as const satisfies readonly (keyof ServiceDefinition)[];
+
+type MissingServiceDefinitionFields = Exclude<
+  keyof ServiceDefinition,
+  (typeof SERVICE_DEFINITION_FIELDS)[number]
+>;
+// If this line fails to compile, `ServiceDefinition` gained a field that
+// `SERVICE_DEFINITION_FIELDS` (and therefore this schema) does not know
+// about yet: add it above and to `serviceDefinition.fields` below.
+const _assertNoMissingServiceDefinitionFields: MissingServiceDefinitionFields extends never
+  ? true
+  : ["ServiceDefinition field missing from SERVICE_DEFINITION_FIELDS", MissingServiceDefinitionFields] =
+  true;
+void _assertNoMissingServiceDefinitionFields;
+
 const RETENTION_TRIGGER_TITLES: Record<RetentionTrigger, string> = {
   created: "เมื่อสร้างคำขอ / When the request is created",
   closed: "เมื่อปิดคำขอ / When the request closes",

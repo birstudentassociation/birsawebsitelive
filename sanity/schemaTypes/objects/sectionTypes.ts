@@ -63,14 +63,16 @@ function linkTargetFields(options: { allowNone: boolean }) {
       title: "หน้าเว็บภายใน / Internal page",
       type: "reference",
       to: INTERNAL_DOCUMENT_TYPES.map((type) => ({ type })),
-      hidden: ({ parent }) => (parent as { linkType?: string } | undefined)?.linkType !== "internal",
+      hidden: ({ parent }) =>
+        (parent as { linkType?: string } | undefined)?.linkType !== "internal",
       validation: (Rule) => Rule.custom(requiredWhen("internal")),
     }),
     defineField({
       name: "externalHref",
       title: "ที่อยู่เว็บภายนอก / External URL",
       type: "url",
-      hidden: ({ parent }) => (parent as { linkType?: string } | undefined)?.linkType !== "external",
+      hidden: ({ parent }) =>
+        (parent as { linkType?: string } | undefined)?.linkType !== "external",
       validation: (Rule) => [
         Rule.uri({ scheme: ["http", "https", "mailto"] }),
         Rule.custom(requiredWhen("external")),
@@ -85,7 +87,7 @@ const linkItemFields = [
     title: "ชื่อลิงก์ / Link title",
     type: "localizedString",
     description:
-      "ข้อความลิงก์ต้องบอกปลายทาง เช่น \"อ่านระเบียบชมรม\" ไม่ใช่ \"คลิกที่นี่\" / Link text must say where it goes, e.g. \"read the club rules\", never \"click here\".",
+      'ข้อความลิงก์ต้องบอกปลายทาง เช่น "อ่านระเบียบชมรม" ไม่ใช่ "คลิกที่นี่" / Link text must say where it goes, e.g. "read the club rules", never "click here".',
     validation: (Rule) => Rule.required(),
   }),
   defineField({
@@ -130,8 +132,7 @@ const navListSection = defineType({
       title: "รายการ / Items",
       type: "array",
       of: [{ type: "object", name: "navListItem", title: "ลิงก์ / Link", fields: linkItemFields }],
-      validation: (Rule) =>
-        Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งลิงก์ / Add at least one link."),
+      validation: (Rule) => Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งลิงก์ / Add at least one link."),
     }),
   ],
 });
@@ -195,8 +196,7 @@ const cardGridSection = defineType({
           ],
         },
       ],
-      validation: (Rule) =>
-        Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งการ์ด / Add at least one card."),
+      validation: (Rule) => Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งการ์ด / Add at least one card."),
     }),
   ],
 });
@@ -227,7 +227,11 @@ const noticeSection = defineType({
         "ผลลัพธ์ระดับหน้าทั้งหน้าใช้ NotificationBanner ไม่ใช่กล่องนี้ / A page level result is a NotificationBanner, not this.",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: "title", title: "หัวข้อ (ไม่บังคับ) / Title (optional)", type: "localizedString" }),
+    defineField({
+      name: "title",
+      title: "หัวข้อ (ไม่บังคับ) / Title (optional)",
+      type: "localizedString",
+    }),
     defineField({
       name: "body",
       title: "ข้อความ / Message",
@@ -250,7 +254,8 @@ const insetTextSection = defineType({
       name: "content",
       title: "เนื้อหา / Content",
       type: "portableTextInline",
-      description: "ข้อความธรรมดาพร้อมตัวหนา ตัวเอียง และลิงก์เท่านั้น / Plain text with inline marks only.",
+      description:
+        "ข้อความธรรมดาพร้อมตัวหนา ตัวเอียง และลิงก์เท่านั้น / Plain text with inline marks only.",
       validation: (Rule) => Rule.required(),
     }),
   ],
@@ -291,7 +296,9 @@ const accordionSection = defineType({
         },
       ],
       validation: (Rule) =>
-        Rule.min(2).error("ต้องมีอย่างน้อยสองคู่คำถามคำตอบ / Add at least two question and answer pairs."),
+        Rule.min(2).error(
+          "ต้องมีอย่างน้อยสองคู่คำถามคำตอบ / Add at least two question and answer pairs."
+        ),
     }),
   ],
 });
@@ -321,12 +328,18 @@ const stepByStepSection = defineType({
               type: "localizedString",
               validation: (Rule) => Rule.required(),
             }),
-            defineField({ name: "body", title: "รายละเอียด (ไม่บังคับ) / Detail (optional)", type: "localizedText" }),
+            defineField({
+              name: "body",
+              title: "รายละเอียด (ไม่บังคับ) / Detail (optional)",
+              type: "localizedText",
+            }),
           ],
         },
       ],
       validation: (Rule) =>
-        Rule.min(2).error("ต้องมีอย่างน้อยสองขั้นตอน แต่ละขั้นต้องมีหัวข้อ / Add at least two steps, each with a heading."),
+        Rule.min(2).error(
+          "ต้องมีอย่างน้อยสองขั้นตอน แต่ละขั้นต้องมีหัวข้อ / Add at least two steps, each with a heading."
+        ),
     }),
   ],
 });
@@ -346,7 +359,11 @@ const taskListSection = defineType({
       type: "localizedString",
       validation: (Rule) => Rule.required(),
     }),
-    defineField({ name: "intro", title: "คำนำ (ไม่บังคับ) / Intro (optional)", type: "localizedText" }),
+    defineField({
+      name: "intro",
+      title: "คำนำ (ไม่บังคับ) / Intro (optional)",
+      type: "localizedText",
+    }),
     defineField({
       name: "tasks",
       title: "งาน / Tasks",
@@ -363,7 +380,11 @@ const taskListSection = defineType({
               type: "localizedString",
               validation: (Rule) => Rule.required(),
             }),
-            defineField({ name: "hint", title: "คำอธิบายสั้น (ไม่บังคับ) / Hint (optional)", type: "localizedText" }),
+            defineField({
+              name: "hint",
+              title: "คำอธิบายสั้น (ไม่บังคับ) / Hint (optional)",
+              type: "localizedText",
+            }),
             defineField({
               name: "status",
               title: "สถานะ / Status",
@@ -376,7 +397,8 @@ const taskListSection = defineType({
                   { title: "เสร็จสิ้น / Completed", value: "completed" },
                 ],
               },
-              description: "สถานะเป็นคำ ไม่ใช่แค่สี ผู้อ่านที่ตาบอดสีต้องอ่านออก / The word IS the status. Never colour alone.",
+              description:
+                "สถานะเป็นคำ ไม่ใช่แค่สี ผู้อ่านที่ตาบอดสีต้องอ่านออก / The word IS the status. Never colour alone.",
               validation: (Rule) => Rule.required(),
             }),
             ...linkTargetFields({ allowNone: true }),
@@ -384,7 +406,9 @@ const taskListSection = defineType({
         },
       ],
       validation: (Rule) =>
-        Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งงาน และทุกงานต้องมีสถานะ / Add at least one task; every task needs a status."),
+        Rule.min(1).error(
+          "ต้องมีอย่างน้อยหนึ่งงาน และทุกงานต้องมีสถานะ / Add at least one task; every task needs a status."
+        ),
     }),
   ],
 });
@@ -404,7 +428,9 @@ const contactPanelSection = defineType({
       type: "string",
       description:
         "ข้อมูลติดต่อดึงมาจากที่เดียวเสมอ ไม่พิมพ์ซ้ำ เมื่อที่อยู่เปลี่ยนจะเปลี่ยนทุกที่โดยอัตโนมัติ / The details are pulled from one place, never typed in twice, so a changed address changes everywhere.",
-      options: { list: portfolios.map((p) => ({ title: `${p.label.th} / ${p.label.en}`, value: p.id })) },
+      options: {
+        list: portfolios.map((p) => ({ title: `${p.label.th} / ${p.label.en}`, value: p.id })),
+      },
       validation: (Rule) => Rule.required(),
     }),
   ],
@@ -419,14 +445,19 @@ const relatedLinksSection = defineType({
   title: "ลิงก์ที่เกี่ยวข้อง / Related links",
   type: "object",
   fields: [
-    defineField({ name: "heading", title: "หัวข้อ (ไม่บังคับ) / Heading (optional)", type: "localizedString" }),
+    defineField({
+      name: "heading",
+      title: "หัวข้อ (ไม่บังคับ) / Heading (optional)",
+      type: "localizedString",
+    }),
     defineField({
       name: "items",
       title: "ลิงก์ / Links",
       type: "array",
-      of: [{ type: "object", name: "relatedLinkItem", title: "ลิงก์ / Link", fields: linkItemFields }],
-      validation: (Rule) =>
-        Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งลิงก์ / Add at least one link."),
+      of: [
+        { type: "object", name: "relatedLinkItem", title: "ลิงก์ / Link", fields: linkItemFields },
+      ],
+      validation: (Rule) => Rule.min(1).error("ต้องมีอย่างน้อยหนึ่งลิงก์ / Add at least one link."),
     }),
   ],
 });
@@ -491,6 +522,8 @@ export function sectionsField(fieldName = "body") {
     description:
       "ประกอบหน้าจากบล็อกสำเร็จรูปด้านล่าง ไม่มีช่องสำหรับ HTML, CSS หรือโค้ดฝังใด ๆ / Compose the page from the blocks below. There is no field anywhere for HTML, CSS or embedded code.",
     validation: (Rule) =>
-      Rule.min(1).error("หน้าต้องมีเนื้อหาอย่างน้อยหนึ่งบล็อก / The page needs at least one content block."),
+      Rule.min(1).error(
+        "หน้าต้องมีเนื้อหาอย่างน้อยหนึ่งบล็อก / The page needs at least one content block."
+      ),
   });
 }

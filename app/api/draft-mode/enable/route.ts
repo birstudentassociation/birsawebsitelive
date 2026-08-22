@@ -21,19 +21,40 @@
  * content" is precisely the kind of security logic that should not be
  * reinvented per project.
  *
- * DEGRADE, DO NOT CRASH (§6.9). `client.withConfig({ token })` is built
- * with `requireTokenOrDegrade()`, which throws in development when
- * `SANITY_API_READ_TOKEN` is missing (a local setup mistake worth stopping
- * on) but returns `undefined` in production. Without a token,
- * `validatePreviewUrl` cannot read the secret document and every request
- * here 401s; preview is simply unavailable, and the public site, which
- * never imports this route, is entirely unaffected.
+ * DEGRADE, DO NOT CRASH (§6.9), AND THE GUARD BELOW EXISTS BECAUSE OF IT.
+ * `client.withConfig({ token })` is built with `requireTokenOrDegrade()`,
+ * which throws in development when `SANITY_API_READ_TOKEN` is missing (a
+ * local setup mistake worth stopping on) but returns `undefined` in
+ * production, so this module keeps loading with no token. Without the
+ * `isPreviewConfigured()` check below, an actual request to this route
+ * with no token configured does NOT reach a clean 401. `@sanity/preview-
+ * url-secret`'s `validatePreviewUrl` builds a Sanity client and throws a
+ * raw `TypeError` ("client must have a token specified") the moment it
+ * sees no token on the client, before it ever inspects the request's
+ * secret, and that throw is not caught anywhere inside
+ * `defineEnableDraftMode`. Confirmed by calling the built `GET` directly,
+ * offline, with an unconfigured client (`tests/unit/sanity-wiring.test.ts`
+ * reproduces it): the request throws rather than 401s. Next.js turns an
+ * uncaught route handler throw into a 500 for that one request, so this
+ * was never able to take the rest of the site down, but a 500 with a
+ * server stack trace is not "reports itself as not configured", so the
+ * explicit check restores the behaviour the rest of this file's comments
+ * already promised. With a token configured, `isPreviewConfigured()` is
+ * true and this route behaves exactly as the rest of this comment
+ * describes, unchanged.
  */
 import { defineEnableDraftMode } from "next-sanity/draft-mode";
 
 import { client } from "@/sanity/lib/client";
-import { requireTokenOrDegrade } from "@/sanity/lib/token";
+import { isPreviewConfigured, requireTokenOrDegrade } from "@/sanity/lib/token";
 
-export const { GET } = defineEnableDraftMode({
+const { GET: enableDraftMode } = defineEnableDraftMode({
   client: client.withConfig({ token: requireTokenOrDegrade() }),
 });
+
+export async function GET(request: Request) {
+  if (!isPreviewConfigured()) {
+    return new Response("Preview is not configured", { status: 401 });
+  }
+  return enableDraftMode(request);
+}
