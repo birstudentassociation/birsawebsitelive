@@ -96,11 +96,55 @@ function isRequired(field: { validation?: unknown }): boolean {
   return calledMethods.includes("required");
 }
 
-function fieldByName(fields: unknown, name: string): Record<string, unknown> {
-  const found = (fields as Array<Record<string, unknown>>).find((f) => f.name === name);
-  if (!found)
-    throw new Error(`No field named "${name}" (looked for it in a fixture, not a live schema)`);
+// ---------------------------------------------------------------------------
+// Find-and-assert helpers.
+//
+// `noUncheckedIndexedAccess` (tsconfig) is on, so `arr[i]`, `.find(...)` and
+// array destructuring all type as possibly `undefined`. That is correct: a
+// lookup here CAN fail, if a schema field gets renamed or a validator stops
+// registering a `.custom()` call, and a test that used the value anyway
+// would fail several lines later with a bare "cannot read property of
+// undefined" a reader has to reverse engineer. These three helpers do the
+// lookup and the assertion in one call, so a failure names exactly what
+// this test could not find and every caller gets a real, non optional
+// value back.
+// ---------------------------------------------------------------------------
+
+/** Returns `arr[index]`, or throws naming what was expected there. */
+function at<T>(arr: readonly T[], index: number, label: string): T {
+  const value = arr[index];
+  if (value === undefined) {
+    throw new Error(`Expected ${label} at index ${index}, found ${arr.length} item(s)`);
+  }
+  return value;
+}
+
+/** Returns the first item matching `predicate`, or throws naming what was being looked for. */
+function findOrThrow<T>(arr: readonly T[], predicate: (item: T) => boolean, label: string): T {
+  const found = arr.find(predicate);
+  if (found === undefined) {
+    throw new Error(`Expected to find ${label}, found none among ${arr.length} item(s)`);
+  }
   return found;
+}
+
+/** Same as `findOrThrow`, but for a type guard: the return value narrows to `S`. */
+function findTypedOrThrow<S>(arr: readonly unknown[], predicate: (item: unknown) => item is S, label: string): S {
+  const found = arr.find(predicate);
+  if (found === undefined) {
+    throw new Error(`Expected to find ${label}, found none among ${arr.length} item(s)`);
+  }
+  return found;
+}
+
+/** Runs a field's validation builder and returns the `.custom()` validator at `index`, asserting it exists. */
+function customValidatorAt(field: { validation?: unknown }, index: number, label: string): AnyFn {
+  return at(customValidatorsOf(field), index, `custom validator on ${label}`);
+}
+
+function fieldByName(fields: unknown, name: string): Record<string, unknown> {
+  const list = fields as Array<Record<string, unknown>>;
+  return findOrThrow(list, (f) => f.name === name, `a field named "${name}"`);
 }
 
 // ---------------------------------------------------------------------------
@@ -181,41 +225,69 @@ describe("no schema field anywhere in this cluster is named in sectionPalette.ts
 
 // ---------------------------------------------------------------------------
 // Portable Text: exactly allowedMarks and allowedBlocks, and h1 refused.
+//
+// `portableText.of`'s real element type is Sanity's own generic array-member
+// union, which this file has no reason to reproduce. `isBlockArrayMember`
+// and `isTableArrayMember` below narrow it by checking the one discriminant
+// field (`type`, plus `name` for the table) that actually distinguishes the
+// members our own schema put there, the same way any code reading a Sanity
+// schema definition at runtime would have to.
 // ---------------------------------------------------------------------------
 
+type StyleOrListOption = { title: string; value: string };
+
+type BlockArrayMember = {
+  type: "block";
+  styles: StyleOrListOption[];
+  lists: StyleOrListOption[];
+  marks: {
+    decorators: StyleOrListOption[];
+    annotations: Array<{ name: string }>;
+  };
+};
+
+function isBlockArrayMember(value: unknown): value is BlockArrayMember {
+  return typeof value === "object" && value !== null && (value as { type?: unknown }).type === "block";
+}
+
+function isTableArrayMember(value: unknown): value is { type: "object"; name: "table" } {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    (value as { type?: unknown }).type === "object" &&
+    (value as { name?: unknown }).name === "table"
+  );
+}
+
 describe("portableText", () => {
-  const blockMember = (portableText.of as Array<Record<string, unknown>>)[0];
+  const blockMember = findTypedOrThrow(portableText.of, isBlockArrayMember, "portableText's block array member");
 
   it("offers exactly the non-list, non-table styles from allowedBlocks, and never h1", () => {
-    const styles = (blockMember.styles as Array<{ value: string }>).map((s) => s.value);
+    const styles = blockMember.styles.map((s) => s.value);
     const expected = allowedBlocks.filter((v) => v !== "ul" && v !== "ol" && v !== "table");
     expect([...styles].sort()).toEqual([...expected].sort());
     expect(styles).not.toContain("h1");
   });
 
   it("offers exactly the list styles from allowedBlocks", () => {
-    const lists = (blockMember.lists as Array<{ value: string }>).map((l) => l.value);
+    const lists = blockMember.lists.map((l) => l.value);
     expect([...lists].sort()).toEqual(["ol", "ul"]);
   });
 
   it("offers exactly the decorator marks from allowedMarks, plus a link annotation, and nothing else", () => {
-    const marks = blockMember.marks as {
-      decorators: Array<{ value: string }>;
-      annotations: Array<{ name: string }>;
-    };
-    const decorators = marks.decorators.map((d) => d.value);
+    const decorators = blockMember.marks.decorators.map((d) => d.value);
     const expected = allowedMarks.filter((m) => m !== "link");
     expect([...decorators].sort()).toEqual([...expected].sort());
-    expect(marks.annotations.map((a) => a.name)).toEqual(["link"]);
+    expect(blockMember.marks.annotations.map((a) => a.name)).toEqual(["link"]);
   });
 
   it("also allows a table array member, for allowedBlocks's table value", () => {
     expect(allowedBlocks).toContain("table");
-    const memberTypes = (portableText.of as Array<Record<string, unknown>>).map((m) => m.type);
-    expect(memberTypes).toContain("object");
+    findTypedOrThrow(portableText.of, isTableArrayMember, "portableText's table array member");
   });
 
-  const [blockValidator, blockWarning] = customValidatorsOf(blockMember);
+  const blockValidator = customValidatorAt(blockMember, 0, "portableText block style rule (blocking)");
+  const blockWarning = customValidatorAt(blockMember, 1, "portableText block style rule (warning)");
 
   it("registers exactly one blocking validator and one warning validator on the block member", () => {
     expect(customValidatorsOf(blockMember)).toHaveLength(2);
@@ -293,11 +365,16 @@ describe("portableText", () => {
 });
 
 describe("portableTextInline (inset-text)", () => {
+  const inlineMember = findTypedOrThrow(
+    portableTextInline.of,
+    isBlockArrayMember,
+    "portableTextInline's block array member"
+  );
+
   it("carries only the plain paragraph style, no headings and no lists", () => {
-    const member = (portableTextInline.of as Array<Record<string, unknown>>)[0];
-    const styles = (member.styles as Array<{ value: string }>).map((s) => s.value);
+    const styles = inlineMember.styles.map((s) => s.value);
     expect(styles).toEqual(["normal"]);
-    expect(member.lists).toEqual([]);
+    expect(inlineMember.lists).toEqual([]);
   });
 
   it("carries no table member, unlike the full rich-text config", () => {
@@ -305,8 +382,7 @@ describe("portableTextInline (inset-text)", () => {
   });
 
   it("still refuses house style violations through the same validator", () => {
-    const member = (portableTextInline.of as Array<Record<string, unknown>>)[0];
-    const [validator] = customValidatorsOf(member);
+    const validator = customValidatorAt(inlineMember, 0, "portableTextInline block style rule");
     const block = {
       _type: "block",
       _key: "a",
