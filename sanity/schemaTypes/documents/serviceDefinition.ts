@@ -43,21 +43,24 @@
  * languages, and cannot publish until it is fixed. This is REDESIGN-2.0
  * §5.1 item 10, the rule the whole chassis exists for.
  *
- * A KNOWN DRIFT RISK, REPORTED RATHER THAN HIDDEN. `validateServiceDefinition`
- * needs `implementedRetentionActivityIds` and `sensitiveServiceIds`, which
- * `lib/services/registry.ts` computes as its own private, unexported
- * `IMPLEMENTED_RETENTION_ACTIVITY_IDS` and `SENSITIVE_SERVICE_IDS` consts.
- * `registry.ts` is Wave 4A's file, not this wave's, and is not in this
- * wave's owned path list, so it cannot be edited here to export them.
- * `STUDIO_IMPLEMENTED_RETENTION_ACTIVITY_IDS` and
- * `STUDIO_SENSITIVE_SERVICE_IDS` below are copies of their current values,
- * current as of this wave. If `retention.ts` gains a new purge step, or a
- * service is allowlisted sensitive, and `registry.ts` is updated to match,
- * this file's copies will silently fall behind unless someone updates both.
- * The fix is a one line export change in `registry.ts` in a later wave; this
- * file's report flags it so that change actually gets made rather than the
- * drift going unnoticed, which is precisely the failure class REDESIGN-2.0
- * §5.1 item 10 exists to prevent.
+ * A DRIFT RISK THAT WAS REPORTED AND THEN CLOSED, kept because the reasoning
+ * is what stops it reopening. `validateServiceDefinition` needs
+ * `implementedRetentionActivityIds` and `sensitiveServiceIds`, which
+ * `lib/services/registry.ts` held as private consts. Wave 3D could not edit
+ * that file, so it copied the values and said so rather than letting the
+ * duplication pass unremarked.
+ *
+ * The copies were correct on the day they were written, which is exactly the
+ * problem. A service whose retention path was implemented later, or one
+ * allowlisted sensitive later, would have been judged here by a stale list
+ * while the registry judged it by the real one. The Studio would have told an
+ * officer a service was publishable and the registry would then refuse to
+ * serve it, or worse the reverse. Two sources of truth for the rule that
+ * §5.1 item 10 exists to enforce is that rule's own failure mode.
+ *
+ * The orchestrator exported both from `registry.ts` at the wave boundary and
+ * this file imports them. There is one list again. Do not reintroduce a local
+ * copy to break an import cycle or to make a test simpler.
  */
 import { defineArrayMember, defineField, defineType } from "sanity";
 
@@ -67,6 +70,7 @@ import {
   type ServiceDefinition,
   type ServiceProblem,
 } from "@/lib/services/defineService";
+import { IMPLEMENTED_RETENTION_ACTIVITY_IDS, SENSITIVE_SERVICE_IDS } from "@/lib/services/registry";
 import { portfolios, type PortfolioId } from "@/lib/portfolios";
 import { activities } from "@/content/privacy/register";
 
@@ -138,17 +142,19 @@ const PRIVACY_ACTIVITY_OPTIONS = activities.map((activity) => ({
 /** A fortnight in hours. Mirrors `defineService.ts`'s private `MAX_STANDARD_HOURS`: past this, "escalation" stops being a standard and becomes an apology (that file's own words). */
 const MAX_STANDARD_HOURS = 24 * 14;
 
-/** See this file's own header, "A KNOWN DRIFT RISK". Copies `lib/services/registry.ts`'s `IMPLEMENTED_RETENTION_ACTIVITY_IDS`, current as of this wave. */
-const STUDIO_IMPLEMENTED_RETENTION_ACTIVITY_IDS: readonly string[] = [
-  "equipment-loan",
-  "borrower-record",
-  "audit-log",
-  "feedback",
-  "officer-account",
-];
-
-/** See this file's own header, "A KNOWN DRIFT RISK". Copies `lib/services/registry.ts`'s `SENSITIVE_SERVICE_IDS`, current as of this wave (empty: no chassis service is allowlisted sensitive yet). */
-const STUDIO_SENSITIVE_SERVICE_IDS: readonly string[] = [];
+// Imported from `lib/services/registry.ts`, not copied.
+//
+// Wave 3D had to copy these because that file was not in its owned paths, and
+// said so rather than letting the duplication pass unremarked. The copies were
+// correct on the day they were written, which is exactly the problem: a service
+// whose retention path was implemented later, or a service allowlisted
+// sensitive later, would have been judged by a stale list here while the
+// registry judged it by the real one. The Studio would have told an officer a
+// service was publishable and the registry would then have refused to serve it,
+// or worse, the reverse. Two sources of truth for a rule this one enforces is
+// the failure the rule exists to prevent.
+const STUDIO_IMPLEMENTED_RETENTION_ACTIVITY_IDS = IMPLEMENTED_RETENTION_ACTIVITY_IDS;
+const STUDIO_SENSITIVE_SERVICE_IDS = SENSITIVE_SERVICE_IDS;
 
 /**
  * Reconstructs a `ServiceDefinition` from the raw Studio document value.

@@ -73,7 +73,7 @@ import { rawServiceDefinitions } from "@/lib/services/definitions";
  * generic chassis submission. See
  * `lib/services/definitions/example-chassis-demo.ts` and the Wave 4A report.
  */
-const IMPLEMENTED_RETENTION_ACTIVITY_IDS: readonly string[] = [
+export const IMPLEMENTED_RETENTION_ACTIVITY_IDS: readonly string[] = [
   "equipment-loan",
   "borrower-record",
   "audit-log",
@@ -90,7 +90,7 @@ const IMPLEMENTED_RETENTION_ACTIVITY_IDS: readonly string[] = [
  * only if its hardening requirements can actually be met. Do not add an id
  * here speculatively.
  */
-const SENSITIVE_SERVICE_IDS: readonly string[] = [];
+export const SENSITIVE_SERVICE_IDS: readonly string[] = [];
 
 /**
  * The one place this file reads where definitions currently come from. See

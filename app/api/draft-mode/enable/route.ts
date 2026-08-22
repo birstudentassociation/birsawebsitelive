@@ -32,16 +32,21 @@
  * raw `TypeError` ("client must have a token specified") the moment it
  * sees no token on the client, before it ever inspects the request's
  * secret, and that throw is not caught anywhere inside
- * `defineEnableDraftMode`. Confirmed by calling the built `GET` directly,
- * offline, with an unconfigured client (`tests/unit/sanity-wiring.test.ts`
- * reproduces it): the request throws rather than 401s. Next.js turns an
- * uncaught route handler throw into a 500 for that one request, so this
- * was never able to take the rest of the site down, but a 500 with a
- * server stack trace is not "reports itself as not configured", so the
- * explicit check restores the behaviour the rest of this file's comments
- * already promised. With a token configured, `isPreviewConfigured()` is
- * true and this route behaves exactly as the rest of this comment
- * describes, unchanged.
+ * `defineEnableDraftMode`. Confirmed offline by calling the built `GET`
+ * directly with an unconfigured client, using `tsx` outside Vitest (Vitest
+ * in this checkout cannot resolve `next-sanity/draft-mode`'s own
+ * `next/headers` import in a test file that also mocks `next/headers`,
+ * which the disable route test in `tests/unit/sanity-wiring.test.ts`
+ * needs to do, so that file stubs `next-sanity/draft-mode` and asserts
+ * this route's own guard instead of the library's deeper throw): the
+ * request throws rather than 401s. Next.js turns an uncaught route
+ * handler throw into a 500 for that one request, so this was never able
+ * to take the rest of the site down, but a 500 with a server stack trace
+ * is not "reports itself as not configured", so the explicit check
+ * restores the behaviour the rest of this file's comments already
+ * promised. With a token configured, `isPreviewConfigured()` is true and
+ * this route behaves exactly as the rest of this comment describes,
+ * unchanged.
  */
 import { defineEnableDraftMode } from "next-sanity/draft-mode";
 

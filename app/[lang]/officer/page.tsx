@@ -160,10 +160,7 @@ export default async function OfficerHubPage({ params }: { params: Promise<{ lan
                   {t.studioSignInNote}
                 </Text>
                 <Text step="body-sm" className="text-muted">
-                  {t.studioHistoryNote.replace(
-                    "{days}",
-                    String(SANITY_HISTORY_RETENTION_DAYS)
-                  )}
+                  {t.studioHistoryNote.replace("{days}", String(SANITY_HISTORY_RETENTION_DAYS))}
                 </Text>
                 <div>
                   <Button href="/studio" variant="secondary">

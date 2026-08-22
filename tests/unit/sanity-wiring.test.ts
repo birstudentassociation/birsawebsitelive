@@ -22,11 +22,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { client } from "@/sanity/lib/client";
 import { apiVersion, dataset, projectId, studioBasePath } from "@/sanity/env";
-import {
-  SANITY_API_VERSION,
-  SANITY_DATASET,
-  SANITY_PROJECT_ID,
-} from "@/sanity/projectConfig";
+import { SANITY_API_VERSION, SANITY_DATASET, SANITY_PROJECT_ID } from "@/sanity/projectConfig";
 
 const REPO_ROOT = process.cwd();
 
@@ -196,7 +192,7 @@ describe("the read token never reaches a client component or a public export", (
     expect(offenders).toEqual([]);
   });
 
-  it("no importer of the token is marked \"use client\"", () => {
+  it('no importer of the token is marked "use client"', () => {
     const offenders: string[] = [];
     for (const file of importersOfToken()) {
       const text = readFileSync(file, "utf8");
@@ -271,9 +267,7 @@ describe("draft mode disable exists and clears it", () => {
 
 describe("the studio route is not under app/[lang]", () => {
   it("is mounted at app/studio, outside the bilingual route tree", () => {
-    expect(existsSync(path.join(REPO_ROOT, "app", "studio", "[[...tool]]", "page.tsx"))).toBe(
-      true
-    );
+    expect(existsSync(path.join(REPO_ROOT, "app", "studio", "[[...tool]]", "page.tsx"))).toBe(true);
     expect(existsSync(path.join(REPO_ROOT, "app", "[lang]", "studio"))).toBe(false);
   });
 

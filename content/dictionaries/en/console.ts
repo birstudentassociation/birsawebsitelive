@@ -31,8 +31,10 @@ export const officerConsole = {
     accessBody: "Every officer account, their portfolio, and when their access ends.",
     studioTitle: "Content Studio",
     studioBody: "Where officers edit pages and articles.",
-    studioSignInNote: "The Studio uses a separate sign in from this console. Sign in with the Sanity account BIRSA gave you.",
-    studioHistoryNote: "This plan keeps document history for {days} days. After that, a developer needs to restore an older version from a backup.",
+    studioSignInNote:
+      "The Studio uses a separate sign in from this console. Sign in with the Sanity account BIRSA gave you.",
+    studioHistoryNote:
+      "This plan keeps document history for {days} days. After that, a developer needs to restore an older version from a backup.",
     studioLinkLabel: "Open the Content Studio",
   },
   officerAccess: {
