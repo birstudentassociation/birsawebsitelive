@@ -7,36 +7,21 @@ other two while it sits.
 
 ---
 
-## Task 1. Apply for the Sanity non profit plan
+## Task 1. DONE. Sanity project exists
 
-**Time** 30 minutes, then wait days or weeks for a reply.
-**Unblocks** Wave 3 (the CMS) and Wave 6 (content migration). The largest
-remaining chunk of the project.
+Project `vbo54y9j`, dataset `production`, free plan, owned by
+birstudentassociation@gmail.com. Wave 3 is running.
 
-### 1a. Make sure you are signed in as BIRSA, not as yourself
+Two things still worth doing, neither blocking:
 
-Go to https://www.sanity.io and sign in with **birsa@tu.ac.th**.
-
-Not your personal account. Not a student address. If the project is created
-under a student login, that student owns BIRSA's content platform, and next
-June it leaves with them.
-
-### 1b. Create the project
-
-Create a new project. Use these values.
-
-```
-Project name: BIRSA Portal
-Dataset:      production
-```
-
-### 1c. Apply for the non profit plan
-
-The non profit plan is an application, not a signup toggle. Start here.
+**Apply for the non profit plan anyway.** You accepted the free plan knowingly,
+and that decision stands, but the application costs nothing and the non profit
+plan removes both limits you accepted. The two limits are real: every officer who
+can edit anything is an administrator of everything, and document history is kept
+for three days, so an officer's mistake from last week is a developer's problem
+again. Apply here, and the text to paste is below.
 
 https://www.sanity.io/contact/sales?type=nonprofit
-
-Copy and paste this as the description.
 
 ```
 BIR Student Association (BIRSA) is the student association of the Bachelor of
@@ -56,42 +41,15 @@ We are asking to use Sanity as the content platform so that officers can
 publish and correct content without a developer.
 ```
 
-### 1d. Check the quotas before you accept
+**Set the environment variable.** Wave 3 needs a read token to preview drafts.
+Create one in the Sanity project under API, Tokens, with **Viewer** permission,
+then add it in Vercel under the project's environment variables.
 
-This is the part the free price hides. Ask for, or find in the plan page, the
-limits on
+```
+SANITY_API_READ_TOKEN
+```
 
-- API requests per month
-- Bandwidth per month
-- Asset storage
-
-The site is bilingual, so every document exists twice, and we are adding
-photographs. Photographs are the thing most likely to run into an asset storage
-or bandwidth limit, not the text.
-
-### 1e. Count who actually publishes
-
-Do not assume twenty one committee members means twenty one seats.
-
-Ask each portfolio one question: **who in your portfolio actually publishes
-things.** For most portfolios the honest answer is one person.
-
-Write the number down before you look at any pricing page, so the number is not
-influenced by what it costs.
-
-There is a trap worth knowing. The built in **Viewer** role is free. A **custom**
-read only role is billed as a full user. So do not build a custom role to save
-money, because it does the opposite.
-
-### 1f. Tell me the outcome
-
-When you hear back, tell me either
-
-- accepted, and the quota numbers, or
-- refused
-
-You have already decided that if they refuse you will accept the free plan. That
-decision is recorded, along with what it costs you. I do not need to ask again.
+Give it Viewer, not Editor. Preview only needs to read.
 
 ---
 

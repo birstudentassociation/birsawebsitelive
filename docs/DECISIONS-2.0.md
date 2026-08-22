@@ -15,9 +15,30 @@ Status values: **open** (nobody has decided), **decided** (recorded below, with 
 
 ---
 
-## Gate 1: the Sanity plan. Blocked, and it gates Wave 3
+## Gate 1: the Sanity plan. OPEN. Project vbo54y9j exists
 
-**§6.11, §15 item 1. Status: blocked.**
+**§6.11, §15 item 1. Status: OPEN as of 2026-08-21. Wave 3 is unblocked and running.**
+
+Project id `vbo54y9j`, dataset `production`, on the FREE plan. The id is not a
+secret and lives in `sanity/projectConfig.ts` next to the code that uses it,
+along with what the free plan costs. The write token is a secret and is in no file.
+
+**ACCOUNT CUSTODY, and a deviation from §7.4 worth stating plainly.** The project
+is owned by `birstudentassociation@gmail.com`, which the operator confirms is the
+account used for all IT backend, not `birsa@tu.ac.th` as §7.4 asks for.
+
+The important half of §7.4 holds: this is an ORGANISATIONAL account rather than a
+student's personal one, so the failure the section exists to prevent, a graduating
+student walking away with BIRSA's infrastructure, does not apply. The half that
+does not hold is that a Gmail address is not an institutional one. If the faculty
+ever needs to recover access without the current officers, a `tu.ac.th` address is
+the one an institution can vouch for and a Gmail address is not. Recorded so it is
+a known trade rather than an oversight, and noting that migrating the owner later
+is possible but tedious across eight services.
+
+The remaining §7.4 items are unchanged people work with no dependency on this:
+GitHub, Vercel, the domain and DNS, Resend, Postgres, Blob and Edge Config should
+all sit on the same organisational account.
 
 The plan is explicit that this is a Wave 0 gate: "no schema work starts until the plan is
 known, because the answer determines whether section 7's permission model is enforceable or
