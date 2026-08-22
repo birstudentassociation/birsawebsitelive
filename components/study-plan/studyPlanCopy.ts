@@ -100,6 +100,26 @@ export type StudyPlanCopy = {
     freeElectiveHint: string;
     freeElectiveError: string;
   };
+  /**
+   * Labels shared by every control where a student types a course code or a
+   * course name and the field fills itself in: the fill step's placeholder
+   * slots and the plan screen's add-a-course picker. They live here, once,
+   * rather than under `fill` and `plan` separately, because the two controls
+   * are the same widget and a student who learns it on one screen must not
+   * be told something different about it on the other.
+   */
+  courseSearch: {
+    /** The empty prompt of the no-JavaScript select, and the placeholder of the text input that replaces it. */
+    prompt: string;
+    /** Hint under the label, saying that typing is a way to find a course. */
+    typeaheadHint: string;
+    /** Shown in place of the list when the typed text matches no course. */
+    noMatches: string;
+    /** Contains "{n}"; announced to screen readers as the list narrows. */
+    resultsTemplate: string;
+    /** Accessible name of the button that empties the field. */
+    clearLabel: string;
+  };
   fill: {
     title: string;
     hint: string;
@@ -322,6 +342,13 @@ const en: StudyPlanCopy = {
       "Free electives can be any Thammasat University course, so we cannot list them. Tell us the credits and we will count them.",
     freeElectiveError: "Enter a number of credits between 0 and 60",
   },
+  courseSearch: {
+    prompt: "Choose a course",
+    typeaheadHint: "Start typing a course code or a course name and pick from the list.",
+    noMatches: "No course matches what you typed.",
+    resultsTemplate: "{n} courses available",
+    clearLabel: "Clear this course",
+  },
   fill: {
     title: "Fill in what these courses were",
     hint: "Your plan holds a slot rather than a named course here. Choose what you actually took, or leave it if you have not taken it yet.",
@@ -505,6 +532,13 @@ const th: StudyPlanCopy = {
     freeElectiveHint:
       "วิชาเลือกเสรีอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ เราจึงไม่สามารถแสดงรายชื่อวิชาได้ โปรดแจ้งจำนวนหน่วยกิต และระบบจะนับให้ท่าน",
     freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 60",
+  },
+  courseSearch: {
+    prompt: "เลือกรายวิชา",
+    typeaheadHint: "พิมพ์รหัสวิชาหรือชื่อวิชา แล้วเลือกรายวิชาจากรายการที่ปรากฏ",
+    noMatches: "ไม่พบรายวิชาที่ตรงกับข้อความที่พิมพ์",
+    resultsTemplate: "มีรายวิชาที่ตรงกัน {n} รายการ",
+    clearLabel: "ล้างรายวิชาในช่องนี้",
   },
   fill: {
     title: "ระบุว่ารายวิชาเหล่านี้คือวิชาใด",
