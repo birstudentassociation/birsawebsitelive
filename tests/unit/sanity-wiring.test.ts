@@ -31,6 +31,48 @@ import {
 const REPO_ROOT = process.cwd();
 
 // ---------------------------------------------------------------------------
+// Mocks for the draft mode route tests further down. `vi.mock` hoists to the
+// top of the module regardless of where it is written, so these live at the
+// true top level rather than nested in their `describe` blocks, matching
+// what Vitest actually does with them.
+//
+// `next-sanity/draft-mode` is stubbed rather than exercised for real. Its
+// compiled bundle imports `next/headers` itself, and mocking `next/headers`
+// (needed for the disable route test below) breaks Vite's resolution of
+// that transitive import from inside `node_modules` in this environment,
+// independently of anything in this file, confirmed with a minimal
+// reproduction that mocks nothing else at all. Stubbing the library here
+// means these tests exercise this wave's own code, which is what they are
+// for: the guard in `app/api/draft-mode/enable/route.ts` and the disable
+// route in `app/api/draft-mode/disable/route.ts`. The library's own secret
+// validation was checked separately, offline, by calling the built route
+// directly with `tsx` outside Vitest (see the report for this wave): a
+// request with a token configured but no `sanity-preview-secret` query
+// parameter gets a clean 401 with no network call, and a request built with
+// no token at all threw before this wave added the `isPreviewConfigured()`
+// guard the first test below exists to pin down.
+// ---------------------------------------------------------------------------
+const draftModeState = vi.hoisted(() => ({ disable: vi.fn() }));
+const enableDraftModeStub = vi.hoisted(() =>
+  vi.fn(async () => new Response("stub delegated to next-sanity", { status: 200 }))
+);
+
+vi.mock("next/headers", () => ({
+  draftMode: async () => draftModeState,
+}));
+vi.mock("next/navigation", () => ({
+  redirect: (to: string) => {
+    // The real `redirect()` also aborts the handler by throwing; a route
+    // that swallowed that would keep running past the redirect, which is
+    // its own bug, so the fake reproduces the throw.
+    throw new Error(`redirect:${to}`);
+  },
+}));
+vi.mock("next-sanity/draft-mode", () => ({
+  defineEnableDraftMode: () => ({ GET: enableDraftModeStub }),
+}));
+
+// ---------------------------------------------------------------------------
 // A small source tree walker, in the spirit of the repo wide sweep
 // `tests/unit/bds-type.test.tsx` and `tests/unit/design-completeness.test.ts`
 // run over `components/bds/`, widened here to the directories that could
@@ -188,44 +230,34 @@ describe("draft mode enable refuses an unauthorised request", () => {
       process.env.SANITY_API_READ_TOKEN = ORIGINAL_TOKEN;
     }
     vi.resetModules();
+    enableDraftModeStub.mockClear();
   });
 
-  it("401s, and does not throw, when no read token is configured at all", async () => {
+  it("401s, and never delegates to next-sanity, when no read token is configured at all", async () => {
     delete process.env.SANITY_API_READ_TOKEN;
     vi.resetModules();
     const { GET } = await import("@/app/api/draft-mode/enable/route");
     const response = await GET(new Request("http://localhost/api/draft-mode/enable"));
     expect(response.status).toBe(401);
+    expect(enableDraftModeStub).not.toHaveBeenCalled();
   });
 
-  it("401s a request with no preview secret, even with a token configured", async () => {
-    // A fake, non secret value is enough here. This path never calls
-    // Sanity: `@sanity/preview-url-secret`'s `parsePreviewUrl` rejects a
-    // request with no `sanity-preview-secret` query parameter before it
-    // builds a query, so this assertion holds with no network access.
+  it("delegates to next-sanity's own secret check once a token is configured", async () => {
+    // The proof that a configured deployment still works: the route does
+    // not refuse every request outright, only the ones it cannot even
+    // attempt to authorise.
     process.env.SANITY_API_READ_TOKEN = "test-token-not-a-real-secret";
     vi.resetModules();
     const { GET } = await import("@/app/api/draft-mode/enable/route");
-    const response = await GET(new Request("http://localhost/api/draft-mode/enable"));
-    expect(response.status).toBe(401);
+    const request = new Request("http://localhost/api/draft-mode/enable");
+    const response = await GET(request);
+    expect(response.status).toBe(200);
+    expect(enableDraftModeStub).toHaveBeenCalledTimes(1);
+    expect(enableDraftModeStub).toHaveBeenCalledWith(request);
   });
 });
 
 describe("draft mode disable exists and clears it", () => {
-  const draftModeState = vi.hoisted(() => ({ disable: vi.fn() }));
-
-  vi.mock("next/headers", () => ({
-    draftMode: async () => draftModeState,
-  }));
-  vi.mock("next/navigation", () => ({
-    redirect: (to: string) => {
-      // The real `redirect()` also aborts the handler by throwing; a
-      // route that swallowed that would keep running past the redirect,
-      // which is its own bug, so the fake reproduces the throw.
-      throw new Error(`redirect:${to}`);
-    },
-  }));
-
   afterEach(() => {
     draftModeState.disable.mockClear();
   });
