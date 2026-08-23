@@ -8,7 +8,7 @@ import Button from "@/components/bds/Button";
 import NavList, { NavListItem } from "@/components/bds/NavList";
 import { Heading, Text } from "@/components/bds/Type";
 import { Section, Wrap } from "@/components/bds/Layout";
-import { defaultPrimaryNav } from "@/components/bds/Header";
+import { defaultPrimaryNav } from "@/components/bds/nav";
 import WhatsOnCard from "@/components/home/WhatsOnCard";
 import { homeNamespace as homeEn } from "@/content/dictionaries/en/home";
 import { homeNamespace as homeTh } from "@/content/dictionaries/th/home";

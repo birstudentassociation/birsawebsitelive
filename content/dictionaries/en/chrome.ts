@@ -113,7 +113,8 @@ export const chrome = {
     // §7, D7). This line states plainly what the reader can already see is
     // true of the page in front of them, rather than leaving them to guess
     // whether anything they typed is now sitting in a log somewhere public.
-    reassurance: "This page does not show any technical detail about what went wrong, and it has not kept anything you typed before the error happened.",
+    reassurance:
+      "This page does not show any technical detail about what went wrong, and it has not kept anything you typed before the error happened.",
     tryAgain: "Try again",
     home: "Go to the home page",
   },

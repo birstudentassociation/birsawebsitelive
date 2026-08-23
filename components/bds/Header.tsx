@@ -1,5 +1,14 @@
 "use client";
 
+import { defaultPrimaryNav, type NavLink } from "@/components/bds/nav";
+
+// Re-exported so existing callers keep working. The values themselves live in
+// `nav.ts`, which has no "use client", because a server component importing a
+// value from a client module gets a client reference proxy rather than the
+// value. See that file's header.
+export { defaultPrimaryNav };
+export type { NavLink };
+
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -51,26 +60,6 @@ import ThemeToggle from "@/components/bds/ThemeToggle";
  * not a bug: without it, a no-JS visitor would see a `hidden` panel with no
  * way to un-hide it.
  */
-
-export type NavLink = {
-  /** Path relative to the locale root, e.g. "/do". Passed through `localeHref`. */
-  href: string;
-  label: { th: string; en: string };
-};
-
-/**
- * The five primary destinations from `docs/ROUTE-MAP-2.0.md` §3.2. This is
- * the default value of the `nav` prop, and therefore the seam the CMS
- * fills: a future edit here is "the CMS is not up yet", never "the copy
- * changed", because once Sanity exists this array stops being read at all.
- */
-export const defaultPrimaryNav: NavLink[] = [
-  { href: "/do", label: { en: "Do something", th: "ทำเรื่อง" } },
-  { href: "/help", label: { en: "Get help", th: "ขอความช่วยเหลือ" } },
-  { href: "/whats-on", label: { en: "What's on", th: "ข่าวและกิจกรรม" } },
-  { href: "/studies", label: { en: "Your studies", th: "เรื่องเรียน" } },
-  { href: "/about", label: { en: "About BIRSA", th: "เกี่ยวกับ BIRSA" } },
-];
 
 export type HeaderProps = {
   locale: Locale;

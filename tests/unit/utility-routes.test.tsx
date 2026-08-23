@@ -249,7 +249,7 @@ describe("Gate 4: no cookie banner, because no consent is required", () => {
     // existence, not only its use.
     function walk(dir: string): string[] {
       const abs = join(REPO_ROOT, dir);
-      let entries: ReturnType<typeof readdirSync>;
+      let entries: import("node:fs").Dirent[];
       try {
         entries = readdirSync(abs, { withFileTypes: true });
       } catch {
@@ -337,18 +337,28 @@ describe("/search: works with JavaScript off, and results name their destination
     const { container } = render(el);
     assertOneH1();
 
-    const links = screen.getAllByRole("link").filter((link) => {
-      const href = link.getAttribute("href") ?? "";
-      return href.startsWith("/en/") && href !== "/en/search";
-    });
-    expect(links.length).toBeGreaterThan(0);
+    // Results render as an <ol> (components/search/ResultList.tsx), one <li>
+    // per result, each carrying a section Tag before the title link, so a
+    // reader sees where a result goes without following it. The page also
+    // has its own breadcrumb <ol> (components/bds/Breadcrumbs.tsx), so the
+    // result list is picked out as the one NOT inside [data-breadcrumbs].
+    const resultList = [...container.querySelectorAll("ol")].find(
+      (ol) => !ol.closest("[data-breadcrumbs]")
+    );
+    expect(resultList).not.toBeNull();
+    const rows = [...resultList!.querySelectorAll("li")];
+    expect(rows.length).toBeGreaterThan(0);
 
-    // Every result names its destination up front: a section label sits
-    // beside the title before the reader ever clicks.
-    for (const link of links.slice(0, 5)) {
-      const row = link.closest("li");
-      expect(row).not.toBeNull();
-      expect(row!.textContent?.trim().length).toBeGreaterThan(0);
+    for (const row of rows.slice(0, 5)) {
+      const link = row.querySelector("a[href]");
+      expect(link).not.toBeNull();
+      expect(link!.getAttribute("href")).toMatch(/^\/en(\/|$)/);
+      // The section Tag (a pill span, e.g. "Services", "Guided answers")
+      // sits in the same row as the link, naming the destination's kind
+      // before the reader ever clicks the title.
+      const sectionTag = row.querySelector("span.rounded-full");
+      expect(sectionTag, row.innerHTML).not.toBeNull();
+      expect(sectionTag!.textContent?.trim().length).toBeGreaterThan(0);
     }
 
     assertNoRawTypeUtilities(container);
@@ -363,10 +373,14 @@ describe("/search: works with JavaScript off, and results name their destination
       params: Promise.resolve({ lang: "th" }),
       searchParams: Promise.resolve({ q: "ยืมอุป" }),
     });
-    render(el);
+    const { container } = render(el);
     assertOneH1();
-    const status = screen.getByRole("status");
-    expect(status.textContent).not.toMatch(/^0 |ไม่พบ/);
+    // Two `role="status"` elements exist on the page: SearchBox's visually
+    // hidden typeahead-suggestion-count span, and the visible result-count
+    // line the results page itself renders as a <p>.
+    const status = container.querySelector('p[role="status"]');
+    expect(status).not.toBeNull();
+    expect(status!.textContent).not.toMatch(/^0 |ไม่พบ/);
   });
 
   it("lib/search/text.ts: keeps Thai runs whole rather than splitting on whitespace (there is none to split on)", () => {
@@ -382,9 +396,11 @@ describe("/search: works with JavaScript off, and results name their destination
       params: Promise.resolve({ lang: "en" }),
       searchParams: Promise.resolve({}),
     });
-    render(el);
+    const { container } = render(el);
     assertOneH1();
-    expect(screen.getByRole("status")).toHaveTextContent(/at least 2 characters/i);
+    const status = container.querySelector('p[role="status"]');
+    expect(status).not.toBeNull();
+    expect(status).toHaveTextContent(/at least 2 characters/i);
   });
 });
 

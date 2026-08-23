@@ -7,6 +7,7 @@ import { jenjrusVris } from "@/lib/fonts";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/bds/SkipLink";
+import HeaderSearch from "@/components/search/HeaderSearch";
 import EmergencyBannerClient from "@/components/EmergencyBannerClient";
 import { getEmergencyBannerData } from "@/lib/emergency";
 import { THEME_SCRIPT } from "@/lib/theme-script";
@@ -150,7 +151,27 @@ export default async function RootLayout({
         >
           {phaseCopy[locale].message}
         </PhaseBanner>
-        <Header locale={locale} />
+        {/*
+          `searchSlot` exists because `Header` takes search as a prop rather
+          than importing it, and until now nothing passed one. The component
+          was built, tested and completely unreachable: the only thing wiring
+          it in was the 1.0 header this layout stopped rendering. Search had
+          silently disappeared from the live site.
+        */}
+        <Header
+          locale={locale}
+          searchSlot={
+            <HeaderSearch
+              locale={locale}
+              href={localeHref(locale, "/search")}
+              label={dict.actions.search}
+              closeLabel={dict.a11y.closeSearch}
+              searchLabel={dict.actions.searchPlaceholder}
+              placeholder={dict.actions.searchPlaceholder}
+              submitLabel={dict.actions.search}
+            />
+          }
+        />
         {/*
           `tabIndex={-1}` makes the skip link actually move focus, not just
           scroll. Without it the browser scrolls to the landmark but leaves

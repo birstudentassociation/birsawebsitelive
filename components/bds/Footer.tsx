@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary, localeHref } from "@/lib/i18n";
 import { contact, officialLinks, socials } from "@/content/site";
-import { defaultPrimaryNav, type NavLink } from "@/components/bds/Header";
+import { defaultPrimaryNav, type NavLink } from "@/components/bds/nav";
 import { Heading, Text } from "@/components/bds/Type";
 import { Stack, Wrap } from "@/components/bds/Layout";
 import ExternalLink from "@/components/bds/ExternalLink";
