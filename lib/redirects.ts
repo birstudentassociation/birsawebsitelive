@@ -124,6 +124,61 @@ export const redirectRules: RedirectRule[] = [
     why: "§3.2 and D2: a student looking for the rules on club funding does not think 'activity'. The regulations library is one of three unrelated jobs filed under one internal label, and this is the one that is help.",
   },
 
+  // --- The §3.6 ABSORB dispositions (docs/SCOPE-AUDIT-2.0.md §3.2 and §3.3,
+  // approved by the operator 2026-08-23).
+  //
+  // These six documents do NOT survive at their own URL. Each one's BIR
+  // specific slice is folded into a destination page and the rest is dropped
+  // as content somebody else already publishes better, so the old slug has to
+  // point at whichever 2.0 page absorbed it rather than at the subtree rule's
+  // generic target. They are listed BEFORE the `/student-life/...` subtree
+  // rules below because `resolveRedirect` takes the first match, and the
+  // subtree rules would otherwise swallow them into `/help/guides` and
+  // `/help/international`.
+  //
+  // `subtree: false` on every one: these are leaf documents under
+  // `/student-life/[audience]/[slug]`, with nothing beneath them.
+  //
+  // These are the audit's dispositions, not a subagent's judgement. The
+  // frozen-contract rule at the top of this file still holds: Wave 6's
+  // dispositions agent may not touch this list.
+  {
+    from: "/student-life/home/getting-around",
+    to: "/help/getting-started",
+    subtree: false,
+    why: "§3.6 ABSORB. The generic Bangkok transit content duplicates live Google Maps directions; the Rangsit routing table is the BIR specific slice and moves into Getting started.",
+  },
+  {
+    from: "/student-life/home/getting-involved",
+    to: "/whats-on/clubs",
+    subtree: false,
+    why: "§3.6 ABSORB. The BIR club directory is BIRSA's own and joins the rest of What's on; the TPC/TU club tables and TUSU/TUSC contacts are those bodies' information and become a signpost. D2 resolves the apparent conflict with the nav card sort: the DIRECTORY lives here, the ACT of joining is a /do service that links to it.",
+  },
+  {
+    from: "/student-life/home/rights-and-welfare",
+    to: "/help/regulations",
+    subtree: false,
+    why: "§3.6 ABSORB. 'The rules that apply to you' is what /help/regulations is for, and the elections half already duplicated getting-involved.mdx.",
+  },
+  {
+    from: "/student-life/home/safety-and-emergencies",
+    to: "/help/reporting",
+    subtree: false,
+    why: "§3.6 ABSORB. The page bundles four jobs. Harassment reporting is core BIRSA functionality and is the half that has to keep working, so the old slug follows it; river safety and scam patterns move with it as local knowledge.",
+  },
+  {
+    from: "/student-life/home/study-support",
+    to: "/help/university-services",
+    subtree: false,
+    why: "§3.6 ABSORB. TU library and TU-GET content with no BIR specific slice, already a second copy of what /services/university-services carried, and the two disagreed on the printing quota.",
+  },
+  {
+    from: "/student-life/international/arrival-and-first-week",
+    to: "/help/getting-started",
+    subtree: false,
+    why: "§3.6 ABSORB. The BIRSA welcome content and the first week setup checklist are BIR specific and belong in Getting started; the visa and enrolment items already pointed out to TU International Affairs.",
+  },
+
   // --- Your studies
   {
     from: "/student-life/course-reviews",
