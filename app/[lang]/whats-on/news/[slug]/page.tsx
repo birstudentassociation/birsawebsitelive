@@ -110,7 +110,12 @@ export default async function WhatsOnNewsArticlePage({
           </dl>
         ) : null}
 
-        <Mdx source={content} newTabLabel={dict.a11y.newTab} tableRegionLabel={dict.a11y.table} locale={locale} />
+        <Mdx
+          source={content}
+          newTabLabel={dict.a11y.newTab}
+          tableRegionLabel={dict.a11y.table}
+          locale={locale}
+        />
 
         {frontmatter.links && frontmatter.links.length > 0 ? (
           <div className="mt-8 max-w-[var(--measure)]">

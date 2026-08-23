@@ -6,12 +6,34 @@ import { buildMetadata } from "@/lib/seo";
 import { runSearch } from "@/lib/search/query";
 import { sectionLabel, sectionOrder } from "@/lib/search/sections";
 import type { SectionKey } from "@/lib/search/types";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap, Stack } from "@/components/bds/Layout";
+import Notice from "@/components/bds/Notice";
+import PageHeader from "@/components/bds/PageHeader";
+import { Heading, Text } from "@/components/bds/Type";
 import SearchBox from "@/components/search/SearchBox";
 import BestBetCard from "@/components/search/BestBetCard";
 import ResultList from "@/components/search/ResultList";
+
+/**
+ * `/search` (ROUTE-MAP-2.0 Wave 5F).
+ *
+ * A plain `<form method="GET">` submitted server-side: `runSearch` reads
+ * `searchParams` and renders results in the same request, so the whole page
+ * works with JavaScript off. `components/search/SearchBox` only ever adds a
+ * typeahead panel on top of that baseline; it never intercepts the submit
+ * in a way that would leave a no-JS reader stuck. Every result names its
+ * destination up front (a section `Tag`, then the title as the link itself)
+ * rather than requiring a click to find out where it goes.
+ *
+ * Thai is written with no spaces between words, so `lib/search/text.ts`
+ * (read only; not owned by this wave) deliberately does not tokenise Thai
+ * on whitespace: Thai runs are matched as substrings and prefixes, with a
+ * character-bigram fallback for a missing tone mark or a partial word. That
+ * is the correct answer to the no-spaces problem and this page does not
+ * regress it.
+ */
 
 export async function generateMetadata({
   params,
@@ -95,9 +117,33 @@ function searchQueryHref(locale: Locale, query: string, section?: SectionKey): s
   return `${localeHref(locale, "/search")}?${params.toString()}`;
 }
 
-const pillBase = "inline-flex h-11 items-center rounded-full px-4 text-sm font-semibold";
+const pillBase = "inline-flex h-11 items-center rounded-full px-4 font-semibold";
 const pillActive = "border-2 border-ink bg-ink text-cream";
 const pillInactive = "border-input-border text-ink hover:bg-sunken border";
+
+function Pill({
+  href,
+  active,
+  current,
+  children,
+}: {
+  href: string;
+  active: boolean;
+  current?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-current={current ? "true" : undefined}
+      className={`${pillBase} ${active ? pillActive : pillInactive}`}
+    >
+      <Text as="span" step="body-sm">
+        {children}
+      </Text>
+    </Link>
+  );
+}
 
 export default async function SearchPage({
   params,
@@ -145,8 +191,13 @@ export default async function SearchPage({
             items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap flex flex-col gap-8 py-10">
+      <Wrap className="flex flex-col gap-8 py-10">
         <SearchBox
           locale={locale}
           defaultValue={response.query}
@@ -158,19 +209,21 @@ export default async function SearchPage({
         />
 
         {!response.ran ? (
-          <div className="flex flex-col gap-6">
-            <p role="status" className="text-sm text-muted">
-              {t.minChars}
+          <Stack gap="lg">
+            <p role="status">
+              <Text as="span" step="body-sm" className="text-muted">
+                {t.minChars}
+              </Text>
             </p>
             <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
             <BrowseSections locale={locale} heading={t.browseHeading} />
-          </div>
+          </Stack>
         ) : (
-          <div className="flex flex-col gap-8">
+          <Stack gap="lg">
             {response.bestBet ? <BestBetCard bestBet={response.bestBet} /> : null}
 
             {response.didYouMean ? (
-              <p className="text-sm text-ink">
+              <Text as="p" step="body-sm" className="text-ink">
                 {t.didYouMeanPrefix}{" "}
                 <Link
                   href={searchQueryHref(locale, response.didYouMean)}
@@ -179,40 +232,42 @@ export default async function SearchPage({
                   {response.didYouMean}
                 </Link>
                 {t.didYouMeanSuffix}
-              </p>
+              </Text>
             ) : null}
 
-            <p role="status" className="text-sm text-muted">
-              {capped
-                ? t.showingOf(resultCount, matchedInView)
-                : `${dict.actions.showing} ${resultCount} ${
-                    resultCount === 1 ? dict.actions.result : dict.actions.results
-                  }`}
-              {response.section ? ` ${t.inSection(sectionLabel(locale, response.section))}` : ""}
+            <p role="status">
+              <Text as="span" step="body-sm" className="text-muted">
+                {capped
+                  ? t.showingOf(resultCount, matchedInView)
+                  : `${dict.actions.showing} ${resultCount} ${
+                      resultCount === 1 ? dict.actions.result : dict.actions.results
+                    }`}
+                {response.section ? ` ${t.inSection(sectionLabel(locale, response.section))}` : ""}
+              </Text>
             </p>
 
             {response.facets.length > 0 ? (
               <ul className="flex flex-wrap gap-2">
                 <li>
-                  <Link
+                  <Pill
                     href={searchQueryHref(locale, response.query)}
-                    aria-current={!response.section ? "true" : undefined}
-                    className={`${pillBase} ${!response.section ? pillActive : pillInactive}`}
+                    active={!response.section}
+                    current={!response.section}
                   >
                     {t.allChip} ({response.total})
-                  </Link>
+                  </Pill>
                 </li>
                 {response.facets.map((facet) => {
                   const active = response.section === facet.key;
                   return (
                     <li key={facet.key}>
-                      <Link
+                      <Pill
                         href={searchQueryHref(locale, response.query, facet.key)}
-                        aria-current={active ? "true" : undefined}
-                        className={`${pillBase} ${active ? pillActive : pillInactive}`}
+                        active={active}
+                        current={active}
                       >
                         {facet.label} ({facet.count})
-                      </Link>
+                      </Pill>
                     </li>
                   );
                 })}
@@ -220,17 +275,17 @@ export default async function SearchPage({
             ) : null}
 
             {resultCount === 0 ? (
-              <div className="flex flex-col gap-6">
+              <Stack gap="lg">
                 <Notice variant="info">{dict.actions.noResults}</Notice>
                 <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
                 <BrowseSections locale={locale} heading={t.browseHeading} />
-              </div>
+              </Stack>
             ) : (
               <ResultList results={response.results} locale={locale} />
             )}
-          </div>
+          </Stack>
         )}
-      </div>
+      </Wrap>
     </>
   );
 }
@@ -246,34 +301,38 @@ function PopularChips({
 }) {
   if (terms.length === 0) return null;
   return (
-    <div className="flex flex-col gap-3">
-      <h2 className="font-display text-lg">{heading}</h2>
+    <Stack gap="sm">
+      <Heading level={2} step="heading-2">
+        {heading}
+      </Heading>
       <ul className="flex flex-wrap gap-2">
         {terms.map((term) => (
           <li key={term}>
-            <Link href={searchQueryHref(locale, term)} className={`${pillBase} ${pillInactive}`}>
+            <Pill href={searchQueryHref(locale, term)} active={false}>
               {term}
-            </Link>
+            </Pill>
           </li>
         ))}
       </ul>
-    </div>
+    </Stack>
   );
 }
 
 function BrowseSections({ locale, heading }: { locale: Locale; heading: string }) {
   return (
-    <div className="flex flex-col gap-3">
-      <h2 className="font-display text-lg">{heading}</h2>
+    <Stack gap="sm">
+      <Heading level={2} step="heading-2">
+        {heading}
+      </Heading>
       <ul className="flex flex-wrap gap-2">
         {browseSections.map(({ key, path }) => (
           <li key={key}>
-            <Link href={localeHref(locale, path)} className={`${pillBase} ${pillInactive}`}>
+            <Pill href={localeHref(locale, path)} active={false}>
               {sectionLabel(locale, key)}
-            </Link>
+            </Pill>
           </li>
         ))}
       </ul>
-    </div>
+    </Stack>
   );
 }

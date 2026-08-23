@@ -197,7 +197,8 @@ const content: Record<
     a11yTest:
       "ทุกครั้งที่มีการแก้โค้ด ระบบทดสอบอัตโนมัติสองชุดจะทำงานบนเอนจินการแสดงผลของ Chrome, Firefox และ Safari ชุดแรกใช้ axe-core ตรวจทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด เทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA ชุดที่สองใช้งานทุกหน้าด้วยคีย์บอร์ดอย่างเดียว เพื่อตรวจสิ่งที่ชุดแรกตรวจไม่ได้ เช่น โฟกัสต้องมองเห็นชัดเจนเสมอและไม่ติดค้าง เมนูและกล่องโต้ตอบเปิดปิดได้ถูกต้อง และแบบฟอร์มทั้งหมดกรอกจนจบได้โดยไม่ต้องใช้เมาส์ การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถพิสูจน์ได้ว่าบริการเข้าถึงได้จริง เพราะจับได้เฉพาะข้อบกพร่องทางเทคนิคชุดหนึ่งเท่านั้น",
     a11yLimitsTitle: "ข้อจำกัดที่เรารู้",
-    a11yLimitsIntro: "นี่คือข้อจำกัดที่เรารู้อยู่แล้ว เราเลือกที่จะบอกไว้ตรง ๆ ดีกว่าปล่อยให้คุณเจอเองโดยไม่ทันตั้งตัว",
+    a11yLimitsIntro:
+      "นี่คือข้อจำกัดที่เรารู้อยู่แล้ว เราเลือกที่จะบอกไว้ตรง ๆ ดีกว่าปล่อยให้คุณเจอเองโดยไม่ทันตั้งตัว",
     a11yIssues: [
       {
         title: "ยังไม่มีการทดสอบด้วยเทคโนโลยีสิ่งอำนวยความสะดวก",
@@ -222,7 +223,8 @@ const content: Record<
     perfTitle: "ข้อมูลการใช้งาน",
     perfBody:
       "เราใช้ระบบวิเคราะห์ข้อมูลแบบไม่ใช้คุกกี้และเป็นมิตรกับความเป็นส่วนตัว เพื่อดูว่าหน้าไหนมีประโยชน์และตรงไหนที่คนใช้งานติดขัด โดยไม่ติดตามตัวบุคคล ดูรายละเอียดที่หน้าคุกกี้ว่าเว็บไซต์นี้ตั้งค่าอะไรไว้ในเบราว์เซอร์ของคุณบ้างและเพราะเหตุใด",
-    perfNotice: "เราจะเผยแพร่สถิติการใช้งานที่นี่หลังจากเว็บไซต์เปิดใช้งานจริงและมีข้อมูลที่พอจะแชร์ได้",
+    perfNotice:
+      "เราจะเผยแพร่สถิติการใช้งานที่นี่หลังจากเว็บไซต์เปิดใช้งานจริงและมีข้อมูลที่พอจะแชร์ได้",
     maintainTitle: "การดูแลเว็บไซต์",
     maintainBody:
       "เนื้อหาและโค้ดของเว็บไซต์นี้เก็บอยู่ในระบบควบคุมเวอร์ชัน การเปลี่ยนแปลงทุกครั้งจะผ่านการตรวจสอบโดยคณะกรรมการ BIRSA ก่อนเผยแพร่ และเราตั้งใจจะปรับปรุงเว็บไซต์นี้อย่างต่อเนื่อง ไม่ใช่ทำครั้งเดียวจบ",
@@ -274,69 +276,69 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
         </Section>
 
         <div id="accessibility" className="scroll-mt-24">
-        <Section as="div">
-          <Stack gap="md">
-            <Heading level={2}>{t.a11yTitle}</Heading>
-            <Text step="body" className="text-muted">
-              {t.a11yIntro}
-            </Text>
-            <Text step="body" className="text-muted">
-              {t.a11yComplianceStatus}
-            </Text>
+          <Section as="div">
+            <Stack gap="md">
+              <Heading level={2}>{t.a11yTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.a11yIntro}
+              </Text>
+              <Text step="body" className="text-muted">
+                {t.a11yComplianceStatus}
+              </Text>
 
-            <Heading level={3}>{t.a11yWhatWeDoTitle}</Heading>
-            <Stack as="ul" gap="xs" className="list-disc pl-5">
-              {t.a11yWhatWeDo.map((item) => (
-                <Text as="li" step="body" key={item} className="text-muted">
-                  {item}
-                </Text>
-              ))}
-            </Stack>
+              <Heading level={3}>{t.a11yWhatWeDoTitle}</Heading>
+              <Stack as="ul" gap="xs" className="list-disc pl-5">
+                {t.a11yWhatWeDo.map((item) => (
+                  <Text as="li" step="body" key={item} className="text-muted">
+                    {item}
+                  </Text>
+                ))}
+              </Stack>
 
-            <Heading level={3}>{t.a11yTestTitle}</Heading>
-            <Text step="body" className="text-muted">
-              {t.a11yTest}
-            </Text>
+              <Heading level={3}>{t.a11yTestTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.a11yTest}
+              </Text>
 
-            <Heading level={3}>{t.a11yLimitsTitle}</Heading>
-            <Text step="body" className="text-muted">
-              {t.a11yLimitsIntro}
-            </Text>
-            <Accordion
-              items={t.a11yIssues.map((issue) => ({
-                id: issue.title,
-                summary: issue.title,
-                children: issue.body,
-              }))}
-            />
-
-            <Heading level={3}>{t.a11yPreparedTitle}</Heading>
-            <Text step="body" className="text-muted">
-              {t.a11yPrepared}
-            </Text>
-
-            <Heading level={3}>{t.a11yReportTitle}</Heading>
-            <Text step="body" className="text-muted">
-              {t.a11yReportBody}{" "}
-              <Email
-                address={contact.email}
-                className="font-semibold text-brand-deep hover:text-brand-dark"
-              />{" "}
-              {locale === "th" ? "หรือ" : "or"}{" "}
-              <Email
-                address={contact.secondaryEmail}
-                className="font-semibold text-brand-deep hover:text-brand-dark"
+              <Heading level={3}>{t.a11yLimitsTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.a11yLimitsIntro}
+              </Text>
+              <Accordion
+                items={t.a11yIssues.map((issue) => ({
+                  id: issue.title,
+                  summary: issue.title,
+                  children: issue.body,
+                }))}
               />
-              .{" "}
-              <Link
-                href={localeHref(locale, "/contact")}
-                className="font-semibold text-brand-deep underline hover:text-brand-dark"
-              >
-                {t.a11yReportCta}
-              </Link>
-            </Text>
-          </Stack>
-        </Section>
+
+              <Heading level={3}>{t.a11yPreparedTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.a11yPrepared}
+              </Text>
+
+              <Heading level={3}>{t.a11yReportTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.a11yReportBody}{" "}
+                <Email
+                  address={contact.email}
+                  className="font-semibold text-brand-deep hover:text-brand-dark"
+                />{" "}
+                {locale === "th" ? "หรือ" : "or"}{" "}
+                <Email
+                  address={contact.secondaryEmail}
+                  className="font-semibold text-brand-deep hover:text-brand-dark"
+                />
+                .{" "}
+                <Link
+                  href={localeHref(locale, "/contact")}
+                  className="font-semibold text-brand-deep underline hover:text-brand-dark"
+                >
+                  {t.a11yReportCta}
+                </Link>
+              </Text>
+            </Stack>
+          </Section>
         </div>
 
         <Section as="div">

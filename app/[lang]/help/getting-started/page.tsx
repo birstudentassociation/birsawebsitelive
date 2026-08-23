@@ -232,18 +232,22 @@ export default async function GettingStartedPage({
             <thead>
               <tr className="border-b border-line">
                 {t.rangsitColumns.map((col) => (
-                  <Text as="th" step="body-sm" scope="col" key={col} className="py-2 pr-4 font-semibold text-ink">
-                    {col}
-                  </Text>
+                  <th scope="col" key={col} className="py-2 pr-4">
+                    <Text as="span" step="body-sm" className="font-semibold text-ink">
+                      {col}
+                    </Text>
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {t.rangsitRows.map((row) => (
                 <tr key={row.route} className="border-b border-line align-top">
-                  <Text as="th" step="body-sm" scope="row" className="py-3 pr-4 font-semibold text-ink">
-                    {row.route}
-                  </Text>
+                  <th scope="row" className="py-3 pr-4">
+                    <Text as="span" step="body-sm" className="font-semibold text-ink">
+                      {row.route}
+                    </Text>
+                  </th>
                   <Text as="td" step="body-sm" className="py-3 pr-4 text-muted">
                     {row.legs}
                   </Text>

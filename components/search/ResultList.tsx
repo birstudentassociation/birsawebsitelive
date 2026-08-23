@@ -2,7 +2,8 @@ import type { Locale } from "@/lib/i18n";
 import { formatDate } from "@/lib/i18n";
 import type { SearchResult } from "@/lib/search/types";
 import { sectionLabel } from "@/lib/search/sections";
-import Tag from "@/components/Tag";
+import Tag from "@/components/bds/Tag";
+import { Text } from "@/components/bds/Type";
 import Highlight from "@/components/search/Highlight";
 
 const eventLabel: Record<Locale, string> = {
@@ -34,27 +35,28 @@ export default function ResultList({ results, locale }: ResultListProps) {
           <div className="flex flex-wrap items-center gap-2">
             <Tag>{sectionLabel(locale, result.doc.section)}</Tag>
             {result.doc.badge ? (
-              <span className="text-xs font-medium text-muted">{result.doc.badge}</span>
+              <Text as="span" step="body-sm" className="font-medium text-muted">
+                {result.doc.badge}
+              </Text>
             ) : null}
           </div>
-          <a
-            href={result.doc.href}
-            className="mt-1 block font-display text-lg leading-snug font-semibold text-brand-deep hover:underline"
-          >
-            {result.doc.title}
+          <a href={result.doc.href} className="mt-1 block hover:underline">
+            <Text as="span" step="heading-3" className="font-semibold text-brand-deep">
+              {result.doc.title}
+            </Text>
           </a>
-          <p className="mt-1 text-sm leading-relaxed text-muted">
+          <Text step="body-sm" className="mt-1 text-muted">
             {result.snippet ? (
               <Highlight text={result.snippet} terms={result.matched} />
             ) : (
               result.doc.summary
             )}
-          </p>
+          </Text>
           {result.doc.date ? (
-            <p className="mt-1.5 text-xs text-muted">
+            <Text step="body-sm" className="mt-1.5 text-muted">
               {result.doc.upcoming ? `${eventLabel[locale]} · ` : null}
               {formatDate(locale, result.doc.date)}
-            </p>
+            </Text>
           ) : null}
         </li>
       ))}

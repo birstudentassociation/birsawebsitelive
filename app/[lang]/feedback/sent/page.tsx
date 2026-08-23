@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Button from "@/components/Button";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
+import { Text } from "@/components/bds/Type";
 import { feedbackCopy } from "@/components/feedback/feedbackCopy";
 
 /**
@@ -53,20 +55,25 @@ export default async function FeedbackSentPage({ params }: { params: Promise<{ l
             items={[{ label: dict.site.name, href: "/" }, { label: t.confirmationTitle }]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap flex flex-col gap-6 py-10">
+      <Wrap className="flex flex-col gap-6 py-10">
         <div
           role="status"
           className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
-          <p className="text-sm">{t.confirmationBody}</p>
+          <Text step="body-sm">{t.confirmationBody}</Text>
         </div>
         <div>
           <Button href={localeHref(locale, "/")} variant="secondary">
             {t.backLink}
           </Button>
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }

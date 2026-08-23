@@ -1,8 +1,14 @@
 "use client";
 
 /**
- * Header search toggle: the exact same icon link that used to sit in
- * `Header.tsx`, now progressively enhanced into a disclosure.
+ * Header search toggle, progressively enhanced into a disclosure.
+ *
+ * This is `components/bds/Header.tsx`'s `searchSlot`: `docs/ROUTE-MAP-2.0.md`
+ * keeps search a header utility, but the manifest's navigation cluster never
+ * carried a `bds/` search component, so `Header` left the slot for whichever
+ * wave built one (REDESIGN-2.0 Wave 5F). `app/[lang]/layout.tsx` still needs
+ * a one-line wire-up, `<Header locale={locale} searchSlot={<HeaderSearch ... />} />`,
+ * which is outside this wave's owned paths (see the wave report).
  *
  * Server-rendered and pre-hydration, this is nothing but `<Link href="/search"
  * aria-label="Search">` — clicking it navigates to the full `/search` page,
@@ -10,7 +16,7 @@
  * left-click is intercepted (`preventDefault`) and toggles an inline search
  * panel instead; a modified click (new tab, new window, middle-click) is left
  * alone and still navigates, because those are not `click` events this
- * handler even sees. This mirrors `HeaderNavClient`'s mobile-menu disclosure:
+ * handler even sees. This mirrors `Header`'s own mobile-menu disclosure:
  * outside pointerdown and Escape both close it, Escape returns focus to the
  * toggle, and the panel is an absolutely-positioned overlay under the
  * (sticky, i.e. positioned) header so opening it can never resize or reflow
@@ -19,6 +25,7 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
+import Icon from "@/components/bds/Icon";
 import SearchBox from "@/components/search/SearchBox";
 
 export type HeaderSearchProps = {
@@ -93,27 +100,7 @@ export default function HeaderSearch({
         onClick={handleClick}
         className="focus-halo flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-input-border text-ink hover:bg-sunken"
       >
-        <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4.5 w-4.5 shrink-0">
-          {open ? (
-            <path
-              d="m5 5 10 10M15 5 5 15"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={1.75}
-              strokeLinecap="round"
-            />
-          ) : (
-            <>
-              <circle cx="9" cy="9" r="6.25" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path
-                d="m17 17-3.7-3.7"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                strokeLinecap="round"
-              />
-            </>
-          )}
-        </svg>
+        <Icon name={open ? "close" : "search"} />
       </Link>
 
       {open ? (

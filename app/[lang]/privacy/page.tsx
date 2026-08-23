@@ -174,7 +174,8 @@ const content: Record<Locale, Labels> = {
     rightsTitle: "Your rights",
     rightsIntro:
       "The Personal Data Protection Act gives you these rights over the data we hold about you. You can use any of them by writing to us.",
-    rightsResponseNote: "If you ask to see your data, we have thirty days to answer, under section 30 of the Act.",
+    rightsResponseNote:
+      "If you ask to see your data, we have thirty days to answer, under section 30 of the Act.",
     rightsSectionLabel: "Section",
     rightsCta: "Use your rights",
 
@@ -277,7 +278,8 @@ const content: Record<Locale, Labels> = {
       "ยื่นคำร้องขอเข้าถึง ขอรับสำเนา ขอแก้ไข ขอลบ หรือขอใช้สิทธิอื่นเกี่ยวกับข้อมูลส่วนบุคคลของท่าน",
     yourDataLinkCta: "ยื่นคำร้องขอใช้สิทธิ",
 
-    contactIntro: "หากท่านมีข้อสงสัยเกี่ยวกับประกาศฉบับนี้ หรือเกี่ยวกับข้อมูลส่วนบุคคลของท่าน โปรดติดต่อ BIRSA",
+    contactIntro:
+      "หากท่านมีข้อสงสัยเกี่ยวกับประกาศฉบับนี้ หรือเกี่ยวกับข้อมูลส่วนบุคคลของท่าน โปรดติดต่อ BIRSA",
     contactCta: "ติดต่อ BIRSA",
   },
 };
@@ -491,42 +493,42 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
         </Section>
 
         <div id="your-rights" className="scroll-mt-24">
-        <Section as="div">
-          <Stack gap="md">
-            <Stack gap="xs">
-              <Heading level={2}>{t.rightsTitle}</Heading>
-              <Text step="body" className="text-muted">
-                {t.rightsIntro}
-              </Text>
-            </Stack>
-            <dl className="flex flex-col gap-3">
-              {dataRights.map((right) => (
-                <div key={right.id}>
-                  <Text as="dt" step="body" className="font-semibold text-ink">
-                    {right.name[locale]}{" "}
-                    <Text as="span" step="body" className="font-normal text-muted">
-                      ({t.rightsSectionLabel} {right.section})
+          <Section as="div">
+            <Stack gap="md">
+              <Stack gap="xs">
+                <Heading level={2}>{t.rightsTitle}</Heading>
+                <Text step="body" className="text-muted">
+                  {t.rightsIntro}
+                </Text>
+              </Stack>
+              <dl className="flex flex-col gap-3">
+                {dataRights.map((right) => (
+                  <div key={right.id}>
+                    <Text as="dt" step="body" className="font-semibold text-ink">
+                      {right.name[locale]}{" "}
+                      <Text as="span" step="body" className="font-normal text-muted">
+                        ({t.rightsSectionLabel} {right.section})
+                      </Text>
                     </Text>
-                  </Text>
-                  <Text as="dd" step="body" className="text-muted">
-                    {right.description[locale]}
-                  </Text>
-                </div>
-              ))}
-            </dl>
-            <Text step="body" className="text-muted">
-              {t.rightsResponseNote}
-            </Text>
-            <div>
-              <Link
-                href={localeHref(locale, "/privacy/your-data")}
-                className="font-semibold text-brand-deep underline hover:text-brand-dark"
-              >
-                {t.rightsCta}
-              </Link>
-            </div>
-          </Stack>
-        </Section>
+                    <Text as="dd" step="body" className="text-muted">
+                      {right.description[locale]}
+                    </Text>
+                  </div>
+                ))}
+              </dl>
+              <Text step="body" className="text-muted">
+                {t.rightsResponseNote}
+              </Text>
+              <div>
+                <Link
+                  href={localeHref(locale, "/privacy/your-data")}
+                  className="font-semibold text-brand-deep underline hover:text-brand-dark"
+                >
+                  {t.rightsCta}
+                </Link>
+              </div>
+            </Stack>
+          </Section>
         </div>
 
         <Section as="div">

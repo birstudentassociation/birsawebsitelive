@@ -95,11 +95,7 @@ export async function generateMetadata({
   return buildMetadata({ locale, title: t.title, description: t.intro, path: "/help/welfare" });
 }
 
-export default async function WelfarePage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function WelfarePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -143,46 +139,51 @@ export default async function WelfarePage({
             </Stack>
           </InterruptionPage>
 
-          <Stack gap="lg" id="support">
-            <Stack gap="sm">
-              <Heading level={2}>{t.supportHeading}</Heading>
-              <Text step="body">{t.supportBody}</Text>
-              <div>
-                <a
-                  href={localeHref(locale, "/help/reporting")}
-                  className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
-                >
-                  <Text as="span" step="body">
-                    {t.reportingCta}
-                  </Text>
-                </a>
-              </div>
+          {/* The id lives on a wrapper because `Stack` does not take one, by
+              design. This is a scroll anchor, so the target only has to be the
+              element the link lands on. */}
+          <div id="support">
+            <Stack gap="lg">
+              <Stack gap="sm">
+                <Heading level={2}>{t.supportHeading}</Heading>
+                <Text step="body">{t.supportBody}</Text>
+                <div>
+                  <a
+                    href={localeHref(locale, "/help/reporting")}
+                    className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                  >
+                    <Text as="span" step="body">
+                      {t.reportingCta}
+                    </Text>
+                  </a>
+                </div>
+              </Stack>
+
+              <SignpostSource
+                locale={locale}
+                name={t.signpostName}
+                body={t.signpostBody}
+                href="https://www.facebook.com/permalink.php?story_fbid=1139583574836463&id=100063544931301&locale=th_TH"
+                linkLabel={t.signpostLinkLabel}
+              />
+
+              <Stack gap="xs">
+                <Text step="body">{t.detailNote}</Text>
+                <div>
+                  <a
+                    href={localeHref(locale, "/help/university-services")}
+                    className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                  >
+                    <Text as="span" step="body">
+                      {t.detailCta}
+                    </Text>
+                  </a>
+                </div>
+              </Stack>
+
+              <WarningText label={t.emergencyLabel}>{t.emergencyBody}</WarningText>
             </Stack>
-
-            <SignpostSource
-              locale={locale}
-              name={t.signpostName}
-              body={t.signpostBody}
-              href="https://www.facebook.com/permalink.php?story_fbid=1139583574836463&id=100063544931301&locale=th_TH"
-              linkLabel={t.signpostLinkLabel}
-            />
-
-            <Stack gap="xs">
-              <Text step="body">{t.detailNote}</Text>
-              <div>
-                <a
-                  href={localeHref(locale, "/help/university-services")}
-                  className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
-                >
-                  <Text as="span" step="body">
-                    {t.detailCta}
-                  </Text>
-                </a>
-              </div>
-            </Stack>
-
-            <WarningText label={t.emergencyLabel}>{t.emergencyBody}</WarningText>
-          </Stack>
+          </div>
         </Stack>
       </Wrap>
     </>

@@ -85,7 +85,8 @@ export default async function WhatsOnNewsPage({
   const instagram = socials.find((s) => s.id === "instagram")!;
   const facebook = socials.find((s) => s.id === "facebook")!;
 
-  const filterTagBase = "inline-flex min-h-11 items-center rounded-full border px-4 transition-colors";
+  const filterTagBase =
+    "inline-flex min-h-11 items-center rounded-full border px-4 transition-colors";
   const filterTagInactive = "border-line bg-surface text-ink hover:bg-sunken";
   const filterTagActive = "border-brand bg-brand text-white";
 

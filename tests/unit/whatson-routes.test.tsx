@@ -6,9 +6,22 @@
  * server component page directly: `await Page({ params, searchParams })`,
  * then `render(el)`.
  */
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen, within, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom/vitest";
+
+// `lib/mdx.tsx`'s `Mdx` (used by the article and club detail pages) wraps
+// `next-mdx-remote/rsc`'s `MDXRemote`, an async React Server Component that
+// React Testing Library's synchronous `render()` cannot resolve in jsdom
+// (no test anywhere in this repo renders an MDX-bearing page for exactly
+// that reason). Stubbed here, purely for this test file, the same way
+// `tests/unit/home-and-do-index.test.tsx` stubs `next/font/google` so the
+// module graph can render at all; nothing about MDX rendering is under test
+// here, only the page chrome around it (the heading, the pagination, the
+// signposts).
+vi.mock("next-mdx-remote/rsc", () => ({
+  MDXRemote: () => null,
+}));
 
 import WhatsOnNewsPage from "@/app/[lang]/whats-on/news/page";
 import WhatsOnNewsArticlePage from "@/app/[lang]/whats-on/news/[slug]/page";
@@ -143,11 +156,14 @@ describe("/whats-on/clubs: the directory", () => {
 
     expect(screen.getByText(whatsonEn.whatson.clubs.tusuTitle)).toBeInTheDocument();
     expect(screen.getByText(whatsonEn.whatson.clubs.tuscTitle)).toBeInTheDocument();
+    // ExternalLink appends a visually hidden "(opens in a new tab)" to the
+    // accessible name (BUILD-BRIEF-2.0 SS7), so match by prefix rather than
+    // an exact string.
     expect(
-      screen.getByRole("link", { name: whatsonEn.whatson.clubs.tusuCta })
+      screen.getByRole("link", { name: new RegExp(`^${whatsonEn.whatson.clubs.tusuCta}`) })
     ).toHaveAttribute("href", expect.stringContaining("tusu"));
     expect(
-      screen.getByRole("link", { name: whatsonEn.whatson.clubs.tuscCta })
+      screen.getByRole("link", { name: new RegExp(`^${whatsonEn.whatson.clubs.tuscCta}`) })
     ).toHaveAttribute("href", expect.stringContaining("tusc"));
   });
 
@@ -178,9 +194,15 @@ describe("/whats-on/calendar: keyboard operation and the no-JavaScript fallback"
     // Month navigation and day cells are real <button> elements, not a div
     // with an onClick: native button semantics are what makes them
     // reachable by Tab and operable with Enter/Space with no extra wiring.
-    expect(screen.getByRole("button", { name: whatsonEn.whatson.calendar.prevMonth })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: whatsonEn.whatson.calendar.nextMonth })).toBeInTheDocument();
-    const dayButtons = screen.getAllByRole("button").filter((btn) => btn.hasAttribute("aria-pressed"));
+    expect(
+      screen.getByRole("button", { name: whatsonEn.whatson.calendar.prevMonth })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: whatsonEn.whatson.calendar.nextMonth })
+    ).toBeInTheDocument();
+    const dayButtons = screen
+      .getAllByRole("button")
+      .filter((btn) => btn.hasAttribute("aria-pressed"));
     expect(dayButtons.length).toBeGreaterThan(0);
   });
 

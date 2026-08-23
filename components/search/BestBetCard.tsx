@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { BestBet } from "@/lib/search/intent";
-import Button from "@/components/Button";
-import Notice from "@/components/Notice";
+import Button from "@/components/bds/Button";
+import Notice from "@/components/bds/Notice";
+import { Heading, Text } from "@/components/bds/Type";
 
 export type BestBetCardProps = {
   bestBet: BestBet;
@@ -16,8 +17,12 @@ export default function BestBetCard({ bestBet }: BestBetCardProps) {
   return (
     <div className="flex flex-col gap-4 rounded-lg border-2 border-brand bg-brand-tint/40 p-6">
       <div className="flex flex-col gap-2">
-        <h2 className="font-display text-xl text-ink">{bestBet.title}</h2>
-        <p className="text-sm leading-relaxed text-ink">{bestBet.description}</p>
+        <Heading level={2} className="text-ink">
+          {bestBet.title}
+        </Heading>
+        <Text step="body-sm" className="text-ink">
+          {bestBet.description}
+        </Text>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
@@ -25,11 +30,13 @@ export default function BestBetCard({ bestBet }: BestBetCardProps) {
       </div>
 
       {bestBet.links.length > 0 ? (
-        <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <ul className="flex flex-wrap gap-x-5 gap-y-2">
           {bestBet.links.map((link) => (
             <li key={link.href}>
               <Link href={link.href} className="text-brand-deep hover:underline">
-                {link.label}
+                <Text as="span" step="body-sm">
+                  {link.label}
+                </Text>
               </Link>
             </li>
           ))}

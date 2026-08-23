@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
+import Button from "@/components/bds/Button";
+import PageHeader from "@/components/bds/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import CollectionNotice from "@/components/forms/CollectionNotice";
@@ -47,7 +48,14 @@ export default async function ContactNamePage({
 
   return (
     <>
-      <PageHeader title={wizard.nameHeading} />
+      <PageHeader
+        title={wizard.nameHeading}
+        helpSlot={
+          <Button href={localeHref(locale, "/answers")} variant="secondary">
+            {dict.actions.getHelp}
+          </Button>
+        }
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />

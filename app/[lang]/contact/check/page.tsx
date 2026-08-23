@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
+import Button from "@/components/bds/Button";
+import PageHeader from "@/components/bds/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import ContactForm from "@/components/forms/ContactForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -39,7 +40,14 @@ export default async function ContactCheckPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <PageHeader title={wizard.checkTitle} />
+      <PageHeader
+        title={wizard.checkTitle}
+        helpSlot={
+          <Button href={localeHref(locale, "/answers")} variant="secondary">
+            {dict.actions.getHelp}
+          </Button>
+        }
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav

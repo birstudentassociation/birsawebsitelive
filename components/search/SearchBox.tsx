@@ -21,8 +21,9 @@ import { useEffect, useId, useRef, useState, type FocusEvent, type KeyboardEvent
 import { useRouter } from "next/navigation";
 import type { Locale } from "@/lib/i18n";
 import type { Suggestion } from "@/lib/search/query";
-import Button from "@/components/Button";
-import Tag from "@/components/Tag";
+import Button from "@/components/bds/Button";
+import Tag from "@/components/bds/Tag";
+import { Text } from "@/components/bds/Type";
 import { useDebouncedValue } from "@/lib/useDebouncedValue";
 
 export type SearchBoxProps = {
@@ -185,8 +186,10 @@ export default function SearchBox({
         className="flex flex-col gap-3 sm:flex-row sm:items-end"
       >
         <div className="relative flex max-w-sm flex-1 flex-col gap-1.5">
-          <label htmlFor={inputId} className="text-sm font-semibold text-ink">
-            {labelText}
+          <label htmlFor={inputId}>
+            <Text as="span" step="body-sm" className="font-semibold text-ink">
+              {labelText}
+            </Text>
           </label>
           <input
             id={inputId}
@@ -206,7 +209,7 @@ export default function SearchBox({
               if (suggestions.length > 0) setOpen(true);
             }}
             placeholder={placeholder}
-            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+            className="focus-halo text-body h-11 w-full rounded-md border border-input-border bg-surface px-3.5 text-ink placeholder:text-muted"
           />
 
           {open ? (
@@ -232,11 +235,13 @@ export default function SearchBox({
                   aria-selected={index === activeIndex}
                   onClick={() => goTo(suggestion.href)}
                   onMouseEnter={() => setActiveIndex(index)}
-                  className={`flex cursor-pointer items-center justify-between gap-3 px-3.5 py-2.5 text-sm ${
+                  className={`flex cursor-pointer items-center justify-between gap-3 px-3.5 py-2.5 ${
                     index === activeIndex ? "bg-sunken" : ""
                   }`}
                 >
-                  <span className="truncate text-ink">{suggestion.title}</span>
+                  <Text as="span" step="body-sm" className="truncate text-ink">
+                    {suggestion.title}
+                  </Text>
                   <Tag className="shrink-0">{suggestion.sectionLabel}</Tag>
                 </li>
               ))}

@@ -121,6 +121,8 @@ export const about = {
       withheldIntro:
         "The items below were discussed at this meeting but are not published. Each is shown by its agenda item number and the general kind of matter it concerned, never by its content.",
       withheldItemLabel: "Item {n}",
+      withheldItemColumn: "Item",
+      withheldCategoryColumn: "General kind of matter",
       notFound: "BIRSA has not published minutes with this name.",
       categories: {
         welfare: "A welfare matter",
