@@ -103,89 +103,89 @@ export default async function WelfarePage({ params }: { params: Promise<{ lang: 
   const t = copy[locale];
 
   return (
-    <>
-      <ExitThisPage
-        exitHref={EXIT_HREF}
-        historyDecoyHref={localeHref(locale, "/")}
-        label={dict.exitThisPage.label}
-        shortcutHint={dict.exitThisPage.shortcutHint}
-        leavingAnnouncement={dict.exitThisPage.leavingAnnouncement}
-      />
-      <Wrap className="py-10">
-        <Stack gap="2xl" className="max-w-[var(--measure)]">
-          <Breadcrumbs
-            locale={locale}
-            label={dict.a11y.breadcrumb}
-            items={[
-              { label: dict.site.name, href: "/" },
-              { label: dict.hub.title, href: "/help" },
-              { label: t.title },
-            ]}
-          />
+    <Wrap className="py-10">
+      <Stack gap="2xl" className="max-w-[var(--measure)]">
+        <Breadcrumbs
+          locale={locale}
+          label={dict.a11y.breadcrumb}
+          items={[
+            { label: dict.site.name, href: "/" },
+            { label: dict.hub.title, href: "/help" },
+            { label: t.title },
+          ]}
+        />
 
-          <InterruptionPage
-            heading={t.title}
-            intro={t.intro}
-            continueHref="#support"
-            continueLabel={t.continueLabel}
-            secondaryHref={localeHref(locale, "/")}
-            secondaryLabel={t.secondaryLabel}
-          >
-            <Stack gap="sm">
-              <Text step="body" className="font-semibold text-ink">
-                {t.boundaryLead}
-              </Text>
-              <Text step="body">{t.boundaryBody}</Text>
-            </Stack>
-          </InterruptionPage>
+        <InterruptionPage
+          heading={t.title}
+          intro={t.intro}
+          continueHref="#support"
+          continueLabel={t.continueLabel}
+          secondaryHref={localeHref(locale, "/")}
+          secondaryLabel={t.secondaryLabel}
+          exitThisPage={
+            <ExitThisPage
+              exitHref={EXIT_HREF}
+              historyDecoyHref={localeHref(locale, "/")}
+              label={dict.exitThisPage.label}
+              shortcutHint={dict.exitThisPage.shortcutHint}
+              leavingAnnouncement={dict.exitThisPage.leavingAnnouncement}
+            />
+          }
+        >
+          <Stack gap="sm">
+            <Text step="body" className="font-semibold text-ink">
+              {t.boundaryLead}
+            </Text>
+            <Text step="body">{t.boundaryBody}</Text>
+          </Stack>
+        </InterruptionPage>
 
-          {/* The id lives on a wrapper because `Stack` does not take one, by
+        {/* The id lives on a wrapper because `Stack` does not take one, by
               design. This is a scroll anchor, so the target only has to be the
               element the link lands on. */}
-          <div id="support">
-            <Stack gap="lg">
-              <Stack gap="sm">
-                <Heading level={2}>{t.supportHeading}</Heading>
-                <Text step="body">{t.supportBody}</Text>
-                <div>
-                  <a
-                    href={localeHref(locale, "/help/reporting")}
-                    className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
-                  >
-                    <Text as="span" step="body">
-                      {t.reportingCta}
-                    </Text>
-                  </a>
-                </div>
-              </Stack>
-
-              <SignpostSource
-                locale={locale}
-                name={t.signpostName}
-                body={t.signpostBody}
-                href="https://www.facebook.com/permalink.php?story_fbid=1139583574836463&id=100063544931301&locale=th_TH"
-                linkLabel={t.signpostLinkLabel}
-              />
-
-              <Stack gap="xs">
-                <Text step="body">{t.detailNote}</Text>
-                <div>
-                  <a
-                    href={localeHref(locale, "/help/university-services")}
-                    className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
-                  >
-                    <Text as="span" step="body">
-                      {t.detailCta}
-                    </Text>
-                  </a>
-                </div>
-              </Stack>
-
-              <WarningText label={t.emergencyLabel}>{t.emergencyBody}</WarningText>
+        <div id="support">
+          <Stack gap="lg">
+            <Stack gap="sm">
+              <Heading level={2}>{t.supportHeading}</Heading>
+              <Text step="body">{t.supportBody}</Text>
+              <div>
+                <a
+                  href={localeHref(locale, "/help/reporting")}
+                  className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                >
+                  <Text as="span" step="body">
+                    {t.reportingCta}
+                  </Text>
+                </a>
+              </div>
             </Stack>
-          </div>
-        </Stack>
-      </Wrap>
-    </>
+
+            <SignpostSource
+              locale={locale}
+              name={t.signpostName}
+              body={t.signpostBody}
+              href="https://www.facebook.com/permalink.php?story_fbid=1139583574836463&id=100063544931301&locale=th_TH"
+              linkLabel={t.signpostLinkLabel}
+            />
+
+            <Stack gap="xs">
+              <Text step="body">{t.detailNote}</Text>
+              <div>
+                <a
+                  href={localeHref(locale, "/help/university-services")}
+                  className="focus-halo font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                >
+                  <Text as="span" step="body">
+                    {t.detailCta}
+                  </Text>
+                </a>
+              </div>
+            </Stack>
+
+            <WarningText label={t.emergencyLabel}>{t.emergencyBody}</WarningText>
+          </Stack>
+        </div>
+      </Stack>
+    </Wrap>
   );
 }

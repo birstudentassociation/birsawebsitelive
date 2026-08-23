@@ -88,7 +88,10 @@ const copy = {
         contactTitle: "Who to contact",
         contacts: [
           { term: "Rangsit", desc: "Student Affairs Division, Building B, 02-564-4440 ext. 1275" },
-          { term: "Tha Prachan", desc: "Student Activities Building, 3rd floor, 02-221-6111 ext. 1710" },
+          {
+            term: "Tha Prachan",
+            desc: "Student Activities Building, 3rd floor, 02-221-6111 ext. 1710",
+          },
           { term: "Lampang", desc: "Student Affairs, 054-237-999 ext. 5171" },
           { term: "Pattaya", desc: "Pattaya Campus Administration, 038-259-050 ext. 1202" },
         ] as TermDesc[],
@@ -126,9 +129,18 @@ const copy = {
           "Your status as a Thammasat student gives you access to the University's libraries, bookable study rooms, and a printing allowance every semester.",
         librariesTitle: "Libraries at and near Tha Prachan",
         libraries: [
-          { term: "Pridi Banomyong Library", desc: "Thammasat's main central library, at Tha Prachan. Open daily, 08:30 to 21:30, except public holidays." },
-          { term: "Professor Direk Jayanama Library", desc: "The library for the Faculty of Political Science and other social-science faculties." },
-          { term: "Puey Ungphakorn Library (Faculty of Economics)", desc: "The Faculty of Economics library, at Tha Prachan." },
+          {
+            term: "Pridi Banomyong Library",
+            desc: "Thammasat's main central library, at Tha Prachan. Open daily, 08:30 to 21:30, except public holidays.",
+          },
+          {
+            term: "Professor Direk Jayanama Library",
+            desc: "The library for the Faculty of Political Science and other social-science faculties.",
+          },
+          {
+            term: "Puey Ungphakorn Library (Faculty of Economics)",
+            desc: "The Faculty of Economics library, at Tha Prachan.",
+          },
           { term: "Sanya Dharmasakti Library", desc: "The Faculty of Law library." },
         ] as TermDesc[],
         cardEntitlementTitle: "What your library card entitles you to",
@@ -145,7 +157,8 @@ const copy = {
         libraryOfThingsBody:
           "The library also lends out equipment against your student card, including laptops, iPads, cameras, extension leads, heaters, hot water bottles and board games.",
         printingTitle: "Printing allowance",
-        printingIntro: "Every semester you receive a printing quota split between two funds, for 200 baht in total.",
+        printingIntro:
+          "Every semester you receive a printing quota split between two funds, for 200 baht in total.",
         printingFunds: [
           { term: "Faculty fund", desc: "100 baht per semester" },
           { term: "University fund", desc: "100 baht per semester" },
@@ -160,7 +173,11 @@ const copy = {
           "Thammasat's own English proficiency test. Results can be used to apply for credit exemption, or compared against TOEFL iBT and IELTS scores.",
         tuGetColumns: ["", "TU-GET PBT", "TU-GET CBT"],
         tuGetRows: [
-          { label: "Format", pbt: "Paper-based, multiple choice", cbt: "Computer-based, all four skills" },
+          {
+            label: "Format",
+            pbt: "Paper-based, multiple choice",
+            cbt: "Computer-based, all four skills",
+          },
           { label: "Fee", pbt: "800 baht (1,000 baht late)", cbt: "1,500 baht (1,800 baht late)" },
           { label: "Results", pbt: "About 5 to 7 days", cbt: "About 15 days" },
         ],
@@ -188,7 +205,10 @@ const copy = {
           body: "One-on-one counselling by a professional psychologist, for Faculty of Political Science students specifically. Book a time online.",
           linkLabel: "Booking form",
         },
-        bedee: { title: "BeDee by BDMS", body: "Telehealth consultations through the BeDee app by BDMS." },
+        bedee: {
+          title: "BeDee by BDMS",
+          body: "Telehealth consultations through the BeDee app by BDMS.",
+        },
       },
       itSupport: {
         title: "IT support and TU apps",
@@ -220,12 +240,22 @@ const copy = {
     sections: {
       accidentInsurance: {
         title: "ประกันอุบัติเหตุสำหรับนักศึกษาธรรมศาสตร์",
-        intro: "นักศึกษาธรรมศาสตร์ทุกคนได้รับความคุ้มครอง ปีการศึกษา 2568 คุ้มครองระหว่างวันที่ 1 สิงหาคม 2568 ถึง 31 กรกฎาคม 2569",
+        intro:
+          "นักศึกษาธรรมศาสตร์ทุกคนได้รับความคุ้มครอง ปีการศึกษา 2568 คุ้มครองระหว่างวันที่ 1 สิงหาคม 2568 ถึง 31 กรกฎาคม 2569",
         claimTitle: "วิธียื่นเคลม",
         claimSteps: [
-          { lead: "ยืนยันสิทธิ์", text: "แสดงบัตรประชาชน (หรือพาสปอร์ต) และบัตรนักศึกษาต่อเจ้าหน้าที่โรงพยาบาล" },
-          { lead: "เคลมตรง", text: "หากชื่อของคุณอยู่ในกรมธรรม์และเข้ารับการรักษาที่โรงพยาบาลคู่สัญญา (เช่น โรงพยาบาลธรรมศาสตร์) สามารถเบิกได้โดยตรงโดยไม่ต้องสำรองจ่าย" },
-          { lead: "สำรองจ่าย", text: "หากยังไม่มีชื่อในกรมธรรม์ หรือโรงพยาบาลไม่ใช่คู่สัญญา ให้สำรองจ่ายก่อน แล้วยื่นเอกสารด้านล่างต่อเจ้าหน้าที่ผู้รับผิดชอบเพื่อส่งให้บริษัทประกัน" },
+          {
+            lead: "ยืนยันสิทธิ์",
+            text: "แสดงบัตรประชาชน (หรือพาสปอร์ต) และบัตรนักศึกษาต่อเจ้าหน้าที่โรงพยาบาล",
+          },
+          {
+            lead: "เคลมตรง",
+            text: "หากชื่อของคุณอยู่ในกรมธรรม์และเข้ารับการรักษาที่โรงพยาบาลคู่สัญญา (เช่น โรงพยาบาลธรรมศาสตร์) สามารถเบิกได้โดยตรงโดยไม่ต้องสำรองจ่าย",
+          },
+          {
+            lead: "สำรองจ่าย",
+            text: "หากยังไม่มีชื่อในกรมธรรม์ หรือโรงพยาบาลไม่ใช่คู่สัญญา ให้สำรองจ่ายก่อน แล้วยื่นเอกสารด้านล่างต่อเจ้าหน้าที่ผู้รับผิดชอบเพื่อส่งให้บริษัทประกัน",
+          },
         ] as LeadText[],
         documentsTitle: "เอกสารสำหรับการเคลมแบบสำรองจ่าย",
         documents: [
@@ -237,8 +267,14 @@ const copy = {
         ],
         coverageTitle: "ความคุ้มครอง",
         coverage: [
-          { term: "ค่ารักษาพยาบาล", desc: "สูงสุด 15,000 บาทต่ออุบัติเหตุ อุบัติเหตุทั่วไป ตามเงื่อนไขยกเว้นในกรมธรรม์" },
-          { term: "เสียชีวิตหรือทุพพลภาพจากอุบัติเหตุ", desc: "150,000 บาท กรณีเสียชีวิต สูญเสียอวัยวะ สายตา การได้ยิน การพูด หรือทุพพลภาพถาวรจากอุบัติเหตุ รวมถึงการถูกฆาตกรรมและทำร้ายร่างกาย" },
+          {
+            term: "ค่ารักษาพยาบาล",
+            desc: "สูงสุด 15,000 บาทต่ออุบัติเหตุ อุบัติเหตุทั่วไป ตามเงื่อนไขยกเว้นในกรมธรรม์",
+          },
+          {
+            term: "เสียชีวิตหรือทุพพลภาพจากอุบัติเหตุ",
+            desc: "150,000 บาท กรณีเสียชีวิต สูญเสียอวัยวะ สายตา การได้ยิน การพูด หรือทุพพลภาพถาวรจากอุบัติเหตุ รวมถึงการถูกฆาตกรรมและทำร้ายร่างกาย",
+          },
           { term: "ค่าปลงศพ (เสียชีวิตจากการเจ็บป่วยทั่วไป)", desc: "15,000 บาท" },
         ] as TermDesc[],
         contactTitle: "ติดต่อสอบถาม",
@@ -252,7 +288,8 @@ const copy = {
       },
       militaryService: {
         title: "การผ่อนผันการเกณฑ์ทหาร",
-        intro: "สำหรับนักศึกษาชายที่เกิด พ.ศ. 2549 ศูนย์ท่าพระจันทร์ ศูนย์รังสิต และศูนย์พัทยา เลือกยื่นเพียงรอบเดียว",
+        intro:
+          "สำหรับนักศึกษาชายที่เกิด พ.ศ. 2549 ศูนย์ท่าพระจันทร์ ศูนย์รังสิต และศูนย์พัทยา เลือกยื่นเพียงรอบเดียว",
         roundsTitle: "รอบการยื่น (เลือกรอบเดียว)",
         rounds: [
           { term: "รอบที่ 1", desc: "10 สิงหาคม ถึง 9 ตุลาคม 2569" },
@@ -267,7 +304,8 @@ const copy = {
         ],
         documentsLinkLabel: "เอกสารและคำแนะนำ",
         approvedListLinkLabel: "ตรวจสอบรายชื่อผู้ได้สิทธิ์ปีที่ผ่านมา",
-        contactLine: "สอบถาม งานทุน วินัย และสวัสดิการนักศึกษา กองกิจการนักศึกษา 0-2564-2921 (เฟซบุ๊ก TU Scholarships)",
+        contactLine:
+          "สอบถาม งานทุน วินัย และสวัสดิการนักศึกษา กองกิจการนักศึกษา 0-2564-2921 (เฟซบุ๊ก TU Scholarships)",
       },
       certificates: {
         title: "การขอเอกสารสำคัญออนไลน์",
@@ -276,12 +314,22 @@ const copy = {
       },
       libraries: {
         title: "ห้องสมุด ห้องอ่านหนังสือ และสิทธิ์การพิมพ์",
-        intro: "สถานะนักศึกษาธรรมศาสตร์ของคุณให้สิทธิ์เข้าใช้ห้องสมุดของมหาวิทยาลัย จองห้องอ่านหนังสือ และรับสิทธิ์การพิมพ์เอกสารทุกภาคการศึกษา",
+        intro:
+          "สถานะนักศึกษาธรรมศาสตร์ของคุณให้สิทธิ์เข้าใช้ห้องสมุดของมหาวิทยาลัย จองห้องอ่านหนังสือ และรับสิทธิ์การพิมพ์เอกสารทุกภาคการศึกษา",
         librariesTitle: "ห้องสมุดในและใกล้ท่าพระจันทร์",
         libraries: [
-          { term: "หอสมุดปรีดี พนมยงค์", desc: "หอสมุดกลางหลักของมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เปิดทุกวัน 08.30 ถึง 21.30 น. ยกเว้นวันหยุดนักขัตฤกษ์" },
-          { term: "ห้องสมุดศาสตราจารย์ดิเรก ชัยนาม", desc: "ห้องสมุดคณะรัฐศาสตร์และกลุ่มคณะทางสังคมศาสตร์" },
-          { term: "หอสมุดป๋วย อึ๊งภากรณ์ (คณะเศรษฐศาสตร์)", desc: "ห้องสมุดคณะเศรษฐศาสตร์ ท่าพระจันทร์" },
+          {
+            term: "หอสมุดปรีดี พนมยงค์",
+            desc: "หอสมุดกลางหลักของมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เปิดทุกวัน 08.30 ถึง 21.30 น. ยกเว้นวันหยุดนักขัตฤกษ์",
+          },
+          {
+            term: "ห้องสมุดศาสตราจารย์ดิเรก ชัยนาม",
+            desc: "ห้องสมุดคณะรัฐศาสตร์และกลุ่มคณะทางสังคมศาสตร์",
+          },
+          {
+            term: "หอสมุดป๋วย อึ๊งภากรณ์ (คณะเศรษฐศาสตร์)",
+            desc: "ห้องสมุดคณะเศรษฐศาสตร์ ท่าพระจันทร์",
+          },
           { term: "หอสมุดสัญญา ธรรมศักดิ์", desc: "ห้องสมุดคณะนิติศาสตร์" },
         ] as TermDesc[],
         cardEntitlementTitle: "สิทธิ์ที่ได้รับจากบัตรห้องสมุด",
@@ -298,7 +346,8 @@ const copy = {
         libraryOfThingsBody:
           "ห้องสมุดยังให้ยืมอุปกรณ์โดยใช้บัตรนักศึกษา เช่น โน้ตบุ๊ก ไอแพด กล้อง ปลั๊กพ่วง เครื่องทำความร้อน กระเป๋าน้ำร้อน และบอร์ดเกม",
         printingTitle: "สิทธิ์การพิมพ์เอกสาร",
-        printingIntro: "ทุกภาคการศึกษาคุณจะได้รับสิทธิ์การพิมพ์เอกสารจาก 2 กองทุน รวมทั้งสิ้น 200 บาท",
+        printingIntro:
+          "ทุกภาคการศึกษาคุณจะได้รับสิทธิ์การพิมพ์เอกสารจาก 2 กองทุน รวมทั้งสิ้น 200 บาท",
         printingFunds: [
           { term: "กองทุนจากคณะ", desc: "100 บาทต่อภาคการศึกษา" },
           { term: "กองทุนจากมหาวิทยาลัย", desc: "100 บาทต่อภาคการศึกษา" },
@@ -309,11 +358,16 @@ const copy = {
           "บริการตรวจแก้บทคัดย่อภาษาอังกฤษผ่าน U-Services ส่งบทคัดย่อแล้วผู้เชี่ยวชาญด้านภาษาจะตรวจแก้และส่งกลับทางอีเมลภายในสามวันทำการ",
         ],
         tuGetTitle: "TU-GET",
-        tuGetIntro: "แบบทดสอบภาษาอังกฤษของธรรมศาสตร์เอง ผลสอบใช้ขอยกเว้นหน่วยกิตได้ หรือใช้เทียบกับคะแนน TOEFL iBT และ IELTS",
+        tuGetIntro:
+          "แบบทดสอบภาษาอังกฤษของธรรมศาสตร์เอง ผลสอบใช้ขอยกเว้นหน่วยกิตได้ หรือใช้เทียบกับคะแนน TOEFL iBT และ IELTS",
         tuGetColumns: ["", "TU-GET PBT", "TU-GET CBT"],
         tuGetRows: [
           { label: "รูปแบบ", pbt: "กระดาษ แบบปรนัย", cbt: "คอมพิวเตอร์ ครบสี่ทักษะ" },
-          { label: "ค่าธรรมเนียม", pbt: "800 บาท (สมัครล่าช้า 1,000 บาท)", cbt: "1,500 บาท (สมัครล่าช้า 1,800 บาท)" },
+          {
+            label: "ค่าธรรมเนียม",
+            pbt: "800 บาท (สมัครล่าช้า 1,000 บาท)",
+            cbt: "1,500 บาท (สมัครล่าช้า 1,800 บาท)",
+          },
           { label: "ผลสอบ", pbt: "ประมาณ 5 ถึง 7 วัน", cbt: "ประมาณ 15 วัน" },
         ],
         tuGetLinkLabel: "สมัครสอบ TU-GET",
@@ -409,7 +463,8 @@ export default async function UniversityServicesPage({
   const dict = getDictionary(locale);
   const t = copy[locale];
   const s = t.sections;
-  const linkClass = "font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]";
+  const linkClass =
+    "font-semibold text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]";
 
   const navSections = [
     { id: "accident-insurance", label: s.accidentInsurance.title },
@@ -441,7 +496,10 @@ export default async function UniversityServicesPage({
         <Text as="ul" step="body-sm" className="flex flex-wrap gap-x-6 gap-y-1">
           {navSections.map((section) => (
             <Text as="li" step="body-sm" key={section.id}>
-              <a href={`#${section.id}`} className={`${linkClass} inline-flex min-h-11 items-center`}>
+              <a
+                href={`#${section.id}`}
+                className={`${linkClass} inline-flex min-h-11 items-center`}
+              >
                 {section.label}
               </a>
             </Text>
@@ -453,11 +511,13 @@ export default async function UniversityServicesPage({
         {t.disclaimerBody}
       </Notice>
 
-      <section id="accident-insurance" aria-label={s.accidentInsurance.title} className="max-w-[var(--measure)]">
+      <section
+        id="accident-insurance"
+        aria-label={s.accidentInsurance.title}
+        className="max-w-[var(--measure)]"
+      >
         <Stack gap="md">
-          <Heading level={2}>
-            {s.accidentInsurance.title}
-          </Heading>
+          <Heading level={2}>{s.accidentInsurance.title}</Heading>
           <Text step="body" className="text-muted">
             {s.accidentInsurance.intro}
           </Text>
@@ -507,11 +567,13 @@ export default async function UniversityServicesPage({
         </Stack>
       </section>
 
-      <section id="military-service" aria-label={s.militaryService.title} className="max-w-[var(--measure)]">
+      <section
+        id="military-service"
+        aria-label={s.militaryService.title}
+        className="max-w-[var(--measure)]"
+      >
         <Stack gap="md">
-          <Heading level={2}>
-            {s.militaryService.title}
-          </Heading>
+          <Heading level={2}>{s.militaryService.title}</Heading>
           <Text step="body" className="text-muted">
             {s.militaryService.intro}
           </Text>
@@ -555,15 +617,21 @@ export default async function UniversityServicesPage({
         </Stack>
       </section>
 
-      <section id="certificates" aria-label={s.certificates.title} className="max-w-[var(--measure)]">
+      <section
+        id="certificates"
+        aria-label={s.certificates.title}
+        className="max-w-[var(--measure)]"
+      >
         <Stack gap="sm">
-          <Heading level={2}>
-            {s.certificates.title}
-          </Heading>
+          <Heading level={2}>{s.certificates.title}</Heading>
           <Text step="body" className="text-muted">
             {s.certificates.body}
           </Text>
-          <ExternalLink href="https://www.reg.tu.ac.th/" newTabLabel={dict.a11y.newTab} className={linkClass}>
+          <ExternalLink
+            href="https://www.reg.tu.ac.th/"
+            newTabLabel={dict.a11y.newTab}
+            className={linkClass}
+          >
             {s.certificates.linkLabel}
           </ExternalLink>
         </Stack>
@@ -571,9 +639,7 @@ export default async function UniversityServicesPage({
 
       <section id="libraries" aria-label={s.libraries.title} className="max-w-[var(--measure)]">
         <Stack gap="md">
-          <Heading level={2}>
-            {s.libraries.title}
-          </Heading>
+          <Heading level={2}>{s.libraries.title}</Heading>
           <Text step="body" className="text-muted">
             {s.libraries.intro}
           </Text>
@@ -599,7 +665,11 @@ export default async function UniversityServicesPage({
             <Text step="body-sm" className="text-muted">
               {s.libraries.studyRoomsBody}
             </Text>
-            <ExternalLink href="https://booking.library.tu.ac.th" newTabLabel={dict.a11y.newTab} className={linkClass}>
+            <ExternalLink
+              href="https://booking.library.tu.ac.th"
+              newTabLabel={dict.a11y.newTab}
+              className={linkClass}
+            >
               {s.libraries.bookingLinkLabel}
             </ExternalLink>
           </Stack>
@@ -668,33 +738,45 @@ export default async function UniversityServicesPage({
                 </tbody>
               </table>
             </div>
-            <ExternalLink href="https://litu.tu.ac.th/testing/tu-get/" newTabLabel={dict.a11y.newTab} className={linkClass}>
+            <ExternalLink
+              href="https://litu.tu.ac.th/testing/tu-get/"
+              newTabLabel={dict.a11y.newTab}
+              className={linkClass}
+            >
               {s.libraries.tuGetLinkLabel}
             </ExternalLink>
           </Stack>
 
-          <ExternalLink href="https://library.tu.ac.th" newTabLabel={dict.a11y.newTab} className={linkClass}>
+          <ExternalLink
+            href="https://library.tu.ac.th"
+            newTabLabel={dict.a11y.newTab}
+            className={linkClass}
+          >
             {s.libraries.libraryLinkLabel}
           </ExternalLink>
         </Stack>
       </section>
 
-      <section id="sport-fitness" aria-label={s.sportFitness.title} className="max-w-[var(--measure)]">
+      <section
+        id="sport-fitness"
+        aria-label={s.sportFitness.title}
+        className="max-w-[var(--measure)]"
+      >
         <Stack gap="sm">
-          <Heading level={2}>
-            {s.sportFitness.title}
-          </Heading>
+          <Heading level={2}>{s.sportFitness.title}</Heading>
           <Text step="body" className="text-muted">
             {s.sportFitness.body}
           </Text>
         </Stack>
       </section>
 
-      <section id="dome-account" aria-label={s.domeAccount.title} className="max-w-[var(--measure)]">
+      <section
+        id="dome-account"
+        aria-label={s.domeAccount.title}
+        className="max-w-[var(--measure)]"
+      >
         <Stack gap="sm">
-          <Heading level={2}>
-            {s.domeAccount.title}
-          </Heading>
+          <Heading level={2}>{s.domeAccount.title}</Heading>
           <Text step="body" className="text-muted">
             {s.domeAccount.body}
           </Text>
@@ -703,9 +785,7 @@ export default async function UniversityServicesPage({
 
       <section id="counselling" aria-label={s.counselling.title} className="max-w-[var(--measure)]">
         <Stack gap="md">
-          <Heading level={2}>
-            {s.counselling.title}
-          </Heading>
+          <Heading level={2}>{s.counselling.title}</Heading>
           <Text step="body" className="text-muted">
             {s.counselling.intro}
           </Text>
@@ -751,9 +831,7 @@ export default async function UniversityServicesPage({
 
       <section id="it-support" aria-label={s.itSupport.title} className="max-w-[var(--measure)]">
         <Stack gap="md">
-          <Heading level={2}>
-            {s.itSupport.title}
-          </Heading>
+          <Heading level={2}>{s.itSupport.title}</Heading>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Stack gap="xs" className="rounded-lg border border-line bg-sunken p-6">
@@ -761,7 +839,11 @@ export default async function UniversityServicesPage({
               <Text step="body-sm" className="text-muted">
                 {s.itSupport.helpdesk.body}
               </Text>
-              <ExternalLink href="https://page.line.me/pib5088f" newTabLabel={dict.a11y.newTab} className={linkClass}>
+              <ExternalLink
+                href="https://page.line.me/pib5088f"
+                newTabLabel={dict.a11y.newTab}
+                className={linkClass}
+              >
                 {s.itSupport.helpdesk.linkLabel}
               </ExternalLink>
             </Stack>

@@ -108,7 +108,11 @@ export default async function HelpTopicStartPage({
             </Button>
           </div>
 
-          <AnswersProfileSummary locale={locale} profile={profile} returnTo={`/help/answers/${topic.slug}${carry}`} />
+          <AnswersProfileSummary
+            locale={locale}
+            profile={profile}
+            returnTo={`/help/answers/${topic.slug}${carry}`}
+          />
 
           <Notice variant="info">{t.guidanceDisclaimer}</Notice>
         </Stack>

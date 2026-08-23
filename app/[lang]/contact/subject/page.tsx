@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
 import PageHeader from "@/components/bds/PageHeader";
+import { Text } from "@/components/bds/Type";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -67,11 +69,15 @@ export default async function ContactSubjectPage({
           </Button>
         }
       />
-      <div className="wrap max-w-[var(--measure)] py-10">
+      <Wrap className="max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           {draft.category === "problem" ? (
-            <p className="rounded-md border-l-4 border-error bg-error-tint p-4 text-sm text-ink">
+            <Text
+              as="p"
+              step="body-sm"
+              className="rounded-md border-l-4 border-error bg-error-tint p-4 text-ink"
+            >
               {harassmentNote.text}{" "}
               <a
                 href={`${localeHref(locale, "/contact")}#report-harassment`}
@@ -79,7 +85,7 @@ export default async function ContactSubjectPage({
               >
                 {harassmentNote.cta}
               </a>
-            </p>
+            </Text>
           ) : null}
           <QuestionStepForm
             action={submitSubjectStep.bind(null, locale, returnTo)}
@@ -96,7 +102,7 @@ export default async function ContactSubjectPage({
             }}
           />
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }

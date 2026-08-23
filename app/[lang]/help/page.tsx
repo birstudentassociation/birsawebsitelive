@@ -105,11 +105,7 @@ const entries: Entry[] = [
   },
 ];
 
-export default async function HelpHubPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function HelpHubPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

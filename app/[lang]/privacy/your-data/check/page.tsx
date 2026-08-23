@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
+import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import RightsCheckForm from "@/components/forms/RightsCheckForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -43,8 +45,15 @@ export default async function RightsCheckPage({ params }: { params: Promise<{ la
 
   return (
     <>
-      <PageHeader title={wizard.checkTitle} />
-      <div className="wrap max-w-[var(--measure)] py-10">
+      <PageHeader
+        title={wizard.checkTitle}
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
+      />
+      <Wrap className="max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav
             backHref={localeHref(locale, "/privacy/your-data/details")}
@@ -58,7 +67,7 @@ export default async function RightsCheckPage({ params }: { params: Promise<{ la
             action={submitRightsCheck.bind(null, locale)}
           />
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }

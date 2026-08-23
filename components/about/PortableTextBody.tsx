@@ -209,7 +209,9 @@ export default function PortableTextBody({
     }
 
     flushListBuffer();
-    rendered.push(renderBlock(textBlock, textBlock._key ?? `block-${rendered.length}`, headingBaseLevel));
+    rendered.push(
+      renderBlock(textBlock, textBlock._key ?? `block-${rendered.length}`, headingBaseLevel)
+    );
   }
   flushListBuffer();
 

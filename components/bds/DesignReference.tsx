@@ -10,10 +10,11 @@ import {
   type SpaceToken,
   type TypeStep,
 } from "@/components/bds/tokens";
+import { Heading, Text } from "@/components/bds/Type";
 import type { Locale } from "@/lib/i18n";
 
 /**
- * The `/design` reference page skeleton (REDESIGN-2.0 §4.1, §11.6 point 5).
+ * The `/design` reference page (REDESIGN-2.0 §4.1, §11.6 point 5).
  *
  * Renders from the same enumerations the rest of the system reads, so it
  * cannot drift from what actually exists:
@@ -25,12 +26,13 @@ import type { Locale } from "@/lib/i18n";
  *   - every entry in `components/bds/manifest.ts`, marked "not yet built"
  *     where `components/bds/<Name>.tsx` does not exist on disk yet
  *
- * This is the Wave 1 skeleton. It deliberately does not import
- * `components/bds/Type.tsx`: another agent is writing it in parallel this
- * wave and it may not exist at any given moment. Wave 2 wires it in once
- * that lands. Typography below uses the `text-*` scale class names
- * directly, which is also the rule every other `bds/` component follows
- * (`components/bds/tokens.css`: "use `text-display-2`, never `text-4xl`").
+ * Built on `Heading` and `Text` from `components/bds/Type.tsx` for every
+ * run of text, per that file's own rule ("reaching for a Tailwind text-* or
+ * leading-* utility instead of Text or Heading is a bug, not a style
+ * preference"). The Wave 1 skeleton this replaced deliberately used the
+ * scale's raw class names because `Type.tsx` did not exist yet at the time;
+ * it exists now, so this page follows the same rule every other `bds/`
+ * component does.
  */
 
 /**
@@ -150,11 +152,15 @@ function ColorSwatches({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="design-colour" className="flex flex-col gap-4">
-      <h2 id="design-colour" className="text-heading-1">
-        {t.colorTitle}
-      </h2>
-      <p className="text-body text-muted">{t.colorIntro}</p>
-      <p className="text-body-sm text-muted">{t.colorNote}</p>
+      <Heading level={2}>
+        <span id="design-colour">{t.colorTitle}</span>
+      </Heading>
+      <Text step="body" className="text-muted">
+        {t.colorIntro}
+      </Text>
+      <Text step="body-sm" className="text-muted">
+        {t.colorNote}
+      </Text>
       <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {(colorTokens as readonly ColorToken[]).map((token) => {
           const hex = hexByToken[token] ?? "?";
@@ -167,8 +173,12 @@ function ColorSwatches({ locale }: { locale: Locale }) {
               />
               {/* Never colour alone (§7): the name and hex are printed text,
                   not implied by the swatch. */}
-              <span className="text-body-sm font-semibold text-ink">{token}</span>
-              <span className="text-body-sm text-muted">{hex}</span>
+              <Text as="span" step="body-sm" className="font-semibold text-ink">
+                {token}
+              </Text>
+              <Text as="span" step="body-sm" className="text-muted">
+                {hex}
+              </Text>
             </li>
           );
         })}
@@ -182,21 +192,27 @@ function TypeSpecimen({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="design-type" className="flex flex-col gap-4">
-      <h2 id="design-type" className="text-heading-1">
-        {t.typeTitle}
-      </h2>
-      <p className="text-body text-muted">{t.typeIntro}</p>
+      <Heading level={2}>
+        <span id="design-type">{t.typeTitle}</span>
+      </Heading>
+      <Text step="body" className="text-muted">
+        {t.typeIntro}
+      </Text>
       <ul className="flex flex-col gap-8">
         {(typeSteps as readonly TypeStep[]).map((step) => (
           <li key={step} className="flex flex-col gap-1 border-b border-line pb-6">
-            <span className="text-body-sm font-semibold text-muted">text-{step}</span>
-            {/* The scale's class name directly, per components/bds/tokens.css:
-                "use text-display-2, never text-4xl". */}
-            <p lang="en" className={`text-${step}`}>
-              {t.typeLatinSample}
+            <Text as="span" step="body-sm" className="font-semibold text-muted">
+              text-{step}
+            </Text>
+            <p lang="en">
+              <Text as="span" step={step}>
+                {t.typeLatinSample}
+              </Text>
             </p>
-            <p lang="th" className={`text-${step}`}>
-              {t.typeThaiSample}
+            <p lang="th">
+              <Text as="span" step={step}>
+                {t.typeThaiSample}
+              </Text>
             </p>
           </li>
         ))}
@@ -212,22 +228,26 @@ function SpacingScale({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="design-space" className="flex flex-col gap-4">
-      <h2 id="design-space" className="text-heading-1">
-        {t.spaceTitle}
-      </h2>
-      <p className="text-body text-muted">{t.spaceIntro}</p>
+      <Heading level={2}>
+        <span id="design-space">{t.spaceTitle}</span>
+      </Heading>
+      <Text step="body" className="text-muted">
+        {t.spaceIntro}
+      </Text>
       <ul className="flex flex-col gap-3">
         {(spaceTokens as readonly SpaceToken[]).map((token) => (
           <li key={token} className="flex flex-wrap items-center gap-3">
-            <span className="text-body-sm w-32 shrink-0 font-semibold text-ink">
+            <Text as="span" step="body-sm" className="w-32 shrink-0 font-semibold text-ink">
               --space-{token}
-            </span>
+            </Text>
             <span
               aria-hidden="true"
               className="block h-3 rounded-sm bg-brand"
               style={{ width: `var(--space-${token})` }}
             />
-            <span className="text-body-sm text-muted">{spaceValues[token] ?? "?"}</span>
+            <Text as="span" step="body-sm" className="text-muted">
+              {spaceValues[token] ?? "?"}
+            </Text>
           </li>
         ))}
       </ul>
@@ -241,34 +261,46 @@ function ManifestTable({ locale }: { locale: Locale }) {
 
   return (
     <section aria-labelledby="design-components" className="flex flex-col gap-6">
-      <h2 id="design-components" className="text-heading-1">
-        {t.componentsTitle}
-      </h2>
-      <p className="text-body text-muted">{t.componentsIntro}</p>
+      <Heading level={2}>
+        <span id="design-components">{t.componentsTitle}</span>
+      </Heading>
+      <Text step="body" className="text-muted">
+        {t.componentsIntro}
+      </Text>
       {clusters.map((cluster) => {
         const entries = manifest.filter((entry) => entry.cluster === cluster);
         return (
           <div key={cluster} className="flex flex-col gap-3">
-            <h3 className="text-heading-2">{clusterLabel[cluster][locale]}</h3>
+            <Heading level={3}>{clusterLabel[cluster][locale]}</Heading>
             <div className="overflow-x-auto">
-              <table className="text-body-sm w-full min-w-[720px] border-collapse">
+              <table className="w-full min-w-[720px] border-collapse">
                 <caption className="sr-only">{clusterLabel[cluster][locale]}</caption>
                 <thead>
                   <tr className="border-b border-line-strong text-left">
                     <th scope="col" className="py-2 pr-4">
-                      {t.colName}
+                      <Text as="span" step="body-sm" className="font-semibold">
+                        {t.colName}
+                      </Text>
                     </th>
                     <th scope="col" className="py-2 pr-4">
-                      {t.colGds}
+                      <Text as="span" step="body-sm" className="font-semibold">
+                        {t.colGds}
+                      </Text>
                     </th>
                     <th scope="col" className="py-2 pr-4">
-                      {t.colStatus}
+                      <Text as="span" step="body-sm" className="font-semibold">
+                        {t.colStatus}
+                      </Text>
                     </th>
                     <th scope="col" className="py-2 pr-4">
-                      {t.colUsage}
+                      <Text as="span" step="body-sm" className="font-semibold">
+                        {t.colUsage}
+                      </Text>
                     </th>
                     <th scope="col" className="py-2">
-                      {t.built}
+                      <Text as="span" step="body-sm" className="font-semibold">
+                        {t.built}
+                      </Text>
                     </th>
                   </tr>
                 </thead>
@@ -277,14 +309,30 @@ function ManifestTable({ locale }: { locale: Locale }) {
                     const built = componentFileExists(entry.name);
                     return (
                       <tr key={entry.name} className="border-b border-line align-top">
-                        <th scope="row" className="py-2 pr-4 font-semibold text-ink">
-                          {entry.name}
+                        <th scope="row" className="py-2 pr-4 text-left font-semibold text-ink">
+                          <Text as="span" step="body-sm" className="font-semibold">
+                            {entry.name}
+                          </Text>
                         </th>
-                        <td className="py-2 pr-4 text-muted">{entry.gds ?? t.gdsNone}</td>
-                        <td className="py-2 pr-4 text-muted">{entry.status}</td>
-                        <td className="max-w-[28rem] py-2 pr-4 text-muted">{entry.usage}</td>
+                        <td className="py-2 pr-4">
+                          <Text as="span" step="body-sm" className="text-muted">
+                            {entry.gds ?? t.gdsNone}
+                          </Text>
+                        </td>
+                        <td className="py-2 pr-4">
+                          <Text as="span" step="body-sm" className="text-muted">
+                            {entry.status}
+                          </Text>
+                        </td>
+                        <td className="max-w-[28rem] py-2 pr-4">
+                          <Text as="span" step="body-sm" className="text-muted">
+                            {entry.usage}
+                          </Text>
+                        </td>
                         <td className="py-2">
-                          <span
+                          <Text
+                            as="span"
+                            step="body-sm"
                             className={
                               built
                                 ? "inline-block rounded-full bg-success-tint px-2 py-0.5 font-semibold text-success"
@@ -292,7 +340,7 @@ function ManifestTable({ locale }: { locale: Locale }) {
                             }
                           >
                             {built ? t.built : t.notYetBuilt}
-                          </span>
+                          </Text>
                         </td>
                       </tr>
                     );

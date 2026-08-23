@@ -228,7 +228,8 @@ export const studies = {
       },
     },
     warningLabel: "Warning",
-    warningBody: "Two consecutive warnings can lead to dismissal. Talk to your advisor as soon as you receive one.",
+    warningBody:
+      "Two consecutive warnings can lead to dismissal. Talk to your advisor as soon as you receive one.",
     contactHeading: "Who decides",
     contactBody:
       "These rules are set by Thammasat University and applied by your instructors, your advisor and the Dean of the Faculty of Political Science, not by BIRSA. BIRSA cannot change a grade, a warning or a dismissal decision.",

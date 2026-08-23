@@ -43,8 +43,7 @@ const copy = {
     title: "Report harassment or bullying",
     intro:
       "If anything happens, from another student, staff member or member of the public, that leaves you feeling unsafe, uncomfortable or violated, you have the right to report it.",
-    boundaryLead:
-      "Before you continue, it helps to know what these two channels are.",
+    boundaryLead: "Before you continue, it helps to know what these two channels are.",
     boundaryBody:
       "The BIR Programme office and BIRSA's Rights Advocate and Student Welfare Officer are BIRSA's own reporting channels, not the police and not a court. You do not need complete evidence or a tidy account of what happened before you ask for advice, and you can talk to a trusted BIRSA committee member first if that feels easier. Reporting here does not replace calling the police (191) in an emergency, and it does not replace the university's own formal disciplinary process if that is the route you choose instead or as well.",
     continueLabel: "See how to report",
@@ -76,11 +75,7 @@ export async function generateMetadata({
   return buildMetadata({ locale, title: t.title, description: t.intro, path: "/help/reporting" });
 }
 
-export default async function ReportingPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function ReportingPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
@@ -88,47 +83,47 @@ export default async function ReportingPage({
   const t = copy[locale];
 
   return (
-    <>
-      <ExitThisPage
-        exitHref={EXIT_HREF}
-        historyDecoyHref={localeHref(locale, "/")}
-        label={dict.exitThisPage.label}
-        shortcutHint={dict.exitThisPage.shortcutHint}
-        leavingAnnouncement={dict.exitThisPage.leavingAnnouncement}
-      />
-      <Wrap className="py-10">
-        <Stack gap="2xl" className="max-w-[var(--measure)]">
-          <Breadcrumbs
-            locale={locale}
-            label={dict.a11y.breadcrumb}
-            items={[
-              { label: dict.site.name, href: "/" },
-              { label: dict.hub.title, href: "/help" },
-              { label: t.title },
-            ]}
-          />
+    <Wrap className="py-10">
+      <Stack gap="2xl" className="max-w-[var(--measure)]">
+        <Breadcrumbs
+          locale={locale}
+          label={dict.a11y.breadcrumb}
+          items={[
+            { label: dict.site.name, href: "/" },
+            { label: dict.hub.title, href: "/help" },
+            { label: t.title },
+          ]}
+        />
 
-          <InterruptionPage
-            heading={t.title}
-            intro={t.intro}
-            continueHref="#channels"
-            continueLabel={t.continueLabel}
-            secondaryHref={localeHref(locale, "/")}
-            secondaryLabel={t.secondaryLabel}
-          >
-            <Stack gap="sm">
-              <Text step="body" className="font-semibold text-ink">
-                {t.boundaryLead}
-              </Text>
-              <Text step="body">{t.boundaryBody}</Text>
-            </Stack>
-          </InterruptionPage>
+        <InterruptionPage
+          heading={t.title}
+          intro={t.intro}
+          continueHref="#channels"
+          continueLabel={t.continueLabel}
+          secondaryHref={localeHref(locale, "/")}
+          secondaryLabel={t.secondaryLabel}
+          exitThisPage={
+            <ExitThisPage
+              exitHref={EXIT_HREF}
+              historyDecoyHref={localeHref(locale, "/")}
+              label={dict.exitThisPage.label}
+              shortcutHint={dict.exitThisPage.shortcutHint}
+              leavingAnnouncement={dict.exitThisPage.leavingAnnouncement}
+            />
+          }
+        >
+          <Stack gap="sm">
+            <Text step="body" className="font-semibold text-ink">
+              {t.boundaryLead}
+            </Text>
+            <Text step="body">{t.boundaryBody}</Text>
+          </Stack>
+        </InterruptionPage>
 
-          <div id="channels">
-            <ReportingChannels locale={locale} headingLevel={2} />
-          </div>
-        </Stack>
-      </Wrap>
-    </>
+        <div id="channels">
+          <ReportingChannels locale={locale} headingLevel={2} />
+        </div>
+      </Stack>
+    </Wrap>
   );
 }

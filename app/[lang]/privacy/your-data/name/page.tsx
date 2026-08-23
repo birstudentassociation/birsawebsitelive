@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
+import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -50,8 +52,15 @@ export default async function RightsNamePage({
 
   return (
     <>
-      <PageHeader title={wizard.nameHeading} />
-      <div className="wrap max-w-[var(--measure)] py-10">
+      <PageHeader
+        title={wizard.nameHeading}
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
+      />
+      <Wrap className="max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
@@ -70,7 +79,7 @@ export default async function RightsNamePage({
             }}
           />
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }

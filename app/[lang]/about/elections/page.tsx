@@ -90,7 +90,10 @@ export default async function AboutElectionsPage({
             <Button href={localeHref(locale, "/about/decisions")} variant="secondary">
               {t.resultsCta}
             </Button>
-            <Button href={localeHref(locale, "/activity/regulations/political-science-2565")} variant="secondary">
+            <Button
+              href={localeHref(locale, "/activity/regulations/political-science-2565")}
+              variant="secondary"
+            >
               {t.regulationCta}
             </Button>
           </div>

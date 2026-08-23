@@ -41,11 +41,7 @@ export async function generateMetadata({
   return buildMetadata({ locale, title: t.title, description: t.lede, path: "/studies" });
 }
 
-export default async function StudiesIndexPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function StudiesIndexPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

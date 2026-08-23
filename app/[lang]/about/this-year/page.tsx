@@ -34,11 +34,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function AboutThisYearPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function AboutThisYearPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

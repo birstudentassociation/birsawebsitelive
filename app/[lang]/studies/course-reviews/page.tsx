@@ -13,7 +13,12 @@ import Select from "@/components/bds/Select";
 import TextInput from "@/components/bds/TextInput";
 import Tag from "@/components/bds/Tag";
 import { Heading, Text } from "@/components/bds/Type";
-import { TRACK_ORDER, CATEGORY_ORDER, filterCourses, hasActiveFilters } from "@/components/studies/catalogue";
+import {
+  TRACK_ORDER,
+  CATEGORY_ORDER,
+  filterCourses,
+  hasActiveFilters,
+} from "@/components/studies/catalogue";
 
 /**
  * `/studies/course-reviews` (ROUTE-MAP-2.0 "Wave 5D"): the catalogue and
@@ -101,9 +106,11 @@ export default async function CourseReviewsPage({
             <StatTile label={t.statsTotalCredits} value={totalCredits} />
             <StatTile
               label={t.statsTracks}
-              value={TRACK_ORDER.filter(
-                (track) => track !== "foundational" && track !== "international-relations"
-              ).length}
+              value={
+                TRACK_ORDER.filter(
+                  (track) => track !== "foundational" && track !== "international-relations"
+                ).length
+              }
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -112,7 +119,10 @@ export default async function CourseReviewsPage({
             </Text>
             <ul className="flex flex-col gap-1">
               {TRACK_ORDER.map((track) => (
-                <li key={track} className="flex items-center justify-between gap-3 border-b border-line py-1.5">
+                <li
+                  key={track}
+                  className="flex items-center justify-between gap-3 border-b border-line py-1.5"
+                >
                   <Text step="body-sm" className="text-muted">
                     {t.tracks[track]}
                   </Text>
@@ -130,10 +140,7 @@ export default async function CourseReviewsPage({
             {t.browseHeading}
           </Heading>
 
-          <form
-            method="get"
-            className="flex flex-col flex-wrap items-end gap-4 sm:flex-row"
-          >
+          <form method="get" className="flex flex-col flex-wrap items-end gap-4 sm:flex-row">
             <TextInput
               name="q"
               label={dict.actions.search}
@@ -172,7 +179,10 @@ export default async function CourseReviewsPage({
           <div className="flex flex-wrap items-center justify-between gap-3">
             <Text step="body-sm" className="text-muted">
               {dict.actions.showing} {filtered.length}{" "}
-              {pluralize(filtered.length, { one: dict.actions.result, other: dict.actions.results })}
+              {pluralize(filtered.length, {
+                one: dict.actions.result,
+                other: dict.actions.results,
+              })}
             </Text>
             {filtersActive ? (
               <Link

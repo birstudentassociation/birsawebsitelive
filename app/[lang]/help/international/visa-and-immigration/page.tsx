@@ -35,7 +35,7 @@ const copy = {
       "This page is general orientation, not legal advice. Immigration rules and procedures change, so always confirm the current requirement with TU International Affairs or the Thai Immigration Bureau before you act.",
     visaHeading: "The Non-Immigrant ED visa",
     visaBody:
-      "Most degree-seeking international students study in Thailand on a Non-Immigrant \"ED\" (education) visa, tied to your enrolment at the university.",
+      'Most degree-seeking international students study in Thailand on a Non-Immigrant "ED" (education) visa, tied to your enrolment at the university.',
     reportingHeading: "The 90 day report",
     reportingBody:
       "If you stay in Thailand continuously, immigration law requires you to report your address every 90 days. It is a routine notification, not a new visa application, but missing the deadline can bring a fine.",

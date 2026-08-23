@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import Breadcrumbs from "@/components/Breadcrumbs";
-import PageHeader from "@/components/PageHeader";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
 import DesignReference from "@/components/bds/DesignReference";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 
 /**
@@ -79,10 +81,15 @@ export default async function DesignPage({ params }: { params: Promise<{ lang: s
             items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap py-10">
+      <Wrap className="py-10">
         <DesignReference locale={locale} />
-      </div>
+      </Wrap>
     </>
   );
 }

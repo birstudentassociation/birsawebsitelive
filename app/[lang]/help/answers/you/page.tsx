@@ -139,7 +139,11 @@ export default async function HelpAudienceProfilePage({
       />
 
       <Wrap className="py-10">
-        <form method="GET" action={formAction} className="flex max-w-[var(--measure)] flex-col gap-8">
+        <form
+          method="GET"
+          action={formAction}
+          className="flex max-w-[var(--measure)] flex-col gap-8"
+        >
           <input type="hidden" name="submitted" value="1" />
           <input type="hidden" name="return" value={destination} />
 
@@ -171,7 +175,10 @@ export default async function HelpAudienceProfilePage({
 
             <div className="flex items-center gap-5">
               <Button type="submit">{t.profileSave}</Button>
-              <Link href={cancelHref} className="focus-halo font-medium text-brand-deep hover:underline">
+              <Link
+                href={cancelHref}
+                className="focus-halo font-medium text-brand-deep hover:underline"
+              >
                 {t.back}
               </Link>
             </div>

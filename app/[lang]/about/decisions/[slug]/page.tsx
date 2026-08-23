@@ -79,7 +79,9 @@ export default async function AboutDecisionDetailPage({
           portfolioLabel={portfolio.label[locale]}
           meetingTitle={decision.meeting?.title}
           meetingHref={
-            decision.meeting ? localeHref(locale, `/about/minutes/${decision.meeting.slug}`) : undefined
+            decision.meeting
+              ? localeHref(locale, `/about/minutes/${decision.meeting.slug}`)
+              : undefined
           }
           summary={decision.summary}
           whatChanged={decision.whatChanged[locale]}

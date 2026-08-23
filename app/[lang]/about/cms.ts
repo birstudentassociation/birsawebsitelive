@@ -27,7 +27,11 @@ import type { BudgetEntryDirection } from "@/sanity/schemaTypes/documents/budget
 import type { PortfolioId } from "@/lib/portfolios";
 import type { PortableTextBlockLike } from "@/components/about/PortableTextBody";
 
-async function safeFetch<T>(query: string, params: Record<string, unknown>, fallback: T): Promise<T> {
+async function safeFetch<T>(
+  query: string,
+  params: Record<string, unknown>,
+  fallback: T
+): Promise<T> {
   try {
     const result = await client.fetch<T>(query, params);
     return result ?? fallback;

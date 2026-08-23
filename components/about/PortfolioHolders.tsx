@@ -54,7 +54,7 @@ export default function PortfolioHolders({
 }: PortfolioHoldersProps) {
   return (
     <div className="flex flex-col gap-4">
-      <ul className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,14rem),1fr))]">
+      <ul className="grid [grid-template-columns:repeat(auto-fill,minmax(min(100%,14rem),1fr))] gap-4">
         {holders.map((holder) => (
           <li
             key={holder.key}

@@ -61,7 +61,12 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const t = copy[locale];
-  return buildMetadata({ locale, title: t.title, description: t.lede, path: "/help/guides/shuttle-bus" });
+  return buildMetadata({
+    locale,
+    title: t.title,
+    description: t.lede,
+    path: "/help/guides/shuttle-bus",
+  });
 }
 
 export default async function ShuttleBusGuidePage({

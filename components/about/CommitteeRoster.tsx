@@ -13,6 +13,7 @@
 import Image from "next/image";
 import { committee, committeeGroupLabels, type CommitteeGroup } from "@/content/committee";
 import { findPortrait } from "@/lib/committee-portrait";
+import { Text } from "@/components/bds/Type";
 
 function PortraitPlaceholder() {
   return (
@@ -58,16 +59,24 @@ function MemberCard({
         <PortraitPlaceholder />
       )}
       <div className="flex flex-col items-center">
-        <p data-roster-line className="font-semibold whitespace-nowrap text-ink">
-          {t.firstName}
+        <p data-roster-line className="whitespace-nowrap">
+          <Text as="span" step="body-sm" className="font-semibold text-ink">
+            {t.firstName}
+          </Text>
         </p>
-        <p data-roster-line className="font-semibold whitespace-nowrap text-ink">
-          {t.lastName}
+        <p data-roster-line className="whitespace-nowrap">
+          <Text as="span" step="body-sm" className="font-semibold text-ink">
+            {t.lastName}
+          </Text>
         </p>
-        <p data-roster-line className="text-sm whitespace-nowrap text-muted">
-          ({t.nickname})
+        <p data-roster-line className="whitespace-nowrap">
+          <Text as="span" step="body-sm" className="text-muted">
+            ({t.nickname})
+          </Text>
         </p>
-        <p className="mt-1 text-sm text-muted">{t.title}</p>
+        <Text as="p" step="body-sm" className="mt-1 text-muted">
+          {t.title}
+        </Text>
       </div>
     </li>
   );

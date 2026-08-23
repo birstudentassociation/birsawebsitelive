@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Button from "@/components/Button";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap, Stack, Section } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
+import { Heading, Text } from "@/components/bds/Type";
 import { RIGHTS_RESPONSE_DAYS } from "@/content/privacy/register";
 
 const copy: Record<
@@ -96,31 +98,44 @@ export default async function RightsSentPage({ params }: { params: Promise<{ lan
             ]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
+      <Wrap className="flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <div
           role="status"
           className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
         >
-          <p className="text-sm">{t.confirmationBody}</p>
+          <Text step="body-sm">{t.confirmationBody}</Text>
         </div>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.deadlineTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.deadlineBody(RIGHTS_RESPONSE_DAYS)}</p>
-        </section>
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.deadlineTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.deadlineBody(RIGHTS_RESPONSE_DAYS)}
+            </Text>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.nextTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.nextBody}</p>
-        </section>
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.nextTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.nextBody}
+            </Text>
+          </Stack>
+        </Section>
 
         <div>
           <Button href={localeHref(locale, "/")} variant="secondary">
             {t.backLink}
           </Button>
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }

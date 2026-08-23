@@ -154,7 +154,12 @@ export default async function HelpTopicStepPage({
                 <input key={index} type="hidden" name="a" value={id} />
               ))}
 
-              <Fieldset id={fieldsetId} legend={node.question[locale]} legendStep="display-2" hint={node.hint?.[locale]}>
+              <Fieldset
+                id={fieldsetId}
+                legend={node.question[locale]}
+                legendStep="display-2"
+                hint={node.hint?.[locale]}
+              >
                 {options.map((option) => (
                   <label
                     key={option.id}
@@ -183,13 +188,21 @@ export default async function HelpTopicStepPage({
 
               <div className="flex items-center gap-5">
                 <Button type="submit">{t.continueLabel}</Button>
-                <Link href={backHref} className="focus-halo font-medium text-brand-deep hover:underline">
+                <Link
+                  href={backHref}
+                  className="focus-halo font-medium text-brand-deep hover:underline"
+                >
                   {t.back}
                 </Link>
               </div>
             </form>
 
-            <AnswersProfileSummary locale={locale} profile={profile} returnTo={returnTo} variant="compact" />
+            <AnswersProfileSummary
+              locale={locale}
+              profile={profile}
+              returnTo={returnTo}
+              variant="compact"
+            />
           </Stack>
         </Wrap>
       </>
@@ -374,7 +387,11 @@ export default async function HelpTopicStepPage({
                           <Text as="dd" step="body" className="font-medium text-ink">
                             {step.option.label[locale]}
                             {step.auto ? (
-                              <Text as="span" step="body-sm" className="ml-2 font-normal text-muted">
+                              <Text
+                                as="span"
+                                step="body-sm"
+                                className="ml-2 font-normal text-muted"
+                              >
                                 ({t.assumed})
                               </Text>
                             ) : null}
@@ -397,7 +414,12 @@ export default async function HelpTopicStepPage({
             </section>
           ) : null}
 
-          <AnswersProfileSummary locale={locale} profile={profile} returnTo={returnTo} variant="compact" />
+          <AnswersProfileSummary
+            locale={locale}
+            profile={profile}
+            returnTo={returnTo}
+            variant="compact"
+          />
 
           <Stack gap="sm" className="rounded-lg border border-line p-5">
             <Heading level={2} step="heading-3">
@@ -411,7 +433,10 @@ export default async function HelpTopicStepPage({
           </Stack>
 
           <div>
-            <Link href={startHref} className="focus-halo font-medium text-brand-deep hover:underline">
+            <Link
+              href={startHref}
+              className="focus-halo font-medium text-brand-deep hover:underline"
+            >
               {t.startAgain}
             </Link>
           </div>

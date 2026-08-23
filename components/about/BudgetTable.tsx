@@ -87,8 +87,16 @@ export default function BudgetTable({ entries, copy, locale }: BudgetTableProps)
         <Heading level={2}>{copy.totalsHeading}</Heading>
         <SummaryList
           rows={[
-            { id: "income", label: copy.totalIncomeLabel, value: formatAmount(locale, totalIncome) },
-            { id: "expense", label: copy.totalExpenseLabel, value: formatAmount(locale, totalExpense) },
+            {
+              id: "income",
+              label: copy.totalIncomeLabel,
+              value: formatAmount(locale, totalIncome),
+            },
+            {
+              id: "expense",
+              label: copy.totalExpenseLabel,
+              value: formatAmount(locale, totalExpense),
+            },
             { id: "net", label: copy.netLabel, value: formatAmount(locale, net) },
           ]}
         />

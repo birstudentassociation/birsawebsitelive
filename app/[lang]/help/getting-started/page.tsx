@@ -129,7 +129,7 @@ const copy = {
       },
       {
         route: "รถไฟฟ้าใต้ดินต่อรถตู้",
-        legs: "MRT สถานีสนามไชย ไปสถานีจตุจักร แล้วต่อรถตู้สาย \"หมอชิต ธรรมศาสตร์รังสิต\" ที่ทางออก 4",
+        legs: 'MRT สถานีสนามไชย ไปสถานีจตุจักร แล้วต่อรถตู้สาย "หมอชิต ธรรมศาสตร์รังสิต" ที่ทางออก 4',
         fare: "45 บาท (MRT) บวก 45 บาท (รถตู้)",
         time: "ประมาณ 30 นาที (MRT) บวกประมาณ 1 ชั่วโมง (รถตู้) ขึ้นกับสภาพจราจร",
       },
@@ -141,7 +141,7 @@ const copy = {
       },
       {
         route: "รถเมล์ต่อรถตู้",
-        legs: "รถเมล์สาย 59 หรือ 503 จากท่าพระจันทร์ไปอนุสาวรีย์ชัยสมรภูมิ แล้วต่อรถตู้สาย \"อนุสาวรีย์ชัยสมรภูมิ ธรรมศาสตร์รังสิต\" ที่เกาะพญาไท",
+        legs: 'รถเมล์สาย 59 หรือ 503 จากท่าพระจันทร์ไปอนุสาวรีย์ชัยสมรภูมิ แล้วต่อรถตู้สาย "อนุสาวรีย์ชัยสมรภูมิ ธรรมศาสตร์รังสิต" ที่เกาะพญาไท',
         fare: "25 บาท (รถเมล์) บวก 47 บาท (รถตู้)",
         time: "ประมาณ 1 ชั่วโมง บวกประมาณ 40 นาที ขึ้นกับสภาพจราจรทั้งสองช่วง",
       },
@@ -174,7 +174,12 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const t = copy[locale];
-  return buildMetadata({ locale, title: t.title, description: t.lede, path: "/help/getting-started" });
+  return buildMetadata({
+    locale,
+    title: t.title,
+    description: t.lede,
+    path: "/help/getting-started",
+  });
 }
 
 export default async function GettingStartedPage({

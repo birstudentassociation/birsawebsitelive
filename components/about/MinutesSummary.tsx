@@ -42,7 +42,11 @@ export type MinutesSummaryProps = {
   copy: MinutesSummaryCopy;
 };
 
-export default function MinutesSummary({ publicSummary, redactedItems, copy }: MinutesSummaryProps) {
+export default function MinutesSummary({
+  publicSummary,
+  redactedItems,
+  copy,
+}: MinutesSummaryProps) {
   return (
     <div className="flex flex-col gap-8">
       <section className="flex flex-col gap-3">

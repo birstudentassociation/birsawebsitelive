@@ -60,7 +60,8 @@ export default function ReportingChannels({
                 : null}
             </Text>
             <Text step="body-sm" className="break-words">
-              {reportingCopy.emailLabel[locale]} <Email address={channel.email} className="font-semibold" />
+              {reportingCopy.emailLabel[locale]}{" "}
+              <Email address={channel.email} className="font-semibold" />
             </Text>
           </Stack>
         ))}

@@ -42,7 +42,8 @@ const copy = {
     documentsLede:
       "The University's own Regulation and the Faculty Notice issued under it, each set out provision by provision.",
     rightsHeading: "Rights you already have",
-    rightsLede: "These are entitlements you already have as a Thammasat student, not favours anyone needs to grant you.",
+    rightsLede:
+      "These are entitlements you already have as a Thammasat student, not favours anyone needs to grant you.",
     votingTitle: "Your vote",
     votingBody:
       "As a Thammasat student, you vote in three separate elections: the Student Council (TUSC), elected at campus level; the Thammasat University Student Union (TUSU), at both campus and central level; and your own faculty or programme's student committee.",
@@ -66,9 +67,11 @@ const copy = {
     title: "กฎและสิทธิของคุณ",
     lede: "ระเบียบที่กำกับ BIRSA และกิจกรรมนักศึกษา และสิทธิที่คุณมีอยู่แล้วในฐานะนักศึกษาธรรมศาสตร์",
     documentsHeading: "ระเบียบที่กำกับ BIRSA",
-    documentsLede: "ข้อบังคับของมหาวิทยาลัยและประกาศของคณะที่ออกตามข้อบังคับนั้น จัดเรียงเป็นรายข้อ",
+    documentsLede:
+      "ข้อบังคับของมหาวิทยาลัยและประกาศของคณะที่ออกตามข้อบังคับนั้น จัดเรียงเป็นรายข้อ",
     rightsHeading: "สิทธิที่คุณมีอยู่แล้ว",
-    rightsLede: "สิทธิเหล่านี้เป็นของคุณอยู่แล้วในฐานะนักศึกษาธรรมศาสตร์ ไม่ใช่เรื่องที่ต้องขอร้องใคร",
+    rightsLede:
+      "สิทธิเหล่านี้เป็นของคุณอยู่แล้วในฐานะนักศึกษาธรรมศาสตร์ ไม่ใช่เรื่องที่ต้องขอร้องใคร",
     votingTitle: "สิทธิการเลือกตั้งของคุณ",
     votingBody:
       "ในฐานะนักศึกษาธรรมศาสตร์ คุณมีสิทธิเลือกตั้งถึง 3 ระดับ ได้แก่ สภานักศึกษา (TUSC) ซึ่งเลือกตั้งระดับศูนย์ องค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์ (TUSU) ทั้งระดับศูนย์และระดับส่วนกลาง และกรรมการนักศึกษาประจำคณะหรือสาขาของคุณเอง",
@@ -84,7 +87,8 @@ const copy = {
     productsBody:
       "ที่ท่าพระจันทร์ ขอผ้าอนามัยฟรีได้ที่คณะของตนหรือที่ห้ององค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ และมีตู้ถุงยางอนามัยที่ชั้น 1 อาคารกิจกรรมนักศึกษา ที่ศูนย์รังสิต ขอผ้าอนามัยได้ที่ Thammasat Well Being Center และจุดแจกใกล้ห้องน้ำที่หอสมุดป๋วย อึ๊งภากรณ์ และศูนย์การเรียนรู้กรมหลวงนราธิวาสราชนครินทร์",
     complaintTitle: "หากสิทธิเหล่านี้ไม่ได้รับการเคารพ",
-    complaintBody: "รวมถึงสิทธิที่จะรู้สึกปลอดภัยด้วย หากพฤติกรรมของใครก็ตามทำให้คุณรู้สึกไม่ปลอดภัย ไม่สบายใจ หรือถูกล่วงละเมิด คุณมีสิทธิ์ที่จะแจ้งเรื่อง",
+    complaintBody:
+      "รวมถึงสิทธิที่จะรู้สึกปลอดภัยด้วย หากพฤติกรรมของใครก็ตามทำให้คุณรู้สึกไม่ปลอดภัย ไม่สบายใจ หรือถูกล่วงละเมิด คุณมีสิทธิ์ที่จะแจ้งเรื่อง",
     complaintCta: "วิธีแจ้งเรื่อง",
   },
 } satisfies Record<Locale, unknown>;
@@ -101,11 +105,7 @@ export async function generateMetadata({
   return buildMetadata({ locale, title: t.title, description: t.lede, path: "/help/regulations" });
 }
 
-export default async function RegulationsPage({
-  params,
-}: {
-  params: Promise<{ lang: string }>;
-}) {
+export default async function RegulationsPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;

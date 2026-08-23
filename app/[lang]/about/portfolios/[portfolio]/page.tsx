@@ -99,7 +99,11 @@ export default async function AboutPortfolioDetailPage({
       <Wrap className="flex flex-col gap-10 py-10">
         <section className="flex flex-col gap-4">
           <Heading level={2}>{t.holdersHeading}</Heading>
-          <PortfolioHolders holders={holders} locale={locale} singleHolderNote={t.singleHolderNote} />
+          <PortfolioHolders
+            holders={holders}
+            locale={locale}
+            singleHolderNote={t.singleHolderNote}
+          />
         </section>
 
         <section className="flex flex-col gap-3">
