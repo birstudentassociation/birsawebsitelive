@@ -21,6 +21,7 @@ import { about as aboutEn } from "@/content/dictionaries/en/about";
 import { chrome as chromeEn } from "@/content/dictionaries/en/chrome";
 import { officerConsole as consoleEn } from "@/content/dictionaries/en/console";
 import { doNamespace as doEn } from "@/content/dictionaries/en/do";
+import { homeNamespace as homeEn } from "@/content/dictionaries/en/home";
 import { forms as formsEn } from "@/content/dictionaries/en/forms";
 import { help as helpEn } from "@/content/dictionaries/en/help";
 import { services as servicesEn } from "@/content/dictionaries/en/services";
@@ -31,6 +32,7 @@ import { about as aboutTh } from "@/content/dictionaries/th/about";
 import { chrome as chromeTh } from "@/content/dictionaries/th/chrome";
 import { officerConsole as consoleTh } from "@/content/dictionaries/th/console";
 import { doNamespace as doTh } from "@/content/dictionaries/th/do";
+import { homeNamespace as homeTh } from "@/content/dictionaries/th/home";
 import { forms as formsTh } from "@/content/dictionaries/th/forms";
 import { help as helpTh } from "@/content/dictionaries/th/help";
 import { services as servicesTh } from "@/content/dictionaries/th/services";
@@ -52,6 +54,7 @@ const namespaces = {
     about: aboutEn,
     console: consoleEn,
     do: doEn,
+    home: homeEn,
   },
   th: {
     chrome: chromeTh,
@@ -64,6 +67,7 @@ const namespaces = {
     about: aboutTh,
     console: consoleTh,
     do: doTh,
+    home: homeTh,
   },
 } as const;
 

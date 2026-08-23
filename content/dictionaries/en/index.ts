@@ -8,6 +8,7 @@ import { studies } from "./studies";
 import { about } from "./about";
 import { officerConsole } from "./console";
 import { doNamespace } from "./do";
+import { homeNamespace } from "./home";
 
 /**
  * The English dictionary, composed from its namespace files.
@@ -36,4 +37,5 @@ export const en = {
   ...about,
   ...officerConsole,
   ...doNamespace,
+  ...homeNamespace,
 };

@@ -9,6 +9,7 @@ import { studies } from "./studies";
 import { about } from "./about";
 import { officerConsole } from "./console";
 import { doNamespace } from "./do";
+import { homeNamespace } from "./home";
 
 /**
  * The Thai dictionary, composed from its namespace files.
@@ -31,4 +32,5 @@ export const th: typeof en = {
   ...about,
   ...officerConsole,
   ...doNamespace,
+  ...homeNamespace,
 };

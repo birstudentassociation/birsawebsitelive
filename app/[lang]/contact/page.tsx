@@ -3,10 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import ExternalLink from "@/components/ExternalLink";
-import Email from "@/components/Email";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import ExternalLink from "@/components/bds/ExternalLink";
+import Email from "@/components/bds/Email";
+import { Wrap, Stack } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
+import { Heading, Text } from "@/components/bds/Type";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import ReportHarassment from "@/components/ReportHarassment";
@@ -113,17 +116,22 @@ export default async function ContactPage({
             items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/answers")} variant="secondary">
+            {t.answersCta}
+          </Button>
+        }
       />
       {/* Shown before the form itself: a student with a harassment or
           bullying incident should reach the direct channels straight away,
           not fill out a general question first. */}
-      <div className="wrap pt-10">
+      <Wrap className="pt-10">
         <ReportHarassment locale={locale} />
-      </div>
-      <div className="wrap grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1.2fr_1fr]">
+      </Wrap>
+      <Wrap className="grid grid-cols-1 gap-10 py-10 lg:grid-cols-[1.2fr_1fr]">
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
-          <h2 className="font-display text-2xl sm:text-3xl">{wizard.categoryHeading}</h2>
+          <Heading level={2}>{wizard.categoryHeading}</Heading>
           <QuestionStepForm
             action={submitCategoryStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
@@ -147,22 +155,30 @@ export default async function ContactPage({
           {/* Answering the question without a round trip is faster for the
               student and cheaper for the committee, so the guided route is
               offered before the form's other channels, not after them. */}
-          <div className="flex flex-col gap-2 border-b border-line pb-4">
-            <h2 className="font-display text-xl">{t.answersTitle}</h2>
-            <p className="text-sm text-muted">{t.answersBody}</p>
+          <Stack gap="xs" className="border-b border-line pb-4">
+            <Heading level={2}>{t.answersTitle}</Heading>
+            <Text step="body-sm" className="text-muted">
+              {t.answersBody}
+            </Text>
             <Link
               href={localeHref(locale, "/answers")}
-              className="text-sm font-semibold text-brand-deep hover:underline"
+              className="font-semibold text-brand-deep hover:underline"
             >
-              {t.answersCta} &rarr;
+              <Text as="span" step="body-sm">
+                {t.answersCta} &rarr;
+              </Text>
             </Link>
-          </div>
+          </Stack>
 
-          <h2 className="font-display text-xl">{t.otherWaysTitle}</h2>
-          <p className="text-sm text-muted">{t.otherWaysBody}</p>
-          <dl className="flex flex-col gap-3 text-sm">
+          <Heading level={2}>{t.otherWaysTitle}</Heading>
+          <Text step="body-sm" className="text-muted">
+            {t.otherWaysBody}
+          </Text>
+          <dl className="flex flex-col gap-3">
             <div>
-              <dt className="font-semibold text-ink">{t.emailLabel}</dt>
+              <Text as="dt" step="body-sm" className="font-semibold text-ink">
+                {t.emailLabel}
+              </Text>
               <dd className="flex flex-col gap-1">
                 <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
                 <Email
@@ -175,17 +191,21 @@ export default async function ContactPage({
               .filter((social) => social.id !== "email")
               .map((social) => (
                 <div key={social.id}>
-                  <dt className="font-semibold text-ink">{social.label}</dt>
+                  <Text as="dt" step="body-sm" className="font-semibold text-ink">
+                    {social.label}
+                  </Text>
                   <dd>
                     <ExternalLink href={social.href} newTabLabel={dict.a11y.newTab}>
-                      {social.label}
+                      <Text as="span" step="body-sm">
+                        {social.label}
+                      </Text>
                     </ExternalLink>
                   </dd>
                 </div>
               ))}
           </dl>
         </aside>
-      </div>
+      </Wrap>
     </>
   );
 }

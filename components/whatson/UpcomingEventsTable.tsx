@@ -34,6 +34,13 @@ export type UpcomingEventsTableProps = {
   events: CalendarEvent[];
   locale: Locale;
   labels: UpcomingEventsTableLabels;
+  /**
+   * Hide the table's own caption visually while keeping it as the scroll
+   * region's accessible name (`Table`'s own `captionHidden`). Pass this when
+   * a heading immediately above the table already states `labels.heading`,
+   * so the caption is not repeated to a sighted reader.
+   */
+  captionHidden?: boolean;
 };
 
 function eventRangeLabel(locale: Locale, event: CalendarEvent, joiner: string): string {
@@ -42,7 +49,12 @@ function eventRangeLabel(locale: Locale, event: CalendarEvent, joiner: string): 
   return `${start} ${joiner} ${formatDate(locale, event.end)}`;
 }
 
-export default function UpcomingEventsTable({ events, locale, labels }: UpcomingEventsTableProps) {
+export default function UpcomingEventsTable({
+  events,
+  locale,
+  labels,
+  captionHidden,
+}: UpcomingEventsTableProps) {
   const sorted = [...events].sort((a, b) => (a.start < b.start ? -1 : a.start > b.start ? 1 : 0));
 
   if (sorted.length === 0) {
@@ -56,6 +68,7 @@ export default function UpcomingEventsTable({ events, locale, labels }: Upcoming
   return (
     <Table
       caption={labels.heading}
+      captionHidden={captionHidden}
       columns={[
         { key: "date", header: labels.dateHeader },
         { key: "title", header: labels.eventHeader },

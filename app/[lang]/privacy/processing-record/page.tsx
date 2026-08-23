@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Email from "@/components/Email";
+
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import Email from "@/components/bds/Email";
+import { Wrap, Stack, Section } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
+import Table from "@/components/bds/Table";
+import { Heading, Text } from "@/components/bds/Type";
 import { contact } from "@/content/site";
 import {
   BREACH_NOTIFICATION_HOURS,
@@ -17,6 +21,19 @@ import {
   processors,
   type RetentionTrigger,
 } from "@/content/privacy/register";
+import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
+
+/**
+ * `/privacy/processing-record`: the section 39 record of processing
+ * activities (ROUTE-MAP-2.0 Wave 5F, BUILD-BRIEF-2.0 §8).
+ *
+ * EVERY ROW ON THIS PAGE COMES FROM `content/privacy/register.ts`. The
+ * `activities`, `processors` and `dataRights` loops are the whole factual
+ * content; the strings in `content` below are labels and connective
+ * sentences only. Changing a fixture in the register changes what this page
+ * says, because there is no second copy of any of it here.
+ */
 
 export async function generateMetadata({
   params,
@@ -51,6 +68,7 @@ type Labels = {
 
   activitiesTitle: string;
   activitiesIntro: string;
+  activitiesCaption: string;
   colCategory: string;
   colPurpose: string;
   colCollects: string;
@@ -59,12 +77,12 @@ type Labels = {
   colRetention: string;
   noRecipients: string;
   retentionYearsSuffix: string;
-  /** Separator before the trigger label. Thai runs นับแต่ straight into it with no space. */
   retentionTriggerJoin: string;
   retentionTriggerLabels: Record<RetentionTrigger, string>;
 
   processorsTitle: string;
   processorsIntro: string;
+  processorsCaption: string;
   colProcessor: string;
   colRole: string;
   colCountry: string;
@@ -95,16 +113,17 @@ const content: Record<Locale, Labels> = {
 
     aboutTitle: "About this record",
     aboutBody:
-      "This page is the structured record section 39 of the Act requires a data controller to keep. It lists what we process, why, and how, in more formal detail than the plain-language notice at /privacy. Both pages are generated from the same underlying record, so they can't drift apart or contradict each other.",
+      "This page is the structured record section 39 of the Act requires a data controller to keep. It lists what we process, why, and how, in more formal detail than the plain language notice at /privacy. Both pages are generated from the same underlying record, so they cannot drift apart or contradict each other.",
 
     controllerTitle: "Controller",
     controllerBody:
       "BIRSA (the BIR Student Association), the student association of the BIR programme, Faculty of Political Science, Thammasat University, is the controller for all processing listed below.",
-    controllerAddressLabel: "Address:",
-    controllerEmailLabel: "Email:",
+    controllerAddressLabel: "Address",
+    controllerEmailLabel: "Email",
 
     activitiesTitle: "Processing activities",
     activitiesIntro: "Every category of personal data this site processes, one row per activity.",
+    activitiesCaption: "Processing activities",
     colCategory: "Category",
     colPurpose: "Purpose",
     colCollects: "Data collected",
@@ -122,7 +141,8 @@ const content: Record<Locale, Labels> = {
 
     processorsTitle: "Processors",
     processorsIntro:
-      "The outside organisations that process personal data on our behalf, and where they're based.",
+      "The outside organisations that process personal data on our behalf, and where they are based.",
+    processorsCaption: "Processors",
     colProcessor: "Processor",
     colRole: "Role",
     colCountry: "Country",
@@ -133,24 +153,24 @@ const content: Record<Locale, Labels> = {
     rightsResponseNote: `We must answer an access request within ${RIGHTS_RESPONSE_DAYS} days, under section 30 of the Act.`,
     rightsCta: "See your rights in full",
 
-    securityTitle: "Security measures (section 37(1))",
-    securityIntro: "In plain terms, here's what protects the personal data we hold:",
+    securityTitle: "Security measures, section 37(1)",
+    securityIntro: "In plain terms, here is what protects the personal data we hold.",
     securityItems: [
-      "Officer passcodes are stored as a scrypt hash, a one-way scramble that cannot be turned back into the original passcode, even by us.",
-      "Sign-in sessions use a cookie that's cryptographically signed (HMAC), so it can't be forged or edited by a visitor.",
-      "Officers only see and act on what their role and their club scope allow: an officer of one club cannot see another club's borrower data.",
+      "Officer passcodes are stored as a scrypt hash, a one way scramble that cannot be turned back into the original passcode, even by us.",
+      "Sign in sessions use a cookie that is cryptographically signed (HMAC), so it cannot be forged or edited by a visitor.",
+      "Officers only see and act on what their role and their club scope allow. An officer of one club cannot see another club's borrower data.",
       "The site runs under a strict Content Security Policy, which limits what scripts and resources a page is allowed to load.",
-      "Forms are rate-limited, so one visitor cannot flood a form or overwhelm the system.",
+      "Forms are rate limited, so one visitor cannot flood a form or overwhelm the system.",
       "All data in transit runs over encrypted connections (TLS).",
-      "A scheduled job deletes or anonymises personal data automatically once it passes the two-year retention period, rather than relying on someone remembering to do it.",
+      "A scheduled job deletes or anonymises personal data automatically once it passes the two year retention period, rather than relying on someone remembering to do it.",
     ],
 
     breachTitle: "If something goes wrong",
-    breachBody: `If we discover a personal data breach that's likely to risk your rights and freedoms, section 37(4) of the Act requires us to notify the Personal Data Protection Committee within ${BREACH_NOTIFICATION_HOURS} hours of becoming aware of it, and to tell affected people without delay where the risk to them is high.`,
+    breachBody: `If we discover a personal data breach that is likely to risk your rights and freedoms, section 37(4) of the Act requires us to notify the Personal Data Protection Committee within ${BREACH_NOTIFICATION_HOURS} hours of becoming aware of it, and to tell affected people without delay where the risk to them is high.`,
 
     dpoTitle: "Data protection officer",
     dpoBody:
-      "BIRSA is not required to appoint a data protection officer under section 41 of the Act: we're not a state agency, we don't monitor personal data on a large scale as a core activity, and we don't process the sensitive categories of data listed in section 26. We still give a named contact point, as section 23(5) requires, for anyone with a question about this record or their data.",
+      "BIRSA is not required to appoint a data protection officer under section 41 of the Act. We are not a state agency, we do not monitor personal data on a large scale as a core activity, and we do not process the sensitive categories of data listed in section 26. We still give a named contact point, as section 23(5) requires, for anyone with a question about this record or their data.",
 
     contactCta: "Contact BIRSA",
   },
@@ -166,12 +186,13 @@ const content: Record<Locale, Labels> = {
     controllerTitle: "ผู้ควบคุมข้อมูลส่วนบุคคล",
     controllerBody:
       "BIRSA (สโมสรนักศึกษาหลักสูตร BIR) หลักสูตรการเมืองและการระหว่างประเทศ (BIR) คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เป็นผู้ควบคุมข้อมูลส่วนบุคคลสำหรับกิจกรรมการประมวลผลทั้งหมดที่ปรากฏด้านล่าง",
-    controllerAddressLabel: "ที่อยู่:",
-    controllerEmailLabel: "อีเมล:",
+    controllerAddressLabel: "ที่อยู่",
+    controllerEmailLabel: "อีเมล",
 
     activitiesTitle: "รายการกิจกรรมการประมวลผลข้อมูลส่วนบุคคล",
     activitiesIntro:
       "ข้อมูลส่วนบุคคลทุกประเภทที่เว็บไซต์นี้ประมวลผล โดยแสดงหนึ่งรายการต่อหนึ่งกิจกรรม",
+    activitiesCaption: "รายการกิจกรรมการประมวลผลข้อมูลส่วนบุคคล",
     colCategory: "ประเภทข้อมูล",
     colPurpose: "วัตถุประสงค์",
     colCollects: "ข้อมูลที่เก็บรวบรวม",
@@ -190,6 +211,7 @@ const content: Record<Locale, Labels> = {
     processorsTitle: "ผู้ประมวลผลข้อมูลส่วนบุคคล",
     processorsIntro:
       "นิติบุคคลภายนอกซึ่งดำเนินการประมวลผลข้อมูลส่วนบุคคลตามคำสั่งของ BIRSA พร้อมประเทศที่ตั้ง",
+    processorsCaption: "ผู้ประมวลผลข้อมูลส่วนบุคคล",
     colProcessor: "ผู้ประมวลผล",
     colRole: "ลักษณะการดำเนินการ",
     colCountry: "ประเทศที่ตั้ง",
@@ -200,7 +222,7 @@ const content: Record<Locale, Labels> = {
     rightsResponseNote: `BIRSA จะดำเนินการตามคำขอเข้าถึงข้อมูลส่วนบุคคลโดยไม่ชักช้า แต่ต้องไม่เกิน ${RIGHTS_RESPONSE_DAYS} วันนับแต่วันที่ได้รับคำขอ ตามมาตรา 30 แห่งพระราชบัญญัติ`,
     rightsCta: "ดูรายละเอียดสิทธิฉบับเต็ม",
 
-    securityTitle: "มาตรการรักษาความมั่นคงปลอดภัย (มาตรา 37(1))",
+    securityTitle: "มาตรการรักษาความมั่นคงปลอดภัย มาตรา 37(1)",
     securityIntro:
       "มาตรการที่ BIRSA จัดให้มีเพื่อป้องกันการสูญหาย เข้าถึง ใช้ เปลี่ยนแปลง แก้ไข หรือเปิดเผยข้อมูลส่วนบุคคลโดยปราศจากอำนาจหรือโดยมิชอบ มีดังนี้",
     securityItems: [
@@ -255,181 +277,187 @@ export default async function ProcessingRecordPage({
             ]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.aboutTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.aboutBody}</p>
-        </section>
+      <Wrap className="flex max-w-[var(--measure)] flex-col gap-10 py-10">
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.aboutTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.aboutBody}
+            </Text>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.controllerTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.controllerBody}</p>
-          <p className="leading-relaxed text-muted">
-            {t.controllerAddressLabel} {contact.address[locale]}
-          </p>
-          <p className="leading-relaxed text-muted">
-            {t.controllerEmailLabel}{" "}
-            <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
-            {locale === "th" ? " หรือ " : " or "}
-            <Email
-              address={contact.secondaryEmail}
-              className="text-brand-deep hover:text-brand-dark"
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.controllerTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.controllerBody}
+            </Text>
+            <Text step="body" className="text-muted">
+              {t.controllerAddressLabel} {contact.address[locale]}
+            </Text>
+            <Text step="body" className="text-muted">
+              {t.controllerEmailLabel}{" "}
+              <Email address={contact.email} className="text-brand-deep hover:text-brand-dark" />
+              {locale === "th" ? " หรือ " : " or "}
+              <Email
+                address={contact.secondaryEmail}
+                className="text-brand-deep hover:text-brand-dark"
+              />
+            </Text>
+          </Stack>
+        </Section>
+
+        <Section as="div">
+          <Stack gap="md">
+            <Stack gap="xs">
+              <Heading level={2}>{t.activitiesTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.activitiesIntro}
+              </Text>
+            </Stack>
+            <Table
+              caption={t.activitiesCaption}
+              captionHidden
+              rowHeaders
+              columns={[
+                { key: "category", header: t.colCategory },
+                { key: "purpose", header: t.colPurpose },
+                { key: "collects", header: t.colCollects },
+                { key: "basis", header: t.colBasis },
+                { key: "recipients", header: t.colRecipients },
+                { key: "retention", header: t.colRetention },
+              ]}
+              rows={activities.map((activity) => {
+                const recipients = activity.recipients
+                  .map((id) => processorById(id))
+                  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+                return {
+                  category: activity.name[locale],
+                  purpose: activity.purpose[locale],
+                  collects: (
+                    <Stack as="ul" gap="2xs" className="list-disc pl-4">
+                      {activity.collects.map((item) => (
+                        <li key={item[locale]}>{item[locale]}</li>
+                      ))}
+                    </Stack>
+                  ),
+                  basis: activity.basis.section,
+                  recipients:
+                    recipients.length === 0
+                      ? t.noRecipients
+                      : recipients.map((p) => p.name).join(locale === "th" ? " และ " : ", "),
+                  retention: retentionCell(t, activity),
+                };
+              })}
+              rowKey={(row) => row.category as string}
             />
-          </p>
-        </section>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h2 className="font-display text-2xl">{t.activitiesTitle}</h2>
-            <p className="leading-relaxed text-muted">{t.activitiesIntro}</p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border-line text-sm">
-              <thead>
-                <tr className="border-b border-line text-left">
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colCategory}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colPurpose}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colCollects}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colBasis}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colRecipients}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colRetention}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {activities.map((activity) => {
-                  const recipients = activity.recipients
-                    .map((id) => processorById(id))
-                    .filter((p): p is NonNullable<typeof p> => Boolean(p));
+        <Section as="div">
+          <Stack gap="md">
+            <Stack gap="xs">
+              <Heading level={2}>{t.processorsTitle}</Heading>
+              <Text step="body" className="text-muted">
+                {t.processorsIntro}
+              </Text>
+            </Stack>
+            <Table
+              caption={t.processorsCaption}
+              captionHidden
+              rowHeaders
+              columns={[
+                { key: "name", header: t.colProcessor },
+                { key: "role", header: t.colRole },
+                { key: "country", header: t.colCountry },
+              ]}
+              rows={processors.map((processor) => ({
+                name: processor.name,
+                role: processor.role[locale],
+                country: processor.country[locale],
+              }))}
+              rowKey={(row) => row.name as string}
+            />
+          </Stack>
+        </Section>
 
-                  return (
-                    <tr key={activity.id} className="border-b border-line align-top">
-                      <td className="p-2 font-semibold whitespace-nowrap">
-                        {activity.name[locale]}
-                      </td>
-                      <td className="p-2 leading-relaxed text-muted">{activity.purpose[locale]}</td>
-                      <td className="p-2 leading-relaxed text-muted">
-                        <ul className="flex list-disc flex-col gap-1 pl-4">
-                          {activity.collects.map((item) => (
-                            <li key={item[locale]}>{item[locale]}</li>
-                          ))}
-                        </ul>
-                      </td>
-                      <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
-                        {activity.basis.section}
-                      </td>
-                      <td className="p-2 leading-relaxed text-muted">
-                        {recipients.length === 0
-                          ? t.noRecipients
-                          : recipients.map((p) => p.name).join(locale === "th" ? " และ " : ", ")}
-                      </td>
-                      <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
-                        {retentionCell(t, activity)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <Section as="div">
+          <Stack gap="sm">
+            <Heading level={2}>{t.rightsTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.rightsBody}
+            </Text>
+            <Stack as="ul" gap="2xs" className="list-disc pl-5">
+              {dataRights.map((right) => (
+                <Text as="li" step="body" key={right.id} className="text-muted">
+                  {right.name[locale]} ({right.section})
+                </Text>
+              ))}
+            </Stack>
+            <Text step="body" className="text-muted">
+              {t.rightsResponseNote}
+            </Text>
+            <div>
+              <Link
+                href={localeHref(locale, "/privacy#your-rights")}
+                className="font-semibold text-brand-deep underline hover:text-brand-dark"
+              >
+                {t.rightsCta}
+              </Link>
+            </div>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h2 className="font-display text-2xl">{t.processorsTitle}</h2>
-            <p className="leading-relaxed text-muted">{t.processorsIntro}</p>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse border-line text-sm">
-              <thead>
-                <tr className="border-b border-line text-left">
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colProcessor}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colRole}
-                  </th>
-                  <th scope="col" className="p-2 font-semibold">
-                    {t.colCountry}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {processors.map((processor) => (
-                  <tr key={processor.id} className="border-b border-line align-top">
-                    <td className="p-2 font-semibold whitespace-nowrap">{processor.name}</td>
-                    <td className="p-2 leading-relaxed text-muted">{processor.role[locale]}</td>
-                    <td className="p-2 leading-relaxed whitespace-nowrap text-muted">
-                      {processor.country[locale]}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+        <Section as="div">
+          <Stack gap="sm">
+            <Heading level={2}>{t.securityTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.securityIntro}
+            </Text>
+            <Stack as="ul" gap="xs" className="list-disc pl-5">
+              {t.securityItems.map((item) => (
+                <Text as="li" step="body" key={item} className="text-muted">
+                  {item}
+                </Text>
+              ))}
+            </Stack>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-2xl">{t.rightsTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.rightsBody}</p>
-          <ul className="flex list-disc flex-col gap-1 pl-5 leading-relaxed text-muted">
-            {dataRights.map((right) => (
-              <li key={right.id}>
-                {right.name[locale]} ({right.section})
-              </li>
-            ))}
-          </ul>
-          <p className="leading-relaxed text-muted">{t.rightsResponseNote}</p>
-          <p>
-            <Link
-              href={localeHref(locale, "/privacy#your-rights")}
-              className="font-semibold text-brand-deep underline hover:text-brand-dark"
-            >
-              {t.rightsCta}
-            </Link>
-          </p>
-        </section>
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.breachTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.breachBody}
+            </Text>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-2xl">{t.securityTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.securityIntro}</p>
-          <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed text-muted">
-            {t.securityItems.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.breachTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.breachBody}</p>
-        </section>
-
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.dpoTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.dpoBody}</p>
-          <p>
-            <Link
-              href={localeHref(locale, "/contact")}
-              className="font-semibold text-brand-deep underline hover:text-brand-dark"
-            >
-              {t.contactCta}
-            </Link>
-          </p>
-        </section>
-      </div>
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.dpoTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.dpoBody}
+            </Text>
+            <div>
+              <Link
+                href={localeHref(locale, "/contact")}
+                className="font-semibold text-brand-deep underline hover:text-brand-dark"
+              >
+                {t.contactCta}
+              </Link>
+            </div>
+          </Stack>
+        </Section>
+      </Wrap>
     </>
   );
 }

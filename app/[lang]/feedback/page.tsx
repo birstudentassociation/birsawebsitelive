@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap } from "@/components/bds/Layout";
+import PageHeader from "@/components/bds/PageHeader";
 import FeedbackForm from "@/components/feedback/FeedbackForm";
 import { submitFeedbackAction } from "./actions";
 
@@ -77,10 +79,15 @@ export default async function FeedbackPage({
             items={[{ label: dict.site.name, href: "/" }, { label: t.title }]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap max-w-[var(--measure)] py-10">
+      <Wrap className="max-w-[var(--measure)] py-10">
         <FeedbackForm locale={locale} sourcePath={sourcePath} action={submitFeedbackAction} />
-      </div>
+      </Wrap>
     </>
   );
 }
