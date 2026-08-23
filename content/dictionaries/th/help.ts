@@ -12,6 +12,39 @@ import type { help as EnHelp } from "../en/help";
  * key or an invented one does not compile.
  */
 export const help: typeof EnHelp = {
+  sectionLabel: "ขอความช่วยเหลือ",
+
+  hub: {
+    title: "ขอความช่วยเหลือ",
+    lede: "คำตอบอัตโนมัติ กฎที่เกี่ยวข้องกับคุณ การแจ้งเรื่อง สวัสดิการ และความช่วยเหลือสำหรับนักศึกษาต่างชาติ",
+  },
+
+  exitThisPage: {
+    label: "ออกจากหน้านี้ทันที",
+    shortcutHint: "กดปุ่ม Shift สามครั้งติดกันเพื่อออกจากหน้านี้ทันที",
+    leavingAnnouncement: "กำลังออกจากหน้านี้",
+  },
+
+  interruption: {
+    continueLabel: "ไปต่อ",
+    secondaryLabel: "ฉันไม่ต้องการไปต่อ",
+  },
+
+  signpost: {
+    whoToAskLabel: "ควรสอบถามใคร",
+    visitLabel: "ไปที่เว็บไซต์",
+  },
+
+  guidesIndex: {
+    title: "คู่มือ",
+    lede: "หน้าสั้น ๆ ที่บอกสิ่งที่ BIRSA รู้ แล้วชี้ไปยังหน่วยงานที่รับผิดชอบเรื่องนั้นโดยตรง",
+  },
+
+  internationalIndex: {
+    title: "ความช่วยเหลือสำหรับนักศึกษาต่างชาติ",
+    lede: "จุดที่ BIRSA ช่วยได้โดยตรง และจุดที่กองกิจการต่างประเทศของธรรมศาสตร์เป็นผู้ตัดสินใจจริง",
+  },
+
   emergencyBanner: {
     cta: "อ่านคำแนะนำเหตุฉุกเฉิน",
   },

@@ -16,6 +16,54 @@
  * See docs/EDITING.md "Voice and language" for the full standard.
  */
 export const help = {
+  /** Breadcrumb root label for the whole /help family, after the site name. */
+  sectionLabel: "Get help",
+
+  hub: {
+    title: "Get help",
+    lede: "Smart Answers, the rules that apply to you, reporting, welfare, and support for international students.",
+  },
+
+  /**
+   * `ExitThisPage` copy, shared by every welfare, reporting and rights page
+   * (REDESIGN-2.0 §4.4). `exitHref` and `historyDecoyHref` stay page props;
+   * only the visible and announced text lives here, so every page that
+   * carries the control says the same thing.
+   */
+  exitThisPage: {
+    label: "Leave this page now",
+    shortcutHint: "Press Shift three times in a row to leave this page immediately.",
+    leavingAnnouncement: "Leaving now.",
+  },
+
+  /**
+   * `InterruptionPage` copy shared by the welfare and reporting flows
+   * (REDESIGN-2.0 §4.3b `interruption-pages`). The boundary content itself
+   * is written per page; only the two forward actions are common.
+   */
+  interruption: {
+    continueLabel: "Continue",
+    secondaryLabel: "I do not want to continue",
+  },
+
+  /** Shared copy for the §3.6 signpost page type. */
+  signpost: {
+    /** Label above the block naming who actually owns the rest of the picture. */
+    whoToAskLabel: "Who to ask",
+    /** Label on the outbound link to the authoritative source. */
+    visitLabel: "Visit",
+  },
+
+  guidesIndex: {
+    title: "Guides",
+    lede: "Short pages that say what BIRSA knows and point you to whoever actually runs the rest.",
+  },
+
+  internationalIndex: {
+    title: "International student support",
+    lede: "Where BIRSA can help directly, and where TU International Affairs is the office that actually decides.",
+  },
+
   emergencyBanner: {
     cta: "Read the emergency guidance",
   },

@@ -4,15 +4,166 @@ import type { whatson as EnWhatson } from "../en/whatson";
  * Thai UI microcopy: the `whatson` namespace. Authored natively in Thai, never
  * translated from English (REDESIGN-2.0 §11.7; docs/EDITING.md).
  *
- * น้ำเสียง: เป็นทางการ ตรงไปตรงมา กระชับ และเป็นกลาง ไม่ใช้น้ำเสียงกันเองแบบรุ่นพี่คุยกับรุ่นน้อง
- * และไม่ใช้ภาษาราชการแข็ง ๆ ดูมาตรฐานเต็มได้ที่ docs/EDITING.md หัวข้อ "Voice and language"
- * โครงสร้างต้องตรงกับภาษาอังกฤษ แต่ถ้อยคำเขียนขึ้นใหม่สำหรับผู้อ่านภาษาไทย
+ * น้ำเสียง: เป็นทางการระดับประกาศนักศึกษา สุภาพ กระชับ เป็นกลาง ไม่ใส่ ครับ/ค่ะ ไม่ใช้ภาษาแชท
+ * เลี่ยงภาษาราชการที่ไม่จำเป็น ไม่ใช้เครื่องหมายจุลภาคนอกเวลานาฬิกาและ URL และไม่ใช้ em dash หรือ en dash
+ * ดูมาตรฐานเต็มได้ที่ docs/NEWS-STYLE.md และ docs/EDITING.md หัวข้อ "Voice and language"
+ * โครงสร้างต้องตรงกับภาษาอังกฤษ แต่ถ้อยคำเขียนขึ้นใหม่สำหรับผู้อ่านภาษาไทยโดยตรง
  *
  * The annotation is the per-namespace half of the parity assertion: a missing
  * key or an invented one does not compile.
  */
 export const whatson: typeof EnWhatson = {
-  // Empty for now. The wave that owns this namespace fills it in.
-  // Adding a key here means adding the same key to the other locale in the
-  // same change; the compiler will not let you forget.
+  whatson: {
+    hub: {
+      title: "ข่าวและกิจกรรม",
+      lede: "ข่าว กิจกรรม ปฏิทิน ชมรม และกีฬาของ BIRSA รวมไว้ที่เดียว",
+      sections: {
+        news: {
+          title: "ข่าว",
+          body: "ประกาศและความเคลื่อนไหวจาก BIRSA",
+          cta: "ดูข่าวทั้งหมด",
+        },
+        events: {
+          title: "กิจกรรม",
+          body: "ทุกกิจกรรมที่ BIRSA จัดและคุณเข้าร่วมได้",
+          cta: "ดูกิจกรรมทั้งหมด",
+        },
+        calendar: {
+          title: "ปฏิทิน",
+          body: "ดูทุกวันสำคัญในหน้าเดียว พร้อมลิงก์ให้ติดตามในปฏิทินของคุณเอง",
+          cta: "เปิดปฏิทิน",
+        },
+        clubs: {
+          title: "ชมรม",
+          body: "หาชมรม BIR ที่ใช่ หรือดูว่าใครดูแลชมรมนอกเหนือจากนี้",
+          cta: "ดูชมรมทั้งหมด",
+        },
+        sport: {
+          title: "กีฬา",
+          body: "ชมรมกีฬาของ BIR และตารางแข่งเมื่อมีการยืนยัน",
+          cta: "ดูข้อมูลกีฬา",
+        },
+      },
+    },
+
+    news: {
+      title: "ข่าว",
+      lede: "ข่าวสารและกิจกรรมจาก BIRSA",
+      followUsPrefix: "อยากรู้ความเคลื่อนไหวแบบเรียลไทม์ ติดตาม BIRSA ได้ที่",
+      and: "และ",
+      filterNav: "ตัวกรองข่าวและกิจกรรม",
+      typeLabel: "ประเภท",
+      allTypes: "ทั้งหมด",
+      newsType: "ข่าว",
+      eventType: "กิจกรรม",
+      categoryLabel: "หมวดหมู่",
+      allCategories: "ทุกหมวดหมู่",
+      categories: {
+        announcements: "ประกาศ",
+        events: "กิจกรรม",
+        community: "ชุมชน",
+      },
+    },
+
+    article: {
+      detailsHeading: "รายละเอียด",
+      backToNews: "กลับไปหน้าข่าว",
+    },
+
+    events: {
+      title: "กิจกรรม",
+      lede: "ทุกกิจกรรมที่ BIRSA จัดและคุณเข้าร่วมได้",
+      empty: "ยังไม่มีกิจกรรมกำหนดไว้ในตอนนี้ กลับมาดูใหม่อีกครั้ง หรือดูข่าวทั้งหมดแทน",
+      seeNews: "ดูข่าวทั้งหมด",
+    },
+
+    calendar: {
+      title: "ปฏิทิน",
+      lede: "รวมทุกวันสำคัญของ BIRSA และมหาวิทยาลัยไว้ในหน้าเดียว เลือกเดือนแล้วเลือกวันเพื่อดูรายละเอียด",
+      prevMonth: "เดือนก่อนหน้า",
+      nextMonth: "เดือนถัดไป",
+      selectedFor: "กิจกรรมวันที่ {date}",
+      noEventsDay: "ไม่มีกิจกรรมในวันนี้",
+      open: "อ่าน",
+      eventCount: {
+        one: "{n} กิจกรรม",
+        other: "{n} กิจกรรม",
+      },
+      legend: {
+        birsa: "BIRSA",
+        university: "มหาวิทยาลัย",
+      },
+      styleLegend: {
+        period: "จัดต่อเนื่องหลายวัน",
+        single: "จัดวันเดียว",
+      },
+      subscribe: {
+        heading: "ติดตามปฏิทินนี้",
+        intro: "เพิ่มทุกวันสำคัญในปฏิทินนี้เข้าแอปปฏิทินของคุณ และข้อมูลจะอัปเดตให้เองตลอด",
+        webcal: "ติดตามปฏิทิน",
+        https: "ลิงก์ไฟล์ปฏิทิน",
+      },
+      upcoming: {
+        heading: "ทุกวันสำคัญในปฏิทินนี้",
+        empty: "ยังไม่มีกำหนดการ",
+        dateHeader: "วันที่",
+        eventHeader: "รายการ",
+        typeHeader: "จัดโดย",
+        /** เชื่อมวันเริ่มกับวันสิ้นสุด เช่น "10 ถึง 14 สิงหาคม 2569" (NEWS-STYLE ห้ามใช้เครื่องหมายขีด) */
+        dateRangeJoiner: "ถึง",
+      },
+    },
+
+    clubs: {
+      title: "ชมรม",
+      lede: "ชมรมคือกลุ่มนักศึกษา BIR ที่มีความสนใจร่วมกัน ไม่ว่าจะเป็นกีฬา ดนตรี งานอาสา เกม งานเขียน หรือการจำลองการประชุมรัฐสภา ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้",
+      search: "ค้นหา",
+      searchPlaceholder: "ค้นหาชมรม",
+      category: "หมวดหมู่",
+      allCategories: "ทุกหมวดหมู่",
+      showing: "แสดง",
+      result: "รายการ",
+      results: "รายการ",
+      noResults: "ไม่พบชมรมที่ตรงกับตัวกรอง ลองล้างตัวกรองดูอีกครั้ง",
+      clearFilters: "ล้างตัวกรอง",
+      openToJoin: "รับสมาชิกอยู่",
+      startTitle: "ตั้งชมรมใหม่",
+      startBody: "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ BIRSA ช่วยตั้งชมรมใหม่ให้ได้",
+      startCta: "เริ่มตั้งชมรมใหม่",
+      beyondTitle: "ชมรมนอกเหนือจาก BIR",
+      beyondLede:
+        "ศูนย์ท่าพระจันทร์และมหาวิทยาลัยธรรมศาสตร์มีทั้งชมรมและองค์กรนักศึกษาที่มาจากการเลือกตั้งอีกมากมาย นอกเหนือจากที่ BIR ดูแลเอง หน่วยงานด้านล่างเป็นผู้ดูแลและเผยแพร่ข้อมูลเหล่านั้นเอง ไม่ใช่ BIRSA จึงควรติดต่อโดยตรงเพื่อดูรายชื่อ ช่องทางติดต่อ และวิธีเข้าร่วมที่เป็นปัจจุบันที่สุด",
+      tusuTitle: "อมธ. ท่าพระจันทร์ (TUSU)",
+      tusuBody:
+        "องค์การนักศึกษามหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ ดูแลและรวบรวมรายชื่อชุมนุมและกลุ่มอิสระของศูนย์ท่าพระจันทร์ พร้อมสนับสนุนกิจกรรมนักศึกษาทั้งแคมปัส",
+      tusuCta: "ติดต่อ อมธ. ท่าพระจันทร์",
+      tuscTitle: "สภานักศึกษา (TUSC)",
+      tuscBody: "สภานักศึกษาเป็นผู้อนุมัติและตรวจสอบงบประมาณที่ชมรมและองค์การนักศึกษาเบิกใช้ ครอบคลุมทั้งสามศูนย์",
+      tuscCta: "ติดต่อสภานักศึกษา",
+    },
+
+    clubDetail: {
+      clubsLabel: "ชมรม",
+      meets: "นัดพบ",
+      where: "สถานที่",
+      lead: "ผู้นำชมรม",
+      contact: "ติดต่อ",
+      back: "กลับไปหน้าชมรมทั้งหมด",
+      equipment: "อุปกรณ์",
+      equipmentCta: "ดูอุปกรณ์ที่ชมรมนี้ให้ยืม",
+    },
+
+    sport: {
+      title: "กีฬา",
+      lede: "ชมรมกีฬาของ BIR และตารางแข่งเมื่อชมรมยืนยันมาแล้ว",
+      noFixturesTitle: "ยังไม่มีตารางแข่งเผยแพร่",
+      noFixturesBody: "ขณะนี้ BIRSA ยังไม่มีตารางแข่งที่ยืนยันแล้ว ติดต่อชมรมกีฬาโดยตรงเพื่อสอบถามเวลาซ้อมและนัดแข่งของชมรมนั้น",
+      clubsHeading: "ชมรมกีฬาของ BIR",
+      clubsCta: "ดูชมรมทั้งหมด",
+      fixtureDateHeader: "วันที่",
+      fixtureClubHeader: "ชมรม BIR",
+      fixtureOpponentHeader: "คู่แข่ง",
+      fixtureVenueHeader: "สถานที่",
+    },
+  },
 };

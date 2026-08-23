@@ -109,6 +109,11 @@ export const chrome = {
   error: {
     title: "Sorry, there is a problem with this page",
     body: "Try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
+    // Never a stack trace or a request detail on this page (BUILD-BRIEF-2.0
+    // §7, D7). This line states plainly what the reader can already see is
+    // true of the page in front of them, rather than leaving them to guess
+    // whether anything they typed is now sitting in a log somewhere public.
+    reassurance: "This page does not show any technical detail about what went wrong, and it has not kept anything you typed before the error happened.",
     tryAgain: "Try again",
     home: "Go to the home page",
   },

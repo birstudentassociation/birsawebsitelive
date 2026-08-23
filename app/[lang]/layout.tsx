@@ -4,16 +4,45 @@ import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { jenjrusVris } from "@/lib/fonts";
-import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
-import SkipLink from "@/components/SkipLink";
+import SkipLink from "@/components/bds/SkipLink";
 import EmergencyBannerClient from "@/components/EmergencyBannerClient";
 import { getEmergencyBannerData } from "@/lib/emergency";
 import { THEME_SCRIPT } from "@/lib/theme-script";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import PageFeedback from "@/components/PageFeedback";
-import ScrollToTop from "@/components/ScrollToTop";
+import Header from "@/components/bds/Header";
+import Footer from "@/components/bds/Footer";
+import PhaseBanner from "@/components/bds/PhaseBanner";
+import PageFeedback from "@/components/bds/PageFeedback";
+import { homeNamespace as phaseCopyEn } from "@/content/dictionaries/en/home";
+import { homeNamespace as phaseCopyTh } from "@/content/dictionaries/th/home";
+
+/**
+ * `phaseBanner` copy, keyed by locale. Lives in `content/dictionaries/{en,th}/home.ts`
+ * (this wave's one namespace file) rather than the frozen `chrome` namespace;
+ * see that file's own header for why. Imported directly rather than through
+ * `getDictionary()`, the same pattern Wave 4A's `do` namespace already set
+ * (`app/[lang]/do/dictionary.ts`).
+ */
+const phaseCopy: Record<Locale, typeof phaseCopyEn.phaseBanner> = {
+  en: phaseCopyEn.phaseBanner,
+  th: phaseCopyTh.phaseBanner,
+};
+
+/**
+ * SEAM, the same pattern `Header`'s `defaultPrimaryNav` uses
+ * (`components/bds/Header.tsx`): Decision 2 in `docs/DECISIONS-2.0.md`
+ * decided BIRSA ships a visible beta banner, and REDESIGN-2.0 §4.5 requires
+ * that turning it off never need a developer. `PhaseBanner` itself already
+ * takes `active` as a plain prop rather than deciding anything on its own
+ * (see that component's own TSDoc), so this constant is the whole of what
+ * "turning it off" means today. It is still a code constant rather than a
+ * CMS value, because the CMS is gated (`docs/DECISIONS-2.0.md` gate 1, open):
+ * once it lands, whoever wires it replaces this constant, not `PhaseBanner`
+ * or the JSX below that reads it, exactly the seam `defaultPrimaryNav`
+ * models for the primary nav.
+ */
+const PHASE_BANNER_ACTIVE = true;
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -100,7 +129,27 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
         <SkipLink label={dict.a11y.skip} />
+        {/*
+          GAP, reported rather than silently fixed. `EmergencyBannerClient`
+          (`components/EmergencyBannerClient.tsx`) is not in this wave's owned
+          path list and still renders `components/EmergencyBanner.tsx` (1.0)
+          internally rather than `components/bds/EmergencyBanner.tsx` (2.0,
+          `components/bds/manifest.ts`, status cluster). The brief for this
+          wave says "keep the emergency banner working exactly as it does
+          today: read lib/emergency.ts and do not change how it is driven",
+          which this satisfies unchanged; the presentational swap to the bds
+          component needs a change to a file this wave does not own. See the
+          Wave 5A report.
+        */}
         <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
+        <PhaseBanner
+          active={PHASE_BANNER_ACTIVE}
+          phaseLabel={phaseCopy[locale].phaseLabel}
+          feedbackHref={localeHref(locale, "/feedback")}
+          feedbackLabel={phaseCopy[locale].feedbackLabel}
+        >
+          {phaseCopy[locale].message}
+        </PhaseBanner>
         <Header locale={locale} />
         {/*
           `tabIndex={-1}` makes the skip link actually move focus, not just
@@ -115,7 +164,14 @@ export default async function RootLayout({
         </main>
         <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />
         <Footer locale={locale} />
-        <ScrollToTop label={dict.actions.backToTop} />
+        {/*
+          1.0's `components/ScrollToTop.tsx` is deliberately dropped here: it
+          is not a `components/bds/` system component
+          (`components/bds/manifest.ts` carries no entry for it), so it has
+          no place in "the chrome you set" (this wave's brief) for every other
+          wave to build inside. Not a contract this wave owns, so nothing was
+          edited; simply not carried into the new chrome. See the report.
+        */}
         <Analytics />
       </body>
     </html>
