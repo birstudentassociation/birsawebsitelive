@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
-import Button from "@/components/Button";
+import Breadcrumbs from "@/components/bds/Breadcrumbs";
+import Button from "@/components/bds/Button";
+import { Wrap, Stack, Section } from "@/components/bds/Layout";
+import Notice from "@/components/bds/Notice";
+import PageHeader from "@/components/bds/PageHeader";
+import { Heading, Text } from "@/components/bds/Type";
 import { RIGHTS_RESPONSE_DAYS } from "@/content/privacy/register";
 
 export async function generateMetadata({
@@ -39,7 +41,7 @@ const copy: Record<
   en: {
     title: "Ask about your data",
     privacyCrumb: "Privacy",
-    lede: "Use this if you want BIRSA to do something with the personal data we hold about you: see it, get a copy, have it corrected or deleted, or one of the other rights the Personal Data Protection Act gives you.",
+    lede: "Use this if you want BIRSA to do something with the personal data we hold about you. See it, get a copy, have it corrected or deleted, or use one of the other rights the Personal Data Protection Act gives you.",
     whatTitle: "What happens",
     whatBody:
       "Answer a few short questions about which right you want to use and how to reach you. We check the request is genuinely yours, then act on it or explain why we can't.",
@@ -90,17 +92,30 @@ export default async function RightsStartPage({ params }: { params: Promise<{ la
             ]}
           />
         }
+        helpSlot={
+          <Button href={localeHref(locale, "/contact")} variant="secondary">
+            {dict.actions.contactUs}
+          </Button>
+        }
       />
-      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.whatTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.whatBody}</p>
-        </section>
+      <Wrap className="flex max-w-[var(--measure)] flex-col gap-8 py-10">
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.whatTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.whatBody}
+            </Text>
+          </Stack>
+        </Section>
 
-        <section className="flex flex-col gap-2">
-          <h2 className="font-display text-2xl">{t.freeTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.freeBody}</p>
-        </section>
+        <Section as="div">
+          <Stack gap="xs">
+            <Heading level={2}>{t.freeTitle}</Heading>
+            <Text step="body" className="text-muted">
+              {t.freeBody}
+            </Text>
+          </Stack>
+        </Section>
 
         <Notice variant="info" title={t.deadlineTitle}>
           {t.deadlineBody(RIGHTS_RESPONSE_DAYS)}
@@ -109,7 +124,7 @@ export default async function RightsStartPage({ params }: { params: Promise<{ la
         <div>
           <Button href={localeHref(locale, "/privacy/your-data/what")}>{t.startCta}</Button>
         </div>
-      </div>
+      </Wrap>
     </>
   );
 }
