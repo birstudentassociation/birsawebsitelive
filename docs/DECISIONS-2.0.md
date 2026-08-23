@@ -73,7 +73,67 @@ one:
 
 ---
 
-## Gate 2: the scope audit. Open, and it gates Waves 5 and 6
+## Gate 2: the scope audit. APPROVED as recommended, 2026-08-22
+
+The operator approved `docs/SCOPE-AUDIT-2.0.md` in full: KEEP 22, SIGNPOST 6,
+ABSORB 6, DELETE 0. Waves 5 and 6 execute that list. An agent still may not
+change a disposition; a change is a new operator decision.
+
+Two of the audit's section 4 findings were already fixed before approval and must
+not be re-decided: the printing quota is 200 baht split across two funds, and the
+BIR office contact is the one `internship.mdx` carries, which `content/site.ts`
+and the build brief already agreed with.
+
+One fact the audit could not settle, now settled by the operator: **health
+insurance IS required for an international student to enter Thailand.**
+`international/healthcare-and-insurance.mdx` currently says Thammasat "expects or
+requires" it, which is exactly the vagueness that leaves a student unable to act.
+Its SIGNPOST rewrite must state the requirement plainly and then point at TU
+International Affairs for the current detail, rather than hedging.
+
+## Decision 2: the IA. DECIDED by the operator, 2026-08-22
+
+§15 item 2, the plan's "highest value hour". One card sort respondent, plus the
+operator's own ruling on two tasks. Held as definitive for Wave 5.
+
+| Task                             | Destination  |
+| -------------------------------- | ------------ |
+| Borrow a camera                  | Do something |
+| Drop a course late in the term   | Your studies |
+| When is the next general meeting | About BIRSA  |
+| Report harassment                | Get help     |
+| What the committee spent         | About BIRSA  |
+| Pick electives                   | Your studies |
+| Lost student card                | Get help     |
+| Join a club                      | Do something |
+
+Tasks 2 and 6 were answered Get help by the respondent and OVERRIDDEN to Your
+studies by the operator. Recorded as an override rather than as a result, because
+the two are different kinds of evidence and a later reader should be able to tell
+them apart.
+
+**What this sample cannot tell us, stated so nobody mistakes it for a finding.**
+This is one respondent, not the ten the plan asked for. Eight tasks is also not
+the whole IA: nothing tested news, events or the calendar, which is most of
+What's on.
+
+**The one signal worth acting on carefully.** What's on received ZERO picks
+across all eight tasks. Clubs went to Do something and meetings went to About
+BIRSA. That is not evidence What's on is wrong, because the tasks that would have
+tested it were never asked, but it is a reason not to treat it as validated.
+
+**The conflict this creates with the approved audit, and how it is resolved.**
+The audit sends `home/getting-involved.mdx` to `/whats-on/clubs`, while the nav
+answer puts joining a club under Do something. Both readings are defensible:
+§3.2's own description of `/do` lists "sign up" as one of its categories, and
+About genuinely holds minutes, decisions and the committee. So the clubs
+DIRECTORY lives at `/whats-on/clubs` as the audit says, and the ACT of joining is
+a service under `/do` that links to it. One canonical page, two ways in, which is
+what the split between a directory and a service is for.
+
+If a fuller card sort later contradicts this, the fix is a navigation document
+change rather than a rebuild, because §3.3 made navigation content rather than
+code precisely so this kind of answer can move without a developer.
 
 **§3.6, §15 item 9. Status: open. This is a committee judgement and agents may not make it.**
 
