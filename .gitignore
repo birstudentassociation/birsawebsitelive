@@ -48,3 +48,26 @@ next-env.d.ts
 # Scratch workspace for agent-driven development runs (ledgers, briefs, reports).
 # Never part of the repo: the git history is the durable record.
 .superpowers/
+
+# Wave 6 content-migration artifacts (REDESIGN-2.0 §11.4).
+#
+# The NDJSON a migration script emits, and the rollback id lists derived from
+# it, are GENERATED and deterministic: `node scripts/migrate-<family>.mjs`
+# rebuilds them byte for byte from `content/**`, and every migration script is
+# tested for exactly that property. Committing them would put a second copy of
+# the whole content corpus in the history, in a format nobody reads, that goes
+# stale the moment a content file changes and that no test would catch.
+#
+# The DIFF REPORTS beside them (`docs/migration/*.md` and their `.json`
+# sidecars) are deliberately NOT ignored. They are the audit record the wave
+# gate is written against, they name the gaps a reader needs, and they are
+# small.
+/docs/migration/artifacts/
+#
+# The same two generated shapes are also ignored wherever else under
+# `docs/migration/` a script writes them, because the five Wave 6 agents did
+# not all settle on `artifacts/` and a rule that only covers one directory
+# would silently start committing corpus dumps the first time one of them
+# changed its default output path.
+/docs/migration/**/*.ndjson
+/docs/migration/**/*-rollback-ids.txt

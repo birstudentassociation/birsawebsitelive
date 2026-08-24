@@ -1,0 +1,92 @@
+{
+  "title": "Guided-journey tree migration: diff report",
+  "counts": {
+    "migrated": 9,
+    "not-migrated": 4,
+    "gap": 0,
+    "unaccounted": 0
+  },
+  "entries": [
+    {
+      "sourcePath": "content/onboarding/home.ts",
+      "status": "migrated",
+      "documentId": "onboarding-track-home",
+      "notes": ["1 track, 7 step(s), 25 task(s)."]
+    },
+    {
+      "sourcePath": "content/onboarding/index.ts",
+      "status": "not-migrated",
+      "reason": "Assembles the 2 track fragments (reflected in this script's own imports) and exports onboardingUiCopy, this feature's UI chrome, deliberately not migrated as a document for the same reason as content/smart-answers/index.ts's uiCopy."
+    },
+    {
+      "sourcePath": "content/onboarding/international.ts",
+      "status": "migrated",
+      "documentId": "onboarding-track-international",
+      "notes": ["1 track, 7 step(s), 22 task(s)."]
+    },
+    {
+      "sourcePath": "content/onboarding/types.ts",
+      "status": "not-migrated",
+      "reason": "Defines the TypeScript types this migration mirrors field for field. Produces no document of its own."
+    },
+    {
+      "sourcePath": "content/smart-answers/audience.ts",
+      "status": "migrated",
+      "documentId": "sa-audience-origin, sa-audience-stage, sa-audience-role",
+      "notes": [
+        "The fact vocabulary every Condition in the graph is checked against (smartAnswerAudienceQuestion x3)."
+      ]
+    },
+    {
+      "sourcePath": "content/smart-answers/index.ts",
+      "status": "not-migrated",
+      "reason": "Assembles the 6 topic fragments (reflected in this script's own imports, not a separate document) and exports TRIAGE_SLUG, topicGroupList and uiCopy.",
+      "notes": [
+        "TRIAGE_SLUG is preserved as the isTriageEntry flag on the matching topic document (see lib/migration/trees.ts).",
+        "topicGroupList (5 group titles/ledes) and uiCopy (this feature's UI chrome strings) are deliberately not migrated as documents: template chrome, not addressable content, the same distinction content/dictionaries already draws sitewide."
+      ]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/activities.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-activity-approval, sa-topic-start-a-club-check, sa-topic-borrow-equipment",
+      "notes": ["3 topic(s), 25 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/contact.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-who-to-contact, sa-topic-raise-a-problem",
+      "notes": ["2 topic(s), 17 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/living.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-settle-in, sa-topic-money-and-fees",
+      "notes": ["2 topic(s), 18 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/study.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-academic-rules, sa-topic-internship-check, sa-topic-choose-courses",
+      "notes": ["3 topic(s), 26 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/triage.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-start",
+      "notes": ["1 topic(s), 5 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/topics/wellbeing.ts",
+      "status": "migrated",
+      "documentId": "sa-topic-health-and-safety, sa-topic-getting-around, sa-topic-rights-and-representation",
+      "notes": ["3 topic(s), 31 node(s). Full id trail below."]
+    },
+    {
+      "sourcePath": "content/smart-answers/types.ts",
+      "status": "not-migrated",
+      "reason": "Defines the TypeScript types this migration mirrors field for field (Bi, Condition, SmartAnswerOption, ...). Produces no document of its own."
+    }
+  ],
+  "unaccounted": []
+}
