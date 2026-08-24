@@ -428,6 +428,64 @@ before that, the stubs have to exist first.
 
 ---
 
+## Gate 12: the rich text fields are not bilingual. OPEN, found by Wave 6, 2026-08-24
+
+Not a decision anyone took. A defect two Wave 6 agents found independently, in two
+different schema files, on the same day, without knowing about each other.
+
+Every other text field in `sanity/schemaTypes/` is bilingual by construction:
+`localizedString` and `localizedText` wrap their value in `{ en, th }`, and
+`tests/unit/sanity-schema-*.test.ts` enforce that both halves exist. The two RICH
+text types do not. `portableText` and `portableTextInline` are a bare array of
+blocks with no locale wrapper at all, and `regulation.body` is a single one of
+those.
+
+The consequence, stated plainly: **as the schema stands today, an officer cannot
+write the Thai version of any long-form page.** Not news, not a guide, not a club
+page, not a regulation. The section palette (§4.6) is built on `portableText`, so
+this is not one document type, it is every content type that carries prose.
+
+How the two agents hit it:
+
+- Wave 6A (MDX to Portable Text) had 126 files in 63 bilingual pairs and one field
+  to put them in. It put the English blocks in `content` and the Thai blocks in an
+  undeclared `_i18nGapPortableText` sidecar, so no content is lost on import. That
+  sidecar is a holding pen, not a design: the Studio will not render it and no
+  officer can edit it.
+- Wave 6B (TypeScript modules to documents) hit the same wall from the other side
+  on `regulation.body`, and stopped rather than flatten a bilingual, legally
+  numbered tree of 226 provisions into a single-locale prose blob. It migrated the
+  title, the slug and a derived effective date, and reported the rest.
+
+**Nothing may be imported into `production` until this is resolved.** Importing the
+sidecar shape would put unreachable Thai text in a real dataset and make the gap
+look solved.
+
+The fix is a Wave 3 schema change, and it is a schema decision rather than
+migration work, so no Wave 6 agent made it. Two shapes are available: wrap
+`portableText` the way `localizedText` wraps a string, or give every prose document
+paired `contentEn` and `contentTh` fields. The first is consistent with the rest of
+the schema; the second is what Sanity's own documentation reaches for more often.
+Whoever takes it should also decide what `regulation` needs, since legal text wants
+provision numbering that ordinary prose does not.
+
+## Gate 13: three fields no 1.0 source can fill. OPEN
+
+`lifecycle.owner` and `lifecycle.reviewBy` are required on every document the schema
+defines, and **no 1.0 content file carries either**. Wave 6A omitted them on all 50
+documents it produced rather than invent an owning portfolio and a review date for
+content nobody has reviewed.
+
+This is the §10 review cycle asking who is responsible for each page, which is
+exactly the question the redesign exists to make answerable. It is an editorial
+decision for the committee, one row per document, and it is small work that only
+BIRSA can do.
+
+Related, and the same shape: only **5 of 13 portfolios** can be created, because
+§7.2's two-person rule makes `secondHolder` required and eight portfolios have one
+holder in the real 2026 roster. That is a fact about the committee, not about the
+data.
+
 ## Two things an agent cannot do at all, whatever the gates say
 
 **The §12 hardening acceptance test.** Forty-eight rows, and the plan is explicit: "every row

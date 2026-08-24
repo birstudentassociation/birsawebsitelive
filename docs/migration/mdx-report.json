@@ -1,0 +1,1138 @@
+{
+  "title": "Wave 6A diff report: MDX to Portable Text",
+  "counts": {
+    "migrated": 100,
+    "not-migrated": 26,
+    "gap": 0,
+    "unaccounted": 0
+  },
+  "entries": [
+    {
+      "sourcePath": "content/activity/en/bir-programme.mdx",
+      "status": "migrated",
+      "documentId": "page-bir-programme",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=5, th=5) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/birsa.mdx",
+      "status": "migrated",
+      "documentId": "page-birsa",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=1, th=1) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/contact.mdx",
+      "status": "migrated",
+      "documentId": "page-contact",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=7, th=7) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/events.mdx",
+      "status": "migrated",
+      "documentId": "page-events",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=3, th=3) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/student-bodies.mdx",
+      "status": "migrated",
+      "documentId": "page-student-bodies",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=4, th=4) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/this-year.mdx",
+      "status": "migrated",
+      "documentId": "page-this-year",
+      "notes": [
+        "section 1 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=2, th=2) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/en/transparency.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"Notice variant=\"placeholder\"\": content/activity/en/transparency.mdx (line 2): the notice section's variant field (sanity/schemaTypes/objects/sectionTypes.ts) only accepts info/success/warning/error. 1.0's Notice component additionally has a \"placeholder\" variant with no 2.0 equivalent."
+    },
+    {
+      "sourcePath": "content/activity/th/bir-programme.mdx",
+      "status": "migrated",
+      "documentId": "page-bir-programme",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=5, th=5) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/birsa.mdx",
+      "status": "migrated",
+      "documentId": "page-birsa",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=1, th=1) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/contact.mdx",
+      "status": "migrated",
+      "documentId": "page-contact",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=7, th=7) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/events.mdx",
+      "status": "migrated",
+      "documentId": "page-events",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=3, th=3) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/student-bodies.mdx",
+      "status": "migrated",
+      "documentId": "page-student-bodies",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=4, th=4) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/this-year.mdx",
+      "status": "migrated",
+      "documentId": "page-this-year",
+      "notes": [
+        "section 1 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "order (en=2, th=2) has no destination field on `page` (sanity/schemaTypes/documents/page.ts); dropped. 1.0 uses it to sequence the activity listing; if the 2.0 listing still needs a manual order, it needs a field added to `page` or sequencing needs to move to the `navigation` document type.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/activity/th/transparency.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"Notice variant=\"placeholder\"\": content/activity/en/transparency.mdx (line 2): the notice section's variant field (sanity/schemaTypes/objects/sectionTypes.ts) only accepts info/success/warning/error. 1.0's Notice component additionally has a \"placeholder\" variant with no 2.0 equivalent."
+    },
+    {
+      "sourcePath": "content/clubs/en/asa-ir.mdx",
+      "status": "migrated",
+      "documentId": "club-asa-ir",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-basketball.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-basketball",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-cardgame-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-cardgame-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-esports-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-esports-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-football.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-football",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-mock-fund.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-mock-fund",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-music-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-music-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/bir-volleyball.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-volleyball",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/birify.mdx",
+      "status": "migrated",
+      "documentId": "club-birify",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/kien-club.mdx",
+      "status": "migrated",
+      "documentId": "club-kien-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/parliamock-tu.mdx",
+      "status": "migrated",
+      "documentId": "club-parliamock-tu",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/en/tu-mun.mdx",
+      "status": "migrated",
+      "documentId": "club-tu-mun",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/asa-ir.mdx",
+      "status": "migrated",
+      "documentId": "club-asa-ir",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-basketball.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-basketball",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-cardgame-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-cardgame-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-esports-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-esports-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-football.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-football",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-mock-fund.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-mock-fund",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-music-club.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-music-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/bir-volleyball.mdx",
+      "status": "migrated",
+      "documentId": "club-bir-volleyball",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/birify.mdx",
+      "status": "migrated",
+      "documentId": "club-birify",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/kien-club.mdx",
+      "status": "migrated",
+      "documentId": "club-kien-club",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/parliamock-tu.mdx",
+      "status": "migrated",
+      "documentId": "club-parliamock-tu",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/clubs/th/tu-mun.mdx",
+      "status": "migrated",
+      "documentId": "club-tu-mun",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/academic-calendar-2569.mdx",
+      "status": "migrated",
+      "documentId": "news-article-academic-calendar-2569",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Registrar's academic calendar (PDF)\",\"href\":\"https://wapi.reg.tu.ac.th/uploads/content/%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%97%E0%B8%B4%E0%B8%99%20%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%95%E0%B8%B4%2069.pdf\"}], TH: [{\"label\":\"ปฏิทินการศึกษาจากสำนักทะเบียน (PDF)\",\"href\":\"https://wapi.reg.tu.ac.th/uploads/content/%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%97%E0%B8%B4%E0%B8%99%20%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%95%E0%B8%B4%2069.pdf\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/august-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/en/bir18-orientation-schedule.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-orientation-schedule",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/bir18-pre-session.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-pre-session",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DbClld5pBMu/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DbClld5pBMu/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/bir18-student-council-candidates-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-student-council-candidates-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/bir18-student-council-election-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-bir18-student-council-election-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Download the application form (Google Drive)\",\"href\":\"https://drive.google.com/drive/folders/1Eca6gzy3GKUASeugWrTYY4uRwSDMQav4?usp=sharing\"},{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ดาวน์โหลดใบสมัคร (Google Drive)\",\"href\":\"https://drive.google.com/drive/folders/1Eca6gzy3GKUASeugWrTYY4uRwSDMQav4?usp=sharing\"},{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/birsa-committee-appointment-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-committee-appointment-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DYwlBofCQ5-/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DYwlBofCQ5-/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/birsa-committee-recruitment.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-committee-recruitment",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZm8iaSJkBA/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZm8iaSJkBA/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/birsa-subcommittee-appointment-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-subcommittee-appointment-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DaM7xraicaI/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DaM7xraicaI/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/express-boat-royal-barge-rehearsals-august-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-express-boat-royal-barge-rehearsals-august-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Marine Department announcement, reported by Thai PBS (in Thai)\",\"href\":\"https://www.thaipbs.or.th/news/content/509403\"},{\"label\":\"Marine Department (กรมเจ้าท่า)\",\"href\":\"https://www.md.go.th\"}], TH: [{\"label\":\"ประกาศกรมเจ้าท่า รายงานโดย Thai PBS\",\"href\":\"https://www.thaipbs.or.th/news/content/509403\"},{\"label\":\"กรมเจ้าท่า\",\"href\":\"https://www.md.go.th\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/faculty-77th-anniversary.mdx",
+      "status": "migrated",
+      "documentId": "news-article-faculty-77th-anniversary",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZjrGipCYkb/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZjrGipCYkb/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/freshers-orientation-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-freshers-orientation-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DaPV9gbpOl5/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DaPV9gbpOl5/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/july-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/en/june-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/en/meet-birsa-2026-team.mdx",
+      "status": "migrated",
+      "documentId": "news-article-meet-birsa-2026-team",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DYw_H6_pgEP/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DYw_H6_pgEP/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/mfa-required-august-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-mfa-required-august-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Set up your sign-in methods at aka.ms/mfasetup\",\"href\":\"https://aka.ms/mfasetup\"},{\"label\":\"Download Microsoft Authenticator (Microsoft Support)\",\"href\":\"https://support.microsoft.com/en-us/account-billing/download-and-install-the-microsoft-authenticator-app-351498fc-850a-45da-b7b6-27e523b8702a\"},{\"label\":\"Office of Information and Communication Technology, Thammasat University\",\"href\":\"https://ict.tu.ac.th\"}], TH: [{\"label\":\"ตั้งค่าวิธียืนยันตัวตนที่ aka.ms/mfasetup\",\"href\":\"https://aka.ms/mfasetup\"},{\"label\":\"ดาวน์โหลด Microsoft Authenticator (Microsoft Support)\",\"href\":\"https://support.microsoft.com/en-us/account-billing/download-and-install-the-microsoft-authenticator-app-351498fc-850a-45da-b7b6-27e523b8702a\"},{\"label\":\"สำนักงานศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยธรรมศาสตร์\",\"href\":\"https://ict.tu.ac.th\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/polsci-orientation-2026.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"GoogleForm\": content/news/en/polsci-orientation-2026.mdx (line 24): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/news/en/pride-month-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-pride-month-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZB-KHYid09/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZB-KHYid09/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/singhadang-samphan-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-singhadang-samphan-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZ_8mDmS_gc/\"},{\"label\":\"Register (Google Form)\",\"href\":\"https://forms.gle/dTBnj1deiFB7ro7X8\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZ_8mDmS_gc/\"},{\"label\":\"ลงทะเบียน (Google Form)\",\"href\":\"https://forms.gle/dTBnj1deiFB7ro7X8\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/en/tpc-crazy-week-2026.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"thematicBreak\": content/news/en/tpc-crazy-week-2026.mdx (line 22): the section palette's allowedBlocks (sanity/schemaTypes/objects/portableText.ts) has no divider/rule block type."
+    },
+    {
+      "sourcePath": "content/news/en/welcome-bir-batch-18.mdx",
+      "status": "migrated",
+      "documentId": "news-article-welcome-bir-batch-18",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DY4PRNYiYGl/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DY4PRNYiYGl/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/academic-calendar-2569.mdx",
+      "status": "migrated",
+      "documentId": "news-article-academic-calendar-2569",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Registrar's academic calendar (PDF)\",\"href\":\"https://wapi.reg.tu.ac.th/uploads/content/%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%97%E0%B8%B4%E0%B8%99%20%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%95%E0%B8%B4%2069.pdf\"}], TH: [{\"label\":\"ปฏิทินการศึกษาจากสำนักทะเบียน (PDF)\",\"href\":\"https://wapi.reg.tu.ac.th/uploads/content/%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%97%E0%B8%B4%E0%B8%99%20%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%95%E0%B8%B4%2069.pdf\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/august-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/th/bir18-orientation-schedule.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-orientation-schedule",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/bir18-pre-session.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-pre-session",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DbClld5pBMu/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DbClld5pBMu/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/bir18-student-council-candidates-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-bir18-student-council-candidates-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/bir18-student-council-election-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-bir18-student-council-election-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Download the application form (Google Drive)\",\"href\":\"https://drive.google.com/drive/folders/1Eca6gzy3GKUASeugWrTYY4uRwSDMQav4?usp=sharing\"},{\"label\":\"Follow @student_birsa on Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}], TH: [{\"label\":\"ดาวน์โหลดใบสมัคร (Google Drive)\",\"href\":\"https://drive.google.com/drive/folders/1Eca6gzy3GKUASeugWrTYY4uRwSDMQav4?usp=sharing\"},{\"label\":\"ติดตาม @student_birsa บน Instagram\",\"href\":\"https://www.instagram.com/student_birsa/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/birsa-committee-appointment-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-committee-appointment-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DYwlBofCQ5-/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DYwlBofCQ5-/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/birsa-committee-recruitment.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-committee-recruitment",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZm8iaSJkBA/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZm8iaSJkBA/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/birsa-subcommittee-appointment-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-birsa-subcommittee-appointment-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DaM7xraicaI/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DaM7xraicaI/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/express-boat-royal-barge-rehearsals-august-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-express-boat-royal-barge-rehearsals-august-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Marine Department announcement, reported by Thai PBS (in Thai)\",\"href\":\"https://www.thaipbs.or.th/news/content/509403\"},{\"label\":\"Marine Department (กรมเจ้าท่า)\",\"href\":\"https://www.md.go.th\"}], TH: [{\"label\":\"ประกาศกรมเจ้าท่า รายงานโดย Thai PBS\",\"href\":\"https://www.thaipbs.or.th/news/content/509403\"},{\"label\":\"กรมเจ้าท่า\",\"href\":\"https://www.md.go.th\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/faculty-77th-anniversary.mdx",
+      "status": "migrated",
+      "documentId": "news-article-faculty-77th-anniversary",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZjrGipCYkb/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZjrGipCYkb/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/freshers-orientation-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-freshers-orientation-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DaPV9gbpOl5/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DaPV9gbpOl5/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/july-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/th/june-2026-activity-calendar.mdx",
+      "status": "not-migrated",
+      "reason": "type: \"event\" but location is missing or not bilingual, and both are Rule.required() on the event document type."
+    },
+    {
+      "sourcePath": "content/news/th/meet-birsa-2026-team.mdx",
+      "status": "migrated",
+      "documentId": "news-article-meet-birsa-2026-team",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DYw_H6_pgEP/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DYw_H6_pgEP/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/mfa-required-august-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-mfa-required-august-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"Set up your sign-in methods at aka.ms/mfasetup\",\"href\":\"https://aka.ms/mfasetup\"},{\"label\":\"Download Microsoft Authenticator (Microsoft Support)\",\"href\":\"https://support.microsoft.com/en-us/account-billing/download-and-install-the-microsoft-authenticator-app-351498fc-850a-45da-b7b6-27e523b8702a\"},{\"label\":\"Office of Information and Communication Technology, Thammasat University\",\"href\":\"https://ict.tu.ac.th\"}], TH: [{\"label\":\"ตั้งค่าวิธียืนยันตัวตนที่ aka.ms/mfasetup\",\"href\":\"https://aka.ms/mfasetup\"},{\"label\":\"ดาวน์โหลด Microsoft Authenticator (Microsoft Support)\",\"href\":\"https://support.microsoft.com/en-us/account-billing/download-and-install-the-microsoft-authenticator-app-351498fc-850a-45da-b7b6-27e523b8702a\"},{\"label\":\"สำนักงานศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร มหาวิทยาลัยธรรมศาสตร์\",\"href\":\"https://ict.tu.ac.th\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/polsci-orientation-2026.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"GoogleForm\": content/news/en/polsci-orientation-2026.mdx (line 24): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/news/th/pride-month-2026.mdx",
+      "status": "migrated",
+      "documentId": "news-article-pride-month-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZB-KHYid09/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZB-KHYid09/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/singhadang-samphan-2026.mdx",
+      "status": "migrated",
+      "documentId": "event-singhadang-samphan-2026",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DZ_8mDmS_gc/\"},{\"label\":\"Register (Google Form)\",\"href\":\"https://forms.gle/dTBnj1deiFB7ro7X8\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DZ_8mDmS_gc/\"},{\"label\":\"ลงทะเบียน (Google Form)\",\"href\":\"https://forms.gle/dTBnj1deiFB7ro7X8\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/news/th/tpc-crazy-week-2026.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"thematicBreak\": content/news/en/tpc-crazy-week-2026.mdx (line 22): the section palette's allowedBlocks (sanity/schemaTypes/objects/portableText.ts) has no divider/rule block type."
+    },
+    {
+      "sourcePath": "content/news/th/welcome-bir-batch-18.mdx",
+      "status": "migrated",
+      "documentId": "news-article-welcome-bir-batch-18",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "frontmatter `links` field has no destination in newsArticle/event (sanity/schemaTypes/documents/{newsArticle,event}.ts carry no such field); dropped. EN: [{\"label\":\"See the original post on Instagram\",\"href\":\"https://www.instagram.com/p/DY4PRNYiYGl/\"}], TH: [{\"label\":\"ดูโพสต์ต้นฉบับบน Instagram\",\"href\":\"https://www.instagram.com/p/DY4PRNYiYGl/\"}]",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/about-bir.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-about-bir",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/academic-activities.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-academic-activities",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/academic-life.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-academic-life",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/admission-and-fees.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-admission-and-fees",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/assessment-and-degree.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-assessment-and-degree",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/curriculum-and-study-plan.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-curriculum-and-study-plan",
+      "notes": [
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 8 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/handbook/internship.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-internship",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/food-and-budgeting.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"Notice\": content/student-life/en/home/food-and-budgeting.mdx (line 43): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/en/home/getting-around.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-getting-around",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/getting-involved.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-getting-involved",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/health-and-wellbeing.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-health-and-wellbeing",
+      "notes": [
+        "content/student-life/en/home/health-and-wellbeing.mdx (line 54): raw HTML <table> caption \"Emergency contact numbers\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "content/student-life/th/home/health-and-wellbeing.mdx (line 56): raw HTML <table> caption \"เบอร์โทรฉุกเฉิน\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/money-matters.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-money-matters",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/places-nearby.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"NearbyFood\": content/student-life/en/home/places-nearby.mdx (line 14): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/en/home/rights-and-welfare.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-rights-and-welfare",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/home/safety-and-emergencies.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"ReportHarassment\": content/student-life/en/home/safety-and-emergencies.mdx (line 38): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/en/home/shuttle-bus.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"ShuttleServiceNotice\": content/student-life/en/home/shuttle-bus.mdx (line 4): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/en/home/study-support.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-study-support",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/international/arrival-and-first-week.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-arrival-and-first-week",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/international/banking-and-money.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"Notice\": content/student-life/en/international/banking-and-money.mdx (line 6): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/en/international/culture-and-language.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"Notice\": content/student-life/en/international/culture-and-language.mdx (line 12): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/en/international/healthcare-and-insurance.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-healthcare-and-insurance",
+      "notes": [
+        "content/student-life/en/international/healthcare-and-insurance.mdx (line 12): raw HTML <table> caption \"Emergency contact numbers\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/international/phones-and-internet.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-phones-and-internet",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/en/international/visa-and-immigration.mdx",
+      "status": "not-migrated",
+      "reason": "Unsupported MDX construct \"Notice variant=\"placeholder\"\": content/student-life/en/international/visa-and-immigration.mdx (line 2): the notice section's variant field (sanity/schemaTypes/objects/sectionTypes.ts) only accepts info/success/warning/error. 1.0's Notice component additionally has a \"placeholder\" variant with no 2.0 equivalent."
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/about-bir.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-about-bir",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/academic-activities.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-academic-activities",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/academic-life.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-academic-life",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/admission-and-fees.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-admission-and-fees",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/assessment-and-degree.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-assessment-and-degree",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/curriculum-and-study-plan.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-curriculum-and-study-plan",
+      "notes": [
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 6 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 8 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/handbook/internship.mdx",
+      "status": "migrated",
+      "documentId": "guide-handbook-internship",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/food-and-budgeting.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"Notice\": content/student-life/en/home/food-and-budgeting.mdx (line 43): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/th/home/getting-around.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-getting-around",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/getting-involved.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-getting-involved",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/health-and-wellbeing.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-health-and-wellbeing",
+      "notes": [
+        "content/student-life/en/home/health-and-wellbeing.mdx (line 54): raw HTML <table> caption \"Emergency contact numbers\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "content/student-life/th/home/health-and-wellbeing.mdx (line 56): raw HTML <table> caption \"เบอร์โทรฉุกเฉิน\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/money-matters.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-money-matters",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/places-nearby.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"NearbyFood\": content/student-life/en/home/places-nearby.mdx (line 14): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/th/home/rights-and-welfare.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-rights-and-welfare",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/home/safety-and-emergencies.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"ReportHarassment\": content/student-life/en/home/safety-and-emergencies.mdx (line 38): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/th/home/shuttle-bus.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"ShuttleServiceNotice\": content/student-life/en/home/shuttle-bus.mdx (line 4): renders app runtime behaviour (a form embed, live shuttle data, or static safety copy owned by the component itself) that no section in the palette represents; there is no MDX-authored content on this element to migrate."
+    },
+    {
+      "sourcePath": "content/student-life/th/home/study-support.mdx",
+      "status": "migrated",
+      "documentId": "guide-home-study-support",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 2 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "section 4 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/international/arrival-and-first-week.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-arrival-and-first-week",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/international/banking-and-money.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"Notice\": content/student-life/en/international/banking-and-money.mdx (line 6): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/th/international/culture-and-language.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"Notice\": content/student-life/en/international/culture-and-language.mdx (line 12): unrecognised inline JSX/HTML element. Add explicit handling in lib/migration/portableText.ts's inlineToSpans before migrating content that uses it."
+    },
+    {
+      "sourcePath": "content/student-life/th/international/healthcare-and-insurance.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-healthcare-and-insurance",
+      "notes": [
+        "content/student-life/en/international/healthcare-and-insurance.mdx (line 12): raw HTML <table> caption \"Emergency contact numbers\" has no field on the table object schema (sanity/schemaTypes/objects/portableText.ts) and was dropped.",
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/international/phones-and-internet.mdx",
+      "status": "migrated",
+      "documentId": "guide-international-phones-and-internet",
+      "notes": [
+        "section 0 (rich-text): Thai prose preserved in _i18nGapPortableText, not in the Studio-editable content field. See lib/migration/portableText.ts's file header: portableText/portableTextInline have no locale wrapper in the current schema.",
+        "lifecycle.owner and lifecycle.reviewBy are omitted. Both are `Rule.required()` (sanity/schemaTypes/objects/lifecycle.ts), and both are 2.0 concepts with no 1.0 source: 1.0 content carries no per-document owning portfolio and no review-by date. Assigning an owner is an editorial decision for the owning portfolio, not something this migration script invents (\"no agent hand-writes content\"). Every document below will show as unpublishable in the Studio until an officer sets both by hand; this is expected, not a bug in this script."
+      ]
+    },
+    {
+      "sourcePath": "content/student-life/th/international/visa-and-immigration.mdx",
+      "status": "not-migrated",
+      "reason": "its EN twin failed to parse: Unsupported MDX construct \"Notice variant=\"placeholder\"\": content/student-life/en/international/visa-and-immigration.mdx (line 2): the notice section's variant field (sanity/schemaTypes/objects/sectionTypes.ts) only accepts info/success/warning/error. 1.0's Notice component additionally has a \"placeholder\" variant with no 2.0 equivalent."
+    }
+  ],
+  "unaccounted": []
+}
