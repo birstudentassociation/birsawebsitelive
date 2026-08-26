@@ -92,7 +92,7 @@ export const homeEn = {
     intro: "Officer roles, the regulations that govern student activities, and more.",
     items: {
       roles: {
-        label: "Officer roles",
+        label: "Current officers",
         description: "Who sits on the BIRSA committee, and what each role is responsible for.",
       },
       regulations: {

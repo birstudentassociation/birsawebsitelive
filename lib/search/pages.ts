@@ -574,7 +574,7 @@ export const staticPages: StaticPage[] = [
     path: "/activity/roles",
     section: "activity",
     kind: "reference",
-    title: { en: "Officer roles", th: "บทบาทหน้าที่ของคณะกรรมการ" },
+    title: { en: "Current officers", th: "คณะกรรมการชุดปัจจุบัน" },
     summary: {
       en: "Who sits on the BIRSA committee, what each role covers, and who to approach for what.",
       th: "ใครอยู่ในคณะกรรมการ BIRSA แต่ละตำแหน่งดูแลเรื่องใด และควรติดต่อใครในเรื่องใด",

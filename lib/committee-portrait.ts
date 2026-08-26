@@ -5,7 +5,7 @@
  * change; callers fall back to a placeholder when none is found.
  *
  * Shared by `components/about/CommitteeRoster.tsx` (MDX component) and the
- * Officer roles page so the lookup lives in exactly one place.
+ * Current officers page so the lookup lives in exactly one place.
  */
 import fs from "node:fs";
 import path from "node:path";

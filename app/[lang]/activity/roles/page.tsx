@@ -8,7 +8,6 @@ import { findPortrait } from "@/lib/committee-portrait";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { committee, committeeGroupLabels, type CommitteeGroup } from "@/content/committee";
-import { roleDescriptions } from "@/content/activity/roleInfo";
 
 /**
  * The Rights Advocate and Student Welfare Officer is one of the two official
@@ -64,13 +63,13 @@ export async function generateMetadata({
 const copy: Record<Locale, { activity: string; title: string; lede: string }> = {
   en: {
     activity: "BIRSA activity",
-    title: "Officer roles",
-    lede: "These are the roles that make up the BIRSA committee: officers first, then the assistant officers who support them.",
+    title: "Current officers",
+    lede: "These are the members of the BIRSA committee: officers first, then the assistant officers who support them.",
   },
   th: {
     activity: "การดำเนินงานของ BIRSA",
-    title: "บทบาทหน้าที่ของคณะกรรมการ",
-    lede: "นี่คือตำแหน่งต่าง ๆ ที่ประกอบกันเป็นคณะกรรมการ BIRSA เริ่มจากกรรมการสโมสร ตามด้วยอนุกรรมการที่ช่วยสนับสนุนงาน",
+    title: "คณะกรรมการชุดปัจจุบัน",
+    lede: "นี่คือรายชื่อคณะกรรมการ BIRSA เริ่มจากกรรมการสโมสร ตามด้วยอนุกรรมการที่ช่วยสนับสนุนงาน",
   },
 };
 
@@ -109,7 +108,6 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
               <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3">
                 {members.map((member) => {
                   const m = member[locale];
-                  const description = roleDescriptions[member.key]?.[locale];
                   const portraitSrc = findPortrait(member.key);
                   return (
                     <li
@@ -134,9 +132,6 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
                           </p>
                           <p className="text-sm text-muted">{m.title}</p>
                         </div>
-                        {description ? (
-                          <p className="text-sm leading-relaxed text-muted">{description}</p>
-                        ) : null}
                         {member.key === REPORTING_OFFICER_KEY ? (
                           <Link
                             href={`${localeHref(locale, "/contact")}#report-harassment`}
