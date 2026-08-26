@@ -127,9 +127,10 @@ export default async function ActivityRolesPage({ params }: { params: Promise<{ 
                       )}
                       <div className="flex flex-col gap-3 px-4 pb-4">
                         <div>
-                          <p className="font-semibold text-ink">
-                            {m.firstName} {m.lastName} ({m.nickname})
+                          <p className="font-display font-semibold text-ink">
+                            {m.firstName} {m.lastName}
                           </p>
+                          <p className="text-sm text-muted">({m.nickname})</p>
                           <p className="text-sm text-muted">{m.title}</p>
                         </div>
                         {member.key === REPORTING_OFFICER_KEY ? (
