@@ -3,20 +3,13 @@ import {
   getBangkokParts,
   getDepartureMinutes,
   getDepartureTimes,
-  getExtension,
-  getExtraDepartureTimes,
-  getSuspension,
+  isModified,
   nextDeparture,
-  serviceExtensions,
-  serviceSuspensions,
+  serviceModification,
   shuttleLines,
   type BangkokParts,
 } from "@/lib/shuttle";
 
-/**
- * `date` defaults to a plain Monday well clear of any announced suspension,
- * so the scheduling tests below stay about the timetable.
- */
 function parts(weekday: number, hh: number, mm: number, date = "2026-09-07"): BangkokParts {
   return { weekday, minutes: hh * 60 + mm, date };
 }
@@ -41,93 +34,32 @@ describe("getDepartureTimes", () => {
   });
 });
 
-describe("getSuspension", () => {
-  it("is active on each day of the July 2026 suspension", () => {
-    for (const date of ["2026-07-28", "2026-07-29", "2026-07-30"]) {
-      expect(getSuspension(date)).toMatchObject({ phase: "active", daysUntil: 0 });
-    }
-  });
-
-  it("gives a heads-up within the notice window before it starts", () => {
-    expect(getSuspension("2026-07-27")).toMatchObject({ phase: "upcoming", daysUntil: 1 });
-    expect(getSuspension("2026-07-14")).toMatchObject({ phase: "upcoming", daysUntil: 14 });
-  });
-
-  it("stays quiet before the notice window opens", () => {
-    expect(getSuspension("2026-07-13")).toBeUndefined();
-    expect(getSuspension("2026-01-01")).toBeUndefined();
-  });
-
-  it("expires by itself on the resumption day and after", () => {
-    expect(getSuspension("2026-07-31")).toBeUndefined();
-    expect(getSuspension("2026-08-15")).toBeUndefined();
-    expect(getSuspension("2027-01-01")).toBeUndefined();
-  });
-
-  it("keeps every announced suspension well formed and in date order", () => {
-    let previousTo = "";
-    for (const suspension of serviceSuspensions) {
-      expect(suspension.from).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(suspension.to >= suspension.from).toBe(true);
-      expect(suspension.resumes > suspension.to).toBe(true);
-      expect(suspension.from > previousTo).toBe(true);
-      previousTo = suspension.to;
-    }
-  });
-});
-
-describe("getExtension", () => {
-  it("applies on the announced date only", () => {
-    expect(getExtension("2026-08-19")).toMatchObject({
-      lines: ["pinklao"],
-      lastDeparture: "23:30",
-      everyMinutes: 30,
-    });
-    expect(getExtension("2026-08-18")).toBeUndefined();
-    expect(getExtension("2026-08-20")).toBeUndefined();
-  });
-
-  it("keeps every announced extension well formed", () => {
+describe("serviceModification", () => {
+  it("names only real lines and carries both locales, when one is announced", () => {
+    if (!serviceModification) return;
     const ids = shuttleLines.map((line) => line.id);
-    for (const extension of serviceExtensions) {
-      expect(extension.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(extension.lastDeparture).toMatch(/^\d{2}:\d{2}$/);
-      expect(extension.everyMinutes).toBeGreaterThan(0);
-      expect(extension.lines.length).toBeGreaterThan(0);
-      expect(extension.lines.every((id) => ids.includes(id))).toBe(true);
+    expect(serviceModification.lines.length).toBeGreaterThan(0);
+    expect(serviceModification.lines.every((id) => ids.includes(id))).toBe(true);
+    for (const field of [
+      serviceModification.flag,
+      serviceModification.title,
+      serviceModification.body,
+      serviceModification.alternatives,
+    ]) {
+      expect(field.en.trim()).not.toBe("");
+      expect(field.th.trim()).not.toBe("");
     }
   });
-});
 
-describe("getExtraDepartureTimes", () => {
-  it("runs every half hour from Pinklao's normal last bus to 23:30", () => {
-    expect(getExtraDepartureTimes("pinklao", "2026-08-19")).toEqual([
-      "22:00",
-      "22:30",
-      "23:00",
-      "23:30",
-    ]);
+  it("flags the lines it covers and no others", () => {
+    for (const line of shuttleLines) {
+      expect(isModified(line.id)).toBe(serviceModification?.lines.includes(line.id) ?? false);
+    }
   });
 
-  it("leaves a line the extension does not cover alone", () => {
-    expect(getExtraDepartureTimes("sanam-chai", "2026-08-19")).toEqual([]);
-    expect(getDepartureTimes("sanam-chai", "2026-08-19")).toEqual(getDepartureTimes("sanam-chai"));
-  });
-
-  it("adds nothing on an ordinary day", () => {
-    expect(getExtraDepartureTimes("pinklao", "2026-09-07")).toEqual([]);
-    expect(getDepartureTimes("pinklao", "2026-09-07")).toEqual(getDepartureTimes("pinklao"));
-  });
-
-  it("leaves the printed timetable (no date) unchanged", () => {
-    const times = getDepartureTimes("pinklao");
-    expect(times[times.length - 1]).toBe("21:30");
-  });
-
-  it("extends Pinklao's dated timetable to 23:30", () => {
-    const times = getDepartureTimes("pinklao", "2026-08-19");
-    expect(times[times.length - 1]).toBe("23:30");
-    expect(times.filter((t, i) => times.indexOf(t) !== i)).toEqual([]);
+  it("leaves the timetable alone, since only the number of buses changed", () => {
+    expect(getDepartureTimes("sanam-chai")[0]).toBe("07:45");
+    expect(nextDeparture("sanam-chai", parts(1, 9, 10)).status).toBe("upcoming");
   });
 });
 
@@ -200,57 +132,18 @@ describe("nextDeparture", () => {
     expect(result).toMatchObject({ status: "upcoming", hh: "08", mm: "30" });
   });
 
-  it("reports suspended on every day of an announced suspension, weekday or not", () => {
-    // 28 to 30 July 2026 is Tuesday to Thursday.
-    for (const [weekday, date] of [
-      [2, "2026-07-28"],
-      [3, "2026-07-29"],
-      [4, "2026-07-30"],
-    ] as const) {
-      const result = nextDeparture("sanam-chai", parts(weekday, 9, 0, date));
-      expect(result.status).toBe("suspended");
+  it("stops at 21:30 in the evening", () => {
+    expect(nextDeparture("pinklao", parts(3, 21, 40)).status).toBe("not-in-service");
+  });
+
+  it("depends on the weekday and the clock only, not the calendar date", () => {
+    for (const date of ["2026-07-29", "2026-08-19", "2027-03-01"]) {
+      expect(nextDeparture("sanam-chai", parts(3, 9, 10, date))).toMatchObject({
+        status: "upcoming",
+        hh: "09",
+        mm: "30",
+      });
     }
-  });
-
-  it("a suspension wins over the normal countdown, even mid-service", () => {
-    const result = nextDeparture("pinklao", parts(3, 16, 10, "2026-07-29"));
-    expect(result).toMatchObject({ status: "suspended" });
-  });
-
-  it("runs normally on the day before and the resumption day", () => {
-    expect(nextDeparture("sanam-chai", parts(1, 9, 10, "2026-07-27")).status).toBe("upcoming");
-    expect(nextDeparture("sanam-chai", parts(5, 9, 10, "2026-07-31")).status).toBe("upcoming");
-  });
-
-  it("keeps counting down after 21:30 on an extension night", () => {
-    // 19 August 2026 is a Wednesday; the extra Pinklao buses run to 23:30.
-    const result = nextDeparture("pinklao", parts(3, 21, 40, "2026-08-19"));
-    expect(result).toMatchObject({ status: "upcoming", hh: "22", mm: "00", minutesUntil: 20 });
-  });
-
-  it("leaves a line the extension does not cover out of service that night", () => {
-    expect(nextDeparture("sanam-chai", parts(3, 21, 40, "2026-08-19")).status).toBe(
-      "not-in-service"
-    );
-  });
-
-  it("counts down to the last extra bus of an extension night", () => {
-    const result = nextDeparture("pinklao", parts(3, 23, 0, "2026-08-19"));
-    expect(result).toMatchObject({ status: "upcoming", hh: "23", mm: "30", minutesUntil: 30 });
-  });
-
-  it("goes out of service once the extension's last bus has gone", () => {
-    expect(nextDeparture("pinklao", parts(3, 23, 30, "2026-08-19")).status).toBe("not-in-service");
-    expect(nextDeparture("pinklao", parts(3, 23, 45, "2026-08-19")).status).toBe("not-in-service");
-  });
-
-  it("leaves the daytime schedule alone on an extension night", () => {
-    const result = nextDeparture("pinklao", parts(3, 9, 10, "2026-08-19"));
-    expect(result).toMatchObject({ status: "upcoming", hh: "09", mm: "30" });
-  });
-
-  it("still stops at 21:30 on an ordinary evening", () => {
-    expect(nextDeparture("pinklao", parts(3, 21, 40, "2026-08-18")).status).toBe("not-in-service");
   });
 
   it("getDepartureMinutes stays consistent with getDepartureTimes", () => {

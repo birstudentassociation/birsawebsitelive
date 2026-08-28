@@ -17,9 +17,9 @@ import type { Locale } from "@/lib/i18n";
 import {
   shuttleLines,
   getBangkokParts,
-  getExtension,
-  getSuspension,
+  isModified,
   nextDeparture,
+  serviceModification,
   type LineId,
   type NextDepartureResult,
 } from "@/lib/shuttle";
@@ -40,10 +40,6 @@ type Labels = {
   weekendBody: string;
   offTitle: string;
   offBody: string;
-  suspendedTitle: string;
-  suspendedBody: (resumes: string) => string;
-  upcomingSuspension: (dates: string, resumes: string) => string;
-  extension: (lines: string, everyMinutes: number, lastDeparture: string) => string;
   minutes: (n: number) => string;
   seconds: (n: number) => string;
   caveat: string;
@@ -57,12 +53,6 @@ const labels: Record<Locale, Labels> = {
     weekendBody: "Service runs Monday to Friday. There's no shuttle at weekends.",
     offTitle: "Not in service",
     offBody: "The next bus shows here about an hour before it departs.",
-    suspendedTitle: "Service suspended today",
-    suspendedBody: (resumes) => `The shuttle resumes on ${resumes}.`,
-    upcomingSuspension: (dates, resumes) =>
-      `Service is suspended ${dates}, and resumes on ${resumes}.`,
-    extension: (lines, everyMinutes, lastDeparture) =>
-      `Late buses tonight on the ${lines} only, every ${everyMinutes} minutes past its normal last bus, until ${lastDeparture}. The countdown above includes them.`,
     minutes: (n) => `in ${n} min`,
     seconds: (n) => `in ${n} sec`,
     caveat: "Times are scheduled departures. In heavy traffic, buses can run a few minutes late.",
@@ -74,12 +64,6 @@ const labels: Record<Locale, Labels> = {
     weekendBody: "ให้บริการวันจันทร์ถึงศุกร์เท่านั้น เสาร์อาทิตย์ไม่มีรถ",
     offTitle: "งดให้บริการ",
     offBody: "รถคันต่อไปจะแสดงที่นี่ประมาณหนึ่งชั่วโมงก่อนออก",
-    suspendedTitle: "วันนี้งดให้บริการ",
-    suspendedBody: (resumes) => `รถเวียนจะกลับมาให้บริการอีกครั้ง ${resumes}`,
-    upcomingSuspension: (dates, resumes) =>
-      `งดให้บริการวันที่ ${dates} และกลับมาให้บริการอีกครั้ง ${resumes}`,
-    extension: (lines, everyMinutes, lastDeparture) =>
-      `คืนนี้มีรถรอบดึกเฉพาะ ${lines} โดยออกทุก ${everyMinutes} นาที ต่อจากรอบสุดท้ายตามตารางปกติ จนถึง ${lastDeparture} เวลาที่นับถอยหลังด้านบนรวมรอบพิเศษนี้แล้ว`,
     minutes: (n) => `อีก ${n} นาที`,
     seconds: (n) => `อีก ${n} วินาที`,
     caveat: "เวลาที่แสดงเป็นเวลาตามตารางเดินรถ ช่วงรถติดหนักอาจล่าช้ากว่าที่แจ้งไว้บ้าง",
@@ -89,25 +73,12 @@ const labels: Record<Locale, Labels> = {
 function StatusBlock({
   result,
   secondsPastMinute,
-  locale,
   t,
 }: {
   result: NextDepartureResult;
   secondsPastMinute: number;
-  locale: Locale;
   t: Labels;
 }) {
-  if (result.status === "suspended") {
-    return (
-      <div>
-        <p className="font-semibold text-ink">{t.suspendedTitle}</p>
-        <p className="text-sm text-muted">
-          {t.suspendedBody(result.suspension.resumesLabel[locale])}
-        </p>
-      </div>
-    );
-  }
-
   if (result.status === "no-service-weekend") {
     return (
       <div>
@@ -178,32 +149,6 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
 
   const parts = getBangkokParts(now);
   const secondsPastMinute = now.getSeconds();
-  // Only the heads-up case is shown here; an active suspension is already
-  // spelled out on each line's card by `StatusBlock`.
-  const upcoming = getSuspension(parts.date);
-  const upcomingNote =
-    upcoming?.phase === "upcoming"
-      ? t.upcomingSuspension(
-          upcoming.suspension.dates[locale],
-          upcoming.suspension.resumesLabel[locale]
-        )
-      : undefined;
-
-  // A late-night extension announced for today, e.g. the extra Pinklao buses
-  // on 19 August 2026. `nextDeparture` already counts its departures in for
-  // the lines it covers; this note is what tells the reader why one line's
-  // board is still live in the late evening and the other's is not.
-  const extension = upcoming?.phase === "active" ? undefined : getExtension(parts.date);
-  const extensionNote = extension
-    ? t.extension(
-        shuttleLines
-          .filter((line) => extension.lines.includes(line.id))
-          .map((line) => line.name[locale])
-          .join(locale === "en" ? " and " : " และ "),
-        extension.everyMinutes,
-        extension.lastDeparture
-      )
-    : undefined;
 
   return (
     <div className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5">
@@ -217,19 +162,24 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
               style={{ borderLeftWidth: "4px", borderLeftColor: lineAccents[line.id] }}
               aria-live="polite"
             >
-              <h3 className="mt-0 font-display text-lg">{line.name[locale]}</h3>
-              <StatusBlock
-                result={result}
-                secondsPastMinute={secondsPastMinute}
-                locale={locale}
-                t={t}
-              />
+              <div className="mb-1 flex flex-wrap items-center gap-2">
+                <h3 className="my-0 font-display text-lg">{line.name[locale]}</h3>
+                {serviceModification && isModified(line.id) ? (
+                  <span className="rounded-full border border-warning bg-warning-tint px-2 py-0.5 text-xs font-semibold text-ink">
+                    {serviceModification.flag[locale]}
+                  </span>
+                ) : null}
+              </div>
+              <StatusBlock result={result} secondsPastMinute={secondsPastMinute} t={t} />
             </div>
           );
         })}
       </div>
-      {extensionNote ? <p className="text-sm font-semibold text-ink">{extensionNote}</p> : null}
-      {upcomingNote ? <p className="text-sm font-semibold text-ink">{upcomingNote}</p> : null}
+      {serviceModification ? (
+        <p className="text-sm font-semibold text-ink">
+          {serviceModification.body[locale]} {serviceModification.alternatives[locale]}
+        </p>
+      ) : null}
       <p className="text-xs text-muted">{t.caveat}</p>
     </div>
   );

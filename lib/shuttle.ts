@@ -126,138 +126,54 @@ export const shuttleLines: ShuttleLine[] = [
 ];
 
 /**
- * A dated break in service announced by the university, e.g. the Tha Prachan
- * suspension of 28 to 30 July 2026. Dates are Bangkok calendar dates in ISO
- * `YYYY-MM-DD` form, so plain string comparison orders them correctly.
+ * A change to how a line is being run that has no announced end date, e.g.
+ * the reduced rush hour service on the Sanam Chai Line after an accident.
  *
- * The display strings are written out by hand rather than formatted from the
- * dates: Thai copy uses the Buddhist era and its own phrasing, and the
- * announcement's own wording is what students will have seen elsewhere.
- */
-export type ServiceSuspension = {
-  /** First suspended date, inclusive. */
-  from: string;
-  /** Last suspended date, inclusive. */
-  to: string;
-  /** First date service runs again. */
-  resumes: string;
-  /** The suspended range as it should read on the page, e.g. "28 to 30 July 2026". */
-  dates: Bilingual;
-  /** The resumption date as it should read, e.g. "Friday 31 July 2026". */
-  resumesLabel: Bilingual;
-  /** How many days ahead of `from` the heads-up notice appears. Defaults to 14. */
-  noticeDaysBefore?: number;
-};
-
-/**
- * Announced suspensions, ordered by date. Entries are kept until they expire
- * on their own: everything that reads this list goes through
- * `getSuspension`, which returns nothing once the Bangkok date has passed
- * `to`, so a stale entry stops appearing on the page without an edit. Old
- * entries can then be deleted at any convenient time.
- */
-export const serviceSuspensions: ServiceSuspension[] = [
-  {
-    // Thammasat announcement: TU Shuttle Bus, Tha Prachan campus.
-    from: "2026-07-28",
-    to: "2026-07-30",
-    resumes: "2026-07-31",
-    dates: { en: "28 to 30 July 2026", th: "28 ถึง 30 กรกฎาคม 2569" },
-    resumesLabel: { en: "Friday 31 July 2026", th: "วันศุกร์ที่ 31 กรกฎาคม 2569" },
-  },
-];
-
-export type SuspensionPhase = "upcoming" | "active";
-
-export type SuspensionState = {
-  suspension: ServiceSuspension;
-  phase: SuspensionPhase;
-  /** Whole days from the given date until `from`; 0 once the suspension is active. */
-  daysUntil: number;
-};
-
-const DAY_MS = 86_400_000;
-
-/** Whole days from ISO date `a` to ISO date `b`; negative when `b` is earlier. */
-function daysBetween(a: string, b: string): number {
-  return Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / DAY_MS);
-}
-
-/**
- * The suspension relevant to a given Bangkok date, if any: the one in
- * progress, otherwise the next one close enough to warn about. Returns
- * `undefined` once a suspension's last day has passed, which is what makes
- * the notice disappear by itself.
- */
-export function getSuspension(date: string): SuspensionState | undefined {
-  for (const suspension of serviceSuspensions) {
-    if (date > suspension.to) continue;
-
-    if (date >= suspension.from) {
-      return { suspension, phase: "active", daysUntil: 0 };
-    }
-
-    const daysUntil = daysBetween(date, suspension.from);
-    if (daysUntil <= (suspension.noticeDaysBefore ?? 14)) {
-      return { suspension, phase: "upcoming", daysUntil };
-    }
-
-    // The nearest suspension is still too far out to be worth a notice, and
-    // anything later in the list is further out again.
-    return undefined;
-  }
-  return undefined;
-}
-
-/**
- * A one-off, dated extension of the evening service, e.g. the late buses
- * laid on for the night of 19 August 2026. Like a suspension it is keyed to
- * a Bangkok calendar date in ISO `YYYY-MM-DD` form and read through
- * `getExtension`, so it stops applying by itself once that date has passed.
+ * The scheduled times do not change, so this affects nothing the timetable
+ * or the countdown compute. It is a flag on the affected lines and the copy
+ * that goes with it, held in one place so the page notice and the live board
+ * cannot drift apart.
  *
- * An extension covers only the lines named in `lines`; every other line
- * keeps its ordinary timetable that night, which is the usual case, since
- * the two lines are run and announced separately.
- *
- * Extra departures are generated rather than listed: for each extended line
- * they carry on from that line's normal last bus at a fixed interval up to
- * `lastDeparture` inclusive. Pinklao ends at 21:30, so a 30 minute interval
- * and a 23:30 last bus give it 22:00, 22:30, 23:00 and 23:30.
+ * There is exactly one of these at a time, or none. Unlike a dated
+ * announcement it cannot expire on its own, so set it back to `undefined`
+ * once the university says service is back to normal; the notice and the
+ * board flag both go with it.
  */
-export type ServiceExtension = {
-  /** The Bangkok date the extension applies to. */
-  date: string;
-  /** The lines running late that night. Lines left out keep their normal timetable. */
+export type ServiceModification = {
+  /** The lines running a modified service. Lines left out are running normally. */
   lines: LineId[];
-  /** Gap between the extra departures, in minutes. */
-  everyMinutes: number;
-  /** Last extra departure of the night, "HH:MM". */
-  lastDeparture: string;
-  /** The date as it should read on the page, e.g. "Wednesday 19 August 2026". */
-  dateLabel: Bilingual;
+  /** Short badge for the live board, e.g. "Modified service". */
+  flag: Bilingual;
+  /** Heading for the notice on the guide page. */
+  title: Bilingual;
+  /** What has changed. */
+  body: Bilingual;
+  /** What to travel on instead. */
+  alternatives: Bilingual;
 };
 
-/**
- * Announced late-night extensions, ordered by date. As with suspensions,
- * entries are safe to leave in place: nothing reads this list except
- * `getExtension`, which only matches the current Bangkok date, so a past
- * entry stops affecting the timetable and the countdown without an edit.
- */
-export const serviceExtensions: ServiceExtension[] = [
-  {
-    // Thammasat announcement: late Pinklao Line buses, Tha Prachan campus.
-    // Sanam Chai is not part of this and still finishes at 21:30.
-    date: "2026-08-19",
-    lines: ["pinklao"],
-    everyMinutes: 30,
-    lastDeparture: "23:30",
-    dateLabel: { en: "Wednesday 19 August 2026", th: "วันพุธที่ 19 สิงหาคม 2569" },
+export const serviceModification: ServiceModification | undefined = {
+  // Thammasat announcement: reduced Sanam Chai Line service at Tha Prachan
+  // after an accident involving one of its buses.
+  lines: ["sanam-chai"],
+  flag: { en: "Modified service", th: "ปรับตารางเวลา" },
+  title: {
+    en: "Sanam Chai Line schedule changed after an accident",
+    th: "สายสนามไชยปรับตารางเวลาชั่วคราว",
   },
-];
+  body: {
+    en: "A Sanam Chai Line shuttle bus was involved in an accident. The line runs fewer buses during rush hour while the schedule is adjusted.",
+    th: "รถเวียนสายสนามไชยคันหนึ่งประสบอุบัติเหตุ ทำให้ช่วงเวลาเร่งด่วนมีรถให้บริการน้อยลงกว่าปกติ",
+  },
+  alternatives: {
+    en: "At these times, use the M2 shuttle bus from Sanam Luang, or public bus routes 53, 43 or 15.",
+    th: "ช่วงเวลานี้นักศึกษาใช้รถเมล์ M2 ที่สนามหลวง หรือรถเมล์สาย 53 43 หรือ 15 แทนได้",
+  },
+};
 
-/** The extension in force on a given Bangkok date, if any. */
-export function getExtension(date: string): ServiceExtension | undefined {
-  return serviceExtensions.find((extension) => extension.date === date);
+/** Whether a line is covered by the current service modification, if there is one. */
+export function isModified(lineId: LineId): boolean {
+  return serviceModification?.lines.includes(lineId) ?? false;
 }
 
 export function getLine(id: LineId): ShuttleLine {
@@ -270,24 +186,13 @@ function pad2(n: number): string {
   return String(n).padStart(2, "0");
 }
 
-/** "HH:MM" -> minutes since midnight. */
-function parseTime(time: string): number {
-  const [hh, mm] = time.split(":");
-  return Number(hh) * 60 + Number(mm);
-}
-
 /** Minutes since midnight -> "HH:MM". */
 function formatTime(minutes: number): string {
   return `${pad2(Math.floor(minutes / 60))}:${pad2(minutes % 60)}`;
 }
 
-/**
- * Sorted list of every departure for a line, expressed as minutes since
- * midnight. Pass a Bangkok date to include any late-night extension
- * announced for that date; without one this is the ordinary weekday
- * timetable, which is what the printed tables show.
- */
-export function getDepartureMinutes(lineId: LineId, date?: string): number[] {
+/** Sorted list of every departure for a line, expressed as minutes since midnight. */
+export function getDepartureMinutes(lineId: LineId): number[] {
   const { schedule } = getLine(lineId);
   const minutes: number[] = [];
   for (const hourKey of Object.keys(schedule)) {
@@ -297,40 +202,12 @@ export function getDepartureMinutes(lineId: LineId, date?: string): number[] {
     }
   }
   minutes.sort((a, b) => a - b);
-  if (date) minutes.push(...getExtraDepartureMinutes(lineId, date));
   return minutes;
 }
 
 /** Sorted list of every departure for a line, as "HH:MM" strings. */
-export function getDepartureTimes(lineId: LineId, date?: string): string[] {
-  return getDepartureMinutes(lineId, date).map(formatTime);
-}
-
-/**
- * The extra late-night departures a line gains on a given Bangkok date,
- * sorted, or an empty list when no extension applies to that line. They
- * carry on from the line's normal last bus at the extension's interval, up
- * to and including its last departure.
- */
-export function getExtraDepartureMinutes(lineId: LineId, date: string): number[] {
-  const extension = getExtension(date);
-  if (!extension?.lines.includes(lineId)) return [];
-
-  const scheduled = getDepartureMinutes(lineId);
-  const normalLast = scheduled[scheduled.length - 1];
-  if (normalLast === undefined) return [];
-
-  const last = parseTime(extension.lastDeparture);
-  const extra: number[] = [];
-  for (let m = normalLast + extension.everyMinutes; m <= last; m += extension.everyMinutes) {
-    extra.push(m);
-  }
-  return extra;
-}
-
-/** The extra late-night departures for a line on a date, as "HH:MM" strings. */
-export function getExtraDepartureTimes(lineId: LineId, date: string): string[] {
-  return getExtraDepartureMinutes(lineId, date).map(formatTime);
+export function getDepartureTimes(lineId: LineId): string[] {
+  return getDepartureMinutes(lineId).map(formatTime);
 }
 
 /** Looks up the dormitory-service footnote for a given "HH:MM" departure, if any. */
@@ -390,7 +267,6 @@ export function getBangkokParts(date: Date = new Date()): BangkokParts {
 }
 
 export type NextDepartureResult =
-  | { status: "suspended"; suspension: ServiceSuspension }
   | { status: "no-service-weekend" }
   | { status: "not-in-service" }
   | {
@@ -412,21 +288,13 @@ export type NextDepartureResult =
  * an hour of that first departure, so the overnight and early-morning
  * window doesn't show a long, misleading countdown; the upcoming countdown
  * only appears once 60 minutes or less remain.
- *
- * An announced suspension covering the current Bangkok date wins over
- * everything else, so no countdown is shown on a day with no buses.
  */
 export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartureResult {
-  const suspension = getSuspension(parts.date);
-  if (suspension?.phase === "active") {
-    return { status: "suspended", suspension: suspension.suspension };
-  }
-
   if (parts.weekday === 0 || parts.weekday === 6) {
     return { status: "no-service-weekend" };
   }
 
-  const departures = getDepartureMinutes(lineId, parts.date);
+  const departures = getDepartureMinutes(lineId);
   const first = departures[0];
   const next = departures.find((minutesOfDay) => minutesOfDay > parts.minutes);
 
