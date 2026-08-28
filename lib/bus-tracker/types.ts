@@ -32,7 +32,11 @@ export type BusLine = {
   color: string;
   /** Direction/destination headsign, e.g. `"Thewet"`. */
   headsign: Bilingual;
-  /** Up to three stops downstream of this stop, in travel order. */
+  /**
+   * Waypoints sampled at five-stop increments after this stop, in travel order
+   * (the 5th, 10th, 15th … stop ahead), giving a spaced overview of the route.
+   * Empty when the terminus is within five stops; capped at four waypoints.
+   */
   downstream: Bilingual[];
   /** Final stop on the trip. On a loop route this can equal the origin. */
   terminus: Bilingual;

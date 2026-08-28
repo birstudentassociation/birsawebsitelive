@@ -23,7 +23,10 @@ const API = "https://namtang-api.otp.go.th/front";
 const STOP_IDS = [2373, 1573, 1061];
 const SNAPSHOTS = 3; // union a few live rosters so we miss fewer lines
 const SNAPSHOT_GAP_MS = 1500;
-const MAX_DOWNSTREAM = 3;
+// Waypoints are sampled at five-stop increments toward the terminus, giving a
+// spaced overview of where the line goes rather than three adjacent stops.
+const STOP_STEP = 5;
+const MAX_WAYPOINTS = 4;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -59,8 +62,13 @@ function buildLine(stopId, tripEn, tripTh) {
   const index = stopsEn.findIndex((s) => s.stopId === stopId);
   if (index === -1) return null;
 
+  // Sample every fifth stop after this one, stopping before the terminus (the
+  // last stop) so it is never duplicated — the terminus is carried separately.
   const downstream = [];
-  for (let i = index + 1; i <= index + MAX_DOWNSTREAM && i < stopsEn.length; i++) {
+  const lastIndex = stopsEn.length - 1;
+  for (let k = 1; k <= MAX_WAYPOINTS; k++) {
+    const i = index + STOP_STEP * k;
+    if (i >= lastIndex) break;
     downstream.push(bilingual(stopsEn[i]?.stopName, stopsTh[i]?.stopName));
   }
 

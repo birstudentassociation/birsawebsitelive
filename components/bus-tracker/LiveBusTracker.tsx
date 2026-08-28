@@ -3,18 +3,23 @@
 /**
  * The live public-bus board for the "Live public bus tracker" guide. It renders
  * the three tracked stops (2373, 1573, 1061) with the full baked route list for
- * each — every line, its next three stops, and its terminus — and overlays live
- * GPS arrival times fetched from the same-origin `/api/bus-eta` proxy.
+ * each — every line, the stops it reaches at five-stop increments, and its
+ * terminus — and overlays live GPS arrival times fetched from the same-origin
+ * `/api/bus-eta` proxy.
  *
- * The static structure (`lib/bus-tracker/data.ts`) renders on the server and in
- * the first client paint identically, so the route information is present with
- * no JS and indexable. Only the live-time column and the "updated" clock depend
- * on the fetch, so those are gated on `mounted` to keep SSR and hydration in
- * agreement, exactly like `ShuttleLiveWaitTimes`. Within each stop the lines are
- * re-sorted so the soonest actual arrival rises to the top, turning the baked
- * list into a live departure board.
+ * Each stop is a collapsible card. Within a stop, once live data has loaded, the
+ * lines with a bus on the way show first (soonest at the top) and the lines with
+ * no tracked bus fold away into a single disclosure at the bottom, so the board
+ * stays scannable. Before the fetch resolves — and so on the server and in the
+ * first client paint — every line renders in its baked order with a neutral
+ * time placeholder, which keeps the full route information present with no JS
+ * and keeps SSR and hydration in agreement (like `ShuttleLiveWaitTimes`).
+ *
+ * The per-line layout stacks: the route-number chip and the live time sit on one
+ * row, and the destination, route path and details sit underneath, which reads
+ * cleanly on a phone as well as on a wide screen.
  */
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { busTrackerData } from "@/lib/bus-tracker/data";
 import type { BusLine, BusStopData } from "@/lib/bus-tracker/types";
@@ -36,15 +41,16 @@ const MAX_ARRIVALS_SHOWN = 3;
 type Labels = {
   live: string;
   updated: (time: string) => string;
-  loading: string;
   unavailable: string;
   notTracked: string;
+  noneLive: string;
+  untracked: (n: number) => string;
   towards: string;
   every: (min: number) => string;
   ac: string;
   acFull: string;
   wheelchair: string;
-  linesAt: (n: number) => string;
+  lines: (n: number) => string;
   caveat: string;
   busAria: (route: string) => string;
 };
@@ -53,15 +59,16 @@ const labels: Record<Locale, Labels> = {
   en: {
     live: "Live",
     updated: (time) => `updated ${time}`,
-    loading: "Loading",
     unavailable: "Live times unavailable",
     notTracked: "Not tracked",
+    noneLive: "No bus is being tracked at this stop right now.",
+    untracked: (n) => `${n} more ${n === 1 ? "line" : "lines"}, no bus tracked`,
     towards: "towards",
     every: (min) => `every ${min} min`,
     ac: "AC",
     acFull: "Air-conditioned",
     wheelchair: "Step-free",
-    linesAt: (n) => `${n} ${n === 1 ? "line" : "lines"}`,
+    lines: (n) => `${n} ${n === 1 ? "line" : "lines"}`,
     caveat:
       "Live times are GPS estimates from Namtang (OTP). A line with no live bus is still listed with its route; scheduled buses may run untracked.",
     busAria: (route) => `Bus ${route}`,
@@ -69,15 +76,16 @@ const labels: Record<Locale, Labels> = {
   th: {
     live: "เรียลไทม์",
     updated: (time) => `อัปเดต ${time}`,
-    loading: "กำลังโหลด",
     unavailable: "แสดงเวลารถเข้าไม่ได้",
     notTracked: "ไม่มีรถที่ติดตามได้",
+    noneLive: "ขณะนี้ยังไม่มีรถที่ติดตามได้ที่ป้ายนี้",
+    untracked: (n) => `อีก ${n} สาย ยังไม่มีรถติดตาม`,
     towards: "ไป",
     every: (min) => `ทุก ${min} นาที`,
     ac: "แอร์",
     acFull: "รถปรับอากาศ",
     wheelchair: "ขึ้นได้ด้วยรถเข็น",
-    linesAt: (n) => `${n} สาย`,
+    lines: (n) => `${n} สาย`,
     caveat:
       "เวลารถเข้าเป็นค่าประมาณจาก GPS ของนำทาง (ขบ.) สายที่ไม่มีรถติดตามจะยังแสดงเส้นทางไว้ และอาจมีรถวิ่งตามตารางโดยไม่ถูกติดตาม",
     busAria: (route) => `สาย ${route}`,
@@ -108,13 +116,32 @@ function soonestSeconds(line: BusLine, live: StopLiveArrivals | undefined): numb
   return arrivals && arrivals.length > 0 ? arrivals[0]!.waitSeconds : Number.POSITIVE_INFINITY;
 }
 
+function hasLiveBus(line: BusLine, live: StopLiveArrivals | undefined): boolean {
+  return (live?.[line.patternKey]?.length ?? 0) > 0;
+}
+
+/** A disclosure chevron that points right when closed, down when open. */
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      className={`h-4 w-4 shrink-0 text-muted transition-transform ${open ? "rotate-90" : ""}`}
+    >
+      <path d="M7 5l6 5-6 5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 /** The route chip: route number on its real brand colour. */
 function RouteChip({ line, aria }: { line: BusLine; aria: string }) {
-  const bg = `#${line.color.toLowerCase()}`;
   return (
     <span
       className="inline-flex min-w-[3.25rem] items-center justify-center rounded-md px-2 py-1 font-mono text-sm font-semibold tabular-nums"
-      style={{ backgroundColor: bg, color: chipTextColor(line.color) }}
+      style={{ backgroundColor: `#${line.color.toLowerCase()}`, color: chipTextColor(line.color) }}
       aria-label={aria}
     >
       {line.routeName}
@@ -122,7 +149,7 @@ function RouteChip({ line, aria }: { line: BusLine; aria: string }) {
   );
 }
 
-/** The next-stops-and-terminus path: downstream stops, then the terminus. */
+/** The route path: waypoints at five-stop increments, then the terminus. */
 function RoutePath({ line, locale, towards }: { line: BusLine; locale: Locale; towards: string }) {
   return (
     <p className="mt-0.5 mb-0 text-xs leading-snug text-muted">
@@ -132,7 +159,7 @@ function RoutePath({ line, locale, towards }: { line: BusLine; locale: Locale; t
           {stop[locale]}
         </span>
       ))}
-      <span className="text-muted">
+      <span>
         {line.downstream.length > 0 ? " " : ""}
         {towards}{" "}
       </span>
@@ -177,7 +204,7 @@ function RouteMeta({ line, locale, t }: { line: BusLine; locale: Locale; t: Labe
   );
 }
 
-/** The live-arrival column for one line. */
+/** The live-arrival time for one line, shown beside its chip. */
 function EtaColumn({
   arrivals,
   mounted,
@@ -227,7 +254,119 @@ function LiveBadge({ label }: { label: string }) {
   );
 }
 
-function StopSection({
+/**
+ * One line, stacked: the route chip and the live time on the top row, the
+ * destination, route path and details underneath. `showEta` is off inside the
+ * folded "no bus tracked" group, where the group heading already says as much.
+ */
+function LineRow({
+  line,
+  arrivals,
+  mounted,
+  status,
+  locale,
+  t,
+  showEta = true,
+}: {
+  line: BusLine;
+  arrivals: LiveArrival[] | undefined;
+  mounted: boolean;
+  status: FeedState["status"];
+  locale: Locale;
+  t: Labels;
+  showEta?: boolean;
+}) {
+  return (
+    <li className="px-4 py-3">
+      <div className="flex items-center justify-between gap-3">
+        <RouteChip line={line} aria={t.busAria(line.routeName)} />
+        {showEta ? (
+          <div className="text-right">
+            <EtaColumn
+              arrivals={arrivals}
+              mounted={mounted}
+              status={status}
+              locale={locale}
+              t={t}
+            />
+          </div>
+        ) : null}
+      </div>
+      <div className="mt-1.5">
+        <p className="my-0 font-semibold text-ink">{line.headsign[locale]}</p>
+        <RoutePath line={line} locale={locale} towards={t.towards} />
+        <RouteMeta line={line} locale={locale} t={t} />
+      </div>
+    </li>
+  );
+}
+
+function LineList({
+  lines,
+  live,
+  mounted,
+  status,
+  locale,
+  t,
+  showEta,
+}: {
+  lines: BusLine[];
+  live: StopLiveArrivals | undefined;
+  mounted: boolean;
+  status: FeedState["status"];
+  locale: Locale;
+  t: Labels;
+  showEta?: boolean;
+}) {
+  return (
+    <ul className="divide-y divide-line">
+      {lines.map((line) => (
+        <LineRow
+          key={line.patternKey}
+          line={line}
+          arrivals={live?.[line.patternKey]}
+          mounted={mounted}
+          status={status}
+          locale={locale}
+          t={t}
+          showEta={showEta}
+        />
+      ))}
+    </ul>
+  );
+}
+
+/** The folded group holding every line with no live bus at this stop. */
+function UntrackedGroup({ lines, locale, t }: { lines: BusLine[]; locale: Locale; t: Labels }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-t border-line bg-sunken">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-xs font-semibold tracking-wide text-muted uppercase hover:text-ink"
+      >
+        <Chevron open={open} />
+        <span className="flex-1">{t.untracked(lines.length)}</span>
+      </button>
+      {open ? (
+        <LineList
+          lines={lines}
+          live={undefined}
+          mounted={true}
+          status="ready"
+          locale={locale}
+          t={t}
+          showEta={false}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+/** One collapsible stop card. */
+function StopCard({
   stop,
   live,
   mounted,
@@ -244,54 +383,79 @@ function StopSection({
   locale: Locale;
   t: Labels;
 }) {
-  // Soonest live arrival first; ties and untracked lines keep the baked order.
-  const orderedLines = useMemo(() => {
-    return [...stop.lines].sort((a, b) => soonestSeconds(a, live) - soonestSeconds(b, live));
-  }, [stop.lines, live]);
+  const [open, setOpen] = useState(true);
+  const ready = mounted && status === "ready";
 
-  const showLive = mounted && status === "ready";
+  let body: React.ReactNode;
+  if (!ready) {
+    // Server, first paint, loading, or error: show the whole route list.
+    body = (
+      <LineList
+        lines={stop.lines}
+        live={live}
+        mounted={mounted}
+        status={status}
+        locale={locale}
+        t={t}
+      />
+    );
+  } else {
+    const tracked = stop.lines
+      .filter((line) => hasLiveBus(line, live))
+      .sort((a, b) => soonestSeconds(a, live) - soonestSeconds(b, live));
+    const untracked = stop.lines.filter((line) => !hasLiveBus(line, live));
+    body = (
+      <>
+        {tracked.length > 0 ? (
+          <LineList
+            lines={tracked}
+            live={live}
+            mounted={mounted}
+            status={status}
+            locale={locale}
+            t={t}
+          />
+        ) : (
+          <p className="px-4 py-3 text-sm text-muted">{t.noneLive}</p>
+        )}
+        {untracked.length > 0 ? <UntrackedGroup lines={untracked} locale={locale} t={t} /> : null}
+      </>
+    );
+  }
 
   return (
-    <section className="rounded-lg border border-line bg-surface">
-      <header className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-line px-4 py-3">
-        <div className="min-w-0">
-          <h3 className="my-0 font-display text-lg text-ink">{stop.name[locale]}</h3>
-          {stop.detail ? (
-            <p className="mt-0.5 mb-0 text-xs text-muted">{stop.detail[locale]}</p>
-          ) : null}
-        </div>
-        <div className="flex shrink-0 items-center gap-2">
-          <span className="text-xs text-muted">{t.linesAt(stop.lines.length)}</span>
-          {showLive ? <LiveBadge label={t.live} /> : null}
-          {showLive && updatedLabel ? (
-            <span className="text-xs text-muted">{updatedLabel}</span>
-          ) : null}
-        </div>
-      </header>
+    <section className="overflow-hidden rounded-lg border border-line bg-surface">
+      <h3 className="my-0">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-sunken"
+        >
+          <Chevron open={open} />
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="font-display text-lg leading-tight text-ink">{stop.name[locale]}</span>
+            {stop.detail ? (
+              <span className="mt-0.5 text-xs font-normal text-muted">{stop.detail[locale]}</span>
+            ) : null}
+          </span>
+          <span className="flex shrink-0 items-center gap-2">
+            <span className="text-xs font-normal text-muted">{t.lines(stop.lines.length)}</span>
+            {ready ? <LiveBadge label={t.live} /> : null}
+          </span>
+        </button>
+      </h3>
 
-      <ul className="divide-y divide-line">
-        {orderedLines.map((line) => (
-          <li key={line.patternKey} className="flex items-start gap-3 px-4 py-2.5">
-            <div className="shrink-0 pt-0.5">
-              <RouteChip line={line} aria={t.busAria(line.routeName)} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="my-0 truncate font-semibold text-ink">{line.headsign[locale]}</p>
-              <RoutePath line={line} locale={locale} towards={t.towards} />
-              <RouteMeta line={line} locale={locale} t={t} />
-            </div>
-            <div className="shrink-0 pt-0.5 text-right">
-              <EtaColumn
-                arrivals={live?.[line.patternKey]}
-                mounted={mounted}
-                status={status}
-                locale={locale}
-                t={t}
-              />
-            </div>
-          </li>
-        ))}
-      </ul>
+      {open ? (
+        <div className="border-t border-line">
+          {body}
+          {ready && updatedLabel ? (
+            <p className="border-t border-line px-4 py-1.5 text-right text-xs text-muted">
+              {updatedLabel}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
     </section>
   );
 }
@@ -347,7 +511,7 @@ export default function LiveBusTracker({ locale }: LiveBusTrackerProps) {
       ) : null}
 
       {busTrackerData.map((stop) => (
-        <StopSection
+        <StopCard
           key={stop.stopId}
           stop={stop}
           live={feed.status === "ready" ? feed.stops[String(stop.stopId)] : undefined}

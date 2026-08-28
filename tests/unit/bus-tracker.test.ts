@@ -135,7 +135,7 @@ describe("baked bus-tracker data", () => {
         expect(line.routeName).not.toBe("");
         expect(line.patternKey).toBe(`${line.routeName}|${line.headsign.en}`);
         expect(line.color).toMatch(/^[0-9a-fA-F]{6}$/);
-        expect(line.downstream.length).toBeLessThanOrEqual(3);
+        expect(line.downstream.length).toBeLessThanOrEqual(4);
         expect(line.terminus.en).not.toBe("");
         expect(line.terminus.th).not.toBe("");
         for (const stopName of line.downstream) {

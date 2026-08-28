@@ -34,16 +34,8 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
-          },
-          {
-            en: "Wat Maha That Yuvarat Rangsarit",
-            th: "วัดมหาธาตุยุวราชรังสฤษฎิ์",
-          },
-          {
-            en: "Silpakorn University, Wang Tha Phra Campus 1",
-            th: "มหาวิทยาลัยศิลปากร วังท่าพระ จุดที่ 1",
+            en: "Opposite Tha Chang Pier",
+            th: "ตรงข้ามท่าช้าง",
           },
         ],
         terminus: {
@@ -83,16 +75,16 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.1",
+            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Phaniang Road",
+            th: "ถนนพะเนียง",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Opp TU Dome Plaza",
+            th: "ตรงข้ามทียูโดม",
           },
         ],
         terminus: {
@@ -132,16 +124,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.2",
+            th: "สนามหลวง(ตรงข้ามศาลฎีกา) ป้ายที่2",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Opposite Wat Bowon Niwet",
+            th: "ตรงข้ามวัดบวรนิเวศฯ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Opposite Si Sao Thewet Market",
+            th: "ตรงข้ามตลาดสี่เสาเทเวศน์",
+          },
+          {
+            en: "Soi Suan Oi",
+            th: "ซอยสวนอ้อย",
           },
         ],
         terminus: {
@@ -174,21 +170,12 @@ export const busTrackerData: BusStopData[] = [
           en: "Pak Kret - Wat Pho",
           th: "ปากเกร็ด - วัดโพธิ์",
         },
-        color: "fe9a2e",
+        color: "ff0000",
         headsign: {
           en: "Wat Pho",
           th: "วัดโพธิ์",
         },
-        downstream: [
-          {
-            en: "Ministry of Defense",
-            th: "กระทรวงกลาโหม",
-          },
-          {
-            en: "Wat Pho",
-            th: "วัดโพธิ์",
-          },
-        ],
+        downstream: [],
         terminus: {
           en: "Wat Pho",
           th: "วัดโพธิ์",
@@ -198,8 +185,8 @@ export const busTrackerData: BusStopData[] = [
           th: "องค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
         },
         fare: {
-          en: "Price 13.00 - 25.00 ฿",
-          th: "ราคา 13.00 - 25.00 บาท",
+          en: "Price 8.00 ฿",
+          th: "ราคา 8.00 บาท",
         },
         serviceHours: {
           en: "Service Hours 05:00 - 22:00",
@@ -209,8 +196,8 @@ export const busTrackerData: BusStopData[] = [
           en: "Departs every 15 minutes (approximately)",
           th: "ออกทุก 15 นาที (โดยประมาณ)",
         },
-        airConditioned: true,
-        wheelchairAccessible: true,
+        airConditioned: false,
+        wheelchairAccessible: false,
       },
       {
         patternKey: "2-9 (53L)|Thewet",
@@ -226,16 +213,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Wat Pho (Maharat side)",
+            th: "วัดโพธิ์ (ฝั่งมหาราช)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "S. A. B. Intersection",
+            th: "แยกเอสเอบี",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Before Noppawong Intersection",
+            th: "ก่อนแยกนพวงศ์",
+          },
+          {
+            en: "NT Krungkasem",
+            th: "เอ็นที กรุงเกษม",
           },
         ],
         terminus: {
@@ -275,16 +266,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.1",
+            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Central Pinklao",
+            th: "เซ็นทรัลปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Sirindhorn Anthropology Centre",
+            th: "ศูนย์มานุษยวิทยาสิรินธร",
+          },
+          {
+            en: "Bangkruai-Chong Thanom Road",
+            th: "ถนนบางกรวย-จงถนอม",
           },
         ],
         terminus: {
@@ -317,23 +312,23 @@ export const busTrackerData: BusStopData[] = [
           en: "Klongsan - Krung Thep Aphiwat",
           th: "คลองสาน - กรุงเทพอถิวัฒน์",
         },
-        color: "fe9a2e",
+        color: "ff0000",
         headsign: {
           en: "Klongsan",
           th: "คลองสาน",
         },
         downstream: [
           {
-            en: "Ministry of Defense",
-            th: "กระทรวงกลาโหม",
+            en: "Pha Phuttha Yodfa Bridge",
+            th: "สะพานพุทธ",
           },
           {
-            en: "Suan Chao Chet",
-            th: "สวนเจ้าเชตุ",
+            en: "Soi Latya 8",
+            th: "ซอยลาดหญ้า 8",
           },
           {
-            en: "Bangkok Land Office",
-            th: "สำนักงานที่ดินกรุงเทพฯ",
+            en: "BTS Wongwianyai (Exit 3)",
+            th: "BTS วงเวียนใหญ่ (ทางออก3)",
           },
         ],
         terminus: {
@@ -345,8 +340,8 @@ export const busTrackerData: BusStopData[] = [
           th: "องค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
         },
         fare: {
-          en: "Price 13.00 - 25.00 ฿",
-          th: "ราคา 13.00 - 25.00 บาท",
+          en: "Price 8.00 ฿",
+          th: "ราคา 8.00 บาท",
         },
         serviceHours: {
           en: "Service Hours 00:00 - 23:00",
@@ -356,7 +351,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Departs every 15 - 120 minutes (approximately)",
           th: "ออกทุก 15 - 120 นาที (โดยประมาณ)",
         },
-        airConditioned: true,
+        airConditioned: false,
         wheelchairAccessible: false,
       },
       {
@@ -373,16 +368,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Wat Pho (Maharat side)",
+            th: "วัดโพธิ์ (ฝั่งมหาราช)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "S. A. B. Intersection",
+            th: "แยกเอสเอบี",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Hua Lamphong Intersection",
+            th: "แยกหัวลำโพง",
+          },
+          {
+            en: "Bangrak Police Station",
+            th: "สน.บางรัก",
           },
         ],
         terminus: {
@@ -415,23 +414,27 @@ export const busTrackerData: BusStopData[] = [
           en: "BRT Ratchapruek - Bang Lamphu - Siam",
           th: "วงกลมBRT ราชพฤกษ์ - บางลำพู - สยาม (วนซ้าย)",
         },
-        color: "FE9A2E",
+        color: "ff0000",
         headsign: {
           en: "BRT Ratchapruek L",
           th: "สถานีรถไฟฟ้าราชพฤกษ์ วนซ้าย",
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Wat Pho (Maharat side)",
+            th: "วัดโพธิ์ (ฝั่งมหาราช)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Wat Chaichana Songkhram (Wat Tuek)",
+            th: "วัดตึก",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Soi Somdet Phra Chao Taksin 13",
+            th: "ซอยสมเด็จพระเจ้าตากสิน 13",
+          },
+          {
+            en: "Soi Ratchadaphisek 5",
+            th: "ซอยรัชดาภิเษก 5",
           },
         ],
         terminus: {
@@ -443,8 +446,8 @@ export const busTrackerData: BusStopData[] = [
           th: "องค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
         },
         fare: {
-          en: "Price 13.00 - 25.00 ฿",
-          th: "ราคา 13.00 - 25.00 บาท",
+          en: "Price 8.00 ฿",
+          th: "ราคา 8.00 บาท",
         },
         serviceHours: {
           en: "Service Hours 05:00 - 22:00",
@@ -454,7 +457,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Departs every 15 minutes (approximately)",
           th: "ออกทุก 15 นาที (โดยประมาณ)",
         },
-        airConditioned: true,
+        airConditioned: false,
         wheelchairAccessible: false,
       },
       {
@@ -471,16 +474,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Wat Pho (Maharat side)",
+            th: "วัดโพธิ์ (ฝั่งมหาราช)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Wat Chaichana Songkhram (Wat Tuek)",
+            th: "วัดตึก",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Somdet Chao Phraya Hospital (Opposite)",
+            th: "ตรงข้าม รพ.สมเด็จเจ้าพระยา",
+          },
+          {
+            en: "Bangkok Latya Cooperative",
+            th: "สหกรณ์กรุงเทพ ลาดหญ้า",
           },
         ],
         terminus: {
@@ -520,16 +527,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Wat Pho (Maharat side)",
+            th: "วัดโพธิ์ (ฝั่งมหาราช)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Suksanari School (Opposite)",
+            th: "ตรงข้ามโรงเรียนศึกษานารี",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Bangkok Latya Cooperative",
+            th: "สหกรณ์กรุงเทพ ลาดหญ้า",
+          },
+          {
+            en: "Samre Market",
+            th: "ตลาดสำเหร่",
           },
         ],
         terminus: {
@@ -569,16 +580,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Pata Pinklao (Opposite)",
+            th: "ตรงข้ามพาต้าปิ่นเกล้า",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Bangkok Noi District Office",
+            th: "สน.บางกอกน้อย",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Metropolitan Electricity Authority Thon Buri",
+            th: "กฟน.ธนบุรี",
+          },
+          {
+            en: "Tha Phra Post Office",
+            th: "ไปรษณีย์ท่าพระ",
           },
         ],
         terminus: {
@@ -616,20 +631,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Sanam Luang",
           th: "สนามหลวง",
         },
-        downstream: [
-          {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
-          },
-          {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
-          },
-          {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
-          },
-        ],
+        downstream: [],
         terminus: {
           en: "Ratcha Woradit Pier (Opposite)",
           th: "ตรงข้ามท่าราชวรดิษฐ์",
@@ -667,16 +669,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.1",
+            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Central Pinklao",
+            th: "เซ็นทรัลปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Sirindhorn Anthropology Centre",
+            th: "ศูนย์มานุษยวิทยาสิรินธร",
+          },
+          {
+            en: "Nantawan Pinklao-Ratchaphruek Village",
+            th: "หมู่บ้านนันทวัน ปิ่นเกล้า-ราชพฤกษ์",
           },
         ],
         terminus: {
@@ -716,16 +722,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.1",
+            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Central Pinklao",
+            th: "เซ็นทรัลปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Sirindhorn Anthropology Centre",
+            th: "ศูนย์มานุษยวิทยาสิรินธร",
+          },
+          {
+            en: "Nantawan Pinklao-Ratchaphruek Village",
+            th: "หมู่บ้านนันทวัน ปิ่นเกล้า-ราชพฤกษ์",
           },
         ],
         terminus: {
@@ -765,16 +775,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Flotilla Naval Transportation Department",
+            th: "กองเรือเล็ก",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Wat Yang Sutharam",
+            th: "วัดยางสุทธาราม",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Wat Poreang",
+            th: "วัดโพธิ์เรียง",
+          },
+          {
+            en: "Opposite Bangkok Thonburi Vocational College",
+            th: "ตรงข้ามวิทยาลัยอาชีวศึกษากรุงเทพธนบุรี",
           },
         ],
         terminus: {
@@ -814,16 +828,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Soi Arun Amarin Road 28",
+            th: "ซอยอรุณอัมรินทร์ 28",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Opposite Prannok Plaza",
+            th: "ตรงข้ามพรานนกพลาซ่า",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Metropolitan Electricity Authority Thon Buri",
+            th: "กฟน.ธนบุรี",
+          },
+          {
+            en: "Tha Phra Post Office",
+            th: "ไปรษณีย์ท่าพระ",
           },
         ],
         terminus: {
@@ -863,16 +881,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Opposite Tha Phra Chan",
-            th: "ตรงข้ามท่าพระจันทร์",
+            en: "Sanamluang Stop.1",
+            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
           },
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Opposite Phong Sap Market",
+            th: "ตรงข้ามตลาดพงษ์ทรัพย์",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Opposite Lotus's Charan Sanitwong",
+            th: "ตรงข้ามโลตัสจรัญสนิทวงศ์",
+          },
+          {
+            en: "MRT Bang O (Exit 2)",
+            th: "MRT บางอ้อ (ทางออก 2)",
           },
         ],
         terminus: {
@@ -925,16 +947,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
+            en: "Opposite Wat Bowon Niwet",
+            th: "ตรงข้ามวัดบวรนิเวศฯ",
           },
           {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
+            en: "Opposite Si Sao Thewet Market",
+            th: "ตรงข้ามตลาดสี่เสาเทเวศน์",
           },
           {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Soi Suan Oi",
+            th: "ซอยสวนอ้อย",
+          },
+          {
+            en: "Makro Samsen",
+            th: "แม็คโครสามเสน",
           },
         ],
         terminus: {
@@ -974,16 +1000,8 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
-          },
-          {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
-          },
-          {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Opposite Wat Bowon Niwet",
+            th: "ตรงข้ามวัดบวรนิเวศฯ",
           },
         ],
         terminus: {
@@ -1023,16 +1041,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
+            en: "Khaosan Road",
+            th: "ถนนข้าวสาร",
           },
           {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
+            en: "Phaniang Road",
+            th: "ถนนพะเนียง",
           },
           {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Mahidol University (Faculty of Science)",
+            th: "ม.มหิดล (คณะวิทยาศาสตร์)",
+          },
+          {
+            en: "Samsen Wittayalai School",
+            th: "โรงเรียนสามเสนวิทยาลัย",
           },
         ],
         terminus: {
@@ -1072,16 +1094,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
+            en: "The Government Lottery Office",
+            th: "กองสลาก",
           },
           {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
+            en: "Soi Maen Si",
+            th: "ซอยแม้นศรี",
           },
           {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Bangkok Art and Culture Center",
+            th: "หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร",
+          },
+          {
+            en: "Chulalongkorn University (Faculty of Commerce and Accountancy)",
+            th: "จุฬาฯ (คณะพาณิชยศาสตร์และการบัญชี)",
           },
         ],
         terminus: {
@@ -1121,16 +1147,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
+            en: "The Government Lottery Office",
+            th: "กองสลาก",
           },
           {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
+            en: "Soi Maen Si",
+            th: "ซอยแม้นศรี",
           },
           {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Bangkok Art and Culture Center",
+            th: "หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร",
+          },
+          {
+            en: "AUA",
+            th: "เอยูเอ",
           },
         ],
         terminus: {
@@ -1170,16 +1200,8 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "National Theater",
-            th: "โรงละครแห่งชาติ",
-          },
-          {
-            en: "Maliwan Palace",
-            th: "วังมะลิวัลย์",
-          },
-          {
-            en: "Tha Phra Athit",
-            th: "ท่าพระอาทิตย์",
+            en: "Khaosan Road",
+            th: "ถนนข้าวสาร",
           },
         ],
         terminus: {
@@ -1219,16 +1241,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Soi Borommaratchachonnani 5",
+            th: "ซอยบรมราชชนนี 5",
           },
           {
-            en: "Sanamluang Stop.2",
-            th: "สนามหลวง(ตรงข้ามศาลฎีกา) ป้ายที่2",
+            en: "The Trust Residence Pinklao",
+            th: "เดอะทรัสต์ เรสซิเด้นซ์ ปิ่นเกล้า",
           },
           {
-            en: "After Phra Pinklao Bridge",
-            th: "หลังสะพานพระปิ่นเกล้า",
+            en: "Borom-Ratchaphruek Interchange (Outbound)",
+            th: "ต่างระดับบรมฯ-ราชพฤกษ์ (ขาออก)",
+          },
+          {
+            en: "Baan Panu (Soi Borommaratchachonnani 99)",
+            th: "บ้านภาณุ(ซอยบรมราชชนนี 99)",
           },
         ],
         terminus: {
@@ -1268,16 +1294,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Soi Borommaratchachonnani 5",
+            th: "ซอยบรมราชชนนี 5",
           },
           {
-            en: "Sanamluang Stop.2",
-            th: "สนามหลวง(ตรงข้ามศาลฎีกา) ป้ายที่2",
+            en: "The Trust Residence Pinklao",
+            th: "เดอะทรัสต์ เรสซิเด้นซ์ ปิ่นเกล้า",
           },
           {
-            en: "After Phra Pinklao Bridge",
-            th: "หลังสะพานพระปิ่นเกล้า",
+            en: "Borom-Ratchaphruek Interchange (Outbound)",
+            th: "ต่างระดับบรมฯ-ราชพฤกษ์ (ขาออก)",
+          },
+          {
+            en: "Baan Panu (Soi Borommaratchachonnani 99)",
+            th: "บ้านภาณุ(ซอยบรมราชชนนี 99)",
           },
         ],
         terminus: {
@@ -1330,16 +1360,8 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Wat Maha That Yuvarat Rangsarit",
-            th: "วัดมหาธาตุยุวราชรังสฤษฎิ์",
-          },
-          {
-            en: "Silpakorn University, Wang Tha Phra Campus 1",
-            th: "มหาวิทยาลัยศิลปากร วังท่าพระ จุดที่ 1",
-          },
-          {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Ratcha Woradit Pier (Opposite)",
+            th: "ตรงข้ามท่าราชวรดิษฐ์",
           },
         ],
         terminus: {
@@ -1379,16 +1401,16 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "The Government Lottery Office",
+            th: "กองสลาก",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "After the Thevakarma intersection",
+            th: "หลังแยกเทวกรรม",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Khlong Luang",
+            th: "ม.ธรรมศาสตร์ ศูนย์รังสิต (ทางเข้าประตูเชียงราก1)",
           },
         ],
         terminus: {
@@ -1428,16 +1450,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "National Theater",
+            th: "โรงละครแห่งชาติ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Wat Tritossathep",
+            th: "วัดตรีทศเทพฯ",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "National Olympic Committee of Thailand",
+            th: "คณะกรรมการโอลิมปิคแห่งประเทศไทย",
+          },
+          {
+            en: "Opposite Masterpiece Hospital",
+            th: "ตรงข้ามรพ.มาสเตอร์พีซ",
           },
         ],
         terminus: {
@@ -1477,16 +1503,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Tangtrongchit College",
+            th: "ตั้งตรงจิตรพณิชยการ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Klongthom (Charoenkrung Side)",
+            th: "คลองถม (ฝั่งเจริญกรุง)",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Wat Thep Sirin",
+            th: "วัดเทพศิรินทร์",
+          },
+          {
+            en: "Before separating the gods",
+            th: "ก่อนแยกเทวกรรม",
           },
         ],
         terminus: {
@@ -1526,16 +1556,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "After Phra Pinklao Bridge",
+            th: "หลังสะพานพระปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Lumpini Place Pinklao 2",
+            th: "ลุมพินีเพลส ปิ่นเกล้า 2",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Cedar Mansion",
+            th: "ซีด้าร์แมนชั่น",
+          },
+          {
+            en: "HomePro Ratchaphruek",
+            th: "โฮมโปรราชพฤกษ์",
           },
         ],
         terminus: {
@@ -1575,16 +1609,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Tangtrongchit College",
+            th: "ตั้งตรงจิตรพณิชยการ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Klongthom (Charoenkrung Side)",
+            th: "คลองถม (ฝั่งเจริญกรุง)",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Wat Mahapruttaram",
+            th: "วัดมหาพฤฒาราม",
+          },
+          {
+            en: "Neilson Hays Library",
+            th: "ห้องสมุดเนียลสันเฮส์",
           },
         ],
         terminus: {
@@ -1617,23 +1655,27 @@ export const busTrackerData: BusStopData[] = [
           en: "BRT Ratchapruek - Bang Lamphu - Siam",
           th: "วงกลมBRT ราชพฤกษ์ - บางลำพู - สยาม (วนซ้าย)",
         },
-        color: "FE9A2E",
+        color: "ff0000",
         headsign: {
           en: "BRT Ratchapruek L",
           th: "สถานีรถไฟฟ้าราชพฤกษ์ วนซ้าย",
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Tangtrongchit College",
+            th: "ตั้งตรงจิตรพณิชยการ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Sampeng (Chakrawat side)",
+            th: "สำเพ็ง (ฝั่งจักรวรรดิ์)",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Samre Market",
+            th: "ตลาดสำเหร่",
+          },
+          {
+            en: "Soi Ratchadaphisek 9",
+            th: "ซอยรัชดาภิเษก 9",
           },
         ],
         terminus: {
@@ -1645,8 +1687,8 @@ export const busTrackerData: BusStopData[] = [
           th: "องค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
         },
         fare: {
-          en: "Price 13.00 - 25.00 ฿",
-          th: "ราคา 13.00 - 25.00 บาท",
+          en: "Price 8.00 ฿",
+          th: "ราคา 8.00 บาท",
         },
         serviceHours: {
           en: "Service Hours 05:00 - 22:00",
@@ -1656,7 +1698,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Departs every 15 minutes (approximately)",
           th: "ออกทุก 15 นาที (โดยประมาณ)",
         },
-        airConditioned: true,
+        airConditioned: false,
         wheelchairAccessible: false,
       },
       {
@@ -1673,16 +1715,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Tangtrongchit College",
+            th: "ตั้งตรงจิตรพณิชยการ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Sampeng (Chakrawat side)",
+            th: "สำเพ็ง (ฝั่งจักรวรรดิ์)",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Soi Lat Ya 18",
+            th: "ซอยลาดหญ้า 18",
+          },
+          {
+            en: "Opposite Wongwian Yai platform",
+            th: "ตรงข้ามแพลทฟอร์มวงเวียนใหญ่",
           },
         ],
         terminus: {
@@ -1722,16 +1768,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Tangtrongchit College",
+            th: "ตั้งตรงจิตรพณิชยการ",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Opposite Pattana Wittaya School",
+            th: "ตรงข้ามโรงเรียนพัฒนาวิทยา",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Opposite Wongwian Yai platform",
+            th: "ตรงข้ามแพลทฟอร์มวงเวียนใหญ่",
+          },
+          {
+            en: "Somdejprapinklao Hospital (Opposite)",
+            th: "ตรงข้าม รพ.สมเด็จพระปิ่นเกล้า",
           },
         ],
         terminus: {
@@ -1771,16 +1821,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Charan Sanitwong Soi 34/1",
+            th: "ซอยจรัญสนิทวงศ์ 34/1",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Opposite Bang Khun Sri Market",
+            th: "ตรงข้ามตลาดบางขุนศรี",
           },
           {
-            en: "After Phra Pinklao Bridge",
-            th: "หลังสะพานพระปิ่นเกล้า",
+            en: "Wat Poreang",
+            th: "วัดโพธิ์เรียง",
+          },
+          {
+            en: "Wat Pradu Nai Songtham",
+            th: "วัดประดู่ในทรงธรรม",
           },
         ],
         terminus: {
@@ -1818,16 +1872,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Sanam Luang",
           th: "สนามหลวง",
         },
-        downstream: [
-          {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
-          },
-          {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
-          },
-        ],
+        downstream: [],
         terminus: {
           en: "Ratcha Woradit Pier (Opposite)",
           th: "ตรงข้ามท่าราชวรดิษฐ์",
@@ -1865,16 +1910,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "After Phra Pinklao Bridge",
+            th: "หลังสะพานพระปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Lumpini Place Pinklao 2",
+            th: "ลุมพินีเพลส ปิ่นเกล้า 2",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Cedar Mansion",
+            th: "ซีด้าร์แมนชั่น",
+          },
+          {
+            en: "Soi Wat Makok (Borom side)",
+            th: "ซอยวัดมะกอก (ฝั่งบรมฯ)",
           },
         ],
         terminus: {
@@ -1914,16 +1963,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "After Phra Pinklao Bridge",
+            th: "หลังสะพานพระปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Lumpini Place Pinklao 2",
+            th: "ลุมพินีเพลส ปิ่นเกล้า 2",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Cedar Mansion",
+            th: "ซีด้าร์แมนชั่น",
+          },
+          {
+            en: "Soi Wat Makok (Borom side)",
+            th: "ซอยวัดมะกอก (ฝั่งบรมฯ)",
           },
         ],
         terminus: {
@@ -1963,16 +2016,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Siriraj Hospital",
+            th: "รพ.ศิริราช",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Soi Phran Nok 4",
+            th: "ซอยพรานนก 4",
           },
           {
-            en: "After Phra Pinklao Bridge",
-            th: "หลังสะพานพระปิ่นเกล้า",
+            en: "Opposite Charansanitwong 13",
+            th: "ตรงข้ามซอยจรัญสนิทวงศ์ 13",
+          },
+          {
+            en: "Wat Nuannoradit",
+            th: "วัดนวลนรดิศ",
           },
         ],
         terminus: {
@@ -2012,16 +2069,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "Flotilla Naval Transportation Department",
+            th: "กองเรือเล็ก",
           },
           {
-            en: "Sanamluang Stop.1",
-            th: "สนามหลวง (ตรงข้ามศาลฎีกา)",
+            en: "Wat Yang Sutharam",
+            th: "วัดยางสุทธาราม",
           },
           {
-            en: "After Phra Pinklao Bridge",
-            th: "หลังสะพานพระปิ่นเกล้า",
+            en: "Wat Poreang",
+            th: "วัดโพธิ์เรียง",
+          },
+          {
+            en: "Wat Pradu Nai Songtham",
+            th: "วัดประดู่ในทรงธรรม",
           },
         ],
         terminus: {
@@ -2061,16 +2122,20 @@ export const busTrackerData: BusStopData[] = [
         },
         downstream: [
           {
-            en: "Silpakorn University",
-            th: "ม.ศิลปากร",
+            en: "After Phra Pinklao Bridge",
+            th: "หลังสะพานพระปิ่นเกล้า",
           },
           {
-            en: "Ratcha Woradit Pier (Opposite)",
-            th: "ตรงข้ามท่าราชวรดิษฐ์",
+            en: "Land Office Bangkok Bangkok Noi",
+            th: "สำนักงานที่ดินบางกอกน้อย",
           },
           {
-            en: "Opposite Tha Tian",
-            th: "ตรงข้ามท่าเตียน",
+            en: "Wat Bang Phlat77/3",
+            th: "วัดบางพลัด",
+          },
+          {
+            en: "Yanhee International Hospital (Opposite)",
+            th: "ตรงข้ามรพ.ยันฮี",
           },
         ],
         terminus: {
