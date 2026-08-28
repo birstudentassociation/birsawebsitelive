@@ -36,27 +36,19 @@ export const THA_PRACHAN_OPPOSITE_STOP_ID = 1061;
 export type NoticeBusRoute = {
   /** Legacy bus number as it appears on the street and in the notice. */
   number: string;
-  /** Short description of where the route runs, for the board. */
+  /** Short description of where the route runs. */
   name: Bilingual;
-  /** Accent colour for the route card. */
-  accent: string;
 };
 
 export const noticeBusRoutes: NoticeBusRoute[] = [
   {
     number: "53",
     name: { en: "Circular via Sanam Luang and Thewet", th: "สายวนรอบเกาะรัตนโกสินทร์" },
-    accent: "#C3002F",
   },
-  {
-    number: "43",
-    name: { en: "Ekkachai to Thewet", th: "เอกชัย ถึง เทเวศร์" },
-    accent: "#0B6E4F",
-  },
+  { number: "43", name: { en: "Ekkachai to Thewet", th: "เอกชัย ถึง เทเวศร์" } },
   {
     number: "15",
     name: { en: "Ratchaphruek to Bang Lamphu and Siam", th: "ราชพฤกษ์ ถึง บางลำพู และสยาม" },
-    accent: "#2563EB",
   },
 ];
 
@@ -89,7 +81,6 @@ export type LiveArrival = {
 export type RouteLiveTimes = {
   number: string;
   name: Bilingual;
-  accent: string;
   arrivals: LiveArrival[];
 };
 
@@ -129,7 +120,7 @@ export function selectNoticeRoutes(entries: readonly StopEtaEntry[]): RouteLiveT
         (arrival): arrival is LiveArrival => arrival.waitSeconds !== null && arrival.waitSeconds > 0
       )
       .sort((a, b) => a.waitSeconds - b.waitSeconds);
-    return { number: route.number, name: route.name, accent: route.accent, arrivals };
+    return { number: route.number, name: route.name, arrivals };
   });
 }
 

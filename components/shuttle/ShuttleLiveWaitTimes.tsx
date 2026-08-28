@@ -28,12 +28,9 @@ const POLL_INTERVAL_MS = 30_000;
 
 type Labels = {
   heading: string;
-  intro: string;
   loading: string;
   routeLabel: (n: string) => string;
-  then: string;
   noneTracked: string;
-  ac: string;
   unavailable: string;
   updated: (time: string) => string;
   caveat: string;
@@ -41,32 +38,22 @@ type Labels = {
 
 const labels: Record<Locale, Labels> = {
   en: {
-    heading: "Live buses at Opposite Tha Prachan",
-    intro:
-      "Public bus routes 53, 43 and 15 stop across Phrachan Road from campus. These are live arrivals from the Namtang tracking feed.",
+    heading: "Live buses opposite campus",
     loading: "Loading live arrivals",
     routeLabel: (n) => `Bus ${n}`,
-    then: "then",
-    noneTracked: "No bus being tracked right now",
-    ac: "air-con",
-    unavailable: "Live arrivals are unavailable right now. Try again in a moment.",
+    noneTracked: "None tracked",
+    unavailable: "Live arrivals unavailable",
     updated: (time) => `Updated ${time}`,
-    caveat:
-      "Estimates come from the buses' GPS and can shift with traffic. Times are for the stop opposite campus, not the shuttle boarding point.",
+    caveat: "GPS estimates for the stop opposite campus, not the shuttle stop.",
   },
   th: {
-    heading: "รถเมล์แบบเรียลไทม์ที่ป้ายตรงข้ามท่าพระจันทร์",
-    intro:
-      "รถเมล์สาย 53 43 และ 15 จอดที่ป้ายฝั่งตรงข้ามมหาวิทยาลัยบนถนนพระจันทร์ ข้อมูลด้านล่างเป็นเวลารถเข้าจริงจากระบบติดตามนำทาง",
+    heading: "รถเมล์เข้าป้ายตรงข้ามมหาวิทยาลัย",
     loading: "กำลังโหลดเวลารถเข้า",
     routeLabel: (n) => `สาย ${n}`,
-    then: "คันถัดไป",
-    noneTracked: "ขณะนี้ยังไม่มีรถที่ติดตามได้",
-    ac: "ปรับอากาศ",
-    unavailable: "ขณะนี้ไม่สามารถแสดงเวลารถเข้าได้ กรุณาลองใหม่อีกครั้ง",
-    updated: (time) => `อัปเดตเมื่อ ${time}`,
-    caveat:
-      "เวลาที่แสดงคำนวณจาก GPS ของรถและอาจคลาดเคลื่อนตามสภาพจราจร เป็นเวลาของป้ายฝั่งตรงข้ามมหาวิทยาลัย ไม่ใช่จุดขึ้นรถเวียน",
+    noneTracked: "ไม่มีรถที่ติดตามได้",
+    unavailable: "แสดงเวลารถเข้าไม่ได้",
+    updated: (time) => `อัปเดต ${time}`,
+    caveat: "เวลาประมาณจาก GPS ของป้ายฝั่งตรงข้าม ไม่ใช่จุดขึ้นรถเวียน",
   },
 };
 
@@ -75,34 +62,23 @@ type FeedState =
   | { status: "error" }
   | { status: "ready"; routes: RouteLiveTimes[]; updatedAt: string };
 
-function RouteCard({ route, t, locale }: { route: RouteLiveTimes; t: Labels; locale: Locale }) {
+function RouteRow({ route, t, locale }: { route: RouteLiveTimes; t: Labels; locale: Locale }) {
   const [next, ...rest] = route.arrivals;
   return (
-    <div
-      className="rounded-lg border border-line bg-surface p-4"
-      style={{ borderLeftWidth: "4px", borderLeftColor: route.accent }}
-      aria-live="polite"
-    >
-      <div className="mb-1 flex flex-wrap items-baseline gap-x-2">
-        <h3 className="my-0 font-display text-lg">{t.routeLabel(route.number)}</h3>
-        <span className="text-sm text-muted">{route.name[locale]}</span>
-      </div>
+    <div className="flex items-baseline justify-between gap-3 py-1.5" aria-live="polite">
+      <span className="font-semibold text-ink">{t.routeLabel(route.number)}</span>
       {next ? (
-        <div>
-          <p className="text-ink">
-            <span className="text-xl font-semibold text-brand-deep">
-              {formatWait(next.waitSeconds, locale)}
-            </span>
-            {next.airCondition ? <span className="ml-2 text-xs text-muted">{t.ac}</span> : null}
-          </p>
+        <span className="text-right text-sm">
+          <span className="font-semibold text-ink">{formatWait(next.waitSeconds, locale)}</span>
           {rest.length > 0 ? (
-            <p className="text-sm text-muted">
-              {t.then} {rest.map((a) => formatWait(a.waitSeconds, locale)).join(", ")}
-            </p>
+            <span className="text-muted">
+              {" · "}
+              {rest.map((a) => formatWait(a.waitSeconds, locale)).join(" · ")}
+            </span>
           ) : null}
-        </div>
+        </span>
       ) : (
-        <p className="text-sm text-muted">{t.noneTracked}</p>
+        <span className="text-right text-sm text-muted">{t.noneTracked}</span>
       )}
     </div>
   );
@@ -159,28 +135,25 @@ export default function ShuttleLiveWaitTimes({ locale }: ShuttleLiveWaitTimesPro
       : null;
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-5">
-      <div>
-        <h3 className="my-0 font-display text-lg">{t.heading}</h3>
-        <p className="mt-1 mb-0 text-sm text-muted">{t.intro}</p>
+    <div className="rounded-lg border border-line bg-sunken px-4 py-3 text-sm">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-2">
+        <h3 className="my-0 font-display text-base">{t.heading}</h3>
+        {updatedLabel ? <span className="text-xs text-muted">{updatedLabel}</span> : null}
       </div>
 
       {!mounted || feed.status === "loading" ? (
-        <p className="text-sm text-muted">{t.loading}</p>
+        <p className="mt-1 mb-0 text-muted">{t.loading}</p>
       ) : feed.status === "error" ? (
-        <p className="text-sm text-muted">{t.unavailable}</p>
+        <p className="mt-1 mb-0 text-muted">{t.unavailable}</p>
       ) : (
-        <>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {feed.routes.map((route) => (
-              <RouteCard key={route.number} route={route} t={t} locale={locale} />
-            ))}
-          </div>
-          {updatedLabel ? <p className="text-xs text-muted">{updatedLabel}</p> : null}
-        </>
+        <div className="mt-1 divide-y divide-line">
+          {feed.routes.map((route) => (
+            <RouteRow key={route.number} route={route} t={t} locale={locale} />
+          ))}
+        </div>
       )}
 
-      <p className="text-xs text-muted">{t.caveat}</p>
+      <p className="mt-2 mb-0 text-xs text-muted">{t.caveat}</p>
     </div>
   );
 }
