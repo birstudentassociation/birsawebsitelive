@@ -27,7 +27,8 @@ export type ShuttleLiveWaitTimesProps = {
 const POLL_INTERVAL_MS = 30_000;
 
 type Labels = {
-  heading: string;
+  stop: string;
+  live: string;
   loading: string;
   routeLabel: (n: string) => string;
   noneTracked: string;
@@ -38,16 +39,18 @@ type Labels = {
 
 const labels: Record<Locale, Labels> = {
   en: {
-    heading: "Live buses opposite campus",
+    stop: "Opposite Tha Phra Chan",
+    live: "Live",
     loading: "Loading live arrivals",
     routeLabel: (n) => `Bus ${n}`,
     noneTracked: "None tracked",
     unavailable: "Live arrivals unavailable",
-    updated: (time) => `Updated ${time}`,
+    updated: (time) => `updated ${time}`,
     caveat: "GPS estimates for the stop opposite campus, not the shuttle stop.",
   },
   th: {
-    heading: "รถเมล์เข้าป้ายตรงข้ามมหาวิทยาลัย",
+    stop: "ตรงข้ามท่าพระจันทร์",
+    live: "เรียลไทม์",
     loading: "กำลังโหลดเวลารถเข้า",
     routeLabel: (n) => `สาย ${n}`,
     noneTracked: "ไม่มีรถที่ติดตามได้",
@@ -61,6 +64,23 @@ type FeedState =
   | { status: "loading" }
   | { status: "error" }
   | { status: "ready"; routes: RouteLiveTimes[]; updatedAt: string };
+
+/**
+ * "Live" badge: a green dot with a pulsing ring (the ping ring is dropped for
+ * viewers who prefer reduced motion), followed by the word. Signals that the
+ * times below are the buses' live positions, not a printed timetable.
+ */
+function LiveBadge({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-success uppercase">
+      <span className="relative inline-flex h-2 w-2" aria-hidden="true">
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75 motion-reduce:hidden" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+      </span>
+      {label}
+    </span>
+  );
+}
 
 function RouteRow({ route, t, locale }: { route: RouteLiveTimes; t: Labels; locale: Locale }) {
   const [next, ...rest] = route.arrivals;
@@ -136,9 +156,14 @@ export default function ShuttleLiveWaitTimes({ locale }: ShuttleLiveWaitTimesPro
 
   return (
     <div className="rounded-lg border border-line bg-sunken px-4 py-3 text-sm">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-        <h3 className="my-0 font-display text-base">{t.heading}</h3>
-        {updatedLabel ? <span className="text-xs text-muted">{updatedLabel}</span> : null}
+      <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+        <h3 className="my-0 font-display text-base">{t.stop}</h3>
+        {mounted && feed.status === "ready" ? (
+          <span className="inline-flex items-center gap-2">
+            <LiveBadge label={t.live} />
+            {updatedLabel ? <span className="text-xs text-muted">{updatedLabel}</span> : null}
+          </span>
+        ) : null}
       </div>
 
       {!mounted || feed.status === "loading" ? (
