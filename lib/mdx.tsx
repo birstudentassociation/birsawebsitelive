@@ -21,6 +21,7 @@ import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
 import ShuttleTimetable from "@/components/shuttle/ShuttleTimetable";
 import ShuttleServiceNotice from "@/components/shuttle/ShuttleServiceNotice";
 import ShuttleLiveWaitTimes from "@/components/shuttle/ShuttleLiveWaitTimes";
+import LiveBusTracker from "@/components/bus-tracker/LiveBusTracker";
 import PlacesSection from "@/components/places/PlacesSection";
 import RelatedClubs from "@/components/clubs/RelatedClubs";
 import type { Locale } from "@/lib/i18n";
@@ -92,6 +93,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     ShuttleTimetable: () => <ShuttleTimetable locale={locale} />,
     ShuttleServiceNotice: () => <ShuttleServiceNotice locale={locale} />,
     ShuttleLiveWaitTimes: () => <ShuttleLiveWaitTimes locale={locale} />,
+    LiveBusTracker: () => <LiveBusTracker locale={locale} />,
     NearbyFood: () => <PlacesSection locale={locale} section="food" />,
     NearbyHousing: () => <PlacesSection locale={locale} section="housing" />,
     // `slugs` is a comma-separated string because next-mdx-remote compiles with
