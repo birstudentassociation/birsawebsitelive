@@ -1515,7 +1515,7 @@ export const busTrackerData: BusStopData[] = [
             th: "วัดเทพศิรินทร์",
           },
           {
-            en: "Before separating the gods",
+            en: "Before the Thevakarma intersection",
             th: "ก่อนแยกเทวกรรม",
           },
         ],

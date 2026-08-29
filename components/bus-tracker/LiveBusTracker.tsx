@@ -53,6 +53,9 @@ type Labels = {
   lines: (n: number) => string;
   caveat: string;
   busAria: (route: string) => string;
+  viewLabel: string;
+  simpleView: string;
+  fullView: string;
 };
 
 const labels: Record<Locale, Labels> = {
@@ -72,6 +75,9 @@ const labels: Record<Locale, Labels> = {
     caveat:
       "Live times are GPS estimates from Namtang (OTP). A line with no live bus is still listed with its route; scheduled buses may run untracked.",
     busAria: (route) => `Bus ${route}`,
+    viewLabel: "View",
+    simpleView: "Simple",
+    fullView: "Full",
   },
   th: {
     live: "เรียลไทม์",
@@ -89,8 +95,14 @@ const labels: Record<Locale, Labels> = {
     caveat:
       "เวลารถเข้าเป็นค่าประมาณจาก GPS ของนำทาง (ขบ.) สายที่ไม่มีรถติดตามจะยังแสดงเส้นทางไว้ และอาจมีรถวิ่งตามตารางโดยไม่ถูกติดตาม",
     busAria: (route) => `สาย ${route}`,
+    viewLabel: "มุมมอง",
+    simpleView: "แบบย่อ",
+    fullView: "แบบเต็ม",
   },
 };
+
+type BoardView = "full" | "simple";
+const VIEW_STORAGE_KEY = "bus-tracker-view";
 
 type FeedState =
   | { status: "loading" }
@@ -258,6 +270,8 @@ function LiveBadge({ label }: { label: string }) {
  * One line, stacked: the route chip and the live time on the top row, the
  * destination, route path and details underneath. `showEta` is off inside the
  * folded "no bus tracked" group, where the group heading already says as much.
+ * In `simple` view only the chip and the live time show — a bare "which line,
+ * when" board — so the details block is dropped and the row runs tighter.
  */
 function LineRow({
   line,
@@ -267,6 +281,7 @@ function LineRow({
   locale,
   t,
   showEta = true,
+  simple = false,
 }: {
   line: BusLine;
   arrivals: LiveArrival[] | undefined;
@@ -275,9 +290,10 @@ function LineRow({
   locale: Locale;
   t: Labels;
   showEta?: boolean;
+  simple?: boolean;
 }) {
   return (
-    <li className="px-4 py-3">
+    <li className={simple ? "px-4 py-2" : "px-4 py-3"}>
       <div className="flex items-center justify-between gap-3">
         <RouteChip line={line} aria={t.busAria(line.routeName)} />
         {showEta ? (
@@ -292,11 +308,13 @@ function LineRow({
           </div>
         ) : null}
       </div>
-      <div className="mt-1.5">
-        <p className="my-0 font-semibold text-ink">{line.headsign[locale]}</p>
-        <RoutePath line={line} locale={locale} towards={t.towards} />
-        <RouteMeta line={line} locale={locale} t={t} />
-      </div>
+      {simple ? null : (
+        <div className="mt-1.5">
+          <p className="my-0 font-semibold text-ink">{line.headsign[locale]}</p>
+          <RoutePath line={line} locale={locale} towards={t.towards} />
+          <RouteMeta line={line} locale={locale} t={t} />
+        </div>
+      )}
     </li>
   );
 }
@@ -309,6 +327,7 @@ function LineList({
   locale,
   t,
   showEta,
+  simple,
 }: {
   lines: BusLine[];
   live: StopLiveArrivals | undefined;
@@ -317,6 +336,7 @@ function LineList({
   locale: Locale;
   t: Labels;
   showEta?: boolean;
+  simple?: boolean;
 }) {
   return (
     <ul className="divide-y divide-line">
@@ -330,6 +350,7 @@ function LineList({
           locale={locale}
           t={t}
           showEta={showEta}
+          simple={simple}
         />
       ))}
     </ul>
@@ -337,7 +358,17 @@ function LineList({
 }
 
 /** The folded group holding every line with no live bus at this stop. */
-function UntrackedGroup({ lines, locale, t }: { lines: BusLine[]; locale: Locale; t: Labels }) {
+function UntrackedGroup({
+  lines,
+  locale,
+  t,
+  simple,
+}: {
+  lines: BusLine[];
+  locale: Locale;
+  t: Labels;
+  simple: boolean;
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-t border-line bg-sunken">
@@ -359,6 +390,7 @@ function UntrackedGroup({ lines, locale, t }: { lines: BusLine[]; locale: Locale
           locale={locale}
           t={t}
           showEta={false}
+          simple={simple}
         />
       ) : null}
     </div>
@@ -374,6 +406,7 @@ function StopCard({
   updatedLabel,
   locale,
   t,
+  simple,
 }: {
   stop: BusStopData;
   live: StopLiveArrivals | undefined;
@@ -382,6 +415,7 @@ function StopCard({
   updatedLabel: string | null;
   locale: Locale;
   t: Labels;
+  simple: boolean;
 }) {
   const [open, setOpen] = useState(true);
   const ready = mounted && status === "ready";
@@ -397,6 +431,7 @@ function StopCard({
         status={status}
         locale={locale}
         t={t}
+        simple={simple}
       />
     );
   } else {
@@ -414,11 +449,14 @@ function StopCard({
             status={status}
             locale={locale}
             t={t}
+            simple={simple}
           />
         ) : (
           <p className="px-4 py-3 text-sm text-muted">{t.noneLive}</p>
         )}
-        {untracked.length > 0 ? <UntrackedGroup lines={untracked} locale={locale} t={t} /> : null}
+        {untracked.length > 0 ? (
+          <UntrackedGroup lines={untracked} locale={locale} t={t} simple={simple} />
+        ) : null}
       </>
     );
   }
@@ -463,7 +501,19 @@ function StopCard({
 export default function LiveBusTracker({ locale }: LiveBusTrackerProps) {
   const [mounted, setMounted] = useState(false);
   const [feed, setFeed] = useState<FeedState>({ status: "loading" });
+  // Full view by default so the server and first paint carry the whole route
+  // list; a saved "simple" preference is applied on mount (below).
+  const [view, setView] = useState<BoardView>("full");
   const t = labels[locale];
+
+  const changeView = (next: BoardView) => {
+    setView(next);
+    try {
+      localStorage.setItem(VIEW_STORAGE_KEY, next);
+    } catch {
+      // A private window or blocked storage: the choice just isn't remembered.
+    }
+  };
 
   const load = useCallback(async () => {
     try {
@@ -486,6 +536,12 @@ export default function LiveBusTracker({ locale }: LiveBusTrackerProps) {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+    try {
+      const saved = localStorage.getItem(VIEW_STORAGE_KEY);
+      if (saved === "simple" || saved === "full") setView(saved);
+    } catch {
+      // No stored preference readable; stay on the default full view.
+    }
     void load();
     const id = setInterval(() => void load(), POLL_INTERVAL_MS);
     return () => clearInterval(id);
@@ -502,8 +558,38 @@ export default function LiveBusTracker({ locale }: LiveBusTrackerProps) {
         )
       : null;
 
+  const simple = view === "simple";
+
   return (
     <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-end gap-2">
+        <span className="text-xs text-muted">{t.viewLabel}</span>
+        <div
+          role="group"
+          aria-label={t.viewLabel}
+          className="inline-flex rounded-md border border-line p-0.5"
+        >
+          {(
+            [
+              ["simple", t.simpleView],
+              ["full", t.fullView],
+            ] as const
+          ).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => changeView(key)}
+              aria-pressed={view === key}
+              className={`rounded px-2.5 py-1 text-xs font-semibold ${
+                view === key ? "bg-ink text-surface" : "text-muted hover:text-ink"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {mounted && feed.status === "error" ? (
         <p className="rounded-lg border border-line bg-sunken px-4 py-2 text-sm text-muted">
           {t.unavailable}
@@ -520,6 +606,7 @@ export default function LiveBusTracker({ locale }: LiveBusTrackerProps) {
           updatedLabel={updatedLabel}
           locale={locale}
           t={t}
+          simple={simple}
         />
       ))}
 

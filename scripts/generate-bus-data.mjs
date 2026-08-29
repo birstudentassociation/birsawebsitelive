@@ -53,7 +53,21 @@ async function tripIdsForStop(stopId) {
   return [...ids];
 }
 
-const bilingual = (en, th) => ({ en: (en ?? "").trim(), th: (th ?? "").trim() });
+/**
+ * Corrections for stop/route names the upstream machine-translates badly,
+ * keyed by the (trimmed) Thai name. The Namtang English feed renders
+ * "แยกเทวกรรม" (Thewakam junction) literally as "separating the gods"; force
+ * the sensible reading. Add entries here rather than hand-editing the
+ * generated data, so the fix survives a regenerate.
+ */
+const EN_OVERRIDES = {
+  ก่อนแยกเทวกรรม: "Before the Thevakarma intersection",
+};
+
+const bilingual = (en, th) => {
+  const thTrim = (th ?? "").trim();
+  return { en: EN_OVERRIDES[thTrim] ?? (en ?? "").trim(), th: thTrim };
+};
 
 /** Builds one line record from a trip's English and Thai payloads. */
 function buildLine(stopId, tripEn, tripTh) {
