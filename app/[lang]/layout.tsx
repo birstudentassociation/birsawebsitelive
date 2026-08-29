@@ -8,6 +8,7 @@ import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
 import EmergencyBannerClient from "@/components/EmergencyBannerClient";
+import SiteAnnouncement from "@/components/SiteAnnouncement";
 import { getEmergencyBannerData } from "@/lib/emergency";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 import Header from "@/components/Header";
@@ -101,6 +102,7 @@ export default async function RootLayout({
         />
         <SkipLink label={dict.a11y.skip} />
         <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
+        <SiteAnnouncement locale={locale} />
         <Header locale={locale} />
         {/*
           `tabIndex={-1}` makes the skip link actually move focus, not just
