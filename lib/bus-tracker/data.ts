@@ -10,7 +10,7 @@
  */
 import type { BusStopData } from "@/lib/bus-tracker/types";
 
-export const busTrackerGeneratedAt = "2026-08-28";
+export const busTrackerGeneratedAt = "2026-08-30";
 
 export const busTrackerData: BusStopData[] = [
   {
@@ -170,7 +170,7 @@ export const busTrackerData: BusStopData[] = [
           en: "Pak Kret - Wat Pho",
           th: "ปากเกร็ด - วัดโพธิ์",
         },
-        color: "ff0000",
+        color: "fe9a2e",
         headsign: {
           en: "Wat Pho",
           th: "วัดโพธิ์",
@@ -185,8 +185,8 @@ export const busTrackerData: BusStopData[] = [
           th: "องค์การขนส่งมวลชนกรุงเทพ (ขสมก.)",
         },
         fare: {
-          en: "Price 8.00 ฿",
-          th: "ราคา 8.00 บาท",
+          en: "Price 13.00 - 25.00 ฿",
+          th: "ราคา 13.00 - 25.00 บาท",
         },
         serviceHours: {
           en: "Service Hours 05:00 - 22:00",
@@ -196,8 +196,8 @@ export const busTrackerData: BusStopData[] = [
           en: "Departs every 15 minutes (approximately)",
           th: "ออกทุก 15 นาที (โดยประมาณ)",
         },
-        airConditioned: false,
-        wheelchairAccessible: false,
+        airConditioned: true,
+        wheelchairAccessible: true,
       },
       {
         patternKey: "2-9 (53L)|Thewet",
@@ -517,7 +517,7 @@ export const busTrackerData: BusStopData[] = [
         patternKey: "4-15 (82)|Phra Pradaeng",
         routeName: "4-15 (82)",
         routeLongName: {
-          en: "Phra Pradaeng - บางลัมซู",
+          en: "Phra Pradaeng - Bang Lamphu",
           th: "ท่าน้ำพระประแดง - บางลำพู",
         },
         color: "063970",
@@ -1190,7 +1190,7 @@ export const busTrackerData: BusStopData[] = [
         patternKey: "4-15 (82)|Bang Lamphu",
         routeName: "4-15 (82)",
         routeLongName: {
-          en: "Phra Pradaeng - บางลัมซู",
+          en: "Phra Pradaeng - Bang Lamphu",
           th: "ท่าน้ำพระประแดง - บางลำพู",
         },
         color: "063970",
@@ -1274,8 +1274,8 @@ export const busTrackerData: BusStopData[] = [
           th: "ให้บริการ 06:00 - 22:00",
         },
         headway: {
-          en: "Departs every 10 - 25 minutes (approximately)",
-          th: "ออกทุก 10 - 25 นาที (โดยประมาณ)",
+          en: "Departs every 25 minutes (approximately)",
+          th: "ออกทุก 25 นาที (โดยประมาณ)",
         },
         airConditioned: true,
         wheelchairAccessible: false,
@@ -1327,8 +1327,8 @@ export const busTrackerData: BusStopData[] = [
           th: "ให้บริการ 06:00 - 22:00",
         },
         headway: {
-          en: "Departs every 10 - 25 minutes (approximately)",
-          th: "ออกทุก 10 - 25 นาที (โดยประมาณ)",
+          en: "Departs every 25 minutes (approximately)",
+          th: "ออกทุก 25 นาที (โดยประมาณ)",
         },
         airConditioned: true,
         wheelchairAccessible: false,
@@ -1758,7 +1758,7 @@ export const busTrackerData: BusStopData[] = [
         patternKey: "4-15 (82)|Phra Pradaeng",
         routeName: "4-15 (82)",
         routeLongName: {
-          en: "Phra Pradaeng - บางลัมซู",
+          en: "Phra Pradaeng - Bang Lamphu",
           th: "ท่าน้ำพระประแดง - บางลำพู",
         },
         color: "063970",

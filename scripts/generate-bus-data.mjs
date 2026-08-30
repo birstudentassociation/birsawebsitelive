@@ -62,6 +62,9 @@ async function tripIdsForStop(stopId) {
  */
 const EN_OVERRIDES = {
   ก่อนแยกเทวกรรม: "Before the Thevakarma intersection",
+  // Route 4-15 (82)'s long name leaves the destination untranslated
+  // ("Phra Pradaeng - บางลัมซู") instead of rendering it as Bang Lamphu.
+  "ท่าน้ำพระประแดง - บางลำพู": "Phra Pradaeng - Bang Lamphu",
 };
 
 const bilingual = (en, th) => {
