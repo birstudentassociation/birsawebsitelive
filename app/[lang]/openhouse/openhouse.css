@@ -415,7 +415,7 @@ html[lang="th"] .oh-heading {
   letter-spacing: -4px;
 }
 html[lang="th"] .oh-anchor text {
-  font-size: 168px;
+  font-size: 150px;
   letter-spacing: 2px;
 }
 .oh-arrival-sub {
@@ -1103,54 +1103,41 @@ html[lang="th"] .oh-board-label {
 }
 
 /* ==========================================================================
-   08:42 bespoke river map. Stylised diagram, not tiles; the route draws in on
-   selection and shows finished under reduced motion.
+   08:42 arrival map: real OpenStreetMap tiles with a marker/route overlay.
    ========================================================================== */
 .oh-map {
   margin-top: 1.75rem;
-  max-width: 34rem;
-  border: 1px solid var(--color-line);
+  max-width: 32rem;
+}
+.oh-map-frame {
+  overflow: hidden;
   border-radius: var(--radius);
-  background: var(--color-surface);
-  padding: 0.5rem;
+  border: 1px solid var(--color-line-strong);
 }
-.oh-map-svg {
-  display: block;
+.oh-map-inner {
+  position: relative;
   width: 100%;
-  height: auto;
 }
-.oh-map-water {
-  stroke: color-mix(in oklab, var(--color-info), var(--color-cream) 58%);
-  stroke-width: 30;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.85;
+.oh-map-tiles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
-.oh-map-river {
-  fill: color-mix(in oklab, var(--color-info), var(--color-ink) 20%);
-  font-family: var(--font-heading);
-  font-size: 19px;
-  letter-spacing: 0.08em;
-  opacity: 0.85;
+.oh-map-tiles img {
+  position: absolute;
 }
-.oh-map-label {
-  fill: var(--color-muted);
-  font-family: var(--font-sans);
-  font-size: 17px;
-}
-.oh-map-campus {
-  fill: var(--color-ink);
-  font-family: var(--font-heading);
-  font-size: 20px;
-  font-weight: 600;
-}
-.oh-map-campus-dot {
-  fill: var(--color-brand);
+.oh-map-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 .oh-map-route {
   stroke: var(--color-brand);
   stroke-width: 3;
+  vector-effect: non-scaling-stroke;
   stroke-linecap: round;
+  stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
@@ -1165,6 +1152,37 @@ html[lang="th"] .oh-board-label {
     stroke-dashoffset: 0;
   }
 }
+.oh-map-dot {
+  fill: var(--color-ink);
+  stroke: #fff;
+  stroke-width: 2;
+}
 .oh-map-origin {
   fill: var(--color-brand);
+  stroke: #fff;
+  stroke-width: 2;
+}
+.oh-map-campus-dot {
+  fill: var(--color-brand);
+  stroke: #fff;
+  stroke-width: 3;
+}
+.oh-map-label {
+  fill: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 28px;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.oh-map-campus {
+  fill: var(--color-ink);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 36px;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 6px;
+  stroke-linejoin: round;
 }

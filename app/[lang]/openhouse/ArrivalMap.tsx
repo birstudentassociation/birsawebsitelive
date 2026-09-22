@@ -1,94 +1,143 @@
+import { computeMapView, fitZoom, markerPosition, type Place } from "@/lib/places";
 import type { Locale } from "@/lib/i18n";
 
 type Bi = { en: string; th: string };
-const L = (bi: Bi, locale: Locale) => bi[locale];
+const L = (b: Bi, l: Locale) => b[l];
 
 /**
- * A bespoke, stylised diagram of Tha Prachan on the Chao Phraya — not a survey
- * map and not map tiles, so it sits inside the event's own identity. Geography
- * is approximate but true in relation: the campus on the east bank at the
- * river's bend, Wang Lang across the water, Sanam Luang beside it, Sanam Chai
- * to the south. Selecting an arrival mode traces that route into the campus;
- * the draw is CSS (keyed by mode) and degrades to a finished line under reduced
- * motion.
+ * Real OpenStreetMap raster tiles (same source and CSP allow-listing as
+ * `components/places/PlacesMap.tsx`) centred on the Tha Prachan campus, with a
+ * marker layer drawn from verified coordinates. Selecting an arrival mode draws
+ * its route into campus. Coordinates checked against OpenStreetMap / Wikipedia
+ * (campus 13.7575,100.4900; Sanam Luang; Phra Pinklao Bridge; MRT Sanam Chai
+ * 13.7439,100.4948) and the repo's own Wang Lang pins in `lib/places.ts`.
+ *
+ * The tile requests 403 in this sandbox (network blocked, as PlacesMap notes)
+ * and resolve normally in production. The overlay is aria-hidden decoration;
+ * the mode buttons beneath carry the actual choice.
  */
-const PLACES = {
-  river: { en: "Chao Phraya", th: "เจ้าพระยา" },
-  campus: { en: "Tha Prachan", th: "ท่าพระจันทร์" },
-  wanglang: { en: "Wang Lang", th: "วังหลัง" },
-  sanamluang: { en: "Sanam Luang", th: "สนามหลวง" },
-  sanamchai: { en: "MRT Sanam Chai", th: "MRT สนามไชย" },
-  pinklao: { en: "Pinklao", th: "ปิ่นเกล้า" },
-} satisfies Record<string, Bi>;
+type MapPoint = { lat: number; lng: number; label: Bi };
 
-const ROUTES: Record<string, { d: string; ox: number; oy: number }> = {
-  ferry: { d: "M215 215 Q 272 196 330 205", ox: 215, oy: 215 },
-  bus: { d: "M600 188 Q 470 188 330 205", ox: 600, oy: 188 },
-  mrt: { d: "M470 300 Q 398 250 330 205", ox: 470, oy: 300 },
-  shuttle: { d: "M412 352 Q 362 274 330 205", ox: 412, oy: 352 },
-  walk: { d: "M410 180 Q 372 188 330 205", ox: 410, oy: 180 },
+const POINTS = {
+  campus: { lat: 13.757, lng: 100.4906, label: { en: "Tha Prachan", th: "ท่าพระจันทร์" } },
+  pier: {
+    lat: 13.7566,
+    lng: 100.4897,
+    label: { en: "Tha Prachan pier", th: "ท่าเรือท่าพระจันทร์" },
+  },
+  wanglang: { lat: 13.7561, lng: 100.4863, label: { en: "Wang Lang", th: "วังหลัง" } },
+  sanamchai: { lat: 13.7439, lng: 100.4948, label: { en: "MRT Sanam Chai", th: "MRT สนามไชย" } },
+  sanamluang: { lat: 13.755, lng: 100.4931, label: { en: "Sanam Luang", th: "สนามหลวง" } },
+  oldcity: { lat: 13.7576, lng: 100.4924, label: { en: "Phra Chan Road", th: "ถนนพระจันทร์" } },
+} satisfies Record<string, MapPoint>;
+
+type PointKey = keyof typeof POINTS;
+
+const ROUTES: Record<string, PointKey[]> = {
+  ferry: ["wanglang", "pier", "campus"],
+  bus: ["oldcity", "campus"],
+  mrt: ["sanamchai", "campus"],
+  shuttle: ["sanamchai", "campus"],
+  walk: ["sanamluang", "campus"],
 };
+
+// The map frames only what the current route touches (plus a little river
+// context by default), so it stays tight and legible instead of stretching to
+// hold the far-south MRT on every view. Picking a mode reframes to that journey.
+const DEFAULT_CONTEXT: PointKey[] = ["campus", "pier", "wanglang", "sanamluang"];
+
+const stub = (p: MapPoint): Place => ({
+  id: "",
+  name: { en: "", th: "" },
+  category: { en: "", th: "" },
+  area: "oldtown",
+  lat: p.lat,
+  lng: p.lng,
+  mapsQuery: "",
+});
 
 export default function ArrivalMap({ locale, mode }: { locale: Locale; mode?: string }) {
   const route = mode ? ROUTES[mode] : undefined;
+  const origin = route?.[0];
+  const shownKeys = route ? Array.from(new Set<PointKey>(["campus", ...route])) : DEFAULT_CONTEXT;
+
+  const shownPoints = shownKeys.map((k) => stub(POINTS[k]));
+  const zoom = fitZoom(shownPoints, { maxCols: 6, maxRows: 7, minZoom: 13, maxZoom: 16 });
+  const view = computeMapView(shownPoints, zoom);
+  const h = (1000 * view.rows) / view.cols;
+
+  const tiles: { x: number; y: number }[] = [];
+  for (let y = view.tileMinY; y <= view.tileMaxY; y++) {
+    for (let x = view.tileMinX; x <= view.tileMaxX; x++) tiles.push({ x, y });
+  }
+
+  const pos = (k: PointKey) => {
+    const p = markerPosition(stub(POINTS[k]), view);
+    return { x: p.leftPct * 10, y: (p.topPct * h) / 100, leftPct: p.leftPct };
+  };
+  const routeD = route
+    ? route.map((k, i) => `${i === 0 ? "M" : "L"}${pos(k).x} ${pos(k).y}`).join(" ")
+    : "";
+
+  const label = locale === "th" ? "แผนที่บริเวณท่าพระจันทร์" : "Map of the Tha Prachan area";
+
   return (
-    <svg
-      className="oh-map-svg"
-      viewBox="0 0 640 380"
-      role="img"
-      aria-label={
-        locale === "th"
-          ? "แผนผังคร่าว ๆ ของท่าพระจันทร์ริมแม่น้ำเจ้าพระยา"
-          : "A stylised diagram of Tha Prachan on the Chao Phraya river"
-      }
-    >
-      {/* River */}
-      <path
-        className="oh-map-water"
-        d="M250 -10 C 250 90, 312 150, 300 205 S 250 320, 190 390"
-        fill="none"
-      />
-      <text className="oh-map-river" x="243" y="70" transform="rotate(20 243 70)">
-        {L(PLACES.river, locale)}
-      </text>
+    <div role="group" aria-label={label} className="oh-map-frame">
+      <div className="oh-map-inner" style={{ aspectRatio: `${view.cols} / ${view.rows}` }}>
+        <div className="osm-tile-layer oh-map-tiles" aria-hidden="true">
+          {tiles.map(({ x, y }) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={`${x}-${y}`}
+              src={`https://tile.openstreetmap.org/${view.zoom}/${x}/${y}.png`}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              style={{
+                left: `${((x - view.minX) / view.cols) * 100}%`,
+                top: `${((y - view.minY) / view.rows) * 100}%`,
+                width: `${100 / view.cols}%`,
+                height: `${100 / view.rows}%`,
+              }}
+            />
+          ))}
+        </div>
 
-      {/* Orientation labels */}
-      <MapLabel x={150} y={92} label={L(PLACES.pinklao, locale)} anchor="middle" />
-      <MapLabel x={205} y={236} label={L(PLACES.wanglang, locale)} anchor="middle" />
-      <MapLabel x={420} y={176} label={L(PLACES.sanamluang, locale)} anchor="start" />
-      <MapLabel x={478} y={314} label={L(PLACES.sanamchai, locale)} anchor="start" />
-
-      {/* Selected route */}
-      {route ? (
-        <g key={mode}>
-          <path className="oh-map-route" d={route.d} pathLength={1} fill="none" />
-          <circle className="oh-map-origin" cx={route.ox} cy={route.oy} r={5} />
-        </g>
-      ) : null}
-
-      {/* Campus */}
-      <circle className="oh-map-campus-dot" cx={330} cy={205} r={7} />
-      <text className="oh-map-campus" x={344} y={202}>
-        {L(PLACES.campus, locale)}
-      </text>
-    </svg>
-  );
-}
-
-function MapLabel({
-  x,
-  y,
-  label,
-  anchor,
-}: {
-  x: number;
-  y: number;
-  label: string;
-  anchor: "start" | "middle" | "end";
-}) {
-  return (
-    <text className="oh-map-label" x={x} y={y} textAnchor={anchor}>
-      {label}
-    </text>
+        <svg
+          className="oh-map-overlay"
+          viewBox={`0 0 1000 ${h}`}
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {route ? <path className="oh-map-route" d={routeD} pathLength={1} fill="none" /> : null}
+          {shownKeys.map((k) => {
+            const p = pos(k);
+            const isCampus = k === "campus";
+            const isOrigin = k === origin;
+            const anchorEnd = p.leftPct > 62;
+            return (
+              <g key={k}>
+                <circle
+                  className={
+                    isCampus ? "oh-map-campus-dot" : isOrigin ? "oh-map-origin" : "oh-map-dot"
+                  }
+                  cx={p.x}
+                  cy={p.y}
+                  r={isCampus ? 11 : 7}
+                />
+                <text
+                  className={isCampus ? "oh-map-campus" : "oh-map-label"}
+                  x={anchorEnd ? p.x - 16 : p.x + 16}
+                  y={p.y + 8}
+                  textAnchor={anchorEnd ? "end" : "start"}
+                >
+                  {L(POINTS[k].label, locale)}
+                </text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+    </div>
   );
 }

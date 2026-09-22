@@ -286,10 +286,12 @@ export default function OpenHouseExperience({
         <svg
           className="oh-anchor"
           aria-hidden="true"
-          viewBox="0 0 1200 240"
+          viewBox="0 0 1200 300"
           preserveAspectRatio="xMinYMax slice"
         >
-          <text x="0" y="196">
+          {/* Baseline sits low with headroom above so Thai tone marks, which
+              stack well above cap height, are never clipped by the viewBox. */}
+          <text x="0" y="228">
             {locale === "th" ? "ท่าพระจันทร์" : "Tha Prachan"}
           </text>
         </svg>
