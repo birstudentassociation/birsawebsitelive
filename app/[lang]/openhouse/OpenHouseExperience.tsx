@@ -11,6 +11,7 @@ import { CLUBS, TEXTURE_LABELS } from "@/content/openhouse/clubs";
 import RiverLine from "./RiverLine";
 import ArrivalMap from "./ArrivalMap";
 import HomeBoard from "./HomeBoard";
+import LunchMap from "./LunchMap";
 import FieldNoteCanvas, {
   FIELDNOTE_CANVAS_ID,
   type FieldNoteEntry,
@@ -37,6 +38,27 @@ const folioStops = [
   { id: "oh-home", label: COPY.homeTime, name: COPY.homeKicker, key: null },
   { id: "oh-day", label: COPY.folioDay, name: null, key: null },
 ];
+
+/** `?scene=` values printed on Open House signage, mapped to the scene they open. */
+const SCENES: Record<string, string> = {
+  arrive: "oh-arrive",
+  degree: "oh-class",
+  class: "oh-class",
+  between: "oh-between",
+  lunch: "oh-lunch",
+  ideas: "oh-back",
+  clubs: "oh-clubs",
+  dusk: "oh-dusk",
+  home: "oh-home",
+  day: "oh-day",
+  visit: "oh-invite",
+};
+
+const shareUrl = () => {
+  const url = new URL(window.location.href);
+  url.hash = "";
+  return url.href;
+};
 
 const mapsHref = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
@@ -179,6 +201,15 @@ export default function OpenHouseExperience({
           !!dusk && !!invite && dusk.top + dusk.height * 0.55 < mid && invite.top + 96 > mid;
         if (night) root.dataset.night = "";
         else delete root.dataset.night;
+        // Step the folio out of the way while a status banner is behind it.
+        const banner = root.querySelector(".oh-event-banner, .oh-arc-banner");
+        const rail = root.querySelector(".oh-folio ol");
+        const covered =
+          !!banner &&
+          !!rail &&
+          banner.getBoundingClientRect().bottom > rail.getBoundingClientRect().top;
+        if (covered) root.dataset.folioAway = "";
+        else delete root.dataset.folioAway;
         // The whole-page warm shift is motion; leave it static for reduced motion.
         if (animate) root.style.setProperty("--oh-day", String(p));
       });
@@ -193,6 +224,31 @@ export default function OpenHouseExperience({
       cancelAnimationFrame(raf);
     };
   }, []);
+
+  // QR codes around the venue open straight onto a scene. The parameter is
+  // consumed and swapped for the matching hash, so a later share or language
+  // switch lands in the same place.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const id = SCENES[url.searchParams.get("scene") ?? ""];
+    url.searchParams.delete("scene");
+    if (id) url.hash = id;
+    window.history.replaceState(null, "", url);
+    if (id) document.getElementById(id)?.scrollIntoView();
+  }, []);
+
+  // Keep the current scene in the hash, so a reload or a language switch comes
+  // back to the same moment of the day. Shared links leave it off.
+  const firstScene = useRef(true);
+  useEffect(() => {
+    if (firstScene.current) {
+      firstScene.current = false;
+      return;
+    }
+    const url = new URL(window.location.href);
+    url.hash = active === "oh-arrival" ? "" : active;
+    if (url.href !== window.location.href) window.history.replaceState(null, "", url);
+  }, [active]);
 
   // Carry the choices into a shareable URL without a reload. Only the day's
   // closed-set choices go in; the name never leaves the browser.
@@ -228,15 +284,15 @@ export default function OpenHouseExperience({
 
   const copyLink = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(shareUrl());
       showToast(t(COPY.copied, locale));
     } catch {
-      showToast(window.location.href);
+      showToast(shareUrl());
     }
   }, [locale, showToast]);
 
   const share = useCallback(async () => {
-    const url = window.location.href;
+    const url = shareUrl();
     const blob = await cardBlob();
     const file = blob ? new File([blob], "bir-open-house.png", { type: "image/png" }) : null;
     try {
@@ -269,6 +325,23 @@ export default function OpenHouseExperience({
 
   return (
     <div className="oh" ref={rootRef}>
+      <svg className="oh-defs" aria-hidden="true" focusable="false">
+        {/* Recolour OpenStreetMap tiles to paper and water: grey by luminance,
+            then tinted by how much bluer than red a pixel is, which only water
+            really is. Night inverts the luminance and keeps the same tint. */}
+        <filter id="oh-tiles-day" colorInterpolationFilters="sRGB">
+          <feColorMatrix
+            type="matrix"
+            values="0.64 0.472 -0.312 0 0.202  0.32 0.472 0.008 0 0.19  0.16 0.472 0.168 0 0.166  0 0 0 1 0"
+          />
+        </filter>
+        <filter id="oh-tiles-night" colorInterpolationFilters="sRGB">
+          <feColorMatrix
+            type="matrix"
+            values="0.172 -0.4484 -0.4836 0 0.87  -0.148 -0.4484 -0.1636 0 0.858  -0.468 -0.4484 0.1564 0 0.831  0 0 0 1 0"
+          />
+        </filter>
+      </svg>
       <nav className="oh-folio" aria-label={t(COPY.dayKicker, locale)}>
         <p className="oh-folio-now oh-time" aria-hidden="true">
           {activeStop ? t(activeStop.label, locale) : ""}
@@ -436,7 +509,13 @@ export default function OpenHouseExperience({
                           ))}
                         </ul>
                         <p className="oh-teaser-takeaway">{t(c.teaser.takeaway, locale)}</p>
+                        <p className="oh-teaser-year">
+                          {t(COPY.usuallyYear, locale)} {c.years.join(t(COPY.yearJoin, locale))}
+                        </p>
                         <p className="oh-teaser-link">
+                          <Link href={localeHref(locale, `/student-life/course-reviews/${c.code}`)}>
+                            {t(COPY.courseMore, locale)}
+                          </Link>
                           <Link href={localeHref(locale, "/services/study-plan/curriculum")}>
                             {t(COPY.curriculumLink, locale)}
                           </Link>
@@ -497,37 +576,46 @@ export default function OpenHouseExperience({
               </button>
             ))}
           </div>
+        </div>
 
+        <div className="oh-lunch-wide">
+          <div className="oh-map oh-lunch-map oh-reveal" data-reveal>
+            <LunchMap locale={locale} directions={lunchDirections} selected={selectedLunch} />
+          </div>
           <div id="oh-places" className="oh-places-slot" aria-live="polite">
             {selectedLunch ? (
-              <div key={selectedLunch.key} className="oh-places">
-                <ul className="oh-place-list">
-                  {selectedLunch.places.map((p) => (
-                    <li key={p.id} className="oh-place">
-                      <div className="oh-place-head">
-                        <h3 className="oh-place-name">{t(p.name, locale)}</h3>
-                        <span className="oh-place-cat">{t(p.category, locale)}</span>
-                      </div>
-                      {p.note ? <p className="oh-place-note">{t(p.note, locale)}</p> : null}
-                      <ExternalLink
-                        href={mapsHref(p.mapsQuery)}
-                        newTabLabel={newTab}
-                        className="oh-place-link focus-highlight"
-                      >
-                        {t(COPY.openMaps, locale)}
-                      </ExternalLink>
-                    </li>
-                  ))}
-                </ul>
-                <p className="oh-map-note">
-                  {t(COPY.lunchMap, locale)}{" "}
-                  <Link href={localeHref(locale, "/student-life")}>
-                    {t(COPY.lunchMapLink, locale)}
-                  </Link>
-                </p>
-              </div>
+              <ol key={selectedLunch.key} className="oh-places oh-place-list">
+                {selectedLunch.places.map((p, i) => (
+                  <li key={p.id} className="oh-place">
+                    <span className="oh-place-num" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <div className="oh-place-head">
+                      <h3 className="oh-place-name">{t(p.name, locale)}</h3>
+                      <span className="oh-place-cat">{t(p.category, locale)}</span>
+                    </div>
+                    {p.note ? <p className="oh-place-note">{t(p.note, locale)}</p> : null}
+                    <ExternalLink
+                      href={mapsHref(p.mapsQuery)}
+                      newTabLabel={newTab}
+                      className="oh-place-link focus-highlight"
+                    >
+                      {t(COPY.openMaps, locale)}
+                    </ExternalLink>
+                  </li>
+                ))}
+              </ol>
             ) : null}
           </div>
+        </div>
+
+        <div className="oh-measure">
+          <p className="oh-map-note">
+            {t(COPY.lunchMap, locale)}{" "}
+            <Link href={localeHref(locale, "/student-life/home/places-nearby")}>
+              {t(COPY.lunchMapLink, locale)}
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -600,7 +688,14 @@ export default function OpenHouseExperience({
             ))}
           </p>
           <p className="oh-wall-breadth">
-            {TEXTURES_IN_ORDER.map((tx) => t(TEXTURE_LABELS[tx], locale)).join(" · ")}
+            {TEXTURES_IN_ORDER.map((tx, i) => (
+              <Fragment key={tx}>
+                <span className="oh-wall-breadth-item">
+                  {t(TEXTURE_LABELS[tx], locale)}
+                  {i < TEXTURES_IN_ORDER.length - 1 ? " ·" : ""}
+                </span>{" "}
+              </Fragment>
+            ))}
           </p>
         </div>
 
@@ -756,49 +851,73 @@ export default function OpenHouseExperience({
         </div>
       </section>
 
-      {/* Invitation */}
+      {/* Invitation, or the year-round links once the day has passed */}
       <section id="oh-invite" data-scene className="oh-scene oh-invite">
-        <div className="oh-measure">
-          <p className="oh-kicker oh-reveal" data-reveal>
-            {t(COPY.inviteKicker, locale)}
-          </p>
-          <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
-            {t(COPY.inviteHeadline, locale)}
-          </h2>
-          <dl className="oh-facts oh-reveal" data-reveal data-delay="1">
-            <div className="oh-fact">
-              <dt>{t(COPY.whenLabel, locale)}</dt>
-              <dd>
-                {formatDate(locale, OPEN_HOUSE.dateISO)}
-                <br />
-                08:00–16:00
-              </dd>
-            </div>
-            <div className="oh-fact">
-              <dt>{t(COPY.whereLabel, locale)}</dt>
-              <dd>{t(OPEN_HOUSE.venue, locale)}</dd>
-            </div>
-          </dl>
-          <div className="oh-invite-actions oh-reveal" data-reveal data-delay="2">
-            <Button
-              href={OPEN_HOUSE.mapsUrl}
-              variant="secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t(COPY.directions, locale)} ↗
-            </Button>
-            <Button
-              href={OPEN_HOUSE.programmeUrl}
-              variant="ghost"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {t(COPY.programme, locale)} ↗
-            </Button>
+        {phase === "post" ? (
+          <div className="oh-measure">
+            <p className="oh-kicker oh-reveal" data-reveal>
+              {t(COPY.arcKicker, locale)}
+            </p>
+            <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+              {t(COPY.arcInvite, locale)}
+            </h2>
+            <ul className="oh-onward oh-reveal" data-reveal data-delay="1">
+              {COPY.arcLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={localeHref(locale, l.href)}>{t(l.label, locale)}</Link>
+                </li>
+              ))}
+              <li>
+                <ExternalLink href={OPEN_HOUSE.programmeUrl} newTabLabel={newTab}>
+                  {t(COPY.programme, locale)}
+                </ExternalLink>
+              </li>
+            </ul>
+            <p className="oh-invite-note">{t(COPY.programmeNote, locale)}</p>
           </div>
-          <p className="oh-invite-note">{t(COPY.programmeNote, locale)}</p>
-        </div>
+        ) : (
+          <div className="oh-measure">
+            <p className="oh-kicker oh-reveal" data-reveal>
+              {t(COPY.inviteKicker, locale)}
+            </p>
+            <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+              {t(COPY.inviteHeadline, locale)}
+            </h2>
+            <dl className="oh-facts oh-reveal" data-reveal data-delay="1">
+              <div className="oh-fact">
+                <dt>{t(COPY.whenLabel, locale)}</dt>
+                <dd>
+                  {formatDate(locale, OPEN_HOUSE.dateISO)}
+                  <br />
+                  08:00–16:00
+                </dd>
+              </div>
+              <div className="oh-fact">
+                <dt>{t(COPY.whereLabel, locale)}</dt>
+                <dd>{t(OPEN_HOUSE.venue, locale)}</dd>
+              </div>
+            </dl>
+            <div className="oh-invite-actions oh-reveal" data-reveal data-delay="2">
+              <Button
+                href={OPEN_HOUSE.mapsUrl}
+                variant="secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t(COPY.directions, locale)} ↗
+              </Button>
+              <Button
+                href={OPEN_HOUSE.programmeUrl}
+                variant="ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t(COPY.programme, locale)} ↗
+              </Button>
+            </div>
+            <p className="oh-invite-note">{t(COPY.programmeNote, locale)}</p>
+          </div>
+        )}
       </section>
     </div>
   );

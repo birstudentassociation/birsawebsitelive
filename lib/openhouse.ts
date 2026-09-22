@@ -18,6 +18,8 @@ export type CuratedCourse = {
   code: string;
   title: Bi;
   field: Bi;
+  /** Curriculum years the course is usually taken in, from the catalogue. */
+  years: number[];
   teaser: CourseTeaser;
 };
 
@@ -30,7 +32,7 @@ export function getCuratedCourses(): CuratedCourse[] {
   return CURATED_COURSES.flatMap(({ code, field, teaser }) => {
     const course = courses.find((c) => c.code === code);
     if (!course) return [];
-    return [{ code: course.code, title: course.title, field, teaser }];
+    return [{ code: course.code, title: course.title, field, years: course.yearLevel, teaser }];
   });
 }
 

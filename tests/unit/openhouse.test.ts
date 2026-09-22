@@ -44,6 +44,28 @@ describe("Open House data joins", () => {
     }
   });
 
+  it("keeps each lunch direction honest about distance from the gate", () => {
+    const metres = (p: { lat: number; lng: number }) => {
+      const dx = (p.lng - CAMPUS.lng) * 111320 * Math.cos((CAMPUS.lat * Math.PI) / 180);
+      const dy = (p.lat - CAMPUS.lat) * 110574;
+      return Math.hypot(dx, dy);
+    };
+    const byKey = Object.fromEntries(getLunchDirections().map((d) => [d.key, d.places]));
+    // "A few minutes on foot"
+    for (const p of byKey.near ?? []) expect(metres(p)).toBeLessThan(350);
+    // "Ten to fifteen minutes each way"
+    for (const p of byKey.further ?? []) {
+      expect(metres(p)).toBeGreaterThan(500);
+      expect(metres(p)).toBeLessThan(1100);
+    }
+    // Across the river: every Wang Lang place is on the west bank.
+    for (const p of byKey.wanglang ?? []) expect(p.lng).toBeLessThan(100.4875);
+  });
+
+  it("gives every curated course the years it is usually taken in", () => {
+    for (const c of getCuratedCourses()) expect(c.years.length).toBeGreaterThan(0);
+  });
+
   it("has a club entry for exactly the clubs published in both languages", () => {
     const slugs = (lang: string) =>
       fs

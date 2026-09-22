@@ -13,7 +13,7 @@ export const OPEN_HOUSE = {
   } satisfies Bi,
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Faculty+of+Political+Science+Thammasat+University+Tha+Prachan",
-  programmeUrl: "https://polsci.tu.ac.th",
+  programmeUrl: "https://www.birpolsci.com",
 } as const;
 
 /**
@@ -270,7 +270,7 @@ export const LUNCH_DIRECTIONS: {
       th: "เดินไม่กี่นาที กลับทันเข้าเรียน",
     },
     ferry: false,
-    places: ["elle-tha-prachan", "nai-soie", "nai-uan-yentafo"],
+    places: ["new-yong-hua", "elle-tha-prachan", "khun-ek", "tu-60th-canteen"],
   },
   {
     key: "wanglang",
@@ -280,7 +280,17 @@ export const LUNCH_DIRECTIONS: {
       th: "นั่งเรือข้ามฟากไปกลับ",
     },
     ferry: true,
-    places: ["khao-dong-moo-daeng", "chuan-aroy", "wang-lang-market"],
+    places: ["khao-dong-moo-daeng", "chuan-aroy", "wang-lang-market", "saimai-wonton"],
+  },
+  {
+    key: "further",
+    label: { en: "Walk up to Banglamphu", th: "เดินไปบางลำพู" },
+    blurb: {
+      en: "Ten to fifteen minutes each way along Phra Athit Road, so order quickly.",
+      th: "เดินเลียบถนนพระอาทิตย์ไปราวสิบถึงสิบห้านาที สั่งเร็วหน่อยก็กลับทัน",
+    },
+    ferry: false,
+    places: ["khun-daeng", "nai-soie", "banglamphu-duck", "khanom-jeen-banglamphu"],
   },
 ];
 
@@ -300,6 +310,12 @@ type Copy = {
   classHint: Bi;
   keyIdeas: Bi;
   curriculumLink: Bi;
+  usuallyYear: Bi;
+  yearJoin: Bi;
+  courseMore: Bi;
+  arcKicker: Bi;
+  arcInvite: Bi;
+  arcLinks: { href: string; label: Bi }[];
   arriveTime: Bi;
   arriveKicker: Bi;
   arrivePrompt: Bi;
@@ -410,6 +426,23 @@ export const COPY: Copy = {
     en: "See the full BIR curriculum",
     th: "ดูหลักสูตร BIR แบบเต็ม",
   },
+  usuallyYear: { en: "Usually taken in year", th: "ส่วนใหญ่เรียนตอนปี" },
+  yearJoin: { en: " or ", th: " หรือ " },
+  courseMore: { en: "More about this course", th: "ดูรายละเอียดวิชานี้" },
+  arcKicker: { en: "All year", th: "ตลอดทั้งปี" },
+  arcInvite: {
+    en: "Everything the day pointed to is still open.",
+    th: "ทุกที่ที่วันนี้พาไปดู ยังเปิดอยู่ตลอด",
+  },
+  arcLinks: [
+    {
+      href: "/student-life",
+      label: { en: "Student life around Tha Prachan", th: "ชีวิตนักศึกษาแถวท่าพระจันทร์" },
+    },
+    { href: "/student-life/course-reviews", label: { en: "Course reviews", th: "รีวิวรายวิชา" } },
+    { href: "/services/study-plan", label: { en: "Planning your degree", th: "วางแผนการเรียน" } },
+    { href: "/clubs", label: { en: "All BIR clubs", th: "ชมรมทั้งหมดของ BIR" } },
+  ],
   arriveTime: { en: "08:42", th: "08:42" },
   arriveKicker: { en: "Getting there", th: "การเดินทางมา" },
   arrivePrompt: { en: "How would you get here?", th: "คุณจะเดินทางมายังไง" },
@@ -424,14 +457,14 @@ export const COPY: Copy = {
     th: "คาบต่อไปบ่ายโมง จะไปกินที่ไหนดี",
   },
   lunchNote: {
-    en: "Not far, and back before the bell. A couple of directions, a few real places.",
-    th: "ไม่ไกล กลับทันเข้าเรียน มีสองทางให้เลือก กับร้านจริงไม่กี่ร้าน",
+    en: "Three directions from the gate, each with a few places students actually go.",
+    th: "จากประตูคณะมีสามทางให้เลือก แต่ละทางมีร้านที่นักศึกษาไปกินกันจริงๆ อยู่ไม่กี่ร้าน",
   },
   lunchMap: {
     en: "BIRSA keeps a much larger student map of Tha Prachan, Wang Lang and Pinklao.",
     th: "BIRSA มีแผนที่นักศึกษาที่ใหญ่กว่านี้มาก ทั้งท่าพระจันทร์ วังหลัง และปิ่นเกล้า",
   },
-  lunchMapLink: { en: "Explore student life", th: "ดูชีวิตนักศึกษาเพิ่มเติม" },
+  lunchMapLink: { en: "Explore the full map", th: "ดูแผนที่ฉบับเต็ม" },
   openMaps: { en: "Open in Maps", th: "เปิดในแผนที่" },
   newTab: { en: "opens in a new tab", th: "เปิดในแท็บใหม่" },
   ferryMotif: { en: "the river again", th: "แม่น้ำอีกครั้ง" },

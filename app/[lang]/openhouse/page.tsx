@@ -46,8 +46,18 @@ export async function generateMetadata({
   };
 }
 
-/** Where we are relative to Open House, in the Bangkok timezone. */
-function openHousePhase(): "pre" | "event" | "post" {
+type Phase = "pre" | "event" | "post";
+const PHASES: Phase[] = ["pre", "event", "post"];
+const isPhase = (v: unknown): v is Phase => PHASES.includes(v as Phase);
+
+/**
+ * Where we are relative to Open House, in the Bangkok timezone.
+ * `OPEN_HOUSE_PHASE` pins it (for example to open event mode early on the
+ * day), and outside production `?phase=` previews any state.
+ */
+function openHousePhase(preview: unknown): Phase {
+  if (process.env.VERCEL_ENV !== "production" && isPhase(preview)) return preview;
+  if (isPhase(process.env.OPEN_HOUSE_PHASE)) return process.env.OPEN_HOUSE_PHASE;
   const bangkok = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Bangkok",
     year: "numeric",
@@ -68,7 +78,8 @@ export default async function OpenHousePage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const state = parseState(await searchParams);
+  const query = await searchParams;
+  const state = parseState(query);
 
   return (
     <OpenHouseExperience
@@ -76,7 +87,7 @@ export default async function OpenHousePage({
       courses={getCuratedCourses()}
       lunchDirections={getLunchDirections()}
       initial={state}
-      phase={openHousePhase()}
+      phase={openHousePhase(query.phase)}
     />
   );
 }

@@ -24,6 +24,10 @@ export type LanguageToggleProps = {
  * a visitor who switches language would land on the new locale for this one
  * page but get redirected back to their old locale the next time they hit an
  * unprefixed URL such as `/`.
+ *
+ * The click handler also carries the query string and hash across, so a
+ * visitor keeps their place and any page state (search terms, Open House
+ * choices) in the other language.
  */
 export default function LanguageToggle({ locale, label, ariaLabel }: LanguageToggleProps) {
   const pathname = usePathname();
@@ -38,7 +42,8 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
       href={href}
       hrefLang={target}
       aria-label={ariaLabel}
-      onClick={() => {
+      onClick={(e) => {
+        e.currentTarget.href = `${href}${window.location.search}${window.location.hash}`;
         const oneYear = 60 * 60 * 24 * 365;
         document.cookie = `NEXT_LOCALE=${target}; path=/; max-age=${oneYear}; SameSite=Lax`;
       }}
