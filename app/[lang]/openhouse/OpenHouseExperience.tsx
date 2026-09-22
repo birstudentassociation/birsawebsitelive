@@ -7,8 +7,9 @@ import ExternalLink from "@/components/ExternalLink";
 import { localeHref, formatDate, type Locale } from "@/lib/i18n";
 import { mapsHref, type CuratedCourse, type LunchDirection } from "@/lib/openhouse";
 import { ARRIVE_MODES, COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
-import { CLUBS } from "@/content/openhouse/clubs";
+import { CLUBS, TEXTURE_LABELS } from "@/content/openhouse/clubs";
 import RiverTrace from "./RiverTrace";
+import HomeBoard from "./HomeBoard";
 import FieldNote, { FIELDNOTE_SVG_ID, type FieldNoteEntry } from "./FieldNote";
 
 type Props = {
@@ -16,15 +17,19 @@ type Props = {
   courses: CuratedCourse[];
   lunchDirections: LunchDirection[];
   initial: { arrive?: string; course?: string; lunch?: string; club?: string };
-  isEventDay: boolean;
+  phase: "pre" | "event" | "post";
 };
 
 const folioStops = [
   { id: "oh-arrival", label: COPY.folioArrival, key: null },
   { id: "oh-arrive", label: COPY.arriveTime, key: "arrive" as const },
   { id: "oh-class", label: COPY.classTime, key: "course" as const },
+  { id: "oh-between", label: COPY.betweenTime, key: null },
   { id: "oh-lunch", label: COPY.lunchTime, key: "lunch" as const },
+  { id: "oh-back", label: COPY.backTime, key: null },
   { id: "oh-clubs", label: COPY.clubsTime, key: "club" as const },
+  { id: "oh-dusk", label: COPY.duskTime, key: null },
+  { id: "oh-home", label: COPY.homeTime, key: null },
   { id: "oh-day", label: COPY.folioDay, key: null },
 ];
 
@@ -33,8 +38,9 @@ export default function OpenHouseExperience({
   courses,
   lunchDirections,
   initial,
-  isEventDay,
+  phase,
 }: Props) {
+  const isEventDay = phase === "event";
   const rootRef = useRef<HTMLDivElement>(null);
   const [arrive, setArrive] = useState<string | undefined>(initial.arrive);
   const [course, setCourse] = useState<string | undefined>(initial.course);
@@ -237,6 +243,39 @@ export default function OpenHouseExperience({
         </ol>
       </nav>
 
+      {phase === "event" ? (
+        <aside className="oh-event-banner on-brand" role="note">
+          <div className="oh-measure">
+            <p className="oh-event-welcome">{t(COPY.evtWelcome, locale)}</p>
+            <p className="oh-event-lead">{t(COPY.evtLead, locale)}</p>
+            <div className="oh-event-actions">
+              <a className="oh-event-btn" href="#oh-invite">
+                {t(COPY.evtProgramme, locale)}
+              </a>
+              <a
+                className="oh-event-btn"
+                href={OPEN_HOUSE.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t(COPY.evtFindRoom, locale)} ↗
+              </a>
+              <a className="oh-event-btn" href="#oh-clubs">
+                {t(COPY.evtExplore, locale)}
+              </a>
+            </div>
+          </div>
+        </aside>
+      ) : null}
+      {phase === "post" ? (
+        <aside className="oh-arc-banner" role="note">
+          <div className="oh-measure">
+            <p className="oh-arc-headline">{t(COPY.arcHeadline, locale)}</p>
+            <p className="oh-arc-lead">{t(COPY.arcLead, locale)}</p>
+          </div>
+        </aside>
+      ) : null}
+
       {/* Arrival */}
       <section id="oh-arrival" data-scene className="oh-scene oh-arrival">
         <span className="oh-anchor" aria-hidden="true">
@@ -380,6 +419,22 @@ export default function OpenHouseExperience({
         </div>
       </section>
 
+      {/* 10:47 Between classes */}
+      <section id="oh-between" data-scene className="oh-scene oh-pause">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.betweenTime, locale)}</span> ·{" "}
+            {t(COPY.betweenKicker, locale)}
+          </p>
+          <p className="oh-pause-line oh-reveal" data-reveal data-delay="1">
+            {t(COPY.betweenLine, locale)}
+          </p>
+          <p className="oh-pause-body oh-reveal" data-reveal data-delay="2">
+            {t(COPY.betweenBody, locale)}
+          </p>
+        </div>
+      </section>
+
       {/* 12:07 Lunch */}
       <section id="oh-lunch" data-scene className="oh-scene">
         <div className="oh-measure">
@@ -450,6 +505,34 @@ export default function OpenHouseExperience({
         </div>
       </section>
 
+      {/* 13:23 Back to class */}
+      <section id="oh-back" data-scene className="oh-scene">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.backTime, locale)}</span> ·{" "}
+            {t(COPY.backKicker, locale)}
+          </p>
+          <p className="oh-lede oh-reveal" data-reveal data-delay="1">
+            {t(COPY.backLine, locale)}
+          </p>
+          <ul className="oh-questions">
+            {COPY.backQuestions.map((q, i) => (
+              <li
+                key={i}
+                className="oh-question oh-reveal"
+                data-reveal
+                data-delay={String((i % 3) + 1)}
+              >
+                {t(q, locale)}
+              </li>
+            ))}
+          </ul>
+          <p className="oh-back-note oh-reveal" data-reveal>
+            {t(COPY.backNote, locale)}
+          </p>
+        </div>
+      </section>
+
       {/* 16:34 Clubs */}
       <section id="oh-clubs" data-scene className="oh-scene">
         <div className="oh-measure">
@@ -472,11 +555,12 @@ export default function OpenHouseExperience({
                 className="oh-club oh-reveal"
                 data-reveal
                 data-delay={String((i % 3) + 1)}
-                data-texture={c.texture}
+                data-feature={c.feature ? true : undefined}
                 aria-pressed={c.slug === club}
                 aria-expanded={c.slug === club}
                 onClick={() => toggle(setClub)(c.slug)}
               >
+                <span className="oh-club-kicker">{t(TEXTURE_LABELS[c.texture], locale)}</span>
                 <span className="oh-club-name">{t(c.name, locale)}</span>
                 <span className="oh-club-tag">{t(c.tagline, locale)}</span>
               </button>
@@ -488,9 +572,9 @@ export default function OpenHouseExperience({
               <article
                 key={selectedClub.slug}
                 className="oh-door"
-                data-texture={selectedClub.texture}
                 aria-label={t(selectedClub.name, locale)}
               >
+                <p className="oh-door-kicker">{t(TEXTURE_LABELS[selectedClub.texture], locale)}</p>
                 <h3 className="oh-door-name">{t(selectedClub.name, locale)}</h3>
                 <p className="oh-door-tag">{t(selectedClub.tagline, locale)}</p>
                 <p className="oh-door-detail">{t(selectedClub.detail, locale)}</p>
@@ -525,6 +609,36 @@ export default function OpenHouseExperience({
           <p className="oh-wall-all">
             <Link href={localeHref(locale, "/clubs")}>{t(COPY.clubsAll, locale)} ↗</Link>
           </p>
+        </div>
+      </section>
+
+      {/* 17:48 The campus changes */}
+      <section id="oh-dusk" data-scene className="oh-scene oh-dusk">
+        <div className="oh-measure">
+          <p className="oh-dusk-line oh-reveal" data-reveal>
+            {t(COPY.duskLine, locale)}
+          </p>
+        </div>
+      </section>
+
+      {/* 18:11 Getting home */}
+      <section id="oh-home" data-scene className="oh-scene">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.homeTime, locale)}</span> ·{" "}
+            {t(COPY.homeKicker, locale)}
+          </p>
+          <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+            {t(COPY.homePrompt, locale)}
+          </h2>
+          {selectedArrive ? (
+            <p className="oh-home-callback oh-reveal" data-reveal data-delay="1">
+              {t(COPY.homeArrived, locale)} {t(selectedArrive.label, locale).toLowerCase()}.
+            </p>
+          ) : null}
+          <div className="oh-reveal" data-reveal data-delay="2">
+            <HomeBoard locale={locale} />
+          </div>
         </div>
       </section>
 

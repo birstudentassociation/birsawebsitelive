@@ -27,15 +27,16 @@ export async function generateMetadata({
   });
 }
 
-/** True on 31 Oct in the Bangkok timezone, regardless of the server's clock. */
-function isOpenHouseDay(): boolean {
+/** Where we are relative to Open House, in the Bangkok timezone. */
+function openHousePhase(): "pre" | "event" | "post" {
   const bangkok = new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Bangkok",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
   }).format(new Date());
-  return bangkok === OPEN_HOUSE.dateISO;
+  if (bangkok === OPEN_HOUSE.dateISO) return "event";
+  return bangkok < OPEN_HOUSE.dateISO ? "pre" : "post";
 }
 
 export default async function OpenHousePage({
@@ -56,7 +57,7 @@ export default async function OpenHousePage({
       courses={getCuratedCourses()}
       lunchDirections={getLunchDirections()}
       initial={state}
-      isEventDay={isOpenHouseDay()}
+      phase={openHousePhase()}
     />
   );
 }

@@ -226,6 +226,9 @@ html[lang="th"] .oh-kicker {
 }
 .oh-slip {
   appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
   cursor: pointer;
   background: var(--color-surface);
@@ -283,7 +286,7 @@ html[lang="th"] .oh-kicker {
 }
 .oh-card {
   width: min(22rem, 100%);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
@@ -504,21 +507,21 @@ html[lang="th"] .oh-teaser-label {
   text-transform: none;
   letter-spacing: 0.04em;
 }
+/* Non-interactive ideas read as an editorial run, not tappable chips. */
 .oh-tags {
   list-style: none;
-  margin: 0.6rem 0 0;
+  margin: 0.5rem 0 0;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
 }
 .oh-tag {
-  font-size: 0.82rem;
-  padding: 0.3rem 0.7rem;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 999px;
-  background: var(--color-sunken);
+  display: inline;
+  font-family: var(--font-heading);
+  font-size: 1rem;
   color: var(--color-ink);
+}
+.oh-tag:not(:last-child)::after {
+  content: " · ";
+  color: var(--color-line-strong);
 }
 .oh-teaser-takeaway {
   margin-top: 1.25rem;
@@ -595,7 +598,8 @@ html[lang="th"] .oh-teaser-label {
    Scenes: 08:42 getting there, 12:07 lunch, 16:34 clubs.
    ========================================================================== */
 
-/* 08:42 arrival modes — pill choices. */
+/* 08:42 arrival modes — rectangular editorial choices, not pills. The chosen
+   one fills with ink; a small leading rule marks it like a ticked line. */
 .oh-modes {
   display: flex;
   flex-wrap: wrap;
@@ -606,10 +610,11 @@ html[lang="th"] .oh-teaser-label {
   appearance: none;
   cursor: pointer;
   font: inherit;
-  padding: 0.6rem 1.1rem;
-  border-radius: 999px;
+  font-weight: 500;
+  padding: 0.65rem 1rem;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--color-line-strong);
-  background: var(--color-surface);
+  background: transparent;
   color: var(--color-ink);
   transition:
     background-color 0.2s ease,
@@ -619,6 +624,7 @@ html[lang="th"] .oh-teaser-label {
 .oh-mode:hover,
 .oh-mode:focus-visible {
   border-color: var(--color-ink);
+  background: var(--color-sunken);
 }
 .oh-mode[aria-pressed="true"] {
   background: var(--color-ink);
@@ -736,10 +742,13 @@ html[lang="th"] .oh-teaser-label {
   max-width: 34rem;
 }
 
-/* 16:34 clubs wall — per-texture accent so it doesn't read as identical tiles. */
+/* 16:34 clubs wall — the tiles differ by scale and an activity kicker, not by
+   colour. A few feature tiles span two columns so the wall reads as a real
+   wall of different things rather than a uniform grid. */
 .oh-wall {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  grid-auto-flow: dense;
   gap: 0.6rem;
   margin-top: 1.75rem;
 }
@@ -750,12 +759,11 @@ html[lang="th"] .oh-teaser-label {
   padding: 0.9rem 1rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-line);
-  border-left: 3px solid var(--oh-tex, var(--color-line-strong));
   background: var(--color-surface);
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.3rem;
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -764,64 +772,64 @@ html[lang="th"] .oh-teaser-label {
 .oh-club:hover,
 .oh-club:focus-visible {
   transform: translateY(-2px);
+  border-color: var(--color-line-strong);
   box-shadow: var(--shadow-md);
 }
 .oh-club[aria-pressed="true"] {
-  box-shadow: inset 0 0 0 1px var(--oh-tex, var(--oh-accent));
-  border-color: var(--oh-tex, var(--oh-accent));
+  border-color: var(--color-ink);
+  box-shadow: inset 0 0 0 1px var(--color-ink);
+}
+@media (min-width: 640px) {
+  .oh-club[data-feature="true"] {
+    grid-column: span 2;
+    padding: 1.1rem 1.25rem;
+  }
+}
+.oh-club-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-club-kicker {
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 .oh-club-name {
   font-family: var(--font-heading);
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.15;
 }
+.oh-club[data-feature="true"] .oh-club-name {
+  font-size: 1.25rem;
+}
 .oh-club-tag {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--color-muted);
-  line-height: 1.35;
-}
-
-.oh-club[data-texture="sport"],
-.oh-door[data-texture="sport"] {
-  --oh-tex: var(--color-forest);
-}
-.oh-club[data-texture="simulation"],
-.oh-door[data-texture="simulation"] {
-  --oh-tex: var(--color-brand);
-}
-.oh-club[data-texture="music"],
-.oh-door[data-texture="music"] {
-  --oh-tex: var(--color-warning);
-}
-.oh-club[data-texture="writing"],
-.oh-door[data-texture="writing"] {
-  --oh-tex: var(--color-info);
-}
-.oh-club[data-texture="media"],
-.oh-door[data-texture="media"] {
-  --oh-tex: var(--color-brand-deep);
-}
-.oh-club[data-texture="volunteering"],
-.oh-door[data-texture="volunteering"] {
-  --oh-tex: var(--color-success);
-}
-.oh-club[data-texture="games"],
-.oh-door[data-texture="games"] {
-  --oh-tex: var(--color-brand-strong);
-}
-.oh-club[data-texture="finance"],
-.oh-door[data-texture="finance"] {
-  --oh-tex: var(--color-line-strong);
+  line-height: 1.4;
 }
 
 .oh-door {
   margin-top: 1.5rem;
-  border-top: 2px solid var(--oh-tex, var(--oh-accent));
+  border-top: 2px solid var(--color-ink);
   padding-top: 1.25rem;
   max-width: 40rem;
 }
 .oh-animate .oh-door {
   animation: oh-fade 0.5s ease;
+}
+.oh-door-kicker {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 0.35rem;
+}
+html[lang="th"] .oh-door-kicker {
+  letter-spacing: 0.04em;
+  text-transform: none;
 }
 .oh-door-name {
   font-family: var(--font-heading);
@@ -861,12 +869,15 @@ html[lang="th"] .oh-door-join-label {
   flex-wrap: wrap;
 }
 .oh-door-open {
-  font-size: 0.78rem;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  background: var(--color-success-tint);
+  font-size: 0.85rem;
   color: var(--color-success);
   font-weight: 600;
+}
+.oh-door-open::before {
+  content: "●";
+  font-size: 0.62em;
+  vertical-align: 0.15em;
+  margin-right: 0.4em;
 }
 .oh-wall-all {
   margin-top: 1.5rem;
@@ -878,4 +889,204 @@ html[lang="th"] .oh-door-join-label {
   .oh-folio a[data-chosen="true"]::before {
     background: var(--oh-accent);
   }
+}
+
+/* ==========================================================================
+   Connective scenes, home board, event-day and archive banners.
+   ========================================================================== */
+
+/* Ten stops now, so tighten the desktop folio rhythm. */
+@media (min-width: 900px) {
+  .oh-folio ol {
+    gap: 1rem;
+  }
+}
+
+/* Event-day + archive banners. */
+.oh-event-banner {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  padding-block: 1.75rem;
+}
+.oh-event-welcome {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.2rem);
+  line-height: 1.15;
+}
+.oh-event-lead {
+  margin-top: 0.5rem;
+  color: color-mix(in oklab, var(--color-cream), transparent 22%);
+  max-width: 34rem;
+}
+.oh-event-actions {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.oh-event-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-cream), transparent 55%);
+  border-radius: var(--radius-sm);
+  color: var(--color-cream);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.oh-event-btn:hover {
+  background: color-mix(in oklab, var(--color-cream), transparent 85%);
+  color: var(--color-cream);
+}
+.oh-arc-banner {
+  background: var(--color-sunken);
+  border-bottom: 1px solid var(--color-line);
+  padding-block: 1.5rem;
+}
+.oh-arc-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem);
+  line-height: 1.15;
+}
+.oh-arc-lead {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  max-width: 34rem;
+}
+
+/* 10:47 between-classes: a pause, so it reads large and unhurried. */
+.oh-pause {
+  min-height: 70svh;
+  display: flex;
+  align-items: center;
+}
+.oh-pause-line {
+  margin-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
+  line-height: 1.25;
+  text-wrap: balance;
+  max-width: 30ch;
+}
+.oh-pause-body {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-muted);
+  max-width: 40rem;
+}
+
+/* 13:23 back-to-class: editorial questions, calm and spaced. */
+.oh-questions {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+}
+.oh-question {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.85rem);
+  line-height: 1.25;
+  text-wrap: balance;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--color-line-strong);
+  max-width: 30ch;
+}
+.oh-back-note {
+  margin-top: 1.75rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* 17:48 dusk: the visual high point. Almost no interface, lots of room, warm. */
+.oh-dusk {
+  min-height: 88svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in oklab, var(--color-warning-tint), transparent 40%)
+  );
+}
+.oh-dusk-line {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 1.3rem + 3vw, 3.4rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  max-width: 22ch;
+}
+
+/* 18:11 home board. */
+.oh-home-callback {
+  margin-top: 0.6rem;
+  color: var(--color-muted);
+}
+.oh-board {
+  margin-top: 1.75rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.oh-board-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 1.1rem 1.25rem;
+}
+.oh-board-row + .oh-board-row {
+  border-top: 1px solid var(--color-line);
+}
+.oh-board-route {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+}
+.oh-board-arrow {
+  color: var(--color-brand);
+}
+.oh-board-upcoming {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.oh-board-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-board-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-board-time {
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.oh-board-in {
+  font-size: 0.85rem;
+  color: var(--color-brand-deep);
+}
+.oh-board-state {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.oh-board-note {
+  margin: 0;
+  padding: 0.9rem 1.25rem;
+  background: var(--color-sunken);
+  border-top: 1px solid var(--color-line);
+  font-size: 0.82rem;
+  color: var(--color-muted);
 }

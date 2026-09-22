@@ -19,6 +19,20 @@ export type OpenHouseClub = {
   join: Bi | null;
   link: { url: string; label: string } | null;
   texture: ClubTexture;
+  /** Marks a wider feature tile so the wall varies in scale, not colour. */
+  feature?: boolean;
+};
+
+/** A short editorial label per activity, shown as a kicker above the name. */
+export const TEXTURE_LABELS: Record<ClubTexture, Bi> = {
+  sport: { en: "Sport", th: "กีฬา" },
+  simulation: { en: "Simulation", th: "จำลองสถานการณ์" },
+  writing: { en: "Writing", th: "งานเขียน" },
+  music: { en: "Music", th: "ดนตรี" },
+  volunteering: { en: "Volunteering", th: "อาสา" },
+  media: { en: "Media", th: "สื่อ" },
+  games: { en: "Games", th: "เกม" },
+  finance: { en: "Finance", th: "การเงิน" },
 };
 
 export const CLUBS: OpenHouseClub[] = [
@@ -40,6 +54,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     link: { url: "https://www.instagram.com/asa.ir.tu/", label: "Instagram" },
     texture: "volunteering",
+    feature: true,
   },
   {
     slug: "birify",
@@ -97,6 +112,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     link: { url: "https://www.instagram.com/birmusicclub/", label: "Instagram" },
     texture: "music",
+    feature: true,
   },
   {
     slug: "tu-mun",
@@ -116,6 +132,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     link: { url: "https://www.instagram.com/thammasatmun/", label: "Instagram" },
     texture: "simulation",
+    feature: true,
   },
   {
     slug: "parliamock-tu",
@@ -211,6 +228,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     link: { url: "https://www.instagram.com/biresport.club/", label: "Instagram" },
     texture: "games",
+    feature: true,
   },
   {
     slug: "bir-volleyball",

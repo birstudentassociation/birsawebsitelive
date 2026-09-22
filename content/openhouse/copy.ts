@@ -279,6 +279,35 @@ type Copy = {
   fnArrive: Bi;
   fnLunch: Bi;
   fnClub: Bi;
+  betweenTime: Bi;
+  betweenKicker: Bi;
+  betweenLine: Bi;
+  betweenBody: Bi;
+  backTime: Bi;
+  backKicker: Bi;
+  backLine: Bi;
+  backQuestions: Bi[];
+  backNote: Bi;
+  duskTime: Bi;
+  duskLine: Bi;
+  homeTime: Bi;
+  homeKicker: Bi;
+  homePrompt: Bi;
+  homeNote: Bi;
+  homeArrived: Bi;
+  homeNext: Bi;
+  homeMinutes: Bi;
+  homeWeekend: Bi;
+  homeClosed: Bi;
+  evtWelcome: Bi;
+  evtLead: Bi;
+  evtProgramme: Bi;
+  evtProgrammeTbc: Bi;
+  evtFindRoom: Bi;
+  evtExplore: Bi;
+  evtAsk: Bi;
+  arcHeadline: Bi;
+  arcLead: Bi;
   dayTime: Bi;
   dayKicker: Bi;
   daySubtitle: Bi;
@@ -371,6 +400,81 @@ export const COPY: Copy = {
   fnArrive: { en: "Arrived by", th: "มาถึงโดย" },
   fnLunch: { en: "Lunch", th: "มื้อกลางวัน" },
   fnClub: { en: "Then", th: "แล้วก็" },
+  betweenTime: { en: "10:47", th: "10:47" },
+  betweenKicker: { en: "Between classes", th: "ช่วงว่างระหว่างคาบ" },
+  betweenLine: {
+    en: "There is a lot of university in the hours that aren't on a timetable.",
+    th: "มหาวิทยาลัยมีอะไรอยู่เยอะในชั่วโมงที่ไม่มีอยู่ในตารางเรียน",
+  },
+  betweenBody: {
+    en: "A coffee on the way to the next building. Printing something too close to a deadline. Someone you know, on the steps by the river. Most of it never makes the prospectus.",
+    th: "กาแฟแก้วหนึ่งระหว่างเดินไปตึกถัดไป งานที่ปรินต์เอาตอนใกล้เดดไลน์ คนรู้จักสักคนที่บันไดริมน้ำ เรื่องพวกนี้ส่วนใหญ่ไม่เคยอยู่ในโบรชัวร์",
+  },
+  backTime: { en: "13:23", th: "13:23" },
+  backKicker: { en: "Back to class", th: "กลับเข้าเรียน" },
+  backLine: {
+    en: "The afternoon seminar is quieter, and it turns over questions like these.",
+    th: "คาบสัมมนาช่วงบ่ายจะเงียบกว่า และมักวนอยู่กับคำถามทำนองนี้",
+  },
+  backQuestions: [
+    {
+      en: "Who gets to define security, and for whom?",
+      th: "ใครเป็นคนนิยามความมั่นคง และเพื่อใคร",
+    },
+    {
+      en: "When does domestic politics become foreign policy?",
+      th: "การเมืองในประเทศกลายเป็นนโยบายต่างประเทศตอนไหน",
+    },
+    {
+      en: "What does international law actually constrain?",
+      th: "จริง ๆ แล้วกฎหมายระหว่างประเทศจำกัดอะไรได้บ้าง",
+    },
+  ],
+  backNote: {
+    en: "No single answer, which is rather the point.",
+    th: "ไม่มีคำตอบเดียว ซึ่งนั่นแหละคือประเด็น",
+  },
+  duskTime: { en: "17:48", th: "17:48" },
+  duskLine: {
+    en: "Some days end when class does. Some don't.",
+    th: "บางวันจบลงตอนเลิกเรียน บางวันไม่จบ",
+  },
+  homeTime: { en: "18:11", th: "18:11" },
+  homeKicker: { en: "Getting home", th: "เดินทางกลับ" },
+  homePrompt: {
+    en: "The last of the light, and the way back.",
+    th: "แสงสุดท้ายของวัน กับทางกลับบ้าน",
+  },
+  homeNote: {
+    en: "Scheduled departures from the Tha Prachan campus, weekdays. A timetable, not live tracking.",
+    th: "เวลาออกรถตามตารางจากท่าพระจันทร์ เฉพาะวันธรรมดา เป็นตารางเวลา ไม่ใช่การติดตามแบบเรียลไทม์",
+  },
+  homeArrived: { en: "This morning you came by", th: "เมื่อเช้าคุณมาโดย" },
+  homeNext: { en: "Next scheduled departure", th: "รอบออกถัดไปตามตาราง" },
+  homeMinutes: { en: "min", th: "นาที" },
+  homeWeekend: { en: "No service at weekends", th: "วันหยุดสุดสัปดาห์ไม่มีบริการ" },
+  homeClosed: { en: "Finished for the day", th: "หมดรอบของวันแล้ว" },
+  evtWelcome: { en: "You’re here. Welcome.", th: "คุณมาถึงแล้ว ยินดีต้อนรับ" },
+  evtLead: {
+    en: "Open House is on today. Here is what is useful while you're on campus.",
+    th: "วันนี้มีงาน Open House นี่คือสิ่งที่น่าจะมีประโยชน์ระหว่างอยู่ในคณะ",
+  },
+  evtProgramme: { en: "Today’s programme", th: "กำหนดการวันนี้" },
+  evtProgrammeTbc: {
+    en: "The full programme is being confirmed. Times and rooms will appear here closer to the day.",
+    th: "กำหนดการฉบับเต็มกำลังยืนยัน เวลาและห้องจะขึ้นตรงนี้เมื่อใกล้ถึงวันงาน",
+  },
+  evtFindRoom: { en: "Find the room", th: "หาห้อง" },
+  evtExplore: { en: "Explore BIR", th: "สำรวจ BIR" },
+  evtAsk: { en: "Ask a BIR student", th: "ถามรุ่นพี่ BIR" },
+  arcHeadline: {
+    en: "Open House has ended. BIR is still here.",
+    th: "Open House จบไปแล้ว แต่ BIR ยังอยู่ตรงนี้",
+  },
+  arcLead: {
+    en: "You can still walk the day, and everything it points to is open all year.",
+    th: "คุณยังลองเดินดูทั้งวันได้ และทุกอย่างที่มันพาไปก็เปิดให้ดูได้ตลอดทั้งปี",
+  },
   dayTime: { en: "Your day", th: "วันของคุณ" },
   dayKicker: { en: "Your day", th: "วันของคุณ" },
   daySubtitle: { en: "A day you tried on", th: "วันหนึ่งที่คุณได้ลองใช้" },
