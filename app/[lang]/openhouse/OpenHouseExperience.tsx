@@ -287,11 +287,12 @@ export default function OpenHouseExperience({
           className="oh-anchor"
           aria-hidden="true"
           viewBox="0 0 1200 300"
-          preserveAspectRatio="xMinYMax slice"
+          preserveAspectRatio="xMinYMax meet"
         >
-          {/* Baseline sits low with headroom above so Thai tone marks, which
-              stack well above cap height, are never clipped by the viewBox. */}
-          <text x="0" y="228">
+          {/* `textLength` fits the word to one consistent width in either
+              language, so English never sprawls off both edges; the low
+              baseline leaves headroom for Thai tone marks above cap height. */}
+          <text x="24" y="232" textLength="1152" lengthAdjust="spacingAndGlyphs">
             {locale === "th" ? "ท่าพระจันทร์" : "Tha Prachan"}
           </text>
         </svg>

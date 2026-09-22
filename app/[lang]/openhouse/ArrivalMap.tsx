@@ -41,10 +41,12 @@ const ROUTES: Record<string, PointKey[]> = {
   walk: ["sanamluang", "campus"],
 };
 
-// The map frames only what the current route touches (plus a little river
-// context by default), so it stays tight and legible instead of stretching to
-// hold the far-south MRT on every view. Picking a mode reframes to that journey.
-const DEFAULT_CONTEXT: PointKey[] = ["campus", "pier", "wanglang", "sanamluang"];
+// The near modes (ferry, bus, walk and the default view) share one steady
+// old-city frame so flipping between them doesn't jump the zoom around; only
+// the two long rides south (MRT, shuttle) widen the map to reach Sanam Chai,
+// where a bigger view is genuinely warranted.
+const NEAR_FRAME: PointKey[] = ["campus", "pier", "wanglang", "sanamluang"];
+const FAR_FRAME: PointKey[] = ["campus", "sanamluang", "sanamchai"];
 
 const stub = (p: MapPoint): Place => ({
   id: "",
@@ -59,7 +61,10 @@ const stub = (p: MapPoint): Place => ({
 export default function ArrivalMap({ locale, mode }: { locale: Locale; mode?: string }) {
   const route = mode ? ROUTES[mode] : undefined;
   const origin = route?.[0];
-  const shownKeys = route ? Array.from(new Set<PointKey>(["campus", ...route])) : DEFAULT_CONTEXT;
+  const isFar = mode === "mrt" || mode === "shuttle";
+  const shownKeys = Array.from(
+    new Set<PointKey>([...(isFar ? FAR_FRAME : NEAR_FRAME), ...(route ?? [])])
+  );
 
   const shownPoints = shownKeys.map((k) => stub(POINTS[k]));
   const zoom = fitZoom(shownPoints, { maxCols: 6, maxRows: 7, minZoom: 13, maxZoom: 16 });
@@ -109,7 +114,7 @@ export default function ArrivalMap({ locale, mode }: { locale: Locale; mode?: st
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          {route ? <path className="oh-map-route" d={routeD} pathLength={1} fill="none" /> : null}
+          {route ? <path className="oh-map-route" d={routeD} fill="none" /> : null}
           {shownKeys.map((k) => {
             const p = pos(k);
             const isCampus = k === "campus";
@@ -123,12 +128,12 @@ export default function ArrivalMap({ locale, mode }: { locale: Locale; mode?: st
                   }
                   cx={p.x}
                   cy={p.y}
-                  r={isCampus ? 11 : 7}
+                  r={isCampus ? 9 : 6}
                 />
                 <text
                   className={isCampus ? "oh-map-campus" : "oh-map-label"}
-                  x={anchorEnd ? p.x - 16 : p.x + 16}
-                  y={p.y + 8}
+                  x={anchorEnd ? p.x - 14 : p.x + 14}
+                  y={p.y + 7}
                   textAnchor={anchorEnd ? "end" : "start"}
                 >
                   {L(POINTS[k].label, locale)}
