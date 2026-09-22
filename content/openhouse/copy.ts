@@ -17,19 +17,164 @@ export const OPEN_HOUSE = {
 } as const;
 
 /**
+ * A short, honest glimpse of what each subject actually grapples with — "what
+ * could this class teach you", not a syllabus. Grounded in the official
+ * curriculum descriptions in `content/course-review/courses.ts`; the framing is
+ * BIRSA editorial and names only ideas genuinely central to the field, never a
+ * claim about a specific term's teaching.
+ */
+export type CourseTeaser = {
+  hook: Bi;
+  opens: Bi;
+  thinkers: Bi[];
+  takeaway: Bi;
+};
+
+/**
  * Curated for the 09:15 scene. The set deliberately spans political theory,
  * public policy, law, political economy, media and international relations so
- * the breadth is felt rather than argued. Titles are resolved from the real
- * course catalogue at build time; the `field` label is BIRSA editorial
- * framing, kept short for the slip.
+ * the breadth of the programme is felt rather than argued. Titles are resolved
+ * from the real course catalogue at build time.
  */
-export const CURATED_COURSES: { code: string; field: Bi }[] = [
-  { code: "PI210", field: { en: "Political theory", th: "ปรัชญาการเมือง" } },
-  { code: "PI241", field: { en: "Public policy", th: "นโยบายสาธารณะ" } },
-  { code: "PI291", field: { en: "International law", th: "กฎหมายระหว่างประเทศ" } },
-  { code: "PI293", field: { en: "Political economy", th: "เศรษฐกิจการเมือง" } },
-  { code: "PI313", field: { en: "Media and politics", th: "สื่อกับการเมือง" } },
-  { code: "PI280", field: { en: "International relations", th: "ความสัมพันธ์ระหว่างประเทศ" } },
+export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[] = [
+  {
+    code: "PI210",
+    field: { en: "Political theory", th: "ปรัชญาการเมือง" },
+    teaser: {
+      hook: { en: "What makes power worth obeying?", th: "อำนาจแบบไหนที่คนควรยอมทำตาม" },
+      opens: {
+        en: "Justice, the state, freedom, the good life — the oldest arguments in politics, still unsettled. You read Hobbes and Rousseau and Rawls alongside traditions from beyond the West, Confucian ideas of virtuous rule and Kautilya's statecraft, and learn to take an idea apart instead of just agreeing with it.",
+        th: "ความยุติธรรม รัฐ เสรีภาพ ชีวิตที่ดี ล้วนเป็นคำถามที่เก่าแก่ที่สุดของการเมืองและยังไม่มีใครตอบจบ คุณจะได้อ่านงานของฮอบส์ รุสโซ และรอลส์ ควบคู่ไปกับแนวคิดนอกสายตะวันตก ทั้งการปกครองโดยผู้มีคุณธรรมแบบขงจื๊อและตำราการปกครองของเกาฏิลยะ แล้วฝึกแยกแยะความคิดออกเป็นชิ้น ๆ แทนที่จะแค่เห็นด้วย",
+      },
+      thinkers: [
+        { en: "Justice", th: "ความยุติธรรม" },
+        { en: "Social contract", th: "สัญญาประชาคม" },
+        { en: "Hobbes to Rawls", th: "ฮอบส์ถึงรอลส์" },
+        { en: "Confucius & Kautilya", th: "ขงจื๊อและเกาฏิลยะ" },
+      ],
+      takeaway: {
+        en: "You leave able to argue a position — and find its weakest point.",
+        th: "คุณจะออกไปพร้อมกับการโต้แย้งความคิดได้ และมองเห็นจุดอ่อนของมันด้วย",
+      },
+    },
+  },
+  {
+    code: "PI241",
+    field: { en: "Public policy", th: "นโยบายสาธารณะ" },
+    teaser: {
+      hook: {
+        en: "How does a decision reach real life?",
+        th: "การตัดสินใจหนึ่งไปถึงชีวิตจริงได้อย่างไร",
+      },
+      opens: {
+        en: "Between a policy on paper and a service you actually use sits a whole machinery — Weber's bureaucracy, budgets, accountability, ethics — and the old question of where politics ends and administration begins. This is where you learn how the state is run, and where it breaks.",
+        th: "ระหว่างนโยบายบนกระดาษกับบริการที่คุณใช้จริง มีกลไกทั้งระบบคั่นอยู่ ทั้งระบบราชการแบบเวเบอร์ งบประมาณ ความรับผิดชอบ และจริยธรรม รวมถึงคำถามเก่าแก่ว่าการเมืองสิ้นสุดตรงไหนและการบริหารเริ่มต้นตรงไหน ที่นี่คือที่ที่คุณจะได้เรียนว่ารัฐทำงานอย่างไร และพังตรงไหน",
+      },
+      thinkers: [
+        { en: "Politics vs administration", th: "การเมืองกับการบริหาร" },
+        { en: "Weber's bureaucracy", th: "ระบบราชการแบบเวเบอร์" },
+        { en: "The policy cycle", th: "วงจรนโยบาย" },
+        { en: "Accountability", th: "ความรับผิดชอบ" },
+      ],
+      takeaway: {
+        en: "You learn to trace a decision from intention to impact.",
+        th: "คุณจะฝึกไล่ตามการตัดสินใจตั้งแต่ความตั้งใจจนถึงผลกระทบจริง",
+      },
+    },
+  },
+  {
+    code: "PI291",
+    field: { en: "International law", th: "กฎหมายระหว่างประเทศ" },
+    teaser: {
+      hook: {
+        en: "What binds a country that answers to no one?",
+        th: "อะไรผูกมัดประเทศที่ไม่ต้องขึ้นกับใคร",
+      },
+      opens: {
+        en: "With no world government, what makes international law real? You work case by case through its sources, sovereignty, the law of the sea, and moments like Nuremberg that held individuals answerable — reasoning the way it is actually argued.",
+        th: "ในเมื่อไม่มีรัฐบาลโลก อะไรทำให้กฎหมายระหว่างประเทศมีผลจริง คุณจะได้ไล่เรียงทีละกรณี ทั้งที่มาของกฎหมาย อำนาจอธิปไตย กฎหมายทะเล และเหตุการณ์อย่างการพิจารณาคดีนูเรมเบิร์กที่เอาผิดบุคคลได้ อย่างที่เขาถกเถียงกันจริง",
+      },
+      thinkers: [
+        { en: "Sovereignty", th: "อำนาจอธิปไตย" },
+        { en: "Sources of law", th: "ที่มาของกฎหมาย" },
+        { en: "Nuremberg", th: "นูเรมเบิร์ก" },
+        { en: "Law of the sea", th: "กฎหมายทะเล" },
+      ],
+      takeaway: {
+        en: "You learn to reason like a lawyer about a world with no single ruler.",
+        th: "คุณจะฝึกคิดอย่างนักกฎหมายในโลกที่ไม่มีผู้ปกครองคนเดียว",
+      },
+    },
+  },
+  {
+    code: "PI293",
+    field: { en: "Political economy", th: "เศรษฐกิจการเมือง" },
+    teaser: {
+      hook: {
+        en: "Why are some countries rich and others kept poor?",
+        th: "ทำไมบางประเทศรวย บางประเทศถูกทำให้จน",
+      },
+      opens: {
+        en: "Markets and power have never been separate. You trace capitalism from the first global trade to today's developmental states, following the arguments — Smith, Marx, Polanyi — over whether a market is natural or built, and who ends up with what.",
+        th: "ตลาดกับอำนาจไม่เคยแยกออกจากกัน คุณจะได้ไล่ประวัติทุนนิยมตั้งแต่การค้าโลกยุคแรกจนถึงรัฐนำการพัฒนาในปัจจุบัน ผ่านข้อถกเถียงของสมิธ มาร์กซ์ และโพลานยี ว่าตลาดเป็นเรื่องธรรมชาติหรือถูกสร้างขึ้น และสุดท้ายใครได้อะไร",
+      },
+      thinkers: [
+        { en: "History of capitalism", th: "ประวัติทุนนิยม" },
+        { en: "Smith to Marx", th: "สมิธถึงมาร์กซ์" },
+        { en: "Polanyi", th: "โพลานยี" },
+        { en: "The developmental state", th: "รัฐนำการพัฒนา" },
+      ],
+      takeaway: {
+        en: "You stop seeing the economy as natural, and start seeing it as built.",
+        th: "คุณจะเลิกมองเศรษฐกิจว่าเป็นเรื่องธรรมชาติ แล้วเห็นว่ามันถูกสร้างขึ้น",
+      },
+    },
+  },
+  {
+    code: "PI313",
+    field: { en: "Media and politics", th: "สื่อกับการเมือง" },
+    teaser: {
+      hook: { en: "Who decides what the world notices?", th: "ใครเป็นคนกำหนดว่าโลกจะสนใจอะไร" },
+      opens: {
+        en: "News, memes and feeds don't just report politics — they shape it. You study how media set the agenda and frame what we argue about, how information and misinformation spread, and how social platforms rewired who gets to speak.",
+        th: "ข่าว มีม และฟีดไม่ได้แค่รายงานการเมือง แต่กำหนดการเมืองด้วย คุณจะได้ศึกษาว่าสื่อจัดวาระและวางกรอบสิ่งที่เราถกเถียงกันอย่างไร ข้อมูลจริงและข้อมูลลวงแพร่กระจายอย่างไร และแพลตฟอร์มออนไลน์เปลี่ยนว่าใครมีสิทธิ์พูดไปแค่ไหน",
+      },
+      thinkers: [
+        { en: "Agenda-setting", th: "การจัดวาระ" },
+        { en: "Framing", th: "การวางกรอบ" },
+        { en: "How news is made", th: "ข่าวถูกสร้างอย่างไร" },
+        { en: "Social media", th: "สื่อสังคมออนไลน์" },
+      ],
+      takeaway: {
+        en: "You learn to read the medium, not just the message.",
+        th: "คุณจะอ่านตัวสื่อเป็น ไม่ใช่แค่เนื้อหาที่มันบอก",
+      },
+    },
+  },
+  {
+    code: "PI280",
+    field: { en: "International relations", th: "ความสัมพันธ์ระหว่างประเทศ" },
+    teaser: {
+      hook: {
+        en: "Why do states go to war, and why do they stop?",
+        th: "ทำไมรัฐถึงทำสงคราม และทำไมถึงหยุด",
+      },
+      opens: {
+        en: "Terrorism, nuclear weapons, human rights, trade — this is where IR theory meets the headlines. You pit realism, liberalism and constructivism against real events — “anarchy is what states make of it” — to see which explanations actually hold up.",
+        th: "การก่อการร้าย อาวุธนิวเคลียร์ สิทธิมนุษยชน การค้า ที่นี่คือจุดที่ทฤษฎีความสัมพันธ์ระหว่างประเทศมาเจอกับพาดหัวข่าว คุณจะได้เอาสัจนิยม เสรีนิยม และคอนสตรัคติวิสต์มาปะทะกับเหตุการณ์จริง แล้วดูว่าคำอธิบายไหนอยู่รอด",
+      },
+      thinkers: [
+        { en: "Realism vs liberalism", th: "สัจนิยมกับเสรีนิยม" },
+        { en: "Constructivism", th: "คอนสตรัคติวิสต์" },
+        { en: "Nuclear proliferation", th: "การแพร่ขยายนิวเคลียร์" },
+        { en: "Human rights", th: "สิทธิมนุษยชน" },
+      ],
+      takeaway: {
+        en: "You learn to explain the news instead of just following it.",
+        th: "คุณจะอธิบายข่าวได้ ไม่ใช่แค่ตามข่าว",
+      },
+    },
+  },
 ];
 
 type Copy = {
@@ -45,7 +190,9 @@ type Copy = {
   classKicker: Bi;
   classPrompt: Bi;
   classNote: Bi;
-  fullReview: Bi;
+  classHint: Bi;
+  keyIdeas: Bi;
+  curriculumLink: Bi;
   dayTime: Bi;
   dayKicker: Bi;
   daySubtitle: Bi;
@@ -88,10 +235,18 @@ export const COPY: Copy = {
   classKicker: { en: "First class", th: "คาบแรก" },
   classPrompt: { en: "What would you sit in on?", th: "อยากลองเข้าเรียนวิชาไหน" },
   classNote: {
-    en: "Six of the things people study here. Choose one to keep for your day.",
-    th: "หกวิชาที่คนที่นี่เรียนกัน เลือกสักวิชาไว้เป็นส่วนหนึ่งของวันนี้",
+    en: "Six of the things people study here. Sit in on one, and it stays with your day.",
+    th: "หกวิชาที่คนที่นี่เรียนกัน ลองเข้าไปนั่งเรียนสักวิชา แล้วมันจะติดอยู่กับวันของคุณ",
   },
-  fullReview: { en: "Read the full course review", th: "อ่านรีวิววิชาแบบเต็ม" },
+  classHint: {
+    en: "Pick a class to sit in on",
+    th: "เลือกวิชาที่อยากเข้าไปนั่งเรียน",
+  },
+  keyIdeas: { en: "Ideas you'd meet", th: "แนวคิดที่จะได้เจอ" },
+  curriculumLink: {
+    en: "See the full BIR curriculum",
+    th: "ดูหลักสูตร BIR แบบเต็ม",
+  },
   dayTime: { en: "Your day", th: "วันของคุณ" },
   dayKicker: { en: "Your day", th: "วันของคุณ" },
   daySubtitle: { en: "A day you tried on", th: "วันหนึ่งที่คุณได้ลองใช้" },

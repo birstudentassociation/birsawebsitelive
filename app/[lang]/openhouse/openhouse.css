@@ -354,3 +354,239 @@ html[lang="th"] .oh-fact dt {
   margin: 0.3rem 0 0;
   font-size: 1.05rem;
 }
+
+/* ==========================================================================
+   Gate-B revisions: arrival atmosphere without photography, editorial slips
+   that reveal a researched teaser, the folio "carry", and shared headings.
+   ========================================================================== */
+
+.oh-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 1.4rem + 2.5vw, 3rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin-top: 0.75rem;
+}
+html[lang="th"] .oh-heading {
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+.oh-lede {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  max-width: 34rem;
+}
+
+/* Arrival: a large place-name anchors the space behind the words, so the scene
+   has atmosphere from type and the river alone until photography arrives. */
+.oh-arrival {
+  position: relative;
+  overflow: hidden;
+}
+.oh-arrival-body {
+  position: relative;
+  z-index: 1;
+}
+.oh-anchor {
+  position: absolute;
+  z-index: 0;
+  left: -0.02em;
+  bottom: -0.1em;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(4rem, 17vw, 14rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: color-mix(in oklab, var(--color-line-strong), transparent 42%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+html[lang="th"] .oh-anchor {
+  letter-spacing: 0.02em;
+  font-size: clamp(3rem, 13vw, 10rem);
+}
+.oh-arrival-sub {
+  margin-top: 1rem;
+  font-size: clamp(1.05rem, 1rem + 0.6vw, 1.35rem);
+  color: var(--color-muted);
+  max-width: 32rem;
+}
+.oh-arrival-river {
+  width: min(100%, 34rem);
+  height: auto;
+  display: block;
+  margin-top: 2rem;
+}
+.oh-arrival-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+/* Editorial slips: at rest each sits at a slightly different angle so the set
+   reads as a loose stack of papers, not a grid of identical cards. Hover and
+   selection straighten and lift — no real overlap, so tap targets stay clean
+   on mobile (where the rotation is dropped entirely). */
+@media (min-width: 900px) {
+  .oh-slip:nth-child(3n + 1) {
+    transform: rotate(-0.8deg);
+  }
+  .oh-slip:nth-child(3n + 2) {
+    transform: translateY(0.4rem) rotate(0.7deg);
+  }
+  .oh-slip:nth-child(3n + 3) {
+    transform: rotate(1deg);
+  }
+  .oh-slip:hover,
+  .oh-slip:focus-visible,
+  .oh-slip[aria-pressed="true"] {
+    transform: translateY(-3px) rotate(0deg);
+  }
+}
+
+/* Researched teaser panel revealed by the selected slip. */
+.oh-teaser-slot {
+  margin-top: 1.75rem;
+}
+.oh-teaser {
+  border-top: 2px solid var(--oh-accent);
+  padding-top: 1.25rem;
+  max-width: 38rem;
+}
+.oh-animate .oh-teaser {
+  animation: oh-fade 0.5s ease;
+}
+@keyframes oh-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.oh-teaser-eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-deep);
+}
+html[lang="th"] .oh-teaser-eyebrow {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-teaser-hook {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem);
+  line-height: 1.15;
+  margin-top: 0.5rem;
+  text-wrap: balance;
+}
+.oh-teaser-opens {
+  margin-top: 0.9rem;
+  font-size: 1.03rem;
+  line-height: 1.7;
+}
+.oh-teaser-label {
+  margin-top: 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-teaser-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-tags {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.oh-tag {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 999px;
+  background: var(--color-sunken);
+  color: var(--color-ink);
+}
+.oh-teaser-takeaway {
+  margin-top: 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+.oh-teaser-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+.oh-teaser-empty {
+  margin-top: 1.75rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+/* Folio: the chosen course is carried into the 09:15 stop (desktop); a compact
+   current-time chip gives the mobile progress bar a readable label. */
+.oh-folio-carry {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  color: var(--oh-accent);
+  font-weight: 600;
+  font-size: 0.7rem;
+  margin-top: 0.15rem;
+}
+.oh-folio-now {
+  display: none;
+  margin: 0;
+}
+@media (max-width: 899px) {
+  .oh-folio-now {
+    display: block;
+    position: fixed;
+    top: 0.5rem;
+    right: 0.75rem;
+    z-index: 31;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    background: var(--color-surface);
+    padding: 0.1rem 0.55rem;
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.oh-restart {
+  background: none;
+  border: 0;
+  color: var(--color-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  font: inherit;
+}
+.oh-restart:hover {
+  color: var(--color-ink);
+}
+.oh-invite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.oh-invite-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}

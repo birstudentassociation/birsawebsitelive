@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { courses } from "@/content/course-review/courses";
-import { CURATED_COURSES, type Bi } from "@/content/openhouse/copy";
+import { CURATED_COURSES, type Bi, type CourseTeaser } from "@/content/openhouse/copy";
 
 export type CuratedCourse = {
   code: string;
   title: Bi;
   field: Bi;
+  teaser: CourseTeaser;
 };
 
 /**
@@ -14,10 +15,10 @@ export type CuratedCourse = {
  * than rendered blank.
  */
 export function getCuratedCourses(): CuratedCourse[] {
-  return CURATED_COURSES.flatMap(({ code, field }) => {
+  return CURATED_COURSES.flatMap(({ code, field, teaser }) => {
     const course = courses.find((c) => c.code === code);
     if (!course) return [];
-    return [{ code: course.code, title: course.title, field }];
+    return [{ code: course.code, title: course.title, field, teaser }];
   });
 }
 
