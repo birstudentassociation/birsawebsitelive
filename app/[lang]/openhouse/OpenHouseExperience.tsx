@@ -9,6 +9,7 @@ import { mapsHref, type CuratedCourse, type LunchDirection } from "@/lib/openhou
 import { ARRIVE_MODES, COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
 import { CLUBS, TEXTURE_LABELS } from "@/content/openhouse/clubs";
 import RiverTrace from "./RiverTrace";
+import ArrivalMap from "./ArrivalMap";
 import HomeBoard from "./HomeBoard";
 import FieldNote, { FIELDNOTE_SVG_ID, type FieldNoteEntry } from "./FieldNote";
 
@@ -334,6 +335,9 @@ export default function OpenHouseExperience({
           <p className="oh-lede oh-reveal" data-reveal data-delay="1">
             {t(COPY.arriveNote, locale)}
           </p>
+          <div className="oh-map oh-reveal" data-reveal data-delay="2">
+            <ArrivalMap locale={locale} mode={arrive} />
+          </div>
           <div className="oh-modes" role="group" aria-label={t(COPY.arrivePrompt, locale)}>
             {ARRIVE_MODES.map((m, i) => (
               <button
