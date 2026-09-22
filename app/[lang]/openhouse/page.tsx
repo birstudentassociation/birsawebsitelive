@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { getCuratedCourses, parseState } from "@/lib/openhouse";
+import { getCuratedCourses, getLunchDirections, parseState } from "@/lib/openhouse";
 import { COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
 import OpenHouseExperience from "./OpenHouseExperience";
 import "./openhouse.css";
@@ -54,7 +54,8 @@ export default async function OpenHousePage({
     <OpenHouseExperience
       locale={locale}
       courses={getCuratedCourses()}
-      initialCourse={state.course}
+      lunchDirections={getLunchDirections()}
+      initial={state}
       isEventDay={isOpenHouseDay()}
     />
   );

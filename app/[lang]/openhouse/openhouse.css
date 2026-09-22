@@ -590,3 +590,292 @@ html[lang="th"] .oh-teaser-label {
   font-size: 0.9rem;
   color: var(--color-muted);
 }
+
+/* ==========================================================================
+   Scenes: 08:42 getting there, 12:07 lunch, 16:34 clubs.
+   ========================================================================== */
+
+/* 08:42 arrival modes — pill choices. */
+.oh-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+}
+.oh-mode {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-line-strong);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.oh-mode:hover,
+.oh-mode:focus-visible {
+  border-color: var(--color-ink);
+}
+.oh-mode[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  border-color: var(--color-ink);
+}
+
+/* 12:07 lunch directions + places. */
+.oh-directions {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+@media (min-width: 640px) {
+  .oh-directions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.oh-direction {
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  padding: 1.1rem 1.2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.oh-direction:hover,
+.oh-direction:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--color-line-strong);
+}
+.oh-direction[aria-pressed="true"] {
+  border-color: var(--oh-accent);
+  box-shadow: inset 0 0 0 1px var(--oh-accent);
+}
+.oh-direction-label {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+}
+.oh-direction-blurb {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.oh-places {
+  margin-top: 1.5rem;
+}
+.oh-animate .oh-places {
+  animation: oh-fade 0.5s ease;
+}
+.oh-ferry-trace {
+  width: min(100%, 26rem);
+  height: auto;
+  display: block;
+  margin-bottom: 0.75rem;
+  opacity: 0.85;
+}
+.oh-place-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .oh-place-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.oh-place {
+  border-top: 1px solid var(--color-line);
+  padding-top: 0.75rem;
+}
+.oh-place-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+.oh-place-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0;
+}
+.oh-place-cat {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+.oh-place-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+.oh-place-link {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-brand-deep);
+  font-weight: 500;
+}
+.oh-map-note {
+  margin-top: 1.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  max-width: 34rem;
+}
+
+/* 16:34 clubs wall — per-texture accent so it doesn't read as identical tiles. */
+.oh-wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+}
+.oh-club {
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--oh-tex, var(--color-line-strong));
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.oh-club:hover,
+.oh-club:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.oh-club[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 1px var(--oh-tex, var(--oh-accent));
+  border-color: var(--oh-tex, var(--oh-accent));
+}
+.oh-club-name {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  line-height: 1.15;
+}
+.oh-club-tag {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  line-height: 1.35;
+}
+
+.oh-club[data-texture="sport"],
+.oh-door[data-texture="sport"] {
+  --oh-tex: var(--color-forest);
+}
+.oh-club[data-texture="simulation"],
+.oh-door[data-texture="simulation"] {
+  --oh-tex: var(--color-brand);
+}
+.oh-club[data-texture="music"],
+.oh-door[data-texture="music"] {
+  --oh-tex: var(--color-warning);
+}
+.oh-club[data-texture="writing"],
+.oh-door[data-texture="writing"] {
+  --oh-tex: var(--color-info);
+}
+.oh-club[data-texture="media"],
+.oh-door[data-texture="media"] {
+  --oh-tex: var(--color-brand-deep);
+}
+.oh-club[data-texture="volunteering"],
+.oh-door[data-texture="volunteering"] {
+  --oh-tex: var(--color-success);
+}
+.oh-club[data-texture="games"],
+.oh-door[data-texture="games"] {
+  --oh-tex: var(--color-brand-strong);
+}
+.oh-club[data-texture="finance"],
+.oh-door[data-texture="finance"] {
+  --oh-tex: var(--color-line-strong);
+}
+
+.oh-door {
+  margin-top: 1.5rem;
+  border-top: 2px solid var(--oh-tex, var(--oh-accent));
+  padding-top: 1.25rem;
+  max-width: 40rem;
+}
+.oh-animate .oh-door {
+  animation: oh-fade 0.5s ease;
+}
+.oh-door-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem);
+  line-height: 1.15;
+}
+.oh-door-tag {
+  margin-top: 0.4rem;
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+.oh-door-detail {
+  margin-top: 0.9rem;
+  font-size: 1.03rem;
+  line-height: 1.6;
+}
+.oh-door-join {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+.oh-door-join-label {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  color: var(--color-ink);
+}
+html[lang="th"] .oh-door-join-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-door-foot {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.oh-door-open {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-success-tint);
+  color: var(--color-success);
+  font-weight: 600;
+}
+.oh-wall-all {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Folio: a chosen stop lights up even when it is not the current one. */
+@media (min-width: 900px) {
+  .oh-folio a[data-chosen="true"]::before {
+    background: var(--oh-accent);
+  }
+}

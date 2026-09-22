@@ -1,36 +1,89 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import ExternalLink from "@/components/ExternalLink";
 import { localeHref, formatDate, type Locale } from "@/lib/i18n";
-import type { CuratedCourse } from "@/lib/openhouse";
-import { COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
+import { mapsHref, type CuratedCourse, type LunchDirection } from "@/lib/openhouse";
+import { ARRIVE_MODES, COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
+import { CLUBS } from "@/content/openhouse/clubs";
 import RiverTrace from "./RiverTrace";
-import FieldNote, { FIELDNOTE_SVG_ID } from "./FieldNote";
+import FieldNote, { FIELDNOTE_SVG_ID, type FieldNoteEntry } from "./FieldNote";
 
 type Props = {
   locale: Locale;
   courses: CuratedCourse[];
-  initialCourse?: string;
+  lunchDirections: LunchDirection[];
+  initial: { arrive?: string; course?: string; lunch?: string; club?: string };
   isEventDay: boolean;
 };
 
 const folioStops = [
-  { id: "oh-arrival", label: COPY.folioArrival },
-  { id: "oh-class", label: COPY.classTime },
-  { id: "oh-day", label: COPY.folioDay },
+  { id: "oh-arrival", label: COPY.folioArrival, key: null },
+  { id: "oh-arrive", label: COPY.arriveTime, key: "arrive" as const },
+  { id: "oh-class", label: COPY.classTime, key: "course" as const },
+  { id: "oh-lunch", label: COPY.lunchTime, key: "lunch" as const },
+  { id: "oh-clubs", label: COPY.clubsTime, key: "club" as const },
+  { id: "oh-day", label: COPY.folioDay, key: null },
 ];
 
-export default function OpenHouseExperience({ locale, courses, initialCourse, isEventDay }: Props) {
+export default function OpenHouseExperience({
+  locale,
+  courses,
+  lunchDirections,
+  initial,
+  isEventDay,
+}: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [course, setCourse] = useState<string | undefined>(initialCourse);
+  const [arrive, setArrive] = useState<string | undefined>(initial.arrive);
+  const [course, setCourse] = useState<string | undefined>(initial.course);
+  const [lunch, setLunch] = useState<string | undefined>(initial.lunch);
+  const [club, setClub] = useState<string | undefined>(initial.club);
   const [name, setName] = useState("");
   const [active, setActive] = useState("oh-arrival");
   const [toast, setToast] = useState("");
 
-  const selected = courses.find((c) => c.code === course) ?? null;
+  const selectedCourse = courses.find((c) => c.code === course) ?? null;
+  const selectedArrive = ARRIVE_MODES.find((m) => m.key === arrive) ?? null;
+  const selectedLunch = lunchDirections.find((d) => d.key === lunch) ?? null;
+  const selectedClub = CLUBS.find((c) => c.slug === club) ?? null;
   const activeStop = folioStops.find((s) => s.id === active) ?? folioStops[0];
+  const chosen: Record<string, boolean> = {
+    arrive: !!arrive,
+    course: !!course,
+    lunch: !!lunch,
+    club: !!club,
+  };
+
+  const entries = useMemo<FieldNoteEntry[]>(() => {
+    const out: FieldNoteEntry[] = [];
+    if (selectedArrive)
+      out.push({
+        time: "08:42",
+        label: t(COPY.fnArrive, locale),
+        value: t(selectedArrive.card, locale),
+      });
+    if (selectedCourse)
+      out.push({
+        time: "09:15",
+        label: t(COPY.cardChoiceCourse, locale),
+        value: `${selectedCourse.code} · ${t(selectedCourse.field, locale)}`,
+      });
+    if (selectedLunch)
+      out.push({
+        time: "12:07",
+        label: t(COPY.fnLunch, locale),
+        value: t(selectedLunch.label, locale),
+      });
+    if (selectedClub)
+      out.push({
+        time: "16:34",
+        label: t(COPY.fnClub, locale),
+        value: t(selectedClub.name, locale),
+      });
+    return out;
+  }, [selectedArrive, selectedCourse, selectedLunch, selectedClub, locale]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -40,8 +93,8 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
 
     const revealObserver = animate
       ? new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
+          (entriesIO) => {
+            for (const e of entriesIO) {
               if (e.isIntersecting) {
                 e.target.classList.add("is-in");
                 revealObserver!.unobserve(e.target);
@@ -56,8 +109,8 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
     }
 
     const sceneObserver = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
+      (entriesIO) => {
+        for (const e of entriesIO) {
           if (e.isIntersecting) setActive(e.target.id);
         }
       },
@@ -86,14 +139,22 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
     };
   }, []);
 
+  // Carry the choices into a shareable URL without a reload. Only the day's
+  // closed-set choices go in; the name never leaves the browser.
   useEffect(() => {
     const url = new URL(window.location.href);
-    if (course) url.searchParams.set("course", course);
-    else url.searchParams.delete("course");
+    const set = (k: string, v: string | undefined) =>
+      v ? url.searchParams.set(k, v) : url.searchParams.delete(k);
+    set("arrive", arrive);
+    set("course", course);
+    set("lunch", lunch);
+    set("club", club);
     window.history.replaceState(null, "", url);
-  }, [course]);
+  }, [arrive, course, lunch, club]);
 
-  const chooseCourse = (code: string) => setCourse((prev) => (prev === code ? undefined : code));
+  const toggle =
+    (setter: (fn: (prev: string | undefined) => string | undefined) => void) => (value: string) =>
+      setter((prev) => (prev === value ? undefined : value));
 
   const showToast = useCallback((msg: string) => {
     setToast(msg);
@@ -133,7 +194,7 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
       const scale = 2;
       const canvas = document.createElement("canvas");
       canvas.width = 480 * scale;
-      canvas.height = 600 * scale;
+      canvas.height = 640 * scale;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -150,16 +211,22 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
     img.src = url;
   }, []);
 
+  const anyChoice = !!(arrive || course || lunch || club);
+
   return (
     <div className="oh" ref={rootRef}>
       <nav className="oh-folio" aria-label={t(COPY.dayKicker, locale)}>
         <p className="oh-folio-now oh-time" aria-hidden="true">
-          {active === "oh-class" && course ? course : activeStop ? t(activeStop.label, locale) : ""}
+          {activeStop ? t(activeStop.label, locale) : ""}
         </p>
         <ol>
           {folioStops.map((s) => (
             <li key={s.id}>
-              <a href={`#${s.id}`} aria-current={active === s.id}>
+              <a
+                href={`#${s.id}`}
+                aria-current={active === s.id}
+                data-chosen={s.key ? chosen[s.key] : undefined}
+              >
                 <span className="oh-time">{t(s.label, locale)}</span>
                 {s.id === "oh-class" && course ? (
                   <span className="oh-folio-carry">{course}</span>
@@ -200,7 +267,7 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
           </p>
           <RiverTrace className="oh-trace oh-arrival-river oh-reveal" data-reveal data-delay="2" />
           <div className="oh-arrival-actions oh-reveal" data-reveal data-delay="3">
-            <Button href="#oh-class" variant="primary">
+            <Button href="#oh-arrive" variant="primary">
               {t(COPY.walk, locale)}
             </Button>
             {isEventDay ? (
@@ -212,6 +279,37 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
           <p className="oh-scroll-hint oh-reveal" data-reveal data-delay="3">
             {t(COPY.scroll, locale)}
           </p>
+        </div>
+      </section>
+
+      {/* 08:42 Getting there */}
+      <section id="oh-arrive" data-scene className="oh-scene">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.arriveTime, locale)}</span> ·{" "}
+            {t(COPY.arriveKicker, locale)}
+          </p>
+          <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+            {t(COPY.arrivePrompt, locale)}
+          </h2>
+          <p className="oh-lede oh-reveal" data-reveal data-delay="1">
+            {t(COPY.arriveNote, locale)}
+          </p>
+          <div className="oh-modes" role="group" aria-label={t(COPY.arrivePrompt, locale)}>
+            {ARRIVE_MODES.map((m, i) => (
+              <button
+                key={m.key}
+                type="button"
+                className="oh-mode oh-reveal"
+                data-reveal
+                data-delay={String((i % 3) + 1)}
+                aria-pressed={m.key === arrive}
+                onClick={() => toggle(setArrive)(m.key)}
+              >
+                {t(m.label, locale)}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -230,48 +328,45 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
           </p>
 
           <div className="oh-slips" role="group" aria-label={t(COPY.classHint, locale)}>
-            {courses.map((c, i) => {
-              const isSel = c.code === course;
-              return (
-                <button
-                  key={c.code}
-                  type="button"
-                  className="oh-slip oh-reveal"
-                  data-reveal
-                  data-delay={String((i % 3) + 1)}
-                  aria-pressed={isSel}
-                  aria-expanded={isSel}
-                  onClick={() => chooseCourse(c.code)}
-                >
-                  <span className="oh-slip-code">{c.code}</span>
-                  <span className="oh-slip-title">{t(c.title, locale)}</span>
-                  <span className="oh-slip-field">{t(c.field, locale)}</span>
-                </button>
-              );
-            })}
+            {courses.map((c, i) => (
+              <button
+                key={c.code}
+                type="button"
+                className="oh-slip oh-reveal"
+                data-reveal
+                data-delay={String((i % 3) + 1)}
+                aria-pressed={c.code === course}
+                aria-expanded={c.code === course}
+                onClick={() => toggle(setCourse)(c.code)}
+              >
+                <span className="oh-slip-code">{c.code}</span>
+                <span className="oh-slip-title">{t(c.title, locale)}</span>
+                <span className="oh-slip-field">{t(c.field, locale)}</span>
+              </button>
+            ))}
           </div>
 
           <div className="oh-teaser-slot" aria-live="polite">
-            {selected ? (
+            {selectedCourse ? (
               <article
-                key={selected.code}
+                key={selectedCourse.code}
                 className="oh-teaser"
-                aria-label={`${selected.code} ${t(selected.title, locale)}`}
+                aria-label={`${selectedCourse.code} ${t(selectedCourse.title, locale)}`}
               >
                 <p className="oh-teaser-eyebrow oh-time">
-                  {t(COPY.cardChoiceCourse, locale)} · {selected.code}
+                  {t(COPY.cardChoiceCourse, locale)} · {selectedCourse.code}
                 </p>
-                <h3 className="oh-teaser-hook">{t(selected.teaser.hook, locale)}</h3>
-                <p className="oh-teaser-opens">{t(selected.teaser.opens, locale)}</p>
+                <h3 className="oh-teaser-hook">{t(selectedCourse.teaser.hook, locale)}</h3>
+                <p className="oh-teaser-opens">{t(selectedCourse.teaser.opens, locale)}</p>
                 <p className="oh-teaser-label">{t(COPY.keyIdeas, locale)}</p>
                 <ul className="oh-tags">
-                  {selected.teaser.thinkers.map((th_, k) => (
+                  {selectedCourse.teaser.thinkers.map((idea, k) => (
                     <li key={k} className="oh-tag">
-                      {t(th_, locale)}
+                      {t(idea, locale)}
                     </li>
                   ))}
                 </ul>
-                <p className="oh-teaser-takeaway">{t(selected.teaser.takeaway, locale)}</p>
+                <p className="oh-teaser-takeaway">{t(selectedCourse.teaser.takeaway, locale)}</p>
                 <p className="oh-teaser-link">
                   <Link href={localeHref(locale, "/services/study-plan/curriculum")}>
                     {t(COPY.curriculumLink, locale)} ↗
@@ -282,6 +377,154 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
               <p className="oh-teaser-empty">{t(COPY.classHint, locale)}</p>
             )}
           </div>
+        </div>
+      </section>
+
+      {/* 12:07 Lunch */}
+      <section id="oh-lunch" data-scene className="oh-scene">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.lunchTime, locale)}</span> ·{" "}
+            {t(COPY.lunchKicker, locale)}
+          </p>
+          <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+            {t(COPY.lunchPrompt, locale)}
+          </h2>
+          <p className="oh-lede oh-reveal" data-reveal data-delay="1">
+            {t(COPY.lunchNote, locale)}
+          </p>
+
+          <div className="oh-directions" role="group" aria-label={t(COPY.lunchPrompt, locale)}>
+            {lunchDirections.map((d, i) => (
+              <button
+                key={d.key}
+                type="button"
+                className="oh-direction oh-reveal"
+                data-reveal
+                data-delay={String(i + 1)}
+                aria-pressed={d.key === lunch}
+                aria-expanded={d.key === lunch}
+                onClick={() => toggle(setLunch)(d.key)}
+              >
+                <span className="oh-direction-label">{t(d.label, locale)}</span>
+                <span className="oh-direction-blurb">{t(d.blurb, locale)}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="oh-places-slot" aria-live="polite">
+            {selectedLunch ? (
+              <div key={selectedLunch.key} className="oh-places">
+                {selectedLunch.ferry ? (
+                  <p className="oh-ferry-note">
+                    <RiverTrace className="oh-ferry-trace" />
+                  </p>
+                ) : null}
+                <ul className="oh-place-list">
+                  {selectedLunch.places.map((p) => (
+                    <li key={p.id} className="oh-place">
+                      <div className="oh-place-head">
+                        <h3 className="oh-place-name">{t(p.name, locale)}</h3>
+                        <span className="oh-place-cat">{t(p.category, locale)}</span>
+                      </div>
+                      {p.note ? <p className="oh-place-note">{t(p.note, locale)}</p> : null}
+                      <ExternalLink
+                        href={mapsHref(p.mapsQuery)}
+                        newTabLabel={t(COPY.newTab, locale)}
+                        className="oh-place-link focus-highlight"
+                      >
+                        {t(COPY.openMaps, locale)}
+                      </ExternalLink>
+                    </li>
+                  ))}
+                </ul>
+                <p className="oh-map-note">
+                  {t(COPY.lunchMap, locale)}{" "}
+                  <Link href={localeHref(locale, "/student-life")}>
+                    {t(COPY.lunchMapLink, locale)} ↗
+                  </Link>
+                </p>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </section>
+
+      {/* 16:34 Clubs */}
+      <section id="oh-clubs" data-scene className="oh-scene">
+        <div className="oh-measure">
+          <p className="oh-kicker oh-reveal" data-reveal>
+            <span className="oh-time">{t(COPY.clubsTime, locale)}</span> ·{" "}
+            {t(COPY.clubsKicker, locale)}
+          </p>
+          <h2 className="oh-heading oh-reveal" data-reveal data-delay="1">
+            {t(COPY.clubsPrompt, locale)}
+          </h2>
+          <p className="oh-lede oh-reveal" data-reveal data-delay="1">
+            {t(COPY.clubsNote, locale)}
+          </p>
+
+          <div className="oh-wall" role="group" aria-label={t(COPY.clubsPrompt, locale)}>
+            {CLUBS.map((c, i) => (
+              <button
+                key={c.slug}
+                type="button"
+                className="oh-club oh-reveal"
+                data-reveal
+                data-delay={String((i % 3) + 1)}
+                data-texture={c.texture}
+                aria-pressed={c.slug === club}
+                aria-expanded={c.slug === club}
+                onClick={() => toggle(setClub)(c.slug)}
+              >
+                <span className="oh-club-name">{t(c.name, locale)}</span>
+                <span className="oh-club-tag">{t(c.tagline, locale)}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="oh-door-slot" aria-live="polite">
+            {selectedClub ? (
+              <article
+                key={selectedClub.slug}
+                className="oh-door"
+                data-texture={selectedClub.texture}
+                aria-label={t(selectedClub.name, locale)}
+              >
+                <h3 className="oh-door-name">{t(selectedClub.name, locale)}</h3>
+                <p className="oh-door-tag">{t(selectedClub.tagline, locale)}</p>
+                <p className="oh-door-detail">{t(selectedClub.detail, locale)}</p>
+                {selectedClub.join ? (
+                  <p className="oh-door-join">
+                    <span className="oh-door-join-label">{t(COPY.joinLabel, locale)}</span>{" "}
+                    {t(selectedClub.join, locale)}
+                  </p>
+                ) : null}
+                <div className="oh-door-foot">
+                  {selectedClub.joinOpen ? (
+                    <span className="oh-door-open">{t(COPY.joinOpen, locale)}</span>
+                  ) : null}
+                  {selectedClub.link ? (
+                    <ExternalLink
+                      href={selectedClub.link.url}
+                      newTabLabel={t(COPY.newTab, locale)}
+                      className="focus-highlight"
+                    >
+                      {selectedClub.link.label}
+                    </ExternalLink>
+                  ) : (
+                    <Link href={localeHref(locale, `/clubs/${selectedClub.slug}`)}>
+                      {t(COPY.clubsAll, locale)} ↗
+                    </Link>
+                  )}
+                </div>
+              </article>
+            ) : null}
+          </div>
+
+          <p className="oh-wall-all">
+            <Link href={localeHref(locale, "/clubs")}>{t(COPY.clubsAll, locale)} ↗</Link>
+          </p>
         </div>
       </section>
 
@@ -311,7 +554,7 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
           </div>
 
           <div className="oh-card oh-reveal" data-reveal data-delay="2">
-            <FieldNote locale={locale} name={name} course={selected} />
+            <FieldNote locale={locale} name={name} entries={entries} />
           </div>
 
           <div className="oh-actions oh-reveal" data-reveal data-delay="2">
@@ -328,13 +571,16 @@ export default function OpenHouseExperience({ locale, courses, initialCourse, is
           <p className="oh-toast" role="status" aria-live="polite">
             {toast}
           </p>
-          {course ? (
+          {anyChoice ? (
             <button
               type="button"
               className="oh-restart oh-reveal"
               data-reveal
               onClick={() => {
+                setArrive(undefined);
                 setCourse(undefined);
+                setLunch(undefined);
+                setClub(undefined);
                 setName("");
               }}
             >

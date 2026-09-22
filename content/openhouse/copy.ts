@@ -177,6 +177,69 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
   },
 ];
 
+/** The real ways people reach the Tha Prachan campus. Order is editorial. */
+export const ARRIVE_MODES: { key: string; label: Bi; card: Bi }[] = [
+  {
+    key: "ferry",
+    label: { en: "Ferry", th: "เรือข้ามฟาก" },
+    card: { en: "Ferry across the river", th: "นั่งเรือข้ามฟาก" },
+  },
+  {
+    key: "bus",
+    label: { en: "Public bus", th: "รถเมล์" },
+    card: { en: "Bus into the old city", th: "นั่งรถเมล์เข้าเมืองเก่า" },
+  },
+  {
+    key: "mrt",
+    label: { en: "MRT + walk", th: "MRT แล้วเดินต่อ" },
+    card: { en: "MRT to Sanam Chai, then walk", th: "MRT ลงสนามไชยแล้วเดินต่อ" },
+  },
+  {
+    key: "shuttle",
+    label: { en: "TU shuttle", th: "รถรับส่งธรรมศาสตร์" },
+    card: { en: "The Thammasat shuttle", th: "รถรับส่งของธรรมศาสตร์" },
+  },
+  {
+    key: "walk",
+    label: { en: "On foot", th: "เดินมา" },
+    card: { en: "On foot through the old city", th: "เดินผ่านเมืองเก่ามา" },
+  },
+];
+
+/**
+ * Two honest lunch directions within the 53-minute window: a short walk around
+ * Tha Prachan, or a quick ferry across to Wang Lang. `places` are real ids from
+ * `lib/places.ts`, resolved to full entries at build time.
+ */
+export const LUNCH_DIRECTIONS: {
+  key: string;
+  label: Bi;
+  blurb: Bi;
+  ferry: boolean;
+  places: string[];
+}[] = [
+  {
+    key: "near",
+    label: { en: "Stay by Tha Prachan", th: "อยู่แถวท่าพระจันทร์" },
+    blurb: {
+      en: "A few minutes on foot, back before the bell.",
+      th: "เดินไม่กี่นาที กลับทันเข้าเรียน",
+    },
+    ferry: false,
+    places: ["elle-tha-prachan", "nai-soie", "nai-uan-yentafo"],
+  },
+  {
+    key: "wanglang",
+    label: { en: "Cross to Wang Lang", th: "ข้ามไปวังหลัง" },
+    blurb: {
+      en: "A quick ferry over the river and back.",
+      th: "นั่งเรือข้ามฟากไปกลับ",
+    },
+    ferry: true,
+    places: ["khao-dong-moo-daeng", "chuan-aroy", "wang-lang-market"],
+  },
+];
+
 type Copy = {
   eyebrow: Bi;
   event: Bi;
@@ -193,6 +256,29 @@ type Copy = {
   classHint: Bi;
   keyIdeas: Bi;
   curriculumLink: Bi;
+  arriveTime: Bi;
+  arriveKicker: Bi;
+  arrivePrompt: Bi;
+  arriveNote: Bi;
+  lunchTime: Bi;
+  lunchKicker: Bi;
+  lunchPrompt: Bi;
+  lunchNote: Bi;
+  lunchMap: Bi;
+  lunchMapLink: Bi;
+  openMaps: Bi;
+  newTab: Bi;
+  ferryMotif: Bi;
+  clubsTime: Bi;
+  clubsKicker: Bi;
+  clubsPrompt: Bi;
+  clubsNote: Bi;
+  clubsAll: Bi;
+  joinLabel: Bi;
+  joinOpen: Bi;
+  fnArrive: Bi;
+  fnLunch: Bi;
+  fnClub: Bi;
   dayTime: Bi;
   dayKicker: Bi;
   daySubtitle: Bi;
@@ -247,6 +333,44 @@ export const COPY: Copy = {
     en: "See the full BIR curriculum",
     th: "ดูหลักสูตร BIR แบบเต็ม",
   },
+  arriveTime: { en: "08:42", th: "08:42" },
+  arriveKicker: { en: "Getting there", th: "การเดินทางมา" },
+  arrivePrompt: { en: "How would you get here?", th: "คุณจะเดินทางมายังไง" },
+  arriveNote: {
+    en: "Tha Prachan sits right on the river in the old city. People arrive one of a few ways.",
+    th: "ท่าพระจันทร์อยู่ริมแม่น้ำในย่านเมืองเก่า คนที่นี่มากันอยู่ไม่กี่ทาง",
+  },
+  lunchTime: { en: "12:07", th: "12:07" },
+  lunchKicker: { en: "Fifty-three minutes for lunch", th: "มีเวลากินข้าวห้าสิบสามนาที" },
+  lunchPrompt: {
+    en: "Your next class is at 13:00. Where are we going?",
+    th: "คาบต่อไปบ่ายโมง จะไปกินที่ไหนดี",
+  },
+  lunchNote: {
+    en: "Not far, and back before the bell. A couple of directions, a few real places.",
+    th: "ไม่ไกล กลับทันเข้าเรียน มีสองทางให้เลือก กับร้านจริงไม่กี่ร้าน",
+  },
+  lunchMap: {
+    en: "BIRSA keeps a much larger student map of Tha Prachan, Wang Lang and Pinklao.",
+    th: "BIRSA มีแผนที่นักศึกษาที่ใหญ่กว่านี้มาก ทั้งท่าพระจันทร์ วังหลัง และปิ่นเกล้า",
+  },
+  lunchMapLink: { en: "Explore student life", th: "ดูชีวิตนักศึกษาเพิ่มเติม" },
+  openMaps: { en: "Open in Maps", th: "เปิดในแผนที่" },
+  newTab: { en: "opens in a new tab", th: "เปิดในแท็บใหม่" },
+  ferryMotif: { en: "the river again", th: "แม่น้ำอีกครั้ง" },
+  clubsTime: { en: "16:34", th: "16:34" },
+  clubsKicker: { en: "Class is over", th: "เลิกเรียนแล้ว" },
+  clubsPrompt: { en: "Class is done. Where do you go?", th: "เลิกเรียนแล้ว จะไปไหนต่อ" },
+  clubsNote: {
+    en: "BIR runs a wall of student clubs — different things, different people. Open one.",
+    th: "BIR มีชมรมนักศึกษาเต็มไปหมด แต่ละชมรมต่างกันทั้งกิจกรรมและผู้คน ลองเปิดดูสักชมรม",
+  },
+  clubsAll: { en: "See all BIR clubs", th: "ดูชมรม BIR ทั้งหมด" },
+  joinLabel: { en: "Joining", th: "การเข้าร่วม" },
+  joinOpen: { en: "Open to join", th: "เปิดรับสมาชิก" },
+  fnArrive: { en: "Arrived by", th: "มาถึงโดย" },
+  fnLunch: { en: "Lunch", th: "มื้อกลางวัน" },
+  fnClub: { en: "Then", th: "แล้วก็" },
   dayTime: { en: "Your day", th: "วันของคุณ" },
   dayKicker: { en: "Your day", th: "วันของคุณ" },
   daySubtitle: { en: "A day you tried on", th: "วันหนึ่งที่คุณได้ลองใช้" },
