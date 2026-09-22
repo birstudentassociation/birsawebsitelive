@@ -1,18 +1,18 @@
 /* ==========================================================================
    Open House event layer. Scoped to `.oh` so nothing here touches the rest of
-   the portal. Builds on the site tokens (cream/ink/brand/forest) and adds an
-   event display scale, a scroll-driven day-temperature wash, the editorial
-   time folio, and the six-move motion vocabulary.
+   the portal. Built on the site tokens (cream/ink/brand/forest); adds an event
+   display scale, the editorial time folio, a scroll-driven warm wash, a night
+   scope for the evening scenes, and a small motion vocabulary.
 
    Motion contract: the static composition is the source of truth. `.oh-animate`
-   is added to the root by JS only when the visitor has not asked for reduced
-   motion, and only then are the pre-animation (hidden/undrawn) states applied.
-   With no JS, or with prefers-reduced-motion, everything renders in its final
-   place. Reduced motion is a designed state, not an empty one.
+   is added by JS only when the visitor has not asked for reduced motion, and
+   only then are pre-animation states applied. Reveals are transform-only (an
+   opacity:0 text node fails colour contrast for axe), and with no JS or with
+   reduced motion everything renders in its final place.
    ========================================================================== */
 
 .oh {
-  --oh-day: 0; /* 0 morning cool → 1 dusk warm, driven by scroll */
+  --oh-day: 0;
   --oh-wash: color-mix(
     in oklab,
     var(--color-cream),
@@ -20,26 +20,38 @@
   );
   --oh-accent: var(--color-brand);
   --oh-folio-w: 5.5rem;
+  --oh-night: #1c1713;
   position: relative;
   background: var(--oh-wash);
-  transition: background-color 0.6s ease;
 }
 
-/* Event display scale — a step above the site's headings, editorial and
-   confident, still Fraunces / JenjrusVris via the site's language mapping. */
+/* --- Type ----------------------------------------------------------------- */
 .oh-display {
   font-family: var(--font-heading);
   font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   text-wrap: balance;
-  font-size: clamp(2.4rem, 1.4rem + 5vw, 5rem);
+  font-size: clamp(2.6rem, 1.3rem + 5.2vw, 5.6rem);
+  margin-top: 1.75rem;
 }
 html[lang="th"] .oh-display {
   letter-spacing: 0.04em;
   line-height: 1.3;
 }
-
+.oh-heading {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 1.4rem + 2.5vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin-top: 0.75rem;
+}
+html[lang="th"] .oh-heading {
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
 .oh-kicker {
   font-family: var(--font-sans);
   font-weight: 600;
@@ -48,20 +60,29 @@ html[lang="th"] .oh-display {
   font-size: 0.78rem;
   color: var(--color-muted);
 }
+.oh-kicker-sub {
+  margin-top: 0.4rem;
+}
 html[lang="th"] .oh-kicker {
   letter-spacing: 0.06em;
   text-transform: none;
 }
-
+.oh-lede {
+  margin-top: 0.85rem;
+  color: var(--color-muted);
+  font-size: 1.08rem;
+  max-width: 34rem;
+}
 .oh-time {
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
 }
 
+/* --- Layout --------------------------------------------------------------- */
 .oh-scene {
   position: relative;
-  padding-block: clamp(4rem, 10vh, 8rem);
+  padding-block: clamp(4.5rem, 12vh, 9rem);
   padding-inline: 1.25rem;
 }
 @media (min-width: 900px) {
@@ -69,15 +90,12 @@ html[lang="th"] .oh-kicker {
     padding-inline: calc(var(--oh-folio-w) + 2rem) 2rem;
   }
 }
-
 .oh-measure {
   max-width: 40rem;
   margin-inline: auto;
 }
 
-/* --- Time folio -------------------------------------------------------- */
-/* Desktop: a thin editorial rail down the left edge, part navigation, part
-   progress. Mobile: a slim fixed progress bar at the top. */
+/* --- Time folio ----------------------------------------------------------- */
 .oh-folio {
   position: fixed;
   z-index: 30;
@@ -92,6 +110,18 @@ html[lang="th"] .oh-kicker {
   pointer-events: auto;
   text-decoration: none;
   color: var(--color-muted);
+}
+.oh-folio-now {
+  display: none;
+  margin: 0;
+}
+.oh-folio-carry {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-brand-deep);
+  font-weight: 600;
+  font-size: 0.7rem;
+  margin-top: 0.15rem;
 }
 
 @media (max-width: 899px) {
@@ -111,6 +141,18 @@ html[lang="th"] .oh-kicker {
     background: var(--oh-accent);
     transition: width 0.2s ease;
   }
+  .oh-folio-now {
+    display: block;
+    position: fixed;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    background: var(--color-surface);
+    padding: 0.1rem 0.55rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+  }
 }
 
 @media (min-width: 900px) {
@@ -125,7 +167,7 @@ html[lang="th"] .oh-kicker {
   .oh-folio ol {
     display: flex;
     flex-direction: column;
-    gap: 1.4rem;
+    gap: 1rem;
     padding-left: 1.1rem;
     border-left: 1px solid var(--color-line);
     margin-left: 1.4rem;
@@ -151,6 +193,9 @@ html[lang="th"] .oh-kicker {
       background-color 0.3s ease,
       transform 0.3s ease;
   }
+  .oh-folio a[data-chosen="true"]::before {
+    background: var(--oh-accent);
+  }
   .oh-folio a[aria-current="true"] {
     color: var(--color-ink);
     font-weight: 600;
@@ -159,17 +204,9 @@ html[lang="th"] .oh-kicker {
     background: var(--oh-accent);
     transform: scale(1.5);
   }
-  .oh-folio-upcoming a {
-    opacity: 0.5;
-  }
 }
 
-/* --- Motion vocabulary ------------------------------------------------- */
-/* The hidden state is a transform only, never opacity: an opacity:0 text node
-   still counts as a colour-contrast failure to axe (it blends the faint colour
-   over the page), so a below-fold reveal would fail WCAG 1.4.3 on every element
-   it touches. A slide with full opacity keeps the motion and stays accessible;
-   under reduced motion the class is never added and nothing moves. */
+/* --- Motion --------------------------------------------------------------- */
 .oh-animate .oh-reveal {
   transform: translateY(1.5rem);
   transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -177,742 +214,43 @@ html[lang="th"] .oh-kicker {
 .oh-animate .oh-reveal.is-in {
   transform: none;
 }
-.oh-animate .oh-reveal[data-move="drift"] {
-  transform: translateY(2.5rem) scale(1.01);
-}
 .oh-animate .oh-reveal[data-delay="1"] {
-  transition-delay: 0.12s;
+  transition-delay: 0.1s;
 }
 .oh-animate .oh-reveal[data-delay="2"] {
-  transition-delay: 0.24s;
+  transition-delay: 0.2s;
 }
 .oh-animate .oh-reveal[data-delay="3"] {
-  transition-delay: 0.36s;
+  transition-delay: 0.3s;
 }
-
-/* Trace: routes/timelines draw themselves in. Static default is the finished
-   line, so reduced motion and no-JS both show the whole river. */
+/* Trace: lines draw in. The static default is the finished line. */
 .oh-trace path {
-  stroke-dasharray: var(--oh-len, 1);
+  stroke-dasharray: 1;
   stroke-dashoffset: 0;
 }
 .oh-animate .oh-trace path {
-  stroke-dashoffset: var(--oh-len, 1);
-  transition: stroke-dashoffset 1.6s ease;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.2s cubic-bezier(0.45, 0, 0.2, 1);
 }
 .oh-animate .oh-trace.is-in path {
   stroke-dashoffset: 0;
 }
-
-/* --- Arrival ----------------------------------------------------------- */
-.oh-arrival {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.oh-scroll-hint {
-  margin-top: 3rem;
-  font-size: 0.8rem;
-  color: var(--color-muted);
-  letter-spacing: 0.02em;
-}
-
-/* --- Course slips ------------------------------------------------------ */
-.oh-slips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-.oh-slip {
-  appearance: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  cursor: pointer;
-  background: var(--color-surface);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius);
-  padding: 1rem 1.15rem;
-  min-width: 13rem;
-  flex: 1 1 13rem;
-  box-shadow: var(--shadow-sm);
-  transition:
-    transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-.oh-slip:hover,
-.oh-slip:focus-visible {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-line-strong);
-}
-.oh-slip[aria-pressed="true"] {
-  border-color: var(--oh-accent);
-  box-shadow: inset 0 0 0 1px var(--oh-accent);
-}
-.oh-slip-code {
-  font-family: var(--font-sans);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  color: var(--color-brand-deep);
-  font-weight: 600;
-}
-.oh-slip-title {
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  margin-top: 0.35rem;
-  line-height: 1.2;
-}
-.oh-slip-field {
-  margin-top: 0.5rem;
-  font-size: 0.82rem;
-  color: var(--color-muted);
-}
-/* The margin mark a selection leaves — editorial, not a SaaS check. */
-.oh-slip[aria-pressed="true"] .oh-slip-code::before {
-  content: "— ";
-  color: var(--oh-accent);
-}
-
-/* --- Field note (souvenir) --------------------------------------------- */
-.oh-fieldnote-wrap {
-  display: grid;
-  gap: 2rem;
-  justify-items: center;
-}
-.oh-card {
-  width: min(22rem, 100%);
-  aspect-ratio: 3 / 4;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  background: var(--color-surface);
-}
-.oh-card svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.oh-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-}
-.oh-namefield {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  width: min(22rem, 100%);
-}
-.oh-namefield label {
-  font-size: 0.82rem;
-  color: var(--color-muted);
-}
-.oh-namefield input {
-  height: 2.75rem;
-  padding-inline: 0.9rem;
-  border: 1px solid var(--color-input-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
-  color: var(--color-ink);
-  font: inherit;
-}
-.oh-toast {
-  font-size: 0.85rem;
-  color: var(--color-success);
-  min-height: 1.2em;
-}
-
-/* --- Invitation -------------------------------------------------------- */
-.oh-invite {
-  border-top: 1px solid var(--color-line);
-  background: var(--color-surface);
-}
-.oh-facts {
-  display: grid;
-  gap: 1.25rem;
-  margin-top: 2rem;
-}
-@media (min-width: 640px) {
-  .oh-facts {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-.oh-fact dt {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--color-muted);
-}
-html[lang="th"] .oh-fact dt {
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-.oh-fact dd {
-  margin: 0.3rem 0 0;
-  font-size: 1.05rem;
-}
-
-/* ==========================================================================
-   Gate-B revisions: arrival atmosphere without photography, editorial slips
-   that reveal a researched teaser, the folio "carry", and shared headings.
-   ========================================================================== */
-
-.oh-heading {
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(1.9rem, 1.4rem + 2.5vw, 3rem);
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-  margin-top: 0.75rem;
-}
-html[lang="th"] .oh-heading {
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-}
-.oh-lede {
-  margin-top: 0.75rem;
-  color: var(--color-muted);
-  font-size: 1.05rem;
-  max-width: 34rem;
-}
-
-/* Arrival: a large place-name anchors the space behind the words, so the scene
-   has atmosphere from type and the river alone until photography arrives. */
-.oh-arrival {
-  position: relative;
-  overflow: hidden;
-}
-.oh-arrival-body {
-  position: relative;
-  z-index: 1;
-}
-/* Decorative giant place-name, drawn as SVG text so it stays a background mark
-   the a11y tree ignores (it is aria-hidden and axe does not run contrast on SVG
-   text), free to be as faint as the composition wants. */
-.oh-anchor {
-  position: absolute;
-  z-index: 0;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-}
-.oh-anchor text {
-  fill: color-mix(in oklab, var(--color-line-strong), transparent 46%);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: 185px;
-}
-.oh-arrival-sub {
-  margin-top: 1rem;
-  font-size: clamp(1.05rem, 1rem + 0.6vw, 1.35rem);
-  color: var(--color-muted);
-  max-width: 32rem;
-}
-.oh-arrival-river {
-  width: min(100%, 34rem);
-  height: auto;
-  display: block;
-  margin-top: 2rem;
-}
-.oh-arrival-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
-}
-
-/* Editorial slips: at rest each sits at a slightly different angle so the set
-   reads as a loose stack of papers, not a grid of identical cards. Hover and
-   selection straighten and lift — no real overlap, so tap targets stay clean
-   on mobile (where the rotation is dropped entirely). */
-@media (min-width: 900px) {
-  .oh-slip:nth-child(3n + 1) {
-    transform: rotate(-0.8deg);
-  }
-  .oh-slip:nth-child(3n + 2) {
-    transform: translateY(0.4rem) rotate(0.7deg);
-  }
-  .oh-slip:nth-child(3n + 3) {
-    transform: rotate(1deg);
-  }
-  .oh-slip:hover,
-  .oh-slip:focus-visible,
-  .oh-slip[aria-pressed="true"] {
-    transform: translateY(-3px) rotate(0deg);
-  }
-}
-
-/* Researched teaser panel revealed by the selected slip. */
-.oh-teaser-slot {
-  margin-top: 1.75rem;
-}
-.oh-teaser {
-  border-top: 2px solid var(--oh-accent);
-  padding-top: 1.25rem;
-  max-width: 38rem;
-}
-.oh-animate .oh-teaser {
-  animation: oh-fade 0.5s ease;
-}
 @keyframes oh-fade {
   from {
     opacity: 0;
-    transform: translateY(0.6rem);
+    transform: translateY(0.5rem);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-.oh-teaser-eyebrow {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-brand-deep);
-}
-html[lang="th"] .oh-teaser-eyebrow {
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-.oh-teaser-hook {
-  font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2rem);
-  line-height: 1.15;
-  margin-top: 0.5rem;
-  text-wrap: balance;
-}
-.oh-teaser-opens {
-  margin-top: 0.9rem;
-  font-size: 1.03rem;
-  line-height: 1.7;
-}
-.oh-teaser-label {
-  margin-top: 1.25rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-html[lang="th"] .oh-teaser-label {
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-/* Non-interactive ideas read as an editorial run, not tappable chips. */
-.oh-tags {
-  list-style: none;
-  margin: 0.5rem 0 0;
-  padding: 0;
-}
-.oh-tag {
-  display: inline;
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--color-ink);
-}
-.oh-tag:not(:last-child)::after {
-  content: " · ";
-  color: var(--color-line-strong);
-}
-.oh-teaser-takeaway {
-  margin-top: 1.25rem;
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  line-height: 1.4;
-  color: var(--color-ink);
-}
-.oh-teaser-link {
-  margin-top: 1rem;
-  font-size: 0.95rem;
-}
-.oh-teaser-empty {
-  margin-top: 1.75rem;
-  color: var(--color-muted);
-  font-size: 0.95rem;
-}
 
-/* Folio: the chosen course is carried into the 09:15 stop (desktop); a compact
-   current-time chip gives the mobile progress bar a readable label. */
-.oh-folio-carry {
-  display: block;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-brand-deep);
-  font-weight: 600;
-  font-size: 0.7rem;
-  margin-top: 0.15rem;
-}
-.oh-folio-now {
-  display: none;
-  margin: 0;
-}
-@media (max-width: 899px) {
-  .oh-folio-now {
-    display: block;
-    position: fixed;
-    top: 0.5rem;
-    right: 0.75rem;
-    z-index: 31;
-    font-size: 0.72rem;
-    color: var(--color-muted);
-    background: var(--color-surface);
-    padding: 0.1rem 0.55rem;
-    border-radius: 999px;
-    box-shadow: var(--shadow-sm);
-  }
-}
-
-.oh-restart {
-  background: none;
-  border: 0;
-  color: var(--color-muted);
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-  font: inherit;
-}
-.oh-restart:hover {
-  color: var(--color-ink);
-}
-.oh-invite-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-.oh-invite-note {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--color-muted);
-}
-
-/* ==========================================================================
-   Scenes: 08:42 getting there, 12:07 lunch, 16:34 clubs.
-   ========================================================================== */
-
-/* 08:42 arrival modes — rectangular editorial choices, not pills. The chosen
-   one fills with ink; a small leading rule marks it like a ticked line. */
-.oh-modes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.75rem;
-}
-.oh-mode {
-  appearance: none;
-  cursor: pointer;
-  font: inherit;
-  font-weight: 500;
-  padding: 0.65rem 1rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-line-strong);
-  background: transparent;
-  color: var(--color-ink);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-.oh-mode:hover,
-.oh-mode:focus-visible {
-  border-color: var(--color-ink);
-  background: var(--color-sunken);
-}
-.oh-mode[aria-pressed="true"] {
-  background: var(--color-ink);
-  color: var(--color-cream);
-  border-color: var(--color-ink);
-}
-/* On the ink-filled selected state the default ink focus ring would vanish. */
-.oh-mode[aria-pressed="true"]:focus-visible {
-  outline-color: var(--color-cream);
-  box-shadow: 0 0 0 5px rgba(33, 28, 25, 0.5);
-}
-
-/* 12:07 lunch directions + places. */
-.oh-directions {
-  display: grid;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
-}
-@media (min-width: 640px) {
-  .oh-directions {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.oh-direction {
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  padding: 1.1rem 1.2rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--color-line);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-.oh-direction:hover,
-.oh-direction:focus-visible {
-  transform: translateY(-2px);
-  border-color: var(--color-line-strong);
-}
-.oh-direction[aria-pressed="true"] {
-  border-color: var(--oh-accent);
-  box-shadow: inset 0 0 0 1px var(--oh-accent);
-}
-.oh-direction-label {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-}
-.oh-direction-blurb {
-  font-size: 0.9rem;
-  color: var(--color-muted);
-}
-.oh-places {
-  margin-top: 1.5rem;
-}
-.oh-animate .oh-places {
-  animation: oh-fade 0.5s ease;
-}
-.oh-ferry-trace {
-  width: min(100%, 26rem);
-  height: auto;
-  display: block;
-  margin-bottom: 0.75rem;
-  opacity: 0.85;
-}
-.oh-place-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
-@media (min-width: 640px) {
-  .oh-place-list {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.oh-place {
-  border-top: 1px solid var(--color-line);
-  padding-top: 0.75rem;
-}
-.oh-place-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.75rem;
-  align-items: baseline;
-}
-.oh-place-name {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
-  line-height: 1.2;
-  margin: 0;
-}
-.oh-place-cat {
-  font-size: 0.75rem;
-  color: var(--color-muted);
-  white-space: nowrap;
-}
-.oh-place-note {
-  margin: 0.4rem 0 0;
-  font-size: 0.9rem;
-  color: var(--color-muted);
-  line-height: 1.55;
-}
-.oh-place-link {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--color-brand-deep);
-  font-weight: 500;
-}
-.oh-map-note {
-  margin-top: 1.75rem;
-  font-size: 0.9rem;
-  color: var(--color-muted);
-  max-width: 34rem;
-}
-
-/* 16:34 clubs wall — the tiles differ by scale and an activity kicker, not by
-   colour. A few feature tiles span two columns so the wall reads as a real
-   wall of different things rather than a uniform grid. */
-.oh-wall {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-  grid-auto-flow: dense;
-  gap: 0.6rem;
-  margin-top: 1.75rem;
-}
-.oh-club {
-  text-align: left;
-  cursor: pointer;
-  font: inherit;
-  padding: 0.9rem 1rem;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--color-line);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-.oh-club:hover,
-.oh-club:focus-visible {
-  transform: translateY(-2px);
-  border-color: var(--color-line-strong);
-  box-shadow: var(--shadow-md);
-}
-.oh-club[aria-pressed="true"] {
-  border-color: var(--color-ink);
-  box-shadow: inset 0 0 0 1px var(--color-ink);
-}
-@media (min-width: 640px) {
-  .oh-club[data-feature="true"] {
-    grid-column: span 2;
-    padding: 1.1rem 1.25rem;
-  }
-}
-.oh-club-kicker {
-  font-family: var(--font-sans);
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-html[lang="th"] .oh-club-kicker {
-  letter-spacing: 0.04em;
-  text-transform: none;
-}
-.oh-club-name {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  line-height: 1.15;
-}
-.oh-club[data-feature="true"] .oh-club-name {
-  font-size: 1.25rem;
-}
-.oh-club-tag {
-  font-size: 0.8rem;
-  color: var(--color-muted);
-  line-height: 1.4;
-}
-
-.oh-door {
-  margin-top: 1.5rem;
-  border-top: 2px solid var(--color-ink);
-  padding-top: 1.25rem;
-  max-width: 40rem;
-}
-.oh-animate .oh-door {
-  animation: oh-fade 0.5s ease;
-}
-.oh-door-kicker {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-  margin-bottom: 0.35rem;
-}
-html[lang="th"] .oh-door-kicker {
-  letter-spacing: 0.04em;
-  text-transform: none;
-}
-.oh-door-name {
-  font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 1.1rem + 1.2vw, 1.9rem);
-  line-height: 1.15;
-}
-.oh-door-tag {
-  margin-top: 0.4rem;
-  color: var(--color-muted);
-  font-size: 1rem;
-}
-.oh-door-detail {
-  margin-top: 0.9rem;
-  font-size: 1.03rem;
-  line-height: 1.6;
-}
-.oh-door-join {
-  margin-top: 0.9rem;
-  font-size: 0.95rem;
-  color: var(--color-muted);
-}
-.oh-door-join-label {
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.7rem;
-  color: var(--color-ink);
-}
-html[lang="th"] .oh-door-join-label {
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-.oh-door-foot {
-  margin-top: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.oh-door-open {
-  font-size: 0.85rem;
-  color: var(--color-success);
-  font-weight: 600;
-}
-.oh-door-open::before {
-  content: "●";
-  font-size: 0.62em;
-  vertical-align: 0.15em;
-  margin-right: 0.4em;
-}
-.oh-wall-all {
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-}
-
-/* Folio: a chosen stop lights up even when it is not the current one. */
-@media (min-width: 900px) {
-  .oh-folio a[data-chosen="true"]::before {
-    background: var(--oh-accent);
-  }
-}
-
-/* ==========================================================================
-   Connective scenes, home board, event-day and archive banners.
-   ========================================================================== */
-
-/* Ten stops now, so tighten the desktop folio rhythm. */
-@media (min-width: 900px) {
-  .oh-folio ol {
-    gap: 1rem;
-  }
-}
-
-/* Event-day + archive banners. */
+/* --- Banners -------------------------------------------------------------- */
 .oh-event-banner {
   background: var(--color-ink);
   color: var(--color-cream);
-  padding-block: 1.75rem;
+  padding: 1.75rem 1.25rem;
 }
 .oh-event-welcome {
   font-family: var(--font-heading);
@@ -949,7 +287,7 @@ html[lang="th"] .oh-door-join-label {
 .oh-arc-banner {
   background: var(--color-sunken);
   border-bottom: 1px solid var(--color-line);
-  padding-block: 1.5rem;
+  padding: 1.5rem 1.25rem;
 }
 .oh-arc-headline {
   font-family: var(--font-heading);
@@ -962,146 +300,105 @@ html[lang="th"] .oh-door-join-label {
   max-width: 34rem;
 }
 
-/* 10:47 between-classes: a pause, so it reads large and unhurried. */
-.oh-pause {
-  min-height: 70svh;
+/* --- Arrival: headline beside the real river ----------------------------- */
+.oh-arrival {
+  min-height: 100svh;
   display: flex;
   align-items: center;
 }
-.oh-pause-line {
-  margin-top: 1rem;
-  font-family: var(--font-heading);
-  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
-  line-height: 1.25;
-  text-wrap: balance;
-  max-width: 30ch;
-}
-.oh-pause-body {
-  margin-top: 1.25rem;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--color-muted);
-  max-width: 40rem;
-}
-
-/* 13:23 back-to-class: editorial questions, calm and spaced. */
-.oh-questions {
-  list-style: none;
-  margin: 1.75rem 0 0;
-  padding: 0;
+.oh-arrival-grid {
+  width: 100%;
+  max-width: 68rem;
+  margin-inline: auto;
   display: grid;
-  gap: 1.1rem;
-}
-.oh-question {
-  font-family: var(--font-heading);
-  font-size: clamp(1.3rem, 1.05rem + 1.2vw, 1.85rem);
-  line-height: 1.25;
-  text-wrap: balance;
-  padding-left: 1.1rem;
-  border-left: 2px solid var(--color-line-strong);
-  max-width: 30ch;
-}
-.oh-back-note {
-  margin-top: 1.75rem;
-  color: var(--color-muted);
-  font-style: italic;
-}
-
-/* 17:48 dusk: the visual high point. Almost no interface, lots of room, warm. */
-.oh-dusk {
-  min-height: 88svh;
-  display: flex;
+  gap: 2.5rem;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    color-mix(in oklab, var(--color-warning-tint), transparent 40%)
-  );
 }
-.oh-dusk-line {
-  font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 1.3rem + 3vw, 3.4rem);
-  line-height: 1.2;
-  text-wrap: balance;
-  max-width: 22ch;
+@media (min-width: 900px) {
+  .oh-arrival-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(12rem, 0.7fr);
+    gap: 3rem;
+  }
 }
-
-/* 18:11 home board. */
-.oh-home-callback {
-  margin-top: 0.6rem;
+.oh-arrival-sub {
+  margin-top: 1.1rem;
+  font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
   color: var(--color-muted);
+  max-width: 30rem;
 }
-.oh-board {
-  margin-top: 1.75rem;
-  border: 1px solid var(--color-line-strong);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.oh-board-row {
+.oh-arrival-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1rem;
-  padding: 1.1rem 1.25rem;
+  gap: 0.75rem;
+  margin-top: 2.25rem;
 }
-.oh-board-row + .oh-board-row {
-  border-top: 1px solid var(--color-line);
+.oh-river {
+  display: block;
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+  justify-self: end;
+  overflow: visible;
 }
-.oh-board-route {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+@media (min-width: 900px) {
+  .oh-river {
+    max-height: 80svh;
+    max-width: none;
+  }
+}
+@media (max-width: 899px) {
+  .oh-river {
+    max-width: 12rem;
+  }
+}
+.oh-river-body {
+  stroke: color-mix(in oklab, var(--color-info) 24%, var(--color-cream));
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.oh-river-line {
+  stroke: color-mix(in oklab, var(--color-ink) 55%, var(--color-cream));
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+.oh-river-mark circle {
+  fill: var(--color-brand);
+  stroke: var(--color-cream);
+  stroke-width: 3;
+}
+.oh-river-mark line {
+  stroke: var(--color-brand);
+  stroke-width: 1.5;
+}
+.oh-animate .oh-river-mark {
+  opacity: 0;
+  transition: opacity 0.6s ease 1.6s;
+}
+.oh-animate .oh-trace.is-in .oh-river-mark {
+  opacity: 1;
+}
+.oh-river-name {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
-}
-.oh-board-arrow {
-  color: var(--color-brand);
-}
-.oh-board-upcoming {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-}
-.oh-board-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-muted);
-}
-html[lang="th"] .oh-board-label {
-  text-transform: none;
-  letter-spacing: 0.04em;
-}
-.oh-board-time {
-  font-size: 1.4rem;
   font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  font-size: 24px;
+  fill: var(--color-ink);
 }
-.oh-board-in {
-  font-size: 0.85rem;
-  color: var(--color-brand-deep);
+.oh-river-coords,
+.oh-river-caption {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  fill: var(--color-muted);
 }
-.oh-board-state {
-  font-size: 0.9rem;
-  color: var(--color-muted);
-}
-.oh-board-note {
-  margin: 0;
-  padding: 0.9rem 1.25rem;
-  background: var(--color-sunken);
-  border-top: 1px solid var(--color-line);
-  font-size: 0.82rem;
-  color: var(--color-muted);
+.oh-river-caption {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-/* ==========================================================================
-   08:42 arrival map: real OpenStreetMap tiles with a marker/route overlay.
-   ========================================================================== */
+/* --- 08:42 map + modes ---------------------------------------------------- */
 .oh-map {
-  margin-top: 1.75rem;
+  margin-top: 2rem;
   max-width: 32rem;
 }
 .oh-map-frame {
@@ -1127,7 +424,6 @@ html[lang="th"] .oh-board-label {
   width: 100%;
   height: 100%;
 }
-/* A soft dotted approach line, not a bold road cut across the old city. */
 .oh-map-route {
   stroke: var(--color-brand);
   stroke-width: 2.5;
@@ -1152,22 +448,790 @@ html[lang="th"] .oh-board-label {
   stroke: #fff;
   stroke-width: 3;
 }
-.oh-map-label {
-  fill: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 23px;
+.oh-map-label,
+.oh-map-campus {
+  fill: #211c19;
   paint-order: stroke;
   stroke: #fff;
-  stroke-width: 5px;
   stroke-linejoin: round;
 }
+.oh-map-label {
+  font-family: var(--font-sans);
+  font-size: 23px;
+  stroke-width: 5px;
+}
 .oh-map-campus {
-  fill: var(--color-ink);
   font-family: var(--font-heading);
   font-weight: 600;
   font-size: 28px;
-  paint-order: stroke;
-  stroke: #fff;
   stroke-width: 6px;
-  stroke-linejoin: round;
+}
+.oh-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+.oh-mode {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 500;
+  min-height: 44px;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-line-strong);
+  background: transparent;
+  color: var(--color-ink);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.oh-mode:hover,
+.oh-mode:focus-visible {
+  border-color: var(--color-ink);
+  background: var(--color-sunken);
+}
+.oh-mode[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-cream);
+  border-color: var(--color-ink);
+}
+.oh-mode[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-cream);
+  box-shadow: 0 0 0 5px rgba(33, 28, 25, 0.5);
+}
+
+/* --- 09:15 course index --------------------------------------------------- */
+/* A typeset index, not a card grid: code, title and field each on their own
+   line, hairlines between, and the chosen course opens in place. */
+.oh-index {
+  list-style: none;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line-strong);
+}
+.oh-index-item {
+  border-bottom: 1px solid var(--color-line);
+}
+.oh-index-row {
+  appearance: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 1rem;
+  align-items: center;
+  width: 100%;
+  padding: 1.15rem 0.25rem;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.oh-index-row > span {
+  grid-column: 1;
+  display: block;
+}
+.oh-index-code {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-brand-deep);
+}
+.oh-index-title {
+  margin-top: 0.3rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  line-height: 1.15;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.oh-index-field {
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.oh-index-row::after {
+  content: "+";
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--color-muted);
+  transition: transform 0.3s ease;
+}
+.oh-index-row[aria-expanded="true"]::after {
+  content: "–";
+  color: var(--color-brand-deep);
+}
+.oh-index-row:hover .oh-index-title {
+  transform: translateX(0.35rem);
+}
+.oh-index-row[aria-pressed="true"] .oh-index-code::before {
+  content: "— ";
+}
+.oh-teaser {
+  padding: 0.25rem 0.25rem 2rem;
+  max-width: 36rem;
+}
+.oh-animate .oh-teaser:not([hidden]) {
+  animation: oh-fade 0.45s ease;
+}
+.oh-teaser-hook {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.9rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  color: var(--color-brand-deep);
+}
+.oh-teaser-opens {
+  margin-top: 0.9rem;
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+.oh-teaser-label {
+  margin-top: 1.25rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-teaser-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-tags {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+.oh-tag {
+  display: inline;
+  white-space: nowrap;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+}
+.oh-tag:not(:last-child)::after {
+  content: " · ";
+  color: var(--color-line-strong);
+}
+.oh-teaser-takeaway {
+  margin-top: 1.25rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-brand);
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+.oh-teaser-link {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+/* --- 10:47 pause, 13:23 questions ---------------------------------------- */
+.oh-pause {
+  min-height: 70svh;
+  display: flex;
+  align-items: center;
+}
+.oh-pause-line {
+  margin-top: 1rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.8rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  max-width: 28ch;
+}
+.oh-pause-body {
+  margin-top: 1.25rem;
+  font-size: 1.12rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+  max-width: 38rem;
+}
+.oh-questions {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+.oh-question {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 1.05rem + 1.3vw, 1.95rem);
+  line-height: 1.22;
+  text-wrap: balance;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--color-line-strong);
+  max-width: 30ch;
+}
+.oh-back-note {
+  margin-top: 1.75rem;
+  color: var(--color-muted);
+}
+
+/* --- 12:07 lunch ---------------------------------------------------------- */
+.oh-directions {
+  display: grid;
+  margin-top: 2.25rem;
+  border-top: 1px solid var(--color-line-strong);
+}
+@media (min-width: 640px) {
+  .oh-directions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.oh-direction {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.35rem 0.25rem;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--color-line);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+@media (min-width: 640px) {
+  .oh-direction + .oh-direction {
+    border-left: 1px solid var(--color-line);
+    padding-left: 1.5rem;
+  }
+}
+.oh-direction-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 1.2rem + 1.1vw, 2rem);
+  line-height: 1.1;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.16em;
+  transition: text-decoration-color 0.2s ease;
+}
+.oh-direction:hover .oh-direction-label {
+  text-decoration-color: currentColor;
+}
+.oh-direction[aria-pressed="true"] .oh-direction-label {
+  color: var(--color-brand-deep);
+  text-decoration-color: currentColor;
+}
+.oh-direction-blurb {
+  font-size: 0.92rem;
+  color: var(--color-muted);
+}
+.oh-places {
+  margin-top: 1.75rem;
+}
+.oh-animate .oh-places {
+  animation: oh-fade 0.45s ease;
+}
+.oh-place-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem 2rem;
+}
+@media (min-width: 640px) {
+  .oh-place-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.oh-place {
+  border-top: 1px solid var(--color-line);
+  padding-top: 0.85rem;
+}
+.oh-place-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+.oh-place-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin: 0;
+}
+.oh-place-cat {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+.oh-place-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+.oh-place-link {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-brand-deep);
+  font-weight: 500;
+}
+.oh-map-note {
+  margin-top: 1.75rem;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  max-width: 34rem;
+}
+
+/* --- 16:34 the wall ------------------------------------------------------- */
+/* Twelve names set as one run of display type, like a line-up. Scale, not
+   colour, carries the hierarchy; the activities are listed underneath. */
+.oh-wall-wrap {
+  max-width: 62rem;
+  margin: 2.5rem auto 0;
+}
+.oh-wall {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.55rem, 1rem + 2.4vw, 3rem);
+  line-height: 1.28;
+  text-wrap: balance;
+}
+html[lang="th"] .oh-wall {
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  font-size: clamp(1.4rem, 1rem + 2vw, 2.6rem);
+}
+.oh-wall-name {
+  appearance: none;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--color-ink);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.14em;
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+.oh-wall-name[data-feature="true"] {
+  font-size: 1.16em;
+}
+.oh-wall-name:hover {
+  text-decoration-color: currentColor;
+}
+.oh-wall-name[aria-pressed="true"] {
+  color: var(--color-brand-deep);
+  text-decoration-color: currentColor;
+}
+.oh-wall-item {
+  white-space: nowrap;
+}
+.oh-wall-sep {
+  margin-left: 0.12em;
+  font-weight: 400;
+  color: var(--color-line-strong);
+}
+.oh-wall-breadth {
+  margin-top: 1.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-wall-breadth {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-door-slot {
+  margin-top: 0.5rem;
+}
+.oh-door {
+  margin-top: 2rem;
+  border-top: 2px solid var(--color-ink);
+  padding-top: 1.25rem;
+}
+.oh-animate .oh-door {
+  animation: oh-fade 0.45s ease;
+}
+.oh-door-kicker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-door-kicker {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-door-name {
+  margin-top: 0.35rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  line-height: 1.15;
+}
+.oh-door-tag {
+  margin-top: 0.4rem;
+  color: var(--color-muted);
+}
+.oh-door-detail {
+  margin-top: 0.9rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.oh-door-join {
+  margin-top: 0.9rem;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+.oh-door-join-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+html[lang="th"] .oh-door-join-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-door-foot {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.oh-door-open {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-success);
+}
+.oh-door-open::before {
+  content: "●";
+  font-size: 0.62em;
+  vertical-align: 0.15em;
+  margin-right: 0.4em;
+}
+.oh-wall-all {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* --- Night scope ---------------------------------------------------------- */
+/* The evening scenes carry their own tokens, so every component inside them
+   (buttons, links, the board, focus rings) inverts with no special cases. The
+   fixed folio borrows the same tokens while one of those scenes is current,
+   flagged with a data attribute set from the scroll position (see the page's
+   scroll handler) so React never rewrites the root's classes. */
+.oh-night,
+.oh[data-night] .oh-folio,
+.oh[data-night] .oh-folio-now {
+  color-scheme: dark;
+  --color-cream: var(--oh-night);
+  --color-surface: #27201b;
+  --color-sunken: #15110e;
+  --color-line: #3b332b;
+  --color-line-strong: #7e6e5a;
+  --color-input-border: #8a7a64;
+  --color-ink: #f2ebe1;
+  --color-muted: #b8ac9f;
+  --color-brand: #d62d34;
+  --color-brand-dark: #ffa9ac;
+  --color-brand-strong: #b3161c;
+  --color-brand-deep: #f9999c;
+  --color-brand-tint: #3c2422;
+  --color-forest: #93c4b1;
+  --color-success: #96cba1;
+  --color-success-tint: #1f2f23;
+  --color-info: #93c4b1;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
+}
+.oh-night {
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+/* 17:48: the light goes. A tall gradient is the dissolve; scrolling through it
+   is the day turning into evening, with no script and nothing to disable. */
+.oh-dusk {
+  min-height: 150svh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 22svh;
+  color: #f2ebe1;
+  background: linear-gradient(
+    180deg,
+    var(--oh-wash) 0%,
+    #e7d8bf 18%,
+    #b89574 36%,
+    #5b4234 54%,
+    #2c221c 70%,
+    var(--oh-night) 84%
+  );
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .oh-dusk {
+    background: linear-gradient(180deg, var(--oh-wash) 0%, #3a2c23 40%, var(--oh-night) 80%);
+  }
+}
+html[data-theme="dark"] .oh-dusk {
+  background: linear-gradient(180deg, var(--oh-wash) 0%, #3a2c23 40%, var(--oh-night) 80%);
+}
+.oh-dusk .oh-measure {
+  width: 100%;
+}
+.oh-dusk-time {
+  font-size: clamp(3.5rem, 2rem + 8vw, 8rem);
+  font-weight: 600;
+  line-height: 1;
+  color: rgba(242, 235, 225, 0.14);
+}
+.oh-dusk-line {
+  margin-top: 0.5rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(2rem, 1.3rem + 3.4vw, 3.8rem);
+  line-height: 1.15;
+  text-wrap: balance;
+  max-width: 18ch;
+  color: #f2ebe1;
+}
+
+/* 18:11 board. */
+.oh-board {
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-line-strong);
+}
+.oh-board-row {
+  display: grid;
+  gap: 0.35rem 1.5rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--color-line);
+}
+@media (min-width: 640px) {
+  .oh-board-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+  }
+}
+.oh-board-route {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.55rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.12rem;
+}
+.oh-board-arrow {
+  color: var(--color-brand-deep);
+}
+.oh-board-upcoming {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.oh-board-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-board-label {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-board-time {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.oh-board-in {
+  font-size: 0.85rem;
+  color: var(--color-brand-deep);
+}
+.oh-board-state {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+.oh-board-note {
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  max-width: 34rem;
+}
+
+/* Your day: the paper card set down on the night. */
+.oh-day {
+  padding-bottom: clamp(6rem, 16vh, 11rem);
+}
+.oh-day-grid {
+  max-width: 62rem;
+  margin-inline: auto;
+  display: grid;
+  gap: 2.25rem;
+}
+@media (min-width: 900px) {
+  .oh-day-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 24rem);
+    grid-template-areas:
+      "intro card"
+      "controls card";
+    column-gap: 4rem;
+    align-items: start;
+  }
+  .oh-day-intro {
+    grid-area: intro;
+    align-self: end;
+  }
+  .oh-card {
+    grid-area: card;
+  }
+  .oh-day-controls {
+    grid-area: controls;
+  }
+}
+.oh-card {
+  width: min(24rem, 100%);
+  justify-self: center;
+}
+.oh-card-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  background: #fbf7ef;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    0 40px 70px -30px rgba(0, 0, 0, 0.8);
+}
+@media (min-width: 900px) {
+  .oh-card-canvas {
+    transform: rotate(-1.4deg);
+  }
+}
+.oh-namefield {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-width: 22rem;
+}
+.oh-namefield label {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.oh-namefield input {
+  height: 2.75rem;
+  padding-inline: 0.9rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: inherit;
+}
+.oh-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.oh-toast {
+  margin-top: 0.75rem;
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  color: var(--color-success);
+}
+.oh-restart {
+  margin-top: 0.5rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-muted);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  font: inherit;
+  font-size: 0.92rem;
+}
+.oh-restart:hover {
+  color: var(--color-ink);
+}
+
+/* --- Invitation: back to daylight ---------------------------------------- */
+/* Dawn mirrors the dusk: the practical invitation is set in daylight. */
+.oh-invite {
+  background: linear-gradient(
+    180deg,
+    var(--oh-night) 0,
+    #3a2c23 3rem,
+    #b89574 7.5rem,
+    #eee3d0 11rem,
+    var(--color-surface) 14rem
+  );
+  padding-top: calc(clamp(4.5rem, 12vh, 9rem) + 9rem);
+}
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) .oh-invite {
+    background: linear-gradient(180deg, var(--oh-night) 0, var(--color-surface) 12rem);
+  }
+}
+html[data-theme="dark"] .oh-invite {
+  background: linear-gradient(180deg, var(--oh-night) 0, var(--color-surface) 12rem);
+}
+.oh-facts {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+@media (min-width: 640px) {
+  .oh-facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.oh-fact dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-fact dt {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-fact dd {
+  margin: 0.3rem 0 0;
+  font-size: 1.08rem;
+}
+.oh-invite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+.oh-invite-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
 }

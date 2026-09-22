@@ -13,18 +13,37 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const dict = getDictionary(lang);
-  return buildMetadata({
+  const base = buildMetadata({
     locale: lang,
     title: `${t(COPY.event, lang)} · ${dict.site.name}`,
     description: t(COPY.sub, lang),
     path: "/openhouse",
   });
+
+  // A shared day unfurls as that day's card. Only validated, closed-set
+  // choices reach the image URL; the optional name never does.
+  const state = parseState(await searchParams);
+  const query = new URLSearchParams({ lang });
+  for (const [k, v] of Object.entries(state)) if (v) query.set(k, v);
+  const image = {
+    url: `/api/openhouse-card?${query.toString()}`,
+    width: 1200,
+    height: 630,
+    alt: t(COPY.daySubtitle, lang),
+  };
+  return {
+    ...base,
+    openGraph: { ...base.openGraph, images: [image] },
+    twitter: { ...base.twitter, images: [image.url] },
+  };
 }
 
 /** Where we are relative to Open House, in the Bangkok timezone. */

@@ -43,7 +43,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
     teaser: {
       hook: { en: "What makes power worth obeying?", th: "อำนาจแบบไหนที่คนควรยอมทำตาม" },
       opens: {
-        en: "Justice, the state, freedom, the good life — the oldest arguments in politics, still unsettled. You read Hobbes and Rousseau and Rawls alongside traditions from beyond the West, Confucian ideas of virtuous rule and Kautilya's statecraft, and learn to take an idea apart instead of just agreeing with it.",
+        en: "Justice, the state, freedom and the good life are the oldest arguments in politics, and none of them is settled. You read Hobbes, Rousseau and Rawls alongside traditions from beyond the West, from Confucian ideas of virtuous rule to Kautilya’s statecraft, and learn to take an idea apart before deciding whether you agree with it.",
         th: "ความยุติธรรม รัฐ เสรีภาพ ชีวิตที่ดี ล้วนเป็นคำถามที่เก่าแก่ที่สุดของการเมืองและยังไม่มีใครตอบจบ คุณจะได้อ่านงานของฮอบส์ รุสโซ และรอลส์ ควบคู่ไปกับแนวคิดนอกสายตะวันตก ทั้งการปกครองโดยผู้มีคุณธรรมแบบขงจื๊อและตำราการปกครองของเกาฏิลยะ แล้วฝึกแยกแยะความคิดออกเป็นชิ้น ๆ แทนที่จะแค่เห็นด้วย",
       },
       thinkers: [
@@ -53,7 +53,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         { en: "Confucius & Kautilya", th: "ขงจื๊อและเกาฏิลยะ" },
       ],
       takeaway: {
-        en: "You leave able to argue a position — and find its weakest point.",
+        en: "You leave able to argue a position, and to find its weakest point.",
         th: "คุณจะออกไปพร้อมกับการโต้แย้งความคิดได้ และมองเห็นจุดอ่อนของมันด้วย",
       },
     },
@@ -67,12 +67,12 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "การตัดสินใจหนึ่งไปถึงชีวิตจริงได้อย่างไร",
       },
       opens: {
-        en: "Between a policy on paper and a service you actually use sits a whole machinery — Weber's bureaucracy, budgets, accountability, ethics — and the old question of where politics ends and administration begins. This is where you learn how the state is run, and where it breaks.",
+        en: "Between a policy on paper and a service you actually use sits a whole machinery, from Weber’s bureaucracy to budgets, accountability and ethics, along with the old question of where politics ends and administration begins. This is where you learn how the state is run, and where it breaks.",
         th: "ระหว่างนโยบายบนกระดาษกับบริการที่คุณใช้จริง มีกลไกทั้งระบบคั่นอยู่ ทั้งระบบราชการแบบเวเบอร์ งบประมาณ ความรับผิดชอบ และจริยธรรม รวมถึงคำถามเก่าแก่ว่าการเมืองสิ้นสุดตรงไหนและการบริหารเริ่มต้นตรงไหน ที่นี่คือที่ที่คุณจะได้เรียนว่ารัฐทำงานอย่างไร และพังตรงไหน",
       },
       thinkers: [
         { en: "Politics vs administration", th: "การเมืองกับการบริหาร" },
-        { en: "Weber's bureaucracy", th: "ระบบราชการแบบเวเบอร์" },
+        { en: "Weber’s bureaucracy", th: "ระบบราชการแบบเวเบอร์" },
         { en: "The policy cycle", th: "วงจรนโยบาย" },
         { en: "Accountability", th: "ความรับผิดชอบ" },
       ],
@@ -91,7 +91,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "อะไรผูกมัดประเทศที่ไม่ต้องขึ้นกับใคร",
       },
       opens: {
-        en: "With no world government, what makes international law real? You work case by case through its sources, sovereignty, the law of the sea, and moments like Nuremberg that held individuals answerable — reasoning the way it is actually argued.",
+        en: "With no world government, what makes international law real? You work case by case through its sources, sovereignty, the law of the sea, and moments like Nuremberg that held individuals to account, reasoning the way lawyers actually argue it.",
         th: "ในเมื่อไม่มีรัฐบาลโลก อะไรทำให้กฎหมายระหว่างประเทศมีผลจริง คุณจะได้ไล่เรียงทีละกรณี ทั้งที่มาของกฎหมาย อำนาจอธิปไตย กฎหมายทะเล และเหตุการณ์อย่างการพิจารณาคดีนูเรมเบิร์กที่เอาผิดบุคคลได้ อย่างที่เขาถกเถียงกันจริง",
       },
       thinkers: [
@@ -115,7 +115,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "ทำไมบางประเทศรวย บางประเทศถูกทำให้จน",
       },
       opens: {
-        en: "Markets and power have never been separate. You trace capitalism from the first global trade to today's developmental states, following the arguments — Smith, Marx, Polanyi — over whether a market is natural or built, and who ends up with what.",
+        en: "Markets and power have never been separate. You trace capitalism from the first global trade to today’s developmental states, following Smith, Marx and Polanyi as they argue over whether a market is natural or built, and who ends up with what.",
         th: "ตลาดกับอำนาจไม่เคยแยกออกจากกัน คุณจะได้ไล่ประวัติทุนนิยมตั้งแต่การค้าโลกยุคแรกจนถึงรัฐนำการพัฒนาในปัจจุบัน ผ่านข้อถกเถียงของสมิธ มาร์กซ์ และโพลานยี ว่าตลาดเป็นเรื่องธรรมชาติหรือถูกสร้างขึ้น และสุดท้ายใครได้อะไร",
       },
       thinkers: [
@@ -136,8 +136,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
     teaser: {
       hook: { en: "Who decides what the world notices?", th: "ใครเป็นคนกำหนดว่าโลกจะสนใจอะไร" },
       opens: {
-        en: "News, memes and feeds don't just report politics — they shape it. You study how media set the agenda and frame what we argue about, how information and misinformation spread, and how social platforms rewired who gets to speak.",
-        th: "ข่าว มีม และฟีดไม่ได้แค่รายงานการเมือง แต่กำหนดการเมืองด้วย คุณจะได้ศึกษาว่าสื่อจัดวาระและวางกรอบสิ่งที่เราถกเถียงกันอย่างไร ข้อมูลจริงและข้อมูลลวงแพร่กระจายอย่างไร และแพลตฟอร์มออนไลน์เปลี่ยนว่าใครมีสิทธิ์พูดไปแค่ไหน",
+        en: "News, memes and feeds shape politics as much as they report it. You study how media set the agenda and frame what we argue about, how information and misinformation spread, and how social platforms changed who gets to speak.",
+        th: "ข่าว มีม และฟีด มีส่วนกำหนดการเมืองพอ ๆ กับที่รายงานมัน คุณจะได้ศึกษาว่าสื่อจัดวาระและวางกรอบสิ่งที่เราถกเถียงกันอย่างไร ข้อมูลจริงและข้อมูลลวงแพร่กระจายอย่างไร และแพลตฟอร์มออนไลน์เปลี่ยนว่าใครมีสิทธิ์พูดไปแค่ไหน",
       },
       thinkers: [
         { en: "Agenda-setting", th: "การจัดวาระ" },
@@ -160,7 +160,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "ทำไมรัฐถึงทำสงคราม และทำไมถึงหยุด",
       },
       opens: {
-        en: "Terrorism, nuclear weapons, human rights, trade — this is where IR theory meets the headlines. You pit realism, liberalism and constructivism against real events — “anarchy is what states make of it” — to see which explanations actually hold up.",
+        en: "Terrorism, nuclear weapons, human rights and trade are where IR theory meets the headlines. You set realism, liberalism and constructivism against real events, including Wendt’s claim that “anarchy is what states make of it”, to see which explanations hold up.",
         th: "การก่อการร้าย อาวุธนิวเคลียร์ สิทธิมนุษยชน การค้า ที่นี่คือจุดที่ทฤษฎีความสัมพันธ์ระหว่างประเทศมาเจอกับพาดหัวข่าว คุณจะได้เอาสัจนิยม เสรีนิยม และคอนสตรัคติวิสต์มาปะทะกับเหตุการณ์จริง แล้วดูว่าคำอธิบายไหนอยู่รอด",
       },
       thinkers: [
@@ -205,6 +205,50 @@ export const ARRIVE_MODES: { key: string; label: Bi; card: Bi }[] = [
     card: { en: "On foot through the old city", th: "เดินผ่านเมืองเก่ามา" },
   },
 ];
+
+/**
+ * The way home mirrors the way in, so the morning choice is quietly carried to
+ * 18:11 and onto the card. Each line only states things that are true of the
+ * route (the bus stop across Phra Chan Road is the one the shuttle notice sends
+ * people to; see lib/shuttle-live.ts).
+ */
+export const HOME_ROUTES: Record<string, { card: Bi; line: Bi }> = {
+  ferry: {
+    card: { en: "The ferry back across the river", th: "นั่งเรือข้ามฟากกลับ" },
+    line: {
+      en: "You came in on the ferry, so it’s the ferry back across.",
+      th: "เช้านี้มาทางเรือข้ามฟาก ขากลับก็ข้ามฟากกลับไปเหมือนเดิม",
+    },
+  },
+  bus: {
+    card: { en: "The bus home", th: "นั่งรถเมล์กลับ" },
+    line: {
+      en: "You came in by bus, so it’s the stop across Phra Chan Road.",
+      th: "เช้านี้มารถเมล์ ขากลับก็ไปรอที่ป้ายฝั่งตรงข้ามถนนพระจันทร์",
+    },
+  },
+  mrt: {
+    card: { en: "Back to MRT Sanam Chai", th: "กลับไปขึ้น MRT สนามไชย" },
+    line: {
+      en: "You came in on the MRT, so it’s back to Sanam Chai.",
+      th: "เช้านี้มา MRT ขากลับก็ไปขึ้นที่สนามไชย",
+    },
+  },
+  shuttle: {
+    card: { en: "The shuttle to Sanam Chai", th: "รถรับส่งไปสนามไชย" },
+    line: {
+      en: "You came in on the shuttle. Here is when the next ones leave.",
+      th: "เช้านี้มารถรับส่ง นี่คือรอบถัดไปที่จะออก",
+    },
+  },
+  walk: {
+    card: { en: "Walking back through the old city", th: "เดินกลับผ่านเมืองเก่า" },
+    line: {
+      en: "You walked in, so you’ll walk out through the old city.",
+      th: "เช้านี้เดินมา ขากลับก็เดินผ่านเมืองเก่ากลับไป",
+    },
+  },
+};
 
 /**
  * Two honest lunch directions within the 53-minute window: a short walk around
@@ -279,6 +323,9 @@ type Copy = {
   fnArrive: Bi;
   fnLunch: Bi;
   fnClub: Bi;
+  fnHome: Bi;
+  cardPlace: Bi;
+  cardFor: Bi;
   betweenTime: Bi;
   betweenKicker: Bi;
   betweenLine: Bi;
@@ -358,7 +405,7 @@ export const COPY: Copy = {
     en: "Pick a class to sit in on",
     th: "เลือกวิชาที่อยากเข้าไปนั่งเรียน",
   },
-  keyIdeas: { en: "Ideas you'd meet", th: "แนวคิดที่จะได้เจอ" },
+  keyIdeas: { en: "Ideas you’d meet", th: "แนวคิดที่จะได้เจอ" },
   curriculumLink: {
     en: "See the full BIR curriculum",
     th: "ดูหลักสูตร BIR แบบเต็ม",
@@ -392,8 +439,8 @@ export const COPY: Copy = {
   clubsKicker: { en: "Class is over", th: "เลิกเรียนแล้ว" },
   clubsPrompt: { en: "Class is done. Where do you go?", th: "เลิกเรียนแล้ว จะไปไหนต่อ" },
   clubsNote: {
-    en: "BIR runs a wall of student clubs — different things, different people. Open one.",
-    th: "BIR มีชมรมนักศึกษาเต็มไปหมด แต่ละชมรมต่างกันทั้งกิจกรรมและผู้คน ลองเปิดดูสักชมรม",
+    en: "Twelve clubs, all run by students. Some rehearse, some hold mock parliaments, some head off to volunteer camp. Pick one and look inside.",
+    th: "สิบสองชมรมที่นักศึกษาดูแลกันเอง บางชมรมซ้อมดนตรี บางชมรมจัดประชุมสภาจำลอง บางชมรมออกค่ายอาสา ลองเลือกเข้าไปดูสักชมรม",
   },
   clubsAll: { en: "See all BIR clubs", th: "ดูชมรม BIR ทั้งหมด" },
   joinLabel: { en: "Joining", th: "การเข้าร่วม" },
@@ -401,10 +448,13 @@ export const COPY: Copy = {
   fnArrive: { en: "Arrived by", th: "มาถึงโดย" },
   fnLunch: { en: "Lunch", th: "มื้อกลางวัน" },
   fnClub: { en: "Then", th: "แล้วก็" },
+  fnHome: { en: "Home", th: "กลับบ้าน" },
+  cardPlace: { en: "Tha Prachan, Bangkok", th: "ท่าพระจันทร์ กรุงเทพฯ" },
+  cardFor: { en: "Kept by", th: "ของ" },
   betweenTime: { en: "10:47", th: "10:47" },
   betweenKicker: { en: "Between classes", th: "ช่วงว่างระหว่างคาบ" },
   betweenLine: {
-    en: "There is a lot of university in the hours that aren't on a timetable.",
+    en: "There is a lot of university in the hours that aren’t on a timetable.",
     th: "มหาวิทยาลัยมีอะไรอยู่เยอะในชั่วโมงที่ไม่มีอยู่ในตารางเรียน",
   },
   betweenBody: {
@@ -438,7 +488,7 @@ export const COPY: Copy = {
   duskTime: { en: "17:48", th: "17:48" },
   duskKicker: { en: "The campus changes", th: "เมื่อคณะเปลี่ยนไป" },
   duskLine: {
-    en: "Some days end when class does. Some don't.",
+    en: "Some days end when class does. Some don’t.",
     th: "บางวันจบลงตอนเลิกเรียน บางวันไม่จบ",
   },
   homeTime: { en: "18:11", th: "18:11" },
@@ -458,7 +508,7 @@ export const COPY: Copy = {
   homeClosed: { en: "Finished for the day", th: "หมดรอบของวันแล้ว" },
   evtWelcome: { en: "You’re here. Welcome.", th: "คุณมาถึงแล้ว ยินดีต้อนรับ" },
   evtLead: {
-    en: "Open House is on today. Here is what is useful while you're on campus.",
+    en: "Open House is on today. Here is what is useful while you’re on campus.",
     th: "วันนี้มีงาน Open House นี่คือสิ่งที่น่าจะมีประโยชน์ระหว่างอยู่ในคณะ",
   },
   evtProgramme: { en: "Today’s programme", th: "กำหนดการวันนี้" },

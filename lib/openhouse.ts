@@ -1,14 +1,18 @@
 import { z } from "zod";
 import { courses } from "@/content/course-review/courses";
 import { foodGroups, type Place } from "@/lib/places";
+import type { Locale } from "@/lib/i18n";
 import {
   ARRIVE_MODES,
+  COPY,
   CURATED_COURSES,
+  HOME_ROUTES,
   LUNCH_DIRECTIONS,
+  t,
   type Bi,
   type CourseTeaser,
 } from "@/content/openhouse/copy";
-import { CLUB_SLUGS } from "@/content/openhouse/clubs";
+import { CLUBS, CLUB_SLUGS } from "@/content/openhouse/clubs";
 
 export type CuratedCourse = {
   code: string;
@@ -30,10 +34,6 @@ export function getCuratedCourses(): CuratedCourse[] {
   });
 }
 
-const placeById = new Map<string, Place>(
-  foodGroups.flatMap((g) => g.places.map((p) => [p.id, p] as const))
-);
-
 export type LunchDirection = {
   key: string;
   label: Bi;
@@ -44,6 +44,9 @@ export type LunchDirection = {
 
 /** Resolve the curated lunch ids to real place entries from `lib/places.ts`. */
 export function getLunchDirections(): LunchDirection[] {
+  const placeById = new Map<string, Place>(
+    foodGroups.flatMap((g) => g.places.map((p) => [p.id, p] as const))
+  );
   return LUNCH_DIRECTIONS.map((d) => ({
     key: d.key,
     label: d.label,
@@ -54,10 +57,6 @@ export function getLunchDirections(): LunchDirection[] {
       return place ? [place] : [];
     }),
   }));
-}
-
-export function mapsHref(query: string): string {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 const courseCodes = CURATED_COURSES.map((c) => c.code);
@@ -101,4 +100,33 @@ export function parseState(params: Record<string, string | string[] | undefined>
     lunch: first(params.lunch),
     club: first(params.club),
   });
+}
+
+export type DayEntry = { time: string; label: string; value: string };
+
+/**
+ * The day as a list of stamped entries, built from validated URL state. Used
+ * server-side for the share image; the page builds the same list from the
+ * props it already holds, so the browser never loads the catalogues.
+ */
+export function dayEntries(locale: Locale, state: OpenHouseState): DayEntry[] {
+  const out: DayEntry[] = [];
+  const mode = ARRIVE_MODES.find((m) => m.key === state.arrive);
+  if (mode)
+    out.push({ time: "08:42", label: t(COPY.fnArrive, locale), value: t(mode.card, locale) });
+  const course = getCuratedCourses().find((c) => c.code === state.course);
+  if (course)
+    out.push({
+      time: "09:15",
+      label: t(COPY.cardChoiceCourse, locale),
+      value: `${course.code} · ${t(course.field, locale)}`,
+    });
+  const lunch = LUNCH_DIRECTIONS.find((d) => d.key === state.lunch);
+  if (lunch)
+    out.push({ time: "12:07", label: t(COPY.fnLunch, locale), value: t(lunch.label, locale) });
+  const club = CLUBS.find((c) => c.slug === state.club);
+  if (club) out.push({ time: "16:34", label: t(COPY.fnClub, locale), value: t(club.name, locale) });
+  const home = state.arrive ? HOME_ROUTES[state.arrive] : undefined;
+  if (home) out.push({ time: "18:11", label: t(COPY.fnHome, locale), value: t(home.card, locale) });
+  return out;
 }

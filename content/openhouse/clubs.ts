@@ -79,7 +79,7 @@ export const CLUBS: OpenHouseClub[] = [
     slug: "kien-club",
     name: { en: "Kien Club", th: "Kien Club" },
     tagline: {
-      en: "A writers' club publishing student work on the humanities.",
+      en: "A writers’ club publishing student work on the humanities.",
       th: "ชมรมนักเขียนที่ตีพิมพ์ผลงานนักศึกษาด้านมนุษยศาสตร์",
     },
     joinOpen: true,
@@ -118,12 +118,12 @@ export const CLUBS: OpenHouseClub[] = [
     slug: "tu-mun",
     name: { en: "TU MUN", th: "TU MUN" },
     tagline: {
-      en: "Thailand's first university Model United Nations club, running since 2011.",
+      en: "Thailand’s first university Model United Nations club, running since 2011.",
       th: "ชมรมจำลองการประชุมสหประชาชาติระดับมหาวิทยาลัยแห่งแรกของไทย ดำเนินงานมาตั้งแต่ปี 2011",
     },
     joinOpen: true,
     detail: {
-      en: "Has hosted Thailand's largest university MUN since 2014.",
+      en: "Has hosted Thailand’s largest university MUN since 2014.",
       th: "เป็นเจ้าภาพจัดงาน MUN ระดับมหาวิทยาลัยที่ใหญ่ที่สุดในไทยมาตั้งแต่ปี 2014",
     },
     join: {
@@ -181,7 +181,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     joinOpen: true,
     detail: {
-      en: "Fields both a women's team and a men's team.",
+      en: "Fields both a women’s team and a men’s team.",
       th: "มีทั้งทีมฟุตบอลชายและทีมฟุตบอลหญิง",
     },
     join: {
@@ -219,7 +219,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     joinOpen: true,
     detail: {
-      en: "Won ROV first place at last year's TPC Games.",
+      en: "Won ROV first place at last year’s TPC Games.",
       th: "คว้าอันดับหนึ่ง ROV ใน TPC Games ปีที่ผ่านมา",
     },
     join: {
