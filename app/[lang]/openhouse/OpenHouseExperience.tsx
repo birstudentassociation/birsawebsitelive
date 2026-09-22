@@ -22,16 +22,16 @@ type Props = {
 };
 
 const folioStops = [
-  { id: "oh-arrival", label: COPY.folioArrival, key: null },
-  { id: "oh-arrive", label: COPY.arriveTime, key: "arrive" as const },
-  { id: "oh-class", label: COPY.classTime, key: "course" as const },
-  { id: "oh-between", label: COPY.betweenTime, key: null },
-  { id: "oh-lunch", label: COPY.lunchTime, key: "lunch" as const },
-  { id: "oh-back", label: COPY.backTime, key: null },
-  { id: "oh-clubs", label: COPY.clubsTime, key: "club" as const },
-  { id: "oh-dusk", label: COPY.duskTime, key: null },
-  { id: "oh-home", label: COPY.homeTime, key: null },
-  { id: "oh-day", label: COPY.folioDay, key: null },
+  { id: "oh-arrival", label: COPY.folioArrival, name: null, key: null },
+  { id: "oh-arrive", label: COPY.arriveTime, name: COPY.arriveKicker, key: "arrive" as const },
+  { id: "oh-class", label: COPY.classTime, name: COPY.classKicker, key: "course" as const },
+  { id: "oh-between", label: COPY.betweenTime, name: COPY.betweenKicker, key: null },
+  { id: "oh-lunch", label: COPY.lunchTime, name: COPY.lunchKicker, key: "lunch" as const },
+  { id: "oh-back", label: COPY.backTime, name: COPY.backKicker, key: null },
+  { id: "oh-clubs", label: COPY.clubsTime, name: COPY.clubsKicker, key: "club" as const },
+  { id: "oh-dusk", label: COPY.duskTime, name: COPY.duskKicker, key: null },
+  { id: "oh-home", label: COPY.homeTime, name: COPY.homeKicker, key: null },
+  { id: "oh-day", label: COPY.folioDay, name: null, key: null },
 ];
 
 export default function OpenHouseExperience({
@@ -132,7 +132,8 @@ export default function OpenHouseExperience({
         const max = document.documentElement.scrollHeight - window.innerHeight;
         const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
         root.style.setProperty("--oh-progress", String(p));
-        root.style.setProperty("--oh-day", String(p));
+        // The whole-page warm shift is motion; leave it static for reduced motion.
+        if (animate) root.style.setProperty("--oh-day", String(p));
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -232,6 +233,9 @@ export default function OpenHouseExperience({
               <a
                 href={`#${s.id}`}
                 aria-current={active === s.id}
+                aria-label={
+                  s.name ? `${t(s.label, locale)} — ${t(s.name, locale)}` : t(s.label, locale)
+                }
                 data-chosen={s.key ? chosen[s.key] : undefined}
               >
                 <span className="oh-time">{t(s.label, locale)}</span>
@@ -279,9 +283,16 @@ export default function OpenHouseExperience({
 
       {/* Arrival */}
       <section id="oh-arrival" data-scene className="oh-scene oh-arrival">
-        <span className="oh-anchor" aria-hidden="true">
-          {locale === "th" ? "ท่าพระจันทร์" : "Tha Prachan"}
-        </span>
+        <svg
+          className="oh-anchor"
+          aria-hidden="true"
+          viewBox="0 0 1200 240"
+          preserveAspectRatio="xMinYMax slice"
+        >
+          <text x="0" y="196">
+            {locale === "th" ? "ท่าพระจันทร์" : "Tha Prachan"}
+          </text>
+        </svg>
         <div className="oh-measure oh-arrival-body">
           <p className="oh-kicker oh-reveal" data-reveal>
             {t(COPY.eyebrow, locale)}

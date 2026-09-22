@@ -289,6 +289,7 @@ type Copy = {
   backQuestions: Bi[];
   backNote: Bi;
   duskTime: Bi;
+  duskKicker: Bi;
   duskLine: Bi;
   homeTime: Bi;
   homeKicker: Bi;
@@ -435,6 +436,7 @@ export const COPY: Copy = {
     th: "ไม่มีคำตอบเดียว ซึ่งนั่นแหละคือประเด็น",
   },
   duskTime: { en: "17:48", th: "17:48" },
+  duskKicker: { en: "The campus changes", th: "เมื่อคณะเปลี่ยนไป" },
   duskLine: {
     en: "Some days end when class does. Some don't.",
     th: "บางวันจบลงตอนเลิกเรียน บางวันไม่จบ",

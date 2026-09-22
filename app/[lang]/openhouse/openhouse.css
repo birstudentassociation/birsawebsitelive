@@ -165,15 +165,16 @@ html[lang="th"] .oh-kicker {
 }
 
 /* --- Motion vocabulary ------------------------------------------------- */
+/* The hidden state is a transform only, never opacity: an opacity:0 text node
+   still counts as a colour-contrast failure to axe (it blends the faint colour
+   over the page), so a below-fold reveal would fail WCAG 1.4.3 on every element
+   it touches. A slide with full opacity keeps the motion and stays accessible;
+   under reduced motion the class is never added and nothing moves. */
 .oh-animate .oh-reveal {
-  opacity: 0;
   transform: translateY(1.5rem);
-  transition:
-    opacity 0.7s ease,
-    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .oh-animate .oh-reveal.is-in {
-  opacity: 1;
   transform: none;
 }
 .oh-animate .oh-reveal[data-move="drift"] {
@@ -393,24 +394,29 @@ html[lang="th"] .oh-heading {
   position: relative;
   z-index: 1;
 }
+/* Decorative giant place-name, drawn as SVG text so it stays a background mark
+   the a11y tree ignores (it is aria-hidden and axe does not run contrast on SVG
+   text), free to be as faint as the composition wants. */
 .oh-anchor {
   position: absolute;
   z-index: 0;
-  left: -0.02em;
-  bottom: -0.1em;
-  font-family: var(--font-heading);
-  font-weight: 600;
-  font-size: clamp(4rem, 17vw, 14rem);
-  line-height: 0.8;
-  letter-spacing: -0.02em;
-  color: color-mix(in oklab, var(--color-line-strong), transparent 42%);
-  white-space: nowrap;
+  left: 0;
+  bottom: 0;
+  width: min(150%, 64rem);
+  height: auto;
   pointer-events: none;
   user-select: none;
 }
-html[lang="th"] .oh-anchor {
-  letter-spacing: 0.02em;
-  font-size: clamp(3rem, 13vw, 10rem);
+.oh-anchor text {
+  fill: color-mix(in oklab, var(--color-line-strong), transparent 42%);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 200px;
+  letter-spacing: -4px;
+}
+html[lang="th"] .oh-anchor text {
+  font-size: 168px;
+  letter-spacing: 2px;
 }
 .oh-arrival-sub {
   margin-top: 1rem;
@@ -545,7 +551,7 @@ html[lang="th"] .oh-teaser-label {
 .oh-folio-carry {
   display: block;
   font-variant-numeric: tabular-nums;
-  color: var(--oh-accent);
+  color: var(--color-brand-deep);
   font-weight: 600;
   font-size: 0.7rem;
   margin-top: 0.15rem;
@@ -630,6 +636,11 @@ html[lang="th"] .oh-teaser-label {
   background: var(--color-ink);
   color: var(--color-cream);
   border-color: var(--color-ink);
+}
+/* On the ink-filled selected state the default ink focus ring would vanish. */
+.oh-mode[aria-pressed="true"]:focus-visible {
+  outline-color: var(--color-cream);
+  box-shadow: 0 0 0 5px rgba(33, 28, 25, 0.5);
 }
 
 /* 12:07 lunch directions + places. */
@@ -1118,19 +1129,19 @@ html[lang="th"] .oh-board-label {
 .oh-map-river {
   fill: color-mix(in oklab, var(--color-info), var(--color-ink) 20%);
   font-family: var(--font-heading);
-  font-size: 15px;
+  font-size: 19px;
   letter-spacing: 0.08em;
   opacity: 0.85;
 }
 .oh-map-label {
   fill: var(--color-muted);
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 17px;
 }
 .oh-map-campus {
   fill: var(--color-ink);
   font-family: var(--font-heading);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
 }
 .oh-map-campus-dot {

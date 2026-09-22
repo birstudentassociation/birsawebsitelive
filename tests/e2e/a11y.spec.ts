@@ -6,6 +6,8 @@ import AxeBuilder from "@axe-core/playwright";
 // all exercised. Dynamic routes use a real, stable slug from `content/`.
 const publicPaths = [
   "/", // home
+  "/openhouse", // Open House experience: initial state
+  "/openhouse?arrive=ferry&course=PI280&lunch=wanglang&club=tu-mun", // every choice made
   "/quick",
   "/search",
   "/contact",
