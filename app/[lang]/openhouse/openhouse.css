@@ -1,0 +1,356 @@
+/* ==========================================================================
+   Open House event layer. Scoped to `.oh` so nothing here touches the rest of
+   the portal. Builds on the site tokens (cream/ink/brand/forest) and adds an
+   event display scale, a scroll-driven day-temperature wash, the editorial
+   time folio, and the six-move motion vocabulary.
+
+   Motion contract: the static composition is the source of truth. `.oh-animate`
+   is added to the root by JS only when the visitor has not asked for reduced
+   motion, and only then are the pre-animation (hidden/undrawn) states applied.
+   With no JS, or with prefers-reduced-motion, everything renders in its final
+   place. Reduced motion is a designed state, not an empty one.
+   ========================================================================== */
+
+.oh {
+  --oh-day: 0; /* 0 morning cool → 1 dusk warm, driven by scroll */
+  --oh-wash: color-mix(
+    in oklab,
+    var(--color-cream),
+    var(--color-warning-tint) calc(var(--oh-day) * 55%)
+  );
+  --oh-accent: var(--color-brand);
+  --oh-folio-w: 5.5rem;
+  position: relative;
+  background: var(--oh-wash);
+  transition: background-color 0.6s ease;
+}
+
+/* Event display scale — a step above the site's headings, editorial and
+   confident, still Fraunces / JenjrusVris via the site's language mapping. */
+.oh-display {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  font-size: clamp(2.4rem, 1.4rem + 5vw, 5rem);
+}
+html[lang="th"] .oh-display {
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+
+.oh-kicker {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-kicker {
+  letter-spacing: 0.06em;
+  text-transform: none;
+}
+
+.oh-time {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.oh-scene {
+  position: relative;
+  padding-block: clamp(4rem, 10vh, 8rem);
+  padding-inline: 1.25rem;
+}
+@media (min-width: 900px) {
+  .oh-scene {
+    padding-inline: calc(var(--oh-folio-w) + 2rem) 2rem;
+  }
+}
+
+.oh-measure {
+  max-width: 40rem;
+  margin-inline: auto;
+}
+
+/* --- Time folio -------------------------------------------------------- */
+/* Desktop: a thin editorial rail down the left edge, part navigation, part
+   progress. Mobile: a slim fixed progress bar at the top. */
+.oh-folio {
+  position: fixed;
+  z-index: 30;
+  pointer-events: none;
+}
+.oh-folio ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.oh-folio a {
+  pointer-events: auto;
+  text-decoration: none;
+  color: var(--color-muted);
+}
+
+@media (max-width: 899px) {
+  .oh-folio {
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: var(--color-line);
+  }
+  .oh-folio ol {
+    display: none;
+  }
+  .oh-folio::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: calc(var(--oh-progress, 0) * 100%);
+    background: var(--oh-accent);
+    transition: width 0.2s ease;
+  }
+}
+
+@media (min-width: 900px) {
+  .oh-folio {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--oh-folio-w);
+    display: flex;
+    align-items: center;
+  }
+  .oh-folio ol {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--color-line);
+    margin-left: 1.4rem;
+  }
+  .oh-folio li {
+    font-size: 0.72rem;
+    line-height: 1.1;
+  }
+  .oh-folio a {
+    display: block;
+    position: relative;
+  }
+  .oh-folio a::before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    top: 0.35em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-line-strong);
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
+  }
+  .oh-folio a[aria-current="true"] {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .oh-folio a[aria-current="true"]::before {
+    background: var(--oh-accent);
+    transform: scale(1.5);
+  }
+  .oh-folio-upcoming a {
+    opacity: 0.5;
+  }
+}
+
+/* --- Motion vocabulary ------------------------------------------------- */
+.oh-animate .oh-reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.oh-animate .oh-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.oh-animate .oh-reveal[data-move="drift"] {
+  transform: translateY(2.5rem) scale(1.01);
+}
+.oh-animate .oh-reveal[data-delay="1"] {
+  transition-delay: 0.12s;
+}
+.oh-animate .oh-reveal[data-delay="2"] {
+  transition-delay: 0.24s;
+}
+.oh-animate .oh-reveal[data-delay="3"] {
+  transition-delay: 0.36s;
+}
+
+/* Trace: routes/timelines draw themselves in. Static default is the finished
+   line, so reduced motion and no-JS both show the whole river. */
+.oh-trace path {
+  stroke-dasharray: var(--oh-len, 1);
+  stroke-dashoffset: 0;
+}
+.oh-animate .oh-trace path {
+  stroke-dashoffset: var(--oh-len, 1);
+  transition: stroke-dashoffset 1.6s ease;
+}
+.oh-animate .oh-trace.is-in path {
+  stroke-dashoffset: 0;
+}
+
+/* --- Arrival ----------------------------------------------------------- */
+.oh-arrival {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.oh-scroll-hint {
+  margin-top: 3rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+/* --- Course slips ------------------------------------------------------ */
+.oh-slips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.oh-slip {
+  appearance: none;
+  text-align: left;
+  cursor: pointer;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  min-width: 13rem;
+  flex: 1 1 13rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.oh-slip:hover,
+.oh-slip:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-line-strong);
+}
+.oh-slip[aria-pressed="true"] {
+  border-color: var(--oh-accent);
+  box-shadow: inset 0 0 0 1px var(--oh-accent);
+}
+.oh-slip-code {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-deep);
+  font-weight: 600;
+}
+.oh-slip-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  margin-top: 0.35rem;
+  line-height: 1.2;
+}
+.oh-slip-field {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+/* The margin mark a selection leaves — editorial, not a SaaS check. */
+.oh-slip[aria-pressed="true"] .oh-slip-code::before {
+  content: "— ";
+  color: var(--oh-accent);
+}
+
+/* --- Field note (souvenir) --------------------------------------------- */
+.oh-fieldnote-wrap {
+  display: grid;
+  gap: 2rem;
+  justify-items: center;
+}
+.oh-card {
+  width: min(22rem, 100%);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--color-surface);
+}
+.oh-card svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.oh-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+.oh-namefield {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: min(22rem, 100%);
+}
+.oh-namefield label {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+.oh-namefield input {
+  height: 2.75rem;
+  padding-inline: 0.9rem;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font: inherit;
+}
+.oh-toast {
+  font-size: 0.85rem;
+  color: var(--color-success);
+  min-height: 1.2em;
+}
+
+/* --- Invitation -------------------------------------------------------- */
+.oh-invite {
+  border-top: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.oh-facts {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+@media (min-width: 640px) {
+  .oh-facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.oh-fact dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-muted);
+}
+html[lang="th"] .oh-fact dt {
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.oh-fact dd {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+}
