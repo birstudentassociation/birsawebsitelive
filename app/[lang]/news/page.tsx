@@ -44,6 +44,7 @@ const copy = {
       announcements: "Announcements",
       events: "Events",
       community: "Community",
+      activities: "Activities",
     } as Record<string, string>,
   },
   th: {
@@ -61,6 +62,7 @@ const copy = {
       announcements: "ประกาศ",
       events: "กิจกรรม",
       community: "ชุมชน",
+      activities: "กิจกรรมนักศึกษา",
     } as Record<string, string>,
   },
 };
