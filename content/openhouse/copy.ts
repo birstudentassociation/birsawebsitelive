@@ -399,8 +399,8 @@ export const COPY: Copy = {
   eyebrow: { en: "BIR · Tha Prachan", th: "BIR · ท่าพระจันทร์" },
   event: { en: "Open House · 31 October", th: "Open House · 31 ตุลาคม" },
   headline: {
-    en: "A degree is one part of the day.",
-    th: "ปริญญาเป็นแค่ส่วนหนึ่งของวันหนึ่ง",
+    en: "Studying is just one part of the day.",
+    th: "การเรียนเป็นแค่ส่วนหนึ่งของวัน",
   },
   sub: {
     en: "Come and spend the rest of it with us.",
