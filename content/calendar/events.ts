@@ -1,7 +1,8 @@
 /**
  * Front-page activity calendar: the dated items pulled from BIRSA's monthly
- * "activity calendar" Instagram posts (June to August 2026), plus the closure
- * for Songkran from the Registrar's AY 2569 calendar. Each event links through
+ * "activity calendar" Instagram posts (June to August 2026), the dates set out
+ * in individual news and event posts, plus the closure for Songkran from the
+ * Registrar's AY 2569 calendar. Each event links through
  * to a news/event post via `slug` (locale-less; the calendar builds the
  * locale-aware href). Kept as plain, serialisable data so it can be passed
  * straight into the client `<EventCalendar>` component.
@@ -48,8 +49,9 @@ export const calendarEvents: CalendarEvent[] = [
   {
     id: "jun-recruitment",
     start: "2026-06-15",
+    end: "2026-06-25",
     title: {
-      en: "Round 1 of sub-committee recruitment opens",
+      en: "Round 1 of sub-committee recruitment",
       th: "เปิดรับสมัครอนุกรรมการ รอบที่ 1",
     },
     slug: "birsa-committee-recruitment",
@@ -73,6 +75,37 @@ export const calendarEvents: CalendarEvent[] = [
       th: "วันสถาปนามหาวิทยาลัยธรรมศาสตร์ ครบรอบ 92 ปี",
     },
     slug: "june-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "jun-recruitment-interviews",
+    start: "2026-06-27",
+    end: "2026-06-28",
+    title: {
+      en: "Sub-committee interviews",
+      th: "สัมภาษณ์ผู้สมัครอนุกรรมการ",
+    },
+    slug: "birsa-committee-recruitment",
+    kind: "birsa",
+  },
+  {
+    id: "jun-subcommittee-results",
+    start: "2026-06-30",
+    title: {
+      en: "Sub-committee results announced",
+      th: "ประกาศผลการคัดเลือกอนุกรรมการ",
+    },
+    slug: "birsa-subcommittee-appointment-2026",
+    kind: "birsa",
+  },
+  {
+    id: "jun-singhadang-registration-closes",
+    start: "2026-06-30",
+    title: {
+      en: "Singhadang Samphan registration closes at 23:59",
+      th: "ปิดลงทะเบียนสิงห์แดงสัมพันธ์ เวลา 23.59 น.",
+    },
+    slug: "singhadang-samphan-2026",
     kind: "university",
   },
 
@@ -140,6 +173,27 @@ export const calendarEvents: CalendarEvent[] = [
     kind: "university",
   },
   {
+    id: "aug-mfa-required",
+    start: "2026-08-01",
+    title: {
+      en: "Multi-factor authentication required on university accounts",
+      th: "เริ่มบังคับใช้การยืนยันตัวตนหลายขั้นตอน (MFA) กับบัญชีมหาวิทยาลัย",
+    },
+    slug: "mfa-required-august-2026",
+    kind: "university",
+  },
+  {
+    id: "aug-council-applications",
+    start: "2026-08-10",
+    end: "2026-08-14",
+    title: {
+      en: "BIR18 Student Council applications",
+      th: "เปิดรับสมัครคณะกรรมการนักศึกษา BIR18",
+    },
+    slug: "bir18-student-council-election-2026",
+    kind: "birsa",
+  },
+  {
     id: "aug-back-to-school",
     start: "2026-08-11",
     end: "2026-08-12",
@@ -182,6 +236,37 @@ export const calendarEvents: CalendarEvent[] = [
     kind: "university",
   },
   {
+    id: "aug-council-candidates",
+    start: "2026-08-16",
+    title: {
+      en: "BIR18 Student Council candidates announced",
+      th: "ประกาศรายชื่อผู้สมัครคณะกรรมการนักศึกษา BIR18",
+    },
+    slug: "bir18-student-council-candidates-2026",
+    kind: "birsa",
+  },
+  {
+    id: "aug-council-campaign",
+    start: "2026-08-16",
+    end: "2026-08-24",
+    title: {
+      en: "BIR18 Student Council election campaign",
+      th: "ช่วงหาเสียงเลือกตั้งคณะกรรมการนักศึกษา BIR18",
+    },
+    slug: "bir18-student-council-election-2026",
+    kind: "birsa",
+  },
+  {
+    id: "aug-boat-closure-17",
+    start: "2026-08-17",
+    title: {
+      en: "River closed from 12:30 for royal barge rehearsal",
+      th: "ปิดการเดินเรือตั้งแต่ 12.30 น. เพื่อซ้อมขบวนเรือพระราชพิธี",
+    },
+    slug: "express-boat-royal-barge-rehearsals-august-2026",
+    kind: "university",
+  },
+  {
     id: "aug-tpc-firstmeet",
     start: "2026-08-19",
     title: {
@@ -189,6 +274,152 @@ export const calendarEvents: CalendarEvent[] = [
       th: "TPC Firstmeet",
     },
     slug: "august-2026-activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "aug-council-policy",
+    start: "2026-08-19",
+    title: {
+      en: "BIR18 candidates present their policies, 12:30 in R.102",
+      th: "ผู้สมัคร BIR18 แถลงนโยบาย 12.30 น. ห้อง ร.102",
+    },
+    slug: "bir18-student-council-candidates-2026",
+    kind: "birsa",
+  },
+  {
+    id: "aug-boat-closure-20",
+    start: "2026-08-20",
+    title: {
+      en: "River closed from 12:30 for royal barge rehearsal",
+      th: "ปิดการเดินเรือตั้งแต่ 12.30 น. เพื่อซ้อมขบวนเรือพระราชพิธี",
+    },
+    slug: "express-boat-royal-barge-rehearsals-august-2026",
+    kind: "university",
+  },
+  {
+    id: "aug-council-election",
+    start: "2026-08-24",
+    title: {
+      en: "BIR18 Student Council election day",
+      th: "วันเลือกตั้งคณะกรรมการนักศึกษา BIR18",
+    },
+    slug: "bir18-student-council-election-2026",
+    kind: "birsa",
+  },
+  {
+    id: "aug-boat-closure-27",
+    start: "2026-08-27",
+    title: {
+      en: "River closed from 12:30 for royal barge rehearsal",
+      th: "ปิดการเดินเรือตั้งแต่ 12.30 น. เพื่อซ้อมขบวนเรือพระราชพิธี",
+    },
+    slug: "express-boat-royal-barge-rehearsals-august-2026",
+    kind: "university",
+  },
+
+  // ---- September to December 2026 (from news and event posts) -------------
+  {
+    id: "sep-council-appointed",
+    start: "2026-09-01",
+    title: {
+      en: "BIR18 Student Council appointed",
+      th: "แต่งตั้งคณะกรรมการแกนนักศึกษา BIR รุ่นที่ 18",
+    },
+    slug: "bir18-student-council-appointed-2026",
+    kind: "university",
+  },
+  {
+    id: "sep-bitkub-survival-guide",
+    start: "2026-09-02",
+    title: {
+      en: "Bitkub x BIR Survival Guide, 16:30 in R.102",
+      th: "Bitkub x BIR Survival Guide 16.30 น. ห้อง ร.102",
+    },
+    slug: "bitkub-bir-survival-guide-2026",
+    kind: "birsa",
+  },
+  {
+    id: "sep-asa-ir-applications",
+    start: "2026-09-10",
+    end: "2026-09-24",
+    title: {
+      en: "ASA IR 6 camp applications",
+      th: "เปิดรับสมัครลูกค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "sep-chitchat-with-ajarns",
+    start: "2026-09-16",
+    title: {
+      en: "Chitchat with Ajarns, 16:30 in R.102",
+      th: "Chitchat with Ajarns 16.30 น. ห้อง ร.102",
+    },
+    slug: "chitchat-with-ajarns-2026",
+    kind: "birsa",
+  },
+  {
+    id: "sep-asa-ir-interviews",
+    start: "2026-09-28",
+    end: "2026-09-30",
+    title: {
+      en: "ASA IR 6 interviews",
+      th: "สัมภาษณ์ลูกค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "oct-asa-ir-announcement",
+    start: "2026-10-02",
+    title: {
+      en: "ASA IR 6 camp members announced",
+      th: "ประกาศรายชื่อลูกค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "oct-asa-ir-workshop-1",
+    start: "2026-10-04",
+    title: {
+      en: "ASA IR 6 first workshop",
+      th: "เวิร์กช็อปครั้งที่ 1 ค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "oct-asa-ir-fundraising",
+    start: "2026-10-06",
+    end: "2026-11-07",
+    title: {
+      en: "ASA IR 6 fundraising",
+      th: "ระดมทุนค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "nov-asa-ir-workshop-2",
+    start: "2026-11-14",
+    title: {
+      en: "ASA IR 6 second workshop",
+      th: "เวิร์กช็อปครั้งที่ 2 ค่ายอาสาไออาร์ 6",
+    },
+    slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "dec-asa-ir-camp",
+    start: "2026-12-13",
+    end: "2026-12-24",
+    title: {
+      en: "ASA IR 6 camp in Omkoi, Chiang Mai",
+      th: "ออกค่ายอาสาไออาร์ 6 อำเภออมก๋อย จังหวัดเชียงใหม่",
+    },
+    slug: "asa-ir-6-camp-recruitment",
     kind: "university",
   },
 

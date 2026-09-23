@@ -90,8 +90,13 @@ describe("EventCalendar month navigation", () => {
     clickNext();
     expect(currentMonth()).toBe("August 2026");
 
-    // Nothing is scheduled between September 2026 and March 2027, so the next
-    // step lands on the Songkran closure rather than on an empty month.
+    for (const month of ["September 2026", "October 2026", "November 2026", "December 2026"]) {
+      clickNext();
+      expect(currentMonth()).toBe(month);
+    }
+
+    // Nothing is scheduled between January and March 2027, so the next step
+    // lands on the Songkran closure rather than on an empty month.
     clickNext();
     expect(currentMonth()).toBe("April 2027");
   });
