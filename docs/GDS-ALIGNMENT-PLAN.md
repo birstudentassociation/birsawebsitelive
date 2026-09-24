@@ -295,14 +295,17 @@ Each gap cites the rule, the evidence in this repository, and the fix. Prioritie
 Four phases. Each item names its gap numbers so progress can be checked against section 3. The
 phases are sized for volunteer time; nothing here needs new infrastructure.
 
-### Phase 0. Decisions (committee, one meeting)
+### Phase 0. Decisions (taken 24 September 2026)
 
-- Adopt the GOV.UK A to Z for English content, with named exceptions (W1).
-- External links in the same tab (L1).
-- Whether the header keeps "Quick actions" and the theme toggle (N3).
-- Phase label or no phase label (M4).
-- Licence (X4).
-- Whether to build Exit this page, after talking to the welfare officers (E5).
+| Question                     | Decision                                                                                                                                     | Gaps   |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| GOV.UK A to Z for English    | Binding for all English content, with recorded BIRSA exceptions, enforced by a content lint test                                             | W1, W3 |
+| External links               | Same tab. New tab only mid-journey where leaving would lose answers, with "(opens in new tab)" visible                                       | L1     |
+| Header                       | Two rows: brand row (logo, name, language) and navigation row (sections, search). Quick actions and theme toggle stay, in the navigation row | N3     |
+| Phase signal                 | No label. Remove the "beta" wording from the accessibility statement                                                                         | M4     |
+| Licence                      | MIT for code only. Content and photographs are not openly licensed                                                                           | X4     |
+| Exit this page               | Build it now, in Phase 2. Brief the welfare officers on how it works before it goes live                                                     | E5     |
+| Thai register on legal pages | Keep ท่าน on privacy and cookies pages as a recorded exception. คุณ everywhere else                                                          | W5     |
 
 ### Phase 1. Accessibility and trust fixes (P1 items)
 
@@ -329,13 +332,13 @@ Done when: `npm run test` and the e2e suites pass with the new tests, and the st
 9. Accessibility statement on its own page (A2).
 10. `security.txt`, error alerting, uptime checks, iOS Safari project (X1, X2, X3).
 11. KPIs per service and analytics exclusions (M1, M5).
-12. Exit this page, if Phase 0 agreed it (E5).
+12. Exit this page (E5).
 
 ### Phase 3. Content (runs alongside Phase 2)
 
-1. `docs/STYLE.md` with the A to Z rules and Thai equivalents (W1, W5).
+1. `docs/STYLE.md` with the A to Z rules, Thai equivalents and the ท่าน exception for legal pages (W1, W5).
 2. English content lint test, then fix what it finds, starting with contractions (W2, W3).
-3. Thai plain-language pass on privacy, cookies, standards (W5).
+3. Thai plain-language pass on privacy, cookies and standards, keeping ท่าน on the legal pages (W5).
 4. `userNeed`, `owner`, `reviewBy` in frontmatter, and the review cron (W6).
 5. Title and summary rewrites where the fitter truncates (W4).
 6. Change notes and withdrawal (W7, W8).
