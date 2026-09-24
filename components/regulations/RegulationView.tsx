@@ -120,7 +120,7 @@ function ProvisionView({
   headingLevel: number;
 }) {
   return (
-    <article id={`prov-${provision.num}`} className="flex scroll-mt-24 gap-3 sm:gap-4">
+    <article id={`prov-${provision.num}`} className="flex gap-3 sm:gap-4">
       <div className="w-6 shrink-0 pt-0.5 font-display text-sm font-semibold text-brand-deep tabular-nums sm:w-8 sm:text-base">
         {provision.num}
       </div>
@@ -284,7 +284,7 @@ function SectionViewResolved({
   const headingLevel = Math.min(2 + depth, 6);
   const isTop = depth === 0;
   return (
-    <section id={path} className="flex scroll-mt-24 flex-col gap-6">
+    <section id={path} className="flex flex-col gap-6">
       <Heading
         level={headingLevel}
         className={

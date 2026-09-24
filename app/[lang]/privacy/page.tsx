@@ -434,7 +434,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
           <p className="leading-relaxed text-muted">{t.noAdsBody}</p>
         </section>
 
-        <section id="your-rights" className="flex scroll-mt-24 flex-col gap-4">
+        <section id="your-rights" className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-2xl">{t.rightsTitle}</h2>
             <p className="leading-relaxed text-muted">{t.rightsIntro}</p>

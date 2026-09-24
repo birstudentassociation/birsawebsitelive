@@ -9,8 +9,6 @@ import { en } from "./en";
 export const th: typeof en = {
   locale: "th",
   langLabel: "ไทย",
-  // Shown inside the language toggle as the language you can switch TO.
-  switchTo: "English",
   switchToAria: "Change the language to English",
 
   site: {
@@ -60,6 +58,7 @@ export const th: typeof en = {
   },
 
   a11y: {
+    languageNav: "ภาษา",
     skip: "ข้ามไปยังเนื้อหาหลัก",
     primaryNav: "เมนูหลัก",
     openMenu: "เมนู",

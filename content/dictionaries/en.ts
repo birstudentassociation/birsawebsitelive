@@ -10,8 +10,6 @@
 export const en = {
   locale: "en",
   langLabel: "English",
-  // Shown inside the language toggle as the language you can switch TO.
-  switchTo: "ภาษาไทย",
   // Written in the language being switched to, and tagged with it (GOV.UK
   // Language navigation), so a screen reader reads it in the right voice.
   switchToAria: "เปลี่ยนเป็นภาษาไทย",
@@ -62,6 +60,7 @@ export const en = {
   },
 
   a11y: {
+    languageNav: "Language",
     skip: "Skip to main content",
     primaryNav: "Primary",
     openMenu: "Menu",

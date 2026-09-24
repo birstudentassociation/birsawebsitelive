@@ -429,3 +429,12 @@ test.describe("skip link", () => {
     await expect(skipLink).not.toHaveText("");
   });
 });
+
+test("language navigation names both languages in their own language", async ({ page }) => {
+  await page.goto("/en/news");
+  const nav = page.getByRole("navigation", { name: "Language" });
+  await expect(nav.locator('[aria-current="true"]')).toHaveAttribute("lang", "en");
+  const link = nav.getByRole("link", { name: /เปลี่ยนเป็นภาษาไทย/ });
+  await expect(link).toHaveAttribute("lang", "th");
+  await expect(link).toHaveAttribute("href", "/th/news");
+});

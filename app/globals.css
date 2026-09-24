@@ -244,7 +244,7 @@ html[lang="th"] :is(h1, h2, h3) {
      (see components/Header.tsx). */
   @media (min-height: 32rem) {
     html {
-      scroll-padding-top: 5.5rem;
+      scroll-padding-top: 8.5rem;
     }
   }
 
@@ -428,13 +428,11 @@ html[lang="th"] :is(h1, h2, h3) {
     margin-bottom: 0.2em;
     padding-bottom: 0.3em;
     border-bottom: 2px solid var(--color-line);
-    scroll-margin-top: 6rem;
   }
   .prose h3 {
     font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.4rem);
     margin-top: 1.8em;
     margin-bottom: 0.1em;
-    scroll-margin-top: 6rem;
   }
   .prose ul,
   .prose ol {

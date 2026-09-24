@@ -154,7 +154,7 @@ function PlaceListItem({
   }
 
   return (
-    <li id={`place-${place.id}`} className="flex scroll-mt-24 items-start gap-3">
+    <li id={`place-${place.id}`} className="flex items-start gap-3">
       <PlaceChip label={label} variant={variant} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex flex-wrap items-center gap-2">
