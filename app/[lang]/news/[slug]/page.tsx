@@ -6,6 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
+import ExitThisPage from "@/components/ExitThisPage";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
@@ -79,6 +80,7 @@ export default async function NewsDetailPage({
 
   return (
     <>
+      {entry.frontmatter.exitThisPage ? <ExitThisPage locale={locale} /> : null}
       <JsonLd
         data={newsJsonLd(
           locale,

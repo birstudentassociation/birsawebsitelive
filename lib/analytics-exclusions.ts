@@ -15,6 +15,7 @@ export const UNTRACKED_PATHS = [
   "/answers/health-and-safety",
   "/answers/rights-and-representation",
   "/news/covert-photography-warning-tha-prachan",
+  "/staying-safe-online",
 ] as const;
 
 export function isUntracked(url: string): boolean {

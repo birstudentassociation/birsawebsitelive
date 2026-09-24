@@ -64,6 +64,11 @@ const newsFrontmatterSchema = z.object({
   end: dateTime.optional(),
   links: z.array(linkSchema).optional(),
   placeholder: z.boolean().optional(),
+  /**
+   * Show "Exit this page" (components/ExitThisPage.tsx). Only for pages where
+   * being seen reading them could put someone at risk: harassment, abuse.
+   */
+  exitThisPage: z.boolean().optional(),
 });
 
 const activityFrontmatterSchema = z.object({
@@ -85,6 +90,11 @@ const studentLifeFrontmatterSchema = z.object({
   updated: dateOnly,
   audience: z.enum(["home", "international", "handbook"]),
   placeholder: z.boolean().optional(),
+  /**
+   * Show "Exit this page" (components/ExitThisPage.tsx). Only for pages where
+   * being seen reading them could put someone at risk: harassment, abuse.
+   */
+  exitThisPage: z.boolean().optional(),
 });
 
 const aboutFrontmatterSchema = z.object({

@@ -329,18 +329,34 @@ Done when: `npm run test` and the e2e suites pass with the new tests, and the st
 
 ### Phase 2. Patterns (P2 items)
 
-1. One focus style; delete `.focus-highlight` (I1).
-2. Body type to 19px within the bilingual type scale; floor of 16px (T1, T3).
-3. Language navigation (N2) and the two-row header (N3).
-4. Back link first; label as heading; optional-only markers; no disabled buttons (N4, Q2, Q4, Q6).
-5. Confirmation and start pages to the checklist; end-page feedback link (Q7, Q9, M2).
-6. External links in the same tab (L1).
-7. 404, one-banner rule, service unavailable page (E1, E3, E4).
-8. `Notice` variants documented against GOV.UK equivalents (C1).
-9. Accessibility statement on its own page (A2).
-10. `security.txt`, error alerting, uptime checks, iOS Safari project (X1, X2, X3).
-11. KPIs per service and analytics exclusions (M1, M5).
-12. Exit this page (E5).
+All twelve items are built. What remains is marked **Outstanding**.
+
+1. **Done.** `.focus-highlight` deleted; every link uses the ink focus ring (I1).
+2. **Done.** Body text 19px, nothing below 16px, via the Tailwind scale in `@theme`. Thai
+   heading leading still sits outside the scale; folding it in is `REDESIGN-2.0.md` D7 (T1, T3).
+3. **Done.** Two-row header (brand and language, then sections and tools) and
+   `components/LanguageNav.tsx` (N2, N3).
+4. **Done.** Back link and "Step n of m" caption in `PageHeader`, before the heading; the heading
+   labels the field; no required markers; buttons ignore repeat presses instead of disabling.
+   **Outstanding:** the contact and start a club entry pages still combine the start page with the
+   first question under breadcrumbs (N4, Q2, Q4, Q6, C4).
+5. **Done.** `/contact/sent`, `/clubs/start/sent` and `request/sent?ref=` confirmation pages
+   with next steps, contact details and a feedback form. Loan and study plan start pages already
+   met the start page checklist (Q7, Q9, M2).
+6. **Done.** `ExternalLink` opens in the same tab and says "external site" (L1).
+7. **Done.** Page not found and problem-with-the-service pages rewritten; one banner at a
+   time; services can be closed from Edge Config (`closures`) (E1, E2, E3, E4).
+8. **Done.** `Notice` documents which GOV.UK component each variant stands for (C1).
+9. **Done.** `/accessibility`, in the order of the GOV.UK sample statement (A2).
+10. **Done in code:** `security.txt`, an iPhone Safari Playwright project,
+    `docs/OPERATIONS.md`. **Outstanding:** set up the uptime check and the 5xx alert in
+    association-owned accounts (X1, X2, X3).
+11. **Done.** Analytics skips welfare, safety, complaint and data-request pages;
+    `docs/SERVICE-MEASURES.md` gives each service a purpose and measures (M1, M5).
+12. **Done.** `components/ExitThisPage.tsx` on pages flagged `exitThisPage: true` (the safety
+    guide and the covert photography notice) and on `/staying-safe-online`. Shift three times
+    exits. It is one Tab after the skip link rather than having GOV.UK's secondary skip link.
+    **Outstanding:** walk the welfare officers through it before it matters (E5).
 
 ### Phase 3. Content (runs alongside Phase 2)
 

@@ -402,3 +402,33 @@ test.describe("keyboard-only form journey", () => {
     await expect(result).toBeFocused();
   });
 });
+
+test.describe("exit this page", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("https://www.tmd.go.th/**", (route) =>
+      route.fulfill({ status: 200, contentType: "text/html", body: "<title>Weather</title>" })
+    );
+  });
+
+  test("is one Tab after the skip link on a sensitive page", async ({ page }) => {
+    await page.goto("/en/student-life/home/safety-and-emergencies");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await page.keyboard.press("Tab");
+    await expect(page.getByRole("link", { name: "Exit this page" })).toBeFocused();
+  });
+
+  test("pressing Shift three times leaves for the neutral page", async ({ page }) => {
+    await page.goto("/en/student-life/home/safety-and-emergencies");
+    await page.keyboard.press("Shift");
+    await page.keyboard.press("Shift");
+    await page.keyboard.press("Shift");
+    await page.waitForURL("https://www.tmd.go.th/");
+    await expect(page).toHaveTitle("Weather");
+  });
+
+  test("is not shown on ordinary pages", async ({ page }) => {
+    await page.goto("/en/student-life/home/getting-around");
+    await expect(page.getByRole("link", { name: "Exit this page" })).toHaveCount(0);
+  });
+});

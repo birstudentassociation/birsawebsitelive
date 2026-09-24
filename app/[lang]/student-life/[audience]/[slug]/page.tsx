@@ -7,6 +7,7 @@ import { buildMetadata } from "@/lib/seo";
 import { Mdx } from "@/lib/mdx";
 import { extractH2Toc } from "@/lib/toc";
 import PageHeader from "@/components/PageHeader";
+import ExitThisPage from "@/components/ExitThisPage";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 
@@ -127,6 +128,7 @@ export default async function StudentLifeSectionPage({
 
   return (
     <>
+      {entry.frontmatter.exitThisPage ? <ExitThisPage locale={locale} /> : null}
       <PageHeader
         title={entry.frontmatter.title}
         lede={entry.frontmatter.summary}

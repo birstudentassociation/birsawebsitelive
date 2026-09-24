@@ -15,10 +15,11 @@
  * descendant rules because Tailwind's `utilities` layer is ordered after the
  * `components` layer that `.prose` lives in (see `app/globals.css`).
  */
+import Link from "next/link";
 import clsx from "clsx";
 import Email from "@/components/Email";
 import { reportingChannels, reportingCopy } from "@/content/reporting";
-import type { Locale } from "@/lib/i18n";
+import { localeHref, type Locale } from "@/lib/i18n";
 
 export type ReportHarassmentProps = {
   locale?: Locale;
@@ -71,6 +72,13 @@ export default function ReportHarassment({
       </ul>
 
       <p className="mt-5 mb-0 text-sm font-semibold">{reportingCopy.assurance[locale]}</p>
+      <p className="mt-3 mb-0 text-sm">
+        <Link href={localeHref(locale, "/staying-safe-online")} className="font-semibold underline">
+          {locale === "th"
+            ? "วิธีเข้าเว็บไซต์นี้โดยไม่ให้ผู้อื่นรู้"
+            : "How to keep a visit to this site private"}
+        </Link>
+      </p>
     </section>
   );
 }

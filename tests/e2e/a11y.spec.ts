@@ -13,6 +13,7 @@ const publicPaths = [
   "/contact",
   "/standards",
   "/accessibility",
+  "/staying-safe-online",
   "/privacy",
   "/news",
   "/news/welcome-bir-batch-18", // news article (MDX)
