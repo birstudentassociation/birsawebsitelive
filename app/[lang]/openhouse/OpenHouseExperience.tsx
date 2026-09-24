@@ -376,12 +376,7 @@ export default function OpenHouseExperience({
               <a className="oh-event-btn" href="#oh-invite">
                 {t(COPY.evtProgramme, locale)}
               </a>
-              <a
-                className="oh-event-btn"
-                href={OPEN_HOUSE.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="oh-event-btn" href={OPEN_HOUSE.mapsUrl}>
                 {t(COPY.evtFindRoom, locale)} ↗
               </a>
               <a className="oh-event-btn" href="#oh-clubs">
@@ -598,7 +593,7 @@ export default function OpenHouseExperience({
                     <ExternalLink
                       href={mapsHref(p.mapsQuery)}
                       newTabLabel={newTab}
-                      className="oh-place-link focus-highlight"
+                      className="oh-place-link"
                     >
                       {t(COPY.openMaps, locale)}
                     </ExternalLink>
@@ -722,11 +717,7 @@ export default function OpenHouseExperience({
                     <span className="oh-door-open">{t(COPY.joinOpen, locale)}</span>
                   ) : null}
                   {selectedClub.link ? (
-                    <ExternalLink
-                      href={selectedClub.link.url}
-                      newTabLabel={newTab}
-                      className="focus-highlight"
-                    >
+                    <ExternalLink href={selectedClub.link.url} newTabLabel={newTab}>
                       {selectedClub.link.label}
                     </ExternalLink>
                   ) : (
@@ -898,20 +889,10 @@ export default function OpenHouseExperience({
               </div>
             </dl>
             <div className="oh-invite-actions oh-reveal" data-reveal data-delay="2">
-              <Button
-                href={OPEN_HOUSE.mapsUrl}
-                variant="secondary"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Button href={OPEN_HOUSE.mapsUrl} variant="secondary">
                 {t(COPY.directions, locale)} ↗
               </Button>
-              <Button
-                href={OPEN_HOUSE.programmeUrl}
-                variant="ghost"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Button href={OPEN_HOUSE.programmeUrl} variant="ghost">
                 {t(COPY.programme, locale)} ↗
               </Button>
             </div>

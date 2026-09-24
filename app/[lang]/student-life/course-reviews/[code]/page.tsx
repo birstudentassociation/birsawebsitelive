@@ -115,8 +115,6 @@ export default async function CourseDetailPage({
                   {instructor.profileUrl ? (
                     <a
                       href={instructor.profileUrl}
-                      target="_blank"
-                      rel="noreferrer"
                       className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
                     >
                       {instructor.name[locale]}

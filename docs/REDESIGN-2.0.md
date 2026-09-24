@@ -469,9 +469,10 @@ already the GOV.UK grid. Add a documented spacing scale so vertical rhythm betwe
 stops being `py-12 sm:py-16` copy-pasted per page.
 
 **Focus and motion.** Both are already correct: the 3px ink ring with offset, the
-`.focus-halo` variant for brand surfaces, the unlayered `.focus-highlight` yellow block for
-link runs, and a global `prefers-reduced-motion` block. Carry all four over unchanged and
-document them on `/design`.
+`.focus-halo` variant for brand surfaces, and a global `prefers-reduced-motion` block. Carry
+all three over unchanged and document them on `/design`. (The GOV.UK yellow `.focus-highlight`
+was removed in September 2026: sites not on GOV.UK must not use GOV.UK brand colours. See
+`docs/GDS-ALIGNMENT-PLAN.md` I1.)
 
 **Icons.** Currently inline SVG per component. Consolidate into one sprite with a documented
 set, all `aria-hidden`, none carrying meaning alone.

@@ -252,7 +252,7 @@ export default async function TopicStepPage({
           <div className="flex flex-wrap gap-3 pt-2">
             {actions.map((action, index) =>
               // A mailto: opens a mail client, not a tab, so it must not be
-              // announced as "opens in a new tab".
+              // announced as "external site".
               action.external && action.href.startsWith("mailto:") ? (
                 <a
                   key={index}

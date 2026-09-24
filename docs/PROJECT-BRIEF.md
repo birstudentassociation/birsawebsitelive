@@ -158,8 +158,11 @@ Style with Tailwind utilities referencing tokens (e.g. `bg-cream`, `text-ink`, `
   submit; `aria-invalid` on bad fields. Success/status messages use `role="status"`.
 - Disclosure widgets (mobile menu, accordions): correct `aria-expanded`/`aria-controls`;
   accordions use native `<details>/<summary>` where possible.
-- External links: append visually-hidden text `(dict.a11y.newTab)` when `target="_blank"`
-  plus `rel="noopener noreferrer"`, and an inline ↗ icon `aria-hidden`.
+- External links: use `ExternalLink`. Same tab, never `target="_blank"` (GOV.UK: new tabs
+  disorient people who cannot see them open). It appends visually hidden "(external site)"
+  (`dict.a11y.newTab`) and an inline ↗ icon `aria-hidden`. The one exception is a link
+  inside a form journey where leaving would lose answers: then say "(opens in new tab)" in
+  the visible link text.
 - Tables for tabular data only, with `<th scope>`. Lists as `<ul>/<ol>`.
 - Content readable at 320px width and 400% zoom: no fixed heights on text containers,
   wrap-friendly flex/grid.

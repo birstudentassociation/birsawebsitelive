@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { defaultLocale, getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { defaultLocale, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import PageHeader from "@/components/PageHeader";
-import Button from "@/components/Button";
+import ErrorBody from "@/components/status/ErrorBody";
 
 /**
  * Segment error boundary for everything under `/[lang]`. Renders inside the
@@ -33,14 +33,9 @@ export default function LocaleError({
 
   return (
     <>
-      <PageHeader title={dict.error.title} lede={dict.error.body} />
+      <PageHeader title={dict.error.title} />
       <div className="wrap py-10">
-        <div className="flex flex-wrap gap-3">
-          <Button onClick={reset}>{dict.error.tryAgain}</Button>
-          <Button href={localeHref(locale, "/")} variant="secondary">
-            {dict.error.home}
-          </Button>
-        </div>
+        <ErrorBody locale={locale} onRetry={reset} />
       </div>
     </>
   );

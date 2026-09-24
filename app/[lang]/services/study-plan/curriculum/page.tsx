@@ -104,8 +104,6 @@ export default async function StudyPlanCurriculumPage({
             {sourceDoc ? (
               <Link
                 href={sourceDoc.url}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="w-fit text-sm font-semibold text-brand-deep hover:underline"
               >
                 {copy.curriculum.sourceLabel} &rarr;

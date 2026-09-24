@@ -121,7 +121,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
  */
 export function Mdx({
   source,
-  newTabLabel = "opens in a new tab",
+  newTabLabel = "external site",
   tableRegionLabel = "Table",
   locale = "en",
 }: MdxProps) {

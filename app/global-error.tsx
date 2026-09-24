@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import "@/app/globals.css";
 import { jenjrusVris } from "@/lib/fonts";
-import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
+import { defaultLocale, getDictionary } from "@/lib/i18n";
+import ErrorBody from "@/components/status/ErrorBody";
 
 /**
  * Global error boundary: the last line of defence. It only renders when the
@@ -55,21 +56,8 @@ export default function GlobalError({
       <body>
         <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
           <h1 className="font-display text-3xl text-ink sm:text-4xl">{dict.error.title}</h1>
-          <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.error.body}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={reset}
-              className="focus-halo inline-flex h-11 items-center rounded-md bg-brand px-5 text-sm font-semibold text-white hover:bg-brand-strong"
-            >
-              {dict.error.tryAgain}
-            </button>
-            <a
-              href={localeHref(defaultLocale, "/")}
-              className="focus-halo inline-flex h-11 items-center rounded-md border-[1.5px] border-ink px-5 text-sm font-semibold text-ink"
-            >
-              {dict.error.home}
-            </a>
+          <div className="mt-6">
+            <ErrorBody locale={defaultLocale} onRetry={reset} />
           </div>
         </main>
       </body>

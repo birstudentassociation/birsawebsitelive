@@ -64,7 +64,7 @@ export function NavListItem({
           <Heading className="font-display text-lg leading-snug">
             <Link
               href={href}
-              className="focus-highlight text-brand-deep underline decoration-1 underline-offset-4 after:absolute after:inset-0 hover:decoration-[3px]"
+              className="text-brand-deep underline decoration-1 underline-offset-4 after:absolute after:inset-0 hover:decoration-[3px]"
             >
               {title}
             </Link>

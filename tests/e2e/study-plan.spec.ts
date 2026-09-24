@@ -1,7 +1,7 @@
 import { test, expect } from "./fixtures";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
-const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with this page";
+const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with the service";
 const copy = buildStudyPlanCopy("en");
 
 test.describe("study plan version gate", () => {

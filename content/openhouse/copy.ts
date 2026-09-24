@@ -466,7 +466,7 @@ export const COPY: Copy = {
   },
   lunchMapLink: { en: "Explore the full map", th: "ดูแผนที่ฉบับเต็ม" },
   openMaps: { en: "Open in Maps", th: "เปิดในแผนที่" },
-  newTab: { en: "opens in a new tab", th: "เปิดในแท็บใหม่" },
+  newTab: { en: "external site", th: "เว็บไซต์ภายนอก" },
   ferryMotif: { en: "the river again", th: "แม่น้ำอีกครั้ง" },
   clubsTime: { en: "16:34", th: "16:34" },
   clubsKicker: { en: "Class is over", th: "เลิกเรียนแล้ว" },

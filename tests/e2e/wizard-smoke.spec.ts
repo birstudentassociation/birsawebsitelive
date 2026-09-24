@@ -27,7 +27,7 @@ import { test, expect } from "./fixtures";
 // this real string rather than a guess, so the test fails the same way a
 // user would notice it: the page said "sorry, there is a problem" instead of
 // showing the form.
-const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with this page";
+const ERROR_BOUNDARY_TEXT = "Sorry, there is a problem with the service";
 
 const journeyEntryPoints = [
   "/en/contact",

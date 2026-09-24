@@ -26,7 +26,7 @@ export type OnboardingTask = {
    * Never locale-prefixed; build the real link with `localeHref`. Omit for
    * a plain (non-linked) task. */
   href?: string;
-  /** True when `href` is an absolute external URL (opens in a new tab). */
+  /** True when `href` is an absolute external URL (leaves this site). */
   external?: boolean;
 };
 

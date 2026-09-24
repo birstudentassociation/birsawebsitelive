@@ -71,7 +71,7 @@ export const en = {
     youAreHere: "You are here",
     currentPage: "Current page",
     onThisPage: "On this page",
-    newTab: "opens in a new tab",
+    newTab: "external site",
     externalLink: "external link",
     table: "Table",
     languageSelector: "Language",
@@ -154,15 +154,25 @@ export const en = {
     builtNote: "Built to be usable by everyone.",
   },
 
+  // GOV.UK "Page not found" and "There is a problem with the service" patterns:
+  // plain headings, no jargon like 404, nothing that blames the reader.
   notFound: {
-    title: "We cannot find that page",
-    body: "It may have moved, or the link may be wrong. Use the main sections to find what you need.",
+    title: "Page not found",
+    typed: "If you typed the web address, check it is correct.",
+    pasted: "If you pasted the web address, check you copied the entire address.",
+    contactLead: "If the web address is correct or you selected a link or button,",
+    contactLink: "tell BIRSA which page you were trying to reach",
     home: "Go to the home page",
+    search: "Search this site",
   },
 
   error: {
-    title: "Sorry, there is a problem with this page",
-    body: "Try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
+    title: "Sorry, there is a problem with the service",
+    body: "Try again later.",
+    saved:
+      "If you were filling in a form, the answers you had already given are kept for 30 minutes.",
+    contactLead: "If the problem keeps happening,",
+    contactLink: "tell BIRSA what you were doing",
     tryAgain: "Try again",
     home: "Go to the home page",
   },

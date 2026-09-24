@@ -6,8 +6,8 @@ const copy = {
   en: {
     defaultTitle: "Registration form",
     fallback: "If the form doesn't load,",
-    openLink: "open it in a new tab",
-    newTab: "opens in a new tab",
+    openLink: "open it on Google Forms",
+    newTab: "external site",
     dataNotice:
       "This is a Google Form, not a BIRSA form. What you type goes straight to Google and to whoever set the form up, not to this site.",
     dataNoticeLink: "Read more in the privacy notice",
@@ -15,8 +15,8 @@ const copy = {
   th: {
     defaultTitle: "แบบฟอร์มลงทะเบียน",
     fallback: "หากแบบฟอร์มไม่แสดง",
-    openLink: "เปิดในแท็บใหม่",
-    newTab: "เปิดในแท็บใหม่",
+    openLink: "เปิดใน Google Forms",
+    newTab: "เว็บไซต์ภายนอก",
     dataNotice:
       "แบบฟอร์มนี้เป็น Google Form มิใช่แบบฟอร์มของ BIRSA ข้อมูลที่ท่านกรอกจะถูกส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม โดยไม่ผ่านเว็บไซต์นี้",
     dataNoticeLink: "อ่านรายละเอียดในประกาศความเป็นส่วนตัว",
@@ -40,7 +40,7 @@ export type GoogleFormProps = {
 
 /**
  * Embeds a Google Form in an accessible, responsive frame with a visible
- * "open in a new tab" fallback for when the iframe is blocked or scripting is
+ * "open it on Google Forms" fallback for when the iframe is blocked or scripting is
  * off. Loading the embed requires `frame-src https://docs.google.com` in the
  * site CSP (see `proxy.ts`). The frame is lazy-loaded so it never blocks
  * first paint of the article.

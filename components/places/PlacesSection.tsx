@@ -170,7 +170,7 @@ function PlaceListItem({
         <p className="text-sm">
           <ExternalLink
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.mapsQuery)}`}
-            newTabLabel={locale === "en" ? "opens in a new tab" : "เปิดในแท็บใหม่"}
+            newTabLabel={locale === "en" ? "external site" : "เว็บไซต์ภายนอก"}
             className="font-medium text-brand-deep"
           >
             {t.mapsLabel}

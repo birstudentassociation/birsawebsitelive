@@ -97,12 +97,7 @@ export default async function StudyPlanCannotHelpPage({
           <ul className="mt-2 flex flex-col gap-1 text-sm">
             {sourceDocs.map((doc) => (
               <li key={doc.id}>
-                <Link
-                  href={doc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-brand-deep hover:underline"
-                >
+                <Link href={doc.url} className="text-brand-deep hover:underline">
                   {doc.title}
                 </Link>
               </li>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { defaultLocale, getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { defaultLocale, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import PageHeader from "@/components/PageHeader";
-import Button from "@/components/Button";
+import NotFoundBody from "@/components/status/NotFoundBody";
 
 /**
  * Segment-level not-found for any unmatched path under `/[lang]`. Next.js
@@ -39,16 +39,9 @@ export default async function NotFound({ params }: { params?: Promise<{ lang: st
 
   return (
     <>
-      <PageHeader title={dict.notFound.title} lede={dict.notFound.body} />
+      <PageHeader title={dict.notFound.title} />
       <div className="wrap py-10">
-        <div className="flex flex-wrap gap-3">
-          <Button href={localeHref(locale, "/")}>{dict.notFound.home}</Button>
-          {dict.nav.map((item) => (
-            <Button key={item.href} href={localeHref(locale, item.href)} variant="secondary">
-              {item.label}
-            </Button>
-          ))}
-        </div>
+        <NotFoundBody locale={locale} />
       </div>
     </>
   );

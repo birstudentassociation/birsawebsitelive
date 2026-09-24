@@ -102,7 +102,9 @@ export default async function RootLayout({
         />
         <SkipLink label={dict.a11y.skip} />
         <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
-        <SiteAnnouncement locale={locale} />
+        {/* One banner at a time (GOV.UK Notification banner): an active
+            emergency outranks the routine announcement. */}
+        {emergency.active ? null : <SiteAnnouncement locale={locale} />}
         <Header locale={locale} />
         {/*
           `tabIndex={-1}` makes the skip link actually move focus, not just

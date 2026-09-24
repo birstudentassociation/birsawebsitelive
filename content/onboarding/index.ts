@@ -34,7 +34,7 @@ export type OnboardingUiCopy = {
   step: string;
   and: string;
   or: string;
-  /** "(opens in a new tab)": visually-hidden suffix for external links. */
+  /** "(external site)": visually hidden suffix for external links. */
   newTab: string;
   /** "Mark "<label>" as done": the checkbox's accessible name. */
   markDone: (label: string) => string;
@@ -65,7 +65,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
     step: "Step",
     and: "and",
     or: "or",
-    newTab: "opens in a new tab",
+    newTab: "external site",
     markDone: (label) => `Mark "${label}" as done`,
     progressLine: (done, total) =>
       total === 1
@@ -98,7 +98,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
     step: "ขั้นตอนที่",
     and: "และ",
     or: "หรือ",
-    newTab: "เปิดในแท็บใหม่",
+    newTab: "เว็บไซต์ภายนอก",
     markDone: (label) => `ทำเครื่องหมายว่า "${label}" เสร็จแล้ว`,
     progressLine: (done, total) => `คุณทำเครื่องหมายว่าเสร็จแล้ว ${done} จาก ${total} รายการ`,
     resetLabel: "ล้างความคืบหน้า",

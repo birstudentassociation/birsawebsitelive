@@ -170,6 +170,20 @@ Reads are cached for an hour (that window doubles as the site's ISR window), so 
 the value, `POST /api/emergency/revalidate` with `Authorization: Bearer $CRON_SECRET` to make
 the change live immediately. With `EDGE_CONFIG` unset, emergency mode is always off.
 
+## Closing a service
+
+Any of the four form services can be switched off the same way, for example over a holiday or
+during a stocktake. Visitors then see a "Sorry, the service is unavailable" page that says when
+it reopens, instead of a form nobody will answer. Set an item keyed `closures`:
+
+```json
+{ "equipment-loan": { "closed": true, "reopens": "2026-10-12" } }
+```
+
+Service ids are `equipment-loan`, `contact`, `start-club` and `your-data`. `reopens` is
+optional. The same revalidate call makes the change instant. Loan status checks stay open while
+new loan requests are closed.
+
 ## Deploying to Vercel
 
 1. Import this repository into Vercel.

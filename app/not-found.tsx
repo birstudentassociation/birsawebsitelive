@@ -5,6 +5,7 @@ import "@/app/globals.css";
 import { jenjrusVris } from "@/lib/fonts";
 import { defaultLocale, getDictionary, localeHref } from "@/lib/i18n";
 import { THEME_SCRIPT } from "@/lib/theme-script";
+import NotFoundBody from "@/components/status/NotFoundBody";
 
 const rootDict = getDictionary(defaultLocale);
 
@@ -59,23 +60,19 @@ export default function GlobalNotFound() {
             stripping `data-theme` off <html>). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
-          <p className="text-sm font-semibold text-brand-deep">404</p>
-          <h1 className="mt-2 font-display text-3xl text-ink sm:text-4xl">{dict.notFound.title}</h1>
-          <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.notFound.body}</p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href={localeHref(defaultLocale, "/")}
-              className="focus-halo inline-flex h-11 items-center rounded-md bg-brand px-5 text-sm font-semibold text-white hover:bg-brand-strong"
-            >
-              {dict.notFound.home}
-            </Link>
+          <h1 className="font-display text-3xl text-ink sm:text-4xl">{dict.notFound.title}</h1>
+          <div className="mt-6">
+            <NotFoundBody locale={defaultLocale} />
+          </div>
+          <p className="mt-8">
             <Link
               href={localeHref(other, "/")}
-              className="focus-halo inline-flex h-11 items-center rounded-md border-[1.5px] border-ink px-5 text-sm font-semibold text-ink"
+              lang={other}
+              className="text-brand-deep underline underline-offset-4"
             >
               {otherDict.notFound.home}
             </Link>
-          </div>
+          </p>
         </main>
       </body>
     </html>

@@ -43,7 +43,7 @@ export default function FeaturedRail({ heading, headingId, items }: FeaturedRail
             <div className="min-w-0">
               <Link
                 href={item.href}
-                className="focus-highlight font-display text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                className="font-display text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
               >
                 {item.label}
               </Link>

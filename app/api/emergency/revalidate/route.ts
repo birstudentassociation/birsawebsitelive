@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidateTag } from "next/cache";
 import { hasValidCronSecret } from "@/app/api/_lib/cronAuth";
 import { EMERGENCY_TAG } from "@/lib/emergency";
+import { CLOSURES_TAG } from "@/lib/closures";
 
 /**
  * On-demand purge for the emergency banner cache. The background revalidation
@@ -34,9 +35,12 @@ export async function POST(request: Request) {
   // single-argument call used to do. `updateTag` would also expire
   // immediately but is Server Action-only, and this is a route handler.
   revalidateTag(EMERGENCY_TAG, { expire: 0 });
+  // Service closures live in the same Edge Config store and need the same
+  // instant switch (lib/closures.ts).
+  revalidateTag(CLOSURES_TAG, { expire: 0 });
 
   return NextResponse.json(
-    { ok: true, revalidated: EMERGENCY_TAG, now: new Date().toISOString() },
+    { ok: true, revalidated: [EMERGENCY_TAG, CLOSURES_TAG], now: new Date().toISOString() },
     { status: 200 }
   );
 }
