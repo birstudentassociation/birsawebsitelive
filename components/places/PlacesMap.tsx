@@ -301,10 +301,10 @@ export default function PlacesMap({
           undersized when another target obscures it: the two links ended up
           clipping each other down to a few unobscured pixels. Out here
           nothing can overlap it, and `min-h-6` holds it on the 24px floor,
-          which its ~19px `text-[11px]` line box would otherwise miss.
+          which its `text-xs` line box would otherwise miss.
           OpenStreetMap's licence only asks that the credit be visible, not
           that it sit on top of the tiles. */}
-      <div className="flex justify-end border-t border-line px-2 py-0.5 text-[11px] text-muted">
+      <div className="flex justify-end border-t border-line px-2 py-0.5 text-xs text-muted">
         <ExternalLink
           href="https://www.openstreetmap.org/copyright"
           newTabLabel={t.newTab}

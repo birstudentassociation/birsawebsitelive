@@ -206,7 +206,7 @@ export default function SearchBox({
               if (suggestions.length > 0) setOpen(true);
             }}
             placeholder={placeholder}
-            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted"
           />
 
           {open ? (

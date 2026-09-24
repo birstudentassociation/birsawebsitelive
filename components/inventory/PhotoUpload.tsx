@@ -119,7 +119,7 @@ export default function PhotoUpload({ currentUrl, onUploaded, labels }: PhotoUpl
           type="file"
           accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
           onChange={handleFileChange}
-          className="focus-halo w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+          className="focus-halo w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink"
         />
       </div>
 

@@ -257,7 +257,7 @@ export default async function TopicStepPage({
                 <a
                   key={index}
                   href={action.href}
-                  className="focus-halo inline-flex h-11 items-center rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink hover:bg-brand-tint"
+                  className="focus-halo inline-flex h-11 items-center rounded-lg border-[1.5px] border-ink px-5 text-base font-semibold text-ink hover:bg-brand-tint"
                 >
                   {langRuns(action.label[locale], locale)}
                 </a>
@@ -266,7 +266,7 @@ export default async function TopicStepPage({
                   key={index}
                   href={action.href}
                   newTabLabel={dict.a11y.newTab}
-                  className="focus-halo h-11 rounded-lg bg-brand px-5 text-[0.95rem] font-semibold text-white hover:bg-brand-strong"
+                  className="focus-halo h-11 rounded-lg bg-brand px-5 text-base font-semibold text-white hover:bg-brand-strong"
                 >
                   {langRuns(action.label[locale], locale)}
                 </ExternalLink>

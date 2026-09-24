@@ -45,7 +45,7 @@ export default function Accordion({
           />
         </svg>
       </summary>
-      <div className="border-t border-line px-4 py-3 text-[0.95rem] leading-relaxed text-ink">
+      <div className="border-t border-line px-4 py-3 text-base leading-relaxed text-ink">
         {children}
       </div>
     </details>

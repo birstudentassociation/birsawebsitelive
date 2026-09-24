@@ -120,7 +120,7 @@ const copy: Record<Locale, Copy> = {
 };
 
 const EXPORT_LINK_CLASS =
-  "focus-halo inline-flex h-11 items-center justify-center gap-2 rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink transition-colors duration-150 hover:bg-sunken whitespace-nowrap";
+  "focus-halo inline-flex h-11 items-center justify-center gap-2 rounded-lg border-[1.5px] border-ink px-5 text-base font-semibold text-ink transition-colors duration-150 hover:bg-sunken whitespace-nowrap";
 
 export default async function OfficerFeedbackPage({
   params,

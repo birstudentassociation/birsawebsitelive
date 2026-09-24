@@ -57,7 +57,7 @@ html[lang="th"] .oh-heading {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  font-size: 0.78rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-kicker-sub {
@@ -123,7 +123,7 @@ html[lang="th"] .oh-kicker {
   font-variant-numeric: tabular-nums;
   color: var(--color-brand-deep);
   font-weight: 600;
-  font-size: 0.7rem;
+  font-size: 1rem;
   margin-top: 0.15rem;
 }
 
@@ -149,7 +149,7 @@ html[lang="th"] .oh-kicker {
     position: fixed;
     top: 0.5rem;
     right: 0.75rem;
-    font-size: 0.72rem;
+    font-size: 1rem;
     color: var(--color-muted);
     background: var(--color-surface);
     padding: 0.1rem 0.55rem;
@@ -176,7 +176,7 @@ html[lang="th"] .oh-kicker {
     margin-left: 1.4rem;
   }
   .oh-folio li {
-    font-size: 0.72rem;
+    font-size: 1rem;
     line-height: 1.1;
   }
   .oh-folio a {
@@ -281,7 +281,7 @@ html[lang="th"] .oh-kicker {
   color: var(--color-cream);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .oh-event-btn:hover {
   background: color-mix(in oklab, var(--color-cream), transparent 85%);
@@ -505,7 +505,7 @@ html[lang="th"] .oh-map-zone {
   background: var(--color-ink);
   color: var(--color-surface);
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1;
@@ -621,7 +621,7 @@ html[lang="th"] .oh-map-zone {
 .oh-index-code {
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   color: var(--color-brand-deep);
@@ -636,7 +636,7 @@ html[lang="th"] .oh-map-zone {
 }
 .oh-index-field {
   margin-top: 0.35rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-index-row::after {
@@ -682,7 +682,7 @@ html[lang="th"] .oh-map-zone {
 }
 .oh-teaser-label {
   margin-top: 1.25rem;
-  font-size: 0.72rem;
+  font-size: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-muted);
@@ -716,7 +716,7 @@ html[lang="th"] .oh-teaser-label {
 }
 .oh-teaser-year {
   margin-top: 1.1rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-teaser-link {
@@ -724,7 +724,7 @@ html[lang="th"] .oh-teaser-label {
   flex-wrap: wrap;
   gap: 0.4rem 1.5rem;
   margin-top: 0.6rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 /* --- 10:47 pause, 13:23 questions ---------------------------------------- */
@@ -821,7 +821,7 @@ html[lang="th"] .oh-teaser-label {
   text-decoration-color: currentColor;
 }
 .oh-direction-blurb {
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-lunch-wide {
@@ -897,25 +897,25 @@ html[lang="th"] .oh-teaser-label {
   margin: 0;
 }
 .oh-place-cat {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: var(--color-muted);
   white-space: nowrap;
 }
 .oh-place-note {
   margin: 0.4rem 0 0;
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--color-muted);
   line-height: 1.55;
 }
 .oh-place-link {
   margin-top: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-brand-deep);
   font-weight: 500;
 }
 .oh-map-note {
   margin-top: 1.75rem;
-  font-size: 0.92rem;
+  font-size: 1rem;
   color: var(--color-muted);
   max-width: 34rem;
 }
@@ -979,7 +979,7 @@ html[lang="th"] .oh-wall {
 }
 .oh-wall-breadth {
   margin-top: 1.4rem;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1004,7 +1004,7 @@ html[lang="th"] .oh-wall-breadth {
   animation: oh-fade 0.45s ease;
 }
 .oh-door-kicker {
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1031,11 +1031,11 @@ html[lang="th"] .oh-door-kicker {
 }
 .oh-door-join {
   margin-top: 0.9rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-door-join-label {
-  font-size: 0.7rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1053,7 +1053,7 @@ html[lang="th"] .oh-door-join-label {
   flex-wrap: wrap;
 }
 .oh-door-open {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-success);
 }
@@ -1065,7 +1065,7 @@ html[lang="th"] .oh-door-join-label {
 }
 .oh-wall-all {
   margin-top: 1.5rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 /* --- Night scope ---------------------------------------------------------- */
@@ -1185,7 +1185,7 @@ html[data-theme="dark"] .oh-dusk {
   gap: 0.6rem;
 }
 .oh-board-label {
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1200,16 +1200,16 @@ html[lang="th"] .oh-board-label {
   font-weight: 600;
 }
 .oh-board-in {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-brand-deep);
 }
 .oh-board-state {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-board-note {
   margin: 1rem 0 0;
-  font-size: 0.82rem;
+  font-size: 1rem;
   color: var(--color-muted);
   max-width: 34rem;
 }
@@ -1271,7 +1271,7 @@ html[lang="th"] .oh-board-label {
   max-width: 22rem;
 }
 .oh-namefield label {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }
 .oh-namefield input {
@@ -1292,7 +1292,7 @@ html[lang="th"] .oh-board-label {
 .oh-toast {
   margin-top: 0.75rem;
   min-height: 1.4em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-success);
 }
 .oh-restart {
@@ -1305,7 +1305,7 @@ html[lang="th"] .oh-board-label {
   text-decoration: underline;
   text-underline-offset: 0.18em;
   font: inherit;
-  font-size: 0.92rem;
+  font-size: 1rem;
 }
 .oh-restart:hover {
   color: var(--color-ink);
@@ -1343,7 +1343,7 @@ html[data-theme="dark"] .oh-invite {
   }
 }
 .oh-fact dt {
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -1391,6 +1391,6 @@ html[lang="th"] .oh-fact dt {
 }
 .oh-invite-note {
   margin-top: 1rem;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--color-muted);
 }

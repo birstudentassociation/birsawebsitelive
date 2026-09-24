@@ -582,7 +582,7 @@ export default function ItemsManager({
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={t.searchPlaceholder}
-              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted"
             />
           </div>
 
@@ -597,7 +597,7 @@ export default function ItemsManager({
               id={`${formId}-category`}
               value={categoryFilter}
               onChange={(event) => setCategoryFilter(event.target.value)}
-              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+              className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink"
             >
               {categoryOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -619,7 +619,7 @@ export default function ItemsManager({
                 id={`${formId}-owner-filter`}
                 value={ownerFilter}
                 onChange={(event) => setOwnerFilter(event.target.value)}
-                className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+                className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink"
               >
                 <option value="all">{t.allOwners}</option>
                 {custodians.map((c) => (

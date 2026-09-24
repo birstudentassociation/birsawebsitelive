@@ -51,7 +51,7 @@ export default function Header({ locale }: HeaderProps) {
               <li key={item.href}>
                 <DesktopNavItem
                   href={localeHref(locale, item.href)}
-                  className="flex h-16 items-center border-b-2 border-transparent px-3 text-[0.95rem] font-semibold text-ink hover:text-brand-deep"
+                  className="flex h-16 items-center border-b-2 border-transparent px-3 text-base font-semibold text-ink hover:text-brand-deep"
                   activeClassName="!border-brand !text-brand-deep"
                 >
                   {item.label}

@@ -445,7 +445,7 @@ export default async function EquipmentLoanPage({
                         ) : (
                           <span
                             aria-disabled="true"
-                            className="inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] border-line px-5 text-[0.95rem] font-semibold text-muted"
+                            className="inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] border-line px-5 text-base font-semibold text-muted"
                           >
                             {t.unavailableCta}
                           </span>

@@ -29,7 +29,7 @@ type ButtonAsButton = CommonProps &
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
 const base =
-  "inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-[0.95rem] font-semibold transition-colors duration-150 whitespace-nowrap";
+  "inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-base font-semibold transition-colors duration-150 whitespace-nowrap";
 
 const variants: Record<Variant, string> = {
   primary: "focus-halo bg-brand text-white hover:bg-brand-strong",

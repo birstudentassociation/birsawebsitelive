@@ -51,7 +51,7 @@ export default function ProfileSummary({
         </div>
         <Link
           href={editHref}
-          className="focus-halo inline-flex h-11 shrink-0 items-center rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink hover:bg-brand-tint"
+          className="focus-halo inline-flex h-11 shrink-0 items-center rounded-lg border-[1.5px] border-ink px-5 text-base font-semibold text-ink hover:bg-brand-tint"
         >
           {t.profileSet}
         </Link>

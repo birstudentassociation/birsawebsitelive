@@ -87,9 +87,7 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
                     </summary>
                     <div className="flex flex-col gap-3 border-t border-line px-4 py-4">
                       {step.blurb ? (
-                        <p className="text-[0.95rem] leading-relaxed text-muted">
-                          {step.blurb[locale]}
-                        </p>
+                        <p className="text-base leading-relaxed text-muted">{step.blurb[locale]}</p>
                       ) : null}
                       <StepTasksClient
                         stepId={step.id}

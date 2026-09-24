@@ -191,7 +191,7 @@ function RouteMeta({ line, locale, t }: { line: BusLine; locale: Locale; t: Labe
   if (bits.length === 0 && !line.airConditioned && !line.wheelchairAccessible) return null;
 
   return (
-    <p className="mt-1 mb-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-muted">
+    <p className="mt-1 mb-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
       {line.airConditioned ? (
         <span className="rounded border border-line px-1 font-medium text-ink" title={t.acFull}>
           {t.ac}
