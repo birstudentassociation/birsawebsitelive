@@ -60,9 +60,9 @@ jobs:
         run: npm run build
 
       # Installs exactly the three engines the Playwright config now covers
-      # (chromium, firefox, webkit); the mobile-chrome project reuses the
-      # chromium binary via a device profile, so it needs no separate
-      # install.
+      # (chromium, firefox, webkit); the mobile-chrome and mobile-safari
+      # projects reuse the chromium and webkit binaries via device profiles,
+      # so they need no separate install.
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium firefox webkit
 

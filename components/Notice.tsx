@@ -70,10 +70,24 @@ export type NoticeProps = {
 };
 
 /**
- * Callout box for info/success/warning/error messaging, plus a `placeholder`
- * variant used to mark example content that BIRSA will replace. Never the
- * sole way meaning is conveyed: icon, colour and text always travel
- * together.
+ * Callout box. Each variant stands in for one GOV.UK component, and should
+ * only be used for that component's job:
+ *
+ * - `info`: Inset text. Sets a short aside apart from the text around it
+ *   (a tip, a quotation, contact details). Use sparingly; people skip it,
+ *   so never put something everyone must read here.
+ * - `warning`: Warning text. A consequence of doing, or not doing,
+ *   something (a deadline, a penalty, a rule that disqualifies you).
+ * - `error`: a problem the reader must act on that is not a form error.
+ *   Form errors use ErrorSummary and ErrorMessage, never this.
+ * - `success`: the outcome of something the reader just did, at the top of
+ *   the page that follows (GOV.UK success Notification banner). One per page.
+ * - `placeholder`: BIRSA's own. Marks example content awaiting real details.
+ *
+ * Messages that are not about the current page (site-wide news, service
+ * problems) belong in the announcement or emergency banner, not here.
+ * Never the sole way meaning is conveyed: icon, colour and text always
+ * travel together.
  */
 export default function Notice({ variant = "info", title, className, children }: NoticeProps) {
   const style = styles[variant];

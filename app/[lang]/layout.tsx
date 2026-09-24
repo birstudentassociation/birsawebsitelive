@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { jenjrusVris } from "@/lib/fonts";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
@@ -15,6 +14,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageFeedback from "@/components/PageFeedback";
 import ScrollToTop from "@/components/ScrollToTop";
+import SiteAnalytics from "@/components/SiteAnalytics";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -120,7 +120,7 @@ export default async function RootLayout({
         <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />
         <Footer locale={locale} />
         <ScrollToTop label={dict.actions.backToTop} />
-        <Analytics />
+        <SiteAnalytics />
       </body>
     </html>
   );

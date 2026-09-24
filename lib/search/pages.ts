@@ -773,12 +773,27 @@ export const staticPages: StaticPage[] = [
     kind: "reference",
     title: { en: "How this site works", th: "เว็บไซต์นี้ทำงานอย่างไร" },
     summary: {
-      en: "The principles behind this site, its accessibility position, and the problems we know about.",
-      th: "หลักการเบื้องหลังเว็บไซต์นี้ จุดยืนด้านการเข้าถึง และปัญหาที่เรารับทราบอยู่",
+      en: "The principles behind this site, how we use data, and how the site is maintained.",
+      th: "หลักการเบื้องหลังเว็บไซต์นี้ การใช้ข้อมูล และการดูแลเว็บไซต์",
     },
     keywords: {
-      en: ["accessibility", "standards", "screen reader", "wcag", "known issues", "design"],
-      th: ["การเข้าถึง", "มาตรฐาน", "โปรแกรมอ่านหน้าจอ", "ปัญหาที่ทราบ", "การออกแบบ"],
+      en: ["standards", "design", "principles"],
+      th: ["มาตรฐาน", "การออกแบบ", "หลักการ"],
+    },
+  },
+  {
+    id: "page:accessibility",
+    path: "/accessibility",
+    section: "page",
+    kind: "reference",
+    title: { en: "Accessibility statement", th: "คำแถลงการเข้าถึงเว็บไซต์" },
+    summary: {
+      en: "How accessible this site is, the problems we know about, and how to report one.",
+      th: "เว็บไซต์นี้เข้าถึงได้ดีเพียงใด ปัญหาที่เรารับทราบ และวิธีแจ้งปัญหา",
+    },
+    keywords: {
+      en: ["accessibility", "screen reader", "wcag", "known issues", "large print", "zoom"],
+      th: ["การเข้าถึง", "โปรแกรมอ่านหน้าจอ", "ปัญหาที่ทราบ", "ตัวอักษรขนาดใหญ่"],
     },
   },
 ];

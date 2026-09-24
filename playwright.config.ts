@@ -40,5 +40,11 @@ export default defineConfig({
       name: "mobile-chrome",
       use: { ...devices["Pixel 5"] },
     },
+    {
+      // Safari on iPhone is the most common way students reach the site,
+      // and the February 2026 GOV.UK list names it. Reuses the webkit binary.
+      name: "mobile-safari",
+      use: { ...devices["iPhone 13"] },
+    },
   ],
 });

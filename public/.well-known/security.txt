@@ -1,0 +1,6 @@
+# Report a security problem with the BIRSA website.
+# Please do not include students' personal data in a report.
+Contact: mailto:birsa@tu.ac.th
+Contact: mailto:birstudentassociation@gmail.com
+Expires: 2027-06-30T23:59:59.000Z
+Preferred-Languages: en, th
