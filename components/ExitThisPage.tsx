@@ -90,7 +90,7 @@ export default function ExitThisPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <div className="wrap sticky top-2 z-30 flex justify-end pt-3 [@media(min-height:32rem)]:top-[7.5rem]">
+      <div className="wrap sticky top-2 z-30 flex justify-end pt-3 [@media(min-height:32rem)]:top-[4.5rem]">
         <div className="flex flex-col items-end gap-1">
           <a
             href={EXIT_URL}

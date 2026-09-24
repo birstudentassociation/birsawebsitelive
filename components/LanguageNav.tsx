@@ -20,6 +20,10 @@ export type LanguageNavProps = {
  * the page's language. The link to the other language carries hidden text
  * written in that language ("Change the language to English").
  *
+ * Below 640px only the link to the other language shows, so the header
+ * still fits in one row at 320px; the current language is already the
+ * language of everything on the page.
+ *
  * Plain `<a>` links, so switching works with JavaScript off. With JavaScript,
  * the click handler carries the query string and hash across, so nobody
  * loses their place or anything they entered in the address bar, and
@@ -40,7 +44,7 @@ export default function LanguageNav({ locale, label, names, switchLabel }: Langu
                 <span
                   lang={target}
                   aria-current="true"
-                  className="inline-flex h-11 items-center border-b-2 border-brand px-2 font-semibold text-ink"
+                  className="hidden h-11 items-center border-b-2 border-brand px-2 font-semibold text-ink sm:inline-flex"
                 >
                   {name}
                 </span>

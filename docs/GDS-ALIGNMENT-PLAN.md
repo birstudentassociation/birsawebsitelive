@@ -297,15 +297,15 @@ phases are sized for volunteer time; nothing here needs new infrastructure.
 
 ### Phase 0. Decisions (taken 24 September 2026)
 
-| Question                     | Decision                                                                                                                                     | Gaps   |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| GOV.UK A to Z for English    | Binding for all English content, with recorded BIRSA exceptions, enforced by a content lint test                                             | W1, W3 |
-| External links               | Same tab. New tab only mid-journey where leaving would lose answers, with "(opens in new tab)" visible                                       | L1     |
-| Header                       | Two rows: brand row (logo, name, language) and navigation row (sections, search). Quick actions and theme toggle stay, in the navigation row | N3     |
-| Phase signal                 | No label. Remove the "beta" wording from the accessibility statement                                                                         | M4     |
-| Licence                      | MIT for code only. Content and photographs are not openly licensed                                                                           | X4     |
-| Exit this page               | Build it now, in Phase 2. Brief the welfare officers on how it works before it goes live                                                     | E5     |
-| Thai register on legal pages | Keep ท่าน on privacy and cookies pages as a recorded exception. คุณ everywhere else                                                          | W5     |
+| Question                     | Decision                                                                                                                                              | Gaps   |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| GOV.UK A to Z for English    | Binding for all English content, with recorded BIRSA exceptions, enforced by a content lint test                                                      | W1, W3 |
+| External links               | Same tab. New tab only mid-journey where leaving would lose answers, with "(opens in new tab)" visible                                                | L1     |
+| Header                       | One row at every width (revised after trying two rows). Sections show from 1280px and sit in the menu below that; Quick actions and theme toggle stay | N3     |
+| Phase signal                 | No label. Remove the "beta" wording from the accessibility statement                                                                                  | M4     |
+| Licence                      | MIT for code only. Content and photographs are not openly licensed                                                                                    | X4     |
+| Exit this page               | Build it now, in Phase 2. Brief the welfare officers on how it works before it goes live                                                              | E5     |
+| Thai register on legal pages | Keep ท่าน on privacy and cookies pages as a recorded exception. คุณ everywhere else                                                                   | W5     |
 
 ### Phase 1. Accessibility and trust fixes (P1 items)
 
@@ -334,8 +334,10 @@ All twelve items are built. What remains is marked **Outstanding**.
 1. **Done.** `.focus-highlight` deleted; every link uses the ink focus ring (I1).
 2. **Done.** Body text 19px, nothing below 16px, via the Tailwind scale in `@theme`. Thai
    heading leading still sits outside the scale; folding it in is `REDESIGN-2.0.md` D7 (T1, T3).
-3. **Done.** Two-row header (brand and language, then sections and tools) and
-   `components/LanguageNav.tsx` (N2, N3).
+3. **Done.** `components/LanguageNav.tsx` (N2). The header stays one row, as decided after
+   trying two: sections from 1280px, in the menu below that, and only the link to the other
+   language below 640px so the row fits at 320px. This keeps a busier header than the Generic
+   header pattern suggests, by choice (N3).
 4. **Done.** Back link and "Step n of m" caption in `PageHeader`, before the heading; the heading
    labels the field; no required markers; buttons ignore repeat presses instead of disabling.
    **Outstanding:** the contact and start a club entry pages still combine the start page with the
