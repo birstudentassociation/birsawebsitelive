@@ -18,6 +18,7 @@ import {
 } from "@/lib/smart-answers";
 import { service, topicGroupList, TRIAGE_SLUG, uiCopy } from "@/content/smart-answers";
 import type { SmartAnswerTopic } from "@/content/smart-answers/types";
+import { langRuns } from "@/lib/lang-runs";
 
 /**
  * The single front door to Smart Answers. Three ways in, because people
@@ -89,7 +90,7 @@ export default async function AnswersHubPage({
     const href = topicHref(topic);
     return (
       <NavListItem key={topic.slug} href={href} title={topic.title[locale]} as="h3">
-        {topic.lede[locale]}
+        {langRuns(topic.lede[locale], locale)}
       </NavListItem>
     );
   };
@@ -179,10 +180,10 @@ export default async function AnswersHubPage({
                 <GridMain className="flex flex-col gap-4">
                   <div>
                     <h2 id={`group-${group.id}`} className="font-display text-2xl">
-                      {group.title[locale]}
+                      {langRuns(group.title[locale], locale)}
                     </h2>
                     <p className="text-sm leading-relaxed text-muted">
-                      {group.description[locale]}
+                      {langRuns(group.description[locale], locale)}
                     </p>
                   </div>
                   <NavList>{groupTopics.map(renderTopic)}</NavList>

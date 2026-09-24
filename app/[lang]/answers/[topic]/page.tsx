@@ -9,6 +9,7 @@ import Notice from "@/components/Notice";
 import ProfileSummary from "@/components/answers/ProfileSummary";
 import { getTopic, parseProfile, serializeProfile } from "@/lib/smart-answers";
 import { service, uiCopy } from "@/content/smart-answers";
+import { langRuns } from "@/lib/lang-runs";
 
 /**
  * Start page for one topic: title, lede, what you'll be asked, and the way
@@ -86,7 +87,7 @@ export default async function TopicStartPage({
             <h2 className="font-display text-xl">{t.whatYoullBeAsked}</h2>
             <ul className="mt-3 list-inside list-disc space-y-2 text-sm leading-relaxed text-muted">
               {topic.whatYoullNeed.map((item, index) => (
-                <li key={index}>{item[locale]}</li>
+                <li key={index}>{langRuns(item[locale], locale)}</li>
               ))}
             </ul>
           </div>

@@ -90,3 +90,44 @@ test.describe("equipment loan request step, cold", () => {
     }
   });
 });
+
+test.describe("journey step titles", () => {
+  const journeys = {
+    contact: [
+      "/en/contact/subject",
+      "/en/contact/message",
+      "/en/contact/name",
+      "/en/contact/email",
+    ],
+    "start a club": [
+      "/en/clubs/start/name",
+      "/en/clubs/start/description",
+      "/en/clubs/start/members",
+      "/en/clubs/start/email",
+    ],
+    "your data": [
+      "/en/privacy/your-data/what",
+      "/en/privacy/your-data/details",
+      "/en/privacy/your-data/name",
+      "/en/privacy/your-data/email",
+    ],
+  };
+
+  for (const [journey, paths] of Object.entries(journeys)) {
+    test(`every ${journey} step has its own page title`, async ({ page }) => {
+      const titles: string[] = [];
+      for (const path of paths) {
+        await page.goto(path);
+        titles.push(await page.title());
+      }
+      expect(new Set(titles).size).toBe(titles.length);
+    });
+  }
+
+  test("an invalid answer puts Error: at the start of the title", async ({ page }) => {
+    await page.goto("/en/contact/name");
+    await page.getByRole("button", { name: "Continue" }).click();
+    await expect(page.getByRole("alert")).toBeVisible();
+    await expect(page).toHaveTitle(/^Error: /);
+  });
+});

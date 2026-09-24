@@ -309,12 +309,20 @@ phases are sized for volunteer time; nothing here needs new infrastructure.
 
 ### Phase 1. Accessibility and trust fixes (P1 items)
 
-1. `Lang` component, toggle label, Smart Answers terms, content test (N1).
-2. Unique question-page titles with "Error: " prefix, plus a route test (Q1).
-3. Remove `autoFocus`; add the hidden "Error:" prefix (Q3, Q5).
-4. Labels, hints and errors at body size (T2).
-5. Header not sticky at high zoom; 400% keyboard test (T5, A5).
-6. Run the assistive technology matrix and publish results in the statement (A1).
+1. **Done.** Thai runs on English pages are tagged `lang="th"` automatically: a rehype plugin for
+   MDX and `langRuns()` for Smart Answers and regulations (`lib/lang-runs.tsx`). The language
+   toggle's accessible name is written in, and tagged with, the target language (N1).
+2. **Done.** Every step of the contact, start a club, your data and loan request journeys has its
+   own title via `stepTitle()` in `lib/seo.ts`. The error summary prefixes the title with
+   "Error: " (with JavaScript only; a no-JavaScript submit keeps the plain title) (Q1).
+3. **Done.** `autoFocus` removed from question steps; `components/ErrorMessage.tsx` adds the
+   hidden "Error:" prefix in the message's language (Q3, Q5).
+4. **Done.** Form labels, hints, errors, summary-list rows and back links now use body size.
+   Answers on check-answers pages are in the text colour (T2, T6).
+5. **Done.** The header is sticky only on screens at least 32rem tall, with a 400% zoom test
+   (T5, A5).
+6. **Outstanding.** Run the assistive technology matrix and publish results in the statement
+   (A1). This needs people and devices, not code.
 
 Done when: `npm run test` and the e2e suites pass with the new tests, and the statement's
 "How we tested" section names every combination that was run.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
@@ -18,8 +18,9 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
-  return buildMetadata({ locale, title, description: title, path: "/contact/email" });
+  const journey = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
+  const title = stepTitle(buildContactWizardLabels(locale).emailHeading, journey);
+  return buildMetadata({ locale, title, description: journey, path: "/contact/email" });
 }
 
 export default async function ContactEmailPage({

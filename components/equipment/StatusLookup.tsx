@@ -200,7 +200,6 @@ export default function StatusLookup({
         defaultValue={defaultEmail}
         error={hasFieldError ? state.error : undefined}
         autoComplete="email"
-        autoFocus
       />
 
       <div>

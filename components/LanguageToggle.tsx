@@ -34,14 +34,17 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
   const target: Locale = locale === "th" ? "en" : "th";
   const href = swapLocalePath(pathname, target);
   // Compact label for narrow screens so the header reflows down to 320px
-  // (WCAG 1.4.10) without dropping the toggle. aria-label stays descriptive.
+  // (WCAG 1.4.10) without dropping the toggle. The link's accessible name is
+  // the hidden sentence, written in the target language and carried by the
+  // link's own `lang`, so the whole link is read in the right voice and still
+  // contains the visible label (WCAG 2.5.3).
   const shortLabel = target === "en" ? "EN" : "ไทย";
 
   return (
     <a
       href={href}
       hrefLang={target}
-      aria-label={ariaLabel}
+      lang={target}
       onClick={(e) => {
         e.currentTarget.href = `${href}${window.location.search}${window.location.hash}`;
         const oneYear = 60 * 60 * 24 * 365;
@@ -58,10 +61,13 @@ export default function LanguageToggle({ locale, label, ariaLabel }: LanguageTog
           strokeWidth={1.5}
         />
       </svg>
+      <span className="sr-only">{ariaLabel}</span>
       <span aria-hidden="true" className="sm:hidden">
         {shortLabel}
       </span>
-      <span className="hidden sm:inline">{label}</span>
+      <span aria-hidden="true" className="hidden sm:inline">
+        {label}
+      </span>
     </a>
   );
 }

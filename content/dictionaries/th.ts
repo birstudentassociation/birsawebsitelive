@@ -11,7 +11,7 @@ export const th: typeof en = {
   langLabel: "ไทย",
   // Shown inside the language toggle as the language you can switch TO.
   switchTo: "English",
-  switchToAria: "Switch to English, เปลี่ยนเป็นภาษาอังกฤษ",
+  switchToAria: "Change the language to English",
 
   site: {
     name: "BIRSA",

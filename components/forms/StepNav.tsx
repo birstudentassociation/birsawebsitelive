@@ -20,12 +20,12 @@ export default function StepNav({ backHref, backLabel, progressText }: StepNavPr
       {backHref ? (
         <Link
           href={backHref}
-          className="w-fit text-sm font-medium text-brand-deep hover:text-brand-dark"
+          className="w-fit font-medium text-brand-deep underline underline-offset-4 hover:text-brand-dark"
         >
           &larr; {backLabel}
         </Link>
       ) : null}
-      {progressText ? <p className="text-sm text-muted">{progressText}</p> : null}
+      {progressText ? <p className="text-muted">{progressText}</p> : null}
     </div>
   );
 }

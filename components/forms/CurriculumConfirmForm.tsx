@@ -13,6 +13,7 @@ import { useActionState, useId } from "react";
 import Button from "@/components/Button";
 import ErrorSummary from "@/components/ErrorSummary";
 import type { QuestionStepState } from "./QuestionStepForm";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export type CurriculumConfirmFormProps = {
   action: (prevState: QuestionStepState, formData: FormData) => Promise<QuestionStepState>;
@@ -58,24 +59,7 @@ export default function CurriculumConfirmForm({
           {legend} ({requiredLabel})
         </legend>
 
-        {hasError ? (
-          <p
-            id={`${groupId}-error`}
-            className="flex items-center gap-1.5 text-sm font-medium text-error"
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
-              <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path
-                d="M10 6.5v4.2"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                strokeLinecap="round"
-              />
-              <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
-            </svg>
-            {state.error}
-          </p>
-        ) : null}
+        {hasError ? <ErrorMessage id={`${groupId}-error`}>{state.error}</ErrorMessage> : null}
 
         <div className="flex flex-col gap-3">
           <label

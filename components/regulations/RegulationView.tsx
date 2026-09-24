@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { createElement } from "react";
 import Link from "next/link";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -10,6 +11,7 @@ import type {
   RegulationDoc,
   Section,
 } from "@/content/activity/regulations";
+import { langRuns } from "@/lib/lang-runs";
 
 /**
  * Renders a regulation document (any depth of Title → Chapter → Division →
@@ -62,7 +64,7 @@ function sectionLabel(section: Section, locale: Locale): string {
   return title;
 }
 
-function ItemList({ items, pick }: { items: ProvisionItem[]; pick: (b: Bi) => string }) {
+function ItemList({ items, pick }: { items: ProvisionItem[]; pick: (b: Bi) => ReactNode }) {
   return (
     <ul className="flex flex-col gap-2">
       {items.map((item, i) => (
@@ -88,7 +90,7 @@ function Definitions({
   pick,
 }: {
   entries: { term: Bi; meaning: Bi }[];
-  pick: (b: Bi) => string;
+  pick: (b: Bi) => ReactNode;
 }) {
   return (
     <dl className="flex flex-col gap-2 border-l-2 border-line pl-4">
@@ -102,7 +104,7 @@ function Definitions({
   );
 }
 
-function BlockView({ block, pick }: { block: Block; pick: (b: Bi) => string }) {
+function BlockView({ block, pick }: { block: Block; pick: (b: Bi) => ReactNode }) {
   if (block.kind === "para") return <p>{pick(block.text)}</p>;
   if (block.kind === "list") return <ItemList items={block.items} pick={pick} />;
   return <Definitions entries={block.entries} pick={pick} />;
@@ -114,7 +116,7 @@ function ProvisionView({
   headingLevel,
 }: {
   provision: Provision;
-  pick: (b: Bi) => string;
+  pick: (b: Bi) => ReactNode;
   headingLevel: number;
 }) {
   return (
@@ -157,7 +159,7 @@ function ContentsNode({
 }: {
   section: Section;
   locale: Locale;
-  pick: (b: Bi) => string;
+  pick: (b: Bi) => ReactNode;
   path: string;
   depth: number;
 }) {
@@ -198,15 +200,15 @@ function ContentsNode({
 }
 
 export default function RegulationView({ doc, locale }: { doc: RegulationDoc; locale: Locale }) {
-  const pick = (b: Bi) => b[locale];
+  const pick = (b: Bi) => langRuns(b[locale], locale);
   const t = ui[locale];
 
   return (
     <div className="wrap flex max-w-[72ch] flex-col gap-10 py-10">
       {/* Prelims */}
       <div className="flex flex-col gap-4">
-        <p className="font-semibold text-ink">{doc.authority[locale]}</p>
-        <p className="leading-relaxed text-muted">{doc.preamble[locale]}</p>
+        <p className="font-semibold text-ink">{langRuns(doc.authority[locale], locale)}</p>
+        <p className="leading-relaxed text-muted">{langRuns(doc.preamble[locale], locale)}</p>
         <Notice variant="info" title={t.aboutTitle}>
           <p>{t.aboutBody}</p>
         </Notice>
@@ -250,8 +252,8 @@ export default function RegulationView({ doc, locale }: { doc: RegulationDoc; lo
 
       {/* Signature */}
       <div className="flex flex-col items-end gap-1 border-t border-line pt-6 text-sm text-muted">
-        <p>{doc.made[locale]}</p>
-        <p className="font-semibold text-ink">{doc.signatory[locale]}</p>
+        <p>{langRuns(doc.made[locale], locale)}</p>
+        <p className="font-semibold text-ink">{langRuns(doc.signatory[locale], locale)}</p>
       </div>
 
       <Link
@@ -275,7 +277,7 @@ function SectionViewResolved({
 }: {
   section: Section;
   locale: Locale;
-  pick: (b: Bi) => string;
+  pick: (b: Bi) => ReactNode;
   depth: number;
   path: string;
 }) {

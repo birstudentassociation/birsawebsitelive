@@ -7,6 +7,7 @@ import {
   type AudienceProfile,
 } from "@/content/smart-answers/audience";
 import { uiCopy } from "@/content/smart-answers";
+import { langRuns } from "@/lib/lang-runs";
 
 /**
  * The standing summary of what the service is assuming about the reader,
@@ -73,7 +74,7 @@ export default function ProfileSummary({
           return (
             <div key={question.dimension} className="flex flex-col">
               <dt className="text-xs tracking-wide text-muted uppercase">
-                {question.summaryLabel[locale]}
+                {langRuns(question.summaryLabel[locale], locale)}
               </dt>
               <dd className="text-sm font-medium text-ink">
                 {choice ? choice.label[locale] : t.profileNone}

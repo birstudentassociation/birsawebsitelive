@@ -148,3 +148,12 @@ export function buildMetadata({
     },
   };
 }
+
+/**
+ * Title for one page of a multi-page journey: the page's own question first,
+ * then the journey, so every step has a unique title that says what the page
+ * asks (GOV.UK Question pages). `fitTitle` then adds the site name if it fits.
+ */
+export function stepTitle(question: string, journey: string): string {
+  return `${question} | ${journey}`;
+}

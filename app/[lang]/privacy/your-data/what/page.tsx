@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import RightsWhatForm from "@/components/forms/RightsWhatForm";
@@ -19,9 +19,10 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title =
+  const journey =
     locale === "th" ? "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" : "Ask about your data";
-  return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/what" });
+  const title = stepTitle(buildRightsWizardLabels(locale).whatHeading, journey);
+  return buildMetadata({ locale, title, description: journey, path: "/privacy/your-data/what" });
 }
 
 export default async function RightsWhatPage({

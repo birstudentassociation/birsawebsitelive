@@ -65,7 +65,6 @@ export default function DatesStepForm({
         defaultValue={defaultStartDate}
         error={errors.startDate}
         min={minStartDate}
-        autoFocus
       />
       <Field
         id="step-endDate"

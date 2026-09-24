@@ -20,13 +20,13 @@ export default function SummaryRow({ label, value, changeHref, changeLabel }: Su
   return (
     <div className="flex flex-col gap-1 p-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <div>
-        <dt className="text-sm font-semibold text-ink">{label}</dt>
-        <dd className="mt-0.5 text-sm break-words text-muted">{value}</dd>
+        <dt className="font-semibold text-ink">{label}</dt>
+        <dd className="mt-0.5 break-words text-ink">{value}</dd>
       </div>
       {changeHref ? (
         <Link
           href={changeHref}
-          className="shrink-0 text-sm font-medium text-brand-deep underline hover:text-brand-dark"
+          className="shrink-0 font-medium text-brand-deep underline hover:text-brand-dark"
         >
           {changeLabel}
           <span className="sr-only"> {label}</span>

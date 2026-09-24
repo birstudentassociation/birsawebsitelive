@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, stepTitle } from "@/lib/seo";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
@@ -23,7 +23,7 @@ export async function generateMetadata({
   if (!item) return {};
   return buildMetadata({
     locale,
-    title: item.name[locale],
+    title: stepTitle(buildLoanWizardLabels(locale, item).reason.question, item.name[locale]),
     description: item.name[locale],
     path: `/services/equipment-loan/${itemKey}/request/reason`,
   });

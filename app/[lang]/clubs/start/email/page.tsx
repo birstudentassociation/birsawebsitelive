@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
@@ -18,8 +18,9 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "เริ่มชมรมใหม่" : "Start a club";
-  return buildMetadata({ locale, title, description: title, path: "/clubs/start/email" });
+  const journey = locale === "th" ? "เริ่มชมรมใหม่" : "Start a club";
+  const title = stepTitle(buildStartClubWizardLabels(locale).emailHeading, journey);
+  return buildMetadata({ locale, title, description: journey, path: "/clubs/start/email" });
 }
 
 export default async function StartClubEmailPage({

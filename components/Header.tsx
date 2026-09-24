@@ -13,7 +13,11 @@ export type HeaderProps = {
 };
 
 /**
- * Site header: cream surface, bottom hairline, sticky top. Logo + wordmark,
+ * Site header: cream surface, bottom hairline, sticky top on screens at
+ * least 32rem tall. Shorter viewports (a phone in landscape, or any screen at
+ * 300 to 400% zoom) get a header that scrolls away, because a sticky bar
+ * there takes a large share of the screen and can cover the focused control
+ * (WCAG 2.4.11 Focus not obscured). Logo + wordmark,
  * primary nav (plain links; current page gets `aria-current` + red
  * underline as a hydrated enhancement), a prominent "Quick actions" CTA,
  * the language toggle, and the mobile disclosure menu.
@@ -22,7 +26,7 @@ export default function Header({ locale }: HeaderProps) {
   const dict = getDictionary(locale);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur supports-[backdrop-filter]:bg-cream/80">
+    <header className="relative z-40 border-b border-line bg-cream/95 backdrop-blur supports-[backdrop-filter]:bg-cream/80 [@media(min-height:32rem)]:sticky [@media(min-height:32rem)]:top-0">
       <div className="wrap flex h-16 items-center justify-between gap-4 sm:gap-6">
         <Link
           href={localeHref(locale, "/")}

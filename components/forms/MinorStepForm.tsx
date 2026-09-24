@@ -20,6 +20,7 @@ import ErrorSummary from "@/components/ErrorSummary";
 import type { Minor } from "@/content/curriculum";
 import type { Locale } from "@/lib/i18n";
 import type { QuestionStepState } from "./QuestionStepForm";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export type MinorStepFormProps = {
   locale: Locale;
@@ -72,24 +73,7 @@ export default function MinorStepForm({
           {legend} ({requiredLabel})
         </legend>
 
-        {hasError ? (
-          <p
-            id={`${groupId}-error`}
-            className="flex items-center gap-1.5 text-sm font-medium text-error"
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
-              <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path
-                d="M10 6.5v4.2"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                strokeLinecap="round"
-              />
-              <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
-            </svg>
-            {state.error}
-          </p>
-        ) : null}
+        {hasError ? <ErrorMessage id={`${groupId}-error`}>{state.error}</ErrorMessage> : null}
 
         <div className="flex flex-col gap-3">
           {minors.map((minor) => (
@@ -109,7 +93,7 @@ export default function MinorStepForm({
               />
               <span className="flex flex-col gap-1">
                 <span className="font-semibold text-ink">{minor.name[locale]}</span>
-                <span className="text-sm text-muted">
+                <span className="text-muted">
                   {requiredCoursesLabel}:{" "}
                   {minor.required
                     .map(

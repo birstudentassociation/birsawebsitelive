@@ -2,6 +2,7 @@
 
 import { useId } from "react";
 import clsx from "clsx";
+import ErrorMessage from "@/components/ErrorMessage";
 
 type BaseProps = {
   label: string;
@@ -57,7 +58,7 @@ export default function Field({
   const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
 
   const sharedClasses = clsx(
-    "focus-halo w-full rounded-md border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted",
+    "focus-halo w-full rounded-md border bg-surface px-3.5 py-2.5 text-ink placeholder:text-muted",
     error ? "border-error" : "border-input-border"
   );
 
@@ -67,12 +68,12 @@ export default function Field({
 
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
-      <label htmlFor={fieldId} className="text-sm font-semibold text-ink">
+      <label htmlFor={fieldId} className="font-semibold text-ink">
         {label}
         {marker}
       </label>
       {hint ? (
-        <p id={hintId} className="text-sm text-muted">
+        <p id={hintId} className="text-muted">
           {hint}
         </p>
       ) : null}
@@ -113,16 +114,7 @@ export default function Field({
           {...(rest as React.InputHTMLAttributes<HTMLInputElement>)}
         />
       )}
-      {error ? (
-        <p id={errorId} className="flex items-center gap-1.5 text-sm font-medium text-error">
-          <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
-            <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-            <path d="M10 6.5v4.2" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" />
-            <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
-          </svg>
-          {error}
-        </p>
-      ) : null}
+      {error ? <ErrorMessage id={errorId}>{error}</ErrorMessage> : null}
     </div>
   );
 }

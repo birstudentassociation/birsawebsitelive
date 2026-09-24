@@ -9,6 +9,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import { rehypeLangRuns } from "@/lib/lang-runs";
 import Accordion from "@/components/Accordion";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
@@ -142,6 +143,7 @@ export function Mdx({
                   content: { type: "text", value: "#" },
                 },
               ],
+              [rehypeLangRuns, { locale }],
             ],
           },
         }}

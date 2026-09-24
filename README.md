@@ -212,3 +212,10 @@ code: the i18n contract, content model, and the facts that must not be invented.
 
 This repository is private for now. It will move to a public or organisation-owned location once
 BIRSA is ready to publish it more widely.
+
+## Licence
+
+The code is released under the [MIT licence](LICENSE). The licence covers code only. Written
+content under `content/`, the BIRSA logo, fonts under `assets/fonts/` (which keep their own
+licences) and photographs under `public/committee/` are not openly licensed. Photographs of
+students are personal data; do not reuse them.

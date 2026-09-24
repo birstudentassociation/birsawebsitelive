@@ -104,7 +104,7 @@ const content: Record<
     a11yIssues: [
       {
         title: "No assistive-technology testing yet",
-        body: "Our automated checks catch a defined set of technical faults, but automated testing alone cannot show whether the site actually works well for someone using a screen reader, a screen magnifier, or speech-recognition software. We have not carried out that testing yet, with any of those technologies, so some barriers may go unnoticed (WCAG 4.1.2 and others). Planned before we leave beta; use the reporting route below if you hit a barrier before then.",
+        body: "Our automated checks catch a defined set of technical faults, but automated testing alone cannot show whether the site actually works well for someone using a screen reader, a screen magnifier, or speech-recognition software. We have not carried out that testing yet, with any of those technologies, so some barriers may go unnoticed (WCAG 4.1.2 and others). We are working on it. If you hit a barrier, use the reporting route below.",
       },
       {
         title: "Some placeholder content",
@@ -113,7 +113,7 @@ const content: Record<
     ],
     a11yPreparedTitle: "When we prepared this",
     a11yPrepared:
-      "This statement was first prepared on 14 July 2026 and last reviewed on 30 July 2026. We review it at least once a year, and whenever we make a significant change to the site.",
+      "This statement was first prepared on 14 July 2026 and last reviewed on 24 September 2026. We review it at least once a year, and whenever we make a significant change to the site.",
     a11yReportTitle: "Report a problem",
     a11yReportBody:
       "If something on this site is hard to use, contact BIRSA and describe the problem and, if you can, the page and device you were using. You can also email us directly at",
@@ -176,7 +176,7 @@ const content: Record<
     a11yIssues: [
       {
         title: "ยังไม่มีการทดสอบด้วยเทคโนโลยีสิ่งอำนวยความสะดวก",
-        body: "การตรวจสอบอัตโนมัติของเราจับข้อบกพร่องทางเทคนิคได้เฉพาะชุดหนึ่งเท่านั้น แต่การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถบอกได้ว่าเว็บไซต์ใช้งานได้ดีจริงสำหรับผู้ใช้โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง เรายังไม่ได้ทดสอบด้วยเทคโนโลยีเหล่านี้เลย จึงอาจมีอุปสรรคบางอย่างที่ยังไม่ถูกพบ (WCAG 4.1.2 และข้ออื่น ๆ) เราวางแผนจะทำก่อนออกจากช่วงเบต้า หากพบอุปสรรคก่อนหน้านั้น ใช้ช่องทางแจ้งปัญหาด้านล่าง",
+        body: "การตรวจสอบอัตโนมัติของเราจับข้อบกพร่องทางเทคนิคได้เฉพาะชุดหนึ่งเท่านั้น แต่การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถบอกได้ว่าเว็บไซต์ใช้งานได้ดีจริงสำหรับผู้ใช้โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง เรายังไม่ได้ทดสอบด้วยเทคโนโลยีเหล่านี้เลย จึงอาจมีอุปสรรคบางอย่างที่ยังไม่ถูกพบ (WCAG 4.1.2 และข้ออื่น ๆ) เรากำลังดำเนินการอยู่ หากพบอุปสรรค ใช้ช่องทางแจ้งปัญหาด้านล่าง",
       },
       {
         title: "มีเนื้อหาตัวอย่างบางส่วน",
@@ -185,7 +185,7 @@ const content: Record<
     ],
     a11yPreparedTitle: "จัดทำเมื่อไร",
     a11yPrepared:
-      "คำแถลงนี้จัดทำครั้งแรกเมื่อวันที่ 14 กรกฎาคม 2026 และทบทวนล่าสุดเมื่อวันที่ 30 กรกฎาคม 2026 เราทบทวนอย่างน้อยปีละครั้ง และทุกครั้งที่มีการเปลี่ยนแปลงสำคัญกับเว็บไซต์",
+      "คำแถลงนี้จัดทำครั้งแรกเมื่อวันที่ 14 กรกฎาคม 2026 และทบทวนล่าสุดเมื่อวันที่ 24 กันยายน 2026 เราทบทวนอย่างน้อยปีละครั้ง และทุกครั้งที่มีการเปลี่ยนแปลงสำคัญกับเว็บไซต์",
     a11yReportTitle: "แจ้งปัญหา",
     a11yReportBody:
       "ถ้ามีจุดไหนในเว็บไซต์นี้ใช้งานยาก ติดต่อ BIRSA พร้อมอธิบายปัญหา และถ้าเป็นไปได้ ระบุหน้าและอุปกรณ์ที่คุณใช้ด้วย หรืออีเมลถึงเราโดยตรงที่",

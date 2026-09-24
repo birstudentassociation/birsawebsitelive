@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import StatusLookup from "@/components/equipment/StatusLookup";
@@ -19,11 +19,12 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const title = locale === "th" ? "ตรวจสอบคำขอยืม" : "Check a loan request";
+  const journey = locale === "th" ? "ตรวจสอบคำขอยืม" : "Check a loan request";
+  const title = stepTitle(statusLookupLabels[locale].emailLabel, journey);
   return buildMetadata({
     locale,
     title,
-    description: title,
+    description: journey,
     path: "/services/equipment-loan/status/email",
   });
 }

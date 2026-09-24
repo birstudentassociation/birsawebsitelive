@@ -14,6 +14,7 @@ import Button from "@/components/Button";
 import ErrorSummary from "@/components/ErrorSummary";
 import { PLAN_FIELD } from "@/lib/study-plan/plan";
 import type { TermRef } from "@/content/curriculum";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export type TermFreeElectiveState = { status: "idle" | "invalid"; error?: string };
 
@@ -54,7 +55,7 @@ export default function TermFreeElectiveForm({
       <input type="hidden" name="kind" value={term.kind} />
       <div className="flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1.5">
-          <label htmlFor={fieldId} className="text-sm font-semibold text-ink">
+          <label htmlFor={fieldId} className="font-semibold text-ink">
             {label}
           </label>
           <input
@@ -65,30 +66,9 @@ export default function TermFreeElectiveForm({
             max={21}
             defaultValue={freeElectiveCredits}
             aria-invalid={hasError ? "true" : undefined}
-            className="focus-halo w-24 rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+            className="focus-halo w-24 rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-ink"
           />
-          {hasError ? (
-            <p className="flex items-center gap-1.5 text-sm font-medium text-error">
-              <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
-                <circle
-                  cx="10"
-                  cy="10"
-                  r="8"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={1.75}
-                />
-                <path
-                  d="M10 6.5v4.2"
-                  stroke="currentColor"
-                  strokeWidth={1.75}
-                  strokeLinecap="round"
-                />
-                <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
-              </svg>
-              {state.error}
-            </p>
-          ) : null}
+          {hasError ? <ErrorMessage>{state.error}</ErrorMessage> : null}
         </div>
         <Button type="submit" variant="secondary" disabled={isPending}>
           {updateLabel}

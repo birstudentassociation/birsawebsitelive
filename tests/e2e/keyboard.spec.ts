@@ -131,6 +131,40 @@ test.describe("header navigation: keyboard-only", () => {
   });
 });
 
+test.describe("header at high zoom", () => {
+  test("stays sticky on a normal screen", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/en");
+    const position = await page
+      .locator("body > header")
+      .evaluate((el) => getComputedStyle(el).position);
+    expect(position).toBe("sticky");
+  });
+
+  test("scrolls away at 400% zoom so it never covers the focused control", async ({ page }) => {
+    // A 1280 by 1024 screen at 400% zoom leaves a 320 by 256 CSS pixel viewport.
+    await page.setViewportSize({ width: 320, height: 256 });
+    await page.goto("/en/contact/name");
+    const header = page.locator("body > header");
+    expect(await header.evaluate((el) => getComputedStyle(el).position)).not.toBe("sticky");
+
+    for (let i = 0; i < 25; i++) {
+      await page.keyboard.press("Tab");
+      const obscured = await page.evaluate(() => {
+        const el = document.activeElement;
+        const bar = document.querySelector("body > header");
+        if (!el || el === document.body || !bar || bar.contains(el)) return false;
+        // The skip link is meant to sit on top of everything while focused.
+        if (el.classList.contains("skip-link")) return false;
+        const a = el.getBoundingClientRect();
+        const b = bar.getBoundingClientRect();
+        return a.top < b.bottom && a.bottom > b.top && a.left < b.right && a.right > b.left;
+      });
+      expect(obscured).toBe(false);
+    }
+  });
+});
+
 test.describe("language and theme toggles: keyboard-only", () => {
   test("the language toggle activates with Enter and updates html[lang]", async ({ page }) => {
     await page.goto("/en/clubs");

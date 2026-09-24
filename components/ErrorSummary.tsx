@@ -34,7 +34,21 @@ export default function ErrorSummary({ title, errors }: ErrorSummaryProps) {
     }
   }, [signature]);
 
-  if (errors.length === 0) return null;
+  // Start the page title with "Error:" while there are errors, so it is the
+  // first thing announced and shows in the tab (GOV.UK Error summary). This
+  // needs JavaScript; a no-JavaScript submit keeps the plain title.
+  const hasErrors = errors.length > 0;
+  useEffect(() => {
+    if (!hasErrors) return;
+    const prefix = /[\u0E00-\u0E7F]/.test(title) ? "ข้อผิดพลาด: " : "Error: ";
+    const original = document.title;
+    if (!original.startsWith(prefix)) document.title = `${prefix}${original}`;
+    return () => {
+      document.title = original;
+    };
+  }, [hasErrors, title]);
+
+  if (!hasErrors) return null;
 
   return (
     <div

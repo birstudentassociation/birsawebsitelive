@@ -134,7 +134,7 @@ export default function RightsCheckForm({ locale, dict, draft, action }: RightsC
         />
       </dl>
 
-      <p className="text-sm text-muted">{dict.form.privacyNote}</p>
+      <p className="text-muted">{dict.form.privacyNote}</p>
 
       {/* Honeypot: real visitors never see or fill this field. Visually
           hidden, not display:none, so assistive tech that ignores CSS still

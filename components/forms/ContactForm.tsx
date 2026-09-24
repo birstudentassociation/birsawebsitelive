@@ -181,7 +181,7 @@ export default function ContactForm({
         />
       </dl>
 
-      <p className="text-sm text-muted">{dict.form.privacyNote}</p>
+      <p className="text-muted">{dict.form.privacyNote}</p>
 
       {/* Honeypot: real visitors never see or fill this. Visually hidden,
           not display:none, so assistive tech that ignores CSS still gets an

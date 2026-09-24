@@ -89,7 +89,6 @@ export default function QuestionStepForm({
         rows={field.rows}
         min={field.min}
         max={field.max}
-        autoFocus
       />
       <div>
         <Button type="submit" disabled={isPending}>

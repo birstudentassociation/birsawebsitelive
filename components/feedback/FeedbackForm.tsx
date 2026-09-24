@@ -10,6 +10,7 @@ import CollectionNotice from "@/components/forms/CollectionNotice";
 import type { FeedbackState } from "@/app/[lang]/feedback/actions";
 import { feedbackCopy, RATING_ORDER } from "@/components/feedback/feedbackCopy";
 import type { Locale } from "@/lib/i18n";
+import ErrorMessage from "@/components/ErrorMessage";
 
 export type FeedbackFormProps = {
   locale: Locale;
@@ -122,22 +123,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
         <p className="sr-only">{t.ratingGroupLabel}</p>
 
         {errors?.rating ? (
-          <p
-            id={`${fieldIds.rating}-error`}
-            className="flex items-center gap-1.5 text-sm font-medium text-error"
-          >
-            <svg aria-hidden="true" viewBox="0 0 20 20" className="h-4 w-4 shrink-0">
-              <circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" strokeWidth={1.75} />
-              <path
-                d="M10 6.5v4.2"
-                stroke="currentColor"
-                strokeWidth={1.75}
-                strokeLinecap="round"
-              />
-              <circle cx="10" cy="13.6" r="0.9" fill="currentColor" />
-            </svg>
-            {errors.rating}
-          </p>
+          <ErrorMessage id={`${fieldIds.rating}-error`}>{errors.rating}</ErrorMessage>
         ) : null}
 
         <div className="flex flex-col gap-3">
@@ -178,7 +164,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
           rows={5}
           maxLength={1200}
         />
-        <p className="text-sm text-muted">{t.privacyWarning}</p>
+        <p className="text-muted">{t.privacyWarning}</p>
         <CollectionNotice activityId="feedback" locale={locale} />
       </div>
 

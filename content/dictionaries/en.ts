@@ -12,7 +12,9 @@ export const en = {
   langLabel: "English",
   // Shown inside the language toggle as the language you can switch TO.
   switchTo: "ภาษาไทย",
-  switchToAria: "เปลี่ยนเป็นภาษาไทย, switch to Thai",
+  // Written in the language being switched to, and tagged with it (GOV.UK
+  // Language navigation), so a screen reader reads it in the right voice.
+  switchToAria: "เปลี่ยนเป็นภาษาไทย",
 
   site: {
     name: "BIRSA",

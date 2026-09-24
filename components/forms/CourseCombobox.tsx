@@ -83,7 +83,7 @@ function OptionRow({
       aria-selected={active}
       onClick={onSelect}
       onMouseEnter={onHover}
-      className={clsx("cursor-pointer px-3.5 py-2.5 text-sm text-ink", active ? "bg-sunken" : "")}
+      className={clsx("cursor-pointer px-3.5 py-2.5 text-ink", active ? "bg-sunken" : "")}
     >
       {option.label}
     </li>
@@ -253,14 +253,14 @@ export default function CourseCombobox({
   if (!enhanced) {
     return (
       <div className={clsx("flex flex-col gap-1.5", className)}>
-        <label htmlFor={id} className="text-sm font-semibold text-ink">
+        <label htmlFor={id} className="font-semibold text-ink">
           {label}
         </label>
         <select
           id={id}
           name={name}
           defaultValue={defaultValue ?? ""}
-          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-ink"
         >
           {emptyOption ? (
             <option value={emptyOption.value}>{emptyOption.label}</option>
@@ -302,10 +302,10 @@ export default function CourseCombobox({
       onBlur={handleBlur}
       className={clsx("relative flex flex-col gap-1.5", className)}
     >
-      <label htmlFor={id} className="text-sm font-semibold text-ink">
+      <label htmlFor={id} className="font-semibold text-ink">
         {label}
       </label>
-      <p id={hintId} className="text-sm text-muted">
+      <p id={hintId} className="text-muted">
         {copy.typeaheadHint}
       </p>
       <div className="relative flex items-center gap-2">
@@ -328,7 +328,7 @@ export default function CourseCombobox({
           }}
           onKeyDown={handleKeyDown}
           onFocus={() => setOpen(true)}
-          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-ink placeholder:text-muted"
         />
         {text !== "" ? (
           <button
@@ -404,7 +404,7 @@ export default function CourseCombobox({
             )
           )}
           {visibleCount === 0 ? (
-            <li role="presentation" className="px-3.5 py-2.5 text-sm text-muted">
+            <li role="presentation" className="px-3.5 py-2.5 text-muted">
               {copy.noMatches}
             </li>
           ) : null}

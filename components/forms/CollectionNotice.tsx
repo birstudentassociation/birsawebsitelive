@@ -36,7 +36,7 @@ export default function CollectionNotice({ activityId, locale, className }: Coll
   const t = copy[locale];
 
   return (
-    <p className={clsx("text-sm text-muted", className)}>
+    <p className={clsx("text-muted", className)}>
       {activity.ifYouDoNot[locale]}{" "}
       <Link
         href={localeHref(locale, "/privacy")}
