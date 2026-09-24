@@ -54,6 +54,8 @@ const linkSchema = z.object({
 const newsFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
+  /** Search result description, when the summary is too long or too short for one. */
+  metaDescription: z.string().min(1).optional(),
   date: dateOnly,
   type: z.enum(["news", "event"]),
   category: z.string().min(1),
@@ -67,6 +69,8 @@ const newsFrontmatterSchema = z.object({
 const activityFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
+  /** Search result description, when the summary is too long or too short for one. */
+  metaDescription: z.string().min(1).optional(),
   order: z.number(),
   updated: dateOnly,
   placeholder: z.boolean().optional(),
@@ -75,6 +79,8 @@ const activityFrontmatterSchema = z.object({
 const studentLifeFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
+  /** Search result description, when the summary is too long or too short for one. */
+  metaDescription: z.string().min(1).optional(),
   order: z.number(),
   updated: dateOnly,
   audience: z.enum(["home", "international", "handbook"]),
@@ -84,6 +90,8 @@ const studentLifeFrontmatterSchema = z.object({
 const aboutFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
+  /** Search result description, when the summary is too long or too short for one. */
+  metaDescription: z.string().min(1).optional(),
   order: z.number(),
   updated: dateOnly,
   placeholder: z.boolean().optional(),
@@ -101,6 +109,8 @@ const aboutFrontmatterSchema = z.object({
 const clubFrontmatterSchema = z.object({
   title: z.string().min(1),
   tagline: z.string().min(1),
+  /** Search result description, when the summary is too long or too short for one. */
+  metaDescription: z.string().min(1).optional(),
   category: z.enum(["academic", "sports", "arts", "community", "social"]),
   order: z.number(),
   updated: dateOnly,

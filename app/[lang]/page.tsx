@@ -3,6 +3,8 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
+import { organizationJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Button from "@/components/Button";
@@ -14,7 +16,6 @@ import EventCalendar from "@/components/home/EventCalendar";
 import { calendarEvents } from "@/content/calendar/events";
 import { homeEn } from "@/content/home/en";
 import { homeTh } from "@/content/home/th";
-import { socials } from "@/content/site";
 
 const homeCopy = { en: homeEn, th: homeTh };
 
@@ -28,7 +29,7 @@ export async function generateMetadata({
   const dict = getDictionary(lang);
   return buildMetadata({
     locale: lang,
-    title: `${dict.site.name}: ${dict.site.fullName}`,
+    title: dict.site.fullName,
     description: dict.site.description,
     path: "/",
   });
@@ -83,23 +84,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     description: copy.featured.items[key].description,
   }));
 
-  const instagram = socials.find((s) => s.id === "instagram");
-  const facebook = socials.find((s) => s.id === "facebook");
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "BIR Student Association (BIRSA)",
-    url: `${SITE_URL}/${locale}`,
-    logo: `${SITE_URL}/birsa-logo.png`,
-    sameAs: [instagram?.href, facebook?.href].filter((href): href is string => Boolean(href)),
-  };
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
+      <JsonLd data={organizationJsonLd(locale)} />
       {/* Hero */}
       <section className="border-b border-line bg-cream">
         <div className="wrap grid gap-8 py-14 sm:py-20 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-10">

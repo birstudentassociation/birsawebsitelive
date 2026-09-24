@@ -38,7 +38,7 @@ export async function generateMetadata({
   return buildMetadata({
     locale,
     title: entry.frontmatter.title,
-    description: entry.frontmatter.summary,
+    description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/student-life/${audience}/${slug}`,
   });
 }

@@ -20,6 +20,17 @@ function url(locale: Locale, path: string): string {
   return `${SITE_URL}/${locale}${normalized}`;
 }
 
+/** One sitemap entry, with its Thai and English versions linked as alternates. */
+function entry(locale: Locale, path: string, lastModified?: string): MetadataRoute.Sitemap[number] {
+  const languages: Record<string, string> = { "x-default": url("th", path) };
+  for (const loc of locales) languages[loc] = url(loc, path);
+  return {
+    url: url(locale, path),
+    ...(lastModified ? { lastModified } : {}),
+    alternates: { languages },
+  };
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
 
@@ -57,47 +68,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ];
 
     for (const path of staticPaths) {
-      entries.push({ url: url(locale, path) });
+      entries.push(entry(locale, path));
     }
 
-    for (const entry of getEntries("news", locale)) {
-      entries.push({ url: url(locale, `/news/${entry.slug}`) });
+    for (const post of getEntries("news", locale)) {
+      entries.push(entry(locale, `/news/${post.slug}`, post.frontmatter.date));
     }
 
-    for (const entry of getEntries("activity", locale)) {
-      entries.push({ url: url(locale, `/activity/${entry.slug}`) });
+    for (const page of getEntries("activity", locale)) {
+      entries.push(entry(locale, `/activity/${page.slug}`, page.frontmatter.updated));
     }
 
     for (const doc of documents) {
-      entries.push({ url: url(locale, `/activity/regulations/${doc.slug}`) });
+      entries.push(entry(locale, `/activity/regulations/${doc.slug}`));
     }
 
     // Smart Answers: only the topic start pages are indexed. The stateful /q
     // step pages and the audience profile page carry robots noindex and are
     // deliberately absent here.
     for (const topic of smartAnswers.topics) {
-      entries.push({ url: url(locale, `/answers/${topic.slug}`) });
+      entries.push(entry(locale, `/answers/${topic.slug}`));
     }
 
     for (const audience of onboardingAudiences) {
-      entries.push({ url: url(locale, `/student-life/getting-started/${audience}`) });
+      entries.push(entry(locale, `/student-life/getting-started/${audience}`));
     }
 
     for (const audience of guideAudiences) {
-      entries.push({ url: url(locale, `/student-life/${audience}`) });
-      for (const entry of getGuideEntries(locale, audience)) {
-        entries.push({ url: url(locale, `/student-life/${audience}/${entry.slug}`) });
+      entries.push(entry(locale, `/student-life/${audience}`));
+      for (const guide of getGuideEntries(locale, audience)) {
+        entries.push(
+          entry(locale, `/student-life/${audience}/${guide.slug}`, guide.frontmatter.updated)
+        );
       }
     }
 
     // Course reviews are a dedicated route (not a guide track), so
     // `getGuideEntries` never emits them; list each course code explicitly.
     for (const course of courses) {
-      entries.push({ url: url(locale, `/student-life/course-reviews/${course.code}`) });
+      entries.push(entry(locale, `/student-life/course-reviews/${course.code}`));
     }
 
     for (const club of getClubEntries(locale)) {
-      entries.push({ url: url(locale, `/clubs/${club.slug}`) });
+      entries.push(entry(locale, `/clubs/${club.slug}`, club.frontmatter.updated));
     }
   }
 

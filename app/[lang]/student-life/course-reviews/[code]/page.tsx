@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { courseJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
@@ -33,7 +35,7 @@ export async function generateMetadata({
 
   return buildMetadata({
     locale,
-    title: `${course.code}: ${course.title[locale]}`,
+    title: `${course.code} ${course.title[locale]}`,
     description: course.description[locale],
     path: `/student-life/course-reviews/${course.code}`,
   });
@@ -61,6 +63,7 @@ export default async function CourseDetailPage({
 
   return (
     <>
+      <JsonLd data={courseJsonLd(locale, course)} />
       <PageHeader
         title={`${course.code}: ${course.title[locale]}`}
         lede={course.title[otherLocale]}

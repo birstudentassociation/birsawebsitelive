@@ -1,6 +1,8 @@
 import { getDictionary, isLocale, locales, localeHref, formatDate, type Locale } from "@/lib/i18n";
 import { getEntries, getEntry } from "@/lib/content";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, fitDescription } from "@/lib/seo";
+import { newsJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
@@ -24,14 +26,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang, slug } = await params;
   if (!isLocale(lang)) return {};
-  const dict = getDictionary(lang);
   const entry = getEntry("news", lang, slug);
   if (!entry) return {};
   return buildMetadata({
     locale: lang,
-    title: `${entry.frontmatter.title}: ${dict.site.name}`,
-    description: entry.frontmatter.summary,
+    title: entry.frontmatter.title,
+    description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/news/${slug}`,
+    article: { publishedTime: entry.frontmatter.date, section: newsLabel[lang] },
   });
 }
 
@@ -56,6 +58,14 @@ export default async function NewsDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={newsJsonLd(
+          locale,
+          slug,
+          frontmatter,
+          fitDescription(frontmatter.metaDescription ?? frontmatter.summary)
+        )}
+      />
       <PageHeader
         title={frontmatter.title}
         breadcrumbs={

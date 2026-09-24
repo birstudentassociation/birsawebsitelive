@@ -81,9 +81,27 @@ Optional fields for either type:
 
 - `links`: an array of `{ label, href }` for related links (e.g. a registration form).
 - `placeholder: true`: add this while the post is still example content.
+- `metaDescription`: the text shown under the title in search results, when the `summary` is
+  too long or too short for it (see [Search results](#search-results)).
 
 Remove the `<Notice variant="placeholder">` line and the `placeholder: true` frontmatter field
 once the post is real.
+
+## Search results
+
+Every page's `<title>` and description are fitted to what search engines display, following the
+[GOV.UK SEO best practice guide](https://www.gov.uk/government/publications/search-engine-optimisation-for-publishers-best-practice-guide/search-engine-optimisation-seo-for-data-publishers-best-practice-guide).
+`lib/seo.ts` does this automatically.
+
+- **Titles** get ` | BIRSA` added when the result still fits in 60 characters. Longer titles are
+  cut at a word and end in `…`, so put the most important words first.
+- **Descriptions** come from `summary` (or `tagline` for clubs). Anything over 160 characters is
+  cut after the last whole sentence that fits, or at a word. Aim for 70 to 160 characters.
+- News posts, activity pages, guides and clubs accept an optional `metaDescription` in
+  frontmatter. Use it when the summary reads badly once cut, or is too short to describe the
+  page. Write it as full sentences, never a list of keywords.
+
+`tests/unit/seo.test.ts` fails if two pages in the same language share a title or description.
 
 ## Editing clubs
 

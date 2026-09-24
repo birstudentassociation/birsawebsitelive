@@ -16,13 +16,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = getDictionary(lang);
   const title = lang === "th" ? "ข่าวและกิจกรรม" : "What's on";
   const description =
     lang === "th" ? "ข่าวสารและกิจกรรมล่าสุดจาก BIRSA" : "The latest news and events from BIRSA.";
   return buildMetadata({
     locale: lang,
-    title: `${title}: ${dict.site.name}`,
+    title,
     description,
     path: "/news",
   });

@@ -16,12 +16,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = getDictionary(lang);
   const title = lang === "th" ? "ทางลัด" : "Quick actions";
+  const description =
+    lang === "th"
+      ? "ทางลัดไปยังบริการที่นักศึกษา BIR ใช้บ่อย ทั้งยืมอุปกรณ์ รีวิววิชาเรียน ตารางรถเวียน การฝึกงาน ช่องทางขอความช่วยเหลือ และลิงก์ทางการของมหาวิทยาลัย"
+      : "Shortcuts to what BIR students use most, including equipment loans, course reviews, shuttle bus times, internships, getting help and official university links.";
   return buildMetadata({
     locale: lang,
-    title: `${title}: ${dict.site.name}`,
-    description: dict.site.description,
+    title,
+    description,
     path: "/quick",
   });
 }

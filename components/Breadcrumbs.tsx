@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/i18n";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 
 export type BreadcrumbItem = {
   label: string;
@@ -44,6 +46,7 @@ export default function Breadcrumbs({ locale, items, label, className, onDark }:
     // @media print block): aria-label is localized text, not a safe CSS
     // selector, and this component has no other identifying attribute.
     <nav aria-label={label} data-breadcrumbs className={className}>
+      <JsonLd data={breadcrumbJsonLd(locale, items)} />
       <ol
         className={`flex flex-wrap items-center gap-1.5 text-sm ${onDark ? "text-white/80" : "text-muted"}`}
       >

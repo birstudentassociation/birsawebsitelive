@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { getClubEntries, getClubEntry } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
+import { clubJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import { Mdx } from "@/lib/mdx";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -32,7 +34,7 @@ export async function generateMetadata({
   return buildMetadata({
     locale,
     title: entry.frontmatter.title,
-    description: entry.frontmatter.tagline,
+    description: entry.frontmatter.metaDescription ?? entry.frontmatter.tagline,
     path: `/clubs/${slug}`,
   });
 }
@@ -92,6 +94,7 @@ export default async function ClubDetailPage({
 
   return (
     <>
+      <JsonLd data={clubJsonLd(locale, slug, frontmatter)} />
       <PageHeader
         title={frontmatter.title}
         lede={frontmatter.tagline}

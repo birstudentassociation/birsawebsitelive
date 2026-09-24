@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { getCuratedCourses, getLunchDirections, parseState } from "@/lib/openhouse";
 import { COPY, OPEN_HOUSE, t } from "@/content/openhouse/copy";
@@ -20,10 +20,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const dict = getDictionary(lang);
   const base = buildMetadata({
     locale: lang,
-    title: `${t(COPY.event, lang)} · ${dict.site.name}`,
+    title: t(COPY.event, lang),
     description: t(COPY.sub, lang),
     path: "/openhouse",
   });
