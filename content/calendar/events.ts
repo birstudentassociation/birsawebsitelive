@@ -64,7 +64,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "Siamese Revolution Day 1932",
       th: "วันอภิวัฒน์สยาม 2475",
     },
-    slug: "june-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -74,7 +74,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "Thammasat University (92nd Foundation Day)",
       th: "วันสถาปนามหาวิทยาลัยธรรมศาสตร์ ครบรอบ 92 ปี",
     },
-    slug: "june-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -117,7 +117,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "BIR The Newbies 2026",
       th: "BIR The Newbies 2026",
     },
-    slug: "july-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "birsa",
   },
   {
@@ -169,7 +169,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "TU Freshy Orientation",
       th: "ปฐมนิเทศนักศึกษาใหม่ มหาวิทยาลัยธรรมศาสตร์ (TU Freshy Orientation)",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -201,7 +201,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "Back to School by TPC Music",
       th: "Back to School by TPC Music",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -222,7 +222,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "Mother's Day (public holiday, no classes)",
       th: "วันแม่แห่งชาติ (วันหยุดราชการ ไม่มีการเรียนการสอน)",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -232,7 +232,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "Thai Peace Day",
       th: "วันสันติภาพไทย",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {
@@ -273,7 +273,7 @@ export const calendarEvents: CalendarEvent[] = [
       en: "TPC Firstmeet",
       th: "TPC Firstmeet",
     },
-    slug: "august-2026-activity-calendar",
+    slug: "activity-calendar",
     kind: "university",
   },
   {

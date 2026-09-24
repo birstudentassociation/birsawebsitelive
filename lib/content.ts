@@ -140,6 +140,28 @@ const frontmatterSchemas = {
 } as const;
 
 export type NewsFrontmatter = z.infer<typeof newsFrontmatterSchema>;
+/** How long an event stays in search results after it ends. */
+export const EVENT_INDEX_DAYS = 365;
+
+/** When an event post's event ends, or `null` for news and undated events. */
+export function eventEndsAt(frontmatter: NewsFrontmatter): Date | null {
+  if (frontmatter.type !== "event") return null;
+  const end = frontmatter.end ?? frontmatter.start;
+  return end ? new Date(end) : null;
+}
+
+/** True once an event post's event is over. */
+export function isPastEvent(frontmatter: NewsFrontmatter, now: Date = new Date()): boolean {
+  const end = eventEndsAt(frontmatter);
+  return end !== null && end.getTime() < now.getTime();
+}
+
+/** True once an event ended long enough ago that search engines should drop it. */
+export function isArchivedEvent(frontmatter: NewsFrontmatter, now: Date = new Date()): boolean {
+  const end = eventEndsAt(frontmatter);
+  return end !== null && now.getTime() - end.getTime() > EVENT_INDEX_DAYS * 24 * 60 * 60 * 1000;
+}
+
 export type ActivityFrontmatter = z.infer<typeof activityFrontmatterSchema>;
 export type StudentLifeFrontmatter = z.infer<typeof studentLifeFrontmatterSchema>;
 export type AboutFrontmatter = z.infer<typeof aboutFrontmatterSchema>;

@@ -329,7 +329,7 @@ The five posts dated 1 to 13 August 2026 were rewritten against this rule and ar
   document
 - `bir18-student-council-election-2026` for a process with eligibility, rules and a deadline
 - `tpc-crazy-week-2026` for a lively event that still holds the register
-- `academic-calendar-2569` and `august-2026-activity-calendar` for date-keyed tables
+- `academic-calendar-2569` and `activity-calendar` for date-keyed tables
 
 Posts older than those still contain colon-keyed lists and em dashes. Bring a post up to this rule
 when you next edit it, rather than in a separate sweep.

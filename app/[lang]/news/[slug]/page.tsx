@@ -1,5 +1,5 @@
 import { getDictionary, isLocale, locales, localeHref, formatDate, type Locale } from "@/lib/i18n";
-import { getEntries, getEntry } from "@/lib/content";
+import { getEntries, getEntry, isArchivedEvent, isPastEvent } from "@/lib/content";
 import { buildMetadata, fitDescription } from "@/lib/seo";
 import { newsJsonLd } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
@@ -9,6 +9,7 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
+import Notice from "@/components/Notice";
 import { Mdx } from "@/lib/mdx";
 
 export function generateStaticParams() {
@@ -19,6 +20,9 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+/** Regenerated at least daily so an event is marked as past, then dropped from search, on time. */
+export const revalidate = 86400;
+
 export async function generateMetadata({
   params,
 }: {
@@ -28,18 +32,35 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const entry = getEntry("news", lang, slug);
   if (!entry) return {};
-  return buildMetadata({
+  const metadata = buildMetadata({
     locale: lang,
     title: entry.frontmatter.title,
     description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/news/${slug}`,
     article: { publishedTime: entry.frontmatter.date, section: newsLabel[lang] },
   });
+  return isArchivedEvent(entry.frontmatter)
+    ? { ...metadata, robots: { index: false, follow: true } }
+    : metadata;
 }
 
 const newsLabel = { en: "What's on", th: "ข่าวและกิจกรรม" };
 const backLabel = { en: "Back to what's on", th: "กลับไปหน้าข่าวและกิจกรรม" };
 const detailsLabel = { en: "Details", th: "รายละเอียด" };
+const pastEvent = {
+  en: {
+    title: "This event has ended",
+    before: "See what is coming up in the ",
+    link: "BIR activity calendar",
+    after: ".",
+  },
+  th: {
+    title: "กิจกรรมนี้จบไปแล้ว",
+    before: "ดูกิจกรรมที่กำลังจะมาถึงได้ใน",
+    link: "ปฏิทินกิจกรรม BIR",
+    after: "",
+  },
+};
 
 export default async function NewsDetailPage({
   params,
@@ -89,6 +110,19 @@ export default async function NewsDetailPage({
             {dict.meta.published} {formatDate(locale, frontmatter.date)}
           </span>
         </div>
+
+        {isPastEvent(frontmatter) ? (
+          <Notice title={pastEvent[locale].title} className="mb-8 max-w-[var(--measure)]">
+            {pastEvent[locale].before}
+            <a
+              href={localeHref(locale, "/news/activity-calendar")}
+              className="font-semibold text-brand-deep underline"
+            >
+              {pastEvent[locale].link}
+            </a>
+            {pastEvent[locale].after}
+          </Notice>
+        ) : null}
 
         {isEvent && (frontmatter.start || frontmatter.location) ? (
           <dl className="mb-8 grid max-w-[var(--measure)] gap-3 rounded-lg border border-line bg-sunken p-5 sm:grid-cols-2">

@@ -21,8 +21,8 @@ export async function generateMetadata({
   const title = locale === "th" ? "ชมรม" : "Clubs";
   const description =
     locale === "th"
-      ? "สำรวจชมรมนักศึกษา BIR ค้นหาสิ่งที่ใช่ หรือเริ่มชมรมของคุณเอง"
-      : "Explore BIR student clubs, find one that fits, or start your own.";
+      ? "ชมรมที่นักศึกษา BIR ดูแลกันเอง ทั้งกีฬา ดนตรี งานอาสา เกม งานเขียน และรัฐสภาจำลอง ใครก็เข้าร่วมได้ และใครก็เริ่มชมรมใหม่ได้"
+      : "The clubs BIR students run, from sport, music and volunteering to gaming, writing and a model parliament. Anyone can join one or start a new one.";
 
   return buildMetadata({ locale, title, description, path: "/clubs" });
 }

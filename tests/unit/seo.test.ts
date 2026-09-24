@@ -2,13 +2,21 @@ import { describe, expect, it } from "vitest";
 import {
   buildMetadata,
   DESCRIPTION_MAX,
+  DESCRIPTION_MIN,
   fitDescription,
   fitTitle,
   TITLE_MAX,
   type BuildMetadataOptions,
 } from "@/lib/seo";
 import { breadcrumbJsonLd, newsJsonLd } from "@/lib/structured-data";
-import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
+import {
+  getClubEntries,
+  getEntries,
+  getGuideEntries,
+  isArchivedEvent,
+  isPastEvent,
+  type GuideAudience,
+} from "@/lib/content";
 import { courses } from "@/content/course-review/courses";
 import { locales, type Locale } from "@/lib/i18n";
 
@@ -149,6 +157,13 @@ describe("every indexable content page has a search-ready title and description"
       }
     });
 
+    it(`${locale}: written pages have descriptions of at least ${DESCRIPTION_MIN} characters`, () => {
+      for (const page of pages.filter((p) => !p.path.includes("/course-reviews/"))) {
+        const { description } = buildMetadata(page);
+        expect(description?.length, page.path).toBeGreaterThanOrEqual(DESCRIPTION_MIN);
+      }
+    });
+
     it(`${locale}: no two pages share a title or a description`, () => {
       const titles = pages.map(titleOf);
       const descriptions = pages.map((p) => buildMetadata(p).description);
@@ -157,4 +172,44 @@ describe("every indexable content page has a search-ready title and description"
       expect(dupes(descriptions)).toEqual([]);
     });
   }
+});
+
+describe("event lifecycle", () => {
+  const event = {
+    title: "An event",
+    summary: "An event.",
+    date: "2026-08-01",
+    type: "event" as const,
+    category: "events",
+    start: "2026-08-10T02:00:00.000Z",
+    end: "2026-08-10T09:00:00.000Z",
+  };
+
+  it("is not past before it ends", () => {
+    expect(isPastEvent(event, new Date("2026-08-10T08:00:00Z"))).toBe(false);
+  });
+
+  it("is past once it ends, and still indexed for a year", () => {
+    const now = new Date("2026-08-11T00:00:00Z");
+    expect(isPastEvent(event, now)).toBe(true);
+    expect(isArchivedEvent(event, now)).toBe(false);
+  });
+
+  it("is dropped from search a year after it ends", () => {
+    expect(isArchivedEvent(event, new Date("2027-08-11T00:00:00Z"))).toBe(true);
+  });
+
+  it("never treats news or undated events as past", () => {
+    const now = new Date("2030-01-01T00:00:00Z");
+    expect(isPastEvent({ ...event, type: "news" }, now)).toBe(false);
+    expect(isPastEvent({ ...event, start: undefined, end: undefined }, now)).toBe(false);
+  });
+
+  it("no news post uses a slug the monthly calendar redirect would hide", () => {
+    for (const locale of locales) {
+      for (const post of getEntries("news", locale)) {
+        expect(post.slug).not.toMatch(/^[a-z]+-\d{4}-activity-calendar$/);
+      }
+    }
+  });
 });

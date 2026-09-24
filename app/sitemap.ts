@@ -6,12 +6,21 @@
  */
 import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
-import { getClubEntries, getEntries, getGuideEntries, type GuideAudience } from "@/lib/content";
+import {
+  getClubEntries,
+  getEntries,
+  getGuideEntries,
+  isArchivedEvent,
+  type GuideAudience,
+} from "@/lib/content";
 import { documents } from "@/content/activity/regulations";
 import { courses } from "@/content/course-review/courses";
 import { service as smartAnswers } from "@/content/smart-answers";
 import { onboardingAudiences } from "@/content/onboarding";
 import { SITE_URL } from "@/lib/site-url";
+
+/** Regenerated daily so events drop out a year after they end. */
+export const revalidate = 86400;
 
 const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
 
@@ -72,6 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     for (const post of getEntries("news", locale)) {
+      if (isArchivedEvent(post.frontmatter)) continue;
       entries.push(entry(locale, `/news/${post.slug}`, post.frontmatter.date));
     }
 

@@ -87,6 +87,33 @@ Optional fields for either type:
 Remove the `<Notice variant="placeholder">` line and the `placeholder: true` frontmatter field
 once the post is real.
 
+### The activity calendar
+
+There is one calendar post, `activity-calendar.mdx`, at the fixed URL `/news/activity-calendar`.
+Do not start a new post each month. At the start of each month:
+
+1. Add a `## Month year` section with that month's table above the previous month.
+2. Add the month's Instagram post to `links`, newest first.
+3. Set `date` to the first of the month so the post moves to the top of What's on.
+4. Point any new entries in `content/calendar/events.ts` at the `activity-calendar` slug.
+
+Old monthly URLs such as `/news/august-2026-activity-calendar` redirect here permanently.
+
+### Past events
+
+An event post (`type: event` with a `start`) looks after itself once it is over:
+
+- after its `end` (or `start`), the page shows "This event has ended" and links to the activity
+  calendar
+- a year after that, the page stays online but is hidden from search engines and left out of the
+  sitemap
+
+Pages regenerate at least once a day, so both happen without a new deploy.
+
+At the start of each semester, review the news posts from the semester before. Correct anything
+that has changed. If a post is wrong and cannot be fixed, delete it from both `en/` and `th/` and
+add a permanent redirect in `next.config.mjs` to the page that replaced it, or to `/news`.
+
 ## Search results
 
 Every page's `<title>` and description are fitted to what search engines display, following the

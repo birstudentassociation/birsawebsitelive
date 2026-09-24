@@ -16,7 +16,11 @@ export async function generateMetadata({
   const locale: Locale = lang;
   const t = content[locale];
 
-  return buildMetadata({ locale, title: t.title, description: t.lede, path: "/privacy/cookies" });
+  const description =
+    locale === "th"
+      ? t.lede
+      : "The cookies this site sets and why each one is strictly necessary, how long they last, and why the site shows no cookie banner.";
+  return buildMetadata({ locale, title: t.title, description, path: "/privacy/cookies" });
 }
 
 type Labels = {

@@ -19,7 +19,11 @@ export async function generateMetadata({
   const locale: Locale = lang;
   const t = content[locale];
 
-  return buildMetadata({ locale, title: t.title, description: t.lede, path: "/standards" });
+  const description =
+    locale === "th"
+      ? "วิธีที่ BIRSA สร้างเว็บไซต์นี้ ทั้งหลักการออกแบบ การเข้าถึงสำหรับทุกคน ข้อมูลการใช้งาน และการดูแลเว็บไซต์ให้ถูกต้องเป็นปัจจุบัน"
+      : "How BIRSA builds this site, including our design principles, accessibility statement, performance and data, and how the site is maintained.";
+  return buildMetadata({ locale, title: t.title, description, path: "/standards" });
 }
 
 const content: Record<

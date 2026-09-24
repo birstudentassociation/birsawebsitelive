@@ -73,6 +73,14 @@ const nextConfig = {
         destination: "/:lang/services/:slug*",
         permanent: true,
       },
+      // Monthly calendars were separate posts; one calendar page at a fixed
+      // URL is now updated each month, so its search ranking builds up.
+      {
+        source:
+          "/:lang/news/:month(january|february|march|april|may|june|july|august|september|october|november|december)-:year(\\d{4})-activity-calendar",
+        destination: "/:lang/news/activity-calendar",
+        permanent: true,
+      },
     ];
   },
   async headers() {
