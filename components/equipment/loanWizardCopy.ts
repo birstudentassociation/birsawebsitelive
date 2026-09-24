@@ -116,6 +116,8 @@ export type LoanWizardLabels = {
     referenceLabel: string;
     nextStepsTitle: string;
     nextSteps: string[];
+    keepReference: string;
+    checkStatus: string;
     backToCatalogue: string;
   };
   results: {
@@ -226,14 +228,15 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         submitting: "กำลังส่งคำขอ…",
       },
       confirmation: {
-        title: "ส่งคำขอเรียบร้อยแล้ว",
+        title: "ส่งคำขอยืมแล้ว",
         referenceLabel: "หมายเลขอ้างอิงของคุณ",
         nextStepsTitle: "ขั้นตอนต่อไป",
         nextSteps: [
           "ตรวจสอบอีเมลของคุณเพื่อดูผลการพิจารณาคำขอ",
           "เมื่อคำขอได้รับการอนุมัติ ให้มารับอุปกรณ์ที่สำนักงาน BIRSA ตามวันที่ระบุไว้",
-          "หากมีคำถาม ติดต่อ BIRSA ได้ทุกเมื่อ",
         ],
+        keepReference: "เก็บหมายเลขอ้างอิงไว้ คุณต้องใช้หมายเลขนี้คู่กับอีเมลเพื่อตรวจสอบคำขอ",
+        checkStatus: "ตรวจสอบคำขอยืม",
         backToCatalogue: "กลับไปหน้ารายการอุปกรณ์",
       },
       results: {
@@ -343,14 +346,16 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       submitting: "Sending your request…",
     },
     confirmation: {
-      title: "Your request has been sent",
+      title: "Request sent",
       referenceLabel: "Your reference number",
       nextStepsTitle: "What happens next",
       nextSteps: [
         "Watch your email for the outcome of your request.",
         "Once approved, collect the item from the BIRSA office on the date you chose.",
-        "If you have questions, contact BIRSA at any time.",
       ],
+      keepReference:
+        "Keep your reference number. You need it, with your email address, to check your request.",
+      checkStatus: "Check a loan request",
       backToCatalogue: "Back to the equipment list",
     },
     results: {

@@ -79,7 +79,7 @@ export function buildStartClubWizardLabels(locale: Locale): StartClubWizardLabel
       emailHint: "เราจะใช้อีเมลนี้เพื่อตอบกลับคุณเท่านั้น",
       send: "ส่งไอเดีย",
       sending: "กำลังส่ง…",
-      successTitle: "ขอบคุณ ไอเดียชมรมของคุณถูกส่งแล้ว",
+      successTitle: "ส่งไอเดียชมรมแล้ว",
       successBody: "กรรมการ BIRSA จะติดต่อกลับทางอีเมลเพื่อแจ้งขั้นตอนถัดไป",
       errorSummaryTitle: "มีข้อมูลที่ต้องแก้ไข",
       checkTitle: "ตรวจสอบคำตอบของคุณ",
@@ -119,7 +119,7 @@ export function buildStartClubWizardLabels(locale: Locale): StartClubWizardLabel
     emailHint: "We'll only use this to reply to you.",
     send: "Submit idea",
     sending: "Sending…",
-    successTitle: "Thanks, your club idea is on its way",
+    successTitle: "Club idea sent",
     successBody:
       "A member of the BIRSA committee will get back to you by email to talk through next steps.",
     errorSummaryTitle: "There is a problem",

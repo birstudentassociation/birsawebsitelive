@@ -41,10 +41,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 export type StepState = { status: "idle" | "invalid"; error?: string };
 
 export type CheckState =
-  | { status: "idle" }
-  | { status: "success" }
-  | { status: "fallback"; draft: ContactDraft }
-  | { status: "error" };
+  { status: "idle" } | { status: "fallback"; draft: ContactDraft } | { status: "error" };
 
 function ipFromHeaders(h: Headers): string {
   const first = h.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -207,7 +204,7 @@ export async function submitContactCheck(
   // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     await clearDraft(COOKIE);
-    return { status: "success" };
+    redirect(localeHref(locale, "/contact/sent"));
   }
 
   const result = contactSchema.safeParse({ ...draft, nickname });
@@ -247,12 +244,14 @@ export async function submitContactCheck(
       html: rendered.html,
       text: rendered.text,
     });
-
-    await clearDraft(COOKIE);
-    return { status: "success" };
   } catch {
     // Never log message bodies; a generic failure is all we surface. Keep
     // the draft so the reader can retry without retyping everything.
     return { status: "error" };
   }
+
+  // Outside the try: `redirect` works by throwing, and the catch above
+  // would swallow it.
+  await clearDraft(COOKIE);
+  redirect(localeHref(locale, "/contact/sent"));
 }

@@ -32,10 +32,7 @@ const NEXT_STEP: Record<Exclude<StartClubStep, "check">, StartClubStep> = {
 export type StepState = { status: "idle" | "invalid"; error?: string };
 
 export type CheckState =
-  | { status: "idle" }
-  | { status: "success" }
-  | { status: "fallback"; draft: StartClubDraft }
-  | { status: "error" };
+  { status: "idle" } | { status: "fallback"; draft: StartClubDraft } | { status: "error" };
 
 function ipFromHeaders(h: Headers): string {
   const first = h.get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -181,7 +178,7 @@ export async function submitStartClubCheck(
   // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     await clearDraft(COOKIE);
-    return { status: "success" };
+    redirect(localeHref(locale, "/clubs/start/sent"));
   }
 
   const result = startClubSchema.safeParse({
@@ -223,10 +220,12 @@ export async function submitStartClubCheck(
       html: rendered.html,
       text: rendered.text,
     });
-
-    await clearDraft(COOKIE);
-    return { status: "success" };
   } catch {
     return { status: "error" };
   }
+
+  // Outside the try: `redirect` works by throwing, and the catch above
+  // would swallow it.
+  await clearDraft(COOKIE);
+  redirect(localeHref(locale, "/clubs/start/sent"));
 }

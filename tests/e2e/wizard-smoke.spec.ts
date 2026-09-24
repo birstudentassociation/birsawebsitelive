@@ -127,7 +127,17 @@ test.describe("journey step titles", () => {
   test("an invalid answer puts Error: at the start of the title", async ({ page }) => {
     await page.goto("/en/contact/name");
     await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByRole("alert")).toBeVisible();
+    await expect(page.getByRole("alert").filter({ hasText: "There is a problem" })).toBeVisible();
     await expect(page).toHaveTitle(/^Error: /);
+  });
+});
+
+test.describe("confirmation pages", () => {
+  test("a sent message has its own page with next steps and a feedback form", async ({ page }) => {
+    const response = await page.goto("/en/contact/sent");
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1, name: "Message sent" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What happens next" })).toBeVisible();
+    await expect(page.getByRole("button", { name: /send/i }).last()).toBeVisible();
   });
 });

@@ -56,7 +56,6 @@ export type DatesStepState =
 
 export type CheckState =
   | { status: "idle" }
-  | { status: "success"; reference: string }
   | {
       status:
         | "unavailable"
@@ -307,7 +306,7 @@ export async function submitLoanRequestCheck(
   // Honeypot filled: silently accept and discard, never reveal detection.
   if (nickname) {
     await clearDraft(COOKIE);
-    return { status: "success", reference: "" };
+    redirect(localeHref(locale, `/services/equipment-loan/${itemKey}/request/sent`));
   }
 
   const item = await getItemByKey(itemKey);
@@ -407,5 +406,10 @@ export async function submitLoanRequestCheck(
   }
 
   await clearDraft(COOKIE);
-  return { status: "success", reference: created.reference };
+  redirect(
+    localeHref(
+      locale,
+      `/services/equipment-loan/${itemKey}/request/sent?ref=${encodeURIComponent(created.reference)}`
+    )
+  );
 }

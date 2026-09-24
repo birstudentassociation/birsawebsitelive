@@ -37,7 +37,7 @@ export default function StartClubForm({ locale, dict, draft, action }: StartClub
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (state.status === "success" || state.status === "fallback") {
+    if (state.status === "fallback") {
       resultRef.current?.focus();
     }
   }, [state.status]);
@@ -53,20 +53,6 @@ export default function StartClubForm({ locale, dict, draft, action }: StartClub
     ]
       .filter((line): line is string => line !== null)
       .join("\n");
-  }
-
-  if (state.status === "success") {
-    return (
-      <div
-        ref={resultRef}
-        tabIndex={-1}
-        role="status"
-        className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-      >
-        <p className="font-semibold">{wizard.successTitle}</p>
-        <p className="mt-1 text-sm">{wizard.successBody}</p>
-      </div>
-    );
   }
 
   if (state.status === "fallback") {

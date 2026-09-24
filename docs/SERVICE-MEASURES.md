@@ -35,10 +35,10 @@ appointment for the routine questions.
 
 **Purpose.** Students can propose a club without knowing whom to ask.
 
-| Measure         | How                                                             |
-| --------------- | --------------------------------------------------------------- |
-| Completion rate | Proposals received divided by visits to the first question page |
-| Time to a reply | Days from proposal to first reply (officer log)                 |
+| Measure         | How                                                                        |
+| --------------- | -------------------------------------------------------------------------- |
+| Completion rate | Visits to `/clubs/start/sent` divided by visits to the first question page |
+| Time to a reply | Days from proposal to first reply (officer log)                            |
 
 ## Contact BIRSA and Ask about your data
 
@@ -61,9 +61,8 @@ whether they succeed and how long it takes:
 Keep the tasks the same from year to year, so the results can be compared. Include students
 who use assistive technology.
 
-## A known gap
+## How completions are counted
 
-Completion rates need each journey to end on a page with its own address. Loan requests and
-club proposals currently show their confirmation on the check-answers page, so completions
-are counted from the database instead. Giving each journey its own confirmation page is item
-Q7 in `docs/GDS-ALIGNMENT-PLAN.md`.
+Each journey ends on its own confirmation page (`/services/equipment-loan/[item]/request/sent`,
+`/clubs/start/sent`, `/contact/sent`, `/privacy/your-data/sent`), so a completion is a visit to
+that page. The last two sit under paths that analytics never records, by design.

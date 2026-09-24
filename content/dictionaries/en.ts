@@ -120,7 +120,7 @@ export const en = {
       "We use what you send only to answer you. We do not share it. See our privacy notice.",
     errorSummaryTitle: "There is a problem",
     genericError: "Something went wrong. Try again, or email us directly.",
-    successTitle: "Thank you. Your message is on its way",
+    successTitle: "Message sent",
     successBody: "A member of the BIRSA committee will get back to you by email.",
     fallbackTitle: "Email is not set up yet",
     fallbackBody: "Send your message directly to:",

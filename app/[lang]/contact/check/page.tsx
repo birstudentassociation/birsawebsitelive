@@ -7,7 +7,6 @@ import ContactForm from "@/components/forms/ContactForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
 import { getContactDraft, submitContactCheck } from "../actions";
-import { submitFeedbackAction } from "@/app/[lang]/feedback/actions";
 import { CONTACT_STEPS } from "../steps";
 
 export async function generateMetadata({
@@ -52,7 +51,6 @@ export default async function ContactCheckPage({ params }: { params: Promise<{ l
             dict={dict}
             draft={draft}
             action={submitContactCheck.bind(null, locale)}
-            feedbackAction={submitFeedbackAction}
             categoryLabel={wizard.checkCategoryLabel}
             subjectLabel={wizard.checkSubjectLabel}
             messageLabel={wizard.checkMessageLabel}

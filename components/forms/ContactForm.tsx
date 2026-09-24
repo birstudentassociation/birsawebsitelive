@@ -6,9 +6,7 @@ import Button from "@/components/Button";
 import Email from "@/components/Email";
 import Field from "@/components/Field";
 import SummaryRow from "@/components/forms/SummaryRow";
-import FeedbackForm from "@/components/feedback/FeedbackForm";
 import type { ContactDraft, CheckState } from "@/app/[lang]/contact/actions";
-import type { FeedbackState } from "@/app/[lang]/feedback/actions";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { localeHref } from "@/lib/i18n";
 import { contactCategoryLabel, type ContactCategory } from "@/components/forms/contactWizardCopy";
@@ -18,7 +16,6 @@ export type ContactCheckFormProps = {
   dict: Dictionary;
   draft: ContactDraft;
   action: (prevState: CheckState, formData: FormData) => Promise<CheckState>;
-  feedbackAction: (prevState: FeedbackState, formData: FormData) => Promise<FeedbackState>;
   categoryLabel: string;
   subjectLabel: string;
   messageLabel: string;
@@ -45,7 +42,6 @@ export default function ContactForm({
   dict,
   draft,
   action,
-  feedbackAction,
   categoryLabel,
   subjectLabel,
   messageLabel,
@@ -60,7 +56,7 @@ export default function ContactForm({
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (state.status === "success" || state.status === "fallback") {
+    if (state.status === "fallback") {
       resultRef.current?.focus();
     }
   }, [state.status]);
@@ -75,30 +71,6 @@ export default function ContactForm({
       "",
       d.message ?? "",
     ].join("\n");
-  }
-
-  if (state.status === "success") {
-    // The journey is finished here, which is exactly where the Service Manual
-    // expects a satisfaction prompt ("you must allow users to tell you what
-    // they think of your service once they've finished using it").
-    return (
-      <div className="flex flex-col gap-8">
-        <div
-          ref={resultRef}
-          tabIndex={-1}
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="font-semibold">{dict.form.successTitle}</p>
-          <p className="mt-1 text-sm">{dict.form.successBody}</p>
-        </div>
-        <FeedbackForm
-          locale={locale}
-          sourcePath={localeHref(locale, "/contact")}
-          action={feedbackAction}
-        />
-      </div>
-    );
   }
 
   if (state.status === "fallback") {

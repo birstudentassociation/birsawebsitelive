@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useId } from "react";
+import { useActionState, useId } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
 import SummaryRow from "@/components/forms/SummaryRow";
@@ -32,7 +32,8 @@ const initialState: CheckState = { status: "idle" };
  * Every terminal state the previous client-side wizard could reach
  * (availability lost between steps, the blocklist, too many open requests,
  * the online service not being configured, rate limiting, and a generic
- * failure) is preserved here, alongside the success reference number.
+ * failure) is preserved here. Success redirects to the `sent` confirmation
+ * page, which carries the reference number.
  */
 export default function LoanRequestWizard({
   item,
@@ -43,11 +44,6 @@ export default function LoanRequestWizard({
 }: LoanRequestWizardProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
-  const confirmationRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (state.status === "success") confirmationRef.current?.focus();
-  }, [state.status]);
 
   const catalogueHref = localeHref(locale, "/services/equipment-loan");
   const contactHref = localeHref(locale, "/contact");
@@ -133,43 +129,6 @@ export default function LoanRequestWizard({
         retryHref={requestHref}
         retryLabel={labels.results.tryAgain}
       />
-    );
-  }
-
-  if (state.status === "success") {
-    return (
-      <div className="flex flex-col gap-6">
-        <div
-          ref={confirmationRef}
-          tabIndex={-1}
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="font-display text-xl">{labels.confirmation.title}</p>
-          {state.reference ? (
-            <p className="mt-3 text-sm">
-              <span className="font-semibold">{labels.confirmation.referenceLabel}: </span>
-              <span className="font-mono text-base">{state.reference}</span>
-            </p>
-          ) : null}
-        </div>
-        <div>
-          <h2 className="font-display text-lg">{labels.confirmation.nextStepsTitle}</h2>
-          <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-muted">
-            {labels.confirmation.nextSteps.map((next, index) => (
-              <li key={index} className="flex gap-2">
-                <span aria-hidden="true">{index + 1}.</span>
-                <span>{next}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <Button href={catalogueHref} variant="secondary">
-            {labels.confirmation.backToCatalogue}
-          </Button>
-        </div>
-      </div>
     );
   }
 
