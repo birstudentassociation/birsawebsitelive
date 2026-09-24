@@ -161,7 +161,6 @@ export default async function StartClubPage({
               label: wizard.fieldLabels.clubName,
               hint: wizard.clubNameHint,
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.clubName,
             }}
           />

@@ -259,7 +259,7 @@ test("the error summary does not steal focus back while the user edits a field",
 
   // Start correcting the field: focus must stay in the input across
   // keystrokes, not jump back to the summary on every re-render (SC 3.2.2).
-  const subjectField = page.getByLabel(/^subject/i).first();
+  const subjectField = page.getByLabel(/subject of your message/i).first();
   await subjectField.focus();
   await subjectField.pressSequentially("Jo");
   await expect(subjectField).toBeFocused();

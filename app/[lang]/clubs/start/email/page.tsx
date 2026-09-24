@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
@@ -33,7 +32,6 @@ export default async function StartClubEmailPage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const wizard = buildStartClubWizardLabels(locale);
   const { returnTo } = await searchParams;
@@ -50,10 +48,14 @@ export default async function StartClubEmailPage({
 
   return (
     <>
-      <PageHeader title={wizard.emailHeading} />
+      <PageHeader
+        title={wizard.emailHeading}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
             action={submitStartClubEmailStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
@@ -61,12 +63,12 @@ export default async function StartClubEmailPage({
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "email",
               type: "email",
               label: wizard.fieldLabels.email,
               hint: wizard.emailHint,
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.email,
               autoComplete: "email",
             }}

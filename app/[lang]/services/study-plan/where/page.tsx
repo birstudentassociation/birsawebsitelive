@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import WhereStepForm from "@/components/forms/WhereStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStudyPlanCopy, formatDerivedPosition } from "@/components/study-plan/studyPlanCopy";
@@ -55,7 +54,6 @@ export default async function StudyPlanWherePage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const copy = buildStudyPlanCopy(locale);
 
@@ -93,11 +91,15 @@ export default async function StudyPlanWherePage({
 
   return (
     <>
-      <PageHeader title={copy.where.title} lede={copy.where.hint} />
+      <PageHeader
+        title={copy.where.title}
+        lede={copy.where.hint}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
-
           {derived ? (
             <div className="flex flex-col gap-2">
               {/* Not a fact when clamped: a raw study year past 8 means the
@@ -119,7 +121,6 @@ export default async function StudyPlanWherePage({
             yearOptions={yearOptions}
             termLabel={copy.where.termLabel}
             termOptions={termOptions}
-            requiredLabel={dict.actions.required}
             defaultYear={defaultYear}
             defaultKind={defaultKind}
             errorSummaryTitle={copy.errorSummaryTitle}

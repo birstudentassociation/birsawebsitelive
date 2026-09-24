@@ -5,7 +5,6 @@ import { buildMetadata, stepTitle } from "@/lib/seo";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import DatesStepForm from "@/components/equipment/DatesStepForm";
 import { formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { getLoanDraft, submitDatesStep } from "../actions";
@@ -62,10 +61,14 @@ export default async function LoanRequestDatesPage({
 
   return (
     <>
-      <PageHeader title={labels.dates.title} />
+      <PageHeader
+        title={labels.dates.title}
+        backHref={backHref}
+        backLabel={labels.common.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={labels.common.back} progressText={progress} />
           <DatesStepForm
             action={submitDatesStep.bind(null, locale, itemKey, returnTo, labels, item.maxLoanDays)}
             labels={labels}

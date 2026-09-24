@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import ContactForm from "@/components/forms/ContactForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
@@ -40,14 +39,14 @@ export default async function ContactCheckPage({ params }: { params: Promise<{ l
 
   return (
     <>
-      <PageHeader title={wizard.checkTitle} />
+      <PageHeader
+        title={wizard.checkTitle}
+        backHref={localeHref(locale, "/contact/email")}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav
-            backHref={localeHref(locale, "/contact/email")}
-            backLabel={chrome.back}
-            progressText={progress}
-          />
           <ContactForm
             locale={locale}
             dict={dict}

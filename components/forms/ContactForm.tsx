@@ -198,7 +198,7 @@ export default function ContactForm({
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? submittingLabel : submitLabel}
         </Button>
         {isPending ? (

@@ -151,7 +151,7 @@ export default function RightsCheckForm({ locale, dict, draft, action }: RightsC
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? wizard.sending : wizard.send}
         </Button>
         {isPending ? (

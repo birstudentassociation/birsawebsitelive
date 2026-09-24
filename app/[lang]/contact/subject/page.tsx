@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
@@ -59,10 +58,14 @@ export default async function ContactSubjectPage({
 
   return (
     <>
-      <PageHeader title={wizard.subjectHeading} />
+      <PageHeader
+        title={wizard.subjectHeading}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           {draft.category === "problem" ? (
             <p className="rounded-md border-l-4 border-error bg-error-tint p-4 text-sm text-ink">
               {harassmentNote.text}{" "}
@@ -81,10 +84,10 @@ export default async function ContactSubjectPage({
             continueLabel={returnTo === "check" ? chrome.continueLabel : chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "subject",
               label: dict.form.subject,
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.subject,
             }}
           />

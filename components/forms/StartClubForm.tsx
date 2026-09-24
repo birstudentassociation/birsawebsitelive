@@ -160,7 +160,7 @@ export default function StartClubForm({ locale, dict, draft, action }: StartClub
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? wizard.sending : wizard.send}
         </Button>
         {isPending ? (

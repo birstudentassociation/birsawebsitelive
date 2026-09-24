@@ -116,10 +116,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
         className="flex flex-col gap-4"
         aria-describedby={errors?.rating ? `${fieldIds.rating}-error` : undefined}
       >
-        <legend className="font-display text-xl text-ink">
-          {heading ?? t.defaultHeading}
-          <span className="ml-1.5 text-sm font-normal text-muted">({t.requiredLabel})</span>
-        </legend>
+        <legend className="font-display text-xl text-ink">{heading ?? t.defaultHeading}</legend>
         <p className="sr-only">{t.ratingGroupLabel}</p>
 
         {errors?.rating ? (
@@ -169,7 +166,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? t.submitting : t.submit}
         </Button>
         {isPending ? (

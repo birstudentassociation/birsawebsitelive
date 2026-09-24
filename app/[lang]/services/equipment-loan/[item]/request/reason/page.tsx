@@ -4,8 +4,7 @@ import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { getLoanDraft, submitReasonStep } from "../actions";
@@ -54,10 +53,14 @@ export default async function LoanRequestReasonPage({
 
   return (
     <>
-      <PageHeader title={labels.reason.question} />
+      <PageHeader
+        title={labels.reason.question}
+        backHref={backHref}
+        backLabel={labels.common.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={labels.common.back} progressText={progress} />
           <QuestionStepForm
             action={submitReasonStep.bind(null, locale, itemKey, returnTo, labels)}
             initialState={{ status: "idle" }}
@@ -65,6 +68,7 @@ export default async function LoanRequestReasonPage({
             continueLabel={labels.common.continueLabel}
             continuingLabel={labels.common.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "reason",
               as: "textarea",
               label: labels.reason.question,

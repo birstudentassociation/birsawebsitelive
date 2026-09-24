@@ -15,7 +15,6 @@ import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/pla
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import FillStepForm, { type FillSlot } from "@/components/forms/FillStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
@@ -153,10 +152,15 @@ export default async function StudyPlanFillPage({
 
   return (
     <>
-      <PageHeader title={copy.fill.title} lede={copy.fill.hint} />
+      <PageHeader
+        title={copy.fill.title}
+        lede={copy.fill.hint}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <FillStepForm
             action={submitFillStep.bind(null, locale)}
             plan={serialisePlan(plan)}

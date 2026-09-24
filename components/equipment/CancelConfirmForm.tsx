@@ -108,7 +108,7 @@ export default function CancelConfirmForm({
       </div>
 
       <div className="flex gap-3">
-        <Button type="submit" variant="danger" disabled={isPending}>
+        <Button type="submit" variant="danger" pending={isPending}>
           {isPending ? labels.cancelling : labels.confirmLabel}
         </Button>
         <Button href={emailStepHref} variant="secondary">

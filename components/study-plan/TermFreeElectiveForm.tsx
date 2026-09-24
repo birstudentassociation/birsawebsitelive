@@ -70,7 +70,7 @@ export default function TermFreeElectiveForm({
           />
           {hasError ? <ErrorMessage>{state.error}</ErrorMessage> : null}
         </div>
-        <Button type="submit" variant="secondary" disabled={isPending}>
+        <Button type="submit" variant="secondary" pending={isPending}>
           {updateLabel}
         </Button>
       </div>

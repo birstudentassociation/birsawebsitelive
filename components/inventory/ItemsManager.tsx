@@ -706,7 +706,6 @@ export default function ItemsManager({
               label={t.keyLabel}
               hint={t.keyHint}
               required
-              requiredLabel={t.required}
               value={form.key}
               onChange={(event) => updateForm("key", event.target.value)}
               error={fieldErrors.key}
@@ -730,7 +729,6 @@ export default function ItemsManager({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => updateForm("nameEn", event.target.value)}
               error={fieldErrors.name}
@@ -740,7 +738,6 @@ export default function ItemsManager({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => updateForm("nameTh", event.target.value)}
               error={fieldErrors.name}
@@ -786,7 +783,6 @@ export default function ItemsManager({
               min={1}
               label={t.maxLoanDaysLabel}
               required
-              requiredLabel={t.required}
               value={form.maxLoanDays}
               onChange={(event) => updateForm("maxLoanDays", event.target.value)}
               error={fieldErrors.maxLoanDays}
@@ -798,7 +794,6 @@ export default function ItemsManager({
                 as="select"
                 label={t.ownerFieldLabel}
                 required
-                requiredLabel={t.required}
                 value={form.custodianId}
                 onChange={(event) => updateForm("custodianId", event.target.value)}
                 options={activeCustodians.map((c) => ({ value: c.id, label: c.name[locale] }))}
@@ -850,7 +845,6 @@ export default function ItemsManager({
                 min={0}
                 label={t.qtyOnHandLabel}
                 required
-                requiredLabel={t.required}
                 value={form.qtyOnHand}
                 onChange={(event) => updateForm("qtyOnHand", event.target.value)}
                 error={fieldErrors.qtyOnHand}

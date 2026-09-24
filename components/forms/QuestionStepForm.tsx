@@ -15,10 +15,11 @@ export type QuestionStepFieldProps = {
   name: string;
   label: string;
   hint?: string;
+  /** Id of the heading that asks this question, when the page `<h1>` is the question. */
+  labelledBy?: string;
   as?: "input" | "textarea" | "select";
   type?: string;
   required?: boolean;
-  requiredLabel?: string;
   optionalLabel?: string;
   options?: { value: string; label: string }[];
   autoComplete?: string;
@@ -77,10 +78,10 @@ export default function QuestionStepForm({
         as={field.as}
         type={field.type}
         label={field.label}
+        labelledBy={field.labelledBy}
         className="sr-only-label"
         hint={field.hint}
         required={field.required}
-        requiredLabel={field.requiredLabel}
         optionalLabel={field.optionalLabel}
         options={field.options}
         defaultValue={field.defaultValue}
@@ -91,7 +92,7 @@ export default function QuestionStepForm({
         max={field.max}
       />
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending && continuingLabel ? continuingLabel : continueLabel}
         </Button>
       </div>

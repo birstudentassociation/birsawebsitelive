@@ -362,13 +362,15 @@ test.describe("keyboard-only form journey", () => {
     await page.keyboard.press("ArrowDown");
     await continueByKeyboard();
 
-    // Step 2: subject.
-    await page.getByLabel(/^subject/i).focus();
+    // Step 2: subject. The page heading is the field's label.
+    await page.getByLabel(/subject of your message/i).focus();
     await page.keyboard.type("Question about the answers tool");
     await continueByKeyboard();
 
-    // Step 3: message.
-    await page.getByLabel(/^message/i).focus();
+    // Step 3: message. Its heading depends on the category chosen, and it is
+    // the only field on the page.
+    await page.waitForURL(/\/contact\/message/);
+    await page.getByRole("main").getByRole("textbox").focus();
     await page.keyboard.type("This is a keyboard-only test submission covering the full journey.");
     await continueByKeyboard();
 

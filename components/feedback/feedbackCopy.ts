@@ -21,7 +21,6 @@ export type FeedbackCopy = {
   commentHint: string;
   /** GOV.UK Service Manual requirement: told in both languages, not just implied by the hint. */
   privacyWarning: string;
-  requiredLabel: string;
   optionalLabel: string;
   errorSummaryTitle: string;
   errorRatingRequired: string;
@@ -60,7 +59,6 @@ export const feedbackCopy: Record<Locale, FeedbackCopy> = {
     commentHint: "Do not include personal or financial information.",
     privacyWarning:
       "Do not include your name, student ID, contact details, or any financial information in your comments.",
-    requiredLabel: "required",
     optionalLabel: "optional",
     errorSummaryTitle: "There is a problem",
     errorRatingRequired: "Select how satisfied you were with this service",
@@ -88,7 +86,6 @@ export const feedbackCopy: Record<Locale, FeedbackCopy> = {
     commentHint: "ไม่ต้องระบุข้อมูลส่วนบุคคลหรือข้อมูลทางการเงิน",
     privacyWarning:
       "ไม่ต้องระบุชื่อ รหัสนักศึกษา ข้อมูลติดต่อ หรือข้อมูลทางการเงินใด ๆ ในความคิดเห็น",
-    requiredLabel: "จำเป็น",
     optionalLabel: "ไม่จำเป็น",
     errorSummaryTitle: "พบข้อผิดพลาด",
     errorRatingRequired: "กรุณาเลือกระดับความพึงพอใจต่อบริการนี้",

@@ -194,7 +194,6 @@ function InteractiveOfficerLogin({ locale }: OfficerLoginProps) {
           type="email"
           label={t.emailLabel}
           required
-          requiredLabel={t.required}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           error={emailInvalid ? (error ?? undefined) : undefined}
@@ -208,7 +207,6 @@ function InteractiveOfficerLogin({ locale }: OfficerLoginProps) {
           type="password"
           label={t.passcodeLabel}
           required
-          requiredLabel={t.required}
           value={passcode}
           onChange={(event) => setPasscode(event.target.value)}
           error={passcodeInvalid ? (error ?? undefined) : undefined}
@@ -303,7 +301,6 @@ function OfficerLoginFallback({ locale }: OfficerLoginProps) {
           type="email"
           label={t.emailLabel}
           required
-          requiredLabel={t.required}
           defaultValue={values?.email}
           error={emailInvalid ? (error ?? undefined) : undefined}
           autoComplete="username"
@@ -316,7 +313,6 @@ function OfficerLoginFallback({ locale }: OfficerLoginProps) {
           type="password"
           label={t.passcodeLabel}
           required
-          requiredLabel={t.required}
           error={passcodeInvalid ? (error ?? undefined) : undefined}
           autoComplete="current-password"
         />

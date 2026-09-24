@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { resolveCohort } from "@/content/curriculum";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import MinorStepForm from "@/components/forms/MinorStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
@@ -45,7 +44,6 @@ export default async function StudyPlanMinorPage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const copy = buildStudyPlanCopy(locale);
 
@@ -75,10 +73,15 @@ export default async function StudyPlanMinorPage({
 
   return (
     <>
-      <PageHeader title={copy.minor.title} lede={copy.minor.hint} />
+      <PageHeader
+        title={copy.minor.title}
+        lede={copy.minor.hint}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <MinorStepForm
             locale={locale}
             minors={version.minors}
@@ -87,7 +90,6 @@ export default async function StudyPlanMinorPage({
             action={submitMinorStep.bind(null, locale)}
             legend={copy.minor.legend}
             requiredCoursesLabel={copy.minor.requiredCoursesLabel}
-            requiredLabel={dict.actions.required}
             errorSummaryTitle={copy.errorSummaryTitle}
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import StartClubForm from "@/components/forms/StartClubForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
@@ -43,14 +42,14 @@ export default async function StartClubCheckPage({
 
   return (
     <>
-      <PageHeader title={wizard.checkTitle} />
+      <PageHeader
+        title={wizard.checkTitle}
+        backHref={localeHref(locale, "/clubs/start/email")}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav
-            backHref={localeHref(locale, "/clubs/start/email")}
-            backLabel={chrome.back}
-            progressText={progress}
-          />
           <StartClubForm
             locale={locale}
             dict={dict}

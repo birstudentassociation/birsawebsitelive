@@ -622,7 +622,6 @@ export default function LoanQueue({
               name={`unit-${loan.id}`}
               as="select"
               required
-              requiredLabel={t.unitRequiredLabel}
               value={selectedUnit[loan.id] ?? ""}
               onChange={(e) => {
                 setSelectedUnit((prev) => ({ ...prev, [loan.id]: e.target.value }));

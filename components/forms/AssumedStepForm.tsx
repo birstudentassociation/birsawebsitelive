@@ -116,7 +116,7 @@ export default function AssumedStepForm({
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? continuingLabel : continueLabel}
         </Button>
         {isPending ? (

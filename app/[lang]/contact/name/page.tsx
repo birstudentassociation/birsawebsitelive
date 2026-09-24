@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -48,10 +47,14 @@ export default async function ContactNamePage({
 
   return (
     <>
-      <PageHeader title={wizard.nameHeading} />
+      <PageHeader
+        title={wizard.nameHeading}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
             action={submitNameStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
@@ -59,10 +62,10 @@ export default async function ContactNamePage({
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "name",
               label: dict.form.yourName,
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.name,
               autoComplete: "name",
             }}

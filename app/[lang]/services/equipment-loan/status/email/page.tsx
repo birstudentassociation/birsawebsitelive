@@ -3,7 +3,6 @@ import { notFound, redirect } from "next/navigation";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import StatusLookup from "@/components/equipment/StatusLookup";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -52,14 +51,14 @@ export default async function LoanStatusEmailPage({
 
   return (
     <>
-      <PageHeader title={labels.emailLabel} />
+      <PageHeader
+        title={labels.emailLabel}
+        backHref={localeHref(locale, "/services/equipment-loan/status")}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav
-            backHref={localeHref(locale, "/services/equipment-loan/status")}
-            backLabel={chrome.back}
-            progressText={progress}
-          />
           <StatusLookup
             locale={locale}
             labels={labels}

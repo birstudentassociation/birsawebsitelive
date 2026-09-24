@@ -31,7 +31,6 @@ export type MinorStepFormProps = {
   action: (prevState: QuestionStepState, formData: FormData) => Promise<QuestionStepState>;
   legend: string;
   requiredCoursesLabel: string;
-  requiredLabel: string;
   errorSummaryTitle: string;
   continueLabel: string;
   continuingLabel: string;
@@ -47,7 +46,6 @@ export default function MinorStepForm({
   action,
   legend,
   requiredCoursesLabel,
-  requiredLabel,
   errorSummaryTitle,
   continueLabel,
   continuingLabel,
@@ -69,9 +67,7 @@ export default function MinorStepForm({
         className="flex flex-col gap-4"
         aria-describedby={hasError ? `${groupId}-error` : undefined}
       >
-        <legend className="sr-only">
-          {legend} ({requiredLabel})
-        </legend>
+        <legend className="sr-only">{legend}</legend>
 
         {hasError ? <ErrorMessage id={`${groupId}-error`}>{state.error}</ErrorMessage> : null}
 
@@ -109,7 +105,7 @@ export default function MinorStepForm({
       </fieldset>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? continuingLabel : continueLabel}
         </Button>
         {isPending ? (

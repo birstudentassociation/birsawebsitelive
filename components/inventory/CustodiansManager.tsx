@@ -295,7 +295,6 @@ function CreateSection({
               label={t.slugLabel}
               hint={t.slugHint}
               required
-              requiredLabel={t.required}
               value={form.slug}
               onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))}
             />
@@ -305,7 +304,6 @@ function CreateSection({
               as="select"
               label={t.kindLabel}
               required
-              requiredLabel={t.required}
               value={form.kind}
               options={[
                 { value: "club", label: t.kindClub },
@@ -320,7 +318,6 @@ function CreateSection({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -329,7 +326,6 @@ function CreateSection({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />
@@ -539,7 +535,6 @@ function CustodianRow({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -548,7 +543,6 @@ function CustodianRow({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />

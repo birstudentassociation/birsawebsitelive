@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import RightsWhatForm from "@/components/forms/RightsWhatForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
@@ -52,10 +51,14 @@ export default async function RightsWhatPage({
 
   return (
     <>
-      <PageHeader title={wizard.whatHeading} />
+      <PageHeader
+        title={wizard.whatHeading}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <h2 className="font-display text-2xl sm:text-3xl">{wizard.whatHeading}</h2>
           <RightsWhatForm
             locale={locale}
@@ -63,7 +66,6 @@ export default async function RightsWhatPage({
             defaultValue={draft.right}
             action={submitWhatStep.bind(null, locale, returnTo)}
             legend={wizard.whatLegend}
-            requiredLabel={dict.actions.required}
             errorSummaryTitle={dict.form.errorSummaryTitle}
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}

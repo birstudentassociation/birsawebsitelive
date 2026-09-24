@@ -61,7 +61,6 @@ export default function DatesStepForm({
         label={labels.dates.startQuestion}
         hint={labels.dates.startHint}
         required
-        requiredLabel={labels.common.required}
         defaultValue={defaultStartDate}
         error={errors.startDate}
         min={minStartDate}
@@ -73,7 +72,6 @@ export default function DatesStepForm({
         label={labels.dates.endQuestion}
         hint={labels.dates.endHint}
         required
-        requiredLabel={labels.common.required}
         defaultValue={defaultEndDate}
         error={errors.endDate}
         min={defaultStartDate || minStartDate}
@@ -92,7 +90,7 @@ export default function DatesStepForm({
       ) : null}
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? labels.dates.checking : labels.common.continueLabel}
         </Button>
         <span role="status" aria-live="polite" className="sr-only">

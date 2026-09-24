@@ -237,7 +237,7 @@ export default function LoanRequestWizard({
       </div>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? labels.check.submitting : labels.check.submit}
         </Button>
         <span role="status" aria-live="polite" className="sr-only">

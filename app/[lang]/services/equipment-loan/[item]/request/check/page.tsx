@@ -5,7 +5,6 @@ import { buildMetadata, stepTitle } from "@/lib/seo";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import LoanRequestWizard from "@/components/equipment/LoanRequestWizard";
 import { formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { getLoanDraft, submitLoanRequestCheck } from "../actions";
@@ -50,14 +49,14 @@ export default async function LoanRequestCheckPage({
 
   return (
     <>
-      <PageHeader title={labels.check.title} />
+      <PageHeader
+        title={labels.check.title}
+        backHref={localeHref(locale, `${base}/reason`)}
+        backLabel={labels.common.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav
-            backHref={localeHref(locale, `${base}/reason`)}
-            backLabel={labels.common.back}
-            progressText={progress}
-          />
           <LoanRequestWizard
             item={item}
             locale={locale}

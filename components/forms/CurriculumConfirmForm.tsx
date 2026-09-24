@@ -19,7 +19,6 @@ export type CurriculumConfirmFormProps = {
   action: (prevState: QuestionStepState, formData: FormData) => Promise<QuestionStepState>;
   legend: string;
   /** Visible marker text for the required fieldset, e.g. dict.actions.required. */
-  requiredLabel: string;
   yesLabel: string;
   noLabel: string;
   errorSummaryTitle: string;
@@ -32,7 +31,6 @@ const initialState: QuestionStepState = { status: "idle" };
 export default function CurriculumConfirmForm({
   action,
   legend,
-  requiredLabel,
   yesLabel,
   noLabel,
   errorSummaryTitle,
@@ -55,9 +53,7 @@ export default function CurriculumConfirmForm({
         className="flex flex-col gap-4"
         aria-describedby={hasError ? `${groupId}-error` : undefined}
       >
-        <legend className="sr-only">
-          {legend} ({requiredLabel})
-        </legend>
+        <legend className="sr-only">{legend}</legend>
 
         {hasError ? <ErrorMessage id={`${groupId}-error`}>{state.error}</ErrorMessage> : null}
 
@@ -94,7 +90,7 @@ export default function CurriculumConfirmForm({
       </fieldset>
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? continuingLabel : continueLabel}
         </Button>
         {isPending ? (

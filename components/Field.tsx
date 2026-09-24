@@ -7,9 +7,14 @@ import ErrorMessage from "@/components/ErrorMessage";
 type BaseProps = {
   label: string;
   hint?: string;
+  /**
+   * Id of a visible heading that already asks this question (usually the
+   * page `<h1>`). The field is then named by that heading and renders no
+   * `<label>` of its own, so the question is announced once.
+   */
+  labelledBy?: string;
   error?: string;
   /** Visible marker text for required fields, e.g. dict.actions.required. */
-  requiredLabel?: string;
   /** Visible marker text for optional fields, e.g. dict.actions.optional. */
   optionalLabel?: string;
   required?: boolean;
@@ -35,13 +40,13 @@ type FieldProps = BaseProps & {
  * Client-safe form field: label, optional hint, optional inline error, and
  * an input/textarea/select rendered per the `as` prop. Sets
  * `aria-describedby` (hint + error ids) and `aria-invalid` automatically.
- * Required/optional are marked with visible text, not just an asterisk.
+ * Optional fields are marked "(optional)"; required ones carry no marker.
  */
 export default function Field({
   label,
   hint,
+  labelledBy,
   error,
-  requiredLabel,
   optionalLabel,
   required,
   className,
@@ -62,16 +67,21 @@ export default function Field({
     error ? "border-error" : "border-input-border"
   );
 
-  const marker = required
-    ? requiredLabel && <span className="ml-1.5 font-normal text-muted">({requiredLabel})</span>
-    : optionalLabel && <span className="ml-1.5 font-normal text-muted">({optionalLabel})</span>;
+  // Only optional fields are marked; mandatory ones never are (GOV.UK
+  // Question pages).
+  const marker =
+    !required && optionalLabel ? (
+      <span className="ml-1.5 font-normal text-muted">({optionalLabel})</span>
+    ) : null;
 
   return (
     <div className={clsx("flex flex-col gap-1.5", className)}>
-      <label htmlFor={fieldId} className="font-semibold text-ink">
-        {label}
-        {marker}
-      </label>
+      {labelledBy ? null : (
+        <label htmlFor={fieldId} className="font-semibold text-ink">
+          {label}
+          {marker}
+        </label>
+      )}
       {hint ? (
         <p id={hintId} className="text-muted">
           {hint}
@@ -81,6 +91,7 @@ export default function Field({
         <textarea
           id={fieldId}
           name={name}
+          aria-labelledby={labelledBy}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
           aria-required={required || undefined}
@@ -91,6 +102,7 @@ export default function Field({
         <select
           id={fieldId}
           name={name}
+          aria-labelledby={labelledBy}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
           aria-required={required || undefined}
@@ -107,6 +119,7 @@ export default function Field({
         <input
           id={fieldId}
           name={name}
+          aria-labelledby={labelledBy}
           aria-describedby={describedBy}
           aria-invalid={error ? "true" : undefined}
           aria-required={required || undefined}

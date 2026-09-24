@@ -908,7 +908,6 @@ export default function ItemDetail({
                 name="nameEn"
                 label={t.nameEnLabel}
                 required
-                requiredLabel={t.required}
                 value={editForm.nameEn}
                 onChange={(event) =>
                   setEditForm((prev) => ({ ...prev, nameEn: event.target.value }))
@@ -920,7 +919,6 @@ export default function ItemDetail({
                 name="nameTh"
                 label={t.nameThLabel}
                 required
-                requiredLabel={t.required}
                 value={editForm.nameTh}
                 onChange={(event) =>
                   setEditForm((prev) => ({ ...prev, nameTh: event.target.value }))
@@ -980,7 +978,6 @@ export default function ItemDetail({
                 min={1}
                 label={t.maxLoanDaysLabel}
                 required
-                requiredLabel={t.required}
                 value={editForm.maxLoanDays}
                 onChange={(event) =>
                   setEditForm((prev) => ({ ...prev, maxLoanDays: event.target.value }))
@@ -1008,7 +1005,6 @@ export default function ItemDetail({
                   as="select"
                   label={t.ownerFieldLabel}
                   required
-                  requiredLabel={t.required}
                   value={editForm.custodianId}
                   onChange={(event) =>
                     setEditForm((prev) => ({ ...prev, custodianId: event.target.value }))
@@ -1072,7 +1068,6 @@ export default function ItemDetail({
                   name="label"
                   label={t.labelLabel}
                   required
-                  requiredLabel={t.required}
                   value={unitForm.label}
                   onChange={(event) =>
                     setUnitForm((prev) => ({ ...prev, label: event.target.value }))
@@ -1192,7 +1187,6 @@ export default function ItemDetail({
                   label={t.deltaLabel}
                   hint={t.deltaHint}
                   required
-                  requiredLabel={t.required}
                   value={delta}
                   onChange={(event) => setDelta(event.target.value)}
                   error={deltaFieldError ?? undefined}
@@ -1497,7 +1491,6 @@ function UnitRow({
               name="label"
               label={t.labelLabel}
               required
-              requiredLabel={t.required}
               value={form.label}
               onChange={(event) => setForm((prev) => ({ ...prev, label: event.target.value }))}
               error={labelError ?? undefined}
@@ -1569,7 +1562,6 @@ function UnitRow({
               as="textarea"
               label={t.issueLabel}
               required
-              requiredLabel={t.required}
               className="sm:col-span-2"
               value={issue}
               onChange={(event) => setIssue(event.target.value)}

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
-import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { resolveCohort } from "@/content/curriculum";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import Notice from "@/components/Notice";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import CurriculumConfirmForm from "@/components/forms/CurriculumConfirmForm";
@@ -47,7 +46,6 @@ export default async function StudyPlanCurriculumPage({
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const copy = buildStudyPlanCopy(locale);
 
@@ -76,11 +74,15 @@ export default async function StudyPlanCurriculumPage({
 
   return (
     <>
-      <PageHeader title={copy.curriculum.title} lede={copy.curriculum.lede} />
+      <PageHeader
+        title={copy.curriculum.title}
+        lede={copy.curriculum.lede}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
-
           <div className="flex flex-col gap-4 rounded-lg border border-line p-5">
             <h2 className="font-display text-2xl">{version.label[locale]}</h2>
 
@@ -120,7 +122,6 @@ export default async function StudyPlanCurriculumPage({
           <CurriculumConfirmForm
             action={submitCurriculumStep.bind(null, locale)}
             legend={copy.curriculum.legend}
-            requiredLabel={dict.actions.required}
             yesLabel={copy.curriculum.yes}
             noLabel={copy.curriculum.no}
             errorSummaryTitle={copy.errorSummaryTitle}

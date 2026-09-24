@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import RightsCheckForm from "@/components/forms/RightsCheckForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
@@ -43,14 +42,14 @@ export default async function RightsCheckPage({ params }: { params: Promise<{ la
 
   return (
     <>
-      <PageHeader title={wizard.checkTitle} />
+      <PageHeader
+        title={wizard.checkTitle}
+        backHref={localeHref(locale, "/privacy/your-data/details")}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav
-            backHref={localeHref(locale, "/privacy/your-data/details")}
-            backLabel={chrome.back}
-            progressText={progress}
-          />
           <RightsCheckForm
             locale={locale}
             dict={dict}

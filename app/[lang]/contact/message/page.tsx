@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
@@ -50,10 +49,14 @@ export default async function ContactMessagePage({
 
   return (
     <>
-      <PageHeader title={wizard.messageHeading(draft.category)} />
+      <PageHeader
+        title={wizard.messageHeading(draft.category)}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
             action={submitMessageStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
@@ -61,12 +64,12 @@ export default async function ContactMessagePage({
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "message",
               as: "textarea",
               label: dict.form.message,
               hint: wizard.messageHint(draft.category),
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.message,
               rows: 8,
             }}

@@ -3,7 +3,6 @@ import { notFound, redirect } from "next/navigation";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
 import { buildWizardChromeLabels } from "@/components/forms/wizardChromeCopy";
 import { getLoanStatusDraft, resetLoanStatusDraft, submitCancelConfirm } from "../actions";
 import { statusLookupLabels } from "../statusLookupCopy";
@@ -45,10 +44,13 @@ export default async function LoanStatusCancelPage({
 
   return (
     <>
-      <PageHeader title={labels.cancelConfirmTitle} />
+      <PageHeader
+        title={labels.cancelConfirmTitle}
+        backHref={emailStepHref}
+        backLabel={chrome.back}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={emailStepHref} backLabel={chrome.back} />
           <CancelConfirmForm
             locale={locale}
             labels={labels}

@@ -4,8 +4,7 @@ import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import { formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -55,10 +54,14 @@ export default async function LoanRequestNamePage({
 
   return (
     <>
-      <PageHeader title={labels.name.question} />
+      <PageHeader
+        title={labels.name.question}
+        backHref={backHref}
+        backLabel={labels.common.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={labels.common.back} progressText={progress} />
           <QuestionStepForm
             action={submitNameStep.bind(null, locale, itemKey, returnTo, labels)}
             initialState={{ status: "idle" }}
@@ -66,10 +69,10 @@ export default async function LoanRequestNamePage({
             continueLabel={labels.common.continueLabel}
             continuingLabel={labels.common.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "studentName",
               label: labels.name.question,
               required: true,
-              requiredLabel: labels.common.required,
               defaultValue: draft.studentName,
               autoComplete: "name",
             }}

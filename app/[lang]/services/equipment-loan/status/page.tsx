@@ -106,7 +106,6 @@ export default async function EquipmentLoanStatusPage({
               label: labels.referenceLabel,
               hint: labels.referenceHint,
               required: true,
-              requiredLabel: labels.required,
               defaultValue: draft.reference,
               autoComplete: "off",
             }}

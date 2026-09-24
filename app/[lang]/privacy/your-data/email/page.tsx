@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata, stepTitle } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
-import StepNav from "@/components/forms/StepNav";
+import PageHeader, { PAGE_HEADING_ID } from "@/components/PageHeader";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
@@ -51,10 +50,14 @@ export default async function RightsEmailPage({
 
   return (
     <>
-      <PageHeader title={wizard.emailHeading} />
+      <PageHeader
+        title={wizard.emailHeading}
+        backHref={backHref}
+        backLabel={chrome.back}
+        caption={progress}
+      />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
             action={submitEmailStep.bind(null, locale, returnTo)}
             initialState={{ status: "idle" }}
@@ -62,12 +65,12 @@ export default async function RightsEmailPage({
             continueLabel={chrome.continueLabel}
             continuingLabel={chrome.continuing}
             field={{
+              labelledBy: PAGE_HEADING_ID,
               name: "email",
               type: "email",
               label: dict.form.email,
               hint: dict.form.emailHint,
               required: true,
-              requiredLabel: dict.actions.required,
               defaultValue: draft.email,
               autoComplete: "email",
             }}

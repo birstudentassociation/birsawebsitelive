@@ -23,7 +23,6 @@ export type WhereStepFormProps = {
   yearOptions: { value: string; label: string }[];
   termLabel: string;
   termOptions: { value: string; label: string }[];
-  requiredLabel: string;
   defaultYear?: string;
   defaultKind?: string;
   errorSummaryTitle: string;
@@ -39,7 +38,6 @@ export default function WhereStepForm({
   yearOptions,
   termLabel,
   termOptions,
-  requiredLabel,
   defaultYear,
   defaultKind,
   errorSummaryTitle,
@@ -61,7 +59,6 @@ export default function WhereStepForm({
         as="select"
         label={yearLabel}
         required
-        requiredLabel={requiredLabel}
         options={yearOptions}
         defaultValue={defaultYear}
         error={hasError ? state.error : undefined}
@@ -72,12 +69,11 @@ export default function WhereStepForm({
         as="select"
         label={termLabel}
         required
-        requiredLabel={requiredLabel}
         options={termOptions}
         defaultValue={defaultKind}
       />
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? continuingLabel : continueLabel}
         </Button>
         {isPending ? (

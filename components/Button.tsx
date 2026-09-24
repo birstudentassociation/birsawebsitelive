@@ -18,6 +18,12 @@ type ButtonAsLink = CommonProps &
 type ButtonAsButton = CommonProps &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     href?: undefined;
+    /**
+     * A submission is in flight. The button stays enabled and readable (a
+     * disabled button has poor contrast and confuses people) but ignores
+     * further presses, so a double click cannot send twice (GOV.UK Button).
+     */
+    pending?: boolean;
   };
 
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
@@ -57,9 +63,27 @@ export default function Button({
     );
   }
 
-  const buttonProps = props as ButtonHTMLAttributes<HTMLButtonElement>;
+  const { pending, onClick, ...buttonProps } = props as ButtonAsButton;
   return (
-    <button type={buttonProps.type ?? "button"} className={classes} {...buttonProps}>
+    <button
+      type={buttonProps.type ?? "button"}
+      className={classes}
+      {...buttonProps}
+      aria-disabled={pending || undefined}
+      // Only client forms pass `pending`; server components must not be
+      // handed a function, so they keep whatever `onClick` they had (none).
+      onClick={
+        pending === undefined
+          ? onClick
+          : (event) => {
+              if (pending) {
+                event.preventDefault();
+                return;
+              }
+              onClick?.(event);
+            }
+      }
+    >
       {children}
     </button>
   );

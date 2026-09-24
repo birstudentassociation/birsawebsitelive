@@ -425,7 +425,6 @@ export default function OfficersManager({
             type="email"
             label={t.emailLabel}
             required
-            requiredLabel={t.required}
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
@@ -440,7 +439,6 @@ export default function OfficersManager({
             name="name"
             label={t.nameLabel}
             required
-            requiredLabel={t.required}
             value={name}
             onChange={(event) => {
               setName(event.target.value);
@@ -456,7 +454,6 @@ export default function OfficersManager({
             as="select"
             label={t.roleLabel}
             required
-            requiredLabel={t.required}
             value={role}
             onChange={(event) => setRole(event.target.value as Role)}
             options={ROLES.map((r) => ({ value: r, label: t.roleLabels[r] }))}
@@ -479,7 +476,6 @@ export default function OfficersManager({
             label={t.passcodeLabel}
             hint={t.passcodeHint}
             required
-            requiredLabel={t.required}
             value={passcode}
             onChange={(event) => {
               setPasscode(event.target.value);

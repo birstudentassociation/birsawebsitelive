@@ -135,7 +135,6 @@ export default async function ContactPage({
               label: dict.form.category,
               as: "select",
               required: true,
-              requiredLabel: dict.actions.required,
               options: contactCategoryOptions(locale),
               defaultValue: draft.category ?? seed.category ?? "question",
             }}

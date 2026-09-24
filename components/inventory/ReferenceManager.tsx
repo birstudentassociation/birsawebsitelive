@@ -253,7 +253,6 @@ function CategorySection({
               label={t.slugLabel}
               hint={t.slugHint}
               required
-              requiredLabel={t.required}
               value={form.slug}
               onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))}
             />
@@ -271,7 +270,6 @@ function CategorySection({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -280,7 +278,6 @@ function CategorySection({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />
@@ -422,7 +419,6 @@ function CategoryRow({
               name="slug"
               label={t.slugLabel}
               required
-              requiredLabel={t.required}
               value={form.slug}
               onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))}
             />
@@ -439,7 +435,6 @@ function CategoryRow({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -448,7 +443,6 @@ function CategoryRow({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />
@@ -582,7 +576,6 @@ function LocationSection({
               label={t.slugLabel}
               hint={t.slugHint}
               required
-              requiredLabel={t.required}
               value={form.slug}
               onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))}
             />
@@ -600,7 +593,6 @@ function LocationSection({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -609,7 +601,6 @@ function LocationSection({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />
@@ -779,7 +770,6 @@ function LocationRow({
               name="slug"
               label={t.slugLabel}
               required
-              requiredLabel={t.required}
               value={form.slug}
               onChange={(event) => setForm((prev) => ({ ...prev, slug: event.target.value }))}
             />
@@ -796,7 +786,6 @@ function LocationRow({
               name="nameEn"
               label={t.nameEnLabel}
               required
-              requiredLabel={t.required}
               value={form.nameEn}
               onChange={(event) => setForm((prev) => ({ ...prev, nameEn: event.target.value }))}
             />
@@ -805,7 +794,6 @@ function LocationRow({
               name="nameTh"
               label={t.nameThLabel}
               required
-              requiredLabel={t.required}
               value={form.nameTh}
               onChange={(event) => setForm((prev) => ({ ...prev, nameTh: event.target.value }))}
             />

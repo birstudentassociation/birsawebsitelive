@@ -196,14 +196,13 @@ export default function StatusLookup({
         className="sr-only-label"
         hint={labels.emailHint}
         required
-        requiredLabel={labels.required}
         defaultValue={defaultEmail}
         error={hasFieldError ? state.error : undefined}
         autoComplete="email"
       />
 
       <div>
-        <Button type="submit" disabled={isPending}>
+        <Button type="submit" pending={isPending}>
           {isPending ? labels.submitting : labels.submit}
         </Button>
         {isPending ? (
