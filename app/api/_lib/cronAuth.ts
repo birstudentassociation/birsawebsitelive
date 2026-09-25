@@ -1,7 +1,7 @@
 /**
- * Shared bearer-token check for the two automation endpoints that trust
- * `CRON_SECRET` (`app/api/cron/daily`, `app/api/emergency/revalidate`).
- * Underscore-prefixed directory so Next.js does not treat this as a route.
+ * Bearer-token check for the automation endpoint that trusts `CRON_SECRET`
+ * (`app/api/cron/daily`). Underscore-prefixed directory so Next.js does not
+ * treat this as a route.
  *
  * The comparison is constant-time. A plain `!==` on the header short-circuits
  * at the first wrong byte, which leaks the secret's prefix to anyone who can

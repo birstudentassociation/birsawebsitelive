@@ -1,55 +1,52 @@
 /**
- * Registry of pre-prepared emergency scenarios. Edge Config selects one of
- * these by id (see `lib/emergency.ts`); the content itself is authored and
- * reviewed here in the repo, never in Edge Config.
+ * Registry of emergency guides. `content/emergency/active.ts` names one of
+ * these by id to raise a site-wide alert.
  *
- * To add a scenario: create `./scenarios/<id>.ts` (default-exporting an
- * `EmergencyScenario`) and register it in the `scenarios` map below.
+ * To add a guide, create `./scenarios/<id>.ts` default-exporting an
+ * `EmergencyScenario` and add it below. The key must equal the guide's `id`;
+ * `tests/unit/emergency.test.ts` checks that and the rest of the shape.
  */
-import type { EmergencyScenario } from "@/content/emergency/types";
-import generic from "@/content/emergency/scenarios/generic";
-import coup from "@/content/emergency/scenarios/coup";
-import protests from "@/content/emergency/scenarios/protests";
-import facultyClosure from "@/content/emergency/scenarios/faculty-closure";
-import campusClosure from "@/content/emergency/scenarios/campus-closure";
-import healthAdvisory from "@/content/emergency/scenarios/health-advisory";
-import flooding from "@/content/emergency/scenarios/flooding";
-import activeShooting from "@/content/emergency/scenarios/active-shooting";
+import type { EmergencyScenario, ScenarioGroup } from "@/content/emergency/types";
 import fire from "@/content/emergency/scenarios/fire";
 import earthquake from "@/content/emergency/scenarios/earthquake";
+import activeShooting from "@/content/emergency/scenarios/active-shooting";
+import flooding from "@/content/emergency/scenarios/flooding";
+import airPollution from "@/content/emergency/scenarios/air-pollution";
+import healthAdvisory from "@/content/emergency/scenarios/health-advisory";
+import facultyClosure from "@/content/emergency/scenarios/faculty-closure";
+import campusClosure from "@/content/emergency/scenarios/campus-closure";
+import protests from "@/content/emergency/scenarios/protests";
+import coup from "@/content/emergency/scenarios/coup";
+import generic from "@/content/emergency/scenarios/generic";
 
-export const scenarios: Record<string, EmergencyScenario> = {
-  generic,
-  coup,
-  protests,
-  "faculty-closure": facultyClosure,
-  "campus-closure": campusClosure,
-  "health-advisory": healthAdvisory,
-  flooding,
-  "active-shooting": activeShooting,
+export const scenarios = {
   fire,
   earthquake,
-};
+  "active-shooting": activeShooting,
+  flooding,
+  "air-pollution": airPollution,
+  "health-advisory": healthAdvisory,
+  "faculty-closure": facultyClosure,
+  "campus-closure": campusClosure,
+  protests,
+  coup,
+  generic,
+} satisfies Record<string, EmergencyScenario>;
 
-/** All registered scenario ids (drives static generation and validation). */
-export const scenarioIds: string[] = Object.keys(scenarios);
+export type ScenarioId = keyof typeof scenarios;
 
-/** True if `id` names a registered scenario. */
-export function hasScenario(id: string): boolean {
+/** All registered ids, in display order (drives static generation). */
+export const scenarioIds = Object.keys(scenarios) as ScenarioId[];
+
+/** Index page groups, in display order. */
+export const scenarioGroups: ScenarioGroup[] = ["life", "hazard", "disruption", "unrest", "other"];
+
+export function hasScenario(id: string): id is ScenarioId {
   return Object.prototype.hasOwnProperty.call(scenarios, id);
 }
 
-/**
- * Resolve a scenario by id, falling back to `generic` for a missing or unknown
- * id so callers always get a valid scenario (never a blank banner or a 404
- * during an incident).
- */
-export function getScenario(id: string | undefined | null): EmergencyScenario {
-  if (id) {
-    const found = scenarios[id];
-    if (found) return found;
-  }
-  return generic;
+export function getScenario(id: ScenarioId): EmergencyScenario {
+  return scenarios[id];
 }
 
 export type { EmergencyScenario, EmergencySeverity } from "@/content/emergency/types";

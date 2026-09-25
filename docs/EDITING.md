@@ -410,6 +410,47 @@ own contraction and abbreviation conventions already covered above.
 - **Never put personal information in a page title, an `<h1>`, or a URL.** These all leak into
   analytics and browser history. Use a reference number or a generic label instead of a name.
 
+## Emergency alerts (`content/emergency/`)
+
+The emergency guides are written in advance, one file per situation in
+`content/emergency/scenarios/`, each in English and Thai. Phone numbers and other contacts live
+once in `content/emergency/contacts.ts`; guides refer to them by id. Each guide lists the
+sources its advice comes from and the date it was last checked (`reviewed`). Check every guide
+against its sources at least once a year and update `reviewed`.
+
+### Raising an alert
+
+1. Open `content/emergency/active.ts` on GitHub and choose **Edit**.
+2. Replace `null` with an object naming the guide and the time, in Bangkok time:
+
+   ```ts
+   export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
+     scenario: "flooding",
+     issuedAt: "2026-10-12T07:30:00+07:00",
+     banner: {
+       en: "Roads around Tha Prachan are flooded. Classes today are online.",
+       th: "ถนนรอบท่าพระจันทร์น้ำท่วม วันนี้เรียนออนไลน์",
+     },
+   };
+   ```
+
+   `banner` is optional; without it the guide's own banner line is used. Use `generic` for a
+   situation none of the guides covers, and say what is happening in `banner` and `updates`.
+
+3. Commit to `master`. The site deploys in about a minute. Open the site and check the banner.
+
+The build fails if `scenario` does not name a guide, so a typo cannot go live. A failed build
+leaves the previous version up, so always check the site after committing. Vercel only deploys
+commits from members of the BIRSA Vercel team; whoever will raise alerts must be on it, and
+should try it once before they need it.
+
+### Updating and ending an alert
+
+- To post an update, add an entry at the **start** of `updates`, newest first:
+  `updates: [{ at: "2026-10-12T11:00:00+07:00", text: { en: "...", th: "..." } }]`. The newest
+  entry's time shows as "last updated".
+- To end the alert, set `activeEmergency` back to `null` and commit.
+
 ## How publishing works
 
 The site is deployed on Vercel and auto-deploys from this repository. To publish a change:

@@ -1,235 +1,186 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
- * Protests and crowds near campus: strictly apolitical, safety-only guidance.
- * Transcribed from the researched dossier. Does not take, or imply, any
- * political position.
+ * Large gatherings near campus, whatever their cause. Safety guidance only,
+ * taking no position on any gathering. Crowd advice from crowd scientist
+ * G. Keith Still, irritant advice from the US CDC fact sheet on riot control
+ * agents, and the UK FCDO's advice to foreign nationals in Thailand.
  */
 const protests: EmergencyScenario = {
   id: "protests",
   severity: "warning",
+  hero: "red",
+  group: "unrest",
+  keyContacts: ["police", "ambulance", "touristPolice"],
+  moreContacts: ["erawan", "tlhr", "tuLaw", "facultyOffice", "birOffice", "oia"],
+  sources: [
+    {
+      label: {
+        en: "The Conversation, ten tips for surviving a crowd crush",
+        th: "The Conversation สิบวิธีเอาตัวรอดเมื่อฝูงชนเบียดอัด",
+      },
+      href: "https://theconversation.com/ten-tips-for-surviving-a-crowd-crush-112169",
+    },
+    {
+      label: {
+        en: "US CDC, riot control agents fact sheet",
+        th: "CDC สหรัฐฯ ข้อเท็จจริงเรื่องสารควบคุมฝูงชน (แก๊สน้ำตา)",
+      },
+      href: "https://www.cdc.gov/chemical-emergencies/chemical-fact-sheets/riot-control-agents.html",
+    },
+    {
+      label: {
+        en: "UK FCDO, Thailand safety and security",
+        th: "กระทรวงการต่างประเทศสหราชอาณาจักร คำแนะนำความปลอดภัยในประเทศไทย",
+      },
+      href: "https://www.gov.uk/foreign-travel-advice/thailand/safety-and-security",
+    },
+    {
+      label: {
+        en: "Thai Code of Criminal Procedure, rights on arrest (section 7/1)",
+        th: "ประมวลกฎหมายวิธีพิจารณาความอาญา มาตรา 7/1 สิทธิของผู้ถูกจับ",
+      },
+      href: "https://en.wikisource.org/wiki/Translation:Criminal_Procedure_Code_of_Thailand/Provisions",
+    },
+  ],
+  reviewed: "2026-09-25",
   en: {
-    bannerMessage:
-      "A demonstration has been reported near campus. Avoid the area and leave calmly if you are nearby.",
-    title: "Protests and Crowds Near Campus: Staying Safe",
-    lede: "Tha Prachan campus sits close to Sanam Luang and other places sometimes used for public gatherings. This is safety guidance only.",
-    immediateActions: [
-      "If you see or hear a crowd forming, move away calmly in the opposite direction. Do not walk toward it to look.",
-      "Leave the area early rather than waiting to see what happens.",
-      "Head to a safe indoor space: a classroom building, the library, or a nearby shop or café away from the gathering.",
-      "Tell someone (a friend, housemate, or family member) where you are and that you are safe.",
-      "Check official Thammasat and Faculty channels before deciding whether to go to, or stay on, campus.",
-      "Keep your phone charged and your student ID or passport with you.",
+    title: "Protests near campus",
+    summary:
+      "Tha Prachan is next to Sanam Luang and a short walk from Ratchadamnoen Avenue and Democracy Monument, where large gatherings often take place. This guide is about staying safe, whatever the gathering is about.",
+    banner: "There is a large gathering near campus. Plan your route and follow official updates.",
+    now: [
+      "Check the latest update on this page and faculty announcements before you travel.",
+      "Plan a route that avoids the gathering. Allow extra time, as roads and piers may close.",
+      "If you are near a crowd and do not want to be there, leave early by a side street.",
+      "Keep your phone charged and your ID with you.",
+      "Tell someone where you are going and when you expect to be back.",
     ],
     sections: [
       {
-        heading: "If you are on campus",
+        id: "on-campus",
+        heading: "On campus",
         items: [
-          "Move indoors and away from gates, courtyards, and the riverside promenade if a crowd is forming nearby.",
-          "Follow instructions from faculty staff and security.",
-          "Avoid gathering at windows or gates to watch what is happening outside.",
-          "If class is in session and a situation develops outside, wait for guidance from your instructor or the faculty before leaving the building.",
+          "Follow instructions from security and faculty staff. Gates may be closed at short notice.",
+          "If classes continue, the faculty will say so. If you cannot get there safely, tell your lecturer.",
         ],
       },
       {
-        heading: "If you are off campus or at home",
+        id: "if-you-are-in-a-crowd",
+        heading: "If you are in a crowd",
         items: [
-          "If you are heading toward campus and hear of a demonstration nearby, change your route or postpone your trip.",
-          "Use a different route home if your normal route passes near Sanam Luang or another gathering point. Consider the Chao Phraya Express boat, alternative piers such as Wang Lang or Tha Chang, or side streets away from the main crowd routes.",
-          "Avoid the main roads immediately around Sanam Luang, Ratchadamnoen, and the Grand Palace area when a gathering is reported there.",
+          "Know where the way out is. Keep to the edges and away from barriers, stages and narrow streets.",
+          "If the crowd gets so tight that you are pushed along, go with the flow, not against it. Hold your arms in front of your chest, like a boxer, to keep room to breathe.",
+          "Move sideways across the flow a little at a time, in the pauses between surges, towards the edge.",
+          "If you fall, get up quickly. If you cannot, curl up on your side and protect your head.",
+          "Agree a meeting point with friends in case you are separated. Phone networks often fail in big crowds.",
         ],
       },
       {
-        heading: "If you get caught in a crowd",
+        id: "tear-gas",
+        heading: "Tear gas and other irritants",
         items: [
-          "Stay calm. Do not run or push. Move steadily toward the edges of the crowd, not the middle.",
-          "Move in the same general direction as the crowd flow rather than against it, while working your way toward open side streets.",
-          "Keep away from barricades, security lines, and any point where two groups are facing each other.",
-          "If the crowd becomes dense, keep your arms crossed in front of your chest for protection and move diagonally, not straight across, to reach the edge.",
-          "If a chemical irritant such as tear gas is used, move upwind, cover your nose and mouth with a cloth, avoid rubbing your eyes, and get to fresh air as soon as possible. Once safe, flush your eyes and skin with clean water and remove affected clothing if you can.",
-          "Once clear, go to a safe indoor location and let someone know you are okay.",
+          "Get away from the cloud into fresh air. The gas is heavy and stays low, so higher ground helps.",
+          "Do not rub your eyes. Rinse them with plain clean water for 10 to 15 minutes.",
+          "Take out contact lenses and throw them away.",
+          "Wash your skin with soap and water, and put the clothes you wore in a sealed bag.",
+          "Get medical help for breathing trouble or pain that does not ease. Call 1669.",
         ],
       },
       {
-        heading: "Basic first aid for crowd-related injuries",
+        id: "police",
+        heading: "If police stop you",
         items: [
-          "Minor cuts or scrapes: clean with water, cover with a clean cloth or bandage, and seek proper first aid or medical care when it is safe to do so.",
-          "Someone who has fainted or is struggling to breathe in a crowd: help them to open space with fresh air, loosen tight clothing, and call 1669 (EMS) if they do not recover quickly.",
-          "Chemical irritant exposure to eyes or skin: flush with plenty of clean water for several minutes, avoid rubbing, and seek medical attention if irritation continues.",
-          "This is general awareness only, not a substitute for first aid training or professional medical care. For any serious injury, call 1669 immediately.",
+          "Stay calm and polite. Show your ID if asked.",
+          "Under the Code of Criminal Procedure, if you are arrested you have the right to tell a relative or someone you trust where you are, and to see a lawyer.",
+          "Do not sign anything you have not read and understood. You can ask for a copy.",
+          "Thai Lawyers for Human Rights gives free legal help at any hour on 092-271-3172.",
         ],
       },
       {
-        heading: "Staying informed",
-        items: [
-          "Follow Thammasat University's and the Faculty of Political Science's official Facebook pages for real-time updates on campus access and class arrangements.",
-          "Follow Royal Thai Police and Bangkok Metropolitan Administration announcements about planned demonstrations and road closures.",
-          "Check traffic and transit apps before heading out if a gathering has been announced nearby.",
+        id: "international-students",
+        heading: "If you are an international student",
+        body: [
+          "The UK and other governments advise foreign nationals in Thailand to avoid protests and political gatherings. Taking part, or even being there, can put your visa at risk, and Thai law on criticising the monarchy is strict and applies to posts online. Keep away, and if you are caught up in one, leave as soon as you can.",
         ],
       },
       {
-        heading: "For international students",
+        id: "online",
+        heading: "What you post",
         items: [
-          "Avoid demonstrations even as an observer. Being a bystander can still carry legal or physical risk.",
-          "Contact your embassy if you have concerns and follow their guidance.",
-          "Keep your passport and visa documents accessible in case you need to show identification.",
-          "Monitor your government's travel advisory, which is sometimes updated during periods of unrest.",
+          "Before you post photos or videos, think about whether they show other people's faces.",
+          "Check any claim of violence or arrests with a reliable source before sharing it.",
         ],
-      },
-      {
-        heading: "What not to do",
-        items: [
-          "Do not join, photograph up close, or livestream a demonstration out of curiosity.",
-          "Do not argue or engage with anyone on any side of a demonstration.",
-          "Do not walk through or linger near a security checkpoint or line.",
-          "Do not share unverified rumours about violence or arrests. Confirm with official sources first.",
-        ],
-      },
-      {
-        heading: "When it is over",
-        items: [
-          "Wait for confirmation from official channels that the area is clear before resuming your normal route.",
-          "Report any lost items or safety concerns to the appropriate office once it is safe to do so.",
-        ],
-      },
-    ],
-    extraContacts: [
-      {
-        label: "Royal Thai Police / general emergency",
-        value: "191",
-        href: "tel:191",
-      },
-      {
-        label: "Medical emergency (EMS / Narenthorn)",
-        value: "1669",
-        href: "tel:1669",
-      },
-      {
-        label: "Bangkok Erawan EMS Center",
-        value: "1646",
-        href: "tel:1646",
-      },
-      {
-        label: "Tourist Police (English-speaking, 24 hours)",
-        value: "1155",
-        href: "tel:1155",
-      },
-      {
-        label: "Faculty of Political Science main office",
-        value: "02-221-6111 ext. 3400",
-        href: "tel:022216111",
       },
     ],
   },
   th: {
-    bannerMessage: "มีรายงานการชุมนุมใกล้มหาวิทยาลัย ขอให้หลีกเลี่ยงพื้นที่และเดินทางออกอย่างสงบ",
-    title: "ความปลอดภัยเมื่อมีการชุมนุมหรือฝูงชนใกล้มหาวิทยาลัย",
-    lede: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ ตั้งอยู่ใกล้สนามหลวงและพื้นที่ที่บางครั้งใช้เป็นจุดชุมนุมสาธารณะ เนื้อหานี้เป็นคำแนะนำด้านความปลอดภัยเท่านั้น",
-    immediateActions: [
-      "หากเห็นหรือได้ยินว่ามีฝูงชนกำลังรวมตัว ให้เดินออกไปในทิศทางตรงข้ามอย่างสงบ อย่าเดินเข้าไปดู",
-      "ออกจากพื้นที่แต่เนิ่น ๆ ดีกว่ารอดูว่าจะเกิดอะไรขึ้น",
-      "ไปยังพื้นที่ปลอดภัยในร่ม เช่น อาคารเรียน ห้องสมุด หรือร้านค้า/ร้านกาแฟที่อยู่ห่างจากจุดชุมนุม",
-      "แจ้งคนใกล้ตัว (เพื่อน เพื่อนร่วมหอ ครอบครัว) ว่าคุณอยู่ที่ไหนและปลอดภัยดี",
-      "ตรวจสอบช่องทางทางการของธรรมศาสตร์และคณะก่อนตัดสินใจว่าจะไปหรืออยู่ในมหาวิทยาลัยต่อ",
-      "ชาร์จโทรศัพท์ให้พร้อมและพกบัตรนักศึกษาหรือพาสปอร์ตติดตัว",
+    title: "การชุมนุมใกล้มหาวิทยาลัย",
+    summary:
+      "ท่าพระจันทร์อยู่ติดสนามหลวง และเดินไปถนนราชดำเนินและอนุสาวรีย์ประชาธิปไตยได้ ซึ่งเป็นพื้นที่ชุมนุมขนาดใหญ่บ่อยครั้ง หน้านี้ว่าด้วยความปลอดภัยเท่านั้น ไม่ว่าการชุมนุมจะเป็นเรื่องใด",
+    banner: "มีการชุมนุมขนาดใหญ่ใกล้มหาวิทยาลัย วางแผนเส้นทาง และติดตามประกาศทางการ",
+    now: [
+      "อ่านข้อมูลล่าสุดในหน้านี้และประกาศของคณะก่อนเดินทาง",
+      "วางแผนเส้นทางเลี่ยงพื้นที่ชุมนุม และเผื่อเวลา เพราะถนนและท่าเรืออาจปิด",
+      "ถ้าอยู่ใกล้ฝูงชนแต่ไม่ได้ตั้งใจจะอยู่ตรงนั้น ให้ออกไปก่อนทางซอยด้านข้าง",
+      "ชาร์จโทรศัพท์ให้เต็ม และพกบัตรประชาชนหรือบัตรนักศึกษา",
+      "บอกคนที่ไว้ใจว่าจะไปไหนและจะกลับเมื่อไร",
     ],
     sections: [
       {
-        heading: "หากคุณอยู่ในมหาวิทยาลัย",
+        id: "on-campus",
+        heading: "ในมหาวิทยาลัย",
         items: [
-          "เข้าไปในอาคารและอยู่ห่างจากประตู ลานกิจกรรม และทางเดินริมแม่น้ำ หากมีฝูงชนกำลังรวมตัวใกล้เคียง",
-          "ปฏิบัติตามคำแนะนำของเจ้าหน้าที่คณะและเจ้าหน้าที่รักษาความปลอดภัย",
-          "อย่ามุงดูที่หน้าต่างหรือประตูเพื่อดูสถานการณ์ภายนอก",
-          "หากกำลังเรียนอยู่และมีสถานการณ์เกิดขึ้นด้านนอก ให้รอฟังคำแนะนำจากอาจารย์หรือคณะก่อนออกจากอาคาร",
+          "ทำตามคำแนะนำของเจ้าหน้าที่รักษาความปลอดภัยและเจ้าหน้าที่คณะ ประตูอาจปิดกะทันหัน",
+          "ถ้ายังมีเรียน คณะจะแจ้ง ถ้าเดินทางมาอย่างปลอดภัยไม่ได้ ให้แจ้งอาจารย์",
         ],
       },
       {
-        heading: "หากคุณอยู่นอกมหาวิทยาลัยหรือที่พัก",
+        id: "if-you-are-in-a-crowd",
+        heading: "ถ้าอยู่ในฝูงชน",
         items: [
-          "หากกำลังเดินทางมามหาวิทยาลัยและทราบว่ามีการชุมนุมใกล้เคียง ให้เปลี่ยนเส้นทางหรือเลื่อนการเดินทาง",
-          "ใช้เส้นทางอื่นกลับบ้านหากเส้นทางปกติผ่านใกล้สนามหลวงหรือจุดชุมนุม เช่น เรือด่วนเจ้าพระยา ท่าเรือวังหลังหรือท่าช้าง หรือถนนซอยที่ห่างจากเส้นทางฝูงชนหลัก",
-          "หลีกเลี่ยงถนนสายหลักรอบสนามหลวง ถนนราชดำเนิน และบริเวณพระบรมมหาราชวัง เมื่อมีรายงานการชุมนุมในบริเวณนั้น",
+          "รู้ไว้ว่าทางออกอยู่ตรงไหน อยู่ริมขอบฝูงชน ห่างจากแนวรั้ว เวที และซอยแคบ",
+          "ถ้าคนแน่นจนถูกดันไปเอง ให้ไหลไปตามแรงดัน อย่าต้าน ยกแขนตั้งการ์ดไว้หน้าอกแบบนักมวย เพื่อให้มีที่ว่างหายใจ",
+          "ค่อย ๆ ขยับเฉียงออกทางด้านข้างทีละนิด ในจังหวะที่แรงดันผ่อนลง เพื่อไปถึงขอบฝูงชน",
+          "ถ้าล้ม ให้รีบลุก ถ้าลุกไม่ได้ ให้นอนตะแคงขดตัวและป้องศีรษะ",
+          "นัดจุดเจอกับเพื่อนไว้ก่อนเผื่อพลัดหลง สัญญาณโทรศัพท์มักล่มเมื่อคนเยอะ",
         ],
       },
       {
-        heading: "หากติดอยู่ในฝูงชน",
+        id: "tear-gas",
+        heading: "แก๊สน้ำตาและสารระคายเคือง",
         items: [
-          "ตั้งสติ อย่าวิ่งหรือผลักดัน ให้ค่อย ๆ เคลื่อนตัวไปทางขอบของฝูงชน ไม่ใช่เข้าไปตรงกลาง",
-          "เคลื่อนที่ไปในทิศทางเดียวกับการไหลของฝูงชน ไม่ใช่ฝืนทิศทาง พร้อมค่อย ๆ ขยับไปยังถนนซอยที่เปิดโล่ง",
-          "อยู่ห่างจากแนวกั้น แนวเจ้าหน้าที่ และจุดที่มีกลุ่มคนสองฝ่ายเผชิญหน้ากัน",
-          "หากฝูงชนหนาแน่นมาก ให้กอดอกป้องกันหน้าอกและเคลื่อนตัวในแนวทแยง ไม่ใช่ตัดผ่านตรง ๆ เพื่อออกไปยังขอบฝูงชน",
-          "หากมีการใช้สารเคมีระคายเคือง เช่น แก๊สน้ำตา ให้เดินทวนลม ใช้ผ้าปิดจมูกและปาก หลีกเลี่ยงการขยี้ตา และรีบไปยังที่ที่มีอากาศบริสุทธิ์โดยเร็วที่สุด เมื่อปลอดภัยแล้วให้ล้างตาและผิวหนังด้วยน้ำสะอาด และถอดเสื้อผ้าที่สัมผัสสารออกหากทำได้",
-          "เมื่อออกมาปลอดภัยแล้ว ให้ไปยังที่ปลอดภัยในร่มและแจ้งคนใกล้ตัวว่าคุณปลอดภัย",
+          "ออกจากกลุ่มควันไปที่อากาศบริสุทธิ์ แก๊สหนักและลอยต่ำ การขึ้นที่สูงจึงช่วยได้",
+          "อย่าขยี้ตา ล้างตาด้วยน้ำสะอาดนาน 10 ถึง 15 นาที",
+          "ถอดคอนแทกต์เลนส์แล้วทิ้งไป",
+          "ล้างผิวด้วยสบู่และน้ำ แล้วใส่เสื้อผ้าที่ใส่อยู่ลงถุงปิดสนิท",
+          "ถ้าหายใจลำบากหรือเจ็บไม่หาย ให้ไปพบแพทย์ โทร 1669",
         ],
       },
       {
-        heading: "การปฐมพยาบาลเบื้องต้นสำหรับอาการบาดเจ็บจากฝูงชน",
+        id: "police",
+        heading: "ถ้าถูกตำรวจเรียกตรวจ",
         items: [
-          "บาดแผลเล็กน้อยหรือรอยขีดข่วน: ล้างด้วยน้ำสะอาด ปิดด้วยผ้าสะอาดหรือผ้าพันแผล และไปรับการปฐมพยาบาลหรือการรักษาที่เหมาะสมเมื่อปลอดภัย",
-          "หากมีคนเป็นลมหรือหายใจลำบากในฝูงชน: ช่วยพาไปยังที่โล่งมีอากาศถ่ายเท คลายเสื้อผ้าที่รัดแน่น และโทร 1669 (หน่วยแพทย์ฉุกเฉิน) หากอาการไม่ดีขึ้นอย่างรวดเร็ว",
-          "หากสัมผัสสารระคายเคืองที่ตาหรือผิวหนัง: ล้างด้วยน้ำสะอาดปริมาณมากเป็นเวลาหลายนาที หลีกเลี่ยงการขยี้ และไปพบแพทย์หากยังระคายเคืองต่อเนื่อง",
-          "ข้อมูลนี้เป็นความรู้เบื้องต้นเท่านั้น ไม่ใช่การฝึกปฐมพยาบาลหรือการรักษาโดยแพทย์ หากมีการบาดเจ็บรุนแรง ให้โทร 1669 ทันที",
+          "ใจเย็นและสุภาพ แสดงบัตรประชาชนเมื่อถูกขอ",
+          "ตามประมวลกฎหมายวิธีพิจารณาความอาญา ถ้าถูกจับ คุณมีสิทธิแจ้งญาติหรือผู้ที่ไว้วางใจว่าถูกจับและถูกควบคุมตัวอยู่ที่ไหน และมีสิทธิพบทนายความ",
+          "อย่าลงชื่อในเอกสารที่ยังไม่ได้อ่านหรือไม่เข้าใจ และขอสำเนาได้",
+          "ศูนย์ทนายความเพื่อสิทธิมนุษยชนช่วยเหลือทางกฎหมายโดยไม่มีค่าใช้จ่าย ตลอด 24 ชั่วโมง โทร 092-271-3172",
         ],
       },
       {
-        heading: "การติดตามข้อมูลข่าวสาร",
-        items: [
-          "ติดตามเพจเฟซบุ๊กทางการของมหาวิทยาลัยธรรมศาสตร์และคณะรัฐศาสตร์ เพื่อรับข้อมูลอัปเดตแบบเรียลไทม์เกี่ยวกับการเข้าใช้พื้นที่มหาวิทยาลัยและการจัดการเรียนการสอน",
-          "ติดตามประกาศของสำนักงานตำรวจแห่งชาติและกรุงเทพมหานครเกี่ยวกับการชุมนุมที่วางแผนไว้และการปิดถนน",
-          "ตรวจสอบแอปพลิเคชันจราจรและระบบขนส่งก่อนออกเดินทาง หากมีการประกาศว่าจะมีการชุมนุมใกล้เคียง",
-        ],
-      },
-      {
+        id: "international-students",
         heading: "สำหรับนักศึกษาต่างชาติ",
-        items: [
-          "หลีกเลี่ยงการเข้าร่วมการชุมนุมแม้ในฐานะผู้สังเกตการณ์ เพราะการอยู่ในที่เกิดเหตุอาจมีความเสี่ยงทั้งด้านกฎหมายและร่างกาย",
-          "ติดต่อสถานทูตของคุณหากมีข้อกังวล และปฏิบัติตามคำแนะนำ",
-          "พกพาสปอร์ตและเอกสารวีซ่าไว้ในที่หยิบใช้สะดวก เผื่อต้องแสดงตัวตน",
-          "ติดตามคำเตือนการเดินทางจากรัฐบาลประเทศของคุณ ซึ่งบางครั้งมีการอัปเดตในช่วงที่มีความไม่สงบ",
+        body: [
+          "สหราชอาณาจักรและอีกหลายประเทศแนะนำให้ชาวต่างชาติในไทยหลีกเลี่ยงการชุมนุมทางการเมือง การเข้าร่วมหรือแม้แต่อยู่ในพื้นที่อาจกระทบวีซ่า และกฎหมายเกี่ยวกับสถาบันพระมหากษัตริย์ของไทยเข้มงวด รวมถึงโพสต์ออนไลน์ด้วย ถ้ามีเพื่อนต่างชาติอยู่ด้วย ช่วยพาเขาออกจากพื้นที่",
         ],
       },
       {
-        heading: "สิ่งที่ไม่ควรทำ",
+        id: "online",
+        heading: "สิ่งที่คุณโพสต์",
         items: [
-          "อย่าเข้าร่วม ถ่ายภาพระยะใกล้ หรือไลฟ์สตรีมการชุมนุมด้วยความอยากรู้อยากเห็น",
-          "อย่าโต้เถียงหรือมีปฏิสัมพันธ์กับฝ่ายใดฝ่ายหนึ่งในที่ชุมนุม",
-          "อย่าเดินผ่านหรือมัวมุงอยู่ใกล้จุดตรวจหรือแนวเจ้าหน้าที่",
-          "อย่าแชร์ข่าวลือที่ยังไม่ได้รับการยืนยันเกี่ยวกับความรุนแรงหรือการจับกุม ให้ตรวจสอบกับแหล่งข้อมูลทางการก่อน",
+          "ก่อนโพสต์รูปหรือคลิป ลองคิดว่ามีใบหน้าของคนอื่นอยู่ด้วยหรือไม่",
+          "ตรวจสอบข่าวเรื่องความรุนแรงหรือการจับกุมกับแหล่งที่เชื่อถือได้ก่อนแชร์",
         ],
-      },
-      {
-        heading: "เมื่อสถานการณ์คลี่คลาย",
-        items: [
-          "รอการยืนยันจากช่องทางทางการว่าพื้นที่ปลอดภัยแล้ว ก่อนกลับไปใช้เส้นทางตามปกติ",
-          "แจ้งของหายหรือข้อกังวลด้านความปลอดภัยต่อหน่วยงานที่เกี่ยวข้องเมื่อปลอดภัยแล้ว",
-        ],
-      },
-    ],
-    extraContacts: [
-      {
-        label: "ตำรวจ/เหตุฉุกเฉินทั่วไป",
-        value: "191",
-        href: "tel:191",
-      },
-      {
-        label: "หน่วยแพทย์ฉุกเฉิน (EMS/นเรนทร)",
-        value: "1669",
-        href: "tel:1669",
-      },
-      {
-        label: "ศูนย์เอราวัณ กรุงเทพมหานคร",
-        value: "1646",
-        href: "tel:1646",
-      },
-      {
-        label: "ตำรวจท่องเที่ยว (พูดภาษาอังกฤษ, 24 ชั่วโมง)",
-        value: "1155",
-        href: "tel:1155",
-      },
-      {
-        label: "สำนักงานคณะรัฐศาสตร์",
-        value: "02-221-6111 ต่อ 3400",
-        href: "tel:022216111",
       },
     ],
   },

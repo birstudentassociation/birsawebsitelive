@@ -1,166 +1,152 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
- * Contagious illness advisory affecting the faculty. Explains how to
- * protect yourself and others, what to do if unwell or isolating, and
- * when to seek medical care. Based on WHO/CDC public respiratory-illness
- * guidance, adapted with Thai health contacts and the Thammasat Tha
- * Prachan student clinic.
+ * An infectious illness spreading among students and staff, usually a
+ * respiratory virus. Uses the US CDC's 2024 respiratory virus guidance for when
+ * to stay home and when to return, with Thai health contacts and the TU
+ * Virtual Clinic.
  */
 const healthAdvisory: EmergencyScenario = {
   id: "health-advisory",
   severity: "warning",
+  hero: "green",
+  group: "disruption",
+  keyContacts: ["tuClinic", "ambulance", "ddc"],
+  moreContacts: ["siriraj", "mentalHealth", "facultyOffice", "birOffice", "oia"],
+  sources: [
+    {
+      label: {
+        en: "US CDC, updated respiratory virus guidance, March 2024",
+        th: "CDC สหรัฐฯ แนวทางป้องกันโรคติดเชื้อทางเดินหายใจ มีนาคม 2567",
+      },
+      href: "https://www.cdc.gov/media/releases/2024/p0301-respiratory-virus.html",
+    },
+    {
+      label: {
+        en: "Thammasat Office of International Affairs, well-being services",
+        th: "กองวิเทศสัมพันธ์ มธ. บริการด้านสุขภาวะ",
+      },
+      href: "https://oia.tu.ac.th/well-being-services/",
+    },
+  ],
+  reviewed: "2026-09-25",
   en: {
-    bannerMessage:
-      "Contagious illness advisory in effect at the faculty. Stay home if you feel unwell and follow the guidance below.",
-    title: "Contagious Illness Advisory: What to Do",
-    lede: "The faculty is monitoring cases of a contagious illness among students and staff. Most people recover at home with rest and care.",
-    immediateActions: [
-      "If you feel unwell, stay home and away from classes, events, and shared spaces.",
-      "Wash your hands often with soap and water, or use alcohol-based hand sanitiser.",
-      "Wear a mask if you must be around others while unwell or while recovering.",
-      "Tell the faculty office if you will miss class due to illness, so lecturers are informed.",
-      "Seek medical care if your symptoms are severe, get worse, or you are worried, rather than waiting it out.",
+    title: "Illness outbreak",
+    summary:
+      "An infectious illness is spreading among students or staff. Most people recover at home. This guide covers how to avoid passing it on, when to get medical help, and what to do about classes.",
+    banner:
+      "An illness is spreading in the faculty. Stay home if you are unwell and read the health advice.",
+    now: [
+      "If you feel unwell, stay home and away from classes and events.",
+      "Tell your lecturers you are ill, and keep any medical certificate.",
+      "Wash your hands often and cover coughs and sneezes.",
+      "Wear a mask in crowded indoor places, and always if you have symptoms and must be around others.",
+      "Call 1669 if someone has trouble breathing, chest pain, confusion or cannot stay awake.",
     ],
     sections: [
       {
-        heading: "If you feel unwell",
+        id: "if-you-are-ill",
+        heading: "If you are ill",
         items: [
-          "Rest at home and avoid contact with others as much as you can.",
-          "Monitor your symptoms. Common signs of a contagious respiratory illness include fever, cough, sore throat, runny nose, body aches, and fatigue.",
-          "Stay hydrated and rest. Most mild respiratory illness can be managed at home.",
-          "Contact the Thammasat student health service or a doctor if you are unsure whether you need care, especially if you are an international student unfamiliar with local health services.",
-          "Get tested if advised by a doctor or if required by current university or public health guidance, and follow the result and any isolation instructions you are given.",
+          "Rest, drink plenty and take paracetamol for fever if you need it.",
+          "Keep away from other people where you live as far as you can, and open windows.",
+          "The TU Virtual Clinic at Tha Prachan is free for students. Call first if you have a fever or cough so staff can prepare.",
+          "Take a test if the university, a doctor or the Ministry of Public Health asks you to, and follow what the result tells you.",
         ],
       },
       {
-        heading: "Protect yourself and others",
+        id: "going-back",
+        heading: "When to go back",
+        body: [
+          "Unless a doctor or the university gives other instructions for this illness, you can go back to classes once both of these have been true for at least 24 hours.",
+        ],
         items: [
-          "Wash your hands often with soap and water for at least 20 seconds, or use an alcohol-based hand sanitiser when soap is not available.",
-          "Cover coughs and sneezes with a tissue or your elbow, not your hands.",
-          "Wear a well-fitting mask in crowded or poorly ventilated indoor spaces, and always if you are unwell and cannot avoid being near others.",
-          "Improve airflow indoors where you can: open windows, use fans, or hold gatherings outdoors.",
-          "Keep your distance from others where practical, particularly from anyone who is coughing or appears unwell.",
-          "Stay up to date with vaccines recommended by health authorities for the relevant illness.",
+          "Your symptoms are getting better overall.",
+          "You have had no fever without taking fever medicine.",
         ],
       },
       {
-        heading: "If you test positive or are told to isolate",
+        id: "after-going-back",
+        heading: "For five days after you go back",
         items: [
-          "Follow the isolation period and instructions given by your doctor or the relevant public health authority. Guidance can change between illnesses and outbreaks, so follow the current official instruction rather than an old rule of thumb.",
-          "As a general principle used in recent public health guidance, you can return to normal activities once your symptoms have been improving and you have been free of fever (without fever-reducing medicine) for at least 24 hours. Confirm this against current official guidance for the specific illness, since requirements can differ.",
-          "After returning to normal activities, continue extra precautions for several days: good hygiene, a mask in shared spaces, and keeping some distance from others.",
-          "Inform the faculty office and your lecturers that you are isolating, so your absence is recorded and coursework arrangements can be made.",
-          "Avoid shared kitchens, common rooms, and close contact with roommates or family while you are infectious, where possible.",
+          "Wear a mask around other people.",
+          "Keep your distance from anyone who is older, pregnant or has a weak immune system.",
+          "Keep washing your hands and let fresh air into shared rooms.",
         ],
       },
       {
-        heading: "On campus",
-        items: [
-          "If you are well but a classmate or roommate is unwell, encourage them to stay home and seek care rather than pushing through classes.",
-          "Practise good hand hygiene when using shared spaces, equipment, and door handles.",
-          "Support good ventilation in shared rooms: open windows where possible.",
-          "Follow any specific instructions issued by Thammasat University or the Faculty of Political Science during an active outbreak. Official university and Ministry of Public Health instructions always take priority over general guidance on this page.",
-          "This page is written and maintained by students (BIRSA) for general information. It is not a substitute for medical advice or official university and public health instructions.",
+        id: "get-help-urgently",
+        heading: "Get help urgently",
+        body: [
+          "Call 1669 or go to a hospital emergency department for difficulty breathing, pain or pressure in the chest, confusion, bluish lips, being unable to keep fluids down, or a fever that lasts more than three days. Siriraj Hospital, across the river, is the nearest large hospital.",
         ],
       },
-    ],
-    extraContacts: [
       {
-        label: "Thai Department of Disease Control hotline (health advice, disease information)",
-        value: "1422",
-        href: "tel:1422",
-      },
-      {
-        label: "Medical emergency (EMS / ambulance), for severe symptoms",
-        value: "1669",
-        href: "tel:1669",
-      },
-      {
-        label:
-          "Thammasat Tha Prachan campus student clinic (Virtual Clinic, 1st Floor, Student Activities Center, Building 21)",
-        value: "0-2613-3961, Monday to Friday, 8:30 a.m. to 4:30 p.m., closed public holidays",
-        href: "tel:026133961",
-      },
-      {
-        label:
-          "TU Well-Being / Viva City Counselling Center (for stress or mental health support during illness or isolation)",
-        value: "See Thammasat Office of International Affairs Well-Being Services page",
+        id: "classes",
+        heading: "Classes and exams",
+        items: [
+          "Tell your lecturers before class if you can. Ask the BIR Programme office what to do if you will miss an exam.",
+          "If the faculty moves teaching online, it will announce it by Thammasat email and on its Facebook page.",
+          "International students off sick for a long time should tell the Office of International Affairs, in case it affects a visa.",
+        ],
       },
     ],
   },
   th: {
-    bannerMessage:
-      "ขณะนี้มีประกาศเฝ้าระวังโรคติดต่อในคณะ หากรู้สึกไม่สบายให้หยุดพักที่บ้านและปฏิบัติตามคำแนะนำด้านล่าง",
-    title: "ประกาศเฝ้าระวังโรคติดต่อ: สิ่งที่ควรทำ",
-    lede: "ขณะนี้คณะกำลังเฝ้าระวังการแพร่ระบาดของโรคติดต่อในกลุ่มนักศึกษาและบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองด้วยการพักผ่อนที่บ้าน",
-    immediateActions: [
-      "หากรู้สึกไม่สบาย ให้หยุดเรียน งดกิจกรรม และหลีกเลี่ยงพื้นที่ส่วนรวม",
-      "ล้างมือบ่อย ๆ ด้วยสบู่และน้ำ หรือใช้เจลแอลกอฮอล์ล้างมือ",
-      "สวมหน้ากากอนามัยหากจำเป็นต้องอยู่ใกล้ผู้อื่นขณะป่วยหรือกำลังพักฟื้น",
-      "แจ้งสำนักงานคณะหากต้องขาดเรียนเนื่องจากป่วย เพื่อให้อาจารย์ผู้สอนรับทราบ",
-      "หากอาการรุนแรง แย่ลง หรือรู้สึกกังวล ให้รีบไปพบแพทย์ ไม่ควรปล่อยไว้เฉย ๆ",
+    title: "โรคติดต่อระบาดในคณะ",
+    summary:
+      "ขณะนี้มีโรคติดต่อระบาดในหมู่นักศึกษาหรือบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองที่บ้าน หน้านี้อธิบายวิธีไม่ให้แพร่เชื้อต่อ เมื่อไรควรไปพบแพทย์ และจะทำอย่างไรกับการเรียน",
+    banner: "มีโรคติดต่อระบาดในคณะ ถ้าไม่สบายให้พักอยู่บ้าน และอ่านคำแนะนำด้านสุขภาพ",
+    now: [
+      "ถ้ารู้สึกไม่สบาย ให้พักอยู่บ้าน งดเข้าเรียนและร่วมกิจกรรม",
+      "แจ้งอาจารย์ว่าป่วย และเก็บใบรับรองแพทย์ไว้",
+      "ล้างมือบ่อย ๆ และปิดปากปิดจมูกเวลาไอหรือจาม",
+      "สวมหน้ากากในที่แออัดในอาคาร และสวมทุกครั้งถ้ามีอาการแต่ต้องอยู่ใกล้คนอื่น",
+      "โทร 1669 ถ้ามีคนหายใจลำบาก เจ็บหน้าอก สับสน หรือซึมจนปลุกไม่ค่อยตื่น",
     ],
     sections: [
       {
-        heading: "หากรู้สึกไม่สบาย",
+        id: "if-you-are-ill",
+        heading: "ถ้าคุณป่วย",
         items: [
-          "พักผ่อนที่บ้านและหลีกเลี่ยงการใกล้ชิดผู้อื่นให้มากที่สุด",
-          "สังเกตอาการของตนเอง อาการที่พบบ่อยของโรคติดต่อทางเดินหายใจ ได้แก่ ไข้ ไอ เจ็บคอ น้ำมูกไหล ปวดเมื่อยตามตัว และอ่อนเพลีย",
-          "ดื่มน้ำให้เพียงพอและพักผ่อน อาการป่วยทางเดินหายใจส่วนใหญ่ดูแลที่บ้านได้",
-          "หากไม่แน่ใจว่าควรไปพบแพทย์หรือไม่ ติดต่อคลินิกนักศึกษาของมหาวิทยาลัยธรรมศาสตร์หรือแพทย์ โดยเฉพาะนักศึกษาต่างชาติที่อาจยังไม่คุ้นเคยกับระบบสาธารณสุขในประเทศไทย",
-          "ตรวจหาเชื้อตามคำแนะนำของแพทย์ หรือหากมหาวิทยาลัยหรือหน่วยงานสาธารณสุขกำหนดไว้ และปฏิบัติตามผลตรวจและคำแนะนำเรื่องการแยกตัวที่ได้รับ",
+          "พักผ่อน ดื่มน้ำมาก ๆ และกินยาพาราเซตามอลลดไข้ถ้าจำเป็น",
+          "แยกตัวจากคนที่พักด้วยเท่าที่ทำได้ และเปิดหน้าต่างให้อากาศถ่ายเท",
+          "ห้องพยาบาล Virtual Clinic ท่าพระจันทร์ ไม่มีค่าใช้จ่ายสำหรับนักศึกษา ถ้ามีไข้หรือไอ ให้โทรแจ้งก่อนไปเพื่อให้เจ้าหน้าที่เตรียมรับ",
+          "ตรวจหาเชื้อถ้ามหาวิทยาลัย แพทย์ หรือกระทรวงสาธารณสุขขอให้ตรวจ และปฏิบัติตามผลตรวจ",
         ],
       },
       {
-        heading: "ปกป้องตัวเองและผู้อื่น",
+        id: "going-back",
+        heading: "กลับไปเรียนได้เมื่อไร",
+        body: [
+          "หากแพทย์หรือมหาวิทยาลัยไม่ได้กำหนดไว้เป็นอย่างอื่นสำหรับโรคนี้ กลับไปเรียนได้เมื่อครบทั้งสองข้อนี้ติดต่อกันอย่างน้อย 24 ชั่วโมง",
+        ],
+        items: ["อาการโดยรวมดีขึ้น", "ไม่มีไข้โดยไม่ต้องกินยาลดไข้"],
+      },
+      {
+        id: "after-going-back",
+        heading: "ห้าวันหลังกลับไปเรียน",
         items: [
-          "ล้างมือด้วยสบู่และน้ำอย่างน้อย 20 วินาที หรือใช้เจลแอลกอฮอล์เมื่อไม่มีสบู่และน้ำ",
-          "ใช้กระดาษทิชชูหรือข้อพับแขนปิดปากและจมูกเมื่อไอหรือจาม ไม่ใช้มือปิด",
-          "สวมหน้ากากอนามัยที่กระชับพอดีในพื้นที่แออัดหรืออากาศถ่ายเทไม่ดี และควรสวมเสมอหากป่วยและหลีกเลี่ยงการอยู่ใกล้ผู้อื่นไม่ได้",
-          "เพิ่มการระบายอากาศในพื้นที่ปิดเท่าที่ทำได้ เช่น เปิดหน้าต่าง ใช้พัดลม หรือจัดกิจกรรมกลางแจ้งแทน",
-          "เว้นระยะห่างจากผู้อื่นเท่าที่ทำได้ โดยเฉพาะผู้ที่กำลังไอหรือดูไม่สบาย",
-          "รับวัคซีนตามคำแนะนำของหน่วยงานสาธารณสุขสำหรับโรคนั้น ๆ ให้ครบถ้วน",
+          "สวมหน้ากากเมื่ออยู่ใกล้คนอื่น",
+          "เว้นระยะจากผู้สูงอายุ หญิงตั้งครรภ์ และผู้มีภูมิคุ้มกันต่ำ",
+          "ล้างมือต่อไป และเปิดให้อากาศถ่ายเทในห้องที่ใช้ร่วมกัน",
         ],
       },
       {
-        heading: "หากตรวจพบเชื้อหรือได้รับคำแนะนำให้แยกตัว",
-        items: [
-          "ปฏิบัติตามระยะเวลาและคำแนะนำการแยกตัวที่แพทย์หรือหน่วยงานสาธารณสุขที่เกี่ยวข้องกำหนด คำแนะนำอาจเปลี่ยนแปลงตามชนิดของโรคและสถานการณ์การระบาด จึงควรยึดตามประกาศที่เป็นปัจจุบันมากกว่าจดจำกฎเดิม",
-          "หลักการทั่วไปตามแนวทางสาธารณสุขล่าสุด คือสามารถกลับไปใช้ชีวิตตามปกติได้เมื่ออาการดีขึ้นและไม่มีไข้ (โดยไม่ใช้ยาลดไข้) ต่อเนื่องอย่างน้อย 24 ชั่วโมง ควรตรวจสอบกับคำแนะนำทางการล่าสุดสำหรับโรคนั้น ๆ อีกครั้ง เนื่องจากเงื่อนไขอาจแตกต่างกัน",
-          "หลังกลับไปใช้ชีวิตตามปกติแล้ว ควรเพิ่มความระมัดระวังต่ออีกสักระยะ เช่น รักษาสุขอนามัย สวมหน้ากากในพื้นที่ส่วนรวม และเว้นระยะห่างจากผู้อื่น",
-          "แจ้งสำนักงานคณะและอาจารย์ผู้สอนว่ากำลังแยกตัว เพื่อบันทึกการขาดเรียนและจัดการเรื่องการเรียนให้เหมาะสม",
-          "หลีกเลี่ยงการใช้พื้นที่ส่วนกลาง เช่น ครัวรวม ห้องนั่งเล่นรวม และการใกล้ชิดกับเพื่อนร่วมห้องหรือครอบครัวเท่าที่ทำได้ในช่วงที่ยังแพร่เชื้อได้",
+        id: "get-help-urgently",
+        heading: "อาการที่ต้องรีบไปโรงพยาบาล",
+        body: [
+          "โทร 1669 หรือไปห้องฉุกเฉินของโรงพยาบาล ถ้าหายใจลำบาก เจ็บหรือแน่นหน้าอก สับสน ริมฝีปากเขียว ดื่มน้ำแล้วอาเจียนตลอด หรือมีไข้นานเกินสามวัน โรงพยาบาลศิริราชฝั่งตรงข้ามแม่น้ำเป็นโรงพยาบาลใหญ่ที่ใกล้ที่สุด",
         ],
       },
       {
-        heading: "ในรั้วมหาวิทยาลัย",
+        id: "classes",
+        heading: "การเรียนและการสอบ",
         items: [
-          "หากตนเองสบายดีแต่เพื่อนหรือเพื่อนร่วมห้องไม่สบาย ให้สนับสนุนให้เขาหยุดพักและไปพบแพทย์ แทนที่จะฝืนมาเรียน",
-          "รักษาสุขอนามัยของมือเมื่อใช้พื้นที่ อุปกรณ์ หรือลูกบิดประตูร่วมกับผู้อื่น",
-          "ช่วยกันดูแลการระบายอากาศในห้องที่ใช้ร่วมกัน เช่น เปิดหน้าต่างเมื่อทำได้",
-          "ปฏิบัติตามประกาศเฉพาะจากมหาวิทยาลัยธรรมศาสตร์หรือคณะรัฐศาสตร์ในช่วงที่มีการระบาด ประกาศจากมหาวิทยาลัยและกระทรวงสาธารณสุขมีความสำคัญเหนือคำแนะนำทั่วไปในหน้านี้เสมอ",
-          "หน้านี้จัดทำและดูแลโดยนักศึกษา (BIRSA) เพื่อให้ข้อมูลทั่วไปเท่านั้น ไม่สามารถใช้แทนคำแนะนำทางการแพทย์หรือประกาศทางการจากมหาวิทยาลัยและหน่วยงานสาธารณสุขได้",
+          "แจ้งอาจารย์ก่อนเริ่มเรียนถ้าทำได้ ถ้าจะขาดสอบ ให้สอบถามสำนักงานหลักสูตร BIR ว่าต้องทำอย่างไร",
+          "ถ้าคณะเปลี่ยนเป็นเรียนออนไลน์ จะประกาศทางอีเมลธรรมศาสตร์และเพจเฟซบุ๊กของคณะ",
+          "เพื่อนนักศึกษาต่างชาติที่ป่วยนานควรแจ้งกองวิเทศสัมพันธ์ เผื่อกระทบเรื่องวีซ่า",
         ],
-      },
-    ],
-    extraContacts: [
-      {
-        label: "สายด่วนกรมควบคุมโรค (ข้อมูลและคำแนะนำด้านสุขภาพ)",
-        value: "1422",
-        href: "tel:1422",
-      },
-      { label: "การแพทย์ฉุกเฉิน (รถพยาบาล) กรณีอาการรุนแรง", value: "1669", href: "tel:1669" },
-      {
-        label:
-          "คลินิกนักศึกษา มธ. ท่าพระจันทร์ (Virtual Clinic ชั้น 1 อาคารกิจกรรมนักศึกษา อาคาร 21)",
-        value: "0-2613-3961 เปิดวันจันทร์ถึงศุกร์ 8.30 ถึง 16.30 น. ปิดวันหยุดนักขัตฤกษ์",
-        href: "tel:026133961",
-      },
-      {
-        label:
-          "ศูนย์ให้คำปรึกษา TU Well-Being / Viva City (สำหรับความเครียดหรือสุขภาพจิตระหว่างป่วยหรือแยกตัว)",
-        value: "ดูรายละเอียดที่หน้า Well-Being Services ของสำนักงานการต่างประเทศ มธ.",
       },
     ],
   },

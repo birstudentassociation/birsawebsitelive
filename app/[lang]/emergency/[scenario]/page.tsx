@@ -1,28 +1,24 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { formatDate, getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { getLiveAlert } from "@/lib/emergency";
 import { getScenario, hasScenario, scenarioIds } from "@/content/emergency/scenarios";
-import { scenarioContent, type EmergencySeverity } from "@/content/emergency/types";
 import EmergencyHero from "@/components/EmergencyHero";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
 import Email from "@/components/Email";
+import Notice from "@/components/Notice";
+import AlertStatus from "@/components/emergency/AlertStatus";
+import CallButtons from "@/components/emergency/CallButtons";
+import ContactList from "@/components/emergency/ContactList";
+import GuideSection from "@/components/emergency/GuideSection";
 import { contact, socials } from "@/content/site";
 
 type Params = { lang: string; scenario: string };
 
-/** Severity badge (border + tint) and its accompanying dot colour. */
-const severityBadge: Record<EmergencySeverity, string> = {
-  critical: "border-error bg-error-tint",
-  warning: "border-warning bg-warning-tint",
-  info: "border-forest bg-forest-tint",
-};
-const severityDot: Record<EmergencySeverity, string> = {
-  critical: "bg-error",
-  warning: "bg-warning",
-  info: "bg-forest",
-};
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return scenarioIds.map((scenario) => ({ scenario }));
@@ -31,16 +27,15 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
   const { lang, scenario } = await params;
   if (!isLocale(lang) || !hasScenario(scenario)) return {};
-  const locale: Locale = lang;
-  const c = scenarioContent(getScenario(scenario), locale);
+  const c = getScenario(scenario)[lang];
 
-  // Deliberately unindexed: emergency pages only matter while an incident is
-  // active, and must never rank in search or appear on the sitemap.
+  // Unindexed: these pages should be found through the site and its banner
+  // during an incident, never ranked in search on their own.
   return {
     ...buildMetadata({
-      locale,
+      locale: lang,
       title: c.title,
-      description: c.lede,
+      description: c.summary,
       path: `/emergency/${scenario}`,
     }),
     robots: { index: false, follow: false },
@@ -54,17 +49,16 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
   const dict = getDictionary(locale);
   const t = dict.emergencyPage;
   const s = getScenario(scenario);
-  const c = scenarioContent(s, locale);
-
-  const firstAction = c.immediateActions[0];
-  const keyNumbers = c.extraContacts?.filter((item) => item.href?.startsWith("tel:")) ?? [];
+  const c = s[locale];
+  const live = getLiveAlert();
+  const isLive = live?.scenario.id === s.id;
 
   return (
     <>
       <EmergencyHero
-        scenarioId={s.id}
+        tone={s.hero}
         title={c.title}
-        lede={c.lede}
+        lede={c.summary}
         breadcrumbs={
           <Breadcrumbs
             locale={locale}
@@ -74,112 +68,87 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           />
         }
       />
-      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
+        {isLive && live ? (
+          <AlertStatus locale={locale} live={live} t={t} />
+        ) : (
+          <Notice title={t.notLiveTitle}>
+            <p>
+              {t.notLiveBody}{" "}
+              <Link href={localeHref(locale, "/emergency")} className="underline">
+                {t.seeAll}
+              </Link>
+            </p>
+          </Notice>
+        )}
+
         <section
-          aria-labelledby="at-a-glance"
-          className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5"
+          aria-labelledby="do-this-now"
+          className="flex flex-col gap-4 rounded-lg border-2 border-ink bg-surface p-5"
         >
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="at-a-glance" className="font-display text-xl">
-              {t.atAGlance}
-            </h2>
-            <span
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium ${severityBadge[s.severity]}`}
-            >
-              <span
-                className={`h-2 w-2 rounded-full ${severityDot[s.severity]}`}
-                aria-hidden="true"
-              />
-              {t.alertLevel}: {t.severity[s.severity]}
-            </span>
-          </div>
-
-          {firstAction ? (
-            <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium text-muted">{t.doThisFirst}</p>
-              <p className="leading-relaxed text-ink">{firstAction}</p>
-            </div>
-          ) : null}
-
-          {keyNumbers.length > 0 ? (
-            <div className="flex flex-col gap-2">
-              <p className="text-sm font-medium text-muted">{t.keyNumbers}</p>
-              <ul className="flex flex-wrap gap-2">
-                {keyNumbers.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="inline-flex items-center gap-2 rounded-md border border-line bg-cream px-3 py-1.5 text-sm hover:border-brand-deep"
-                    >
-                      <span className="text-muted">{item.label}</span>
-                      <span className="font-semibold text-ink">{item.value}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-        </section>
-
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-2xl">{t.whatToDo}</h2>
-          <ol className="flex list-decimal flex-col gap-2 pl-5 leading-relaxed text-ink">
-            {c.immediateActions.map((item) => (
-              <li key={item}>{item}</li>
+          <h2 id="do-this-now" className="font-display text-2xl">
+            {t.doThisNow}
+          </h2>
+          <ol className="flex list-decimal flex-col gap-3 pl-6 text-lg leading-relaxed text-ink">
+            {c.now.map((step) => (
+              <li key={step}>{step}</li>
             ))}
           </ol>
         </section>
 
-        {c.sections.map((section) => (
-          <section key={section.heading} className="flex flex-col gap-2">
-            <h2 className="font-display text-2xl">{section.heading}</h2>
-            {section.body?.map((paragraph) => (
-              <p key={paragraph} className="leading-relaxed text-muted">
-                {paragraph}
-              </p>
+        <section aria-labelledby="call" className="flex flex-col gap-3">
+          <h2 id="call" className="font-display text-2xl">
+            {t.call}
+          </h2>
+          <CallButtons locale={locale} ids={s.keyContacts} extLabel={t.ext} />
+        </section>
+
+        <nav aria-labelledby="on-this-page" className="flex flex-col gap-2">
+          <h2 id="on-this-page" className="text-sm font-semibold text-muted">
+            {t.onThisPage}
+          </h2>
+          <ul className="flex flex-col gap-1">
+            {c.sections.map((section) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`} className="text-brand-deep underline">
+                  {section.heading}
+                </a>
+              </li>
             ))}
-            {section.items ? (
-              <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed text-muted">
-                {section.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            ) : null}
-          </section>
+            <li>
+              <a href="#contacts" className="text-brand-deep underline">
+                {t.contacts}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        {c.sections.map((section) => (
+          <GuideSection key={section.id} section={section} />
         ))}
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-2xl">{t.usefulContacts}</h2>
-          {c.extraContacts && c.extraContacts.length > 0 ? (
-            <ul className="flex flex-col gap-2 text-ink">
-              {c.extraContacts.map((item) => (
-                <li key={item.label} className="flex flex-wrap gap-x-2">
-                  <span className="font-medium">{item.label}:</span>
-                  {item.href ? (
-                    <a href={item.href} className="underline hover:text-brand-deep">
-                      {item.value}
-                    </a>
-                  ) : (
-                    <span>{item.value}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          ) : null}
+        <section
+          id="contacts"
+          aria-labelledby="contacts-heading"
+          className="flex scroll-mt-24 flex-col gap-4"
+        >
+          <h2 id="contacts-heading" className="font-display text-2xl">
+            {t.contacts}
+          </h2>
+          <ContactList
+            locale={locale}
+            ids={[...s.keyContacts, ...s.moreContacts]}
+            extLabel={t.ext}
+            newTabLabel={dict.a11y.newTab}
+          />
 
-          <h3 className="mt-2 font-medium">{t.birsaContacts}</h3>
+          <h3 className="mt-2 font-semibold">{t.birsaContacts}</h3>
           <ul className="flex flex-col gap-2 text-sm text-muted">
             <li>
               <Email address={contact.email} className="underline hover:text-brand-deep" />
             </li>
             <li>
-              <Email address={contact.secondaryEmail} className="underline hover:text-brand-deep" />
-            </li>
-            <li>
-              {t.phone}: {contact.phone}
-            </li>
-            <li>
-              {t.address}: {contact.address[locale]}
+              {t.phone} {contact.phone}
             </li>
             {socials
               .filter((social) => !social.placeholder && social.id !== "email")
@@ -197,9 +166,26 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           </ul>
         </section>
 
-        <p className="border-t border-line pt-6 text-sm leading-relaxed text-muted">
-          {t.disclaimer}
-        </p>
+        <footer className="flex flex-col gap-3 border-t border-line pt-6 text-sm leading-relaxed text-muted">
+          <h2 className="font-semibold text-ink">{t.sources}</h2>
+          <ul className="flex list-disc flex-col gap-1 pl-5">
+            {s.sources.map((source) => (
+              <li key={source.href}>
+                <ExternalLink
+                  href={source.href}
+                  newTabLabel={dict.a11y.newTab}
+                  className="underline hover:text-brand-deep"
+                >
+                  {source.label[locale]}
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
+          <p>
+            {t.reviewed} {formatDate(locale, s.reviewed)}
+          </p>
+          <p>{t.disclaimer}</p>
+        </footer>
       </div>
     </>
   );

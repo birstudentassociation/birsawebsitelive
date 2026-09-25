@@ -87,7 +87,7 @@ has to respect that boundary or it will mislead students about who can fix their
 | Study plan tool                             | Academic Affairs                     | Client-side only; collects nothing                                                                                                            |
 | Equipment loan and the CBEMS console        | Whoever holds the equipment          | **Self-service console**                                                                                                                      |
 | Satisfaction feedback and its console page  | Whole committee                      | **Self-service console**                                                                                                                      |
-| Emergency mode                              | President, Spokesperson              | Vercel Edge Config dashboard                                                                                                                  |
+| Emergency mode                              | President, Spokesperson              | Git commit to `content/emergency/active.ts`                                                                                                   |
 | Contact, start-a-club, PDPA rights forms    | Everyone                             | Email out via Resend. No state, no reference number, no record that anyone replied                                                            |
 | Transparency page                           | Treasurer, Secretaries               | **Placeholder. Budget, minutes, election results, and bylaws are all empty**                                                                  |
 
@@ -161,10 +161,11 @@ status lookup that needs no account.
 
 - **Statements archive.** Dated, bilingual, tagged by subject, linked to the minute that
   authorised the position.
-- **Emergency mode from BIRSA's own console.** Emergency mode already works without a redeploy,
-  but flipping it needs access to the Vercel dashboard, which means it needs IT. A console page
-  over the same Edge Config value moves that to the Spokesperson and the President, which is
-  where it belongs. Emergencies do not wait for a student to check their messages.
+- **Emergency alerts without IT.** An alert is a commit to `content/emergency/active.ts`, which
+  goes live in about a minute, but it needs someone with write access to the repository whose
+  commits Vercel will deploy. Give the Spokesperson and the President that access, and rehearse
+  it once a term, so raising an alert does not wait on one officer. Emergencies do not wait for
+  a student to check their messages.
 - **Press and enquiry routing.** The contact form has categories but one destination inbox.
   Route by category to the right portfolio instead.
 

@@ -1,195 +1,107 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
- * Faculty of Political Science building or programme closure.
- * Transcribed from the researched dossier.
+ * The Faculty of Political Science building is closed, for example after a
+ * power or water failure or building damage, while the rest of campus stays
+ * open. Contacts from the faculty's and BIR Programme's own contact pages.
  */
 const facultyClosure: EmergencyScenario = {
   id: "faculty-closure",
-  severity: "warning",
+  severity: "info",
+  hero: "slate",
+  group: "disruption",
+  keyContacts: ["birOffice", "facultyOffice"],
+  moreContacts: ["oia", "tuSwitchboard", "mea", "police", "ambulance"],
+  sources: [
+    {
+      label: {
+        en: "Faculty of Political Science, contact information",
+        th: "คณะรัฐศาสตร์ มธ. ข้อมูลการติดต่อ",
+      },
+      href: "https://polsci.tu.ac.th/en/contact-us-2/",
+    },
+    {
+      label: { en: "BIR Programme, contact us", th: "หลักสูตร BIR ติดต่อเรา" },
+      href: "https://www.birpolsci.com/contact-us",
+    },
+  ],
+  reviewed: "2026-09-25",
   en: {
-    bannerMessage:
-      "The Faculty of Political Science building is closed. Do not come to campus until further notice; check official channels for updates.",
-    title: "Faculty of Political Science Closure: What to Do",
-    lede: "The Faculty of Political Science building or programme may occasionally close for reasons such as a safety issue, a utilities failure, or another incident.",
-    immediateActions: [
-      "Do not travel to the faculty building until you have seen an official announcement that it is safe to do so.",
-      "Check the Faculty of Political Science's official Facebook page and Thammasat University's official channels for the closure notice and any instructions.",
-      "Check your Thammasat email and any course pages (for example Google Classroom or MS Teams links your instructors use) for class-specific instructions.",
-      "If you were on your way to campus, turn back or wait at a safe location nearby until you have confirmed information.",
-      "If you are currently inside the building when a closure is announced, follow staff instructions and leave calmly by the nearest safe exit.",
+    title: "Faculty building closed",
+    summary:
+      "The Faculty of Political Science building at Tha Prachan is closed. The rest of campus may still be open. This guide covers classes, deadlines and who to contact.",
+    banner:
+      "The Faculty of Political Science building is closed. Check your email before coming in.",
+    now: [
+      "Do not come to the faculty building until the faculty says it has reopened.",
+      "Check your Thammasat email and course pages for where and how each class will run.",
+      "If you are in the building when it closes, leave calmly by the nearest exit and follow staff.",
+      "Ask the BIR Programme office if you are not sure whether something still applies to you.",
     ],
     sections: [
       {
-        heading: "How you will be told",
+        id: "classes",
+        heading: "Classes, exams and deadlines",
         items: [
-          "Official closure notices will be posted on the Faculty of Political Science's website and Facebook page, and on Thammasat University's official channels.",
-          "Instructors may also email you directly or post to your course's online platform about changes to a specific class.",
-          "Treat only these official channels as authoritative. Do not rely on second-hand messages, unofficial group chats, or rumours for confirmation that the building is closed or reopened.",
+          "A closure does not automatically cancel classes, exams or deadlines. Classes may move online or to another building.",
+          "Each lecturer will tell you about their own course. If you have heard nothing by the evening before, email them.",
+          "If the closure stops you handing in work or sitting an exam, write to your lecturer and the BIR Programme office straight away.",
         ],
       },
       {
-        heading: "Classes, exams, and deadlines",
+        id: "services",
+        heading: "Services while the building is closed",
         items: [
-          "Do not assume that a closure automatically cancels or postpones a class, exam, or deadline. Some may move online, some may be rescheduled, and some may continue as planned if alternative arrangements are made.",
-          "Check official faculty announcements or contact your instructor directly for each affected class.",
-          "If a deadline is approaching and you are unsure whether it still applies, email your instructor or the faculty office rather than assuming either way.",
+          "The faculty office and the BIR Programme office can usually deal with letters, forms and questions by email.",
+          "Other campus buildings, including the university library, may still be open. Check before you travel.",
+          "If you left something important inside, such as medicine or a passport, contact the faculty office. Do not try to get into the building yourself.",
         ],
       },
       {
-        heading: "Accessing services remotely",
-        items: [
-          "Many administrative matters (transcripts, letters, registration questions) can often be handled by email with the faculty office; check the faculty website for current remote-service options during the closure.",
-          "The Direk Jayanama Library's online catalogue and any digital resources remain accessible from off campus if the library building itself is affected.",
-          "If you need a specific document or service and are unsure whether it is available remotely, email the relevant office and ask before making a trip to campus.",
+        id: "official-news",
+        heading: "Where the news comes from",
+        body: [
+          "Closure and reopening notices come from the Faculty of Political Science on its website and Facebook page, and by Thammasat email. Treat anything else as unconfirmed until one of those says the same.",
         ],
-      },
-      {
-        heading: "Who to contact",
-        items: [
-          "For programme-specific questions (BIR students): the BIR programme office.",
-          "For general faculty administration: the Faculty of Political Science main office.",
-          "For matters affecting international students specifically: Thammasat's Office of International Affairs (OIA).",
-          "If you have safety concerns for yourself or believe you need emergency help, use the national emergency numbers below rather than waiting for an office to reply to email.",
-        ],
-      },
-      {
-        heading: "When it reopens",
-        items: [
-          "Wait for an official reopening announcement before returning to the building.",
-          "Expect a short period of adjustment to class schedules; check announcements rather than assuming everything resumes exactly as before.",
-        ],
-      },
-    ],
-    extraContacts: [
-      {
-        label: "Faculty of Political Science main office",
-        value: "02-221-6111 ext. 3400",
-        href: "tel:022216111",
-      },
-      {
-        label: "Faculty of Political Science main office (email)",
-        value: "polscitu@tu.ac.th",
-        href: "mailto:polscitu@tu.ac.th",
-      },
-      {
-        label: "BIR Programme office",
-        value: "02-221-6111 ext. 3409",
-        href: "tel:022216111",
-      },
-      {
-        label: "BIR Programme office (email)",
-        value: "bir@tu.ac.th",
-        href: "mailto:bir@tu.ac.th",
-      },
-      {
-        label: "Direk Jayanama Library",
-        value: "02-221-6111 ext. 3406",
-        href: "tel:022216111",
-      },
-      {
-        label: "Office of International Affairs (OIA), Thammasat University",
-        value: "info.inter@tu.ac.th",
-        href: "mailto:info.inter@tu.ac.th",
-      },
-      {
-        label:
-          "DDPM 24-hour safety hotline (for a safety incident such as fire, structural damage, or utilities failure)",
-        value: "1784",
-        href: "tel:1784",
       },
     ],
   },
   th: {
-    bannerMessage:
-      "อาคารคณะรัฐศาสตร์ปิดทำการ งดเดินทางมามหาวิทยาลัยจนกว่าจะมีประกาศเพิ่มเติม โปรดติดตามช่องทางทางการ",
-    title: "คณะรัฐศาสตร์ปิดทำการ: สิ่งที่ควรทำ",
-    lede: "อาคารคณะรัฐศาสตร์หรือการเรียนการสอนของคณะอาจปิดทำการเป็นครั้งคราว ด้วยเหตุผลต่าง ๆ เช่น ปัญหาด้านความปลอดภัย ระบบสาธารณูปโภคขัดข้อง หรือเหตุการณ์อื่น ๆ",
-    immediateActions: [
-      "อย่าเดินทางมาที่อาคารคณะจนกว่าจะเห็นประกาศทางการยืนยันว่าปลอดภัย",
-      "ตรวจสอบเพจเฟซบุ๊กทางการของคณะรัฐศาสตร์และช่องทางทางการของมหาวิทยาลัยธรรมศาสตร์ เพื่อดูประกาศการปิดทำการและคำแนะนำ",
-      "ตรวจสอบอีเมลธรรมศาสตร์ของคุณและหน้าวิชาเรียนต่าง ๆ (เช่น Google Classroom หรือ MS Teams ที่อาจารย์ใช้) เพื่อดูคำแนะนำเฉพาะรายวิชา",
-      "หากกำลังเดินทางมามหาวิทยาลัยอยู่ ให้กลับหรือรอในที่ปลอดภัยใกล้เคียงจนกว่าจะได้รับข้อมูลที่ยืนยันแล้ว",
-      "หากคุณอยู่ในอาคารขณะที่มีการประกาศปิดทำการ ให้ปฏิบัติตามคำแนะนำของเจ้าหน้าที่และออกจากอาคารอย่างสงบทางทางออกที่ปลอดภัยใกล้ที่สุด",
+    title: "อาคารคณะรัฐศาสตร์ปิดทำการ",
+    summary:
+      "อาคารคณะรัฐศาสตร์ ท่าพระจันทร์ ปิดทำการ ส่วนอื่นของมหาวิทยาลัยอาจยังเปิดตามปกติ หน้านี้อธิบายเรื่องการเรียน กำหนดส่งงาน และช่องทางติดต่อ",
+    banner: "อาคารคณะรัฐศาสตร์ปิดทำการ ตรวจอีเมลก่อนเดินทางมาคณะ",
+    now: [
+      "อย่าเพิ่งมาที่อาคารคณะจนกว่าคณะจะประกาศเปิดอีกครั้ง",
+      "ตรวจอีเมลธรรมศาสตร์และหน้ารายวิชาว่าแต่ละวิชาจะเรียนที่ไหนและอย่างไร",
+      "ถ้าอยู่ในอาคารตอนประกาศปิด ให้ออกทางออกที่ใกล้ที่สุดอย่างใจเย็น และทำตามเจ้าหน้าที่",
+      "ถ้าไม่แน่ใจว่าเรื่องไหนยังต้องทำ ให้ถามสำนักงานหลักสูตร BIR",
     ],
     sections: [
       {
-        heading: "วิธีที่คุณจะได้รับแจ้ง",
-        items: [
-          "ประกาศการปิดทำการอย่างเป็นทางการจะเผยแพร่ทางเว็บไซต์และเฟซบุ๊กของคณะรัฐศาสตร์ รวมถึงช่องทางทางการของมหาวิทยาลัยธรรมศาสตร์",
-          "อาจารย์อาจส่งอีเมลถึงคุณโดยตรง หรือประกาศทางแพลตฟอร์มออนไลน์ของรายวิชาเกี่ยวกับการเปลี่ยนแปลงของวิชานั้น ๆ",
-          "ให้เชื่อถือเฉพาะช่องทางทางการเหล่านี้เท่านั้น อย่าใช้ข้อความที่ส่งต่อกันมา กลุ่มแชทที่ไม่เป็นทางการ หรือข่าวลือ เป็นหลักฐานยืนยันว่าอาคารปิดหรือเปิดทำการ",
-        ],
-      },
-      {
+        id: "classes",
         heading: "การเรียน การสอบ และกำหนดส่งงาน",
         items: [
-          "อย่าเข้าใจเองว่าการปิดทำการจะทำให้การเรียน การสอบ หรือกำหนดส่งงานถูกยกเลิกหรือเลื่อนโดยอัตโนมัติ บางรายวิชาอาจย้ายไปเรียนออนไลน์ บางรายวิชาอาจเลื่อนกำหนด และบางรายวิชาอาจดำเนินการตามปกติหากมีการจัดการทางเลือกอื่น",
-          "ตรวจสอบประกาศทางการของคณะ หรือติดต่ออาจารย์ผู้สอนโดยตรงสำหรับแต่ละวิชาที่ได้รับผลกระทบ",
-          "หากใกล้ถึงกำหนดส่งงานและไม่แน่ใจว่ายังมีผลอยู่หรือไม่ ให้อีเมลสอบถามอาจารย์หรือสำนักงานคณะ แทนที่จะสันนิษฐานเอาเอง",
+          "การปิดอาคารไม่ได้แปลว่างดเรียน งดสอบ หรือเลื่อนกำหนดส่งงานโดยอัตโนมัติ บางวิชาอาจเรียนออนไลน์หรือย้ายไปอาคารอื่น",
+          "อาจารย์แต่ละวิชาจะแจ้งเรื่องวิชาของตนเอง ถ้าถึงเย็นวันก่อนเรียนยังไม่ได้ข่าว ให้อีเมลถามอาจารย์",
+          "ถ้าการปิดอาคารทำให้ส่งงานหรือเข้าสอบไม่ได้ ให้เขียนถึงอาจารย์และสำนักงานหลักสูตร BIR ทันที",
         ],
       },
       {
-        heading: "การเข้าถึงบริการทางไกล",
+        id: "services",
+        heading: "บริการระหว่างที่อาคารปิด",
         items: [
-          "เรื่องธุรการหลายอย่าง (ใบแสดงผลการเรียน หนังสือรับรอง คำถามเกี่ยวกับการลงทะเบียน) มักดำเนินการทางอีเมลกับสำนักงานคณะได้ ให้ตรวจสอบเว็บไซต์คณะสำหรับช่องทางบริการทางไกลที่เปิดให้บริการระหว่างการปิดทำการ",
-          "ระบบสืบค้นออนไลน์ของห้องสมุดดิเรก ชัยนามและทรัพยากรดิจิทัลต่าง ๆ ยังสามารถเข้าถึงได้จากนอกมหาวิทยาลัย แม้ตัวอาคารห้องสมุดจะได้รับผลกระทบ",
-          "หากต้องการเอกสารหรือบริการใดเป็นการเฉพาะและไม่แน่ใจว่าสามารถทำทางไกลได้หรือไม่ ให้อีเมลสอบถามหน่วยงานที่เกี่ยวข้องก่อนเดินทางมามหาวิทยาลัย",
+          "สำนักงานคณะและสำนักงานหลักสูตร BIR มักรับเรื่องหนังสือรับรอง แบบฟอร์ม และคำถามทางอีเมลได้",
+          "อาคารอื่นในมหาวิทยาลัย รวมถึงห้องสมุด อาจยังเปิดอยู่ ตรวจสอบก่อนเดินทาง",
+          "ถ้าลืมของสำคัญไว้ข้างใน เช่น ยาหรือหนังสือเดินทาง ให้ติดต่อสำนักงานคณะ อย่าพยายามเข้าไปเอง",
         ],
       },
       {
-        heading: "ควรติดต่อใคร",
-        items: [
-          "สำหรับคำถามเฉพาะโครงการ (นักศึกษา BIR): สำนักงานโครงการ BIR",
-          "สำหรับเรื่องธุรการทั่วไปของคณะ: สำนักงานคณะรัฐศาสตร์",
-          "สำหรับเรื่องที่เกี่ยวข้องกับนักศึกษาต่างชาติโดยเฉพาะ: กองงานวิเทศสัมพันธ์ (OIA) ของธรรมศาสตร์",
-          "หากมีความกังวลด้านความปลอดภัยส่วนตัว หรือคิดว่าต้องการความช่วยเหลือฉุกเฉิน ให้ใช้หมายเลขฉุกเฉินระดับประเทศด้านล่างแทนการรอคำตอบทางอีเมล",
+        id: "official-news",
+        heading: "ข่าวทางการมาจากไหน",
+        body: [
+          "ประกาศปิดและเปิดอาคารมาจากคณะรัฐศาสตร์ ทางเว็บไซต์ เพจเฟซบุ๊ก และอีเมลธรรมศาสตร์ ข้อมูลจากที่อื่นให้ถือว่ายังไม่ยืนยัน จนกว่าช่องทางเหล่านี้จะประกาศตรงกัน",
         ],
-      },
-      {
-        heading: "เมื่อเปิดทำการอีกครั้ง",
-        items: [
-          "รอประกาศเปิดทำการอย่างเป็นทางการก่อนกลับเข้าอาคาร",
-          "ตารางเรียนอาจมีการปรับเปลี่ยนช่วงสั้น ๆ ให้ตรวจสอบประกาศแทนการสันนิษฐานว่าทุกอย่างจะกลับมาเหมือนเดิมทันที",
-        ],
-      },
-    ],
-    extraContacts: [
-      {
-        label: "สำนักงานคณะรัฐศาสตร์",
-        value: "02-221-6111 ต่อ 3400",
-        href: "tel:022216111",
-      },
-      {
-        label: "สำนักงานคณะรัฐศาสตร์ (อีเมล)",
-        value: "polscitu@tu.ac.th",
-        href: "mailto:polscitu@tu.ac.th",
-      },
-      {
-        label: "สำนักงานโครงการ BIR",
-        value: "02-221-6111 ต่อ 3409",
-        href: "tel:022216111",
-      },
-      {
-        label: "สำนักงานโครงการ BIR (อีเมล)",
-        value: "bir@tu.ac.th",
-        href: "mailto:bir@tu.ac.th",
-      },
-      {
-        label: "ห้องสมุดดิเรก ชัยนาม",
-        value: "02-221-6111 ต่อ 3406",
-        href: "tel:022216111",
-      },
-      {
-        label: "กองงานวิเทศสัมพันธ์ (OIA) มหาวิทยาลัยธรรมศาสตร์",
-        value: "info.inter@tu.ac.th",
-        href: "mailto:info.inter@tu.ac.th",
-      },
-      {
-        label:
-          "สายด่วนความปลอดภัยและภัยพิบัติ ปภ. 24 ชั่วโมง (สำหรับเหตุด้านความปลอดภัย เช่น ไฟไหม้ โครงสร้างเสียหาย หรือระบบสาธารณูปโภคขัดข้อง)",
-        value: "1784",
-        href: "tel:1784",
       },
     ],
   },

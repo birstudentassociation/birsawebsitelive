@@ -9,8 +9,8 @@ export type EmergencyBannerProps = {
 };
 
 /**
- * Site-wide emergency notice, shown above everything when emergency mode is
- * switched on via Edge Config (see `lib/emergency.ts`). Colour follows the
+ * Site-wide emergency notice, shown above everything while
+ * `content/emergency/active.ts` names a live alert. Colour follows the
  * scenario severity so a critical alert reads red and a calmer advisory reads
  * amber. Not dismissible: every visitor on every page should see it while it
  * is active.

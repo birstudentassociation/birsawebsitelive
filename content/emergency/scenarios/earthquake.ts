@@ -1,136 +1,168 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
+/**
+ * Earthquake felt in Bangkok. Ordered for someone reading after the shaking has
+ * stopped, since nobody reads a website while the ground is moving. Follows
+ * DDPM's หมอบ ป้อง เกาะ (drop, cover, hold on) advice and the Earthquake
+ * Country Alliance's guidance, with the 28 March 2025 Myanmar earthquake as
+ * the local reference point.
+ */
 const earthquake: EmergencyScenario = {
   id: "earthquake",
   severity: "critical",
+  hero: "red",
+  group: "hazard",
+  keyContacts: ["ambulance", "fire", "ddpm"],
+  moreContacts: ["police", "tmd", "erawan", "mea", "touristPolice", "mentalHealth"],
+  sources: [
+    {
+      label: {
+        en: "DDPM, drop, cover and hold on (via Channel 7 News)",
+        th: "ปภ. แนะ หมอบ ป้อง เกาะ เมื่อเกิดแผ่นดินไหว (ข่าวช่อง 7)",
+      },
+      href: "https://news.ch7.com/detail/793297",
+    },
+    {
+      label: {
+        en: "Earthquake Country Alliance, drop, cover and hold on",
+        th: "Earthquake Country Alliance วิธีหมอบ ป้อง เกาะ",
+      },
+      href: "https://www.earthquakecountry.org/step5/",
+    },
+    {
+      label: {
+        en: "Wikipedia, collapse of the State Audit Office building, March 2025",
+        th: "Wikipedia อาคารสำนักงานการตรวจเงินแผ่นดินถล่ม มีนาคม 2568",
+      },
+      href: "https://en.wikipedia.org/wiki/Collapse_of_Thailand_State_Audit_Office_building",
+    },
+  ],
+  reviewed: "2026-09-25",
   en: {
-    bannerMessage: "Earthquake shaking may be felt in Bangkok. Drop, cover, and hold on.",
     title: "Earthquake",
-    lede: "Thailand is not a high-earthquake country, but Bangkok's soft soil can amplify shaking from large, distant earthquakes, as happened in March 2025. In tall buildings the sway can feel strong even when the epicentre is far away. Knowing what to do keeps you safe.",
-    immediateActions: [
-      "Drop where you are, onto your hands and knees, before the shaking knocks you down.",
-      "Cover your head and neck with your arms. If you can, get under a sturdy desk or table.",
-      "Hold on to your shelter, or to your head and neck, until the shaking stops.",
-      "Stay away from windows, glass, mirrors, and tall furniture or shelving that could fall.",
-      "Do not run outside and do not use lifts while the building is shaking.",
+    summary:
+      "Bangkok is far from active faults, but its soft ground amplifies shaking from large distant earthquakes. On 28 March 2025 a magnitude 7.7 earthquake in Myanmar shook high-rise buildings across the city and brought down a tower under construction in Chatuchak.",
+    banner:
+      "An earthquake has been felt in Bangkok. Check for injuries and damage and expect aftershocks.",
+    now: [
+      "If it is still shaking, drop to your hands and knees, cover your head and neck, and hold on until it stops.",
+      "When the shaking stops, check yourself and the people around you for injuries. Call 1669 for anyone badly hurt.",
+      "Leave a tall or damaged building by the stairs. Never use the lift.",
+      "Once outside, go to an open space away from buildings, walls and power cables.",
+      "Expect aftershocks. Do not go back inside until staff say the building is safe.",
     ],
     sections: [
       {
-        heading: "If you are inside a building",
+        id: "during-the-shaking",
+        heading: "During the shaking",
         items: [
-          "Drop, cover, and hold on immediately. Get under a sturdy desk or table if one is nearby.",
-          "If there is no shelter, move to an interior wall away from windows, and cover your head and neck with your arms.",
-          "In a high-rise, expect the building to sway, sometimes for longer than the ground shaking itself. This is normal for a well-built tall building and does not mean it is about to collapse.",
-          "Do not use lifts during or immediately after shaking, in case of power loss or damage.",
+          "Drop, cover and hold on where you are. Get under a sturdy desk or table if one is within a step or two. If not, crouch by an inside wall and protect your head and neck with your arms.",
+          "Stay inside. Most injuries happen when people try to move or run out and are hit by falling glass and debris.",
+          "Do not stand in a doorway. In modern buildings it is no safer than anywhere else.",
+          "Keep away from windows, glass partitions, bookshelves and anything that could fall.",
+          "In bed, stay there and cover your head with a pillow.",
+          "If you use a wheelchair, lock the wheels, bend forward and cover your head and neck.",
         ],
       },
       {
-        heading: "If you are outdoors",
-        items: [
-          "Move away from buildings, walls, glass, and overhead power lines, since falling debris is the main danger outdoors.",
-          "Find an open area if possible and stay there, in a crouched position, until the shaking stops.",
-          "If you are driving, pull over away from buildings, bridges, and overpasses, and stay in the vehicle with your seatbelt on until shaking stops.",
+        id: "tall-buildings",
+        heading: "In a tall building",
+        body: [
+          "High floors can sway for a long time, sometimes after the ground has stopped moving. Swaying on its own does not mean the building is failing. Fire alarms and sprinklers may go off.",
+          "Stay where you are until the shaking stops, then leave by the stairs, as DDPM advises. Look out for cracked stairs, fallen ceiling panels and broken glass on the way down.",
         ],
       },
       {
-        heading: "Evacuating safely",
+        id: "outside-or-travelling",
+        heading: "Outside or travelling",
         items: [
-          "Wait until the shaking has completely stopped before moving.",
-          "Use the stairs, not lifts, to leave the building.",
-          "Watch for hazards as you move: fallen debris, cracked stairs, broken glass, and damaged handrails.",
-          "Expect aftershocks. They can happen minutes, hours, or days later and can also cause damage, so stay alert once you are in a safe, open area.",
+          "Move away from buildings, walls, signs, trees and power cables, then crouch and cover your head.",
+          "In a vehicle, pull over away from bridges, flyovers and buildings and stay inside until the shaking stops.",
+          "On a river boat or pier, hold on and follow the crew. Keep clear of the pier edge.",
         ],
       },
       {
-        heading: "After it passes",
+        id: "after",
+        heading: "After the shaking",
         items: [
-          "Check yourself and people near you for injuries before checking anything else.",
-          "If you smell gas, see sparking wires, or see structural damage such as large cracks, leave the building and report it. Do not re-enter a building you suspect is damaged.",
-          "Follow official updates from Thammasat University and Bangkok authorities on when it is safe to return to buildings.",
-          "Keep your phone charged where possible, since networks can be congested after a large earthquake.",
+          "If you smell gas, see sparking cables or notice wide new cracks in walls, pillars or beams, leave the building and report it.",
+          "Do not light a flame or switch on electrical equipment if you smell gas.",
+          "Use text messages or chat apps instead of calls, so lines stay free for emergencies.",
+          "Follow updates from Thammasat University and the Thai Meteorological Department before returning to any building.",
         ],
       },
       {
-        heading: "For international students",
+        id: "before",
+        heading: "Be ready before it happens",
         items: [
-          "Thailand's national alert for the March 2025 Myanmar earthquake showed that even a distant, powerful earthquake can be strongly felt in Bangkok high-rises and, in rare cases, cause serious structural damage. Take shaking seriously even if you are used to living in a low-earthquake country.",
-          'Learn where the stairwells are in the buildings you use most, and practise "drop, cover, and hold on" mentally so it becomes automatic.',
-          "Save Thailand's emergency numbers in your phone now.",
+          "Turn on emergency alerts on your phone. DDPM now sends warnings by cell broadcast, in Thai and English.",
+          "Learn where the stairs are in the buildings you use, especially above the fourth floor.",
+          "Keep heavy objects off high shelves above where you sit or sleep.",
         ],
       },
-    ],
-    extraContacts: [
-      { label: "Police / general emergency", value: "191", href: "tel:191" },
-      { label: "Medical emergency (EMS, national)", value: "1669", href: "tel:1669" },
-      {
-        label: "Department of Disaster Prevention and Mitigation (DDPM)",
-        value: "1784",
-        href: "tel:1784",
-      },
-      { label: "Bangkok Erawan Emergency Medical Service", value: "1646", href: "tel:1646" },
     ],
   },
   th: {
-    bannerMessage: "อาจรู้สึกถึงแรงสั่นสะเทือนจากแผ่นดินไหวในกรุงเทพฯ ให้หมอบ ป้อง เกาะ ทันที",
     title: "แผ่นดินไหว",
-    lede: "ประเทศไทยไม่ใช่พื้นที่เสี่ยงแผ่นดินไหวสูง แต่ชั้นดินอ่อนของกรุงเทพฯ สามารถขยายแรงสั่นสะเทือนจากแผ่นดินไหวขนาดใหญ่ที่อยู่ไกลออกไปได้ ดังที่เกิดขึ้นในเดือนมีนาคม 2568 อาคารสูงอาจรู้สึกโยกแรงแม้ศูนย์กลางแผ่นดินไหวจะอยู่ไกล การรู้วิธีปฏิบัติตัวจะช่วยให้ปลอดภัย",
-    immediateActions: [
-      "หมอบลงกับพื้นทันทีบนมือและเข่า ก่อนที่แรงสั่นจะทำให้ล้ม",
-      "ป้องกันศีรษะและคอด้วยแขน หากทำได้ให้เข้าไปหลบใต้โต๊ะที่แข็งแรง",
-      "เกาะโต๊ะหรือที่หลบภัยไว้ หรือใช้มือป้องกันศีรษะและคอ จนกว่าแรงสั่นจะหยุด",
-      "อยู่ห่างจากหน้าต่าง กระจก และเฟอร์นิเจอร์หรือชั้นวางของสูงที่อาจล้มทับ",
-      "ห้ามวิ่งออกนอกอาคารและห้ามใช้ลิฟต์ขณะที่อาคารกำลังสั่น",
+    summary:
+      "กรุงเทพฯ อยู่ห่างจากรอยเลื่อนมีพลัง แต่ดินอ่อนของกรุงเทพฯ ขยายแรงสั่นจากแผ่นดินไหวใหญ่ที่อยู่ไกลออกไป เมื่อวันที่ 28 มีนาคม 2568 แผ่นดินไหวขนาด 7.7 ในเมียนมาทำให้อาคารสูงทั่วกรุงเทพฯ สั่นไหว และอาคารที่กำลังก่อสร้างในเขตจตุจักรถล่ม",
+    banner: "รู้สึกได้ถึงแผ่นดินไหวในกรุงเทพฯ ตรวจดูผู้บาดเจ็บและความเสียหาย และระวังอาฟเตอร์ช็อก",
+    now: [
+      "ถ้ายังสั่นอยู่ ให้หมอบลง ป้องศีรษะและลำคอ และเกาะสิ่งที่มั่นคงไว้จนกว่าจะหยุดสั่น",
+      "เมื่อหยุดสั่นแล้ว ตรวจดูตัวเองและคนรอบข้างว่าบาดเจ็บหรือไม่ ถ้ามีคนเจ็บหนักให้โทร 1669",
+      "ออกจากอาคารสูงหรืออาคารที่เสียหายทางบันได ห้ามใช้ลิฟต์",
+      "เมื่อออกมาแล้ว ไปอยู่ที่โล่งห่างจากอาคาร กำแพง และสายไฟ",
+      "ระวังอาฟเตอร์ช็อก อย่ากลับเข้าอาคารจนกว่าเจ้าหน้าที่จะบอกว่าปลอดภัย",
     ],
     sections: [
       {
-        heading: "หากอยู่ในอาคาร",
+        id: "during-the-shaking",
+        heading: "ระหว่างที่แผ่นดินสั่น",
         items: [
-          "หมอบ ป้อง เกาะ ทันที หากมีโต๊ะที่แข็งแรงอยู่ใกล้ ให้เข้าไปหลบใต้โต๊ะ",
-          "หากไม่มีที่หลบ ให้ย้ายไปอยู่ชิดผนังด้านในที่ห่างจากหน้าต่าง และใช้แขนป้องกันศีรษะและคอ",
-          "ในอาคารสูง อาคารอาจโยกไปมา บางครั้งนานกว่าช่วงที่พื้นดินสั่นจริง ถือเป็นเรื่องปกติของอาคารสูงที่ก่อสร้างได้มาตรฐาน ไม่ได้หมายความว่าอาคารกำลังจะถล่ม",
-          "ห้ามใช้ลิฟต์ระหว่างหรือทันทีหลังแผ่นดินไหว เนื่องจากไฟฟ้าอาจดับหรือลิฟต์อาจเสียหาย",
+          "หมอบ ป้อง เกาะ ตรงที่คุณอยู่ ถ้ามีโต๊ะแข็งแรงอยู่ใกล้ ๆ ให้มุดลงใต้โต๊ะ ถ้าไม่มี ให้หมอบชิดผนังด้านในอาคาร แล้วใช้แขนป้องศีรษะและลำคอ",
+          "อยู่ในอาคารไว้ก่อน การบาดเจ็บส่วนใหญ่เกิดตอนคนพยายามวิ่งออกไป แล้วถูกกระจกหรือเศษวัสดุตกใส่",
+          "อย่ายืนหลบใต้วงกบประตู ในอาคารสมัยใหม่ตรงนั้นไม่ได้ปลอดภัยกว่าจุดอื่น",
+          "อยู่ห่างจากหน้าต่าง ผนังกระจก ชั้นหนังสือ และสิ่งของที่อาจล้มหรือหล่นลงมา",
+          "ถ้าอยู่บนเตียง ให้อยู่บนเตียงและใช้หมอนป้องศีรษะ",
+          "ถ้าใช้รถเข็น ให้ล็อกล้อ ก้มตัวไปด้านหน้า และป้องศีรษะกับลำคอ",
         ],
       },
       {
-        heading: "หากอยู่กลางแจ้ง",
-        items: [
-          "เดินออกห่างจากอาคาร กำแพง กระจก และสายไฟฟ้าเหนือศีรษะ เพราะอันตรายหลักกลางแจ้งคือเศษวัสดุที่ร่วงหล่นลงมา",
-          "หาพื้นที่โล่งหากทำได้ และอยู่ในท่าหมอบต่ำจนกว่าแรงสั่นจะหยุด",
-          "หากกำลังขับรถ ให้จอดรถห่างจากอาคาร สะพาน และทางยกระดับ และอยู่ในรถโดยคาดเข็มขัดนิรภัยจนกว่าแรงสั่นจะหยุด",
+        id: "tall-buildings",
+        heading: "ถ้าอยู่บนอาคารสูง",
+        body: [
+          "ชั้นสูงอาจโยกนานกว่าพื้นดิน บางครั้งยังโยกอยู่หลังพื้นดินหยุดสั่นแล้ว การโยกอย่างเดียวไม่ได้แปลว่าอาคารกำลังพัง สัญญาณเตือนไฟไหม้และสปริงเกลอร์อาจทำงานเอง",
+          "อยู่กับที่จนกว่าจะหยุดสั่น แล้วลงทางบันไดตามคำแนะนำของ ปภ. ระหว่างทางให้ระวังบันไดร้าว ฝ้าเพดานหล่น และเศษกระจก",
         ],
       },
       {
-        heading: "การอพยพอย่างปลอดภัย",
+        id: "outside-or-travelling",
+        heading: "ถ้าอยู่นอกอาคารหรือกำลังเดินทาง",
         items: [
-          "รอจนกว่าแรงสั่นจะหยุดสนิทก่อนเคลื่อนที่",
-          "ใช้บันไดออกจากอาคาร ห้ามใช้ลิฟต์",
-          "สังเกตอันตรายระหว่างเดิน เช่น เศษวัสดุที่ร่วงหล่น บันไดที่แตกร้าว กระจกแตก และราวบันไดที่ชำรุด",
-          "เตรียมรับมือกับอาฟเตอร์ช็อก ซึ่งอาจเกิดขึ้นภายในไม่กี่นาที ชั่วโมง หรือหลายวันหลังจากนั้น และอาจสร้างความเสียหายเพิ่มเติมได้ จึงควรตื่นตัวแม้จะอยู่ในที่ปลอดภัยและโล่งแล้ว",
+          "ออกห่างจากอาคาร กำแพง ป้าย ต้นไม้ และสายไฟ แล้วหมอบลงและป้องศีรษะ",
+          "ถ้าอยู่ในรถ ให้จอดห่างจากสะพาน ทางยกระดับ และอาคาร แล้วอยู่ในรถจนกว่าจะหยุดสั่น",
+          "ถ้าอยู่บนเรือหรือท่าเรือ ให้จับราวไว้และทำตามพนักงานเรือ อยู่ห่างจากขอบท่า",
         ],
       },
       {
-        heading: "หลังเหตุแผ่นดินไหว",
+        id: "after",
+        heading: "หลังแผ่นดินหยุดสั่น",
         items: [
-          "ตรวจสอบอาการบาดเจ็บของตนเองและผู้ที่อยู่ใกล้ก่อนสิ่งอื่นใด",
-          "หากได้กลิ่นแก๊ส เห็นสายไฟช็อต หรือเห็นความเสียหายของโครงสร้าง เช่น รอยร้าวขนาดใหญ่ ให้ออกจากอาคารและแจ้งเหตุทันที ห้ามกลับเข้าไปในอาคารที่สงสัยว่าเสียหาย",
-          "ติดตามประกาศอย่างเป็นทางการจากมหาวิทยาลัยธรรมศาสตร์และหน่วยงานกรุงเทพมหานคร ว่าเมื่อใดจึงจะปลอดภัยที่จะกลับเข้าอาคาร",
-          "พยายามชาร์จโทรศัพท์ให้พร้อมใช้งานเมื่อทำได้ เนื่องจากเครือข่ายโทรศัพท์อาจแออัดหลังเกิดแผ่นดินไหวขนาดใหญ่",
+          "ถ้าได้กลิ่นแก๊ส เห็นสายไฟมีประกายไฟ หรือเห็นรอยร้าวใหม่ขนาดใหญ่ที่ผนัง เสา หรือคาน ให้ออกจากอาคารและแจ้งเจ้าหน้าที่",
+          "ถ้าได้กลิ่นแก๊ส ห้ามจุดไฟหรือเปิดเครื่องใช้ไฟฟ้า",
+          "ส่งข้อความหรือแชตแทนการโทร เพื่อให้คู่สายว่างสำหรับเหตุฉุกเฉิน",
+          "ติดตามประกาศของมหาวิทยาลัยธรรมศาสตร์และกรมอุตุนิยมวิทยาก่อนกลับเข้าอาคาร",
         ],
       },
       {
-        heading: "สำหรับนักศึกษาต่างชาติ",
+        id: "before",
+        heading: "เตรียมพร้อมไว้ก่อน",
         items: [
-          "เหตุแผ่นดินไหวที่เมียนมาในเดือนมีนาคม 2568 แสดงให้เห็นว่าแม้แผ่นดินไหวขนาดใหญ่ที่อยู่ไกลออกไปก็สามารถรู้สึกได้ชัดเจนในอาคารสูงของกรุงเทพฯ และในบางกรณีอาจสร้างความเสียหายต่อโครงสร้างอย่างร้ายแรง จึงควรให้ความสำคัญกับแรงสั่นสะเทือนอย่างจริงจัง แม้จะคุ้นเคยกับการอยู่ในประเทศที่มีแผ่นดินไหวน้อย",
-          'จดจำตำแหน่งบันไดในอาคารที่ใช้งานบ่อย และฝึกนึกถึงขั้นตอน "หมอบ ป้อง เกาะ" ให้กลายเป็นความเคยชิน',
-          "บันทึกเบอร์ฉุกเฉินของประเทศไทยไว้ในโทรศัพท์ตั้งแต่วันนี้",
+          "เปิดการแจ้งเตือนเหตุฉุกเฉินในโทรศัพท์ ตอนนี้ ปภ. ส่งคำเตือนผ่านระบบ Cell Broadcast เป็นภาษาไทยและอังกฤษ",
+          "จำตำแหน่งบันไดในอาคารที่ใช้เป็นประจำ โดยเฉพาะถ้าเรียนหรือพักสูงกว่าชั้นสี่",
+          "อย่าวางของหนักบนชั้นสูงเหนือที่นั่งหรือที่นอน",
         ],
       },
-    ],
-    extraContacts: [
-      { label: "ตำรวจ / เหตุฉุกเฉินทั่วไป", value: "191", href: "tel:191" },
-      { label: "การแพทย์ฉุกเฉิน (ทั่วประเทศ)", value: "1669", href: "tel:1669" },
-      { label: "กรมป้องกันและบรรเทาสาธารณภัย (ปภ.)", value: "1784", href: "tel:1784" },
-      { label: "ศูนย์เอราวัณ บริการการแพทย์ฉุกเฉินกรุงเทพมหานคร", value: "1646", href: "tel:1646" },
     ],
   },
 };

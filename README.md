@@ -114,15 +114,14 @@ originals.
 | `CONTACT_FROM`           | Verified "from" address Resend sends on behalf of.                                                                   |
 | `POSTGRES_URL`           | Equipment loan and inventory database. Auto-set by the Vercel Postgres integration; run the migrations against it.   |
 | `OFFICER_SESSION_SECRET` | Signing key for the per-officer session cookie (`openssl rand -hex 32`). Without it, officer sign-in is unavailable. |
-| `CRON_SECRET`            | Bearer token the daily cron (`/api/cron/daily`) and the emergency cache purge (`/api/emergency/revalidate`) require. |
+| `CRON_SECRET`            | Bearer token the daily cron (`/api/cron/daily`) requires.                                                            |
 | `BLOB_READ_WRITE_TOKEN`  | Vercel Blob token for inventory item photos. Auto-set by the Blob integration; without it uploads are disabled.      |
-| `EDGE_CONFIG`            | Vercel Edge Config connection string, used to switch emergency mode on and off with no redeploy.                     |
 
 ## Project structure
 
 ```
 app/                # Next.js App Router; all pages live under app/[lang]/...
-app/api/            # Route handlers: contact, start-club, loans, inventory, emergency, cron
+app/api/            # Route handlers: contact, start-club, loans, inventory, cron
 components/         # Shared design-system components (PascalCase filenames)
 content/            # All editable content: news, activity, clubs, student-life, calendar,
                     #   smart answers, onboarding, emergency scenarios, course reviews,
@@ -156,19 +155,13 @@ To stand it up on a fresh database:
 Optional extras: `BLOB_READ_WRITE_TOKEN` enables item photos, and `CRON_SECRET` enables the
 daily loan-reminder emails sent by the Vercel Cron job declared in `vercel.json`.
 
-## Emergency mode
+## Emergency alerts
 
-A site-wide alert banner and scenario pages that can be switched on **without a redeploy**.
-Edge Config only selects which scenario is live; the wording lives in `content/emergency/`.
-Set an item keyed `emergency` in the Edge Config store:
-
-```json
-{ "active": true, "scenario": "flooding", "messageOverride": { "en": "", "th": "" } }
-```
-
-Reads are cached for an hour (that window doubles as the site's ISR window), so after flipping
-the value, `POST /api/emergency/revalidate` with `Authorization: Bearer $CRON_SECRET` to make
-the change live immediately. With `EDGE_CONFIG` unset, emergency mode is always off.
+Eleven researched emergency guides live in `content/emergency/`, in English and Thai. To raise
+a site-wide alert, set `activeEmergency` in `content/emergency/active.ts` to name a guide, with
+an issue time and optional banner text and updates, then commit and deploy. Every page carries
+the banner and the guide shows the alert's times and updates. Set it back to `null` and deploy
+to end the alert. The whole site stays static; see `docs/EDITING.md` for the steps.
 
 ## Deploying to Vercel
 
@@ -176,8 +169,8 @@ the change live immediately. With `EDGE_CONFIG` unset, emergency mode is always 
 2. Set the environment variables from the table above. All are optional, but
    `NEXT_PUBLIC_SITE_URL` is recommended so canonical URLs and the sitemap point at the real
    domain.
-3. Attach the Postgres, Blob, and Edge Config integrations if you want the loan suite and
-   emergency mode; then run the migrations as described above.
+3. Attach the Postgres and Blob integrations if you want the loan suite; then run the
+   migrations as described above.
 4. Leave the build command as the default (`next build`). `vercel.json` declares the daily cron
    job; no other custom configuration is needed.
 

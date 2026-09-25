@@ -4,12 +4,12 @@ import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 import { jenjrusVris } from "@/lib/fonts";
-import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 import SkipLink from "@/components/SkipLink";
-import EmergencyBannerClient from "@/components/EmergencyBannerClient";
+import EmergencyBanner from "@/components/EmergencyBanner";
 import SiteAnnouncement from "@/components/SiteAnnouncement";
-import { getEmergencyBannerData } from "@/lib/emergency";
+import { alertBanner, getLiveAlert } from "@/lib/emergency";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -74,13 +74,12 @@ export default async function RootLayout({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
 
-  // Runtime emergency mode, toggled via Edge Config without a redeploy. The read
-  // is cached (see lib/emergency.ts) so it does not force dynamic rendering; the
-  // banner is server-rendered here for no-JS visitors and then refreshed
-  // client-side. No `headers()`/nonce read here: that would force every page
-  // dynamic; the inline theme script is authorised by hash on strict routes and
-  // by `'unsafe-inline'` on the static ones (see proxy.ts).
-  const emergency = await getEmergencyBannerData(locale);
+  // The emergency alert is committed content (content/emergency/active.ts), so
+  // the banner is baked into the static HTML. No `headers()`/nonce read here:
+  // that would force every page dynamic; the inline theme script is authorised
+  // by hash on strict routes and by `'unsafe-inline'` on the static ones (see
+  // proxy.ts).
+  const live = getLiveAlert();
 
   return (
     <html
@@ -101,7 +100,14 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }}
         />
         <SkipLink label={dict.a11y.skip} />
-        <EmergencyBannerClient locale={locale} cta={dict.emergencyBanner.cta} initial={emergency} />
+        {live ? (
+          <EmergencyBanner
+            href={localeHref(locale, `/emergency/${live.scenario.id}`)}
+            message={alertBanner(live, locale)}
+            cta={dict.emergencyBanner.cta}
+            severity={live.scenario.severity}
+          />
+        ) : null}
         <SiteAnnouncement locale={locale} />
         <Header locale={locale} />
         {/*

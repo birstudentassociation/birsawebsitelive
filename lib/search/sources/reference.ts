@@ -34,7 +34,7 @@
 import { committee, committeeGroupLabels } from "@/content/committee";
 import { courses } from "@/content/course-review/courses";
 import type { Course, CourseCategory } from "@/content/course-review/types";
-import { scenarios } from "@/content/emergency/scenarios";
+import { scenarioIds, scenarios, type ScenarioId } from "@/content/emergency/scenarios";
 import type { EmergencyScenario, EmergencySection } from "@/content/emergency/types";
 import { quickGroups } from "@/content/quick";
 import { documents } from "@/content/activity/regulations";
@@ -397,32 +397,38 @@ export function quickLinkDocs(locale: Locale): SearchDoc[] {
  * types during an actual emergency ("fire", "ไฟไหม้") often is not the exact
  * word the guidance prose uses.
  */
-const SCENARIO_KEYWORDS: Record<string, string[]> = {
+const SCENARIO_KEYWORDS: Record<ScenarioId, string[]> = {
   fire: ["fire", "ไฟไหม้", "evacuate", "อพยพ"],
   earthquake: ["earthquake", "แผ่นดินไหว"],
   flooding: ["flood", "น้ำท่วม"],
-  "active-shooting": ["shooting", "กราดยิง", "gun"],
-  "health-advisory": ["outbreak", "โรคระบาด"],
+  "active-shooting": ["shooting", "กราดยิง", "gun", "attack"],
+  "air-pollution": ["PM2.5", "dust", "ฝุ่น", "air quality"],
+  "health-advisory": ["outbreak", "โรคระบาด", "sick"],
   protests: ["protest", "ม็อบ", "ชุมนุม"],
-  coup: ["coup", "รัฐประหาร"],
+  coup: ["coup", "รัฐประหาร", "martial law", "กฎอัยการศึก"],
   "campus-closure": ["closed", "ปิด", "closure"],
   "faculty-closure": ["closed", "ปิด", "closure"],
-  // Fallback scenario (see content/emergency/scenarios/generic.ts): no
-  // single event word, so index the general term instead.
+  // General guide (see content/emergency/scenarios/generic.ts): no single
+  // event word, so index the general term instead.
   generic: ["emergency", "ฉุกเฉิน"],
 };
 
 function sectionText(section: EmergencySection): string[] {
-  return [section.heading, ...(section.body ?? []), ...(section.items ?? [])];
+  return [
+    section.heading,
+    ...(section.body ?? []),
+    ...(section.steps ?? []),
+    ...(section.items ?? []),
+  ];
 }
 
 /** A safety page is the answer to a whole category of question; weight it accordingly. */
 const EMERGENCY_PRIORITY = 0.7;
 
-function emergencyDoc(locale: Locale, scenario: EmergencyScenario): SearchDoc {
+function emergencyDoc(locale: Locale, id: ScenarioId, scenario: EmergencyScenario): SearchDoc {
   const content = scenario[locale];
   const body = [
-    ...content.immediateActions,
+    ...content.now,
     ...content.sections.flatMap((section) => sectionText(section)),
   ].join(" ");
 
@@ -433,8 +439,8 @@ function emergencyDoc(locale: Locale, scenario: EmergencyScenario): SearchDoc {
     kind: "guide",
     href: localeHref(locale, `/emergency/${scenario.id}`),
     title: content.title,
-    summary: content.lede,
-    keywords: SCENARIO_KEYWORDS[scenario.id] ?? [],
+    summary: content.summary,
+    keywords: SCENARIO_KEYWORDS[id],
     body,
     priority: EMERGENCY_PRIORITY,
   };
@@ -442,7 +448,7 @@ function emergencyDoc(locale: Locale, scenario: EmergencyScenario): SearchDoc {
 
 /** One search document per pre-prepared emergency scenario, for one locale. */
 export function emergencyDocs(locale: Locale): SearchDoc[] {
-  return Object.values(scenarios).map((scenario) => emergencyDoc(locale, scenario));
+  return scenarioIds.map((id) => emergencyDoc(locale, id, scenarios[id]));
 }
 
 // ---------------------------------------------------------------------------

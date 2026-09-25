@@ -19,7 +19,6 @@
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.8.0",
-    "@vercel/edge-config": "^1.5.1",
     "@vercel/postgres": "^0.10.0",
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
