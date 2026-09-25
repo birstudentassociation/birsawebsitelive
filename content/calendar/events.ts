@@ -341,7 +341,7 @@ export const calendarEvents: CalendarEvent[] = [
   {
     id: "sep-asa-ir-applications",
     start: "2026-09-10",
-    end: "2026-09-24",
+    end: "2026-09-26",
     title: {
       en: "ASA IR 6 camp applications",
       th: "เปิดรับสมัครลูกค่ายอาสาไออาร์ 6",
