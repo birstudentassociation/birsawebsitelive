@@ -68,10 +68,7 @@ export const th: typeof en = {
     call: "โทร",
     onThisPage: "ในหน้านี้",
     contacts: "ช่องทางติดต่อ",
-    birsaContacts: "ติดต่อ BIRSA",
     ext: "ต่อ",
-    phone: "โทรศัพท์",
-    address: "ที่อยู่",
     sources: "ที่มาของคำแนะนำ",
     reviewed: "ตรวจสอบล่าสุด",
     disclaimer:

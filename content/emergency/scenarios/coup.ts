@@ -1,15 +1,11 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
- * A coup, martial law or a declared state of emergency. Takes a clear position
- * for constitutional democracy and civil liberties, in keeping with Thammasat's
- * history, while endorsing no party or person and keeping personal safety and
- * honest risk first.
- *
- * History from Wikipedia (Thammasat University, the 1973 uprising and the
- * 6 October 1976 massacre). Powers as described by Human Rights Watch (Martial
- * Law Act 1914) and the Emergency Decree 2005; arrest rights from section 7/1
- * of the Code of Criminal Procedure; legal aid from TLHR and the TU Law Center.
+ * A coup, martial law or a declared state of emergency. Describes what a coup
+ * is, what the special powers allow, how to stay safe and where to get legal
+ * help. Powers as described by Human Rights Watch (Martial Law Act 1914) and
+ * the Emergency Decree 2005; arrest rights from section 7/1 of the Code of
+ * Criminal Procedure; legal aid from TLHR and the TU Law Center.
  */
 const coup: EmergencyScenario = {
   id: "coup",
@@ -19,27 +15,6 @@ const coup: EmergencyScenario = {
   keyContacts: ["tlhr", "police", "ambulance"],
   moreContacts: ["tuLaw", "touristPolice", "birOffice", "facultyOffice", "oia", "mentalHealth"],
   sources: [
-    {
-      label: {
-        en: "Wikipedia, Thammasat University",
-        th: "Wikipedia มหาวิทยาลัยธรรมศาสตร์",
-      },
-      href: "https://en.wikipedia.org/wiki/Thammasat_University",
-    },
-    {
-      label: {
-        en: "Wikipedia, the 1973 Thai popular uprising",
-        th: "Wikipedia เหตุการณ์ 14 ตุลา 2516",
-      },
-      href: "https://en.wikipedia.org/wiki/1973_Thai_popular_uprising",
-    },
-    {
-      label: {
-        en: "Wikipedia, the 6 October 1976 massacre",
-        th: "Wikipedia เหตุการณ์ 6 ตุลา 2519",
-      },
-      href: "https://en.wikipedia.org/wiki/6_October_1976_massacre",
-    },
     {
       label: {
         en: "Human Rights Watch, powers under the Martial Law Act 1914",
@@ -80,7 +55,7 @@ const coup: EmergencyScenario = {
   en: {
     title: "Coup or military rule",
     summary:
-      "A coup takes power away from the people who elected their government. Thammasat was founded to teach constitutional government, and its students have defended it before. BIRSA stands with democracy. This guide sets out where we stand, your rights, and how to stay safe whatever you decide to do.",
+      "The armed forces have seized power from the government. Military orders can limit gatherings, movement and what is published. This guide explains what a coup is, your rights, and how to stay safe.",
     banner:
       "The military has seized power. Stay safe, know your rights and look out for one another.",
     now: [
@@ -92,22 +67,13 @@ const coup: EmergencyScenario = {
     ],
     sections: [
       {
-        id: "where-we-stand",
-        heading: "Where BIRSA stands",
-        body: [
-          "Power in a democracy comes from the people, through elections and a constitution. A coup replaces that with force. No promise of order or stability makes that legitimate, and we will not pretend otherwise.",
-          "We stand for a government chosen by the people, the rule of law, and the freedom to speak, write, meet and disagree without fear. We endorse no party and no politician. Our loyalty is to those principles and to the students who hold them.",
-          "Every student has the right to decide how to respond to a coup. Some will speak out, some will stay quiet, and some will need to protect themselves and their families first. All of those choices deserve respect. Our job is to make sure you choose with full knowledge of the risks, and that nobody who is detained is left alone.",
-        ],
-      },
-      {
-        id: "thammasat",
-        heading: "Why this is Thammasat's fight",
+        id: "what-a-coup-is",
+        heading: "What a coup is",
         items: [
-          "Thammasat was founded on 27 June 1934 as the University of Moral and Political Sciences by Pridi Banomyong, one of the leaders of the 1932 revolution that brought constitutional government to Siam.",
-          "In October 1973, more than 2,000 Thammasat students began the protests that grew to hundreds of thousands and ended the military government of Field Marshal Thanom Kittikachorn. At least 77 people were killed.",
-          "On 6 October 1976, police and paramilitary forces attacked students gathered on this campus at Tha Prachan. The official death toll was 46, and many believe the true number was over a hundred. The military seized power that same evening.",
-          "Thammasat marks 6 October every year, and a memorial stands on campus. When you walk past it, you are walking where students paid for the freedoms this guide asks you to protect.",
+          "A coup is when the armed forces take control of the government by force or the threat of force, outside the constitution.",
+          "The leaders usually suspend or scrap the constitution, dissolve parliament and set up a military council that rules by orders.",
+          "Martial law is often declared at the same time, and television, radio and websites may be taken over or blocked.",
+          "Military rule can last months or years, until a new constitution is written and elections are held.",
         ],
       },
       {
@@ -151,14 +117,14 @@ const coup: EmergencyScenario = {
         steps: [
           "Write down the time, place, and any names, uniforms or vehicle numbers you saw.",
           "Call Thai Lawyers for Human Rights on 092-271-3172 or 096-789-3173.",
-          "Tell their family, and tell BIRSA. We will help find support and make sure they are not forgotten.",
+          "Tell their family.",
         ],
       },
       {
         id: "recording",
         heading: "Recording what happens",
         items: [
-          "Records made at the time matter later, in court and in history. Film from a safe distance and never put yourself at risk for a shot.",
+          "Records made at the time can matter later, for example in court. Film from a safe distance and never put yourself at risk for a shot.",
           "Back up footage somewhere off your phone as soon as you can.",
           "Blur or crop out the faces of other protesters before you share anything. A photo can be used to identify and charge them.",
           "Posts, messages and shares can be used as evidence. Laws on computer crime apply to what you post online.",
@@ -195,7 +161,7 @@ const coup: EmergencyScenario = {
   th: {
     title: "รัฐประหารและการปกครองโดยทหาร",
     summary:
-      "รัฐประหารคือการยึดอำนาจไปจากประชาชนผู้เลือกรัฐบาล ธรรมศาสตร์ก่อตั้งขึ้นเพื่อสอนการปกครองตามรัฐธรรมนูญ และนักศึกษาธรรมศาสตร์เคยยืนหยัดปกป้องหลักการนี้มาแล้ว BIRSA ยืนข้างประชาธิปไตย หน้านี้บอกจุดยืนของเรา สิทธิของคุณ และวิธีดูแลความปลอดภัยไม่ว่าคุณจะเลือกทางใด",
+      "กองทัพเข้ายึดอำนาจจากรัฐบาล คำสั่งของคณะทหารอาจจำกัดการชุมนุม การเดินทาง และการเผยแพร่ข้อมูล หน้านี้อธิบายว่ารัฐประหารคืออะไร สิทธิของคุณ และวิธีดูแลความปลอดภัย",
     banner: "ทหารยึดอำนาจการปกครอง ดูแลความปลอดภัย รู้สิทธิของตัวเอง และดูแลกันและกัน",
     now: [
       "อยู่ในที่ปลอดภัย และบอกเพื่อนหรือครอบครัวว่าคุณอยู่ที่ไหน",
@@ -206,22 +172,13 @@ const coup: EmergencyScenario = {
     ],
     sections: [
       {
-        id: "where-we-stand",
-        heading: "จุดยืนของ BIRSA",
-        body: [
-          "ในระบอบประชาธิปไตย อำนาจมาจากประชาชน ผ่านการเลือกตั้งและรัฐธรรมนูญ รัฐประหารเอากำลังมาแทนที่สิ่งนั้น ไม่ว่าจะอ้างความสงบเรียบร้อยหรือเสถียรภาพอย่างไร ก็ไม่ทำให้การยึดอำนาจชอบธรรม และเราจะไม่แสร้งทำเป็นว่าเป็นอย่างอื่น",
-          "เรายืนหยัดเพื่อรัฐบาลที่ประชาชนเลือก หลักนิติธรรม และเสรีภาพที่จะพูด เขียน รวมตัว และเห็นต่างได้โดยไม่ต้องหวาดกลัว เราไม่สนับสนุนพรรคการเมืองหรือนักการเมืองคนใด ความภักดีของเราอยู่ที่หลักการเหล่านี้ และอยู่กับนักศึกษาทุกคนที่ยึดถือหลักการเดียวกัน",
-          "นักศึกษาทุกคนมีสิทธิเลือกเองว่าจะตอบสนองต่อรัฐประหารอย่างไร บางคนจะออกมาแสดงออก บางคนจะเงียบ และบางคนต้องปกป้องตัวเองและครอบครัวก่อน ทุกทางเลือกควรได้รับความเคารพ หน้าที่ของเราคือทำให้คุณเลือกโดยรู้ความเสี่ยงอย่างครบถ้วน และไม่ปล่อยให้ใครที่ถูกควบคุมตัวต้องอยู่อย่างโดดเดี่ยว",
-        ],
-      },
-      {
-        id: "thammasat",
-        heading: "ทำไมเรื่องนี้จึงเป็นเรื่องของธรรมศาสตร์",
+        id: "what-a-coup-is",
+        heading: "รัฐประหารคืออะไร",
         items: [
-          "ธรรมศาสตร์ก่อตั้งเมื่อวันที่ 27 มิถุนายน 2477 ในชื่อมหาวิทยาลัยวิชาธรรมศาสตร์และการเมือง โดยปรีดี พนมยงค์ หนึ่งในผู้นำการปฏิวัติ 2475 ที่นำการปกครองตามรัฐธรรมนูญมาสู่สยาม",
-          "เดือนตุลาคม 2516 นักศึกษาธรรมศาสตร์กว่าสองพันคนเริ่มการชุมนุมที่ขยายเป็นหลายแสนคน และยุติรัฐบาลทหารของจอมพลถนอม กิตติขจร มีผู้เสียชีวิตอย่างน้อย 77 คน",
-          "วันที่ 6 ตุลาคม 2519 ตำรวจและกองกำลังกึ่งทหารบุกทำร้ายนักศึกษาที่ชุมนุมอยู่ในธรรมศาสตร์ ท่าพระจันทร์ แห่งนี้ ตัวเลขผู้เสียชีวิตทางการคือ 46 คน และหลายฝ่ายเชื่อว่าจริง ๆ แล้วเกินร้อยคน เย็นวันเดียวกันนั้นทหารก็ยึดอำนาจ",
-          "ธรรมศาสตร์รำลึกเหตุการณ์ 6 ตุลาทุกปี และมีอนุสรณ์สถานอยู่ในมหาวิทยาลัย ทุกครั้งที่เดินผ่าน คุณกำลังเดินอยู่บนพื้นที่ที่นักศึกษารุ่นก่อนแลกมาด้วยชีวิต เพื่อเสรีภาพที่หน้านี้ชวนให้คุณปกป้อง",
+          "รัฐประหารคือการที่กองทัพเข้ายึดอำนาจการปกครองด้วยกำลังหรือการขู่ว่าจะใช้กำลัง นอกกรอบรัฐธรรมนูญ",
+          "ผู้ยึดอำนาจมักระงับหรือยกเลิกรัฐธรรมนูญ ยุบสภา และตั้งคณะทหารขึ้นปกครองด้วยการออกคำสั่ง",
+          "มักประกาศกฎอัยการศึกไปพร้อมกัน และอาจเข้าควบคุมหรือปิดกั้นโทรทัศน์ วิทยุ และเว็บไซต์",
+          "การปกครองโดยทหารอาจกินเวลาหลายเดือนหรือหลายปี จนกว่าจะร่างรัฐธรรมนูญใหม่และจัดการเลือกตั้ง",
         ],
       },
       {
@@ -265,14 +222,14 @@ const coup: EmergencyScenario = {
         steps: [
           "จดเวลา สถานที่ ชื่อ เครื่องแบบ หรือทะเบียนรถที่เห็น",
           "โทรศูนย์ทนายความเพื่อสิทธิมนุษยชน 092-271-3172 หรือ 096-789-3173",
-          "แจ้งครอบครัวของเพื่อน และแจ้ง BIRSA เราจะช่วยหาความช่วยเหลือ และไม่ปล่อยให้เพื่อนถูกลืม",
+          "แจ้งครอบครัวของเพื่อน",
         ],
       },
       {
         id: "recording",
         heading: "การบันทึกเหตุการณ์",
         items: [
-          "บันทึกที่ทำไว้ในเวลาจริงมีความหมายในภายหลัง ทั้งในชั้นศาลและในประวัติศาสตร์ ถ่ายจากระยะที่ปลอดภัย และอย่าเสี่ยงชีวิตเพื่อภาพเดียว",
+          "บันทึกที่ทำไว้ในเวลาจริงอาจมีความหมายในภายหลัง เช่น ในชั้นศาล ถ่ายจากระยะที่ปลอดภัย และอย่าเสี่ยงชีวิตเพื่อภาพเดียว",
           "สำรองไฟล์ไว้นอกโทรศัพท์โดยเร็วที่สุด",
           "เบลอหรือตัดใบหน้าผู้ชุมนุมคนอื่นออกก่อนแชร์ ภาพเพียงภาพเดียวอาจถูกใช้ระบุตัวและดำเนินคดีกับเขาได้",
           "โพสต์ ข้อความ และการแชร์อาจถูกใช้เป็นหลักฐาน กฎหมายว่าด้วยการกระทำความผิดเกี่ยวกับคอมพิวเตอร์ใช้กับสิ่งที่คุณโพสต์ออนไลน์ด้วย",

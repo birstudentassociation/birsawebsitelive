@@ -83,7 +83,7 @@ const generic: EmergencyScenario = {
         id: "afterwards",
         heading: "Afterwards",
         body: [
-          "Feeling shaken, anxious or unable to sleep after an emergency is normal. It usually eases within a few weeks. Talk to friends, or call the mental health hotline on 1323 at any hour. You can also ask BIRSA to put you in touch with university counselling.",
+          "Feeling shaken, anxious or unable to sleep after an emergency is normal. It usually eases within a few weeks. Talk to friends, or call the mental health hotline on 1323 at any hour.",
         ],
       },
     ],
@@ -141,7 +141,7 @@ const generic: EmergencyScenario = {
         id: "afterwards",
         heading: "หลังเหตุการณ์",
         body: [
-          "ความรู้สึกตกใจ กังวล หรือนอนไม่หลับหลังเหตุฉุกเฉินเป็นเรื่องปกติ และมักดีขึ้นภายในไม่กี่สัปดาห์ คุยกับเพื่อน หรือโทรสายด่วนสุขภาพจิต 1323 ได้ตลอดเวลา หรือบอก BIRSA ให้ช่วยประสานบริการให้คำปรึกษาของมหาวิทยาลัย",
+          "ความรู้สึกตกใจ กังวล หรือนอนไม่หลับหลังเหตุฉุกเฉินเป็นเรื่องปกติ และมักดีขึ้นภายในไม่กี่สัปดาห์ คุยกับเพื่อน หรือโทรสายด่วนสุขภาพจิต 1323 ได้ตลอดเวลา",
         ],
       },
     ],

@@ -8,13 +8,11 @@ import { getScenario, hasScenario, scenarioIds } from "@/content/emergency/scena
 import EmergencyHero from "@/components/EmergencyHero";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
-import Email from "@/components/Email";
 import Notice from "@/components/Notice";
 import AlertStatus from "@/components/emergency/AlertStatus";
 import CallButtons from "@/components/emergency/CallButtons";
 import ContactList from "@/components/emergency/ContactList";
 import GuideSection from "@/components/emergency/GuideSection";
-import { contact, socials } from "@/content/site";
 
 type Params = { lang: string; scenario: string };
 
@@ -141,29 +139,6 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
             extLabel={t.ext}
             newTabLabel={dict.a11y.newTab}
           />
-
-          <h3 className="mt-2 font-semibold">{t.birsaContacts}</h3>
-          <ul className="flex flex-col gap-2 text-sm text-muted">
-            <li>
-              <Email address={contact.email} className="underline hover:text-brand-deep" />
-            </li>
-            <li>
-              {t.phone} {contact.phone}
-            </li>
-            {socials
-              .filter((social) => !social.placeholder && social.id !== "email")
-              .map((social) => (
-                <li key={social.id}>
-                  <ExternalLink
-                    href={social.href}
-                    newTabLabel={dict.a11y.newTab}
-                    className="underline hover:text-brand-deep"
-                  >
-                    {social.label}
-                  </ExternalLink>
-                </li>
-              ))}
-          </ul>
         </section>
 
         <footer className="flex flex-col gap-3 border-t border-line pt-6 text-sm leading-relaxed text-muted">

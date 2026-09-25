@@ -69,10 +69,7 @@ export const en = {
     call: "Call",
     onThisPage: "On this page",
     contacts: "Contacts",
-    birsaContacts: "Contact BIRSA",
     ext: "ext.",
-    phone: "Phone",
-    address: "Address",
     sources: "Where this advice comes from",
     reviewed: "Last checked",
     disclaimer:

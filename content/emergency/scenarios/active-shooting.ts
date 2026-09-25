@@ -108,7 +108,7 @@ const activeShooting: EmergencyScenario = {
         items: [
           "Tell your family and friends you are safe by message. Keep phone lines free.",
           "Do not share photos or videos of the scene or of people who were hurt. They can help an attacker, hurt families and spread false information.",
-          "Many people have strong reactions for days or weeks afterwards. The mental health hotline on 1323 is open at all hours, and BIRSA can connect you with university counselling.",
+          "Many people have strong reactions for days or weeks afterwards. The mental health hotline on 1323 is open at all hours.",
         ],
       },
     ],
@@ -184,7 +184,7 @@ const activeShooting: EmergencyScenario = {
         items: [
           "ส่งข้อความบอกครอบครัวและเพื่อนว่าคุณปลอดภัย เว้นคู่สายโทรศัพท์ไว้",
           "อย่าส่งต่อภาพหรือคลิปที่เกิดเหตุหรือผู้บาดเจ็บ ภาพเหล่านี้อาจเป็นประโยชน์กับคนร้าย ทำร้ายจิตใจครอบครัวผู้สูญเสีย และทำให้ข่าวลือแพร่",
-          "หลายคนยังมีอาการทางใจอยู่หลายวันหรือหลายสัปดาห์ โทรสายด่วนสุขภาพจิต 1323 ได้ตลอดเวลา หรือให้ BIRSA ช่วยประสานบริการให้คำปรึกษาของมหาวิทยาลัย",
+          "หลายคนยังมีอาการทางใจอยู่หลายวันหรือหลายสัปดาห์ โทรสายด่วนสุขภาพจิต 1323 ได้ตลอดเวลา",
         ],
       },
     ],

@@ -66,7 +66,7 @@ const campusClosure: EmergencyScenario = {
         items: [
           "Wait for the university to say how and when you can collect things left on campus.",
           "If you need something urgently, such as medicine or a passport, tell the BIR Programme office.",
-          "If where you live is affected by the same event, follow instructions from your housing and ask BIRSA for help finding a place to stay.",
+          "If where you live is affected by the same event, follow instructions from your housing.",
         ],
       },
       {
@@ -122,7 +122,7 @@ const campusClosure: EmergencyScenario = {
         items: [
           "รอประกาศจากมหาวิทยาลัยว่าจะเข้าไปเอาของที่ลืมไว้ได้เมื่อไรและอย่างไร",
           "ถ้าต้องใช้ของด่วน เช่น ยาหรือหนังสือเดินทาง ให้แจ้งสำนักงานหลักสูตร BIR",
-          "ถ้าที่พักได้รับผลกระทบจากเหตุเดียวกัน ให้ทำตามคำแนะนำของที่พัก และขอให้ BIRSA ช่วยหาที่พักชั่วคราว",
+          "ถ้าที่พักได้รับผลกระทบจากเหตุเดียวกัน ให้ทำตามคำแนะนำของที่พัก",
         ],
       },
       {
