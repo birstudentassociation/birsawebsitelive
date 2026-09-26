@@ -20,10 +20,10 @@ type Props = {
   showGuideLink?: boolean;
 };
 
-const tone: Record<EmergencySeverity, string> = {
-  critical: "border-error bg-error-tint",
-  warning: "border-warning bg-warning-tint",
-  info: "border-info bg-info-tint",
+const labelTone: Record<EmergencySeverity, string> = {
+  critical: "text-error",
+  warning: "text-warning",
+  info: "text-info",
 };
 
 /** The live alert: what it says, when it was issued and updated, and its updates. */
@@ -32,12 +32,11 @@ export default function AlertStatus({ locale, live, t, showGuideLink = false }: 
   const updatedAt = alertUpdatedAt(alert);
 
   return (
-    <section
-      aria-labelledby="live-alert-heading"
-      className={`flex flex-col gap-4 rounded-md border-l-4 p-5 text-ink ${tone[scenario.severity]}`}
-    >
+    <section aria-labelledby="live-alert-heading" className="flex flex-col gap-4 text-ink">
       <div className="flex flex-col gap-1">
-        <p className="text-sm font-semibold tracking-wide uppercase">
+        <p
+          className={`text-sm font-semibold tracking-wide uppercase ${labelTone[scenario.severity]}`}
+        >
           {t.liveAlert} · {t.severity[scenario.severity]}
         </p>
         <h2 id="live-alert-heading" className="font-display text-2xl">

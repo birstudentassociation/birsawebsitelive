@@ -11,8 +11,9 @@ export type EmergencyBannerProps = {
 /**
  * Site-wide emergency notice, shown above everything while
  * `content/emergency/active.ts` names a live alert. Colour follows the
- * scenario severity so a critical alert reads red and a calmer advisory reads
- * amber. Not dismissible: every visitor on every page should see it while it
+ * scenario severity so a critical alert is solid red and a calmer advisory
+ * reads amber. The solid red is the same in both themes and keeps white text
+ * above 4.5:1. Not dismissible: every visitor on every page should see it while it
  * is active.
  *
  * The whole banner is a single link to the active scenario page for more
@@ -20,7 +21,7 @@ export type EmergencyBannerProps = {
  * `aria-label` is needed.
  */
 const severityClasses: Record<EmergencySeverity, string> = {
-  critical: "border-error bg-error-tint text-ink",
+  critical: "border-[#8f1116] bg-[#b3161c] text-white",
   warning: "border-warning bg-warning-tint text-ink",
   info: "border-line bg-cream text-ink",
 };
