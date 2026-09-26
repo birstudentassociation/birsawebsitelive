@@ -97,10 +97,11 @@ const flooding: EmergencyScenario = {
   en: {
     title: "Bangkok floods, September 2026",
     summary:
-      "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page lists shelters, sandbags, roads to avoid and who to call.",
+      "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
       "All 50 districts of Bangkok are a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",
     now: [
+      "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Keep out of floodwater. Do not drive a small car through flooded roads. Several have stalled in Din Daeng.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
       "If you need to leave home, go to a temporary shelter in your district. Call the number first if one is listed.",
@@ -108,6 +109,85 @@ const flooding: EmergencyScenario = {
       "Photograph any damage before you clean up. You will need the photographs to claim help.",
     ],
     sections: [
+      {
+        id: "thammasat",
+        heading: "Thammasat exams, classes and libraries",
+        body: [
+          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. Thammasat University Library has also closed some branches. The library will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "Midterm exams, undergraduate programmes",
+            places: [
+              { name: "Exams set for Saturday 26 September", detail: "Moved to Sunday 4 October" },
+              { name: "Exams set for Sunday 27 September", detail: "Moved to Sunday 11 October" },
+              {
+                name: "Exams already held that you could not sit because of the rain",
+                detail: "Your lecturer will set another assessment, worth the same as the exam.",
+              },
+              {
+                name: "Withdrawing with a W through the system",
+                detail: "Deadline extended to 26 October",
+              },
+              {
+                name: "Midterm results",
+                detail:
+                  "Marking is extended by 14 days. Lecturers will give results before the withdrawal deadline.",
+              },
+            ],
+            note: "First semester 2026.",
+          },
+          {
+            heading: "Classes, Monday 28 and Tuesday 29 September",
+            places: [
+              { name: "All courses at every campus", detail: "Online" },
+              {
+                name: "Courses that must be taught in person",
+                detail: "At the faculty's discretion. Your lecturer will tell you in advance.",
+              },
+            ],
+            note: "All programmes.",
+          },
+          {
+            heading: "Libraries, Sunday 27 September",
+            places: [
+              { name: "Tha Prachan, all branch libraries", detail: "Closed" },
+              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
+              { name: "Rangsit, Public Library", detail: "Closed" },
+              { name: "Rangsit, Learning Center", detail: "Open as usual" },
+              { name: "Rangsit, Nongyao Chaiseri Library", detail: "Open as usual" },
+              { name: "Lampang, Boonchu Treethong Library", detail: "Open as usual" },
+            ],
+          },
+          {
+            heading: "Libraries, Monday 28 September",
+            places: [
+              { name: "Tha Prachan, Sanya Dharmasakti Library", detail: "Closed" },
+              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
+              { name: "Rangsit, Public Library", detail: "Closed" },
+            ],
+            note: "The library may change this. Check before you go.",
+          },
+        ],
+        links: [
+          {
+            label: "Read the university announcement (scanned, in Thai)",
+            href: "/emergency/tu-announcement-2026-09-26.jpg",
+          },
+          { label: "Thammasat University Library", href: "https://www.library.tu.ac.th" },
+        ],
+      },
+      {
+        id: "campus",
+        heading: "Tha Prachan and getting to campus",
+        items: [
+          "The old town has not flooded so far. At 10:10 on 26 September the canals near Tha Prachan were normal and the Chao Phraya at Pak Khlong Talat was 1.06 m, well below the 2.30 m warning level.",
+          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. Leave early and go home early.",
+          "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section.",
+          "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
+        ],
+      },
       {
         id: "shelters",
         heading: "Temporary shelters",
@@ -328,85 +408,6 @@ const flooding: EmergencyScenario = {
         ],
       },
       {
-        id: "thammasat",
-        heading: "Thammasat exams, classes and libraries",
-        body: [
-          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. Thammasat University Library has also closed some branches. The library will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
-        ],
-        directoryOpen: true,
-        directory: [
-          {
-            heading: "Midterm exams, undergraduate programmes",
-            places: [
-              { name: "Exams set for Saturday 26 September", detail: "Moved to Sunday 4 October" },
-              { name: "Exams set for Sunday 27 September", detail: "Moved to Sunday 11 October" },
-              {
-                name: "Exams already held that you could not sit because of the rain",
-                detail: "Your lecturer will set another assessment, worth the same as the exam.",
-              },
-              {
-                name: "Withdrawing with a W through the system",
-                detail: "Deadline extended to 26 October",
-              },
-              {
-                name: "Midterm results",
-                detail:
-                  "Marking is extended by 14 days. Lecturers will give results before the withdrawal deadline.",
-              },
-            ],
-            note: "First semester 2026.",
-          },
-          {
-            heading: "Classes, Monday 28 and Tuesday 29 September",
-            places: [
-              { name: "All courses at every campus", detail: "Online" },
-              {
-                name: "Courses that must be taught in person",
-                detail: "At the faculty's discretion. Your lecturer will tell you in advance.",
-              },
-            ],
-            note: "All programmes.",
-          },
-          {
-            heading: "Libraries, Sunday 27 September",
-            places: [
-              { name: "Tha Prachan, all branch libraries", detail: "Closed" },
-              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
-              { name: "Rangsit, Public Library", detail: "Closed" },
-              { name: "Rangsit, Learning Center", detail: "Open as usual" },
-              { name: "Rangsit, Nongyao Chaiseri Library", detail: "Open as usual" },
-              { name: "Lampang, Boonchu Treethong Library", detail: "Open as usual" },
-            ],
-          },
-          {
-            heading: "Libraries, Monday 28 September",
-            places: [
-              { name: "Tha Prachan, Sanya Dharmasakti Library", detail: "Closed" },
-              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
-              { name: "Rangsit, Public Library", detail: "Closed" },
-            ],
-            note: "The library may change this. Check before you go.",
-          },
-        ],
-        links: [
-          {
-            label: "Read the university announcement (scanned, in Thai)",
-            href: "/emergency/tu-announcement-2026-09-26.jpg",
-          },
-          { label: "Thammasat University Library", href: "https://www.library.tu.ac.th" },
-        ],
-      },
-      {
-        id: "campus",
-        heading: "Tha Prachan and getting to campus",
-        items: [
-          "The old town has not flooded so far. At 10:10 on 26 September the canals near Tha Prachan were normal and the Chao Phraya at Pak Khlong Talat was 1.06 m, well below the 2.30 m warning level.",
-          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. Leave early and go home early.",
-          "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section above.",
-          "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
-        ],
-      },
-      {
         id: "help",
         heading: "Reporting flooding and getting help",
         items: [
@@ -451,10 +452,11 @@ const flooding: EmergencyScenario = {
   th: {
     title: "น้ำท่วมกรุงเทพฯ กันยายน 2569",
     summary:
-      "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้รวบรวมศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
+      "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
       "กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ระดับน้ำในคลองอยู่ในขั้นวิกฤต ถนนหลายสายมีน้ำท่วมขัง ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
     now: [
+      "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม ขณะนี้มีรถเล็กดับกลางน้ำหลายคันในเขตดินแดง",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
       "หากต้องออกจากบ้าน ให้ไปศูนย์พักพิงชั่วคราวในเขตของตน ถ้ามีเบอร์โทร ให้โทรสอบถามก่อน",
@@ -462,6 +464,91 @@ const flooding: EmergencyScenario = {
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
     ],
     sections: [
+      {
+        id: "thammasat",
+        heading: "ธรรมศาสตร์ การสอบ การเรียน และห้องสมุด",
+        body: [
+          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "สอบกลางภาค หลักสูตรระดับปริญญาตรี",
+            places: [
+              {
+                name: "รายวิชาที่สอบวันเสาร์ที่ 26 กันยายน",
+                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 4 ตุลาคม",
+              },
+              {
+                name: "รายวิชาที่สอบวันอาทิตย์ที่ 27 กันยายน",
+                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 11 ตุลาคม",
+              },
+              {
+                name: "รายวิชาที่สอบไปแล้ว แต่เข้าสอบไม่ได้เพราะฝนตกหนัก",
+                detail:
+                  "อาจารย์ผู้สอนจะจัดเก็บคะแนนด้วยวิธีอื่นตามดุลยพินิจ โดยคิดคะแนนเทียบเท่ากับการสอบ",
+              },
+              {
+                name: "การขอถอนรายวิชา (บันทึกอักษร W ผ่านระบบ)",
+                detail: "ขยายถึงวันที่ 26 ตุลาคม",
+              },
+              {
+                name: "ผลสอบกลางภาค",
+                detail: "ขยายเวลาตรวจข้อสอบออกไป 14 วัน อาจารย์จะแจ้งผลก่อนครบกำหนดถอนรายวิชา",
+              },
+            ],
+            note: "ภาคการศึกษาที่ 1/2569",
+          },
+          {
+            heading: "การเรียนการสอน วันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
+            places: [
+              { name: "ทุกรายวิชา ทุกศูนย์การศึกษา", detail: "เรียนออนไลน์" },
+              {
+                name: "รายวิชาที่จำเป็นต้องเรียนในชั้นเรียน",
+                detail: "อยู่ในดุลยพินิจของคณะหรือส่วนงาน อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
+              },
+            ],
+            note: "ทุกระดับหลักสูตร",
+          },
+          {
+            heading: "ห้องสมุด วันอาทิตย์ที่ 27 กันยายน",
+            places: [
+              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสาขาทุกแห่ง", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ศูนย์การเรียนรู้ฯ", detail: "เปิดให้บริการตามปกติ" },
+              { name: "ศูนย์รังสิต ห้องสมุดนงเยาว์ ชัยเสรี", detail: "เปิดให้บริการตามปกติ" },
+              { name: "ศูนย์ลำปาง ห้องสมุดบุญชู ตรีทอง", detail: "เปิดให้บริการตามปกติ" },
+            ],
+          },
+          {
+            heading: "ห้องสมุด วันจันทร์ที่ 28 กันยายน",
+            places: [
+              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสัญญา ธรรมศักดิ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
+            ],
+            note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
+          },
+        ],
+        links: [
+          {
+            label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ (ฉบับสแกน)",
+            href: "/emergency/tu-announcement-2026-09-26.jpg",
+          },
+          { label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" },
+        ],
+      },
+      {
+        id: "campus",
+        heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
+        items: [
+          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 10.10 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.06 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. อยู่มาก",
+          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน ควรออกจากบ้านและกลับบ้านให้เร็วขึ้น",
+          "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์",
+          "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
+        ],
+      },
       {
         id: "shelters",
         heading: "ศูนย์พักพิงชั่วคราว",
@@ -663,91 +750,6 @@ const flooding: EmergencyScenario = {
             ],
             note: "ข้อมูล ณ เวลา 10.10 น. วันที่ 26 กันยายน",
           },
-        ],
-      },
-      {
-        id: "thammasat",
-        heading: "ธรรมศาสตร์ การสอบ การเรียน และห้องสมุด",
-        body: [
-          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
-        ],
-        directoryOpen: true,
-        directory: [
-          {
-            heading: "สอบกลางภาค หลักสูตรระดับปริญญาตรี",
-            places: [
-              {
-                name: "รายวิชาที่สอบวันเสาร์ที่ 26 กันยายน",
-                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 4 ตุลาคม",
-              },
-              {
-                name: "รายวิชาที่สอบวันอาทิตย์ที่ 27 กันยายน",
-                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 11 ตุลาคม",
-              },
-              {
-                name: "รายวิชาที่สอบไปแล้ว แต่เข้าสอบไม่ได้เพราะฝนตกหนัก",
-                detail:
-                  "อาจารย์ผู้สอนจะจัดเก็บคะแนนด้วยวิธีอื่นตามดุลยพินิจ โดยคิดคะแนนเทียบเท่ากับการสอบ",
-              },
-              {
-                name: "การขอถอนรายวิชา (บันทึกอักษร W ผ่านระบบ)",
-                detail: "ขยายถึงวันที่ 26 ตุลาคม",
-              },
-              {
-                name: "ผลสอบกลางภาค",
-                detail: "ขยายเวลาตรวจข้อสอบออกไป 14 วัน อาจารย์จะแจ้งผลก่อนครบกำหนดถอนรายวิชา",
-              },
-            ],
-            note: "ภาคการศึกษาที่ 1/2569",
-          },
-          {
-            heading: "การเรียนการสอน วันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
-            places: [
-              { name: "ทุกรายวิชา ทุกศูนย์การศึกษา", detail: "เรียนออนไลน์" },
-              {
-                name: "รายวิชาที่จำเป็นต้องเรียนในชั้นเรียน",
-                detail: "อยู่ในดุลยพินิจของคณะหรือส่วนงาน อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
-              },
-            ],
-            note: "ทุกระดับหลักสูตร",
-          },
-          {
-            heading: "ห้องสมุด วันอาทิตย์ที่ 27 กันยายน",
-            places: [
-              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสาขาทุกแห่ง", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต ศูนย์การเรียนรู้ฯ", detail: "เปิดให้บริการตามปกติ" },
-              { name: "ศูนย์รังสิต ห้องสมุดนงเยาว์ ชัยเสรี", detail: "เปิดให้บริการตามปกติ" },
-              { name: "ศูนย์ลำปาง ห้องสมุดบุญชู ตรีทอง", detail: "เปิดให้บริการตามปกติ" },
-            ],
-          },
-          {
-            heading: "ห้องสมุด วันจันทร์ที่ 28 กันยายน",
-            places: [
-              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสัญญา ธรรมศักดิ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
-            ],
-            note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
-          },
-        ],
-        links: [
-          {
-            label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ (ฉบับสแกน)",
-            href: "/emergency/tu-announcement-2026-09-26.jpg",
-          },
-          { label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" },
-        ],
-      },
-      {
-        id: "campus",
-        heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
-        items: [
-          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 10.10 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.06 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. อยู่มาก",
-          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน ควรออกจากบ้านและกลับบ้านให้เร็วขึ้น",
-          "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านบน",
-          "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
         ],
       },
       {
