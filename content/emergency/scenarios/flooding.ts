@@ -17,6 +17,13 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Thai PBS, BMA declares all 50 districts a disaster area, 26 September 2026 (Thai)",
+        th: "Thai PBS กทม. ยกระดับประกาศเขตภัยพิบัติอุทกภัย ครอบคลุมทั้ง 50 เขต 26 กันยายน 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558588",
+    },
+    {
+      label: {
         en: "The Bangkok Insight, DDPM cell broadcast on critical canal levels in Bangkok, 26 September 2026 (Thai)",
         th: "The Bangkok Insight ปภ. แจ้งเตือนผ่าน Cell Broadcast ระดับน้ำในคลอง กทม. วิกฤต 26 กันยายน 2569",
       },

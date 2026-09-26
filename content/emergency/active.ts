@@ -17,6 +17,13 @@
  *       th: "ถนนรอบท่าพระจันทร์น้ำท่วม วันนี้เรียนออนไลน์",
  *     },
  *     updates: [
+    {
+      at: "2026-09-26T10:45:00+07:00",
+      text: {
+        en: "Governor Chadchart Sittipunt has signed an announcement declaring all 50 districts of Bangkok a disaster area under the Disaster Prevention and Mitigation Act 2007. It extends the declaration made on 25 September for Nong Chok, Suan Luang and Khan Na Yao. The declaration lets government agencies, district offices and the private sector act quickly under the national and Bangkok disaster plans, and it is the basis for help to people affected. If your home or belongings are damaged, take photographs before you clean up and keep them as evidence for a claim. To report flooding or ask for help, call 1555 or use Traffy Fondue on LINE. For a medical emergency, call 1669.",
+        th: "ผู้ว่าราชการกรุงเทพมหานคร นายชัชชาติ สิทธิพันธุ์ ลงนามในประกาศกองอำนวยการป้องกันและบรรเทาสาธารณภัยกรุงเทพมหานคร ให้พื้นที่กรุงเทพฯ ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 ขยายจากประกาศเมื่อวันที่ 25 กันยายน ที่ครอบคลุมเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้ให้ส่วนราชการ หน่วยงาน องค์กรปกครองส่วนท้องถิ่น และภาคเอกชนเข้าดำเนินการตามแผนป้องกันและบรรเทาสาธารณภัยได้อย่างรวดเร็ว และเป็นฐานในการช่วยเหลือผู้ได้รับผลกระทบ ถ้าที่พักหรือทรัพย์สินเสียหาย ให้ถ่ายรูปเก็บไว้เป็นหลักฐานก่อนทำความสะอาด แจ้งเหตุหรือขอความช่วยเหลือได้ที่ 1555 หรือ Traffy Fondue ใน LINE เจ็บป่วยฉุกเฉินโทร 1669",
+      },
+    },
  *       {
  *         at: "2026-10-12T07:30:00+07:00",
  *         text: {
@@ -34,8 +41,8 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   scenario: "flooding",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "Canals across Bangkok are at critical levels and many roads are flooded, with heavy rain forecast until 27 September. Check your route and keep out of floodwater.",
-    th: "น้ำในคลองทั่วกรุงเทพฯ อยู่ในระดับวิกฤต ถนนหลายสายน้ำท่วมขัง และฝนยังตกหนักได้ถึงวันที่ 27 กันยายน ตรวจเส้นทางก่อนเดินทาง และอย่าลุยน้ำ",
+    en: "All 50 districts of Bangkok are now a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",
+    th: "กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว น้ำในคลองอยู่ในระดับวิกฤต ถนนหลายสายน้ำท่วมขัง ตรวจเส้นทางก่อนเดินทาง และอย่าลุยน้ำ",
   },
   updates: [
     {
