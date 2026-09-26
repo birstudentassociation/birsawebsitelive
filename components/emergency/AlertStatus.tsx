@@ -62,13 +62,23 @@ export default function AlertStatus({ locale, live, t, showGuideLink = false }: 
       {alert.updates && alert.updates.length > 0 ? (
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold">{t.updates}</h3>
-          <ol className="flex flex-col gap-3">
+          <ol className="flex flex-col">
             {alert.updates.map((update) => (
-              <li key={update.at} className="flex flex-col gap-0.5">
-                <time dateTime={update.at} className="text-sm font-medium">
+              <li
+                key={update.at}
+                className="flex flex-col gap-2 border-t border-line py-4 first:border-t-0 first:pt-1"
+              >
+                <time dateTime={update.at} className="text-sm font-medium text-muted">
                   {formatAlertTime(locale, update.at)}
                 </time>
-                <p className="leading-relaxed">{update.text[locale]}</p>
+                <p className="leading-relaxed font-semibold">{update.text[locale]}</p>
+                {update.points?.[locale]?.length ? (
+                  <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed">
+                    {update.points[locale].map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                ) : null}
               </li>
             ))}
           </ol>

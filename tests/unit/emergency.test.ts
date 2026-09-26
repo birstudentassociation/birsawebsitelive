@@ -135,11 +135,18 @@ describe("live alert", () => {
     for (const time of times) expect(time).toMatch(/\+07:00$/);
     const updates = (activeEmergency.updates ?? []).map((u) => Date.parse(u.at));
     expect(updates).toEqual([...updates].sort((a, b) => b - a));
+    for (const update of activeEmergency.updates ?? []) {
+      expect(update.points?.th.length).toBe(update.points?.en.length);
+    }
     for (const locale of locales) {
       expect(activeEmergency.banner?.[locale] ?? "").not.toMatch(/[–—]/);
       for (const update of activeEmergency.updates ?? []) {
         expect(update.text[locale].trim()).not.toBe("");
         expect(update.text[locale]).not.toMatch(/[–—]/);
+        for (const point of update.points?.[locale] ?? []) {
+          expect(point.trim()).not.toBe("");
+          expect(point).not.toMatch(/[–—]/);
+        }
       }
     }
   });

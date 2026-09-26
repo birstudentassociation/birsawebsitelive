@@ -76,5 +76,11 @@ export type ActiveEmergency<Id extends string = string> = {
   /** Replaces the guide's default banner line, e.g. to name a building. */
   banner?: LocalizedText;
   /** Newest first. The first entry's time is shown as "last updated". */
-  updates?: { at: string; text: LocalizedText }[];
+  updates?: {
+    at: string;
+    /** One or two sentences saying what changed. */
+    text: LocalizedText;
+    /** Optional detail, shown as bullets under the text. Same count in both languages. */
+    points?: Record<Locale, string[]>;
+  }[];
 };
