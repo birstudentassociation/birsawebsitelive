@@ -40,7 +40,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
-      at: "2026-09-26T14:20:00+07:00",
+      at: "2026-09-26T14:30:00+07:00",
       text: {
         en: "The governor has asked people to stay at home if they can. Canal levels are starting to level off, but heavy rain is forecast until 27 September.",
         th: "ผู้ว่าราชการกรุงเทพมหานครขอให้ประชาชนอยู่บ้านหากไม่จำเป็น ระดับน้ำในคลองเริ่มทรงตัว แต่ยังคาดว่าจะมีฝนตกหนักไปจนถึงวันที่ 27 กันยายน",
@@ -48,19 +48,21 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
       points: {
         en: [
           "Governor Chadchart Sittipunt advised people to stay at home and not to travel unless they need to, because flooding is changing quickly.",
-          "The six main roads with the deepest water are Ramkhamhaeng, New Phetchaburi, Ekkamai, Sena Nikhom 1, Lat Krabang and Vibhavadi Rangsit from Chatuchak onwards. Avoid them.",
-          "Nearly 300 mm has fallen in the east of the city in 48 hours, with 274.5 mm in Min Buri and 273 mm in Khlong Sam Wa. With pumps at full capacity, 1,200 cubic metres a second, canal levels have started to level off. The BMA expects conditions to improve within about six hours if no more rain falls.",
+          "The six main roads with the deepest water are Ramkhamhaeng, New Phetchaburi, Ekkamai, Sena Nikhom 1, Lat Krabang and Vibhavadi Rangsit from Chatuchak onwards. Avoid them. This morning parts of Vibhavadi Rangsit had water over 1 m deep.",
+          "Nearly 300 mm has fallen in the east of the city in 48 hours, with 274.5 mm in Min Buri and 273 mm in Khlong Sam Wa, about 30 million cubic metres of water. With pumps at full capacity, 1,200 cubic metres a second, levels in the main canals have started to level off. The BMA expects conditions to improve within about six hours if no more rain falls.",
           "Thai Meteorological Department warning No. 11, issued at 11:00, says heavy to very heavy rain will continue in Bangkok on 26 and 27 September and begin to ease on 28 September.",
+          "DDPM counted 84,605 people in 21 provinces affected by flooding at 07:00. In Bangkok it reported standing water on roads at 44 points, with the water falling at most of them.",
           "The BMA has 1 million sandbags at district offices. Collect them from your district office.",
-          "If someone who is bedridden or relies on medical equipment needs help, call 1669. The governor has asked such patients to consider staying in hospital for now.",
+          "If someone who is bedridden or relies on medical equipment needs help, call 1669. The governor has asked such patients to consider staying in hospital for now. The Central Chest Institute of Thailand has asked patients in a stable condition to postpone appointments, and the National Health Security Office reminds gold card holders they can use telemedicine and have medicines delivered.",
         ],
         th: [
           "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร แนะนำให้ประชาชนตั้งหลักอยู่บ้าน และไม่ออกเดินทางหากไม่จำเป็น เพราะสถานการณ์น้ำเปลี่ยนแปลงรวดเร็ว",
-          "หลีกเลี่ยงถนนสายหลัก 6 สายที่น้ำท่วมสูง ได้แก่ รามคำแหง เพชรบุรีตัดใหม่ เอกมัย เสนานิคม 1 ลาดกระบัง และวิภาวดีรังสิตตั้งแต่เขตจตุจักรเป็นต้นไป",
-          "ฝั่งตะวันออกของเมืองมีฝนสะสมเกือบ 300 มม. ใน 48 ชั่วโมง เขตมีนบุรี 274.5 มม. และคลองสามวา 273 มม. กทม. เดินเครื่องสูบน้ำเต็มกำลัง 1,200 ลูกบาศก์เมตรต่อวินาที ระดับน้ำในคลองจึงเริ่มทรงตัว และคาดว่าสถานการณ์จะดีขึ้นภายในราว 6 ชั่วโมงหากไม่มีฝนตกเพิ่ม",
+          "หลีกเลี่ยงถนนสายหลัก 6 สายที่น้ำท่วมสูง ได้แก่ รามคำแหง เพชรบุรีตัดใหม่ เอกมัย เสนานิคม 1 ลาดกระบัง และวิภาวดีรังสิตตั้งแต่เขตจตุจักรเป็นต้นไป เช้านี้ถนนวิภาวดีรังสิตบางช่วงมีน้ำท่วมสูงกว่า 1 เมตร",
+          "ฝั่งตะวันออกของเมืองมีฝนสะสมเกือบ 300 มม. ใน 48 ชั่วโมง เขตมีนบุรี 274.5 มม. และคลองสามวา 273 มม. คิดเป็นปริมาณน้ำราว 30 ล้านลูกบาศก์เมตร กทม. เดินเครื่องสูบน้ำเต็มกำลัง 1,200 ลูกบาศก์เมตรต่อวินาที ระดับน้ำในคลองสายหลักจึงเริ่มทรงตัว และคาดว่าสถานการณ์จะดีขึ้นภายในราว 6 ชั่วโมงหากไม่มีฝนตกเพิ่ม",
           "ประกาศกรมอุตุนิยมวิทยาฉบับที่ 11 เวลา 11.00 น. ระบุว่ากรุงเทพฯ ยังมีฝนตกหนักถึงหนักมากในวันที่ 26 และ 27 กันยายน และฝนจะเริ่มลดลงในวันที่ 28 กันยายน",
+          "ปภ. รายงานเมื่อเวลา 07.00 น. ว่ามีผู้ได้รับผลกระทบจากน้ำท่วม 84,605 คน ใน 21 จังหวัด ส่วนกรุงเทพฯ มีน้ำท่วมขังผิวการจราจร 44 จุด ซึ่งส่วนใหญ่ระดับน้ำมีแนวโน้มลดลง",
           "กทม. เตรียมกระสอบทราย 1 ล้านใบไว้ที่สำนักงานเขต ติดต่อรับได้ที่สำนักงานเขต",
-          "หากผู้ป่วยติดเตียงหรือผู้ที่ต้องใช้อุปกรณ์การแพทย์ต้องการความช่วยเหลือ โทร 1669 ผู้ว่าฯ ขอให้ผู้ป่วยกลุ่มนี้พิจารณาเข้าพักในโรงพยาบาลชั่วคราว",
+          "หากผู้ป่วยติดเตียงหรือผู้ที่ต้องใช้อุปกรณ์การแพทย์ต้องการความช่วยเหลือ โทร 1669 ผู้ว่าฯ ขอให้ผู้ป่วยกลุ่มนี้พิจารณาเข้าพักในโรงพยาบาลชั่วคราว สถาบันโรคทรวงอกขอให้ผู้ป่วยที่อาการคงที่เลื่อนนัดออกไปก่อน และ สปสช. แจ้งว่าผู้ถือบัตรทองใช้บริการแพทย์ทางไกลและรับยาที่บ้านได้",
         ],
       },
     },

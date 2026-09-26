@@ -17,6 +17,27 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Thai PBS, hospital and NHSO notices for patients during the flood, 26 September 2026 (Thai)",
+        th: "Thai PBS น้ำท่วม กทม. 26 ก.ย. เช็กประกาศโรงพยาบาลและหน่วยงาน",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558583",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, DDPM figures on people affected in 21 provinces, 26 September 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ ปภ. เผยน้ำท่วมกระทบ 21 จังหวัด กว่า 8.4 หมื่นคน 26 กันยายน 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/1253620",
+    },
+    {
+      label: {
+        en: "Thai PBS, Vibhavadi Rangsit Road flooded over 1 m, 26 September 2026 (Thai)",
+        th: "Thai PBS กทม. น้ำท่วมขังหลายจุด ถนนวิภาวดีสัญจรยากลำบาก 26 กันยายน 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558575",
+    },
+    {
+      label: {
         en: "Daily News, governor advises staying at home and avoiding six flooded main roads, 26 September 2026 (Thai)",
         th: "เดลินิวส์ ชัชชาติแนะตั้งหลักอยู่บ้าน เลี่ยงถนนสายหลักน้ำท่วมสูง 26 กันยายน 2569",
       },
