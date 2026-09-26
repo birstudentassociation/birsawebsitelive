@@ -94,7 +94,7 @@ export const en = {
         sandbags:
           "No sandbag point has been published for this district yet. Every district office gives out sandbags, so call it before you go.",
         shelters:
-          "No shelter has been published for this district yet. Check BKK Care Monitor, call the district office or call 1555.",
+          "No shelter has been published for this district yet. Check BMA Flood Support, call the district office or call 1555.",
         parking:
           "No free parking has been published in this district yet. Try a neighbouring district, or call 1555.",
       },

@@ -167,7 +167,7 @@ const flooding: EmergencyScenario = {
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Stay at home if you can. The governor has asked people not to travel unless they need to, and expects the water to take two to three days to drain if no more rain falls. Keep out of floodwater and do not drive a small car through flooded roads.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
-      "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BKK Care Monitor or call 1555.",
+      "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BMA Flood Support or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
       "Photograph any damage before you clean up. You will need the photographs to claim help.",
     ],
@@ -279,7 +279,7 @@ const flooding: EmergencyScenario = {
         id: "shelters",
         heading: "Shelters and parking",
         body: [
-          "Temporary shelters and safe places to park are listed on BKK Care Monitor, the BMA's official help and information page. Check it for the nearest place, or call 1555 or your district office.",
+          "Temporary shelters, safe places to park and shuttle buses are listed on BMA Flood Support, the BMA's help and information page. It shows which places are open, nearly full or full, by district. Check it before you go, or call 1555 or your district office.",
         ],
         items: [
           "The BMA has opened 233 shelters across the city, many of them in schools, with room for about 15,000 people.",
@@ -296,8 +296,8 @@ const flooding: EmergencyScenario = {
             href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
           },
           {
-            label: "Open BKK Care Monitor",
-            href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
+            label: "Open BMA Flood Support",
+            href: "https://floodsupport.awarehouse.tech/",
           },
         ],
       },
@@ -383,7 +383,7 @@ const flooding: EmergencyScenario = {
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หากไม่มีธุระจำเป็น ให้อยู่ในบ้านตามที่ผู้ว่าราชการกรุงเทพมหานครขอความร่วมมือ ผู้ว่าฯ คาดว่าหากไม่มีฝนตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
-      "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor หรือโทร 1555",
+      "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BMA Flood Support หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
     ],
@@ -501,7 +501,7 @@ const flooding: EmergencyScenario = {
         id: "shelters",
         heading: "ศูนย์พักพิงและที่จอดรถ",
         body: [
-          "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน เว็บไซต์ทางการของ กทม. ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
+          "ศูนย์พักพิงชั่วคราว จุดจอดรถที่ปลอดภัย และรถรับส่งประชาชน รวบรวมไว้ที่ BMA Flood Support ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชนของ กทม. ซึ่งแสดงสถานะว่าเปิด ใกล้เต็ม หรือเต็ม แยกตามเขต ตรวจสอบก่อนเดินทาง หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
         items: [
           "กทม. เปิดศูนย์พักพิง 233 แห่งทั่วกรุงเทพฯ หลายแห่งอยู่ในโรงเรียน รองรับได้ราว 15,000 คน",
@@ -518,8 +518,8 @@ const flooding: EmergencyScenario = {
             href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
           },
           {
-            label: "เปิด BKK Care Monitor",
-            href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
+            label: "เปิด BMA Flood Support",
+            href: "https://floodsupport.awarehouse.tech/",
           },
         ],
       },

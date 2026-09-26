@@ -40,6 +40,23 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T20:35:00+07:00",
+      text: {
+        en: "Shelter, parking and shuttle bus information has moved to BMA Flood Support, which replaces BKK Care Monitor. It is linked in the shelters section of this page.",
+        th: "ข้อมูลศูนย์พักพิง จุดจอดรถ และรถรับส่งประชาชน ย้ายไปอยู่ที่ BMA Flood Support แทน BKK Care Monitor แล้ว ลิงก์อยู่ในหัวข้อศูนย์พักพิงของหน้านี้",
+      },
+      points: {
+        en: [
+          "Choose your district and it shows each shelter, car park and shuttle bus point with its status, open, nearly full or full.",
+          "The shelter and parking search on this page lists places by district too, and adds sandbag points and parks you can park in.",
+        ],
+        th: [
+          "เลือกเขตแล้วจะเห็นศูนย์พักพิง จุดจอดรถ และจุดรถรับส่งแต่ละแห่ง พร้อมสถานะว่าเปิด ใกล้เต็ม หรือเต็ม",
+          "ช่องค้นหาตามเขตในหน้านี้ก็แสดงศูนย์พักพิงและจุดจอดรถแยกตามเขตเช่นกัน พร้อมจุดแจกกระสอบทรายและสวนสาธารณะที่เปิดให้จอดรถ",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T19:00:00+07:00",
       text: {
         en: "BMA readings at 18:35 show the rain has almost stopped, but canals are still high and roads in the north and east are still flooded. The governor says the water will take two to three days to drain if no more rain falls.",
