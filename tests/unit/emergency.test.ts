@@ -125,9 +125,23 @@ describe("emergency landing copy", () => {
 });
 
 describe("live alert", () => {
-  it("ships switched off", () => {
-    expect(activeEmergency).toBeNull();
-    expect(getLiveAlert()).toBeNull();
+  it("is off, or names a guide with valid times newest first", () => {
+    if (!activeEmergency) {
+      expect(getLiveAlert()).toBeNull();
+      return;
+    }
+    expect(getLiveAlert()?.scenario.id).toBe(activeEmergency.scenario);
+    const times = [activeEmergency.issuedAt, ...(activeEmergency.updates ?? []).map((u) => u.at)];
+    for (const time of times) expect(time).toMatch(/\+07:00$/);
+    const updates = (activeEmergency.updates ?? []).map((u) => Date.parse(u.at));
+    expect(updates).toEqual([...updates].sort((a, b) => b - a));
+    for (const locale of locales) {
+      expect(activeEmergency.banner?.[locale] ?? "").not.toMatch(/[–—]/);
+      for (const update of activeEmergency.updates ?? []) {
+        expect(update.text[locale].trim()).not.toBe("");
+        expect(update.text[locale]).not.toMatch(/[–—]/);
+      }
+    }
   });
 
   const alert = {
