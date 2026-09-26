@@ -104,7 +104,7 @@ const flooding: EmergencyScenario = {
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Keep out of floodwater. Do not drive a small car through flooded roads. Several have stalled in Din Daeng.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
-      "If you need to leave home, go to a temporary shelter in your district. Call the number first if one is listed.",
+      "If you need to leave home, find the nearest shelter on BKK Care Monitor, linked in the shelters section, or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
       "Photograph any damage before you clean up. You will need the photographs to claim help.",
     ],
@@ -190,133 +190,14 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "shelters",
-        heading: "Temporary shelters",
+        heading: "Shelters and parking",
         body: [
-          "District offices have opened temporary shelters for people whose homes are flooded, mostly in BMA schools and temples. Staff are on site to look after people who stay. If your district is not listed, call your district office or 1555.",
-          "These come from BMA and district office announcements on 26 September. More shelters may open.",
+          "Temporary shelters and safe places to park are listed on BKK Care Monitor, a public help and information page. Check it for the nearest place, or call 1555 or your district office.",
         ],
-        directory: [
+        links: [
           {
-            heading: "Bang Khen",
-            places: [{ name: "Prachaphiban School (โรงเรียนประชาภิบาล)" }],
-            phones: [{ phone: "089-783-3595" }],
-          },
-          {
-            heading: "Bang Sue",
-            places: [
-              {
-                name: "Hua Chak Rot Fai Tuek Daeng Community Child Development Centre (ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง)",
-              },
-              {
-                name: "Ban Phak Rot Fai Kosang Community Child Development Centre (ศูนย์พัฒนาเด็กเล็กชุมชนบ้านพักรถไฟก่อสร้าง)",
-              },
-            ],
-            phones: [{ phone: "081-268-1104" }],
-          },
-          {
-            heading: "Chatuchak",
-            places: [{ name: "Wat Thewasunthon (วัดเทวสุนทร)" }],
-            phones: [{ phone: "096-883-7585" }],
-            note: "10 people were staying when the BMA announced it.",
-          },
-          {
-            heading: "Don Mueang",
-            places: [
-              { name: "Wat Don Mueang School (โรงเรียนวัดดอนเมือง)", detail: "Room for 50" },
-            ],
-            phones: [{ phone: "092-396-3773" }],
-          },
-          {
-            heading: "Eastern Bangkok, Khlong Sam Wa and Min Buri area",
-            places: [
-              {
-                name: "Wang Lek Witthayanuson School (โรงเรียนวังเล็กวิทยานุสรณ์)",
-                detail: "Room for 100",
-                phone: { phone: "088-245-3565" },
-              },
-              {
-                name: "Surao Sai Kong Din School (โรงเรียนสุเหร่าทรายกองดิน)",
-                detail: "Room for 100",
-                phone: { phone: "081-826-1556" },
-              },
-              {
-                name: "Sala Khu School (โรงเรียนศาลาคู้)",
-                detail: "Room for 60",
-                phone: { phone: "085-624-9534" },
-              },
-              {
-                name: "Surao Bang Chan School (โรงเรียนสุเหร่าบางชัน)",
-                detail: "Room for 50",
-                phone: { phone: "065-616-3956" },
-              },
-            ],
-            note: "The announcement did not name the district. Call before you go.",
-          },
-          {
-            heading: "Khan Na Yao",
-            places: [
-              {
-                name: "Khan Na Yao School, Tharin Charoen Songkhro (โรงเรียนคันนายาว ธารินเจริญสงเคราะห์)",
-              },
-              { name: "Chinda Bamrung School (โรงเรียนจินดาบำรุง)" },
-            ],
-            note: "No phone number was given. Call the district office or 1555.",
-            links: [
-              {
-                label: "Map of Khan Na Yao School",
-                href: "https://maps.app.goo.gl/Pup7DEksvBc3ooau5",
-              },
-              {
-                label: "Map of Chinda Bamrung School",
-                href: "https://maps.app.goo.gl/3RvngLtzP6DbACFP6",
-              },
-            ],
-          },
-          {
-            heading: "Lak Si",
-            places: [{ name: "Wat Lak Si (วัดหลักสี่)" }],
-            phones: [{ phone: "096-999-4829" }],
-          },
-          {
-            heading: "Lat Phrao",
-            places: [{ name: "Wat Lat Pla Khao (วัดลาดปลาเค้า)" }],
-            phones: [{ phone: "089-815-6188" }],
-          },
-          {
-            heading: "Sai Mai",
-            places: [{ name: "Wat Rat Niyom Tham School (โรงเรียนวัดราษฎร์นิยมธรรม)" }],
-            phones: [{ phone: "086-937-9294" }],
-          },
-          {
-            heading: "Saphan Sung",
-            places: [
-              { name: "Sam Yaek Khlong Lo Lae School (โรงเรียนสามแยกคลองหลอแหล)" },
-              { name: "Si Phruetta School (โรงเรียนศรีพฤฒา)" },
-              { name: "Surao Si Ro School (โรงเรียนสุเหร่าซีรอ)" },
-              { name: "Surao Lat Bua Khao School (โรงเรียนสุเหร่าลาดบัวขาว)" },
-              {
-                name: "Somphot Krung Anuson School, 200th anniversary (โรงเรียนสมโภชกรุงอนุสรณ์ 200 ปี)",
-              },
-            ],
-            note: "No phone number was given. Call the district office or 1555.",
-          },
-          {
-            heading: "Thawi Watthana",
-            places: [
-              { name: "Matthayom Puranawat School (โรงเรียนมัธยมปุรณาวาส)" },
-              { name: "Tang Phirun Tham School (โรงเรียนตั้งพิรุฬห์ธรรม)" },
-              {
-                name: "Khlong Thawi Watthana School, Thong Nuam Anuson (โรงเรียนคลองทวีวัฒนา ทองน่วมอนุสรณ์)",
-              },
-              { name: "Khlong Bang Phrom School (โรงเรียนคลองบางพรหม)" },
-              { name: "Khlong Ton Sai School, Suk Lom Uthit (โรงเรียนคลองต้นไทร สุขล้อมอุทิศ)" },
-              { name: "Wat Wisit Bunyawat School (โรงเรียนวัดวิศิษฎ์บุญญาวาส)" },
-              { name: "Sala Thammasop School (โรงเรียนศาลาธรรมสพน์)" },
-            ],
-            phones: [
-              { phone: "02-441-4973", ext: "5534" },
-              { phone: "02-441-4973", ext: "5507" },
-            ],
+            label: "Open BKK Care Monitor",
+            href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
           },
         ],
       },
@@ -460,7 +341,7 @@ const flooding: EmergencyScenario = {
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม ขณะนี้มีรถเล็กดับกลางน้ำหลายคันในเขตดินแดง",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
-      "หากต้องออกจากบ้าน ให้ไปศูนย์พักพิงชั่วคราวในเขตของตน ถ้ามีเบอร์โทร ให้โทรสอบถามก่อน",
+      "หากต้องออกจากบ้าน ให้ค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor ซึ่งมีลิงก์อยู่ในหัวข้อศูนย์พักพิง หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
     ],
@@ -552,121 +433,14 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "shelters",
-        heading: "ศูนย์พักพิงชั่วคราว",
+        heading: "ศูนย์พักพิงและที่จอดรถ",
         body: [
-          "สำนักงานเขตเปิดศูนย์พักพิงชั่วคราวสำหรับผู้ที่บ้านถูกน้ำท่วม ส่วนใหญ่อยู่ในโรงเรียนสังกัด กทม. และวัด มีเจ้าหน้าที่คอยดูแลและอำนวยความสะดวก หากไม่มีเขตของท่านในรายการ ให้ติดต่อสำนักงานเขตหรือโทร 1555",
-          "ข้อมูลนี้รวบรวมจากประกาศของ กทม. และสำนักงานเขตเมื่อวันที่ 26 กันยายน และอาจมีศูนย์พักพิงเปิดเพิ่มอีก",
+          "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
-        directory: [
+        links: [
           {
-            heading: "เขตคันนายาว",
-            places: [
-              { name: "โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์)" },
-              { name: "โรงเรียนจินดาบำรุง" },
-            ],
-            note: "ประกาศไม่ได้ระบุเบอร์โทร สอบถามสำนักงานเขตหรือโทร 1555",
-            links: [
-              {
-                label: "แผนที่โรงเรียนคันนายาว",
-                href: "https://maps.app.goo.gl/Pup7DEksvBc3ooau5",
-              },
-              {
-                label: "แผนที่โรงเรียนจินดาบำรุง",
-                href: "https://maps.app.goo.gl/3RvngLtzP6DbACFP6",
-              },
-            ],
-          },
-          {
-            heading: "เขตจตุจักร",
-            places: [{ name: "วัดเทวสุนทร" }],
-            phones: [{ phone: "096-883-7585" }],
-            note: "ขณะที่ กทม. ประกาศ มีผู้เข้าพัก 10 คน",
-          },
-          {
-            heading: "เขตดอนเมือง",
-            places: [{ name: "โรงเรียนวัดดอนเมือง", detail: "รองรับได้ 50 คน" }],
-            phones: [{ phone: "092-396-3773" }],
-          },
-          {
-            heading: "เขตทวีวัฒนา",
-            places: [
-              { name: "โรงเรียนมัธยมปุรณาวาส" },
-              { name: "โรงเรียนตั้งพิรุฬห์ธรรม" },
-              { name: "โรงเรียนคลองทวีวัฒนา (ทองน่วมอนุสรณ์)" },
-              { name: "โรงเรียนคลองบางพรหม" },
-              { name: "โรงเรียนคลองต้นไทร (สุขล้อมอุทิศ)" },
-              { name: "โรงเรียนวัดวิศิษฎ์บุญญาวาส" },
-              { name: "โรงเรียนศาลาธรรมสพน์" },
-            ],
-            phones: [
-              { phone: "02-441-4973", ext: "5534" },
-              { phone: "02-441-4973", ext: "5507" },
-            ],
-          },
-          {
-            heading: "เขตบางเขน",
-            places: [{ name: "โรงเรียนประชาภิบาล" }],
-            phones: [{ phone: "089-783-3595" }],
-          },
-          {
-            heading: "เขตบางซื่อ",
-            places: [
-              { name: "ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง" },
-              { name: "ศูนย์พัฒนาเด็กเล็กชุมชนบ้านพักรถไฟก่อสร้าง" },
-            ],
-            phones: [{ phone: "081-268-1104" }],
-          },
-          {
-            heading: "ฝั่งตะวันออก ย่านคลองสามวาและมีนบุรี",
-            places: [
-              {
-                name: "โรงเรียนวังเล็กวิทยานุสรณ์",
-                detail: "รองรับได้ 100 คน",
-                phone: { phone: "088-245-3565" },
-              },
-              {
-                name: "โรงเรียนสุเหร่าทรายกองดิน",
-                detail: "รองรับได้ 100 คน",
-                phone: { phone: "081-826-1556" },
-              },
-              {
-                name: "โรงเรียนศาลาคู้",
-                detail: "รองรับได้ 60 คน",
-                phone: { phone: "085-624-9534" },
-              },
-              {
-                name: "โรงเรียนสุเหร่าบางชัน",
-                detail: "รองรับได้ 50 คน",
-                phone: { phone: "065-616-3956" },
-              },
-            ],
-            note: "ประกาศไม่ได้ระบุเขต โปรดโทรสอบถามก่อนเดินทาง",
-          },
-          {
-            heading: "เขตลาดพร้าว",
-            places: [{ name: "วัดลาดปลาเค้า" }],
-            phones: [{ phone: "089-815-6188" }],
-          },
-          {
-            heading: "เขตสะพานสูง",
-            places: [
-              { name: "โรงเรียนสามแยกคลองหลอแหล" },
-              { name: "โรงเรียนศรีพฤฒา" },
-              { name: "โรงเรียนสุเหร่าซีรอ" },
-              { name: "โรงเรียนสุเหร่าลาดบัวขาว" },
-              { name: "โรงเรียนสมโภชกรุงอนุสรณ์ (200 ปี)" },
-            ],
-            note: "ประกาศไม่ได้ระบุเบอร์โทร สอบถามสำนักงานเขตหรือโทร 1555",
-          },
-          {
-            heading: "เขตสายไหม",
-            places: [{ name: "โรงเรียนวัดราษฎร์นิยมธรรม" }],
-            phones: [{ phone: "086-937-9294" }],
-          },
-          {
-            heading: "เขตหลักสี่",
-            places: [{ name: "วัดหลักสี่" }],
-            phones: [{ phone: "096-999-4829" }],
+            label: "เปิด BKK Care Monitor",
+            href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
           },
         ],
       },
