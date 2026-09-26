@@ -17,6 +17,27 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Thai Post, Thai Meteorological Department warning No. 12, 26 September 2026 (Thai)",
+        th: "ไทยโพสต์ กรมอุตุนิยมวิทยาประกาศฉบับที่ 12 วันที่ 26 กันยายน 2569",
+      },
+      href: "https://www.thaipost.net/general-news/1076964/",
+    },
+    {
+      label: {
+        en: "Thai Post, governor expects two to three days to drain the water if no more rain falls, 26 September 2026 (Thai)",
+        th: "ไทยโพสต์ ชัชชาติเผยฝนสะสม 300 มม. คาดคลี่คลายใน 2 ถึง 3 วันหากไม่ตกเพิ่ม 26 กันยายน 2569",
+      },
+      href: "https://www.thaipost.net/x-cite-news/1076877/",
+    },
+    {
+      label: {
+        en: "Khaosod English, BMA schools closed and work from home on Monday, 26 September 2026",
+        th: "Khaosod English กทม. ปิดโรงเรียนและให้ทำงานที่บ้านวันจันทร์ 26 กันยายน 2569 (ภาษาอังกฤษ)",
+      },
+      href: "https://www.khaosodenglish.com/news/2026/09/26/closed-schools-and-work-from-home-on-monday-as-bangkok-battles-floods/",
+    },
+    {
+      label: {
         en: "Matichon, governor adds 1 million sandbags for district offices, 26 September 2026 (Thai)",
         th: "มติชน ชัชชาติเพิ่มกระสอบทรายแจก 1 ล้านใบ 26 กันยายน 2569",
       },
@@ -144,7 +165,7 @@ const flooding: EmergencyScenario = {
       "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September.",
     now: [
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
-      "Stay at home if you can. The governor has asked people not to travel unless they need to. Keep out of floodwater and do not drive a small car through flooded roads.",
+      "Stay at home if you can. The governor has asked people not to travel unless they need to, and expects the water to take two to three days to drain if no more rain falls. Keep out of floodwater and do not drive a small car through flooded roads.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
       "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BKK Care Monitor or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
@@ -248,7 +269,7 @@ const flooding: EmergencyScenario = {
         id: "campus",
         heading: "Tha Prachan and getting to campus",
         items: [
-          "The old town has not flooded so far. At 13:15 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The river gauge at Pak Khlong Talat was temporarily down, and downstream at Sathon the Chao Phraya was 0.52 m, well below the 2.10 m warning level.",
+          "The old town has not flooded so far. At 18:35 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The Chao Phraya was 1.96 m at Pak Khlong Talat, below the 2.30 m warning level, and 1.90 m downstream at Sathon, 0.20 m below the 2.10 m warning level.",
           "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. If you do not need to come in, stay at home.",
           "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section.",
           "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
@@ -261,6 +282,7 @@ const flooding: EmergencyScenario = {
           "Temporary shelters and safe places to park are listed on BKK Care Monitor, the BMA's official help and information page. Check it for the nearest place, or call 1555 or your district office.",
         ],
         items: [
+          "The BMA has opened 233 shelters across the city, many of them in schools, with room for about 15,000 people.",
           "Thammasat students at Tha Prachan can stay at the Thammasat University Student Union's temporary shelter in the Student Activities Building. Register first, and see the Thammasat section for contacts.",
         ],
         links: [
@@ -378,7 +400,7 @@ const flooding: EmergencyScenario = {
       "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
     now: [
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
-      "หากไม่มีธุระจำเป็น ให้อยู่ในบ้านตามที่ผู้ว่าราชการกรุงเทพมหานครขอความร่วมมือ หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
+      "หากไม่มีธุระจำเป็น ให้อยู่ในบ้านตามที่ผู้ว่าราชการกรุงเทพมหานครขอความร่วมมือ ผู้ว่าฯ คาดว่าหากไม่มีฝนตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
       "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
@@ -488,7 +510,7 @@ const flooding: EmergencyScenario = {
         id: "campus",
         heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
         items: [
-          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 13.15 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง สถานีวัดระดับแม่น้ำที่ปากคลองตลาดขัดข้องชั่วคราว ส่วนที่สาทรซึ่งอยู่ท้ายน้ำ ระดับแม่น้ำเจ้าพระยาอยู่ที่ 0.52 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่มาก",
+          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 18.35 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.96 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. ส่วนที่สาทรซึ่งอยู่ท้ายน้ำอยู่ที่ 1.90 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่ 0.20 ม.",
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน หากไม่มีธุระจำเป็นต้องมามหาวิทยาลัย ควรอยู่ในบ้าน",
           "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์",
           "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
@@ -501,6 +523,7 @@ const flooding: EmergencyScenario = {
           "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน เว็บไซต์ทางการของ กทม. ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
         items: [
+          "กทม. เปิดศูนย์พักพิง 233 แห่งทั่วกรุงเทพฯ หลายแห่งอยู่ในโรงเรียน รองรับได้ราว 15,000 คน",
           "นักศึกษาธรรมศาสตร์ท่าพระจันทร์เข้าพักได้ที่ศูนย์พักพิงชั่วคราวของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษา โปรดลงทะเบียนก่อน และดูช่องทางติดต่อในหัวข้อธรรมศาสตร์",
         ],
         links: [

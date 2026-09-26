@@ -40,6 +40,33 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T19:00:00+07:00",
+      text: {
+        en: "BMA readings at 18:35 show the rain has almost stopped, but canals are still high and roads in the north and east are still flooded. The governor says the water will take two to three days to drain if no more rain falls.",
+        th: "ข้อมูลจากสถานีตรวจวัดของ กทม. เวลา 18.35 น. พบว่าฝนเกือบหยุดตกแล้ว แต่ระดับน้ำในคลองยังสูง และถนนทางเหนือและตะวันออกของเมืองยังมีน้ำท่วมขัง ผู้ว่าราชการกรุงเทพมหานครระบุว่าหากไม่มีฝนตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ",
+      },
+      points: {
+        en: [
+          "No rain gauge recorded more than 4 mm in the past hour, and the most in the past three hours was 17 mm in Lat Krabang. In the 24 hours to 18:35, 62 of 122 working gauges recorded more than 100 mm, down from 108 at 13:15, peaking at 178.5 mm at Bueng Khwang in Min Buri.",
+          "138 of about 300 canal stations were at critical level, down from 148 at 13:15 and 151 at 10:10. Most are in the north and east of the city and in western Thonburi, with the most in Thawi Watthana and Lat Krabang.",
+          "Road sensors showed flooding at 18 points. The deepest were Sena Nikhom 1 (66 cm), Ngam Wong Wan at Phong Phet (61 cm), Lat Phrao 122 (57 cm), Ramkhamhaeng 43/1 (55 cm) and New Phetchaburi at Singha Complex (50 cm), much the same as this morning. A further 52 points without a live reading, mostly in the north and east, were reported flooded at about 10 to 20 cm.",
+          "Around Tha Prachan 89 to 138 mm fell in 24 hours, but less than 3 mm in the past three hours. The canals in the old town are normal and the road sensors are dry. The river gauge at Pak Khlong Talat is working again and reads 1.96 m, below the 2.30 m warning level. Downstream at Sathon the Chao Phraya is 1.90 m, 0.20 m below the 2.10 m warning level and much higher than at midday, so take care at piers.",
+          "The governor said water in the east is falling slowly because more is still flowing in from surrounding areas. The BMA has opened 233 shelters, many in schools, with room for about 15,000 people. By this afternoon 981 people were staying in them, and 36 bedridden patients had been moved to hospital.",
+          "BMA schools are closed on Monday 28 September, and BMA staff who do not need to be on site will work from home. The Office of the Civil Service Commission has asked government agencies to consider letting staff work from home on 28 and 29 September.",
+          "Thai Meteorological Department warning No. 12, issued at 17:00, says heavy to very heavy rain will continue in Bangkok until 27 September and begin to ease on 28 September.",
+        ],
+        th: [
+          "ในชั่วโมงที่ผ่านมาไม่มีสถานีวัดน้ำฝนใดวัดฝนได้เกิน 4 มม. และในสามชั่วโมงที่ผ่านมา ฝนตกสูงสุด 17 มม. ที่เขตลาดกระบัง ใน 24 ชั่วโมงจนถึงเวลา 18.35 น. สถานีวัดน้ำฝนของ กทม. วัดปริมาณฝนได้เกิน 100 มม. 62 แห่ง จาก 122 แห่งที่ใช้งานได้ ลดลงจาก 108 แห่งเมื่อเวลา 13.15 น. สูงสุด 178.5 มม. ที่ประตูระบายน้ำบึงขวาง เขตมีนบุรี",
+          "ระดับน้ำในคลองอยู่ในขั้นวิกฤตที่ 138 สถานี จากสถานีวัดราว 300 สถานี ลดลงจาก 148 สถานีเมื่อเวลา 13.15 น. และ 151 สถานีเมื่อเวลา 10.10 น. ส่วนใหญ่อยู่ทางเหนือและตะวันออกของเมือง และฝั่งธนบุรีด้านตะวันตก โดยเขตทวีวัฒนาและลาดกระบังมีมากที่สุด",
+          "สถานีวัดบนถนนพบน้ำท่วมขัง 18 จุด จุดที่ลึกที่สุด ได้แก่ ถนนเสนานิคม 1 (66 ซม.) ถนนงามวงศ์วานแยกพงษ์เพชร (61 ซม.) ซอยลาดพร้าว 122 (57 ซม.) ซอยรามคำแหง 43/1 (55 ซม.) และถนนเพชรบุรีตัดใหม่หน้าสิงห์คอมเพล็กซ์ (50 ซม.) ใกล้เคียงกับเมื่อเช้า นอกจากนี้ยังมีรายงานน้ำท่วมราว 10 ถึง 20 ซม. อีก 52 จุดที่ไม่มีค่าจากสถานีวัดแบบเรียลไทม์ ส่วนใหญ่อยู่ทางเหนือและตะวันออก",
+          "บริเวณรอบท่าพระจันทร์มีฝนตก 89 ถึง 138 มม. ใน 24 ชั่วโมง แต่ในสามชั่วโมงที่ผ่านมามีฝนไม่ถึง 3 มม. ระดับน้ำในคลองย่านเมืองเก่ายังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง สถานีวัดระดับแม่น้ำที่ปากคลองตลาดกลับมาใช้งานได้แล้ว วัดได้ 1.96 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. ส่วนที่สาทรซึ่งอยู่ท้ายน้ำ ระดับแม่น้ำเจ้าพระยาอยู่ที่ 1.90 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่ 0.20 ม. และสูงขึ้นมากจากช่วงเที่ยง โปรดระวังเมื่ออยู่ที่ท่าเรือ",
+          "ผู้ว่าฯ ระบุว่าระดับน้ำฝั่งตะวันออกลดลงช้า เพราะยังมีน้ำจากพื้นที่โดยรอบไหลเข้ามาเติม กทม. เปิดศูนย์พักพิง 233 แห่ง หลายแห่งอยู่ในโรงเรียน รองรับได้ราว 15,000 คน เมื่อช่วงบ่ายมีผู้เข้าพักแล้ว 981 คน และเคลื่อนย้ายผู้ป่วยติดเตียง 36 คนไปโรงพยาบาลแล้ว",
+          "วันจันทร์ที่ 28 กันยายน โรงเรียนสังกัด กทม. หยุดเรียน และบุคลากร กทม. ที่ไม่จำเป็นต้องปฏิบัติงานในพื้นที่ให้ทำงานที่บ้าน สำนักงาน ก.พ. ขอให้ส่วนราชการพิจารณาให้ข้าราชการทำงานที่บ้านในวันที่ 28 และ 29 กันยายน",
+          "ประกาศกรมอุตุนิยมวิทยาฉบับที่ 12 เวลา 17.00 น. ระบุว่ากรุงเทพฯ ยังมีฝนตกหนักถึงหนักมากจนถึงวันที่ 27 กันยายน และฝนจะเริ่มลดลงในวันที่ 28 กันยายน",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T16:20:00+07:00",
       text: {
         en: "The Thammasat University Student Union, Tha Prachan, has opened a temporary shelter for students affected by the floods.",
