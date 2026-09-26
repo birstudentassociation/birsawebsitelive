@@ -99,7 +99,7 @@ const flooding: EmergencyScenario = {
     summary:
       "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
-      "All 50 districts of Bangkok are a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",
+      "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Check your route and keep out of floodwater.",
     now: [
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Keep out of floodwater. Do not drive a small car through flooded roads. Several have stalled in Din Daeng.",
@@ -192,7 +192,7 @@ const flooding: EmergencyScenario = {
         id: "shelters",
         heading: "Shelters and parking",
         body: [
-          "Temporary shelters and safe places to park are listed on BKK Care Monitor, a public help and information page. Check it for the nearest place, or call 1555 or your district office.",
+          "Temporary shelters and safe places to park are listed on BKK Care Monitor, the BMA's official help and information page. Check it for the nearest place, or call 1555 or your district office.",
         ],
         links: [
           {
@@ -336,7 +336,7 @@ const flooding: EmergencyScenario = {
     summary:
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
-      "กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ระดับน้ำในคลองอยู่ในขั้นวิกฤต ถนนหลายสายมีน้ำท่วมขัง ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
+      "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
     now: [
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม ขณะนี้มีรถเล็กดับกลางน้ำหลายคันในเขตดินแดง",
@@ -435,7 +435,7 @@ const flooding: EmergencyScenario = {
         id: "shelters",
         heading: "ศูนย์พักพิงและที่จอดรถ",
         body: [
-          "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
+          "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน เว็บไซต์ทางการของ กทม. ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
         links: [
           {

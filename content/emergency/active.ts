@@ -35,15 +35,15 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   updatesAfter: "campus",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "All 50 districts of Bangkok are now a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",
-    th: "กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ระดับน้ำในคลองอยู่ในขั้นวิกฤต ถนนหลายสายมีน้ำท่วมขัง ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
+    en: "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Check your route and keep out of floodwater.",
+    th: "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
   },
   updates: [
     {
       at: "2026-09-26T13:45:00+07:00",
       text: {
-        en: "Shelter and parking information has moved to BKK Care Monitor, linked in the shelters section of this page.",
-        th: "ข้อมูลศูนย์พักพิงและที่จอดรถย้ายไปอยู่ที่ BKK Care Monitor ซึ่งมีลิงก์อยู่ในหัวข้อศูนย์พักพิงของหน้านี้",
+        en: "Shelter and parking information has moved to BKK Care Monitor, the BMA's official page, linked in the shelters section of this page.",
+        th: "ข้อมูลศูนย์พักพิงและที่จอดรถย้ายไปอยู่ที่ BKK Care Monitor เว็บไซต์ทางการของ กทม. ซึ่งมีลิงก์อยู่ในหัวข้อศูนย์พักพิงของหน้านี้",
       },
     },
     {
