@@ -30,6 +30,8 @@ const nextConfig = {
   distDir: process.env.NEXT_DIST_DIR || ".next",
   reactStrictMode: true,
   poweredByHeader: false,
+  // Loads its WebAssembly from its own folder at run time; bundling breaks that.
+  serverExternalPackages: ["harfbuzzjs"],
   images: {
     // AVIF first so Vercel's image optimizer serves AVIF to supporting browsers.
     formats: ["image/avif", "image/webp"],

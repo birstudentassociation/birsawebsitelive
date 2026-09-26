@@ -39,10 +39,10 @@ export const en = {
     indexTitle: "Emergency guidance",
     indexLede:
       "What to do if an emergency affects Tha Prachan campus or the faculty. Written in advance and checked against official advice.",
-    noAlertTitle: "There is no emergency alert right now",
+    noAlertTitle: "There is no important alert right now",
     noAlertBody:
       "If that changes, a banner will appear at the top of every page on this site and the alert will be shown here.",
-    liveAlert: "Emergency alert",
+    liveAlert: "Important alert",
     issued: "Issued",
     updated: "Last updated",
     updates: "Updates",
