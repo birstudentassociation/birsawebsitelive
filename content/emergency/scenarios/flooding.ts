@@ -335,7 +335,39 @@ const flooding: EmergencyScenario = {
           "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. Leave early and go home early.",
           "Check faculty and university announcements for changes to classes before you set off.",
           "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
+          "All Thammasat library branches at Tha Prachan are closed on 27 September, and Sanya Dharmasakti Library on 28 September. See library closures below.",
         ],
+      },
+      {
+        id: "library",
+        heading: "Thammasat library closures",
+        body: [
+          "Thammasat University Library has closed some branches for the safety of staff and users. It will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "Sunday 27 September",
+            places: [
+              { name: "Tha Prachan, all branch libraries", detail: "Closed" },
+              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
+              { name: "Rangsit, Public Library", detail: "Closed" },
+              { name: "Rangsit, Learning Center", detail: "Open as usual" },
+              { name: "Rangsit, Nongyao Chaiseri Library", detail: "Open as usual" },
+              { name: "Lampang, Boonchu Treethong Library", detail: "Open as usual" },
+            ],
+          },
+          {
+            heading: "Monday 28 September",
+            places: [
+              { name: "Tha Prachan, Sanya Dharmasakti Library", detail: "Closed" },
+              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
+              { name: "Rangsit, Public Library", detail: "Closed" },
+            ],
+            note: "The library may change this. Check before you go.",
+          },
+        ],
+        links: [{ label: "Thammasat University Library", href: "https://www.library.tu.ac.th" }],
       },
       {
         id: "help",
@@ -357,6 +389,12 @@ const flooding: EmergencyScenario = {
         items: [
           "Photograph damage to your home and belongings before you clean up.",
           "Ask your district office how to apply for help.",
+        ],
+        links: [
+          {
+            label: "Read the BMA announcement (scanned, in Thai)",
+            href: "/emergency/bma-disaster-area-2026-09-26.png",
+          },
         ],
       },
       {
@@ -598,7 +636,39 @@ const flooding: EmergencyScenario = {
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน ควรออกจากบ้านและกลับบ้านให้เร็วขึ้น",
           "ตรวจสอบประกาศของคณะและมหาวิทยาลัยเรื่องการเรียนการสอนก่อนออกเดินทาง",
           "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
+          "ห้องสมุดสาขาทุกแห่งของธรรมศาสตร์ที่ท่าพระจันทร์ปิดให้บริการวันที่ 27 กันยายน และห้องสมุดสัญญา ธรรมศักดิ์ปิดวันที่ 28 กันยายน ดูรายละเอียดในหัวข้อห้องสมุดด้านล่าง",
         ],
+      },
+      {
+        id: "library",
+        heading: "ห้องสมุดธรรมศาสตร์ปิดให้บริการชั่วคราว",
+        body: [
+          "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดสาขาบางแห่งชั่วคราว เพื่อความปลอดภัยของบุคลากรและผู้ใช้บริการ และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "วันอาทิตย์ที่ 27 กันยายน",
+            places: [
+              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสาขาทุกแห่ง", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ศูนย์การเรียนรู้ฯ", detail: "เปิดให้บริการตามปกติ" },
+              { name: "ศูนย์รังสิต ห้องสมุดนงเยาว์ ชัยเสรี", detail: "เปิดให้บริการตามปกติ" },
+              { name: "ศูนย์ลำปาง ห้องสมุดบุญชู ตรีทอง", detail: "เปิดให้บริการตามปกติ" },
+            ],
+          },
+          {
+            heading: "วันจันทร์ที่ 28 กันยายน",
+            places: [
+              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสัญญา ธรรมศักดิ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
+              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
+            ],
+            note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
+          },
+        ],
+        links: [{ label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" }],
       },
       {
         id: "help",
@@ -620,6 +690,12 @@ const flooding: EmergencyScenario = {
         items: [
           "ถ่ายภาพความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
           "สอบถามสำนักงานเขตเรื่องขั้นตอนการยื่นขอรับความช่วยเหลือ",
+        ],
+        links: [
+          {
+            label: "อ่านประกาศของ กทม. (ฉบับสแกน)",
+            href: "/emergency/bma-disaster-area-2026-09-26.png",
+          },
         ],
       },
       {

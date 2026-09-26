@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { contacts, getContact, telHref, type EmergencyContact } from "@/content/emergency/contacts";
 import { scenarioIds, scenarios } from "@/content/emergency/scenarios";
@@ -46,6 +48,7 @@ describe("emergency guides", () => {
       expect(other.steps?.length, `${section.id} steps`).toBe(section.steps?.length);
       expect(other.items?.length, `${section.id} items`).toBe(section.items?.length);
       expect(other.directory?.length, `${section.id} directory`).toBe(section.directory?.length);
+      expect(other.links?.length, `${section.id} links`).toBe(section.links?.length);
     });
   });
 
@@ -71,6 +74,13 @@ describe("emergency guides", () => {
           if (ext) expect(ext).toMatch(/^\d+$/);
         }
         for (const link of entry.links ?? []) expect(link.href).toMatch(/^https:\/\//);
+      }
+      for (const link of content.sections.flatMap((section) => section.links ?? [])) {
+        expect(link.label.trim()).not.toBe("");
+        expect(link.href).toMatch(/^(https:\/\/|\/[a-z0-9/._-]+$)/);
+        if (link.href.startsWith("/")) {
+          expect(existsSync(join(process.cwd(), "public", link.href)), link.href).toBe(true);
+        }
       }
     }
   });

@@ -51,8 +51,12 @@ export type EmergencySection = {
   steps?: string[];
   /** Points where order does not matter, rendered as bullets. */
   items?: string[];
-  /** Places with phone numbers, rendered as a list of cards after the points. */
+  /** Places with phone numbers, rendered after the points, each entry collapsed by default. */
   directory?: DirectoryEntry[];
+  /** Show every directory entry expanded, for short lists people should not miss. */
+  directoryOpen?: boolean;
+  /** Documents or pages, shown last. A site path (`/emergency/...`) or an https URL. */
+  links?: { label: string; href: string }[];
 };
 
 /** All copy for one guide, in one language. */

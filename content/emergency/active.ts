@@ -39,6 +39,25 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T13:05:00+07:00",
+      text: {
+        en: "Thammasat University Library has closed some branches on 27 and 28 September.",
+        th: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งในวันที่ 27 และ 28 กันยายน",
+      },
+      points: {
+        en: [
+          "On 27 September all branch libraries at Tha Prachan are closed, and at Rangsit the Puey Ungphakorn Library and the Public Library.",
+          "On 28 September Sanya Dharmasakti Library at Tha Prachan, and the Puey Ungphakorn Library and Public Library at Rangsit, are closed. The library will review this and announce any change.",
+          "The scanned BMA announcement declaring all 50 districts a disaster area is now linked on this page.",
+        ],
+        th: [
+          "วันที่ 27 กันยายน ปิดห้องสมุดสาขาทุกแห่งที่ศูนย์ท่าพระจันทร์ และหอสมุดป๋วย อึ๊งภากรณ์ กับห้องสมุดประชาชนที่ศูนย์รังสิต",
+          "วันที่ 28 กันยายน ปิดห้องสมุดสัญญา ธรรมศักดิ์ ที่ศูนย์ท่าพระจันทร์ และหอสมุดป๋วย อึ๊งภากรณ์ กับห้องสมุดประชาชนที่ศูนย์รังสิต หอสมุดฯ จะประเมินสถานการณ์อีกครั้งและแจ้งหากมีการเปลี่ยนแปลง",
+          "เพิ่มลิงก์ประกาศของ กทม. ฉบับสแกน เรื่องเขตพื้นที่ประสบสาธารณภัยทั้ง 50 เขต ไว้ในหน้านี้แล้ว",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T12:15:00+07:00",
       text: {
         en: "Temporary shelters and sandbag points are now listed on this page, by district.",

@@ -47,7 +47,10 @@ export default function GuideSection({ section, extLabel, newTabLabel }: Props) 
         <ul className="mt-1 flex flex-col gap-2">
           {section.directory.map((entry) => (
             <li key={entry.heading}>
-              <details className="group rounded-md border border-line bg-surface text-ink">
+              <details
+                open={section.directoryOpen}
+                className="group rounded-md border border-line bg-surface text-ink"
+              >
                 <summary className="focus-halo flex cursor-pointer list-none items-center justify-between gap-3 rounded-md px-4 py-3 marker:content-none [&::-webkit-details-marker]:hidden">
                   <h3 className="font-semibold">{entry.heading}</h3>
                   <span
@@ -91,6 +94,27 @@ export default function GuideSection({ section, extLabel, newTabLabel }: Props) 
                   ))}
                 </div>
               </details>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {section.links?.length ? (
+        <ul className="flex flex-col gap-1">
+          {section.links.map((link) => (
+            <li key={link.href}>
+              {link.href.startsWith("/") ? (
+                <a href={link.href} className="font-semibold text-brand-deep underline">
+                  {link.label}
+                </a>
+              ) : (
+                <ExternalLink
+                  href={link.href}
+                  newTabLabel={newTabLabel}
+                  className="font-semibold text-brand-deep underline"
+                >
+                  {link.label}
+                </ExternalLink>
+              )}
             </li>
           ))}
         </ul>
