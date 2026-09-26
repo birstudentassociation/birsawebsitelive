@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { ImageResponse } from "next/og";
+import type { HeroTone } from "@/content/emergency/types";
 
 export const OG_SIZE = { width: 1200, height: 630 };
 
@@ -132,6 +133,103 @@ export function renderPageOgImage({ eyebrow, title }: { eyebrow: string; title: 
       <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
         <img src={logoSrc} width={88} height={88} alt="" />
         <div style={{ display: "flex", fontWeight: 700, fontSize: 32, color: BRAND }}>
+          BIR Student Association
+        </div>
+      </div>
+    </div>,
+    { ...OG_SIZE, fonts }
+  );
+}
+
+/** Hero band colours from `EmergencyHero`, as hex for Satori. */
+const HERO_HEX: Record<HeroTone, string> = {
+  red: "#b3161c",
+  black: "#000000",
+  purple: "#6b21a8",
+  blue: "#1e40af",
+  green: "#14532d",
+  brown: "#7c2d12",
+  slate: "#334155",
+};
+
+/**
+ * A card for an emergency guide: the guide's hero colour, the live alert's
+ * headline when there is one (else the guide title), and the guide title as
+ * context, so a shared link reads as an alert at a glance.
+ */
+export function renderEmergencyOgImage({
+  tone,
+  eyebrow,
+  headline,
+  context,
+}: {
+  tone: HeroTone;
+  eyebrow: string;
+  headline: string;
+  context?: string;
+}) {
+  const { logoSrc, fonts } = assets();
+  const fontSize = headline.length > 110 ? 46 : headline.length > 70 ? 54 : 64;
+  return new ImageResponse(
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        backgroundColor: HERO_HEX[tone],
+        padding: "60px 80px",
+        fontFamily: "Sarabun",
+        color: "#ffffff",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignSelf: "flex-start",
+          fontWeight: 700,
+          fontSize: 28,
+          letterSpacing: 2,
+          textTransform: "uppercase",
+          color: HERO_HEX[tone],
+          backgroundColor: "#ffffff",
+          borderRadius: 999,
+          padding: "8px 24px",
+        }}
+      >
+        {eyebrow}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <div
+          style={{ display: "flex", flexWrap: "wrap", fontWeight: 700, fontSize, lineHeight: 1.25 }}
+        >
+          {words(headline).map((word, i) =>
+            word.trim() ? (
+              <span key={i}>{word}</span>
+            ) : (
+              <span key={i} style={{ width: fontSize * 0.28 }} />
+            )
+          )}
+        </div>
+        {context ? (
+          <div style={{ display: "flex", fontWeight: 600, fontSize: 32, opacity: 0.9 }}>
+            {context}
+          </div>
+        ) : null}
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <div
+          style={{
+            display: "flex",
+            backgroundColor: "#ffffff",
+            borderRadius: 16,
+            padding: 8,
+          }}
+        >
+          <img src={logoSrc} width={64} height={64} alt="" />
+        </div>
+        <div style={{ display: "flex", fontWeight: 700, fontSize: 30 }}>
           BIR Student Association
         </div>
       </div>

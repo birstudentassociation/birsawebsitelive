@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatDate, getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { getLiveAlert } from "@/lib/emergency";
+import { alertBanner, getLiveAlert } from "@/lib/emergency";
 import { getScenario, hasScenario, scenarioIds } from "@/content/emergency/scenarios";
 import EmergencyHero from "@/components/EmergencyHero";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -28,6 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { lang, scenario } = await params;
   if (!isLocale(lang) || !hasScenario(scenario)) return {};
   const c = getScenario(scenario)[lang];
+  const live = getLiveAlert();
+  // A shared link leads with the live alert, then what the guide covers.
+  const description =
+    live?.scenario.id === scenario ? `${alertBanner(live, lang)} ${c.summary}` : c.summary;
 
   // Unindexed: these pages should be found through the site and its banner
   // during an incident, never ranked in search on their own.
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     ...buildMetadata({
       locale: lang,
       title: c.title,
-      description: c.summary,
+      description,
       path: `/emergency/${scenario}`,
     }),
     robots: { index: false, follow: false },
