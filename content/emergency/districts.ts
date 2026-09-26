@@ -60,7 +60,88 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Lam Chedi School (โรงเรียนลำเจดีย์)", th: "โรงเรียนลำเจดีย์" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Luang Phaeng School (Bamrung Ratkit) (โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ))",
+          th: "โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ)",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Khlong Song School (โรงเรียนคลองสอง)", th: "โรงเรียนคลองสอง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Nilarat Uppatham School (โรงเรียนนีลราษฎร์อุปถัมภ์)",
+          th: "โรงเรียนนีลราษฎร์อุปถัมภ์",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Ban Lam Ton Kluai School (โรงเรียนบ้านลำต้นกล้วย)",
+          th: "โรงเรียนบ้านลำต้นกล้วย",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Lam Buri Phuang School (โรงเรียนลำบุหรี่พวง)", th: "โรงเรียนลำบุหรี่พวง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Khari Uppatham School (โรงเรียนคารีอุปถัมภ์)", th: "โรงเรียนคารีอุปถัมภ์" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Wat Ratsadon Bamrung School (โรงเรียนวัดราษฎร์บำรุง)",
+          th: "โรงเรียนวัดราษฎร์บำรุง",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Surao Na Tap School (โรงเรียนสุเหร่านาตับ)", th: "โรงเรียนสุเหร่านาตับ" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Surao Sala Daeng School (โรงเรียนสุเหร่าศาลาแดง)",
+          th: "โรงเรียนสุเหร่าศาลาแดง",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Sap Moson School (โรงเรียนวัดทรัพย์โมสร)", th: "โรงเรียนวัดทรัพย์โมสร" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Surao Haji Mina School (โรงเรียนสุเหร่าหะยีมินา)",
+          th: "โรงเรียนสุเหร่าหะยีมินา",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Wat Phraya Pla School (primary section) (โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา))",
+          th: "โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา)",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Wat Phraya Pla School (secondary section) (โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา))",
+          th: "โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา)",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+    ],
     parking: [],
   },
   {
@@ -138,7 +219,20 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "The Mall Lifestore Bangkapi (เดอะมอลล์ไลฟ์สโตร์ บางกะปิ)",
+          th: "เดอะมอลล์ไลฟ์สโตร์ บางกะปิ",
+        },
+        detail: {
+          en: "Floors 1M and 2M, 26 to 27 September. Register with a copy of your ID card and vehicle registration book. Spaces go in order of registration, and only the person who left the car can collect it.",
+          th: "ชั้น 1M และ 2M วันที่ 26 ถึง 27 กันยายน ลงทะเบียนด้วยสำเนาบัตรประชาชนและสำเนาทะเบียนรถ ให้บริการตามลำดับการลงทะเบียน และผู้รับรถคืนต้องเป็นผู้ฝากคนเดิม",
+        },
+        phone: "02-173-1000",
+        source: "https://www.dailynews.co.th/news/6223346/",
+      },
+    ],
   },
   {
     id: "pathum-wan",
@@ -223,8 +317,58 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: {
+          en: "Wang Lek Witthayanuson School (โรงเรียนวังเล็กวิทยานุสรณ์)",
+          th: "โรงเรียนวังเล็กวิทยานุสรณ์",
+        },
+        detail: { en: "Capacity around 100 people.", th: "รองรับได้ประมาณ 100 คน" },
+        phone: "088-245-3565",
+        source: "https://www.thaipbs.or.th/news/content/558577",
+      },
+      {
+        name: {
+          en: "Min Buri District Office Public Hall (อาคารศาลาประชาคม สำนักงานเขตมีนบุรี)",
+          th: "อาคารศาลาประชาคม สำนักงานเขตมีนบุรี",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Surao Sai Kong Din School (โรงเรียนสุเหร่าทรายกองดิน)",
+          th: "โรงเรียนสุเหร่าทรายกองดิน",
+        },
+        detail: { en: "Capacity around 100 people.", th: "รองรับได้ประมาณ 100 คน" },
+        phone: "081-826-1556",
+        source: "https://www.thaipbs.or.th/news/content/558577",
+      },
+      {
+        name: { en: "Sala Khu School (โรงเรียนศาลาคู้)", th: "โรงเรียนศาลาคู้" },
+        detail: { en: "Capacity around 60 people.", th: "รองรับได้ประมาณ 60 คน" },
+        phone: "085-624-9534",
+        source: "https://www.thaipbs.or.th/news/content/558577",
+      },
+      {
+        name: { en: "Surao Bang Chan School (โรงเรียนสุเหร่าบางชัน)", th: "โรงเรียนสุเหร่าบางชัน" },
+        detail: { en: "Capacity around 50 people.", th: "รองรับได้ประมาณ 50 คน" },
+        phone: "065-616-3956",
+        source: "https://www.thaipbs.or.th/news/content/558577",
+      },
+    ],
+    parking: [
+      {
+        name: {
+          en: "Min Buri Pink Line station park and ride (สถานีมีนบุรี รถไฟฟ้าสายสีชมพู (PK30))",
+          th: "สถานีมีนบุรี รถไฟฟ้าสายสีชมพู (PK30)",
+        },
+        detail: {
+          en: "Free until 12:00 on Monday 28 September. Show your ID card and vehicle registration to station staff.",
+          th: "จอดฟรีถึงวันจันทร์ที่ 28 กันยายน เวลา 12.00 น. แสดงบัตรประชาชนและเอกสารรถต่อเจ้าหน้าที่สถานี",
+        },
+        source: "https://www.bangkokbiznews.com/economics/1253636",
+      },
+    ],
   },
   {
     id: "lat-krabang",
@@ -284,7 +428,69 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Khum Thong School (โรงเรียนขุมทอง)", th: "โรงเรียนขุมทอง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Tambon Khum Thong School (โรงเรียนตำบลขุมทอง)", th: "โรงเรียนตำบลขุมทอง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Daeng Pao School (โรงเรียนแดงเป้า)", th: "โรงเรียนแดงเป้า" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Kheha Chumchon Lat Krabang School (โรงเรียนเคหะชุมชนลาดกระบัง)",
+          th: "โรงเรียนเคหะชุมชนลาดกระบัง",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Bamrung Ruen School (โรงเรียนวัดบำรุงรื่น)", th: "โรงเรียนวัดบำรุงรื่น" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Sutthaphot School (โรงเรียนวัดสุทธาโภชน์)", th: "โรงเรียนวัดสุทธาโภชน์" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Saeng Hiran Witthaya School (โรงเรียนแสงหิรัญวิทยา)",
+          th: "โรงเรียนแสงหิรัญวิทยา",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Prasan Samakkhi School (โรงเรียนประสานสามัคคี)", th: "โรงเรียนประสานสามัคคี" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Lat Krabang Recreation Centre (ศูนย์นันทนาการลาดกระบัง)",
+          th: "ศูนย์นันทนาการลาดกระบัง",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Lan Bun School (โรงเรียนวัดลานบุญ)", th: "โรงเรียนวัดลานบุญ" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Lat Krabang School (โรงเรียนวัดลาดกระบัง)", th: "โรงเรียนวัดลาดกระบัง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Sangkharacha School (โรงเรียนวัดสังฆราชา)", th: "โรงเรียนวัดสังฆราชา" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Pak Bueng School (โรงเรียนวัดปากบึง)", th: "โรงเรียนวัดปากบึง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+    ],
     parking: [],
   },
   {
@@ -840,7 +1046,30 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Bueng Kum District Office (สำนักงานเขตบึงกุ่ม)", th: "สำนักงานเขตบึงกุ่ม" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Khlong Lamchiak School (Wang Thong Bamrung) (โรงเรียนคลองลำเจียก (หวังทองบำรุง))",
+          th: "โรงเรียนคลองลำเจียก (หวังทองบำรุง)",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: {
+          en: "Yaemchat Wichanusorn School (โรงเรียนแย้มจาดวิชชานุสรณ์)",
+          th: "โรงเรียนแย้มจาดวิชชานุสรณ์",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Wat Bang Toei School (โรงเรียนวัดบางเตย)", th: "โรงเรียนวัดบางเตย" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+    ],
     parking: [],
   },
   {
@@ -996,7 +1225,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
       {
         name: {
-          en: "Krung Thep Aphiwat Central Station free parking (bus lot behind the Juvenile Court)",
+          en: "Krung Thep Aphiwat Central Station free parking (bus lot behind the Juvenile Court) (จุดจอดรถฟรี สถานีกลางกรุงเทพอภิวัฒน์ (ลานจอดรถบัส ด้านหลังศาลเยาวชนฯ))",
           th: "จุดจอดรถฟรี สถานีกลางกรุงเทพอภิวัฒน์ (ลานจอดรถบัส ด้านหลังศาลเยาวชนฯ)",
         },
         detail: {
@@ -1175,7 +1404,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
     parking: [
       {
         name: {
-          en: "Don Mueang Airport free parking (Warehouse Building 4)",
+          en: "Don Mueang Airport free parking (Warehouse Building 4) (ที่จอดรถฟรีสนามบินดอนเมือง (อาคารคลังสินค้า 4))",
           th: "ที่จอดรถฟรีสนามบินดอนเมือง (อาคารคลังสินค้า 4)",
         },
         detail: {
@@ -1545,8 +1774,32 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: {
+          en: "Khan Na Yao School (Tharin Charoen Songkhro) (โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์))",
+          th: "โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์)",
+        },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+      {
+        name: { en: "Chinda Bamrung School (โรงเรียนจินดาบำรุง)", th: "โรงเรียนจินดาบำรุง" },
+        source: "https://www.thansettakij.com/general-news/669908",
+      },
+    ],
+    parking: [
+      {
+        name: {
+          en: "Fashion Island and The Promenade (แฟชั่นไอส์แลนด์ และเดอะพรอมานาด)",
+          th: "แฟชั่นไอส์แลนด์ และเดอะพรอมานาด",
+        },
+        detail: {
+          en: "Register with your ID card at the building office on floor B, then park on floors 4 and 5 of the HomePro building. The malls themselves are closed because the roads to them are flooded.",
+          th: "ลงทะเบียนด้วยบัตรประชาชนที่ฝ่ายอาคารและสถานที่ ชั้น B แล้วนำรถไปจอดที่อาคารโฮมโปร ชั้น 4 และ 5 ส่วนศูนย์การค้าปิดให้บริการชั่วคราวเพราะเส้นทางเข้าน้ำท่วม",
+        },
+        source: "https://www.komchadluek.net/news/623361",
+      },
+    ],
   },
   {
     id: "saphan-sung",
