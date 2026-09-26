@@ -104,7 +104,12 @@ export default async function EmergencyIndexPage({
         </section>
 
         {landingSections[locale].map((section) => (
-          <GuideSection key={section.id} section={section} />
+          <GuideSection
+            key={section.id}
+            section={section}
+            extLabel={t.ext}
+            newTabLabel={dict.a11y.newTab}
+          />
         ))}
 
         <footer className="flex flex-col gap-3 border-t border-line pt-6 text-sm leading-relaxed text-muted">

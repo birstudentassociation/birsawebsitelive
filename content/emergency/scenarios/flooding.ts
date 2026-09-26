@@ -1,19 +1,19 @@
 import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
- * Flooding in Bangkok and around Tha Prachan, from monsoon downpours that fill
- * the canals (worst in September and October) or high water and tides on the
- * Chao Phraya (usually October to December). Written from Thai official
- * sources: DDPM, the BMA and its Drainage and Sewerage Department, the Thai
- * Meteorological Department, MEA and the Department of Disease Control.
+ * Written for the Bangkok floods of September 2026: shelters, sandbags, roads
+ * to avoid and who to call, from BMA and district office announcements and
+ * the Thai official sources below. When this flood is over, restore the
+ * general flooding guide from git history (commit 2656287) before the alert
+ * is ended.
  */
 const flooding: EmergencyScenario = {
   id: "flooding",
   severity: "critical",
   hero: "red",
   group: "hazard",
-  keyContacts: ["bma", "ambulance", "mea"],
-  moreContacts: ["bmaFlood", "ddpm", "erawan", "tmd", "police", "ddc", "tuClinic", "facultyOffice"],
+  keyContacts: ["bma", "ambulance", "bmaFlood"],
+  moreContacts: ["ddpm", "mea", "erawan", "tmd", "police", "ddc", "tuClinic", "facultyOffice"],
   sources: [
     {
       label: {
@@ -95,175 +95,543 @@ const flooding: EmergencyScenario = {
   ],
   reviewed: "2026-09-26",
   en: {
-    title: "Flooding",
+    title: "Bangkok floods, September 2026",
     summary:
-      "Heavy monsoon rain, worst in September and October, can fill Bangkok's canals and flood roads across the city within hours. Tha Prachan also sits on the Chao Phraya, and from October to December high water and tides can flood the piers and riverside roads around campus.",
+      "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page lists shelters, sandbags, roads to avoid and who to call.",
     banner:
-      "Canals in Bangkok are at critical levels and roads are flooding. Keep out of floodwater and check your route before you travel.",
+      "All 50 districts of Bangkok are a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",
     now: [
-      "Do not walk, ride or drive through deep or fast water. If you have to cross, go slowly, hold on to something fixed and test the ground ahead.",
-      "Keep away from power lines, poles and anything wet that could carry electricity. Report hazards to MEA on 1130.",
-      "If you live beside a canal or on low ground, move belongings, valuables and your vehicle somewhere higher now.",
-      "Check flooded roads and class changes before you set off, and travel home early.",
-      "If officials or an emergency alert on your phone tell you to move or leave, go straight away.",
+      "Keep out of floodwater. Do not drive a small car through flooded roads. Several have stalled in Din Daeng.",
+      "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
+      "If you need to leave home, go to a temporary shelter in your district. Call the number first if one is listed.",
+      "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
+      "Photograph any damage before you clean up. You will need the photographs to claim help.",
     ],
     sections: [
       {
-        id: "how-it-floods",
-        heading: "How Bangkok floods",
+        id: "shelters",
+        heading: "Temporary shelters",
         body: [
-          "Rain falls into a network of canals that the BMA pumps out into the Chao Phraya. When heavy rain lasts a day or more, the canals fill faster than they can be pumped, and water backs up onto roads and into low ground beside them. The river itself can stay well below its flood wall while the canals overflow.",
-          "The BMA publishes live readings from its canal and road sensors at weather.bangkok.go.th. A canal shown as critical is close to overtopping its banks.",
+          "District offices have opened temporary shelters for people whose homes are flooded, mostly in BMA schools and temples. Staff are on site to look after people who stay. If your district is not listed, call your district office or 1555.",
+          "These come from BMA and district office announcements on 26 September. More shelters may open.",
         ],
-        items: [
-          "In the September 2026 rain the canals reached critical level first in the north and east of the city, including Don Mueang, Lak Si, Sai Mai, Bang Khen, Lat Phrao, Bang Kapi, Min Buri, Lat Krabang and Khlong Sam Wa.",
-          "Canals in west Thonburi, including Thawi Watthana, Bang Khae and Phasi Charoen, rose quickly too. If you live there or travel through, check the sensors before you set off.",
+        directory: [
+          {
+            heading: "Bang Khen",
+            places: [{ name: "Prachaphiban School (โรงเรียนประชาภิบาล)" }],
+            phones: [{ phone: "089-783-3595" }],
+          },
+          {
+            heading: "Bang Sue",
+            places: [
+              {
+                name: "Hua Chak Rot Fai Tuek Daeng Community Child Development Centre (ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง)",
+              },
+              {
+                name: "Ban Phak Rot Fai Kosang Community Child Development Centre (ศูนย์พัฒนาเด็กเล็กชุมชนบ้านพักรถไฟก่อสร้าง)",
+              },
+            ],
+            phones: [{ phone: "081-268-1104" }],
+          },
+          {
+            heading: "Chatuchak",
+            places: [{ name: "Wat Thewasunthon (วัดเทวสุนทร)" }],
+            phones: [{ phone: "096-883-7585" }],
+            note: "10 people were staying when the BMA announced it.",
+          },
+          {
+            heading: "Don Mueang",
+            places: [
+              { name: "Wat Don Mueang School (โรงเรียนวัดดอนเมือง)", detail: "Room for 50" },
+            ],
+            phones: [{ phone: "092-396-3773" }],
+          },
+          {
+            heading: "Eastern Bangkok, Khlong Sam Wa and Min Buri area",
+            places: [
+              {
+                name: "Wang Lek Witthayanuson School (โรงเรียนวังเล็กวิทยานุสรณ์)",
+                detail: "Room for 100",
+                phone: { phone: "088-245-3565" },
+              },
+              {
+                name: "Surao Sai Kong Din School (โรงเรียนสุเหร่าทรายกองดิน)",
+                detail: "Room for 100",
+                phone: { phone: "081-826-1556" },
+              },
+              {
+                name: "Sala Khu School (โรงเรียนศาลาคู้)",
+                detail: "Room for 60",
+                phone: { phone: "085-624-9534" },
+              },
+              {
+                name: "Surao Bang Chan School (โรงเรียนสุเหร่าบางชัน)",
+                detail: "Room for 50",
+                phone: { phone: "065-616-3956" },
+              },
+            ],
+            note: "The announcement did not name the district. Call before you go.",
+          },
+          {
+            heading: "Khan Na Yao",
+            places: [
+              {
+                name: "Khan Na Yao School, Tharin Charoen Songkhro (โรงเรียนคันนายาว ธารินเจริญสงเคราะห์)",
+              },
+              { name: "Chinda Bamrung School (โรงเรียนจินดาบำรุง)" },
+            ],
+            note: "No phone number was given. Call the district office or 1555.",
+            links: [
+              {
+                label: "Map of Khan Na Yao School",
+                href: "https://maps.app.goo.gl/Pup7DEksvBc3ooau5",
+              },
+              {
+                label: "Map of Chinda Bamrung School",
+                href: "https://maps.app.goo.gl/3RvngLtzP6DbACFP6",
+              },
+            ],
+          },
+          {
+            heading: "Lak Si",
+            places: [{ name: "Wat Lak Si (วัดหลักสี่)" }],
+            phones: [{ phone: "096-999-4829" }],
+          },
+          {
+            heading: "Lat Phrao",
+            places: [{ name: "Wat Lat Pla Khao (วัดลาดปลาเค้า)" }],
+            phones: [{ phone: "089-815-6188" }],
+          },
+          {
+            heading: "Sai Mai",
+            places: [{ name: "Wat Rat Niyom Tham School (โรงเรียนวัดราษฎร์นิยมธรรม)" }],
+            phones: [{ phone: "086-937-9294" }],
+          },
+          {
+            heading: "Saphan Sung",
+            places: [
+              { name: "Sam Yaek Khlong Lo Lae School (โรงเรียนสามแยกคลองหลอแหล)" },
+              { name: "Si Phruetta School (โรงเรียนศรีพฤฒา)" },
+              { name: "Surao Si Ro School (โรงเรียนสุเหร่าซีรอ)" },
+              { name: "Surao Lat Bua Khao School (โรงเรียนสุเหร่าลาดบัวขาว)" },
+              {
+                name: "Somphot Krung Anuson School, 200th anniversary (โรงเรียนสมโภชกรุงอนุสรณ์ 200 ปี)",
+              },
+            ],
+            note: "No phone number was given. Call the district office or 1555.",
+          },
+          {
+            heading: "Thawi Watthana",
+            places: [
+              { name: "Matthayom Puranawat School (โรงเรียนมัธยมปุรณาวาส)" },
+              { name: "Tang Phirun Tham School (โรงเรียนตั้งพิรุฬห์ธรรม)" },
+              {
+                name: "Khlong Thawi Watthana School, Thong Nuam Anuson (โรงเรียนคลองทวีวัฒนา ทองน่วมอนุสรณ์)",
+              },
+              { name: "Khlong Bang Phrom School (โรงเรียนคลองบางพรหม)" },
+              { name: "Khlong Ton Sai School, Suk Lom Uthit (โรงเรียนคลองต้นไทร สุขล้อมอุทิศ)" },
+              { name: "Wat Wisit Bunyawat School (โรงเรียนวัดวิศิษฎ์บุญญาวาส)" },
+              { name: "Sala Thammasop School (โรงเรียนศาลาธรรมสพน์)" },
+            ],
+            phones: [
+              { phone: "02-441-4973", ext: "5534" },
+              { phone: "02-441-4973", ext: "5507" },
+            ],
+          },
         ],
       },
       {
-        id: "travelling",
-        heading: "Travelling to and from campus",
-        items: [
-          "Turn back if a road, underpass or path is flooded. Floodwater hides open drains, loose manhole covers and debris. Avoid wading at night.",
-          "The BMA closes badly flooded roads to small cars. Check Traffy Fondue on LINE or call 1555 before you leave.",
-          "If you drive, look at how deep and how fast the water is before you go in. Do not drive through deep water.",
-          "Leave extra time and travel home early. Traffic slows sharply across the city when roads flood, especially in the evening.",
-          "During floods the BMA asks residents in flooded areas to move their cars to safe spots such as district offices and schools.",
-          "When the Chao Phraya is high, express boats may skip piers or stop running, and roads by Tha Chang and Sanam Luang flood first.",
-        ],
-      },
-      {
-        id: "electricity",
-        heading: "Electricity",
-        items: [
-          "Never touch a switch, socket or appliance while you are wet or standing in water.",
-          "If water reaches the sockets and you can reach the main switch from a dry spot, turn the power off. If you cannot do it safely, leave it and call MEA on 1130.",
-          "Keep well away from fallen cables, poles and metal fences in water.",
-          "Have wiring and appliances that got wet checked before you use them again.",
-        ],
-      },
-      {
-        id: "health",
-        heading: "Health after contact with floodwater",
+        id: "sandbags",
+        heading: "Sandbags",
         body: [
-          "Floodwater carries sewage and animal urine. The Department of Disease Control warns of two infections that spread through cuts and skin soaked in water or mud. Leptospirosis, known as rat urine fever, appears about one to two weeks later. Melioidosis, known as soil fever, can appear from one day to three weeks later, and is more dangerous for people with diabetes or kidney disease.",
+          "District offices are giving sandbags to households in flooded areas. Bring your ID card to register. Districts give up to 20 bags per household.",
         ],
         items: [
-          "Wear boots and rubber gloves if you have to walk through water or clean up, and cover cuts with waterproof plasters.",
-          "Shower with soap and clean water as soon as you can afterwards.",
-          "See a doctor straight away if you get a high fever, headache, aching calves or back, or red eyes within about two weeks of floodwater. Tell them you were in floodwater. Do not treat it yourself.",
-          "Watch for snakes and other animals that shelter in homes during floods.",
-          "Drink bottled or boiled water, and keep drinking water covered.",
+          "At some points you fill the bags yourself and take them home in your own vehicle.",
+          "Times and amounts can change with the situation. Call your district office or 1555 before you go.",
+          "If your district is not listed, ask your district office or request sandbags through Traffy Fondue on LINE.",
+        ],
+        directory: [
+          {
+            heading: "Khan Na Yao",
+            places: [{ name: "Khan Na Yao District Office (สำนักงานเขตคันนายาว)" }],
+            note: "Bring your ID card. Up to 20 bags per household.",
+          },
+          {
+            heading: "Lat Krabang",
+            places: [
+              { name: "Wat Sutthaphot (วัดสุทธาโภชน์)", detail: "5 truckloads" },
+              { name: "Wat Thipphawat (วัดทิพพาวาส)", detail: "5 truckloads" },
+              { name: "Wat Khum Thong (วัดขุมทอง)", detail: "5 truckloads" },
+              { name: "Wat Ratchakosa (วัดราชโกษา)", detail: "5 truckloads" },
+              { name: "Wat Sangkharacha (วัดสังฆราชา)", detail: "5 truckloads" },
+              { name: "Surao Thap Yao (สุเหร่าทับยาว)", detail: "3 truckloads" },
+              {
+                name: "Lat Krabang District Office (สำนักงานเขตลาดกระบัง)",
+                detail: "8 truckloads",
+              },
+            ],
+            note: "Delivered on 26 September. Bring your ID card, up to 20 bags per household. Fill the bags yourself and bring your own vehicle.",
+          },
+          {
+            heading: "Watthana",
+            places: [{ name: "Watthana District Office (สำนักงานเขตวัฒนา)" }],
+            phones: [{ phone: "02-381-3107" }],
+            note: "Up to 20 bags per household. Call to ask, or use Traffy Fondue on LINE.",
+          },
         ],
       },
       {
-        id: "at-home",
-        heading: "Where you live",
-        items: [
-          "Keep a bag ready with water, a torch, a power bank, medicines, your ID and some cash.",
-          "Put important documents in a sealed plastic bag.",
-          "If you live on a ground floor near a canal or the river, agree with a friend on somewhere higher you can go.",
-          "Check on neighbours who may need help to move, such as older people and anyone who is ill or disabled.",
-          "If your home is damaged, take photographs before you clean up. The BMA asks for evidence of damage when people apply for help.",
-          "If you have to leave home, the BMA opens shelters in its schools with food, water and toilets. Ask your district office or call 1555.",
+        id: "roads",
+        heading: "Roads to avoid",
+        body: [
+          "Many roads in the north and east of the city are flooded or closed to small cars. Before you set off, check Traffy Fondue on LINE or call 1555, and do what officers at the scene tell you.",
+        ],
+        directory: [
+          {
+            heading: "Din Daeng, closed to small cars",
+            places: [
+              { name: "Din Daeng Road from the Bot Mae Phra junction to Si Wanit Market" },
+              { name: "The Din Daeng underpass" },
+              { name: "Pracha Songkhro Road past the Bot Mae Phra junction" },
+              {
+                name: "Traffic is being stopped from entering Asok Din Daeng Road from the Rama 9 junction outbound, and the Bot Mae Phra junction from Chaturathit Road",
+              },
+            ],
+            note: "From the Din Daeng district office, 26 September.",
+          },
+          {
+            heading: "Din Daeng, deep water",
+            places: [
+              {
+                name: "Din Daeng triangle, Mit Maitri Road and Pracha Songkhro Road towards the Rama 9 junction",
+                detail:
+                  "Small cars cannot get through and are being turned into the Ministry of Labour. Several have stalled.",
+              },
+              {
+                name: "Ratchadaphisek Road in front of the Chinese embassy",
+                detail: "Small cars can get through only in places. Follow officers' directions.",
+              },
+            ],
+          },
+          {
+            heading: "Deepest water on BMA road sensors",
+            places: [
+              { name: "Sena Nikhom 1", detail: "64 cm" },
+              { name: "Lat Phrao 122", detail: "58 cm" },
+              { name: "Ngam Wong Wan Road at Phong Phet junction", detail: "56 cm" },
+              { name: "New Phetchaburi Road at Singha Complex", detail: "52 cm" },
+              { name: "Ramkhamhaeng 43/1", detail: "50 cm" },
+            ],
+            note: "At 10:10 on 26 September.",
+          },
         ],
       },
       {
-        id: "warnings",
-        heading: "Getting warnings",
+        id: "campus",
+        heading: "Tha Prachan and getting to campus",
         items: [
-          "Turn on emergency alerts on your phone. DDPM sends cell broadcast warnings in Thai and English to every phone in an area at risk.",
-          "If an alert says canal levels are critical, anyone beside a canal or on low ground should move belongings and valuables higher and avoid flooded routes.",
-          "The Thai Meteorological Department issues numbered heavy rain warnings on tmd.go.th and on 1182. Each one says which days and areas to expect.",
-          "Follow BMA announcements about the Chao Phraya and high tides. They say which days and hours the river will peak.",
-          "Report flooding in Bangkok on 1555 or through Traffy Fondue on LINE. For disaster help, call DDPM on 1784 or message @1784DDPM on LINE. For a medical emergency, call 1669.",
+          "The old town has not flooded so far. At 10:10 on 26 September the canals near Tha Prachan were normal and the Chao Phraya at Pak Khlong Talat was 1.06 m, well below the 2.30 m warning level.",
+          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. Leave early and go home early.",
+          "Check faculty and university announcements for changes to classes before you set off.",
+          "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
+        ],
+      },
+      {
+        id: "help",
+        heading: "Reporting flooding and getting help",
+        items: [
+          "Report flooding, blocked drains and people who need help through Traffy Fondue on LINE (@Traffyfondue) or the BMA hotline 1555.",
+          "The BMA flood control centre is on 02-248-5115 and posts updates on its Facebook page, ศูนย์ป้องกันน้ำท่วม กทม.",
+          "For a medical emergency, or to move a patient with a medical condition, call 1669.",
+          "For disaster help, call DDPM on 1784 or message @1784DDPM on LINE.",
+          "Report fallen cables or sparking equipment to MEA on 1130.",
+        ],
+      },
+      {
+        id: "disaster-area",
+        heading: "The disaster declaration and claiming help",
+        body: [
+          "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and is the basis for help to people affected.",
+        ],
+        items: [
+          "Photograph damage to your home and belongings before you clean up.",
+          "Ask your district office how to apply for help.",
+        ],
+      },
+      {
+        id: "safety",
+        heading: "Staying safe in floodwater",
+        items: [
+          "Do not walk or drive through deep or fast water. If you must cross, go slowly, hold on to something fixed and test the ground ahead.",
+          "Never touch switches, sockets or appliances while you are wet. Keep away from fallen cables, poles and metal fences in water.",
+          "Wear boots and rubber gloves if you have to wade or clean up, cover cuts with waterproof plasters, and shower with soap straight afterwards.",
+          "Watch for snakes and other animals sheltering in homes.",
+          "See a doctor straight away if you get a high fever, headache, aching calves or back, or red eyes within about two weeks of floodwater, and say you were in floodwater. Leptospirosis and melioidosis are common after floods.",
+          "Drink bottled or boiled water.",
         ],
       },
     ],
   },
   th: {
-    title: "น้ำท่วม",
+    title: "น้ำท่วมกรุงเทพฯ กันยายน 2569",
     summary:
-      "ในฤดูฝน โดยเฉพาะเดือนกันยายนและตุลาคม ฝนที่ตกหนักอาจทำให้น้ำในคลองเต็มและถนนทั่วกรุงเทพฯ ท่วมขังได้ภายในไม่กี่ชั่วโมง ส่วนท่าพระจันทร์ตั้งอยู่ริมแม่น้ำเจ้าพระยา ในช่วงเดือนตุลาคมถึงธันวาคม น้ำเหนือที่ไหลหลากประกอบกับน้ำทะเลหนุนอาจทำให้ท่าเรือและถนนริมน้ำรอบมหาวิทยาลัยท่วมได้",
+      "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้รวบรวมศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
-      "ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต ถนนหลายสายมีน้ำท่วมขัง หลีกเลี่ยงการลุยน้ำ และตรวจสอบเส้นทางก่อนเดินทาง",
+      "กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ระดับน้ำในคลองอยู่ในขั้นวิกฤต ถนนหลายสายมีน้ำท่วมขัง ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
     now: [
-      "อย่าเดินลุย ขี่รถ หรือขับรถผ่านน้ำที่ลึกหรือไหลเชี่ยว หากจำเป็นต้องข้าม ให้ค่อย ๆ เดิน ยึดจับสิ่งที่มั่นคง และใช้ไม้หยั่งพื้นข้างหน้าก่อนก้าวทุกครั้ง",
-      "อยู่ห่างจากสายไฟ เสาไฟฟ้า และวัตถุที่เปียกน้ำซึ่งอาจเป็นสื่อนำไฟฟ้า หากพบจุดที่เป็นอันตรายจากไฟฟ้า ให้แจ้งการไฟฟ้านครหลวง โทร 1130",
-      "หากพักอยู่ริมคลองหรือในพื้นที่ลุ่มต่ำ ให้ยกสิ่งของและทรัพย์สินมีค่าขึ้นที่สูง และย้ายรถไปจอดในที่สูงตั้งแต่ตอนนี้",
-      "ก่อนออกจากบ้าน ให้ตรวจสอบเส้นทางที่น้ำท่วมและประกาศเรื่องการเรียนการสอน และวางแผนกลับบ้านให้เร็วขึ้น",
-      "หากเจ้าหน้าที่หรือข้อความแจ้งเตือนภัยในโทรศัพท์แจ้งให้ย้ายออกหรืออพยพ ให้ปฏิบัติตามทันที",
+      "หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม ขณะนี้มีรถเล็กดับกลางน้ำหลายคันในเขตดินแดง",
+      "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
+      "หากต้องออกจากบ้าน ให้ไปศูนย์พักพิงชั่วคราวในเขตของตน ถ้ามีเบอร์โทร ให้โทรสอบถามก่อน",
+      "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
+      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
     ],
     sections: [
       {
-        id: "how-it-floods",
-        heading: "น้ำท่วมในกรุงเทพฯ เกิดขึ้นอย่างไร",
+        id: "shelters",
+        heading: "ศูนย์พักพิงชั่วคราว",
         body: [
-          "น้ำฝนจะไหลลงคลอง แล้ว กทม. สูบระบายออกสู่แม่น้ำเจ้าพระยา เมื่อฝนตกหนักต่อเนื่องนานเป็นวัน น้ำไหลลงคลองเร็วกว่าที่สูบออกได้ทัน จึงเอ่อล้นขึ้นมาท่วมถนนและพื้นที่ต่ำริมคลอง แม้ระดับน้ำในแม่น้ำเจ้าพระยาจะยังต่ำกว่าแนวคันกั้นน้ำอยู่มากก็ตาม",
-          "สำนักการระบายน้ำ กทม. เผยแพร่ข้อมูลจากสถานีวัดระดับน้ำในคลองและสถานีวัดน้ำท่วมบนถนนแบบเรียลไทม์ที่ weather.bangkok.go.th หากคลองใดขึ้นสถานะวิกฤต แสดงว่าระดับน้ำใกล้ล้นตลิ่งแล้ว",
+          "สำนักงานเขตเปิดศูนย์พักพิงชั่วคราวสำหรับผู้ที่บ้านถูกน้ำท่วม ส่วนใหญ่อยู่ในโรงเรียนสังกัด กทม. และวัด มีเจ้าหน้าที่คอยดูแลและอำนวยความสะดวก หากไม่มีเขตของท่านในรายการ ให้ติดต่อสำนักงานเขตหรือโทร 1555",
+          "ข้อมูลนี้รวบรวมจากประกาศของ กทม. และสำนักงานเขตเมื่อวันที่ 26 กันยายน และอาจมีศูนย์พักพิงเปิดเพิ่มอีก",
         ],
-        items: [
-          "ในช่วงฝนตกหนักเดือนกันยายน 2569 คลองในเขตทางเหนือและตะวันออกของกรุงเทพฯ ขึ้นถึงระดับวิกฤตก่อน เช่น เขตดอนเมือง หลักสี่ สายไหม บางเขน ลาดพร้าว บางกะปิ มีนบุรี ลาดกระบัง และคลองสามวา",
-          "คลองในฝั่งธนบุรีด้านตะวันตก เช่น เขตทวีวัฒนา บางแค และภาษีเจริญ ก็มีระดับน้ำสูงขึ้นเร็วเช่นกัน หากพักอยู่หรือต้องเดินทางผ่านย่านนี้ ควรตรวจสอบข้อมูลจากสถานีวัดก่อนออกเดินทาง",
+        directory: [
+          {
+            heading: "เขตคันนายาว",
+            places: [
+              { name: "โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์)" },
+              { name: "โรงเรียนจินดาบำรุง" },
+            ],
+            note: "ประกาศไม่ได้ระบุเบอร์โทร สอบถามสำนักงานเขตหรือโทร 1555",
+            links: [
+              {
+                label: "แผนที่โรงเรียนคันนายาว",
+                href: "https://maps.app.goo.gl/Pup7DEksvBc3ooau5",
+              },
+              {
+                label: "แผนที่โรงเรียนจินดาบำรุง",
+                href: "https://maps.app.goo.gl/3RvngLtzP6DbACFP6",
+              },
+            ],
+          },
+          {
+            heading: "เขตจตุจักร",
+            places: [{ name: "วัดเทวสุนทร" }],
+            phones: [{ phone: "096-883-7585" }],
+            note: "ขณะที่ กทม. ประกาศ มีผู้เข้าพัก 10 คน",
+          },
+          {
+            heading: "เขตดอนเมือง",
+            places: [{ name: "โรงเรียนวัดดอนเมือง", detail: "รองรับได้ 50 คน" }],
+            phones: [{ phone: "092-396-3773" }],
+          },
+          {
+            heading: "เขตทวีวัฒนา",
+            places: [
+              { name: "โรงเรียนมัธยมปุรณาวาส" },
+              { name: "โรงเรียนตั้งพิรุฬห์ธรรม" },
+              { name: "โรงเรียนคลองทวีวัฒนา (ทองน่วมอนุสรณ์)" },
+              { name: "โรงเรียนคลองบางพรหม" },
+              { name: "โรงเรียนคลองต้นไทร (สุขล้อมอุทิศ)" },
+              { name: "โรงเรียนวัดวิศิษฎ์บุญญาวาส" },
+              { name: "โรงเรียนศาลาธรรมสพน์" },
+            ],
+            phones: [
+              { phone: "02-441-4973", ext: "5534" },
+              { phone: "02-441-4973", ext: "5507" },
+            ],
+          },
+          {
+            heading: "เขตบางเขน",
+            places: [{ name: "โรงเรียนประชาภิบาล" }],
+            phones: [{ phone: "089-783-3595" }],
+          },
+          {
+            heading: "เขตบางซื่อ",
+            places: [
+              { name: "ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง" },
+              { name: "ศูนย์พัฒนาเด็กเล็กชุมชนบ้านพักรถไฟก่อสร้าง" },
+            ],
+            phones: [{ phone: "081-268-1104" }],
+          },
+          {
+            heading: "ฝั่งตะวันออก ย่านคลองสามวาและมีนบุรี",
+            places: [
+              {
+                name: "โรงเรียนวังเล็กวิทยานุสรณ์",
+                detail: "รองรับได้ 100 คน",
+                phone: { phone: "088-245-3565" },
+              },
+              {
+                name: "โรงเรียนสุเหร่าทรายกองดิน",
+                detail: "รองรับได้ 100 คน",
+                phone: { phone: "081-826-1556" },
+              },
+              {
+                name: "โรงเรียนศาลาคู้",
+                detail: "รองรับได้ 60 คน",
+                phone: { phone: "085-624-9534" },
+              },
+              {
+                name: "โรงเรียนสุเหร่าบางชัน",
+                detail: "รองรับได้ 50 คน",
+                phone: { phone: "065-616-3956" },
+              },
+            ],
+            note: "ประกาศไม่ได้ระบุเขต โปรดโทรสอบถามก่อนเดินทาง",
+          },
+          {
+            heading: "เขตลาดพร้าว",
+            places: [{ name: "วัดลาดปลาเค้า" }],
+            phones: [{ phone: "089-815-6188" }],
+          },
+          {
+            heading: "เขตสะพานสูง",
+            places: [
+              { name: "โรงเรียนสามแยกคลองหลอแหล" },
+              { name: "โรงเรียนศรีพฤฒา" },
+              { name: "โรงเรียนสุเหร่าซีรอ" },
+              { name: "โรงเรียนสุเหร่าลาดบัวขาว" },
+              { name: "โรงเรียนสมโภชกรุงอนุสรณ์ (200 ปี)" },
+            ],
+            note: "ประกาศไม่ได้ระบุเบอร์โทร สอบถามสำนักงานเขตหรือโทร 1555",
+          },
+          {
+            heading: "เขตสายไหม",
+            places: [{ name: "โรงเรียนวัดราษฎร์นิยมธรรม" }],
+            phones: [{ phone: "086-937-9294" }],
+          },
+          {
+            heading: "เขตหลักสี่",
+            places: [{ name: "วัดหลักสี่" }],
+            phones: [{ phone: "096-999-4829" }],
+          },
         ],
       },
       {
-        id: "travelling",
-        heading: "การเดินทางไปกลับมหาวิทยาลัย",
-        items: [
-          "หากถนน อุโมงค์ลอด หรือทางเดินมีน้ำท่วม ให้เลี่ยงไปใช้เส้นทางอื่น ใต้น้ำอาจมีท่อระบายน้ำที่เปิดอยู่ ฝาท่อที่หลุด หรือเศษวัสดุซ่อนอยู่ และควรหลีกเลี่ยงการเดินลุยน้ำในเวลากลางคืน",
-          "กทม. อาจปิดถนนที่น้ำท่วมสูงไม่ให้รถเล็กผ่าน ก่อนออกเดินทางให้ตรวจสอบเส้นทางผ่าน Traffy Fondue ใน LINE หรือโทรสายด่วน 1555",
-          "หากขับรถ ให้ประเมินความลึกและความแรงของกระแสน้ำก่อน และห้ามขับผ่านเส้นทางที่น้ำท่วมสูง",
-          "เผื่อเวลาเดินทางและวางแผนกลับบ้านให้เร็วขึ้น เมื่อถนนมีน้ำท่วมขัง การจราจรจะติดขัดหนักทั่วเมือง โดยเฉพาะช่วงเย็น",
-          "ในช่วงน้ำท่วม กทม. แนะนำให้ประชาชนในพื้นที่น้ำท่วมนำรถไปจอดในที่ปลอดภัย เช่น สำนักงานเขตและโรงเรียน",
-          "เมื่อระดับน้ำในแม่น้ำเจ้าพระยาสูงขึ้น เรือด่วนอาจงดจอดบางท่าหรืองดให้บริการ และถนนบริเวณท่าช้างและสนามหลวงมักท่วมก่อนจุดอื่น",
-        ],
-      },
-      {
-        id: "electricity",
-        heading: "ไฟฟ้า",
-        items: [
-          "ห้ามสัมผัสสวิตช์ ปลั๊กไฟ หรือเครื่องใช้ไฟฟ้าขณะตัวเปียกหรือยืนอยู่ในน้ำ",
-          "หากน้ำท่วมถึงระดับปลั๊กไฟ และเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟทันที หากทำไม่ได้อย่างปลอดภัย อย่าฝืน ให้โทรแจ้งการไฟฟ้านครหลวง 1130",
-          "อยู่ห่างจากสายไฟที่ขาด เสาไฟฟ้า และรั้วเหล็กที่แช่อยู่ในน้ำ",
-          "ให้ช่างไฟฟ้าตรวจสอบสายไฟและเครื่องใช้ไฟฟ้าที่ถูกน้ำก่อนนำกลับมาใช้งาน",
-        ],
-      },
-      {
-        id: "health",
-        heading: "สุขภาพหลังสัมผัสน้ำท่วม",
+        id: "sandbags",
+        heading: "กระสอบทราย",
         body: [
-          "น้ำท่วมมักปนเปื้อนสิ่งปฏิกูลและปัสสาวะสัตว์ กรมควบคุมโรคเตือนให้ระวังสองโรคที่ติดต่อผ่านบาดแผลหรือผิวหนังที่แช่น้ำหรือย่ำโคลนเป็นเวลานาน ได้แก่ โรคฉี่หนู ซึ่งมักแสดงอาการหลังสัมผัสเชื้อราวหนึ่งถึงสองสัปดาห์ และโรคไข้ดินหรือเมลิออยโดสิส ซึ่งแสดงอาการได้ตั้งแต่หนึ่งวันถึงสามสัปดาห์ และรุนแรงกว่าในผู้ป่วยเบาหวานหรือโรคไต",
+          "สำนักงานเขตแจกกระสอบทรายให้ครัวเรือนในพื้นที่น้ำท่วม นำบัตรประจำตัวประชาชนไปลงทะเบียน ครัวเรือนละไม่เกิน 20 กระสอบ",
         ],
         items: [
-          "สวมรองเท้าบูทและถุงมือยางเมื่อต้องลุยน้ำหรือทำความสะอาด และปิดแผลด้วยพลาสเตอร์กันน้ำ",
-          "รีบอาบน้ำฟอกสบู่ให้สะอาดทันทีหลังสัมผัสน้ำหรือโคลน",
-          "หากมีไข้สูง ปวดศีรษะ ปวดน่องหรือปวดหลัง หรือตาแดง ภายในราวสองสัปดาห์หลังลุยน้ำ ให้รีบไปพบแพทย์และแจ้งว่าเคยลุยน้ำท่วม อย่าซื้อยากินเอง",
+          "บางจุดให้ประชาชนบรรจุทรายใส่กระสอบเอง และเตรียมยานพาหนะมาขนกลับเอง",
+          "เวลาและปริมาณอาจเปลี่ยนตามสถานการณ์ โปรดโทรสอบถามสำนักงานเขตหรือสายด่วน 1555 ก่อนเดินทาง",
+          "หากไม่มีเขตของท่านในรายการ ให้สอบถามสำนักงานเขต หรือขอรับกระสอบทรายผ่าน Traffy Fondue ใน LINE",
+        ],
+        directory: [
+          {
+            heading: "เขตคันนายาว",
+            places: [{ name: "สำนักงานเขตคันนายาว" }],
+            note: "นำบัตรประจำตัวประชาชนมาลงทะเบียน ครัวเรือนละ 20 กระสอบ",
+          },
+          {
+            heading: "เขตลาดกระบัง",
+            places: [
+              { name: "วัดสุทธาโภชน์", detail: "5 คัน" },
+              { name: "วัดทิพพาวาส", detail: "5 คัน" },
+              { name: "วัดขุมทอง", detail: "5 คัน" },
+              { name: "วัดราชโกษา", detail: "5 คัน" },
+              { name: "วัดสังฆราชา", detail: "5 คัน" },
+              { name: "สุเหร่าทับยาว", detail: "3 คัน" },
+              { name: "สำนักงานเขตลาดกระบัง", detail: "8 คัน" },
+            ],
+            note: "จัดส่งวันที่ 26 กันยายน นำบัตรประจำตัวประชาชนไปติดต่อ ครัวเรือนละไม่เกิน 20 กระสอบ บรรจุกระสอบเองและเตรียมยานพาหนะมาขนกลับเอง",
+          },
+          {
+            heading: "เขตวัฒนา",
+            places: [{ name: "สำนักงานเขตวัฒนา" }],
+            phones: [{ phone: "02-381-3107" }],
+            note: "ครัวเรือนละ 20 กระสอบ โทรติดต่อขอรับ หรือแจ้งผ่าน Traffy Fondue ใน LINE",
+          },
+        ],
+      },
+      {
+        id: "roads",
+        heading: "เส้นทางที่ควรเลี่ยง",
+        body: [
+          "ถนนหลายสายทางเหนือและตะวันออกของเมืองมีน้ำท่วมขังหรือห้ามรถเล็กผ่าน ก่อนออกเดินทางให้ตรวจสอบผ่าน Traffy Fondue ใน LINE หรือโทร 1555 และปฏิบัติตามคำแนะนำของเจ้าหน้าที่ในพื้นที่",
+        ],
+        directory: [
+          {
+            heading: "เขตดินแดง ห้ามรถเล็กผ่าน",
+            places: [
+              { name: "ถนนดินแดง ตั้งแต่แยกโบสถ์แม่พระถึงหน้าตลาดศรีวนิช" },
+              { name: "อุโมงค์ดินแดง" },
+              { name: "ถนนประชาสงเคราะห์ ห้ามผ่านแยกโบสถ์แม่พระ" },
+              {
+                name: "ปิดไม่ให้รถเข้าถนนอโศกดินแดงจากแยกพระราม 9 ขาออก และไม่ให้รถจากถนนจตุรทิศเข้าแยกโบสถ์แม่พระ",
+              },
+            ],
+            note: "ข้อมูลจากสำนักงานเขตดินแดง 26 กันยายน",
+          },
+          {
+            heading: "เขตดินแดง น้ำท่วมสูง",
+            places: [
+              {
+                name: "แยกสามเหลี่ยมดินแดง ถนนมิตรไมตรี และถนนประชาสงเคราะห์มุ่งหน้าแยกพระราม 9",
+                detail: "รถเล็กผ่านไม่ได้ ต้องเลี้ยวเข้ากระทรวงแรงงาน มีรถเล็กดับหลายคัน",
+              },
+              {
+                name: "ถนนรัชดาภิเษก หน้าสถานทูตจีน",
+                detail: "รถเล็กผ่านได้บางจุด ปฏิบัติตามคำแนะนำของเจ้าหน้าที่",
+              },
+            ],
+          },
+          {
+            heading: "จุดที่น้ำลึกที่สุดจากสถานีวัดของ กทม.",
+            places: [
+              { name: "ถนนเสนานิคม 1", detail: "64 ซม." },
+              { name: "ซอยลาดพร้าว 122", detail: "58 ซม." },
+              { name: "ถนนงามวงศ์วาน แยกพงษ์เพชร", detail: "56 ซม." },
+              { name: "ถนนเพชรบุรีตัดใหม่ หน้าสิงห์คอมเพล็กซ์", detail: "52 ซม." },
+              { name: "ซอยรามคำแหง 43/1", detail: "50 ซม." },
+            ],
+            note: "ข้อมูล ณ เวลา 10.10 น. วันที่ 26 กันยายน",
+          },
+        ],
+      },
+      {
+        id: "campus",
+        heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
+        items: [
+          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 10.10 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.06 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. อยู่มาก",
+          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน ควรออกจากบ้านและกลับบ้านให้เร็วขึ้น",
+          "ตรวจสอบประกาศของคณะและมหาวิทยาลัยเรื่องการเรียนการสอนก่อนออกเดินทาง",
+          "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
+        ],
+      },
+      {
+        id: "help",
+        heading: "แจ้งเหตุและขอความช่วยเหลือ",
+        items: [
+          "แจ้งน้ำท่วมขัง ท่อระบายน้ำอุดตัน หรือผู้ที่ต้องการความช่วยเหลือ ผ่าน Traffy Fondue ใน LINE (@Traffyfondue) หรือสายด่วน กทม. 1555",
+          "ศูนย์ควบคุมระบบป้องกันน้ำท่วม กทม. โทร 02-248-5115 และติดตามข่าวได้ที่เพจ Facebook ศูนย์ป้องกันน้ำท่วม กทม.",
+          "เจ็บป่วยฉุกเฉิน หรือต้องการเคลื่อนย้ายผู้ป่วยที่มีเงื่อนไขทางการแพทย์ โทร 1669",
+          "ขอความช่วยเหลือจากสาธารณภัยได้ที่ ปภ. โทร 1784 หรือ LINE @1784DDPM",
+          "หากพบสายไฟขาดหรืออุปกรณ์ไฟฟ้ามีประกายไฟ แจ้งการไฟฟ้านครหลวง โทร 1130",
+        ],
+      },
+      {
+        id: "disaster-area",
+        heading: "ประกาศเขตพื้นที่ประสบสาธารณภัยและการขอรับความช่วยเหลือ",
+        body: [
+          "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 ขยายจากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และใช้เป็นฐานในการให้ความช่วยเหลือผู้ได้รับผลกระทบ",
+        ],
+        items: [
+          "ถ่ายภาพความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
+          "สอบถามสำนักงานเขตเรื่องขั้นตอนการยื่นขอรับความช่วยเหลือ",
+        ],
+      },
+      {
+        id: "safety",
+        heading: "ความปลอดภัยเมื่อต้องเจอน้ำท่วม",
+        items: [
+          "อย่าเดินลุยหรือขับรถผ่านน้ำที่ลึกหรือไหลเชี่ยว หากจำเป็นต้องข้าม ให้ค่อย ๆ เดิน ยึดจับสิ่งที่มั่นคง และหยั่งพื้นข้างหน้าก่อนก้าว",
+          "ห้ามสัมผัสสวิตช์ ปลั๊กไฟ หรือเครื่องใช้ไฟฟ้าขณะตัวเปียก และอยู่ห่างจากสายไฟที่ขาด เสาไฟฟ้า และรั้วเหล็กที่แช่อยู่ในน้ำ",
+          "สวมรองเท้าบูทและถุงมือยางเมื่อต้องลุยน้ำหรือทำความสะอาด ปิดแผลด้วยพลาสเตอร์กันน้ำ และอาบน้ำฟอกสบู่ทันทีหลังสัมผัสน้ำ",
           "ระวังงูและสัตว์มีพิษที่หนีน้ำเข้ามาอาศัยในบ้าน",
-          "ดื่มน้ำขวดหรือน้ำต้มสุก และปิดภาชนะใส่น้ำดื่มให้มิดชิด",
-        ],
-      },
-      {
-        id: "at-home",
-        heading: "ที่พัก",
-        items: [
-          "เตรียมกระเป๋าฉุกเฉินที่มีน้ำดื่ม ไฟฉาย พาวเวอร์แบงก์ ยาประจำตัว บัตรประชาชน และเงินสดจำนวนหนึ่ง",
-          "ใส่เอกสารสำคัญในถุงพลาสติกที่ปิดสนิท",
-          "หากพักอยู่ชั้นล่างใกล้คลองหรือแม่น้ำ ให้ตกลงกับเพื่อนไว้ล่วงหน้าว่าจะไปพักในที่สูงได้ที่ไหน",
-          "คอยดูแลเพื่อนบ้านที่อาจย้ายออกเองไม่ได้ เช่น ผู้สูงอายุ ผู้ป่วย และผู้พิการ",
-          "หากที่พักเสียหาย ให้ถ่ายภาพเก็บไว้ก่อนทำความสะอาด เพราะ กทม. ใช้หลักฐานความเสียหายประกอบการขอรับความช่วยเหลือ",
-          "หากต้องออกจากบ้าน กทม. เปิดศูนย์พักพิงในโรงเรียนสังกัด กทม. ซึ่งมีอาหาร น้ำดื่ม และห้องสุขา สอบถามได้ที่สำนักงานเขตหรือโทร 1555",
-        ],
-      },
-      {
-        id: "warnings",
-        heading: "การรับคำเตือน",
-        items: [
-          "เปิดการแจ้งเตือนเหตุฉุกเฉินในโทรศัพท์ไว้ ปภ. ส่งข้อความเตือนภัยผ่านระบบ Cell Broadcast เป็นภาษาไทยและภาษาอังกฤษถึงโทรศัพท์ทุกเครื่องในพื้นที่เสี่ยง",
-          "หากได้รับข้อความเตือนว่าระดับน้ำในคลองวิกฤต ผู้ที่อยู่ริมคลองหรือในพื้นที่ลุ่มต่ำควรยกสิ่งของและทรัพย์สินมีค่าขึ้นที่สูง และหลีกเลี่ยงเส้นทางที่น้ำท่วม",
-          "กรมอุตุนิยมวิทยาออกประกาศเตือนฝนตกหนักเป็นระยะ โดยแต่ละฉบับระบุวันและพื้นที่ที่ต้องเฝ้าระวัง ติดตามได้ที่ tmd.go.th หรือโทร 1182",
-          "ติดตามประกาศของ กทม. เรื่องระดับน้ำในแม่น้ำเจ้าพระยาและน้ำทะเลหนุน ซึ่งจะระบุวันและช่วงเวลาที่น้ำขึ้นสูงสุด",
-          "แจ้งเหตุน้ำท่วมในกรุงเทพฯ ได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE ขอความช่วยเหลือจากสาธารณภัยได้ที่ ปภ. โทร 1784 หรือ LINE @1784DDPM หากเจ็บป่วยฉุกเฉินโทร 1669",
+          "หากมีไข้สูง ปวดศีรษะ ปวดน่องหรือปวดหลัง หรือตาแดง ภายในราวสองสัปดาห์หลังลุยน้ำ ให้รีบไปพบแพทย์และแจ้งว่าเคยลุยน้ำท่วม โรคฉี่หนูและโรคไข้ดินพบบ่อยหลังน้ำท่วม",
+          "ดื่มน้ำขวดหรือน้ำต้มสุก",
         ],
       },
     ],

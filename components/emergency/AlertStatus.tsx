@@ -37,7 +37,7 @@ export default function AlertStatus({ locale, live, t, showGuideLink = false }: 
         <p
           className={`text-sm font-semibold tracking-wide uppercase ${labelTone[scenario.severity]}`}
         >
-          {t.liveAlert} · {t.severity[scenario.severity]}
+          {t.liveAlert}
         </p>
         <h2 id="live-alert-heading" className="font-display text-2xl">
           {alertBanner(live, locale)}

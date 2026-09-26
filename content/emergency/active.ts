@@ -39,6 +39,25 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T12:15:00+07:00",
+      text: {
+        en: "Temporary shelters and sandbag points are now listed on this page, by district.",
+        th: "รายชื่อศูนย์พักพิงชั่วคราวและจุดรับกระสอบทราย แยกตามเขต อยู่ในหน้านี้แล้ว",
+      },
+      points: {
+        en: [
+          "District offices have opened shelters in 11 areas, including Chatuchak, Don Mueang, Lak Si, Sai Mai, Saphan Sung and Thawi Watthana.",
+          "Khan Na Yao, Lat Krabang and Watthana are giving out sandbags. Bring your ID card, up to 20 bags per household.",
+          "Din Daeng Road, the Din Daeng underpass and Pracha Songkhro Road at the Bot Mae Phra junction are closed to small cars.",
+        ],
+        th: [
+          "สำนักงานเขตเปิดศูนย์พักพิงแล้ว 11 พื้นที่ เช่น เขตจตุจักร ดอนเมือง หลักสี่ สายไหม สะพานสูง และทวีวัฒนา",
+          "เขตคันนายาว ลาดกระบัง และวัฒนา แจกกระสอบทราย นำบัตรประจำตัวประชาชนไปติดต่อ ครัวเรือนละไม่เกิน 20 กระสอบ",
+          "ถนนดินแดง อุโมงค์ดินแดง และถนนประชาสงเคราะห์ช่วงแยกโบสถ์แม่พระ ห้ามรถเล็กผ่าน",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T10:45:00+07:00",
       text: {
         en: "All 50 districts of Bangkok are now a declared disaster area.",

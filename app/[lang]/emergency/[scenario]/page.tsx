@@ -122,7 +122,12 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
         </nav>
 
         {c.sections.map((section) => (
-          <GuideSection key={section.id} section={section} />
+          <GuideSection
+            key={section.id}
+            section={section}
+            extLabel={t.ext}
+            newTabLabel={dict.a11y.newTab}
+          />
         ))}
 
         <section

@@ -19,6 +19,12 @@ function allText(content: EmergencyContent): string[] {
       ...(section.body ?? []),
       ...(section.steps ?? []),
       ...(section.items ?? []),
+      ...(section.directory ?? []).flatMap((entry) => [
+        entry.heading,
+        ...entry.places.flatMap((place) => [place.name, ...(place.detail ? [place.detail] : [])]),
+        ...(entry.note ? [entry.note] : []),
+        ...(entry.links ?? []).map((link) => link.label),
+      ]),
     ]),
   ];
 }
@@ -39,6 +45,7 @@ describe("emergency guides", () => {
       expect(Boolean(other.body), `${section.id} body`).toBe(Boolean(section.body));
       expect(other.steps?.length, `${section.id} steps`).toBe(section.steps?.length);
       expect(other.items?.length, `${section.id} items`).toBe(section.items?.length);
+      expect(other.directory?.length, `${section.id} directory`).toBe(section.directory?.length);
     });
   });
 
@@ -52,6 +59,19 @@ describe("emergency guides", () => {
         expect(section.body || section.steps || section.items).toBeTruthy();
       }
       for (const text of allText(content)) expect(text.trim()).not.toBe("");
+      for (const entry of content.sections.flatMap((section) => section.directory ?? [])) {
+        expect(entry.heading.trim()).not.toBe("");
+        expect(entry.places.length).toBeGreaterThan(0);
+        const phones = [
+          ...(entry.phones ?? []),
+          ...entry.places.flatMap((place) => (place.phone ? [place.phone] : [])),
+        ];
+        for (const { phone, ext } of phones) {
+          expect(phone).toMatch(/^\d+(-\d+)*$/);
+          if (ext) expect(ext).toMatch(/^\d+$/);
+        }
+        for (const link of entry.links ?? []) expect(link.href).toMatch(/^https:\/\//);
+      }
     }
   });
 

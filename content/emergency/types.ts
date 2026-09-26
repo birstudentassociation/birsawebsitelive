@@ -17,6 +17,30 @@ export type HeroTone = "red" | "black" | "purple" | "blue" | "green" | "brown" |
 /** How the index page groups the guides. */
 export type ScenarioGroup = "life" | "hazard" | "disruption" | "unrest" | "other";
 
+/** Digits with dashes, e.g. `096-999-4829`, shown as a call link. */
+export type DirectoryPhone = { phone: string; ext?: string };
+
+export type DirectoryPlace = {
+  name: string;
+  /** Capacity, a road condition or similar, shown under the name. */
+  detail?: string;
+  /** A number for this place only. */
+  phone?: DirectoryPhone;
+};
+
+/** One place or group of places in a directory, such as a district's shelters. */
+export type DirectoryEntry = {
+  /** Usually the district. */
+  heading: string;
+  places: DirectoryPlace[];
+  /** Numbers for the whole entry. */
+  phones?: DirectoryPhone[];
+  /** Capacity, hours or conditions. */
+  note?: string;
+  /** Maps or pages. */
+  links?: { label: string; href: string }[];
+};
+
 export type EmergencySection = {
   /** Fragment id for the on-this-page links. Identical in both languages. */
   id: string;
@@ -27,6 +51,8 @@ export type EmergencySection = {
   steps?: string[];
   /** Points where order does not matter, rendered as bullets. */
   items?: string[];
+  /** Places with phone numbers, rendered as a list of cards after the points. */
+  directory?: DirectoryEntry[];
 };
 
 /** All copy for one guide, in one language. */
