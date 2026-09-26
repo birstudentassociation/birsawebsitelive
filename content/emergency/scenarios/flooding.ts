@@ -248,19 +248,20 @@ const flooding: EmergencyScenario = {
     banner:
       "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September.",
     now: [
-      "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
-      "Stay at home if you can. The governor has asked people not to travel unless they need to, and expects the water to take two to three days to drain if no more rain falls. Keep out of floodwater and do not drive a small car through flooded roads.",
-      "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
-      "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BMA Flood Support or call 1555.",
-      "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
-      "Photograph any damage before you clean up. If your home was damaged or flooded, you can claim up to 49,500 baht for repairs and up to 3,000 baht for somewhere to stay through your district office, including if you rent. See the section on claiming help.",
+      "Study online on 28 and 29 September. This weekend's midterms move to 4 and 11 October. See the Thammasat section below.",
+      "Stay at home if you can and keep out of floodwater. The governor expects the water to take two to three days to drain if no more rain falls.",
+      "If water comes in, move valuables and your car higher. Turn off the main switch if you can reach it from somewhere dry.",
+      "Register for the student union shelter at Tha Prachan if you need to leave home. Others can find a shelter on BMA Flood Support or call 1555.",
+      "Report flooding on 1555 or Traffy Fondue on LINE. Call 1669 for a medical emergency or to move a patient.",
+      "Photograph damage before you clean up, then claim up to 49,500 baht for repairs through your district office, even if you rent. See claiming compensation below.",
     ],
     sections: [
       {
         id: "thammasat",
         heading: "Thammasat shelter, exams, classes and libraries",
         body: [
-          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. Thammasat University Library has also closed some branches. The library will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
+          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. The student union is running a shelter for Tha Prachan students. Thammasat University Library has closed some branches, and will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
+          "BIRSA is monitoring the situation and updating this page.",
         ],
         directoryOpen: true,
         directory: [
@@ -353,24 +354,33 @@ const flooding: EmergencyScenario = {
         id: "campus",
         heading: "Tha Prachan, the river and getting to campus",
         body: [
-          "The old town has not flooded so far. At 18:35 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The Chao Phraya was 1.96 m above mean sea level at Pak Khlong Talat, below the BMA's 2.30 m warning level. The BMA's river wall at Saphan Phut and Tha Tien is about 2.80 m high.",
-          "Over the next week the river near Tha Prachan will be pushed up by three things at once. Rain is running off the city into the river, more water is coming down from the north, and the tides are at their highest of the month. The riskiest days are 29 September to 3 October.",
+          "Tha Prachan has not flooded. The campus is behind the river wall, and if the river ever came over it most of Bangkok would already be under water. The real risk is water backing up out of the drains.",
         ],
         items: [
-          "The Chao Phraya Dam in Chai Nat raised its release from 1,850 to 1,950 cubic metres a second on 26 September, close to its 2,000 limit. Water takes about two to three days to reach Bangkok, so this water arrives around 28 and 29 September. The Royal Irrigation Department expects the flow from the north to peak around 2 October.",
-          "The Navy's tide predictions for its headquarters, across the river from Tha Prachan, show a high tide of about 1.0 to 1.2 m above mean sea level every evening between about 19:00 and 22:00 until 3 October. From 29 September there is a second high tide of the same height in the morning, moving to around midday by 3 October, so the river stays high for most of the day.",
-          "On the evening of 26 September the river ran about 1 m above the predicted tide. The Royal Irrigation Department gauge at Samsen, about 3 km upstream, read 2.12 m at 20:00, and Nuanchawee Bridge in Nonthaburi read 2.40 m at 21:20.",
-          "If the river stays about 1 m above the tide, evening peaks near Tha Prachan would be about 2.0 to 2.2 m from 29 September to 3 October, near the 2.30 m warning level but below the wall. This is our reading of the published figures, not an official forecast. More rain or more water from the north would raise it.",
-          "The campus is behind the wall. The old town's canals, Khlong Khu Mueang Doem and Khlong Rop Krung, empty into the river. When the river is high they can only be emptied by pumping, so heavy rain at high tide is the most likely cause of flooding nearby. Maharaj Road between Tha Chang and Tha Prachan flooded in heavy rain in October 2024. In 2011, when the river came over the bank, water on Maharaj Road and Phra Chan Road was over 50 cm deep.",
-          "Take care at Tha Prachan, Tha Chang and other piers, which are outside the wall, especially around the evening high tide. Check Chao Phraya Express Boat and ferry services before you travel. The Tha Tien and Tha Wang riverside communities are outside the wall too.",
-          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. If you do not need to come in, stay at home.",
-          "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section.",
+          "Watch the Tha Prachan gate area and the area around the Faculty of Liberal Arts. Water overflowing from the drains collects there first.",
+          "Drains overflow when heavy rain falls at high tide, because the canals cannot empty into the river.",
+          "The riskiest days are 29 September to 3 October, when high tides, water from the north and rain all arrive together.",
+          "High tide is every evening from about 19:00 to 22:00. From 29 September there is a second high tide in the morning or around midday.",
+          "Keep away from Tha Prachan, Tha Chang and other piers at high tide, because they are outside the wall. Check boat services before you travel.",
+          "Coming from the north or east, expect flooded roads around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan.",
         ],
         links: [
           {
             label: "Check live river levels on Thaiwater",
             href: "https://www.thaiwater.net/water/wl",
           },
+        ],
+      },
+      {
+        id: "prepare",
+        heading: "Preparing for flooding",
+        items: [
+          "Keep your phone charged and a power bank ready.",
+          "Put your ID card, passport and other documents in a waterproof bag.",
+          "Pack a few days of any medicine you take.",
+          "Keep a torch, drinking water and some food that does not need cooking.",
+          "Save 1669 for medical emergencies and 1555 for the BMA hotline in your phone.",
+          "Move valuables, electrical items and important papers off the floor.",
         ],
       },
       {
@@ -438,6 +448,8 @@ const flooding: EmergencyScenario = {
           "For a medical emergency, or to move a patient with a medical condition, call 1669.",
           "For disaster help, call DDPM on 1784 or message @1784DDPM on LINE.",
           "Report fallen cables or sparking equipment to MEA on 1130.",
+          "Only trust flood news from the BMA, the Thai Meteorological Department, DDPM and Thammasat. Check before you share anything.",
+          "Check on friends and neighbours, especially international students who do not read Thai.",
         ],
       },
       {
@@ -543,19 +555,20 @@ const flooding: EmergencyScenario = {
     banner:
       "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
     now: [
-      "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
-      "หากไม่มีธุระจำเป็น ให้อยู่ในบ้านตามที่ผู้ว่าราชการกรุงเทพมหานครขอความร่วมมือ ผู้ว่าฯ คาดว่าหากไม่มีฝนตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
-      "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
-      "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BMA Flood Support หรือโทร 1555",
-      "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
-      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด หากที่พักเสียหายหรือน้ำท่วมถึงที่พัก ยื่นขอเงินช่วยเหลือผ่านสำนักงานเขตได้ ค่าซ่อมแซมไม่เกิน 49,500 บาท และค่าที่พักชั่วคราวไม่เกิน 3,000 บาท ผู้เช่าก็มีสิทธิ ดูรายละเอียดในหัวข้อการขอรับความช่วยเหลือ",
+      "เรียนออนไลน์วันที่ 28 และ 29 กันยายน ส่วนสอบกลางภาคสุดสัปดาห์นี้เลื่อนไปวันที่ 4 และ 11 ตุลาคม ดูหัวข้อธรรมศาสตร์ด้านล่าง",
+      "อยู่บ้านหากทำได้และอย่าลุยน้ำ ผู้ว่าฯ กทม. คาดว่าหากฝนไม่ตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ",
+      "หากน้ำเข้าบ้าน ให้ยกของมีค่าและย้ายรถขึ้นที่สูง ตัดไฟที่เบรกเกอร์หลักหากเอื้อมถึงได้จากจุดที่แห้ง",
+      "นักศึกษาท่าพระจันทร์ที่ต้องออกจากบ้าน ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ได้ ผู้อื่นค้นหาศูนย์พักพิงใน BMA Flood Support หรือโทร 1555",
+      "แจ้งน้ำท่วมที่ 1555 หรือ Traffy Fondue ใน LINE เจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
+      "ถ่ายภาพความเสียหายก่อนทำความสะอาด แล้วยื่นขอค่าซ่อมแซมไม่เกิน 49,500 บาทที่สำนักงานเขต ผู้เช่าก็มีสิทธิ ดูหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
     ],
     sections: [
       {
         id: "thammasat",
         heading: "ธรรมศาสตร์ ศูนย์พักพิง การสอบ การเรียน และห้องสมุด",
         body: [
-          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
+          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงสำหรับนักศึกษาท่าพระจันทร์ ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
+          "BIRSA กำลังติดตามสถานการณ์และปรับปรุงข้อมูลในหน้านี้",
         ],
         directoryOpen: true,
         directory: [
@@ -654,24 +667,33 @@ const flooding: EmergencyScenario = {
         id: "campus",
         heading: "ท่าพระจันทร์ แม่น้ำเจ้าพระยา และการเดินทางมามหาวิทยาลัย",
         body: [
-          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 18.35 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.96 ม.รทก. ต่ำกว่าระดับเตือนภัยของ กทม. ที่ 2.30 ม.รทก. ส่วนแนวป้องกันน้ำท่วมริมแม่น้ำของ กทม. บริเวณสะพานพุทธและท่าเตียนสูงราว 2.80 ม.รทก.",
-          "ในสัปดาห์หน้า ระดับแม่น้ำหน้าท่าพระจันทร์จะถูกดันให้สูงขึ้นจากสามทางพร้อมกัน คือน้ำฝนที่สูบออกจากเมืองลงแม่น้ำ น้ำเหนือที่ไหลลงมาเพิ่ม และน้ำทะเลหนุนสูงสุดของเดือน ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 3 ตุลาคม",
+          "ท่าพระจันทร์ยังไม่มีน้ำท่วม มหาวิทยาลัยอยู่หลังแนวป้องกันริมแม่น้ำ หากน้ำเจ้าพระยาล้นแนวป้องกันเมื่อใด กรุงเทพฯ ส่วนใหญ่ก็จมน้ำไปแล้ว ความเสี่ยงจริงคือน้ำที่เอ่อขึ้นมาจากท่อระบายน้ำ",
         ],
         items: [
-          "เขื่อนเจ้าพระยา จังหวัดชัยนาท เพิ่มการระบายน้ำจาก 1,850 เป็น 1,950 ลูกบาศก์เมตรต่อวินาทีเมื่อวันที่ 26 กันยายน ใกล้เพดาน 2,000 ลูกบาศก์เมตรต่อวินาที น้ำจากเขื่อนใช้เวลาราว 2 ถึง 3 วันกว่าจะถึงกรุงเทพฯ จึงจะมาถึงราววันที่ 28 และ 29 กันยายน และกรมชลประทานคาดว่าน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
-          "มาตราน้ำของกรมอุทกศาสตร์ ณ กองบัญชาการกองทัพเรือ ซึ่งอยู่ฝั่งตรงข้ามท่าพระจันทร์ คาดว่าน้ำขึ้นสูงราว 1.0 ถึง 1.2 ม.รทก. ทุกค่ำ ช่วงประมาณ 19.00 ถึง 22.00 น. ไปจนถึงวันที่ 3 ตุลาคม และตั้งแต่วันที่ 29 กันยายน จะมีน้ำขึ้นสูงพอกันอีกรอบในช่วงเช้า ซึ่งจะเลื่อนไปเป็นช่วงเที่ยงภายในวันที่ 3 ตุลาคม ระดับแม่น้ำจึงจะสูงเกือบทั้งวัน",
-          "ค่ำวันที่ 26 กันยายน ระดับแม่น้ำสูงกว่าระดับน้ำขึ้นน้ำลงที่คาดการณ์ไว้ราว 1 ม. สถานีกรมชลประทานสามเสน ซึ่งอยู่เหนือน้ำขึ้นไปราว 3 กม. วัดได้ 2.12 ม.รทก. เวลา 20.00 น. และสถานีสะพานนวลฉวี จังหวัดนนทบุรี วัดได้ 2.40 ม.รทก. เวลา 21.20 น.",
-          "หากแม่น้ำยังสูงกว่าระดับน้ำขึ้นน้ำลงราว 1 ม. ระดับสูงสุดช่วงค่ำบริเวณท่าพระจันทร์ระหว่างวันที่ 29 กันยายนถึง 3 ตุลาคม จะอยู่ราว 2.0 ถึง 2.2 ม.รทก. ใกล้ระดับเตือนภัย 2.30 ม.รทก. แต่ยังต่ำกว่าแนวป้องกัน ตัวเลขนี้เราประเมินจากข้อมูลที่เผยแพร่ ไม่ใช่การคาดการณ์ของทางราชการ หากฝนตกเพิ่มหรือน้ำเหนือมามากขึ้น ระดับน้ำจะสูงกว่านี้",
-          "มหาวิทยาลัยอยู่หลังแนวป้องกัน คลองในย่านเมืองเก่า คือคลองคูเมืองเดิมและคลองรอบกรุง ระบายน้ำลงแม่น้ำเจ้าพระยา เมื่อแม่น้ำสูงจะระบายได้ด้วยการสูบเท่านั้น ฝนตกหนักในช่วงน้ำขึ้นจึงเป็นสาเหตุที่น่าจะทำให้ถนนใกล้มหาวิทยาลัยน้ำท่วมมากที่สุด เมื่อเดือนตุลาคม 2567 ฝนตกหนักจนถนนมหาราชช่วงท่าช้างถึงท่าพระจันทร์มีน้ำท่วมขัง และในปี 2554 เมื่อน้ำเจ้าพระยาเอ่อล้นตลิ่ง น้ำบนถนนมหาราชและถนนพระจันทร์สูงกว่า 50 ซม.",
-          "ระวังเมื่ออยู่ที่ท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ซึ่งอยู่นอกแนวป้องกัน โดยเฉพาะช่วงน้ำขึ้นตอนค่ำ ตรวจสอบการเดินเรือด่วนเจ้าพระยาและเรือข้ามฟากก่อนออกเดินทาง ชุมชนท่าเตียนและท่าวังริมแม่น้ำก็อยู่นอกแนวป้องกันเช่นกัน",
-          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน หากไม่มีธุระจำเป็นต้องมามหาวิทยาลัย ควรอยู่ในบ้าน",
-          "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์",
+          "เฝ้าระวังบริเวณประตูท่าพระจันทร์และบริเวณคณะศิลปศาสตร์ น้ำที่เอ่อจากท่อระบายน้ำจะท่วมขังตรงนี้ก่อน",
+          "ท่อระบายน้ำจะเอ่อล้นเมื่อฝนตกหนักในช่วงน้ำขึ้น เพราะคลองระบายน้ำลงแม่น้ำไม่ได้",
+          "ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 3 ตุลาคม ซึ่งน้ำทะเลหนุน น้ำเหนือ และฝนมาพร้อมกัน",
+          "น้ำขึ้นสูงทุกค่ำช่วงประมาณ 19.00 ถึง 22.00 น. และตั้งแต่วันที่ 29 กันยายน จะขึ้นสูงอีกรอบในช่วงเช้าหรือราวเที่ยง",
+          "อย่าเข้าใกล้ท่าพระจันทร์ ท่าช้าง และท่าเรืออื่นในช่วงน้ำขึ้น เพราะอยู่นอกแนวป้องกัน ตรวจสอบการเดินเรือก่อนออกเดินทาง",
+          "หากเดินทางมาจากทางเหนือหรือตะวันออก ถนนแถวดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วานมีน้ำท่วม ให้เผื่อเวลา",
         ],
         links: [
           {
             label: "ดูระดับน้ำแม่น้ำแบบเรียลไทม์ที่ Thaiwater",
             href: "https://www.thaiwater.net/water/wl",
           },
+        ],
+      },
+      {
+        id: "prepare",
+        heading: "เตรียมตัวรับน้ำท่วม",
+        items: [
+          "ชาร์จโทรศัพท์ให้เต็มและเตรียมพาวเวอร์แบงก์ไว้",
+          "เก็บบัตรประชาชน หนังสือเดินทาง และเอกสารสำคัญไว้ในถุงกันน้ำ",
+          "เตรียมยาที่ใช้ประจำไว้ให้พอสำหรับหลายวัน",
+          "เตรียมไฟฉาย น้ำดื่ม และอาหารที่ไม่ต้องปรุง",
+          "บันทึกเบอร์ 1669 สำหรับเจ็บป่วยฉุกเฉิน และสายด่วน กทม. 1555 ไว้ในโทรศัพท์",
+          "ยกของมีค่าและเครื่องใช้ไฟฟ้าขึ้นจากพื้น",
         ],
       },
       {
@@ -738,6 +760,8 @@ const flooding: EmergencyScenario = {
           "เจ็บป่วยฉุกเฉิน หรือต้องการเคลื่อนย้ายผู้ป่วยที่มีเงื่อนไขทางการแพทย์ โทร 1669",
           "ขอความช่วยเหลือจากสาธารณภัยได้ที่ ปภ. โทร 1784 หรือ LINE @1784DDPM",
           "หากพบสายไฟขาดหรืออุปกรณ์ไฟฟ้ามีประกายไฟ แจ้งการไฟฟ้านครหลวง โทร 1130",
+          "เชื่อข่าวน้ำท่วมจาก กทม. กรมอุตุนิยมวิทยา ปภ. และธรรมศาสตร์เท่านั้น ตรวจสอบก่อนแชร์ทุกครั้ง",
+          "ถามไถ่เพื่อนและเพื่อนบ้าน โดยเฉพาะนักศึกษาต่างชาติที่อ่านภาษาไทยไม่ได้",
         ],
       },
       {
