@@ -40,6 +40,25 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T16:20:00+07:00",
+      text: {
+        en: "The Thammasat University Student Union, Tha Prachan, has opened a temporary shelter for students affected by the floods.",
+        th: "อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงชั่วคราวสำหรับเพื่อนนักศึกษาที่ประสบอุทกภัย",
+      },
+      points: {
+        en: [
+          "The shelter is in the Student Activities Building on the Tha Prachan campus, for students who need somewhere to stay.",
+          "Register before you go using the link in the Thammasat section of this page.",
+          "Contact TUSU Tha Prachan on 095-249-5014 or 094-965-9926, or Instagram TUSU.TPC, at any time. The Student Affairs Division is on 02-222-8871.",
+        ],
+        th: [
+          "ศูนย์พักพิงอยู่ที่ตึกกิจกรรมนักศึกษา มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ สำหรับเพื่อนนักศึกษาที่จำเป็นต้องหาที่พักชั่วคราว",
+          "ลงทะเบียนก่อนเข้าพักผ่านลิงก์ในหัวข้อธรรมศาสตร์ของหน้านี้",
+          "ติดต่อ อมธ. ท่าพระจันทร์ได้ตลอดเวลาที่ 095-249-5014 หรือ 094-965-9926 หรือ Instagram TUSU.TPC และกองกิจการนักศึกษา โทร 02-222-8871",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T14:30:00+07:00",
       text: {
         en: "The governor has asked people to stay at home if they can. Canal levels are starting to level off, but heavy rain is forecast until 27 September.",

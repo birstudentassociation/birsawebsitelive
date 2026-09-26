@@ -146,19 +146,43 @@ const flooding: EmergencyScenario = {
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Stay at home if you can. The governor has asked people not to travel unless they need to. Keep out of floodwater and do not drive a small car through flooded roads.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
-      "If you need to leave home, find the nearest shelter on BKK Care Monitor, linked in the shelters section, or call 1555.",
+      "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BKK Care Monitor or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
       "Photograph any damage before you clean up. You will need the photographs to claim help.",
     ],
     sections: [
       {
         id: "thammasat",
-        heading: "Thammasat exams, classes and libraries",
+        heading: "Thammasat shelter, exams, classes and libraries",
         body: [
           "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. Thammasat University Library has also closed some branches. The library will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
         ],
         directoryOpen: true,
         directory: [
+          {
+            heading: "Temporary shelter for Tha Prachan students",
+            places: [
+              {
+                name: "Student Activities Building (ตึกกิจกรรมนักศึกษา), Tha Prachan campus",
+                detail:
+                  "Run by the Thammasat University Student Union, Tha Prachan, for students affected by the floods who need somewhere to stay. Register before you go.",
+              },
+              {
+                name: "TUSU Tha Prachan",
+                detail: "Instagram TUSU.TPC",
+                phone: { phone: "095-249-5014" },
+              },
+              { name: "TUSU Tha Prachan, second line", phone: { phone: "094-965-9926" } },
+              { name: "Student Affairs Division", phone: { phone: "02-222-8871" } },
+            ],
+            note: "TUSU Tha Prachan says students can contact it for help at any time.",
+            links: [
+              {
+                label: "Register to stay at the shelter",
+                href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
+              },
+            ],
+          },
           {
             heading: "Midterm exams, undergraduate programmes",
             places: [
@@ -236,7 +260,14 @@ const flooding: EmergencyScenario = {
         body: [
           "Temporary shelters and safe places to park are listed on BKK Care Monitor, the BMA's official help and information page. Check it for the nearest place, or call 1555 or your district office.",
         ],
+        items: [
+          "Thammasat students at Tha Prachan can stay at the Thammasat University Student Union's temporary shelter in the Student Activities Building. Register first, and see the Thammasat section for contacts.",
+        ],
         links: [
+          {
+            label: "Register for the Tha Prachan student shelter",
+            href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
+          },
           {
             label: "Open BKK Care Monitor",
             href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
@@ -349,19 +380,43 @@ const flooding: EmergencyScenario = {
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หากไม่มีธุระจำเป็น ให้อยู่ในบ้านตามที่ผู้ว่าราชการกรุงเทพมหานครขอความร่วมมือ หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
-      "หากต้องออกจากบ้าน ให้ค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor ซึ่งมีลิงก์อยู่ในหัวข้อศูนย์พักพิง หรือโทร 1555",
+      "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
     ],
     sections: [
       {
         id: "thammasat",
-        heading: "ธรรมศาสตร์ การสอบ การเรียน และห้องสมุด",
+        heading: "ธรรมศาสตร์ ศูนย์พักพิง การสอบ การเรียน และห้องสมุด",
         body: [
           "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
         ],
         directoryOpen: true,
         directory: [
+          {
+            heading: "ศูนย์พักพิงชั่วคราวสำหรับนักศึกษาท่าพระจันทร์",
+            places: [
+              {
+                name: "ตึกกิจกรรมนักศึกษา มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+                detail:
+                  "อมธ. ท่าพระจันทร์เปิดให้เพื่อนนักศึกษาที่ประสบอุทกภัยและจำเป็นต้องหาที่พักชั่วคราว โปรดลงทะเบียนก่อนเข้าพัก",
+              },
+              {
+                name: "อมธ. ท่าพระจันทร์",
+                detail: "Instagram TUSU.TPC",
+                phone: { phone: "095-249-5014" },
+              },
+              { name: "อมธ. ท่าพระจันทร์ (เบอร์ที่สอง)", phone: { phone: "094-965-9926" } },
+              { name: "กองกิจการนักศึกษา", phone: { phone: "02-222-8871" } },
+            ],
+            note: "หากต้องการความช่วยเหลือ ติดต่อ อมธ. ท่าพระจันทร์ได้ตลอดเวลา",
+            links: [
+              {
+                label: "ลงทะเบียนเข้าพักศูนย์พักพิง",
+                href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
+              },
+            ],
+          },
           {
             heading: "สอบกลางภาค หลักสูตรระดับปริญญาตรี",
             places: [
@@ -445,7 +500,14 @@ const flooding: EmergencyScenario = {
         body: [
           "ศูนย์พักพิงชั่วคราวและจุดจอดรถที่ปลอดภัยรวบรวมไว้ที่ BKK Care Monitor ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชน เว็บไซต์ทางการของ กทม. ตรวจสอบจุดที่ใกล้ที่สุดได้ที่นั่น หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
+        items: [
+          "นักศึกษาธรรมศาสตร์ท่าพระจันทร์เข้าพักได้ที่ศูนย์พักพิงชั่วคราวของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษา โปรดลงทะเบียนก่อน และดูช่องทางติดต่อในหัวข้อธรรมศาสตร์",
+        ],
         links: [
+          {
+            label: "ลงทะเบียนศูนย์พักพิงนักศึกษาท่าพระจันทร์",
+            href: "https://docs.google.com/forms/d/e/1FAIpQLSdG_isowlNPt9vbbw5rK4ieJZbDvrTNeoJ_hgdt7uebXhVbjg/viewform",
+          },
           {
             label: "เปิด BKK Care Monitor",
             href: "https://script.google.com/macros/s/AKfycbyhm_nEAcAWyv58_k-uhFO0-QyiejXfPygbcOrAgnKd6tT86yn7C76r4ThY9Najwlrf/exec",
