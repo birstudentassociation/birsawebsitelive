@@ -74,6 +74,30 @@ export const en = {
     onThisPage: "On this page",
     contacts: "Contacts",
     ext: "ext.",
+    districtFinder: {
+      label: "Your district",
+      hint: "Type the name of your district in English or Thai, or open the list and choose it.",
+      placeholder: "For example, Lat Krabang",
+      toggle: "Show all districts",
+      clear: "Clear",
+      noMatches: "No district matches that. Check the spelling or open the list.",
+      results: "{n} districts",
+      office: "District office",
+      source: "Where we read this",
+      kinds: {
+        sandbags: "Sandbags",
+        shelters: "Shelters",
+        parking: "Free parking",
+      },
+      none: {
+        sandbags:
+          "No sandbag point has been published for this district yet. Every district office gives out sandbags, so call it before you go.",
+        shelters:
+          "No shelter has been published for this district yet. Check BKK Care Monitor, call the district office or call 1555.",
+        parking:
+          "No free parking has been published in this district yet. Try a neighbouring district, or call 1555.",
+      },
+    },
     sources: "Where this advice comes from",
     reviewed: "Last checked",
     disclaimer:

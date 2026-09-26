@@ -113,6 +113,8 @@ export default async function EmergencyIndexPage({
           <GuideSection
             key={section.id}
             section={section}
+            locale={locale}
+            districtLabels={{ ...t.districtFinder, newTab: dict.a11y.newTab }}
             extLabel={t.ext}
             newTabLabel={dict.a11y.newTab}
           />

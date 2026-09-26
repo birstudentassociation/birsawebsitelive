@@ -41,6 +41,38 @@ export type DirectoryEntry = {
   links?: { label: string; href: string }[];
 };
 
+/** What the district finder can list. */
+export type DistrictHelpKind = "sandbags" | "shelters" | "parking";
+
+/** One published place in a district, in both languages, with where we read it. */
+export type DistrictPlace = {
+  name: LocalizedText;
+  /** Hours, limits, capacity or dates. */
+  detail?: LocalizedText;
+  /** Digits with dashes, for this place only. */
+  phone?: string;
+  /** The page this was read on. */
+  source: string;
+};
+
+/** Help published for one of Bangkok's 50 districts, in `districts.ts`. */
+export type BangkokDistrict = {
+  /** Kebab-case English name. */
+  id: string;
+  name: LocalizedText;
+  /** Other spellings people type, e.g. "Ladprao". */
+  aliases?: string[];
+  /** The district office's main number, digits with dashes. */
+  officePhone?: string;
+} & Record<DistrictHelpKind, DistrictPlace[]>;
+
+/** A search box that shows one district's places, placed inside a section. */
+export type DistrictFinderConfig = {
+  kinds: DistrictHelpKind[];
+  /** What choosing a district will show, e.g. "Choose your district to see shelters and parking there." */
+  prompt: string;
+};
+
 export type EmergencySection = {
   /** Fragment id for the on-this-page links. Identical in both languages. */
   id: string;
@@ -55,6 +87,8 @@ export type EmergencySection = {
   directory?: DirectoryEntry[];
   /** Show every directory entry expanded, for short lists people should not miss. */
   directoryOpen?: boolean;
+  /** A district search over `districts.ts`, shown after the points. */
+  districtFinder?: DistrictFinderConfig;
   /** Documents or pages, shown last. A site path (`/emergency/...`) or an https URL. */
   links?: { label: string; href: string }[];
 };

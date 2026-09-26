@@ -285,6 +285,11 @@ const flooding: EmergencyScenario = {
           "The BMA has opened 233 shelters across the city, many of them in schools, with room for about 15,000 people.",
           "Thammasat students at Tha Prachan can stay at the Thammasat University Student Union's temporary shelter in the Student Activities Building. Register first, and see the Thammasat section for contacts.",
         ],
+        districtFinder: {
+          kinds: ["shelters", "parking"],
+          prompt:
+            "Choose your district to see the shelters and free parking published there. Places fill up and change, so call before you go.",
+        },
         links: [
           {
             label: "Register for the Tha Prachan student shelter",
@@ -305,37 +310,13 @@ const flooding: EmergencyScenario = {
         items: [
           "At some points you fill the bags yourself and take them home in your own vehicle.",
           "Times and amounts can change with the situation. Call your district office or 1555 before you go.",
-          "If your district is not listed, ask your district office or request sandbags through Traffy Fondue on LINE.",
+          "If your district shows nothing, ask your district office or request sandbags through Traffy Fondue on LINE.",
         ],
-        directory: [
-          {
-            heading: "Khan Na Yao",
-            places: [{ name: "Khan Na Yao District Office (สำนักงานเขตคันนายาว)" }],
-            note: "Bring your ID card. Up to 20 bags per household.",
-          },
-          {
-            heading: "Lat Krabang",
-            places: [
-              { name: "Wat Sutthaphot (วัดสุทธาโภชน์)", detail: "5 truckloads" },
-              { name: "Wat Thipphawat (วัดทิพพาวาส)", detail: "5 truckloads" },
-              { name: "Wat Khum Thong (วัดขุมทอง)", detail: "5 truckloads" },
-              { name: "Wat Ratchakosa (วัดราชโกษา)", detail: "5 truckloads" },
-              { name: "Wat Sangkharacha (วัดสังฆราชา)", detail: "5 truckloads" },
-              { name: "Surao Thap Yao (สุเหร่าทับยาว)", detail: "3 truckloads" },
-              {
-                name: "Lat Krabang District Office (สำนักงานเขตลาดกระบัง)",
-                detail: "8 truckloads",
-              },
-            ],
-            note: "Delivered on 26 September. Bring your ID card, up to 20 bags per household. Fill the bags yourself and bring your own vehicle.",
-          },
-          {
-            heading: "Watthana",
-            places: [{ name: "Watthana District Office (สำนักงานเขตวัฒนา)" }],
-            phones: [{ phone: "02-381-3107" }],
-            note: "Up to 20 bags per household. Call to ask, or use Traffy Fondue on LINE.",
-          },
-        ],
+        districtFinder: {
+          kinds: ["sandbags"],
+          prompt:
+            "Choose your district to see where sandbags are being given out there and the district office number.",
+        },
       },
       {
         id: "roads",
@@ -526,6 +507,11 @@ const flooding: EmergencyScenario = {
           "กทม. เปิดศูนย์พักพิง 233 แห่งทั่วกรุงเทพฯ หลายแห่งอยู่ในโรงเรียน รองรับได้ราว 15,000 คน",
           "นักศึกษาธรรมศาสตร์ท่าพระจันทร์เข้าพักได้ที่ศูนย์พักพิงชั่วคราวของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษา โปรดลงทะเบียนก่อน และดูช่องทางติดต่อในหัวข้อธรรมศาสตร์",
         ],
+        districtFinder: {
+          kinds: ["shelters", "parking"],
+          prompt:
+            "เลือกเขตของคุณเพื่อดูศูนย์พักพิงและจุดจอดรถฟรีที่มีประกาศในเขตนั้น สถานที่อาจเต็มหรือเปลี่ยนแปลง โปรดโทรสอบถามก่อนเดินทาง",
+        },
         links: [
           {
             label: "ลงทะเบียนศูนย์พักพิงนักศึกษาท่าพระจันทร์",
@@ -546,34 +532,12 @@ const flooding: EmergencyScenario = {
         items: [
           "บางจุดให้ประชาชนบรรจุทรายใส่กระสอบเอง และเตรียมยานพาหนะมาขนกลับเอง",
           "เวลาและปริมาณอาจเปลี่ยนตามสถานการณ์ โปรดโทรสอบถามสำนักงานเขตหรือสายด่วน 1555 ก่อนเดินทาง",
-          "หากไม่มีเขตของท่านในรายการ ให้สอบถามสำนักงานเขต หรือขอรับกระสอบทรายผ่าน Traffy Fondue ใน LINE",
+          "หากเขตของท่านยังไม่มีข้อมูล ให้สอบถามสำนักงานเขต หรือขอรับกระสอบทรายผ่าน Traffy Fondue ใน LINE",
         ],
-        directory: [
-          {
-            heading: "เขตคันนายาว",
-            places: [{ name: "สำนักงานเขตคันนายาว" }],
-            note: "นำบัตรประจำตัวประชาชนมาลงทะเบียน ครัวเรือนละ 20 กระสอบ",
-          },
-          {
-            heading: "เขตลาดกระบัง",
-            places: [
-              { name: "วัดสุทธาโภชน์", detail: "5 คัน" },
-              { name: "วัดทิพพาวาส", detail: "5 คัน" },
-              { name: "วัดขุมทอง", detail: "5 คัน" },
-              { name: "วัดราชโกษา", detail: "5 คัน" },
-              { name: "วัดสังฆราชา", detail: "5 คัน" },
-              { name: "สุเหร่าทับยาว", detail: "3 คัน" },
-              { name: "สำนักงานเขตลาดกระบัง", detail: "8 คัน" },
-            ],
-            note: "จัดส่งวันที่ 26 กันยายน นำบัตรประจำตัวประชาชนไปติดต่อ ครัวเรือนละไม่เกิน 20 กระสอบ บรรจุกระสอบเองและเตรียมยานพาหนะมาขนกลับเอง",
-          },
-          {
-            heading: "เขตวัฒนา",
-            places: [{ name: "สำนักงานเขตวัฒนา" }],
-            phones: [{ phone: "02-381-3107" }],
-            note: "ครัวเรือนละ 20 กระสอบ โทรติดต่อขอรับ หรือแจ้งผ่าน Traffy Fondue ใน LINE",
-          },
-        ],
+        districtFinder: {
+          kinds: ["sandbags"],
+          prompt: "เลือกเขตของคุณเพื่อดูจุดแจกกระสอบทรายในเขตนั้นและเบอร์โทรสำนักงานเขต",
+        },
       },
       {
         id: "roads",

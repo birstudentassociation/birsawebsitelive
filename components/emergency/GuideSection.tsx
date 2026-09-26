@@ -1,9 +1,14 @@
 import ExternalLink from "@/components/ExternalLink";
+import DistrictFinder, { type DistrictFinderLabels } from "@/components/emergency/DistrictFinder";
 import { telHref } from "@/content/emergency/contacts";
+import { bangkokDistricts } from "@/content/emergency/districts";
 import type { DirectoryPhone, EmergencySection } from "@/content/emergency/types";
+import type { Locale } from "@/lib/i18n";
 
 type Props = {
   section: EmergencySection;
+  locale: Locale;
+  districtLabels: DistrictFinderLabels;
   /** dict.emergencyPage.ext */
   extLabel: string;
   /** dict.a11y.newTab */
@@ -14,7 +19,13 @@ type Props = {
  * One headed section of an emergency guide: paragraphs, steps, points, then a
  * directory whose entries (usually one per district) are collapsed by default.
  */
-export default function GuideSection({ section, extLabel, newTabLabel }: Props) {
+export default function GuideSection({
+  section,
+  locale,
+  districtLabels,
+  extLabel,
+  newTabLabel,
+}: Props) {
   return (
     <section
       id={section.id}
@@ -42,6 +53,15 @@ export default function GuideSection({ section, extLabel, newTabLabel }: Props) 
             <li key={item}>{item}</li>
           ))}
         </ul>
+      ) : null}
+      {section.districtFinder ? (
+        <DistrictFinder
+          locale={locale}
+          districts={bangkokDistricts}
+          kinds={section.districtFinder.kinds}
+          prompt={section.districtFinder.prompt}
+          labels={districtLabels}
+        />
       ) : null}
       {section.directory ? (
         <ul className="mt-1 flex flex-col gap-2">

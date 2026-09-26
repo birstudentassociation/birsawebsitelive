@@ -141,7 +141,13 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
 
         {c.sections.map((section, i) => (
           <Fragment key={section.id}>
-            <GuideSection section={section} extLabel={t.ext} newTabLabel={dict.a11y.newTab} />
+            <GuideSection
+              section={section}
+              locale={locale}
+              districtLabels={{ ...t.districtFinder, newTab: dict.a11y.newTab }}
+              extLabel={t.ext}
+              newTabLabel={dict.a11y.newTab}
+            />
             {i === updatesAfter && live ? (
               <LiveUpdates locale={locale} alert={live.alert} t={t} />
             ) : null}
