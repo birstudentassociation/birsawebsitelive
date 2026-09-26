@@ -30,6 +30,8 @@ describe("Bangkok district data", () => {
           }
           if (place.phone) expect(place.phone).toMatch(/^\d+(-\d+)*$/);
           if (place.source) expect(place.source).toMatch(/^https:\/\//);
+          if (place.map) expect(place.map).toMatch(/^https:\/\//);
+          if (place.status) expect(["nearlyFull", "full"]).toContain(place.status);
         }
       }
     }

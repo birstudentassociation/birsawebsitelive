@@ -39,6 +39,9 @@ export type DistrictFinderLabels = {
   source: string;
   /** Tag on a place that is listed but cannot be used. */
   unavailable: string;
+  nearlyFull: string;
+  full: string;
+  map: string;
   /** Headings containing "{district}". */
   kinds: Record<DistrictHelpKind, string>;
   none: Record<DistrictHelpKind, string>;
@@ -376,7 +379,7 @@ function DistrictResult({
           ) : (
             <ul className="flex flex-col gap-3 leading-relaxed">
               {[...district[kind]]
-                .sort((a, b) => Number(Boolean(a.unavailable)) - Number(Boolean(b.unavailable)))
+                .sort((a, b) => rank(a) - rank(b))
                 .map((place) => (
                   <Place key={place.name.en} place={place} locale={locale} labels={labels} />
                 ))}
@@ -386,6 +389,13 @@ function DistrictResult({
       ))}
     </div>
   );
+}
+
+function rank(place: DistrictPlace) {
+  if (place.unavailable) return 3;
+  if (place.status === "full") return 2;
+  if (place.status === "nearlyFull") return 1;
+  return 0;
 }
 
 function Place({
@@ -404,9 +414,14 @@ function Place({
         place.unavailable ? "border-dashed border-line bg-sunken" : "border-line bg-surface"
       )}
     >
-      {place.unavailable ? (
-        <span className="self-start text-xs font-semibold tracking-wide text-error uppercase">
-          {labels.unavailable}
+      {place.unavailable || place.status ? (
+        <span
+          className={clsx(
+            "self-start text-xs font-semibold tracking-wide uppercase",
+            place.status === "nearlyFull" ? "text-warning" : "text-error"
+          )}
+        >
+          {place.unavailable ? labels.unavailable : labels[place.status!]}
         </span>
       ) : null}
       <span>{place.name[locale]}</span>
@@ -417,6 +432,17 @@ function Place({
           className="self-start font-semibold text-brand-deep tabular-nums underline"
         >
           {place.phone}
+        </a>
+      ) : null}
+      {place.map ? (
+        <a
+          href={place.map}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="self-start text-sm text-brand-deep underline"
+        >
+          {labels.map}
+          <span className="sr-only"> ({labels.newTab})</span>
         </a>
       ) : null}
       {place.source ? (

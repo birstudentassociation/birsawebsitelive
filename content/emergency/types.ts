@@ -55,6 +55,10 @@ export type DistrictPlace = {
   source?: string;
   /** Listed so people do not go there, e.g. a park whose car park is flooded. */
   unavailable?: boolean;
+  /** Last reported fill level, when it is worth warning about. */
+  status?: "nearlyFull" | "full";
+  /** A map link for this place. */
+  map?: string;
 };
 
 /** Help published for one of Bangkok's 50 districts, in `districts.ts`. */

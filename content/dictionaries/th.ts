@@ -84,6 +84,9 @@ export const th: typeof en = {
       office: "สำนักงานเขต",
       source: "ที่มาของข้อมูล",
       unavailable: "ใช้ไม่ได้",
+      nearlyFull: "ใกล้เต็ม",
+      full: "เต็ม",
+      map: "แผนที่",
       kinds: {
         sandbags: "กระสอบทรายในเขต{district}",
         shelters: "ศูนย์พักพิงในเขต{district}",

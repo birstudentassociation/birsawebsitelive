@@ -85,6 +85,9 @@ export const en = {
       office: "District office",
       source: "Where we read this",
       unavailable: "Cannot be used",
+      nearlyFull: "Nearly full",
+      full: "Full",
+      map: "Map",
       kinds: {
         sandbags: "Sandbags in {district}",
         shelters: "Shelters in {district}",
