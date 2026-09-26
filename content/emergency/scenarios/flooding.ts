@@ -17,13 +17,6 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
-        en: "Thai PBS, hospital and NHSO notices for patients during the flood, 26 September 2026 (Thai)",
-        th: "Thai PBS น้ำท่วม กทม. 26 ก.ย. เช็กประกาศโรงพยาบาลและหน่วยงาน",
-      },
-      href: "https://www.thaipbs.or.th/news/content/558583",
-    },
-    {
-      label: {
         en: "Bangkok Biz News, DDPM figures on people affected in 21 provinces, 26 September 2026 (Thai)",
         th: "กรุงเทพธุรกิจ ปภ. เผยน้ำท่วมกระทบ 21 จังหวัด กว่า 8.4 หมื่นคน 26 กันยายน 2569",
       },
