@@ -260,7 +260,7 @@ const flooding: EmergencyScenario = {
         id: "thammasat",
         heading: "Thammasat shelter, exams, classes and libraries",
         body: [
-          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. The student union is running a shelter for Tha Prachan students. Thammasat University Library has closed some branches, and will review the 28 September closures and announce any change on library.tu.ac.th and LINE @lifeonline.",
+          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. The student union is running a shelter for Tha Prachan students. Thammasat University Library has closed every branch at Tha Prachan, Rangsit and Lampang from 27 to 29 September, except the Learning Center at Rangsit. It will announce any change on LINE @LifeONLine and its Facebook page.",
           "BIRSA is monitoring the situation and updating this page.",
         ],
         directoryOpen: true,
@@ -322,22 +322,10 @@ const flooding: EmergencyScenario = {
             note: "All programmes.",
           },
           {
-            heading: "Libraries, Sunday 27 September",
+            heading: "Libraries, 27 to 29 September",
             places: [
-              { name: "Tha Prachan, all branch libraries", detail: "Closed" },
-              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
-              { name: "Rangsit, Public Library", detail: "Closed" },
+              { name: "Every branch at Tha Prachan, Rangsit and Lampang", detail: "Closed" },
               { name: "Rangsit, Learning Center", detail: "Open as usual" },
-              { name: "Rangsit, Nongyao Chaiseri Library", detail: "Open as usual" },
-              { name: "Lampang, Boonchu Treethong Library", detail: "Open as usual" },
-            ],
-          },
-          {
-            heading: "Libraries, Monday 28 September",
-            places: [
-              { name: "Tha Prachan, Sanya Dharmasakti Library", detail: "Closed" },
-              { name: "Rangsit, Puey Ungphakorn Library", detail: "Closed" },
-              { name: "Rangsit, Public Library", detail: "Closed" },
             ],
             note: "The library may change this. Check before you go.",
           },
@@ -348,6 +336,7 @@ const flooding: EmergencyScenario = {
             href: "/emergency/tu-announcement-2026-09-26.jpg",
           },
           { label: "Thammasat University Library", href: "https://www.library.tu.ac.th" },
+          { label: "Contact the library on LINE", href: "https://lin.ee/thu5aIv" },
         ],
       },
       {
@@ -567,7 +556,7 @@ const flooding: EmergencyScenario = {
         id: "thammasat",
         heading: "ธรรมศาสตร์ ศูนย์พักพิง การสอบ การเรียน และห้องสมุด",
         body: [
-          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงสำหรับนักศึกษาท่าพระจันทร์ ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งชั่วคราว และจะประเมินสถานการณ์สำหรับวันที่ 28 กันยายนอีกครั้ง หากมีการเปลี่ยนแปลงจะแจ้งทาง library.tu.ac.th และ LINE @lifeonline",
+          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงสำหรับนักศึกษาท่าพระจันทร์ ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดห้องสมุดสาขาทุกแห่งที่ท่าพระจันทร์ ศูนย์รังสิต และศูนย์ลำปาง ในวันที่ 27 ถึง 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต หากมีการเปลี่ยนแปลงจะแจ้งทาง LINE @LifeONLine และเพจ Facebook ของหอสมุดฯ",
           "BIRSA กำลังติดตามสถานการณ์และปรับปรุงข้อมูลในหน้านี้",
         ],
         directoryOpen: true,
@@ -635,22 +624,13 @@ const flooding: EmergencyScenario = {
             note: "ทุกระดับหลักสูตร",
           },
           {
-            heading: "ห้องสมุด วันอาทิตย์ที่ 27 กันยายน",
+            heading: "ห้องสมุด วันที่ 27 ถึง 29 กันยายน",
             places: [
-              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสาขาทุกแห่ง", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
+              {
+                name: "ห้องสมุดสาขาทุกแห่งที่ท่าพระจันทร์ ศูนย์รังสิต และศูนย์ลำปาง",
+                detail: "ปิดให้บริการ",
+              },
               { name: "ศูนย์รังสิต ศูนย์การเรียนรู้ฯ", detail: "เปิดให้บริการตามปกติ" },
-              { name: "ศูนย์รังสิต ห้องสมุดนงเยาว์ ชัยเสรี", detail: "เปิดให้บริการตามปกติ" },
-              { name: "ศูนย์ลำปาง ห้องสมุดบุญชู ตรีทอง", detail: "เปิดให้บริการตามปกติ" },
-            ],
-          },
-          {
-            heading: "ห้องสมุด วันจันทร์ที่ 28 กันยายน",
-            places: [
-              { name: "ศูนย์ท่าพระจันทร์ ห้องสมุดสัญญา ธรรมศักดิ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต หอสมุดป๋วย อึ๊งภากรณ์", detail: "ปิดให้บริการ" },
-              { name: "ศูนย์รังสิต ห้องสมุดประชาชน", detail: "ปิดให้บริการ" },
             ],
             note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
           },
@@ -661,6 +641,7 @@ const flooding: EmergencyScenario = {
             href: "/emergency/tu-announcement-2026-09-26.jpg",
           },
           { label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" },
+          { label: "ติดต่อหอสมุดทาง LINE", href: "https://lin.ee/thu5aIv" },
         ],
       },
       {
