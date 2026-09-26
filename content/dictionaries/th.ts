@@ -83,6 +83,7 @@ export const th: typeof en = {
       results: "{n} เขต",
       office: "สำนักงานเขต",
       source: "ที่มาของข้อมูล",
+      unavailable: "ใช้ไม่ได้",
       kinds: {
         sandbags: "กระสอบทรายในเขต{district}",
         shelters: "ศูนย์พักพิงในเขต{district}",

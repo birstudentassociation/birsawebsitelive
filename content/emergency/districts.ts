@@ -142,7 +142,15 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Nong Chok Park (สวนหนองจอก)", th: "สวนหนองจอก" },
+        detail: {
+          en: "BMA park. Room for about 50 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 50 คัน",
+        },
+      },
+    ],
   },
   {
     id: "bang-rak",
@@ -232,6 +240,13 @@ export const bangkokDistricts: BangkokDistrict[] = [
         phone: "02-173-1000",
         source: "https://www.dailynews.co.th/news/6223346/",
       },
+      {
+        name: { en: "Bang Kapi Park (สวนบางกะปิ)", th: "สวนบางกะปิ" },
+        detail: {
+          en: "BMA park. Room for about 55 cars. That is 35 in the car park and 20 on the west side.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 55 คัน แบ่งเป็นลานจอด 35 คัน และฝั่งตะวันตก 20 คัน",
+        },
+      },
     ],
   },
   {
@@ -261,6 +276,13 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "รองรับรถยนต์ประมาณ 100 คัน วันที่ 26 ถึง 28 กันยายน การรถไฟแห่งประเทศไทยเป็นผู้ดูแล",
         },
         source: "https://brickinfotv.com/news/329338",
+      },
+      {
+        name: { en: "Lumphini Park (สวนลุมพินี)", th: "สวนลุมพินี" },
+        detail: {
+          en: "BMA park. Room for about 200 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 200 คัน",
+        },
       },
     ],
   },
@@ -367,6 +389,13 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "จอดฟรีถึงวันจันทร์ที่ 28 กันยายน เวลา 12.00 น. แสดงบัตรประชาชนและเอกสารรถต่อเจ้าหน้าที่สถานี",
         },
         source: "https://www.bangkokbiznews.com/economics/1253636",
+      },
+      {
+        name: { en: "Siri Phirom Park, Bueng Lam Phai (สวนสิริภิรมย์)", th: "สวนสิริภิรมย์" },
+        detail: {
+          en: "BMA park. Room for about 20 cars. It sits on the Min Buri and Khlong Sam Wa border.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 20 คัน สวนอยู่บนแนวเขตมีนบุรีและคลองสามวา",
+        },
       },
     ],
   },
@@ -491,7 +520,13 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: { en: "60th Anniversary Queen's Park (สวน 60 พรรษาฯ)", th: "สวน 60 พรรษาฯ" },
+        detail: { en: "No parking. The park is flooded.", th: "จอดรถไม่ได้ เนื่องจากมีน้ำท่วมขัง" },
+        unavailable: true,
+      },
+    ],
   },
   {
     id: "yan-nawa",
@@ -849,6 +884,16 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
         source: "https://mgronline.com/onlinesection/detail/9690000093939",
       },
+      {
+        name: {
+          en: "King's 80th Birthday Park, Bangkok Noi (สวนเฉลิมพระเกียรติ 80 พรรษา (บางกอกน้อย))",
+          th: "สวนเฉลิมพระเกียรติ 80 พรรษา (บางกอกน้อย)",
+        },
+        detail: {
+          en: "BMA park. Room for about 20 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 20 คัน",
+        },
+      },
     ],
   },
   {
@@ -1070,7 +1115,16 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Seri Thai Park (สวนเสรีไทย)", th: "สวนเสรีไทย" },
+        detail: {
+          en: "No parking. The park is flooded, about 70 cm deep.",
+          th: "จอดรถไม่ได้ เนื่องจากมีน้ำท่วมขัง สูงประมาณ 70 ซม.",
+        },
+        unavailable: true,
+      },
+    ],
   },
   {
     id: "sathon",
@@ -1242,6 +1296,42 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
         source: "https://mgronline.com/onlinesection/detail/9690000093939",
       },
+      {
+        name: { en: "Wachirabenchathat Park, Rot Fai Park (สวนวชิรเบญจทัศ)", th: "สวนวชิรเบญจทัศ" },
+        detail: {
+          en: "BMA park. Room for about 60 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 60 คัน",
+        },
+      },
+      {
+        name: {
+          en: "Forest park at the Ratchada and Vibhavadi Rangsit interchange (สวนป่าทางแยกต่างระดับรัชดา วิภาวดีรังสิต)",
+          th: "สวนป่าทางแยกต่างระดับรัชดา วิภาวดีรังสิต",
+        },
+        detail: {
+          en: "BMA park. Room for about 50 cars. About 40 cars were already there.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 50 คัน มีรถเข้ามาจอดแล้วประมาณ 40 คัน",
+        },
+      },
+      {
+        name: {
+          en: "Queen Sirikit Park (สวนสมเด็จพระนางเจ้าสิริกิติ์ฯ)",
+          th: "สวนสมเด็จพระนางเจ้าสิริกิติ์ฯ",
+        },
+        detail: {
+          en: "No parking. The park is in an area at risk of flooding.",
+          th: "จอดรถไม่ได้ เนื่องจากอยู่ในพื้นที่เสี่ยงที่จะประสบภัย",
+        },
+        unavailable: true,
+      },
+      {
+        name: { en: "Chatuchak Park (สวนจตุจักร)", th: "สวนจตุจักร" },
+        detail: {
+          en: "No parking. The park is in an area at risk of flooding.",
+          th: "จอดรถไม่ได้ เนื่องจากอยู่ในพื้นที่เสี่ยงที่จะประสบภัย",
+        },
+        unavailable: true,
+      },
     ],
   },
   {
@@ -1263,7 +1353,18 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "King's 6th Cycle Birthday Park, Rama IX Bridge (สวนสาธารณะเฉลิมพระเกียรติ 6 รอบ พระชนมพรรษา)",
+          th: "สวนสาธารณะเฉลิมพระเกียรติ 6 รอบ พระชนมพรรษา",
+        },
+        detail: {
+          en: "BMA park. Room for about 40 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 40 คัน",
+        },
+      },
+    ],
   },
   {
     id: "prawet",
@@ -1280,7 +1381,31 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Suan Luang Rama IX (สวนหลวง ร.9)", th: "สวนหลวง ร.9" },
+        detail: {
+          en: "BMA park. Room for about 250 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 250 คัน",
+        },
+      },
+      {
+        name: {
+          en: "50th Anniversary Maha Chakri Sirindhorn Park (สวน 50 พรรษาฯ)",
+          th: "สวน 50 พรรษาฯ",
+        },
+        detail: { en: "No parking. The park is flooded.", th: "จอดรถไม่ได้ เนื่องจากมีน้ำท่วมขัง" },
+        unavailable: true,
+      },
+      {
+        name: { en: "Water sports park, Bueng Nong Bon (สวนกีฬาทางน้ำ)", th: "สวนกีฬาทางน้ำ" },
+        detail: {
+          en: "No parking. The park is flooded, about 20 cm deep.",
+          th: "จอดรถไม่ได้ เนื่องจากมีน้ำท่วมขัง สูงประมาณ 20 ซม.",
+        },
+        unavailable: true,
+      },
+    ],
   },
   {
     id: "khlong-toei",
@@ -1318,7 +1443,25 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "Benchakitti Park, car park A (สวนเบญจกิติ ลานจอดรถ A)",
+          th: "สวนเบญจกิติ ลานจอดรถ A",
+        },
+        detail: {
+          en: "BMA park. Room for about 50 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 50 คัน",
+        },
+      },
+      {
+        name: { en: "Benchasiri Park (อุทยานเบญจสิริ)", th: "อุทยานเบญจสิริ" },
+        detail: {
+          en: "BMA park. Room for about 15 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 15 คัน",
+        },
+      },
+    ],
   },
   {
     id: "suan-luang",
@@ -1467,7 +1610,15 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.realnewsthailand.net/article/73452/",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Santiphap Park (สวนสันติภาพ)", th: "สวนสันติภาพ" },
+        detail: {
+          en: "BMA park. Room for about 20 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 20 คัน",
+        },
+      },
+    ],
   },
   {
     id: "lat-phrao",
@@ -1853,7 +2004,15 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Wang Thonglang Park (สวนวังทองหลาง)", th: "สวนวังทองหลาง" },
+        detail: {
+          en: "BMA park. Room for about 100 cars. Parking is arranged with the BMA.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 100 คัน ประสานการจอดรถกับ กทม.",
+        },
+      },
+    ],
   },
   {
     id: "khlong-sam-wa",
@@ -1874,7 +2033,22 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: { en: "Wari Phirom Park (สวนวารีภิรมย์)", th: "สวนวารีภิรมย์" },
+        detail: {
+          en: "BMA park. Room for about 40 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 40 คัน",
+        },
+      },
+      {
+        name: { en: "Siri Phirom Park, Bueng Lam Phai (สวนสิริภิรมย์)", th: "สวนสิริภิรมย์" },
+        detail: {
+          en: "BMA park. Room for about 20 cars. It sits on the Min Buri and Khlong Sam Wa border.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 20 คัน สวนอยู่บนแนวเขตมีนบุรีและคลองสามวา",
+        },
+      },
+    ],
   },
   {
     id: "bang-na",
@@ -2027,7 +2201,36 @@ export const bangkokDistricts: BangkokDistrict[] = [
           "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "Park at the Phran Nok and Phutthamonthon Sai 4 interchange, Phutthamonthon Sai 2 Road (สวนสาธารณะทางต่างระดับพรานนก พุทธมณฑลสาย 4 ตัดกับถนนพุทธมณฑลสาย 2)",
+          th: "สวนสาธารณะทางต่างระดับพรานนก พุทธมณฑลสาย 4 ตัดกับถนนพุทธมณฑลสาย 2",
+        },
+        detail: {
+          en: "BMA park. Room for about 70 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 70 คัน",
+        },
+      },
+      {
+        name: {
+          en: "Park on Phutthamonthon Sai 3 Road (สวนสาธารณะถนนพุทธมณฑลสาย 3)",
+          th: "สวนสาธารณะถนนพุทธมณฑลสาย 3",
+        },
+        detail: {
+          en: "BMA park. Room for about 4 cars.",
+          th: "สวนสาธารณะของ กทม. จอดได้ประมาณ 4 คัน",
+        },
+      },
+      {
+        name: { en: "Thawi Watthana Park (สวนทวีวัฒนา)", th: "สวนทวีวัฒนา" },
+        detail: {
+          en: "No parking. The ramp to the car park is flooded.",
+          th: "จอดรถไม่ได้ เนื่องจากน้ำท่วมขังบริเวณทางลาดจอดรถ",
+        },
+        unavailable: true,
+      },
+    ],
   },
   {
     id: "thung-khru",
@@ -2063,6 +2266,18 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
     ],
     shelters: [],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "King's 7th Cycle Birthday Park, Bang Bon (สวนสาธารณะเฉลิมพระเกียรติ 7 รอบ)",
+          th: "สวนสาธารณะเฉลิมพระเกียรติ 7 รอบ",
+        },
+        detail: {
+          en: "No parking. The park is in an area where nearby floodwater is expected to rise too high.",
+          th: "จอดรถไม่ได้ เนื่องจากอยู่ในพื้นที่เสี่ยง น้ำบริเวณใกล้เคียงมีแนวโน้มท่วมสูงจนจอดไม่ได้",
+        },
+        unavailable: true,
+      },
+    ],
   },
 ];

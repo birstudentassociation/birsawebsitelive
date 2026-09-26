@@ -53,6 +53,8 @@ export type DistrictPlace = {
   phone?: string;
   /** The page this was read on. Left out for notices the district sent us directly. */
   source?: string;
+  /** Listed so people do not go there, e.g. a park whose car park is flooded. */
+  unavailable?: boolean;
 };
 
 /** Help published for one of Bangkok's 50 districts, in `districts.ts`. */

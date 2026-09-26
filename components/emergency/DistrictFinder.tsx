@@ -37,6 +37,8 @@ export type DistrictFinderLabels = {
   results: string;
   office: string;
   source: string;
+  /** Tag on a place that is listed but cannot be used. */
+  unavailable: string;
   /** Headings containing "{district}". */
   kinds: Record<DistrictHelpKind, string>;
   none: Record<DistrictHelpKind, string>;
@@ -373,9 +375,11 @@ function DistrictResult({
             <p className="text-sm text-muted">{labels.none[kind]}</p>
           ) : (
             <ul className="flex flex-col gap-3 leading-relaxed">
-              {district[kind].map((place) => (
-                <Place key={place.name.en} place={place} locale={locale} labels={labels} />
-              ))}
+              {[...district[kind]]
+                .sort((a, b) => Number(Boolean(a.unavailable)) - Number(Boolean(b.unavailable)))
+                .map((place) => (
+                  <Place key={place.name.en} place={place} locale={locale} labels={labels} />
+                ))}
             </ul>
           )}
         </section>
@@ -394,7 +398,17 @@ function Place({
   labels: DistrictFinderLabels;
 }) {
   return (
-    <li className="flex flex-col rounded-md border border-line bg-surface px-3 py-2">
+    <li
+      className={clsx(
+        "flex flex-col rounded-md border px-3 py-2",
+        place.unavailable ? "border-dashed border-line bg-sunken" : "border-line bg-surface"
+      )}
+    >
+      {place.unavailable ? (
+        <span className="self-start text-xs font-semibold tracking-wide text-error uppercase">
+          {labels.unavailable}
+        </span>
+      ) : null}
       <span>{place.name[locale]}</span>
       {place.detail ? <span className="text-sm text-muted">{place.detail[locale]}</span> : null}
       {place.phone ? (

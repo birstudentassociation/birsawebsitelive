@@ -84,6 +84,7 @@ export const en = {
       results: "{n} districts",
       office: "District office",
       source: "Where we read this",
+      unavailable: "Cannot be used",
       kinds: {
         sandbags: "Sandbags in {district}",
         shelters: "Shelters in {district}",
