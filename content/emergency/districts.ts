@@ -8,7 +8,7 @@ import type { BangkokDistrict } from "@/content/emergency/types";
  * parking change through the day, so the guide also links to BKK Care
  * Monitor, the BMA's live list.
  */
-export const districtsCheckedAt = "2026-09-26T21:00:00+07:00";
+export const districtsCheckedAt = "2026-09-26T20:47:00+07:00";
 
 export const bangkokDistricts: BangkokDistrict[] = [
   {
@@ -25,7 +25,14 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Wat Khlong Phum School (โรงเรียนวัดคลองภูมิ)", th: "โรงเรียนวัดคลองภูมิ" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/g6ka5gor8jLLrJ2y6",
+      },
+    ],
     parking: [],
   },
   {
@@ -42,8 +49,101 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: { en: "Wat Sawatwari Simaram (วัดสวัสดิ์วารีสีมาราม)", th: "วัดสวัสดิ์วารีสีมาราม" },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Sukhantharam (วัดสุคันธาราม)", th: "วัดสุคันธาราม" },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Suan Oi Recreation Centre (ศูนย์นันทนาการสวนอ้อย)",
+          th: "ศูนย์นันทนาการสวนอ้อย",
+        },
+        detail: {
+          en: "Room for 20 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 20 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Samananam Borihan School (โรงเรียนวัดสมณานัมบริหาร)",
+          th: "โรงเรียนวัดสมณานัมบริหาร",
+        },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Sawatwari Simaram School (โรงเรียนวัดสวัสดิ์วารีสีมาราม)",
+          th: "โรงเรียนวัดสวัสดิ์วารีสีมาราม",
+        },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Thewarat Kunchon School (โรงเรียนวัดเทวราชกุญชร)",
+          th: "โรงเรียนวัดเทวราชกุญชร",
+        },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Benchamabophit School (โรงเรียนวัดเบญจมบพิตร)",
+          th: "โรงเรียนวัดเบญจมบพิตร",
+        },
+        detail: {
+          en: "Room for 50 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 50 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+    ],
+    parking: [
+      {
+        name: {
+          en: "BMA Government Centre, Kiak Kai (ศูนย์ราชการกรุงเทพมหานครเกียกกาย)",
+          th: "ศูนย์ราชการกรุงเทพมหานครเกียกกาย",
+        },
+        detail: { en: "Room for 50 cars. Free.", th: "รองรับ 50 คัน ไม่มีค่าใช้จ่าย" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Supreme Complex, Samsen (ห้างสรรพสินค้าสุพรีม คอมเพล็กซ์)",
+          th: "ห้างสรรพสินค้าสุพรีม คอมเพล็กซ์",
+        },
+        detail: {
+          en: "Room for 70 cars. Free on floors 3B and 3C, 26 to 30 September, for people in Dusit. One car per person, and you cannot stay in the car. Register at the security office by the car park exit, 10.30 to 21.00. Only the person who left the car can collect it, with their ID card.",
+          th: "รองรับ 70 คัน จอดฟรีที่ชั้น 3B และ 3C วันที่ 26 ถึง 30 กันยายน สำหรับผู้ได้รับผลกระทบในเขตดุสิต 1 ท่านฝากรถได้ 1 คัน ห้ามพักหรือนอนค้างในรถ ลงทะเบียนที่ห้อง รปภ. ใกล้ป้อมขาออกลานจอดรถ เวลา 10.30 ถึง 21.00 น. ผู้รับรถคืนต้องเป็นผู้ฝากและแสดงบัตรประชาชนตัวจริง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/XJVgeeUHE8Jw8rg57",
+      },
+    ],
   },
   {
     id: "nong-chok",
@@ -62,87 +162,211 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: { en: "Lam Chedi School (โรงเรียนลำเจดีย์)", th: "โรงเรียนลำเจดีย์" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Luang Phaeng School (Bamrung Ratkit) (โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ))",
-          th: "โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ)",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
         name: { en: "Khlong Song School (โรงเรียนคลองสอง)", th: "โรงเรียนคลองสอง" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/q7iC5c83vD9nsXW6A",
+      },
+      {
+        name: { en: "Khari Upatham School (โรงเรียนคารีอุปถัมภ์)", th: "โรงเรียนคารีอุปถัมภ์" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/TXfCB7iZADkfkkBF9",
       },
       {
         name: {
-          en: "Nilarat Uppatham School (โรงเรียนนีลราษฎร์อุปถัมภ์)",
+          en: "Ninlarat Upatham School (โรงเรียนนีลราษฎร์อุปถัมภ์)",
           th: "โรงเรียนนีลราษฎร์อุปถัมภ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jgYDq59rjiwviKd66",
       },
       {
         name: {
           en: "Ban Lam Ton Kluai School (โรงเรียนบ้านลำต้นกล้วย)",
           th: "โรงเรียนบ้านลำต้นกล้วย",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Lam Buri Phuang School (โรงเรียนลำบุหรี่พวง)", th: "โรงเรียนลำบุหรี่พวง" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Khari Uppatham School (โรงเรียนคารีอุปถัมภ์)", th: "โรงเรียนคารีอุปถัมภ์" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 8 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 8 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ciFTJKRkFD7fETna6",
       },
       {
         name: {
-          en: "Wat Ratsadon Bamrung School (โรงเรียนวัดราษฎร์บำรุง)",
+          en: "Phonli Rungrueang School (โรงเรียนผลลีรุ่งเรือง)",
+          th: "โรงเรียนผลลีรุ่งเรือง",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/EiMaZPsE8pG5p3Sb7",
+      },
+      {
+        name: {
+          en: "BMA Vocational Training School (Nong Chok) (โรงเรียนฝึกอาชีพกรุงเทพมหานคร (หนองจอก))",
+          th: "โรงเรียนฝึกอาชีพกรุงเทพมหานคร (หนองจอก)",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NrxRK5TZ6NKyz4ev5",
+      },
+      {
+        name: { en: "Lam Buri Phuang School (โรงเรียนลำบุหรี่พวง)", th: "โรงเรียนลำบุหรี่พวง" },
+        detail: {
+          en: "Room for 30 people. At 20:47 on 26 September, 3 people were staying.",
+          th: "รองรับ 30 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 3 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/dsD5XwNdEk66Wvwv6",
+      },
+      {
+        name: { en: "Lam Chedi School (โรงเรียนลำเจดีย์)", th: "โรงเรียนลำเจดีย์" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 30 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 30 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/qae2bKepKAjX7BSe7",
+      },
+      {
+        name: { en: "Wat Sap Mosorn School (โรงเรียนวัดทรัพย์โมสร)", th: "โรงเรียนวัดทรัพย์โมสร" },
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/7FLVy8SLuAA1AHTc6",
+      },
+      {
+        name: {
+          en: "Wat Phraya Pla School (primary) (โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา))",
+          th: "โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา)",
+        },
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ozUtE4zfnF6sSJfm8",
+      },
+      {
+        name: {
+          en: "Wat Phraya Pla School (secondary) (โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา))",
+          th: "โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา)",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/otZNDMvU88uB8ZwPA",
+      },
+      {
+        name: {
+          en: "Wat Rat Bamrung School (โรงเรียนวัดราษฎร์บำรุง)",
           th: "โรงเรียนวัดราษฎร์บำรุง",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Z6s49csj2DjwefFSA",
+      },
+      {
+        name: {
+          en: "Wat Nong Chok School (Phakdi Norasret) (โรงเรียนวัดหนองจอก(ภักดีนรเศรษฐ))",
+          th: "โรงเรียนวัดหนองจอก(ภักดีนรเศรษฐ)",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/eBpYKnPhwVJQwCnJ9",
+      },
+      {
+        name: {
+          en: "Sangkha Prachanusson School (โรงเรียนสังฆประชานุสสรณ์)",
+          th: "โรงเรียนสังฆประชานุสสรณ์",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/XT4rgiZXfpNQ3H5a8",
+      },
+      {
+        name: {
+          en: "Surao Khlong Sip School (โรงเรียนสุเหร่าคลองสิบ)",
+          th: "โรงเรียนสุเหร่าคลองสิบ",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/TBrYRXrww8vpa65y5",
+      },
+      {
+        name: {
+          en: "Surao Khlong Sip Et School (โรงเรียนสุเหร่าคลองสิบเอ็ด)",
+          th: "โรงเรียนสุเหร่าคลองสิบเอ็ด",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/si7Bas7vEUH8MqDz8",
       },
       {
         name: { en: "Surao Na Tap School (โรงเรียนสุเหร่านาตับ)", th: "โรงเรียนสุเหร่านาตับ" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/4DCorFhPRR7nfjjz8",
+      },
+      {
+        name: { en: "Surao Lam Khaek School (โรงเรียนสุเหร่าลำแขก)", th: "โรงเรียนสุเหร่าลำแขก" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jWYh8tzFpw9cEub59",
       },
       {
         name: {
           en: "Surao Sala Daeng School (โรงเรียนสุเหร่าศาลาแดง)",
           th: "โรงเรียนสุเหร่าศาลาแดง",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Sap Moson School (โรงเรียนวัดทรัพย์โมสร)", th: "โรงเรียนวัดทรัพย์โมสร" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/4228AUHU28SfxWNb9",
       },
       {
         name: {
           en: "Surao Haji Mina School (โรงเรียนสุเหร่าหะยีมินา)",
           th: "โรงเรียนสุเหร่าหะยีมินา",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jACSjv3fr2LePb4M8",
       },
       {
         name: {
-          en: "Wat Phraya Pla School (primary section) (โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา))",
-          th: "โรงเรียนวัดพระยาปลา (ฝั่งประถมศึกษา)",
+          en: "Nong Chok Phitthayanuson School (โรงเรียนหนองจอกพิทยานุสรณ์)",
+          th: "โรงเรียนหนองจอกพิทยานุสรณ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/RsJNMp56gKesoAY17",
       },
       {
         name: {
-          en: "Wat Phraya Pla School (secondary section) (โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา))",
-          th: "โรงเรียนวัดพระยาปลา (ฝั่งมัธยมศึกษา)",
+          en: "Luang Phaeng School (Bamrung Ratthakit) (โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ))",
+          th: "โรงเรียนหลวงแพ่ง (บำรุงรัฐกิจ)",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/zc1Zw7ow2HLyJdqq5",
+      },
+      {
+        name: { en: "Islam Lam Sai School (โรงเรียนอิสลามลำไทร)", th: "โรงเรียนอิสลามลำไทร" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/LWYeuWVKcyMC1jrV8",
       },
     ],
     parking: [
+      {
+        name: {
+          en: "Kamon FBT Sports Park, Suwinthawong Road (สวนกีฬากมล เอฟบีที ถนนสุวินทวงศ์ เขตหนองจอก)",
+          th: "สวนกีฬากมล เอฟบีที ถนนสุวินทวงศ์ เขตหนองจอก",
+        },
+        detail: {
+          en: "Room for 200 cars. At 20:47 on 26 September, 10 cars were parked.",
+          th: "รองรับ 200 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 10 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/3fDew1D36FaGnZc89",
+      },
       {
         name: { en: "Nong Chok Park (สวนหนองจอก)", th: "สวนหนองจอก" },
         detail: {
@@ -166,8 +390,37 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: { en: "Wat Hua Lamphong School (โรงเรียนวัดหัวลำโพง)", th: "โรงเรียนวัดหัวลำโพง" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://share.google/SN3IeQUtAgTeMzEf6",
+      },
+      {
+        name: {
+          en: "Wat Kaeo Chaem Fa School (โรงเรียนวัดแก้วแจ่มฟ้า)",
+          th: "โรงเรียนวัดแก้วแจ่มฟ้า",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://share.google/SU8mNHuRZCgSxXtcj",
+      },
+    ],
+    parking: [
+      {
+        name: {
+          en: "Jewelry Trade Center (อาคารจูเวลเลอรี่ เซ็นเตอร์)",
+          th: "อาคารจูเวลเลอรี่ เซ็นเตอร์",
+        },
+        detail: {
+          en: "Room for 100 cars. 200 baht a day per car.",
+          th: "รองรับ 100 คัน ค่าบริการ 200 บาทต่อวันต่อคัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://share.google/Wl204hv47gmSyQ2lY",
+      },
+    ],
   },
   {
     id: "bang-khen",
@@ -267,6 +520,18 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [],
     parking: [
       {
+        name: { en: "P80Go car park (ลานจอดรถ P80Go)", th: "ลานจอดรถ P80Go" },
+        detail: { en: "Room for 200 cars.", th: "รองรับ 200 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/FAZ6GpD1mW9wT6rP9",
+      },
+      {
+        name: { en: "CentralWorld (เซ็นทรัลเวิลด์)", th: "เซ็นทรัลเวิลด์" },
+        detail: { en: "Room for 220 cars. Floor 7.5.", th: "รองรับ 220 คัน จอดได้ที่ชั้น 7 ครึ่ง" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/6Zd2V2mzMKiJhjSV8",
+      },
+      {
         name: {
           en: "Bangkok Railway Station, Hua Lamphong (สถานีรถไฟกรุงเทพ หัวลำโพง)",
           th: "สถานีรถไฟกรุงเทพ (หัวลำโพง)",
@@ -322,8 +587,42 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: {
+          en: "Wat Thammamongkhon Thao Bun Nonthawihan (วัดธรรมมงคลเถาบุญนนทวิหาร)",
+          th: "วัดธรรมมงคลเถาบุญนนทวิหาร",
+        },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Bun Rot Thammaram (วัดบุญรอดธรรมาราม)", th: "วัดบุญรอดธรรมาราม" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Wachirathammasathit Worawihan (วัดวชิรธรรมสาธิตวรวิหาร)",
+          th: "วัดวชิรธรรมสาธิตวรวิหาร",
+        },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 8 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 8 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+    ],
+    parking: [
+      {
+        name: {
+          en: "Cloud 11 Bangkok (ศูนย์การค้า Cloud 11 Bangkok)",
+          th: "ศูนย์การค้า Cloud 11 Bangkok",
+        },
+        detail: { en: "Room for 90 cars.", th: "รองรับ 90 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+    ],
   },
   {
     id: "min-buri",
@@ -342,53 +641,71 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Wang Lek Witthayanuson School (โรงเรียนวังเล็กวิทยานุสรณ์)",
-          th: "โรงเรียนวังเล็กวิทยานุสรณ์",
+          en: "Community hall, Min Buri District Office (อาคารศาลาประชาคม สำนักงานเขตมีนบุรี)",
+          th: "อาคารศาลาประชาคม สำนักงานเขตมีนบุรี",
         },
-        detail: { en: "Capacity around 100 people.", th: "รองรับได้ประมาณ 100 คน" },
-        phone: "088-245-3565",
-        source: "https://www.thaipbs.or.th/news/content/558577",
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 25 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 25 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/qqwV7uN5wtcpXmwX8",
       },
       {
         name: {
-          en: "Min Buri District Office Public Hall (อาคารศาลาประชาคม สำนักงานเขตมีนบุรี)",
-          th: "อาคารศาลาประชาคม สำนักงานเขตมีนบุรี",
+          en: "Wang Lek Witthayanuson School (โรงเรียนวังเล็กวิทยานุสรณ์)",
+          th: "โรงเรียนวังเล็กวิทยานุสรณ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 4 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 4 คน",
+        },
+        phone: "088-245-3565",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/STehFm7UqdtWCgov7",
+      },
+      {
+        name: { en: "Sala Khu School (โรงเรียนศาลาคู้)", th: "โรงเรียนศาลาคู้" },
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        phone: "085-624-9534",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ommx5M5VvMYWR7ReA",
       },
       {
         name: {
           en: "Surao Sai Kong Din School (โรงเรียนสุเหร่าทรายกองดิน)",
           th: "โรงเรียนสุเหร่าทรายกองดิน",
         },
-        detail: { en: "Capacity around 100 people.", th: "รองรับได้ประมาณ 100 คน" },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 21 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 21 คน",
+        },
         phone: "081-826-1556",
-        source: "https://www.thaipbs.or.th/news/content/558577",
-      },
-      {
-        name: { en: "Sala Khu School (โรงเรียนศาลาคู้)", th: "โรงเรียนศาลาคู้" },
-        detail: { en: "Capacity around 60 people.", th: "รองรับได้ประมาณ 60 คน" },
-        phone: "085-624-9534",
-        source: "https://www.thaipbs.or.th/news/content/558577",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/6uSbkzoc8Nyn6W2f6",
       },
       {
         name: { en: "Surao Bang Chan School (โรงเรียนสุเหร่าบางชัน)", th: "โรงเรียนสุเหร่าบางชัน" },
-        detail: { en: "Capacity around 50 people.", th: "รองรับได้ประมาณ 50 คน" },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 50 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 50 คน",
+        },
         phone: "065-616-3956",
-        source: "https://www.thaipbs.or.th/news/content/558577",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/XiobPtqF3zAaWiEd8",
       },
     ],
     parking: [
       {
         name: {
-          en: "Min Buri Pink Line station park and ride (สถานีมีนบุรี รถไฟฟ้าสายสีชมพู (PK30))",
-          th: "สถานีมีนบุรี รถไฟฟ้าสายสีชมพู (PK30)",
+          en: "Pink Line Min Buri station park and ride (PK30) (อาคารจอดแล้วจร รถไฟฟ้าสายสีชมพู สถานีมีนบุรี (PK30))",
+          th: "อาคารจอดแล้วจร รถไฟฟ้าสายสีชมพู สถานีมีนบุรี (PK30)",
         },
         detail: {
-          en: "Free until 12:00 on Monday 28 September. Show your ID card and vehicle registration to station staff.",
-          th: "จอดฟรีถึงวันจันทร์ที่ 28 กันยายน เวลา 12.00 น. แสดงบัตรประชาชนและเอกสารรถต่อเจ้าหน้าที่สถานี",
+          en: "Room for 3025 cars. At 20:47 on 26 September, 1875 cars were parked. Free until 12:00 on Monday 28 September. Show your ID card and vehicle registration to station staff.",
+          th: "รองรับ 3025 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 1875 คัน จอดฟรีถึงวันจันทร์ที่ 28 กันยายน เวลา 12.00 น. แสดงบัตรประชาชนและเอกสารรถต่อเจ้าหน้าที่สถานี",
         },
-        source: "https://www.bangkokbiznews.com/economics/1253636",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
         name: { en: "Siri Phirom Park, Bueng Lam Phai (สวนสิริภิรมย์)", th: "สวนสิริภิรมย์" },
@@ -459,68 +776,124 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
+        name: {
+          en: "Lat Krabang Recreation Centre (ศูนย์นันทนาการลาดกระบัง)",
+          th: "ศูนย์นันทนาการลาดกระบัง",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/zKg8J8C1fJDUEafU9",
+      },
+      {
         name: { en: "Khum Thong School (โรงเรียนขุมทอง)", th: "โรงเรียนขุมทอง" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 9 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 9 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://share.google/41On0UmQrV4qs2ZRU",
       },
       {
         name: { en: "Tambon Khum Thong School (โรงเรียนตำบลขุมทอง)", th: "โรงเรียนตำบลขุมทอง" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://share.google/MmRp1bEdHedmV8OeK",
       },
       {
-        name: { en: "Daeng Pao School (โรงเรียนแดงเป้า)", th: "โรงเรียนแดงเป้า" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        name: { en: "Prasan Samakkhi School (โรงเรียนประสานสามัคคี)", th: "โรงเรียนประสานสามัคคี" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/7SqMGMmQ36fMvBL49",
+      },
+      {
+        name: { en: "Wat Bamrung Ruen School (โรงเรียนวัดบำรุงรื่น)", th: "โรงเรียนวัดบำรุงรื่น" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/uoQCpQWyq2u1tLvw7",
+      },
+      {
+        name: { en: "Wat Pak Bueng School (โรงเรียนวัดปากบึง)", th: "โรงเรียนวัดปากบึง" },
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/SVNzRkZmNRprXpSB8",
+      },
+      {
+        name: { en: "Wat Lat Krabang School (โรงเรียนวัดลาดกระบัง)", th: "โรงเรียนวัดลาดกระบัง" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/57CDb5Mzzz3bWPes9",
+      },
+      {
+        name: { en: "Wat Lan Bun School (โรงเรียนวัดลานบุญ)", th: "โรงเรียนวัดลานบุญ" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 30 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 30 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/57CDb5Mzzz3bWPes9",
+      },
+      {
+        name: { en: "Wat Sangkharacha School (โรงเรียนวัดสังฆราชา)", th: "โรงเรียนวัดสังฆราชา" },
+        detail: {
+          en: "Room for 40 people. At 20:47 on 26 September, 38 people were staying.",
+          th: "รองรับ 40 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 38 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NNb4oTgkSBqmEvcp8",
+        status: "nearlyFull",
+      },
+      {
+        name: { en: "Wat Sutthaphot School (โรงเรียนวัดสุทธาโภชน์)", th: "โรงเรียนวัดสุทธาโภชน์" },
+        detail: {
+          en: "Room for 40 people. At 20:47 on 26 September, 4 people were staying.",
+          th: "รองรับ 40 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 4 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/3WiLNbK2NGTxLyGx6",
       },
       {
         name: {
           en: "Kheha Chumchon Lat Krabang School (โรงเรียนเคหะชุมชนลาดกระบัง)",
           th: "โรงเรียนเคหะชุมชนลาดกระบัง",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 200 people. At 20:47 on 26 September, 160 people were staying.",
+          th: "รองรับ 200 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 160 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/QtgyRXhHBvd4V6jQ8",
       },
       {
-        name: { en: "Wat Bamrung Ruen School (โรงเรียนวัดบำรุงรื่น)", th: "โรงเรียนวัดบำรุงรื่น" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Sutthaphot School (โรงเรียนวัดสุทธาโภชน์)", th: "โรงเรียนวัดสุทธาโภชน์" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        name: { en: "Daeng Pao School (โรงเรียนแดงเป้า)", th: "โรงเรียนแดงเป้า" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 12 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 12 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/769guFdzBuMpHnm36",
       },
       {
         name: {
           en: "Saeng Hiran Witthaya School (โรงเรียนแสงหิรัญวิทยา)",
           th: "โรงเรียนแสงหิรัญวิทยา",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Prasan Samakkhi School (โรงเรียนประสานสามัคคี)", th: "โรงเรียนประสานสามัคคี" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Lat Krabang Recreation Centre (ศูนย์นันทนาการลาดกระบัง)",
-          th: "ศูนย์นันทนาการลาดกระบัง",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Lan Bun School (โรงเรียนวัดลานบุญ)", th: "โรงเรียนวัดลานบุญ" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Lat Krabang School (โรงเรียนวัดลาดกระบัง)", th: "โรงเรียนวัดลาดกระบัง" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Sangkharacha School (โรงเรียนวัดสังฆราชา)", th: "โรงเรียนวัดสังฆราชา" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Pak Bueng School (โรงเรียนวัดปากบึง)", th: "โรงเรียนวัดปากบึง" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/KHCU2PvBk9xj1HK5A",
       },
     ],
     parking: [
+      {
+        name: {
+          en: "Robinson Lifestyle Suvarnabhumi, car park floor 7 (โรบินสันไลฟ์สไตล์ สุวรรณภูมิ อาคารจอดรถ ชั้น 7)",
+          th: "โรบินสันไลฟ์สไตล์ สุวรรณภูมิ อาคารจอดรถ ชั้น 7",
+        },
+        detail: {
+          en: "Room for 170 cars. At 20:47 on 26 September, 170 cars were parked.",
+          th: "รองรับ 170 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 170 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/vA93RN6imRY5ZJWP7",
+        status: "full",
+      },
       {
         name: { en: "60th Anniversary Queen's Park (สวน 60 พรรษาฯ)", th: "สวน 60 พรรษาฯ" },
         detail: { en: "No parking. The park is flooded.", th: "จอดรถไม่ได้ เนื่องจากมีน้ำท่วมขัง" },
@@ -573,8 +946,34 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
-    parking: [],
+    shelters: [
+      {
+        name: {
+          en: "Samphanthawong District Office (สำนักงานเขตสัมพันธวงศ์)",
+          th: "สำนักงานเขตสัมพันธวงศ์",
+        },
+        detail: { en: "Room for 70 people.", th: "รองรับ 70 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/JSHyKz2iro5FmL8W8",
+      },
+      {
+        name: { en: "Wat Chakkrawat School (โรงเรียนวัดจักรวรรดิ)", th: "โรงเรียนวัดจักรวรรดิ" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/mrs2zd7eUGfAeJot8",
+      },
+    ],
+    parking: [
+      {
+        name: { en: "Phichaiyat Building (อาคารพิชัยญาติ)", th: "อาคารพิชัยญาติ" },
+        detail: {
+          en: "Room for 300 cars. 300 baht a day per car.",
+          th: "รองรับ 300 คัน ค่าบริการ 300 บาทต่อวันต่อคัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/rBSD3GxsfcKpTjfi6",
+      },
+    ],
   },
   {
     id: "phaya-thai",
@@ -594,12 +993,16 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Public Health Service Centre 51 building, inside Wat Phai Ton (อาคารศูนย์บริการสาธารณสุข 51 เดิม ภายในวัดไผ่ตัน)",
-          th: "อาคารศูนย์บริการสาธารณสุข 51 (เดิม) ภายในวัดไผ่ตัน ซอยพหลโยธิน 15",
+          en: "Former Public Health Centre 51 building, Wat Phai Tan (อาคารศูนย์บริการสาธารณสุข 51(เดิม) ในบริเวณวัดไผ่ตัน)",
+          th: "อาคารศูนย์บริการสาธารณสุข 51(เดิม) ในบริเวณวัดไผ่ตัน",
+        },
+        detail: {
+          en: "Room for 50 people. Open 08.00 to 18.00.",
+          th: "รองรับ 50 คน เปิด 08.00 ถึง 18.00 น.",
         },
         phone: "02-279-4140",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/search?q=%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%B2%E0%B8%98%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%AA%E0%B8%B8%E0%B8%82+51+%E0%B9%80%E0%B8%94%E0%B8%B4%E0%B8%A1+%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B8%A0%E0%B8%B2%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%9C%E0%B9%88%E0%B8%95%E0%B8%B1%E0%B8%99+%E0%B8%8B%E0%B8%AD%E0%B8%A2%E0%B8%9E%E0%B8%AB%E0%B8%A5%E0%B9%82%E0%B8%A2%E0%B8%98%E0%B8%B4%E0%B8%99+15+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3&sca_esv=fd861737a4dd1940&biw=390&bih=669&sxsrf=APpeQnuRpzBC9WWrWKK44-7ug78WzsTfOA%3A1790408080654&ei=kHW3aofLJ8qTseMPy5712QI&oq=%E0%B8%AD%E0%B8%B2%E0%B8%84%E0%B8%B2%E0%B8%A3%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%B2%E0%B8%98%E0%B8%B2%E0%B8%A3%E0%B8%93%E0%B8%AA%E0%B8%B8%E0%B8%82+51+%E0%B9%80%E0%B8%94%E0%B8%B4%E0%B8%A1+%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B8%A0%E0%B8%B2%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%84%E0%B8%9C%E0%B9%88%E0%B8%95%E0%B8%B1%E0%B8%99+%E0%B8%8B%E0%B8%AD%E0%B8%A2%E0%B8%9E%E0%B8%AB%E0%B8%A5%E0%B9%82%E0%B8%A2%E0%B8%98%E0%B8%B4%E0%B8%99+15+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9E%E0%B8%8D%E0%B8%B2%E0%B9%84%E0%B8%97+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3&gs_lp=EhNtb2JpbGUtZ3dzLXdpei1zZXJwIqAC4Lit4Liy4LiE4Liy4Lij4Lio4Li54LiZ4Lii4LmM4Lia4Lij4Li04LiB4Liy4Lij4Liq4Liy4LiY4Liy4Lij4LiT4Liq4Li44LiCIDUxIOC5gOC4lOC4tOC4oSDguJXguLHguYnguIfguK3guKLguLnguYjguKDguLLguKLguYPguJnguKfguLHguJTguYTguJzguYjguJXguLHguJkg4LiL4Lit4Lii4Lie4Lir4Lil4LmC4Lii4LiY4Li04LiZIDE1IOC5geC4guC4p-C4h-C4nuC4jeC4suC5hOC4lyDguYDguILguJXguJ7guI3guLLguYTguJcg4LiB4Lij4Li44LiH4LmA4LiX4Lie4Lih4Lir4Liy4LiZ4LiE4LijMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMg0QIxjwBRjJAhjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgoQIxjwBRjqAhgnMg0QLhjHARivARjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMgcQIxjqAhgnMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQLhgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQLhgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQLhgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBMhAQABgDGI8BGOoCGLQC2AEBSIksUMUaWMUacAN4AZABAJgBAKABAKoBALgBA8gBAPgBAfgBApgCA6ACI6gCLZgDEfEFYyef746ajDC6BgQIARgKkgcBM6AHALIHALgHAMIHAzMtM8gHIIAIAQ&sclient=mobile-gws-wiz-serp#",
       },
       {
         name: {
@@ -642,7 +1045,92 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Kantatararam School (โรงเรียนกันตทาราราม)", th: "โรงเรียนกันตทาราราม" },
+        detail: {
+          en: "Room for 50 people. The number is the head teacher's.",
+          th: "รองรับ 50 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "099-986-4500",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Krachap Phinit School (โรงเรียนวัดกระจับพินิจ)",
+          th: "โรงเรียนวัดกระจับพินิจ",
+        },
+        detail: {
+          en: "Room for 50 people. The number is the head teacher's.",
+          th: "รองรับ 50 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "099-291-5594",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Kanlayanamit School (โรงเรียนวัดกัลยาณมิตร)",
+          th: "โรงเรียนวัดกัลยาณมิตร",
+        },
+        detail: {
+          en: "Room for 50 people. The number is the head teacher's.",
+          th: "รองรับ 50 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "089-780-6433",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Khun Chan School (โรงเรียนวัดขุนจันทร์)", th: "โรงเรียนวัดขุนจันทร์" },
+        detail: {
+          en: "Room for 50 people. The number is the head teacher's.",
+          th: "รองรับ 50 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "089-780-7242",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Bang Nam Chon School (โรงเรียนวัดบางน้ำชน)", th: "โรงเรียนวัดบางน้ำชน" },
+        detail: {
+          en: "Room for 30 people. The number is the head teacher's.",
+          th: "รองรับ 30 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "081-744-2111",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Bukkhalo School (โรงเรียนวัดบุคคโล)", th: "โรงเรียนวัดบุคคโล" },
+        detail: {
+          en: "Room for 20 people. The number is the head teacher's.",
+          th: "รองรับ 20 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "081-448-1965",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Yai Si Suphan School (โรงเรียนวัดใหญ่ศรีสุพรรณ)",
+          th: "โรงเรียนวัดใหญ่ศรีสุพรรณ",
+        },
+        detail: {
+          en: "Room for 10 people. The number is the head teacher's.",
+          th: "รองรับ 10 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "088-096-6421",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Mai Yai Nui School (โรงเรียนวัดใหม่ยายนุ้ย)",
+          th: "โรงเรียนวัดใหม่ยายนุ้ย",
+        },
+        detail: {
+          en: "Room for 10 people. The number is the head teacher's.",
+          th: "รองรับ 10 คน เบอร์ของผู้อำนวยการโรงเรียน",
+        },
+        phone: "086-774-5521",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+    ],
     parking: [
       {
         name: {
@@ -677,38 +1165,48 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: {
-          en: "Wat Ratchasittharam School (โรงเรียนวัดราชสิทธาราม)",
-          th: "โรงเรียนวัดราชสิทธาราม",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Nak Klang School (โรงเรียนวัดนาคกลาง)", th: "โรงเรียนวัดนาคกลาง" },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: {
-          en: "Wat Mai Phiren School (โรงเรียนวัดใหม่พิเรนทร์)",
-          th: "โรงเรียนวัดใหม่พิเรนทร์",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
+        name: { en: "Wat Di Duat School (โรงเรียนวัดดีดวด)", th: "โรงเรียนวัดดีดวด" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/AAK9oFKoK3aXWG7T6",
       },
       {
         name: { en: "Wat Tha Phra School (โรงเรียนวัดท่าพระ)", th: "โรงเรียนวัดท่าพระ" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Di Duat School (โรงเรียนวัดดีดวด)", th: "โรงเรียนวัดดีดวด" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/QfgRkEdmLnXMaYze7",
       },
       {
         name: {
           en: "Wat Pradu Chimphli School (โรงเรียนวัดประดู่ฉิมพลี)",
           th: "โรงเรียนวัดประดู่ฉิมพลี",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/TkZ7VX2z2eMBVS8a9",
+      },
+      {
+        name: {
+          en: "Wat Ratchasittharam School (โรงเรียนวัดราชสิทธาราม)",
+          th: "โรงเรียนวัดราชสิทธาราม",
+        },
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/m6iri1jNpHM3K1Y59",
+      },
+      {
+        name: {
+          en: "Wat Mai Phiren School (โรงเรียนวัดใหม่พิเรนทร์)",
+          th: "โรงเรียนวัดใหม่พิเรนทร์",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/vjb5VHhVZDzquQoaA",
+      },
+      {
+        name: { en: "Wat Nak Klang School (โรงเรียนวัดนาคกลาง)", th: "โรงเรียนวัดนาคกลาง" },
+        source:
+          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
       },
     ],
     parking: [],
@@ -768,58 +1266,69 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: { en: "Wat Suwan School (โรงเรียนวัดสุวรรณ)", th: "โรงเรียนวัดสุวรรณ" },
-        phone: "063-156-9351",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Wat Thong Phleng School (โรงเรียนวัดทองเพลง)", th: "โรงเรียนวัดทองเพลง" },
-        phone: "096-154-5286",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        name: {
+          en: "Wat Suttharam Secondary School (โรงเรียนมัธยมวัดสุทธาราม)",
+          th: "โรงเรียนมัธยมวัดสุทธาราม",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "086-891-2639",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/THU6UjkuSK843fuaA",
       },
       {
         name: {
           en: "Wat Thong Thammachat School (โรงเรียนวัดทองธรรมชาติ)",
           th: "โรงเรียนวัดทองธรรมชาติ",
         },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
         phone: "083-158-8555",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Wat Thong Noppakhun School (โรงเรียนวัดทองนพคุณ)", th: "โรงเรียนวัดทองนพคุณ" },
-        phone: "081-445-9090",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Wat Sawet Chat School (โรงเรียนวัดเศวตฉัตร)", th: "โรงเรียนวัดเศวตฉัตร" },
-        phone: "081-431-5427",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Wat Suttharam School (โรงเรียนวัดสุทธาราม)", th: "โรงเรียนวัดสุทธาราม" },
-        phone: "083-725-7878",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Mck4hhX59JTUj3a27",
       },
       {
         name: {
-          en: "Suttharam Secondary School (โรงเรียนมัธยมวัดสุทธาราม)",
-          th: "โรงเรียนมัธยมวัดสุทธาราม",
+          en: "Wat Thong Nopphakhun School (โรงเรียนวัดทองนพคุณ)",
+          th: "โรงเรียนวัดทองนพคุณ",
         },
-        phone: "086-891-2639",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "081-445-9090",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/8GDhqan3HNmxio5o6",
+      },
+      {
+        name: { en: "Wat Thong Phleng School (โรงเรียนวัดทองเพลง)", th: "โรงเรียนวัดทองเพลง" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "096-154-5286",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/TP3AwKk5fgBeDXP4A",
       },
       {
         name: { en: "Wat Phichaiyat School (โรงเรียนวัดพิชัยญาติ)", th: "โรงเรียนวัดพิชัยญาติ" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
         phone: "091-775-7806",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/VmSL2ibA2WyXGT41A",
+      },
+      {
+        name: { en: "Wat Suttharam School (โรงเรียนวัดสุทธาราม)", th: "โรงเรียนวัดสุทธาราม" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "083-725-7878",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/rg8VbkBh5VSzg55y7",
+      },
+      {
+        name: { en: "Wat Suwan School (โรงเรียนวัดสุวรรณ)", th: "โรงเรียนวัดสุวรรณ" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "063-156-9351",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/vyGbvEjQCpvuzhFw9",
+      },
+      {
+        name: { en: "Wat Sawetchat School (โรงเรียนวัดเศวตฉัตร)", th: "โรงเรียนวัดเศวตฉัตร" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "081-431-5427",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/VDLF36p77vs9eniw6",
       },
     ],
     parking: [
@@ -874,8 +1383,136 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: {
+          en: "Wat Dong Mun Lek School (โรงเรียนวัดดงมูลเหล็ก)",
+          th: "โรงเรียนวัดดงมูลเหล็ก",
+        },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "02-411-3981",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/UjCcAbUePvdzGMoZ7",
+      },
+      {
+        name: { en: "Wat Dusitaram School (โรงเรียนวัดดุสิตาราม)", th: "โรงเรียนวัดดุสิตาราม" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "02-424-0418",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/fc7zNCiTJbjNv1zc8",
+      },
+      {
+        name: {
+          en: "Wat Bang Khun Non School (โรงเรียนวัดบางขุนนนท์)",
+          th: "โรงเรียนวัดบางขุนนนท์",
+        },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "02-424-5827",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/PG2qVn4tGCaPwnB98",
+      },
+      {
+        name: { en: "Wat Bang Sao Thong School (โรงเรียนวัดบางเสาธง)", th: "โรงเรียนวัดบางเสาธง" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "02-411-2256",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/5X1wFufXFjNG1PRx9",
+      },
+      {
+        name: {
+          en: "Wat Pathombut Itsararam School (โรงเรียนวัดปฐมบุตรอิศราราม)",
+          th: "โรงเรียนวัดปฐมบุตรอิศราราม",
+        },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "02-424-0415",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/phNZeL9hHE3dgBMR9",
+      },
+      {
+        name: { en: "Wat Phraya Tham School (โรงเรียนวัดพระยาทำ)", th: "โรงเรียนวัดพระยาทำ" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        phone: "02-411-1251",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/uGeVZ32ov1Z2JDPX9",
+      },
+      {
+        name: { en: "Wat Mali School (โรงเรียนวัดมะลิ)", th: "โรงเรียนวัดมะลิ" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "02-412-2481",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/sTj3Z1czH9ng2MJe7",
+      },
+      {
+        name: {
+          en: "Wat Yang Suttharam School (โรงเรียนวัดยางสุทธาราม)",
+          th: "โรงเรียนวัดยางสุทธาราม",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "02-411-3176",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/G5KyYpqqRTqyCV8cA",
+      },
+      {
+        name: { en: "Wat Wiset Kan School (โรงเรียนวัดวิเศษการ)", th: "โรงเรียนวัดวิเศษการ" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-412-3193",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/T589DZXzaBciMh5Y8",
+      },
+      {
+        name: { en: "Wat Suwannaram School (โรงเรียนวัดสุวรรณาราม)", th: "โรงเรียนวัดสุวรรณาราม" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "02-424-4087",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Amphawa School (โรงเรียนวัดอัมพวา)", th: "โรงเรียนวัดอัมพวา" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-411-0548",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ZsP2Pj47Q7fyVy9J7",
+      },
+      {
+        name: { en: "Wat Chao Am School (โรงเรียนวัดเจ้าอาม)", th: "โรงเรียนวัดเจ้าอาม" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-424-1377",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/xDf9my4VF9xArpQH7",
+      },
+      {
+        name: { en: "Wat Pho Riang School (โรงเรียนวัดโพธิ์เรียง)", th: "โรงเรียนวัดโพธิ์เรียง" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        phone: "02-412-3036",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/tRnkZguVB63ysmoC7",
+      },
+      {
+        name: {
+          en: "Wat Suwannakhiri School (โรงเรียนวัดสุวรรณคีรี)",
+          th: "โรงเรียนวัดสุวรรณคีรี",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-424-0416",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/VpK4JpmMrPMEW24A7",
+      },
+      {
+        name: { en: "Wat Si Sudaram School (โรงเรียนวัดศรีสุดาราม)", th: "โรงเรียนวัดศรีสุดาราม" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-424-0424",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/mCEC959RGxGQQpCFA",
+      },
+    ],
     parking: [
+      {
+        name: {
+          en: "Bangkok Noi District Office (สำนักงานเขตบางกอกน้อย)",
+          th: "สำนักงานเขตบางกอกน้อย",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/VPNwheueukEt6mst9",
+      },
       {
         name: { en: "Central Pinklao (เซ็นทรัล ปิ่นเกล้า)", th: "เซ็นทรัล ปิ่นเกล้า" },
         detail: {
@@ -917,20 +1554,44 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
+          en: "Bang Khun Thian Recreation Centre (Rama 2 Soi 69) (ศูนย์นันทนาการบางขุนเทียน (ถนนพระรามที่ 2 ซอย 69))",
+          th: "ศูนย์นันทนาการบางขุนเทียน (ถนนพระรามที่ 2 ซอย 69)",
+        },
+        detail: { en: "Room for 300 people.", th: "รองรับ 300 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/XTXFj9WedQYrZHWd7",
+      },
+      {
+        name: {
           en: "Khlong Phitthayalongkon School (โรงเรียนคลองพิทยาลงกรณ์)",
           th: "โรงเรียนคลองพิทยาลงกรณ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/o1Mf1w7cRfwJzY2j9",
       },
     ],
     parking: [
       {
+        name: {
+          en: "Big C Supercenter Rama 2, branch 2 (inbound side) (บิ๊กซี ซูเปอร์เซ็นเตอร์ พระราม 2 สาขา 2 (ขาเข้า))",
+          th: "บิ๊กซี ซูเปอร์เซ็นเตอร์ พระราม 2 สาขา 2 (ขาเข้า)",
+        },
+        detail: {
+          en: "Room for 50 cars. At 20:47 on 26 September, 25 cars were parked.",
+          th: "รองรับ 50 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 25 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/isrzNmXvh7Lkzmmt6",
+      },
+      {
         name: { en: "Central Rama 2 (เซ็นทรัล พระราม 2)", th: "เซ็นทรัล พระราม 2" },
         detail: {
-          en: "Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
-          th: "จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
+          en: "Room for 1500 cars. At 20:47 on 26 September, 217 cars were parked. Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
+          th: "รองรับ 1500 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 217 คัน จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
         },
-        source: "https://mgronline.com/onlinesection/detail/9690000093939",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/2UVi1qBMKPJz72o9A",
       },
     ],
   },
@@ -993,34 +1654,46 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: { en: "Wat Bang Pakok School (โรงเรียนวัดบางปะกอก)", th: "โรงเรียนวัดบางปะกอก" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
         name: {
-          en: "Rattana Jeena Uthit School (โรงเรียนรัตนจีนะอุทิศ)",
+          en: "Rattana China Uthit School (โรงเรียนรัตนจีนะอุทิศ)",
           th: "โรงเรียนรัตนจีนะอุทิศ",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/BM79ZsJkXavdF3qr8",
+      },
+      {
+        name: { en: "Wat Bang Pakok School (โรงเรียนวัดบางปะกอก)", th: "โรงเรียนวัดบางปะกอก" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/2cg64tVEfKALEc4E8",
       },
       {
         name: {
-          en: "Wat Prasert Sutthawat School (โรงเรียนวัดประเสริฐสุทธาวาส)",
+          en: "Wat Prasoet Sutthawat School (โรงเรียนวัดประเสริฐสุทธาวาส)",
           th: "โรงเรียนวัดประเสริฐสุทธาวาส",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Sarod School (โรงเรียนวัดสารอด)", th: "โรงเรียนวัดสารอด" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jocJXZyQenCUBxhB8",
       },
       {
         name: { en: "Wat Son School (โรงเรียนวัดสน)", th: "โรงเรียนวัดสน" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/mLWuTF19LmUWtciD9",
+      },
+      {
+        name: { en: "Wat Sarot School (โรงเรียนวัดสารอด)", th: "โรงเรียนวัดสารอด" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/HqLkMx9J73535Kqq9",
       },
       {
         name: { en: "Wat Chaeng Ron School (โรงเรียนวัดแจงร้อน)", th: "โรงเรียนวัดแจงร้อน" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/JwqkUGanTRMf64SVA",
       },
     ],
     parking: [],
@@ -1060,19 +1733,21 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: { en: "Wichuthit School (โรงเรียนวิชูทิศ)", th: "โรงเรียนวิชูทิศ" },
+        detail: { en: "Room for 200 people.", th: "รองรับ 200 คน" },
         phone: "089-162-4325",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Ly1YWbV27Q3SkPYY8",
       },
     ],
     parking: [
       {
-        name: { en: "Esplanade Ratchada (เอสพานาด รัชดา)", th: "เอสพานาด รัชดา" },
+        name: { en: "Esplanade Ratchada (เอสพละนาด รัชดา)", th: "เอสพละนาด รัชดา" },
         detail: {
-          en: "Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
-          th: "จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
+          en: "Floors 3 and 4 only. Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
+          th: "จอดได้เฉพาะลานจอดรถชั้น 3 และชั้น 4 จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
         },
-        source: "https://mgronline.com/onlinesection/detail/9690000093939",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/RV2YEeAsuWjFwNVX6",
       },
     ],
   },
@@ -1094,25 +1769,39 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: { en: "Bueng Kum District Office (สำนักงานเขตบึงกุ่ม)", th: "สำนักงานเขตบึงกุ่ม" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 10 people were staying. Open 08.00 to 18.00.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 10 คน เปิด 08.00 ถึง 18.00 น.",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%B3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9A%E0%B8%B6%E0%B8%87%E0%B8%81%E0%B8%B8%E0%B9%88%E0%B8%A1/@13.7853412,100.6670472,17z/data=!4m10!1m2!2m1!1z4Liq4Liz4LiZ4Lix4LiB4LiH4Liy4LiZ4LmA4LiC4LiV4Lia4Li24LiH4LiB4Li44LmI4Lih!3m6!1s0x311d63d208caace7:0xe0eb5e5a36504d0c!8m2!3d13.7852767!4d100.6696489!15sCjbguKrguLPguJnguLHguIHguIfguLLguJnguYDguILguJXguJrguLbguIfguIHguLjguYjguKFaOiI44Liq4Liz4LiZ4Lix4LiB4LiH4Liy4LiZIOC5gOC4guC4lSDguJrguLbguIfguIHguLjguYjguKGSARpkaXN0cmljdF9nb3Zlcm5tZW50X29mZmljZZoBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VNekxXTnVZVWxuRUFF4AEA-gEFCI4BEDg!16s%2Fg%2F1hm66vbn1?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
       },
       {
         name: {
-          en: "Khlong Lamchiak School (Wang Thong Bamrung) (โรงเรียนคลองลำเจียก (หวังทองบำรุง))",
+          en: "Khlong Lam Chiak School (Wang Thong Bamrung) (โรงเรียนคลองลำเจียก (หวังทองบำรุง))",
           th: "โรงเรียนคลองลำเจียก (หวังทองบำรุง)",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Yaemchat Wichanusorn School (โรงเรียนแย้มจาดวิชชานุสรณ์)",
-          th: "โรงเรียนแย้มจาดวิชชานุสรณ์",
+        detail: {
+          en: "Room for 30 people. At 20:47 on 26 September, 11 people were staying. Open 08.00 to 18.00.",
+          th: "รองรับ 30 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 11 คน เปิด 08.00 ถึง 18.00 น.",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B3%E0%B9%80%E0%B8%88%E0%B8%B5%E0%B8%A2%E0%B8%81(%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87)/@13.8183053,100.6317623,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6263b5d7a89b:0x4ef074fec9dc676f!8m2!3d13.8183001!4d100.6343372!16s%2Fg%2F1tg7zy61?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
       },
       {
         name: { en: "Wat Bang Toei School (โรงเรียนวัดบางเตย)", th: "โรงเรียนวัดบางเตย" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Open 08.00 to 18.00.", th: "เปิด 08.00 ถึง 18.00 น." },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%80%E0%B8%95%E0%B8%A2/@13.8032215,100.6466499,17z/data=!4m14!1m7!3m6!1s0x311d6246bcce2755:0x787d39ef3f046e8e!2z4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Lin4Lix4LiU4Lia4Liy4LiH4LmA4LiV4Lii!8m2!3d13.8032163!4d100.6492248!16s%2Fg%2F1tfjy9x3!3m5!1s0x311d6246bcce2755:0x787d39ef3f046e8e!8m2!3d13.8032163!4d100.6492248!16s%2Fg%2F1tfjy9x3?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
+      },
+      {
+        name: {
+          en: "Yaemchat Witchanuson School (โรงเรียนแย้มจาดวิชชานุสรณ์)",
+          th: "โรงเรียนแย้มจาดวิชชานุสรณ์",
+        },
+        detail: { en: "Open 08.00 to 18.00.", th: "เปิด 08.00 ถึง 18.00 น." },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99+%E0%B9%81%E0%B8%A2%E0%B9%89%E0%B8%A1%E0%B8%88%E0%B8%B2%E0%B8%94%E0%B8%A7%E0%B8%B4%E0%B8%8A%E0%B8%8A%E0%B8%B2%E0%B8%99%E0%B8%B8%E0%B8%AA%E0%B8%A3%E0%B8%93%E0%B9%8C/@13.8336434,100.650068,17z/data=!4m14!1m7!3m6!1s0x311d62f03fbf4f27:0x7c0e2bce5bf7dfac!2z4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZIOC5geC4ouC5ieC4oeC4iOC4suC4lOC4p-C4tOC4iuC4iuC4suC4meC4uOC4quC4o-C4k-C5jA!8m2!3d13.8336382!4d100.6526429!16s%2Fg%2F1vyn1b1x!3m5!1s0x311d62f03fbf4f27:0x7c0e2bce5bf7dfac!8m2!3d13.8336382!4d100.6526429!16s%2Fg%2F1vyn1b1x?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
       },
     ],
     parking: [
@@ -1162,6 +1851,36 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
+          en: "Hua Chak Rot Fai Tuek Daeng Community Early Childhood Centre (ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง)",
+          th: "ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง",
+        },
+        detail: {
+          en: "Room for 60 people. At 20:47 on 26 September, 55 people were staying.",
+          th: "รองรับ 60 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 55 คน",
+        },
+        phone: "081-268-1104",
+        source: "https://floodsupport.awarehouse.tech/",
+        status: "nearlyFull",
+      },
+      {
+        name: {
+          en: "Wat Bang Pho Omawat School (โรงเรียนวัดบางโพโอมาวาส)",
+          th: "โรงเรียนวัดบางโพโอมาวาส",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "089-832-8837",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Pradu Tham Prachathipat School (โรงเรียนวัดประดู่ธรรมประชาธิปัตย์)",
+          th: "โรงเรียนวัดประดู่ธรรมประชาธิปัตย์",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
           en: "Early childhood development centre, Hua Chakkraphat (ศูนย์พัฒนาเด็กก่อนวัยเรียน หัวจักรแดง)",
           th: "ศูนย์พัฒนาเด็กก่อนวัยเรียน (หัวจักรแดง)",
         },
@@ -1177,7 +1896,26 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thaipost.net/x-cite-news/1076601/",
       },
     ],
-    parking: [],
+    parking: [
+      {
+        name: {
+          en: "Kamphaeng Phet 6 Road, from the railway police to the underpass (ถนนกำแพงเพชร 6 จากตำรวจรถไฟถึงทางลงอุโมงค์)",
+          th: "ถนนกำแพงเพชร 6 จากตำรวจรถไฟถึงทางลงอุโมงค์",
+        },
+        detail: { en: "Room for 200 cars.", th: "รองรับ 200 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/6ZZdZZprgrXDW4ge8",
+      },
+      {
+        name: {
+          en: "Forest Industry Organization (องค์การอุตสาหกรรมป่าไม้)",
+          th: "องค์การอุตสาหกรรมป่าไม้",
+        },
+        detail: { en: "Room for 300 cars.", th: "รองรับ 300 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/BbxJR6Ruiz6Y51hS8",
+      },
+    ],
   },
   {
     id: "chatuchak",
@@ -1196,97 +1934,123 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
+        name: { en: "Chandrakasem Rajabhat University (ราชภัฏจันทรเกษม)", th: "ราชภัฏจันทรเกษม" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "081-372-5898",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Wat Thewasunthon (วัดเทวสุนทร)", th: "วัดเทวสุนทร" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "094-242-4571",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Chatuchak Centre (ศูนย์จตุจักร)", th: "ศูนย์จตุจักร" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "088-672-2529",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Ban Lat Phrao School (โรงเรียนบ้านลาดพร้าว)", th: "โรงเรียนบ้านลาดพร้าว" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "02-541-8512",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Prachaniwet School (โรงเรียนประชานิเวศน์)", th: "โรงเรียนประชานิเวศน์" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "085-030-2814",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
         name: {
           en: "Prachaniwet Secondary School (โรงเรียนมัธยมประชานิเวศน์)",
           th: "โรงเรียนมัธยมประชานิเวศน์",
         },
+        detail: {
+          en: "Room for 150 people. At 20:47 on 26 September, 4 people were staying.",
+          th: "รองรับ 150 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 4 คน",
+        },
         phone: "097-239-1627",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Prachaniwet School (โรงเรียนประชานิเวศน์)", th: "โรงเรียนประชานิเวศน์" },
-        phone: "085-030-2814",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Senanikom School (โรงเรียนเสนานิคม)", th: "โรงเรียนเสนานิคม" },
-        phone: "092-271-6787",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Ban Lat Phrao School (โรงเรียนบ้านลาดพร้าว)", th: "โรงเรียนบ้านลาดพร้าว" },
-        phone: "02-541-8512",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
         name: {
-          en: "Rattanakosin Somphot Ratchathan Upatham School (โรงเรียนรัตนโกสินทร์สมโภช ราชทานอุปถัมภ์)",
+          en: "Rattanakosin Sompot Ratchathan Upatham School (โรงเรียนรัตนโกสินทร์สมโภช ราชทานอุปถัมภ์)",
           th: "โรงเรียนรัตนโกสินทร์สมโภช ราชทานอุปถัมภ์",
         },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
         phone: "098-054-4484",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
-        name: { en: "Wat Thewasunthon school (โรงเรียนวัดเทวสุนทร)", th: "โรงเรียนวัดเทวสุนทร" },
+        name: { en: "Wat Thewasunthon School (โรงเรียนวัดเทวสุนทร)", th: "โรงเรียนวัดเทวสุนทร" },
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
         phone: "084-471-9056",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
-        name: { en: "Wat Thewasunthon (วัดเทวสุนทร)", th: "วัดเทวสุนทร" },
-        detail: {
-          en: "About 10 people were staying here on 26 September. Also listed on 094-242-4571.",
-          th: "เมื่อวันที่ 26 กันยายน มีผู้เข้าพักประมาณ 10 คน อีกเบอร์หนึ่งที่มีการเผยแพร่คือ 094-242-4571",
-        },
-        phone: "096-883-7585",
-        source: "https://www.thaipost.net/x-cite-news/1076601/",
-      },
-      {
-        name: { en: "Wat Semiannari School (โรงเรียนวัดเสมียนนารี)", th: "โรงเรียนวัดเสมียนนารี" },
+        name: { en: "Wat Samian Nari School (โรงเรียนวัดเสมียนนารี)", th: "โรงเรียนวัดเสมียนนารี" },
+        detail: { en: "Room for 150 people.", th: "รองรับ 150 คน" },
         phone: "097-018-6879",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
-        name: { en: "Rajabhat Chandrakasem University (ราชภัฏจันทรเกษม)", th: "ราชภัฏจันทรเกษม" },
-        phone: "081-372-5898",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Chatuchak Centre (ศูนย์จตุจักร)", th: "ศูนย์จตุจักร" },
-        phone: "088-672-2529",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        name: { en: "Sena Nikhom School (โรงเรียนเสนานิคม)", th: "โรงเรียนเสนานิคม" },
+        detail: {
+          en: "Room for 150 people. At 20:47 on 26 September, 66 people were staying.",
+          th: "รองรับ 150 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 66 คน",
+        },
+        phone: "092-271-6787",
+        source: "https://floodsupport.awarehouse.tech/",
       },
     ],
     parking: [
       {
         name: {
-          en: "MRT Lat Phrao park and ride (อาคารจอดแล้วจร สถานีลาดพร้าว)",
-          th: "อาคารจอดแล้วจร สถานีลาดพร้าว",
+          en: "Mixt Chatuchak mall (ศูนย์การค้ามิกซ์ จตุจักร)",
+          th: "ศูนย์การค้ามิกซ์ จตุจักร",
         },
         detail: {
-          en: "Free for cars and motorcycles. Take your vehicle out by 2 October. The station is in Chatuchak, not Lat Phrao district.",
-          th: "จอดรถยนต์และรถจักรยานยนต์ฟรี นำรถออกภายในวันที่ 2 ตุลาคม สถานีนี้อยู่ในเขตจตุจักร ไม่ใช่เขตลาดพร้าว",
+          en: "Special flood rate of 50 baht a car on weekdays and 150 baht at weekends, with no overnight charge. Call ahead with the driver's name and number plate.",
+          th: "อัตราพิเศษช่วงน้ำท่วม วันจันทร์ถึงศุกร์ 50 บาทต่อคัน วันเสาร์และอาทิตย์ 150 บาทต่อคัน งดเก็บค่าจอดค้างคืน โทรแจ้งชื่อผู้ใช้รถและเลขทะเบียนล่วงหน้า",
         },
-        source: "https://www.thansettakij.com/general-news/669877",
+        phone: "090-994-7389",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/25ZSmAcx2oC2dty57",
       },
       {
         name: {
-          en: "Krung Thep Aphiwat Central Station free parking (bus lot behind the Juvenile Court) (จุดจอดรถฟรี สถานีกลางกรุงเทพอภิวัฒน์ (ลานจอดรถบัส ด้านหลังศาลเยาวชนฯ))",
-          th: "จุดจอดรถฟรี สถานีกลางกรุงเทพอภิวัฒน์ (ลานจอดรถบัส ด้านหลังศาลเยาวชนฯ)",
+          en: "Krung Thep Aphiwat Central Terminal, bus park behind the Central Juvenile and Family Court (สถานีกลางบางซื่อ บริเวณลานจอดรถเมล์ ด้านหลังศาลเยาวชนและครอบครัวกลาง)",
+          th: "สถานีกลางบางซื่อ บริเวณลานจอดรถเมล์ ด้านหลังศาลเยาวชนและครอบครัวกลาง",
         },
         detail: {
-          en: "About 200 to 250 cars in the bus park behind the Juvenile Court, 26 to 28 September. Run by the State Railway of Thailand.",
-          th: "ลานจอดรถบัสด้านหลังศาลเยาวชนฯ รองรับรถยนต์ประมาณ 200 ถึง 250 คัน วันที่ 26 ถึง 28 กันยายน การรถไฟแห่งประเทศไทยเป็นผู้ดูแล",
+          en: "Room for 80 cars. About 200 to 250 cars in the bus park behind the Juvenile Court, 26 to 28 September. Run by the State Railway of Thailand.",
+          th: "รองรับ 80 คัน ลานจอดรถบัสด้านหลังศาลเยาวชนฯ รองรับรถยนต์ประมาณ 200 ถึง 250 คัน วันที่ 26 ถึง 28 กันยายน การรถไฟแห่งประเทศไทยเป็นผู้ดูแล",
         },
-        source: "https://www.bangkokbiznews.com/news/news-update/1253683",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/KcVsxpgsL3pPznp96",
+      },
+      {
+        name: {
+          en: "MRT Lat Phrao park and ride (Blue Line) (อาคารจอดรถ MRT สถานีลาดพร้าว (สายเฉลิมรัชมงคล))",
+          th: "อาคารจอดรถ MRT สถานีลาดพร้าว (สายเฉลิมรัชมงคล)",
+        },
+        detail: {
+          en: "Free until Friday 2 October. Show the car park staff a photo and proof that you own the car. Free for cars and motorcycles. Take your vehicle out by 2 October. The station is in Chatuchak, not Lat Phrao district.",
+          th: "จอดฟรีถึงวันศุกร์ที่ 2 ตุลาคม แสดงหลักฐานภาพถ่ายและหลักฐานการเป็นเจ้าของรถต่อเจ้าหน้าที่ประจำอาคารจอดรถ จอดรถยนต์และรถจักรยานยนต์ฟรี นำรถออกภายในวันที่ 2 ตุลาคม สถานีนี้อยู่ในเขตจตุจักร ไม่ใช่เขตลาดพร้าว",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/7oJ3hABAPVkgZ8eTA",
+      },
+      {
+        name: {
+          en: "Major Cineplex Ratchayothin (เมเจอร์ ซีนีเพล็กซ์ รัชโยธิน)",
+          th: "เมเจอร์ ซีนีเพล็กซ์ รัชโยธิน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/iRXhMvUF6mS6VTUq7",
       },
       {
         name: { en: "Central Ladprao (เซ็นทรัล ลาดพร้าว)", th: "เซ็นทรัล ลาดพร้าว" },
@@ -1352,8 +2116,73 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: {
+          en: "Wat Bang Khlo Nok School (โรงเรียนวัดบางโคล่นอก)",
+          th: "โรงเรียนวัดบางโคล่นอก",
+        },
+        detail: {
+          en: "Room for 30 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 30 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        phone: "086-076-2814",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/BKMuTM76opiNQ9xT6",
+      },
+      {
+        name: { en: "Wat Ratchasingkhon School (โรงเรียนวัดราชสิงขร)", th: "โรงเรียนวัดราชสิงขร" },
+        detail: {
+          en: "Room for 30 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 30 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        phone: "087-559-5661",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/8MYDXsxmTYD5W7aQ8",
+      },
+      {
+        name: { en: "Wat Lat Bua Khao School (โรงเรียนวัดลาดบัวขาว)", th: "โรงเรียนวัดลาดบัวขาว" },
+        detail: {
+          en: "Room for 20 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 20 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        phone: "089-763-5469",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/L8Qb3jKSofWqtdEW7",
+      },
+      {
+        name: {
+          en: "Wat Phai Ngoen Chotanaram School (โรงเรียนวัดไผ่เงินโชตนาราม)",
+          th: "โรงเรียนวัดไผ่เงินโชตนาราม",
+        },
+        detail: {
+          en: "Room for 100 people. Prepared but not open yet. Call before you go.",
+          th: "รองรับ 100 คน เตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+        },
+        phone: "096-136-5255",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/723UTJHmMcsdKXH88",
+      },
+    ],
     parking: [
+      {
+        name: {
+          en: "Tree On 3 mall, floor 2B (ศูนย์การค้า TREE ON 3 ชั้น 2B)",
+          th: "ศูนย์การค้า TREE ON 3 ชั้น 2B",
+        },
+        detail: { en: "Room for 40 cars.", th: "รองรับ 40 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/kxghrPogE9fKBpzPA",
+      },
+      {
+        name: {
+          en: "Terminal 21 Rama 3, floors 3 and 3B (ศูนย์การค้า เทอมินอล 21 ชั้น 3 และชั้น 3B)",
+          th: "ศูนย์การค้า เทอมินอล 21 ชั้น 3 และชั้น 3B",
+        },
+        detail: { en: "Room for 200 cars.", th: "รองรับ 200 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NChzuX38EfUki55i6",
+      },
       {
         name: {
           en: "King's 6th Cycle Birthday Park, Rama IX Bridge (สวนสาธารณะเฉลิมพระเกียรติ 6 รอบ พระชนมพรรษา)",
@@ -1380,8 +2209,42 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Prawet District Office (สำนักงานเขตประเวศ)", th: "สำนักงานเขตประเวศ" },
+        detail: {
+          en: "Room for 500 people. At 20:47 on 26 September, 88 people were staying.",
+          th: "รองรับ 500 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 88 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://me-l.co/v55ml1z3",
+      },
+      {
+        name: {
+          en: "BMA Vocational Training School (Prawet) (โรงเรียนฝึกอาชีพกรุงเทพมหานคร (ประเวศ))",
+          th: "โรงเรียนฝึกอาชีพกรุงเทพมหานคร (ประเวศ)",
+        },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 10 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 10 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://me-l.co/4nkos9tt",
+      },
+    ],
     parking: [
+      {
+        name: {
+          en: "New Phatthanakan Road, Soi 100 (พัฒนาการตัดใหม่ ซอย 100)",
+          th: "พัฒนาการตัดใหม่ ซอย 100",
+        },
+        detail: {
+          en: "Room for 100 cars. At 20:47 on 26 September, 10 cars were parked.",
+          th: "รองรับ 100 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 10 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://me-l.co/24o5hsa1",
+      },
       {
         name: { en: "Suan Luang Rama IX (สวนหลวง ร.9)", th: "สวนหลวง ร.9" },
         detail: {
@@ -1428,19 +2291,30 @@ export const bangkokDistricts: BangkokDistrict[] = [
           en: "Chumchon Mu Ban Phatthana School (โรงเรียนชุมชนหมู่บ้านพัฒนา)",
           th: "โรงเรียนชุมชนหมู่บ้านพัฒนา",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Sun Ruam Namjai School (โรงเรียนศูนย์รวมน้ำใจ)", th: "โรงเรียนศูนย์รวมน้ำใจ" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Wat Saphan School (โรงเรียนวัดสะพาน)", th: "โรงเรียนวัดสะพาน" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jAyqFyEuV7L5Zxmg8",
       },
       {
         name: { en: "Wat Khlong Toei School (โรงเรียนวัดคลองเตย)", th: "โรงเรียนวัดคลองเตย" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jwrVMbihue7cBwyc9",
+      },
+      {
+        name: { en: "Wat Saphan School (โรงเรียนวัดสะพาน)", th: "โรงเรียนวัดสะพาน" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/tVhTK4ccvJiKbV8E6",
+      },
+      {
+        name: {
+          en: "Sun Ruam Namchai School (โรงเรียนศูนย์รวมน้ำใจ)",
+          th: "โรงเรียนศูนย์รวมน้ำใจ",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/qoCis2v48PdHkiNc9",
       },
     ],
     parking: [
@@ -1480,17 +2354,17 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Suan Luang meeting room, 6th floor, Suan Luang district office (ห้องประชุมสวนหลวง ชั้น 6 สำนักงานเขตสวนหลวง)",
-          th: "ห้องประชุมสวนหลวง ชั้น 6 สำนักงานเขตสวนหลวง",
+          en: "Thammanurak Community Early Childhood Centre (ศูนย์พัฒนาเด็กก่อนวัยเรียนชุมชนธรรมานุรักษ์)",
+          th: "ศูนย์พัฒนาเด็กก่อนวัยเรียนชุมชนธรรมานุรักษ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
         name: {
-          en: "Thammanurak Community pre school childcare centre (ศูนย์พัฒนาเด็กก่อนวัยเรียนชุมชนธรรมานุรักษ์)",
-          th: "ศูนย์พัฒนาเด็กก่อนวัยเรียนชุมชนธรรมานุรักษ์",
+          en: "Suan Luang meeting room, floor 6, Suan Luang District Office (ห้องประชุมสวนหลวง ชั้น 6 สำนักงานเขตสวนหลวง)",
+          th: "ห้องประชุมสวนหลวง ชั้น 6 สำนักงานเขตสวนหลวง",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        source: "https://floodsupport.awarehouse.tech/",
       },
     ],
     parking: [],
@@ -1530,21 +2404,42 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: {
-          en: "Wat Don Mueang School (โรงเรียนวัดดอนเมือง)",
-          th: "โรงเรียนวัดดอนเมือง (แห่งที่ 1)",
+        name: { en: "Phahonyothin School (โรงเรียนพหลโยธิน)", th: "โรงเรียนพหลโยธิน" },
+        detail: {
+          en: "Room for 60 people. At 20:47 on 26 September, 30 people were staying.",
+          th: "รองรับ 60 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 30 คน",
         },
-        phone: "092-396-3773",
-        source: "https://www.thaipost.net/x-cite-news/1076601/",
+        phone: "085-028-8828",
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
-        name: { en: "Phahonyothin School (โรงเรียนพหลโยธิน)", th: "โรงเรียนพหลโยธิน (แห่งที่ 2)" },
-        phone: "085-028-8828",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        name: { en: "Wat Don Mueang School (โรงเรียนวัดดอนเมือง)", th: "โรงเรียนวัดดอนเมือง" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 42 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 42 คน",
+        },
+        phone: "092-396-3773",
+        source: "https://floodsupport.awarehouse.tech/",
       },
     ],
     parking: [
+      {
+        name: { en: "Mitr Market Don Mueang (มิตรมาร์เก็ต ดอนเมือง)", th: "มิตรมาร์เก็ต ดอนเมือง" },
+        detail: { en: "Room for 100 cars. Ask for Khun Jack.", th: "รองรับ 100 คัน ติดต่อคุณแจ็ค" },
+        phone: "085-532-4497",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ZxD2REDpz4fzVUvv7",
+      },
+      {
+        name: { en: "Enco Terminal (เอนโก้ เทอร์มินอล)", th: "เอนโก้ เทอร์มินอล" },
+        detail: {
+          en: "Room for 50 cars. Call centre number.",
+          th: "รองรับ 50 คัน เบอร์ Call Center",
+        },
+        phone: "02-982-9887",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https:// maps.app.goo.gl/4CC8KpL2w9XmQXnn8",
+      },
       {
         name: {
           en: "Don Mueang Airport free parking (Warehouse Building 4) (ที่จอดรถฟรีสนามบินดอนเมือง (อาคารคลังสินค้า 4))",
@@ -1637,60 +2532,72 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: {
-          en: "Wat Lat Pla Khao school (โรงเรียนวัดลาดปลาเค้า)",
-          th: "โรงเรียนวัดลาดปลาเค้า",
+        name: { en: "Wat Lat Pla Khao (วัดลาดปลาเค้า)", th: "วัดลาดปลาเค้า" },
+        detail: {
+          en: "Room for 300 people. At 20:47 on 26 September, 6 people were staying.",
+          th: "รองรับ 300 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 6 คน",
         },
-        phone: "089-815-6188",
-        source: "https://www.thaipost.net/x-cite-news/1076601/",
-      },
-      {
-        name: { en: "Wat Lat Phrao school (โรงเรียนวัดลาดพร้าว)", th: "โรงเรียนวัดลาดพร้าว" },
-        phone: "094-491-3993",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Phetchanon School (โรงเรียนเพชรถนอม)", th: "โรงเรียนเพชรถนอม" },
-        phone: "080-921-1177",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Thep Witthaya School (โรงเรียนเทพวิทยา)", th: "โรงเรียนเทพวิทยา" },
-        phone: "086-324-1915",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Loi Sai Anusorn School (โรงเรียนลอยสายอนุสรณ์)", th: "โรงเรียนลอยสายอนุสรณ์" },
-        phone: "095-623-9787",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: {
-          en: "Khlong Song Krathiam School (โรงเรียนคลองทรงกระเทียม)",
-          th: "โรงเรียนคลองทรงกระเทียม",
-        },
-        phone: "086-549-0100",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        phone: "081-694-8738",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/qqTw6x5uT1e5mQHC8",
       },
       {
         name: {
           en: "Lat Phrao District Learning Promotion Centre (ศูนย์ส่งเสริมการเรียนรู้ระดับเขตลาดพร้าว)",
           th: "ศูนย์ส่งเสริมการเรียนรู้ระดับเขตลาดพร้าว",
         },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
         phone: "093-165-4459",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ymnZgx6HL271GUmk8",
       },
       {
-        name: { en: "Wat Lat Pla Khao (วัดลาดปลาเค้า)", th: "วัดลาดปลาเค้า" },
-        phone: "081-694-8738",
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        name: {
+          en: "Khlong Song Krathiam School (โรงเรียนคลองทรงกระเทียม)",
+          th: "โรงเรียนคลองทรงกระเทียม",
+        },
+        detail: { en: "Room for 60 people.", th: "รองรับ 60 คน" },
+        phone: "086-549-0100",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/dLXBqTQrZMLGU7Nh8",
+      },
+      {
+        name: { en: "Loi Sai Anuson School (โรงเรียนลอยสายอนุสรณ์)", th: "โรงเรียนลอยสายอนุสรณ์" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "095-623-9787",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Jywq7HkmQXnKJK138",
+      },
+      {
+        name: {
+          en: "Wat Lat Pla Khao School (โรงเรียนวัดลาดปลาเค้า)",
+          th: "โรงเรียนวัดลาดปลาเค้า",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "089-815-6188",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/J9amCBHo4EGiZb7D9",
+      },
+      {
+        name: { en: "Wat Lat Phrao School (โรงเรียนวัดลาดพร้าว)", th: "โรงเรียนวัดลาดพร้าว" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "094-491-3993",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/JT9g2f4AqSwahrZE6",
+      },
+      {
+        name: { en: "Thep Witthaya School (โรงเรียนเทพวิทยา)", th: "โรงเรียนเทพวิทยา" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        phone: "086-324-1915",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/t86op6p4kxSo1abb8",
+      },
+      {
+        name: { en: "Phet Thanom School (โรงเรียนเพชรถนอม)", th: "โรงเรียนเพชรถนอม" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        phone: "080-921-1177",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/nQ2WXTAcZrT6ixTeA",
       },
     ],
     parking: [
@@ -1721,34 +2628,52 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [
       {
-        name: { en: "Surao Ban Don School (โรงเรียนสุเหร่าบ้านดอน)", th: "โรงเรียนสุเหร่าบ้านดอน" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Sawatdi Wittaya School (โรงเรียนสวัสดีวิทยา)", th: "โรงเรียนสวัสดีวิทยา" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Chaem Chan School (โรงเรียนแจ่มจันทร์)", th: "โรงเรียนแจ่มจันทร์" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: { en: "Surao Sam In School (โรงเรียนสุเหร่าสามอิน)", th: "โรงเรียนสุเหร่าสามอิน" },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
         name: {
-          en: "Wat That Thong School, Ruean Khiao Sa At building (โรงเรียนวัดธาตุทอง (เรือนเขียวสะอาด))",
+          en: "Wat That Thong School (Ruean Khiao Sa At) (โรงเรียนวัดธาตุทอง (เรือนเขียวสะอาด))",
           th: "โรงเรียนวัดธาตุทอง (เรือนเขียวสะอาด)",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%98%E0%B8%B2%E0%B8%95%E0%B8%B8%E0%B8%97%E0%B8%AD%E0%B8%87(%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%99%E0%B9%80%E0%B8%82%E0%B8%B5%E0%B8%A2%E0%B8%A7%E0%B8%AA%E0%B8%B0%E0%B8%AD%E0%B8%B2%E0%B8%94)+1325+%E0%B8%96.+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e29f66e118c887:0x7d668b0b96816377!2m2!1d100.5866626!2d13.7196058?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
+      },
+      {
+        name: { en: "Sawatdi Witthaya School (โรงเรียนสวัสดีวิทยา)", th: "โรงเรียนสวัสดีวิทยา" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5%E0%B8%A7%E0%B8%B4%E0%B8%97%E0%B8%A2%E0%B8%B2+35%2F10+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+31+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%95%E0%B8%A2%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e29efb9c42273b:0xfc179f752a3d0dff!2m2!1d100.5662747!2d13.7399734?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
       },
       {
         name: {
           en: "Surao Bang Makhuea School (โรงเรียนสุเหร่าบางมะเขือ)",
           th: "โรงเรียนสุเหร่าบางมะเขือ",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 10 people.", th: "รองรับ 10 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B9%80%E0%B8%AB%E0%B8%A3%E0%B9%88%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%A1%E0%B8%B0%E0%B9%80%E0%B8%82%E0%B8%B7%E0%B8%AD+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B8%9B%E0%B8%A3%E0%B8%B5%E0%B8%94%E0%B8%B5%E0%B8%9E%E0%B8%99%E0%B8%A1%E0%B8%A2%E0%B8%87%E0%B8%84%E0%B9%8C2+%E0%B9%81%E0%B8%A2%E0%B8%81+1+%E0%B8%96.+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+71+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%9E%E0%B8%A3%E0%B8%B0%E0%B9%82%E0%B8%82%E0%B8%99%E0%B8%87+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e29fb8a71a8a1d:0x655a370f652d2b85!2m2!1d100.5967501!2d13.7153612?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
+      },
+      {
+        name: { en: "Surao Ban Don School (โรงเรียนสุเหร่าบ้านดอน)", th: "โรงเรียนสุเหร่าบ้านดอน" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 1 person was staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 1 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B9%80%E0%B8%AB%E0%B8%A3%E0%B9%88%E0%B8%B2%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%AD%E0%B8%99+84+%E0%B8%96.+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%95%E0%B8%A2%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e2",
+      },
+      {
+        name: { en: "Surao Sam In School (โรงเรียนสุเหร่าสามอิน)", th: "โรงเรียนสุเหร่าสามอิน" },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B9%80%E0%B8%AB%E0%B8%A3%E0%B9%88%E0%B8%B2%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%AD%E0%B8%B4%E0%B8%99+%E0%B8%8B%E0%B8%AD%E0%B8%A2+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%95%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e29fb5941fa4c5:0xccc259cf957db33!2m2!1d100.5962461!2d13.7277882?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D",
+      },
+      {
+        name: { en: "Chaem Chan School (โรงเรียนแจ่มจันทร์)", th: "โรงเรียนแจ่มจันทร์" },
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 1 person was staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 1 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%81%E0%B8%88%E0%B9%88%E0%B8%A1%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C+75+%E0%B8%8B.+%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%A1%E0%B8%B1%E0%B8%A2+21+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%95%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x30e29e4e6c24f993:0x5abdc4b2a44257a5!2m2!1d100.587692!2d13.7391174?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
       },
     ],
     parking: [],
@@ -1774,32 +2699,51 @@ export const bangkokDistricts: BangkokDistrict[] = [
           en: "Bang Khae Rueang Son Recreation Centre (ศูนย์นันทนาการบางแคเรืองสอน)",
           th: "ศูนย์นันทนาการบางแคเรืองสอน",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B8%A8%E0%B8%B9%E0%B8%99%E0%B8%A2%E0%B9%8C%E0%B8%99%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%84(%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B8%AA%E0%B8%AD%E0%B8%99)/data=!4m2!3m1!1s0x0:0xf4887f097a0f76ea?sa=X&ved=1t:2428&ictx=111",
       },
     ],
     parking: [
       {
-        name: {
-          en: "The Mall Lifestore Bang Khae (เดอะมอลล์ไลฟ์สโตร์ บางแค)",
-          th: "เดอะมอลล์ไลฟ์สโตร์ บางแค",
-        },
-        detail: {
-          en: "Free parking in Building B, floor 4M and the rooftop, 26 to 27 September. Bring a copy of your ID card and vehicle registration book to register, and show your ID card in person to collect the car.",
-          th: "จอดรถฟรีที่อาคาร B ชั้น 4M และดาดฟ้า วันที่ 26 ถึง 27 กันยายน นำสำเนาบัตรประชาชนและสำเนาทะเบียนรถมาลงทะเบียน และแสดงบัตรประชาชนตัวจริงตอนรับรถคืน",
-        },
-        phone: "02-487-1000",
-        source: "https://www.dailynews.co.th/news/6223346/",
+        name: { en: "Big C Phetkasem (บิ๊กซีเพชรเกษม)", th: "บิ๊กซีเพชรเกษม" },
+        detail: { en: "Room for 50 cars.", th: "รองรับ 50 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B8%9A%E0%B8%B4%E0%B9%8A%E0%B8%81%E0%B8%8B%E0%B8%B5+%E0%B9%80%E0%B8%9E%E0%B8%8A%E0%B8%A3%E0%B9%80%E0%B8%81%E0%B8%A9%E0%B8%A1+%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%81%E0%B8%AA%E0%B8%AD%E0%B8%87/data=!4m2!3m1!1s0x0:0x6cddd2c03240e0a0?sa=X&ved=1t:2428&ictx=111",
+      },
+      {
+        name: { en: "Victoria Gardens (วิคตอเรีย การ์เด้น)", th: "วิคตอเรีย การ์เด้น" },
+        detail: { en: "Room for 50 cars.", th: "รองรับ 50 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B8%A7%E0%B8%B4%E0%B8%84%E0%B8%95%E0%B8%AD%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2+%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B9%80%E0%B8%94%E0%B9%89%E0%B8%99%E0%B8%AA%E0%B9%8C/data=!4m2!3m1!1s0x0:0xcdc71f9a3a34f6d0?sa=X&ved=1t:2428&ictx=111",
       },
       {
         name: {
-          en: "MRT Lak Song park and ride, 2 buildings (อาคารจอดแล้วจร สถานีหลักสอง)",
-          th: "อาคารจอดแล้วจร สถานีหลักสอง (2 อาคาร)",
+          en: "MRT Lak Song park and ride (อาคารจอดแล้วจร สถานีหลักสอง)",
+          th: "อาคารจอดแล้วจร สถานีหลักสอง",
         },
         detail: {
-          en: "Free for cars and motorcycles. Take your vehicle out by 2 October.",
-          th: "จอดรถยนต์และรถจักรยานยนต์ฟรี นำรถออกภายในวันที่ 2 ตุลาคม",
+          en: "Room for 100 cars. Free for cars and motorcycles. Take your vehicle out by 2 October.",
+          th: "รองรับ 100 คัน จอดรถยนต์และรถจักรยานยนต์ฟรี นำรถออกภายในวันที่ 2 ตุลาคม",
         },
-        source: "https://www.thansettakij.com/general-news/669877",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps?vet=10CAAQoqAOahcKEwiwuMWE1IuXAxUAAAAAHQAAAAAQKg..i&rlz=1C1YTUH_thTH1034TH1034&fvr=1&pvq=Cg0vZy8xMWgzbm5jZGdo&cs=0&um=1&ie=UTF-8&fb=1&gl=th&sa=X&ftid=0x30e297fcff149505:0x34d70d5b744325d",
+      },
+      {
+        name: { en: "The Mall Lifestore Bang Khae (เดอะมอลล์บางแค)", th: "เดอะมอลล์บางแค" },
+        detail: {
+          en: "Room for 350 cars. At 20:47 on 26 September, 1 car was parked. Free parking in Building B, floor 4M and the rooftop, 26 to 27 September. Bring a copy of your ID card and vehicle registration book to register, and show your ID card in person to collect the car.",
+          th: "รองรับ 350 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 1 คัน จอดรถฟรีที่อาคาร B ชั้น 4M และดาดฟ้า วันที่ 26 ถึง 27 กันยายน นำสำเนาบัตรประชาชนและสำเนาทะเบียนรถมาลงทะเบียน และแสดงบัตรประชาชนตัวจริงตอนรับรถคืน",
+        },
+        phone: "02-487-1000",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%A1%E0%B8%AD%E0%B8%A5%E0%B8%A5%E0%B9%8C%E0%B9%84%E0%B8%A5%E0%B8%9F%E0%B9%8C%E0%B8%AA%E0%B9%82%E0%B8%95%E0%B8%A3%E0%B9%8C+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%84/data=!4m2!3m1!1s0x0:0xd7393eb1d51cb378?sa=X&ved=1t:2428&ictx=111",
+      },
+      {
+        name: { en: "Lotus's Bang Khae (โลตัสบางแค)", th: "โลตัสบางแค" },
+        detail: { en: "Room for 20 cars.", th: "รองรับ 20 คัน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A5%E0%B8%95%E0%B8%B1%E0%B8%AA+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%84/data=!4m2!3m1!1s0x0:0xeb3118cea881de5a?sa=X&ved=1t:2428&ictx=111",
       },
     ],
   },
@@ -1821,35 +2765,55 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Wat Lak Si school, Thongbai Tiwaree Wittaya (โรงเรียนวัดหลักสี่ ทองใบทิวารีวิทยา)",
-          th: "โรงเรียนวัดหลักสี่ (ทองใบทิวารีวิทยา)",
-        },
-        phone: "096-999-4829",
-        source: "https://www.thaipost.net/x-cite-news/1076601/",
-      },
-      {
-        name: {
-          en: "Bang Khen School, Wai Salee Anusorn (โรงเรียนบางเขน ไว้สาลีอนุสรณ์)",
-          th: "โรงเรียนบางเขน (ไว้สาลีอนุสรณ์)",
-        },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: {
-          en: "Kanha Thatha Sai School (โรงเรียนการเคหะท่าทราย)",
+          en: "Kan Kheha Tha Sai School (โรงเรียนการเคหะท่าทราย)",
           th: "โรงเรียนการเคหะท่าทราย",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: {
+          en: "Room for 200 people. At 20:47 on 26 September, 70 people were staying.",
+          th: "รองรับ 200 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 70 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Thung Song Hong School (โรงเรียนทุ่งสองห้อง)", th: "โรงเรียนทุ่งสองห้อง" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
         name: {
-          en: "Thung Song Hong School, Kuptasathian Uthit (โรงเรียนทุ่งสองห้อง คุปตัษเฐียรอุทิศ)",
-          th: "โรงเรียนทุ่งสองห้อง (คุปตัษเฐียรอุทิศ)",
+          en: "Bang Khen School (Wai Sali Anuson) (โรงเรียนบางเขน (ไว้สาลีอนุสรณ์))",
+          th: "โรงเรียนบางเขน (ไว้สาลีอนุสรณ์)",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: {
+          en: "Room for 150 people. At 20:47 on 26 September, 130 people were staying.",
+          th: "รองรับ 150 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 130 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Lak Si School (Thongbai Tiwari Witthaya) (โรงเรียนวัดหลักสี่ (ทองใบทิวารีวิทยา))",
+          th: "โรงเรียนวัดหลักสี่ (ทองใบทิวารีวิทยา)",
+        },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        phone: "096-999-4829",
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Kheha Thung Song Hong Witthaya School 1 (โรงเรียนเคหะทุ่งสองห้องวิทยา 1)",
+          th: "โรงเรียนเคหะทุ่งสองห้องวิทยา 1",
+        },
+        detail: { en: "Room for 100 people.", th: "รองรับ 100 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Kheha Thung Song Hong Witthaya School 2 (โรงเรียนเคหะทุ่งสองห้องวิทยา 2)",
+          th: "โรงเรียนเคหะทุ่งสองห้องวิทยา 2",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
       },
     ],
     parking: [
@@ -1893,11 +2857,16 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Prachanukul School, Sai Mai Soi 6 (โรงเรียนประชานุกูล ซอยสายไหม 6)",
-          th: "โรงเรียนประชานุกูล (ซอยสายไหม 6)",
+          en: "Prachanukun School (BMA), Sai Mai Soi 6 (โรงเรียนประชานุกูล (กรุงเทพมหานคร) ซอยสายไหม 6)",
+          th: "โรงเรียนประชานุกูล (กรุงเทพมหานคร) ซอยสายไหม 6",
+        },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 50 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 50 คน",
         },
         phone: "086-937-9294",
-        source: "https://www.thaipost.net/x-cite-news/1076601/",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/cV3CBGSpRnEy5TVL8",
       },
     ],
     parking: [
@@ -1928,14 +2897,24 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Khan Na Yao School (Tharin Charoen Songkhro) (โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์))",
-          th: "โรงเรียนคันนายาว (ธารินเจริญสงเคราะห์)",
+          en: "Khan Na Yao School (Tharin Charoen Songkhro) (โรงเรียนคันนายาว(ธารินเจริญสงเคราะห์))",
+          th: "โรงเรียนคันนายาว(ธารินเจริญสงเคราะห์)",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 80 people. At 20:47 on 26 September, 5 people were staying.",
+          th: "รองรับ 80 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 5 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Rq9QRAASxyA2kfXn7",
       },
       {
         name: { en: "Chinda Bamrung School (โรงเรียนจินดาบำรุง)", th: "โรงเรียนจินดาบำรุง" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 400 people. At 20:47 on 26 September, 154 people were staying.",
+          th: "รองรับ 400 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 154 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/wPVxWdJ9mRoZ4SeF7",
       },
     ],
     parking: [
@@ -2032,7 +3011,162 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Klang Khlong Song School (โรงเรียนกลางคลองสอง)", th: "โรงเรียนกลางคลองสอง" },
+        detail: {
+          en: "Room for 30 people. At 20:47 on 26 September, 6 people were staying.",
+          th: "รองรับ 30 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 6 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ZmDA2wLRjmkuhLKa8",
+      },
+      {
+        name: { en: "Bang Chan School (โรงเรียนบางชัน)", th: "โรงเรียนบางชัน" },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 78 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 78 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/nBCZSBqzt99h7gz78",
+      },
+      {
+        name: {
+          en: "Ban Nong Rahaeng School (โรงเรียนบ้านหนองระแหง)",
+          th: "โรงเรียนบ้านหนองระแหง",
+        },
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 17 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 17 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NPNrxXVpuTxvC1Ub7",
+      },
+      {
+        name: { en: "Ban Baen Chado School (โรงเรียนบ้านแบนชะโด)", th: "โรงเรียนบ้านแบนชะโด" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/e5K8XirFF2VvePLEA",
+      },
+      {
+        name: {
+          en: "Pracharat Upatham Witthaya School (โรงเรียนประชาราษฎร์อุปถัมภ์วิทยา)",
+          th: "โรงเรียนประชาราษฎร์อุปถัมภ์วิทยา",
+        },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 125 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 125 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/hCw8Ywu1WXDpcfU26",
+        status: "full",
+      },
+      {
+        name: { en: "Wat Khu Bon School (โรงเรียนวัดคู้บอน)", th: "โรงเรียนวัดคู้บอน" },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 35 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 35 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/e5LS7sQ78DfoeJ8h6",
+      },
+      {
+        name: { en: "Wat Bua Kaeo School (โรงเรียนวัดบัวแก้ว)", th: "โรงเรียนวัดบัวแก้ว" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/xBho3BYpropp2EWB8",
+      },
+      {
+        name: {
+          en: "Wat Phraya Suren School (โรงเรียนวัดพระยาสุเรนทร์)",
+          th: "โรงเรียนวัดพระยาสุเรนทร์",
+        },
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 17 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 17 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/LGP2bB2gYZpDtrXA6",
+      },
+      {
+        name: { en: "Wat Lam Kadan School (โรงเรียนวัดลำกะดาน)", th: "โรงเรียนวัดลำกะดาน" },
+        detail: { en: "Room for 40 people.", th: "รองรับ 40 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ih9XCP6RpiwQiM4Z8",
+      },
+      {
+        name: { en: "Wat Si Suk School (โรงเรียนวัดศรีสุก)", th: "โรงเรียนวัดศรีสุก" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NU3jKUbBVjxgfWW7A",
+      },
+      {
+        name: { en: "Wat Sukchai School (โรงเรียนวัดสุขใจ)", th: "โรงเรียนวัดสุขใจ" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ieoU17oAmX71uCeB8",
+      },
+      {
+        name: {
+          en: "Wat Sutthi Sa At School (โรงเรียนวัดสุทธิสะอาด)",
+          th: "โรงเรียนวัดสุทธิสะอาด",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/1iF1TVgRTYhgp8gL6",
+      },
+      {
+        name: { en: "Wat Paen Thong School (โรงเรียนวัดแป้นทอง)", th: "โรงเรียนวัดแป้นทอง" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/yMsbGVL2nDX6GMBF6",
+      },
+      {
+        name: {
+          en: "Surao Khlong Si School (โรงเรียนสุเหร่าคลองสี่)",
+          th: "โรงเรียนสุเหร่าคลองสี่",
+        },
+        detail: { en: "Room for 15 people.", th: "รองรับ 15 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/aEduGCLVwzfCwviFA",
+      },
+      {
+        name: {
+          en: "Surao Khlong Nueng School (โรงเรียนสุเหร่าคลองหนึ่ง)",
+          th: "โรงเรียนสุเหร่าคลองหนึ่ง",
+        },
+        detail: {
+          en: "Room for 30 people. At 20:47 on 26 September, 20 people were staying.",
+          th: "รองรับ 30 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 20 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jk5tBn8iGYDwRL8WA",
+      },
+      {
+        name: { en: "Surao Sam Wa School (โรงเรียนสุเหร่าสามวา)", th: "โรงเรียนสุเหร่าสามวา" },
+        detail: {
+          en: "Room for 100 people. At 20:47 on 26 September, 4 people were staying.",
+          th: "รองรับ 100 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 4 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/twPo7QmdoBKLcEoA7",
+      },
+      {
+        name: {
+          en: "Surao Ko Khun Nen School (โรงเรียนสุเหร่าเกาะขุนเณร)",
+          th: "โรงเรียนสุเหร่าเกาะขุนเณร",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/o48wqEwgiNCiHqzR7",
+      },
+      {
+        name: { en: "Surao Saen Saep School (โรงเรียนสุเหร่าแสนแสบ)", th: "โรงเรียนสุเหร่าแสนแสบ" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/U8DdrE3R6Piw5QpR9",
+      },
+    ],
     parking: [
       {
         name: { en: "Wari Phirom Park (สวนวารีภิรมย์)", th: "สวนวารีภิรมย์" },
@@ -2068,21 +3202,81 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Phongploy Anusorn School (โรงเรียนผ่องพลอยอนุสรณ์)",
-          th: "โรงเรียนผ่องพลอยอนุสรณ์",
+          en: "Phongploy Anuson Early Childhood Centre (Likhit 2) (ศูนย์พัฒนาเด็กก่อนวัยเรียน ผ่องพลอยอนุสรณ์ (ลิขิต 2))",
+          th: "ศูนย์พัฒนาเด็กก่อนวัยเรียน ผ่องพลอยอนุสรณ์ (ลิขิต 2)",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 7 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 7 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NbbULJH65LGg27RcA",
       },
       {
         name: {
-          en: "Amnuai Kanoksiri Anusorn School (โรงเรียนอำนวยกนกศิริอนุสรณ์)",
-          th: "โรงเรียนอำนวยกนกศิริอนุสรณ์",
+          en: "Phongploy Anuson School (โรงเรียนผ่องพลอยอนุสรณ์)",
+          th: "โรงเรียนผ่องพลอยอนุสรณ์",
         },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/tXbQsHRTdVj1ivGV6",
+      },
+      {
+        name: {
+          en: "Rung Rueang Upatham School (โรงเรียนรุ่งเรืองอุปถัมภ์)",
+          th: "โรงเรียนรุ่งเรืองอุปถัมภ์",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/dR9MRoC74BFVyCPVA",
       },
       {
         name: { en: "Wat Bang Na Nok School (โรงเรียนวัดบางนานอก)", th: "โรงเรียนวัดบางนานอก" },
-        source: "https://www.thansettakij.com/general-news/669908",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/1QMKk1eZwPpTpFcm6",
+      },
+      {
+        name: {
+          en: "Wat Bang Na Nai School (Ruen Sayamanon) (โรงเรียนวัดบางนาใน (รื่น ศยามานนท์))",
+          th: "โรงเรียนวัดบางนาใน (รื่น ศยามานนท์)",
+        },
+        detail: {
+          en: "Room for 50 people. At 20:47 on 26 September, 5 people were staying.",
+          th: "รองรับ 50 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 5 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/NxFmXudqpDASCYub9",
+      },
+      {
+        name: {
+          en: "Si Iam Anuson School (โรงเรียนศรีเอี่ยมอนุสรณ์)",
+          th: "โรงเรียนศรีเอี่ยมอนุสรณ์",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/jRgtw1TyWsWEtSRk8",
+      },
+      {
+        name: {
+          en: "Amnuai Kanoksiri Anuson School (โรงเรียนอำนวยกนกศิริอนุสรณ์)",
+          th: "โรงเรียนอำนวยกนกศิริอนุสรณ์",
+        },
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 13 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 13 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/q1Kf8Yqp4BU849BRA",
+      },
+      {
+        name: {
+          en: "Phian Phin Anuson School (โรงเรียนเพี้ยนพินอนุสรณ์)",
+          th: "โรงเรียนเพี้ยนพินอนุสรณ์",
+        },
+        detail: { en: "Room for 70 people.", th: "รองรับ 70 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/s65Kh31qxiYkjTHA7",
       },
       {
         name: {
@@ -2091,43 +3285,28 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
         source: "https://www.thansettakij.com/general-news/669908",
       },
-      {
-        name: {
-          en: "Sri Iam Anusorn School (โรงเรียนศรีเอี่ยมอนุสรณ์)",
-          th: "โรงเรียนศรีเอี่ยมอนุสรณ์",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Wat Bang Na Nai (Ruen Sayamanon) School (โรงเรียนวัดบางนาใน (รื่น ศยามานนท์))",
-          th: "โรงเรียนวัดบางนาใน (รื่น ศยามานนท์)",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Rung Rueang Upatham School (โรงเรียนรุ่งเรืองอุปถัมภ์)",
-          th: "โรงเรียนรุ่งเรืองอุปถัมภ์",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
-      {
-        name: {
-          en: "Phongploy Anusorn (Likhit 2) Pre School Childcare Centre (ศูนย์พัฒนาเด็กก่อนวัยเรียน ผ่องพลอยอนุสรณ์ (ลิขิต 2))",
-          th: "ศูนย์พัฒนาเด็กก่อนวัยเรียน ผ่องพลอยอนุสรณ์ (ลิขิต 2)",
-        },
-        source: "https://www.thansettakij.com/general-news/669908",
-      },
     ],
     parking: [
       {
-        name: { en: "Central Bangna (เซ็นทรัล บางนา)", th: "เซ็นทรัล บางนา" },
-        detail: {
-          en: "Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
-          th: "จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
+        name: {
+          en: "Yellow Line Si Iam station park and ride (YL17) (อาคารจอดแล้วจร รถไฟฟ้าสายสีเหลือง สถานีศรีเอี่ยม (YL17))",
+          th: "อาคารจอดแล้วจร รถไฟฟ้าสายสีเหลือง สถานีศรีเอี่ยม (YL17)",
         },
-        source: "https://mgronline.com/onlinesection/detail/9690000093939",
+        detail: {
+          en: "Free. Take your car out by 2 October.",
+          th: "จอดฟรี นำรถออกภายในวันที่ 2 ตุลาคม",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/ZMh6QFGn7Zg18cZ37",
+      },
+      {
+        name: { en: "Central Bangna (เซ็นทรัลบางนา)", th: "เซ็นทรัลบางนา" },
+        detail: {
+          en: "Floor 3.5, 25 to 27 September. Register on floor B1. Free parking for people affected by the floods, one of the Central Pattana malls taking part. Ask the mall which floor to use and until when.",
+          th: "ชั้น 3 ครึ่ง วันที่ 25 ถึง 27 กันยายน ลงทะเบียนที่ชั้น B1 จอดรถฟรีสำหรับผู้ได้รับผลกระทบจากน้ำท่วม เป็นหนึ่งในศูนย์การค้าเซ็นทรัลที่ร่วมโครงการ สอบถามชั้นจอดและระยะเวลาได้ที่ศูนย์การค้าโดยตรง",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/BRpTNKHCcoLYBHVj9",
       },
     ],
   },
@@ -2152,53 +3331,66 @@ export const bangkokDistricts: BangkokDistrict[] = [
     shelters: [
       {
         name: {
-          en: "Matthayom Puranawat School (โรงเรียนมัธยมปุรณาวาส)",
-          th: "โรงเรียนมัธยมปุรณาวาส",
+          en: "Khlong Ton Sai School (Suk Lom Uthit) (โรงเรียนคลองต้นไทร(สุขล้อมอุทิศ))",
+          th: "โรงเรียนคลองต้นไทร(สุขล้อมอุทิศ)",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Lvm3q12TxWnA55786",
       },
       {
         name: {
-          en: "Tang Phiroonlatham School (โรงเรียนตั้งพิรุฬห์ธรรม)",
-          th: "โรงเรียนตั้งพิรุฬห์ธรรม",
+          en: "Khlong Thawi Watthana School (Thong Nuam Anuson) (โรงเรียนคลองทวีวัฒนา(ทองน่วมอนุสรณ์))",
+          th: "โรงเรียนคลองทวีวัฒนา(ทองน่วมอนุสรณ์)",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: {
-          en: "Khlong Thawi Watthana School (Thong Nuam Anusorn) (โรงเรียนคลองทวีวัฒนา (ทองน่วมอนุสรณ์))",
-          th: "โรงเรียนคลองทวีวัฒนา (ทองน่วมอนุสรณ์)",
-        },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/Jn8GzDEPTb1XWuuLA",
       },
       {
         name: { en: "Khlong Bang Phrom School (โรงเรียนคลองบางพรหม)", th: "โรงเรียนคลองบางพรหม" },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: {
-          en: "Khlong Ton Sai School (Suk Lom Uthit) (โรงเรียนคลองต้นไทร (สุขล้อมอุทิศ))",
-          th: "โรงเรียนคลองต้นไทร (สุขล้อมอุทิศ)",
+        detail: {
+          en: "Room for 35 people. At 20:47 on 26 September, 3 people were staying.",
+          th: "รองรับ 35 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 3 คน",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
-      },
-      {
-        name: { en: "Wat Puranawat School (โรงเรียนวัดปุรณาวาส)", th: "โรงเรียนวัดปุรณาวาส" },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/LC24wmGu2r73UQJR9",
       },
       {
         name: {
           en: "Khlong Maha Sawat School (โรงเรียนคลองมหาสวัสดิ์)",
           th: "โรงเรียนคลองมหาสวัสดิ์",
         },
-        source:
-          "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284169",
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/cu6qooLYkhSspMmNA",
+      },
+      {
+        name: {
+          en: "Tang Phirun Tham School (โรงเรียนตั้งพิรุฬห์ธรรม)",
+          th: "โรงเรียนตั้งพิรุฬห์ธรรม",
+        },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/tGytJfNkVqnX3QdW8",
+      },
+      {
+        name: {
+          en: "Puranawat Secondary School (โรงเรียนมัธยมปุรณาวาส)",
+          th: "โรงเรียนมัธยมปุรณาวาส",
+        },
+        detail: {
+          en: "Room for 20 people. At 20:47 on 26 September, 6 people were staying.",
+          th: "รองรับ 20 คน เวลา 20.47 น. วันที่ 26 กันยายน มีผู้เข้าพัก 6 คน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/2SrNrV4o1j3vFM1n9",
+      },
+      {
+        name: { en: "Wat Puranawat School (โรงเรียนวัดปุรณาวาส)", th: "โรงเรียนวัดปุรณาวาส" },
+        detail: { en: "Room for 30 people.", th: "รองรับ 30 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+        map: "https://maps.app.goo.gl/KQy275Z89uN6XfXz5",
       },
     ],
     parking: [
@@ -2247,7 +3439,63 @@ export const bangkokDistricts: BangkokDistrict[] = [
         source: "https://www.thansettakij.com/general-news/669908",
       },
     ],
-    shelters: [],
+    shelters: [
+      {
+        name: { en: "Khlong Rang Chak School (โรงเรียนคลองรางจาก)", th: "โรงเรียนคลองรางจาก" },
+        detail: { en: "Room for 20 people.", th: "รองรับ 20 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Chusin Thongpradit Anuson School (โรงเรียนชูสินทองประดิษฐ์อนุสรณ์)",
+          th: "โรงเรียนชูสินทองประดิษฐ์อนุสรณ์",
+        },
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Na Luang School (โรงเรียนนาหลวง)", th: "โรงเรียนนาหลวง" },
+        detail: { en: "Room for 150 people.", th: "รองรับ 150 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Bang Mot School (Tanpao Witthayakhan) (โรงเรียนบางมด (ตันเปาว์วิทยาคาร))",
+          th: "โรงเรียนบางมด (ตันเปาว์วิทยาคาร)",
+        },
+        detail: { en: "Room for 80 people.", th: "รองรับ 80 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Rang Ratchaphruek Nutchami Uthit School (โรงเรียนรางราชพฤกษ์นุชมีอุทิศ)",
+          th: "โรงเรียนรางราชพฤกษ์นุชมีอุทิศ",
+        },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Rat Burana School (Muhammad Uthit) (โรงเรียนราษฎร์บูรณะ (มูฮำหมัดอุทิศ))",
+          th: "โรงเรียนราษฎร์บูรณะ (มูฮำหมัดอุทิศ)",
+        },
+        detail: { en: "Room for 150 people.", th: "รองรับ 150 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: {
+          en: "Wat Thung Khru School (Phueng Sai Anuson) (โรงเรียนวัดทุ่งครุ (พึ่งสายอนุสรณ์))",
+          th: "โรงเรียนวัดทุ่งครุ (พึ่งสายอนุสรณ์)",
+        },
+        detail: { en: "Room for 150 people.", th: "รองรับ 150 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+      {
+        name: { en: "Samakkhi Bamrung School (โรงเรียนสามัคคีบำรุง)", th: "โรงเรียนสามัคคีบำรุง" },
+        detail: { en: "Room for 50 people.", th: "รองรับ 50 คน" },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
+    ],
     parking: [],
   },
   {
@@ -2267,6 +3515,17 @@ export const bangkokDistricts: BangkokDistrict[] = [
     ],
     shelters: [],
     parking: [
+      {
+        name: {
+          en: "Ratchasittharam Technical College (วิทยาลัยเทคนิคราชสิทธาราม)",
+          th: "วิทยาลัยเทคนิคราชสิทธาราม",
+        },
+        detail: {
+          en: "Room for 100 cars. At 20:47 on 26 September, 15 cars were parked.",
+          th: "รองรับ 100 คัน เวลา 20.47 น. วันที่ 26 กันยายน มีรถจอด 15 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
+      },
       {
         name: {
           en: "King's 7th Cycle Birthday Park, Bang Bon (สวนสาธารณะเฉลิมพระเกียรติ 7 รอบ)",

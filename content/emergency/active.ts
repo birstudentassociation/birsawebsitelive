@@ -40,6 +40,27 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T20:50:00+07:00",
+      text: {
+        en: "The shelter and parking search on this page now includes every shelter and car park on BMA Flood Support, with capacity, numbers at 20:47, map links and phone numbers.",
+        th: "ช่องค้นหาศูนย์พักพิงและจุดจอดรถตามเขตในหน้านี้ เพิ่มศูนย์พักพิงและจุดจอดรถทุกแห่งจาก BMA Flood Support แล้ว พร้อมจำนวนที่รองรับ ตัวเลข ณ เวลา 20.47 น. ลิงก์แผนที่ และเบอร์โทรศัพท์",
+      },
+      points: {
+        en: [
+          "BMA Flood Support lists 198 shelters in 34 districts and 33 car parks. Places that were full or nearly full at 20:47 are marked.",
+          "Pracharat Upatham Witthaya School in Khlong Sam Wa was over capacity with 125 people, and the Robinson Suvarnabhumi car park in Lat Krabang was full.",
+          "Some shelters in Dusit and Bang Kho Laem are prepared but not open yet. Call before you go.",
+          "Numbers change through the night. Check BMA Flood Support for the latest.",
+        ],
+        th: [
+          "BMA Flood Support มีศูนย์พักพิง 198 แห่งใน 34 เขต และจุดจอดรถ 33 แห่ง สถานที่ที่เต็มหรือใกล้เต็ม ณ เวลา 20.47 น. มีป้ายกำกับไว้",
+          "โรงเรียนประชาราษฎร์อุปถัมภ์วิทยา เขตคลองสามวา มีผู้เข้าพัก 125 คน เกินจำนวนที่รองรับ และลานจอดรถโรบินสัน สุวรรณภูมิ เขตลาดกระบัง เต็มแล้ว",
+          "ศูนย์พักพิงบางแห่งในเขตดุสิตและบางคอแหลมเตรียมไว้แต่ยังไม่เปิด โปรดโทรสอบถามก่อนเดินทาง",
+          "ตัวเลขเปลี่ยนแปลงตลอดคืน ตรวจสอบข้อมูลล่าสุดได้ที่ BMA Flood Support",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T20:35:00+07:00",
       text: {
         en: "Shelter, parking and shuttle bus information has moved to BMA Flood Support, which replaces BKK Care Monitor. It is linked in the shelters section of this page.",
