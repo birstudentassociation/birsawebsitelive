@@ -40,6 +40,25 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T21:45:00+07:00",
+      text: {
+        en: "You can now claim compensation from the BMA if your home was damaged or flooded. This page explains how, and what the river is likely to do near Tha Prachan over the next week.",
+        th: "ผู้ที่ที่พักเสียหายหรือน้ำท่วมถึงที่พัก ยื่นขอรับเงินช่วยเหลือจาก กทม. ได้แล้ว หน้านี้อธิบายขั้นตอน และแนวโน้มระดับแม่น้ำบริเวณท่าพระจันทร์ในสัปดาห์หน้า",
+      },
+      points: {
+        en: [
+          "The BMA pays up to 49,500 baht for repairs to your home and up to 3,000 baht for somewhere to stay, or 3,000 baht a month for up to two months if the whole home was damaged. Tenants claim, not landlords. Report the damage to your district office, then take the fact-finding form and your documents there. The form and the full list of documents are in the section on claiming help.",
+          "The Chao Phraya Dam raised its release from 1,850 to 1,950 cubic metres a second on 26 September, close to its 2,000 limit. The extra water reaches Bangkok around 28 and 29 September, and the flow from the north is expected to peak around 2 October.",
+          "The tides are at their highest of the month until about 3 October, with high water every evening between about 19:00 and 22:00 and, from 29 September, again in the morning. With the river already running about 1 m above the tide, levels near Tha Prachan could come close to the 2.30 m warning level, but on current figures stay below the river wall. Take care at piers around high tide.",
+        ],
+        th: [
+          "กทม. ช่วยเหลือค่าซ่อมแซมที่พักไม่เกิน 49,500 บาท และค่าที่พักชั่วคราวไม่เกิน 3,000 บาท หรือเดือนละไม่เกิน 3,000 บาท ไม่เกิน 2 เดือนหากเสียหายทั้งหลัง บ้านเช่าผู้เช่าเป็นผู้มีสิทธิ แจ้งความเสียหายที่สำนักงานเขต แล้วนำแบบสอบข้อเท็จจริงและเอกสารหลักฐานไปยื่น แบบฟอร์มและรายการเอกสารทั้งหมดอยู่ในหัวข้อการขอรับเงินช่วยเหลือ",
+          "เขื่อนเจ้าพระยาเพิ่มการระบายน้ำจาก 1,850 เป็น 1,950 ลูกบาศก์เมตรต่อวินาทีเมื่อวันที่ 26 กันยายน ใกล้เพดาน 2,000 ลูกบาศก์เมตรต่อวินาที น้ำส่วนที่เพิ่มจะถึงกรุงเทพฯ ราววันที่ 28 และ 29 กันยายน และคาดว่าน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
+          "น้ำทะเลหนุนสูงสุดของเดือนไปจนถึงราววันที่ 3 ตุลาคม น้ำขึ้นสูงทุกค่ำช่วงประมาณ 19.00 ถึง 22.00 น. และตั้งแต่วันที่ 29 กันยายนจะขึ้นสูงอีกรอบช่วงเช้า เมื่อแม่น้ำสูงกว่าระดับน้ำขึ้นน้ำลงอยู่แล้วราว 1 ม. ระดับน้ำบริเวณท่าพระจันทร์อาจขึ้นใกล้ระดับเตือนภัย 2.30 ม.รทก. แต่จากตัวเลขปัจจุบันยังต่ำกว่าแนวป้องกันริมแม่น้ำ ระวังเมื่ออยู่ที่ท่าเรือช่วงน้ำขึ้น",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T20:50:00+07:00",
       text: {
         en: "The shelter and parking search on this page now includes every shelter and car park on BMA Flood Support, with capacity, numbers at 20:47, map links and phone numbers.",

@@ -17,6 +17,90 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "BMA, help for people affected by flooding in Bangkok, fact-finding form, September 2026 (Thai)",
+        th: "กรุงเทพมหานคร แบบสอบข้อเท็จจริงผู้ประสบอุทกภัย กันยายน 2569",
+      },
+      href: "https://drive.google.com/file/d/1NyCZUZ2O9liGVNUOZVB4YayOmh7AV9xW/view",
+    },
+    {
+      label: {
+        en: "The Standard, BMA flood relief rates, conditions and documents, 26 September 2026 (Thai)",
+        th: "THE STANDARD เช็กเงื่อนไขและเอกสาร กทม. เปิดหลักเกณฑ์จ่ายเงินเยียวยาผู้ประสบอุทกภัย 26 กันยายน 2569",
+      },
+      href: "https://thestandard.co/bma-flood-relief-50-districts/",
+    },
+    {
+      label: {
+        en: "Thai PBS, Chao Phraya Dam raises its release to 1,950 cubic metres a second, 26 September 2026 (Thai)",
+        th: "ไทยพีบีเอส เขื่อนเจ้าพระยาเพิ่มการระบายน้ำจาก 1,850 เป็น 1,950 ลบ.ม./วินาที 26 กันยายน 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558580",
+    },
+    {
+      label: {
+        en: "Spacebar, Chao Phraya Dam release held at 1,950 cubic metres a second from 14:00, 26 September 2026 (Thai)",
+        th: "Spacebar เขื่อนเจ้าพระยาระบายน้ำ 1,950 ลบ.ม./วินาที ตั้งแต่เวลา 14.00 น. 26 กันยายน 2569",
+      },
+      href: "https://spacebar.th/social/chao-phraya-dam-discharge-2000-warning-26-sep-2026",
+    },
+    {
+      label: {
+        en: "Spacebar, RID expects water from the north to peak around 2 October, 25 September 2026 (Thai)",
+        th: "Spacebar กรมชลประทานคาดน้ำเหนือสูงสุดราววันที่ 2 ตุลาคม 25 กันยายน 2569",
+      },
+      href: "https://spacebar.th/social/chao-phraya-river-water-rise-october-2-2026",
+    },
+    {
+      label: {
+        en: "Hydrographic Department, Royal Thai Navy, 2026 tide predictions for Navy Headquarters, Bangkok, above mean sea level (PDF, Thai and English)",
+        th: "กรมอุทกศาสตร์ กองทัพเรือ มาตราน้ำ พ.ศ. 2569 กองบัญชาการกองทัพเรือ เหนือระดับทะเลปานกลาง",
+      },
+      href: "https://hydro.navy.mi.th/storage/frontend/article/22989/file/th/HD2026msl.pdf",
+    },
+    {
+      label: {
+        en: "Thaiwater, live river levels on the Chao Phraya (Thai)",
+        th: "คลังข้อมูลน้ำแห่งชาติ ระดับน้ำแม่น้ำเจ้าพระยา",
+      },
+      href: "https://www.thaiwater.net/water/wl",
+    },
+    {
+      label: {
+        en: "Spring News, how long water from the Chao Phraya Dam takes to reach Bangkok, 4 October 2022 (Thai)",
+        th: "สปริงนิวส์ คาดการณ์มวลน้ำภาคกลาง 56 ชั่วโมงก่อนถึงกรุงเทพฯ 4 ตุลาคม 2565",
+      },
+      href: "https://www.springnews.co.th/keep-the-world/climate-change/830717",
+    },
+    {
+      label: {
+        en: "MGR Online, governor checks the river wall at Saphan Phut and Tha Tien, 10 November 2025 (Thai)",
+        th: "ผู้จัดการออนไลน์ ผู้ว่าฯ ชัชชาติลงพื้นที่สะพานพุทธและท่าเตียน ตรวจแนวป้องกันน้ำท่วม 10 พฤศจิกายน 2568",
+      },
+      href: "https://mgronline.com/qol/detail/9680000107502",
+    },
+    {
+      label: {
+        en: "InfoQuest, BMA raises sandbag defences along the Chao Phraya, 2 September 2026 (Thai)",
+        th: "อินโฟเควสท์ กทม. เฝ้าระวังระดับน้ำเจ้าพระยาเพิ่มสูง เตรียมแนวป้องกันรับมือมวลน้ำ 2 กันยายน 2569",
+      },
+      href: "https://www.infoquest.co.th/2026/641730",
+    },
+    {
+      label: {
+        en: "MGR Online, the Chao Phraya overflows onto Maharaj and Phra Chan roads at Tha Prachan, 29 October 2011 (Thai)",
+        th: "ผู้จัดการออนไลน์ น้ำเจ้าพระยาเอ่อล้นท่วมท่าพระจันทร์และถนนมหาราช 29 ตุลาคม 2554",
+      },
+      href: "https://mgronline.com/onlinesection/detail/9540000137876",
+    },
+    {
+      label: {
+        en: "The Standard, heavy rain floods Maharaj Road from Tha Chang to Tha Prachan, 22 October 2024 (Thai)",
+        th: "THE STANDARD ฝนตกหนัก น้ำท่วมถนนมหาราชตั้งแต่ท่าช้างถึงท่าพระจันทร์ 22 ตุลาคม 2567",
+      },
+      href: "https://thestandard.co/bkk-heavy-rain-flooded-maharaj-road/",
+    },
+    {
+      label: {
         en: "Thai Post, Thai Meteorological Department warning No. 12, 26 September 2026 (Thai)",
         th: "ไทยโพสต์ กรมอุตุนิยมวิทยาประกาศฉบับที่ 12 วันที่ 26 กันยายน 2569",
       },
@@ -169,7 +253,7 @@ const flooding: EmergencyScenario = {
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
       "If you need to leave home, Thammasat students at Tha Prachan can register for the student union shelter in the Student Activities Building. Anyone else can find the nearest shelter on BMA Flood Support or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
-      "Photograph any damage before you clean up. You will need the photographs to claim help.",
+      "Photograph any damage before you clean up. If your home was damaged or flooded, you can claim up to 49,500 baht for repairs and up to 3,000 baht for somewhere to stay through your district office, including if you rent. See the section on claiming help.",
     ],
     sections: [
       {
@@ -267,12 +351,26 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "campus",
-        heading: "Tha Prachan and getting to campus",
+        heading: "Tha Prachan, the river and getting to campus",
+        body: [
+          "The old town has not flooded so far. At 18:35 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The Chao Phraya was 1.96 m above mean sea level at Pak Khlong Talat, below the BMA's 2.30 m warning level. The BMA's river wall at Saphan Phut and Tha Tien is about 2.80 m high.",
+          "Over the next week the river near Tha Prachan will be pushed up by three things at once. Rain is running off the city into the river, more water is coming down from the north, and the tides are at their highest of the month. The riskiest days are 29 September to 3 October.",
+        ],
         items: [
-          "The old town has not flooded so far. At 18:35 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The Chao Phraya was 1.96 m at Pak Khlong Talat, below the 2.30 m warning level, and 1.90 m downstream at Sathon, 0.20 m below the 2.10 m warning level.",
+          "The Chao Phraya Dam in Chai Nat raised its release from 1,850 to 1,950 cubic metres a second on 26 September, close to its 2,000 limit. Water takes about two to three days to reach Bangkok, so this water arrives around 28 and 29 September. The Royal Irrigation Department expects the flow from the north to peak around 2 October.",
+          "The Navy's tide predictions for its headquarters, across the river from Tha Prachan, show a high tide of about 1.0 to 1.2 m above mean sea level every evening between about 19:00 and 22:00 until 3 October. From 29 September there is a second high tide of the same height in the morning, moving to around midday by 3 October, so the river stays high for most of the day.",
+          "On the evening of 26 September the river ran about 1 m above the predicted tide. The Royal Irrigation Department gauge at Samsen, about 3 km upstream, read 2.12 m at 20:00, and Nuanchawee Bridge in Nonthaburi read 2.40 m at 21:20.",
+          "If the river stays about 1 m above the tide, evening peaks near Tha Prachan would be about 2.0 to 2.2 m from 29 September to 3 October, near the 2.30 m warning level but below the wall. This is our reading of the published figures, not an official forecast. More rain or more water from the north would raise it.",
+          "The campus is behind the wall. The old town's canals, Khlong Khu Mueang Doem and Khlong Rop Krung, empty into the river. When the river is high they can only be emptied by pumping, so heavy rain at high tide is the most likely cause of flooding nearby. Maharaj Road between Tha Chang and Tha Prachan flooded in heavy rain in October 2024. In 2011, when the river came over the bank, water on Maharaj Road and Phra Chan Road was over 50 cm deep.",
+          "Take care at Tha Prachan, Tha Chang and other piers, which are outside the wall, especially around the evening high tide. Check Chao Phraya Express Boat and ferry services before you travel. The Tha Tien and Tha Wang riverside communities are outside the wall too.",
           "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. If you do not need to come in, stay at home.",
           "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section.",
-          "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
+        ],
+        links: [
+          {
+            label: "Check live river levels on Thaiwater",
+            href: "https://www.thaiwater.net/water/wl",
+          },
         ],
       },
       {
@@ -344,15 +442,80 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "disaster-area",
-        heading: "The disaster declaration and claiming help",
+        heading: "The disaster declaration and claiming compensation",
         body: [
-          "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and is the basis for help to people affected.",
+          "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and means people whose homes were damaged by the floods can claim compensation from the BMA.",
+        ],
+        steps: [
+          "Photograph or film the damage to your home and belongings before you clean up.",
+          "Report the damage to your district office. Staff will come and assess it.",
+          "Ask the district office for a certificate that you were affected by the disaster, with a list of the damage (form Bor Sor 3). The district must give the cause as flooding.",
+          "Download the fact-finding form below, fill it in and take it to your district office with the documents listed under each kind of help.",
         ],
         items: [
-          "Photograph damage to your home and belongings before you clean up.",
-          "Ask your district office how to apply for help.",
+          "You can claim if the place you normally live was damaged, or if water came into the rooms you live in.",
+          "If you rent, you claim, not your landlord.",
+          "In a building with several floors, only the floors that flooded can claim.",
+          "If you do not have a house registration at the address, for example because you live in a dormitory, the district office will also take a statement from you (form Por Kor 14).",
+          "The BMA also pays for household essentials, tools you need for your work, medical treatment and funerals at set rates. Ask your district office, call 1555 or the flood control centre on 02-248-5115, or use Traffy Fondue on LINE.",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "Repairs to your home",
+            places: [
+              {
+                name: "Up to 49,500 baht per home",
+                detail:
+                  "Based on the actual damage. Covers only the cost of repair materials for the building's structure, at the rates on the form.",
+              },
+              {
+                name: "Documents",
+                detail:
+                  "The fact-finding form, a copy of your ID card (not expired), a copy of your current house registration, a copy of the land title deed showing the owner or a request form instead, form Bor Sor 3, the Por Kor 14 statement, the repair materials request, and photographs of the damage.",
+              },
+            ],
+          },
+          {
+            heading: "Temporary accommodation or rent",
+            places: [
+              {
+                name: "Home partly damaged",
+                detail: "Up to 3,000 baht per household",
+              },
+              {
+                name: "Whole home damaged",
+                detail: "Up to 3,000 baht per household a month, for up to 2 months",
+              },
+              {
+                name: "Who can claim",
+                detail:
+                  "The owner, the head of the household or the tenant, who really lives there as their usual home. The home must have been damaged by the floods, or flooded so that you cannot live in it.",
+              },
+              {
+                name: "Documents",
+                detail:
+                  "The fact-finding form, a copy of your ID card (not expired), form Bor Sor 3, the Por Kor 14 statement, photographs of the damage, and anything else that helps, such as your tenancy agreement or rent receipts.",
+              },
+            ],
+          },
+          {
+            heading: "Household essentials",
+            places: [
+              { name: "Home partly damaged", detail: "Up to 1,800 baht per household" },
+              { name: "Whole home damaged", detail: "Up to 3,800 baht per household" },
+            ],
+          },
         ],
         links: [
+          {
+            label: "Download the fact-finding form (PDF, in Thai)",
+            href: "https://drive.google.com/file/d/1NyCZUZ2O9liGVNUOZVB4YayOmh7AV9xW/view",
+          },
+          {
+            label: "Read the BMA's rules for compensation (image, in Thai)",
+            href: "/emergency/bma-flood-relief-2026-09-26.webp",
+          },
           {
             label: "Read the BMA announcement (scanned, in Thai)",
             href: "/emergency/bma-disaster-area-2026-09-26.png",
@@ -385,7 +548,7 @@ const flooding: EmergencyScenario = {
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
       "หากต้องออกจากบ้าน นักศึกษาธรรมศาสตร์ท่าพระจันทร์ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษาได้ ส่วนผู้อื่นค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BMA Flood Support หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
-      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด เพื่อใช้เป็นหลักฐานขอรับความช่วยเหลือ",
+      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด หากที่พักเสียหายหรือน้ำท่วมถึงที่พัก ยื่นขอเงินช่วยเหลือผ่านสำนักงานเขตได้ ค่าซ่อมแซมไม่เกิน 49,500 บาท และค่าที่พักชั่วคราวไม่เกิน 3,000 บาท ผู้เช่าก็มีสิทธิ ดูรายละเอียดในหัวข้อการขอรับความช่วยเหลือ",
     ],
     sections: [
       {
@@ -489,12 +652,26 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "campus",
-        heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
+        heading: "ท่าพระจันทร์ แม่น้ำเจ้าพระยา และการเดินทางมามหาวิทยาลัย",
+        body: [
+          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 18.35 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.96 ม.รทก. ต่ำกว่าระดับเตือนภัยของ กทม. ที่ 2.30 ม.รทก. ส่วนแนวป้องกันน้ำท่วมริมแม่น้ำของ กทม. บริเวณสะพานพุทธและท่าเตียนสูงราว 2.80 ม.รทก.",
+          "ในสัปดาห์หน้า ระดับแม่น้ำหน้าท่าพระจันทร์จะถูกดันให้สูงขึ้นจากสามทางพร้อมกัน คือน้ำฝนที่สูบออกจากเมืองลงแม่น้ำ น้ำเหนือที่ไหลลงมาเพิ่ม และน้ำทะเลหนุนสูงสุดของเดือน ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 3 ตุลาคม",
+        ],
         items: [
-          "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 18.35 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 1.96 ม. ต่ำกว่าระดับเตือนภัย 2.30 ม. ส่วนที่สาทรซึ่งอยู่ท้ายน้ำอยู่ที่ 1.90 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่ 0.20 ม.",
+          "เขื่อนเจ้าพระยา จังหวัดชัยนาท เพิ่มการระบายน้ำจาก 1,850 เป็น 1,950 ลูกบาศก์เมตรต่อวินาทีเมื่อวันที่ 26 กันยายน ใกล้เพดาน 2,000 ลูกบาศก์เมตรต่อวินาที น้ำจากเขื่อนใช้เวลาราว 2 ถึง 3 วันกว่าจะถึงกรุงเทพฯ จึงจะมาถึงราววันที่ 28 และ 29 กันยายน และกรมชลประทานคาดว่าน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
+          "มาตราน้ำของกรมอุทกศาสตร์ ณ กองบัญชาการกองทัพเรือ ซึ่งอยู่ฝั่งตรงข้ามท่าพระจันทร์ คาดว่าน้ำขึ้นสูงราว 1.0 ถึง 1.2 ม.รทก. ทุกค่ำ ช่วงประมาณ 19.00 ถึง 22.00 น. ไปจนถึงวันที่ 3 ตุลาคม และตั้งแต่วันที่ 29 กันยายน จะมีน้ำขึ้นสูงพอกันอีกรอบในช่วงเช้า ซึ่งจะเลื่อนไปเป็นช่วงเที่ยงภายในวันที่ 3 ตุลาคม ระดับแม่น้ำจึงจะสูงเกือบทั้งวัน",
+          "ค่ำวันที่ 26 กันยายน ระดับแม่น้ำสูงกว่าระดับน้ำขึ้นน้ำลงที่คาดการณ์ไว้ราว 1 ม. สถานีกรมชลประทานสามเสน ซึ่งอยู่เหนือน้ำขึ้นไปราว 3 กม. วัดได้ 2.12 ม.รทก. เวลา 20.00 น. และสถานีสะพานนวลฉวี จังหวัดนนทบุรี วัดได้ 2.40 ม.รทก. เวลา 21.20 น.",
+          "หากแม่น้ำยังสูงกว่าระดับน้ำขึ้นน้ำลงราว 1 ม. ระดับสูงสุดช่วงค่ำบริเวณท่าพระจันทร์ระหว่างวันที่ 29 กันยายนถึง 3 ตุลาคม จะอยู่ราว 2.0 ถึง 2.2 ม.รทก. ใกล้ระดับเตือนภัย 2.30 ม.รทก. แต่ยังต่ำกว่าแนวป้องกัน ตัวเลขนี้เราประเมินจากข้อมูลที่เผยแพร่ ไม่ใช่การคาดการณ์ของทางราชการ หากฝนตกเพิ่มหรือน้ำเหนือมามากขึ้น ระดับน้ำจะสูงกว่านี้",
+          "มหาวิทยาลัยอยู่หลังแนวป้องกัน คลองในย่านเมืองเก่า คือคลองคูเมืองเดิมและคลองรอบกรุง ระบายน้ำลงแม่น้ำเจ้าพระยา เมื่อแม่น้ำสูงจะระบายได้ด้วยการสูบเท่านั้น ฝนตกหนักในช่วงน้ำขึ้นจึงเป็นสาเหตุที่น่าจะทำให้ถนนใกล้มหาวิทยาลัยน้ำท่วมมากที่สุด เมื่อเดือนตุลาคม 2567 ฝนตกหนักจนถนนมหาราชช่วงท่าช้างถึงท่าพระจันทร์มีน้ำท่วมขัง และในปี 2554 เมื่อน้ำเจ้าพระยาเอ่อล้นตลิ่ง น้ำบนถนนมหาราชและถนนพระจันทร์สูงกว่า 50 ซม.",
+          "ระวังเมื่ออยู่ที่ท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ซึ่งอยู่นอกแนวป้องกัน โดยเฉพาะช่วงน้ำขึ้นตอนค่ำ ตรวจสอบการเดินเรือด่วนเจ้าพระยาและเรือข้ามฟากก่อนออกเดินทาง ชุมชนท่าเตียนและท่าวังริมแม่น้ำก็อยู่นอกแนวป้องกันเช่นกัน",
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน หากไม่มีธุระจำเป็นต้องมามหาวิทยาลัย ควรอยู่ในบ้าน",
           "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์",
-          "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
+        ],
+        links: [
+          {
+            label: "ดูระดับน้ำแม่น้ำแบบเรียลไทม์ที่ Thaiwater",
+            href: "https://www.thaiwater.net/water/wl",
+          },
         ],
       },
       {
@@ -565,15 +742,80 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "disaster-area",
-        heading: "ประกาศเขตพื้นที่ประสบสาธารณภัยและการขอรับความช่วยเหลือ",
+        heading: "ประกาศเขตพื้นที่ประสบสาธารณภัยและการขอรับเงินช่วยเหลือ",
         body: [
-          "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 ขยายจากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และใช้เป็นฐานในการให้ความช่วยเหลือผู้ได้รับผลกระทบ",
+          "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 ขยายจากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และทำให้ผู้ที่ที่พักเสียหายจากน้ำท่วมยื่นขอรับเงินช่วยเหลือจาก กทม. ได้",
+        ],
+        steps: [
+          "ถ่ายภาพหรือวิดีโอความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
+          "แจ้งความเสียหายที่สำนักงานเขต เจ้าหน้าที่จะลงพื้นที่สำรวจ",
+          "ขอหนังสือรับรองผู้ประสบภัยและบัญชีความเสียหายแนบท้าย (แบบ บส.3) จากสำนักงานเขต โดยสำนักงานเขตต้องระบุว่าเป็นอุทกภัย",
+          "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัยด้านล่าง กรอกให้ครบ แล้วยื่นที่สำนักงานเขตพร้อมเอกสารหลักฐานตามประเภทความช่วยเหลือ",
         ],
         items: [
-          "ถ่ายภาพความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
-          "สอบถามสำนักงานเขตเรื่องขั้นตอนการยื่นขอรับความช่วยเหลือ",
+          "ผู้มีสิทธิคือผู้ที่บ้านหรือที่อยู่อาศัยประจำได้รับความเสียหาย หรือน้ำท่วมถึงพื้นที่พักอาศัย",
+          "บ้านเช่า ผู้เช่าเป็นผู้ได้รับสิทธิ",
+          "บ้านพักอาศัยหรือบ้านที่มีหลายชั้น ได้รับเฉพาะชั้นที่มีน้ำท่วมถึงเท่านั้น",
+          "หากไม่มีทะเบียนบ้านในที่อยู่นั้น เช่น พักอยู่ในหอพัก สำนักงานเขตจะบันทึก ปค.14 เพิ่มเติม",
+          "กทม. ยังช่วยเหลือค่าเครื่องใช้ที่จำเป็นในการดำรงชีพ ค่าเครื่องมือประกอบอาชีพ ค่ารักษาพยาบาล และค่าจัดการศพตามอัตราที่กำหนด สอบถามสำนักงานเขต สายด่วน 1555 ศูนย์ป้องกันน้ำท่วม กทม. โทร 02-248-5115 หรือ Traffy Fondue ใน LINE",
+        ],
+        directoryOpen: true,
+        directory: [
+          {
+            heading: "ค่าซ่อมแซมบ้านหรือที่พักอาศัย",
+            places: [
+              {
+                name: "ไม่เกิน 49,500 บาทต่อหลัง",
+                detail:
+                  "ตามความเสียหายจริง ช่วยเฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร ตามแบบฟอร์มที่กำหนด",
+              },
+              {
+                name: "เอกสารหลักฐาน",
+                detail:
+                  "แบบสอบข้อเท็จจริงผู้ประสบอุทกภัย สำเนาบัตรประจำตัวประชาชน (ยังไม่หมดอายุ) สำเนาทะเบียนบ้าน (ปัจจุบัน) สำเนาโฉนดที่ดินที่ระบุชื่อเจ้าของบ้าน หรือแบบคำร้องแทนโฉนดที่ดิน แบบ บส.3 บันทึก ปค.14 เอกสารประกอบการขอรับความช่วยเหลือค่าวัสดุซ่อมแซม และรูปภาพความเสียหาย",
+              },
+            ],
+          },
+          {
+            heading: "ค่าที่พักชั่วคราวหรือค่าเช่าบ้าน",
+            places: [
+              {
+                name: "เสียหายบางส่วน",
+                detail: "ครอบครัวละไม่เกิน 3,000 บาท",
+              },
+              {
+                name: "เสียหายทั้งหลัง",
+                detail: "ครอบครัวละไม่เกิน 3,000 บาทต่อเดือน ไม่เกิน 2 เดือน",
+              },
+              {
+                name: "ผู้มีสิทธิ",
+                detail:
+                  "เจ้าบ้าน ผู้ครอบครอง หรือผู้เช่า ที่พักอาศัยอยู่จริงเป็นประจำ และที่พักได้รับความเสียหายจากอุทกภัย หรือน้ำท่วมจนไม่สามารถอยู่อาศัยได้",
+              },
+              {
+                name: "เอกสารหลักฐาน",
+                detail:
+                  "แบบสอบข้อเท็จจริงผู้ประสบอุทกภัย สำเนาบัตรประจำตัวประชาชน (ยังไม่หมดอายุ) แบบ บส.3 บันทึก ปค.14 รูปภาพความเสียหาย และเอกสารอื่น เช่น สัญญาเช่าหรือใบเสร็จค่าเช่า",
+              },
+            ],
+          },
+          {
+            heading: "ค่าเครื่องใช้ที่จำเป็นในการดำรงชีพ",
+            places: [
+              { name: "เสียหายบางส่วน", detail: "ครอบครัวละไม่เกิน 1,800 บาท" },
+              { name: "เสียหายทั้งหลัง", detail: "ครอบครัวละไม่เกิน 3,800 บาท" },
+            ],
+          },
         ],
         links: [
+          {
+            label: "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัย (PDF)",
+            href: "https://drive.google.com/file/d/1NyCZUZ2O9liGVNUOZVB4YayOmh7AV9xW/view",
+          },
+          {
+            label: "อ่านหลักเกณฑ์ช่วยเหลือผู้ประสบอุทกภัยของ กทม.",
+            href: "/emergency/bma-flood-relief-2026-09-26.webp",
+          },
           {
             label: "อ่านประกาศของ กทม. (ฉบับสแกน)",
             href: "/emergency/bma-disaster-area-2026-09-26.png",
