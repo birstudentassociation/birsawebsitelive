@@ -39,21 +39,25 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
-      at: "2026-09-26T13:05:00+07:00",
+      at: "2026-09-26T13:10:00+07:00",
       text: {
-        en: "Thammasat University Library has closed some branches on 27 and 28 September.",
-        th: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดให้บริการห้องสมุดบางแห่งในวันที่ 27 และ 28 กันยายน",
+        en: "Thammasat has postponed this weekend's midterm exams, moved classes online on 28 and 29 September and closed some libraries.",
+        th: "ธรรมศาสตร์เลื่อนสอบกลางภาคในสุดสัปดาห์นี้ ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และปิดห้องสมุดบางแห่ง",
       },
       points: {
         en: [
-          "On 27 September all branch libraries at Tha Prachan are closed, and at Rangsit the Puey Ungphakorn Library and the Public Library.",
-          "On 28 September Sanya Dharmasakti Library at Tha Prachan, and the Puey Ungphakorn Library and Public Library at Rangsit, are closed. The library will review this and announce any change.",
-          "The scanned BMA announcement declaring all 50 districts a disaster area is now linked on this page.",
+          "Undergraduate midterms set for Saturday 26 September move to Sunday 4 October, and those set for Sunday 27 September move to Sunday 11 October.",
+          "If you missed an exam already held because of the rain, your lecturer will set another assessment worth the same. The W withdrawal deadline is extended to 26 October.",
+          "Classes at every campus are online on 28 and 29 September. Your lecturer will tell you in advance if a class must be in person.",
+          "On 27 September all branch libraries at Tha Prachan are closed, and at Rangsit the Puey Ungphakorn Library and the Public Library. On 28 September Sanya Dharmasakti Library and the same two Rangsit libraries are closed.",
+          "The scanned university and BMA announcements are now linked on this page.",
         ],
         th: [
-          "วันที่ 27 กันยายน ปิดห้องสมุดสาขาทุกแห่งที่ศูนย์ท่าพระจันทร์ และหอสมุดป๋วย อึ๊งภากรณ์ กับห้องสมุดประชาชนที่ศูนย์รังสิต",
-          "วันที่ 28 กันยายน ปิดห้องสมุดสัญญา ธรรมศักดิ์ ที่ศูนย์ท่าพระจันทร์ และหอสมุดป๋วย อึ๊งภากรณ์ กับห้องสมุดประชาชนที่ศูนย์รังสิต หอสมุดฯ จะประเมินสถานการณ์อีกครั้งและแจ้งหากมีการเปลี่ยนแปลง",
-          "เพิ่มลิงก์ประกาศของ กทม. ฉบับสแกน เรื่องเขตพื้นที่ประสบสาธารณภัยทั้ง 50 เขต ไว้ในหน้านี้แล้ว",
+          "สอบกลางภาคระดับปริญญาตรีที่กำหนดสอบวันเสาร์ที่ 26 กันยายน เลื่อนไปสอบวันอาทิตย์ที่ 4 ตุลาคม และที่กำหนดสอบวันอาทิตย์ที่ 27 กันยายน เลื่อนไปสอบวันอาทิตย์ที่ 11 ตุลาคม",
+          "หากสอบไปแล้วแต่เข้าสอบไม่ได้เพราะฝนตกหนัก อาจารย์ผู้สอนจะจัดเก็บคะแนนด้วยวิธีอื่นโดยคิดคะแนนเทียบเท่ากับการสอบ และขยายกำหนดถอนรายวิชา (W) ถึงวันที่ 26 ตุลาคม",
+          "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ หากรายวิชาใดต้องเรียนในชั้นเรียน อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
+          "วันที่ 27 กันยายน ปิดห้องสมุดสาขาทุกแห่งที่ศูนย์ท่าพระจันทร์ และหอสมุดป๋วย อึ๊งภากรณ์ กับห้องสมุดประชาชนที่ศูนย์รังสิต วันที่ 28 กันยายน ปิดห้องสมุดสัญญา ธรรมศักดิ์ และห้องสมุดสองแห่งเดิมที่ศูนย์รังสิต",
+          "เพิ่มลิงก์ประกาศของมหาวิทยาลัยและของ กทม. ฉบับสแกนไว้ในหน้านี้แล้ว",
         ],
       },
     },
