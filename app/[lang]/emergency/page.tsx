@@ -55,7 +55,13 @@ export default async function EmergencyIndexPage({
       <PageHeader title={t.indexTitle} lede={t.indexLede} />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         {live ? (
-          <AlertStatus locale={locale} live={live} t={t} showGuideLink />
+          <AlertStatus
+            locale={locale}
+            live={live}
+            t={t}
+            showGuideLink
+            updatesHref={localeHref(locale, `/emergency/${live.scenario.id}#live-updates`)}
+          />
         ) : (
           <Notice variant="success" title={t.noAlertTitle}>
             <p>{t.noAlertBody}</p>

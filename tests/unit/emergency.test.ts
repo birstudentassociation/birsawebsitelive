@@ -161,6 +161,10 @@ describe("live alert", () => {
       return;
     }
     expect(getLiveAlert()?.scenario.id).toBe(activeEmergency.scenario);
+    if (activeEmergency.updatesAfter) {
+      const ids = scenarios[activeEmergency.scenario].en.sections.map((section) => section.id);
+      expect(ids).toContain(activeEmergency.updatesAfter);
+    }
     const times = [activeEmergency.issuedAt, ...(activeEmergency.updates ?? []).map((u) => u.at)];
     for (const time of times) expect(time).toMatch(/\+07:00$/);
     const updates = (activeEmergency.updates ?? []).map((u) => Date.parse(u.at));

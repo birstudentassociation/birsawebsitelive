@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,6 +11,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import AlertStatus from "@/components/emergency/AlertStatus";
+import LiveUpdates from "@/components/emergency/LiveUpdates";
 import CallButtons from "@/components/emergency/CallButtons";
 import ContactList from "@/components/emergency/ContactList";
 import GuideSection from "@/components/emergency/GuideSection";
@@ -50,6 +52,9 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
   const c = s[locale];
   const live = getLiveAlert();
   const isLive = live?.scenario.id === s.id;
+  const hasUpdates = isLive && live && (live.alert.updates?.length ?? 0) > 0;
+  const anchor = c.sections.findIndex((section) => section.id === live?.alert.updatesAfter);
+  const updatesAfter = hasUpdates ? (anchor === -1 ? c.sections.length - 1 : anchor) : -2;
 
   return (
     <>
@@ -68,7 +73,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         {isLive && live ? (
-          <AlertStatus locale={locale} live={live} t={t} />
+          <AlertStatus locale={locale} live={live} t={t} updatesHref="#live-updates" />
         ) : (
           <Notice title={t.notLiveTitle}>
             <p>
@@ -106,12 +111,21 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
             {t.onThisPage}
           </h2>
           <ul className="flex flex-col gap-1">
-            {c.sections.map((section) => (
-              <li key={section.id}>
-                <a href={`#${section.id}`} className="text-brand-deep underline">
-                  {section.heading}
-                </a>
-              </li>
+            {c.sections.map((section, i) => (
+              <Fragment key={section.id}>
+                <li>
+                  <a href={`#${section.id}`} className="text-brand-deep underline">
+                    {section.heading}
+                  </a>
+                </li>
+                {i === updatesAfter ? (
+                  <li>
+                    <a href="#live-updates" className="text-brand-deep underline">
+                      {t.liveUpdates}
+                    </a>
+                  </li>
+                ) : null}
+              </Fragment>
             ))}
             <li>
               <a href="#contacts" className="text-brand-deep underline">
@@ -121,13 +135,13 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
           </ul>
         </nav>
 
-        {c.sections.map((section) => (
-          <GuideSection
-            key={section.id}
-            section={section}
-            extLabel={t.ext}
-            newTabLabel={dict.a11y.newTab}
-          />
+        {c.sections.map((section, i) => (
+          <Fragment key={section.id}>
+            <GuideSection section={section} extLabel={t.ext} newTabLabel={dict.a11y.newTab} />
+            {i === updatesAfter && live ? (
+              <LiveUpdates locale={locale} alert={live.alert} t={t} />
+            ) : null}
+          </Fragment>
         ))}
 
         <section

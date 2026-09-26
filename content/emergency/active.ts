@@ -32,6 +32,7 @@ import type { ScenarioId } from "@/content/emergency/scenarios";
 
 export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   scenario: "flooding",
+  updatesAfter: "campus",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
     en: "All 50 districts of Bangkok are now a declared disaster area. Canals are at critical levels and many roads are flooded. Check your route and keep out of floodwater.",

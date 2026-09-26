@@ -105,6 +105,12 @@ export type ActiveEmergency<Id extends string = string> = {
   issuedAt: string;
   /** Replaces the guide's default banner line, e.g. to name a building. */
   banner?: LocalizedText;
+  /**
+   * Section id on the guide after which the live updates timeline appears, so
+   * it does not push key static information down. Without it, the timeline
+   * follows the last section.
+   */
+  updatesAfter?: string;
   /** Newest first. The first entry's time is shown as "last updated". */
   updates?: {
     at: string;

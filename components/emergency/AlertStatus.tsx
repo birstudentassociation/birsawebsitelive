@@ -7,7 +7,8 @@ type Labels = {
   liveAlert: string;
   issued: string;
   updated: string;
-  updates: string;
+  latest: string;
+  allUpdates: string;
   readGuide: string;
   severity: Record<EmergencySeverity, string>;
 };
@@ -18,6 +19,8 @@ type Props = {
   t: Labels;
   /** Link to the guide. Off on the guide page itself. */
   showGuideLink?: boolean;
+  /** Where the full list of updates lives, e.g. `#live-updates`. */
+  updatesHref: string;
 };
 
 const labelTone: Record<EmergencySeverity, string> = {
@@ -26,10 +29,20 @@ const labelTone: Record<EmergencySeverity, string> = {
   info: "text-info",
 };
 
-/** The live alert: what it says, when it was issued and updated, and its updates. */
-export default function AlertStatus({ locale, live, t, showGuideLink = false }: Props) {
+/**
+ * The live alert: what it says, when it was issued and updated, and the latest
+ * update's headline with a link to the full timeline.
+ */
+export default function AlertStatus({
+  locale,
+  live,
+  t,
+  showGuideLink = false,
+  updatesHref,
+}: Props) {
   const { alert, scenario } = live;
   const updatedAt = alertUpdatedAt(alert);
+  const latest = alert.updates?.[0];
 
   return (
     <section aria-labelledby="live-alert-heading" className="flex flex-col gap-4 text-ink">
@@ -59,29 +72,18 @@ export default function AlertStatus({ locale, live, t, showGuideLink = false }: 
         ) : null}
       </dl>
 
-      {alert.updates && alert.updates.length > 0 ? (
-        <div className="flex flex-col gap-2">
-          <h3 className="font-semibold">{t.updates}</h3>
-          <ol className="flex flex-col">
-            {alert.updates.map((update) => (
-              <li
-                key={update.at}
-                className="flex flex-col gap-2 border-t border-line py-4 first:border-t-0 first:pt-1"
-              >
-                <time dateTime={update.at} className="text-sm font-medium text-muted">
-                  {formatAlertTime(locale, update.at)}
-                </time>
-                <p className="leading-relaxed font-semibold">{update.text[locale]}</p>
-                {update.points?.[locale]?.length ? (
-                  <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed">
-                    {update.points[locale].map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </li>
-            ))}
-          </ol>
+      {latest ? (
+        <div className="flex flex-col gap-1 border-l-2 border-error pl-4">
+          <p className="text-sm font-medium text-muted">
+            {t.latest} <time dateTime={latest.at}>{formatAlertTime(locale, latest.at)}</time>
+          </p>
+          <p className="leading-relaxed font-semibold">{latest.text[locale]}</p>
+          <a
+            href={updatesHref}
+            className="self-start text-sm font-semibold text-brand-deep underline"
+          >
+            {t.allUpdates}
+          </a>
         </div>
       ) : null}
 
