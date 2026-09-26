@@ -35,10 +35,35 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   updatesAfter: "campus",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Check your route and keep out of floodwater.",
-    th: "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
+    en: "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Stay at home if you can and keep out of floodwater.",
+    th: "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หากไม่จำเป็นให้อยู่บ้าน และหลีกเลี่ยงการลุยน้ำ",
   },
   updates: [
+    {
+      at: "2026-09-26T14:20:00+07:00",
+      text: {
+        en: "The governor has asked people to stay at home if they can. Canal levels are starting to level off, but heavy rain is forecast until 27 September.",
+        th: "ผู้ว่าราชการกรุงเทพมหานครขอให้ประชาชนอยู่บ้านหากไม่จำเป็น ระดับน้ำในคลองเริ่มทรงตัว แต่ยังคาดว่าจะมีฝนตกหนักไปจนถึงวันที่ 27 กันยายน",
+      },
+      points: {
+        en: [
+          "Governor Chadchart Sittipunt advised people to stay at home and not to travel unless they need to, because flooding is changing quickly.",
+          "The six main roads with the deepest water are Ramkhamhaeng, New Phetchaburi, Ekkamai, Sena Nikhom 1, Lat Krabang and Vibhavadi Rangsit from Chatuchak onwards. Avoid them.",
+          "Nearly 300 mm has fallen in the east of the city in 48 hours, with 274.5 mm in Min Buri and 273 mm in Khlong Sam Wa. With pumps at full capacity, 1,200 cubic metres a second, canal levels have started to level off. The BMA expects conditions to improve within about six hours if no more rain falls.",
+          "Thai Meteorological Department warning No. 11, issued at 11:00, says heavy to very heavy rain will continue in Bangkok on 26 and 27 September and begin to ease on 28 September.",
+          "The BMA has 1 million sandbags at district offices. Collect them from your district office.",
+          "If someone who is bedridden or relies on medical equipment needs help, call 1669. The governor has asked such patients to consider staying in hospital for now.",
+        ],
+        th: [
+          "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร แนะนำให้ประชาชนตั้งหลักอยู่บ้าน และไม่ออกเดินทางหากไม่จำเป็น เพราะสถานการณ์น้ำเปลี่ยนแปลงรวดเร็ว",
+          "หลีกเลี่ยงถนนสายหลัก 6 สายที่น้ำท่วมสูง ได้แก่ รามคำแหง เพชรบุรีตัดใหม่ เอกมัย เสนานิคม 1 ลาดกระบัง และวิภาวดีรังสิตตั้งแต่เขตจตุจักรเป็นต้นไป",
+          "ฝั่งตะวันออกของเมืองมีฝนสะสมเกือบ 300 มม. ใน 48 ชั่วโมง เขตมีนบุรี 274.5 มม. และคลองสามวา 273 มม. กทม. เดินเครื่องสูบน้ำเต็มกำลัง 1,200 ลูกบาศก์เมตรต่อวินาที ระดับน้ำในคลองจึงเริ่มทรงตัว และคาดว่าสถานการณ์จะดีขึ้นภายในราว 6 ชั่วโมงหากไม่มีฝนตกเพิ่ม",
+          "ประกาศกรมอุตุนิยมวิทยาฉบับที่ 11 เวลา 11.00 น. ระบุว่ากรุงเทพฯ ยังมีฝนตกหนักถึงหนักมากในวันที่ 26 และ 27 กันยายน และฝนจะเริ่มลดลงในวันที่ 28 กันยายน",
+          "กทม. เตรียมกระสอบทราย 1 ล้านใบไว้ที่สำนักงานเขต ติดต่อรับได้ที่สำนักงานเขต",
+          "หากผู้ป่วยติดเตียงหรือผู้ที่ต้องใช้อุปกรณ์การแพทย์ต้องการความช่วยเหลือ โทร 1669 ผู้ว่าฯ ขอให้ผู้ป่วยกลุ่มนี้พิจารณาเข้าพักในโรงพยาบาลชั่วคราว",
+        ],
+      },
+    },
     {
       at: "2026-09-26T13:45:00+07:00",
       text: {

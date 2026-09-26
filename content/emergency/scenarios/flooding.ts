@@ -17,6 +17,27 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Daily News, governor advises staying at home and avoiding six flooded main roads, 26 September 2026 (Thai)",
+        th: "เดลินิวส์ ชัชชาติแนะตั้งหลักอยู่บ้าน เลี่ยงถนนสายหลักน้ำท่วมสูง 26 กันยายน 2569",
+      },
+      href: "https://www.dailynews.co.th/news/6222377/",
+    },
+    {
+      label: {
+        en: "Thai PBS, BMA pumps at full capacity after nearly 300 mm in 48 hours, 26 September 2026 (Thai)",
+        th: "Thai PBS กทม. รับมือฝนสะสม 48 ชม. ใกล้แตะ 300 มม. เร่งสูบเต็มกำลัง 26 กันยายน 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558595",
+    },
+    {
+      label: {
+        en: "PPTV, Thai Meteorological Department warning No. 11, 26 September 2026 (Thai)",
+        th: "PPTV กรมอุตุนิยมวิทยาประกาศฉบับที่ 11 วันที่ 26 กันยายน 2569",
+      },
+      href: "https://www.pptvhd36.com/news/%E0%B8%AA%E0%B8%B1%E0%B8%87%E0%B8%84%E0%B8%A1/284170",
+    },
+    {
+      label: {
         en: "Thai PBS, BMA declares all 50 districts a disaster area, 26 September 2026 (Thai)",
         th: "Thai PBS กทม. ยกระดับประกาศเขตภัยพิบัติอุทกภัย ครอบคลุมทั้ง 50 เขต 26 กันยายน 2569",
       },
@@ -99,10 +120,10 @@ const flooding: EmergencyScenario = {
     summary:
       "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
-      "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Check your route and keep out of floodwater.",
+      "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Stay at home if you can and keep out of floodwater.",
     now: [
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
-      "Keep out of floodwater. Do not drive a small car through flooded roads. Several have stalled in Din Daeng.",
+      "Stay at home if you can. The governor has asked people not to travel unless they need to. Keep out of floodwater and do not drive a small car through flooded roads.",
       "If water is coming into your home, move valuables and your car somewhere higher. If you can reach the main switch from a dry spot, turn the power off.",
       "If you need to leave home, find the nearest shelter on BKK Care Monitor, linked in the shelters section, or call 1555.",
       "Report flooding on 1555 or Traffy Fondue on LINE. For a medical emergency or to move a patient, call 1669.",
@@ -183,7 +204,7 @@ const flooding: EmergencyScenario = {
         heading: "Tha Prachan and getting to campus",
         items: [
           "The old town has not flooded so far. At 13:15 on 26 September the canals near Tha Prachan were normal and the road sensors there were dry. The river gauge at Pak Khlong Talat was temporarily down, and downstream at Sathon the Chao Phraya was 0.52 m, well below the 2.10 m warning level.",
-          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. Leave early and go home early.",
+          "If you travel in from the north or east, expect flooded roads and long delays, especially around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan. If you do not need to come in, stay at home.",
           "Classes at every campus are online on 28 and 29 September unless your lecturer says a class must be in person. See the Thammasat section.",
           "DDPM has asked Bangkok to watch the Chao Phraya, which is expected to rise towards 29 September. Take care at piers and check express boat services before you travel.",
         ],
@@ -302,10 +323,10 @@ const flooding: EmergencyScenario = {
     summary:
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
-      "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว ตรวจสอบเส้นทางก่อนเดินทาง และหลีกเลี่ยงการลุยน้ำ",
+      "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หากไม่จำเป็นให้อยู่บ้าน และหลีกเลี่ยงการลุยน้ำ",
     now: [
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
-      "หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม ขณะนี้มีรถเล็กดับกลางน้ำหลายคันในเขตดินแดง",
+      "หากไม่จำเป็นให้อยู่บ้าน ผู้ว่าราชการกรุงเทพมหานครขอให้งดเดินทางหากไม่จำเป็น หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",
       "หากน้ำเริ่มเข้าบ้าน ให้ยกทรัพย์สินมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง หากเอื้อมถึงคัตเอาต์หรือเบรกเกอร์หลักได้จากจุดที่แห้ง ให้ตัดไฟ",
       "หากต้องออกจากบ้าน ให้ค้นหาศูนย์พักพิงที่ใกล้ที่สุดใน BKK Care Monitor ซึ่งมีลิงก์อยู่ในหัวข้อศูนย์พักพิง หรือโทร 1555",
       "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ใน LINE หากเจ็บป่วยฉุกเฉินหรือต้องเคลื่อนย้ายผู้ป่วย โทร 1669",
@@ -392,7 +413,7 @@ const flooding: EmergencyScenario = {
         heading: "ท่าพระจันทร์และการเดินทางมามหาวิทยาลัย",
         items: [
           "ย่านเมืองเก่ายังไม่มีน้ำท่วม ข้อมูล ณ เวลา 13.15 น. วันที่ 26 กันยายน ระดับน้ำในคลองใกล้ท่าพระจันทร์ยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง สถานีวัดระดับแม่น้ำที่ปากคลองตลาดขัดข้องชั่วคราว ส่วนที่สาทรซึ่งอยู่ท้ายน้ำ ระดับแม่น้ำเจ้าพระยาอยู่ที่ 0.52 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่มาก",
-          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน ควรออกจากบ้านและกลับบ้านให้เร็วขึ้น",
+          "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเพราะถนนหลายสายน้ำท่วมและรถติดหนัก โดยเฉพาะย่านดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วาน หากไม่จำเป็นต้องมามหาวิทยาลัย ให้อยู่บ้าน",
           "วันที่ 28 และ 29 กันยายน ทุกศูนย์การศึกษาเรียนออนไลน์ เว้นแต่อาจารย์ผู้สอนแจ้งว่ารายวิชาใดต้องเรียนในชั้นเรียน ดูรายละเอียดในหัวข้อธรรมศาสตร์",
           "ปภ. ให้กรุงเทพฯ เฝ้าระวังระดับน้ำในแม่น้ำเจ้าพระยาซึ่งคาดว่าจะสูงขึ้นจนถึงราววันที่ 29 กันยายน ระวังเมื่ออยู่ที่ท่าเรือ และตรวจสอบการเดินเรือด่วนก่อนออกเดินทาง",
         ],
