@@ -39,6 +39,27 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-26T13:25:00+07:00",
+      text: {
+        en: "BMA readings at 13:15 show the rain easing, but canals are still high and many roads are still flooded.",
+        th: "ข้อมูลจากสถานีตรวจวัดของ กทม. เวลา 13.15 น. พบว่าฝนเริ่มเบาลง แต่ระดับน้ำในคลองยังสูง และถนนหลายสายยังมีน้ำท่วมขัง",
+      },
+      points: {
+        en: [
+          "In the 24 hours to 13:15, 108 of 122 working rain gauges recorded more than 100 mm, peaking at 211.5 mm at Bueng Khwang in Min Buri. No gauge recorded more than 9 mm in the past hour, though Nong Chok had up to 36.5 mm in the past three hours.",
+          "148 of about 300 canal stations were at critical level, mostly in the north and east of the city and in western Thonburi. More canal readings were rising than falling since 10:00.",
+          "Road sensors showed flooding at 20 points. The deepest were Sena Nikhom 1 (67 cm), Lat Phrao 122 (58 cm), Ngam Wong Wan at Phong Phet (57 cm), New Phetchaburi at Singha Complex (55 cm) and Ramkhamhaeng 43/1 (52 cm). A further 59 points without a live reading, mostly in the north and east, were reported flooded at about 10 to 20 cm.",
+          "Around Tha Prachan 145 to 178 mm fell in 24 hours, but the canals are normal and the road sensors are dry. The river gauge at Pak Khlong Talat is temporarily down. Downstream at Sathon the Chao Phraya is 0.52 m, well below the 2.10 m warning level.",
+        ],
+        th: [
+          "ใน 24 ชั่วโมงจนถึงเวลา 13.15 น. สถานีวัดน้ำฝนของ กทม. วัดปริมาณฝนได้เกิน 100 มม. ถึง 108 แห่ง จาก 122 แห่งที่ใช้งานได้ สูงสุด 211.5 มม. ที่ประตูระบายน้ำบึงขวาง เขตมีนบุรี ในชั่วโมงที่ผ่านมาไม่มีสถานีใดวัดฝนได้เกิน 9 มม. แต่ในสามชั่วโมงที่ผ่านมา เขตหนองจอกยังมีฝนตกสูงสุด 36.5 มม.",
+          "ระดับน้ำในคลองอยู่ในขั้นวิกฤตที่ 148 สถานี จากสถานีวัดราว 300 สถานี ส่วนใหญ่อยู่ทางเหนือและตะวันออกของเมือง และฝั่งธนบุรีด้านตะวันตก และตั้งแต่เวลา 10.00 น. สถานีที่ระดับน้ำสูงขึ้นยังมีมากกว่าสถานีที่ระดับน้ำลดลง",
+          "สถานีวัดบนถนนพบน้ำท่วมขัง 20 จุด จุดที่ลึกที่สุด ได้แก่ ถนนเสนานิคม 1 (67 ซม.) ซอยลาดพร้าว 122 (58 ซม.) ถนนงามวงศ์วานแยกพงษ์เพชร (57 ซม.) ถนนเพชรบุรีตัดใหม่หน้าสิงห์คอมเพล็กซ์ (55 ซม.) และซอยรามคำแหง 43/1 (52 ซม.) นอกจากนี้ยังมีรายงานน้ำท่วมราว 10 ถึง 20 ซม. อีก 59 จุดที่ไม่มีค่าจากสถานีวัดแบบเรียลไทม์ ส่วนใหญ่อยู่ทางเหนือและตะวันออก",
+          "บริเวณรอบท่าพระจันทร์มีฝนตก 145 ถึง 178 มม. ใน 24 ชั่วโมง แต่ระดับน้ำในคลองยังปกติ และจุดวัดน้ำบนถนนยังไม่มีน้ำขัง สถานีวัดระดับแม่น้ำที่ปากคลองตลาดขัดข้องชั่วคราว ส่วนที่สาทรซึ่งอยู่ท้ายน้ำ ระดับแม่น้ำเจ้าพระยาอยู่ที่ 0.52 ม. ต่ำกว่าระดับเตือนภัย 2.10 ม. อยู่มาก",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T13:10:00+07:00",
       text: {
         en: "Thammasat has postponed this weekend's midterm exams, moved classes online on 28 and 29 September and closed some libraries.",
