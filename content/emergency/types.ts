@@ -51,8 +51,8 @@ export type DistrictPlace = {
   detail?: LocalizedText;
   /** Digits with dashes, for this place only. */
   phone?: string;
-  /** The page this was read on. */
-  source: string;
+  /** The page this was read on. Left out for notices the district sent us directly. */
+  source?: string;
 };
 
 /** Help published for one of Bangkok's 50 districts, in `districts.ts`. */

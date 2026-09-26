@@ -84,9 +84,9 @@ export const th: typeof en = {
       office: "สำนักงานเขต",
       source: "ที่มาของข้อมูล",
       kinds: {
-        sandbags: "กระสอบทราย",
-        shelters: "ศูนย์พักพิง",
-        parking: "จุดจอดรถฟรี",
+        sandbags: "กระสอบทรายในเขต{district}",
+        shelters: "ศูนย์พักพิงในเขต{district}",
+        parking: "จุดจอดรถฟรีในเขต{district}",
       },
       none: {
         sandbags:

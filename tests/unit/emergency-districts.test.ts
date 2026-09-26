@@ -15,7 +15,7 @@ describe("Bangkok district data", () => {
     expect(new Set(th).size).toBe(50);
   });
 
-  it("gives every place both languages, an https source and a dialable phone", () => {
+  it("gives every place both languages, https sources and dialable phones", () => {
     for (const district of bangkokDistricts) {
       if (district.officePhone) expect(district.officePhone).toMatch(/^\d+(-\d+)*$/);
       for (const kind of kinds) {
@@ -29,7 +29,7 @@ describe("Bangkok district data", () => {
             expect(place.detail.th.trim(), district.id).not.toBe("");
           }
           if (place.phone) expect(place.phone).toMatch(/^\d+(-\d+)*$/);
-          expect(place.source).toMatch(/^https:\/\//);
+          if (place.source) expect(place.source).toMatch(/^https:\/\//);
         }
       }
     }

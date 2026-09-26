@@ -37,6 +37,7 @@ export type DistrictFinderLabels = {
   results: string;
   office: string;
   source: string;
+  /** Headings containing "{district}". */
   kinds: Record<DistrictHelpKind, string>;
   none: Record<DistrictHelpKind, string>;
   newTab: string;
@@ -366,7 +367,7 @@ function DistrictResult({
       {kinds.map((kind) => (
         <section key={kind} className="flex flex-col gap-2">
           <Heading className="font-semibold">
-            {labels.kinds[kind]}, {district.name[locale]}
+            {labels.kinds[kind].replace("{district}", district.name[locale])}
           </Heading>
           {district[kind].length === 0 ? (
             <p className="text-sm text-muted">{labels.none[kind]}</p>
@@ -404,15 +405,17 @@ function Place({
           {place.phone}
         </a>
       ) : null}
-      <a
-        href={place.source}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="self-start text-xs text-muted underline hover:text-brand-deep"
-      >
-        {labels.source}
-        <span className="sr-only"> ({labels.newTab})</span>
-      </a>
+      {place.source ? (
+        <a
+          href={place.source}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="self-start text-xs text-muted underline hover:text-brand-deep"
+        >
+          {labels.source}
+          <span className="sr-only"> ({labels.newTab})</span>
+        </a>
+      ) : null}
     </li>
   );
 }

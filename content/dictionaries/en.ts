@@ -85,9 +85,9 @@ export const en = {
       office: "District office",
       source: "Where we read this",
       kinds: {
-        sandbags: "Sandbags",
-        shelters: "Shelters",
-        parking: "Free parking",
+        sandbags: "Sandbags in {district}",
+        shelters: "Shelters in {district}",
+        parking: "Free parking in {district}",
       },
       none: {
         sandbags:
