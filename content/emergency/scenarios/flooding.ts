@@ -17,6 +17,13 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Matichon, governor adds 1 million sandbags for district offices, 26 September 2026 (Thai)",
+        th: "มติชน ชัชชาติเพิ่มกระสอบทรายแจก 1 ล้านใบ 26 กันยายน 2569",
+      },
+      href: "https://www.matichon.co.th/local/news_5905753",
+    },
+    {
+      label: {
         en: "Bangkok Biz News, DDPM figures on people affected in 21 provinces, 26 September 2026 (Thai)",
         th: "กรุงเทพธุรกิจ ปภ. เผยน้ำท่วมกระทบ 21 จังหวัด กว่า 8.4 หมื่นคน 26 กันยายน 2569",
       },
@@ -134,7 +141,7 @@ const flooding: EmergencyScenario = {
     summary:
       "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
-      "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Stay at home if you can and keep out of floodwater.",
+      "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September.",
     now: [
       "Thammasat classes are online on 28 and 29 September, and this weekend's midterms move to 4 and 11 October. Details are in the Thammasat section below.",
       "Stay at home if you can. The governor has asked people not to travel unless they need to. Keep out of floodwater and do not drive a small car through flooded roads.",
@@ -337,7 +344,7 @@ const flooding: EmergencyScenario = {
     summary:
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
-      "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หากไม่จำเป็นให้อยู่บ้าน และหลีกเลี่ยงการลุยน้ำ",
+      "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
     now: [
       "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และเลื่อนสอบกลางภาคในสุดสัปดาห์นี้ไปเป็นวันที่ 4 และ 11 ตุลาคม ดูรายละเอียดในหัวข้อธรรมศาสตร์ด้านล่าง",
       "หากไม่จำเป็นให้อยู่บ้าน ผู้ว่าราชการกรุงเทพมหานครขอให้งดเดินทางหากไม่จำเป็น หลีกเลี่ยงการลุยน้ำ และอย่าขับรถเล็กผ่านถนนที่น้ำท่วม",

@@ -35,8 +35,8 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   updatesAfter: "campus",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "All Thammasat classes are online on Monday 28 and Tuesday 29 September. All 50 districts of Bangkok are a declared disaster area. Stay at home if you can and keep out of floodwater.",
-    th: "ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หากไม่จำเป็นให้อยู่บ้าน และหลีกเลี่ยงการลุยน้ำ",
+    en: "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September.",
+    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
   },
   updates: [
     {
@@ -52,6 +52,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
           "Nearly 300 mm has fallen in the east of the city in 48 hours, with 274.5 mm in Min Buri and 273 mm in Khlong Sam Wa, about 30 million cubic metres of water. With pumps at full capacity, 1,200 cubic metres a second, levels in the main canals have started to level off. The BMA expects conditions to improve within about six hours if no more rain falls.",
           "Thai Meteorological Department warning No. 11, issued at 11:00, says heavy to very heavy rain will continue in Bangkok on 26 and 27 September and begin to ease on 28 September.",
           "DDPM counted 84,605 people in 21 provinces affected by flooding at 07:00. In Bangkok it reported standing water on roads at 44 points, with the water falling at most of them.",
+          "Governor Chadchart Sittipunt said the BMA is adding 1 million sandbags for district offices to give out. Collect them from your district office.",
           "If someone who is bedridden or relies on medical equipment needs help, call 1669. The governor has asked such patients to consider staying in hospital for now.",
         ],
         th: [
@@ -60,6 +61,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
           "ฝั่งตะวันออกของเมืองมีฝนสะสมเกือบ 300 มม. ใน 48 ชั่วโมง เขตมีนบุรี 274.5 มม. และคลองสามวา 273 มม. คิดเป็นปริมาณน้ำราว 30 ล้านลูกบาศก์เมตร กทม. เดินเครื่องสูบน้ำเต็มกำลัง 1,200 ลูกบาศก์เมตรต่อวินาที ระดับน้ำในคลองสายหลักจึงเริ่มทรงตัว และคาดว่าสถานการณ์จะดีขึ้นภายในราว 6 ชั่วโมงหากไม่มีฝนตกเพิ่ม",
           "ประกาศกรมอุตุนิยมวิทยาฉบับที่ 11 เวลา 11.00 น. ระบุว่ากรุงเทพฯ ยังมีฝนตกหนักถึงหนักมากในวันที่ 26 และ 27 กันยายน และฝนจะเริ่มลดลงในวันที่ 28 กันยายน",
           "ปภ. รายงานเมื่อเวลา 07.00 น. ว่ามีผู้ได้รับผลกระทบจากน้ำท่วม 84,605 คน ใน 21 จังหวัด ส่วนกรุงเทพฯ มีน้ำท่วมขังผิวการจราจร 44 จุด ซึ่งส่วนใหญ่ระดับน้ำมีแนวโน้มลดลง",
+          "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ระบุว่า กทม. เพิ่มกระสอบทราย 1 ล้านใบให้สำนักงานเขตแจกจ่าย ติดต่อรับได้ที่สำนักงานเขต",
           "หากผู้ป่วยติดเตียงหรือผู้ที่ต้องใช้อุปกรณ์การแพทย์ต้องการความช่วยเหลือ โทร 1669 ผู้ว่าฯ ขอให้ผู้ป่วยกลุ่มนี้พิจารณาเข้าพักในโรงพยาบาลชั่วคราว",
         ],
       },
