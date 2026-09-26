@@ -246,46 +246,12 @@ const flooding: EmergencyScenario = {
         id: "roads",
         heading: "Roads to avoid",
         body: [
-          "Many roads in the north and east of the city are flooded or closed to small cars. Before you set off, check Traffy Fondue on LINE or call 1555, and do what officers at the scene tell you.",
+          "Flooded roads and closures change through the day. Check the BMA's official flood alert page before you set off, and do what officers at the scene tell you. You can also call 1555 or check Traffy Fondue on LINE.",
         ],
-        directory: [
+        links: [
           {
-            heading: "Din Daeng, closed to small cars",
-            places: [
-              { name: "Din Daeng Road from the Bot Mae Phra junction to Si Wanit Market" },
-              { name: "The Din Daeng underpass" },
-              { name: "Pracha Songkhro Road past the Bot Mae Phra junction" },
-              {
-                name: "Traffic is being stopped from entering Asok Din Daeng Road from the Rama 9 junction outbound, and the Bot Mae Phra junction from Chaturathit Road",
-              },
-            ],
-            note: "From the Din Daeng district office, 26 September.",
-          },
-          {
-            heading: "Din Daeng, deep water",
-            places: [
-              {
-                name: "Din Daeng triangle, Mit Maitri Road and Pracha Songkhro Road towards the Rama 9 junction",
-                detail:
-                  "Small cars cannot get through and are being turned into the Ministry of Labour. Several have stalled.",
-              },
-              {
-                name: "Ratchadaphisek Road in front of the Chinese embassy",
-                detail: "Small cars can get through only in places. Follow officers' directions.",
-              },
-            ],
-          },
-          {
-            heading: "Deepest water on BMA road sensors",
-            places: [
-              { name: "Sena Nikhom 1", detail: "67 cm" },
-              { name: "Lat Phrao 122", detail: "58 cm" },
-              { name: "Ngam Wong Wan Road at Phong Phet junction", detail: "57 cm" },
-              { name: "New Phetchaburi Road at Singha Complex", detail: "55 cm" },
-              { name: "Ramkhamhaeng 43/1", detail: "52 cm" },
-              { name: "Phatthanakan Road at Srinagarindra junction", detail: "49 cm" },
-            ],
-            note: "At 13:15 on 26 September. Sensors showed flooding at 20 points, and 59 more points without a live reading were reported flooded at about 10 to 20 cm.",
+            label: "Open the BMA flood alert page",
+            href: "https://now.bangkok.go.th/flood-alert.html",
           },
         ],
       },
@@ -486,45 +452,12 @@ const flooding: EmergencyScenario = {
         id: "roads",
         heading: "เส้นทางที่ควรเลี่ยง",
         body: [
-          "ถนนหลายสายทางเหนือและตะวันออกของเมืองมีน้ำท่วมขังหรือห้ามรถเล็กผ่าน ก่อนออกเดินทางให้ตรวจสอบผ่าน Traffy Fondue ใน LINE หรือโทร 1555 และปฏิบัติตามคำแนะนำของเจ้าหน้าที่ในพื้นที่",
+          "ถนนที่น้ำท่วมและจุดที่ปิดการจราจรเปลี่ยนแปลงตลอดวัน ก่อนออกเดินทางให้ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ซึ่งเป็นเว็บไซต์ทางการ และปฏิบัติตามคำแนะนำของเจ้าหน้าที่ในพื้นที่ หรือโทร 1555 หรือตรวจสอบผ่าน Traffy Fondue ใน LINE",
         ],
-        directory: [
+        links: [
           {
-            heading: "เขตดินแดง ห้ามรถเล็กผ่าน",
-            places: [
-              { name: "ถนนดินแดง ตั้งแต่แยกโบสถ์แม่พระถึงหน้าตลาดศรีวนิช" },
-              { name: "อุโมงค์ดินแดง" },
-              { name: "ถนนประชาสงเคราะห์ ห้ามผ่านแยกโบสถ์แม่พระ" },
-              {
-                name: "ปิดไม่ให้รถเข้าถนนอโศกดินแดงจากแยกพระราม 9 ขาออก และไม่ให้รถจากถนนจตุรทิศเข้าแยกโบสถ์แม่พระ",
-              },
-            ],
-            note: "ข้อมูลจากสำนักงานเขตดินแดง 26 กันยายน",
-          },
-          {
-            heading: "เขตดินแดง น้ำท่วมสูง",
-            places: [
-              {
-                name: "แยกสามเหลี่ยมดินแดง ถนนมิตรไมตรี และถนนประชาสงเคราะห์มุ่งหน้าแยกพระราม 9",
-                detail: "รถเล็กผ่านไม่ได้ ต้องเลี้ยวเข้ากระทรวงแรงงาน มีรถเล็กดับหลายคัน",
-              },
-              {
-                name: "ถนนรัชดาภิเษก หน้าสถานทูตจีน",
-                detail: "รถเล็กผ่านได้บางจุด ปฏิบัติตามคำแนะนำของเจ้าหน้าที่",
-              },
-            ],
-          },
-          {
-            heading: "จุดที่น้ำลึกที่สุดจากสถานีวัดของ กทม.",
-            places: [
-              { name: "ถนนเสนานิคม 1", detail: "67 ซม." },
-              { name: "ซอยลาดพร้าว 122", detail: "58 ซม." },
-              { name: "ถนนงามวงศ์วาน แยกพงษ์เพชร", detail: "57 ซม." },
-              { name: "ถนนเพชรบุรีตัดใหม่ หน้าสิงห์คอมเพล็กซ์", detail: "55 ซม." },
-              { name: "ซอยรามคำแหง 43/1", detail: "52 ซม." },
-              { name: "ถนนพัฒนาการ แยกศรีนครินทร์", detail: "49 ซม." },
-            ],
-            note: "ข้อมูล ณ เวลา 13.15 น. วันที่ 26 กันยายน สถานีวัดพบน้ำท่วม 20 จุด และมีรายงานน้ำท่วมราว 10 ถึง 20 ซม. อีก 59 จุดที่ไม่มีค่าจากสถานีวัดแบบเรียลไทม์",
+            label: "เปิดหน้าแจ้งเตือนน้ำท่วมของ กทม.",
+            href: "https://now.bangkok.go.th/flood-alert.html",
           },
         ],
       },
