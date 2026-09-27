@@ -40,6 +40,13 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-27T14:00:00+07:00",
+      text: {
+        en: "The Faculty of Political Science has closed its offices at Tha Prachan and Rangsit to in-person visits on Monday 28 and Tuesday 29 September. Staff are working remotely, so contact the faculty online instead.",
+        th: "คณะรัฐศาสตร์ งดติดต่อ Onsite ทั้งท่าพระจันทร์และศูนย์รังสิต ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน บุคลากรปฏิบัติงานแบบ Work from Anywhere โปรดติดต่อคณะทางออนไลน์",
+      },
+    },
+    {
       at: "2026-09-27T12:30:00+07:00",
       text: {
         en: "BMA readings at 12:05 show the rain has almost stopped and canals are slowly falling, but roads in the north and east are still flooded. The governor expects main roads to be back to normal in two to three days.",

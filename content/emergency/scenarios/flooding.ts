@@ -329,11 +329,23 @@ const flooding: EmergencyScenario = {
             ],
             note: "The library may change this. Check before you go.",
           },
+          {
+            heading: "Faculty of Political Science offices, 28 and 29 September",
+            places: [
+              { name: "Tha Prachan and Rangsit", detail: "No in-person services" },
+              { name: "Faculty staff", detail: "Working remotely" },
+            ],
+            note: "Contact the faculty online instead of going in.",
+          },
         ],
         links: [
           {
             label: "Read the university announcement (scanned, in Thai)",
             href: "/emergency/tu-announcement-2026-09-26.jpg",
+          },
+          {
+            label: "Read the faculty notice (in Thai)",
+            href: "/emergency/polsci-work-from-anywhere-2026-09-28.jpg",
           },
           { label: "Thammasat University Library", href: "https://www.library.tu.ac.th" },
           { label: "Contact the library on LINE", href: "https://lin.ee/thu5aIv" },
@@ -634,11 +646,23 @@ const flooding: EmergencyScenario = {
             ],
             note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
           },
+          {
+            heading: "สำนักงานคณะรัฐศาสตร์ วันที่ 28 และ 29 กันยายน",
+            places: [
+              { name: "ท่าพระจันทร์และศูนย์รังสิต", detail: "งดติดต่อ Onsite" },
+              { name: "บุคลากรคณะ", detail: "Work from Anywhere" },
+            ],
+            note: "โปรดติดต่อคณะทางออนไลน์แทนการเดินทางไปติดต่อด้วยตนเอง",
+          },
         ],
         links: [
           {
             label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ (ฉบับสแกน)",
             href: "/emergency/tu-announcement-2026-09-26.jpg",
+          },
+          {
+            label: "อ่านประกาศคณะรัฐศาสตร์",
+            href: "/emergency/polsci-work-from-anywhere-2026-09-28.jpg",
           },
           { label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" },
           { label: "ติดต่อหอสมุดทาง LINE", href: "https://lin.ee/thu5aIv" },
