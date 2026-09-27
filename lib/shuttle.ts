@@ -49,19 +49,18 @@ export const shuttleLines: ShuttleLine[] = [
       { en: "MRT Sanam Chai Station, Museum Siam Exit", th: "สถานีสนามไชย ทางออกมิวเซียมสยาม" },
     ],
     schedule: {
-      7: [45],
-      8: [0, 15, 30, 45],
-      9: [0, 30, 45],
+      7: [0, 30],
+      8: [0, 30],
+      9: [0, 30],
       10: [0],
-      12: [0, 15, 30, 45],
-      13: [0, 15, 30],
-      14: [0],
-      15: [0],
-      16: [0, 15, 30, 45],
-      17: [0, 15, 30, 45],
-      18: [0, 15, 30],
-      19: [0],
-      20: [0, 30, 45],
+      11: [45],
+      12: [15, 45],
+      13: [15, 45],
+      14: [15],
+      16: [0, 30],
+      17: [0, 30],
+      18: [0, 30],
+      20: [0, 30],
       21: [0, 30],
     },
   },
@@ -90,18 +89,17 @@ export const shuttleLines: ShuttleLine[] = [
       },
     ],
     schedule: {
-      7: [0, 20, 40],
-      8: [0, 20, 40],
-      9: [0, 30],
-      11: [0, 30],
+      7: [0],
+      8: [0],
+      9: [0],
+      11: [30],
       12: [0, 30],
       13: [0, 30],
-      14: [0, 30],
-      16: [0, 20, 40],
-      17: [0, 20, 40],
-      18: [0, 30],
-      19: [0, 30],
-      20: [0, 30],
+      16: [30],
+      17: [30],
+      18: [30],
+      19: [30],
+      20: [30],
       21: [0, 30],
     },
     dormitoryMarkers: [
@@ -112,14 +110,6 @@ export const shuttleLines: ShuttleLine[] = [
       {
         time: "09:00",
         label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
-      },
-      {
-        time: "17:00",
-        label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
-      },
-      {
-        time: "19:00",
-        label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
       },
     ],
   },
@@ -153,21 +143,21 @@ export type ServiceModification = {
 };
 
 export const serviceModification: ServiceModification | undefined = {
-  // Thammasat announcement: reduced Sanam Chai Line service at Tha Prachan
-  // after an accident involving one of its buses.
-  lines: ["sanam-chai"],
-  flag: { en: "Modified service", th: "ปรับตารางเวลา" },
+  // Thammasat announcement: both lines move to new timetables with one bus
+  // each from 1 October 2026. The times above are already the new ones.
+  lines: ["sanam-chai", "pinklao"],
+  flag: { en: "New timetable", th: "ตารางเวลาใหม่" },
   title: {
-    en: "Sanam Chai Line schedule changed after an accident",
-    th: "สายสนามไชยปรับตารางเวลาชั่วคราว",
+    en: "New shuttle timetables from 1 October",
+    th: "รถเวียนทั้งสองสายใช้ตารางเวลาใหม่ตั้งแต่ 1 ตุลาคม",
   },
   body: {
-    en: "A Sanam Chai Line shuttle bus was involved in an accident. The line runs fewer buses during rush hour while the schedule is adjusted.",
-    th: "รถเวียนสายสนามไชยคันหนึ่งประสบอุบัติเหตุ ทำให้ช่วงเวลาเร่งด่วนมีรถให้บริการน้อยลงกว่าปกติ",
+    en: "From 1 October 2026 the Sanam Chai and Pinklao lines each run with 1 bus, so there are fewer departures. The timetables on this page show the new times.",
+    th: "ตั้งแต่วันที่ 1 ตุลาคม 2569 รถเวียนสายสนามไชยและสายปิ่นเกล้าเหลือรถสายละ 1 คัน จำนวนรอบจึงลดลง ตารางเวลาในหน้านี้เป็นเวลาใหม่แล้ว",
   },
   alternatives: {
-    en: "At these times, use the M2 shuttle bus from Sanam Luang, or public bus routes 53, 43 or 15.",
-    th: "ช่วงเวลานี้นักศึกษาใช้รถเมล์ M2 ที่สนามหลวง หรือรถเมล์สาย 53 43 หรือ 15 แทนได้",
+    en: "If a shuttle time does not suit you, use the M2 shuttle bus from Sanam Luang, or public bus routes 53, 43 or 15.",
+    th: "ถ้าเวลารถเวียนไม่สะดวก นักศึกษาใช้รถเมล์ M2 ที่สนามหลวง หรือรถเมล์สาย 53 43 หรือ 15 แทนได้",
   },
 };
 
