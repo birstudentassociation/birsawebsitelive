@@ -40,6 +40,33 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-27T12:30:00+07:00",
+      text: {
+        en: "BMA readings at 12:05 show the rain has almost stopped and canals are slowly falling, but roads in the north and east are still flooded. The governor expects main roads to be back to normal in two to three days.",
+        th: "ข้อมูลจากสถานีตรวจวัดของ กทม. เวลา 12.05 น. พบว่าฝนเกือบหยุดตกแล้ว และระดับน้ำในคลองค่อย ๆ ลดลง แต่ถนนทางเหนือและตะวันออกของเมืองยังมีน้ำท่วมขัง ผู้ว่าราชการกรุงเทพมหานครคาดว่าถนนสายหลักจะกลับมาใช้งานได้ตามปกติภายใน 2 ถึง 3 วัน",
+      },
+      points: {
+        en: [
+          "No rain gauge recorded more than 1.5 mm in the past hour, and the most in the past three hours was 15.5 mm at Don Mueang. In the 24 hours to 12:05 no gauge recorded more than 100 mm, down from 62 at 18:35 yesterday. The highest was 55 mm at Don Mueang.",
+          "118 of 304 canal stations were at critical level, down from 138 at 18:35 yesterday, and 30 more were at warning level. Most are in Lat Krabang, Thawi Watthana and Bang Kapi, and in the north along Khlong Prem Prachakon. The governor said Khlong Prem Prachakon, Khlong Lat Phrao, Khlong Saen Saep and Khlong Prawet Burirom are still critical because water from surrounding areas keeps flowing in as it is pumped out.",
+          "Road sensors showed flooding at 11 points, down from 18. The deepest were Sena Nikhom 1 (57 cm), Lat Phrao 122 (53 cm), Ngam Wong Wan at Phong Phet (50 cm), Phatthanakan at Srinagarindra (49 cm) and Nawamin at Santi Asoke (41 cm). New Phetchaburi at Singha Complex is now dry. A further 42 points without a live reading were reported flooded at about 10 to 20 cm. Lat Phrao Road from Big C towards Bang Kapi was closed to small cars this morning.",
+          "Around Tha Prachan 6.5 to 15 mm fell in 24 hours. The canals are normal and the road sensors are dry. The Chao Phraya is 0.99 m at Pak Khlong Talat and 0.77 m at Sathon, well below warning level, but it rises at the evening high tide.",
+          "Governor Chadchart Sittipunt said at 09:20 that the low pressure has moved towards Myanmar and rain should fall to 10 to 20 mm a day. Communities beside canals will take about two weeks to dry out. At Kheha Romklao in Lat Krabang more than 1,000 people have moved to KMITL, and 40 to 50 bedridden patients have been moved.",
+          "At 12:23 BMA Flood Support listed 208 shelters in 35 districts, with 2,546 people staying. Eight were full, four in Saphan Sung and four in Khlong Sam Wa. Four of its 41 car parks were full, including Rattana Pracharak Hospital in Khlong Sam Wa and Robinson Suvarnabhumi in Lat Krabang. The district search on this page has the latest numbers.",
+          "Thai Meteorological Department warning No. 14, issued at 05:00, says rain in Bangkok is starting to ease but may still be heavy in places.",
+        ],
+        th: [
+          "ในชั่วโมงที่ผ่านมาไม่มีสถานีวัดน้ำฝนใดวัดฝนได้เกิน 1.5 มม. และในสามชั่วโมงที่ผ่านมา ฝนตกสูงสุด 15.5 มม. ที่เขตดอนเมือง ใน 24 ชั่วโมงจนถึงเวลา 12.05 น. ไม่มีสถานีใดวัดฝนได้เกิน 100 มม. ลดลงจาก 62 แห่งเมื่อเวลา 18.35 น. เมื่อวานนี้ สูงสุด 55 มม. ที่เขตดอนเมือง",
+          "ระดับน้ำในคลองอยู่ในขั้นวิกฤตที่ 118 สถานี จาก 304 สถานี ลดลงจาก 138 สถานีเมื่อเวลา 18.35 น. เมื่อวานนี้ และอยู่ในขั้นเฝ้าระวังอีก 30 สถานี ส่วนใหญ่อยู่ในเขตลาดกระบัง ทวีวัฒนา และบางกะปิ รวมถึงทางเหนือของเมืองตามแนวคลองเปรมประชากร ผู้ว่าฯ ระบุว่าคลองเปรมประชากร คลองลาดพร้าว คลองแสนแสบ และคลองประเวศบุรีรมย์ ยังอยู่ในขั้นวิกฤต เพราะเมื่อสูบน้ำออก น้ำจากพื้นที่โดยรอบก็ไหลเข้ามาเติมตลอด",
+          "สถานีวัดบนถนนพบน้ำท่วมขัง 11 จุด ลดลงจาก 18 จุด จุดที่ลึกที่สุด ได้แก่ ถนนเสนานิคม 1 (57 ซม.) ซอยลาดพร้าว 122 (53 ซม.) ถนนงามวงศ์วานแยกพงษ์เพชร (50 ซม.) ถนนพัฒนาการแยกศรีนครินทร์ (49 ซม.) และถนนนวมินทร์ช่วงสันติอโศก (41 ซม.) ส่วนถนนเพชรบุรีตัดใหม่หน้าสิงห์คอมเพล็กซ์ไม่มีน้ำขังแล้ว นอกจากนี้ยังมีรายงานน้ำท่วมราว 10 ถึง 20 ซม. อีก 42 จุดที่ไม่มีค่าจากสถานีวัดแบบเรียลไทม์ และเมื่อเช้านี้ถนนลาดพร้าวช่วงบิ๊กซีมุ่งหน้าบางกะปิ รถเล็กผ่านไม่ได้",
+          "บริเวณรอบท่าพระจันทร์มีฝนตก 6.5 ถึง 15 มม. ใน 24 ชั่วโมง ระดับน้ำในคลองยังปกติ และจุดวัดน้ำบนถนนไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาที่ปากคลองตลาดอยู่ที่ 0.99 ม. และที่สาทร 0.77 ม. ต่ำกว่าระดับเตือนภัยอยู่มาก แต่ระดับน้ำจะสูงขึ้นช่วงน้ำขึ้นตอนค่ำ",
+          "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ระบุเมื่อเวลา 09.20 น. ว่าหย่อมความกดอากาศต่ำเคลื่อนไปทางเมียนมาแล้ว และฝนน่าจะลดลงเหลือวันละ 10 ถึง 20 มม. ส่วนชุมชนริมคลองจะใช้เวลาราว 2 สัปดาห์กว่าน้ำจะแห้ง ที่ชุมชนเคหะร่มเกล้า เขตลาดกระบัง มีผู้อพยพไปพักที่ สจล. แล้วกว่า 1,000 คน และเคลื่อนย้ายผู้ป่วยติดเตียงแล้ว 40 ถึง 50 คน",
+          "เวลา 12.23 น. BMA Flood Support มีศูนย์พักพิง 208 แห่งใน 35 เขต มีผู้เข้าพัก 2,546 คน เต็มแล้ว 8 แห่ง อยู่ในเขตสะพานสูง 4 แห่ง และเขตคลองสามวา 4 แห่ง ส่วนจุดจอดรถ 41 แห่ง เต็มแล้ว 4 แห่ง รวมถึงโรงพยาบาลรัตนประชารักษ์ เขตคลองสามวา และโรบินสัน สุวรรณภูมิ เขตลาดกระบัง ดูตัวเลขล่าสุดได้ที่ช่องค้นหาตามเขตในหน้านี้",
+          "ประกาศกรมอุตุนิยมวิทยาฉบับที่ 14 เวลา 05.00 น. ระบุว่าฝนในกรุงเทพฯ เริ่มลดลง แต่ยังอาจมีฝนตกหนักบางแห่ง",
+        ],
+      },
+    },
+    {
       at: "2026-09-26T23:35:00+07:00",
       text: {
         en: "Thammasat University Library has closed every branch at Tha Prachan, Rangsit and Lampang from 27 to 29 September. The Learning Center at Rangsit stays open as usual.",
