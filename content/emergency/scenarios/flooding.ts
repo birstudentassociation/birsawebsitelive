@@ -246,9 +246,9 @@ const flooding: EmergencyScenario = {
     summary:
       "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
-      "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September.",
+      "Because of flooding across Bangkok, all Thammasat classes are online on 28 and 29 September, midterms set for 26 and 27 September move to 4 and 11 October, libraries are closed until 29 September except the Rangsit Learning Center, and Political Science offices take no in-person visits on 28 and 29 September.",
     now: [
-      "Study online on 28 and 29 September. This weekend's midterms move to 4 and 11 October. See the Thammasat section below.",
+      "Study online on 28 and 29 September. This weekend's midterms move to 4 and 11 October. Libraries are closed until 29 September except the Rangsit Learning Center, and Political Science offices take no in-person visits on 28 and 29 September. See the Thammasat section below.",
       "Stay at home if you can and keep out of floodwater. The governor expects the water to take two to three days to drain if no more rain falls.",
       "If water comes in, move valuables and your car higher. Turn off the main switch if you can reach it from somewhere dry.",
       "Register for the student union shelter at Tha Prachan if you need to leave home. Others can find a shelter on BMA Flood Support or call 1555.",
@@ -554,9 +554,9 @@ const flooding: EmergencyScenario = {
     summary:
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
-      "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
+      "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันที่ 28 และ 29 กันยายน สอบกลางภาควันที่ 26 และ 27 กันยายนเลื่อนไปวันที่ 4 และ 11 ตุลาคม ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต และคณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
     now: [
-      "เรียนออนไลน์วันที่ 28 และ 29 กันยายน ส่วนสอบกลางภาคสุดสัปดาห์นี้เลื่อนไปวันที่ 4 และ 11 ตุลาคม ดูหัวข้อธรรมศาสตร์ด้านล่าง",
+      "เรียนออนไลน์วันที่ 28 และ 29 กันยายน ส่วนสอบกลางภาคสุดสัปดาห์นี้เลื่อนไปวันที่ 4 และ 11 ตุลาคม ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต และคณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน ดูหัวข้อธรรมศาสตร์ด้านล่าง",
       "อยู่บ้านหากทำได้และอย่าลุยน้ำ ผู้ว่าฯ กทม. คาดว่าหากฝนไม่ตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ",
       "หากน้ำเข้าบ้าน ให้ยกของมีค่าและย้ายรถขึ้นที่สูง ตัดไฟที่เบรกเกอร์หลักหากเอื้อมถึงได้จากจุดที่แห้ง",
       "นักศึกษาท่าพระจันทร์ที่ต้องออกจากบ้าน ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ได้ ผู้อื่นค้นหาศูนย์พักพิงใน BMA Flood Support หรือโทร 1555",
