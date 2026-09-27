@@ -145,6 +145,8 @@ export type ActiveEmergency<Id extends string = string> = {
   issuedAt: string;
   /** Replaces the guide's default banner line, e.g. to name a building. */
   banner?: LocalizedText;
+  /** The fuller heading on the alert panel of the guide. Without it, the banner is used. */
+  headline?: LocalizedText;
   /**
    * Section id on the guide after which the live updates timeline appears, so
    * it does not push key static information down. Without it, the timeline

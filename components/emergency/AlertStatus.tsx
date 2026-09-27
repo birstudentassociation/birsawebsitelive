@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { EmergencySeverity } from "@/content/emergency/types";
-import { alertBanner, alertUpdatedAt, formatAlertTime, type LiveAlert } from "@/lib/emergency";
+import { alertHeadline, alertUpdatedAt, formatAlertTime, type LiveAlert } from "@/lib/emergency";
 import { localeHref, type Locale } from "@/lib/i18n";
 
 type Labels = {
@@ -53,7 +53,7 @@ export default function AlertStatus({
           {t.liveAlert}
         </p>
         <h2 id="live-alert-heading" className="font-display text-2xl">
-          {alertBanner(live, locale)}
+          {alertHeadline(live, locale)}
         </h2>
       </div>
 

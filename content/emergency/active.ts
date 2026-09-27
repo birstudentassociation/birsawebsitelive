@@ -35,8 +35,12 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   updatesAfter: "campus",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "Because of flooding across Bangkok, all Thammasat classes are online on 28 and 29 September, midterms set for 26 and 27 September move to 4 and 11 October, libraries are closed until 29 September except the Rangsit Learning Center, and Political Science offices take no in-person visits on 28 and 29 September.",
-    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันที่ 28 และ 29 กันยายน สอบกลางภาควันที่ 26 และ 27 กันยายนเลื่อนไปวันที่ 4 และ 11 ตุลาคม ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต และคณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
+    en: "Because of flooding across Bangkok, Thammasat classes are online, faculty offices take no in-person visits and libraries are closed on 28 and 29 September.",
+    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ วันที่ 28 และ 29 กันยายน ธรรมศาสตร์เรียนออนไลน์ คณะงดติดต่อ Onsite และห้องสมุดปิดให้บริการ",
+  },
+  headline: {
+    en: "Because of flooding across Bangkok, all Thammasat classes are online on Monday 28 and Tuesday 29 September, midterms set for 26 and 27 September move to 4 and 11 October, libraries are closed until 29 September except the Rangsit Learning Center, and Political Science offices take no in-person visits on 28 and 29 September.",
+    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ให้ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน สอบกลางภาควันที่ 26 และ 27 กันยายนเลื่อนไปวันที่ 4 และ 11 ตุลาคม ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต และคณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
   },
   updates: [
     {

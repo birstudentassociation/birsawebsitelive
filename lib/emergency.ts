@@ -28,6 +28,11 @@ export function alertBanner(live: LiveAlert, locale: Locale): string {
   return live.alert.banner?.[locale]?.trim() || live.scenario[locale].banner;
 }
 
+/** The heading on the alert panel. Falls back to the banner. */
+export function alertHeadline(live: LiveAlert, locale: Locale): string {
+  return live.alert.headline?.[locale]?.trim() || alertBanner(live, locale);
+}
+
 /** When the alert last changed: the newest update, else the issue time. */
 export function alertUpdatedAt(alert: ActiveEmergency): string {
   return alert.updates?.[0]?.at ?? alert.issuedAt;

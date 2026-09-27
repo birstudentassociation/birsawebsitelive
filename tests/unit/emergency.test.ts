@@ -6,7 +6,13 @@ import { scenarioIds, scenarios } from "@/content/emergency/scenarios";
 import { activeEmergency } from "@/content/emergency/active";
 import { landingSections, helpNumbers } from "@/content/emergency/landing";
 import type { EmergencyContent } from "@/content/emergency/types";
-import { alertBanner, alertUpdatedAt, formatAlertTime, getLiveAlert } from "@/lib/emergency";
+import {
+  alertBanner,
+  alertHeadline,
+  alertUpdatedAt,
+  formatAlertTime,
+  getLiveAlert,
+} from "@/lib/emergency";
 
 const locales = ["en", "th"] as const;
 
@@ -206,6 +212,18 @@ describe("live alert", () => {
     const live = getLiveAlert({ ...alert, banner: { en: "Custom", th: "ข้อความ" } })!;
     expect(alertBanner(live, "en")).toBe("Custom");
     expect(alertBanner(live, "th")).toBe("ข้อความ");
+  });
+
+  it("uses the headline on the alert panel and falls back to the banner", () => {
+    const withBanner = getLiveAlert({ ...alert, banner: { en: "Short", th: "สั้น" } })!;
+    expect(alertHeadline(withBanner, "en")).toBe("Short");
+    const withHeadline = getLiveAlert({
+      ...alert,
+      banner: { en: "Short", th: "สั้น" },
+      headline: { en: "Full", th: "เต็ม" },
+    })!;
+    expect(alertHeadline(withHeadline, "en")).toBe("Full");
+    expect(alertBanner(withHeadline, "en")).toBe("Short");
   });
 
   it("reports the newest update as the last change", () => {
