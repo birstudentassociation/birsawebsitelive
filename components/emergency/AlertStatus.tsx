@@ -55,6 +55,13 @@ export default function AlertStatus({
         <h2 id="live-alert-heading" className="font-display text-2xl">
           {alertHeadline(live, locale)}
         </h2>
+        {alert.headlinePoints?.[locale]?.length ? (
+          <ul className="mt-2 flex list-disc flex-col gap-1 pl-6 text-lg leading-relaxed font-semibold">
+            {alert.headlinePoints[locale].map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        ) : null}
       </div>
 
       <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-[auto_1fr]">

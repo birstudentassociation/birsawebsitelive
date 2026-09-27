@@ -147,6 +147,8 @@ export type ActiveEmergency<Id extends string = string> = {
   banner?: LocalizedText;
   /** The fuller heading on the alert panel of the guide. Without it, the banner is used. */
   headline?: LocalizedText;
+  /** Bullets under the headline on the alert panel. Same count in both languages. */
+  headlinePoints?: Record<Locale, string[]>;
   /**
    * Section id on the guide after which the live updates timeline appears, so
    * it does not push key static information down. Without it, the timeline
