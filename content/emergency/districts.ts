@@ -8,7 +8,7 @@ import type { BangkokDistrict } from "@/content/emergency/types";
  * parking change through the day, so the guide also links to BKK Care
  * Monitor, the BMA's live list.
  */
-export const districtsCheckedAt = "2026-09-27T12:23:05+07:00";
+export const districtsCheckedAt = "2026-09-27T16:56:26+07:00";
 
 export const bangkokDistricts: BangkokDistrict[] = [
   {
@@ -235,8 +235,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนบ้านลำต้นกล้วย",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 9 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 9 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 13 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 13 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/ciFTJKRkFD7fETna6",
@@ -271,8 +271,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนลำบุหรี่พวง",
         },
         detail: {
-          en: "Room for 30 people. At 12:23 on 27 September, 3 people were staying.",
-          th: "รองรับ 30 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
+          en: "Room for 30 people. At 16:56 on 27 September, 3 people were staying.",
+          th: "รองรับ 30 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/dsD5XwNdEk66Wvwv6",
@@ -283,8 +283,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนลำเจดีย์",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 14 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 14 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 17 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 17 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/qae2bKepKAjX7BSe7",
@@ -476,8 +476,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "สวนกีฬากมล เอฟบีที  ถนนสุวินทวงศ์ เขตหนองจอก",
         },
         detail: {
-          en: "Room for 200 cars. At 12:23 on 27 September, 10 cars were parked.",
-          th: "รองรับ 200 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 10 คัน",
+          en: "Room for 200 cars. At 16:56 on 27 September, 10 cars were parked.",
+          th: "รองรับ 200 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 10 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/3fDew1D36FaGnZc89",
@@ -769,8 +769,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "วัดวชิรธรรมสาธิตวรวิหาร",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 8 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 8 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 8 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 8 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -816,8 +816,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "อาคารศาลาประชาคม สำนักงานเขตมีนบุรี",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 25 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 25 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 32 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 32 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/qqwV7uN5wtcpXmwX8",
@@ -828,8 +828,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวังเล็กวิทยานุสรณ์",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 4 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 4 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/STehFm7UqdtWCgov7",
@@ -852,8 +852,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าทรายกองดิน",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 21 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 21 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 15 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 15 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/6uSbkzoc8Nyn6W2f6",
@@ -864,8 +864,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าบางชัน",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 50 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 50 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 57 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 57 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/XiobPtqF3zAaWiEd8",
@@ -878,8 +878,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "อาคารจอดแล้วจร รถไฟฟ้าสายสีชมพู สถานีมีนบุรี (PK30)",
         },
         detail: {
-          en: "Room for 3,025 cars. At 12:23 on 27 September, 1,875 cars were parked.",
-          th: "รองรับ 3,025 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 1,875 คัน",
+          en: "Room for 3,025 cars. At 16:56 on 27 September, 1,875 cars were parked.",
+          th: "รองรับ 3,025 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 1,875 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -982,8 +982,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนขุุมทอง",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 9 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 9 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 9 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 9 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://share.google/41On0UmQrV4qs2ZRU",
@@ -1041,8 +1041,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดลานบุญ",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 30 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 30 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 30 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 30 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -1052,8 +1052,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดสังฆราชา",
         },
         detail: {
-          en: "Room for 40 people. At 12:23 on 27 September, 38 people were staying.",
-          th: "รองรับ 40 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 38 คน",
+          en: "Room for 40 people. At 16:56 on 27 September, 38 people were staying.",
+          th: "รองรับ 40 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 38 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         status: "nearlyFull",
@@ -1064,8 +1064,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดสุทธาโภชน์",
         },
         detail: {
-          en: "Room for 40 people. At 12:23 on 27 September, 4 people were staying.",
-          th: "รองรับ 40 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
+          en: "Room for 40 people. At 16:56 on 27 September, 4 people were staying.",
+          th: "รองรับ 40 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -1075,8 +1075,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนเคหะชุมชนลาดกระบัง",
         },
         detail: {
-          en: "Room for 200 people. At 12:23 on 27 September, 160 people were staying.",
-          th: "รองรับ 200 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 160 คน",
+          en: "Room for 200 people. At 16:56 on 27 September, 160 people were staying.",
+          th: "รองรับ 200 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 160 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -1086,8 +1086,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนแดงเป้า",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 12 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 12 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 12 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 12 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -1110,8 +1110,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรบินสันไลฟ์สไตล์ สุวรรณภูมิ อาคารจอดรถ ชั้น 7",
         },
         detail: {
-          en: "Room for 170 cars. At 12:23 on 27 September, 170 cars were parked.",
-          th: "รองรับ 170 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 170 คัน",
+          en: "Room for 170 cars. At 16:56 on 27 September, 170 cars were parked.",
+          th: "รองรับ 170 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 170 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/vA93RN6imRY5ZJWP7",
@@ -1928,8 +1928,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "บิ๊กซี ซูเปอร์เซ็นเตอร์ พระราม 2 สาขา 2 (ขาเข้า)",
         },
         detail: {
-          en: "Room for 50 cars. At 12:23 on 27 September, 30 cars were parked.",
-          th: "รองรับ 50 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 30 คัน",
+          en: "Room for 50 cars. At 16:56 on 27 September, 30 cars were parked.",
+          th: "รองรับ 50 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 30 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/isrzNmXvh7Lkzmmt6",
@@ -1940,8 +1940,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "เซ็นทรัล พระราม 2 (Central Rama 2)",
         },
         detail: {
-          en: "Room for 1,500 cars. At 12:23 on 27 September, 217 cars were parked.",
-          th: "รองรับ 1,500 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 217 คัน",
+          en: "Room for 1,500 cars. At 16:56 on 27 September, 217 cars were parked.",
+          th: "รองรับ 1,500 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 217 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/2UVi1qBMKPJz72o9A",
@@ -2194,8 +2194,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "สำนักงานเขตบึงกุ่ม",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 10 people were staying. Open 08.00 to 18.00.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 10 คน เปิด 08.00 ถึง 18.00 น.",
+          en: "Room for 50 people. At 16:56 on 27 September, 10 people were staying. Open 08.00 to 18.00.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 10 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%B3%E0%B8%99%E0%B8%B1%E0%B8%81%E0%B8%87%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%9A%E0%B8%B6%E0%B8%87%E0%B8%81%E0%B8%B8%E0%B9%88%E0%B8%A1/@13.7853412,100.6670472,17z/data=!4m10!1m2!2m1!1z4Liq4Liz4LiZ4Lix4LiB4LiH4Liy4LiZ4LmA4LiC4LiV4Lia4Li24LiH4LiB4Li44LmI4Lih!3m6!1s0x311d63d208caace7:0xe0eb5e5a36504d0c!8m2!3d13.7852767!4d100.6696489!15sCjbguKrguLPguJnguLHguIHguIfguLLguJnguYDguILguJXguJrguLbguIfguIHguLjguYjguKFaOiI44Liq4Liz4LiZ4Lix4LiB4LiH4Liy4LiZIOC5gOC4guC4lSDguJrguLbguIfguIHguLjguYjguKGSARpkaXN0cmljdF9nb3Zlcm5tZW50X29mZmljZZoBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VNekxXTnVZVWxuRUFF4AEA-gEFCI4BEDg!16s%2Fg%2F1hm66vbn1?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
@@ -2206,8 +2206,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนคลองลำเจียก (หวังทองบำรุง)",
         },
         detail: {
-          en: "Room for 30 people. At 12:23 on 27 September, 11 people were staying. Open 08.00 to 18.00.",
-          th: "รองรับ 30 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 11 คน เปิด 08.00 ถึง 18.00 น.",
+          en: "Room for 30 people. At 16:56 on 27 September, 11 people were staying. Open 08.00 to 18.00.",
+          th: "รองรับ 30 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 11 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://www.google.com/maps/place/%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%A5%E0%B8%B3%E0%B9%80%E0%B8%88%E0%B8%B5%E0%B8%A2%E0%B8%81(%E0%B8%AB%E0%B8%A7%E0%B8%B1%E0%B8%87%E0%B8%97%E0%B8%AD%E0%B8%87%E0%B8%9A%E0%B8%B3%E0%B8%A3%E0%B8%B8%E0%B8%87)/@13.8183053,100.6317623,17z/data=!3m1!4b1!4m6!3m5!1s0x311d6263b5d7a89b:0x4ef074fec9dc676f!8m2!3d13.8183001!4d100.6343372!16s%2Fg%2F1tg7zy61?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
@@ -2291,8 +2291,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ศูนย์พัฒนาเด็กเล็กชุมชนหัวจักรรถไฟตึกแดง",
         },
         detail: {
-          en: "Room for 60 people. At 12:23 on 27 September, 55 people were staying.",
-          th: "รองรับ 60 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 55 คน",
+          en: "Room for 60 people. At 16:56 on 27 September, 55 people were staying.",
+          th: "รองรับ 60 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 55 คน",
         },
         phone: "081-268-1104",
         source: "https://floodsupport.awarehouse.tech/",
@@ -2396,18 +2396,6 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
       {
         name: {
-          en: "Chatuchak Centre (ศูนย์จตุจักร)",
-          th: "ศูนย์จตุจักร",
-        },
-        detail: {
-          en: "Room for 50 people.",
-          th: "รองรับ 50 คน",
-        },
-        phone: "088-672-2529",
-        source: "https://floodsupport.awarehouse.tech/",
-      },
-      {
-        name: {
           en: "Ban Lat Phrao School (โรงเรียนบ้านลาดพร้าว)",
           th: "โรงเรียนบ้านลาดพร้าว",
         },
@@ -2416,42 +2404,6 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "รองรับ 50 คน",
         },
         phone: "02-541-8512",
-        source: "https://floodsupport.awarehouse.tech/",
-      },
-      {
-        name: {
-          en: "Prachaniwet School (โรงเรียนประชานิเวศน์)",
-          th: "โรงเรียนประชานิเวศน์",
-        },
-        detail: {
-          en: "Room for 100 people.",
-          th: "รองรับ 100 คน",
-        },
-        phone: "085-030-2814",
-        source: "https://floodsupport.awarehouse.tech/",
-      },
-      {
-        name: {
-          en: "Prachaniwet Secondary School (โรงเรียนมัธยมประชานิเวศน์)",
-          th: "โรงเรียนมัธยมประชานิเวศน์",
-        },
-        detail: {
-          en: "Room for 150 people. At 12:23 on 27 September, 4 people were staying.",
-          th: "รองรับ 150 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
-        },
-        phone: "097-239-1627",
-        source: "https://floodsupport.awarehouse.tech/",
-      },
-      {
-        name: {
-          en: "Rattanakosin Sompot Ratchathan Upatham School (โรงเรียนรัตนโกสินทร์สมโภช ราชทานอุปถัมภ์)",
-          th: "โรงเรียนรัตนโกสินทร์สมโภช ราชทานอุปถัมภ์",
-        },
-        detail: {
-          en: "Room for 100 people.",
-          th: "รองรับ 100 คน",
-        },
-        phone: "098-054-4484",
         source: "https://floodsupport.awarehouse.tech/",
       },
       {
@@ -2484,11 +2436,12 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนเสนานิคม",
         },
         detail: {
-          en: "Room for 150 people. At 12:23 on 27 September, 66 people were staying.",
-          th: "รองรับ 150 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 66 คน",
+          en: "Room for 150 people. At 16:56 on 27 September, 299 people were staying.",
+          th: "รองรับ 150 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 299 คน",
         },
         phone: "092-271-6787",
         source: "https://floodsupport.awarehouse.tech/",
+        status: "full",
       },
     ],
     parking: [
@@ -2498,11 +2451,10 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ซอยวิภาฯ 34",
         },
         detail: {
-          en: "Room for 1 cars. At 12:23 on 27 September, 1 car was parked. Free shuttle service, 08.00 to 22.00 every day, calling at Vibhavadi Rangsit Soi 34, Central Ladprao, Kasetsart University, Sripatum University, Phahonyothin 49/1, Wat Semmanari, Vibhavadi Rangsit Road and Chatuchak District Office.",
-          th: "รองรับ 1 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี เวลา 08.00 ถึง 22.00 น. ทุกวัน แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว มหาวิทยาลัยเกษตรศาสตร์ มหาวิทยาลัยศรีปทุม พหลโยธิน 49/1 วัดเสมียนนารี ถนนวิภาวดีรังสิต และสำนักงานเขตจตุจักร",
+          en: "Room for 1 car. At 16:56 on 27 September, 1 car was parked. Free shuttle service, 08.00 to 22.00 every day, calling at Vibhavadi Rangsit Soi 34, Central Ladprao, Kasetsart University, Sripatum University, Phahonyothin 49/1, Wat Semmanari, Vibhavadi Rangsit Road and Chatuchak District Office.",
+          th: "รองรับ 1 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี เวลา 08.00 ถึง 22.00 น. ทุกวัน แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว มหาวิทยาลัยเกษตรศาสตร์ มหาวิทยาลัยศรีปทุม พหลโยธิน 49/1 วัดเสมียนนารี ถนนวิภาวดีรังสิต และสำนักงานเขตจตุจักร",
         },
         source: "https://floodsupport.awarehouse.tech/",
-        status: "full",
       },
       {
         name: {
@@ -2510,11 +2462,10 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ปากซอยวิภาวดีฯ 34",
         },
         detail: {
-          en: "Room for 1 cars. At 12:23 on 27 September, 1 car was parked. Free shuttle service calling at Vibhavadi Rangsit Soi 34, Central Ladprao, BTS Mo Chit/Chatuchak Park, the PTT Ministry of Energy, Wat Semmanari, the Kasetsart University turning point and Chatuchak District Office.",
-          th: "รองรับ 1 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว บีทีเอสหมอชิต/สวนจตุจักร กระทรวงพลังงาน วัดเสมียนนารี จุดกลับรถมหาวิทยาลัยเกษตรศาสตร์ และสำนักงานเขตจตุจักร",
+          en: "Room for 1 car. At 16:56 on 27 September, 1 car was parked. Free shuttle service calling at Vibhavadi Rangsit Soi 34, Central Ladprao, BTS Mo Chit/Chatuchak Park, the PTT Ministry of Energy, Wat Semmanari, the Kasetsart University turning point and Chatuchak District Office.",
+          th: "รองรับ 1 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว บีทีเอสหมอชิต/สวนจตุจักร กระทรวงพลังงาน วัดเสมียนนารี จุดกลับรถมหาวิทยาลัยเกษตรศาสตร์ และสำนักงานเขตจตุจักร",
         },
         source: "https://floodsupport.awarehouse.tech/",
-        status: "full",
       },
       {
         name: {
@@ -2692,8 +2643,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "สำนักงานเขตประเวศ",
         },
         detail: {
-          en: "Room for 500 people. At 12:23 on 27 September, 88 people were staying.",
-          th: "รองรับ 500 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 88 คน",
+          en: "Room for 500 people. At 16:56 on 27 September, 88 people were staying.",
+          th: "รองรับ 500 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 88 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -2703,8 +2654,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนฝึกอาชีพกรุงเทพมหานคร (ประเวศ)",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 10 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 10 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 10 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 10 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -2716,8 +2667,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "พัฒนาการตัดใหม่ ซอย 100",
         },
         detail: {
-          en: "Room for 100 cars. At 12:23 on 27 September, 10 cars were parked.",
-          th: "รองรับ 100 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 10 คัน",
+          en: "Room for 100 cars. At 16:56 on 27 September, 10 cars were parked.",
+          th: "รองรับ 100 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 10 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -2763,8 +2714,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดคลองเตย",
         },
         detail: {
-          en: "Room for 40 people. At 12:23 on 27 September, 1 person was staying.",
-          th: "รองรับ 40 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
+          en: "Room for 40 people. At 16:56 on 27 September, 0 people were staying.",
+          th: "รองรับ 40 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 0 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/jwrVMbihue7cBwyc9",
@@ -2801,11 +2752,22 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "EMPORIUM B3 Parking",
         },
         detail: {
-          en: "Room for 280 cars. At 12:23 on 27 September, 2 cars were parked.",
-          th: "รองรับ 280 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 2 คัน",
+          en: "Room for 280 cars. At 16:56 on 27 September, 2 cars were parked.",
+          th: "รองรับ 280 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 2 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/ASBMpaAgkCBzpuDw6",
+      },
+      {
+        name: {
+          en: "Gateway Ekamai",
+          th: "Gateway Ekamai",
+        },
+        detail: {
+          en: "Room for 200 cars on floors 1, 1A and 2. At 16:56 on 27 September, 20 cars were parked.",
+          th: "รองรับ 200 คัน ที่ลานจอดรถชั้น 1, 1A และ 2 เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 20 คัน",
+        },
+        source: "https://floodsupport.awarehouse.tech/",
       },
       {
         name: {
@@ -2911,8 +2873,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนพหลโยธิน",
         },
         detail: {
-          en: "Room for 60 people. At 12:23 on 27 September, 30 people were staying.",
-          th: "รองรับ 60 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 30 คน",
+          en: "Room for 60 people. At 16:56 on 27 September, 30 people were staying.",
+          th: "รองรับ 60 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 30 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -2922,8 +2884,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดดอนเมือง",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 42 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 42 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 42 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 42 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -3065,8 +3027,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "วัดลาดปลาเค้า",
         },
         detail: {
-          en: "Room for 300 people. At 12:23 on 27 September, 6 people were staying.",
-          th: "รองรับ 300 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
+          en: "Room for 300 people. At 16:56 on 27 September, 6 people were staying.",
+          th: "รองรับ 300 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/qqTw6x5uT1e5mQHC8?g_st=ic",
@@ -3222,8 +3184,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าบ้านดอน",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 1 person was staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 1 person was staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B9%80%E0%B8%AB%E0%B8%A3%E0%B9%88%E0%B8%B2%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%94%E0%B8%AD%E0%B8%99+84+%E0%B8%96.+%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%B8%E0%B8%A1%E0%B8%A7%E0%B8%B4%E0%B8%97+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B9%80%E0%B8%95%E0%B8%A2%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x30e2",
@@ -3246,8 +3208,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนแจ่มจันทร์",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 1 person was staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 1 person was staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://www.google.com/maps/dir//%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B9%80%E0%B8%A3%E0%B8%B5%E0%B8%A2%E0%B8%99%E0%B9%81%E0%B8%88%E0%B9%88%E0%B8%A1%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B9%8C+75+%E0%B8%8B.+%E0%B9%80%E0%B8%AD%E0%B8%81%E0%B8%A1%E0%B8%B1%E0%B8%A2+21+%E0%B9%81%E0%B8%82%E0%B8%A7%E0%B8%87%E0%B8%84%E0%B8%A5%E0%B8%AD%E0%B8%87%E0%B8%95%E0%B8%B1%E0%B8%99%E0%B9%80%E0%B8%AB%E0%B8%99%E0%B8%B7%E0%B8%AD+%E0%B9%80%E0%B8%82%E0%B8%95%E0%B8%A7%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2+%E0%B8%81%E0%B8%A3%E0%B8%B8%E0%B8%87%E0%B9%80%E0%B8%97%E0%B8%9E%E0%B8%A1%E0%B8%AB%E0%B8%B2%E0%B8%99%E0%B8%84%E0%B8%A3+10110/@13.7986048,100.6174208,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x30e29e4e6c24f993:0x5abdc4b2a44257a5!2m2!1d100.587692!2d13.7391174?entry=ttu&g_ep=EgoyMDI2MDkyMy4wIKXMDSoASAFQAw%3D%3D",
@@ -3284,8 +3246,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าบ้านดอน",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 1 person was staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 1 person was staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 1 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -3369,8 +3331,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "เดอะมอลล์บางแค",
         },
         detail: {
-          en: "Room for 350 cars. At 12:23 on 27 September, 1 car was parked.",
-          th: "รองรับ 350 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 1 คัน",
+          en: "Room for 350 cars. At 16:56 on 27 September, 1 car was parked.",
+          th: "รองรับ 350 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 1 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://www.google.com/maps/place/%E0%B9%80%E0%B8%94%E0%B8%AD%E0%B8%B0%E0%B8%A1%E0%B8%AD%E0%B8%A5%E0%B8%A5%E0%B9%8C%E0%B9%84%E0%B8%A5%E0%B8%9F%E0%B9%8C%E0%B8%AA%E0%B9%82%E0%B8%95%E0%B8%A3%E0%B9%8C+%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B9%81%E0%B8%84/data=!4m2!3m1!1s0x0:0xd7393eb1d51cb378?sa=X&ved=1t:2428&ictx=111",
@@ -3417,8 +3379,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนการเคหะท่าทราย",
         },
         detail: {
-          en: "Room for 200 people. At 12:23 on 27 September, 70 people were staying.",
-          th: "รองรับ 200 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 70 คน",
+          en: "Room for 200 people. At 16:56 on 27 September, 70 people were staying.",
+          th: "รองรับ 200 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 70 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -3439,8 +3401,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนบางเขน (ไว้สาลีอนุสรณ์)",
         },
         detail: {
-          en: "Room for 150 people. At 12:23 on 27 September, 130 people were staying.",
-          th: "รองรับ 150 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 130 คน",
+          en: "Room for 150 people. At 16:56 on 27 September, 130 people were staying.",
+          th: "รองรับ 150 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 130 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },
@@ -3508,8 +3470,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนประชานุกูล (กรุงเทพมหานคร) ซอยสายไหม 6",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 50 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 50 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 50 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 50 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/cV3CBGSpRnEy5TVL8",
@@ -3544,8 +3506,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนคันนายาว(ธารินเจริญสงเคราะห์)",
         },
         detail: {
-          en: "Room for 80 people. At 12:23 on 27 September, 5 people were staying.",
-          th: "รองรับ 80 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 5 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 12 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 12 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/Rq9QRAASxyA2kfXn7",
@@ -3556,8 +3518,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนจินดาบำรุง",
         },
         detail: {
-          en: "Room for 400 people. At 12:23 on 27 September, 160 people were staying.",
-          th: "รองรับ 400 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 160 คน",
+          en: "Room for 400 people. At 16:56 on 27 September, 162 people were staying.",
+          th: "รองรับ 400 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 162 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/wPVxWdJ9mRoZ4SeF7",
@@ -3593,8 +3555,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนศรีพฤฒา",
         },
         detail: {
-          en: "Room for 350 people. At 12:23 on 27 September, 350 people were staying.",
-          th: "รองรับ 350 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 350 คน",
+          en: "Room for 680 people. At 16:56 on 27 September, 680 people were staying.",
+          th: "รองรับ 680 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 680 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/29PqwaSCySY2hspa6",
@@ -3606,8 +3568,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสามแยกคลองหลอแหล",
         },
         detail: {
-          en: "Room for 250 people. At 12:23 on 27 September, 250 people were staying.",
-          th: "รองรับ 250 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 250 คน",
+          en: "Room for 250 people. At 16:56 on 27 September, 250 people were staying.",
+          th: "รองรับ 250 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 250 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/LhQd8WRQCxCtmrzGA",
@@ -3619,8 +3581,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสมโภชกรุงอนุสรณ์ (200ปี)",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 103 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 103 คน",
+          en: "Room for 202 people. At 16:56 on 27 September, 202 people were staying.",
+          th: "รองรับ 202 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 202 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/mL6qjZokdgQihY4x6",
@@ -3632,8 +3594,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าซีรอ (ราษฎร์สามัคคี)",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 100 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 100 คน",
+          en: "Room for 112 people. At 16:56 on 27 September, 112 people were staying.",
+          th: "รองรับ 112 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 112 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/bGVh12H1RuUdxHrw8",
@@ -3645,11 +3607,12 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าลาดบัวขาว",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 58 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 58 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 90 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 90 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/dUa6Q1Q7uZE13rMU9",
+        status: "nearlyFull",
       },
       {
         name: {
@@ -3657,8 +3620,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าทับช้างคลองบน",
         },
         detail: {
-          en: "Room for 150 people. At 12:23 on 27 September, 13 people were staying.",
-          th: "รองรับ 150 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 13 คน",
+          en: "Room for 150 people. At 16:56 on 27 September, 47 people were staying.",
+          th: "รองรับ 150 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 47 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/dUa6Q1Q7uZE13rMU9",
@@ -3765,8 +3728,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "รพ.รัตนประชารักษ์",
         },
         detail: {
-          en: "Room for 450 people. At 12:23 on 27 September, 3 people were staying.",
-          th: "รองรับ 450 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
+          en: "Room for 450 people. At 16:56 on 27 September, 3 people were staying.",
+          th: "รองรับ 450 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/q6nxvLdC1R2f79RS7",
@@ -3777,8 +3740,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "วัดพระยาสุเรนทร์",
         },
         detail: {
-          en: "Room for 60 people. At 12:23 on 27 September, 60 people were staying.",
-          th: "รองรับ 60 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 60 คน",
+          en: "Room for 60 people. At 16:56 on 27 September, 60 people were staying.",
+          th: "รองรับ 60 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 60 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/dHVuNhBCq1myQeyR9",
@@ -3790,8 +3753,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนกลางคลองสอง",
         },
         detail: {
-          en: "Room for 30 people. At 12:23 on 27 September, 6 people were staying.",
-          th: "รองรับ 30 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
+          en: "Room for 30 people. At 16:56 on 27 September, 6 people were staying.",
+          th: "รองรับ 30 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/ZmDA2wLRjmkuhLKa8",
@@ -3802,8 +3765,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนบางชัน",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 100 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 100 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 100 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 100 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/nBCZSBqzt99h7gz78",
@@ -3815,8 +3778,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนบ้านหนองระแหง",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 17 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 17 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 17 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 17 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/NPNrxXVpuTxvC1Ub7",
@@ -3839,8 +3802,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนประชาราษฎร์อุปถัมภ์วิทยา",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 147 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 147 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 147 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 147 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/hCw8Ywu1WXDpcfU26",
@@ -3852,8 +3815,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดคู้บอน",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 40 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 40 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 40 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 40 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/e5LS7sQ78DfoeJ8h6",
@@ -3876,8 +3839,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดพระยาสุเรนทร์",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 78 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 78 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 78 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 78 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/LGP2bB2gYZpDtrXA6",
@@ -3936,8 +3899,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดแป้นทอง",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 25 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 25 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 25 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 25 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/yMsbGVL2nDX6GMBF6",
@@ -3960,8 +3923,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าคลองหนึ่ง",
         },
         detail: {
-          en: "Room for 30 people. At 12:23 on 27 September, 31 people were staying.",
-          th: "รองรับ 30 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 31 คน",
+          en: "Room for 30 people. At 16:56 on 27 September, 31 people were staying.",
+          th: "รองรับ 30 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 31 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/jk5tBn8iGYDwRL8WA",
@@ -3973,8 +3936,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนสุเหร่าสามวา",
         },
         detail: {
-          en: "Room for 100 people. At 12:23 on 27 September, 4 people were staying.",
-          th: "รองรับ 100 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
+          en: "Room for 100 people. At 16:56 on 27 September, 4 people were staying.",
+          th: "รองรับ 100 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 4 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/twPo7QmdoBKLcEoA7",
@@ -4011,8 +3974,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "รพ.รัตนประชารักษ์",
         },
         detail: {
-          en: "Room for 450 people. At 12:23 on 27 September, 3 people were staying.",
-          th: "รองรับ 450 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
+          en: "Room for 450 people. At 16:56 on 27 September, 3 people were staying.",
+          th: "รองรับ 450 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/q6nxvLdC1R2f79RS7",
@@ -4047,8 +4010,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ศูนย์พัฒนาเด็กก่อนวัยเรียน ผ่องพลอยอนุสรณ์ (ลิขิต 2)",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 7 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 7 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 7 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 7 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/NbbULJH65LGg27RcA",
@@ -4095,8 +4058,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดบางนาใน (รื่น ศยามานนท์)",
         },
         detail: {
-          en: "Room for 50 people. At 12:23 on 27 September, 5 people were staying.",
-          th: "รองรับ 50 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 5 คน",
+          en: "Room for 50 people. At 16:56 on 27 September, 5 people were staying.",
+          th: "รองรับ 50 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 5 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/NxFmXudqpDASCYub9",
@@ -4119,8 +4082,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนอำนวยกนกศิริอนุสรณ์",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 13 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 13 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 15 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 15 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/q1Kf8Yqp4BU849BRA",
@@ -4217,8 +4180,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนคลองบางพรหม",
         },
         detail: {
-          en: "Room for 35 people. At 12:23 on 27 September, 3 people were staying.",
-          th: "รองรับ 35 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
+          en: "Room for 35 people. At 16:56 on 27 September, 3 people were staying.",
+          th: "รองรับ 35 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 3 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/LC24wmGu2r73UQJR9?g_st=ac",
@@ -4253,8 +4216,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนมัธยมปุรณาวาส",
         },
         detail: {
-          en: "Room for 20 people. At 12:23 on 27 September, 6 people were staying.",
-          th: "รองรับ 20 คน เวลา 12.23 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
+          en: "Room for 20 people. At 16:56 on 27 September, 6 people were staying.",
+          th: "รองรับ 20 คน เวลา 16.56 น. วันที่ 27 กันยายน มีผู้เข้าพัก 6 คน",
         },
         source: "https://floodsupport.awarehouse.tech/",
         map: "https://maps.app.goo.gl/2SrNrV4o1j3vFM1n9?g_st=ac",
@@ -4416,8 +4379,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "วิทยาลัยเทคนิคราชสิทธาราม",
         },
         detail: {
-          en: "Room for 100 cars. At 12:23 on 27 September, 15 cars were parked.",
-          th: "รองรับ 100 คัน เวลา 12.23 น. วันที่ 27 กันยายน มีรถจอด 15 คัน",
+          en: "Room for 100 cars. At 16:56 on 27 September, 15 cars were parked.",
+          th: "รองรับ 100 คัน เวลา 16.56 น. วันที่ 27 กันยายน มีรถจอด 15 คัน",
         },
         source: "https://floodsupport.awarehouse.tech/",
       },

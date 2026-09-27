@@ -58,6 +58,37 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-27T17:30:00+07:00",
+      text: {
+        en: "The cabinet has made Monday 28 and Tuesday 29 September special public holidays for government offices in Bangkok, Nonthaburi, Pathum Thani and Samut Prakan because of the floods.",
+        th: "ครม. ประกาศให้วันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน เป็นวันหยุดราชการเป็นกรณีพิเศษในกรุงเทพฯ นนทบุรี ปทุมธานี และสมุทรปราการ เพื่อบรรเทาผลกระทบจากน้ำท่วม",
+      },
+      points: {
+        en: [
+          "The government has also extended free travel on the expressways until midnight on Tuesday 29 September. Thammasat classes are online on both days, as announced before.",
+          "BMA readings at 16:50 show the rain has almost stopped. No rain gauge recorded more than 1.5 mm in the past hour. Some rain fell in the north and east this afternoon, so the highest 24 hour total rose to 63 mm at Don Mueang.",
+          "115 of 304 canal stations were at critical level, down from 118 at midday, and 31 were at warning level. Most are in Lat Krabang, Thawi Watthana and Bang Kapi.",
+          "BMA road sensors cover only part of the city. The BMA flood reporting centre listed 135 flooded points on 31 main roads this morning. Water was over 20 cm on Ram Inthra Road from Soi 5 to Soi 13/1, on Phahon Yothin Road near Kasetsart University, on Ramkhamhaeng Road, on Srinagarindra Road from the Lam Sali junction and on Nawamin Road. At midday New Phetchaburi Road was flooded 40 to 50 cm from Thong Lo to Khlong Tan.",
+          "At 16:50 the deepest sensor readings were Sena Nikhom 1 (55 cm), Lat Phrao 122 (50 cm), Phatthanakan at Srinagarindra (48 cm), Ngam Wong Wan at Phong Phet (46 cm) and Nawamin at Santi Asoke (43 cm). Phahon Yothin 60/1 and Ramkhamhaeng Soi 3 have flooded since midday.",
+          "Around Tha Prachan the canals are normal and the roads are dry. The Chao Phraya has risen with the evening tide to 1.64 m at Pak Khlong Talat and 1.61 m at Sathon, still below warning level. Take care at piers tonight. The Chao Phraya Dam kept its release at 1,950 cubic metres a second for a second day.",
+          "At 16:56 BMA Flood Support listed 204 shelters with 3,429 people staying. Nine were full, four in Saphan Sung and four in Khlong Sam Wa, and Sena Nikhom School in Chatuchak had 299 people in space for 150. The district search on this page has the new numbers.",
+          "Residents of the Khlong Chan flats in Bang Kapi have been cut off by water, and 20 more people have been moved out of Kheha Romklao building 27 in Lat Krabang.",
+          "DDPM counted 174,803 families affected in 25 provinces at 06:00, about 52,000 of them in Bangkok. Thai Meteorological Department warning No. 15, issued at 11:00, says rain in Bangkok is easing but may still be heavy in places.",
+        ],
+        th: [
+          "รัฐบาลขยายเวลาขึ้นทางพิเศษฟรีถึงเวลา 24.00 น. ของวันอังคารที่ 29 กันยายน ส่วนธรรมศาสตร์เรียนออนไลน์ทั้งสองวันตามที่ประกาศไว้แล้ว",
+          "ข้อมูลจากสถานีตรวจวัดของ กทม. เวลา 16.50 น. พบว่าฝนเกือบหยุดตกแล้ว ในชั่วโมงที่ผ่านมาไม่มีสถานีใดวัดฝนได้เกิน 1.5 มม. แต่ช่วงบ่ายมีฝนตกทางเหนือและตะวันออกของเมือง ฝนสะสม 24 ชั่วโมงสูงสุดจึงเพิ่มเป็น 63 มม. ที่เขตดอนเมือง",
+          "ระดับน้ำในคลองอยู่ในขั้นวิกฤตที่ 115 สถานี จาก 304 สถานี ลดลงจาก 118 สถานีเมื่อช่วงเที่ยง และอยู่ในขั้นเฝ้าระวังอีก 31 สถานี ส่วนใหญ่อยู่ในเขตลาดกระบัง ทวีวัฒนา และบางกะปิ",
+          "สถานีวัดน้ำบนถนนของ กทม. ครอบคลุมเพียงบางส่วนของเมือง เมื่อเช้านี้ศูนย์รายงานสถานการณ์น้ำท่วมของ กทม. พบน้ำท่วมขัง 135 จุด บนถนนสายหลัก 31 สาย น้ำสูงเกิน 20 ซม. ที่ถนนรามอินทราช่วงซอย 5 ถึงซอย 13/1 ถนนพหลโยธินใกล้มหาวิทยาลัยเกษตรศาสตร์ ถนนรามคำแหง ถนนศรีนครินทร์ตั้งแต่แยกลำสาลี และถนนนวมินทร์ ช่วงเที่ยงถนนเพชรบุรีตัดใหม่ช่วงทองหล่อถึงคลองตันมีน้ำท่วม 40 ถึง 50 ซม.",
+          "เวลา 16.50 น. สถานีวัดที่พบน้ำลึกที่สุด ได้แก่ ถนนเสนานิคม 1 (55 ซม.) ซอยลาดพร้าว 122 (50 ซม.) ถนนพัฒนาการแยกศรีนครินทร์ (48 ซม.) ถนนงามวงศ์วานแยกพงษ์เพชร (46 ซม.) และถนนนวมินทร์ช่วงสันติอโศก (43 ซม.) ส่วนซอยพหลโยธิน 60/1 และถนนรามคำแหงซอย 3 มีน้ำท่วมขังตั้งแต่ช่วงเที่ยง",
+          "บริเวณรอบท่าพระจันทร์ ระดับน้ำในคลองยังปกติและถนนไม่มีน้ำขัง ระดับแม่น้ำเจ้าพระยาสูงขึ้นตามน้ำขึ้นช่วงค่ำ ที่ปากคลองตลาดอยู่ที่ 1.64 ม. และที่สาทร 1.61 ม. ยังต่ำกว่าระดับเตือนภัย โปรดระวังเมื่ออยู่ที่ท่าเรือคืนนี้ เขื่อนเจ้าพระยาคงการระบายน้ำไว้ที่ 1,950 ลูกบาศก์เมตรต่อวินาทีเป็นวันที่สอง",
+          "เวลา 16.56 น. BMA Flood Support มีศูนย์พักพิง 204 แห่ง มีผู้เข้าพัก 3,429 คน เต็มแล้ว 9 แห่ง อยู่ในเขตสะพานสูง 4 แห่ง และเขตคลองสามวา 4 แห่ง ส่วนโรงเรียนเสนานิคม เขตจตุจักร มีผู้เข้าพัก 299 คน จากที่รองรับได้ 150 คน ดูตัวเลขล่าสุดได้ที่ช่องค้นหาตามเขตในหน้านี้",
+          "ผู้พักอาศัยในแฟลตคลองจั่น เขตบางกะปิ ติดอยู่ในพื้นที่น้ำท่วม และที่เคหะร่มเกล้า เขตลาดกระบัง มีการอพยพผู้พักอาศัยอาคาร 27 ออกมาเพิ่มอีก 20 คน",
+          "ปภ. รายงานเมื่อเวลา 06.00 น. ว่ามีผู้ได้รับผลกระทบ 174,803 ครัวเรือน ใน 25 จังหวัด อยู่ในกรุงเทพฯ ราว 52,000 ครัวเรือน ประกาศกรมอุตุนิยมวิทยาฉบับที่ 15 เวลา 11.00 น. ระบุว่าฝนในกรุงเทพฯ ลดลง แต่ยังอาจมีฝนตกหนักบางแห่ง",
+        ],
+      },
+    },
+    {
       at: "2026-09-27T14:00:00+07:00",
       text: {
         en: "The Faculty of Political Science has closed its offices at Tha Prachan and Rangsit to in-person visits on Monday 28 and Tuesday 29 September. Staff are working remotely, so contact the faculty online instead.",
