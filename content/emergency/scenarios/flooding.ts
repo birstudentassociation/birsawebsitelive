@@ -364,6 +364,7 @@ const flooding: EmergencyScenario = {
           "High tide is every evening from about 19:00 to 22:00. From 29 September there is a second high tide in the morning or around midday.",
           "Keep away from Tha Prachan, Tha Chang and other piers at high tide, because they are outside the wall. Check boat services before you travel.",
           "Coming from the north or east, expect flooded roads around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan.",
+          "The Thammasat shuttle buses are running as normal on both lines, the Sanam Chai Line and the Pinklao Line, on their usual timetables. New timetables with one bus on each line start on Thursday 1 October.",
         ],
         links: [
           {
@@ -681,6 +682,7 @@ const flooding: EmergencyScenario = {
           "น้ำขึ้นสูงทุกค่ำช่วงประมาณ 19.00 ถึง 22.00 น. และตั้งแต่วันที่ 29 กันยายน จะขึ้นสูงอีกรอบในช่วงเช้าหรือราวเที่ยง",
           "อย่าเข้าใกล้ท่าพระจันทร์ ท่าช้าง และท่าเรืออื่นในช่วงน้ำขึ้น เพราะอยู่นอกแนวป้องกัน ตรวจสอบการเดินเรือก่อนออกเดินทาง",
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ถนนแถวดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วานมีน้ำท่วม ให้เผื่อเวลา",
+          "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง คือสายสนามไชยและสายปิ่นเกล้า ตามตารางเวลาเดิม ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม จะใช้ตารางเวลาใหม่ซึ่งเหลือรถสายละ 1 คัน",
         ],
         links: [
           {

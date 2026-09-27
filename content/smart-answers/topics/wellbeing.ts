@@ -956,8 +956,8 @@ export const wellbeing: SmartAnswerService = {
           kind: "steps",
           items: [
             {
-              en: "Sanam Chai Line: a straight shuttle to the MRT, running 07:00 to 21:30.",
-              th: "สายสนามไชย รถรับส่งตรงไปสถานี MRT วิ่ง 07:00 ถึง 21:30 น.",
+              en: "Sanam Chai Line: a straight shuttle to the MRT, running 07:45 to 21:30, or 07:00 to 21:30 from 1 October.",
+              th: "สายสนามไชย รถรับส่งตรงไปสถานี MRT วิ่ง 07:45 ถึง 21:30 น. ตั้งแต่ 1 ตุลาคมวิ่ง 07:00 ถึง 21:30 น.",
             },
             {
               en: "Pinklao Line: a loop out to the Pinklao area and back, running 07:00 to 21:30. Two rounds a day also double as dormitory shuttles.",

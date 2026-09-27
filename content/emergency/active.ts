@@ -58,6 +58,13 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-27T23:40:00+07:00",
+      text: {
+        en: "The Thammasat shuttle buses are running as normal on both lines, on their usual timetables, for students, staff and visitors. New timetables with one bus on each line start on Thursday 1 October.",
+        th: "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทางตามตารางเวลาเดิม รองรับการเดินทางของนักศึกษา บุคลากร และผู้มาติดต่อ ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม จะใช้ตารางเวลาใหม่ซึ่งเหลือรถสายละ 1 คัน",
+      },
+    },
+    {
       at: "2026-09-27T17:30:00+07:00",
       text: {
         en: "The cabinet has made Monday 28 and Tuesday 29 September special public holidays for government offices in Bangkok, Nonthaburi, Pathum Thani and Samut Prakan because of the floods.",

@@ -26,14 +26,22 @@ export type DormitoryMarker = {
   label: Bilingual;
 };
 
-export type ShuttleLine = {
+export type Timetable = {
+  schedule: Schedule;
+  dormitoryMarkers?: DormitoryMarker[];
+};
+
+export type ShuttleLine = Timetable & {
   id: LineId;
   name: Bilingual;
   kind: "point-to-point" | "loop";
   stops: Stop[];
-  schedule: Schedule;
-  dormitoryMarkers?: DormitoryMarker[];
+  /** The timetable in force before `newTimetableFrom`. */
+  previous?: Timetable;
 };
+
+/** Bangkok date, ISO `YYYY-MM-DD`, from which each line's `schedule` applies. Before it, `previous` does. */
+export const newTimetableFrom = "2026-10-01";
 
 export const shuttleLines: ShuttleLine[] = [
   {
@@ -62,6 +70,24 @@ export const shuttleLines: ShuttleLine[] = [
       18: [0, 30],
       20: [0, 30],
       21: [0, 30],
+    },
+    previous: {
+      schedule: {
+        7: [45],
+        8: [0, 15, 30, 45],
+        9: [0, 30, 45],
+        10: [0],
+        12: [0, 15, 30, 45],
+        13: [0, 15, 30],
+        14: [0],
+        15: [0],
+        16: [0, 15, 30, 45],
+        17: [0, 15, 30, 45],
+        18: [0, 15, 30],
+        19: [0],
+        20: [0, 30, 45],
+        21: [0, 30],
+      },
     },
   },
   {
@@ -112,6 +138,41 @@ export const shuttleLines: ShuttleLine[] = [
         label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
       },
     ],
+    previous: {
+      schedule: {
+        7: [0, 20, 40],
+        8: [0, 20, 40],
+        9: [0, 30],
+        11: [0, 30],
+        12: [0, 30],
+        13: [0, 30],
+        14: [0, 30],
+        16: [0, 20, 40],
+        17: [0, 20, 40],
+        18: [0, 30],
+        19: [0, 30],
+        20: [0, 30],
+        21: [0, 30],
+      },
+      dormitoryMarkers: [
+        {
+          time: "07:00",
+          label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
+        },
+        {
+          time: "09:00",
+          label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
+        },
+        {
+          time: "17:00",
+          label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
+        },
+        {
+          time: "19:00",
+          label: { en: "Evening TPC dormitory service (outbound)", th: "บริการหอใน ขาออกรอบเย็น" },
+        },
+      ],
+    },
   },
 ];
 
@@ -144,7 +205,7 @@ export type ServiceModification = {
 
 export const serviceModification: ServiceModification | undefined = {
   // Thammasat announcement: both lines move to new timetables with one bus
-  // each from 1 October 2026. The times above are already the new ones.
+  // each from 1 October 2026.
   lines: ["sanam-chai", "pinklao"],
   flag: { en: "New timetable", th: "ตารางเวลาใหม่" },
   title: {
@@ -152,8 +213,8 @@ export const serviceModification: ServiceModification | undefined = {
     th: "รถเวียนทั้งสองสายใช้ตารางเวลาใหม่ตั้งแต่ 1 ตุลาคม",
   },
   body: {
-    en: "From 1 October 2026 the Sanam Chai and Pinklao lines each run with 1 bus, so there are fewer departures. The timetables on this page show the new times.",
-    th: "ตั้งแต่วันที่ 1 ตุลาคม 2569 รถเวียนสายสนามไชยและสายปิ่นเกล้าเหลือรถสายละ 1 คัน จำนวนรอบจึงลดลง ตารางเวลาในหน้านี้เป็นเวลาใหม่แล้ว",
+    en: "Both lines are running as normal on their usual timetables until Wednesday 30 September. From Thursday 1 October the Sanam Chai and Pinklao lines each run with 1 bus, so there are fewer departures. The timetables on this page change to the new times on that day.",
+    th: "รถเวียนทั้งสองสายยังให้บริการตามปกติตามตารางเดิมจนถึงวันพุธที่ 30 กันยายน ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม สายสนามไชยและสายปิ่นเกล้าจะเหลือรถสายละ 1 คัน จำนวนรอบจึงลดลง ตารางเวลาในหน้านี้จะเปลี่ยนเป็นเวลาใหม่ในวันนั้น",
   },
   alternatives: {
     en: "If a shuttle time does not suit you, use the M2 shuttle bus from Sanam Luang, or public bus routes 53, 43 or 15.",
@@ -172,6 +233,17 @@ export function getLine(id: LineId): ShuttleLine {
   return line;
 }
 
+/** Whether the new timetables apply on a Bangkok date. Without a date, the new ones do. */
+export function usesNewTimetable(date?: string): boolean {
+  return date === undefined || date >= newTimetableFrom;
+}
+
+/** The timetable a line runs on a Bangkok date, ISO `YYYY-MM-DD`. Without a date, the new one. */
+export function getTimetable(lineId: LineId, date?: string): Timetable {
+  const line = getLine(lineId);
+  return !usesNewTimetable(date) && line.previous ? line.previous : line;
+}
+
 function pad2(n: number): string {
   return String(n).padStart(2, "0");
 }
@@ -182,8 +254,8 @@ function formatTime(minutes: number): string {
 }
 
 /** Sorted list of every departure for a line, expressed as minutes since midnight. */
-export function getDepartureMinutes(lineId: LineId): number[] {
-  const { schedule } = getLine(lineId);
+export function getDepartureMinutes(lineId: LineId, date?: string): number[] {
+  const { schedule } = getTimetable(lineId, date);
   const minutes: number[] = [];
   for (const hourKey of Object.keys(schedule)) {
     const hour = Number(hourKey);
@@ -196,13 +268,17 @@ export function getDepartureMinutes(lineId: LineId): number[] {
 }
 
 /** Sorted list of every departure for a line, as "HH:MM" strings. */
-export function getDepartureTimes(lineId: LineId): string[] {
-  return getDepartureMinutes(lineId).map(formatTime);
+export function getDepartureTimes(lineId: LineId, date?: string): string[] {
+  return getDepartureMinutes(lineId, date).map(formatTime);
 }
 
 /** Looks up the dormitory-service footnote for a given "HH:MM" departure, if any. */
-export function getDormitoryMarker(lineId: LineId, time: string): DormitoryMarker | undefined {
-  return getLine(lineId).dormitoryMarkers?.find((marker) => marker.time === time);
+export function getDormitoryMarker(
+  lineId: LineId,
+  time: string,
+  date?: string
+): DormitoryMarker | undefined {
+  return getTimetable(lineId, date).dormitoryMarkers?.find((marker) => marker.time === time);
 }
 
 export const lastDepartureNote: Bilingual = {
@@ -284,7 +360,7 @@ export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartur
     return { status: "no-service-weekend" };
   }
 
-  const departures = getDepartureMinutes(lineId);
+  const departures = getDepartureMinutes(lineId, parts.date);
   const first = departures[0];
   const next = departures.find((minutesOfDay) => minutesOfDay > parts.minutes);
 

@@ -10,7 +10,7 @@ import {
   type BangkokParts,
 } from "@/lib/shuttle";
 
-function parts(weekday: number, hh: number, mm: number, date = "2026-09-07"): BangkokParts {
+function parts(weekday: number, hh: number, mm: number, date = "2026-10-05"): BangkokParts {
   return { weekday, minutes: hh * 60 + mm, date };
 }
 
@@ -135,14 +135,35 @@ describe("nextDeparture", () => {
     expect(nextDeparture("pinklao", parts(3, 21, 40)).status).toBe("not-in-service");
   });
 
-  it("depends on the weekday and the clock only, not the calendar date", () => {
-    for (const date of ["2026-07-29", "2026-08-19", "2027-03-01"]) {
+  it("uses the new timetable on and after 1 October 2026", () => {
+    for (const date of ["2026-10-01", "2026-10-14", "2027-03-01"]) {
       expect(nextDeparture("sanam-chai", parts(3, 9, 10, date))).toMatchObject({
         status: "upcoming",
         hh: "09",
         mm: "30",
       });
     }
+  });
+
+  it("uses the previous timetable until 30 September 2026", () => {
+    expect(nextDeparture("sanam-chai", parts(3, 9, 10, "2026-09-30"))).toMatchObject({
+      status: "upcoming",
+      hh: "09",
+      mm: "30",
+    });
+    expect(nextDeparture("sanam-chai", parts(3, 9, 35, "2026-09-30"))).toMatchObject({
+      status: "upcoming",
+      hh: "09",
+      mm: "45",
+    });
+    expect(nextDeparture("sanam-chai", parts(3, 9, 35, "2026-10-01"))).toMatchObject({
+      status: "upcoming",
+      hh: "10",
+      mm: "00",
+    });
+    expect(getDepartureTimes("sanam-chai", "2026-09-30")[0]).toBe("07:45");
+    expect(getDepartureTimes("pinklao", "2026-09-30")).toContain("17:40");
+    expect(getDepartureTimes("pinklao", "2026-10-01")).not.toContain("17:40");
   });
 
   it("getDepartureMinutes stays consistent with getDepartureTimes", () => {

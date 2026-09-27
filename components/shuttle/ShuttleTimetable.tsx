@@ -7,7 +7,16 @@
  * departures and each line's last bus of the day.
  */
 import type { Locale } from "@/lib/i18n";
-import { shuttleLines, getDormitoryMarker, getDepartureTimes } from "@/lib/shuttle";
+import ShuttleTimetableSwitch from "@/components/shuttle/ShuttleTimetableSwitch";
+import {
+  shuttleLines,
+  getBangkokParts,
+  getDormitoryMarker,
+  getDepartureTimes,
+  getTimetable,
+  newTimetableFrom,
+  usesNewTimetable,
+} from "@/lib/shuttle";
 
 export type ShuttleTimetableProps = {
   locale: Locale;
@@ -37,15 +46,27 @@ function pad2(n: number): string {
 }
 
 export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
+  return (
+    <ShuttleTimetableSwitch
+      from={newTimetableFrom}
+      initiallyNew={usesNewTimetable(getBangkokParts().date)}
+      previous={<Tables locale={locale} date="2026-09-30" />}
+      current={<Tables locale={locale} date={newTimetableFrom} />}
+    />
+  );
+}
+
+function Tables({ locale, date }: ShuttleTimetableProps & { date: string }) {
   const t = labels[locale];
 
   return (
     <div className="flex flex-col gap-10">
       {shuttleLines.map((line) => {
-        const hours = Object.keys(line.schedule)
+        const { schedule, dormitoryMarkers } = getTimetable(line.id, date);
+        const hours = Object.keys(schedule)
           .map(Number)
           .sort((a, b) => a - b);
-        const times = getDepartureTimes(line.id);
+        const times = getDepartureTimes(line.id, date);
         const lastBusTime = times[times.length - 1];
 
         return (
@@ -65,14 +86,14 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
                 </thead>
                 <tbody>
                   {hours.map((hour) => {
-                    const minutes = line.schedule[hour] ?? [];
+                    const minutes = schedule[hour] ?? [];
                     return (
                       <tr key={hour} className="border-b border-line">
                         <td className="p-2 align-top font-mono">{pad2(hour)}:00</td>
                         <td className="p-2 align-top">
                           {minutes.map((minute, i) => {
                             const time = `${pad2(hour)}:${pad2(minute)}`;
-                            const marker = getDormitoryMarker(line.id, time);
+                            const marker = getDormitoryMarker(line.id, time, date);
                             const isLastBus = time === lastBusTime;
                             return (
                               <span key={time} className="mr-2 inline-block whitespace-nowrap">
@@ -94,9 +115,9 @@ export default function ShuttleTimetable({ locale }: ShuttleTimetableProps) {
                 </tbody>
               </table>
             </div>
-            {line.dormitoryMarkers?.length ? (
+            {dormitoryMarkers?.length ? (
               <ul className="flex flex-col gap-1 text-xs text-muted">
-                {line.dormitoryMarkers.map((marker) => (
+                {dormitoryMarkers.map((marker) => (
                   <li key={marker.time}>
                     <sup className="font-semibold text-brand-deep">*</sup> {marker.time}:{" "}
                     {marker.label[locale]}
