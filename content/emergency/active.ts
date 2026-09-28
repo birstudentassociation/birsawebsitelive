@@ -60,6 +60,13 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-28T14:45:00+07:00",
+      text: {
+        en: "BIR has emailed all BIR students a survey on whether you can study during the heavy rain. The results will help the programme decide how to arrange classes. Check your email for the link and fill in the survey.",
+        th: "BIR ส่งแบบสำรวจความพร้อมในการเรียนช่วงฝนตกหนักให้นักศึกษา BIR ทุกคนทางอีเมลแล้ว ผลสำรวจจะใช้ประกอบการตัดสินใจเรื่องการจัดการเรียนการสอน โปรดตรวจสอบอีเมลเพื่อดูลิงก์และตอบแบบสำรวจ",
+      },
+    },
+    {
       at: "2026-09-28T10:05:00+07:00",
       text: {
         en: "BMA readings at 10:00 show the rain has almost stopped and fewer canals are at critical level, but roads in the north and east are still flooded. Thammasat classes are online today and tomorrow, as announced before.",
