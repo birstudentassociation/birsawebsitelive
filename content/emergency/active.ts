@@ -48,12 +48,14 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
       "Midterms set for 26 and 27 September move to 4 and 11 October.",
       "Libraries are closed until 29 September, except the Rangsit Learning Center.",
       "Political Science offices take no in-person visits on 28 and 29 September.",
+      "Thammasat shuttle buses are running as normal on both lines.",
     ],
     th: [
       "ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
       "สอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันที่ 4 และ 11 ตุลาคม",
       "ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต",
       "คณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
+      "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง",
     ],
   },
   updates: [
