@@ -58,6 +58,29 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-28T10:05:00+07:00",
+      text: {
+        en: "The rain is easing this morning, but nine main roads in the north and east are still badly flooded. Thammasat classes are online today and tomorrow, as announced before.",
+        th: "เช้านี้ฝนเริ่มซาลง แต่ถนนสายหลัก 9 สายทางเหนือและตะวันออกของเมืองยังมีน้ำท่วมหนัก ธรรมศาสตร์เรียนออนไลน์วันนี้และพรุ่งนี้ตามที่ประกาศไว้แล้ว",
+      },
+      points: {
+        en: [
+          "By 10:00 Thammasat had announced no change for Wednesday 30 September. This page will say if that changes.",
+          "At 07:00 the BMA flood centre listed high water on Ramkhamhaeng Road from Rama 9 Road to the Lam Sali junction, Srinagarindra Road from Lam Sali to Phatthanakan, Nawamin Road, Lat Phrao Road near Bang Kapi, Ngam Wong Wan Road, Phahon Yothin Road near Kasetsart University, Seri Thai Road, Suwinthawong Road in Min Buri and Krungthep Kreetha Road. Small cars cannot pass the Bang Kapi junction. Vibhavadi Rangsit Road was passable again by 06:30.",
+          "The BMA is pumping hardest on Khlong Saen Saep, Khlong Lat Phrao, Khlong Prawet Burirom and Khlong Prem Prachakon, and the Makkasan tunnel is draining water into the Chao Phraya. Governor Chadchart Sittipunt says about 700,000 people have been affected in Bangkok.",
+          "At 10:00 BMA Flood Support listed 205 shelters with 3,919 people staying. Nine were full, four in Saphan Sung, four in Khlong Sam Wa and Sena Nikhom School in Chatuchak. KMITL has opened its Chao Phraya Surawong Waiwat Hall in Lat Krabang, with 490 people staying in space for 1,500. Four of 42 car parks were full, including Rattana Pracharak Hospital in Khlong Sam Wa. The district search on this page has the new numbers.",
+          "BMA schools are closed today. Thai Meteorological Department warning No. 16, issued at 17:00 yesterday, says rain in Bangkok is easing but still falling, with heavy rain in places. Thunderstorms are forecast over 70% of Bangkok today.",
+        ],
+        th: [
+          "จนถึงเวลา 10.00 น. ธรรมศาสตร์ยังไม่มีประกาศเปลี่ยนแปลงสำหรับวันพุธที่ 30 กันยายน หากมีการเปลี่ยนแปลงจะแจ้งในหน้านี้",
+          "เวลา 07.00 น. ศูนย์ป้องกันน้ำท่วมของ กทม. รายงานว่ายังมีน้ำสูงที่ถนนรามคำแหงช่วงถนนพระราม 9 ถึงแยกลำสาลี ถนนศรีนครินทร์ช่วงแยกลำสาลีถึงแยกพัฒนาการ ถนนนวมินทร์ ถนนลาดพร้าวบริเวณบางกะปิ ถนนงามวงศ์วาน ถนนพหลโยธินใกล้มหาวิทยาลัยเกษตรศาสตร์ ถนนเสรีไทย ถนนสุวินทวงศ์ เขตมีนบุรี และถนนกรุงเทพกรีฑา รถเล็กผ่านแยกบางกะปิไม่ได้ ส่วนถนนวิภาวดีรังสิตกลับมาสัญจรได้ตั้งแต่เวลา 06.30 น.",
+          "กทม. เร่งสูบน้ำในคลองแสนแสบ คลองลาดพร้าว คลองประเวศบุรีรมย์ และคลองเปรมประชากร และใช้อุโมงค์ระบายน้ำบึงมักกะสันระบายน้ำลงแม่น้ำเจ้าพระยา นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ระบุว่ามีผู้ได้รับผลกระทบในกรุงเทพฯ ราว 700,000 คน",
+          "เวลา 10.00 น. BMA Flood Support มีศูนย์พักพิง 205 แห่ง มีผู้เข้าพัก 3,919 คน เต็มแล้ว 9 แห่ง อยู่ในเขตสะพานสูง 4 แห่ง เขตคลองสามวา 4 แห่ง และโรงเรียนเสนานิคม เขตจตุจักร สจล. เปิดหอประชุมเจ้าพระยาสุรวงษ์ไวยวัฒน์ เขตลาดกระบัง เป็นศูนย์พักพิง มีผู้เข้าพัก 490 คน จากที่รองรับได้ 1,500 คน ส่วนจุดจอดรถ 42 แห่ง เต็มแล้ว 4 แห่ง รวมถึงโรงพยาบาลรัตนประชารักษ์ เขตคลองสามวา ดูตัวเลขล่าสุดได้ที่ช่องค้นหาตามเขตในหน้านี้",
+          "โรงเรียนสังกัด กทม. ปิดวันนี้ ประกาศกรมอุตุนิยมวิทยาฉบับที่ 16 เวลา 17.00 น. เมื่อวานนี้ ระบุว่าฝนในกรุงเทพฯ ลดลงแต่ยังตกต่อเนื่อง และอาจมีฝนตกหนักบางแห่ง วันนี้คาดว่าจะมีพายุฝนฟ้าคะนองร้อยละ 70 ของพื้นที่กรุงเทพฯ",
+        ],
+      },
+    },
+    {
       at: "2026-09-27T23:40:00+07:00",
       text: {
         en: "The Thammasat shuttle buses are running as normal on both lines, on their usual timetables, for students, staff and visitors. New timetables with one bus on each line start on Thursday 1 October.",
