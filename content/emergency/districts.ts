@@ -2349,7 +2349,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       {
         name: {
           en: "Kamphaeng Phet 6 Road, from the railway police to the tunnel entrance (ถนนกำแพงเพชร 6)",
-          th: "ถนนกำแพงเพชร 6 จากตำรวจรถไฟ - ทางลงอุโมงค์",
+          th: "ถนนกำแพงเพชร 6 จากตำรวจรถไฟถึงทางลงอุโมงค์",
         },
         detail: {
           en: "Room for 200 cars.",
