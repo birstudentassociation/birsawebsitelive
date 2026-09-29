@@ -84,6 +84,7 @@ export const th: typeof en = {
       noMatches: "ไม่พบเขตที่ตรงกัน โปรดตรวจสอบการสะกด หรือเปิดรายการเพื่อเลือก",
       results: "{n} เขต",
       office: "สำนักงานเขต",
+      ext: "ต่อ",
       source: "ที่มาของข้อมูล",
       unavailable: "ใช้ไม่ได้",
       nearlyFull: "ใกล้เต็ม",

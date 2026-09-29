@@ -36,6 +36,8 @@ export type DistrictFinderLabels = {
   /** Contains "{n}". */
   results: string;
   office: string;
+  /** Before a phone extension, e.g. "ext.". */
+  ext: string;
   source: string;
   /** Tag on a place that is listed but cannot be used. */
   unavailable: string;
@@ -367,6 +369,11 @@ function DistrictResult({
           >
             {district.officePhone}
           </a>
+          {district.officePhoneExt ? (
+            <span className="tabular-nums">
+              {labels.ext} {district.officePhoneExt}
+            </span>
+          ) : null}
         </p>
       ) : null}
       {kinds.map((kind) => (

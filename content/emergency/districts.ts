@@ -17,7 +17,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Phra Nakhon",
       th: "พระนคร",
     },
-    officePhone: "02-628-9068",
+    officePhone: "02-280-1338",
     sandbags: [
       {
         name: {
@@ -165,7 +165,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "หนองจอก",
     },
     aliases: ["Nongjok"],
-    officePhone: "02-543-1143",
+    officePhone: "02-543-1476",
     sandbags: [
       {
         name: {
@@ -501,7 +501,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Bang Rak",
       th: "บางรัก",
     },
-    officePhone: "02-236-1395",
+    officePhone: "02-236-1515",
     sandbags: [
       {
         name: {
@@ -562,7 +562,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Bang Khen",
       th: "บางเขน",
     },
-    officePhone: "02-521-0666",
+    officePhone: "02-986-0750",
     sandbags: [
       {
         name: {
@@ -617,7 +617,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Bang Kapi",
       th: "บางกะปิ",
     },
-    officePhone: "02-377-5494",
+    officePhone: "02-375-5323",
     sandbags: [
       {
         name: {
@@ -713,7 +713,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ป้อมปราบศัตรูพ่าย",
     },
     aliases: ["Pom Prap", "ป้อมปราบฯ"],
-    officePhone: "02-281-0281",
+    officePhone: "02-281-0202",
     sandbags: [
       {
         name: {
@@ -737,7 +737,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "พระโขนง",
     },
     aliases: ["Prakanong"],
-    officePhone: "02-333-0964",
+    officePhone: "02-311-5439",
     sandbags: [
       {
         name: {
@@ -806,7 +806,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Min Buri",
       th: "มีนบุรี",
     },
-    officePhone: "02-540-7160",
+    officePhone: "02-914-6314",
     sandbags: [
       {
         name: {
@@ -902,7 +902,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Lat Krabang",
       th: "ลาดกระบัง",
     },
-    officePhone: "02-326-9149",
+    officePhone: "02-327-4871",
     sandbags: [
       {
         name: {
@@ -1157,7 +1157,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ยานนาวา",
     },
     aliases: ["Yannawa"],
-    officePhone: "02-294-2393",
+    officePhone: "02-294-2398",
     sandbags: [
       {
         name: {
@@ -1257,6 +1257,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
     },
     aliases: ["Phayathai"],
     officePhone: "02-279-4140",
+    officePhoneExt: "6472",
     sandbags: [
       {
         name: {
@@ -1405,7 +1406,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Bangkok Yai",
       th: "บางกอกใหญ่",
     },
-    officePhone: "02-457-0069",
+    officePhone: "02-868-1252",
     sandbags: [
       {
         name: {
@@ -1489,7 +1490,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Huai Khwang",
       th: "ห้วยขวาง",
     },
-    officePhone: "02-277-9100",
+    officePhone: "02-276-2755",
     sandbags: [
       {
         name: {
@@ -1534,7 +1535,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "คลองสาน",
     },
     aliases: ["Klongsan"],
-    officePhone: "02-437-2342",
+    officePhone: "02-437-5279",
     sandbags: [
       {
         name: {
@@ -1654,7 +1655,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Taling Chan",
       th: "ตลิ่งชัน",
     },
-    officePhone: "02-424-1742",
+    officePhone: "02-424-1415",
     sandbags: [
       {
         name: {
@@ -1894,7 +1895,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางขุนเทียน",
     },
     aliases: ["Bang Khun Tien"],
-    officePhone: "02-415-1522",
+    officePhone: "02-416-0034",
     sandbags: [
       {
         name: {
@@ -1968,7 +1969,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ภาษีเจริญ",
     },
     aliases: ["Pasicharoen"],
-    officePhone: "02-413-0565",
+    officePhone: "02-413-0564",
     sandbags: [
       {
         name: {
@@ -1992,7 +1993,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "หนองแขม",
     },
     aliases: ["Nong Kham"],
-    officePhone: "02-421-0393",
+    officePhone: "02-444-0505",
     sandbags: [
       {
         name: {
@@ -2016,7 +2017,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ราษฎร์บูรณะ",
     },
     aliases: ["Rasburana", "Ratburana"],
-    officePhone: "02-427-4727",
+    officePhone: "02-428-4884",
+    officePhoneExt: "6822",
     sandbags: [
       {
         name: {
@@ -2113,7 +2115,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางพลัด",
     },
     aliases: ["Bang Plad"],
-    officePhone: "02-424-3777",
+    officePhone: "02-424-0971",
     sandbags: [
       {
         name: {
@@ -2136,7 +2138,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Din Daeng",
       th: "ดินแดง",
     },
-    officePhone: "02-245-2658",
+    officePhone: "02-245-4608",
     sandbags: [
       {
         name: {
@@ -2186,7 +2188,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บึงกุ่ม",
     },
     aliases: ["Bung Kum", "Buengkum"],
-    officePhone: "02-364-7349",
+    officePhone: "02-364-7345",
     sandbags: [
       {
         name: {
@@ -2259,7 +2261,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "สาทร",
     },
     aliases: ["Sathorn"],
-    officePhone: "02-212-8112",
+    officePhone: "02-212-8115",
+    officePhoneExt: "7222",
     sandbags: [
       {
         name: {
@@ -2283,7 +2286,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางซื่อ",
     },
     aliases: ["Bangsue"],
-    officePhone: "02-586-9977",
+    officePhone: "02-910-5048",
     sandbags: [
       {
         name: {
@@ -2531,7 +2534,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางคอแหลม",
     },
     aliases: ["Bang Kolaem"],
-    officePhone: "02-291-3800",
+    officePhone: "02-292-1336",
     sandbags: [
       {
         name: {
@@ -2799,7 +2802,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       en: "Suan Luang",
       th: "สวนหลวง",
     },
-    officePhone: "02-322-6688",
+    officePhone: "02-321-8551",
     sandbags: [
       {
         name: {
@@ -2846,7 +2849,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "จอมทอง",
     },
     aliases: ["Jomtong"],
-    officePhone: "02-427-1240",
+    officePhone: "02-427-1171",
     sandbags: [
       {
         name: {
@@ -2942,7 +2945,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ราชเทวี",
     },
     aliases: ["Rajathevi", "Ratchatewi"],
-    officePhone: "02-354-4201",
+    officePhone: "02-354-4215",
     sandbags: [
       {
         name: {
@@ -3022,7 +3025,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ลาดพร้าว",
     },
     aliases: ["Ladprao", "Lad Prao"],
-    officePhone: "02-530-6641",
+    officePhone: "02-539-7772",
     sandbags: [
       {
         name: {
@@ -3143,7 +3146,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "วัฒนา",
     },
     aliases: ["Wattana", "Vadhana"],
-    officePhone: "02-391-4696",
+    officePhone: "02-381-5971",
     sandbags: [
       {
         name: {
@@ -3277,7 +3280,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางแค",
     },
     aliases: ["Bangkae", "Bang Kae"],
-    officePhone: "02-867-1631",
+    officePhone: "02-454-5715",
     sandbags: [
       {
         name: {
@@ -3375,7 +3378,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "หลักสี่",
     },
     aliases: ["Laksi"],
-    officePhone: "02-982-2081",
+    officePhone: "02-576-1363",
     sandbags: [
       {
         name: {
@@ -3466,7 +3469,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "สายไหม",
     },
     aliases: ["Saimai"],
-    officePhone: "02-158-7349",
+    officePhone: "02-158-7363",
     sandbags: [
       {
         name: {
@@ -3552,6 +3555,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
     },
     aliases: ["Saphansung", "Sapan Sung"],
     officePhone: "02-372-2918",
+    officePhoneExt: "7121",
     sandbags: [
       {
         name: {
@@ -3689,7 +3693,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "วังทองหลาง",
     },
     aliases: ["Wang Thong Lang"],
-    officePhone: "02-530-1740",
+    officePhone: "02-514-0513",
     sandbags: [
       {
         name: {
@@ -4007,7 +4011,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางนา",
     },
     aliases: ["Bangna"],
-    officePhone: "02-397-3705",
+    officePhone: "02-173-5267",
     sandbags: [
       {
         name: {
@@ -4262,7 +4266,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "ทุ่งครุ",
     },
     aliases: ["Tung Kru"],
-    officePhone: "02-464-4385",
+    officePhone: "02-464-4380",
     sandbags: [
       {
         name: {
@@ -4375,7 +4379,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
       th: "บางบอน",
     },
     aliases: ["Bangbon"],
-    officePhone: "02-450-3201",
+    officePhone: "02-450-3290",
     sandbags: [
       {
         name: {

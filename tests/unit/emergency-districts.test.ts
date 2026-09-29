@@ -18,6 +18,7 @@ describe("Bangkok district data", () => {
   it("gives every place both languages, https sources and dialable phones", () => {
     for (const district of bangkokDistricts) {
       if (district.officePhone) expect(district.officePhone).toMatch(/^\d+(-\d+)*$/);
+      if (district.officePhoneExt) expect(district.officePhoneExt).toMatch(/^\d+$/);
       for (const kind of kinds) {
         const names = district[kind].map((place) => place.name.en);
         expect(new Set(names).size, `${district.id} ${kind}`).toBe(names.length);

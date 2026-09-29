@@ -85,6 +85,7 @@ export const en = {
       noMatches: "No district matches that. Check the spelling or open the list.",
       results: "{n} districts",
       office: "District office",
+      ext: "ext.",
       source: "Where we read this",
       unavailable: "Cannot be used",
       nearlyFull: "Nearly full",

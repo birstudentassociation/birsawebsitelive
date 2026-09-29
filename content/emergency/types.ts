@@ -70,6 +70,8 @@ export type BangkokDistrict = {
   aliases?: string[];
   /** The district office's main number, digits with dashes. */
   officePhone?: string;
+  /** Extension to ask for on the office number. */
+  officePhoneExt?: string;
 } & Record<DistrictHelpKind, DistrictPlace[]>;
 
 /** A search box that shows one district's places, placed inside a section. */
