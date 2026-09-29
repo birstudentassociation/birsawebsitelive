@@ -3150,7 +3150,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
         },
         detail: {
           en: "Up to 20 bags per household. Call to ask, or request them through Traffy Fondue on LINE.",
-          th: "ครัวเรือนละไม่เกิน 20 กระสอบ โทรติดต่อขอรับ หรือแจ้งผ่าน Traffy Fondue ใน LINE",
+          th: "ครัวเรือนละไม่เกิน 20 กระสอบ โทรติดต่อขอรับ หรือแจ้งผ่าน Traffy Fondue ทาง LINE",
         },
         phone: "02-381-3107",
       },
