@@ -347,7 +347,7 @@ const flooding: EmergencyScenario = {
         items: [
           "Watch the Tha Prachan gate area and the area around the Faculty of Liberal Arts. Water overflowing from the drains collects there first.",
           "Drains overflow when heavy rain falls at high tide, because the canals cannot empty into the river.",
-          "The riskiest days are 29 September to 3 October, when high tides, water from the north and rain all arrive together.",
+          "The riskiest days are 29 September to 4 October, when high tides, water from the north and rain all arrive together. The BMA and the National Water Resources Office expect rivers to rise a further 0.70 to 1.70 m, mostly affecting communities outside the flood walls.",
           "High tide is every evening from about 19:00 to 22:00. From 29 September there is a second high tide in the morning or around midday.",
           "Keep away from Tha Prachan, Tha Chang and other piers at high tide, because they are outside the wall. Check boat services before you travel.",
           "Coming from the north or east, expect flooded roads around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan.",
@@ -379,7 +379,7 @@ const flooding: EmergencyScenario = {
           "Temporary shelters, safe places to park and shuttle buses are listed on BMA Flood Support, the BMA's help and information page. It shows which places are open, nearly full or full, by district. Check it before you go, or call 1555 or your district office.",
         ],
         items: [
-          "The BMA has opened 233 shelters across the city, many of them in schools, with room for about 15,000 people.",
+          "At 23:19 on 29 September BMA Flood Support listed 207 shelters in 35 districts, many of them in schools, with 4,461 people staying in room for 15,857.",
           "Thammasat students at Tha Prachan can stay at the Thammasat University Student Union's temporary shelter in the Student Activities Building. Register first, and see the Thammasat section for contacts.",
         ],
         districtFinder: {
@@ -394,7 +394,7 @@ const flooding: EmergencyScenario = {
           },
           {
             label: "Open BMA Flood Support",
-            href: "https://floodsupport.awarehouse.tech/",
+            href: "https://floodsupport.bangkok.go.th/",
           },
         ],
       },
@@ -654,7 +654,7 @@ const flooding: EmergencyScenario = {
         items: [
           "เฝ้าระวังบริเวณประตูท่าพระจันทร์และรอบคณะศิลปศาสตร์ เพราะเป็นจุดแรกที่น้ำจากท่อระบายน้ำจะเอ่อขึ้นมาท่วมขัง",
           "ท่อระบายน้ำจะเอ่อล้นเมื่อฝนตกหนักในช่วงน้ำขึ้น เพราะน้ำในคลองระบายลงแม่น้ำไม่ได้",
-          "ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 3 ตุลาคม เพราะน้ำทะเลหนุน น้ำเหนือ และฝน จะมาพร้อมกัน",
+          "ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 4 ตุลาคม เพราะน้ำทะเลหนุน น้ำเหนือ และฝน จะมาพร้อมกัน กทม. และ สทนช. คาดว่าระดับน้ำในแม่น้ำจะสูงขึ้นอีก 0.70 ถึง 1.70 ม. กระทบชุมชนนอกแนวคันกั้นน้ำเป็นหลัก",
           "น้ำขึ้นสูงทุกค่ำช่วงราว 19.00 ถึง 22.00 น. และตั้งแต่วันที่ 29 กันยายน น้ำจะขึ้นสูงอีกรอบในช่วงเช้าหรือราวเที่ยง",
           "หลีกเลี่ยงท่าเรือท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ๆ ในช่วงน้ำขึ้น เพราะอยู่นอกแนวกำแพงกั้นน้ำ และตรวจสอบว่าเรือยังให้บริการตามปกติหรือไม่ก่อนออกเดินทาง",
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเดินทาง เพราะถนนแถวดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วานมีน้ำท่วม",
@@ -686,7 +686,7 @@ const flooding: EmergencyScenario = {
           "BMA Flood Support ศูนย์ช่วยเหลือและอำนวยความสะดวกประชาชนของ กทม. รวบรวมข้อมูลศูนย์พักพิงชั่วคราว จุดจอดรถที่ปลอดภัย และรถรับส่งประชาชนไว้แยกตามเขต พร้อมสถานะว่าเปิด ใกล้เต็ม หรือเต็ม โปรดตรวจสอบก่อนเดินทาง หรือโทร 1555 หรือติดต่อสำนักงานเขต",
         ],
         items: [
-          "กทม. เปิดศูนย์พักพิง 233 แห่งทั่วกรุงเทพฯ หลายแห่งอยู่ในโรงเรียน รองรับได้ราว 15,000 คน",
+          "เวลา 23.19 น. วันที่ 29 กันยายน BMA Flood Support มีศูนย์พักพิง 207 แห่งใน 35 เขต หลายแห่งอยู่ในโรงเรียน มีผู้เข้าพัก 4,461 คน จากที่รองรับได้ 15,857 คน",
           "นักศึกษาธรรมศาสตร์ท่าพระจันทร์เข้าพักได้ที่ศูนย์พักพิงชั่วคราวของ อมธ. ท่าพระจันทร์ ณ ตึกกิจกรรมนักศึกษา โปรดลงทะเบียนก่อน และดูช่องทางติดต่อในหัวข้อธรรมศาสตร์",
         ],
         districtFinder: {
@@ -701,7 +701,7 @@ const flooding: EmergencyScenario = {
           },
           {
             label: "เปิด BMA Flood Support",
-            href: "https://floodsupport.awarehouse.tech/",
+            href: "https://floodsupport.bangkok.go.th/",
           },
         ],
       },

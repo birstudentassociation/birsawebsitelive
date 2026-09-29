@@ -60,6 +60,37 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-29T23:30:00+07:00",
+      text: {
+        en: "Tides are high until 4 October, and water from the north peaks around 2 October. Take care near the river and the piers at Tha Prachan.",
+        th: "น้ำทะเลหนุนสูงถึงวันที่ 4 ตุลาคม และน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม โปรดระวังเมื่ออยู่ริมแม่น้ำและท่าเรือบริเวณท่าพระจันทร์",
+      },
+      points: {
+        en: [
+          "The BMA and the National Water Resources Office expect rivers to rise a further 0.70 to 1.70 m. Communities outside the flood walls are most at risk.",
+          "The Chao Phraya Dam is releasing 2,000 cubic metres a second, its limit.",
+          "The BMA is watching Sukhumvit, Suksawat and Rama 2 roads.",
+          "The cabinet has set aside 4 billion baht for flood relief. Reports say Bangkok households will get the same 9,000 baht as other provinces, but the Prime Minister has not confirmed it.",
+          "The governor expects about 90% of main roads to be dry within two days. More than 40 points are still being watched, mostly in Lat Krabang and Sai Mai.",
+          "Ramkhamhaeng, Seri Thai, Nawamin and Luang Phaeng roads are still being watched. Khlong Saen Saep has fallen clearly.",
+          "Free travel on expressways and motorways ends at midnight tonight.",
+          "Thunderstorms are forecast over 40 to 60% of Bangkok until 4 October. The Thai Meteorological Department expects more rain from 5 to 10 October.",
+          "At 23:19 BMA Flood Support listed 207 shelters with 4,461 people staying. The district search on this page has the new numbers.",
+        ],
+        th: [
+          "กทม. และ สทนช. คาดว่าระดับน้ำในแม่น้ำจะสูงขึ้นอีก 0.70 ถึง 1.70 ม. ชุมชนนอกแนวคันกั้นน้ำเสี่ยงที่สุด",
+          "เขื่อนเจ้าพระยาระบายน้ำ 2,000 ลูกบาศก์เมตรต่อวินาที ซึ่งเป็นระดับสูงสุดที่กำหนดไว้",
+          "กทม. เฝ้าระวังถนนสุขุมวิท ถนนสุขสวัสดิ์ และถนนพระราม 2",
+          "ครม. อนุมัติงบกลาง 4,000 ล้านบาทเพื่อเยียวยาผู้ประสบอุทกภัย มีรายงานว่ากรุงเทพฯ จะใช้เกณฑ์เดียวกับต่างจังหวัด ครัวเรือนละ 9,000 บาท แต่นายกรัฐมนตรียังไม่ยืนยัน",
+          "ผู้ว่าฯ กทม. คาดว่าถนนสายหลักราวร้อยละ 90 จะแห้งภายใน 2 วัน ยังมีจุดที่ต้องติดตามกว่า 40 จุด ส่วนใหญ่อยู่ในเขตลาดกระบังและสายไหม",
+          "ยังเฝ้าระวังถนนรามคำแหง ถนนเสรีไทย ถนนนวมินทร์ และถนนหลวงแพ่ง ส่วนระดับน้ำในคลองแสนแสบลดลงชัดเจน",
+          "ขึ้นทางพิเศษและมอเตอร์เวย์ฟรีถึงเวลา 24.00 น. คืนนี้เป็นวันสุดท้าย",
+          "พยากรณ์อากาศกรุงเทพฯ มีพายุฝนฟ้าคะนองร้อยละ 40 ถึง 60 ของพื้นที่ถึงวันที่ 4 ตุลาคม กรมอุตุนิยมวิทยาคาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 10 ตุลาคม",
+          "เวลา 23.19 น. BMA Flood Support มีศูนย์พักพิง 207 แห่ง มีผู้เข้าพัก 4,461 คน ดูตัวเลขล่าสุดได้ที่ช่องค้นหาตามเขตในหน้านี้",
+        ],
+      },
+    },
+    {
       at: "2026-09-29T18:15:00+07:00",
       emblem: "thammasat",
       text: {
