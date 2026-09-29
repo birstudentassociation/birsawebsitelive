@@ -48,8 +48,6 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
       "Faculties decide which courses must be taught in person. Your lecturer will tell you in advance.",
       "After 3 October lecturers may keep classes online or hybrid if students are still affected.",
       "Midterms set for 26 and 27 September are still on 4 and 11 October.",
-      "Libraries are closed until 29 September, except the Rangsit Learning Center.",
-      "Political Science offices take no in-person visits on 28 and 29 September.",
       "Thammasat shuttle buses are running as normal on both lines.",
     ],
     th: [
@@ -57,8 +55,6 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
       "รายวิชาที่จำเป็นต้องเรียนในชั้นเรียน อยู่ในดุลยพินิจของคณะ อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
       "หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป",
       "สอบกลางภาควันที่ 26 และ 27 กันยายน ยังคงเลื่อนไปวันที่ 4 และ 11 ตุลาคม",
-      "ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต",
-      "คณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
       "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง",
     ],
   },
@@ -86,6 +82,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     },
     {
       at: "2026-09-29T17:25:00+07:00",
+      garuda: true,
       text: {
         en: "The BMA has ended the disaster declaration in 21 of Bangkok's 50 districts, including Phra Nakhon, where Tha Prachan is. The other 29 districts are still a disaster area.",
         th: "กทม. ประกาศสิ้นสุดสาธารณภัยในพื้นที่ 21 เขต จากทั้งหมด 50 เขต รวมถึงเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์ ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
@@ -438,6 +435,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     },
     {
       at: "2026-09-26T10:45:00+07:00",
+      garuda: true,
       text: {
         en: "All 50 districts of Bangkok are now a declared disaster area.",
         th: "กทม. ประกาศให้พื้นที่กรุงเทพฯ ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว",

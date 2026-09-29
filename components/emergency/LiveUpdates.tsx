@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ActiveEmergency } from "@/content/emergency/types";
 import { alertUpdatedAt, formatAlertTime } from "@/lib/emergency";
 import type { Locale } from "@/lib/i18n";
@@ -8,6 +9,7 @@ type Labels = {
   liveUpdates: string;
   updated: string;
   latest: string;
+  officialNotice: string;
   /** Contains `{n}`. */
   earlierUpdates: string;
 };
@@ -47,7 +49,13 @@ export default function LiveUpdates({ locale, alert, t }: Props) {
         </p>
       </div>
 
-      <Timeline locale={locale} updates={shown} latestLabel={t.latest} markLatest />
+      <Timeline
+        locale={locale}
+        updates={shown}
+        latestLabel={t.latest}
+        officialLabel={t.officialNotice}
+        markLatest
+      />
 
       {earlier.length > 0 ? (
         <details className="group">
@@ -58,7 +66,12 @@ export default function LiveUpdates({ locale, alert, t }: Props) {
             </span>
           </summary>
           <div className="mt-5">
-            <Timeline locale={locale} updates={earlier} latestLabel={t.latest} />
+            <Timeline
+              locale={locale}
+              updates={earlier}
+              latestLabel={t.latest}
+              officialLabel={t.officialNotice}
+            />
           </div>
         </details>
       ) : null}
@@ -70,11 +83,13 @@ function Timeline({
   locale,
   updates,
   latestLabel,
+  officialLabel,
   markLatest = false,
 }: {
   locale: Locale;
   updates: Update[];
   latestLabel: string;
+  officialLabel: string;
   markLatest?: boolean;
 }) {
   return (
@@ -97,7 +112,18 @@ function Timeline({
                 </span>
               ) : null}
             </p>
-            <p className="leading-relaxed font-semibold text-ink">{update.text[locale]}</p>
+            <div className="flex items-start gap-3">
+              {update.garuda ? (
+                <Image
+                  src="/emergency/garuda.png"
+                  alt={officialLabel}
+                  width={40}
+                  height={43}
+                  className="garuda-emblem mt-0.5 h-auto w-10 shrink-0"
+                />
+              ) : null}
+              <p className="leading-relaxed font-semibold text-ink">{update.text[locale]}</p>
+            </div>
             {update.points?.[locale]?.length ? (
               <ul className="flex list-disc flex-col gap-2 pl-5 leading-relaxed text-ink">
                 {update.points[locale].map((point) => (

@@ -48,6 +48,7 @@ export const en = {
     updates: "Updates",
     liveUpdates: "Live updates",
     latest: "Latest",
+    officialNotice: "Official announcement",
     allUpdates: "See all updates",
     earlierUpdates: "Show {n} earlier updates",
     readGuide: "Read what to do",

@@ -162,5 +162,7 @@ export type ActiveEmergency<Id extends string = string> = {
     text: LocalizedText;
     /** Optional detail, shown as bullets under the text. Same count in both languages. */
     points?: Record<Locale, string[]>;
+    /** The update reports an official announcement headed with the Garuda. Shows the emblem beside it. */
+    garuda?: boolean;
   }[];
 };

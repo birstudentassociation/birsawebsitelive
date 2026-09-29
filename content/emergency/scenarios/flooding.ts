@@ -248,7 +248,7 @@ const flooding: EmergencyScenario = {
     banner:
       "Because of flooding across Bangkok, all Thammasat classes are online until Saturday 3 October.",
     now: [
-      "Study online until Saturday 3 October. Midterms set for 26 and 27 September are on 4 and 11 October. Libraries are closed until 29 September except the Rangsit Learning Center, and Political Science offices take no in-person visits on 28 and 29 September. See the Thammasat section below.",
+      "Study online until Saturday 3 October. Midterms set for 26 and 27 September are on 4 and 11 October. See the Thammasat section below.",
       "Stay at home if you can and keep out of floodwater. The governor expects the water to take two to three days to drain if no more rain falls.",
       "If water comes in, move valuables and your car higher. Turn off the main switch if you can reach it from somewhere dry.",
       "Register for the student union shelter at Tha Prachan if you need to leave home. Others can find a shelter on BMA Flood Support or call 1555.",
@@ -258,9 +258,9 @@ const flooding: EmergencyScenario = {
     sections: [
       {
         id: "thammasat",
-        heading: "Thammasat shelter, exams, classes and libraries",
+        heading: "Thammasat shelter, exams and classes",
         body: [
-          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. On 29 September it extended online teaching until Saturday 3 October. The student union is running a shelter for Tha Prachan students. Thammasat University Library has closed every branch at Tha Prachan, Rangsit and Lampang from 27 to 29 September, except the Learning Center at Rangsit. It will announce any change on LINE @LifeONLine and its Facebook page.",
+          "On 26 September the university postponed this weekend's undergraduate midterm exams and moved classes online on 28 and 29 September. On 29 September it extended online teaching until Saturday 3 October. The student union is running a shelter for Tha Prachan students.",
           "BIRSA is monitoring the situation and updating this page.",
         ],
         directoryOpen: true,
@@ -326,22 +326,6 @@ const flooding: EmergencyScenario = {
             ],
             note: "All programmes.",
           },
-          {
-            heading: "Libraries, 27 to 29 September",
-            places: [
-              { name: "Every branch at Tha Prachan, Rangsit and Lampang", detail: "Closed" },
-              { name: "Rangsit, Learning Center", detail: "Open as usual" },
-            ],
-            note: "The library may change this. Check before you go.",
-          },
-          {
-            heading: "Faculty of Political Science offices, 28 and 29 September",
-            places: [
-              { name: "Tha Prachan and Rangsit", detail: "No in-person services" },
-              { name: "Faculty staff", detail: "Working remotely" },
-            ],
-            note: "Contact the faculty online instead of going in.",
-          },
         ],
         links: [
           {
@@ -352,12 +336,6 @@ const flooding: EmergencyScenario = {
             label: "Read the university announcement of 26 September (scanned, in Thai)",
             href: "/emergency/tu-announcement-2026-09-26.jpg",
           },
-          {
-            label: "Read the faculty notice (in Thai)",
-            href: "/emergency/polsci-work-from-anywhere-2026-09-28.jpg",
-          },
-          { label: "Thammasat University Library", href: "https://www.library.tu.ac.th" },
-          { label: "Contact the library on LINE", href: "https://lin.ee/thu5aIv" },
         ],
       },
       {
@@ -571,7 +549,7 @@ const flooding: EmergencyScenario = {
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง วันที่ 29 กันยายน กทม. ประกาศสิ้นสุดสาธารณภัยใน 21 เขต รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์เรียนออนไลน์ทุกรายวิชาถึงวันเสาร์ที่ 3 ตุลาคม",
     now: [
-      "เรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม ส่วนสอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันที่ 4 และ 11 ตุลาคม ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต และคณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน ดูหัวข้อธรรมศาสตร์ด้านล่าง",
+      "เรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม ส่วนสอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันที่ 4 และ 11 ตุลาคม ดูหัวข้อธรรมศาสตร์ด้านล่าง",
       "อยู่บ้านหากทำได้และอย่าลุยน้ำ ผู้ว่าฯ กทม. คาดว่าหากฝนไม่ตกเพิ่ม จะใช้เวลาราว 2 ถึง 3 วันในการระบายน้ำ",
       "หากน้ำเข้าบ้าน ให้ยกของมีค่าและย้ายรถขึ้นที่สูง ตัดไฟที่เบรกเกอร์หลักหากเอื้อมถึงได้จากจุดที่แห้ง",
       "นักศึกษาท่าพระจันทร์ที่ต้องออกจากบ้าน ลงทะเบียนเข้าพักศูนย์พักพิงของ อมธ. ได้ ผู้อื่นค้นหาศูนย์พักพิงใน BMA Flood Support หรือโทร 1555",
@@ -581,9 +559,9 @@ const flooding: EmergencyScenario = {
     sections: [
       {
         id: "thammasat",
-        heading: "ธรรมศาสตร์ ศูนย์พักพิง การสอบ การเรียน และห้องสมุด",
+        heading: "ธรรมศาสตร์ ศูนย์พักพิง การสอบ และการเรียน",
         body: [
-          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ต่อมาวันที่ 29 กันยายน ประกาศขยายการเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงสำหรับนักศึกษาท่าพระจันทร์ ส่วนหอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์ปิดห้องสมุดสาขาทุกแห่งที่ท่าพระจันทร์ ศูนย์รังสิต และศูนย์ลำปาง ในวันที่ 27 ถึง 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต หากมีการเปลี่ยนแปลงจะแจ้งทาง LINE @LifeONLine และเพจ Facebook ของหอสมุดฯ",
+          "เมื่อวันที่ 26 กันยายน มหาวิทยาลัยธรรมศาสตร์ประกาศเลื่อนการสอบกลางภาคของหลักสูตรระดับปริญญาตรีในสุดสัปดาห์นี้ และให้เรียนออนไลน์ในวันที่ 28 และ 29 กันยายน ต่อมาวันที่ 29 กันยายน ประกาศขยายการเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม อมธ. ท่าพระจันทร์เปิดศูนย์พักพิงสำหรับนักศึกษาท่าพระจันทร์",
           "BIRSA กำลังติดตามสถานการณ์และปรับปรุงข้อมูลในหน้านี้",
         ],
         directoryOpen: true,
@@ -655,25 +633,6 @@ const flooding: EmergencyScenario = {
             ],
             note: "ทุกระดับหลักสูตร",
           },
-          {
-            heading: "ห้องสมุด วันที่ 27 ถึง 29 กันยายน",
-            places: [
-              {
-                name: "ห้องสมุดสาขาทุกแห่งที่ท่าพระจันทร์ ศูนย์รังสิต และศูนย์ลำปาง",
-                detail: "ปิดให้บริการ",
-              },
-              { name: "ศูนย์รังสิต ศูนย์การเรียนรู้ฯ", detail: "เปิดให้บริการตามปกติ" },
-            ],
-            note: "หอสมุดฯ อาจเปลี่ยนแปลงกำหนดการ โปรดตรวจสอบก่อนเดินทาง",
-          },
-          {
-            heading: "สำนักงานคณะรัฐศาสตร์ วันที่ 28 และ 29 กันยายน",
-            places: [
-              { name: "ท่าพระจันทร์และศูนย์รังสิต", detail: "งดติดต่อ Onsite" },
-              { name: "บุคลากรคณะ", detail: "Work from Anywhere" },
-            ],
-            note: "โปรดติดต่อคณะทางออนไลน์แทนการเดินทางไปติดต่อด้วยตนเอง",
-          },
         ],
         links: [
           {
@@ -684,12 +643,6 @@ const flooding: EmergencyScenario = {
             label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ วันที่ 26 กันยายน (ฉบับสแกน)",
             href: "/emergency/tu-announcement-2026-09-26.jpg",
           },
-          {
-            label: "อ่านประกาศคณะรัฐศาสตร์",
-            href: "/emergency/polsci-work-from-anywhere-2026-09-28.jpg",
-          },
-          { label: "หอสมุดแห่งมหาวิทยาลัยธรรมศาสตร์", href: "https://www.library.tu.ac.th" },
-          { label: "ติดต่อหอสมุดทาง LINE", href: "https://lin.ee/thu5aIv" },
         ],
       },
       {

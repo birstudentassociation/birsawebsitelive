@@ -46,6 +46,7 @@ export const th: typeof en = {
     updated: "อัปเดตล่าสุด",
     updates: "ความคืบหน้า",
     liveUpdates: "อัปเดตสถานการณ์",
+    officialNotice: "ประกาศทางราชการ",
     latest: "ล่าสุด",
     allUpdates: "ดูอัปเดตทั้งหมด",
     earlierUpdates: "ดูอัปเดตก่อนหน้าอีก {n} รายการ",
