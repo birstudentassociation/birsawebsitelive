@@ -244,7 +244,7 @@ const flooding: EmergencyScenario = {
   en: {
     title: "Bangkok floods, September 2026",
     summary:
-      "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. All 50 districts are a declared disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
+      "Heavy rain since 24 September has pushed canals across Bangkok to critical levels and flooded roads in the north, east and west of the city. On 29 September the BMA ended the disaster declaration in 21 districts, including Phra Nakhon. The other 29 are still a disaster area. This page covers Thammasat exam and class changes first, then shelters, sandbags, roads to avoid and who to call.",
     banner:
       "Because of flooding across Bangkok, Thammasat classes are online, faculty offices take no in-person visits and libraries are closed on 28 and 29 September.",
     now: [
@@ -459,6 +459,7 @@ const flooding: EmergencyScenario = {
         heading: "The disaster declaration and claiming compensation",
         body: [
           "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and means people whose homes were damaged by the floods can claim compensation from the BMA.",
+          "On 29 September the BMA ended the declaration in the 21 districts it found unaffected, including Phra Nakhon. The other 29 districts are still a disaster area.",
         ],
         steps: [
           "Photograph or film the damage to your home and belongings before you clean up.",
@@ -534,6 +535,11 @@ const flooding: EmergencyScenario = {
             label: "Read the BMA announcement (scanned, in Thai)",
             href: "/emergency/bma-disaster-area-2026-09-26.png",
           },
+          {
+            label:
+              "Read the BMA announcement ending the declaration in 21 districts (scanned, in Thai)",
+            href: "/emergency/bma-disaster-end-21-districts-2026-09-29.jpg",
+          },
         ],
       },
       {
@@ -553,7 +559,7 @@ const flooding: EmergencyScenario = {
   th: {
     title: "น้ำท่วมกรุงเทพฯ กันยายน 2569",
     summary:
-      "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง กทม. ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
+      "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนทางเหนือ ตะวันออก และตะวันตกของเมืองมีน้ำท่วมขัง วันที่ 29 กันยายน กทม. ประกาศสิ้นสุดสาธารณภัยใน 21 เขต รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย หน้านี้แจ้งการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ก่อน ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner:
       "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ วันที่ 28 และ 29 กันยายน ธรรมศาสตร์เรียนออนไลน์ คณะงดติดต่อ Onsite และห้องสมุดปิดให้บริการ",
     now: [
@@ -776,6 +782,7 @@ const flooding: EmergencyScenario = {
         heading: "ประกาศเขตพื้นที่ประสบสาธารณภัยและการขอรับเงินช่วยเหลือ",
         body: [
           "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 ขยายจากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และทำให้ผู้ที่ที่พักเสียหายจากน้ำท่วมยื่นขอรับเงินช่วยเหลือจาก กทม. ได้",
+          "วันที่ 29 กันยายน กทม. ประกาศสิ้นสุดสาธารณภัยใน 21 เขตที่ตรวจสอบแล้วไม่ได้รับผลกระทบ รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
         ],
         steps: [
           "ถ่ายภาพหรือวิดีโอความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
@@ -850,6 +857,10 @@ const flooding: EmergencyScenario = {
           {
             label: "อ่านประกาศของ กทม. (ฉบับสแกน)",
             href: "/emergency/bma-disaster-area-2026-09-26.png",
+          },
+          {
+            label: "อ่านประกาศสิ้นสุดสาธารณภัย 21 เขตของ กทม. (ฉบับสแกน)",
+            href: "/emergency/bma-disaster-end-21-districts-2026-09-29.jpg",
           },
         ],
       },

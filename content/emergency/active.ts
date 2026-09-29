@@ -17,6 +17,33 @@
  *       th: "ถนนรอบท่าพระจันทร์น้ำท่วม วันนี้เรียนออนไลน์",
  *     },
  *     updates: [
+    {
+      at: "2026-09-29T17:25:00+07:00",
+      text: {
+        en: "The BMA has ended the disaster declaration in 21 of Bangkok's 50 districts, including Phra Nakhon, where Tha Prachan is. The other 29 districts are still a disaster area.",
+        th: "กทม. ประกาศสิ้นสุดสาธารณภัยในพื้นที่ 21 เขต จากทั้งหมด 50 เขต รวมถึงเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์ ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
+      },
+      points: {
+        en: [
+          "Governor Chadchart Sittipunt signed the announcement on 29 September. The BMA found 21 districts unaffected, 14 moderately affected and 15 badly affected.",
+          "The 29 districts still in the disaster area are Bang Bon, Bang Kapi, Bang Khen, Bang Na, Bang Phlat, Bang Sue, Bueng Kum, Chatuchak, Din Daeng, Don Mueang, Dusit, Huai Khwang, Khan Na Yao, Khlong Sam Wa, Lak Si, Lat Krabang, Min Buri, Nong Chok, Phaya Thai, Phra Khanong, Prawet, Ratchathewi, Sai Mai, Saphan Sung, Suan Luang, Thawi Watthana, Thung Khru, Wang Thonglang and Watthana.",
+          "Government offices and BMA schools reopen on Wednesday 30 September. The BMA is clearing flood rubbish and towing abandoned cars overnight.",
+          "The education minister says 155 flooded schools in Bangkok will stay closed this week.",
+          "At 06:00 about 20 roads were still flooded. The deepest were Phatthanakan at Srinagarindra (31 cm), Lat Phrao 122 (22 cm) and Nawamin (22 cm).",
+          "DDPM counts 329,000 families affected in Bangkok. Canal levels are steady.",
+          "Scattered thunderstorms are forecast for Bangkok.",
+        ],
+        th: [
+          "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ลงนามในประกาศเมื่อวันที่ 29 กันยายน ผลการตรวจสอบพบว่า 21 เขตไม่ได้รับผลกระทบ 14 เขตได้รับผลกระทบปานกลาง และ 15 เขตได้รับผลกระทบระดับสูง",
+          "29 เขตที่ยังเป็นเขตพื้นที่ประสบสาธารณภัย ได้แก่ คลองสามวา คันนายาว จตุจักร ดอนเมือง ดินแดง ดุสิต ทวีวัฒนา ทุ่งครุ บางเขน บางกะปิ บางซื่อ บางนา บางบอน บางพลัด บึงกุ่ม ประเวศ พญาไท พระโขนง มีนบุรี ราชเทวี ลาดกระบัง วังทองหลาง วัฒนา สวนหลวง สะพานสูง สายไหม หนองจอก หลักสี่ และห้วยขวาง",
+          "หน่วยงานราชการและโรงเรียนสังกัด กทม. กลับมาเปิดในวันพุธที่ 30 กันยายน กทม. เร่งเก็บขยะหลังน้ำลดและยกรถที่จอดกีดขวางทางในคืนนี้",
+          "รัฐมนตรีว่าการกระทรวงศึกษาธิการระบุว่า โรงเรียนในกรุงเทพฯ 155 แห่งที่น้ำยังท่วมขังจะยังเปิดเรียนไม่ได้ในสัปดาห์นี้",
+          "เวลา 06.00 น. ยังมีถนนน้ำท่วมขังราว 20 สาย จุดที่ลึกที่สุด ได้แก่ ถนนพัฒนาการแยกศรีนครินทร์ (31 ซม.) ซอยลาดพร้าว 122 (22 ซม.) และถนนนวมินทร์ (22 ซม.)",
+          "ปภ. รายงานว่ามีผู้ได้รับผลกระทบในกรุงเทพฯ 329,000 ครัวเรือน ระดับน้ำในคลองทรงตัว",
+          "พยากรณ์อากาศกรุงเทพฯ มีพายุฝนฟ้าคะนองกระจายเป็นแห่ง ๆ",
+        ],
+      },
+    },
  *       {
  *         at: "2026-10-12T07:30:00+07:00",
  *         text: {
