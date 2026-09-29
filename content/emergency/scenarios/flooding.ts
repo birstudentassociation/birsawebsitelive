@@ -248,12 +248,12 @@ const flooding: EmergencyScenario = {
     banner:
       "Because of flooding across Bangkok, all Thammasat classes are online until Saturday 3 October.",
     now: [
-      "Study online until Saturday 3 October. Midterms set for 26 and 27 September are on 4 and 11 October. See the Thammasat section below.",
-      "Stay at home if you can and keep out of floodwater. The governor expects the water to take two to three days to drain if no more rain falls.",
-      "If water comes in, move valuables and your car higher. Turn off the main switch if you can reach it from somewhere dry.",
-      "Register for the student union shelter at Tha Prachan if you need to leave home. Others can find a shelter on BMA Flood Support or call 1555.",
-      "Report flooding on 1555 or Traffy Fondue on LINE. Call 1669 for a medical emergency or to move a patient.",
+      "Keep studying online until Saturday 3 October. Midterms set for 26 and 27 September are on Sunday 4 and Sunday 11 October. After 3 October your lecturer will tell you if classes stay online or hybrid.",
+      "Keep away from the river and the piers at Tha Prachan and Tha Chang, especially at high tide. Tides stay high until 4 October and water from the north peaks around 2 October.",
+      "The heavy rain has eased and most main roads should be dry within two days, but parts of Lat Krabang, Bang Kapi, Min Buri and Sai Mai are still flooded. Check the BMA flood alert page before you travel and do not drive or walk through floodwater.",
+      "If you are cleaning up, wear boots and gloves, keep the power off until the wiring is dry and see a doctor if you get a fever after wading.",
       "Photograph damage before you clean up, then claim up to 49,500 baht for repairs through your district office, even if you rent. See claiming compensation below.",
+      "More rain is forecast from 5 to 10 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
     ],
     sections: [
       {
@@ -549,12 +549,12 @@ const flooding: EmergencyScenario = {
       "ฝนตกหนักต่อเนื่องตั้งแต่วันที่ 24 กันยายน ทำให้ระดับน้ำในคลองทั่วกรุงเทพฯ อยู่ในขั้นวิกฤต และถนนหลายสายทางตอนเหนือ ตะวันออก และตะวันตกของกรุงเทพฯ มีน้ำท่วมขัง วันที่ 29 กันยายน กทม. ประกาศให้สาธารณภัยสิ้นสุดลงใน 21 เขต รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย หน้านี้รวบรวมการเปลี่ยนแปลงเรื่องการสอบและการเรียนของธรรมศาสตร์ไว้เป็นอันดับแรก ตามด้วยศูนย์พักพิง จุดรับกระสอบทราย เส้นทางที่ควรเลี่ยง และเบอร์ติดต่อ",
     banner: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์เรียนออนไลน์ทุกรายวิชาถึงวันเสาร์ที่ 3 ตุลาคม",
     now: [
-      "เรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม ส่วนสอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันที่ 4 และ 11 ตุลาคม ดูหัวข้อธรรมศาสตร์ด้านล่าง",
-      "หากไม่จำเป็นให้อยู่บ้าน และหลีกเลี่ยงการลุยน้ำ ผู้ว่าฯ กทม. คาดว่าหากฝนไม่ตกซ้ำ จะระบายน้ำได้หมดภายในราว 2 ถึง 3 วัน",
-      "หากน้ำเข้าบ้าน ให้ยกของมีค่าขึ้นที่สูงและย้ายรถไปจอดในที่สูง ถ้ายืนอยู่ในจุดที่แห้งและเอื้อมถึงเบรกเกอร์หลัก ให้สับเบรกเกอร์ตัดไฟ",
-      "นักศึกษาท่าพระจันทร์ที่ต้องออกจากบ้าน ลงทะเบียนเข้าพักที่ศูนย์พักพิงของ อมธ. ได้ ส่วนบุคคลทั่วไปค้นหาศูนย์พักพิงได้ที่ BMA Flood Support หรือโทร 1555",
-      "แจ้งเหตุน้ำท่วมได้ที่สายด่วน 1555 หรือ Traffy Fondue ทาง LINE หากเจ็บป่วยฉุกเฉินหรือต้องการเคลื่อนย้ายผู้ป่วย โทร 1669",
+      "เรียนออนไลน์ต่อถึงวันเสาร์ที่ 3 ตุลาคม ส่วนสอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันอาทิตย์ที่ 4 และวันอาทิตย์ที่ 11 ตุลาคม หลังวันที่ 3 ตุลาคม อาจารย์ผู้สอนจะแจ้งว่าจะเรียนออนไลน์หรือแบบผสมผสานต่อหรือไม่",
+      "หลีกเลี่ยงริมแม่น้ำและท่าเรือท่าพระจันทร์และท่าช้าง โดยเฉพาะช่วงน้ำขึ้น น้ำทะเลหนุนสูงถึงวันที่ 4 ตุลาคม และน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
+      "ฝนตกหนักเบาลงแล้ว และถนนสายหลักส่วนใหญ่น่าจะแห้งภายใน 2 วัน แต่บางส่วนของเขตลาดกระบัง บางกะปิ มีนบุรี และสายไหม ยังมีน้ำท่วม ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และอย่าขับรถหรือเดินลุยน้ำ",
+      "หากกำลังทำความสะอาดบ้าน ให้สวมรองเท้าบูทและถุงมือ อย่าเปิดไฟจนกว่าสายไฟจะแห้ง และหากมีไข้หลังลุยน้ำ ให้ไปพบแพทย์",
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด แล้วยื่นขอค่าซ่อมแซมได้สูงสุด 49,500 บาทที่สำนักงานเขต ผู้เช่าก็ยื่นได้ ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
+      "คาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 10 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
     ],
     sections: [
       {
