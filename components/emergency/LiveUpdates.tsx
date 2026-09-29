@@ -4,12 +4,19 @@ import { alertUpdatedAt, formatAlertTime } from "@/lib/emergency";
 import type { Locale } from "@/lib/i18n";
 
 type Update = NonNullable<ActiveEmergency["updates"]>[number];
+type Emblem = NonNullable<Update["emblem"]>;
+
+const EMBLEMS: Record<Emblem, { src: string; width: number; height: number }> = {
+  garuda: { src: "/emergency/garuda.png", width: 40, height: 43 },
+  thammasat: { src: "/emergency/thammasat-seal.svg", width: 40, height: 40 },
+};
 
 type Labels = {
   liveUpdates: string;
   updated: string;
   latest: string;
   officialNotice: string;
+  universityNotice: string;
   /** Contains `{n}`. */
   earlierUpdates: string;
 };
@@ -53,7 +60,7 @@ export default function LiveUpdates({ locale, alert, t }: Props) {
         locale={locale}
         updates={shown}
         latestLabel={t.latest}
-        officialLabel={t.officialNotice}
+        emblemLabels={{ garuda: t.officialNotice, thammasat: t.universityNotice }}
         markLatest
       />
 
@@ -70,7 +77,7 @@ export default function LiveUpdates({ locale, alert, t }: Props) {
               locale={locale}
               updates={earlier}
               latestLabel={t.latest}
-              officialLabel={t.officialNotice}
+              emblemLabels={{ garuda: t.officialNotice, thammasat: t.universityNotice }}
             />
           </div>
         </details>
@@ -83,13 +90,13 @@ function Timeline({
   locale,
   updates,
   latestLabel,
-  officialLabel,
+  emblemLabels,
   markLatest = false,
 }: {
   locale: Locale;
   updates: Update[];
   latestLabel: string;
-  officialLabel: string;
+  emblemLabels: Record<Emblem, string>;
   markLatest?: boolean;
 }) {
   return (
@@ -113,12 +120,12 @@ function Timeline({
               ) : null}
             </p>
             <div className="flex items-start gap-3">
-              {update.garuda ? (
+              {update.emblem ? (
                 <Image
-                  src="/emergency/garuda.png"
-                  alt={officialLabel}
-                  width={40}
-                  height={43}
+                  src={EMBLEMS[update.emblem].src}
+                  alt={emblemLabels[update.emblem]}
+                  width={EMBLEMS[update.emblem].width}
+                  height={EMBLEMS[update.emblem].height}
                   className="garuda-emblem mt-0.5 h-auto w-10 shrink-0"
                 />
               ) : null}

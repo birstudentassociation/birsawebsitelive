@@ -61,6 +61,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   updates: [
     {
       at: "2026-09-29T18:15:00+07:00",
+      emblem: "thammasat",
       text: {
         en: "Thammasat has extended online teaching. All courses at every campus are online until Saturday 3 October.",
         th: "ธรรมศาสตร์ขยายการเรียนออนไลน์ ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
@@ -82,7 +83,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     },
     {
       at: "2026-09-29T17:25:00+07:00",
-      garuda: true,
+      emblem: "garuda",
       text: {
         en: "The BMA has ended the disaster declaration in 21 of Bangkok's 50 districts, including Phra Nakhon, where Tha Prachan is. The other 29 districts are still a disaster area.",
         th: "กทม. ประกาศสิ้นสุดสาธารณภัยในพื้นที่ 21 เขต จากทั้งหมด 50 เขต รวมถึงเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์ ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
@@ -395,6 +396,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     },
     {
       at: "2026-09-26T13:10:00+07:00",
+      emblem: "thammasat",
       text: {
         en: "Thammasat has postponed this weekend's midterm exams, moved classes online on 28 and 29 September and closed some libraries.",
         th: "ธรรมศาสตร์เลื่อนสอบกลางภาคในสุดสัปดาห์นี้ ให้เรียนออนไลน์วันที่ 28 และ 29 กันยายน และปิดห้องสมุดบางแห่ง",
@@ -435,7 +437,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     },
     {
       at: "2026-09-26T10:45:00+07:00",
-      garuda: true,
+      emblem: "garuda",
       text: {
         en: "All 50 districts of Bangkok are now a declared disaster area.",
         th: "กทม. ประกาศให้พื้นที่กรุงเทพฯ ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัยแล้ว",

@@ -47,6 +47,7 @@ export const th: typeof en = {
     updates: "ความคืบหน้า",
     liveUpdates: "อัปเดตสถานการณ์",
     officialNotice: "ประกาศทางราชการ",
+    universityNotice: "ประกาศมหาวิทยาลัยธรรมศาสตร์",
     latest: "ล่าสุด",
     allUpdates: "ดูอัปเดตทั้งหมด",
     earlierUpdates: "ดูอัปเดตก่อนหน้าอีก {n} รายการ",

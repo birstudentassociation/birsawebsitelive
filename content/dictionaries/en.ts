@@ -49,6 +49,7 @@ export const en = {
     liveUpdates: "Live updates",
     latest: "Latest",
     officialNotice: "Official announcement",
+    universityNotice: "Thammasat University announcement",
     allUpdates: "See all updates",
     earlierUpdates: "Show {n} earlier updates",
     readGuide: "Read what to do",
