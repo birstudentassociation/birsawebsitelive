@@ -17,6 +17,73 @@
  *       th: "ถนนรอบท่าพระจันทร์น้ำท่วม วันนี้เรียนออนไลน์",
  *     },
  *     updates: [
+ *       {
+ *         at: "2026-10-12T07:30:00+07:00",
+ *         text: {
+ *           en: "Prachan Road and Na Phra That Road are flooded. The faculty has moved today's classes online.",
+ *           th: "ถนนพระจันทร์และถนนหน้าพระธาตุน้ำท่วม คณะให้เรียนออนไลน์ทุกวิชาในวันนี้",
+ *         },
+ *       },
+ *     ],
+ *   };
+ */
+import type { ActiveEmergency } from "@/content/emergency/types";
+import type { ScenarioId } from "@/content/emergency/scenarios";
+
+export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
+  scenario: "flooding",
+  updatesAfter: "campus",
+  issuedAt: "2026-09-26T10:30:00+07:00",
+  banner: {
+    en: "Because of flooding across Bangkok, all Thammasat classes are online until Saturday 3 October.",
+    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์เรียนออนไลน์ทุกรายวิชาถึงวันเสาร์ที่ 3 ตุลาคม",
+  },
+  headline: {
+    en: "Because of flooding across Bangkok, Thammasat has made these changes.",
+    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์มีการเปลี่ยนแปลงดังนี้",
+  },
+  headlinePoints: {
+    en: [
+      "All classes at every campus are online until Saturday 3 October.",
+      "Faculties decide which courses must be taught in person. Your lecturer will tell you in advance.",
+      "After 3 October lecturers may keep classes online or hybrid if students are still affected.",
+      "Midterms set for 26 and 27 September are still on 4 and 11 October.",
+      "Libraries are closed until 29 September, except the Rangsit Learning Center.",
+      "Political Science offices take no in-person visits on 28 and 29 September.",
+      "Thammasat shuttle buses are running as normal on both lines.",
+    ],
+    th: [
+      "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
+      "รายวิชาที่จำเป็นต้องเรียนในชั้นเรียน อยู่ในดุลยพินิจของคณะ อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
+      "หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป",
+      "สอบกลางภาควันที่ 26 และ 27 กันยายน ยังคงเลื่อนไปวันที่ 4 และ 11 ตุลาคม",
+      "ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต",
+      "คณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
+      "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง",
+    ],
+  },
+  updates: [
+    {
+      at: "2026-09-29T18:15:00+07:00",
+      text: {
+        en: "Thammasat has extended online teaching. All courses at every campus are online until Saturday 3 October.",
+        th: "ธรรมศาสตร์ขยายการเรียนออนไลน์ ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
+      },
+      points: {
+        en: [
+          "Faculties decide which courses must be taught in person. Your lecturer will tell you in advance.",
+          "If students are still affected after 3 October, lecturers may keep classes online or hybrid until things improve, and will tell you in advance.",
+          "Midterms stay as announced on 26 September, on 4 and 11 October.",
+          "Rector Supasawad Chardchawarn signed the announcement (No. 2) on 29 September.",
+        ],
+        th: [
+          "รายวิชาที่จำเป็นต้องเรียนในชั้นเรียน อยู่ในดุลยพินิจของคณะหรือส่วนงาน อาจารย์ผู้สอนจะแจ้งล่วงหน้า",
+          "หากหลังวันที่ 3 ตุลาคม นักศึกษายังได้รับผลกระทบ อาจารย์ผู้สอนอาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไปจนกว่าสถานการณ์จะคลี่คลาย และจะแจ้งล่วงหน้า",
+          "การสอบกลางภาคยังเป็นไปตามประกาศวันที่ 26 กันยายน คือวันที่ 4 และ 11 ตุลาคม",
+          "ศาสตราจารย์ศุภสวัสดิ์ ชัชวาลย์ อธิการบดี ลงนามในประกาศ (ฉบับที่ 2) เมื่อวันที่ 29 กันยายน",
+        ],
+      },
+    },
     {
       at: "2026-09-29T17:25:00+07:00",
       text: {
@@ -44,48 +111,6 @@
         ],
       },
     },
- *       {
- *         at: "2026-10-12T07:30:00+07:00",
- *         text: {
- *           en: "Prachan Road and Na Phra That Road are flooded. The faculty has moved today's classes online.",
- *           th: "ถนนพระจันทร์และถนนหน้าพระธาตุน้ำท่วม คณะให้เรียนออนไลน์ทุกวิชาในวันนี้",
- *         },
- *       },
- *     ],
- *   };
- */
-import type { ActiveEmergency } from "@/content/emergency/types";
-import type { ScenarioId } from "@/content/emergency/scenarios";
-
-export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
-  scenario: "flooding",
-  updatesAfter: "campus",
-  issuedAt: "2026-09-26T10:30:00+07:00",
-  banner: {
-    en: "Because of flooding across Bangkok, Thammasat classes are online, faculty offices take no in-person visits and libraries are closed on 28 and 29 September.",
-    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ วันที่ 28 และ 29 กันยายน ธรรมศาสตร์เรียนออนไลน์ คณะงดติดต่อ Onsite และห้องสมุดปิดให้บริการ",
-  },
-  headline: {
-    en: "Because of flooding across Bangkok, Thammasat has made these changes.",
-    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์มีการเปลี่ยนแปลงดังนี้",
-  },
-  headlinePoints: {
-    en: [
-      "All classes are online on Monday 28 and Tuesday 29 September.",
-      "Midterms set for 26 and 27 September move to 4 and 11 October.",
-      "Libraries are closed until 29 September, except the Rangsit Learning Center.",
-      "Political Science offices take no in-person visits on 28 and 29 September.",
-      "Thammasat shuttle buses are running as normal on both lines.",
-    ],
-    th: [
-      "ทุกรายวิชาเรียนออนไลน์ในวันจันทร์ที่ 28 และวันอังคารที่ 29 กันยายน",
-      "สอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันที่ 4 และ 11 ตุลาคม",
-      "ห้องสมุดปิดถึงวันที่ 29 กันยายน ยกเว้นศูนย์การเรียนรู้ฯ ศูนย์รังสิต",
-      "คณะรัฐศาสตร์งดติดต่อ Onsite ในวันที่ 28 และ 29 กันยายน",
-      "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง",
-    ],
-  },
-  updates: [
     {
       at: "2026-09-28T14:45:00+07:00",
       text: {
