@@ -7,7 +7,7 @@ type Update = NonNullable<ActiveEmergency["updates"]>[number];
 type Emblem = NonNullable<Update["emblem"]>;
 
 const EMBLEMS: Record<Emblem, { src: string; width: number; height: number }> = {
-  garuda: { src: "/emergency/garuda.png", width: 40, height: 43 },
+  garuda: { src: "/emergency/garuda.svg", width: 40, height: 43 },
   thammasat: { src: "/emergency/thammasat-seal.svg", width: 40, height: 40 },
 };
 
