@@ -60,6 +60,13 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-30T13:45:00+07:00",
+      text: {
+        en: "Direk Jayanama Library is open from 08:00 to 16:00 from 30 September to 2 October.",
+        th: "ห้องสมุด ศ.ดิเรก ชัยนาม เปิดให้บริการเวลา 08.00 ถึง 16.00 น. ตั้งแต่วันที่ 30 กันยายน ถึงวันที่ 2 ตุลาคม",
+      },
+    },
+    {
       at: "2026-09-30T13:00:00+07:00",
       text: {
         en: "The Chao Phraya Dam has raised its release to 2,500 cubic metres a second. Riverside areas outside the flood walls may rise another 20 to 30 cm, so keep away from the river and the piers at Tha Prachan.",
