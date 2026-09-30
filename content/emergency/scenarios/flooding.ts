@@ -253,7 +253,7 @@ const flooding: EmergencyScenario = {
       "The heavy rain has eased and most main roads should be dry within two days, but parts of Lat Krabang, Bang Kapi, Min Buri and Sai Mai are still flooded. Check the BMA flood alert page before you travel and do not drive or walk through floodwater.",
       "If you are cleaning up, wear boots and gloves, keep the power off until the wiring is dry and see a doctor if you get a fever after wading.",
       "Photograph damage before you clean up, then claim up to 49,500 baht for repairs through your district office, even if you rent. See claiming compensation below.",
-      "More rain is forecast from 5 to 10 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
+      "More rain is forecast from 5 to 8 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
     ],
     sections: [
       {
@@ -554,7 +554,7 @@ const flooding: EmergencyScenario = {
       "ฝนตกหนักเบาลงแล้ว และถนนสายหลักส่วนใหญ่น่าจะแห้งภายใน 2 วัน แต่บางส่วนของเขตลาดกระบัง บางกะปิ มีนบุรี และสายไหม ยังมีน้ำท่วม ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และอย่าขับรถหรือเดินลุยน้ำ",
       "หากกำลังทำความสะอาดบ้าน ให้สวมรองเท้าบูทและถุงมือ อย่าเปิดไฟจนกว่าสายไฟจะแห้ง และหากมีไข้หลังลุยน้ำ ให้ไปพบแพทย์",
       "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด แล้วยื่นขอค่าซ่อมแซมได้สูงสุด 49,500 บาทที่สำนักงานเขต ผู้เช่าก็ยื่นได้ ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
-      "คาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 10 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
+      "คาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 8 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
     ],
     sections: [
       {

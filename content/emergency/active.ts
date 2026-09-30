@@ -60,6 +60,35 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-09-30T13:00:00+07:00",
+      text: {
+        en: "The Chao Phraya Dam has raised its release to 2,500 cubic metres a second. Riverside areas outside the flood walls may rise another 20 to 30 cm, so keep away from the river and the piers at Tha Prachan.",
+        th: "เขื่อนเจ้าพระยาเพิ่มการระบายน้ำเป็น 2,500 ลูกบาศก์เมตรต่อวินาที พื้นที่ริมแม่น้ำนอกแนวคันกั้นน้ำอาจมีระดับน้ำสูงขึ้นอีก 20 ถึง 30 ซม. อย่าเข้าใกล้ริมแม่น้ำและท่าเรือบริเวณท่าพระจันทร์",
+      },
+      points: {
+        en: [
+          "The Royal Irrigation Department has warned 11 provinces and Bangkok to move belongings to higher ground. Flow from the north is expected to peak around 2 October.",
+          "At Pak Khlong Talat, the nearest gauge to Tha Prachan, the river is about 2.0 m, below the flood wall of about 3.0 m. Only communities outside the wall are at risk.",
+          "BMA schools in the 15 worst hit districts are closed until 2 October. These are Bang Kapi, Bang Khen, Bueng Kum, Chatuchak, Khan Na Yao, Khlong Sam Wa, Lak Si, Lat Krabang, Min Buri, Nong Chok, Prawet, Sai Mai, Saphan Sung, Suan Luang and Wang Thonglang.",
+          "The governor expects main roads to be mostly dry by 1 October. Parts of Lat Krabang drain slowly because Khlong Prawet Buri is still high. If you are stuck in floodwater, call 1555 for a high clearance vehicle.",
+          "The government's 9,000 baht per household is separate from BMA compensation for damage, which you claim through your district office. The cabinet has not yet formally approved the 9,000 baht for Bangkok. The BMA is building an online system for sending photos of damage.",
+          "National disaster insurance starts on 1 October and covers homes up to 100,000 baht for future floods, storms and earthquakes. It does not cover the current floods.",
+          "The Thai Meteorological Department now expects the next rain from 5 to 8 October, starting in the north and northeast.",
+          "DDPM counts 31 provinces and Bangkok affected, about 2.93 million people.",
+        ],
+        th: [
+          "กรมชลประทานแจ้งเตือน 11 จังหวัดและกรุงเทพฯ ให้ขนย้ายสิ่งของขึ้นที่สูง คาดว่าน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
+          "ที่สถานีปากคลองตลาด ซึ่งใกล้ท่าพระจันทร์ที่สุด ระดับน้ำอยู่ราว 2.0 ม. ต่ำกว่าแนวป้องกันซึ่งสูงราว 3.0 ม. ชุมชนที่เสี่ยงมีเฉพาะชุมชนนอกแนวป้องกัน",
+          "โรงเรียนสังกัด กทม. ใน 15 เขตที่ได้รับผลกระทบสูงปิดถึงวันที่ 2 ตุลาคม ได้แก่ คลองสามวา คันนายาว จตุจักร บางเขน บางกะปิ บึงกุ่ม ประเวศ มีนบุรี ลาดกระบัง วังทองหลาง สวนหลวง สะพานสูง สายไหม หนองจอก และหลักสี่",
+          "ผู้ว่าฯ กทม. คาดว่าถนนสายหลักส่วนใหญ่จะแห้งภายในวันที่ 1 ตุลาคม บางส่วนของเขตลาดกระบังระบายน้ำได้ช้าเพราะคลองประเวศบุรีรมย์ยังสูง หากติดน้ำท่วม โทร 1555 เพื่อขอรถยกสูง",
+          "เงิน 9,000 บาทต่อครัวเรือนของรัฐบาลแยกจากเงินช่วยเหลือค่าเสียหายของ กทม. ซึ่งยื่นขอที่สำนักงานเขต ครม. ยังไม่มีมติอนุมัติเงิน 9,000 บาทสำหรับกรุงเทพฯ อย่างเป็นทางการ กทม. กำลังทำระบบออนไลน์ให้ส่งภาพความเสียหายได้",
+          "ประกันภัยพิบัติแห่งชาติเริ่มวันที่ 1 ตุลาคม คุ้มครองบ้านสูงสุด 100,000 บาท สำหรับน้ำท่วม วาตภัย และแผ่นดินไหวที่เกิดหลังจากนี้ แต่ไม่ครอบคลุมน้ำท่วมครั้งนี้",
+          "กรมอุตุนิยมวิทยาคาดว่าฝนรอบใหม่จะมาในวันที่ 5 ถึง 8 ตุลาคม เริ่มจากภาคเหนือและภาคตะวันออกเฉียงเหนือ",
+          "ปภ. รายงานว่ามีพื้นที่ได้รับผลกระทบ 31 จังหวัดและกรุงเทพฯ ผู้ได้รับผลกระทบราว 2.93 ล้านคน",
+        ],
+      },
+    },
+    {
       at: "2026-09-29T23:30:00+07:00",
       text: {
         en: "Tides are high until 4 October, and water from the north peaks around 2 October. Take care near the river and the piers at Tha Prachan.",
@@ -68,7 +97,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
       points: {
         en: [
           "The BMA and the National Water Resources Office expect rivers to rise a further 0.70 to 1.70 m. Communities outside the flood walls are most at risk.",
-          "The Chao Phraya Dam is releasing 2,000 cubic metres a second, its limit.",
+          "The Chao Phraya Dam raised its release to 2,200 cubic metres a second at 19:00.",
           "The BMA is watching Sukhumvit, Suksawat and Rama 2 roads.",
           "The cabinet has set aside 4 billion baht for flood relief. Reports say Bangkok households will get the same 9,000 baht as other provinces, but the Prime Minister has not confirmed it.",
           "The governor expects about 90% of main roads to be dry within two days. More than 40 points are still being watched, mostly in Lat Krabang and Sai Mai.",
@@ -79,7 +108,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
         ],
         th: [
           "กทม. และ สทนช. คาดว่าระดับน้ำในแม่น้ำจะสูงขึ้นอีก 0.70 ถึง 1.70 ม. ชุมชนนอกแนวคันกั้นน้ำเสี่ยงที่สุด",
-          "เขื่อนเจ้าพระยาระบายน้ำ 2,000 ลูกบาศก์เมตรต่อวินาที ซึ่งเป็นระดับสูงสุดที่กำหนดไว้",
+          "เขื่อนเจ้าพระยาเพิ่มการระบายน้ำเป็น 2,200 ลูกบาศก์เมตรต่อวินาที ตั้งแต่เวลา 19.00 น.",
           "กทม. เฝ้าระวังถนนสุขุมวิท ถนนสุขสวัสดิ์ และถนนพระราม 2",
           "ครม. อนุมัติงบกลาง 4,000 ล้านบาทเพื่อเยียวยาผู้ประสบอุทกภัย มีรายงานว่ากรุงเทพฯ จะใช้เกณฑ์เดียวกับต่างจังหวัด ครัวเรือนละ 9,000 บาท แต่นายกรัฐมนตรียังไม่ยืนยัน",
           "ผู้ว่าฯ กทม. คาดว่าถนนสายหลักราวร้อยละ 90 จะแห้งภายใน 2 วัน ยังมีจุดที่ต้องติดตามกว่า 40 จุด ส่วนใหญ่อยู่ในเขตลาดกระบังและสายไหม",
@@ -123,7 +152,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
         en: [
           "Governor Chadchart Sittipunt signed the announcement on 29 September. The BMA found 21 districts unaffected, 14 moderately affected and 15 badly affected.",
           "The 29 districts still in the disaster area are Bang Bon, Bang Kapi, Bang Khen, Bang Na, Bang Phlat, Bang Sue, Bueng Kum, Chatuchak, Din Daeng, Don Mueang, Dusit, Huai Khwang, Khan Na Yao, Khlong Sam Wa, Lak Si, Lat Krabang, Min Buri, Nong Chok, Phaya Thai, Phra Khanong, Prawet, Ratchathewi, Sai Mai, Saphan Sung, Suan Luang, Thawi Watthana, Thung Khru, Wang Thonglang and Watthana.",
-          "Government offices and BMA schools reopen on Wednesday 30 September. The BMA is clearing flood rubbish and towing abandoned cars overnight.",
+          "Government offices reopen on Wednesday 30 September. BMA schools in the 15 worst hit districts stay closed until 2 October. The BMA is clearing flood rubbish and towing abandoned cars overnight.",
           "The education minister says 155 flooded schools in Bangkok will stay closed this week.",
           "At 06:00 about 20 roads were still flooded. The deepest were Phatthanakan at Srinagarindra (31 cm), Lat Phrao 122 (22 cm) and Nawamin (22 cm).",
           "DDPM counts 329,000 families affected in Bangkok. Canal levels are steady.",
@@ -132,7 +161,7 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
         th: [
           "นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ลงนามในประกาศเมื่อวันที่ 29 กันยายน ผลการตรวจสอบพบว่า 21 เขตไม่ได้รับผลกระทบ 14 เขตได้รับผลกระทบปานกลาง และ 15 เขตได้รับผลกระทบระดับสูง",
           "29 เขตที่ยังเป็นเขตพื้นที่ประสบสาธารณภัย ได้แก่ คลองสามวา คันนายาว จตุจักร ดอนเมือง ดินแดง ดุสิต ทวีวัฒนา ทุ่งครุ บางเขน บางกะปิ บางซื่อ บางนา บางบอน บางพลัด บึงกุ่ม ประเวศ พญาไท พระโขนง มีนบุรี ราชเทวี ลาดกระบัง วังทองหลาง วัฒนา สวนหลวง สะพานสูง สายไหม หนองจอก หลักสี่ และห้วยขวาง",
-          "หน่วยงานราชการและโรงเรียนสังกัด กทม. กลับมาเปิดตามปกติในวันพุธที่ 30 กันยายน คืนนี้ กทม. เร่งเก็บขยะหลังน้ำลดและยกรถที่จอดทิ้งไว้กีดขวางทาง",
+          "หน่วยงานราชการกลับมาเปิดตามปกติในวันพุธที่ 30 กันยายน ส่วนโรงเรียนสังกัด กทม. ใน 15 เขตที่ได้รับผลกระทบสูงยังปิดถึงวันที่ 2 ตุลาคม คืนนี้ กทม. เร่งเก็บขยะหลังน้ำลดและยกรถที่จอดทิ้งไว้กีดขวางทาง",
           "รัฐมนตรีว่าการกระทรวงศึกษาธิการระบุว่า โรงเรียนในกรุงเทพฯ 155 แห่งที่น้ำยังท่วมขังจะยังเปิดเรียนไม่ได้ในสัปดาห์นี้",
           "เวลา 06.00 น. ยังมีถนนน้ำท่วมขังราว 20 สาย จุดที่ลึกที่สุด ได้แก่ ถนนพัฒนาการแยกศรีนครินทร์ (31 ซม.) ซอยลาดพร้าว 122 (22 ซม.) และถนนนวมินทร์ (22 ซม.)",
           "ปภ. รายงานว่ามีผู้ได้รับผลกระทบในกรุงเทพฯ 329,000 ครัวเรือน ระดับน้ำในคลองทรงตัว",
