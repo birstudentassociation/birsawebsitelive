@@ -28,7 +28,7 @@
  * users, so the accessible contract is unchanged even though the visible
  * presentation is graphical.
  *
- * Used from `content/student-life/{en,th}/home/shuttle-bus.mdx` via the MDX
+ * Used from `content/student-life/{en,th}/getting-around/shuttle-bus.mdx` via the MDX
  * component map in `lib/mdx.tsx`.
  */
 import type { Locale } from "@/lib/i18n";

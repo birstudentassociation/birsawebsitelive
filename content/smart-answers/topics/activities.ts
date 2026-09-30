@@ -997,7 +997,7 @@ export const activities: SmartAnswerService = {
       related: [
         {
           label: { en: "Getting involved", th: "การเข้าร่วมกิจกรรมนักศึกษา" },
-          href: "/student-life/home/getting-involved",
+          href: "/student-life/getting-involved/clubs-and-events",
           description: {
             en: "More on TUSU Tha Prachan and how student activities are organised.",
             th: "รายละเอียดเพิ่มเติมเกี่ยวกับ อมธ. ท่าพระจันทร์ และการจัดกิจกรรมนักศึกษา",

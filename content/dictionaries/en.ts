@@ -269,7 +269,7 @@ export const en = {
     previous: "Previous",
     next: "Next",
     pageOf: "Page {current} of {total}",
-    backToGuides: "Back to the student life & culture guides",
+    backToGuides: "Back to student life",
     openCourse: "View course & reviews",
     reviewedBadge: "Reviewed",
     sampleBadge: "Example review",

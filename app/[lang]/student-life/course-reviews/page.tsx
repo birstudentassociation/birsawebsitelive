@@ -8,6 +8,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import CourseStats from "@/components/course-review/CourseStats";
 import CourseReviewBrowser from "@/components/course-review/CourseReviewBrowser";
 import { courses } from "@/content/course-review/courses";
+import { studentLifeLabel } from "@/content/student-life/topics";
 
 // Literal route: sits as a sibling of `[audience]/page.tsx` and takes
 // precedence over the dynamic `[audience]` segment for exactly this URL, so
@@ -42,7 +43,6 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
-  const sectionLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   return (
     <>
@@ -55,7 +55,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel, href: "/services" },
+              { label: studentLifeLabel[locale], href: "/student-life" },
               { label: t.title },
             ]}
           />
@@ -103,7 +103,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
         />
 
         <Link
-          href={localeHref(locale, "/student-life/home")}
+          href={localeHref(locale, "/student-life")}
           className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.backToGuides}

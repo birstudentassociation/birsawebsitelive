@@ -1,226 +1,269 @@
 /**
- * "Starting at BIR: step by step": home (Thai) student track. See
- * `content/onboarding/types.ts` for the shape and `content/onboarding/index.ts`
- * for how this is looked up. Deep-links specific handbook chapters (fees,
- * curriculum and study plan, assessment and degree, about BIR), the
- * rights-and-welfare, study-support and places-nearby home guides, the
- * elected student bodies ladder and BIRSA committee pages, and /contact,
- * rather than pointing only at each section's index. Every `href` below is a
- * real route, verified against `content/student-life/en/**\/*.mdx`,
- * `content/activity/en/*.mdx` and the other static routes it points to at
- * the time of writing.
+ * "Starting at BIR, step by step": track for students who already live in
+ * Thailand. See `content/onboarding/types.ts` for the shape and
+ * `content/onboarding/index.ts` for how it is looked up. Every task is an
+ * action a student can tick. Internal `href`s point at the grouped guides
+ * (`/student-life/{topic}/{slug}`) or at static routes.
  */
 import type { OnboardingTrack } from "./types";
 
 export const homeTrack: OnboardingTrack = {
   audience: "home",
   title: {
-    en: "Starting at BIR: for Thai and home students",
-    th: "เริ่มต้นที่ BIR: สำหรับนักศึกษาไทย",
+    en: "Starting at BIR if you live in Thailand",
+    th: "เริ่มต้นที่ BIR สำหรับนักศึกษาไทย",
   },
   lede: {
-    en: "Everything to do, roughly in order, before and during your first weeks at BIR. Tick tasks off as you complete them. Nothing is sent anywhere, it all stays on this device.",
-    th: "สิ่งที่ควรทำเรียงตามลำดับคร่าว ๆ ก่อนและระหว่างสัปดาห์แรกที่ BIR ติ๊กในช่องเมื่อทำเสร็จ ข้อมูลจะถูกเก็บไว้ในอุปกรณ์นี้เท่านั้น ไม่ถูกส่งไปที่ใด",
+    en: "Tasks for before term and your first weeks at BIR, in a rough order. Tick each one when it is done. Your ticks are saved in this browser only.",
+    th: "สิ่งที่ต้องทำก่อนเปิดเทอมและในสัปดาห์แรกที่ BIR เรียงตามลำดับคร่าว ๆ ทำเสร็จแล้วติ๊กช่องไว้ ระบบเก็บรายการที่ติ๊กในเบราว์เซอร์นี้เท่านั้น",
   },
   steps: [
     {
-      id: "before-you-arrive",
-      title: { en: "Before term starts", th: "ก่อนเปิดเทอม" },
+      id: "set-up",
+      title: { en: "Set up your student accounts", th: "ตั้งค่าบัญชีนักศึกษา" },
       blurb: {
-        en: "Get the lay of the land before you set foot on campus.",
-        th: "ทำความเข้าใจภาพรวมก่อนเปิดเทอม",
+        en: "Do these before term starts.",
+        th: "ทำให้เสร็จก่อนเปิดเทอม",
       },
       tasks: [
         {
-          id: "read-handbook",
-          label: { en: "Read the student handbook", th: "อ่านคู่มือนักศึกษา" },
-          hint: {
-            en: "Curriculum, fees, academic rules and how BIR works.",
-            th: "หลักสูตร ค่าเล่าเรียน และระเบียบการเรียนของ BIR",
+          id: "tu-greats-card",
+          label: {
+            en: "Install the TU Greats app and activate your student card",
+            th: "ติดตั้งแอป TU Greats และเปิดใช้งานบัตรนักศึกษา",
           },
-          href: "/student-life/handbook",
+          hint: {
+            en: "The app holds your virtual student ID and timetable.",
+            th: "แอปเก็บบัตรนักศึกษาแบบดิจิทัลและตารางเรียน",
+          },
+          href: "/student-life/first-weeks/first-two-weeks",
         },
         {
-          id: "check-orientation-dates",
+          id: "bangkok-bank-card",
           label: {
-            en: "Check orientation and term dates",
-            th: "ตรวจสอบวันปฐมนิเทศและกำหนดการเปิดเทอม",
+            en: "Activate your Bangkok Bank card",
+            th: "เปิดใช้งานบัตรธนาคารกรุงเทพ",
           },
           hint: {
-            en: "Look for the latest announcements and events.",
-            th: "ดูประกาศและกิจกรรมล่าสุด",
+            en: "Your student card is also a Bangkok Bank debit card. Refunds are paid into that account.",
+            th: "บัตรนักศึกษาเป็นบัตรเดบิตธนาคารกรุงเทพด้วย เงินคืนจากมหาวิทยาลัยโอนเข้าบัญชีนี้",
+          },
+          href: "/student-life/money/bank-account",
+        },
+        {
+          id: "tu-account-wifi",
+          label: {
+            en: "Sign in to your TU account and connect to campus Wi-Fi",
+            th: "เข้าสู่ระบบบัญชี TU และเชื่อมต่อ Wi-Fi ของมหาวิทยาลัย",
+          },
+          hint: {
+            en: "One TU login covers student email, Microsoft 365 and Wi-Fi.",
+            th: "บัญชี TU ใช้ได้ทั้งอีเมลนักศึกษา Microsoft 365 และ Wi-Fi",
+          },
+          href: "/student-life/first-weeks/sim-and-wifi",
+        },
+        {
+          id: "orientation-dates",
+          label: {
+            en: "Put the orientation and term dates in your calendar",
+            th: "บันทึกวันปฐมนิเทศและวันเปิดเทอมลงในปฏิทิน",
+          },
+          hint: {
+            en: "BIRSA posts the dates in news.",
+            th: "BIRSA ประกาศวันที่ในหน้าข่าว",
           },
           href: "/news",
         },
+      ],
+    },
+    {
+      id: "register-and-plan",
+      title: { en: "Register and plan your courses", th: "ลงทะเบียนและวางแผนการเรียน" },
+      connector: "and",
+      tasks: [
         {
-          id: "read-about-bir",
-          label: { en: "Read about BIR and Thammasat", th: "อ่านเรื่อง BIR และธรรมศาสตร์" },
+          id: "register-courses",
+          label: { en: "Register for your courses", th: "ลงทะเบียนเรียน" },
           hint: {
-            en: "A history of Thammasat and the Faculty, and how to contact the BIR programme office.",
-            th: "ประวัติธรรมศาสตร์และคณะรัฐศาสตร์ พร้อมช่องทางติดต่อสำนักงานโครงการ BIR",
+            en: "You can take up to 22 credits a semester and 6 in summer.",
+            th: "ลงได้สูงสุด 22 หน่วยกิตต่อภาคเรียน และ 6 หน่วยกิตในภาคฤดูร้อน",
           },
-          href: "/student-life/handbook/about-bir",
+          href: "/student-life/studying/registration",
         },
         {
-          id: "read-admission-and-fees",
-          label: { en: "Read about admission and fees", th: "อ่านเรื่องการรับเข้าและค่าเล่าเรียน" },
-          hint: {
-            en: "Application requirements and estimated annual tuition: 125,000 baht for Thai students, 144,000 baht for non-Thai students.",
-            th: "เกณฑ์การสมัครและค่าเล่าเรียนโดยประมาณต่อปี นักศึกษาไทย 125,000 บาท นักศึกษาต่างชาติ 144,000 บาท",
+          id: "check-study-plan",
+          label: {
+            en: "Find your cohort's credit total in the study plan",
+            th: "ดูจำนวนหน่วยกิตของรุ่นตนเองในแผนการศึกษา",
           },
-          href: "/student-life/handbook/admission-and-fees",
+          hint: {
+            en: "127 credits for cohorts 64 to 67. 126 credits for the B.E. 2568 (2025) curriculum.",
+            th: "รุ่น 64 ถึง 67 ใช้ 127 หน่วยกิต หลักสูตร พ.ศ. 2568 ใช้ 126 หน่วยกิต",
+          },
+          href: "/student-life/studying/curriculum",
+        },
+        {
+          id: "check-tuition",
+          label: {
+            en: "Check your tuition and the payment deadline",
+            th: "ตรวจค่าเล่าเรียนและกำหนดชำระเงิน",
+          },
+          href: "/student-life/money/tuition-and-fees",
+        },
+        {
+          id: "read-course-reviews",
+          label: {
+            en: "Read student reviews before you choose electives",
+            th: "อ่านรีวิวรายวิชาก่อนเลือกวิชาเลือก",
+          },
+          href: "/student-life/course-reviews",
         },
       ],
     },
     {
-      id: "get-set-up",
-      title: { en: "Get set up around campus", th: "เตรียมตัวใช้ชีวิตรอบมหาวิทยาลัย" },
+      id: "get-to-campus",
+      title: { en: "Get to campus", th: "เตรียมการเดินทางมามหาวิทยาลัย" },
       connector: "and",
-      blurb: {
-        en: "Work out how you'll get to and around Tha Prachan.",
-        th: "หาทางเดินทางไปและรอบท่าพระจันทร์",
-      },
       tasks: [
         {
-          id: "learn-shuttle-bus",
-          label: { en: "Learn the shuttle bus routes", th: "เรียนรู้เส้นทางรถรับส่ง" },
-          hint: {
-            en: "Thammasat's two free shuttle lines from Tha Prachan.",
-            th: "รถรับส่งฟรี 2 สายจากท่าพระจันทร์",
+          id: "live-bus-tracker",
+          label: {
+            en: "Save the live bus tracker to your phone",
+            th: "บันทึกหน้าติดตามรถเวียนแบบสดไว้ในโทรศัพท์",
           },
-          href: "/student-life/home/shuttle-bus",
+          hint: {
+            en: "It shows when the next free shuttle arrives.",
+            th: "ดูเวลาที่รถเวียนฟรีคันถัดไปจะมาถึง",
+          },
+          href: "/student-life/getting-around/live-bus-tracker",
         },
         {
-          id: "learn-getting-around",
+          id: "shuttle-routes",
           label: {
-            en: "Learn your way around Tha Prachan",
-            th: "เรียนรู้เส้นทางรอบท่าพระจันทร์",
+            en: "Find the stop for the free shuttle bus",
+            th: "หาป้ายรถเวียนฟรี",
+          },
+          href: "/student-life/getting-around/shuttle-bus",
+        },
+        {
+          id: "plan-journey",
+          label: {
+            en: "Plan your journey to Tha Prachan",
+            th: "วางแผนเส้นทางมาท่าพระจันทร์",
           },
           hint: {
-            en: "Campus, the old city, and nearby landmarks.",
-            th: "มหาวิทยาลัย เมืองเก่า และสถานที่ใกล้เคียง",
+            en: "Buses, boats and the MRT.",
+            th: "รถเมล์ เรือ และรถไฟฟ้าใต้ดิน",
           },
-          href: "/student-life/home/getting-around",
+          href: "/student-life/getting-around/getting-to-campus",
         },
       ],
     },
     {
-      id: "money-and-food",
-      title: { en: "Money and food", th: "เรื่องเงินและอาหาร" },
+      id: "money-food-housing",
+      title: { en: "Sort out costs, food and housing", th: "จัดการค่าใช้จ่าย อาหาร และที่พัก" },
       connector: "and",
-      blurb: {
-        en: "Get a feel for everyday costs before they surprise you.",
-        th: "ทำความเข้าใจค่าใช้จ่ายประจำวันไว้ล่วงหน้า",
-      },
       tasks: [
         {
-          id: "read-money-matters",
-          label: { en: "Read about money matters", th: "อ่านเรื่องการเงิน" },
-          hint: {
-            en: "Allowances, part-time work basics and student discounts.",
-            th: "เงินที่ได้รับ งานพาร์ทไทม์เบื้องต้น และส่วนลดนักศึกษา",
+          id: "monthly-budget",
+          label: {
+            en: "Set a monthly budget",
+            th: "ตั้งงบรายเดือน",
           },
-          href: "/student-life/home/money-matters",
+          href: "/student-life/money/monthly-costs",
         },
         {
-          id: "read-food-and-budgeting",
-          label: { en: "Read about food and budgeting", th: "อ่านเรื่องอาหารและงบประมาณ" },
-          hint: {
-            en: "Where to eat around Tha Prachan and Wang Lang, and rough monthly costs.",
-            th: "ที่กินรอบท่าพระจันทร์และวังหลัง พร้อมค่าใช้จ่ายรายเดือนคร่าว ๆ",
+          id: "student-discounts",
+          label: {
+            en: "Find the student discounts you can use",
+            th: "ดูส่วนลดสำหรับนักศึกษาที่ใช้ได้",
           },
-          href: "/student-life/home/food-and-budgeting",
+          href: "/student-life/money/student-discounts",
         },
         {
-          id: "browse-places-nearby",
-          label: { en: "Browse food and housing nearby", th: "ดูร้านอาหารและที่พักใกล้เคียง" },
-          hint: {
-            en: "Around 70 food places and 16 recommended places to live near Tha Prachan and Pinklao.",
-            th: "รวมร้านอาหารเกือบ 70 ร้านและที่พักแนะนำ 16 แห่งใกล้ท่าพระจันทร์และปิ่นเกล้า",
+          id: "where-to-eat",
+          label: {
+            en: "Choose two or three places to eat near campus",
+            th: "เลือกร้านอาหารใกล้มหาวิทยาลัยไว้ 2 ถึง 3 ร้าน",
           },
-          href: "/student-life/home/places-nearby",
+          href: "/student-life/living-nearby/where-to-eat",
+        },
+        {
+          id: "housing",
+          label: {
+            en: "Shortlist places to live if you need to move closer",
+            th: "คัดที่พักไว้ถ้าต้องย้ายมาอยู่ใกล้มหาวิทยาลัย",
+          },
+          href: "/student-life/living-nearby/housing",
         },
       ],
     },
     {
-      id: "stay-safe-and-well",
-      title: { en: "Stay safe and well", th: "ดูแลความปลอดภัยและสุขภาพ" },
+      id: "health-and-safety",
+      title: { en: "Prepare for health and safety", th: "เตรียมพร้อมเรื่องสุขภาพและความปลอดภัย" },
       connector: "and",
-      blurb: {
-        en: "Know where to turn for health support and how to stay safe day to day.",
-        th: "รู้ว่าจะขอความช่วยเหลือด้านสุขภาพได้จากที่ไหน และดูแลความปลอดภัยในชีวิตประจำวันอย่างไร",
-      },
       tasks: [
         {
-          id: "read-health-and-wellbeing",
+          id: "save-emergency-numbers",
           label: {
-            en: "Read about health and wellbeing",
-            th: "อ่านเรื่องสุขภาพและความเป็นอยู่ที่ดี",
+            en: "Save the emergency numbers in your phone",
+            th: "บันทึกเบอร์ฉุกเฉินไว้ในโทรศัพท์",
           },
           hint: {
-            en: "TU health services, counselling and mental health support.",
-            th: "บริการสุขภาพของ มธ. การให้คำปรึกษา และสุขภาพจิต",
-          },
-          href: "/student-life/home/health-and-wellbeing",
-        },
-        {
-          id: "read-safety-and-emergencies",
-          label: {
-            en: "Read about safety and emergencies",
-            th: "อ่านเรื่องความปลอดภัยและเหตุฉุกเฉิน",
-          },
-          hint: {
-            en: "Campus security, river safety, common scams and how to report harassment.",
-            th: "การรักษาความปลอดภัยในมหาวิทยาลัย ความปลอดภัยทางน้ำ กลโกงที่พบบ่อย และการแจ้งเหตุคุกคาม",
-          },
-          href: "/student-life/home/safety-and-emergencies",
-        },
-        {
-          id: "know-emergency-page",
-          label: {
-            en: "Know where to find emergency information",
-            th: "รู้ว่าจะหาข้อมูลฉุกเฉินได้จากที่ไหน",
-          },
-          hint: {
-            en: "Alert levels, key numbers and what to do first.",
-            th: "ระดับการแจ้งเตือน เบอร์โทรสำคัญ และสิ่งที่ต้องทำก่อน",
+            en: "Call 1669 for an ambulance and 191 for the police.",
+            th: "โทร 1669 เรียกรถพยาบาล และ 191 แจ้งตำรวจ",
           },
           href: "/emergency",
         },
+        {
+          id: "campus-clinic",
+          label: {
+            en: "Find the campus clinic and its opening hours",
+            th: "ดูที่ตั้งและเวลาทำการของคลินิกในมหาวิทยาลัย",
+          },
+          hint: {
+            en: "The clinic is open 08.30 to 16.30.",
+            th: "คลินิกเปิด 08.30 ถึง 16.30 น.",
+          },
+          href: "/student-life/health-and-safety/getting-medical-help",
+        },
+        {
+          id: "harassment-reporting",
+          label: {
+            en: "Learn how to report harassment",
+            th: "ดูวิธีแจ้งเหตุล่วงละเมิด",
+          },
+          href: "/student-life/rules-and-rights/complaints",
+        },
       ],
     },
     {
-      id: "know-your-rights-and-support",
-      title: { en: "Know your rights and support", th: "รู้สิทธิและบริการสนับสนุนของคุณ" },
-      connector: "and",
-      blurb: {
-        en: "Entitlements and services that come with being a Thammasat student.",
-        th: "สิทธิและบริการต่าง ๆ ที่คุณมีในฐานะนักศึกษาธรรมศาสตร์",
+      id: "study-support",
+      title: {
+        en: "Find study support and know your rights",
+        th: "หาแหล่งช่วยเรียนและรู้สิทธิของนักศึกษา",
       },
+      connector: "and",
       tasks: [
         {
-          id: "read-rights-and-welfare",
+          id: "libraries-printing",
           label: {
-            en: "Read about your rights and welfare",
-            th: "อ่านเรื่องสิทธิและสวัสดิการของคุณ",
+            en: "Find your library and your printing quota",
+            th: "หาห้องสมุดและดูโควตาการพิมพ์เอกสาร",
           },
-          hint: {
-            en: "Voting rights, dress and title rights, free menstrual products and condoms, and the TU Greats App.",
-            th: "สิทธิการเลือกตั้ง สิทธิการแต่งกายและคำนำหน้านาม ผ้าอนามัยและถุงยางอนามัยฟรี และแอป TU Greats",
-          },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/studying/libraries-and-study-support",
         },
         {
-          id: "read-study-support",
+          id: "rights-facilities",
           label: {
-            en: "Read about libraries and study support",
-            th: "อ่านเรื่องห้องสมุดและบริการสนับสนุนการเรียน",
+            en: "Find the free campus services you can use",
+            th: "ใช้บริการฟรีของมหาวิทยาลัย",
           },
           hint: {
-            en: "Libraries, printing quota, TU-GET, and plagiarism checking.",
-            th: "ห้องสมุด โควตาพรินต์ TU-GET และการตรวจสอบการคัดลอกผลงาน",
+            en: "Includes free menstrual products and condoms.",
+            th: "รวมผ้าอนามัยและถุงยางอนามัยฟรี",
           },
-          href: "/student-life/home/study-support",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
     },
@@ -228,124 +271,19 @@ export const homeTrack: OnboardingTrack = {
       id: "get-involved",
       title: { en: "Get involved", th: "เข้าร่วมกิจกรรม" },
       connector: "and",
-      blurb: {
-        en: "Ways to meet people and get involved in your first weeks.",
-        th: "วิธีเริ่มรู้จักคนและเข้าร่วมกิจกรรมในช่วงแรกที่ BIR",
-      },
       tasks: [
         {
-          id: "read-getting-involved",
-          label: { en: "Read about getting involved", th: "อ่านเรื่องการเข้าร่วมกิจกรรม" },
-          hint: {
-            en: "Clubs, elected student bodies, BIRSA events, and volunteering.",
-            th: "ชมรม องค์กรนักศึกษาที่มาจากการเลือกตั้ง กิจกรรมของ BIRSA และงานอาสา",
-          },
-          href: "/student-life/home/getting-involved",
-        },
-        {
-          id: "browse-clubs",
-          label: { en: "Browse clubs", th: "ดูรายชื่อชมรม" },
+          id: "join-club",
+          label: { en: "Join a club", th: "สมัครเข้าชมรม" },
           href: "/clubs",
         },
         {
-          id: "read-student-bodies",
+          id: "student-bodies",
           label: {
-            en: "Read about student bodies you can run for",
-            th: "อ่านเรื่ององค์กรนักศึกษาที่ลงสมัครได้",
+            en: "Find out which student bodies you can vote for",
+            th: "ดูว่าลงคะแนนเลือกองค์กรนักศึกษาใดได้บ้าง",
           },
-          hint: {
-            en: "The ladder of elected student bodies you vote in and can stand for, from BIRSA to Thammasat-wide.",
-            th: "บันไดองค์กรนักศึกษาแบบเลือกตั้งที่ลงคะแนนหรือลงสมัครได้ ตั้งแต่ BIRSA ถึงระดับมหาวิทยาลัย",
-          },
-          href: "/activity/student-bodies",
-        },
-        {
-          id: "join-birsa-committee",
-          label: {
-            en: "Read about joining BIRSA's committee",
-            th: "อ่านเรื่องการสมัครเข้าคณะกรรมการ BIRSA",
-          },
-          hint: {
-            en: "What BIRSA does, and how committee positions open each year.",
-            th: "หน้าที่ของ BIRSA และช่วงเวลาที่เปิดรับสมัครกรรมการแต่ละปี",
-          },
-          href: "/activity/birsa",
-        },
-        {
-          id: "follow-birsa",
-          label: { en: "Follow BIRSA's quick links", th: "ติดตามลิงก์ด่วนของ BIRSA" },
-          hint: {
-            en: "Socials, official links and other useful shortcuts in one place.",
-            th: "โซเชียลมีเดีย ลิงก์ทางการ และทางลัดที่มีประโยชน์อื่น ๆ ในที่เดียว",
-          },
-          href: "/quick",
-        },
-        {
-          id: "contact-birsa",
-          label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" },
-          hint: {
-            en: "Message the committee directly with a question or concern.",
-            th: "ส่งข้อความถึงกรรมการโดยตรงเมื่อมีคำถามหรือข้อกังวล",
-          },
-          href: "/contact",
-        },
-      ],
-    },
-    {
-      id: "plan-your-studies",
-      title: { en: "Plan your studies", th: "วางแผนการเรียน" },
-      connector: "and",
-      blurb: {
-        en: "Choosing courses and understanding the rules that govern your degree.",
-        th: "การเลือกวิชาเรียนและกติกาที่เกี่ยวกับการสำเร็จการศึกษา",
-      },
-      tasks: [
-        {
-          id: "read-course-reviews",
-          label: { en: "Read student course reviews", th: "อ่านรีวิวรายวิชาจากรุ่นพี่" },
-          href: "/student-life/course-reviews",
-        },
-        {
-          id: "read-academic-rules",
-          label: { en: "Read the academic rules chapter", th: "อ่านบทเรื่องระเบียบการเรียน" },
-          hint: {
-            en: "Course registration, exam absences, leave, and probation rules.",
-            th: "การลงทะเบียนเรียน การขาดสอบ การลาพัก และเกณฑ์การพ้นสภาพ",
-          },
-          href: "/student-life/handbook/academic-life",
-        },
-        {
-          id: "read-curriculum-and-study-plan",
-          label: {
-            en: "Read the curriculum and study plan chapter",
-            th: "อ่านบทหลักสูตรและแผนการศึกษา",
-          },
-          hint: {
-            en: "The full course structure and the 127-credit total for BIR's 2023 revised curriculum.",
-            th: "โครงสร้างรายวิชาทั้งหมดและหน่วยกิตรวม 127 หน่วยกิตของหลักสูตร BIR ฉบับปรับปรุง พ.ศ. 2566",
-          },
-          href: "/student-life/handbook/curriculum-and-study-plan",
-        },
-        {
-          id: "read-assessment-and-degree",
-          label: {
-            en: "Read the assessment and degree chapter",
-            th: "อ่านบทการวัดผลและการสำเร็จการศึกษา",
-          },
-          hint: {
-            en: "Grading, the credit and GPA requirements for graduating, and honours criteria.",
-            th: "หลักการให้เกรด เงื่อนไขหน่วยกิตและเกรดเฉลี่ยสำหรับสำเร็จการศึกษา และเกณฑ์เกียรตินิยม",
-          },
-          href: "/student-life/handbook/assessment-and-degree",
-        },
-        {
-          id: "read-activity-regulations",
-          label: { en: "Check BIRSA activity regulations", th: "ตรวจสอบระเบียบกิจกรรมของ BIRSA" },
-          hint: {
-            en: "Three documents: the University's regulation on student activities, the Faculty's notice on student activities, and the University's regulation on student discipline (B.E. 2568).",
-            th: "เอกสารสามฉบับ ได้แก่ ข้อบังคับมหาวิทยาลัยว่าด้วยกิจกรรมนักศึกษา ประกาศคณะรัฐศาสตร์ว่าด้วยกิจกรรมนักศึกษา และข้อบังคับมหาวิทยาลัยว่าด้วยวินัยนักศึกษา พ.ศ. 2568",
-          },
-          href: "/activity/regulations",
+          href: "/student-life/getting-involved/student-bodies",
         },
       ],
     },

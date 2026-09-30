@@ -330,22 +330,22 @@ function placeDoc(locale: Locale, place: Place, href: string, extraKeywords: str
 
 /**
  * One search document per food and housing place, for one locale. Both link
- * to the same guide page ("Food and housing nearby") — the two lists are
- * curated separately but published as one page, and there is no dedicated
- * housing/accommodation page under `content/student-life`.
+ * to their guide: food places to "Where to eat", housing places to
+ * "Finding somewhere to live".
  */
 export function placeDocs(locale: Locale): SearchDoc[] {
-  const placesNearbyHref = localeHref(locale, "/student-life/home/places-nearby");
+  const whereToEatHref = localeHref(locale, "/student-life/living-nearby/where-to-eat");
+  const housingHref = localeHref(locale, "/student-life/living-nearby/housing");
   const docs: SearchDoc[] = [];
 
   for (const group of foodGroups) {
     for (const place of group.places) {
-      docs.push(placeDoc(locale, place, placesNearbyHref, [group.title[locale], ...FOOD_TERMS]));
+      docs.push(placeDoc(locale, place, whereToEatHref, [group.title[locale], ...FOOD_TERMS]));
     }
   }
 
   for (const place of housingPlaces) {
-    docs.push(placeDoc(locale, place, placesNearbyHref, HOUSING_TERMS));
+    docs.push(placeDoc(locale, place, housingHref, HOUSING_TERMS));
   }
 
   return docs;

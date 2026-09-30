@@ -80,7 +80,7 @@ export default async function ContactPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ category?: string; from?: string; returnTo?: string }>;
+  searchParams: Promise<{ category?: string; from?: string; about?: string; returnTo?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -90,7 +90,11 @@ export default async function ContactPage({
   const chrome = buildWizardChromeLabels(locale);
   const wizard = buildContactWizardLabels(locale);
 
-  const { category, from, returnTo } = await searchParams;
+  const { category: categoryParam, from: fromParam, about, returnTo } = await searchParams;
+  // `?about=<path>` is the short form of `?category=problem&from=<path>`,
+  // used by the "Report a problem" link on student-life guides.
+  const category = categoryParam ?? (about ? "problem" : undefined);
+  const from = fromParam ?? about;
   const seed = deriveContactSeed(locale, category, from);
   const draft = await getContactDraft();
 

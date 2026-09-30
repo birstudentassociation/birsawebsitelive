@@ -243,7 +243,7 @@ missing Thai or English, and em dashes.
 ## BIRSA activity and student-life guides
 
 BIRSA activity (`content/activity/{en,th}/<slug>.mdx`) and student-life guide entries
-(`content/student-life/{en,th}/{home,international}/<slug>.mdx`) share a similar frontmatter
+(`content/student-life/{en,th}/<topic>/<slug>.mdx`) share a similar frontmatter
 shape. As with news, create matching `<slug>.mdx` files in both locale folders.
 
 ### BIRSA activity frontmatter template
@@ -261,22 +261,71 @@ Body copy in Markdown, using `##` headings to break up longer entries.
 
 `order` controls the sort position (lower numbers first).
 
-### Student-life guide frontmatter template
+### Student-life guides
+
+Guides are grouped by task into nine topics, not by audience. The topic is the folder name and
+the second URL segment (`/student-life/<topic>/<slug>`). Slugs are English kebab-case and the
+filename is identical in `en/` and `th/`. Titles, summaries, `keyQuestions` and `quickAnswers`
+are written natively in each language, never translated line by line.
+
+| Topic folder        | English title     | Thai title               |
+| ------------------- | ----------------- | ------------------------ |
+| `before-you-arrive` | Before you arrive | ก่อนเข้าเรียน            |
+| `first-weeks`       | Your first weeks  | ช่วงสัปดาห์แรก           |
+| `studying`          | Studying          | การเรียน                 |
+| `money`             | Money             | การเงิน                  |
+| `health-and-safety` | Health and safety | สุขภาพและความปลอดภัย     |
+| `getting-around`    | Getting around    | การเดินทาง               |
+| `living-nearby`     | Food and housing  | อาหารและที่พัก           |
+| `getting-involved`  | Getting involved  | กิจกรรมและองค์กรนักศึกษา |
+| `rules-and-rights`  | Rights and rules  | สิทธิและกฎระเบียบ        |
 
 ```mdx
 ---
-title: "Guide section title"
-summary: "One sentence shown on the guide hub."
-order: 1
-updated: 2026-08-01
-audience: home
+title: "Registering, adding and dropping courses"
+summary: "One sentence shown on the topic page and as the lede."
+metaDescription: "Optional, 120 to 160 characters."
+topic: studying # must equal the folder name
+order: 1 # position within the topic
+updated: 2026-09-30 # date the file was edited
+reviewed: 2026-09-30 # date the facts were last checked against their sources
+audience: all # all | international | thai (default all); shown as a tag, not a route
+owner: "Registrar's Office and the BIR office" # who sets these rules, in the page language
+keyQuestions: # 2 to 5 short questions the guide answers
+  - "When is the add and drop deadline?"
+quickAnswers: # optional, 2 to 4; shown in a box at the top
+  - q: "How many credits can I take?"
+    a: "Up to 22 a semester and 6 in summer."
+    anchor: "credit-limits" # id of a ## or ### heading in this file
+related: # 1 to 4 other guides, "topic/slug"
+  - "studying/low-gpa"
+sources: # official pages the facts come from; replaces a "Source" heading
+  - label: "TU Regulation on Undergraduate Studies B.E. 2568"
+    href: "https://db.legal.tu.ac.th/05010201-01/"
+aliases: # optional search words, such as old slugs
+  - "academic-life"
 ---
 
-Body copy in Markdown.
+Body copy in Markdown. Headings start at `##`; the title is the page's h1.
 ```
 
-`audience` is either `home` (for Thai/home students) or `international`. Each audience has its
-own folder (`student-life/{en,th}/home/` or `.../international/`) and its own `order` sequence.
+Rules for guides:
+
+- **One home per fact.** Each fact lives in one guide. Other guides link to it with a normal
+  link such as `/student-life/money/monthly-costs` instead of repeating it. Emergency numbers
+  link to `/emergency`.
+- **Colon rule.** As in news, no colons outside clock times and URLs, in headings, labels, list
+  introductions and frontmatter, in both languages. No em or en dashes.
+- **Anchors.** Every `quickAnswers.anchor` must match a heading id generated from the heading
+  text (lowercase, spaces to hyphens, punctuation removed, Thai kept). A test checks this.
+- **Related and moved guides.** `related` entries must exist. When a guide is renamed or moved,
+  add the old path to `lib/student-life-redirects.mjs` (a test checks each destination exists)
+  and the old slug to `aliases`.
+- **Reviewing.** Update `reviewed` when the facts are checked, and `updated` when the file is
+  edited. The page shows both.
+- Thai follows the register rules earlier in this document. After editing Thai files, run
+  `npx prettier --write content/student-life` and re-read them for line breaks inside dates,
+  numbers or phrases.
 
 Both activity and student-life entries accept an optional `placeholder: true`.
 

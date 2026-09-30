@@ -266,7 +266,7 @@ export const th: typeof en = {
     previous: "ก่อนหน้า",
     next: "ถัดไป",
     pageOf: "หน้า {current} จาก {total}",
-    backToGuides: "กลับไปคู่มือชีวิตนักศึกษาและวัฒนธรรม",
+    backToGuides: "กลับไปชีวิตนักศึกษา",
     openCourse: "ดูรายวิชาและรีวิว",
     reviewedBadge: "มีรีวิว",
     sampleBadge: "รีวิวตัวอย่าง",

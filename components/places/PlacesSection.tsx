@@ -1,6 +1,6 @@
 /**
  * Server component: renders one half of the "Food and housing nearby" guide
- * (`content/student-life/{en,th}/home/places-nearby.mdx`), either the food
+ * (`content/student-life/{en,th}/living-nearby/{where-to-eat,housing}.mdx`), either the food
  * groups (spread across two neighbourhood maps, old town and Pinklao) or the
  * single lettered housing list, as small static maps (`PlacesMap`) followed
  * by a matching, semantically real list.

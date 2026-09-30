@@ -181,7 +181,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "How the degree is assessed", "การวัดผลและการสำเร็จการศึกษา"),
-          href: localeHref(locale, "/student-life/handbook/assessment-and-degree"),
+          href: localeHref(locale, "/student-life/studying/grades-and-graduation"),
         },
         {
           label: bi(locale, "Which courses should I take?", "ควรลงวิชาใด"),
@@ -312,7 +312,7 @@ const rules: Rule[] = [
         },
         {
           label: bi(locale, "Your rights as a student", "สิทธิของนักศึกษา"),
-          href: localeHref(locale, "/student-life/home/rights-and-welfare"),
+          href: localeHref(locale, "/student-life/rules-and-rights/rights-and-facilities"),
         },
       ],
     }),
@@ -358,7 +358,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Safety and emergencies guide", "คู่มือความปลอดภัยและเหตุฉุกเฉิน"),
-          href: localeHref(locale, "/student-life/home/safety-and-emergencies"),
+          href: localeHref(locale, "/student-life/health-and-safety/staying-safe"),
         },
       ],
       note: bi(
@@ -406,7 +406,7 @@ const rules: Rule[] = [
         },
         {
           label: bi(locale, "For international students", "สำหรับนักศึกษาต่างชาติ"),
-          href: localeHref(locale, "/student-life/international"),
+          href: localeHref(locale, "/student-life/getting-started/international"),
         },
       ],
     }),
@@ -434,7 +434,7 @@ const rules: Rule[] = [
         },
         {
           label: bi(locale, "Get involved", "เข้าร่วมกิจกรรม"),
-          href: localeHref(locale, "/student-life/home/getting-involved"),
+          href: localeHref(locale, "/student-life/getting-involved/clubs-and-events"),
         },
       ],
     }),
@@ -563,12 +563,12 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Visa and immigration guide", "คู่มือวีซ่าและตรวจคนเข้าเมือง"),
-        href: localeHref(locale, "/student-life/international/visa-and-immigration"),
+        href: localeHref(locale, "/student-life/rules-and-rights/visa-rules"),
       },
       links: [
         {
           label: bi(locale, "Arriving and your first week", "การมาถึงและสัปดาห์แรก"),
-          href: localeHref(locale, "/student-life/international/arrival-and-first-week"),
+          href: localeHref(locale, "/student-life/first-weeks/first-two-weeks"),
         },
       ],
     }),
@@ -604,12 +604,16 @@ const rules: Rule[] = [
       },
       links: [
         {
-          label: bi(locale, "Money matters guide", "คู่มือเรื่องเงิน"),
-          href: localeHref(locale, "/student-life/home/money-matters"),
+          label: bi(locale, "Tuition, fees and refunds", "ค่าเล่าเรียน ค่าธรรมเนียม และการคืนเงิน"),
+          href: localeHref(locale, "/student-life/money/tuition-and-fees"),
         },
         {
-          label: bi(locale, "Admission and fees", "การรับเข้าและค่าธรรมเนียม"),
-          href: localeHref(locale, "/student-life/handbook/admission-and-fees"),
+          label: bi(
+            locale,
+            "Scholarships, loans and hardship help",
+            "ทุน เงินกู้ และความช่วยเหลือ"
+          ),
+          href: localeHref(locale, "/student-life/money/financial-help"),
         },
       ],
     }),
@@ -644,8 +648,8 @@ const rules: Rule[] = [
         "ไปรักษาที่ไหน บริการให้คำปรึกษาของมหาวิทยาลัยครอบคลุมอะไร และควรทำอย่างไรหากกำลังลำบากใจ"
       ),
       action: {
-        label: bi(locale, "Health and wellbeing guide", "คู่มือสุขภาพและความเป็นอยู่"),
-        href: localeHref(locale, "/student-life/home/health-and-wellbeing"),
+        label: bi(locale, "If you are ill or injured", "เมื่อเจ็บป่วยหรือบาดเจ็บ"),
+        href: localeHref(locale, "/student-life/health-and-safety/getting-medical-help"),
       },
       links: [
         {
@@ -682,12 +686,12 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Shuttle bus times", "ตารางรถรับส่ง"),
-        href: localeHref(locale, "/student-life/home/shuttle-bus"),
+        href: localeHref(locale, "/student-life/getting-around/shuttle-bus"),
       },
       links: [
         {
           label: bi(locale, "Getting around guide", "คู่มือการเดินทาง"),
-          href: localeHref(locale, "/student-life/home/getting-around"),
+          href: localeHref(locale, "/student-life/getting-around/getting-to-campus"),
         },
         {
           label: bi(locale, "Getting around answers", "คำตอบเรื่องการเดินทาง"),
@@ -724,13 +728,13 @@ const rules: Rule[] = [
         "ร้านที่นักศึกษากินจริงแถวท่าพระจันทร์และปิ่นเกล้า พร้อมแผนที่และราคาโดยประมาณ"
       ),
       action: {
-        label: bi(locale, "Places nearby", "สถานที่ใกล้เคียง"),
-        href: localeHref(locale, "/student-life/home/places-nearby"),
+        label: bi(locale, "Where to eat", "ร้านอาหารใกล้เคียง"),
+        href: localeHref(locale, "/student-life/living-nearby/where-to-eat"),
       },
       links: [
         {
-          label: bi(locale, "Food and budgeting", "อาหารและการวางแผนค่าใช้จ่าย"),
-          href: localeHref(locale, "/student-life/home/food-and-budgeting"),
+          label: bi(locale, "What a month costs", "ค่าใช้จ่ายรายเดือน"),
+          href: localeHref(locale, "/student-life/money/monthly-costs"),
         },
       ],
     }),
@@ -763,8 +767,8 @@ const rules: Rule[] = [
         "หอพักและอพาร์ตเมนต์ใกล้มหาวิทยาลัย พร้อมค่าเช่าที่นักศึกษาจ่ายจริงและระยะทาง"
       ),
       action: {
-        label: bi(locale, "Places nearby", "สถานที่ใกล้เคียง"),
-        href: localeHref(locale, "/student-life/home/places-nearby"),
+        label: bi(locale, "Finding somewhere to live", "แนวทางหาที่พัก"),
+        href: localeHref(locale, "/student-life/living-nearby/housing"),
       },
       links: [
         {
@@ -800,7 +804,7 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Phones and internet guide", "คู่มือโทรศัพท์และอินเทอร์เน็ต"),
-        href: localeHref(locale, "/student-life/international/phones-and-internet"),
+        href: localeHref(locale, "/student-life/first-weeks/sim-and-wifi"),
       },
       links: [],
     }),
@@ -824,7 +828,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Internship handbook chapter", "บทว่าด้วยการฝึกงาน"),
-          href: localeHref(locale, "/student-life/handbook/internship"),
+          href: localeHref(locale, "/student-life/studying/internship"),
         },
       ],
     }),

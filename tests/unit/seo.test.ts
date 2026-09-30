@@ -15,12 +15,10 @@ import {
   getGuideEntries,
   isArchivedEvent,
   isPastEvent,
-  type GuideAudience,
+  guideTopics,
 } from "@/lib/content";
 import { courses } from "@/content/course-review/courses";
 import { locales, type Locale } from "@/lib/i18n";
-
-const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
 
 function titleOf(options: BuildMetadataOptions): string {
   const { title } = buildMetadata(options);
@@ -120,12 +118,12 @@ describe("every indexable content page has a search-ready title and description"
         description: e.frontmatter.metaDescription ?? e.frontmatter.summary,
         path: `/activity/${e.slug}`,
       })),
-      ...guideAudiences.flatMap((audience) =>
-        getGuideEntries(locale, audience).map((e) => ({
+      ...guideTopics.flatMap((topic) =>
+        getGuideEntries(locale, topic).map((e) => ({
           locale,
           title: e.frontmatter.title,
           description: e.frontmatter.metaDescription ?? e.frontmatter.summary,
-          path: `/student-life/${audience}/${e.slug}`,
+          path: `/student-life/${topic}/${e.slug}`,
         }))
       ),
       ...getClubEntries(locale).map((e) => ({

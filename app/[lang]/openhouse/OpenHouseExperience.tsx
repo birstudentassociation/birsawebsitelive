@@ -612,7 +612,7 @@ export default function OpenHouseExperience({
         <div className="oh-measure">
           <p className="oh-map-note">
             {t(COPY.lunchMap, locale)}{" "}
-            <Link href={localeHref(locale, "/student-life/home/places-nearby")}>
+            <Link href={localeHref(locale, "/student-life/living-nearby/where-to-eat")}>
               {t(COPY.lunchMapLink, locale)}
             </Link>
           </p>

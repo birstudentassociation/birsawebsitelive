@@ -278,15 +278,15 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: { en: "Curriculum and study plan", th: "หลักสูตรและแผนการศึกษา" },
-          href: "/student-life/handbook/curriculum-and-study-plan",
+          href: "/student-life/studying/curriculum",
           when: { fact: "stage", is: "starting" },
         },
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Registering, adding and dropping courses",
+            th: "การลงทะเบียน การเพิ่มและถอนรายวิชา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/registration",
         },
       ],
     },
@@ -319,10 +319,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Registering, adding and dropping courses",
+            th: "การลงทะเบียน การเพิ่มและถอนรายวิชา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/registration",
         },
       ],
     },
@@ -372,10 +372,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Registering, adding and dropping courses",
+            th: "การลงทะเบียน การเพิ่มและถอนรายวิชา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/registration",
         },
       ],
     },
@@ -400,10 +400,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Missing an exam, leave and suspension",
+            th: "การขาดสอบ การลา และการพักการศึกษา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/exams-and-leave",
         },
       ],
       contactCategory: "question",
@@ -474,10 +474,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Missing an exam, leave and suspension",
+            th: "การขาดสอบ การลา และการพักการศึกษา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/exams-and-leave",
         },
       ],
       contactCategory: "question",
@@ -529,10 +529,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Missing an exam, leave and suspension",
+            th: "การขาดสอบ การลา และการพักการศึกษา",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/exams-and-leave",
         },
       ],
       contactCategory: "question",
@@ -597,10 +597,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "If your GPA is low",
+            th: "เมื่อเกรดเฉลี่ยต่ำ",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/low-gpa",
         },
       ],
       contactCategory: "question",
@@ -673,10 +673,10 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: {
-            en: "Academic life: rules and procedures",
-            th: "ชีวิตการเรียน: ระเบียบและขั้นตอน",
+            en: "Plagiarism and AI use",
+            th: "การคัดลอกผลงานและการใช้ AI",
           },
-          href: "/student-life/handbook/academic-life",
+          href: "/student-life/studying/plagiarism",
         },
       ],
     },
@@ -731,7 +731,7 @@ export const study: SmartAnswerService = {
             en: "Assessment and degree requirements",
             th: "การวัดผลและเงื่อนไขการสำเร็จการศึกษา",
           },
-          href: "/student-life/handbook/assessment-and-degree",
+          href: "/student-life/studying/grades-and-graduation",
         },
         {
           label: { en: "The PI574 internship", th: "การฝึกงาน PI574" },
@@ -793,7 +793,7 @@ export const study: SmartAnswerService = {
             en: "Assessment and degree requirements",
             th: "การวัดผลและเงื่อนไขการสำเร็จการศึกษา",
           },
-          href: "/student-life/handbook/assessment-and-degree",
+          href: "/student-life/studying/grades-and-graduation",
         },
       ],
     },
@@ -890,10 +890,10 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
         {
           label: { en: "Curriculum and study plan", th: "หลักสูตรและแผนการศึกษา" },
-          href: "/student-life/handbook/curriculum-and-study-plan",
+          href: "/student-life/studying/curriculum",
         },
       ],
     },
@@ -953,7 +953,7 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
       ],
     },
 
@@ -990,7 +990,7 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
       ],
     },
 
@@ -1033,7 +1033,7 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
       ],
     },
 
@@ -1063,7 +1063,7 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
       ],
       contactCategory: "question",
     },
@@ -1091,7 +1091,7 @@ export const study: SmartAnswerService = {
         },
       ],
       related: [
-        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/handbook/internship" },
+        { label: { en: "Internship", th: "การฝึกงาน" }, href: "/student-life/studying/internship" },
       ],
     },
 
@@ -1186,7 +1186,7 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: { en: "Curriculum and study plan", th: "หลักสูตรและแผนการศึกษา" },
-          href: "/student-life/handbook/curriculum-and-study-plan",
+          href: "/student-life/studying/curriculum",
         },
         {
           label: { en: "Course reviews", th: "รีวิวรายวิชา" },
@@ -1227,7 +1227,7 @@ export const study: SmartAnswerService = {
       related: [
         {
           label: { en: "Curriculum and study plan", th: "หลักสูตรและแผนการศึกษา" },
-          href: "/student-life/handbook/curriculum-and-study-plan",
+          href: "/student-life/studying/curriculum",
         },
         {
           label: { en: "The PI574 internship", th: "การฝึกงาน PI574" },

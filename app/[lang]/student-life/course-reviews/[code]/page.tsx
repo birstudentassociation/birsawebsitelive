@@ -13,6 +13,7 @@ import Tag from "@/components/Tag";
 import RatingBar from "@/components/course-review/RatingBar";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 import { courses } from "@/content/course-review/courses";
+import { studentLifeLabel } from "@/content/student-life/topics";
 
 // Nested under the literal `course-reviews` route (see the parent page.tsx
 // for why that segment already wins over the generic `[audience]` route).
@@ -51,7 +52,6 @@ export default async function CourseDetailPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
-  const sectionLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   const index = courses.findIndex((c) => c.code === code);
   const course = courses[index];
@@ -73,7 +73,7 @@ export default async function CourseDetailPage({
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: sectionLabel, href: "/services" },
+              { label: studentLifeLabel[locale], href: "/student-life" },
               { label: t.title, href: "/student-life/course-reviews" },
               { label: course.code },
             ]}

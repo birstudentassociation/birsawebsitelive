@@ -29,11 +29,11 @@ const publicPaths = [
   "/student-life/getting-started", // step-by-step audience chooser
   "/student-life/getting-started/international", // step-by-step track (client-enhanced checklist)
   "/student-life/getting-started/home",
-  "/student-life/home",
-  "/student-life/international",
-  "/student-life/international/visa-and-immigration", // guide article (MDX)
-  "/student-life/home/food-and-budgeting",
-  "/student-life/home/places-nearby", // OSM tile map with anchor markers
+  "/student-life/studying", // topic list
+  "/student-life/studying/low-gpa", // guide with quick answers
+  "/student-life/rules-and-rights/visa-rules", // guide article (MDX)
+  "/student-life/money/monthly-costs",
+  "/student-life/living-nearby/where-to-eat", // OSM tile map with anchor markers
   "/student-life/course-reviews", // course catalogue browser
   "/student-life/course-reviews/PI121", // course detail
   "/services",
@@ -112,7 +112,7 @@ test("submitting an empty contact form shows a focused error summary with field 
 for (const width of [1280, 375]) {
   test(`places map markers are links and never overlap at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto("/en/student-life/home/places-nearby");
+    await page.goto("/en/student-life/living-nearby/where-to-eat");
 
     const maps = page.locator('div[role="group"]');
     expect(await maps.count()).toBeGreaterThan(0);

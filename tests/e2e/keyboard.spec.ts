@@ -168,7 +168,7 @@ test.describe("accordion: keyboard-only", () => {
   test("opens and closes with the keyboard and reports the correct expanded state", async ({
     page,
   }) => {
-    await page.goto("/en/student-life/home/rights-and-welfare");
+    await page.goto("/en/student-life/rules-and-rights/rights-and-facilities");
 
     // Chromium exposes <details>/<summary> as an accessibility-tree "group",
     // not a "button": Playwright only supports the `expanded` role filter on

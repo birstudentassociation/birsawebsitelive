@@ -76,14 +76,55 @@ const activityFrontmatterSchema = z.object({
   placeholder: z.boolean().optional(),
 });
 
+/** The nine student-life topics, in display order. Also the folder names under `content/student-life/{locale}/`. */
+export const guideTopics = [
+  "before-you-arrive",
+  "first-weeks",
+  "studying",
+  "money",
+  "health-and-safety",
+  "getting-around",
+  "living-nearby",
+  "getting-involved",
+  "rules-and-rights",
+] as const;
+
+export type GuideTopic = (typeof guideTopics)[number];
+
+export function isGuideTopic(value: string): value is GuideTopic {
+  return (guideTopics as readonly string[]).includes(value);
+}
+
+const guideTopicSchema = z.enum(guideTopics);
+
 const studentLifeFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
   /** Search result description, when the summary is too long or too short for one. */
   metaDescription: z.string().min(1).optional(),
+  /** Must equal the folder the file sits in. */
+  topic: guideTopicSchema,
+  /** Position within the topic. */
   order: z.number(),
   updated: dateOnly,
-  audience: z.enum(["home", "international", "handbook"]),
+  /** When the facts were last checked against their sources. */
+  reviewed: dateOnly,
+  /** Who the guide is mainly for. Shown as a tag when not `all`. */
+  audience: z.enum(["all", "international", "thai"]).default("all"),
+  /** Who sets the rules described, in the page language. */
+  owner: z.string().min(1).optional(),
+  /** Short questions the guide answers, in the page language. */
+  keyQuestions: z.array(z.string().min(1)).default([]),
+  /** Shown in a box at the top. `anchor` is a heading id in the same file. */
+  quickAnswers: z
+    .array(z.object({ q: z.string().min(1), a: z.string().min(1), anchor: z.string().optional() }))
+    .default([]),
+  /** Other guides, as "topic/slug". */
+  related: z.array(z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/)).default([]),
+  /** Official pages the facts come from. */
+  sources: z.array(linkSchema).default([]),
+  /** Extra search words, such as old slugs. */
+  aliases: z.array(z.string().min(1)).default([]),
   placeholder: z.boolean().optional(),
 });
 
@@ -269,37 +310,50 @@ export function getEntry<S extends Section>(
 }
 
 // ---------------------------------------------------------------------------
-// Student-life guide (has an extra `audience` sub-directory + field)
+// Student-life guides: `content/student-life/{locale}/{topic}/{slug}.mdx`
 // ---------------------------------------------------------------------------
 
-export type GuideAudience = "home" | "international" | "handbook";
-
-/** Returns all student-life guide entries for a locale/audience, sorted by `order` asc. */
+/** Returns all guides in a topic for a locale, sorted by `order` asc. */
 export function getGuideEntries(
   locale: Locale,
-  audience: GuideAudience
+  topic: GuideTopic
 ): Entry<StudentLifeFrontmatter>[] {
-  const cacheKey = `student-life:${locale}:${audience}`;
+  const cacheKey = `student-life:${locale}:${topic}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached as Entry<StudentLifeFrontmatter>[];
 
-  const dir = path.join(CONTENT_ROOT, "student-life", locale, audience);
-  const entries = readMdxDir(dir).map(({ slug, raw, filePath }) =>
-    parseEntry(studentLifeFrontmatterSchema, slug, raw, filePath)
-  );
+  const dir = path.join(CONTENT_ROOT, "student-life", locale, topic);
+  const entries = readMdxDir(dir).map(({ slug, raw, filePath }) => {
+    const entry = parseEntry(studentLifeFrontmatterSchema, slug, raw, filePath);
+    if (entry.frontmatter.topic !== topic) {
+      throw new Error(
+        `Invalid frontmatter in ${path.relative(process.cwd(), filePath)}:\n  - topic: "${entry.frontmatter.topic}" does not match its folder "${topic}"`
+      );
+    }
+    return entry;
+  });
 
   const sorted = [...entries].sort((a, b) => a.frontmatter.order - b.frontmatter.order);
   cache.set(cacheKey, sorted as Entry[]);
   return sorted;
 }
 
-/** Returns a single student-life guide entry by slug, or `null` if it doesn't exist. */
+/** Returns a single guide by topic and slug, or `null` if it doesn't exist. */
 export function getGuideEntry(
   locale: Locale,
-  audience: GuideAudience,
+  topic: GuideTopic,
   slug: string
 ): Entry<StudentLifeFrontmatter> | null {
-  return getGuideEntries(locale, audience).find((entry) => entry.slug === slug) ?? null;
+  return getGuideEntries(locale, topic).find((entry) => entry.slug === slug) ?? null;
+}
+
+/** Every guide for a locale, in topic display order then `order`, each with its topic. */
+export function getAllGuideEntries(
+  locale: Locale
+): (Entry<StudentLifeFrontmatter> & { topic: GuideTopic })[] {
+  return guideTopics.flatMap((topic) =>
+    getGuideEntries(locale, topic).map((entry) => ({ ...entry, topic }))
+  );
 }
 
 // ---------------------------------------------------------------------------

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
+import { studentLifeCommonQuestions } from "@/content/student-life/topics";
 import GridRow, { GridMain } from "@/components/GridRow";
 
 export async function generateMetadata({
@@ -40,18 +42,7 @@ const copy: Record<
     informationLede: string;
     courseReviews: { title: string; description: string; cta: string };
     guides: { title: string; description: string; cta: string };
-    international: {
-      eyebrow: string;
-      title: string;
-      description: string;
-      cta: string;
-    };
-    handbook: {
-      eyebrow: string;
-      title: string;
-      description: string;
-      cta: string;
-    };
+    topQuestionsHeading: string;
   }
 > = {
   en: {
@@ -99,25 +90,12 @@ const copy: Record<
       cta: "See what's coming",
     },
     guides: {
-      title: "Student life and culture guides",
+      title: "Student life guides",
       description:
-        "Guidance for all BIR students on getting around Tha Prachan, budgeting, health and safety, culture, and getting involved.",
+        "Guides to applying, arriving, studying, money, health, getting around, food and housing, clubs and your rights, for every BIR student.",
       cta: "Explore the guides",
     },
-    international: {
-      eyebrow: "For international students",
-      title: "Arriving in Bangkok",
-      description:
-        "Arrival, visas, banking, phones, healthcare, and everyday culture and language: everything for your first weeks and beyond.",
-      cta: "Explore the international student guide",
-    },
-    handbook: {
-      eyebrow: "Reference",
-      title: "Student handbook",
-      description:
-        "The BIR handbook: admission and fees, the curriculum and 2023 revised study plan, academic rules, the internship, and academic activities.",
-      cta: "Read the student handbook",
-    },
+    topQuestionsHeading: "Top questions",
   },
   th: {
     title: "ข้อมูลและบริการ",
@@ -163,25 +141,12 @@ const copy: Record<
       cta: "ดูว่ากำลังจะมีอะไรบ้าง",
     },
     guides: {
-      title: "คู่มือชีวิตนักศึกษาและวัฒนธรรม",
+      title: "คู่มือชีวิตนักศึกษา",
       description:
-        "คำแนะนำสำหรับนักศึกษา BIR ทุกคน ครอบคลุมการเดินทางแถวท่าพระจันทร์ การจัดการเงิน สุขภาพและความปลอดภัย วัฒนธรรม และการเข้าร่วมกิจกรรม",
+        "คู่มือสำหรับนักศึกษา BIR ทุกคน ตั้งแต่การสมัคร การเรียน การเงิน สุขภาพ การเดินทาง อาหารและที่พัก ชมรม ไปจนถึงสิทธิของนักศึกษา",
       cta: "ดูคู่มือทั้งหมด",
     },
-    international: {
-      eyebrow: "สำหรับนักศึกษาต่างชาติ",
-      title: "การเดินทางมาถึงกรุงเทพฯ",
-      description:
-        "การเดินทางมาถึง วีซ่า บัญชีธนาคาร มือถือ การรักษาพยาบาล และวัฒนธรรมในชีวิตประจำวัน ครบทุกอย่างสำหรับสัปดาห์แรกและหลังจากนั้น",
-      cta: "ดูคู่มือสำหรับนักศึกษาต่างชาติ",
-    },
-    handbook: {
-      eyebrow: "เอกสารอ้างอิง",
-      title: "คู่มือนักศึกษา",
-      description:
-        "คู่มือนักศึกษา BIR ทั้งการรับเข้าและค่าเล่าเรียน โครงสร้างหลักสูตรและแผนการศึกษาฉบับปรับปรุง พ.ศ. 2566 ระเบียบด้านการเรียน การฝึกงาน และกิจกรรมทางวิชาการ",
-      cta: "อ่านคู่มือนักศึกษา",
-    },
+    topQuestionsHeading: "คำถามที่พบบ่อย",
   },
 };
 
@@ -203,9 +168,7 @@ export default async function InformationServicesPage({
   const answersHref = localeHref(locale, "/answers");
   const universityServicesHref = localeHref(locale, "/services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
-  const guidesHref = localeHref(locale, "/student-life/home");
-  const internationalHref = localeHref(locale, "/student-life/international");
-  const handbookHref = localeHref(locale, "/student-life/handbook");
+  const guidesHref = localeHref(locale, "/student-life");
 
   return (
     <>
@@ -269,25 +232,21 @@ export default async function InformationServicesPage({
                 <NavListItem href={guidesHref} title={t.guides.title} as="h3">
                   {t.guides.description}
                 </NavListItem>
-
-                <NavListItem
-                  href={handbookHref}
-                  title={t.handbook.title}
-                  meta={t.handbook.eyebrow}
-                  as="h3"
-                >
-                  {t.handbook.description}
-                </NavListItem>
-
-                <NavListItem
-                  href={internationalHref}
-                  title={t.international.title}
-                  meta={t.international.eyebrow}
-                  as="h3"
-                >
-                  {t.international.description}
-                </NavListItem>
               </NavList>
+
+              <h3 className="mt-2 font-display text-lg">{t.topQuestionsHeading}</h3>
+              <ul className="flex flex-col gap-2">
+                {studentLifeCommonQuestions[locale].slice(0, 4).map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={localeHref(locale, item.href)}
+                      className="text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                    >
+                      {item.q}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </GridMain>
           </GridRow>
         </section>

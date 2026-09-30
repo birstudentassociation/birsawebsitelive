@@ -13,13 +13,7 @@ import {
   onboardingAudiences,
   onboardingUiCopy,
 } from "@/content/onboarding";
-
-// "Student life" breadcrumb label, authored locally: see the same constant
-// in `../page.tsx` for why it's duplicated rather than imported.
-const studentLifeLabel: Record<Locale, string> = {
-  en: "Student life",
-  th: "ชีวิตนักศึกษา",
-};
+import { studentLifeLabel } from "@/content/student-life/topics";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => onboardingAudiences.map((audience) => ({ lang, audience })));

@@ -203,7 +203,7 @@ export const triage: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
           description: {
             en: "Campus security, lost student cards, river safety, scams, and reporting harassment.",
             th: "การรักษาความปลอดภัยในมหาวิทยาลัย บัตรนักศึกษาหาย ความปลอดภัยริมน้ำ มิจฉาชีพ และการแจ้งเหตุคุกคาม",

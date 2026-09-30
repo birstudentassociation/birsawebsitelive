@@ -79,7 +79,7 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "shuttle-bus",
-        href: "/student-life/home/shuttle-bus",
+        href: "/student-life/getting-around/shuttle-bus",
         icon: "bus",
         en: { label: "Shuttle bus", hint: "Live departures and timetables" },
         th: { label: "รถเวียน", hint: "เวลารถและตารางเดินรถ" },
@@ -93,7 +93,7 @@ export const quickGroups: QuickGroup[] = [
       },
       {
         key: "internship",
-        href: "/student-life/handbook/internship",
+        href: "/student-life/studying/internship",
         icon: "register",
         en: {
           label: "Internship",

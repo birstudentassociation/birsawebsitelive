@@ -355,7 +355,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Health and wellbeing", th: "สุขภาพและความเป็นอยู่" },
-          href: "/student-life/home/health-and-wellbeing",
+          href: "/student-life/health-and-safety/getting-medical-help",
           description: {
             en: "Emergency numbers, everyday health care, and what your student status covers.",
             th: "เบอร์ฉุกเฉิน การดูแลสุขภาพในชีวิตประจำวัน และสิทธิที่มาพร้อมสถานะนักศึกษา",
@@ -411,12 +411,12 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Health and wellbeing", th: "สุขภาพและความเป็นอยู่" },
-          href: "/student-life/home/health-and-wellbeing",
+          href: "/student-life/health-and-safety/getting-medical-help",
           when: { fact: "origin", is: "thai" },
         },
         {
           label: { en: "Healthcare and insurance", th: "การรักษาพยาบาลและประกัน" },
-          href: "/student-life/international/healthcare-and-insurance",
+          href: "/student-life/health-and-safety/getting-medical-help",
           when: { fact: "origin", is: "international" },
         },
       ],
@@ -481,7 +481,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Health and wellbeing", th: "สุขภาพและความเป็นอยู่" },
-          href: "/student-life/home/health-and-wellbeing",
+          href: "/student-life/health-and-safety/getting-medical-help",
         },
       ],
       contactCategory: "question",
@@ -557,7 +557,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Health and wellbeing", th: "สุขภาพและความเป็นอยู่" },
-          href: "/student-life/home/health-and-wellbeing",
+          href: "/student-life/health-and-safety/getting-medical-help",
         },
       ],
       contactCategory: "question",
@@ -605,7 +605,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Healthcare and insurance", th: "การรักษาพยาบาลและประกัน" },
-          href: "/student-life/international/healthcare-and-insurance",
+          href: "/student-life/health-and-safety/getting-medical-help",
         },
       ],
       contactCategory: "question",
@@ -635,7 +635,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
         },
       ],
     },
@@ -660,7 +660,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
         },
       ],
     },
@@ -696,7 +696,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
           description: {
             en: "The full reporting channels, and what happens after you report.",
             th: "ช่องทางแจ้งเรื่องแบบเต็ม และขั้นตอนหลังจากแจ้งเรื่องแล้ว",
@@ -765,7 +765,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
         },
       ],
     },
@@ -883,11 +883,11 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Getting around Tha Prachan", th: "การเดินทางในท่าพระจันทร์" },
-          href: "/student-life/home/getting-around",
+          href: "/student-life/getting-around/getting-to-campus",
         },
         {
           label: { en: "Food and housing nearby", th: "ที่กินและที่พักใกล้เคียง" },
-          href: "/student-life/home/places-nearby",
+          href: "/student-life/living-nearby/where-to-eat",
         },
       ],
     },
@@ -938,7 +938,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Getting around Tha Prachan", th: "การเดินทางในท่าพระจันทร์" },
-          href: "/student-life/home/getting-around",
+          href: "/student-life/getting-around/getting-to-campus",
         },
       ],
     },
@@ -980,7 +980,7 @@ export const wellbeing: SmartAnswerService = {
             en: "Live departures and full timetable",
             th: "เวลารถออกแบบเรียลไทม์และตารางเต็ม",
           },
-          href: "/student-life/home/shuttle-bus",
+          href: "/student-life/getting-around/shuttle-bus",
         },
       ],
     },
@@ -1030,7 +1030,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Food and housing nearby", th: "ที่กินและที่พักใกล้เคียง" },
-          href: "/student-life/home/places-nearby",
+          href: "/student-life/living-nearby/where-to-eat",
           description: {
             en: "A map of around 70 food places numbered for both sides of the river.",
             th: "แผนที่ร้านอาหารราว 70 ร้าน แบ่งเป็นฝั่งเกาะรัตนโกสินทร์และฝั่งปิ่นเกล้า",
@@ -1038,7 +1038,7 @@ export const wellbeing: SmartAnswerService = {
         },
         {
           label: { en: "Food and budgeting", th: "เรื่องกินและงบประมาณ" },
-          href: "/student-life/home/food-and-budgeting",
+          href: "/student-life/money/monthly-costs",
         },
       ],
     },
@@ -1063,7 +1063,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Food and housing nearby", th: "ที่กินและที่พักใกล้เคียง" },
-          href: "/student-life/home/places-nearby",
+          href: "/student-life/living-nearby/where-to-eat",
         },
       ],
     },
@@ -1120,7 +1120,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Libraries and study support", th: "ห้องสมุดและความช่วยเหลือด้านการเรียน" },
-          href: "/student-life/home/study-support",
+          href: "/student-life/studying/libraries-and-study-support",
         },
       ],
     },
@@ -1168,7 +1168,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Libraries and study support", th: "ห้องสมุดและความช่วยเหลือด้านการเรียน" },
-          href: "/student-life/home/study-support",
+          href: "/student-life/studying/libraries-and-study-support",
         },
       ],
     },
@@ -1329,7 +1329,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
     },
@@ -1379,7 +1379,7 @@ export const wellbeing: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
     },

@@ -1,6 +1,6 @@
 /**
  * Pure data + scheduling logic for the Thammasat shuttle bus guide
- * (`content/student-life/{en,th}/home/shuttle-bus.mdx`). No React here so
+ * (`content/student-life/{en,th}/getting-around/shuttle-bus.mdx`). No React here so
  * this stays fully unit-testable; see `tests/unit/shuttle.test.ts`.
  *
  * All times below are the two lines' scheduled DEPARTURES FROM the
@@ -209,12 +209,12 @@ export const serviceModification: ServiceModification | undefined = {
   lines: ["sanam-chai", "pinklao"],
   flag: { en: "New timetable", th: "ตารางเวลาใหม่" },
   title: {
-    en: "New shuttle timetables from 1 October",
-    th: "รถเวียนทั้งสองสายใช้ตารางเวลาใหม่ตั้งแต่ 1 ตุลาคม",
+    en: "New shuttle timetables from 1 October 2026",
+    th: "รถเวียนทั้งสองสายใช้ตารางเวลาใหม่ตั้งแต่ 1 ตุลาคม 2569",
   },
   body: {
-    en: "Both lines are running as normal on their usual timetables until Wednesday 30 September. From Thursday 1 October the Sanam Chai and Pinklao lines each run with 1 bus, so there are fewer departures. The timetables on this page change to the new times on that day.",
-    th: "รถเวียนทั้งสองสายยังให้บริการตามปกติตามตารางเดิมจนถึงวันพุธที่ 30 กันยายน ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม สายสนามไชยและสายปิ่นเกล้าจะเหลือรถสายละ 1 คัน จำนวนรอบจึงลดลง ตารางเวลาในหน้านี้จะเปลี่ยนเป็นเวลาใหม่ในวันนั้น",
+    en: "From Thursday 1 October 2026 the Sanam Chai and Pinklao lines each run with 1 bus, so there are fewer departures. Both lines run from 07:00 to 21:30 on weekdays.",
+    th: "ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม 2569 สายสนามไชยและสายปิ่นเกล้าเหลือรถสายละ 1 คัน จำนวนรอบจึงลดลง ทั้งสองสายวิ่งวันจันทร์ถึงวันศุกร์ เวลา 07.00 ถึง 21.30 น.",
   },
   alternatives: {
     en: "If a shuttle time does not suit you, use the M2 shuttle bus from Sanam Luang, or public bus routes 53, 43 or 15.",

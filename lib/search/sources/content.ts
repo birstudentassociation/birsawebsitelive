@@ -15,24 +15,19 @@
 import {
   getClubEntries,
   getEntries,
-  getGuideEntries,
+  getAllGuideEntries,
   type ActivityFrontmatter,
   type ClubFrontmatter,
   type Entry,
-  type GuideAudience,
+  type GuideTopic,
   type NewsFrontmatter,
   type StudentLifeFrontmatter,
 } from "@/lib/content";
 import { localeHref, type Locale } from "@/lib/i18n";
+import { extractH2Sections } from "@/lib/toc";
+import { studentLifeTopics } from "@/content/student-life/topics";
 import { mdxHeadings, mdxToText } from "@/lib/search/mdx-text";
 import type { SearchDoc } from "@/lib/search/types";
-
-/** Bilingual label shown as the badge on a student-life guide result. */
-const AUDIENCE_BADGE: Record<GuideAudience, { en: string; th: string }> = {
-  home: { en: "Student life", th: "ชีวิตนักศึกษา" },
-  international: { en: "International", th: "นักศึกษาต่างชาติ" },
-  handbook: { en: "Handbook", th: "คู่มือนักศึกษา" },
-};
 
 /**
  * Slugs are English kebab-case on every locale (see `lib/content.ts`), so
@@ -89,26 +84,51 @@ function activityDoc(locale: Locale, entry: Entry<ActivityFrontmatter>): SearchD
   };
 }
 
-function guideDoc(
+function guideDocs(
   locale: Locale,
-  audience: GuideAudience,
+  topic: GuideTopic,
   entry: Entry<StudentLifeFrontmatter>
-): SearchDoc {
+): SearchDoc[] {
   const { frontmatter, slug, content } = entry;
-  const badge = AUDIENCE_BADGE[audience];
-  return {
-    id: `student-life:${audience}:${slug}`,
+  const badge = studentLifeTopics[locale][topic].title;
+  const path = `/student-life/${topic}/${slug}`;
+  const guide: SearchDoc = {
+    id: `student-life:${topic}:${slug}`,
     locale,
     section: "student-life",
     kind: "guide",
-    href: localeHref(locale, `/student-life/${audience}/${slug}`),
+    href: localeHref(locale, path),
     title: frontmatter.title,
     summary: frontmatter.summary,
-    keywords: keywordsOf([...mdxHeadings(content), slugKeyword(slug)]),
+    keywords: keywordsOf([
+      ...frontmatter.keyQuestions,
+      ...frontmatter.quickAnswers.flatMap((item) => [item.q, item.a]),
+      ...frontmatter.aliases,
+      ...mdxHeadings(content),
+      slugKeyword(slug),
+    ]),
     body: mdxToText(content),
-    date: frontmatter.updated,
-    badge: badge[locale],
+    date: frontmatter.reviewed,
+    badge,
   };
+
+  // One result per H2, opening the guide at that heading, so a query such as
+  // "Rangsit" or "90 day" lands on the right part of a long page.
+  const sections: SearchDoc[] = extractH2Sections(content).map((section) => ({
+    id: `student-life:${topic}:${slug}#${section.id}`,
+    locale,
+    section: "student-life",
+    kind: "guide",
+    href: `${localeHref(locale, path)}#${section.id}`,
+    title: `${section.label} (${frontmatter.title})`,
+    summary: frontmatter.title,
+    keywords: keywordsOf([section.label]),
+    body: mdxToText(section.body),
+    date: frontmatter.reviewed,
+    badge,
+  }));
+
+  return [guide, ...sections];
 }
 
 function clubDoc(locale: Locale, entry: Entry<ClubFrontmatter>): SearchDoc {
@@ -134,8 +154,6 @@ function clubDoc(locale: Locale, entry: Entry<ClubFrontmatter>): SearchDoc {
   };
 }
 
-const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
-
 /** Build search documents for every non-placeholder MDX entry, for one locale. */
 export function contentDocs(locale: Locale): SearchDoc[] {
   const docs: SearchDoc[] = [];
@@ -150,11 +168,9 @@ export function contentDocs(locale: Locale): SearchDoc[] {
     docs.push(activityDoc(locale, entry));
   }
 
-  for (const audience of guideAudiences) {
-    for (const entry of getGuideEntries(locale, audience)) {
-      if (entry.frontmatter.placeholder) continue;
-      docs.push(guideDoc(locale, audience, entry));
-    }
+  for (const { topic, ...entry } of getAllGuideEntries(locale)) {
+    if (entry.frontmatter.placeholder) continue;
+    docs.push(...guideDocs(locale, topic, entry));
   }
 
   for (const entry of getClubEntries(locale)) {

@@ -9,7 +9,7 @@ import {
   type OnboardingTrack,
 } from "@/content/onboarding";
 import { locales } from "@/lib/i18n";
-import { getGuideEntries, type GuideAudience } from "@/lib/content";
+import { getGuideEntries, guideTopics } from "@/lib/content";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
@@ -145,12 +145,11 @@ describe("onboarding task hrefs", () => {
   // Build an allowlist of real internal routes from the content system (guide
   // slugs + handbook chapters) plus the known static routes the tracks link
   // to, then assert every task href resolves against it.
-  const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
   const guideRoutes = new Set<string>();
-  for (const audience of guideAudiences) {
-    guideRoutes.add(`/student-life/${audience}`);
-    for (const entry of getGuideEntries("en", audience)) {
-      guideRoutes.add(`/student-life/${audience}/${entry.slug}`);
+  for (const topic of guideTopics) {
+    guideRoutes.add(`/student-life/${topic}`);
+    for (const entry of getGuideEntries("en", topic)) {
+      guideRoutes.add(`/student-life/${topic}/${entry.slug}`);
     }
   }
 
@@ -162,6 +161,9 @@ describe("onboarding task hrefs", () => {
     "/emergency",
     "/student-life",
     "/student-life/course-reviews",
+    "/student-life/getting-started",
+    "/student-life/getting-started/home",
+    "/student-life/getting-started/international",
     "/services/equipment-loan",
     "/activity/regulations",
     "/activity/student-bodies",
@@ -176,7 +178,7 @@ describe("onboarding task hrefs", () => {
         for (const task of step.tasks) {
           if (!task.href || task.external) continue;
           expect(
-            allowedRoutes.has(task.href),
+            allowedRoutes.has(task.href.split("#")[0] ?? ""),
             `${task.id} href "${task.href}" is not a known route`
           ).toBe(true);
         }
@@ -184,19 +186,21 @@ describe("onboarding task hrefs", () => {
     }
   });
 
-  it("every linked handbook chapter file actually exists on disk (en and th)", () => {
+  it("every linked guide file actually exists on disk (en and th)", () => {
     for (const track of onboardingTracks) {
       for (const step of track.steps) {
         for (const task of step.tasks) {
-          if (!task.href?.startsWith("/student-life/handbook/")) continue;
-          const slug = task.href.split("/").pop()!;
+          const match = /^\/student-life\/([a-z-]+)\/([a-z0-9-]+)$/.exec(
+            task.href?.split("#")[0] ?? ""
+          );
+          if (!match || !(guideTopics as readonly string[]).includes(match[1] ?? "")) continue;
           for (const locale of locales) {
             const filePath = path.join(
               CONTENT_ROOT,
               "student-life",
               locale,
-              "handbook",
-              `${slug}.mdx`
+              match[1] ?? "",
+              `${match[2]}.mdx`
             );
             expect(fs.existsSync(filePath), `${filePath} should exist`).toBe(true);
           }

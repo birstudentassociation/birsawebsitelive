@@ -93,8 +93,10 @@ export function swapLocalePath(pathname: string, to: Locale): string;
 export type Section = "news" | "activity" | "about";
 export function getEntries(section: Section, locale: Locale): Entry[]; // sorted
 export function getEntry(section: Section, locale: Locale, slug: string): Entry | null;
-export function getGuideEntries(locale: Locale, audience: "home" | "international"): Entry[];
-export function getGuideEntry(locale, audience, slug): Entry | null;
+export const guideTopics: readonly GuideTopic[]; // nine topics, in display order
+export function getGuideEntries(locale: Locale, topic: GuideTopic): Entry[]; // sorted by order
+export function getGuideEntry(locale, topic, slug): Entry | null;
+export function getAllGuideEntries(locale: Locale): (Entry & { topic: GuideTopic })[];
 // Entry = { slug, frontmatter, content(raw mdx string) }
 
 // lib/mdx.tsx
@@ -118,7 +120,7 @@ content/home/{en,th}.ts             # home page blocks
 content/quick.ts                    # quick-actions link groups
 content/news/{en,th}/<slug>.mdx     # same slug in both locales
 content/activity/{en,th}/<slug>.mdx
-content/student-life/{en,th}/{home,international}/<slug>.mdx
+content/student-life/{en,th}/<topic>/<slug>.mdx   # nine topic folders; URL /student-life/<topic>/<slug>
 content/about/{en,th}/<slug>.mdx
 content/clubs/{en,th}/<slug>.mdx    # one file per club per locale
 content/clubs/clubs.ts              # category vocabulary + the client-safe ClubSummary type
@@ -127,7 +129,9 @@ content/clubs/clubs.ts              # category vocabulary + the client-safe Club
 News frontmatter: `title, summary, date (YYYY-MM-DD), type ("news"|"event"), category,
 location?, start? (ISO datetime), end?, links? [{label,href}]`.
 Activity frontmatter: `title, summary, order, updated, placeholder?`.
-Student-life frontmatter: `title, summary, order, updated, audience`.
+Student-life frontmatter: `title, summary, metaDescription?, topic (equals folder), order, updated,
+reviewed, audience? (all|international|thai), owner?, keyQuestions[], quickAnswers? [{q,a,anchor?}],
+related[] ("topic/slug"), sources[] [{label,href}], aliases[], placeholder?`.
 Club frontmatter: `title, tagline, category, order, updated, joinOpen, lead?, meets?, where?,
 custodian?, links? [{label,href}], placeholder?`. The body is the club's own write-up; only the
 card/sidebar fields live in frontmatter.

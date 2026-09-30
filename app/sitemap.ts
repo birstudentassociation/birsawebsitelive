@@ -11,7 +11,7 @@ import {
   getEntries,
   getGuideEntries,
   isArchivedEvent,
-  type GuideAudience,
+  guideTopics,
 } from "@/lib/content";
 import { documents } from "@/content/activity/regulations";
 import { courses } from "@/content/course-review/courses";
@@ -21,8 +21,6 @@ import { SITE_URL } from "@/lib/site-url";
 
 /** Regenerated daily so events drop out a year after they end. */
 export const revalidate = 86400;
-
-const guideAudiences: GuideAudience[] = ["home", "international", "handbook"];
 
 function url(locale: Locale, path: string): string {
   const normalized = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
@@ -104,11 +102,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push(entry(locale, `/student-life/getting-started/${audience}`));
     }
 
-    for (const audience of guideAudiences) {
-      entries.push(entry(locale, `/student-life/${audience}`));
-      for (const guide of getGuideEntries(locale, audience)) {
+    for (const topic of guideTopics) {
+      entries.push(entry(locale, `/student-life/${topic}`));
+      for (const guide of getGuideEntries(locale, topic)) {
         entries.push(
-          entry(locale, `/student-life/${audience}/${guide.slug}`, guide.frontmatter.updated)
+          entry(locale, `/student-life/${topic}/${guide.slug}`, guide.frontmatter.reviewed)
         );
       }
     }

@@ -1,6 +1,6 @@
 /**
  * Pure data + map math for the "Food and housing nearby" guide
- * (`content/student-life/{en,th}/home/places-nearby.mdx`). No React here so
+ * (`content/student-life/{en,th}/living-nearby/{where-to-eat,housing}.mdx`). No React here so
  * this stays fully unit-testable; see `tests/unit/places.test.ts`.
  *
  * The entries below are extracted from two Google Maps lists curated by a

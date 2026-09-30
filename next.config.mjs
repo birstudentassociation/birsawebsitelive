@@ -1,4 +1,5 @@
 import { buildStaticCsp } from "./lib/csp.mjs";
+import { studentLifeRedirects } from "./lib/student-life-redirects.mjs";
 
 /**
  * Next.js configuration.
@@ -44,7 +45,7 @@ const nextConfig = {
     // visitor's language. Permanent (308) so search engines follow the move.
     //
     // Course reviews moved from the literal `student-life/home/course-reviews`
-    // route (nested under the "home" guide track) to a sibling of `[audience]`
+    // route (nested under the "home" guide track) to a sibling of `[topic]`
     // at `student-life/course-reviews`, so it reads as its own section rather
     // than a guide topic.
     //
@@ -65,6 +66,8 @@ const nextConfig = {
         destination: "/:lang/student-life/course-reviews/:code",
         permanent: true,
       },
+      // Guides moved from audience folders to topics; see lib/student-life-redirects.mjs.
+      ...studentLifeRedirects(),
       {
         source: "/:lang/information-services",
         destination: "/:lang/services",

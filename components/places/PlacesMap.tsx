@@ -32,7 +32,7 @@
  * requests 403 (network is blocked here); they resolve normally in
  * production.
  *
- * Used from `content/student-life/{en,th}/home/places-nearby.mdx` via
+ * Used from `content/student-life/{en,th}/living-nearby/{where-to-eat,housing}.mdx` via
  * `PlacesSection` (food and housing), which is registered in `lib/mdx.tsx`.
  */
 import ExternalLink from "@/components/ExternalLink";
@@ -147,7 +147,7 @@ export default function PlacesMap({
   // Size, Minimum) sets, so scaling it down by container width put the
   // target below the floor on any phone narrower than `MAP_LAYOUT_WIDTH`
   // plus the page gutters — 23.4px on a 393px-wide viewport, which axe
-  // reports as a serious violation on /student-life/home/places-nearby. The
+  // reports as a serious violation on /student-life/living-nearby/where-to-eat. The
   // markers sit close enough together that the spacing exemption doesn't
   // apply either, so the size itself has to hold.
   const markerBoxSize = `${MARKER_SIZE}px`;

@@ -11,7 +11,7 @@
  * are coming from should never be asked again.
  *
  * Several of the international guides this topic draws on
- * (`content/student-life/en/international/visa-and-immigration.mdx`,
+ * (`content/student-life/en/rules-and-rights/visa-rules.mdx`,
  * `banking-and-money.mdx`, and the phrase table in `culture-and-language.mdx`)
  * carry a placeholder Notice marking their specifics as unverified. Outcomes
  * built on those sections say so plainly, point at the guide and at the
@@ -294,7 +294,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Visa and immigration guide", th: "คู่มือวีซ่าและการเข้าเมือง" },
-          href: "/student-life/international/visa-and-immigration",
+          href: "/student-life/rules-and-rights/visa-rules",
         },
       ],
       contactCategory: "question",
@@ -346,7 +346,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Visa and immigration guide", th: "คู่มือวีซ่าและการเข้าเมือง" },
-          href: "/student-life/international/visa-and-immigration",
+          href: "/student-life/rules-and-rights/visa-rules",
         },
       ],
       contactCategory: "question",
@@ -387,7 +387,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Visa and immigration guide", th: "คู่มือวีซ่าและการเข้าเมือง" },
-          href: "/student-life/international/visa-and-immigration",
+          href: "/student-life/rules-and-rights/visa-rules",
         },
       ],
       contactCategory: "question",
@@ -428,7 +428,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Visa and immigration guide", th: "คู่มือวีซ่าและการเข้าเมือง" },
-          href: "/student-life/international/visa-and-immigration",
+          href: "/student-life/rules-and-rights/visa-rules",
         },
       ],
       contactCategory: "question",
@@ -533,7 +533,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Arrival and first week guide", th: "คู่มือการเดินทางมาถึงและสัปดาห์แรก" },
-          href: "/student-life/international/arrival-and-first-week",
+          href: "/student-life/first-weeks/first-two-weeks",
         },
       ],
       related: [
@@ -602,7 +602,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Banking and money guide", th: "คู่มือธนาคารและการเงิน" },
-          href: "/student-life/international/banking-and-money",
+          href: "/student-life/money/bank-account",
         },
       ],
       contactCategory: "question",
@@ -642,7 +642,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Phones and internet guide", th: "คู่มือโทรศัพท์และอินเทอร์เน็ต" },
-          href: "/student-life/international/phones-and-internet",
+          href: "/student-life/first-weeks/sim-and-wifi",
         },
       ],
     },
@@ -692,7 +692,7 @@ export const living: SmartAnswerService = {
             en: "Healthcare and insurance guide",
             th: "คู่มือการรักษาพยาบาลและประกันสุขภาพ",
           },
-          href: "/student-life/international/healthcare-and-insurance",
+          href: "/student-life/health-and-safety/getting-medical-help",
         },
         {
           label: { en: "Emergency guidance", th: "คำแนะนำเหตุฉุกเฉิน" },
@@ -751,7 +751,7 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Culture and language guide", th: "คู่มือวัฒนธรรมและภาษา" },
-          href: "/student-life/international/culture-and-language",
+          href: "/student-life/first-weeks/culture-and-language",
         },
       ],
     },
@@ -783,10 +783,10 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: {
-            en: "Rights and welfare, including the TU Greats App",
-            th: "สิทธิและสวัสดิการ รวมถึงแอป TU Greats",
+            en: "Your first two weeks, including the TU Greats App",
+            th: "สองสัปดาห์แรก รวมถึงแอป TU Greats",
           },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/first-weeks/first-two-weeks",
         },
         {
           label: { en: "What's on", th: "กิจกรรมที่กำลังจะจัดขึ้น" },
@@ -796,7 +796,7 @@ export const living: SmartAnswerService = {
       related: [
         {
           label: { en: "Libraries and study support", th: "ห้องสมุดและบริการสนับสนุนการเรียน" },
-          href: "/student-life/home/study-support",
+          href: "/student-life/studying/libraries-and-study-support",
           description: {
             en: "Libraries, printing quota, TU-GET, and plagiarism checking.",
             th: "ห้องสมุด โควตาพรินต์ TU-GET และการตรวจสอบการคัดลอกผลงาน",
@@ -804,15 +804,15 @@ export const living: SmartAnswerService = {
         },
         {
           label: { en: "Shuttle bus", th: "รถรับส่ง" },
-          href: "/student-life/home/shuttle-bus",
+          href: "/student-life/getting-around/shuttle-bus",
         },
         {
           label: { en: "Getting around Tha Prachan", th: "การเดินทางรอบท่าพระจันทร์" },
-          href: "/student-life/home/getting-around",
+          href: "/student-life/getting-around/getting-to-campus",
         },
         {
           label: { en: "Phones and internet guide", th: "คู่มือโทรศัพท์และอินเทอร์เน็ต" },
-          href: "/student-life/international/phones-and-internet",
+          href: "/student-life/first-weeks/sim-and-wifi",
           description: {
             en: "Written for international students, but the wifi section applies to everyone.",
             th: "เขียนไว้สำหรับนักศึกษาต่างชาติ แต่ส่วนของ wifi ใช้ได้กับนักศึกษาทุกคน",
@@ -913,10 +913,10 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: {
-            en: "Admission, structure and fees",
-            th: "การรับเข้า โครงสร้างหลักสูตร และค่าเล่าเรียน",
+            en: "Tuition, fees and refunds",
+            th: "ค่าเล่าเรียน ค่าธรรมเนียม และการคืนเงิน",
           },
-          href: "/student-life/handbook/admission-and-fees",
+          href: "/student-life/money/tuition-and-fees",
         },
       ],
       contactCategory: "question",
@@ -975,17 +975,17 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Food and budgeting guide", th: "คู่มืออาหารและงบประมาณ" },
-          href: "/student-life/home/food-and-budgeting",
+          href: "/student-life/money/monthly-costs",
         },
       ],
       related: [
         {
           label: { en: "Food and housing nearby", th: "ร้านอาหารและที่พักใกล้เคียง" },
-          href: "/student-life/home/places-nearby",
+          href: "/student-life/living-nearby/where-to-eat",
         },
         {
           label: { en: "Money matters", th: "เรื่องการเงิน" },
-          href: "/student-life/home/money-matters",
+          href: "/student-life/money/student-discounts",
         },
       ],
     },
@@ -1051,13 +1051,13 @@ export const living: SmartAnswerService = {
       actions: [
         {
           label: { en: "Money matters guide", th: "คู่มือเรื่องการเงิน" },
-          href: "/student-life/home/money-matters",
+          href: "/student-life/money/student-discounts",
         },
       ],
       related: [
         {
           label: { en: "Libraries and study support", th: "ห้องสมุดและบริการสนับสนุนการเรียน" },
-          href: "/student-life/home/study-support",
+          href: "/student-life/studying/libraries-and-study-support",
         },
       ],
     },
@@ -1108,11 +1108,11 @@ export const living: SmartAnswerService = {
       related: [
         {
           label: { en: "Money matters guide", th: "คู่มือเรื่องการเงิน" },
-          href: "/student-life/home/money-matters",
+          href: "/student-life/money/financial-help",
         },
         {
           label: { en: "Health and wellbeing", th: "สุขภาพและความเป็นอยู่ที่ดี" },
-          href: "/student-life/home/health-and-wellbeing",
+          href: "/student-life/health-and-safety/getting-medical-help",
         },
       ],
       contactCategory: "problem",

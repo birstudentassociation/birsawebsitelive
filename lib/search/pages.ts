@@ -19,6 +19,8 @@
  * are deliberately absent: they are states inside a journey, not destinations,
  * and landing on one out of context is worse than not finding it.
  */
+import { guideTopics } from "@/lib/content";
+import { studentLifeTopics } from "@/content/student-life/topics";
 import type { ResultKind, SectionKey } from "@/lib/search/types";
 
 type Bi = { en: string; th: string };
@@ -39,7 +41,21 @@ export type StaticPage = {
   priority?: number;
 };
 
+const studentLifeTopicPages: StaticPage[] = guideTopics.map((topic) => ({
+  id: `page:student-life-${topic}`,
+  path: `/student-life/${topic}`,
+  section: "student-life",
+  kind: "guide",
+  title: { en: studentLifeTopics.en[topic].title, th: studentLifeTopics.th[topic].title },
+  summary: { en: studentLifeTopics.en[topic].lede, th: studentLifeTopics.th[topic].lede },
+  keywords: {
+    en: [studentLifeTopics.en[topic].title, topic.replace(/-/g, " ")],
+    th: [studentLifeTopics.th[topic].title],
+  },
+}));
+
 export const staticPages: StaticPage[] = [
+  ...studentLifeTopicPages,
   {
     id: "page:home",
     path: "/",
@@ -358,8 +374,8 @@ export const staticPages: StaticPage[] = [
     kind: "guide",
     title: { en: "Student life", th: "ชีวิตนักศึกษา" },
     summary: {
-      en: "Guides for living and studying here, for home students, international students, and everyone starting out.",
-      th: "คู่มือการใช้ชีวิตและการเรียน สำหรับนักศึกษาไทย นักศึกษาต่างชาติ และผู้ที่เพิ่งเริ่มต้น",
+      en: "Guides for applying, arriving, studying and living here, grouped by topic, for every BIR student.",
+      th: "คู่มือการสมัคร การเข้าเรียน การเรียน และการใช้ชีวิตที่นี่ แบ่งตามหัวข้อ สำหรับนักศึกษา BIR ทุกคน",
     },
     keywords: {
       en: ["student life", "guides", "living", "campus life"],
@@ -443,75 +459,6 @@ export const staticPages: StaticPage[] = [
       ],
     },
     priority: 0.8,
-  },
-  {
-    id: "page:student-life-home",
-    path: "/student-life/home",
-    section: "student-life",
-    kind: "guide",
-    title: { en: "Student life and culture guides", th: "คู่มือชีวิตนักศึกษาและวัฒนธรรม" },
-    summary: {
-      en: "Getting around, eating, housing, money and campus culture for students based here.",
-      th: "การเดินทาง อาหาร ที่พัก การเงิน และวัฒนธรรมในรั้วมหาวิทยาลัยสำหรับนักศึกษาที่อยู่ที่นี่",
-    },
-    keywords: {
-      en: ["campus", "food", "where to eat", "getting around", "shuttle", "culture"],
-      th: ["ในมหาวิทยาลัย", "ร้านอาหาร", "กินอะไรดี", "การเดินทาง", "รถรับส่ง", "วัฒนธรรม"],
-    },
-  },
-  {
-    id: "page:student-life-international",
-    path: "/student-life/international",
-    section: "student-life",
-    kind: "guide",
-    title: { en: "For international students", th: "สำหรับนักศึกษาต่างชาติ" },
-    summary: {
-      en: "Visas, immigration, banking, SIM cards, healthcare and settling into Bangkok.",
-      th: "วีซ่า ตรวจคนเข้าเมือง ธนาคาร ซิมการ์ด การรักษาพยาบาล และการปรับตัวในกรุงเทพฯ",
-    },
-    keywords: {
-      en: [
-        "visa",
-        "immigration",
-        "90 day report",
-        "re-entry permit",
-        "work permit",
-        "bank account",
-        "sim card",
-        "international student",
-        "exchange student",
-        "arriving",
-        "airport",
-        "residence certificate",
-      ],
-      th: [
-        "วีซ่า",
-        "ตรวจคนเข้าเมือง",
-        "รายงานตัว 90 วัน",
-        "เปิดบัญชีธนาคาร",
-        "ซิมการ์ด",
-        "นักศึกษาต่างชาติ",
-        "นักศึกษาแลกเปลี่ยน",
-        "เดินทางมาถึง",
-        "สนามบิน",
-      ],
-    },
-    priority: 0.6,
-  },
-  {
-    id: "page:handbook",
-    path: "/student-life/handbook",
-    section: "student-life",
-    kind: "reference",
-    title: { en: "Student handbook", th: "คู่มือนักศึกษา" },
-    summary: {
-      en: "How the BIR programme works: the degree, the faculty, and the rules that apply to you.",
-      th: "หลักสูตร BIR ทำงานอย่างไร ทั้งตัวปริญญา คณะ และกฎเกณฑ์ที่เกี่ยวข้องกับท่าน",
-    },
-    keywords: {
-      en: ["handbook", "about bir", "programme", "program", "faculty", "degree", "rules"],
-      th: ["คู่มือนักศึกษา", "เกี่ยวกับ bir", "หลักสูตร", "คณะ", "ปริญญา", "กฎระเบียบ"],
-    },
   },
   {
     id: "page:clubs",

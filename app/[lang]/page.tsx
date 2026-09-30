@@ -54,9 +54,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
     { href: "/services/study-plan", key: "planDegree" },
-    { href: "/student-life/home/places-nearby", key: "placesNearby" },
+    { href: "/student-life/living-nearby/where-to-eat", key: "placesNearby" },
     { href: "/student-life/getting-started", key: "gettingStarted" },
-    { href: "/student-life/home/shuttle-bus", key: "shuttleBus" },
+    { href: "/student-life/getting-around/shuttle-bus", key: "shuttleBus" },
   ];
 
   const activityHighlightCards: {

@@ -251,7 +251,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
     },
@@ -309,7 +309,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
     },
@@ -349,7 +349,7 @@ export const contact: SmartAnswerService = {
         },
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
       contactCategory: "question",
@@ -382,7 +382,7 @@ export const contact: SmartAnswerService = {
       actions: [
         {
           label: { en: "Internship: forms and deadlines", th: "การฝึกงาน: แบบฟอร์มและกำหนดส่ง" },
-          href: "/student-life/handbook/internship",
+          href: "/student-life/studying/internship",
         },
         {
           label: { en: "Email the BIR programme office", th: "ส่งอีเมลถึงสำนักงานหลักสูตร BIR" },
@@ -433,7 +433,7 @@ export const contact: SmartAnswerService = {
         },
         {
           label: { en: "Getting involved", th: "มาร่วมกิจกรรม" },
-          href: "/student-life/home/getting-involved",
+          href: "/student-life/getting-involved/clubs-and-events",
         },
       ],
     },
@@ -568,11 +568,11 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
         {
           label: { en: "Visa and immigration", th: "วีซ่าและการตรวจคนเข้าเมือง" },
-          href: "/student-life/international/visa-and-immigration",
+          href: "/student-life/rules-and-rights/visa-rules",
           when: { fact: "origin", is: "international" },
         },
       ],
@@ -602,7 +602,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
       contactCategory: "problem",
@@ -700,7 +700,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
         },
       ],
       contactCategory: "problem",
@@ -743,7 +743,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
-          href: "/student-life/home/safety-and-emergencies",
+          href: "/student-life/health-and-safety/staying-safe",
         },
       ],
       contactCategory: "problem",
@@ -823,7 +823,7 @@ export const contact: SmartAnswerService = {
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
-          href: "/student-life/home/rights-and-welfare",
+          href: "/student-life/rules-and-rights/rights-and-facilities",
         },
         {
           label: { en: "Student bodies you can run for", th: "องค์กรนักศึกษาที่คุณลงสมัครได้" },
