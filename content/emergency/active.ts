@@ -69,8 +69,8 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
     {
       at: "2026-09-30T13:00:00+07:00",
       text: {
-        en: "The Chao Phraya Dam has raised its release to 2,500 cubic metres a second. Riverside areas outside the flood walls may rise another 20 to 30 cm, so keep away from the river and the piers at Tha Prachan.",
-        th: "เขื่อนเจ้าพระยาเพิ่มการระบายน้ำเป็น 2,500 ลูกบาศก์เมตรต่อวินาที พื้นที่ริมแม่น้ำนอกแนวคันกั้นน้ำอาจมีระดับน้ำสูงขึ้นอีก 20 ถึง 30 ซม. อย่าเข้าใกล้ริมแม่น้ำและท่าเรือบริเวณท่าพระจันทร์",
+        en: "The Chao Phraya Dam is still releasing 2,200 cubic metres a second. Keep away from the river and the piers at Tha Prachan.",
+        th: "เขื่อนเจ้าพระยายังคงระบายน้ำ 2,200 ลูกบาศก์เมตรต่อวินาที อย่าเข้าใกล้ริมแม่น้ำและท่าเรือบริเวณท่าพระจันทร์",
       },
       points: {
         en: [
