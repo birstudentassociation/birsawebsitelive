@@ -1,14 +1,14 @@
 /**
  * Display labels for result sections, and the order they are offered in as
  * filters. Order is by how often a section answers a question, not
- * alphabetically: guided answers and things you can do come before reference
+ * alphabetically: guided checks and things you can do come before reference
  * material you have to read and interpret.
  */
 import type { Locale } from "@/lib/i18n";
 import type { SectionKey } from "@/lib/search/types";
 
 export const sectionOrder: SectionKey[] = [
-  "answers",
+  "checks",
   "services",
   "tools",
   "equipment",
@@ -25,7 +25,7 @@ export const sectionOrder: SectionKey[] = [
 ];
 
 const labels: Record<SectionKey, { en: string; th: string }> = {
-  answers: { en: "Guided answers", th: "คำตอบแบบนำทาง" },
+  checks: { en: "Checks", th: "แบบตรวจสอบ" },
   services: { en: "Services", th: "บริการ" },
   tools: { en: "Tools", th: "เครื่องมือ" },
   equipment: { en: "Equipment loan", th: "การยืมอุปกรณ์" },

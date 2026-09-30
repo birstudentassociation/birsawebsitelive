@@ -100,11 +100,11 @@ Sarabun font are a different rendering case from Latin script.
 Priority order (test these first; they carry the most user risk):
 
 1. **Forms**: `/en/contact` (and its focused error-summary behaviour),
-   `/en/clubs/start`, `/en/services/equipment-loan/status`,
-   `/en/answers/you`.
-2. **Smart Answers journey**: `/en/answers`, `/en/answers/activity-approval`,
-   `/en/answers/activity-approval/q`, `/en/answers/start/q`,
-   `/en/answers/settle-in/q?p=international.starting`.
+   `/en/clubs/start`, `/en/services/equipment-loan/status`.
+2. **Check journeys**: `/en/activity/approval-check`,
+   `/en/activity/approval-check?a=no&a=oneoff` (a later question),
+   `/en/activity/approval-check?a=no&a=oneoff&a=oncampus` (an outcome),
+   `/en/clubs/start-check`, `/en/contact/where-to-go`.
 3. **Equipment loan journey**: `/en/services/equipment-loan`,
    `/en/services/equipment-loan/directory`,
    `/en/services/equipment-loan/status`.

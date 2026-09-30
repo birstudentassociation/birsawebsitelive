@@ -5,7 +5,7 @@ The BIRSA Portal is the bilingual (Thai/English) website for the **BIR Student A
 International Relations (BIR) programme, Faculty of Political Science, Thammasat University.
 It gives BIR students one place to find news and events, BIRSA's activity and committee
 information, the club directory, a student-life guide (for both home and international
-students), guided answers to common "what do I actually do here?" questions, the equipment
+students), short checks and guides for common "what do I actually do here?" questions, the equipment
 loan service, and a way to contact BIRSA directly, all written natively in Thai and English,
 not machine-translated.
 
@@ -14,24 +14,24 @@ programme matters, always use the BIR Program and Faculty links in the footer.
 
 ## What's on the site
 
-| Section         | Route                             | What it is                                                                                |
-| --------------- | --------------------------------- | ----------------------------------------------------------------------------------------- |
-| Home            | `/[lang]`                         | Hero, top tasks, Smart Answers entry point, latest news                                   |
-| Smart Answers   | `/[lang]/answers`                 | Guided, step-by-step checks that give one reader one answer, based on an audience profile |
-| News and events | `/[lang]/news`                    | MDX news posts and event announcements                                                    |
-| Activity        | `/[lang]/activity`                | BIRSA's work, committee roles, and the regulations library                                |
-| Clubs           | `/[lang]/clubs`                   | Club directory (MDX per club) plus a "start a club" form                                  |
-| Student life    | `/[lang]/student-life`            | Guide tracks for home and international students, getting-started paths, course reviews   |
-| Find a service  | `/[lang]/services`                | University services directory and the equipment loan service                              |
-| Equipment loan  | `/[lang]/services/equipment-loan` | Public catalogue, request form, and self-service status lookup                            |
-| Officer console | `/[lang]/officer/inventory`       | Passcode-protected inventory management suite (items, loans, borrowers, reports, audit)   |
-| Quick links     | `/[lang]/quick`                   | One-page list of the links students ask for most                                          |
-| Search          | `/[lang]/search`                  | Site-wide content search                                                                  |
-| Contact         | `/[lang]/contact`                 | Contact form, falls back to a mailto message when email is not configured                 |
-| Emergency       | `/[lang]/emergency`               | Scenario pages shown when site-wide emergency mode is switched on                         |
-| Standards       | `/[lang]/standards`               | Plain-language accessibility and design-standards statement                               |
-| Privacy         | `/[lang]/privacy`                 | Privacy notice                                                                            |
-| Calendar feed   | `/[lang]/calendar.ics`            | Subscribable iCalendar feed of the TU academic calendar and BIRSA events                  |
+| Section         | Route                                          | What it is                                                                              |
+| --------------- | ---------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Home            | `/[lang]`                                      | Hero, top tasks, latest news                                                            |
+| Checks          | `/[lang]/activity/approval-check` and two more | Three short checks, each on the page it belongs to, that give one reader one answer     |
+| News and events | `/[lang]/news`                                 | MDX news posts and event announcements                                                  |
+| Activity        | `/[lang]/activity`                             | BIRSA's work, committee roles, and the regulations library                              |
+| Clubs           | `/[lang]/clubs`                                | Club directory (MDX per club) plus a "start a club" form                                |
+| Student life    | `/[lang]/student-life`                         | Guide tracks for home and international students, getting-started paths, course reviews |
+| Find a service  | `/[lang]/services`                             | University services directory and the equipment loan service                            |
+| Equipment loan  | `/[lang]/services/equipment-loan`              | Public catalogue, request form, and self-service status lookup                          |
+| Officer console | `/[lang]/officer/inventory`                    | Passcode-protected inventory management suite (items, loans, borrowers, reports, audit) |
+| Quick links     | `/[lang]/quick`                                | One-page list of the links students ask for most                                        |
+| Search          | `/[lang]/search`                               | Site-wide content search                                                                |
+| Contact         | `/[lang]/contact`                              | Contact form, falls back to a mailto message when email is not configured               |
+| Emergency       | `/[lang]/emergency`                            | Scenario pages shown when site-wide emergency mode is switched on                       |
+| Standards       | `/[lang]/standards`                            | Plain-language accessibility and design-standards statement                             |
+| Privacy         | `/[lang]/privacy`                              | Privacy notice                                                                          |
+| Calendar feed   | `/[lang]/calendar.ics`                         | Subscribable iCalendar feed of the TU academic calendar and BIRSA events                |
 
 ## Tech stack
 
@@ -124,12 +124,12 @@ app/                # Next.js App Router; all pages live under app/[lang]/...
 app/api/            # Route handlers: contact, start-club, loans, inventory, cron
 components/         # Shared design-system components (PascalCase filenames)
 content/            # All editable content: news, activity, clubs, student-life, calendar,
-                    #   smart answers, onboarding, emergency scenarios, course reviews,
+                    #   checks (smart answers), onboarding, emergency scenarios, course reviews,
                     #   dictionaries
 db/                 # schema.sql and the numbered migrations in db/migrations/
 docs/               # Build brief and the content editing guide
 lib/                # i18n, content loaders, MDX rendering, SEO, validation, CSP, email,
-                    #   smart answers, places, shuttle, ICS, emergency, lib/inventory/*
+                    #   checks (smart answers), places, shuttle, ICS, emergency, lib/inventory/*
 public/             # Static assets (logo, committee portraits, etc.)
 scripts/            # migrate.mjs and seed-admin-officer.mjs
 tests/              # Vitest unit tests (tests/unit) and Playwright e2e tests (tests/e2e)

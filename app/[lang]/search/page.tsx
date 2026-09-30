@@ -26,7 +26,7 @@ export async function generateMetadata({
   const description =
     locale === "th"
       ? "ค้นหาคำตอบแบบนำทาง บริการ ชมรม ข่าว และคู่มือชีวิตนักศึกษาในเว็บไซต์ BIRSA"
-      : "Search guided answers, services, clubs, news and the student-life guide on the BIRSA site.";
+      : "Search checks, services, clubs, news and the student-life guide on the BIRSA site.";
 
   return {
     ...buildMetadata({ locale, title, description, path: "/search" }),
@@ -55,7 +55,7 @@ const copy: Record<
 > = {
   en: {
     title: "Search",
-    lede: "Search guided answers, services, clubs, news and the student-life guide.",
+    lede: "Search checks, services, clubs, news and the student-life guide.",
     minChars: "Type at least 2 characters to search.",
     popularHeading: "Popular searches",
     browseHeading: "Or browse a section",
@@ -82,7 +82,6 @@ const copy: Record<
 /** The handful of top-level sections offered as "somewhere to go" on the
  * empty and zero-result states — entry points, not every `SectionKey`. */
 const browseSections: { key: SectionKey; path: string }[] = [
-  { key: "answers", path: "/answers" },
   { key: "services", path: "/services" },
   { key: "student-life", path: "/student-life" },
   { key: "clubs", path: "/clubs" },

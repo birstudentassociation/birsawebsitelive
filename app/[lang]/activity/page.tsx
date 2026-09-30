@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
+import { service } from "@/content/smart-answers";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -98,6 +99,7 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const rolesHref = localeHref(locale, "/activity/roles");
   const regsHref = localeHref(locale, "/activity/regulations");
   const newsHref = localeHref(locale, "/news");
+  const approvalCheck = service.topics.find((topic) => topic.slug === "activity-approval");
 
   return (
     <>
@@ -138,6 +140,15 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
               <h2 className="font-display text-2xl">{t.eventsHeading}</h2>
               <NavList>
                 {eventsEntry ? entryItem(eventsEntry) : null}
+
+                {approvalCheck ? (
+                  <NavListItem
+                    href={localeHref(locale, approvalCheck.path)}
+                    title={approvalCheck.title[locale]}
+                  >
+                    {approvalCheck.lede[locale]}
+                  </NavListItem>
+                ) : null}
 
                 {studentBodiesEntry ? entryItem(studentBodiesEntry) : null}
               </NavList>

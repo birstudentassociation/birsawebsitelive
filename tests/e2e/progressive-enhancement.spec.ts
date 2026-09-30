@@ -266,55 +266,29 @@ test.describe("forms work without JavaScript", () => {
     await expect(incorrect.or(notConfigured).first()).toBeVisible();
   });
 
-  test("smart answers: a full journey to an outcome works with plain GET forms", async ({
-    page,
-  }) => {
-    await page.goto("/en/answers/who-to-contact");
-    await page.getByRole("link", { name: "Start now" }).click();
+  test("check: a full journey to an outcome works with plain GET forms", async ({ page }) => {
+    await page.goto("/en/contact/where-to-go");
 
-    // Answer the first radio at every step until an outcome renders. Each
-    // question is a native GET form; the answer trail rides in `?a=` params.
-    // Detect "still on a question" via the Continue button, not via radios:
-    // an outcome page can itself embed the satisfaction FeedbackForm, which
-    // has its own rating radios, so counting radios alone would mistake an
-    // outcome for another question.
-    for (let step = 0; step < 10; step++) {
-      const continueButton = page.getByRole("button", { name: "Continue" });
-      if ((await continueButton.count()) === 0) break;
-      await page.getByRole("radio").first().check();
-      await continueButton.click();
-      await page.waitForLoadState("domcontentloaded");
-      expect(page.url()).toContain("a=");
-    }
+    // Each question is a native GET form; the answer trail rides in `?a=`
+    // params on the page that hosts the check.
+    await page
+      .getByRole("radio", { name: "I have a question and want to know who to ask" })
+      .check();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.waitForLoadState("domcontentloaded");
+    expect(page.url()).toContain("a=question");
 
-    // Outcome page: answer summary with per-answer Change links, plus a way
-    // to start over.
+    await page.getByRole("radio", { name: "Borrowing equipment" }).check();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await page.waitForLoadState("domcontentloaded");
+    expect(page.url()).toContain("a=question&a=equipment");
+
+    // Outcome page: the answer, the answer summary with per-answer Change
+    // links, and a way to start over.
+    await expect(page.getByRole("heading", { name: "Equipment loans" })).toBeVisible();
     await expect(page.getByText("Your answers")).toBeVisible();
     await expect(page.getByRole("link", { name: /Change/ }).first()).toBeVisible();
     await expect(page.getByRole("link", { name: "Start again" })).toBeVisible();
-  });
-
-  test("smart answers: the audience profile is set by a GET form and tailors the journey", async ({
-    page,
-  }) => {
-    await page.goto("/en/answers");
-    await page.getByRole("link", { name: "Set this" }).click();
-
-    // Three radio groups, all optional, submitted as one native GET form.
-    await page.getByRole("radio", { name: /From abroad/ }).check();
-    await page.getByRole("radio", { name: /Not started yet/ }).check();
-    await page.getByRole("button", { name: "Save and continue" }).click();
-    await page.waitForLoadState("domcontentloaded");
-
-    // The three fields are packed into one `p` token and the reader is sent
-    // back where they came from.
-    expect(page.url()).toContain("p=international.starting");
-    await expect(page.getByText("From abroad")).toBeVisible();
-
-    // The profile rides along into a topic, and the answer carries it back
-    // out again, so nothing is lost by navigating.
-    await page.getByRole("link", { name: "Start here" }).click();
-    expect(page.url()).toContain("p=international.starting");
   });
 
   test("getting started: steps and task links are usable, checkboxes stay JS-only", async ({

@@ -15,7 +15,7 @@
  * the thing students call it rather than the thing the university calls it.
  * Adding a term here is the cheapest way to fix "search can't find X".
  *
- * Flow steps (wizard questions), the officer console, and `/answers/[topic]/q`
+ * Flow steps (wizard questions), the officer console, and check question steps (`?a=`)
  * are deliberately absent: they are states inside a journey, not destinations,
  * and landing on one out of context is worse than not finding it.
  */
@@ -63,8 +63,8 @@ export const staticPages: StaticPage[] = [
     kind: "guide",
     title: { en: "Home", th: "หน้าแรก" },
     summary: {
-      en: "News, top tasks, guided answers and what is coming up for BIR students.",
-      th: "ข่าว ทางลัดที่ใช้บ่อย คำตอบแบบนำทาง และกิจกรรมที่กำลังจะมาถึงสำหรับนักศึกษา BIR",
+      en: "News, top tasks, student life guides and what is coming up for BIR students.",
+      th: "ข่าว ทางลัดที่ใช้บ่อย คู่มือชีวิตนักศึกษา และกิจกรรมที่กำลังจะมาถึงสำหรับนักศึกษา BIR",
     },
     keywords: {
       en: ["home", "homepage", "start", "front page", "birsa"],
@@ -86,22 +86,6 @@ export const staticPages: StaticPage[] = [
       th: ["ทางลัด", "ลิงก์ที่ใช้บ่อย", "ลิงก์สำคัญ", "รวมลิงก์"],
     },
     priority: 0.5,
-  },
-  {
-    id: "page:answers",
-    path: "/answers",
-    section: "answers",
-    kind: "answer",
-    title: { en: "Get an answer", th: "ค้นหาคำตอบ" },
-    summary: {
-      en: "Answer a few questions and get one answer that applies to you, not a page to interpret.",
-      th: "ตอบคำถามสองสามข้อแล้วรับคำตอบที่ตรงกับสถานการณ์ของท่าน ไม่ใช่หน้าที่ต้องตีความเอง",
-    },
-    keywords: {
-      en: ["help", "what do i do", "guided answers", "advice", "i need help", "who can help"],
-      th: ["ช่วยเหลือ", "ต้องทำยังไง", "คำตอบ", "ขอคำแนะนำ", "ปรึกษา", "ไม่รู้จะทำยังไง"],
-    },
-    priority: 0.8,
   },
   {
     id: "page:news",

@@ -1,16 +1,18 @@
 /**
- * Two smart answers that share one theme: getting to the right person.
+ * The "where to go" check: getting a question or a problem to the right
+ * person. It has three doors from one root question (`q-where-root`), with
+ * the safety route first.
  *
- * "who-to-contact" (`q-contact-topic`) is the general triage: equipment,
+ * "I have a question" (`q-contact-topic`) is the general routing: equipment,
  * clubs, registration, programme matters, the internship, representation,
  * events, or a fallback to BIRSA. It reuses the routing already verified in
- * `content/student-life/en/home/rights-and-welfare.mdx` and
- * `.../safety-and-emergencies.mdx` (registration to the Registrar, programme
- * matters to the faculty student committee, general matters to TUSU Tha
- * Prachan), the elected-body ladder in `content/activity/en/student-bodies.mdx`,
+ * `content/student-life/en/rules-and-rights/rights-and-facilities.mdx` and
+ * `.../health-and-safety/staying-safe.mdx` (registration to the Registrar,
+ * programme matters to the faculty student committee, general matters to TUSU
+ * Tha Prachan), the elected-body ladder in `content/activity/en/student-bodies.mdx`,
  * and the BIR programme office contact in `content/activity/en/bir-programme.mdx`.
  *
- * "raise-a-problem" (`q-problem-kind`) is narrower: someone already has a
+ * "I have a problem" (`q-problem-kind`) is narrower: someone already has a
  * problem and needs to know who receives it, what happens next, and what
  * protection exists. Registration and teaching problems reuse the same
  * subject-based routing. Harassment or misconduct by another student is
@@ -23,22 +25,23 @@
  * route to BIRSA or `out-not-covered` rather than inventing a process.
  *
  * BIRSA is a student association, not a university office (see
- * `content/site.ts` `officialLinks`), so most outcomes in both topics hand
- * off to the real office or elected body responsible.
+ * `content/site.ts` `officialLinks`), so most outcomes hand off to the real
+ * office or elected body responsible.
  *
  * Both harassment outcomes (`out-problem-harassment-student` and
- * `out-problem-harassment-other`) also name the two official reporting
- * channels from the BIRSA reporting poster, composed from
- * `content/reporting.ts` the same way `content/smart-answers/topics/
- * wellbeing.ts` does, so a reader who arrives here through "raise a
- * problem" rather than "wellbeing" still reaches a named contact and not
- * just "speak to a trusted committee member".
+ * `out-problem-harassment-other`) name the two official reporting channels
+ * from the BIRSA reporting poster, composed from `content/reporting.ts`, so a
+ * reader still reaches a named contact and not just "speak to a trusted
+ * committee member".
+ *
+ * The three outcomes at the end (`out-emergency-now`, `out-contact-birsa`,
+ * `out-not-covered`) are the shared fallbacks the routes above hand off to.
  */
 import type { SmartAnswerService } from "../types";
 import type { Bi } from "../types";
 import { reportingChannels, reportingCopy } from "@/content/reporting";
 
-/** Kept identical to the one in `topics/wellbeing.ts`: see that file for why. */
+/** One line per official reporting channel, in both languages. */
 const reportingLines: Bi[] = reportingChannels.map((channel) => ({
   en: `${channel.organisation.en}, ${channel.person.en}. Call ${channel.phone}${
     channel.extension ? `, extension ${channel.extension}` : ""
@@ -51,52 +54,23 @@ const reportingLines: Bi[] = reportingChannels.map((channel) => ({
 export const contact: SmartAnswerService = {
   topics: [
     {
-      slug: "who-to-contact",
+      slug: "where-to-go",
+      path: "/contact/where-to-go",
       title: {
-        en: "Find the right person to contact",
-        th: "หาคนที่ใช่สำหรับติดต่อ",
+        en: "Find where to take a question or problem",
+        th: "หาที่ติดต่อสำหรับคำถามหรือปัญหาของคุณ",
       },
       lede: {
-        en: "A couple of quick questions to point you to the right place, from equipment loans to who represents you.",
-        th: "ตอบคำถามสั้น ๆ เพื่อหาช่องทางที่ใช่ ตั้งแต่การยืมอุปกรณ์ไปจนถึงว่าใครเป็นตัวแทนนักศึกษาของคุณ",
+        en: "Find out who to ask, where to report a problem, and what happens next.",
+        th: "ดูว่าควรถามใคร แจ้งปัญหาที่ไหน และขั้นตอนต่อไปคืออะไร",
       },
-      group: "help",
-      start: "q-contact-topic",
-      whatYoullNeed: [
-        { en: "A rough idea of what your question is about", th: "เรื่องคร่าว ๆ ที่อยากสอบถาม" },
-      ],
+      start: "q-where-root",
       keywords: [
         "contact",
         "who do i ask",
         "email",
         "phone",
         "office",
-        "ติดต่อ",
-        "สอบถาม",
-        "เบอร์โทร",
-        "อีเมล",
-      ],
-    },
-    {
-      slug: "raise-a-problem",
-      title: {
-        en: "Raise a problem or complaint",
-        th: "แจ้งปัญหาหรือร้องเรียน",
-      },
-      lede: {
-        en: "Who receives this, what happens next, and what protections apply, depending on what the problem is.",
-        th: "ใครเป็นผู้รับเรื่อง ขั้นตอนต่อไปคืออะไร และมีสิทธิคุ้มครองอะไรบ้าง ขึ้นอยู่กับประเภทของปัญหา",
-      },
-      group: "rights",
-      start: "q-problem-kind",
-      whatYoullNeed: [
-        { en: "What kind of problem this is", th: "ประเภทของปัญหาที่เจอ" },
-        {
-          en: "Whether it involves another student, a course, or the Faculty",
-          th: "เกี่ยวข้องกับนักศึกษาคนอื่น รายวิชา หรือคณะ",
-        },
-      ],
-      keywords: [
         "complaint",
         "problem",
         "harassment",
@@ -104,6 +78,10 @@ export const contact: SmartAnswerService = {
         "unsafe",
         "report",
         "rights",
+        "ติดต่อ",
+        "สอบถาม",
+        "เบอร์โทร",
+        "อีเมล",
         "ร้องเรียน",
         "แจ้งปัญหา",
         "คุกคาม",
@@ -115,16 +93,12 @@ export const contact: SmartAnswerService = {
   ],
 
   nodes: [
-    /* ------------------------------------------------------------------ */
-    /* Topic 1: who to contact                                            */
-    /* ------------------------------------------------------------------ */
-
     {
       kind: "question",
-      id: "q-contact-topic",
+      id: "q-where-root",
       question: {
-        en: "What do you need help with?",
-        th: "คุณต้องการความช่วยเหลือเรื่องอะไร",
+        en: "Do you have a question, or a problem to raise?",
+        th: "คุณมีคำถาม หรือมีปัญหาที่ต้องการแจ้ง",
       },
       options: [
         {
@@ -135,6 +109,33 @@ export const contact: SmartAnswerService = {
           },
           next: "out-emergency-now",
         },
+        {
+          id: "question",
+          label: {
+            en: "I have a question and want to know who to ask",
+            th: "มีคำถาม และอยากรู้ว่าควรถามใคร",
+          },
+          next: "q-contact-topic",
+        },
+        {
+          id: "problem",
+          label: {
+            en: "I have a problem, a complaint, or a concern about my rights",
+            th: "มีปัญหา อยากร้องเรียน หรือกังวลเรื่องสิทธิของตัวเอง",
+          },
+          next: "q-problem-kind",
+        },
+      ],
+    },
+
+    {
+      kind: "question",
+      id: "q-contact-topic",
+      question: {
+        en: "What do you need help with?",
+        th: "คุณต้องการความช่วยเหลือเรื่องอะไร",
+      },
+      options: [
         {
           id: "equipment",
           label: { en: "Borrowing equipment", th: "ยืมอุปกรณ์" },
@@ -184,14 +185,6 @@ export const contact: SmartAnswerService = {
           id: "events",
           label: { en: "What's on, or upcoming events", th: "กิจกรรมที่กำลังจะจัดขึ้น" },
           next: "out-contact-events",
-        },
-        {
-          id: "problem",
-          label: {
-            en: "A problem, complaint, or something about my rights",
-            th: "แจ้งปัญหา ร้องเรียน หรือเรื่องสิทธิของตัวเอง",
-          },
-          next: "q-problem-kind",
         },
         {
           id: "other",
@@ -278,7 +271,7 @@ export const contact: SmartAnswerService = {
       actions: [
         {
           label: { en: "Check if you're ready to start a club", th: "เช็กความพร้อมก่อนเริ่มชมรม" },
-          href: "/answers/start-a-club-check",
+          href: "/clubs/start-check",
         },
         { label: { en: "Start a club", th: "เริ่มชมรมใหม่" }, href: "/clubs/start" },
       ],
@@ -450,7 +443,7 @@ export const contact: SmartAnswerService = {
     },
 
     /* ------------------------------------------------------------------ */
-    /* Topic 2: raise a problem                                           */
+    /* Raising a problem                                                  */
     /* ------------------------------------------------------------------ */
 
     {
@@ -551,10 +544,9 @@ export const contact: SmartAnswerService = {
         {
           kind: "note",
           tone: "info",
-          when: { fact: "origin", is: "international" },
           text: {
-            en: "Your student visa is tied to your enrolment. If this problem could affect your enrolment status (a hold, a suspension, an incomplete registration), tell TU International Affairs about it early rather than after your status changes.",
-            th: "วีซ่านักศึกษาของคุณผูกกับสถานภาพการเป็นนักศึกษา หากปัญหานี้อาจกระทบสถานภาพนักศึกษาของคุณ เช่น การถูกระงับสิทธิ พักการศึกษา หรือลงทะเบียนไม่สมบูรณ์ ให้แจ้งกองงานวิเทศสัมพันธ์ (TU International Affairs) ตั้งแต่เนิ่น ๆ ก่อนที่สถานภาพจะเปลี่ยนไป",
+            en: "If you are an international student, your student visa is tied to your enrolment. If this problem could affect your enrolment status (a hold, a suspension, an incomplete registration), tell TU International Affairs about it early rather than after your status changes.",
+            th: "หากคุณเป็นนักศึกษาต่างชาติ วีซ่านักศึกษาของคุณผูกกับสถานภาพการเป็นนักศึกษา หากปัญหานี้อาจกระทบสถานภาพนักศึกษาของคุณ เช่น การถูกระงับสิทธิ พักการศึกษา หรือลงทะเบียนไม่สมบูรณ์ ให้แจ้งกองงานวิเทศสัมพันธ์ (TU International Affairs) ตั้งแต่เนิ่น ๆ ก่อนที่สถานภาพจะเปลี่ยนไป",
           },
         },
       ],
@@ -573,7 +565,6 @@ export const contact: SmartAnswerService = {
         {
           label: { en: "Visa and immigration", th: "วีซ่าและการตรวจคนเข้าเมือง" },
           href: "/student-life/rules-and-rights/visa-rules",
-          when: { fact: "origin", is: "international" },
         },
       ],
     },
@@ -650,19 +641,17 @@ export const contact: SmartAnswerService = {
         {
           kind: "note",
           tone: "info",
-          when: { fact: "role", is: "officer" },
           text: {
-            en: "If this is reported to you as a committee member, pass it to the Faculty office rather than trying to resolve it within the club or committee. The Dean is the one with the power to open a disciplinary case, not BIRSA or a club committee.",
+            en: "If someone reports this to you as a committee member, pass it to the Faculty office rather than trying to resolve it within the club or committee. The Dean is the one with the power to open a disciplinary case, not BIRSA or a club committee.",
             th: "หากมีคนแจ้งเรื่องนี้กับคุณในฐานะกรรมการ ให้ส่งต่อสำนักงานคณะแทนการพยายามจัดการเองภายในชมรมหรือคณะกรรมการ เพราะคณบดีเท่านั้นที่มีอำนาจเปิดคดีทางวินัย ไม่ใช่ BIRSA หรือคณะกรรมการชมรม",
           },
         },
         {
           kind: "note",
           tone: "info",
-          when: { fact: "origin", is: "international" },
           text: {
-            en: "A disciplinary penalty can include suspension from study, which changes your enrolment status and can affect a visa tied to it. This applies to whoever is found to have committed the offence, not to the person reporting it.",
-            th: "โทษทางวินัยอาจรวมถึงการพักการศึกษา ซึ่งเปลี่ยนสถานภาพนักศึกษาและอาจกระทบวีซ่าที่ผูกกับสถานภาพนั้น ทั้งนี้ใช้กับฝ่ายที่ถูกตัดสินว่ากระทำผิด ไม่ใช่ฝ่ายที่แจ้งเรื่อง",
+            en: "If you are an international student, note that a disciplinary penalty can include suspension from study, which changes your enrolment status and can affect a visa tied to it. This applies to whoever is found to have committed the offence, not to the person reporting it.",
+            th: "หากคุณเป็นนักศึกษาต่างชาติ โปรดทราบว่าโทษทางวินัยอาจรวมถึงการพักการศึกษา ซึ่งเปลี่ยนสถานภาพนักศึกษาและอาจกระทบวีซ่าที่ผูกกับสถานภาพนั้น ทั้งนี้ใช้กับฝ่ายที่ถูกตัดสินว่ากระทำผิด ไม่ใช่ฝ่ายที่แจ้งเรื่อง",
           },
         },
       ],
@@ -763,18 +752,16 @@ export const contact: SmartAnswerService = {
       body: [
         {
           kind: "paragraph",
-          when: { fact: "role", is: "officer" },
           text: {
-            en: "If a member has raised this with you as an officer, that is your committee's to receive and act on, not to refer elsewhere without a reason. If the problem concerns another officer or the committee as a whole, take it to BIRSA or the Faculty office instead.",
-            th: "ถ้ามีสมาชิกแจ้งเรื่องนี้กับคุณในฐานะกรรมการ นั่นคือหน้าที่ของคณะกรรมการที่ต้องรับเรื่องและดำเนินการ ไม่ใช่ส่งต่อที่อื่นโดยไม่มีเหตุผล หากปัญหาเกี่ยวข้องกับกรรมการคนอื่นหรือคณะกรรมการทั้งชุด ให้แจ้ง BIRSA หรือสำนักงานคณะแทน",
+            en: "Start with the club or body's own committee. If the problem is with that committee itself, or you don't know who to ask, BIRSA can take it from there.",
+            th: "เริ่มจากคณะกรรมการของชมรมหรือองค์กรนั้นก่อน หากปัญหาคือตัวคณะกรรมการเอง หรือไม่รู้ว่าจะติดต่อใคร BIRSA ช่วยรับเรื่องต่อได้",
           },
         },
         {
           kind: "paragraph",
-          when: { not: { fact: "role", is: "officer" } },
           text: {
-            en: "Start with the club or body's own committee. If the problem is with that committee itself, or you don't know who to ask, BIRSA can take it from there.",
-            th: "เริ่มจากคณะกรรมการของชมรมหรือองค์กรนั้นก่อน หากปัญหาคือตัวคณะกรรมการเอง หรือไม่รู้ว่าจะติดต่อใคร BIRSA ช่วยรับเรื่องต่อได้",
+            en: "If a member has raised this with you as an officer, that is your committee's to receive and act on, not to refer elsewhere without a reason. If the problem concerns another officer or the committee as a whole, take it to BIRSA or the Faculty office instead.",
+            th: "ถ้ามีสมาชิกแจ้งเรื่องนี้กับคุณในฐานะกรรมการ นั่นคือหน้าที่ของคณะกรรมการที่ต้องรับเรื่องและดำเนินการ ไม่ใช่ส่งต่อที่อื่นโดยไม่มีเหตุผล หากปัญหาเกี่ยวข้องกับกรรมการคนอื่นหรือคณะกรรมการทั้งชุด ให้แจ้ง BIRSA หรือสำนักงานคณะแทน",
           },
         },
       ],
@@ -831,6 +818,116 @@ export const contact: SmartAnswerService = {
         },
       ],
       contactCategory: "problem",
+    },
+
+    /* ---------------------------------------------------------------- */
+    /* Shared outcomes                                                   */
+    /* ---------------------------------------------------------------- */
+
+    {
+      kind: "outcome",
+      id: "out-emergency-now",
+      title: {
+        en: "Call the emergency services first",
+        th: "โทรหาหน่วยงานฉุกเฉินก่อน",
+      },
+      summary: {
+        en: "Police 191. Medical 1669. Fire and rescue 199. Call before you do anything else, including reading the rest of this page.",
+        th: "ตำรวจ 191 การแพทย์ 1669 ดับเพลิงและกู้ภัย 199 โทรก่อนทำอย่างอื่น รวมถึงก่อนอ่านหน้านี้ต่อ",
+      },
+      owner: {
+        en: "Emergency services, then Thammasat security. BIRSA cannot respond to an emergency.",
+        th: "หน่วยงานฉุกเฉิน จากนั้นคือฝ่ายรักษาความปลอดภัยของมหาวิทยาลัย BIRSA ไม่สามารถรับมือเหตุฉุกเฉินได้",
+      },
+      body: [
+        {
+          kind: "paragraph",
+          text: {
+            en: "Tell BIRSA or the Faculty afterwards, once everyone is safe, if it affects your studies or wellbeing.",
+            th: "เมื่อทุกคนปลอดภัยแล้ว ค่อยแจ้ง BIRSA หรือคณะ หากเรื่องนี้กระทบการเรียนหรือความเป็นอยู่ของคุณ",
+          },
+        },
+        {
+          kind: "note",
+          tone: "warning",
+          text: {
+            en: "The emergency guidance pages cover fire, earthquake, flooding, protests near campus, and campus closures, with what to do step by step.",
+            th: "หน้าคำแนะนำเหตุฉุกเฉินครอบคลุมเหตุไฟไหม้ แผ่นดินไหว น้ำท่วม การชุมนุมใกล้มหาวิทยาลัย และการปิดพื้นที่ พร้อมขั้นตอนที่ต้องทำ",
+          },
+        },
+      ],
+      actions: [
+        {
+          label: { en: "Emergency guidance", th: "คำแนะนำเหตุฉุกเฉิน" },
+          href: "/emergency",
+        },
+      ],
+      related: [
+        {
+          label: { en: "Safety and emergencies", th: "ความปลอดภัยและเหตุฉุกเฉิน" },
+          href: "/student-life/health-and-safety/staying-safe",
+          description: {
+            en: "Campus security, lost student cards, river safety, scams, and reporting harassment.",
+            th: "การรักษาความปลอดภัยในมหาวิทยาลัย บัตรนักศึกษาหาย ความปลอดภัยริมน้ำ มิจฉาชีพ และการแจ้งเหตุคุกคาม",
+          },
+        },
+      ],
+    },
+
+    {
+      kind: "outcome",
+      id: "out-contact-birsa",
+      title: {
+        en: "Ask BIRSA",
+        th: "สอบถาม BIRSA",
+      },
+      summary: {
+        en: "Send us the question and we will either answer it or tell you which office can.",
+        th: "ส่งคำถามมาได้เลย เราจะตอบให้ หรือบอกว่าต้องติดต่อหน่วยงานไหน",
+      },
+      body: [
+        {
+          kind: "paragraph",
+          text: {
+            en: "If this is committee business, say which body you sit on when you write. It changes who at the Faculty needs to see it.",
+            th: "ถ้าเป็นเรื่องของคณะกรรมการ ให้ระบุด้วยว่าคุณอยู่องค์กรใด เพราะมีผลว่าฝ่ายใดของคณะต้องรับเรื่อง",
+          },
+        },
+      ],
+      actions: [
+        { label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" },
+        { label: { en: "Quick actions", th: "ทางลัด" }, href: "/quick" },
+      ],
+      contactCategory: "question",
+    },
+
+    {
+      kind: "outcome",
+      id: "out-not-covered",
+      title: {
+        en: "There is no rule on file for this, so ask before you act",
+        th: "เรื่องนี้ไม่มีระเบียบที่ระบุไว้ชัดเจน ควรสอบถามก่อนดำเนินการ",
+      },
+      summary: {
+        en: "We could not find anything in the regulations we hold that covers your situation. Rather than guess at a procedure, ask BIRSA or the Faculty office and get it in writing.",
+        th: "เราไม่พบข้อกำหนดในระเบียบที่เรามีซึ่งครอบคลุมกรณีของคุณ แทนที่จะเดาขั้นตอนเอง ให้สอบถาม BIRSA หรือสำนักงานคณะ และขอคำตอบเป็นลายลักษณ์อักษร",
+      },
+      owner: {
+        en: "The Faculty office decides. BIRSA can raise it for you.",
+        th: "สำนักงานคณะเป็นผู้ตัดสิน BIRSA ช่วยนำเรื่องเสนอให้ได้",
+      },
+      actions: [{ label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" }],
+      related: [
+        {
+          label: { en: "The regulations we hold", th: "ระเบียบที่เรารวบรวมไว้" },
+          href: "/activity/regulations",
+          description: {
+            en: "The University regulation on student activities, the Faculty Notice, and the discipline regulation, in full.",
+            th: "ระเบียบมหาวิทยาลัยว่าด้วยกิจกรรมนักศึกษา ประกาศคณะ และระเบียบว่าด้วยวินัยนักศึกษา ฉบับเต็ม",
+          },
+        },
+      ],
+      contactCategory: "question",
     },
   ],
 };

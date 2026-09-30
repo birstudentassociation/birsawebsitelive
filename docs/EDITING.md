@@ -201,14 +201,29 @@ internal path like `/activity/roles`, or a full external URL with `external: tru
 optional `hint`. Set `placeholder: true` on an item if the destination isn't real yet (e.g. a
 social channel that doesn't exist).
 
-## Guided answers (`content/smart-answers/`)
+## Checks (`content/smart-answers/`)
 
-`/answers` is one graph with many doors, not a set of separate quizzes. Topic files under
+There are three checks, each hosted on the page it belongs to rather than in a section of its
+own:
+
+| Check (`slug`)      | Lives at                   |
+| ------------------- | -------------------------- |
+| `activity-approval` | `/activity/approval-check` |
+| `club-readiness`    | `/clubs/start-check`       |
+| `where-to-go`       | `/contact/where-to-go`     |
+
+A check is a door into one graph, not a separate quiz. Topic files under
 `content/smart-answers/topics/` each export `{ topics, nodes }`, and
 `content/smart-answers/index.ts` concatenates them into a single service, so a question in one
-file can send someone to an outcome in another.
+file can send someone to an outcome in another. Each topic has a `path` (the page that hosts it),
+a `title`, a `lede`, a `start` node and search `keywords`. Every question is a plain GET form on
+that page and the answers so far ride in the `?a=` query parameter, so there is no profile and no
+stored state.
 
-To add or change an answer:
+A new check is only justified when the answer genuinely depends on the reader's answers. If
+everyone should get the same advice, write or extend a guide under `content/student-life/` instead.
+
+To add or change a check:
 
 - **Nodes** are either a `question` (an id, a bilingual question, and at least two options) or
   an `outcome` (a title, a summary, and at least one action, related page, or citation). Give
@@ -221,24 +236,11 @@ To add or change an answer:
   sends them to a human. This is a rule, not a fallback of last resort.
 - **`owner`** says who actually decides, whenever it is not BIRSA. Use it. BIRSA is a student
   association, and an answer that quietly implies otherwise sends people to the wrong desk.
-
-### Writing for a specific reader
-
-Three facts are known about the reader when they have filled in `/answers/you`: `origin`
-(`thai` or `international`), `stage` (`starting`, `studying` or `finishing`) and `role`
-(`student` or `officer`). Any of them can be unset, and an answer must still make sense when
-they all are.
-
-- Put audience-specific text in a `body` block with a `when`, rather than writing two outcomes.
-- Use `skipWhen` to stop asking a question the profile already answers. A question the reader
-  never saw is shown on the answer as an assumption they can correct, so this is honest as well
-  as shorter.
-- Add a condition only where the answer genuinely differs. A condition that produces the same
-  advice in both branches is noise that someone later has to maintain.
+- **A new check needs a home.** Set its `path` to the page it belongs to, add a route there that
+  renders `CheckFlow`, and link to it from that section's index.
 
 `npm run test` validates the whole graph: dangling links, unreachable nodes, cycles, questions
-that could leave a reader with nothing to choose, conditions referring to facts nothing sets,
-missing Thai or English, and em dashes.
+that could leave a reader with nothing to choose, missing Thai or English, and em dashes.
 
 ## BIRSA activity and student-life guides
 

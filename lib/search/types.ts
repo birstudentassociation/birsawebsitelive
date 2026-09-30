@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
  * whether they are looking at a club or a thing they can borrow.
  */
 export type SectionKey =
-  | "answers"
+  | "checks"
   | "services"
   | "tools"
   | "equipment"
@@ -26,7 +26,7 @@ export type SectionKey =
 export type ResultKind =
   | "guide" // something to read
   | "task" // something to do, e.g. a form or tool
-  | "answer" // a guided question flow
+  | "check" // a guided check
   | "item" // a catalogue entry
   | "link" // an outbound or quick link
   | "reference"; // a document, regulation, or record

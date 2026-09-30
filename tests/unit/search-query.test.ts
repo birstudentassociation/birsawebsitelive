@@ -66,7 +66,7 @@ describe("runSearch: the queries that must work", () => {
 
   it("matches a partial word", () => {
     expect(topIds("equip", "en")).toContain("page:equipment-loan");
-    expect(topIds("intern", "en")).toContain("answer:internship-check");
+    expect(topIds("approv", "en", 5)).toContain("check:activity-approval");
   });
 
   it("sends a course code straight to that course", () => {
@@ -130,8 +130,8 @@ describe("the index", () => {
     for (const locale of ["en", "th"] as const) {
       for (const indexed of getIndex(locale).docs) {
         expect(indexed.doc.href).not.toContain("/officer/");
-        // `/answers/[topic]/q` is a state inside a journey, not a destination.
-        expect(indexed.doc.href).not.toMatch(/\/answers\/[^/]+\/q$/);
+        // A check question step (`?a=`) is a state inside a journey, not a destination.
+        expect(indexed.doc.href).not.toContain("?a=");
       }
     }
   });

@@ -188,9 +188,10 @@ status lookup that needs no account.
 
 ### General Coordinator
 
-- **Campus as a reader fact.** `/answers/you` already stores origin, stage, and role. Adding
-  campus lets shuttle information, opening hours, and location advice adapt for Rangsit readers
-  instead of assuming Tha Prachan.
+- **Campus as a reader fact.** The site holds no reader profile: the checks work from the
+  answers in the URL alone. Adding campus as a fact the reader sets once would let shuttle
+  information, opening hours, and location advice adapt for Rangsit readers instead of assuming
+  Tha Prachan.
 - **Common Room booking (reuses loan pattern).** Once the renovation lands. Migration
   `007_btree_gist_exclude.sql` already installs the exclusion constraint that stops two
   bookings overlapping, because the loan service needed exactly that. A room is an item with a

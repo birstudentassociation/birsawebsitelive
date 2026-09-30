@@ -14,6 +14,7 @@ import {
   studentLifeTopics,
 } from "@/content/student-life/topics";
 import { onboardingUiCopy } from "@/content/onboarding";
+import { service as checks } from "@/content/smart-answers";
 
 // Index of the student-life section: search, the most common questions,
 // the two non-guide destinations (getting started, course reviews) and the
@@ -30,6 +31,7 @@ const copy: Record<
     lede: string;
     searchPlaceholder: string;
     questionsHeading: string;
+    checksHeading: string;
     topicsHeading: string;
   }
 > = {
@@ -37,12 +39,14 @@ const copy: Record<
     lede: "Guides to studying, living and getting around at BIR, and course reviews written by students.",
     searchPlaceholder: "Search for visa, GPA, shuttle or doctor",
     questionsHeading: "Common questions",
+    checksHeading: "Check before you act",
     topicsHeading: "Guides by topic",
   },
   th: {
     lede: "คู่มือการเรียน การใช้ชีวิต และการเดินทางที่ BIR พร้อมรีวิวรายวิชาจากนักศึกษา",
     searchPlaceholder: "ค้นหา เช่น วีซ่า เกรด รถเวียน โรงพยาบาล",
     questionsHeading: "คำถามที่พบบ่อย",
+    checksHeading: "เช็กก่อนลงมือทำ",
     topicsHeading: "คู่มือตามหัวข้อ",
   },
 };
@@ -116,6 +120,24 @@ export default async function StudentLifePage({ params }: { params: Promise<{ la
               </li>
             ))}
           </ul>
+        </section>
+
+        <section aria-labelledby="checks-heading" className="flex flex-col gap-4">
+          <h2 id="checks-heading" className="font-display text-2xl">
+            {t.checksHeading}
+          </h2>
+          <NavList>
+            {checks.topics.map((topic) => (
+              <NavListItem
+                key={topic.slug}
+                href={localeHref(locale, topic.path)}
+                title={topic.title[locale]}
+                as="h3"
+              >
+                {topic.lede[locale]}
+              </NavListItem>
+            ))}
+          </NavList>
         </section>
 
         <NavList>

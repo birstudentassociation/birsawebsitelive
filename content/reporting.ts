@@ -6,7 +6,7 @@
  *
  * Single source of truth so the same numbers and addresses appear on every
  * surface that carries the message (the safety and rights pages in both
- * languages, the smart answers wellbeing topic, /contact, and the emergency
+ * languages, the where-to-go check, /contact, and the emergency
  * scenarios). Rendered by `components/ReportHarassment.tsx`, which is exposed
  * to MDX as `<ReportHarassment />` in `lib/mdx.tsx`.
  *

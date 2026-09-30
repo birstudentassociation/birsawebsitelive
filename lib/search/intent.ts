@@ -98,10 +98,6 @@ const rules: Rule[] = [
           label: bi(locale, "What each club owns", "อุปกรณ์ที่แต่ละชมรมมี"),
           href: localeHref(locale, "/services/equipment-loan/directory"),
         },
-        {
-          label: bi(locale, "Am I allowed to borrow this?", "ฉันยืมสิ่งนี้ได้หรือไม่"),
-          href: localeHref(locale, "/answers/borrow-equipment"),
-        },
       ],
     }),
   },
@@ -184,8 +180,8 @@ const rules: Rule[] = [
           href: localeHref(locale, "/student-life/studying/grades-and-graduation"),
         },
         {
-          label: bi(locale, "Which courses should I take?", "ควรลงวิชาใด"),
-          href: localeHref(locale, "/answers/choose-courses"),
+          label: bi(locale, "Choosing your courses", "การเลือกรายวิชา"),
+          href: localeHref(locale, "/student-life/studying/curriculum"),
         },
       ],
     }),
@@ -221,8 +217,8 @@ const rules: Rule[] = [
       },
       links: [
         {
-          label: bi(locale, "Which courses should I take?", "ควรลงวิชาใด"),
-          href: localeHref(locale, "/answers/choose-courses"),
+          label: bi(locale, "Choosing your courses", "การเลือกรายวิชา"),
+          href: localeHref(locale, "/student-life/studying/curriculum"),
         },
       ],
     }),
@@ -260,7 +256,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Who should I contact?", "ควรติดต่อใคร"),
-          href: localeHref(locale, "/answers/who-to-contact"),
+          href: localeHref(locale, "/contact/where-to-go"),
         },
         {
           label: bi(locale, "Who does what on the committee", "หน้าที่ของคณะกรรมการ"),
@@ -303,7 +299,7 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "See who to tell and how", "ดูช่องทางการแจ้งเรื่อง"),
-        href: localeHref(locale, "/answers/raise-a-problem"),
+        href: localeHref(locale, "/contact/where-to-go"),
       },
       links: [
         {
@@ -402,7 +398,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Settling in", "การปรับตัว"),
-          href: localeHref(locale, "/answers/settle-in"),
+          href: localeHref(locale, "/student-life/first-weeks"),
         },
         {
           label: bi(locale, "For international students", "สำหรับนักศึกษาต่างชาติ"),
@@ -462,7 +458,7 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Start the check", "เริ่มตรวจสอบ"),
-        href: localeHref(locale, "/answers/start-a-club-check"),
+        href: localeHref(locale, "/clubs/start-check"),
       },
       links: [
         {
@@ -500,7 +496,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Who should I contact?", "ควรติดต่อใคร"),
-          href: localeHref(locale, "/answers/who-to-contact"),
+          href: localeHref(locale, "/contact/where-to-go"),
         },
       ],
     }),
@@ -600,7 +596,7 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Money and fees", "เรื่องเงินและค่าธรรมเนียม"),
-        href: localeHref(locale, "/answers/money-and-fees"),
+        href: localeHref(locale, "/student-life/money"),
       },
       links: [
         {
@@ -653,8 +649,8 @@ const rules: Rule[] = [
       },
       links: [
         {
-          label: bi(locale, "Health and safety answers", "คำตอบเรื่องสุขภาพและความปลอดภัย"),
-          href: localeHref(locale, "/answers/health-and-safety"),
+          label: bi(locale, "Health and safety guides", "คู่มือสุขภาพและความปลอดภัย"),
+          href: localeHref(locale, "/student-life/health-and-safety"),
         },
       ],
     }),
@@ -694,8 +690,8 @@ const rules: Rule[] = [
           href: localeHref(locale, "/student-life/getting-around/getting-to-campus"),
         },
         {
-          label: bi(locale, "Getting around answers", "คำตอบเรื่องการเดินทาง"),
-          href: localeHref(locale, "/answers/getting-around"),
+          label: bi(locale, "All getting around guides", "คู่มือการเดินทางทั้งหมด"),
+          href: localeHref(locale, "/student-life/getting-around"),
         },
       ],
     }),
@@ -773,7 +769,7 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Settling in", "การปรับตัว"),
-          href: localeHref(locale, "/answers/settle-in"),
+          href: localeHref(locale, "/student-life/first-weeks"),
         },
       ],
     }),
@@ -822,15 +818,10 @@ const rules: Rule[] = [
         "ฝึกงานได้เมื่อใด อะไรนับเป็นการฝึกงาน และจัดวางในแผนการเรียนอย่างไร"
       ),
       action: {
-        label: bi(locale, "Check the internship rules", "ตรวจสอบกฎการฝึกงาน"),
-        href: localeHref(locale, "/answers/internship-check"),
+        label: bi(locale, "Read the internship guide", "อ่านคู่มือการฝึกงาน"),
+        href: localeHref(locale, "/student-life/studying/internship"),
       },
-      links: [
-        {
-          label: bi(locale, "Internship handbook chapter", "บทว่าด้วยการฝึกงาน"),
-          href: localeHref(locale, "/student-life/studying/internship"),
-        },
-      ],
+      links: [],
     }),
   },
   {
@@ -869,11 +860,15 @@ const rules: Rule[] = [
       links: [
         {
           label: bi(locale, "Academic rules", "กฎเกณฑ์ทางวิชาการ"),
-          href: localeHref(locale, "/answers/academic-rules"),
+          href: localeHref(locale, "/student-life/studying"),
         },
         {
-          label: bi(locale, "Getting an activity approved", "การขออนุมัติกิจกรรม"),
-          href: localeHref(locale, "/answers/activity-approval"),
+          label: bi(
+            locale,
+            "Check if your activity needs approval",
+            "เช็กว่ากิจกรรมต้องขออนุมัติหรือไม่"
+          ),
+          href: localeHref(locale, "/activity/approval-check"),
         },
       ],
     }),

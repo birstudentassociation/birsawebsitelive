@@ -126,13 +126,13 @@ export const quickGroups: QuickGroup[] = [
         th: { label: "ติดต่อ BIRSA", hint: "คำถาม ข้อเสนอแนะ หรือเรื่องกังวลใจ" },
       },
       {
-        key: "get-an-answer",
-        href: "/answers",
+        key: "where-to-go",
+        href: "/contact/where-to-go",
         icon: "help",
-        en: { label: "Get an answer", hint: "Guided answers on rules, study and student life" },
+        en: { label: "Not sure who to ask", hint: "A few questions to find the right office" },
         th: {
-          label: "ค้นหาคำตอบ",
-          hint: "คำตอบแบบนำทาง เรื่องกฎระเบียบ การเรียน และชีวิตนักศึกษา",
+          label: "ไม่แน่ใจว่าควรถามใคร",
+          hint: "ตอบคำถามสั้น ๆ เพื่อหาหน่วยงานที่ดูแลเรื่องนี้",
         },
       },
       {

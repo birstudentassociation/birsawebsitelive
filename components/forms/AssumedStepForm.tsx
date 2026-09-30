@@ -65,7 +65,7 @@ export default function AssumedStepForm({
         {groups.map((group) => (
           <fieldset key={group.termLabel}>
             {/* The heading already states the term visually; wrapping it in
-                <legend> (as app/[lang]/answers/you/page.tsx does) is what
+                <legend> (as components/checks/CheckFlow.tsx does for its options) is what
                 actually announces the grouping to screen reader users, who
                 otherwise lose which term a checkbox belongs to as soon as
                 they move past its heading. */}

@@ -18,7 +18,7 @@ export type ResultListProps = {
 /**
  * Results render as a plain hairline-separated list rather than `NavList` or
  * a `Card` grid. This list mixes very different result shapes in one run —
- * guided answers, news with dates, regulation clauses, outbound quick links —
+ * checks, news with dates, regulation clauses, outbound quick links —
  * and a long mixed list reads better as compact rows than as cards, which
  * imply a gallery of similar things. `NavList` was the closest existing
  * pattern (stretched title link, chevron, hairline rows) but is a single

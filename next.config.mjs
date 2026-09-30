@@ -1,4 +1,5 @@
 import { buildStaticCsp } from "./lib/csp.mjs";
+import { answersRedirects } from "./lib/answers-redirects.mjs";
 import { studentLifeRedirects } from "./lib/student-life-redirects.mjs";
 
 /**
@@ -68,6 +69,8 @@ const nextConfig = {
       },
       // Guides moved from audience folders to topics; see lib/student-life-redirects.mjs.
       ...studentLifeRedirects(),
+      // The "Get an answer" section was retired; see lib/answers-redirects.mjs.
+      ...answersRedirects(),
       {
         source: "/:lang/information-services",
         destination: "/:lang/services",

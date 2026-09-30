@@ -14,7 +14,7 @@ import type { Locale } from "@/lib/i18n";
 export type FeedbackFormProps = {
   locale: Locale;
   /**
-   * The page or journey this feedback is about, e.g. "/en/answers/registration/outcome"
+   * The page or journey this feedback is about, e.g. "/en/contact/where-to-go"
    * or "/en/contact/sent". Stored as-is (query strings and fragments are
    * stripped server-side); never render this back to the reader as part of
    * a URL or page title (Service Manual: don't put user-identifying detail

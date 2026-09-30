@@ -13,7 +13,7 @@ import { buildIndex, search, type SearchIndex } from "@/lib/search/engine";
 import { matchIntent, type BestBet } from "@/lib/search/intent";
 import { staticPages } from "@/lib/search/pages";
 import { sectionLabel, sectionOrder } from "@/lib/search/sections";
-import { answerDocs } from "@/lib/search/sources/answers";
+import { checkDocs } from "@/lib/search/sources/checks";
 import { contentDocs } from "@/lib/search/sources/content";
 import { referenceDocs } from "@/lib/search/sources/reference";
 import { didYouMean, popularSearches } from "@/lib/search/suggest";
@@ -42,7 +42,7 @@ function pageDocs(locale: Locale): SearchDoc[] {
 function corpus(locale: Locale): SearchDoc[] {
   return [
     ...pageDocs(locale),
-    ...answerDocs(locale),
+    ...checkDocs(locale),
     ...contentDocs(locale),
     ...referenceDocs(locale),
   ];

@@ -139,7 +139,7 @@ export default async function StartClubPage({
             <h3 className="font-display text-lg text-ink">{t.checkTitle}</h3>
             <p className="text-sm leading-relaxed text-muted">{t.checkBody}</p>
             <Link
-              href={localeHref(locale, "/answers/start-a-club-check")}
+              href={localeHref(locale, "/clubs/start-check")}
               className="text-sm font-semibold text-brand-deep hover:underline"
             >
               {t.checkCta} &rarr;

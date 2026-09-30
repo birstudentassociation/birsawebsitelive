@@ -41,12 +41,11 @@ const publicPaths = [
   "/services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/services/equipment-loan/status", // status lookup form
   "/emergency", // calm emergency-preparedness landing
-  "/answers", // smart answers hub
-  "/answers/you", // audience profile form
-  "/answers/activity-approval", // smart answer topic start page
-  "/answers/activity-approval/q", // smart answer question page (first step)
-  "/answers/start/q", // the "not sure where to start" triage question
-  "/answers/settle-in/q?p=international.starting", // a step tailored by profile
+  "/activity/approval-check", // check entry: first question under the page header
+  "/activity/approval-check?a=no&a=oneoff", // check mid-journey: a later question alone on the page
+  "/activity/approval-check?a=no&a=oneoff&a=oncampus", // check outcome: answer, trail, feedback
+  "/clubs/start-check", // check entry on the clubs side
+  "/contact/where-to-go", // check entry on the contact side
 ];
 
 const locales = ["en", "th"] as const;

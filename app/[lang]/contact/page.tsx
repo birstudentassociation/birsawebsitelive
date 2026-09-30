@@ -54,10 +54,10 @@ const copy: Record<
   en: {
     title: "Contact BIRSA",
     lede: "Answer a few short questions and we'll get your message to the right person.",
-    answersTitle: "Answer it yourself, faster",
+    answersTitle: "Not sure who deals with this?",
     answersBody:
-      "Rules, deadlines and services are covered by the guided answers, with the provision each answer comes from.",
-    answersCta: "Get an answer",
+      "Answer a few questions and we will point you to the right office, so your message or visit goes to the right place first time.",
+    answersCta: "Find out where to go",
     otherWaysTitle: "Other ways to reach us",
     otherWaysBody: "Email or message us on social media directly.",
     emailLabel: "Email",
@@ -65,10 +65,10 @@ const copy: Record<
   th: {
     title: "ติดต่อ BIRSA",
     lede: "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะส่งข้อความของคุณถึงผู้ที่เกี่ยวข้อง",
-    answersTitle: "หาคำตอบเองได้เร็วกว่า",
+    answersTitle: "ไม่แน่ใจว่าเรื่องนี้ใครดูแล",
     answersBody:
-      "เรื่องกฎระเบียบ กำหนดเวลา และบริการ มีคำตอบแบบนำทางให้แล้ว พร้อมข้ออ้างอิงที่มาของแต่ละคำตอบ",
-    answersCta: "ค้นหาคำตอบ",
+      "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะบอกว่าควรติดต่อหน่วยงานไหน จะได้ไม่ต้องเสียเวลาส่งเรื่องผิดที่",
+    answersCta: "ดูว่าควรไปที่ไหน",
     otherWaysTitle: "ช่องทางติดต่ออื่น ๆ",
     otherWaysBody: "อีเมลหรือติดต่อเราทางโซเชียลมีเดียได้โดยตรง",
     emailLabel: "อีเมล",
@@ -148,14 +148,14 @@ export default async function ContactPage({
         </div>
 
         <aside className="flex flex-col gap-4 rounded-lg border border-line bg-sunken p-6 lg:self-start">
-          {/* Answering the question without a round trip is faster for the
-              student and cheaper for the committee, so the guided route is
+          {/* Knowing who deals with a question before writing in saves the
+              student and the committee a round trip, so the check is
               offered before the form's other channels, not after them. */}
           <div className="flex flex-col gap-2 border-b border-line pb-4">
             <h2 className="font-display text-xl">{t.answersTitle}</h2>
             <p className="text-sm text-muted">{t.answersBody}</p>
             <Link
-              href={localeHref(locale, "/answers")}
+              href={localeHref(locale, "/contact/where-to-go")}
               className="text-sm font-semibold text-brand-deep hover:underline"
             >
               {t.answersCta} &rarr;

@@ -109,7 +109,7 @@ export const feedbackSchema = z.object({
   rating: z.enum(FEEDBACK_RATINGS),
   comment: z.string().max(FEEDBACK_COMMENT_MAX).optional().or(z.literal("")),
   locale: z.enum(["en", "th"]),
-  // The path the feedback was given from, e.g. "/en/answers/registration/outcome".
+  // The path the feedback was given from, e.g. "/en/contact/where-to-go".
   // Never a full URL: query strings and fragments are stripped before this is
   // parsed, so nothing accidentally captured in a query param ends up stored.
   path: z.string().min(1).max(300),

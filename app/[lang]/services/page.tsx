@@ -32,7 +32,6 @@ const copy: Record<
   {
     title: string;
     lede: string;
-    getAnswer: { title: string; description: string; cta: string };
     studyPlan: { title: string; description: string; cta: string };
     equipmentLoan: { title: string; description: string; cta: string };
     equipmentDirectory: { title: string; description: string; cta: string };
@@ -48,12 +47,6 @@ const copy: Record<
   en: {
     title: "Information and services",
     lede: "Borrow equipment, read course reviews and student-life guides written by students, or get logistics guidance if you're new to Bangkok.",
-    getAnswer: {
-      title: "Get an answer",
-      description:
-        "Answer a few questions and get the part of the rules, the handbook or the service that applies to you, with the provision it comes from.",
-      cta: "Get an answer",
-    },
     studyPlan: {
       title: "Plan your BIR degree",
       description:
@@ -100,12 +93,6 @@ const copy: Record<
   th: {
     title: "ข้อมูลและบริการ",
     lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ สำหรับนักศึกษาต่างชาติ",
-    getAnswer: {
-      title: "ค้นหาคำตอบ",
-      description:
-        "ตอบคำถามไม่กี่ข้อ แล้วดูว่ากฎระเบียบ คู่มือนักศึกษา หรือบริการส่วนไหนที่ใช้กับกรณีของคุณ พร้อมข้ออ้างอิงที่มา",
-      cta: "ค้นหาคำตอบ",
-    },
     studyPlan: {
       title: "วางแผนปริญญา BIR ของคุณ",
       description:
@@ -165,7 +152,6 @@ export default async function InformationServicesPage({
   const studyPlanHref = localeHref(locale, "/services/study-plan");
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
   const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
-  const answersHref = localeHref(locale, "/answers");
   const universityServicesHref = localeHref(locale, "/services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
   const guidesHref = localeHref(locale, "/student-life");
@@ -189,9 +175,6 @@ export default async function InformationServicesPage({
             <GridMain className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
               <NavList>
-                <NavListItem href={answersHref} title={t.getAnswer.title} as="h3">
-                  {t.getAnswer.description}
-                </NavListItem>
                 <NavListItem href={studyPlanHref} title={t.studyPlan.title} as="h3">
                   {t.studyPlan.description}
                 </NavListItem>

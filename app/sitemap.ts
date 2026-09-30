@@ -55,7 +55,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/student-life",
       "/student-life/course-reviews",
       "/student-life/getting-started",
-      "/answers",
       "/services",
       "/services/university-services",
       "/services/equipment-loan",
@@ -91,11 +90,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       entries.push(entry(locale, `/activity/regulations/${doc.slug}`));
     }
 
-    // Smart Answers: only the topic start pages are indexed. The stateful /q
-    // step pages and the audience profile page carry robots noindex and are
-    // deliberately absent here.
+    // Checks live on the pages they belong to. Only the entry path is
+    // indexed; the stateful `?a=` steps are the same URL and carry no entry.
     for (const topic of smartAnswers.topics) {
-      entries.push(entry(locale, `/answers/${topic.slug}`));
+      entries.push(entry(locale, topic.path));
     }
 
     for (const audience of onboardingAudiences) {
