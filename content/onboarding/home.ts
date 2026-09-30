@@ -45,8 +45,8 @@ export const homeTrack: OnboardingTrack = {
             th: "เปิดใช้งานบัตรธนาคารกรุงเทพ",
           },
           hint: {
-            en: "Your student card is also a Bangkok Bank debit card. Refunds are paid into that account.",
-            th: "บัตรนักศึกษาเป็นบัตรเดบิตธนาคารกรุงเทพด้วย เงินคืนจากมหาวิทยาลัยโอนเข้าบัญชีนี้",
+            en: "Collect your student card at the Bangkok Bank Tha Prachan branch and activate the linked account there. Refunds are paid into that account.",
+            th: "รับบัตรนักศึกษาที่ธนาคารกรุงเทพ สาขาท่าพระจันทร์ และเปิดใช้งานบัญชีที่ผูกกับบัตรที่นั่น เงินคืนจากมหาวิทยาลัยโอนเข้าบัญชีนี้",
           },
           href: "/student-life/money/bank-account",
         },

@@ -76,3 +76,16 @@ export function formatDate(locale: Locale, isoDate: string): string {
     calendar: "gregory",
   }).format(date);
 }
+
+/**
+ * Like `formatDate`, but Thai uses the Buddhist Era, matching the พ.ศ. years
+ * in the Thai student-life guides.
+ */
+export function formatGuideDate(locale: Locale, isoDate: string): string {
+  if (locale !== "th") return formatDate(locale, isoDate);
+  return new Intl.DateTimeFormat("th-TH-u-ca-buddhist", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(isoDate));
+}

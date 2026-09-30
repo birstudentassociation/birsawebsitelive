@@ -108,8 +108,8 @@ export const internationalTrack: OnboardingTrack = {
             th: "เปิดใช้งานบัตรธนาคารกรุงเทพ",
           },
           hint: {
-            en: "Your student card is also a Bangkok Bank debit card.",
-            th: "บัตรนักศึกษาเป็นบัตรเดบิตธนาคารกรุงเทพด้วย",
+            en: "Collect your student card at the Bangkok Bank Tha Prachan branch and activate the linked account there.",
+            th: "รับบัตรนักศึกษาที่ธนาคารกรุงเทพ สาขาท่าพระจันทร์ และเปิดใช้งานบัญชีที่ผูกกับบัตรที่นั่น",
           },
           href: "/student-life/money/bank-account",
         },
@@ -221,8 +221,8 @@ export const internationalTrack: OnboardingTrack = {
         {
           id: "health-insurance",
           label: {
-            en: "Arrange health insurance and find the nearest hospital",
-            th: "จัดทำประกันสุขภาพและหาโรงพยาบาลที่ใกล้ที่สุด",
+            en: "Arrange your own health insurance and find the nearest hospital",
+            th: "จัดทำประกันสุขภาพของตนเองและหาโรงพยาบาลที่ใกล้ที่สุด",
           },
           href: "/student-life/health-and-safety/getting-medical-help",
         },

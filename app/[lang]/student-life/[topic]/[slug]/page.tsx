@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
+import {
+  getDictionary,
+  isLocale,
+  formatGuideDate,
+  localeHref,
+  locales,
+  type Locale,
+} from "@/lib/i18n";
 import { getGuideEntries, getGuideEntry, guideTopics, isGuideTopic } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { Mdx } from "@/lib/mdx";
@@ -178,10 +185,10 @@ export default async function StudentLifeGuidePage({
               </p>
             ) : null}
             <p>
-              {t.checked} {formatDate(locale, frontmatter.reviewed)}
+              {t.checked} {formatGuideDate(locale, frontmatter.reviewed)}
             </p>
             <p>
-              {t.updated} {formatDate(locale, frontmatter.updated)}
+              {t.updated} {formatGuideDate(locale, frontmatter.updated)}
             </p>
           </div>
 

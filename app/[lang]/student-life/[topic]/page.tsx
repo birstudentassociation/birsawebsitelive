@@ -1,6 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
+import {
+  getDictionary,
+  isLocale,
+  formatGuideDate,
+  localeHref,
+  locales,
+  type Locale,
+} from "@/lib/i18n";
 import { getGuideEntries, guideTopics, isGuideTopic } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
@@ -94,7 +101,7 @@ export default async function StudentLifeTopicPage({
                         ? { label: t.includes, items: frontmatter.keyQuestions }
                         : undefined
                     }
-                    footnote={`${t.checked} ${formatDate(locale, frontmatter.reviewed)}`}
+                    footnote={`${t.checked} ${formatGuideDate(locale, frontmatter.reviewed)}`}
                   >
                     {frontmatter.summary}
                   </NavListItem>

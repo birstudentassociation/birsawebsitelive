@@ -128,16 +128,6 @@ export const shuttleLines: ShuttleLine[] = [
       20: [30],
       21: [0, 30],
     },
-    dormitoryMarkers: [
-      {
-        time: "07:00",
-        label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
-      },
-      {
-        time: "09:00",
-        label: { en: "Morning TPC dormitory service (inbound)", th: "บริการหอใน ขาเข้ารอบเช้า" },
-      },
-    ],
     previous: {
       schedule: {
         7: [0, 20, 40],
