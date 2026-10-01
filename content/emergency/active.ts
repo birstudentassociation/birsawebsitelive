@@ -60,6 +60,29 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-10-01T13:00:00+07:00",
+      text: {
+        en: "The Chao Phraya Dam has raised its release to 2,400 cubic metres a second. Keep away from the river and the piers at Tha Prachan.",
+        th: "เขื่อนเจ้าพระยาเพิ่มการระบายน้ำเป็น 2,400 ลูกบาศก์เมตรต่อวินาที อย่าเข้าใกล้ริมแม่น้ำและท่าเรือบริเวณท่าพระจันทร์",
+      },
+      points: {
+        en: [
+          "The release rose from 2,200 to 2,300 overnight and reached 2,400 by 13:00. The Royal Irrigation Department may go up to 2,500 as water from the north peaks on 2 October.",
+          "The department expects the river in Bangkok to stay about 40 cm below the flood walls. Communities outside the walls should move belongings to higher ground.",
+          "Lat Phrao Road and the Bang Kapi junction are dry, and water is falling at Khlong Chan and on Nawamin Road. Lat Krabang and Saphan Sung are still flooded because Khlong Prawet Burirom is high. Min Buri and Nong Chok are being watched.",
+          "The Thai Meteorological Department warns of thunderstorms from 4 to 6 October. Experts say the main canals are still full, with more rain expected from 5 to 10 October.",
+          "DDPM counts 30 provinces and Bangkok affected, about 3.35 million people. In Bangkok 329,000 households are affected and 4 people have died.",
+        ],
+        th: [
+          "เขื่อนเจ้าพระยาทยอยเพิ่มการระบายน้ำจาก 2,200 เป็น 2,300 ลูกบาศก์เมตรต่อวินาทีเมื่อคืนนี้ และถึง 2,400 ลูกบาศก์เมตรต่อวินาทีภายในเวลา 13.00 น. กรมชลประทานอาจเพิ่มได้ถึง 2,500 ลูกบาศก์เมตรต่อวินาที เมื่อน้ำเหนือสูงสุดในวันที่ 2 ตุลาคม",
+          "กรมชลประทานคาดว่าระดับแม่น้ำในกรุงเทพฯ จะยังต่ำกว่าแนวป้องกันราว 40 ซม. ชุมชนนอกแนวป้องกันควรขนย้ายสิ่งของขึ้นที่สูง",
+          "ถนนลาดพร้าวและแยกบางกะปิแห้งแล้ว ระดับน้ำที่เคหะคลองจั่นและถนนนวมินทร์ลดลงต่อเนื่อง ส่วนเขตลาดกระบังและเขตสะพานสูงยังมีน้ำท่วมเพราะคลองประเวศบุรีรมย์ยังสูง และยังเฝ้าระวังเขตมีนบุรีและเขตหนองจอก",
+          "กรมอุตุนิยมวิทยาเตือนให้ระวังพายุฝนฟ้าคะนองในวันที่ 4 ถึง 6 ตุลาคม ผู้เชี่ยวชาญระบุว่าคลองสายหลักยังเต็ม และคาดว่าจะมีฝนอีกในวันที่ 5 ถึง 10 ตุลาคม",
+          "ปภ. รายงานว่ามีพื้นที่ได้รับผลกระทบ 30 จังหวัดและกรุงเทพฯ ผู้ได้รับผลกระทบราว 3.35 ล้านคน ในกรุงเทพฯ มีผู้ได้รับผลกระทบ 329,000 ครัวเรือน และเสียชีวิต 4 คน",
+        ],
+      },
+    },
+    {
       at: "2026-09-30T13:45:00+07:00",
       text: {
         en: "Direk Jayanama Library is open from 08:00 to 16:00 from 30 September to 2 October.",
