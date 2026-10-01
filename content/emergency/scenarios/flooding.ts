@@ -31,6 +31,34 @@ const flooding: EmergencyScenario = {
     },
     {
       label: {
+        en: "Bangkok Biz News, BMA raises flood relief rates and opens online claims, 1 October 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ กทม. เปิดเกณฑ์เยียวยาน้ำท่วมชาวกรุงเทพ ปรับเพดานเพิ่ม ยื่นออนไลน์ได้ 1 ตุลาคม 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254494",
+    },
+    {
+      label: {
+        en: "InfoQuest, BMA flood relief rates and online claims from 2 October, 1 October 2026 (Thai)",
+        th: "อินโฟเควสท์ กทม. แจงหลักเกณฑ์เยียวยาน้ำท่วม เตรียมเปิดยื่นออนไลน์ 1 ตุลาคม 2569",
+      },
+      href: "https://www.infoquest.co.th/2026/657597",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, DDPM names 118 subdistricts in 38 districts for flood relief, 29 September 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ กางพื้นที่ กทม. 38 เขต 118 แขวง เป็นเขตช่วยเหลือภัยพิบัติน้ำท่วม 29 กันยายน 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254219",
+    },
+    {
+      label: {
+        en: "The Nation, DDPM's 9,000 baht flood aid and separate BMA assistance for Bangkok explained, 28 September 2026",
+        th: "The Nation อธิบายเงินช่วยเหลือ 9,000 บาทของ ปภ. และความช่วยเหลือของ กทม. 28 กันยายน 2569",
+      },
+      href: "https://www.nationthailand.com/news/general/40071582",
+    },
+    {
+      label: {
         en: "Thai PBS, Chao Phraya Dam raises its release to 1,950 cubic metres a second, 26 September 2026 (Thai)",
         th: "ไทยพีบีเอส เขื่อนเจ้าพระยาเพิ่มการระบายน้ำจาก 1,850 เป็น 1,950 ลบ.ม./วินาที 26 กันยายน 2569",
       },
@@ -240,7 +268,7 @@ const flooding: EmergencyScenario = {
       href: "https://ddc.moph.go.th/disease_detail.php?d=16",
     },
   ],
-  reviewed: "2026-09-26",
+  reviewed: "2026-10-01",
   en: {
     title: "Bangkok floods, September 2026",
     summary:
@@ -252,7 +280,7 @@ const flooding: EmergencyScenario = {
       "Keep away from the river and the piers at Tha Prachan and Tha Chang, especially at high tide. Tides stay high until 4 October and water from the north peaks around 2 October.",
       "The heavy rain has eased and most main roads should be dry within two days, but parts of Lat Krabang, Bang Kapi, Min Buri and Sai Mai are still flooded. Check the BMA flood alert page before you travel and do not drive or walk through floodwater.",
       "If you are cleaning up, wear boots and gloves, keep the power off until the wiring is dry and see a doctor if you get a fever after wading.",
-      "Photograph damage before you clean up, then claim up to 49,500 baht for repairs through your district office, even if you rent. See claiming compensation below.",
+      "Photograph damage before you clean up. The BMA now pays up to 88,600 baht for repairs, and you can claim online from the evening of Friday 2 October or at your district office. See claiming compensation below.",
       "More rain is forecast from 5 to 8 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
     ],
     sections: [
@@ -447,19 +475,22 @@ const flooding: EmergencyScenario = {
         body: [
           "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and means people whose homes were damaged by the floods can claim compensation from the BMA.",
           "On 29 September the BMA ended the declaration in the 21 districts it found unaffected, including Phra Nakhon. The other 29 districts are still a disaster area.",
+          "Also on 29 September DDPM named 118 subdistricts in 38 districts as the area where people can get help under Ministry of Finance rules. Phra Nakhon is not one of them. Help must be given within 3 months of the flood.",
+          "On 1 October the BMA raised its rates to match real costs. You can claim online from the evening of Friday 2 October, or at your district office as before. You no longer need a police report.",
         ],
         steps: [
           "Photograph or film the damage to your home and belongings before you clean up.",
           "Report the damage to your district office. Staff will come and assess it.",
           "Ask the district office for a certificate that you were affected by the disaster, with a list of the damage (form Bor Sor 3). The district must give the cause as flooding.",
-          "Download the fact-finding form below, fill it in and take it to your district office with the documents listed under each kind of help.",
+          "Download the fact-finding form below, fill it in and take it to your district office with the documents listed under each kind of help. From the evening of 2 October you can instead send the form, photographs of the damage, a copy of your ID card and your bank account details online.",
         ],
         items: [
           "You can claim if the place you normally live was damaged, or if water came into the rooms you live in.",
-          "If you rent, you claim, not your landlord.",
+          "The head of the household claims for repairs. If you rent, you can claim the other kinds of help with proof that you rent, such as your tenancy agreement.",
           "In a building with several floors, only the floors that flooded can claim.",
           "If you do not have a house registration at the address, for example because you live in a dormitory, the district office will also take a statement from you (form Por Kor 14).",
-          "The BMA also pays for household essentials, tools you need for your work, medical treatment and funerals at set rates. Ask your district office, call 1555 or the flood control centre on 02-248-5115, or use Traffy Fondue on LINE.",
+          "The government also pays 9,000 baht per household, separate from the BMA's help. See below.",
+          "If you still need food or other help, call 1555 or use Traffy Fondue on LINE. You can also ask your district office or the flood control centre on 02-248-5115.",
         ],
         directoryOpen: true,
         directory: [
@@ -467,9 +498,9 @@ const flooding: EmergencyScenario = {
             heading: "Repairs to your home",
             places: [
               {
-                name: "Up to 49,500 baht per home",
+                name: "Up to 88,600 baht per home",
                 detail:
-                  "Based on the actual damage. Covers only the cost of repair materials for the building's structure, at the rates on the form.",
+                  "Raised from 49,500 baht on 1 October. Based on the actual damage. Covers only the cost of repair materials for the building's structure. The head of the household claims.",
               },
               {
                 name: "Documents",
@@ -504,8 +535,52 @@ const flooding: EmergencyScenario = {
           {
             heading: "Household essentials",
             places: [
-              { name: "Home partly damaged", detail: "Up to 1,800 baht per household" },
-              { name: "Whole home damaged", detail: "Up to 3,800 baht per household" },
+              {
+                name: "1,900 to 3,800 baht per household",
+                detail: "Depending on how badly the home was damaged.",
+              },
+            ],
+          },
+          {
+            heading: "Tools for your work",
+            places: [
+              {
+                name: "Up to 13,500 baht per household",
+                detail: "Raised from 11,900 baht on 1 October.",
+              },
+            ],
+          },
+          {
+            heading: "Medical treatment",
+            places: [
+              { name: "Outpatients", detail: "Up to 2,000 baht per person" },
+              { name: "Inpatients", detail: "Up to 4,000 baht per person" },
+              { name: "If you were injured", detail: "A further 2,300 baht per person" },
+              { name: "BMA hospitals", detail: "Treatment is free." },
+            ],
+          },
+          {
+            heading: "Funerals",
+            places: [
+              {
+                name: "Up to 35,700 baht per person",
+                detail: "Raised from 29,500 baht on 1 October.",
+              },
+            ],
+          },
+          {
+            heading: "Government payment of 9,000 baht",
+            places: [
+              {
+                name: "9,000 baht per household, once",
+                detail:
+                  "Paid by the government, separate from the BMA's help. Your usual home must be in a declared disaster area and have been flooded for more than 7 days, or for fewer days with damage to your belongings.",
+              },
+              {
+                name: "How to claim",
+                detail:
+                  "Register in the Tang Rat app or at your district office. The money goes by PromptPay to your ID card number, so link it first. Bangkok has not yet set a date to start.",
+              },
             ],
           },
         ],
@@ -553,7 +628,7 @@ const flooding: EmergencyScenario = {
       "หลีกเลี่ยงริมแม่น้ำและท่าเรือท่าพระจันทร์และท่าช้าง โดยเฉพาะช่วงน้ำขึ้น น้ำทะเลหนุนสูงถึงวันที่ 4 ตุลาคม และน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
       "ฝนตกหนักเบาลงแล้ว และถนนสายหลักส่วนใหญ่น่าจะแห้งภายใน 2 วัน แต่บางส่วนของเขตลาดกระบัง บางกะปิ มีนบุรี และสายไหม ยังมีน้ำท่วม ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และอย่าขับรถหรือเดินลุยน้ำ",
       "หากกำลังทำความสะอาดบ้าน ให้สวมรองเท้าบูทและถุงมือ อย่าเปิดไฟจนกว่าสายไฟจะแห้ง และหากมีไข้หลังลุยน้ำ ให้ไปพบแพทย์",
-      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด แล้วยื่นขอค่าซ่อมแซมได้สูงสุด 49,500 บาทที่สำนักงานเขต ผู้เช่าก็ยื่นได้ ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
+      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด ตอนนี้ กทม. ช่วยค่าซ่อมแซมบ้านสูงสุด 88,600 บาท ยื่นออนไลน์ได้ตั้งแต่ช่วงเย็นวันศุกร์ที่ 2 ตุลาคม หรือยื่นที่สำนักงานเขต ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
       "คาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 8 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
     ],
     sections: [
@@ -753,19 +828,22 @@ const flooding: EmergencyScenario = {
         body: [
           "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 โดยขยายพื้นที่จากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และทำให้ผู้ที่บ้านหรือที่พักเสียหายจากน้ำท่วมสามารถยื่นขอรับเงินช่วยเหลือจาก กทม. ได้",
           "วันที่ 29 กันยายน กทม. ประกาศให้สาธารณภัยสิ้นสุดลงใน 21 เขตที่ตรวจสอบแล้วว่าไม่ได้รับผลกระทบ รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
+          "วันเดียวกัน ปภ. ประกาศเขตการให้ความช่วยเหลือผู้ประสบภัยพิบัติกรณีฉุกเฉิน 38 เขต 118 แขวง ตามระเบียบกระทรวงการคลัง ไม่รวมเขตพระนคร และต้องให้ความช่วยเหลือภายใน 3 เดือนนับจากวันเกิดภัย",
+          "วันที่ 1 ตุลาคม กทม. ปรับเพดานเงินช่วยเหลือให้ใกล้เคียงค่าใช้จ่ายจริง ยื่นคำร้องออนไลน์ได้ตั้งแต่ช่วงเย็นวันศุกร์ที่ 2 ตุลาคม หรือยื่นที่สำนักงานเขตได้ตามปกติ และไม่ต้องไปแจ้งความที่สถานีตำรวจอีกต่อไป",
         ],
         steps: [
           "ถ่ายภาพหรือวิดีโอความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
           "แจ้งความเสียหายที่สำนักงานเขต เจ้าหน้าที่จะลงพื้นที่สำรวจ",
           "ขอหนังสือรับรองผู้ประสบภัยและบัญชีความเสียหายแนบท้าย (แบบ บส.3) จากสำนักงานเขต ซึ่งต้องระบุสาเหตุว่าเกิดจากอุทกภัย",
-          "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัยด้านล่าง กรอกให้ครบ แล้วยื่นที่สำนักงานเขตพร้อมเอกสารหลักฐานตามประเภทความช่วยเหลือ",
+          "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัยด้านล่าง กรอกให้ครบ แล้วยื่นที่สำนักงานเขตพร้อมเอกสารหลักฐานตามประเภทความช่วยเหลือ ตั้งแต่ช่วงเย็นวันที่ 2 ตุลาคม จะยื่นแบบคำร้อง ภาพถ่ายความเสียหาย สำเนาบัตรประชาชน และข้อมูลบัญชีธนาคารทางออนไลน์แทนก็ได้",
         ],
         items: [
           "ผู้มีสิทธิคือผู้ที่บ้านหรือที่อยู่อาศัยประจำได้รับความเสียหาย หรือมีน้ำท่วมเข้าถึงส่วนที่ใช้พักอาศัย",
-          "กรณีบ้านเช่า ผู้เช่าเป็นผู้มีสิทธิ ไม่ใช่เจ้าของบ้าน",
+          "เจ้าบ้านเป็นผู้รับสิทธิค่าซ่อมแซมบ้าน ส่วนผู้เช่าขอรับความช่วยเหลือประเภทอื่นตามหลักเกณฑ์ได้ โดยต้องมีหลักฐานการเช่า เช่น สัญญาเช่า",
           "กรณีอาคารหลายชั้น จะได้รับความช่วยเหลือเฉพาะชั้นที่น้ำท่วมถึงเท่านั้น",
           "หากไม่มีชื่อในทะเบียนบ้านของที่อยู่นั้น เช่น พักอยู่ในหอพัก สำนักงานเขตจะบันทึกถ้อยคำ (ปค.14) เพิ่มเติม",
-          "กทม. ยังช่วยเหลือค่าเครื่องใช้ที่จำเป็นในการดำรงชีพ ค่าเครื่องมือประกอบอาชีพ ค่ารักษาพยาบาล และค่าจัดการศพตามอัตราที่กำหนด สอบถามสำนักงานเขต สายด่วน 1555 ศูนย์ป้องกันน้ำท่วม กทม. โทร 02-248-5115 หรือ Traffy Fondue ทาง LINE",
+          "รัฐบาลยังจ่ายเงินช่วยเหลือครัวเรือนละ 9,000 บาท แยกจากเงินช่วยเหลือของ กทม. ดูรายละเอียดด้านล่าง",
+          "หากยังไม่ได้รับอาหารหรือความช่วยเหลืออื่น แจ้งได้ที่สายด่วน 1555 หรือ Traffy Fondue ทาง LINE หรือสอบถามสำนักงานเขต หรือศูนย์ป้องกันน้ำท่วม กทม. โทร 02-248-5115",
         ],
         directoryOpen: true,
         directory: [
@@ -773,9 +851,9 @@ const flooding: EmergencyScenario = {
             heading: "ค่าซ่อมแซมบ้านหรือที่พักอาศัย",
             places: [
               {
-                name: "ไม่เกิน 49,500 บาทต่อหลัง",
+                name: "ไม่เกิน 88,600 บาทต่อหลัง",
                 detail:
-                  "จ่ายตามความเสียหายจริง เฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร ตามอัตราในแบบฟอร์ม",
+                  "ปรับจากเดิม 49,500 บาท เมื่อวันที่ 1 ตุลาคม จ่ายตามความเสียหายจริง เฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร เจ้าบ้านเป็นผู้รับสิทธิ",
               },
               {
                 name: "เอกสารหลักฐาน",
@@ -810,8 +888,52 @@ const flooding: EmergencyScenario = {
           {
             heading: "ค่าเครื่องใช้ที่จำเป็นในการดำรงชีพ",
             places: [
-              { name: "เสียหายบางส่วน", detail: "ครอบครัวละไม่เกิน 1,800 บาท" },
-              { name: "เสียหายทั้งหลัง", detail: "ครอบครัวละไม่เกิน 3,800 บาท" },
+              {
+                name: "ครอบครัวละ 1,900 ถึง 3,800 บาท",
+                detail: "ตามระดับความเสียหาย",
+              },
+            ],
+          },
+          {
+            heading: "ค่าเครื่องมือประกอบอาชีพ",
+            places: [
+              {
+                name: "ครอบครัวละไม่เกิน 13,500 บาท",
+                detail: "ปรับจากเดิม 11,900 บาท เมื่อวันที่ 1 ตุลาคม",
+              },
+            ],
+          },
+          {
+            heading: "ค่ารักษาพยาบาล",
+            places: [
+              { name: "ผู้ป่วยนอก", detail: "รายละไม่เกิน 2,000 บาท" },
+              { name: "ผู้ป่วยใน", detail: "รายละไม่เกิน 4,000 บาท" },
+              { name: "กรณีบาดเจ็บ", detail: "เงินปลอบขวัญรายละ 2,300 บาท" },
+              { name: "โรงพยาบาลสังกัด กทม.", detail: "รักษาฟรี" },
+            ],
+          },
+          {
+            heading: "ค่าจัดการศพ",
+            places: [
+              {
+                name: "รายละไม่เกิน 35,700 บาท",
+                detail: "ปรับจากเดิม 29,500 บาท เมื่อวันที่ 1 ตุลาคม",
+              },
+            ],
+          },
+          {
+            heading: "เงินช่วยเหลือจากรัฐบาล 9,000 บาท",
+            places: [
+              {
+                name: "ครัวเรือนละ 9,000 บาท ครั้งเดียว",
+                detail:
+                  "รัฐบาลเป็นผู้จ่าย แยกจากเงินช่วยเหลือของ กทม. ที่อยู่อาศัยประจำต้องอยู่ในเขตที่ประกาศเป็นพื้นที่ประสบภัย และน้ำท่วมขังติดต่อกันเกิน 7 วัน หรือท่วมไม่ถึง 7 วันแต่ทรัพย์สินเสียหาย",
+              },
+              {
+                name: "วิธียื่น",
+                detail:
+                  "ลงทะเบียนผ่านแอปทางรัฐหรือที่สำนักงานเขต เงินจะโอนผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน จึงควรผูกไว้ก่อน กรุงเทพฯ ยังไม่ประกาศวันเริ่มลงทะเบียน",
+              },
             ],
           },
         ],

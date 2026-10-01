@@ -60,6 +60,31 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-10-01T13:45:00+07:00",
+      text: {
+        en: "The BMA has raised its flood compensation. You can claim online from the evening of Friday 2 October, and you no longer need a police report.",
+        th: "กทม. ปรับเพิ่มเงินช่วยเหลือผู้ประสบอุทกภัย ยื่นคำร้องออนไลน์ได้ตั้งแต่ช่วงเย็นวันศุกร์ที่ 2 ตุลาคม และไม่ต้องใช้ใบแจ้งความอีกต่อไป",
+      },
+      points: {
+        en: [
+          "Repairs to your home are now up to 88,600 baht, up from 49,500. The head of the household claims. Tenants can claim the other kinds of help with proof that they rent.",
+          "Tools for your work are up to 13,500 baht and funerals up to 35,700 baht. Temporary accommodation is 3,000 baht a month for up to 2 months, household essentials 1,900 to 3,800 baht, and medical treatment up to 2,000 baht for outpatients and 4,000 baht for inpatients.",
+          "Online, you send the form, photographs of the damage, a copy of your ID card and your bank account details. District offices still take claims in person.",
+          "DDPM has named 118 subdistricts in 38 districts where people can get help. Phra Nakhon is not one of them.",
+          "The government's 9,000 baht per household is separate. Register in the Tang Rat app or at your district office, and link PromptPay to your ID card number.",
+          "If you still need food or other help, call 1555 or use Traffy Fondue on LINE.",
+        ],
+        th: [
+          "ค่าซ่อมแซมบ้านปรับเป็นไม่เกิน 88,600 บาท จากเดิม 49,500 บาท เจ้าบ้านเป็นผู้รับสิทธิ ส่วนผู้เช่าขอรับความช่วยเหลือประเภทอื่นได้ โดยต้องมีหลักฐานการเช่า",
+          "ค่าเครื่องมือประกอบอาชีพไม่เกิน 13,500 บาท ค่าจัดการศพไม่เกิน 35,700 บาท ค่าที่พักชั่วคราวเดือนละ 3,000 บาท ไม่เกิน 2 เดือน ค่าดำรงชีพเบื้องต้น 1,900 ถึง 3,800 บาท และค่ารักษาพยาบาลผู้ป่วยนอกไม่เกิน 2,000 บาท ผู้ป่วยในไม่เกิน 4,000 บาท",
+          "การยื่นออนไลน์ใช้แบบคำร้อง ภาพถ่ายความเสียหาย สำเนาบัตรประชาชน และข้อมูลบัญชีธนาคาร สำนักงานเขตยังรับคำร้องตามปกติ",
+          "ปภ. ประกาศเขตการให้ความช่วยเหลือ 38 เขต 118 แขวง ไม่รวมเขตพระนคร",
+          "เงินช่วยเหลือครัวเรือนละ 9,000 บาทของรัฐบาลแยกต่างหาก ลงทะเบียนผ่านแอปทางรัฐหรือที่สำนักงานเขต และผูกพร้อมเพย์กับเลขบัตรประชาชนไว้",
+          "หากยังไม่ได้รับอาหารหรือความช่วยเหลืออื่น แจ้งได้ที่สายด่วน 1555 หรือ Traffy Fondue ทาง LINE",
+        ],
+      },
+    },
+    {
       at: "2026-10-01T13:00:00+07:00",
       text: {
         en: "The Chao Phraya Dam has raised its release to 2,400 cubic metres a second. Keep away from the river and the piers at Tha Prachan.",
