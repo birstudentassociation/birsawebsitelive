@@ -17,6 +17,76 @@ const flooding: EmergencyScenario = {
   sources: [
     {
       label: {
+        en: "Thai PBS, registration for flood relief opens in the Tang Rat app at 08:00, 2 October 2026 (Thai)",
+        th: "ไทยพีบีเอส เริ่ม 08.00 น. วันนี้ เปิดลงทะเบียนเยียวยาน้ำท่วม 2569 ผ่านแอปทางรัฐ 2 ตุลาคม 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/559005",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, flood relief registration for Bangkok and 65 provinces, conditions and channels, 1 October 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ เริ่มพรุ่งนี้ ลงทะเบียนเยียวยาน้ำท่วมผ่านทางรัฐ 65 จังหวัดและ กทม. 1 ตุลาคม 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254538",
+    },
+    {
+      label: {
+        en: "Thai PBS, BMA online flood claims open on 2 October without a police report, 1 October 2026 (Thai)",
+        th: "ไทยพีบีเอส เปิดยื่นออนไลน์ 2 ต.ค. รับเงินเยียวยาน้ำท่วม กทม. ยกเลิกใบแจ้งความ 1 ตุลาคม 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558961",
+    },
+    {
+      label: {
+        en: "Thai PBS, Chao Phraya Dam raises its release to 2,500 cubic metres a second from 03:00, 1 October 2026 (Thai)",
+        th: "ไทยพีบีเอส เขื่อนเจ้าพระยาปรับเพิ่มระบายน้ำเป็น 2,500 ลบ.ม./วินาที เวลา 03.00 น. 1 ตุลาคม 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/559003",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, DDPM warns Bangkok and 10 provinces of a 0.40 to 0.70 m rise outside the flood walls, 2 October 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ แจ้งเตือนกรุงเทพฯ และ 10 จังหวัดลุ่มเจ้าพระยา น้ำเพิ่มสูง 2 ตุลาคม 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254644",
+    },
+    {
+      label: {
+        en: "Thai PBS, BMA warns 11 communities outside the flood walls, 1 October 2026 (Thai)",
+        th: "ไทยพีบีเอส กทม. เตือน 11 ชุมชนนอกแนวเขื่อนป้องกันน้ำท่วม 1 ตุลาคม 2569",
+      },
+      href: "https://www.thaipbs.or.th/news/content/558941",
+    },
+    {
+      label: {
+        en: "Post Today, academics warn of water backing up through drains as the Chao Phraya Dam releases 2,500, 2 October 2026 (Thai)",
+        th: "โพสต์ทูเดย์ เจ้าพระยาระบาย 2,500 ลบ.ม./วินาที เตือน กทม. น้ำย้อนท่อ 2 ตุลาคม 2569",
+      },
+      href: "https://www.posttoday.com/general-news/749775",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, Thai Meteorological Department warning No. 1 on heavy rain from 4 to 7 October, 1 October 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ อุตุฯ ประกาศฉบับ 1 เตือนอากาศแปรปรวน 4 ถึง 7 ต.ค. 1 ตุลาคม 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254562",
+    },
+    {
+      label: {
+        en: "The Bangkok Insight, BMA pumps Kheha Romklao in Lat Krabang into Khlong Prawet Burirom, 2 October 2026 (Thai)",
+        th: "The Bangkok Insight กทม. ใช้ท่อซิ่งช่วยเคหะร่มเกล้า ลาดกระบัง 2 ตุลาคม 2569",
+      },
+      href: "https://www.thebangkokinsight.com/news/politics-general/general/1703545/",
+    },
+    {
+      label: {
+        en: "Bangkok Biz News, DDPM flood figures for 31 provinces and Bangkok, 2 October 2026 (Thai)",
+        th: "กรุงเทพธุรกิจ เช็กน้ำท่วมวันนี้ 2 ต.ค. กรุงเทพฯ และ 31 จังหวัด 2 ตุลาคม 2569",
+      },
+      href: "https://www.bangkokbiznews.com/news/news-update/1254629",
+    },
+    {
+      label: {
         en: "BMA, help for people affected by flooding in Bangkok, fact-finding form, September 2026 (Thai)",
         th: "กรุงเทพมหานคร แบบสอบข้อเท็จจริงผู้ประสบอุทกภัย กันยายน 2569",
       },
@@ -268,7 +338,7 @@ const flooding: EmergencyScenario = {
       href: "https://ddc.moph.go.th/disease_detail.php?d=16",
     },
   ],
-  reviewed: "2026-10-01",
+  reviewed: "2026-10-02",
   en: {
     title: "Bangkok floods, September 2026",
     summary:
@@ -277,11 +347,11 @@ const flooding: EmergencyScenario = {
       "Because of flooding across Bangkok, all Thammasat classes are online until Saturday 3 October.",
     now: [
       "Keep studying online until Saturday 3 October. Midterms set for 26 and 27 September are on Sunday 4 and Sunday 11 October. After 3 October your lecturer will tell you if classes stay online or hybrid.",
-      "Keep away from the river and the piers at Tha Prachan and Tha Chang, especially at high tide. Tides stay high until 4 October and water from the north peaks around 2 October.",
-      "The heavy rain has eased and most main roads should be dry within two days, but parts of Lat Krabang, Bang Kapi, Min Buri and Sai Mai are still flooded. Check the BMA flood alert page before you travel and do not drive or walk through floodwater.",
+      "Keep away from the river and the piers at Tha Prachan and Tha Chang, especially at high tide. The Chao Phraya Dam is releasing 2,500 cubic metres a second and tides stay high until 4 October.",
+      "Most main roads are dry, but Lat Krabang, Saphan Sung and the Kheha Romklao flats are still flooded and could take about a week to drain. Check the BMA flood alert page before you travel and do not drive or walk through floodwater.",
       "If you are cleaning up, wear boots and gloves, keep the power off until the wiring is dry and see a doctor if you get a fever after wading.",
-      "Photograph damage before you clean up. The BMA now pays up to 88,600 baht for repairs, and you can claim online from the evening of Friday 2 October or at your district office. See claiming compensation below.",
-      "More rain is forecast from 5 to 8 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
+      "Photograph damage before you clean up. The BMA pays up to 88,600 baht for repairs, and you can claim online or at your district office. The government's 9,000 baht is open for registration in the Tang Rat app, and tenants can claim it. See claiming compensation below.",
+      "Heavy rain and strong winds are forecast for Bangkok on 5 and 6 October. Keep your documents in a waterproof bag and your phone charged. Report flooding on 1555 or Traffy Fondue on LINE, and call 1669 in a medical emergency.",
     ],
     sections: [
       {
@@ -375,11 +445,12 @@ const flooding: EmergencyScenario = {
         items: [
           "Watch the Tha Prachan gate area and the area around the Faculty of Liberal Arts. Water overflowing from the drains collects there first.",
           "Drains overflow when heavy rain falls at high tide, because the canals cannot empty into the river.",
-          "The riskiest days are 29 September to 4 October, when high tides, water from the north and rain all arrive together. The BMA and the National Water Resources Office expect rivers to rise a further 0.70 to 1.70 m, mostly affecting communities outside the flood walls.",
+          "The riskiest days are 29 September to 4 October, when high tides, water from the north and rain all arrive together. The Chao Phraya Dam has released 2,500 cubic metres a second since 03:00 on 2 October, and DDPM expects the river outside the flood walls to rise 0.40 to 0.70 m.",
+          "The BMA has warned 11 communities outside the flood walls in 6 riverside districts to move belongings to higher ground, including Tha Wang in Phra Nakhon, near Tha Prachan.",
           "High tide is every evening from about 19:00 to 22:00. From 29 September there is a second high tide in the morning or around midday.",
           "Keep away from Tha Prachan, Tha Chang and other piers at high tide, because they are outside the wall. Check boat services before you travel.",
           "Coming from the north or east, expect flooded roads around Din Daeng, Ratchadaphisek, Lat Phrao, Phahon Yothin and Ngam Wong Wan.",
-          "The Thammasat shuttle buses are running as normal on both lines, the Sanam Chai Line and the Pinklao Line, on their usual timetables. New timetables with one bus on each line start on Thursday 1 October.",
+          "The Thammasat shuttle buses are running as normal on both lines, the Sanam Chai Line and the Pinklao Line, Since Thursday 1 October each line has run one bus on a new timetable.",
         ],
         links: [
           {
@@ -476,13 +547,13 @@ const flooding: EmergencyScenario = {
           "On 26 September Governor Chadchart Sittipunt declared all 50 districts a disaster area under the Disaster Prevention and Mitigation Act 2007, extending the 25 September declaration for Nong Chok, Suan Luang and Khan Na Yao. It lets government agencies act quickly and means people whose homes were damaged by the floods can claim compensation from the BMA.",
           "On 29 September the BMA ended the declaration in the 21 districts it found unaffected, including Phra Nakhon. The other 29 districts are still a disaster area.",
           "Also on 29 September DDPM named 118 subdistricts in 38 districts as the area where people can get help under Ministry of Finance rules. Phra Nakhon is not one of them. Help must be given within 3 months of the flood.",
-          "On 1 October the BMA raised its rates to match real costs. You can claim online from the evening of Friday 2 October, or at your district office as before. You no longer need a police report.",
+          "On 1 October the BMA raised its rates to match real costs. Online claims opened on 2 October, and district offices still take claims in person. You no longer need a police report.",
         ],
         steps: [
           "Photograph or film the damage to your home and belongings before you clean up.",
           "Report the damage to your district office. Staff will come and assess it.",
           "Ask the district office for a certificate that you were affected by the disaster, with a list of the damage (form Bor Sor 3). The district must give the cause as flooding.",
-          "Download the fact-finding form below, fill it in and take it to your district office with the documents listed under each kind of help. From the evening of 2 October you can instead send the form, photographs of the damage, a copy of your ID card and your bank account details online.",
+          "Download the fact-finding form below, fill it in and take it to your district office with the documents listed under each kind of help. You can instead send the form, photographs of the damage, a copy of your ID card and your bank account details online. Staff will contact you by SMS if they need anything more.",
         ],
         items: [
           "You can claim if the place you normally live was damaged, or if water came into the rooms you live in.",
@@ -574,12 +645,12 @@ const flooding: EmergencyScenario = {
               {
                 name: "9,000 baht per household, once",
                 detail:
-                  "Paid by the government, separate from the BMA's help. Your usual home must be in a declared disaster area and have been flooded for more than 7 days, or for fewer days with damage to your belongings.",
+                  "Paid by the government, separate from the BMA's help. Your usual home must be in a declared disaster area and have been flooded between 15 May and 30 September for more than 7 days, for fewer days with damage to your belongings, or cut off by water for more than 7 days. High rise residents qualify if daily life was disrupted for more than 7 days.",
               },
               {
                 name: "How to claim",
                 detail:
-                  "Register in the Tang Rat app or at your district office. The money goes by PromptPay to your ID card number, so link it first. Bangkok has not yet set a date to start.",
+                  "Registration opened at 08:00 on 2 October. Register in the Tang Rat app or at your district office. If you rent, the money goes to you as the tenant. Link PromptPay to your ID card number.",
               },
             ],
           },
@@ -625,11 +696,11 @@ const flooding: EmergencyScenario = {
     banner: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์เรียนออนไลน์ทุกรายวิชาถึงวันเสาร์ที่ 3 ตุลาคม",
     now: [
       "เรียนออนไลน์ต่อถึงวันเสาร์ที่ 3 ตุลาคม ส่วนสอบกลางภาควันที่ 26 และ 27 กันยายน เลื่อนไปวันอาทิตย์ที่ 4 และวันอาทิตย์ที่ 11 ตุลาคม หลังวันที่ 3 ตุลาคม อาจารย์ผู้สอนจะแจ้งว่าจะเรียนออนไลน์หรือแบบผสมผสานต่อหรือไม่",
-      "หลีกเลี่ยงริมแม่น้ำและท่าเรือท่าพระจันทร์และท่าช้าง โดยเฉพาะช่วงน้ำขึ้น น้ำทะเลหนุนสูงถึงวันที่ 4 ตุลาคม และน้ำเหนือจะสูงสุดราววันที่ 2 ตุลาคม",
-      "ฝนตกหนักเบาลงแล้ว และถนนสายหลักส่วนใหญ่น่าจะแห้งภายใน 2 วัน แต่บางส่วนของเขตลาดกระบัง บางกะปิ มีนบุรี และสายไหม ยังมีน้ำท่วม ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และอย่าขับรถหรือเดินลุยน้ำ",
+      "หลีกเลี่ยงริมแม่น้ำและท่าเรือท่าพระจันทร์และท่าช้าง โดยเฉพาะช่วงน้ำขึ้น เขื่อนเจ้าพระยาระบายน้ำ 2,500 ลูกบาศก์เมตรต่อวินาที และน้ำทะเลหนุนสูงถึงวันที่ 4 ตุลาคม",
+      "ถนนสายหลักส่วนใหญ่แห้งแล้ว แต่เขตลาดกระบัง เขตสะพานสูง และเคหะร่มเกล้ายังมีน้ำท่วม และอาจใช้เวลาราวหนึ่งสัปดาห์กว่าน้ำจะระบายหมด ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และอย่าขับรถหรือเดินลุยน้ำ",
       "หากกำลังทำความสะอาดบ้าน ให้สวมรองเท้าบูทและถุงมือ อย่าเปิดไฟจนกว่าสายไฟจะแห้ง และหากมีไข้หลังลุยน้ำ ให้ไปพบแพทย์",
-      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด ตอนนี้ กทม. ช่วยค่าซ่อมแซมบ้านสูงสุด 88,600 บาท ยื่นออนไลน์ได้ตั้งแต่ช่วงเย็นวันศุกร์ที่ 2 ตุลาคม หรือยื่นที่สำนักงานเขต ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
-      "คาดว่าจะมีฝนรอบใหม่ในวันที่ 5 ถึง 8 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
+      "ถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด กทม. ช่วยค่าซ่อมแซมบ้านสูงสุด 88,600 บาท ยื่นได้ทั้งออนไลน์และที่สำนักงานเขต ส่วนเงิน 9,000 บาทของรัฐบาลเปิดลงทะเบียนผ่านแอปทางรัฐแล้ว ผู้เช่าก็ยื่นได้ ดูรายละเอียดในหัวข้อการขอรับเงินช่วยเหลือด้านล่าง",
+      "คาดว่ากรุงเทพฯ จะมีฝนตกหนักและลมกระโชกแรงในวันที่ 5 และ 6 ตุลาคม เก็บเอกสารไว้ในถุงกันน้ำและชาร์จโทรศัพท์ให้พร้อม แจ้งเหตุน้ำท่วมที่ 1555 หรือ Traffy Fondue ทาง LINE และโทร 1669 หากเจ็บป่วยฉุกเฉิน",
     ],
     sections: [
       {
@@ -729,11 +800,12 @@ const flooding: EmergencyScenario = {
         items: [
           "เฝ้าระวังบริเวณประตูท่าพระจันทร์และรอบคณะศิลปศาสตร์ เพราะเป็นจุดแรกที่น้ำจากท่อระบายน้ำจะเอ่อขึ้นมาท่วมขัง",
           "ท่อระบายน้ำจะเอ่อล้นเมื่อฝนตกหนักในช่วงน้ำขึ้น เพราะน้ำในคลองระบายลงแม่น้ำไม่ได้",
-          "ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 4 ตุลาคม เพราะน้ำทะเลหนุน น้ำเหนือ และฝน จะมาพร้อมกัน กทม. และ สทนช. คาดว่าระดับน้ำในแม่น้ำจะสูงขึ้นอีก 0.70 ถึง 1.70 ม. กระทบชุมชนนอกแนวคันกั้นน้ำเป็นหลัก",
+          "ช่วงที่ต้องเฝ้าระวังมากที่สุดคือวันที่ 29 กันยายนถึง 4 ตุลาคม เพราะน้ำทะเลหนุน น้ำเหนือ และฝน จะมาพร้อมกัน เขื่อนเจ้าพระยาระบายน้ำ 2,500 ลูกบาศก์เมตรต่อวินาทีตั้งแต่เวลา 03.00 น. วันที่ 2 ตุลาคม ปภ. คาดว่าระดับน้ำนอกแนวคันกั้นน้ำจะสูงขึ้น 0.40 ถึง 0.70 ม.",
+          "กทม. เตือน 11 ชุมชนนอกแนวคันกั้นน้ำใน 6 เขตริมแม่น้ำเจ้าพระยาให้ยกของขึ้นที่สูง รวมถึงชุมชนท่าวัง เขตพระนคร ใกล้ท่าพระจันทร์",
           "น้ำขึ้นสูงทุกค่ำช่วงราว 19.00 ถึง 22.00 น. และตั้งแต่วันที่ 29 กันยายน น้ำจะขึ้นสูงอีกรอบในช่วงเช้าหรือราวเที่ยง",
           "หลีกเลี่ยงท่าเรือท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ๆ ในช่วงน้ำขึ้น เพราะอยู่นอกแนวกำแพงกั้นน้ำ และตรวจสอบว่าเรือยังให้บริการตามปกติหรือไม่ก่อนออกเดินทาง",
           "หากเดินทางมาจากทางเหนือหรือตะวันออก ให้เผื่อเวลาเดินทาง เพราะถนนแถวดินแดง รัชดาภิเษก ลาดพร้าว พหลโยธิน และงามวงศ์วานมีน้ำท่วม",
-          "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 สาย คือสายสนามไชยและสายปิ่นเกล้า ตามตารางเวลาเดิม และตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม จะเปลี่ยนเป็นตารางเวลาใหม่ โดยเหลือรถสายละ 1 คัน",
+          "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 สาย คือสายสนามไชยและสายปิ่นเกล้า ตั้งแต่วันพฤหัสบดีที่ 1 ตุลาคม ใช้ตารางเวลาใหม่ โดยมีรถสายละ 1 คัน",
         ],
         links: [
           {
@@ -829,13 +901,13 @@ const flooding: EmergencyScenario = {
           "เมื่อวันที่ 26 กันยายน นายชัชชาติ สิทธิพันธุ์ ผู้ว่าราชการกรุงเทพมหานคร ประกาศให้ทั้ง 50 เขตเป็นเขตพื้นที่ประสบสาธารณภัย ตามพระราชบัญญัติป้องกันและบรรเทาสาธารณภัย พ.ศ. 2550 โดยขยายพื้นที่จากประกาศเมื่อวันที่ 25 กันยายน ซึ่งครอบคลุมเฉพาะเขตหนองจอก สวนหลวง และคันนายาว ประกาศนี้เปิดทางให้หน่วยงานเข้าช่วยเหลือได้อย่างรวดเร็ว และทำให้ผู้ที่บ้านหรือที่พักเสียหายจากน้ำท่วมสามารถยื่นขอรับเงินช่วยเหลือจาก กทม. ได้",
           "วันที่ 29 กันยายน กทม. ประกาศให้สาธารณภัยสิ้นสุดลงใน 21 เขตที่ตรวจสอบแล้วว่าไม่ได้รับผลกระทบ รวมถึงเขตพระนคร ส่วนอีก 29 เขตยังเป็นเขตพื้นที่ประสบสาธารณภัย",
           "วันเดียวกัน ปภ. ประกาศเขตการให้ความช่วยเหลือผู้ประสบภัยพิบัติกรณีฉุกเฉิน 38 เขต 118 แขวง ตามระเบียบกระทรวงการคลัง ไม่รวมเขตพระนคร และต้องให้ความช่วยเหลือภายใน 3 เดือนนับจากวันเกิดภัย",
-          "วันที่ 1 ตุลาคม กทม. ปรับเพดานเงินช่วยเหลือให้ใกล้เคียงค่าใช้จ่ายจริง ยื่นคำร้องออนไลน์ได้ตั้งแต่ช่วงเย็นวันศุกร์ที่ 2 ตุลาคม หรือยื่นที่สำนักงานเขตได้ตามปกติ และไม่ต้องไปแจ้งความที่สถานีตำรวจอีกต่อไป",
+          "วันที่ 1 ตุลาคม กทม. ปรับเพดานเงินช่วยเหลือให้ใกล้เคียงค่าใช้จ่ายจริง เปิดยื่นคำร้องออนไลน์ตั้งแต่วันที่ 2 ตุลาคม และยังยื่นที่สำนักงานเขตได้ตามปกติ และไม่ต้องไปแจ้งความที่สถานีตำรวจอีกต่อไป",
         ],
         steps: [
           "ถ่ายภาพหรือวิดีโอความเสียหายของที่พักและทรัพย์สินไว้ก่อนทำความสะอาด",
           "แจ้งความเสียหายที่สำนักงานเขต เจ้าหน้าที่จะลงพื้นที่สำรวจ",
           "ขอหนังสือรับรองผู้ประสบภัยและบัญชีความเสียหายแนบท้าย (แบบ บส.3) จากสำนักงานเขต ซึ่งต้องระบุสาเหตุว่าเกิดจากอุทกภัย",
-          "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัยด้านล่าง กรอกให้ครบ แล้วยื่นที่สำนักงานเขตพร้อมเอกสารหลักฐานตามประเภทความช่วยเหลือ ตั้งแต่ช่วงเย็นวันที่ 2 ตุลาคม จะยื่นแบบคำร้อง ภาพถ่ายความเสียหาย สำเนาบัตรประชาชน และข้อมูลบัญชีธนาคารทางออนไลน์แทนก็ได้",
+          "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัยด้านล่าง กรอกให้ครบ แล้วยื่นที่สำนักงานเขตพร้อมเอกสารหลักฐานตามประเภทความช่วยเหลือ หรือยื่นแบบคำร้อง ภาพถ่ายความเสียหาย สำเนาบัตรประชาชน และข้อมูลบัญชีธนาคารทางออนไลน์แทนก็ได้ หากเอกสารไม่ครบ เจ้าหน้าที่จะติดต่อกลับทาง SMS",
         ],
         items: [
           "ผู้มีสิทธิคือผู้ที่บ้านหรือที่อยู่อาศัยประจำได้รับความเสียหาย หรือมีน้ำท่วมเข้าถึงส่วนที่ใช้พักอาศัย",
@@ -927,12 +999,12 @@ const flooding: EmergencyScenario = {
               {
                 name: "ครัวเรือนละ 9,000 บาท ครั้งเดียว",
                 detail:
-                  "รัฐบาลเป็นผู้จ่าย แยกจากเงินช่วยเหลือของ กทม. ที่อยู่อาศัยประจำต้องอยู่ในเขตที่ประกาศเป็นพื้นที่ประสบภัย และน้ำท่วมขังติดต่อกันเกิน 7 วัน หรือท่วมไม่ถึง 7 วันแต่ทรัพย์สินเสียหาย",
+                  "รัฐบาลเป็นผู้จ่าย แยกจากเงินช่วยเหลือของ กทม. ที่อยู่อาศัยประจำต้องอยู่ในเขตที่ประกาศเป็นพื้นที่ประสบภัย และถูกน้ำท่วมระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน ติดต่อกันเกิน 7 วัน ท่วมไม่ถึง 7 วันแต่ทรัพย์สินเสียหาย หรือถูกน้ำล้อมเกิน 7 วัน ผู้อยู่อาคารสูงมีสิทธิหากใช้ชีวิตตามปกติไม่ได้เกิน 7 วัน",
               },
               {
                 name: "วิธียื่น",
                 detail:
-                  "ลงทะเบียนผ่านแอปทางรัฐหรือที่สำนักงานเขต เงินจะโอนผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน จึงควรผูกไว้ก่อน กรุงเทพฯ ยังไม่ประกาศวันเริ่มลงทะเบียน",
+                  "เปิดลงทะเบียนตั้งแต่เวลา 08.00 น. วันที่ 2 ตุลาคม ผ่านแอปทางรัฐหรือที่สำนักงานเขต กรณีบ้านเช่า ผู้เช่าเป็นผู้รับเงิน และควรผูกพร้อมเพย์กับเลขบัตรประชาชนไว้",
               },
             ],
           },

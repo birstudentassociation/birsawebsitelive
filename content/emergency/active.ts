@@ -60,6 +60,37 @@ export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   },
   updates: [
     {
+      at: "2026-10-02T11:40:00+07:00",
+      text: {
+        en: "Registration for the government's 9,000 baht flood payment opened at 08:00 today, and tenants can claim it. The Chao Phraya Dam is now releasing 2,500 cubic metres a second.",
+        th: "เปิดลงทะเบียนรับเงินเยียวยาน้ำท่วมครัวเรือนละ 9,000 บาทของรัฐบาลแล้วตั้งแต่เวลา 08.00 น. วันนี้ ผู้เช่าก็ยื่นได้ ส่วนเขื่อนเจ้าพระยาระบายน้ำ 2,500 ลูกบาศก์เมตรต่อวินาทีแล้ว",
+      },
+      points: {
+        en: [
+          "Register in the Tang Rat app or at your district office. The payment covers flooding between 15 May and 30 September in a declared disaster area, and each household gets it once. If you rent, the money goes to you as the tenant.",
+          "Your home qualifies if it was flooded for more than 7 days, flooded for fewer days with damage to your belongings, cut off by water for more than 7 days, or in a high rise where daily life was disrupted for more than 7 days.",
+          "The BMA's separate online claims for damage also open today. You do not need a police report, and staff will contact you by SMS if they need anything more.",
+          "The Chao Phraya Dam reached 2,500 cubic metres a second at 03:00, the most the National Water Resources Committee has allowed. DDPM expects the river outside the flood walls to rise 0.40 to 0.70 m.",
+          "The BMA has warned 11 communities outside the flood walls in 6 riverside districts to move belongings to higher ground. One is Tha Wang in Phra Nakhon, near Tha Prachan. Experts warn that water can back up through drains at high tide, especially on the Thonburi bank.",
+          "The Thai Meteorological Department warns of heavy rain and strong winds from 4 to 7 October. Bangkok is most at risk on 5 and 6 October.",
+          "Most main roads are dry. Lat Krabang, Saphan Sung and the Kheha Romklao flats are still flooded because Khlong Prawet Burirom is high, and the BMA says these areas could take about a week to drain.",
+          "By 11:40 Thammasat had not announced arrangements for classes from Monday 5 October. Midterms are still on 4 and 11 October.",
+          "DDPM counts 31 provinces and Bangkok affected, about 3.54 million people.",
+        ],
+        th: [
+          "ลงทะเบียนผ่านแอปทางรัฐหรือที่สำนักงานเขต สำหรับผู้ที่ประสบอุทกภัยระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน ในพื้นที่ที่ประกาศเป็นเขตประสบภัย ได้ครัวเรือนละ 1 ครั้ง กรณีบ้านเช่า ผู้เช่าเป็นผู้รับเงิน",
+          "ผู้มีสิทธิคือผู้ที่ที่อยู่อาศัยถูกน้ำท่วมเกิน 7 วัน ท่วมไม่ถึง 7 วันแต่ทรัพย์สินเสียหาย ถูกน้ำล้อมจนใช้ชีวิตตามปกติไม่ได้เกิน 7 วัน หรืออยู่อาคารสูงที่ใช้ชีวิตตามปกติไม่ได้เกิน 7 วัน",
+          "ระบบยื่นคำร้องขอรับเงินช่วยเหลือค่าเสียหายของ กทม. ทางออนไลน์ซึ่งแยกต่างหากก็เปิดวันนี้เช่นกัน ไม่ต้องใช้ใบแจ้งความ หากเอกสารไม่ครบ เจ้าหน้าที่จะติดต่อกลับทาง SMS",
+          "เขื่อนเจ้าพระยาระบายน้ำถึง 2,500 ลูกบาศก์เมตรต่อวินาทีเมื่อเวลา 03.00 น. ซึ่งเป็นเพดานที่ กนช. อนุมัติ ปภ. คาดว่าระดับน้ำนอกแนวคันกั้นน้ำจะสูงขึ้น 0.40 ถึง 0.70 ม.",
+          "กทม. เตือน 11 ชุมชนนอกแนวคันกั้นน้ำใน 6 เขตริมแม่น้ำเจ้าพระยาให้ยกของขึ้นที่สูง หนึ่งในนั้นคือชุมชนท่าวัง เขตพระนคร ใกล้ท่าพระจันทร์ นักวิชาการเตือนว่าน้ำอาจย้อนท่อระบายน้ำในช่วงน้ำขึ้น โดยเฉพาะฝั่งธนบุรี",
+          "กรมอุตุนิยมวิทยาเตือนฝนตกหนักและลมกระโชกแรงในวันที่ 4 ถึง 7 ตุลาคม กรุงเทพฯ ต้องระวังมากที่สุดในวันที่ 5 และ 6 ตุลาคม",
+          "ถนนสายหลักส่วนใหญ่แห้งแล้ว แต่เขตลาดกระบัง เขตสะพานสูง และเคหะร่มเกล้ายังมีน้ำท่วมเพราะคลองประเวศบุรีรมย์ยังสูง กทม. ระบุว่าอาจใช้เวลาราวหนึ่งสัปดาห์กว่าน้ำจะระบายหมด",
+          "จนถึงเวลา 11.40 น. ธรรมศาสตร์ยังไม่ประกาศรูปแบบการเรียนตั้งแต่วันจันทร์ที่ 5 ตุลาคม ส่วนสอบกลางภาคยังเป็นวันที่ 4 และ 11 ตุลาคมตามเดิม",
+          "ปภ. รายงานว่ามีพื้นที่ได้รับผลกระทบ 31 จังหวัดและกรุงเทพฯ ผู้ได้รับผลกระทบราว 3.54 ล้านคน",
+        ],
+      },
+    },
+    {
       at: "2026-10-01T13:45:00+07:00",
       text: {
         en: "The BMA has raised its flood compensation. You can claim online from the evening of Friday 2 October, and you no longer need a police report.",
