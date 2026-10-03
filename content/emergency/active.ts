@@ -32,33 +32,54 @@ import type { ScenarioId } from "@/content/emergency/scenarios";
 
 export const activeEmergency: ActiveEmergency<ScenarioId> | null = {
   scenario: "flooding",
-  updatesAfter: "campus",
+  updatesAfter: "help",
   issuedAt: "2026-09-26T10:30:00+07:00",
   banner: {
-    en: "Because of flooding across Bangkok, all Thammasat classes are online until Saturday 3 October.",
-    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์เรียนออนไลน์ทุกรายวิชาถึงวันเสาร์ที่ 3 ตุลาคม",
+    en: "The Bangkok floods have gone down. Find out how to claim the government's 9,000 baht and BMA compensation.",
+    th: "น้ำท่วมกรุงเทพฯ ลดลงแล้ว ดูวิธีขอรับเงิน 9,000 บาทของรัฐบาลและเงินช่วยเหลือค่าเสียหายของ กทม.",
   },
   headline: {
-    en: "Because of flooding across Bangkok, Thammasat has made these changes.",
-    th: "เนื่องจากน้ำท่วมทั่วกรุงเทพฯ ธรรมศาสตร์ประกาศมาตรการดังนี้",
+    en: "The floods have gone down across most of Bangkok. Take care with more rain on 5 and 6 October.",
+    th: "น้ำท่วมลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ แต่ต้องระวังฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม",
   },
   headlinePoints: {
     en: [
-      "All classes at every campus are online until Saturday 3 October.",
-      "Faculties decide which courses must be taught in person. Your lecturer will tell you in advance.",
-      "After 3 October lecturers may keep classes online or hybrid if students are still affected.",
-      "Midterms set for 26 and 27 September are still on 4 and 11 October.",
-      "Thammasat shuttle buses are running as normal on both lines.",
+      "Claim the government's 9,000 baht in the Tang Rat app and BMA compensation at claim.bangkok.go.th. Apply to both.",
+      "Claim from the BMA within 30 days of the flood, and photograph the damage before you clean up.",
+      "Midterms postponed from 26 and 27 September are on Sunday 4 and Sunday 11 October.",
+      "By 16:00 on 3 October Thammasat had not announced arrangements for classes from Monday 5 October.",
     ],
     th: [
-      "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
-      "คณะจะพิจารณาว่ารายวิชาใดจำเป็นต้องเรียนในชั้นเรียน และอาจารย์ผู้สอนจะแจ้งล่วงหน้า",
-      "หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป",
-      "สอบกลางภาคของวันที่ 26 และ 27 กันยายน ยังคงเลื่อนไปสอบวันที่ 4 และ 11 ตุลาคมตามเดิม",
-      "รถเวียนธรรมศาสตร์ให้บริการตามปกติทั้ง 2 เส้นทาง",
+      "ยื่นขอเงิน 9,000 บาทของรัฐบาลผ่านแอปทางรัฐ และเงินช่วยเหลือของ กทม. ที่ claim.bangkok.go.th ต้องยื่นทั้งสองทาง",
+      "ยื่นขอเงินช่วยเหลือของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย และถ่ายภาพความเสียหายไว้ก่อนทำความสะอาด",
+      "สอบกลางภาคที่เลื่อนจากวันที่ 26 และ 27 กันยายน สอบวันอาทิตย์ที่ 4 และวันอาทิตย์ที่ 11 ตุลาคม",
+      "จนถึงเวลา 16.00 น. วันที่ 3 ตุลาคม ธรรมศาสตร์ยังไม่ประกาศรูปแบบการเรียนตั้งแต่วันจันทร์ที่ 5 ตุลาคม",
     ],
   },
   updates: [
+    {
+      at: "2026-10-03T16:15:00+07:00",
+      text: {
+        en: "Flood water has gone down across most of Bangkok, so this page now covers what to do next, including how to claim money for damage. More heavy rain is forecast for 5 and 6 October.",
+        th: "น้ำท่วมลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ หน้านี้จึงปรับเป็นคำแนะนำหลังน้ำลด รวมถึงวิธีขอรับเงินช่วยเหลือค่าเสียหาย และคาดว่าจะมีฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม",
+      },
+      points: {
+        en: [
+          "The BMA's online claims at claim.bangkok.go.th opened on the evening of 2 October. You must claim within 30 days of the flood. The BMA says payment takes at least 60 days and it cannot yet set a date, because about 270,000 to 300,000 households were affected.",
+          "The government's 9,000 baht is a separate scheme. Register in the Tang Rat app or at your district office. No closing date has been announced.",
+          "At 05:00 the Thai Meteorological Department warned of thunderstorms, strong winds and heavy to very heavy rain in Bangkok on 5 and 6 October. The BMA is lowering the main canals to make room.",
+          "Parts of Saphan Sung and the Kheha Romklao flats in Lat Krabang are still flooded. DDPM says water in Bangkok is going down.",
+          "The new national disaster insurance started on 1 October and does not cover these floods.",
+        ],
+        th: [
+          "ระบบยื่นคำร้องออนไลน์ของ กทม. ที่ claim.bangkok.go.th เปิดตั้งแต่ช่วงเย็นวันที่ 2 ตุลาคม ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย กทม. ระบุว่าใช้เวลาดำเนินการจ่ายไม่ต่ำกว่า 60 วัน และยังกำหนดวันจ่ายที่แน่นอนไม่ได้ เพราะมีผู้ได้รับผลกระทบราว 270,000 ถึง 300,000 ครัวเรือน",
+          "เงิน 9,000 บาทของรัฐบาลเป็นอีกโครงการหนึ่ง ลงทะเบียนผ่านแอปทางรัฐหรือที่สำนักงานเขต ยังไม่มีการประกาศวันปิดรับ",
+          "เวลา 05.00 น. กรมอุตุนิยมวิทยาเตือนว่ากรุงเทพฯ จะมีพายุฝนฟ้าคะนอง ลมกระโชกแรง และฝนตกหนักถึงหนักมากในวันที่ 5 และ 6 ตุลาคม กทม. กำลังพร่องน้ำในคลองหลักเพื่อรองรับฝน",
+          "บางส่วนของเขตสะพานสูงและเคหะร่มเกล้า เขตลาดกระบัง ยังมีน้ำท่วมขัง ปภ. รายงานว่าระดับน้ำในกรุงเทพฯ ลดลง",
+          "ระบบประกันภัยพิบัติแห่งชาติที่เริ่มวันที่ 1 ตุลาคม ไม่ครอบคลุมน้ำท่วมครั้งนี้",
+        ],
+      },
+    },
     {
       at: "2026-10-02T11:40:00+07:00",
       text: {
