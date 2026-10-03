@@ -188,6 +188,24 @@ export const staticPages: StaticPage[] = [
     },
   },
   {
+    id: "page:conditions-canals",
+    path: "/conditions/canals",
+    section: "services",
+    kind: "reference",
+    title: {
+      en: "Check canal levels in Bangkok",
+      th: "เช็กระดับน้ำในคลองทั่วกรุงเทพฯ",
+    },
+    summary: {
+      en: "Live water levels at Bangkok canal stations, with the stations nearest to Tha Prachan.",
+      th: "ระดับน้ำล่าสุดจากสถานีวัดในคลองทั่วกรุงเทพฯ พร้อมสถานีที่ใกล้ท่าพระจันทร์ที่สุด",
+    },
+    keywords: {
+      en: ["canal", "khlong", "canal level", "water level", "flood", "bangkok canals"],
+      th: ["คลอง", "ระดับน้ำในคลอง", "ระดับน้ำ", "น้ำท่วม", "คลองกรุงเทพ"],
+    },
+  },
+  {
     id: "page:university-services",
     path: "/services/university-services",
     section: "services",

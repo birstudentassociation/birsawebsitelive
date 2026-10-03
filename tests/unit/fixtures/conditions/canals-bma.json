@@ -1,0 +1,289 @@
+{
+  "waterStation": [
+    {
+      "water_id": "10",
+      "system_id": 2,
+      "station_name": "ค.บางพรม-ถ.กาญจนาฯ",
+      "station_name_en": "Khlong Bang Phrom, Thanon Kanchanaphisek",
+      "station_type_id": 1,
+      "water_station_info": {
+        "water_id": 10,
+        "water_code": "WL.BPM.03",
+        "system_id": 1,
+        "water_name": "จุดวัดคลองบางพรม ตอนถนนกาญจนาภิเษก",
+        "water_shortname": "ค.บางพรม ถ.กาญจนาฯ",
+        "water_shortname_en": "Khlong Bang Phrom, Thanon Kanchanaphisek",
+        "river_name": "คลองบางพรม",
+        "latitude": 13.76264,
+        "longitude": 100.39624,
+        "bed_bank": -2.0,
+        "left_bank": 1.91,
+        "right_bank": 2.0,
+        "warning": 0.6,
+        "critical": 0.7,
+        "warning_out01": null,
+        "critical_out01": null,
+        "checkdry": 1,
+        "dry_in": 0.5,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 10,
+        "site_timestamp": "/Date(1791005700000)/",
+        "wl_in": 0.6,
+        "wl_out01": -99,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005699590)/"
+      }
+    },
+    {
+      "water_id": "10",
+      "system_id": 2,
+      "station_name": "ค.บางพรม-ถ.กาญจนาฯ",
+      "station_name_en": "Khlong Bang Phrom, Thanon Kanchanaphisek",
+      "station_type_id": 1,
+      "water_station_info": {
+        "water_id": 10,
+        "water_code": "WL.BPM.03",
+        "system_id": 1,
+        "water_name": "จุดวัดคลองบางพรม ตอนถนนกาญจนาภิเษก",
+        "water_shortname": "ค.บางพรม ถ.กาญจนาฯ",
+        "water_shortname_en": "Khlong Bang Phrom, Thanon Kanchanaphisek",
+        "river_name": "คลองบางพรม",
+        "latitude": 13.76264,
+        "longitude": 100.39624,
+        "bed_bank": -2.0,
+        "left_bank": 1.91,
+        "right_bank": 2.0,
+        "warning": 0.6,
+        "critical": 0.7,
+        "warning_out01": null,
+        "critical_out01": null,
+        "checkdry": 1,
+        "dry_in": 0.5,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 10,
+        "site_timestamp": "/Date(1791005700000)/",
+        "wl_in": 0.6,
+        "wl_out01": -99,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005699590)/"
+      }
+    },
+    {
+      "water_id": "100",
+      "system_id": 2,
+      "station_name": "ค.ทวีวัฒนา-ภาษีฯ",
+      "station_name_en": "Khlong Thawi Watthana, Phasi Charoen",
+      "station_type_id": 3,
+      "water_station_info": {
+        "water_id": 100,
+        "water_code": "WL.TWW.05",
+        "system_id": 2,
+        "water_name": "จุดวัดคลองทวีวัฒนา ตอนคลองภาษีเจริญ",
+        "water_shortname": "ค.ทวีวัฒนา-ภาษีฯ",
+        "water_shortname_en": "Khlong Thawi Watthana, Phasi Charoen",
+        "river_name": "คลองทวีวัฒนา",
+        "latitude": 13.69163,
+        "longitude": 100.38106,
+        "bed_bank": -1.66,
+        "left_bank": 1.2,
+        "right_bank": 1.2,
+        "warning": 0.6,
+        "critical": 0.7,
+        "warning_out01": null,
+        "critical_out01": null,
+        "checkdry": 1,
+        "dry_in": 0.2,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 100,
+        "site_timestamp": "/Date(1791005400000)/",
+        "wl_in": 0.45,
+        "wl_out01": -99,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005664727)/"
+      }
+    },
+    {
+      "water_id": "106",
+      "system_id": 2,
+      "station_name": "ส.คลองพระยาราชมนตรี",
+      "station_name_en": "Khlong Phraya Ratchamontri",
+      "station_type_id": 2,
+      "water_station_info": {
+        "water_id": 106,
+        "water_code": "WL.RMT.01",
+        "system_id": 2,
+        "water_name": "สถานีสูบน้ำ คลองพระยาราชมนตรี",
+        "water_shortname": "ส.คลองพระยาราชมนตรี",
+        "water_shortname_en": "Khlong Phraya Ratchamontri Pumping Station",
+        "river_name": "คลองพระยาราชมนตรี",
+        "latitude": 13.62817,
+        "longitude": 100.43914,
+        "bed_bank": -3.54,
+        "left_bank": 1.2,
+        "right_bank": 1.2,
+        "warning": 0.4,
+        "critical": 0.5,
+        "warning_out01": 1.0,
+        "critical_out01": 1.2,
+        "checkdry": 1,
+        "dry_in": -0.8,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 106,
+        "site_timestamp": "/Date(1791005700000)/",
+        "wl_in": -0.51,
+        "wl_out01": 0.93,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005791560)/"
+      }
+    },
+    {
+      "water_id": "102",
+      "system_id": 2,
+      "station_name": "ส.คลองแจงร้อน",
+      "station_name_en": "Khlong Chaeng Ron Pumping Station",
+      "station_type_id": 2,
+      "water_station_info": {
+        "water_id": 102,
+        "water_code": "WL.JRN.01",
+        "system_id": 2,
+        "water_name": "สถานีสูบน้ำ คลองแจงร้อน",
+        "water_shortname": "ส.คลองแจงร้อน",
+        "water_shortname_en": "Khlong Chaeng Ron Pumping Station",
+        "river_name": "คลองแจงร้อน",
+        "latitude": 13.67634,
+        "longitude": 100.52111,
+        "bed_bank": -2.0,
+        "left_bank": 2.6,
+        "right_bank": 2.8,
+        "warning": 0.6,
+        "critical": 0.7,
+        "warning_out01": 2.1,
+        "critical_out01": 2.3,
+        "checkdry": 1,
+        "dry_in": 0.2,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 102,
+        "site_timestamp": "/Date(1791005700000)/",
+        "wl_in": 0.18,
+        "wl_out01": 1.66,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005791107)/"
+      }
+    },
+    {
+      "water_id": "125",
+      "system_id": 2,
+      "station_name": "ค.พระยาสุเรนทร์  ถ.จตุโชติ",
+      "station_name_en": "Khlong Phraya Suren, Thanon Chatuchot",
+      "station_type_id": 1,
+      "water_station_info": {
+        "water_id": 125,
+        "water_code": "WL.PSR.03",
+        "system_id": 1,
+        "water_name": "จุดวัดคลองพระยาสุเรนทร์ ตอนถนนจตุโชติ",
+        "water_shortname": "ค.พระยาสุเรนทร์ ถ.จตุโชติ",
+        "water_shortname_en": "Khlong Phraya Suren, Thanon Chatuchot",
+        "river_name": "คลองพระยาสุเรนทร์",
+        "latitude": 13.87621,
+        "longitude": 100.68614,
+        "bed_bank": -2.9,
+        "left_bank": 1.5,
+        "right_bank": 1.5,
+        "warning": 1.0,
+        "critical": 1.2,
+        "warning_out01": null,
+        "critical_out01": null,
+        "checkdry": 1,
+        "dry_in": 0.5,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 125,
+        "site_timestamp": "/Date(1791005700000)/",
+        "wl_in": 1.31,
+        "wl_out01": -99,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1791005763560)/"
+      }
+    },
+    {
+      "water_id": "135",
+      "system_id": 2,
+      "station_name": "ค.ลำปลาทิว ซ.ฉลองกรุง",
+      "station_name_en": "Khlong Lam Pla Thio, Soi Chalong Krung",
+      "station_type_id": 1,
+      "water_station_info": {
+        "water_id": 135,
+        "water_code": "WL.LPT.03",
+        "system_id": 1,
+        "water_name": "จุดวัดคลองลำปลาทิว ตอนซอยฉลองกรุง 8",
+        "water_shortname": "ค.ลำปลาทิว ซ.ฉลองกรุง 8",
+        "water_shortname_en": "Khlong Lam Pla Thio, Soi Chalong Krung 8",
+        "river_name": "คลองลำปลาทิว",
+        "latitude": 13.74068,
+        "longitude": 100.79474,
+        "bed_bank": -3.7,
+        "left_bank": 0.5,
+        "right_bank": 0.5,
+        "warning": 0.5,
+        "critical": 0.6,
+        "warning_out01": null,
+        "critical_out01": null,
+        "checkdry": 1,
+        "dry_in": 0.1,
+        "dry_out01": null
+      },
+      "water_level_last": {
+        "water_id": 135,
+        "site_timestamp": "/Date(1790535300000)/",
+        "wl_in": 0.94,
+        "wl_out01": -99,
+        "wl_out02": -99,
+        "update_timestamp": "/Date(1790535340213)/"
+      }
+    },
+    {
+      "water_id": "1",
+      "system_id": 5,
+      "station_name": "ส.มหาสวัสดิ์",
+      "station_name_en": "Khlong Maha Sawat Pumping Station",
+      "station_type_id": 2
+    }
+  ],
+  "stationMap": [],
+  "arrowMap": [],
+  "riverMap": [
+    {
+      "river_map_id": 20,
+      "river_map_name": "คลองบางซื่อ",
+      "river_map_name_en": "Khlong Bang Sue"
+    },
+    {
+      "river_map_id": 21,
+      "river_map_name": "คลองบางนา",
+      "river_map_name_en": "Khlong Bang Na"
+    }
+  ],
+  "listRiverMap": [],
+  "dailyheightwater": {
+    "date_stamp": "/Date(1790960400000)/",
+    "daily_time": "/Date(1791006540000)/",
+    "hight_water": 1.01,
+    "daily_time_low": "/Date(1790980680000)/",
+    "low_water": -0.64,
+    "night_time": "/Date(1791034500000)/",
+    "hight_water_pm": 1.14,
+    "night_time_low": "/Date(1791018960000)/",
+    "low_water_pm": 0.78
+  }
+}

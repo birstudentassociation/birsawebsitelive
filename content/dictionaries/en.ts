@@ -162,6 +162,7 @@ export const en = {
       express: "Chao Phraya Express Boat on Facebook",
       traffy: "Traffy Fondue, report a problem in Bangkok",
       emergency: "Emergency guides for the campus",
+      canals: "Canal levels across Bangkok",
     },
     updatedAt: "Updated at {time}",
     disclaimer:
@@ -185,6 +186,49 @@ export const en = {
       description:
         "Weather, river levels, flooding and air quality, with what to do before you travel or head outdoors.",
     },
+  },
+
+  canalsPage: {
+    breadcrumb: "Canal levels",
+    title: "Check canal levels in Bangkok",
+    lede: "Water levels at canal stations across Bangkok, compared with the warning and critical levels the city sets for each one. It updates every 10 minutes.",
+    metaDescription:
+      "Live water levels at Bangkok's canal stations from the Department of Drainage and Sewerage, with the nearest stations to Thammasat Tha Prachan.",
+    summaryHeading: "Across Bangkok now",
+    nearestHeading: "Nearest to Tha Prachan",
+    nearestLede: "The {count} stations closest to campus.",
+    alertHeading: "At or above warning level",
+    alertNone: "No canal station is at or above its warning level.",
+    allHeading: "All stations",
+    allLede: "Sorted by name. Levels are in metres above mean sea level.",
+    scrollLabel: "{table}, scrollable",
+    columns: {
+      station: "Station",
+      inside: "Canal side (m)",
+      outside: "River side (m)",
+      warning: "Warning (m)",
+      status: "Status",
+      distance: "Distance",
+    },
+    status: {
+      critical: "Critical",
+      warning: "Warning",
+      normal: "Normal",
+      low: "Low",
+      noData: "No recent reading",
+    },
+    statusHelp:
+      "Warning and critical use the levels set by the BMA for each station. Low means the canal has been drained below its usual level, often before heavy rain. A station with no reading in the 30 minutes before the newest one shows no recent reading.",
+    km: "km",
+    noData: "None",
+    unavailable:
+      "Canal levels from the BMA are not available right now. Try again later, or check the BMA canal map.",
+    bmaLink: "BMA canal map",
+    updatedAt: "Readings up to {time}",
+    disclaimer:
+      "This page is not an official warning. It shows public data from the BMA that can be late or wrong.",
+    attribution:
+      "Canal levels from the Department of Drainage and Sewerage, Bangkok Metropolitan Administration (weather.bangkok.go.th).",
   },
 
   a11y: {

@@ -160,6 +160,14 @@ export default async function ConditionsPage({ params }: { params: Promise<{ lan
               </li>
             ))}
             <li>
+              <Link
+                href={localeHref(locale, "/conditions/canals")}
+                className="text-brand-deep underline"
+              >
+                {t.sourceLinks.canals}
+              </Link>
+            </li>
+            <li>
               <Link href={localeHref(locale, "/emergency")} className="text-brand-deep underline">
                 {t.sourceLinks.emergency}
               </Link>
