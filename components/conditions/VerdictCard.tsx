@@ -16,11 +16,11 @@ type Props = {
   t: Labels;
 };
 
-const tones: Record<Level, { border: string; text: string; surface: string }> = {
-  normal: { border: "border-t-success", text: "text-success", surface: "bg-surface" },
-  takeCare: { border: "border-t-warning", text: "text-warning", surface: "bg-surface" },
-  disruption: { border: "border-t-error", text: "text-error", surface: "bg-surface" },
-  unknown: { border: "border-t-line-strong", text: "text-muted", surface: "bg-sunken" },
+const tones: Record<Level, { text: string; surface: string }> = {
+  normal: { text: "text-success", surface: "bg-surface" },
+  takeCare: { text: "text-warning", surface: "bg-surface" },
+  disruption: { text: "text-error", surface: "bg-surface" },
+  unknown: { text: "text-muted", surface: "bg-sunken" },
 };
 
 function LevelIcon({ level }: { level: Level }) {
@@ -84,8 +84,7 @@ export default function VerdictCard({
     <article
       aria-labelledby={headingId}
       className={clsx(
-        "flex flex-col gap-3 rounded-lg border border-t-4 border-line p-5 shadow-sm",
-        tone.border,
+        "flex flex-col gap-3 rounded-lg border-2 border-line-strong p-5 shadow-sm",
         tone.surface
       )}
     >
