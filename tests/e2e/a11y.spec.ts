@@ -36,6 +36,7 @@ const publicPaths = [
   "/student-life/living-nearby/where-to-eat", // OSM tile map with anchor markers
   "/student-life/course-reviews", // course catalogue browser
   "/student-life/course-reviews/PI121", // course detail
+  "/conditions", // live checks; feeds may be unavailable in CI
   "/services",
   "/services/equipment-loan", // DB-degraded "not configured" state
   "/services/equipment-loan/directory", // club equipment directory (DB-degraded)

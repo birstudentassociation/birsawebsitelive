@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="https://www.tmd.go.th/rss/en/rss-style.xsl"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <atom:link rel="hub" href="//alert-hub.appspot.com" />
+    <atom:link rel="self" href="https://www.tmd.go.th/en/api/xml/CAP" type="application/rss+xml" />
+    <title>Latest alerts from Thai Meteorological Department (TMD)</title>
+    <link>https://www.tmd.go.th/en/api/xml/CAP</link>
+    <description>Latest alerts from Thai Meteorological Department (TMD)</description>
+    <language>en</language>
+    <copyright>public domain</copyright>
+    <pubDate>Sat, 03 Oct 2026 09:14:03 +0700</pubDate>
+    <lastBuildDate>Sat, 03 Oct 2026 09:14:03 +0700</lastBuildDate>
+    <docs>https://cyber.harvard.edu/rss/rss.html</docs>
+    <image>
+      <title>Latest alerts from Thai Meteorological Department (TMD)</title>
+      <url>https://www.tmd.go.th/CustomTheme3/logoes/logo_colorcmyk.png</url>
+      <link>https://www.tmd.go.th/en/api/xml/CAP</link>
+    </image>
+    <item>
+      <title>Heavy Rain</title>
+      <link>https://www.tmd.go.th/uploads/CAP/en/CAPTMD20261003060005_2.xml</link>
+      <description>The weak southwest monsoon prevails over the Andaman Sea, Thailand and the Gul while the southerly wind prevails over the lower Northeast, the East and the Gulf with thundershowers and gusty wind including lightning strikes in the upper country and isolated heavy rains in the lower South. People in the country should beware of thundershowers with gusty wind and heavy rains.
+For the Andaman Sea and the Gulf, waves will be higher than 2 meters high in thundershower areas. All ships in the Andaman Sea and the Gulf should keep off thundershowers.
+</description>
+      <author>info_service@tmd.mail.go.th (Thai Meteorological Department)</author>
+      <guid isPermaLink="false">TMD20261003060005_2-en</guid>
+      <pubDate>Fri, 02 Oct 2026 23:00:00 +0700</pubDate>
+    </item>
+    <item>
+      <title>Heavy Rain</title>
+      <link>https://www.tmd.go.th/uploads/CAP/en/CAPTMD20261002155200_2.xml</link>
+      <description>The southerly and southeasterly winds prevail over the middle part of Thailand with thundershowers, gusty wind and isolated heavy rain including lightning strikes in the lower Northeast, the East and the Central including Bangkok and vicinity.  For the Andaman Sea and the Gulf, waves will be higher than 2 meters high in thundershower areas. </description>
+      <author>info_service@tmd.mail.go.th (Thai Meteorological Department)</author>
+      <guid isPermaLink="false">TMD20261002155200_2-en</guid>
+      <pubDate>Fri, 02 Oct 2026 10:45:00 +0700</pubDate>
+    </item>
+    <item>
+      <title>Heavy Rain</title>
+      <link>https://www.tmd.go.th/uploads/CAP/en/CAPTMD20260930163537_2.xml</link>
+      <description>The weak southwest monsoon prevailing over the Andaman Sea, Thailand and the Gulf while the southerly and southeasterly winds prevail over the lower South. Isolated thundershowers are forecast in the country while isolated heavy rain is possible in the South.  The moderate wind and waves in the upper Andaman Sea are expected 1-2 meters high and above 2 meters high in thundershowers. </description>
+      <author>info_service@tmd.mail.go.th (Thai Meteorological Department)</author>
+      <guid isPermaLink="false">TMD20260930163537_2-en</guid>
+      <pubDate>Wed, 30 Sep 2026 09:32:00 +0700</pubDate>
+    </item>
+  </channel>
+</rss>

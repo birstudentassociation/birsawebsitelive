@@ -461,6 +461,31 @@ own contraction and abbreviation conventions already covered above.
 - **Never put personal information in a page title, an `<h1>`, or a URL.** These all leak into
   analytics and browser history. Use a reference number or a generic label instead of a name.
 
+## Check conditions at Tha Prachan (`content/conditions/`)
+
+`/en/conditions` and `/th/conditions` tell students whether weather, the river, flooding, air or
+hazards will affect the campus or their journey. The page is built from live public data and
+refreshes about every five minutes.
+
+- **Thresholds and sentences** live in `content/conditions/rules.ts`. Each rule has a threshold,
+  the level it triggers (`takeCare` or `disruption`), and an English and Thai `why` line. The
+  card titles, level words, headlines and actions are in the same file. Change a number or a
+  sentence there and the page, the API and the tests follow.
+- **Reading names and threshold lines** live in `content/conditions/readings.ts`. Each reading has
+  a label and a one line description of what it is checked against, in both languages. The
+  same file sets which section of the page the reading appears in.
+- **Page wording** (headings, table labels, disclaimer, attributions) is `conditionsPage` in
+  `content/dictionaries/en.ts` and `th.ts`.
+- **Stale data.** Every reading says how many minutes it stays valid (`staleAfterMinutes`). A
+  reading older than that, or one that could not be fetched, is greyed out on the page and is
+  not used by any rule. A card that loses a reading says so under "Not checked right now".
+- **The service never raises alerts.** It only reports readings. A real alert, banner or
+  closure is raised by officers in `content/emergency/active.ts` (see "Emergency alerts"
+  below). The live alert appears at the top of the conditions page when one exists.
+
+Keep the English and Thai entries in step, and follow `docs/NEWS-STYLE.md` for tone: short
+sentences, no colons or dashes in the copy.
+
 ## Emergency alerts (`content/emergency/`)
 
 The emergency guides are written in advance, one file per situation in

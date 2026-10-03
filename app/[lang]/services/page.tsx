@@ -155,6 +155,7 @@ export default async function InformationServicesPage({
   const universityServicesHref = localeHref(locale, "/services/university-services");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
   const guidesHref = localeHref(locale, "/student-life");
+  const conditionsHref = localeHref(locale, "/conditions");
 
   return (
     <>
@@ -177,6 +178,13 @@ export default async function InformationServicesPage({
               <NavList>
                 <NavListItem href={studyPlanHref} title={t.studyPlan.title} as="h3">
                   {t.studyPlan.description}
+                </NavListItem>
+                <NavListItem
+                  href={conditionsHref}
+                  title={dict.conditionsPage.services.title}
+                  as="h3"
+                >
+                  {dict.conditionsPage.services.description}
                 </NavListItem>
                 <NavListItem href={equipmentHref} title={t.equipmentLoan.title} as="h3">
                   {t.equipmentLoan.description}

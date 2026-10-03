@@ -1,0 +1,2 @@
+code,station.name.EN,station.name.TH,lat,long,basin,type,lowest,alarm,warning,critical,tambon,amphoe,province,publish,publish_onwr
+CPY014,-,สะพานนวลฉวี,13.9474,100.5351,cpy,hii_waterlevel,-13.31,-0.82,0.74,2.3,ต.บ้านใหม่,อ.ปากเกร็ด,จ.นนทบุรี,t,t

@@ -85,6 +85,13 @@ export const quickGroups: QuickGroup[] = [
         th: { label: "รถเวียน", hint: "เวลารถและตารางเดินรถ" },
       },
       {
+        key: "check-conditions",
+        href: "/conditions",
+        icon: "alert",
+        en: { label: "Check conditions", hint: "Weather, river, flooding and air at Tha Prachan" },
+        th: { label: "เช็กสภาพอากาศ", hint: "อากาศ น้ำ น้ำท่วม และฝุ่นรอบท่าพระจันทร์" },
+      },
+      {
         key: "getting-started",
         href: "/student-life/getting-started",
         icon: "guide",

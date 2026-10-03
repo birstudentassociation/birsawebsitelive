@@ -1,0 +1,187 @@
+{
+  "result": "OK",
+  "data": [
+    {
+      "floodroad_datetime": "2026-09-28 13:25",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "จตุจักร", "en": "Chatuchak District" },
+        "tumbon_name": { "th": "ลาดยาว", "en": "Lat Yao" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 133,
+        "floodroad_name": { "th": "ถ.เทศบาลสงเคราะห์ ช่วงตลาดประชานิเวศน์" },
+        "floodroad_lat": 13.84029,
+        "floodroad_long": 100.54611,
+        "floodroad_oldcode": "FL.CTC.04"
+      }
+    },
+    {
+      "floodroad_datetime": "2019-01-30 17:50",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "พระนคร", "en": "Phra Nakhon District" },
+        "tumbon_name": { "th": "พระบรมมหาราชวัง", "en": "Phraborom Maharatchawang" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 160,
+        "floodroad_name": { "th": "ถ.สนามไชย  ช่วงถนนเศรษฐการ" },
+        "floodroad_lat": 13.7448,
+        "floodroad_long": 100.49446,
+        "floodroad_oldcode": "FL.PNK.01"
+      }
+    },
+    {
+      "floodroad_datetime": "2026-09-28 13:25",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "พระนคร", "en": "Phra Nakhon District" },
+        "tumbon_name": { "th": "บางขุนพรหม", "en": "Bang Khun Phrom" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 162,
+        "floodroad_name": { "th": "ถ.วิสุทธิ์กษัตริย์  หน้าวัดอินทรวิหาร" },
+        "floodroad_lat": 13.7662,
+        "floodroad_long": 100.50231,
+        "floodroad_oldcode": "FL.PNK.02"
+      }
+    },
+    {
+      "floodroad_datetime": "2026-05-22 20:50",
+      "floodroad_value": 6.3,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "สัมพันธวงศ์", "en": "Samphanthawong District" },
+        "tumbon_name": { "th": "สัมพันธวงศ์", "en": "Samphanthawong" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 166,
+        "floodroad_name": { "th": "ถ.เจริญกรุง แยกแปลงนาม" },
+        "floodroad_lat": 13.74071,
+        "floodroad_long": 100.5118,
+        "floodroad_oldcode": "FL.SPW.01"
+      }
+    },
+    {
+      "floodroad_datetime": "2026-09-28 13:25",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "ป้อมปราบศัตรูพ่าย", "en": "Pom Prap Sattru Phai District" },
+        "tumbon_name": { "th": "วัดเทพศิรินทร์", "en": "Wat Thepsirin" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 168,
+        "floodroad_name": { "th": "ถ.หลวง ช่วงวัดเทพศิรินทราวาส" },
+        "floodroad_lat": 13.74621,
+        "floodroad_long": 100.51292,
+        "floodroad_oldcode": "FL.PPS.02"
+      }
+    },
+    {
+      "floodroad_datetime": "2026-09-28 13:25",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "บางกอกน้อย", "en": "Bangkok Noi District" },
+        "tumbon_name": { "th": "บ้านช่างหล่อ", "en": "Ban Chang Lo" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 179,
+        "floodroad_name": { "th": "ถ.อิสรภาพ ช่วงตลาดพรานนก" },
+        "floodroad_lat": 13.7547,
+        "floodroad_long": 100.4781,
+        "floodroad_oldcode": "FL.BKN.01"
+      }
+    },
+    {
+      "floodroad_datetime": "2026-09-28 13:25",
+      "floodroad_value": 0,
+      "agency": {
+        "agency_name": {
+          "th": "สำนักการระบายน้ำ กรุงเทพมหานคร",
+          "en": "Department of Bangkok",
+          "jp": ""
+        }
+      },
+      "geocode": {
+        "area_code": "1",
+        "area_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" },
+        "amphoe_name": { "th": "ป้อมปราบศัตรูพ่าย", "en": "Pom Prap Sattru Phai District" },
+        "tumbon_name": { "th": "คลองมหานาค", "en": "Khlong Mahanak" },
+        "province_code": "10",
+        "province_name": { "th": "กรุงเทพมหานคร", "en": "Bangkok" }
+      },
+      "station": {
+        "id": 161,
+        "floodroad_name": { "th": "ถ.หลานหลวง หน้าธนาคารกรุงไทย" },
+        "floodroad_lat": 13.75655,
+        "floodroad_long": 100.51491,
+        "floodroad_oldcode": "FL.PPS.01"
+      }
+    }
+  ]
+}

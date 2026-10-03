@@ -56,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/student-life/course-reviews",
       "/student-life/getting-started",
       "/services",
+      "/conditions",
       "/services/university-services",
       "/services/equipment-loan",
       "/services/equipment-loan/status",

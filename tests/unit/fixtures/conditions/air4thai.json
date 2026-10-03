@@ -1,0 +1,404 @@
+{
+  "stations": [
+    {
+      "stationID": "bkp85t",
+      "nameTH": "สถานีตำรวจรถไฟบางกอกน้อย",
+      "nameEN": "Bangkok Noi Train Police Station",
+      "areaTH": "ริมถนนซอยนิคมบ้านพักรถไฟธนบุรี 5 เขตบางกอกน้อย, กรุงเทพฯ",
+      "areaEN": "Soi Nikhom Banphak Rodfai Thonburi5, Bangkok Noi, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.759619",
+      "long": "100.481137",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "3",
+          "aqi": "62",
+          "value": "27.9"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "3",
+          "aqi": "62",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "bkp92t",
+      "nameTH": "สำนักงานเขตพระนคร",
+      "nameEN": "Phra Nakhon District Office, Bangkok",
+      "areaTH": "ริมถนนสามเสน เขตพระนคร, กรุงเทพฯ",
+      "areaEN": "Samsen Roadside, Phra Nakhon, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.76415",
+      "long": "100.499077",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "3",
+          "aqi": "77",
+          "value": "31.8"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "3",
+          "aqi": "77",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "bkp133t",
+      "nameTH": "สวนหลวงพระราม 8",
+      "nameEN": "Rama VIII Park",
+      "areaTH": "สวนหลวงพระราม 8 เขตบางพลัด",
+      "areaEN": "Rama VIII Park, Bang Plad, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.7693437",
+      "long": "100.4945337",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "2",
+          "aqi": "45",
+          "value": "22.9"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "2",
+          "aqi": "45",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "02t",
+      "nameTH": "มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา",
+      "nameEN": "Bansomdejchaopraya Rajabhat University",
+      "areaTH": "แขวงหิรัญรูจี เขตธนบุรี, กรุงเทพฯ",
+      "areaEN": "Hiran Ruchi, Khet Thon Buri, Bangkok",
+      "stationType": "GROUND",
+      "lat": "13.732846",
+      "long": "100.487662",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "08:00",
+        "PM25": {
+          "color_id": "2",
+          "aqi": "47",
+          "value": "23.6"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "2",
+          "aqi": "47",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "bkp61t",
+      "nameTH": "สำนักงานคณะกรรมการพัฒนาเศรษฐกิจและสังคมแห่งชาติ",
+      "nameEN": "National Economic and Social Development Council Office",
+      "areaTH": "ริมถนนกรุงเกษม เขตป้อมปราบศัตรูพ่าย, กรุงเทพฯ",
+      "areaEN": "Krung Kasem Roadside, Pom Prap Sattru Phai, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.756281",
+      "long": "100.514267",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "3",
+          "aqi": "61",
+          "value": "27.7"
+        },
+        "PM10": {
+          "color_id": "1",
+          "aqi": "25",
+          "value": "50"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "3",
+          "aqi": "61",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "bkp124t",
+      "nameTH": "สวนเฉลิมพระเกียรติ 80 พรรษา",
+      "nameEN": "80th Anniversary Commemoration Park",
+      "areaTH": "สวนเฉลิมพระเกียรติ 80 พรรษา เขตบางกอกน้อย",
+      "areaEN": "80th Anniversary Commemoration Park, Bangkok Noi, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.7716446",
+      "long": "100.4681128",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "2",
+          "aqi": "49",
+          "value": "24.5"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "2",
+          "aqi": "49",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "52t",
+      "nameTH": "การไฟฟ้าย่อยธนบุรี ",
+      "nameEN": "Thonburi Power Sub-Station",
+      "areaTH": "ริมถนนอินทรพิทักษ์ เขตธนบุรี, กรุงเทพฯ",
+      "areaEN": "Intarapitak Rd. Khet Thon Buri, Bangkok",
+      "stationType": "GROUND",
+      "lat": "13.727622",
+      "long": "100.486568",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "3",
+          "aqi": "60",
+          "value": "27.4"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-1",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "3",
+          "aqi": "60",
+          "param": "PM25"
+        }
+      }
+    },
+    {
+      "stationID": "bkp62t",
+      "nameTH": "วงเวียนโอเดียน",
+      "nameEN": "Odeon Circus",
+      "areaTH": "ริมถนนตรีมิตร วงเวียนโอเดียน์ เขตสัมพันธวงศ์, กรุงเทพฯ",
+      "areaEN": "TheeMitr Roadside, Samphanthawong, Bangkok",
+      "stationType": "BKK",
+      "lat": "13.737136",
+      "long": "100.512734",
+      "forecast": [],
+      "AQILast": {
+        "date": "2026-10-03",
+        "time": "09:00",
+        "PM25": {
+          "color_id": "3",
+          "aqi": "74",
+          "value": "30.9"
+        },
+        "PM10": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "O3": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "CO": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "NO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "SO2": {
+          "color_id": "0",
+          "aqi": "-999",
+          "value": "-1"
+        },
+        "AQI": {
+          "color_id": "3",
+          "aqi": "74",
+          "param": "PM25"
+        }
+      }
+    }
+  ]
+}

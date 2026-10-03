@@ -111,6 +111,82 @@ export const en = {
       "This guidance comes from a student-run site. In an emergency, always follow the instructions of the emergency services and Thammasat University.",
   },
 
+  conditionsPage: {
+    breadcrumb: "Check conditions",
+    title: "Check conditions at Tha Prachan",
+    lede: "See whether the weather, the river, flooding, air quality or hazards could affect your day on campus or your journey. It updates every few minutes.",
+    metaDescription:
+      "Live checks on weather, river levels, flooding, air quality and hazards around Thammasat Tha Prachan, with what to do about each.",
+    checksHeading: "What this means for you",
+    whatToDo: "What to do",
+    uncheckedLabel: "Not checked right now",
+    nextHoursHeading: "Next 12 hours",
+    nextHoursCaption:
+      "Hour by hour figures for Tha Prachan. Rain, chance of rain, tide and heat are model estimates.",
+    nextHoursScrollLabel: "Next 12 hours table, scrollable",
+    nextHoursNone: "The hourly forecast is not available right now.",
+    columns: {
+      hour: "Hour",
+      rain: "Rain (mm an hour)",
+      chance: "Chance of rain (%)",
+      tide: "Tide (m)",
+      heat: "Heat index (°C)",
+    },
+    noData: "No data",
+    readingsHeading: "Readings behind these checks",
+    readingsLede:
+      "Every check above uses these readings. A reading that is out of date is greyed out and is not used.",
+    modelEstimate: "Model estimate",
+    read: "Read {time}",
+    staleSince: "Not updated since {when}",
+    notAvailable: "Not available",
+    stationLabel: "Station",
+    thresholdLabel: "Checked against",
+    sourceLabel: "Source",
+    values: {
+      yes: "Yes",
+      no: "No",
+      none: "None",
+      mm: "mm",
+      cm: "cm",
+      mmh: " mm an hour",
+      km: "km",
+    },
+    sourcesHeading: "Where to check official sources",
+    sourcesLede: "For official warnings and closures, go to the source.",
+    sourceLinks: {
+      tmd: "Thai Meteorological Department warnings",
+      bma: "Bangkok flood information",
+      thaiwater: "ThaiWater river levels",
+      air4thai: "Air4Thai air quality",
+      express: "Chao Phraya Express Boat on Facebook",
+      traffy: "Traffy Fondue, report a problem in Bangkok",
+      emergency: "Emergency guides for the campus",
+    },
+    updatedAt: "Updated at {time}",
+    disclaimer:
+      "This page is not an official warning. It uses public data that can be late or wrong. Thammasat University decides whether the campus or classes close.",
+    attributionHeading: "Data sources",
+    attributions: [
+      "Forecasts from Open-Meteo.com, licensed under CC BY 4.0.",
+      "Weather warnings and earthquake reports from the Thai Meteorological Department (data.tmd.go.th).",
+      "River, rain, dam and tide data from HII ThaiWater.",
+      "Road flood sensors and PM2.5 readings from the Bangkok Metropolitan Administration (BMA).",
+      "Official air quality from the Pollution Control Department (PCD).",
+      "Road incidents from Longdo Traffic.",
+      "Earthquakes from the US Geological Survey (USGS) and tropical storms from GDACS.",
+    ],
+    quick: {
+      label: "Check conditions",
+      hint: "Weather, river, flooding and air at Tha Prachan",
+    },
+    services: {
+      title: "Check conditions at Tha Prachan",
+      description:
+        "Weather, river levels, flooding and air quality, with what to do before you travel or head outdoors.",
+    },
+  },
+
   a11y: {
     skip: "Skip to main content",
     primaryNav: "Primary",

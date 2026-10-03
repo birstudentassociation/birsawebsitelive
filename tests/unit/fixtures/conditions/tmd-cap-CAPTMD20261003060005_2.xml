@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>TMD20261003060005_2-en</identifier>
+  <sender>TMD</sender>
+  <sent>2026-10-03T06:00:00+07:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>en-US</language>
+    <category>Met</category>
+    <event>Heavy Rain</event>
+    <urgency>Expected</urgency>
+    <severity>Severe</severity>
+    <certainty>Likely</certainty>
+    <effective>2026-10-03T06:00:00+07:00</effective>
+    <expires>2026-10-03T18:00:00+07:00</expires>
+    <senderName>TMD</senderName>
+    <headline>Heavy Rain Risk Area</headline>
+    <description>The weak southwest monsoon prevails over the Andaman Sea, Thailand and the Gul while the southerly wind prevails over the lower Northeast, the East and the Gulf with thundershowers and gusty wind including lightning strikes in the upper country and isolated heavy rains in the lower South. People in the country should beware of thundershowers with gusty wind and heavy rains.
+For the Andaman Sea and the Gulf, waves will be higher than 2 meters high in thundershower areas. All ships in the Andaman Sea and the Gulf should keep off thundershowers.
+</description>
+    <web>https://www.tmd.go.th/en/forecast/daily</web>
+    <area>
+      <areaDesc>Nakhon Sri Thammarat Krabi Pang Nga Phuket Surat Thani Trang Yala Narathiwat</areaDesc>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-80</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-81</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-82</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-83</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-84</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-92</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-95</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-96</value>
+      </geocode>
+    </area>
+  </info>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <DigestValue>dd53mZ/DSNQzi+pZUox8GwvT73lWbxlXqmqGd7S0AC0=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>en58yTHTnvdx2WQNdy26huAejljZbJsFU9SmnPaJfJPZU/CBcZU9isJOf3W7I1hm1XHTHuoH+pEbyghMEdbdoV+vmvQKpRDc4FKngW3dzG2mdR4tyVPq3VM+Ba7KVlcfHfklfBXDMkmvpiiEl/3fCf2e1wr5rkQdj5a3xo2y85B11QO+NLdmgvKZb4d5lOuS5DIHXnxVEVjdMnhlVvIv234IN4RNujLdk+A598DDzF01gqsv/oeH9VnlerN44P1VNPc627n3DETQsTPQDIeLcuvGYM6vMCOdcQZoXHnzHsSkCq78rRLtIoT8eC3e/11GkbAd9kH+BhyQbYYGT6m462aFfBsiZlzsdQ6hg9dbVysOGfmDZV4nMz2k4aSnRk1JUMQAjO6ROoKoA32LqjV3coaFc1NrWCDnXpmC7TNP1vRiItUvNtkrdIRlqUtIycgAfRkTcWBWzrsgejUHA6G2YsPWqli5m3Nm2EBZIpPBPqAaTrTa1azCdtDN1TwHftD/R0iqNT8BJn9BdmGjEKCOOKBYiu9gEbvf2SyKFhXIzS4+h79jvQfj2/eCuaMTNqcK1e7Wns4KjmxGmxo2A230JRUBpM7dxy0CpMzfrHGoFKSA+m36Txayy58tasH9CEe+DgfFTmOfdMz3xiiEKAzJwgkduhpkusmyADu7vcxmKuE=</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>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</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</alert>

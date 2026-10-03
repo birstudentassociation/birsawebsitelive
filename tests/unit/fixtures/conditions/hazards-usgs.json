@@ -1,0 +1,46 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1790993608000,
+    "url": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&minlatitude=5&maxlatitude=22&minlongitude=92&maxlongitude=106&minmagnitude=4.5&starttime=2026-09-20T00:00:00",
+    "title": "USGS Earthquakes",
+    "status": 200,
+    "api": "2.7.0",
+    "count": 1
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.7,
+        "place": "115 km WSW of Banda Aceh, Indonesia",
+        "time": 1790606590687,
+        "updated": 1790614071040,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ty5h",
+        "detail": "https://earthquake.usgs.gov/fdsnws/event/1/query?eventid=us6000ty5h&format=geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 340,
+        "net": "us",
+        "code": "6000ty5h",
+        "ids": ",us6000ty5h,",
+        "sources": ",us,",
+        "types": ",origin,phase-data,",
+        "nst": 54,
+        "dmin": 6.196,
+        "rms": 0.5,
+        "gap": 73,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.7 - 115 km WSW of Banda Aceh, Indonesia"
+      },
+      "geometry": { "type": "Point", "coordinates": [94.3303, 5.2548, 45.734] },
+      "id": "us6000ty5h"
+    }
+  ]
+}

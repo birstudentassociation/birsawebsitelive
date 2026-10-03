@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>TMD20261002155200_2-en</identifier>
+  <sender>TMD</sender>
+  <sent>2026-10-02T17:45:00+07:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>en-US</language>
+    <category>Met</category>
+    <event>Heavy Rain</event>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Likely</certainty>
+    <effective>2026-10-02T18:00:00+07:00</effective>
+    <expires>2026-10-03T06:00:00+07:00</expires>
+    <senderName>TMD</senderName>
+    <headline>Heavy Rain Risk Area</headline>
+    <description>The southerly and southeasterly winds prevail over the middle part of Thailand with thundershowers, gusty wind and isolated heavy rain including lightning strikes in the lower Northeast, the East and the Central including Bangkok and vicinity.  For the Andaman Sea and the Gulf, waves will be higher than 2 meters high in thundershower areas. </description>
+    <instruction>People in the country should beware of thundershowers with gusty wind and heavy rains. All ships in the Andaman Sea and the Gulf should keep off thundershowers.</instruction>
+    <web>https://www.tmd.go.th/en/forecast/daily</web>
+    <area>
+      <areaDesc>Chonburi Rayong Chantaburi Trad Chacheongsao Sakaeo Nakhon Sri Thammarat Krabi Surat Thani Songkhla Satun Trang Yala Narathiwat</areaDesc>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-20</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-21</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-22</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-23</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-24</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-27</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-80</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-81</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-84</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-90</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-91</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-92</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-95</value>
+      </geocode>
+      <geocode>
+        <valueName>ISO3166-2</valueName>
+        <value>TH-96</value>
+      </geocode>
+    </area>
+  </info>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+        <DigestValue>JtPf7YbMoodPY+iyTAzCxSLiOJtL5PNL7JV5J5x7F3o=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>WVJNsjTSwlfvIr6DLd6o9GrjMN9xIiVPOmPdsJLUPe1A5NqpWqbK9Sbl9vqK4rENfZdVSWfDy+1MqMCu8zWUfB44uzVy3+34OpzD1jYwy4lTvaF+ZZTwQKzUt9h13cJGNsK2xgl/iR4+IQh9PzpfJ7Tv7pJ9X0mHLRsk1KpN3Bj0r06aN4wAMH+9eAXjWFVSmLDHRgoFLqbCGi7MbH7C1wp+mCY0GNGrNrZ/3Nyr9QLBirKWUAoE9N0LrowgjFQ4nXxhSQLfZA6zeJEB96wRMfQxdCYiYDUnvp5bSV2ZYZ7e/roit33m+6wUgwNzX+jekdEqWY/bCRazjpivXL55/HTO+TfSBpOUeqM62vnY06sVQILz5t2pdNb465jC2P8BUpLF+kRIPCeJkJgmGOPbQVD6AyZ4TexInMqKR869bZPVRoRqNpI0AdOwqMzBUbVPTcXg5SSW1Tfl2JGFDa0YgTiAoeEWYMX6I3PbQGl/2Nr6QqEoAko7y3TB8YI0gLa3i63HRWHWWUoIS+IXMOU+HK7A3i1vEJ8p24atPGUFX938W1bd+NBFVC6GMaOIP31vo7UJgC3wsaG/xHrLHmeTDwfM9Qibad0q22CbyqW7jELSAeIK2JZoogaW6NMIz634UfIsu+z96/L5HQ5vhv9g4EWqAJiupMGufR7kndtqcGo=</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509Certificate>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</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</alert>
