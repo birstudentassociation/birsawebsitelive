@@ -276,7 +276,7 @@ describe("pointInGeoJson", () => {
 });
 
 describe("parseBmaStation", () => {
-  const summary = fixtureText("water-bma-summary.html");
+  const summary = fixtureText("water-bma-summary.txt");
 
   it("reads Pak Khlong Talat from the embedded station list", () => {
     expect(parseBmaStation(summary, 76)).toEqual({
@@ -295,7 +295,7 @@ describe("parseBmaStation", () => {
   });
 
   it("returns null for a Cloudflare challenge page", () => {
-    expect(parseBmaStation(fixtureText("water-bma-challenge.html"), 76)).toBeNull();
+    expect(parseBmaStation(fixtureText("water-bma-challenge.txt"), 76)).toBeNull();
   });
 
   it("returns null when the station is missing or has no level", () => {
@@ -313,7 +313,7 @@ describe("pakKhlongTalatReading", () => {
   const graph = parseWaterlevelGraph(fixtureJson("water-pakkhlongtalat.json"));
 
   it("prefers BMA's own gauge when its page is served", () => {
-    const reading = pakKhlongTalatReading(fixtureText("water-bma-summary.html"), graph, now);
+    const reading = pakKhlongTalatReading(fixtureText("water-bma-summary.txt"), graph, now);
     expect(reading.value).toBe(1.59);
     expect(reading.observedAt).toBe("2026-10-03T09:10:00+07:00");
     expect(reading.source.url).toBe("https://weather.bangkok.go.th/water/StationDetail?id=76");
@@ -321,7 +321,7 @@ describe("pakKhlongTalatReading", () => {
   });
 
   it("falls back to the ThaiWater copy when BMA serves a challenge", () => {
-    const reading = pakKhlongTalatReading(fixtureText("water-bma-challenge.html"), graph, now);
+    const reading = pakKhlongTalatReading(fixtureText("water-bma-challenge.txt"), graph, now);
     expect(reading.source.url).toBe("https://www.thaiwater.net/water/wl");
   });
 });

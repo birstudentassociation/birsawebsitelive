@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="th">
+<head><title>ระดับน้ำ</title></head>
+<body>
+<script>
+var waterSummaryList = [{"water_id":75,"water_code":"WL.KKS.01","water_name":"สถานีสูบน้ำเทเวศร์","latitude":13.7717,"longitude":100.50113,"warning":0.6,"critical":0.7,"left_bank":null,"right_bank":null,"wl_in":-0.42,"water_status_flood":1,"site_timestamp":"2026-10-03 09:10:00","active":1},{"water_id":76,"water_code":"WL.PKG.01","water_name":"สถานีสูบน้ำปากคลองตลาด \"แม่น้ำเจ้าพระยา\"","latitude":13.74218,"longitude":100.49466,"warning":2.8,"critical":3.0,"left_bank":2.8,"right_bank":3.0,"wl_in":1.59,"water_status_flood":1,"site_timestamp":"2026-10-03 09:10:00","active":1}];
+</script>
+</body>
+</html>
