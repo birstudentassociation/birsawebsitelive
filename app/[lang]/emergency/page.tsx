@@ -117,6 +117,7 @@ export default async function EmergencyIndexPage({
             districtLabels={{ ...t.districtFinder, newTab: dict.a11y.newTab }}
             extLabel={t.ext}
             newTabLabel={dict.a11y.newTab}
+            storagePrefix="birsa-emergency-landing"
           />
         ))}
 

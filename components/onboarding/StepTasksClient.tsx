@@ -10,7 +10,7 @@
  * State lives in a small React context (`OnboardingProvider`) so the one
  * "done count" / reset button at the top of the page and every step's task
  * list stay in sync, backed by a single `localStorage` array of done task
- * ids per audience (key `birsa-onboarding-<audience>`). All storage access
+ * ids per list (the `storageKey`, e.g. `birsa-onboarding-<audience>`). All storage access
  * is wrapped in try/catch: private browsing / disabled storage must never
  * break the page, it just means progress won't persist across visits.
  *
@@ -26,7 +26,7 @@ import clsx from "clsx";
 import ExternalLink from "@/components/ExternalLink";
 import VisuallyHidden from "@/components/VisuallyHidden";
 import { localeHref, type Locale } from "@/lib/i18n";
-import { onboardingUiCopy, type OnboardingAudience } from "@/content/onboarding";
+import { onboardingUiCopy } from "@/content/onboarding";
 
 // ---------------------------------------------------------------------------
 // Shared state: one provider per track, read by every task list plus the
@@ -41,10 +41,6 @@ type OnboardingContextValue = {
 };
 
 const OnboardingContext = createContext<OnboardingContextValue | null>(null);
-
-function storageKeyFor(audience: OnboardingAudience): string {
-  return `birsa-onboarding-${audience}`;
-}
 
 function readDoneIds(key: string): Record<string, boolean> {
   try {
@@ -74,12 +70,13 @@ function writeDoneIds(key: string, doneIds: Record<string, boolean>): void {
 }
 
 export type OnboardingProviderProps = {
-  audience: OnboardingAudience;
+  /** localStorage key for this list's done task ids, e.g. `birsa-onboarding-home`. */
+  storageKey: string;
   children: React.ReactNode;
 };
 
 /** Wraps a whole track's step by step page; provides the shared done-state. */
-export function OnboardingProvider({ audience, children }: OnboardingProviderProps) {
+export function OnboardingProvider({ storageKey, children }: OnboardingProviderProps) {
   const [mounted, setMounted] = useState(false);
   const [doneIds, setDoneIds] = useState<Record<string, boolean>>({});
 
@@ -88,14 +85,14 @@ export function OnboardingProvider({ audience, children }: OnboardingProviderPro
     // only be read once mounted; rendering it server-side would mismatch on
     // hydration.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setDoneIds(readDoneIds(storageKeyFor(audience)));
+    setDoneIds(readDoneIds(storageKey));
     setMounted(true);
-  }, [audience]);
+  }, [storageKey]);
 
   const toggle = (taskId: string) => {
     setDoneIds((prev) => {
       const next = { ...prev, [taskId]: !prev[taskId] };
-      writeDoneIds(storageKeyFor(audience), next);
+      writeDoneIds(storageKey, next);
       return next;
     });
   };
@@ -103,7 +100,7 @@ export function OnboardingProvider({ audience, children }: OnboardingProviderPro
   const reset = () => {
     setDoneIds({});
     try {
-      window.localStorage.removeItem(storageKeyFor(audience));
+      window.localStorage.removeItem(storageKey);
     } catch {
       // Ignore: nothing to clear if storage was never available.
     }
@@ -173,7 +170,8 @@ export type LocalizedTask = {
 export type StepTasksClientProps = {
   stepId: string;
   locale: Locale;
-  audience: OnboardingAudience;
+  /** Prefix for checkbox ids, unique on the page. */
+  idPrefix: string;
   tasks: LocalizedTask[];
 };
 
@@ -204,14 +202,14 @@ function TaskLink({
 }
 
 /** Progressively enhances one step's task list with persisted checkboxes. */
-export default function StepTasksClient({ stepId, locale, audience, tasks }: StepTasksClientProps) {
+export default function StepTasksClient({ stepId, locale, idPrefix, tasks }: StepTasksClientProps) {
   const { mounted, doneIds, toggle } = useOnboarding();
   const t = onboardingUiCopy[locale];
 
   return (
     <ul className="flex flex-col">
       {tasks.map((task) => {
-        const inputId = `onboarding-${audience}-${stepId}-${task.id}`;
+        const inputId = `${idPrefix}-${stepId}-${task.id}`;
         const hintId = task.hint ? `${inputId}-hint` : undefined;
         const isDone = mounted && Boolean(doneIds[task.id]);
 

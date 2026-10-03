@@ -99,6 +99,28 @@ export type EmergencySection = {
   districtFinder?: DistrictFinderConfig;
   /** Documents or pages, shown last. A site path (`/emergency/...`) or an https URL. */
   links?: { label: string; href: string }[];
+  /**
+   * Pages on this site to go to next, shown after the body. The first is a
+   * GOV.UK start button, the rest are links. Paths have no locale prefix.
+   */
+  actions?: { label: string; href: string; description?: string }[];
+  /**
+   * A GOV.UK step by step, shown after the points. Each step is a disclosure
+   * whose tasks can be ticked off. Ticks are kept in the reader's browser only.
+   */
+  stepByStep?: EmergencyStep[];
+};
+
+/** One step of a step by step inside an emergency guide section. */
+export type EmergencyStep = {
+  /** Kebab-case, unique in the section. Identical in both languages. */
+  id: string;
+  title: string;
+  blurb?: string;
+  /** Things to do, each with a tick box. Ids are kept in the browser, so never change one once published. */
+  tasks: { id: string; label: string; hint?: string; href?: string }[];
+  /** Points to read rather than tick, shown after the tasks. */
+  items?: string[];
 };
 
 /** All copy for one guide, in one language. */
@@ -167,4 +189,55 @@ export type ActiveEmergency<Id extends string = string> = {
     /** The update reports an official announcement headed with this emblem. Shows it beside the update. */
     emblem?: "garuda" | "thammasat";
   }[];
+};
+
+/** One piece of a guide part, following the GOV.UK content components. */
+export type GuideBlock =
+  | { kind: "paragraph"; text: string }
+  /** A subheading inside the part, rendered as an h3. */
+  | { kind: "heading"; text: string }
+  | { kind: "list"; items: string[] }
+  | { kind: "steps"; items: string[] }
+  /** Inset text: something the reader should notice, but not a warning. */
+  | { kind: "inset"; text: string }
+  /** Warning text: something the reader could lose out by missing. */
+  | { kind: "warning"; text: string }
+  /** The first row of `rows` is the header. Every row has the same length. */
+  | { kind: "table"; caption: string; rows: string[][] }
+  /** A collapsed disclosure for detail only some readers need. */
+  | { kind: "details"; summary: string; blocks: GuideBlock[] }
+  /** A GOV.UK start button. A site path (`/emergency/...`) or an https URL. */
+  | { kind: "start"; label: string; href: string }
+  /** A site path (`/emergency/...`, `/contact`), a file in `public`, or an https URL. */
+  | { kind: "links"; links: { label: string; href: string }[] };
+
+/** One page of a multi-part guide: one thing per page. */
+export type GuidePart = {
+  /** Kebab-case URL segment. The first part is served at the guide's own path. */
+  slug: string;
+  /** Sentence case, no colon. Also the contents entry. */
+  title: string;
+  blocks: GuideBlock[];
+};
+
+export type GuideContent = {
+  /** Sentence case, no colon. */
+  title: string;
+  /** One or two sentences, shown under the title. */
+  summary: string;
+  parts: GuidePart[];
+};
+
+/**
+ * A GOV.UK style guide in several parts, linked from an emergency guide, e.g.
+ * how to claim money after a flood. Served at `/emergency/<scenario>/<slug>`.
+ */
+export type EmergencyGuide = {
+  /** Kebab-case URL segment under the scenario, e.g. `claims`. */
+  slug: string;
+  sources: EmergencySource[];
+  /** ISO date the guide was last checked against its sources. */
+  reviewed: string;
+  en: GuideContent;
+  th: GuideContent;
 };

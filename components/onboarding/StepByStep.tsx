@@ -1,18 +1,36 @@
 import type { Locale } from "@/lib/i18n";
-import type { OnboardingTrack } from "@/content/onboarding";
 import { onboardingUiCopy } from "@/content/onboarding";
 import StepTasksClient, {
   OnboardingProgress,
   OnboardingProvider,
+  type LocalizedTask,
 } from "@/components/onboarding/StepTasksClient";
+
+/** One step, already in the reader's language. */
+export type LocalizedStep = {
+  id: string;
+  title: string;
+  blurb?: string;
+  connector?: "and" | "or";
+  tasks: LocalizedTask[];
+  /** Points to read rather than tick, shown after the tasks. */
+  items?: string[];
+};
 
 export type StepByStepProps = {
   locale: Locale;
-  track: OnboardingTrack;
+  steps: LocalizedStep[];
+  /** localStorage key for the done task ids, e.g. `birsa-onboarding-home`. */
+  storageKey: string;
+  /** Prefix for checkbox ids, unique on the page. */
+  idPrefix: string;
+  /** Level of each step's heading: 2 on a page of steps, 3 inside a section. */
+  headingLevel?: 2 | 3;
 };
 
 /**
- * GOV.UK-style "step by step" navigation for one onboarding track: a
+ * GOV.UK-style "step by step" navigation, used for the onboarding tracks and
+ * emergency guides: a
  * numbered, connected list of steps, each a native `<details>` disclosure
  * (closed by default, no JS required) containing a short blurb and the
  * step's tasks. Fully readable and navigable with JavaScript disabled:
@@ -25,18 +43,25 @@ export type StepByStepProps = {
  * label doubling as a real, navigable heading for screen reader users,
  * without producing invalid heading-inside-inline-content markup.
  */
-export default function StepByStep({ locale, track }: StepByStepProps) {
+export default function StepByStep({
+  locale,
+  steps,
+  storageKey,
+  idPrefix,
+  headingLevel = 2,
+}: StepByStepProps) {
   const t = onboardingUiCopy[locale];
-  const totalTasks = track.steps.reduce((sum, step) => sum + step.tasks.length, 0);
+  const totalTasks = steps.reduce((sum, step) => sum + step.tasks.length, 0);
+  const Heading = headingLevel === 3 ? "h3" : "h2";
 
   return (
-    <OnboardingProvider audience={track.audience}>
+    <OnboardingProvider storageKey={storageKey}>
       <div className="flex flex-col gap-6">
         <OnboardingProgress locale={locale} totalTasks={totalTasks} />
 
         <ol className="flex flex-col">
-          {track.steps.map((step, index) => {
-            const isLast = index === track.steps.length - 1;
+          {steps.map((step, index) => {
+            const isLast = index === steps.length - 1;
             const stepLabel = `${t.step} ${index + 1}`;
 
             return (
@@ -62,12 +87,12 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
 
                   <details className="group rounded-lg border border-line bg-surface open:shadow-sm">
                     <summary className="focus-halo flex min-h-11 cursor-pointer list-none items-center gap-3 rounded-lg px-4 py-3 marker:content-none [&::-webkit-details-marker]:hidden">
-                      <h2 className="flex flex-1 items-center justify-between gap-3 font-display text-lg leading-snug text-ink">
+                      <Heading className="flex flex-1 items-center justify-between gap-3 font-display text-lg leading-snug text-ink">
                         <span>
                           <span className="mr-2 text-sm font-semibold tracking-wide text-muted uppercase">
                             {stepLabel}
                           </span>
-                          {step.title[locale]}
+                          {step.title}
                         </span>
                         <svg
                           aria-hidden="true"
@@ -83,26 +108,25 @@ export default function StepByStep({ locale, track }: StepByStepProps) {
                             strokeLinejoin="round"
                           />
                         </svg>
-                      </h2>
+                      </Heading>
                     </summary>
                     <div className="flex flex-col gap-3 border-t border-line px-4 py-4">
                       {step.blurb ? (
-                        <p className="text-[0.95rem] leading-relaxed text-muted">
-                          {step.blurb[locale]}
-                        </p>
+                        <p className="text-[0.95rem] leading-relaxed text-muted">{step.blurb}</p>
                       ) : null}
                       <StepTasksClient
                         stepId={step.id}
                         locale={locale}
-                        audience={track.audience}
-                        tasks={step.tasks.map((task) => ({
-                          id: task.id,
-                          label: task.label[locale],
-                          hint: task.hint?.[locale],
-                          href: task.href,
-                          external: task.external,
-                        }))}
+                        idPrefix={idPrefix}
+                        tasks={step.tasks}
                       />
+                      {step.items?.length ? (
+                        <ul className="flex list-disc flex-col gap-2 pl-6 text-[0.95rem] leading-relaxed text-ink">
+                          {step.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </div>
                   </details>
                 </div>

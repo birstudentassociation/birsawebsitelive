@@ -614,6 +614,13 @@ export const browserStorage: BrowserStorageRecord[] = [
     },
   },
   {
+    key: "birsa-emergency-*",
+    purpose: {
+      en: "Remembers which tasks you ticked off in the step by step on an emergency guide, such as what to do after a flood, one key per guide. We never see this.",
+      th: "บันทึกรายการที่ท่านทำเครื่องหมายไว้ในขั้นตอนของหน้าคำแนะนำกรณีฉุกเฉิน เช่น สิ่งที่ต้องทำหลังน้ำลด โดยแยกคีย์ตามแต่ละหน้า BIRSA ไม่สามารถเข้าถึงข้อมูลนี้ได้",
+    },
+  },
+  {
     key: "birsa-study-plan",
     purpose: {
       en: "Keeps a copy of the study plan you built, so it is still there if you close the tab and come back. Only set once you reach the plan screen, never sent to BIRSA, and cleared straight away by the delete button on that screen.",

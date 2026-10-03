@@ -33,6 +33,16 @@ function allText(content: EmergencyContent): string[] {
         ...(entry.note ? [entry.note] : []),
         ...(entry.links ?? []).map((link) => link.label),
       ]),
+      ...(section.actions ?? []).flatMap((action) => [
+        action.label,
+        ...(action.description ? [action.description] : []),
+      ]),
+      ...(section.stepByStep ?? []).flatMap((step) => [
+        step.title,
+        ...(step.blurb ? [step.blurb] : []),
+        ...step.tasks.flatMap((task) => [task.label, ...(task.hint ? [task.hint] : [])]),
+        ...(step.items ?? []),
+      ]),
     ]),
   ];
 }
@@ -55,6 +65,20 @@ describe("emergency guides", () => {
       expect(other.items?.length, `${section.id} items`).toBe(section.items?.length);
       expect(other.directory?.length, `${section.id} directory`).toBe(section.directory?.length);
       expect(other.links?.length, `${section.id} links`).toBe(section.links?.length);
+      expect(
+        other.actions?.map((a) => a.href),
+        `${section.id} actions`
+      ).toEqual(section.actions?.map((a) => a.href));
+      expect(
+        other.stepByStep?.map((step) => [step.id, ...step.tasks.map((t) => `${t.id} ${t.href}`)]),
+        `${section.id} step by step`
+      ).toEqual(
+        section.stepByStep?.map((step) => [step.id, ...step.tasks.map((t) => `${t.id} ${t.href}`)])
+      );
+      expect(
+        other.stepByStep?.map((step) => step.items?.length),
+        `${section.id} step items`
+      ).toEqual(section.stepByStep?.map((step) => step.items?.length));
     });
   });
 
@@ -86,6 +110,21 @@ describe("emergency guides", () => {
         expect(link.href).toMatch(/^(https:\/\/|\/[a-z0-9/._-]+$)/);
         if (link.href.startsWith("/")) {
           expect(existsSync(join(process.cwd(), "public", link.href)), link.href).toBe(true);
+        }
+      }
+      for (const section of content.sections) {
+        for (const action of section.actions ?? []) {
+          expect(action.href).toMatch(/^\/emergency\/[a-z0-9/-]+$/);
+        }
+        const stepIds = (section.stepByStep ?? []).map((step) => step.id);
+        expect(new Set(stepIds).size).toBe(stepIds.length);
+        for (const step of section.stepByStep ?? []) {
+          expect(step.tasks.length).toBeGreaterThan(0);
+          const taskIds = step.tasks.map((task) => task.id);
+          expect(new Set(taskIds).size).toBe(taskIds.length);
+          for (const task of step.tasks) {
+            if (task.href) expect(task.href).toMatch(/^(https:\/\/|\/[a-z0-9/-]+$)/);
+          }
         }
       }
     }

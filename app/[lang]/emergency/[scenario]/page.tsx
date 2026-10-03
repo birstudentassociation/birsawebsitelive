@@ -147,6 +147,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
               districtLabels={{ ...t.districtFinder, newTab: dict.a11y.newTab }}
               extLabel={t.ext}
               newTabLabel={dict.a11y.newTab}
+              storagePrefix={`birsa-emergency-${s.id}`}
             />
             {i === updatesAfter && live ? (
               <LiveUpdates locale={locale} alert={live.alert} t={t} />

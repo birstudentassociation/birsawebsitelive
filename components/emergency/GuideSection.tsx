@@ -1,9 +1,12 @@
 import ExternalLink from "@/components/ExternalLink";
+import Link from "next/link";
 import DistrictFinder, { type DistrictFinderLabels } from "@/components/emergency/DistrictFinder";
+import { StartButton } from "@/components/emergency/GuideBlocks";
+import StepByStep from "@/components/onboarding/StepByStep";
 import { telHref } from "@/content/emergency/contacts";
 import { bangkokDistricts } from "@/content/emergency/districts";
 import type { DirectoryPhone, EmergencySection } from "@/content/emergency/types";
-import type { Locale } from "@/lib/i18n";
+import { localeHref, type Locale } from "@/lib/i18n";
 
 type Props = {
   section: EmergencySection;
@@ -13,6 +16,8 @@ type Props = {
   extLabel: string;
   /** dict.a11y.newTab */
   newTabLabel: string;
+  /** Prefix for the browser storage of step by step ticks, e.g. `birsa-emergency-flooding`. */
+  storagePrefix: string;
 };
 
 /**
@@ -25,6 +30,7 @@ export default function GuideSection({
   districtLabels,
   extLabel,
   newTabLabel,
+  storagePrefix,
 }: Props) {
   return (
     <section
@@ -40,6 +46,37 @@ export default function GuideSection({
           {paragraph}
         </p>
       ))}
+      {section.actions?.length ? (
+        <div className="flex flex-col gap-4 rounded-lg border-2 border-brand bg-surface p-5">
+          {section.actions.map((action, i) =>
+            i === 0 ? (
+              <div key={action.href} className="flex flex-col gap-2">
+                <StartButton
+                  label={action.label}
+                  href={action.href}
+                  locale={locale}
+                  newTabLabel={newTabLabel}
+                />
+                {action.description ? (
+                  <p className="text-sm leading-relaxed text-muted">{action.description}</p>
+                ) : null}
+              </div>
+            ) : (
+              <div key={action.href} className="flex flex-col gap-1">
+                <Link
+                  href={localeHref(locale, action.href)}
+                  className="font-semibold text-brand-deep underline"
+                >
+                  {action.label}
+                </Link>
+                {action.description ? (
+                  <p className="text-sm leading-relaxed text-muted">{action.description}</p>
+                ) : null}
+              </div>
+            )
+          )}
+        </div>
+      ) : null}
       {section.steps ? (
         <ol className="flex list-decimal flex-col gap-2 pl-6 leading-relaxed text-ink">
           {section.steps.map((step) => (
@@ -53,6 +90,23 @@ export default function GuideSection({
             <li key={item}>{item}</li>
           ))}
         </ul>
+      ) : null}
+      {section.stepByStep?.length ? (
+        <div className="mt-2">
+          <StepByStep
+            locale={locale}
+            storageKey={`${storagePrefix}-${section.id}`}
+            idPrefix={section.id}
+            headingLevel={3}
+            steps={section.stepByStep.map((step) => ({
+              ...step,
+              tasks: step.tasks.map((task) => ({
+                ...task,
+                external: task.href?.startsWith("https://"),
+              })),
+            }))}
+          />
+        </div>
       ) : null}
       {section.districtFinder ? (
         <DistrictFinder

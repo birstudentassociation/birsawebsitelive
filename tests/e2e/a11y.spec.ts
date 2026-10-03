@@ -42,6 +42,12 @@ const publicPaths = [
   "/services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/services/equipment-loan/status", // status lookup form
   "/emergency", // calm emergency-preparedness landing
+  "/emergency/flooding", // live alert, step by step with tick boxes
+  "/emergency/flooding/claims", // multi-part guide, first part
+  "/emergency/flooding/claims/what-the-bma-pays", // guide part with a table and disclosures
+  "/emergency/flooding/claims/check", // claims checker entry
+  "/emergency/flooding/claims/check?home=bangkok&flood=over7&tenure=rent&damage=part&s=costs", // checkbox question with an error
+  "/emergency/flooding/claims/check?home=bangkok&flood=over7&tenure=rent&damage=part&costs=stay&id=thai", // checker result
   "/activity/approval-check", // check entry: first question under the page header
   "/activity/approval-check?a=no&a=oneoff", // check mid-journey: a later question alone on the page
   "/activity/approval-check?a=no&a=oneoff&a=oncampus", // check outcome: answer, trail, feedback

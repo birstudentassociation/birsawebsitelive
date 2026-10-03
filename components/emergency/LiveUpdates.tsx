@@ -28,7 +28,7 @@ type Props = {
 };
 
 /** How many updates show before the rest fold away. */
-const SHOWN = 3;
+const SHOWN = 1;
 
 /**
  * The live alert's updates as a newest-first timeline. The latest few are

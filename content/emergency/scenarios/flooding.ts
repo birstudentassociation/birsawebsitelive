@@ -2,10 +2,11 @@ import type { EmergencyScenario } from "@/content/emergency/types";
 
 /**
  * Written for the aftermath of the Bangkok floods of September 2026: classes
- * and exams, claiming the government payment and BMA compensation, going home,
- * cleaning up and staying well, from BMA, DDPM and Department of Disease
- * Control announcements and the sources below. When the alert is ended,
- * restore the general flooding guide from git history (commit 2656287).
+ * and exams, a step by step for going home, cleaning up and staying well, and
+ * links to the claims guide in `content/emergency/claims/flooding.ts`, from
+ * BMA, DDPM and Department of Disease Control announcements and the sources
+ * below. When the alert is ended, restore the general flooding guide from git
+ * history (commit 2656287).
  */
 const flooding: EmergencyScenario = {
   id: "flooding",
@@ -219,16 +220,15 @@ const flooding: EmergencyScenario = {
   en: {
     title: "After the Bangkok floods",
     summary:
-      "The floods that began on 24 September have gone down across most of Bangkok. Parts of Lat Krabang and Saphan Sung are still under water, and more heavy rain is forecast for 5 and 6 October. This page tells you about Thammasat classes and exams, how to claim money for flood damage, and how to go home and clean up safely.",
+      "The floods that began on 24 September have gone down across most of Bangkok. Parts of Lat Krabang and Saphan Sung are still under water, and more heavy rain is forecast for 5 and 6 October. Work through the steps below, and claim money for any damage.",
     banner:
       "The floods have gone down. Find out how to claim the government's 9,000 baht and BMA compensation.",
     now: [
-      "Photograph or film the damage before you clean up or throw anything away. You need the pictures to claim.",
-      "Apply for the government's 9,000 baht in the Tang Rat app and for BMA compensation at claim.bangkok.go.th. They are separate schemes, so apply to both. Claim from the BMA within 30 days of the flood.",
-      "Keep the power off at the main switch until the floor, wiring and sockets are dry. Call MEA on 1130 if you are not sure it is safe.",
-      "Wear rubber boots and gloves to clean up. See a doctor if you get a fever in the 4 weeks after being in floodwater, and say you were in floodwater.",
-      "Sit any postponed midterms on Sunday 4 or Sunday 11 October. Your lecturer will tell you if classes stay online.",
-      "Heavy rain is forecast for Bangkok on 5 and 6 October. Check the BMA flood alert page before you travel and keep away from the piers at high tide.",
+      "Photograph or film the damage before you clean up or throw anything away.",
+      "Claim money for the damage. Check what you can get below, and claim from the BMA within 30 days of the flood.",
+      "Keep the power off at the main switch until the floor, wiring and sockets are dry.",
+      "Sit any postponed midterms on Sunday 4 or Sunday 11 October.",
+      "Heavy rain is forecast for 5 and 6 October. Keep away from the piers at high tide.",
     ],
     sections: [
       {
@@ -238,7 +238,6 @@ const flooding: EmergencyScenario = {
           "All classes at every campus were online until Saturday 3 October. By 16:00 on 3 October the university had not announced arrangements from Monday 5 October.",
           "The university's announcement of 29 September says that after 3 October lecturers may keep classes online or hybrid while students are still affected. Your lecturer will tell you in advance. If you are still affected by the floods, tell your lecturer or your faculty office.",
         ],
-        directoryOpen: true,
         directory: [
           {
             heading: "Midterm exams, undergraduate programmes",
@@ -297,281 +296,215 @@ const flooding: EmergencyScenario = {
         ],
       },
       {
-        id: "money",
-        heading: "Money you can claim",
+        id: "claims",
+        heading: "Claim money for flood damage",
         body: [
-          "There are 2 separate schemes. Applying to one does not apply you to the other, so if you qualify for both you must apply to both.",
+          "If the place you usually live was flooded, you may be able to get 9,000 baht from the government and compensation from the BMA. They are separate schemes, so apply to both. Claim from the BMA within 30 days of the flood.",
         ],
-        items: [
-          "The government pays 9,000 baht per household towards basic living costs. Apply in the Tang Rat app or at your district office.",
-          "The BMA pays towards repairs, rent, tools for your work, medical bills, funerals and basic living costs, based on what you actually lost. Apply at claim.bangkok.go.th or at your district office.",
-          "At the district office you can apply for both at once. Go to the office for the district where your flooded home is, Monday to Friday during office hours.",
-          "You do not need a police report for either scheme.",
-          "The new national disaster insurance started on 1 October and does not cover these floods.",
-        ],
-        links: [
+        actions: [
           {
-            label: "Read the BMA guide to the 2 schemes (image, in Thai)",
-            href: "/emergency/bma-flood-claims-2-sources-2026-10.jpg",
+            label: "Check what you can claim",
+            href: "/emergency/flooding/claims/check",
+            description: "Up to 6 questions. It takes about 2 minutes.",
+          },
+          {
+            label: "Read the guide to claiming",
+            href: "/emergency/flooding/claims",
+            description:
+              "Who can get what, the documents you need and how to apply, one thing at a time.",
           },
         ],
       },
       {
-        id: "government-payment",
-        heading: "Government payment of 9,000 baht",
+        id: "after-the-flood",
+        heading: "After the flood, step by step",
         body: [
-          "The Department of Disaster Prevention and Mitigation (DDPM) pays 9,000 baht once per household. It is for people whose usual home is in a declared disaster area and was affected by flooding between 15 May and 30 September 2026.",
-          "In Bangkok, DDPM named 118 subdistricts in 38 districts as the area where help can be given. Phra Nakhon, where Tha Prachan is, is not one of them. If you are not sure your subdistrict is included, ask your district office.",
-          "If you rent, the money is paid to you, not to your landlord. Homes without a house registration can also qualify.",
-          "You can get the payment if, between 15 May and 30 September, one of these happened.",
+          "Open each step to see what to do, and tick things off as you go. Your ticks are saved in this browser only.",
         ],
-        items: [
-          "Your home was flooded for more than 7 days in a row.",
-          "Your home was flooded for 7 days or fewer and your belongings were damaged.",
-          "Your home was cut off by water for more than 7 days, so you could not live there normally.",
-          "You live in a high rise above the water, but could not live normally for more than 7 days.",
-        ],
-      },
-      {
-        id: "apply-government-payment",
-        heading: "How to apply for the 9,000 baht",
-        body: [
-          "Registration opened at 08:00 on 2 October. No closing date has been announced, so apply as soon as you can.",
-        ],
-        steps: [
-          "Ask your bank to link PromptPay to your ID card number, if it is not linked already. The money is paid this way.",
-          "Open the Tang Rat app and log in.",
-          "Tap All services (บริการทั้งหมด), then Register to check eligibility (ลงทะเบียนตรวจสอบสิทธิ).",
-          "Choose Apply for disaster relief payment (ยื่นขอรับเงินเยียวยาผู้ประสบภัย), give permission and accept the terms.",
-          "Tap Register for help (ลงทะเบียนขอรับความช่วยเหลือ), fill in your details, check them and send the form.",
-        ],
-        items: [
-          "If you do not have a smartphone, go to your district office. Staff will enter your details for you.",
-          "The app checks your details against the civil registration database. You can follow your application in the app.",
-          "If your application is approved, the Government Savings Bank pays the money to the PromptPay account linked to your ID card number.",
-        ],
-      },
-      {
-        id: "bma-compensation",
-        heading: "BMA compensation for damage",
-        body: [
-          "The BMA pays towards your actual losses, under its own rules and Ministry of Finance rules. The amounts below are the most you can get. What you get depends on the damage, whether you qualify and your documents, so it may be less.",
-          "Every kind of help needs the fact-finding form, a copy of your ID card and, if you are not paid by PromptPay linked to your ID card number, a copy of your bank book. The other documents are listed under each kind of help.",
-        ],
-        items: [
-          "The home must be the place you usually live. It must have been damaged by the floods, or water must have come into the rooms you live in.",
-          "Only the owner or the head of the household can claim for repairs. Repairs to rented homes are not covered.",
-          "If you rent, including a room or a condo, you can claim the other kinds of help even if your name is not on the house registration.",
-          "In a building with several floors, only the floors that flooded can claim.",
-          "Cars are not covered. If your car is insured, contact your insurer.",
-        ],
-        directory: [
+        stepByStep: [
           {
-            heading: "Repairs to your home",
-            places: [
+            id: "safe-to-go-back",
+            title: "Check it is safe to go back",
+            tasks: [
               {
-                name: "Up to 88,600 baht per home",
-                detail:
-                  "Based on the actual damage. Covers only repair materials for the structure of the building, on the BMA's form.",
+                id: "wait",
+                label: "Wait until the water has gone and officials say it is safe",
               },
               {
-                name: "Documents",
-                detail:
-                  "A copy of your house registration, a copy of the land title deed showing the owner or a request form instead, the request for repair materials, and photographs of the damage.",
+                id: "building",
+                label: "Look for leaning walls, cracks and sagging ceilings before you go in",
+                hint: "Do not go in if the building looks unsafe.",
+              },
+              {
+                id: "torch",
+                label:
+                  "Take a torch, and do not light a flame or use a switch until you know there is no gas leak",
+              },
+              {
+                id: "gas",
+                label: "Check that any gas cylinder is turned off",
+                hint: "If you smell gas, open the doors and windows and leave.",
+              },
+              {
+                id: "animals",
+                label: "Check for snakes and scorpions with a long stick",
+                hint: "They hide in rubbish, buckets and corners.",
               },
             ],
           },
           {
-            heading: "Temporary accommodation or rent",
-            places: [
-              { name: "Home partly damaged", detail: "Up to 3,000 baht per household" },
+            id: "power",
+            title: "Turn the power back on safely",
+            tasks: [
               {
-                name: "Whole home damaged",
-                detail: "Up to 3,000 baht per household a month, for up to 2 months",
+                id: "main-switch",
+                label: "Keep the main switch off while the floor is wet",
               },
               {
-                name: "Who can claim",
-                detail:
-                  "Someone who usually lived in the home and had to pay for somewhere else to stay or rent because the home was damaged or flooded.",
+                id: "one-circuit",
+                label: "When everything is dry, turn on one circuit at a time",
+                hint: "If a socket or switch is still damp, turn the power off again.",
               },
               {
-                name: "Documents",
-                detail:
-                  "Photographs of the damage, and your tenancy agreement and receipts or proof of payment.",
+                id: "appliances",
+                label: "Get appliances that were under water checked before you use them",
+              },
+              {
+                id: "mea",
+                label: "Call MEA on 1130 if you are not sure it is safe",
+                hint: "24 hours. MEA can check the supply and move meters and sockets higher.",
+              },
+            ],
+            items: ["Report fallen cables or sparking equipment to MEA on 1130 straight away."],
+          },
+          {
+            id: "record-damage",
+            title: "Record the damage",
+            tasks: [
+              {
+                id: "photos",
+                label: "Photograph or film the damage to your home and belongings",
+                hint: "Do this before you clean up or throw anything away.",
+              },
+              {
+                id: "receipts",
+                label: "Keep receipts for repairs, rent and medical treatment",
+              },
+              {
+                id: "landlord",
+                label:
+                  "If you rent, get your landlord's agreement in writing before you throw away their things",
+              },
+              {
+                id: "insurer",
+                label: "If you have insurance, contact your insurer",
               },
             ],
           },
           {
-            heading: "Basic living costs",
-            places: [
-              { name: "Whole home damaged", detail: "3,800 baht" },
-              { name: "Home partly damaged", detail: "1,900 baht" },
+            id: "claim",
+            title: "Claim money",
+            blurb: "There are 2 separate schemes. Apply to both if you qualify.",
+            tasks: [
               {
-                name: "Documents",
-                detail:
-                  "Photographs of the damage, and anything else that helps, such as a tenancy agreement or rent receipt.",
+                id: "check",
+                label: "Check what you can claim",
+                href: "/emergency/flooding/claims/check",
+              },
+              {
+                id: "government",
+                label: "Apply for the government's 9,000 baht",
+                href: "/emergency/flooding/claims/apply-for-9000-baht",
+              },
+              {
+                id: "bma",
+                label: "Claim BMA compensation within 30 days",
+                href: "/emergency/flooding/claims/claim-online",
               },
             ],
           },
           {
-            heading: "Tools and stock for your work",
-            places: [
+            id: "clean-up",
+            title: "Clean up safely",
+            tasks: [
               {
-                name: "Up to 13,500 baht per household",
-                detail:
-                  "For tools you need for the main work that supports your household, including raw materials, goods and services, at what you actually paid.",
+                id: "protect",
+                label: "Wear rubber boots, rubber gloves, a mask and eye protection",
+                hint: "Use an N95 mask if you have one.",
               },
-              { name: "Documents", detail: "Photographs of the damage." },
+              {
+                id: "cuts",
+                label: "Cover cuts with waterproof plasters",
+              },
+              {
+                id: "scrub",
+                label: "Scrub hard surfaces with detergent, then disinfect them",
+                hint: "Use chlorine solution or 0.5% sodium hypochlorite. Never mix chlorine bleach with ammonia.",
+              },
+              {
+                id: "dry",
+                label: "Open the windows and use fans to dry each room",
+              },
+              {
+                id: "soft",
+                label: "Throw away mattresses, carpets and soft furniture that cannot be dried",
+              },
+              {
+                id: "food",
+                label: "Throw away food that touched floodwater",
+              },
+              {
+                id: "containers",
+                label: "Empty buckets, pots and anything else holding water",
+                hint: "Mosquitoes breed in standing water.",
+              },
+              {
+                id: "shower",
+                label: "Shower with soap as soon as you finish",
+              },
+            ],
+            items: ["Watch for mould for several weeks.", "Drink bottled or boiled water."],
+          },
+          {
+            id: "rubbish",
+            title: "Get rid of flood rubbish",
+            tasks: [
+              {
+                id: "tie",
+                label: "Tie rubbish bags shut",
+              },
+              {
+                id: "report",
+                label: "Report piles of flood rubbish in Traffy Fondue",
+                hint: "Choose Found flood rubbish (เจอกองขยะน้ำท่วม), or call 1555.",
+              },
+              {
+                id: "large",
+                label: "Find a free drop off point for large items on Greener Bangkok",
+                href: "https://greener.bangkok.go.th/",
+              },
             ],
           },
           {
-            heading: "Medical treatment and injury",
-            places: [
-              { name: "Outpatients", detail: "Up to 2,000 baht per person, at what you paid" },
-              { name: "Inpatients", detail: "Up to 4,000 baht per person, at what you paid" },
-              { name: "If you were injured", detail: "A further 2,300 baht per person" },
+            id: "health",
+            title: "Look after your health",
+            blurb:
+              "Leptospirosis and melioidosis are common after floods. They can be treated if you see a doctor early.",
+            tasks: [
               {
-                name: "Documents",
-                detail:
-                  "A medical certificate saying you were injured in the flood, and your medical receipts.",
+                id: "watch",
+                label: "Watch for symptoms for 4 weeks after you were in floodwater or mud",
+                hint: "A high fever, a headache, aching calves, thighs or lower back, or red eyes. See a doctor straight away and say you were in floodwater.",
               },
             ],
-          },
-          {
-            heading: "Funerals",
-            places: [
-              { name: "Up to 35,700 baht per person" },
-              {
-                name: "If the person who died supported the household",
-                detail: "A further amount of up to 35,700 baht",
-              },
-              {
-                name: "Documents",
-                detail:
-                  "The fact-finding form filled in by the heir, copies of the ID cards and house registrations of the person who died and the heir, the death certificate and the autopsy certificate.",
-              },
+            items: [
+              "Call 1669 if you have trouble breathing, yellow skin or eyes, or you pass very little urine.",
+              "See a doctor if a cut that touched floodwater becomes red, swollen or painful.",
+              "Diarrhoea, sore red eyes and itchy skin between your toes are also common after floods.",
+              "For advice on diseases, call the Department of Disease Control on 1422.",
+              "If you are struggling, talk to someone you trust or call the mental health hotline on 1323.",
             ],
           },
-        ],
-        links: [
-          {
-            label: "Read the BMA's rules on who can claim (image, in Thai)",
-            href: "/emergency/bma-flood-claims-eligibility-2026-10.jpg",
-          },
-          {
-            label: "Read the BMA's rates and documents, part 1 (image, in Thai)",
-            href: "/emergency/bma-flood-claims-rates-1-2026-10.jpg",
-          },
-          {
-            label: "Read the BMA's rates and documents, part 2 (image, in Thai)",
-            href: "/emergency/bma-flood-claims-rates-2-2026-10.jpg",
-          },
-        ],
-      },
-      {
-        id: "claim-bma-compensation",
-        heading: "How to claim BMA compensation",
-        body: [
-          "You must claim within 30 days of the flood. You can claim online at any time, or in person at your district office.",
-        ],
-        steps: [
-          "Photograph or film the damage to your home and belongings before you clean up.",
-          "Get your documents ready. They are listed under each kind of help above.",
-          "Go to claim.bangkok.go.th and choose to check your eligibility. Answer the questions about your home, the damage and any injuries.",
-          "If the result says you may qualify, agree and upload your documents. You fill in and sign the form online, so you do not need to print anything.",
-          "To claim in person instead, download the fact-finding form or pick one up at the district office. Take it with paper copies of your documents to the office for the district where your home is.",
-        ],
-        items: [
-          "To claim online you need to have verified your identity in the ThaiD or Tang Rat app first.",
-          "If you are missing documents, have no land title deed, the name on the deed is not yours or your home has no house number, go to your district office. Staff can record a statement from you instead (form Por Kor 14).",
-          "Claims for repairs made by the owner or the head of the household are checked faster.",
-        ],
-        links: [
-          { label: "Claim online at claim.bangkok.go.th", href: "https://claim.bangkok.go.th/" },
-          {
-            label: "Download the fact-finding form (PDF, in Thai)",
-            href: "https://drive.google.com/file/d/1NyCZUZ2O9liGVNUOZVB4YayOmh7AV9xW/view",
-          },
-          {
-            label: "Read the BMA's answers to common questions (image, in Thai)",
-            href: "/emergency/bma-flood-claims-faq-2026-10.jpg",
-          },
-        ],
-      },
-      {
-        id: "after-you-claim",
-        heading: "After you claim",
-        items: [
-          "District staff may send you an SMS if they need anything more, and may visit to check the damage.",
-          "The BMA pays to the PromptPay account linked to your ID card number, or to a bank account. Banks other than Krungthai may charge a fee.",
-          "The BMA says payment takes at least 60 days. It has not set a date, because about 270,000 to 300,000 households were affected.",
-          "The amounts for each kind of help may still change by Cabinet decision.",
-          "For help with your claim, call 1555 or your district office.",
-        ],
-      },
-      {
-        id: "international-students",
-        heading: "If you are not Thai",
-        body: [
-          "Neither scheme says whether people who are not Thai can claim. Both check applicants against Thai records and pay through PromptPay linked to a Thai ID card number, and the online systems need ThaiD or Tang Rat.",
-        ],
-        items: [
-          "Go to your district office with your passport, your tenancy agreement or other proof of where you live, and photographs of the damage. Ask what you can claim.",
-          "If you rent, photograph your landlord's furniture and fittings and get their agreement in writing before you throw any of it away. Repairs to the building are normally your landlord's responsibility.",
-          "If you have insurance through your embassy, your scholarship or your own policy, contact the insurer before you clean up.",
-          "Ask a Thai friend or BIRSA to help you with forms in Thai.",
-        ],
-      },
-      {
-        id: "going-home",
-        heading: "Going back into your home",
-        steps: [
-          "Wait until the water has gone and officials say it is safe to go back.",
-          "Before you go in, look for leaning walls, cracks and sagging ceilings. Do not go in if the building looks unsafe.",
-          "Take a torch. Do not light a flame or use a switch inside until you know there is no gas leak.",
-          "If you use bottled gas, check that the cylinder is turned off. If you smell gas, open the doors and windows and leave.",
-          "Look out for snakes, scorpions and other animals hiding in the rubbish, buckets and corners. Use a long stick to check.",
-          "Keep the main switch off while the floor is wet. When everything is dry, turn on one circuit at a time. If a socket or switch is still damp, turn the power off again.",
-        ],
-        items: [
-          "Do not use appliances that were under water until they have been checked.",
-          "MEA on 1130, 24 hours, can check the supply and move meters and sockets higher.",
-          "Report fallen cables or sparking equipment to MEA on 1130 straight away.",
-        ],
-      },
-      {
-        id: "cleaning-up",
-        heading: "Cleaning up",
-        items: [
-          "Wear rubber boots, household rubber gloves, a mask (N95 if you have one) and something to protect your eyes.",
-          "Cover cuts with waterproof plasters, and shower with soap as soon as you finish.",
-          "Scrub hard surfaces with detergent, then disinfect them with chlorine solution or 0.5% sodium hypochlorite. Never mix chlorine bleach with ammonia.",
-          "Open the windows and use fans to dry rooms. Throw away mattresses, carpets and soft furniture that cannot be dried, and watch for mould for several weeks.",
-          "Throw away food that touched floodwater. Drink bottled or boiled water.",
-          "Empty buckets, pots and anything else holding water, so mosquitoes cannot breed.",
-          "Tie rubbish bags shut. Report piles of flood rubbish in Traffy Fondue under Found flood rubbish (เจอกองขยะน้ำท่วม), or call 1555.",
-          "Check Greener Bangkok for free drop off points for large items near you.",
-        ],
-        links: [
-          {
-            label: "Find free drop off points on Greener Bangkok",
-            href: "https://greener.bangkok.go.th/",
-          },
-        ],
-      },
-      {
-        id: "health",
-        heading: "Your health after the floods",
-        body: [
-          "Leptospirosis and melioidosis are common after floods. They can be treated if you see a doctor early.",
-        ],
-        items: [
-          "See a doctor straight away if, within 4 weeks of being in floodwater or mud, you get a high fever, a headache, aching calves, thighs or lower back, or red eyes. Say you were in floodwater.",
-          "Call 1669 if you have trouble breathing, yellow skin or eyes, or you pass very little urine.",
-          "See a doctor if a cut that touched floodwater becomes red, swollen or painful.",
-          "Watch for diarrhoea, sore red eyes and itchy skin between your toes, which are also common after floods.",
-          "For advice on diseases, call the Department of Disease Control on 1422.",
-          "Floods are stressful. If you are struggling, talk to someone you trust or call the mental health hotline on 1323.",
         ],
       },
       {
@@ -621,15 +554,14 @@ const flooding: EmergencyScenario = {
   th: {
     title: "หลังน้ำท่วมกรุงเทพฯ",
     summary:
-      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ เหลือบางส่วนของเขตลาดกระบังและเขตสะพานสูงที่ยังมีน้ำท่วมขัง และคาดว่าจะมีฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม หน้านี้รวบรวมเรื่องการเรียนและการสอบของธรรมศาสตร์ วิธีขอรับเงินช่วยเหลือค่าเสียหายจากน้ำท่วม และการกลับเข้าบ้านและทำความสะอาดอย่างปลอดภัย",
+      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ เหลือบางส่วนของเขตลาดกระบังและเขตสะพานสูงที่ยังมีน้ำท่วมขัง และคาดว่าจะมีฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม ทำตามขั้นตอนด้านล่าง และยื่นขอรับเงินช่วยเหลือค่าเสียหาย",
     banner: "น้ำลดแล้ว ดูวิธีขอรับเงิน 9,000 บาทของรัฐบาลและเงินช่วยเหลือค่าเสียหายของ กทม.",
     now: [
-      "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ เพราะต้องใช้เป็นหลักฐานในการยื่นขอรับเงิน",
-      "ยื่นขอเงิน 9,000 บาทของรัฐบาลผ่านแอปทางรัฐ และยื่นขอเงินช่วยเหลือของ กทม. ที่ claim.bangkok.go.th ทั้งสองโครงการแยกจากกัน จึงต้องยื่นทั้งสองทาง ส่วนของ กทม. ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย",
-      "ยกคัตเอาต์ค้างไว้จนกว่าพื้น สายไฟ และเต้ารับจะแห้งสนิท หากไม่แน่ใจว่าปลอดภัย โทรการไฟฟ้านครหลวง 1130",
-      "สวมรองเท้าบูทและถุงมือยางขณะทำความสะอาด หากมีไข้ภายใน 4 สัปดาห์หลังลุยน้ำ ให้ไปพบแพทย์และบอกว่าเคยลุยน้ำท่วม",
-      "เข้าสอบกลางภาคที่เลื่อนไปวันอาทิตย์ที่ 4 หรือวันอาทิตย์ที่ 11 ตุลาคม อาจารย์ผู้สอนจะแจ้งว่าจะเรียนออนไลน์ต่อหรือไม่",
-      "คาดว่ากรุงเทพฯ จะมีฝนตกหนักในวันที่ 5 และ 6 ตุลาคม ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง และหลีกเลี่ยงท่าเรือในช่วงน้ำขึ้น",
+      "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ",
+      "ยื่นขอรับเงินช่วยเหลือค่าเสียหาย ตรวจสอบได้ด้านล่างว่าขอรับอะไรได้บ้าง และยื่นขอเงินของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย",
+      "ยกคัตเอาต์ค้างไว้จนกว่าพื้น สายไฟ และเต้ารับจะแห้งสนิท",
+      "เข้าสอบกลางภาคที่เลื่อนไปวันอาทิตย์ที่ 4 หรือวันอาทิตย์ที่ 11 ตุลาคม",
+      "คาดว่าจะมีฝนตกหนักในวันที่ 5 และ 6 ตุลาคม หลีกเลี่ยงท่าเรือในช่วงน้ำขึ้น",
     ],
     sections: [
       {
@@ -639,7 +571,6 @@ const flooding: EmergencyScenario = {
           "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม จนถึงเวลา 16.00 น. วันที่ 3 ตุลาคม มหาวิทยาลัยยังไม่ประกาศรูปแบบการเรียนตั้งแต่วันจันทร์ที่ 5 ตุลาคม",
           "ประกาศมหาวิทยาลัยเมื่อวันที่ 29 กันยายนระบุว่า หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป และจะแจ้งล่วงหน้า หากยังได้รับผลกระทบจากน้ำท่วม ให้แจ้งอาจารย์ผู้สอนหรือหน่วยงานของคณะ",
         ],
-        directoryOpen: true,
         directory: [
           {
             heading: "สอบกลางภาค หลักสูตรระดับปริญญาตรี",
@@ -704,276 +635,212 @@ const flooding: EmergencyScenario = {
         ],
       },
       {
-        id: "money",
-        heading: "เงินช่วยเหลือที่ขอรับได้",
+        id: "claims",
+        heading: "ขอรับเงินช่วยเหลือค่าเสียหายจากน้ำท่วม",
         body: [
-          "เงินช่วยเหลือมี 2 แหล่งที่แยกจากกัน การยื่นทางหนึ่งไม่ถือว่ายื่นอีกทางหนึ่งด้วย หากเข้าเกณฑ์ทั้งสองแหล่งต้องยื่นทั้งสองทาง",
+          "หากที่อยู่อาศัยประจำถูกน้ำท่วม คุณอาจได้รับเงิน 9,000 บาทจากรัฐบาล และเงินช่วยเหลือค่าเสียหายจาก กทม. ทั้งสองโครงการแยกจากกัน จึงต้องยื่นทั้งสองทาง ส่วนของ กทม. ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย",
         ],
-        items: [
-          "รัฐบาลจ่ายเงินช่วยเหลือค่าดำรงชีพครัวเรือนละ 9,000 บาท ยื่นผ่านแอปทางรัฐหรือที่สำนักงานเขต",
-          "กทม. จ่ายค่าซ่อมแซมบ้าน ค่าเช่าบ้าน ค่าเครื่องมือประกอบอาชีพ ค่ารักษาพยาบาล ค่าจัดการศพ และค่าดำรงชีพเบื้องต้น ตามความเสียหายจริง ยื่นที่ claim.bangkok.go.th หรือที่สำนักงานเขต",
-          "ที่สำนักงานเขตยื่นทั้งสองทางได้พร้อมกัน ให้ไปที่สำนักงานเขตตามที่ตั้งของบ้านที่ถูกน้ำท่วม ในวันจันทร์ถึงศุกร์ เวลาราชการ",
-          "ทั้งสองทางไม่ต้องใช้ใบแจ้งความหรือบันทึกประจำวัน",
-          "ระบบประกันภัยพิบัติแห่งชาติที่เริ่มวันที่ 1 ตุลาคม ไม่ครอบคลุมน้ำท่วมครั้งนี้",
-        ],
-        links: [
+        actions: [
           {
-            label: "อ่านอินโฟกราฟิกของ กทม. เรื่องเงินช่วยเหลือ 2 แหล่ง",
-            href: "/emergency/bma-flood-claims-2-sources-2026-10.jpg",
+            label: "ตรวจสอบว่าขอรับอะไรได้บ้าง",
+            href: "/emergency/flooding/claims/check",
+            description: "คำถามไม่เกิน 6 ข้อ ใช้เวลาราว 2 นาที",
+          },
+          {
+            label: "อ่านคู่มือการขอรับเงินช่วยเหลือ",
+            href: "/emergency/flooding/claims",
+            description: "ใครได้อะไร ต้องใช้เอกสารอะไร และยื่นอย่างไร ทีละเรื่อง",
           },
         ],
       },
       {
-        id: "government-payment",
-        heading: "เงินช่วยเหลือ 9,000 บาทของรัฐบาล",
+        id: "after-the-flood",
+        heading: "สิ่งที่ต้องทำหลังน้ำลด ทีละขั้นตอน",
         body: [
-          "กรมป้องกันและบรรเทาสาธารณภัย (ปภ.) จ่ายเงินช่วยเหลือครัวเรือนละ 9,000 บาท ได้ครั้งเดียว สำหรับผู้ที่ที่อยู่อาศัยประจำอยู่ในพื้นที่ที่ประกาศเป็นเขตประสบภัย และได้รับผลกระทบจากน้ำท่วมระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน 2569",
-          "ในกรุงเทพฯ ปภ. ประกาศเขตการให้ความช่วยเหลือ 38 เขต 118 แขวง ไม่รวมเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์ หากไม่แน่ใจว่าแขวงของคุณอยู่ในเขตช่วยเหลือหรือไม่ ให้สอบถามสำนักงานเขต",
-          "กรณีบ้านเช่า ผู้เช่าเป็นผู้รับเงิน ไม่ใช่เจ้าของบ้าน และบ้านที่ไม่มีทะเบียนบ้านก็มีสิทธิได้",
-          "มีสิทธิได้รับเงินหากระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน เกิดกรณีใดกรณีหนึ่งต่อไปนี้",
+          "เปิดแต่ละขั้นตอนเพื่อดูว่าต้องทำอะไร และติ๊กเมื่อทำเสร็จ ระบบเก็บรายการที่ติ๊กไว้ในเบราว์เซอร์นี้เท่านั้น",
         ],
-        items: [
-          "บ้านถูกน้ำท่วมขังติดต่อกันเกิน 7 วัน",
-          "บ้านถูกน้ำท่วมไม่เกิน 7 วัน และทรัพย์สินได้รับความเสียหาย",
-          "บ้านถูกน้ำล้อมจนใช้ชีวิตตามปกติไม่ได้เกิน 7 วัน",
-          "อยู่อาคารสูงที่น้ำท่วมไม่ถึงห้อง แต่ใช้ชีวิตตามปกติไม่ได้เกิน 7 วัน",
-        ],
-      },
-      {
-        id: "apply-government-payment",
-        heading: "วิธียื่นขอเงิน 9,000 บาท",
-        body: [
-          "เปิดลงทะเบียนตั้งแต่เวลา 08.00 น. วันที่ 2 ตุลาคม ยังไม่มีการประกาศวันปิดรับ ควรยื่นโดยเร็วที่สุด",
-        ],
-        steps: [
-          "ผูกพร้อมเพย์กับเลขบัตรประชาชนไว้กับธนาคาร หากยังไม่ได้ผูก เพราะเงินจะโอนเข้าทางนี้",
-          "เปิดแอปทางรัฐแล้วเข้าสู่ระบบ",
-          "แตะ บริการทั้งหมด แล้วเลือกหมวด ลงทะเบียนตรวจสอบสิทธิ",
-          "เลือก ยื่นขอรับเงินเยียวยาผู้ประสบภัย แล้วอนุญาตการเข้าถึงข้อมูลและยอมรับเงื่อนไข",
-          "แตะ ลงทะเบียนขอรับความช่วยเหลือ กรอกข้อมูล ตรวจสอบความถูกต้อง แล้วส่งแบบฟอร์ม",
-        ],
-        items: [
-          "หากไม่มีสมาร์ตโฟน ให้ไปที่สำนักงานเขต เจ้าหน้าที่จะช่วยกรอกข้อมูลให้",
-          "ระบบตรวจสอบข้อมูลกับฐานข้อมูลทะเบียนราษฎร และติดตามสถานะได้ในแอป",
-          "หากผ่านการตรวจสอบ ธนาคารออมสินจะโอนเงินเข้าพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน",
-        ],
-      },
-      {
-        id: "bma-compensation",
-        heading: "เงินช่วยเหลือค่าเสียหายของ กทม.",
-        body: [
-          "กทม. จ่ายเงินช่วยเหลือตามความเสียหายจริง ตามระเบียบของ กทม. และระเบียบกระทรวงการคลัง จำนวนเงินด้านล่างเป็นอัตราสูงสุด เงินที่ได้รับจริงขึ้นอยู่กับความเสียหาย คุณสมบัติของผู้ประสบภัย และเอกสารหลักฐาน จึงอาจต่ำกว่านี้",
-          "ทุกประเภทต้องใช้แบบสอบข้อเท็จจริงผู้ประสบภัย สำเนาบัตรประชาชน และสำเนาสมุดบัญชีธนาคาร กรณีไม่รับเงินผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน ส่วนเอกสารอื่นระบุไว้ใต้แต่ละประเภท",
-        ],
-        items: [
-          "ต้องเป็นที่อยู่อาศัยประจำที่ได้รับความเสียหายจากน้ำท่วม หรือน้ำท่วมถึงพื้นที่พักอาศัย",
-          "ค่าซ่อมแซมบ้านให้เฉพาะเจ้าของบ้านหรือเจ้าบ้าน ไม่รวมบ้านเช่า",
-          "ผู้เช่าห้องหรือคอนโดที่ไม่มีชื่อในทะเบียนบ้าน ขอรับความช่วยเหลือประเภทอื่นได้",
-          "บ้านหรืออาคารที่มีหลายชั้น ได้รับเฉพาะชั้นที่น้ำท่วมถึง",
-          "รถยนต์ที่จมน้ำไม่ได้รับการชดเชย หากทำประกันรถยนต์ไว้ ให้ติดต่อตัวแทนประกันภัย",
-        ],
-        directory: [
+        stepByStep: [
           {
-            heading: "ค่าซ่อมแซมบ้านหรือที่พักอาศัย",
-            places: [
+            id: "safe-to-go-back",
+            title: "ตรวจสอบว่ากลับเข้าบ้านได้อย่างปลอดภัย",
+            tasks: [
               {
-                name: "ไม่เกิน 88,600 บาทต่อหลัง",
-                detail:
-                  "ตามความเสียหายจริง ช่วยเฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร ตามแบบฟอร์มที่กำหนด",
+                id: "wait",
+                label: "รอให้น้ำลดและเจ้าหน้าที่แจ้งว่าปลอดภัย",
               },
               {
-                name: "เอกสาร",
-                detail:
-                  "สำเนาทะเบียนบ้าน สำเนาโฉนดที่ดินที่ระบุชื่อเจ้าบ้านหรือเจ้าของบ้าน หรือแบบคำร้องแทนโฉนด เอกสารประกอบการขอรับความช่วยเหลือค่าซ่อมแซม และภาพถ่ายความเสียหาย",
+                id: "building",
+                label: "ดูว่าผนังเอียง มีรอยร้าว หรือฝ้าเพดานหย่อนหรือไม่ก่อนเข้าบ้าน",
+                hint: "หากดูไม่ปลอดภัยอย่าเข้าไป",
+              },
+              {
+                id: "torch",
+                label: "ใช้ไฟฉาย อย่าจุดไฟหรือเปิดสวิตช์จนกว่าจะแน่ใจว่าไม่มีแก๊สรั่ว",
+              },
+              {
+                id: "gas",
+                label: "ตรวจดูว่าปิดวาล์วถังแก๊สแล้ว",
+                hint: "หากได้กลิ่นแก๊ส ให้เปิดประตูหน้าต่างแล้วออกจากบ้าน",
+              },
+              {
+                id: "animals",
+                label: "ใช้ไม้ยาวเขี่ยหางูและแมงป่อง",
+                hint: "สัตว์มีพิษมักซ่อนอยู่ตามกองขยะ ถัง และซอกมุม",
               },
             ],
           },
           {
-            heading: "ค่าที่พักชั่วคราวหรือค่าเช่าบ้าน",
-            places: [
-              { name: "บ้านเสียหายบางส่วน", detail: "ไม่เกิน 3,000 บาทต่อครอบครัว" },
+            id: "power",
+            title: "เปิดไฟฟ้าอย่างปลอดภัย",
+            tasks: [
               {
-                name: "บ้านเสียหายทั้งหลัง",
-                detail: "ไม่เกิน 3,000 บาทต่อครอบครัวต่อเดือน ไม่เกิน 2 เดือน",
+                id: "main-switch",
+                label: "ยกคัตเอาต์ค้างไว้ตลอดเวลาที่พื้นยังเปียก",
               },
               {
-                name: "ผู้มีสิทธิ",
-                detail:
-                  "ผู้ที่อยู่ในบ้านนั้นเป็นประจำ และต้องเสียค่าที่พักชั่วคราวหรือค่าเช่าบ้าน เพราะบ้านได้รับความเสียหายหรือถูกน้ำท่วมขัง",
+                id: "one-circuit",
+                label: "เมื่อแห้งสนิทแล้ว ลองเปิดไฟทีละวงจร",
+                hint: "หากเต้ารับหรือสวิตช์จุดใดยังชื้น ให้ปิดไฟอีกครั้ง",
               },
               {
-                name: "เอกสาร",
-                detail: "ภาพถ่ายความเสียหาย สัญญาเช่า และใบเสร็จหรือหลักฐานการโอนเงิน",
+                id: "appliances",
+                label: "ให้ช่างตรวจเครื่องใช้ไฟฟ้าที่จมน้ำก่อนใช้งาน",
+              },
+              {
+                id: "mea",
+                label: "โทรการไฟฟ้านครหลวง 1130 หากไม่แน่ใจว่าปลอดภัย",
+                hint: "ตลอด 24 ชั่วโมง ตรวจสอบระบบไฟฟ้าและย้ายมิเตอร์หรือเต้ารับขึ้นที่สูงได้",
+              },
+            ],
+            items: ["หากพบสายไฟขาดหรืออุปกรณ์ไฟฟ้ามีประกายไฟ แจ้งการไฟฟ้านครหลวง 1130 ทันที"],
+          },
+          {
+            id: "record-damage",
+            title: "เก็บหลักฐานความเสียหาย",
+            tasks: [
+              {
+                id: "photos",
+                label: "ถ่ายภาพหรือวิดีโอความเสียหายของบ้านและทรัพย์สิน",
+                hint: "ทำก่อนทำความสะอาดหรือทิ้งของ",
+              },
+              {
+                id: "receipts",
+                label: "เก็บใบเสร็จค่าซ่อมแซม ค่าเช่า และค่ารักษาพยาบาล",
+              },
+              {
+                id: "landlord",
+                label:
+                  "หากเช่าที่พัก ขอความยินยอมจากผู้ให้เช่าเป็นลายลักษณ์อักษรก่อนทิ้งของของผู้ให้เช่า",
+              },
+              {
+                id: "insurer",
+                label: "หากทำประกันไว้ ให้ติดต่อบริษัทประกัน",
               },
             ],
           },
           {
-            heading: "ค่าดำรงชีพเบื้องต้น",
-            places: [
-              { name: "บ้านเสียหายทั้งหลัง", detail: "3,800 บาท" },
-              { name: "บ้านเสียหายบางส่วน", detail: "1,900 บาท" },
+            id: "claim",
+            title: "ขอรับเงินช่วยเหลือ",
+            blurb: "เงินช่วยเหลือมี 2 แหล่งที่แยกจากกัน หากเข้าเกณฑ์ให้ยื่นทั้งสองทาง",
+            tasks: [
               {
-                name: "เอกสาร",
-                detail: "ภาพถ่ายความเสียหาย และเอกสารอื่น เช่น สัญญาเช่าหรือใบเสร็จค่าเช่า",
+                id: "check",
+                label: "ตรวจสอบว่าขอรับอะไรได้บ้าง",
+                href: "/emergency/flooding/claims/check",
+              },
+              {
+                id: "government",
+                label: "ยื่นขอเงิน 9,000 บาทของรัฐบาล",
+                href: "/emergency/flooding/claims/apply-for-9000-baht",
+              },
+              {
+                id: "bma",
+                label: "ยื่นขอเงินช่วยเหลือของ กทม. ภายใน 30 วัน",
+                href: "/emergency/flooding/claims/claim-online",
               },
             ],
           },
           {
-            heading: "ค่าเครื่องมือประกอบอาชีพและเงินทุน",
-            places: [
+            id: "clean-up",
+            title: "ทำความสะอาดอย่างปลอดภัย",
+            tasks: [
               {
-                name: "ไม่เกิน 13,500 บาทต่อครอบครัว",
-                detail:
-                  "สำหรับเครื่องมือที่ใช้ในอาชีพหลักที่เลี้ยงครอบครัว รวมถึงวัตถุดิบ สินค้า และบริการ เท่าที่จ่ายจริง",
+                id: "protect",
+                label: "สวมรองเท้าบูทยาง ถุงมือยาง หน้ากาก และแว่นป้องกันตา",
+                hint: "ใช้หน้ากาก N95 ถ้ามี",
               },
-              { name: "เอกสาร", detail: "ภาพถ่ายความเสียหาย" },
+              {
+                id: "cuts",
+                label: "ปิดแผลด้วยพลาสเตอร์กันน้ำ",
+              },
+              {
+                id: "scrub",
+                label: "ขัดล้างพื้นผิวแข็งด้วยผงซักฟอก แล้วฆ่าเชื้อ",
+                hint: "ใช้น้ำคลอรีนหรือโซเดียมไฮโปคลอไรต์ 0.5 เปอร์เซ็นต์ ห้ามผสมน้ำยาคลอรีนกับแอมโมเนีย",
+              },
+              {
+                id: "dry",
+                label: "เปิดหน้าต่างและใช้พัดลมช่วยให้ห้องแห้ง",
+              },
+              {
+                id: "soft",
+                label: "ทิ้งที่นอน พรม และเฟอร์นิเจอร์บุนวมที่ทำให้แห้งไม่ได้",
+              },
+              {
+                id: "food",
+                label: "ทิ้งอาหารที่สัมผัสน้ำท่วม",
+              },
+              {
+                id: "containers",
+                label: "เทน้ำขังในถัง กระถาง และภาชนะต่าง ๆ ทิ้ง",
+                hint: "ยุงวางไข่ในน้ำขัง",
+              },
+              {
+                id: "shower",
+                label: "อาบน้ำฟอกสบู่ทันทีเมื่อทำเสร็จ",
+              },
+            ],
+            items: ["คอยสังเกตเชื้อราไปอีกหลายสัปดาห์", "ดื่มน้ำบรรจุขวดหรือน้ำต้มสุก"],
+          },
+          {
+            id: "rubbish",
+            title: "กำจัดขยะน้ำท่วม",
+            tasks: [
+              {
+                id: "tie",
+                label: "มัดปากถุงขยะให้แน่น",
+              },
+              {
+                id: "report",
+                label: "แจ้งกองขยะน้ำท่วมใน Traffy Fondue",
+                hint: "เลือกหัวข้อ เจอกองขยะน้ำท่วม หรือโทร 1555",
+              },
+              {
+                id: "large",
+                label: "ค้นหาจุดทิ้งขยะชิ้นใหญ่ฟรีที่ Greener Bangkok",
+                href: "https://greener.bangkok.go.th/",
+              },
             ],
           },
           {
-            heading: "ค่ารักษาพยาบาลและผู้บาดเจ็บ",
-            places: [
-              { name: "ผู้ป่วยนอก", detail: "ไม่เกิน 2,000 บาทต่อราย ตามที่จ่ายจริง" },
-              { name: "ผู้ป่วยใน", detail: "ไม่เกิน 4,000 บาทต่อราย ตามที่จ่ายจริง" },
-              { name: "ผู้ที่ได้รับบาดเจ็บ", detail: "เงินปลอบขวัญอีก 2,300 บาทต่อราย" },
+            id: "health",
+            title: "ดูแลสุขภาพ",
+            blurb: "โรคฉี่หนูและโรคไข้ดินพบบ่อยหลังน้ำท่วม หากไปพบแพทย์เร็วจะรักษาได้",
+            tasks: [
               {
-                name: "เอกสาร",
-                detail: "ใบรับรองแพทย์ที่ระบุว่าได้รับบาดเจ็บจากอุทกภัย และใบเสร็จค่ารักษาพยาบาล",
+                id: "watch",
+                label: "สังเกตอาการไปอีก 4 สัปดาห์หลังลุยน้ำหรือย่ำโคลน",
+                hint: "ไข้สูง ปวดศีรษะ ปวดกล้ามเนื้อน่อง ต้นขา หรือหลังส่วนล่าง หรือตาแดง ให้ไปพบแพทย์ทันทีและบอกว่าเคยลุยน้ำท่วม",
               },
             ],
-          },
-          {
-            heading: "ค่าจัดการศพผู้เสียชีวิต",
-            places: [
-              { name: "ไม่เกิน 35,700 บาทต่อราย" },
-              {
-                name: "กรณีผู้เสียชีวิตเป็นผู้หารายได้เลี้ยงดูครอบครัว",
-                detail: "เงินสงเคราะห์เพิ่มอีกไม่เกิน 35,700 บาท",
-              },
-              {
-                name: "เอกสาร",
-                detail:
-                  "แบบสอบข้อเท็จจริงที่ทายาทเป็นผู้กรอก สำเนาบัตรประชาชนและสำเนาทะเบียนบ้านของผู้เสียชีวิตและทายาท ใบมรณบัตร และใบชันสูตรศพ",
-              },
+            items: [
+              "โทร 1669 หากหายใจลำบาก ตัวเหลืองหรือตาเหลือง หรือปัสสาวะน้อยมาก",
+              "ไปพบแพทย์หากแผลที่โดนน้ำท่วมบวมแดงหรือเจ็บมากขึ้น",
+              "ท้องร่วง ตาแดง และน้ำกัดเท้า ก็พบบ่อยหลังน้ำท่วมเช่นกัน",
+              "สอบถามเรื่องโรคติดต่อได้ที่สายด่วนกรมควบคุมโรค 1422",
+              "หากรู้สึกหนักใจ ให้คุยกับคนที่ไว้ใจ หรือโทรสายด่วนสุขภาพจิต 1323",
             ],
           },
-        ],
-        links: [
-          {
-            label: "อ่านหลักเกณฑ์ผู้มีสิทธิของ กทม. (อินโฟกราฟิก)",
-            href: "/emergency/bma-flood-claims-eligibility-2026-10.jpg",
-          },
-          {
-            label: "อ่านอัตราและเอกสารของ กทม. ส่วนที่ 1 (อินโฟกราฟิก)",
-            href: "/emergency/bma-flood-claims-rates-1-2026-10.jpg",
-          },
-          {
-            label: "อ่านอัตราและเอกสารของ กทม. ส่วนที่ 2 (อินโฟกราฟิก)",
-            href: "/emergency/bma-flood-claims-rates-2-2026-10.jpg",
-          },
-        ],
-      },
-      {
-        id: "claim-bma-compensation",
-        heading: "วิธียื่นขอเงินช่วยเหลือของ กทม.",
-        body: [
-          "ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบสาธารณภัย ยื่นออนไลน์ได้ตลอด 24 ชั่วโมง หรือยื่นด้วยตนเองที่สำนักงานเขต",
-        ],
-        steps: [
-          "ถ่ายภาพหรือวิดีโอความเสียหายของบ้านและทรัพย์สินไว้ก่อนทำความสะอาด",
-          "เตรียมเอกสารตามที่ระบุไว้ใต้แต่ละประเภทด้านบน",
-          "เข้า claim.bangkok.go.th แล้วเลือกตรวจสอบสิทธิ ตอบคำถามเรื่องที่พัก ความเสียหาย และการบาดเจ็บ",
-          "หากระบบแสดงว่าอาจมีสิทธิ ให้กดยอมรับแล้วอัปโหลดเอกสาร กรอกและเซ็นเอกสารออนไลน์ได้เลย ไม่ต้องปรินต์",
-          "หากจะยื่นด้วยตนเอง ให้ดาวน์โหลดแบบสอบข้อเท็จจริงหรือรับได้ที่สำนักงานเขต แล้วนำไปยื่นพร้อมสำเนาเอกสารที่สำนักงานเขตตามที่ตั้งของบ้านที่ได้รับผลกระทบ",
-        ],
-        items: [
-          "การยื่นออนไลน์ต้องยืนยันตัวตนในแอป ThaiD หรือทางรัฐไว้ก่อน",
-          "หากเอกสารไม่ครบ ไม่มีโฉนด ชื่อหลังโฉนดไม่ตรงกับผู้ยื่น หรือที่อยู่อาศัยไม่มีเลขที่บ้าน ให้ติดต่อสำนักงานเขต เจ้าหน้าที่จะสอบบันทึกถ้อยคำ (ปค.14) แทน",
-          "ค่าซ่อมแซมที่เจ้าบ้านหรือเจ้าของบ้านเป็นผู้ยื่น จะได้รับการตรวจสอบสิทธิและเยียวยาได้เร็ว",
-        ],
-        links: [
-          { label: "ยื่นออนไลน์ที่ claim.bangkok.go.th", href: "https://claim.bangkok.go.th/" },
-          {
-            label: "ดาวน์โหลดแบบสอบข้อเท็จจริงผู้ประสบอุทกภัย (PDF)",
-            href: "https://drive.google.com/file/d/1NyCZUZ2O9liGVNUOZVB4YayOmh7AV9xW/view",
-          },
-          {
-            label: "อ่านคำถามที่พบบ่อยของ กทม. (อินโฟกราฟิก)",
-            href: "/emergency/bma-flood-claims-faq-2026-10.jpg",
-          },
-        ],
-      },
-      {
-        id: "after-you-claim",
-        heading: "หลังยื่นคำร้อง",
-        items: [
-          "หากต้องการข้อมูลเพิ่ม เจ้าหน้าที่เขตจะติดต่อทาง SMS และอาจลงพื้นที่ตรวจสอบความเสียหาย",
-          "กทม. โอนเงินเข้าพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน หรือเข้าบัญชีธนาคาร ซึ่งอาจมีค่าธรรมเนียมหากไม่ใช่ธนาคารกรุงไทย",
-          "กทม. ระบุว่าใช้เวลาดำเนินการจ่ายไม่ต่ำกว่า 60 วัน และยังกำหนดวันจ่ายที่แน่นอนไม่ได้ เพราะมีผู้ได้รับผลกระทบราว 270,000 ถึง 300,000 ครัวเรือน",
-          "อัตราเงินช่วยเหลือแต่ละประเภทอาจปรับขึ้นลงตามมติคณะรัฐมนตรี",
-          "หากต้องการความช่วยเหลือเรื่องการยื่นคำร้อง โทร 1555 หรือติดต่อสำนักงานเขต",
-        ],
-      },
-      {
-        id: "international-students",
-        heading: "สำหรับผู้ที่ไม่มีสัญชาติไทย",
-        body: [
-          "ทั้งสองโครงการไม่ได้ระบุว่าผู้ที่ไม่มีสัญชาติไทยยื่นได้หรือไม่ ทั้งคู่ตรวจสอบผู้ยื่นกับฐานข้อมูลทะเบียนราษฎร จ่ายเงินผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน และระบบออนไลน์ต้องใช้ ThaiD หรือทางรัฐ",
-        ],
-        items: [
-          "นำหนังสือเดินทาง สัญญาเช่าหรือหลักฐานที่อยู่อื่น และภาพถ่ายความเสียหายไปสอบถามที่สำนักงานเขตว่ามีสิทธิขอรับอะไรได้บ้าง",
-          "หากเช่าที่พัก ให้ถ่ายภาพเฟอร์นิเจอร์และอุปกรณ์ของผู้ให้เช่า และขอความยินยอมเป็นลายลักษณ์อักษรก่อนทิ้ง การซ่อมแซมตัวอาคารโดยปกติเป็นหน้าที่ของผู้ให้เช่า",
-          "หากมีประกันจากสถานทูต ทุนการศึกษา หรือที่ทำเอง ให้ติดต่อบริษัทประกันก่อนทำความสะอาด",
-          "ขอให้เพื่อนคนไทยหรือ BIRSA ช่วยกรอกแบบฟอร์มภาษาไทย",
-        ],
-      },
-      {
-        id: "going-home",
-        heading: "การกลับเข้าบ้าน",
-        steps: [
-          "รอให้น้ำลดและเจ้าหน้าที่แจ้งว่าปลอดภัยก่อนกลับเข้าบ้าน",
-          "ก่อนเข้าบ้าน ดูว่าผนังเอียง มีรอยร้าว หรือฝ้าเพดานหย่อนหรือไม่ หากดูไม่ปลอดภัยอย่าเข้าไป",
-          "ใช้ไฟฉาย อย่าจุดไฟหรือเปิดสวิตช์ในบ้านจนกว่าจะแน่ใจว่าไม่มีแก๊สรั่ว",
-          "หากใช้ถังแก๊สหุงต้ม ตรวจดูว่าปิดวาล์วแล้ว หากได้กลิ่นแก๊ส ให้เปิดประตูหน้าต่างแล้วออกจากบ้าน",
-          "ระวังงู แมงป่อง และสัตว์มีพิษที่ซ่อนอยู่ตามกองขยะ ถัง กะละมัง และซอกมุม ใช้ไม้ยาวเขี่ยดูก่อน",
-          "ยกคัตเอาต์ค้างไว้ตลอดเวลาที่พื้นยังเปียก เมื่อแห้งสนิทแล้วให้ลองเปิดไฟทีละวงจร หากเต้ารับหรือสวิตช์จุดใดยังชื้น ให้ปิดไฟอีกครั้ง",
-        ],
-        items: [
-          "อย่าใช้เครื่องใช้ไฟฟ้าที่จมน้ำจนกว่าจะได้รับการตรวจสอบ",
-          "การไฟฟ้านครหลวง โทร 1130 ตลอด 24 ชั่วโมง ตรวจสอบระบบไฟฟ้าและย้ายมิเตอร์หรือเต้ารับขึ้นที่สูงได้",
-          "หากพบสายไฟขาดหรืออุปกรณ์ไฟฟ้ามีประกายไฟ แจ้งการไฟฟ้านครหลวง 1130 ทันที",
-        ],
-      },
-      {
-        id: "cleaning-up",
-        heading: "การทำความสะอาดบ้าน",
-        items: [
-          "สวมรองเท้าบูทยาง ถุงมือยางสำหรับงานบ้าน หน้ากาก (N95 ถ้ามี) และแว่นป้องกันตา",
-          "ปิดแผลด้วยพลาสเตอร์กันน้ำ และอาบน้ำฟอกสบู่ทันทีเมื่อทำเสร็จ",
-          "ขัดล้างพื้นผิวแข็งด้วยผงซักฟอก แล้วฆ่าเชื้อด้วยน้ำคลอรีนหรือโซเดียมไฮโปคลอไรต์ 0.5 เปอร์เซ็นต์ ห้ามผสมน้ำยาคลอรีนกับแอมโมเนีย",
-          "เปิดหน้าต่างและใช้พัดลมช่วยให้ห้องแห้ง ทิ้งที่นอน พรม และเฟอร์นิเจอร์บุนวมที่ทำให้แห้งไม่ได้ และคอยสังเกตเชื้อราไปอีกหลายสัปดาห์",
-          "ทิ้งอาหารที่สัมผัสน้ำท่วม ดื่มน้ำบรรจุขวดหรือน้ำต้มสุก",
-          "เทน้ำขังในถัง กระถาง และภาชนะต่าง ๆ ทิ้ง เพื่อไม่ให้ยุงวางไข่",
-          "มัดปากถุงขยะให้แน่น แจ้งกองขยะน้ำท่วมใน Traffy Fondue หัวข้อ เจอกองขยะน้ำท่วม หรือโทร 1555",
-          "ตรวจสอบจุดทิ้งขยะชิ้นใหญ่ฟรีใกล้บ้านได้ที่ Greener Bangkok",
-        ],
-        links: [
-          {
-            label: "ค้นหาจุดทิ้งขยะชิ้นใหญ่ฟรีที่ Greener Bangkok",
-            href: "https://greener.bangkok.go.th/",
-          },
-        ],
-      },
-      {
-        id: "health",
-        heading: "สุขภาพหลังน้ำลด",
-        body: ["โรคฉี่หนูและโรคไข้ดินพบบ่อยหลังน้ำท่วม หากไปพบแพทย์เร็วจะรักษาได้"],
-        items: [
-          "หากมีไข้สูง ปวดศีรษะ ปวดกล้ามเนื้อน่อง ต้นขา หรือหลังส่วนล่าง หรือตาแดง ภายใน 4 สัปดาห์หลังลุยน้ำหรือย่ำโคลน ให้ไปพบแพทย์ทันทีและบอกว่าเคยลุยน้ำท่วม",
-          "โทร 1669 หากหายใจลำบาก ตัวเหลืองหรือตาเหลือง หรือปัสสาวะน้อยมาก",
-          "ไปพบแพทย์หากแผลที่โดนน้ำท่วมบวมแดงหรือเจ็บมากขึ้น",
-          "สังเกตอาการท้องร่วง ตาแดง และน้ำกัดเท้า ซึ่งพบบ่อยหลังน้ำท่วมเช่นกัน",
-          "สอบถามเรื่องโรคติดต่อได้ที่สายด่วนกรมควบคุมโรค 1422",
-          "น้ำท่วมทำให้เครียดได้ หากรู้สึกหนักใจ ให้คุยกับคนที่ไว้ใจ หรือโทรสายด่วนสุขภาพจิต 1323",
         ],
       },
       {

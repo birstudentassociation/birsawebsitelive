@@ -71,7 +71,24 @@ export default async function OnboardingTrackPage({
         }
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
-        <StepByStep locale={locale} track={track} />
+        <StepByStep
+          locale={locale}
+          storageKey={`birsa-onboarding-${track.audience}`}
+          idPrefix={`onboarding-${track.audience}`}
+          steps={track.steps.map((step) => ({
+            id: step.id,
+            title: step.title[locale],
+            blurb: step.blurb?.[locale],
+            connector: step.connector,
+            tasks: step.tasks.map((task) => ({
+              id: task.id,
+              label: task.label[locale],
+              hint: task.hint?.[locale],
+              href: task.href,
+              external: task.external,
+            })),
+          }))}
+        />
 
         <Notice variant="info" title={t.track.privacyTitle}>
           <p>{t.track.privacyBody}</p>
