@@ -183,6 +183,29 @@ export default function GuideBlocks({ blocks, locale, newTabLabel }: Props) {
               </div>
             );
           }
+          case "card":
+            return (
+              <section
+                key={index}
+                aria-label={block.title}
+                className="overflow-hidden rounded-lg border border-line bg-surface"
+              >
+                <h3 className="border-b border-line bg-sunken px-4 py-3 font-display text-lg text-ink">
+                  {block.title}
+                </h3>
+                <dl className="divide-y divide-line">
+                  {block.rows.map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="grid gap-1 px-4 py-3 sm:grid-cols-[11rem_1fr] sm:gap-4"
+                    >
+                      <dt className="text-sm font-semibold text-muted">{label}</dt>
+                      <dd className="leading-relaxed text-ink">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            );
           case "details":
             return (
               <details key={index} className="group">

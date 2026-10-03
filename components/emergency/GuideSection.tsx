@@ -1,12 +1,11 @@
 import ExternalLink from "@/components/ExternalLink";
-import Link from "next/link";
 import DistrictFinder, { type DistrictFinderLabels } from "@/components/emergency/DistrictFinder";
-import { StartButton } from "@/components/emergency/GuideBlocks";
+import { GuideLink, StartButton } from "@/components/emergency/GuideBlocks";
 import StepByStep from "@/components/onboarding/StepByStep";
 import { telHref } from "@/content/emergency/contacts";
 import { bangkokDistricts } from "@/content/emergency/districts";
 import type { DirectoryPhone, EmergencySection } from "@/content/emergency/types";
-import { localeHref, type Locale } from "@/lib/i18n";
+import type { Locale } from "@/lib/i18n";
 
 type Props = {
   section: EmergencySection;
@@ -63,12 +62,14 @@ export default function GuideSection({
               </div>
             ) : (
               <div key={action.href} className="flex flex-col gap-1">
-                <Link
-                  href={localeHref(locale, action.href)}
-                  className="font-semibold text-brand-deep underline"
+                <GuideLink
+                  href={action.href}
+                  locale={locale}
+                  newTabLabel={newTabLabel}
+                  className="self-start font-semibold text-brand-deep underline"
                 >
                   {action.label}
-                </Link>
+                </GuideLink>
                 {action.description ? (
                   <p className="text-sm leading-relaxed text-muted">{action.description}</p>
                 ) : null}

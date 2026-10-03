@@ -2,13 +2,11 @@ import type { EmergencyGuide } from "@/content/emergency/types";
 
 /**
  * How to claim money after the Bangkok floods of September 2026, one thing per
- * page. Facts come from DDPM, the BMA's own infographics (in
- * `public/emergency/bma-flood-claims-*`) and the reports below. The checker at
- * `/emergency/flooding/claims/check` uses the same amounts, from
- * `content/emergency/claims/checker.ts`, so change both together.
+ * page. BIRSA adds no checker of its own: the BMA's site at claim.bangkok.go.th
+ * checks eligibility. This guide only brings together what DDPM, the BMA's
+ * infographics (in `public/emergency/bma-flood-claims-*`) and the reports below
+ * say, and sends readers to the official services to apply.
  */
-const CHECK = "/emergency/flooding/claims/check";
-
 const floodingClaims: EmergencyGuide = {
   slug: "claims",
   reviewed: "2026-10-03",
@@ -101,7 +99,7 @@ const floodingClaims: EmergencyGuide = {
   en: {
     title: "Claim money after the Bangkok floods",
     summary:
-      "There are 2 separate schemes for people whose homes were flooded. Find out who can get what, the documents you need, and how to apply.",
+      "What the BMA, DDPM and the news have published about the 2 schemes for people whose homes were flooded, in one place. Apply through the official services.",
     parts: [
       {
         slug: "overview",
@@ -112,30 +110,48 @@ const floodingClaims: EmergencyGuide = {
             text: "If the place you usually live was flooded, you may be able to get money from 2 separate schemes.",
           },
           {
-            kind: "table",
-            caption: "The 2 schemes",
+            kind: "warning",
+            text: "Applying to one does not apply you to the other. If you qualify for both, you must apply to both.",
+          },
+          {
+            kind: "card",
+            title: "Government payment",
             rows: [
-              ["Scheme", "What you can get", "Where to apply"],
+              ["Paid by", "DDPM, under a Cabinet decision"],
+              ["For", "Basic living costs"],
+              ["How much", "9,000 baht per household, once"],
               [
-                "Government payment, from DDPM",
-                "9,000 baht per household, once",
-                "Tang Rat app or your district office",
+                "Who can get it",
+                "Households whose usual home in a declared disaster area was flooded between 15 May and 30 September 2026",
               ],
-              [
-                "BMA compensation",
-                "Money towards repairs, rent, living costs, tools, medical bills and funerals, based on your damage",
-                "claim.bangkok.go.th or your district office",
-              ],
+              ["Apply", "In the Tang Rat app, or at your district office"],
+              ["Closing date", "None announced"],
+              ["Paid into", "PromptPay linked to your ID card number"],
             ],
           },
           {
-            kind: "warning",
-            text: "Applying to one scheme does not apply you to the other. If you qualify for both, you must apply to both.",
+            kind: "card",
+            title: "BMA compensation",
+            rows: [
+              ["Paid by", "Bangkok Metropolitan Administration"],
+              [
+                "For",
+                "Repairs, temporary accommodation, basic living costs, tools for work, medical treatment and funerals",
+              ],
+              ["How much", "Based on your damage, up to 88,600 baht for repairs"],
+              [
+                "Who can get it",
+                "People whose usual home in Bangkok was damaged, or flooded into the rooms they live in",
+              ],
+              ["Apply", "At claim.bangkok.go.th, or at your district office"],
+              ["Closing date", "30 days after the flood"],
+              ["Paid into", "PromptPay linked to your ID card number, or a bank account"],
+              ["How long it takes", "At least 60 days"],
+            ],
           },
           {
             kind: "list",
             items: [
-              "You must claim BMA compensation within 30 days of the flood. No closing date has been announced for the government payment.",
               "You do not need a police report for either scheme.",
               "The national disaster insurance that started on 1 October 2026 does not cover these floods.",
             ],
@@ -144,12 +160,11 @@ const floodingClaims: EmergencyGuide = {
             kind: "inset",
             text: "Photograph or film the damage before you clean up or throw anything away. You need the pictures to claim.",
           },
-          { kind: "heading", text: "Check what you can claim" },
           {
             kind: "paragraph",
-            text: "Answer up to 6 questions to find out which money you may be able to get. It takes about 2 minutes.",
+            text: "The BMA's site checks whether you qualify before you claim.",
           },
-          { kind: "start", label: "Start now", href: CHECK },
+          { kind: "start", label: "Claim BMA compensation", href: "https://claim.bangkok.go.th/" },
         ],
       },
       {
@@ -158,7 +173,7 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "The Department of Disaster Prevention and Mitigation (DDPM) pays 9,000 baht once to each household whose usual home is in a declared disaster area and was affected by flooding between 15 May and 30 September 2026.",
+            text: "DDPM pays 9,000 baht once to each household whose usual home is in a declared disaster area and was affected by flooding between 15 May and 30 September 2026.",
           },
           {
             kind: "paragraph",
@@ -176,54 +191,12 @@ const floodingClaims: EmergencyGuide = {
           { kind: "heading", text: "Where in Bangkok" },
           {
             kind: "paragraph",
-            text: "DDPM named 118 subdistricts in 38 Bangkok districts as the area where help can be given. Phra Nakhon, where Tha Prachan is, is not one of them.",
-          },
-          {
-            kind: "paragraph",
-            text: "If you are not sure your subdistrict is included, ask your district office.",
+            text: "DDPM named 118 subdistricts in 38 Bangkok districts as the area where help can be given. Phra Nakhon, where Tha Prachan is, is not one of them. If you are not sure your subdistrict is included, ask your district office.",
           },
           { kind: "heading", text: "If you rent" },
           {
             kind: "paragraph",
             text: "The money is paid to you as the tenant, not to your landlord. Homes without a house registration can also qualify.",
-          },
-          {
-            kind: "links",
-            links: [{ label: "Check what you can claim", href: CHECK }],
-          },
-        ],
-      },
-      {
-        slug: "apply-for-9000-baht",
-        title: "How to apply for the 9,000 baht",
-        blocks: [
-          {
-            kind: "paragraph",
-            text: "Registration opened at 08:00 on 2 October 2026. No closing date has been announced, so apply as soon as you can.",
-          },
-          { kind: "heading", text: "Before you start" },
-          {
-            kind: "paragraph",
-            text: "Ask your bank to link PromptPay to your ID card number, if it is not linked already. The money is paid this way.",
-          },
-          { kind: "heading", text: "Apply in the Tang Rat app" },
-          {
-            kind: "steps",
-            items: [
-              "Open the Tang Rat app and log in.",
-              "Tap All services (บริการทั้งหมด), then Register to check eligibility (ลงทะเบียนตรวจสอบสิทธิ).",
-              "Choose Apply for disaster relief payment (ยื่นขอรับเงินเยียวยาผู้ประสบภัย), give permission and accept the terms.",
-              "Tap Register for help (ลงทะเบียนขอรับความช่วยเหลือ), fill in your details, check them and send the form.",
-            ],
-          },
-          {
-            kind: "paragraph",
-            text: "The app checks your details against the civil registration database straight away.",
-          },
-          { kind: "heading", text: "If you do not have a smartphone" },
-          {
-            kind: "paragraph",
-            text: "Go to your district office. Staff will enter your details for you, and you can claim BMA compensation at the same time.",
           },
         ],
       },
@@ -233,30 +206,38 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "You can claim if the place you usually live in Bangkok was damaged by the floods, or if water came into the rooms you live in.",
+            text: "You can claim if all of these are true.",
           },
           {
             kind: "list",
             items: [
-              "Only the owner or the head of the household can claim for repairs. Repairs to rented homes are not covered.",
-              "If you rent, including a room or a condo, you can claim the other kinds of help even if your name is not on the house registration.",
-              "In a building with several floors, only the floors that flooded can claim.",
-              "If someone in your household was injured or died because of the floods, you can claim for treatment or a funeral.",
+              "The home is the place you usually live.",
+              "It was damaged by the floods, or water came into the rooms you live in.",
+              "It is in a district where the BMA declared emergency flood help.",
             ],
           },
           {
             kind: "paragraph",
-            text: "The BMA does not pay the same to everyone. It looks at the kind of damage, how bad it is, and your documents.",
+            text: "The district office gives you a certificate that you were affected, which is your proof.",
+          },
+          { kind: "heading", text: "Which homes count" },
+          {
+            kind: "list",
+            items: [
+              "Rented homes, including rooms and condos, even if you are not on the house registration. Repairs to rented homes are not covered, but the other kinds of help are.",
+              "In a building with several floors, only the floors that flooded.",
+              "A home you usually live in that has no house registration. The district office records a statement from you instead (form Por Kor 14).",
+            ],
           },
           {
-            kind: "inset",
-            text: "Cars are not covered. If your car is insured, contact your insurer.",
+            kind: "paragraph",
+            text: "Only the owner or the head of the household can claim for repairs.",
           },
           {
             kind: "links",
             links: [
               {
-                label: "Read the BMA's rules on who can claim (image, in Thai)",
+                label: "See the BMA's rules on who can claim (image, in Thai)",
                 href: "/emergency/bma-flood-claims-eligibility-2026-10.jpg",
               },
             ],
@@ -269,7 +250,7 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "These are the most you can get. What you get depends on your damage, whether you qualify and your documents, so it may be less.",
+            text: "These are the most you can get. The BMA does not pay the same to everyone. It pays for the damage it finds, so you may get less.",
           },
           {
             kind: "table",
@@ -301,7 +282,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "Only repair materials for the structure of the building, listed on the BMA's form, at what the damage really costs. Labour and furniture are not covered.",
+                text: "Only repair materials for the structure of the building, listed on the BMA's form, at what the damage really costs. Rented homes are not covered.",
               },
             ],
           },
@@ -311,7 +292,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "Rent or somewhere else to stay, if you usually lived in the home and had to move out because it was damaged or flooded. You need a tenancy agreement and receipts or proof of payment.",
+                text: "Rent or somewhere else to stay, if you usually lived in the home and had to move out because it was damaged or flooded.",
               },
             ],
           },
@@ -333,11 +314,11 @@ const floodingClaims: EmergencyGuide = {
             kind: "links",
             links: [
               {
-                label: "Read the BMA's rates, part 1 (image, in Thai)",
+                label: "See the BMA's rates, part 1 (image, in Thai)",
                 href: "/emergency/bma-flood-claims-rates-1-2026-10.jpg",
               },
               {
-                label: "Read the BMA's rates, part 2 (image, in Thai)",
+                label: "See the BMA's rates, part 2 (image, in Thai)",
                 href: "/emergency/bma-flood-claims-rates-2-2026-10.jpg",
               },
             ],
@@ -359,7 +340,7 @@ const floodingClaims: EmergencyGuide = {
           },
           {
             kind: "paragraph",
-            text: "You also need the documents for each kind of help you claim.",
+            text: "Open each kind of help you are claiming to see what else you need.",
           },
           {
             kind: "details",
@@ -437,11 +418,6 @@ const floodingClaims: EmergencyGuide = {
               },
             ],
           },
-          { kind: "heading", text: "If you are missing documents" },
-          {
-            kind: "paragraph",
-            text: "If you are missing documents, have no land title deed, the name on the deed is not yours, or your home has no house number, go to your district office. Staff can record a statement from you instead (form Por Kor 14).",
-          },
           {
             kind: "links",
             links: [
@@ -454,65 +430,70 @@ const floodingClaims: EmergencyGuide = {
         ],
       },
       {
-        slug: "claim-online",
-        title: "Claim BMA compensation online",
+        slug: "apply-for-9000-baht",
+        title: "Apply for the 9,000 baht",
         blocks: [
           {
-            kind: "warning",
-            text: "You must claim within 30 days of the flood.",
+            kind: "paragraph",
+            text: "Registration opened at 08:00 on 2 October 2026. No closing date has been announced, so apply as soon as you can.",
           },
-          { kind: "heading", text: "Before you start" },
           {
-            kind: "list",
-            items: [
-              "Verify your identity in the ThaiD or Tang Rat app.",
-              "Have photographs of the damage and your documents ready as files or photos on your phone.",
-            ],
+            kind: "inset",
+            text: "Link PromptPay to your ID card number with your bank first, if it is not linked already. The money is paid this way.",
           },
-          { kind: "heading", text: "Claim" },
+          { kind: "heading", text: "In the Tang Rat app" },
           {
             kind: "steps",
             items: [
-              "Go to claim.bangkok.go.th and choose to check your eligibility.",
-              "Answer the questions about your home, the damage and any injuries.",
-              "If the result says you may qualify, agree and continue.",
-              "Upload your documents, then fill in and sign the form online. You do not need to print anything.",
+              "Log in.",
+              "Tap All services (บริการทั้งหมด), then Register to check eligibility (ลงทะเบียนตรวจสอบสิทธิ).",
+              "Choose Apply for disaster relief payment (ยื่นขอรับเงินเยียวยาผู้ประสบภัย), give permission and accept the terms.",
+              "Tap Register for help (ลงทะเบียนขอรับความช่วยเหลือ), fill in your details, check them and send the form.",
             ],
           },
+          { kind: "heading", text: "At your district office" },
           {
             kind: "paragraph",
-            text: "The eligibility result is not a decision. District staff check every claim.",
-          },
-          { kind: "start", label: "Claim online", href: "https://claim.bangkok.go.th/" },
-          {
-            kind: "paragraph",
-            text: "Claims for repairs made by the owner or the head of the household are checked faster.",
+            text: "If you do not have a smartphone, staff will enter your details for you. You can claim BMA compensation at the same time.",
           },
         ],
       },
       {
-        slug: "district-office",
-        title: "Apply at your district office",
+        slug: "claim-from-the-bma",
+        title: "Claim BMA compensation",
         blocks: [
+          { kind: "warning", text: "You must claim within 30 days of the flood." },
           {
-            kind: "paragraph",
-            text: "At the district office you can apply for the government payment and BMA compensation at the same time. Go to the office for the district where your flooded home is, Monday to Friday during office hours.",
+            kind: "card",
+            title: "Online",
+            rows: [
+              ["Where", "claim.bangkok.go.th"],
+              ["When", "Any time"],
+              [
+                "You need",
+                "Your identity verified in the ThaiD or Tang Rat app, and photos of your documents and the damage",
+              ],
+              ["Forms", "Filled in and signed online, so there is nothing to print"],
+            ],
           },
           {
-            kind: "steps",
-            items: [
-              "Download the fact-finding form, or pick one up at the district office.",
-              "Fill it in.",
-              "Take it with paper copies of your documents and your ID card to the district office.",
+            kind: "card",
+            title: "At your district office",
+            rows: [
+              ["Where", "The office for the district where your flooded home is"],
+              ["When", "Monday to Friday, during office hours"],
+              ["You need", "The fact-finding form and paper copies of your documents"],
+              ["Also", "You can apply for the 9,000 baht at the same time"],
             ],
           },
           {
             kind: "paragraph",
-            text: "Staff can help you fill in the forms and enter your details for the government payment.",
+            text: "Online, the site checks whether you qualify before you start. Its result is not a decision. District staff check every claim.",
           },
+          { kind: "start", label: "Claim online", href: "https://claim.bangkok.go.th/" },
           {
             kind: "paragraph",
-            text: "If you do not know which district office to go to, call the BMA on 1555.",
+            text: "Claims for repairs made by the owner or the head of the household are checked faster. If you do not know which district office to go to, call 1555.",
           },
           {
             kind: "links",
@@ -529,84 +510,118 @@ const floodingClaims: EmergencyGuide = {
         slug: "after-you-apply",
         title: "After you apply",
         blocks: [
-          { kind: "heading", text: "Government payment" },
           {
-            kind: "list",
-            items: [
-              "You can follow your application in the Tang Rat app.",
-              "If it is approved, the Government Savings Bank pays the money to the PromptPay account linked to your ID card number.",
-              "No payment date has been announced.",
-            ],
-          },
-          { kind: "heading", text: "BMA compensation" },
-          {
-            kind: "list",
-            items: [
-              "District staff may send you an SMS if they need anything more, and may visit to check the damage.",
-              "The BMA pays to the PromptPay account linked to your ID card number, or to a bank account. Banks other than Krungthai may charge a fee.",
-              "The BMA says payment takes at least 60 days. It has not set a date, because about 270,000 to 300,000 households were affected.",
+            kind: "card",
+            title: "Government payment",
+            rows: [
+              ["Follow it", "In the Tang Rat app"],
+              ["Paid by", "The Government Savings Bank"],
+              ["Paid into", "PromptPay linked to your ID card number"],
+              ["When", "No date announced"],
             ],
           },
           {
-            kind: "inset",
-            text: "You may get less than the most shown, because the BMA pays for the damage it finds.",
-          },
-        ],
-      },
-      {
-        slug: "if-you-rent",
-        title: "If you rent",
-        blocks: [
-          {
-            kind: "list",
-            items: [
-              "You can get the government's 9,000 baht. It is paid to you, not to your landlord.",
-              "You cannot claim BMA money for repairs to a rented home. Repairs to the building are normally your landlord's responsibility.",
-              "You can claim the BMA's other help, such as temporary accommodation, basic living costs and tools for your work, even if your name is not on the house registration.",
-              "Keep your tenancy agreement and rent receipts. You need them as proof that you live there.",
-            ],
-          },
-          {
-            kind: "inset",
-            text: "Photograph your landlord's furniture and fittings, and get their agreement in writing before you throw any of it away.",
-          },
-        ],
-      },
-      {
-        slug: "if-you-are-not-thai",
-        title: "If you are not Thai",
-        blocks: [
-          {
-            kind: "paragraph",
-            text: "Neither scheme says whether people who are not Thai can claim. Both check applicants against Thai records and pay through PromptPay linked to a Thai ID card number, and the online systems need ThaiD or Tang Rat.",
-          },
-          {
-            kind: "steps",
-            items: [
-              "Take your passport, your tenancy agreement or other proof of where you live, and photographs of the damage to your district office.",
-              "Ask what you can claim.",
-            ],
-          },
-          {
-            kind: "list",
-            items: [
-              "If you have insurance through your embassy, your scholarship or your own policy, contact the insurer before you clean up.",
-              "Ask a Thai friend or BIRSA to help you with forms in Thai.",
+            kind: "card",
+            title: "BMA compensation",
+            rows: [
+              [
+                "What happens",
+                "District staff may send you an SMS if they need anything more, and may visit to check the damage",
+              ],
+              [
+                "Paid into",
+                "PromptPay linked to your ID card number, or a bank account. Banks other than Krungthai may charge a fee",
+              ],
+              [
+                "When",
+                "At least 60 days. No date is set, because about 270,000 to 300,000 households were affected",
+              ],
             ],
           },
         ],
       },
       {
-        slug: "get-help",
-        title: "Get help with a claim",
+        slug: "common-questions",
+        title: "Common questions",
         blocks: [
+          {
+            kind: "details",
+            summary: "Do I need a police report?",
+            blocks: [{ kind: "paragraph", text: "No. Neither scheme needs one." }],
+          },
+          {
+            kind: "details",
+            summary: "Can I claim for a flooded car?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "No. If your car is insured, contact your insurer.",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary:
+              "I rent a room or a condo and I am not on the house registration. Can I claim?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "Yes. You can get the 9,000 baht, paid to you rather than your landlord, and the BMA's help other than repairs. Keep your tenancy agreement and rent receipts as proof that you live there.",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "Who pays for repairs to a rented home?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "Normally your landlord. Photograph your landlord's furniture and fittings, and get their agreement in writing before you throw any of it away.",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "I am not Thai. Can I claim?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "Neither scheme says. Both check applicants against Thai records and pay through PromptPay linked to a Thai ID card number, and the online systems need ThaiD or Tang Rat.",
+              },
+              {
+                kind: "paragraph",
+                text: "Take your passport, proof of where you live and photographs of the damage to your district office and ask. If you have insurance through your embassy, your scholarship or your own policy, contact the insurer.",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "I am missing documents. What do I do?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "If you are missing documents, have no land title deed, the name on the deed is not yours, or your home has no house number, go to your district office. Staff can record a statement from you instead (form Por Kor 14).",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "Will I get the full amount?",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "Not necessarily. The BMA does not pay a flat rate. It looks at the kind of damage, how bad it is, whether you qualify and your documents, and staff may check the facts.",
+              },
+            ],
+          },
+          { kind: "heading", text: "Get help" },
           {
             kind: "list",
             items: [
-              "Call the BMA on 1555, 24 hours, for help with BMA compensation or to find your district office.",
-              "Call DDPM on 1784, or message @1784DDPM on LINE, for help with the government payment.",
-              "Ask your district office, Monday to Friday during office hours.",
-              "If you are a BIR student, BIRSA can help you understand the forms.",
+              "BMA hotline 1555, 24 hours, for BMA compensation or to find your district office.",
+              "DDPM on 1784, or @1784DDPM on LINE, for the government payment.",
+              "Your district office, Monday to Friday during office hours.",
+              "BIRSA, if you are a BIR student and need help understanding the forms.",
             ],
           },
           {
@@ -623,7 +638,7 @@ const floodingClaims: EmergencyGuide = {
   th: {
     title: "ขอรับเงินช่วยเหลือหลังน้ำท่วมกรุงเทพฯ",
     summary:
-      "ผู้ที่บ้านถูกน้ำท่วมขอรับเงินช่วยเหลือได้จาก 2 แหล่งที่แยกจากกัน ดูว่าใครได้อะไร ต้องใช้เอกสารอะไร และยื่นอย่างไร",
+      "รวมข้อมูลที่ กทม. ปภ. และสื่อเผยแพร่เรื่องเงินช่วยเหลือ 2 แหล่งสำหรับผู้ที่บ้านถูกน้ำท่วมไว้ในที่เดียว ยื่นคำร้องผ่านช่องทางทางการ",
     parts: [
       {
         slug: "overview",
@@ -634,30 +649,48 @@ const floodingClaims: EmergencyGuide = {
             text: "หากที่อยู่อาศัยประจำของคุณถูกน้ำท่วม คุณอาจขอรับเงินช่วยเหลือได้จาก 2 แหล่งที่แยกจากกัน",
           },
           {
-            kind: "table",
-            caption: "เงินช่วยเหลือ 2 แหล่ง",
-            rows: [
-              ["แหล่งเงิน", "สิ่งที่ได้รับ", "ช่องทางยื่น"],
-              [
-                "เงินช่วยเหลือจากรัฐบาล ผ่าน ปภ.",
-                "ครัวเรือนละ 9,000 บาท ครั้งเดียว",
-                "แอปทางรัฐหรือสำนักงานเขต",
-              ],
-              [
-                "เงินช่วยเหลือของ กทม.",
-                "ค่าซ่อมแซม ค่าเช่า ค่าดำรงชีพ ค่าเครื่องมือประกอบอาชีพ ค่ารักษาพยาบาล และค่าจัดการศพ ตามความเสียหาย",
-                "claim.bangkok.go.th หรือสำนักงานเขต",
-              ],
-            ],
-          },
-          {
             kind: "warning",
             text: "การยื่นทางหนึ่งไม่ถือว่ายื่นอีกทางหนึ่งด้วย หากเข้าเกณฑ์ทั้งสองแหล่ง ต้องยื่นทั้งสองทาง",
           },
           {
+            kind: "card",
+            title: "เงินช่วยเหลือจากรัฐบาล",
+            rows: [
+              ["ผู้จ่าย", "ปภ. ตามมติคณะรัฐมนตรี"],
+              ["สำหรับ", "ค่าดำรงชีพเบื้องต้น"],
+              ["จำนวน", "ครัวเรือนละ 9,000 บาท ครั้งเดียว"],
+              [
+                "ผู้มีสิทธิ",
+                "ครัวเรือนที่ที่อยู่อาศัยประจำในพื้นที่ประกาศเขตประสบภัยถูกน้ำท่วมระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน 2569",
+              ],
+              ["ช่องทางยื่น", "แอปทางรัฐ หรือสำนักงานเขต"],
+              ["วันปิดรับ", "ยังไม่ประกาศ"],
+              ["รับเงินทาง", "พร้อมเพย์ที่ผูกกับเลขบัตรประชาชน"],
+            ],
+          },
+          {
+            kind: "card",
+            title: "เงินช่วยเหลือของ กทม.",
+            rows: [
+              ["ผู้จ่าย", "กรุงเทพมหานคร"],
+              [
+                "สำหรับ",
+                "ค่าซ่อมแซมบ้าน ค่าที่พักชั่วคราว ค่าดำรงชีพเบื้องต้น ค่าเครื่องมือประกอบอาชีพ ค่ารักษาพยาบาล และค่าจัดการศพ",
+              ],
+              ["จำนวน", "ตามความเสียหาย ค่าซ่อมแซมบ้านไม่เกิน 88,600 บาท"],
+              [
+                "ผู้มีสิทธิ",
+                "ผู้ที่ที่อยู่อาศัยประจำในกรุงเทพฯ ได้รับความเสียหาย หรือน้ำท่วมถึงพื้นที่พักอาศัย",
+              ],
+              ["ช่องทางยื่น", "claim.bangkok.go.th หรือสำนักงานเขต"],
+              ["วันปิดรับ", "ภายใน 30 วันนับแต่วันที่ประสบภัย"],
+              ["รับเงินทาง", "พร้อมเพย์ที่ผูกกับเลขบัตรประชาชน หรือบัญชีธนาคาร"],
+              ["ระยะเวลา", "ไม่ต่ำกว่า 60 วัน"],
+            ],
+          },
+          {
             kind: "list",
             items: [
-              "ต้องยื่นขอเงินช่วยเหลือของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย ส่วนเงินของรัฐบาลยังไม่มีการประกาศวันปิดรับ",
               "ทั้งสองทางไม่ต้องใช้ใบแจ้งความหรือบันทึกประจำวัน",
               "ระบบประกันภัยพิบัติแห่งชาติที่เริ่มวันที่ 1 ตุลาคม 2569 ไม่ครอบคลุมน้ำท่วมครั้งนี้",
             ],
@@ -666,12 +699,15 @@ const floodingClaims: EmergencyGuide = {
             kind: "inset",
             text: "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ เพราะต้องใช้เป็นหลักฐาน",
           },
-          { kind: "heading", text: "ตรวจสอบว่าขอรับอะไรได้บ้าง" },
           {
             kind: "paragraph",
-            text: "ตอบคำถามไม่เกิน 6 ข้อ เพื่อดูว่าคุณอาจขอรับเงินช่วยเหลือประเภทใดได้บ้าง ใช้เวลาราว 2 นาที",
+            text: "เว็บไซต์ของ กทม. ตรวจสอบสิทธิให้ก่อนยื่นคำร้อง",
           },
-          { kind: "start", label: "เริ่มเลย", href: CHECK },
+          {
+            kind: "start",
+            label: "ยื่นขอเงินช่วยเหลือของ กทม.",
+            href: "https://claim.bangkok.go.th/",
+          },
         ],
       },
       {
@@ -680,7 +716,7 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "กรมป้องกันและบรรเทาสาธารณภัย (ปภ.) จ่ายเงินครัวเรือนละ 9,000 บาท ครั้งเดียว ให้ครัวเรือนที่ที่อยู่อาศัยประจำอยู่ในพื้นที่ที่ประกาศเป็นเขตประสบภัย และได้รับผลกระทบจากน้ำท่วมระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน 2569",
+            text: "ปภ. จ่ายเงินครัวเรือนละ 9,000 บาท ครั้งเดียว ให้ครัวเรือนที่ที่อยู่อาศัยประจำอยู่ในพื้นที่ที่ประกาศเป็นเขตประสบภัย และได้รับผลกระทบจากน้ำท่วมระหว่างวันที่ 15 พฤษภาคม ถึงวันที่ 30 กันยายน 2569",
           },
           {
             kind: "paragraph",
@@ -698,54 +734,12 @@ const floodingClaims: EmergencyGuide = {
           { kind: "heading", text: "พื้นที่ในกรุงเทพฯ" },
           {
             kind: "paragraph",
-            text: "ปภ. ประกาศเขตการให้ความช่วยเหลือในกรุงเทพฯ 38 เขต 118 แขวง ไม่รวมเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์",
-          },
-          {
-            kind: "paragraph",
-            text: "หากไม่แน่ใจว่าแขวงของคุณอยู่ในเขตช่วยเหลือหรือไม่ ให้สอบถามสำนักงานเขต",
+            text: "ปภ. ประกาศเขตการให้ความช่วยเหลือในกรุงเทพฯ 38 เขต 118 แขวง ไม่รวมเขตพระนครซึ่งเป็นที่ตั้งของท่าพระจันทร์ หากไม่แน่ใจว่าแขวงของคุณอยู่ในเขตช่วยเหลือหรือไม่ ให้สอบถามสำนักงานเขต",
           },
           { kind: "heading", text: "กรณีเช่าบ้าน" },
           {
             kind: "paragraph",
             text: "ผู้เช่าเป็นผู้รับเงิน ไม่ใช่เจ้าของบ้าน และบ้านที่ไม่มีทะเบียนบ้านก็มีสิทธิได้",
-          },
-          {
-            kind: "links",
-            links: [{ label: "ตรวจสอบว่าขอรับอะไรได้บ้าง", href: CHECK }],
-          },
-        ],
-      },
-      {
-        slug: "apply-for-9000-baht",
-        title: "วิธียื่นขอเงิน 9,000 บาท",
-        blocks: [
-          {
-            kind: "paragraph",
-            text: "เปิดลงทะเบียนตั้งแต่เวลา 08.00 น. วันที่ 2 ตุลาคม 2569 ยังไม่มีการประกาศวันปิดรับ ควรยื่นโดยเร็วที่สุด",
-          },
-          { kind: "heading", text: "ก่อนเริ่ม" },
-          {
-            kind: "paragraph",
-            text: "ผูกพร้อมเพย์กับเลขบัตรประชาชนไว้กับธนาคาร หากยังไม่ได้ผูก เพราะเงินจะโอนเข้าทางนี้",
-          },
-          { kind: "heading", text: "ยื่นผ่านแอปทางรัฐ" },
-          {
-            kind: "steps",
-            items: [
-              "เปิดแอปทางรัฐแล้วเข้าสู่ระบบ",
-              "แตะ บริการทั้งหมด แล้วเลือกหมวด ลงทะเบียนตรวจสอบสิทธิ",
-              "เลือก ยื่นขอรับเงินเยียวยาผู้ประสบภัย แล้วอนุญาตการเข้าถึงข้อมูลและยอมรับเงื่อนไข",
-              "แตะ ลงทะเบียนขอรับความช่วยเหลือ กรอกข้อมูล ตรวจสอบความถูกต้อง แล้วส่งแบบฟอร์ม",
-            ],
-          },
-          {
-            kind: "paragraph",
-            text: "ระบบตรวจสอบข้อมูลกับฐานข้อมูลทะเบียนราษฎรได้ทันที",
-          },
-          { kind: "heading", text: "หากไม่มีสมาร์ตโฟน" },
-          {
-            kind: "paragraph",
-            text: "ไปที่สำนักงานเขต เจ้าหน้าที่จะช่วยกรอกข้อมูลให้ และยื่นขอเงินช่วยเหลือของ กทม. ไปพร้อมกันได้",
           },
         ],
       },
@@ -755,30 +749,38 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "ยื่นได้หากที่อยู่อาศัยประจำของคุณในกรุงเทพฯ ได้รับความเสียหายจากน้ำท่วม หรือน้ำท่วมถึงพื้นที่พักอาศัย",
+            text: "ยื่นได้หากเข้าเงื่อนไขทุกข้อต่อไปนี้",
           },
           {
             kind: "list",
             items: [
-              "ค่าซ่อมแซมบ้านให้เฉพาะเจ้าของบ้านหรือเจ้าบ้าน ไม่รวมบ้านเช่า",
-              "ผู้เช่า รวมถึงผู้เช่าห้องหรือคอนโด ขอรับความช่วยเหลือประเภทอื่นได้ แม้ไม่มีชื่อในทะเบียนบ้าน",
-              "บ้านหรืออาคารที่มีหลายชั้น ได้รับเฉพาะชั้นที่น้ำท่วมถึง",
-              "หากมีคนในครอบครัวบาดเจ็บหรือเสียชีวิตจากน้ำท่วม ขอรับค่ารักษาพยาบาลหรือค่าจัดการศพได้",
+              "เป็นที่อยู่อาศัยประจำ",
+              "ได้รับความเสียหายจากน้ำท่วม หรือน้ำท่วมถึงพื้นที่พักอาศัย",
+              "อยู่ในเขตที่ กทม. ประกาศให้ความช่วยเหลือฉุกเฉินกรณีอุทกภัย",
             ],
           },
           {
             kind: "paragraph",
-            text: "การช่วยเหลือไม่ได้จ่ายแบบเหมาจ่ายให้ทุกครัวเรือน แต่พิจารณาตามประเภทและความเสียหายจริง และเอกสารหลักฐาน",
+            text: "สำนักงานเขตจะออกหนังสือรับรองผู้ประสบภัยให้เป็นหลักฐาน",
+          },
+          { kind: "heading", text: "ที่อยู่อาศัยที่มีสิทธิ" },
+          {
+            kind: "list",
+            items: [
+              "บ้านเช่า รวมถึงห้องเช่าและคอนโด แม้ไม่มีชื่อในทะเบียนบ้าน ค่าซ่อมแซมไม่รวมบ้านเช่า แต่ขอรับความช่วยเหลือประเภทอื่นได้",
+              "บ้านหรืออาคารที่มีหลายชั้น ได้รับเฉพาะชั้นที่น้ำท่วมถึง",
+              "ที่อยู่อาศัยประจำที่ไม่มีทะเบียนบ้าน สำนักงานเขตจะสอบบันทึกถ้อยคำ (ปค.14) เพิ่มเติม",
+            ],
           },
           {
-            kind: "inset",
-            text: "รถยนต์ที่จมน้ำไม่ได้รับการชดเชย หากทำประกันรถยนต์ไว้ ให้ติดต่อตัวแทนประกันภัย",
+            kind: "paragraph",
+            text: "ค่าซ่อมแซมบ้านให้เฉพาะเจ้าของบ้านหรือเจ้าบ้าน",
           },
           {
             kind: "links",
             links: [
               {
-                label: "อ่านหลักเกณฑ์ผู้มีสิทธิของ กทม. (อินโฟกราฟิก)",
+                label: "ดูหลักเกณฑ์ผู้มีสิทธิของ กทม. (อินโฟกราฟิก)",
                 href: "/emergency/bma-flood-claims-eligibility-2026-10.jpg",
               },
             ],
@@ -791,7 +793,7 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "จำนวนเงินด้านล่างเป็นอัตราสูงสุด เงินที่ได้รับจริงขึ้นอยู่กับความเสียหาย คุณสมบัติ และเอกสารหลักฐาน จึงอาจต่ำกว่านี้",
+            text: "จำนวนเงินด้านล่างเป็นอัตราสูงสุด การช่วยเหลือไม่ได้จ่ายแบบเหมาจ่ายให้ทุกครัวเรือน แต่จ่ายตามความเสียหายที่ตรวจพบ จึงอาจได้รับต่ำกว่านี้",
           },
           {
             kind: "table",
@@ -823,7 +825,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "ช่วยเฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร ตามแบบฟอร์มของ กทม. และตามความเสียหายจริง ไม่รวมค่าแรงและเฟอร์นิเจอร์",
+                text: "ช่วยเฉพาะค่าวัสดุซ่อมแซมส่วนที่เป็นโครงสร้างอาคาร ตามแบบฟอร์มของ กทม. และตามความเสียหายจริง ไม่รวมบ้านเช่า",
               },
             ],
           },
@@ -833,7 +835,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "ค่าเช่าบ้านหรือค่าที่พักที่อื่น สำหรับผู้ที่อยู่ในบ้านนั้นเป็นประจำและต้องย้ายออกเพราะบ้านเสียหายหรือถูกน้ำท่วมขัง ต้องมีสัญญาเช่า และใบเสร็จหรือหลักฐานการโอนเงิน",
+                text: "ค่าเช่าบ้านหรือค่าที่พักที่อื่น สำหรับผู้ที่อยู่ในบ้านนั้นเป็นประจำและต้องย้ายออกเพราะบ้านเสียหายหรือถูกน้ำท่วมขัง",
               },
             ],
           },
@@ -855,11 +857,11 @@ const floodingClaims: EmergencyGuide = {
             kind: "links",
             links: [
               {
-                label: "อ่านอัตราของ กทม. ส่วนที่ 1 (อินโฟกราฟิก)",
+                label: "ดูอัตราของ กทม. ส่วนที่ 1 (อินโฟกราฟิก)",
                 href: "/emergency/bma-flood-claims-rates-1-2026-10.jpg",
               },
               {
-                label: "อ่านอัตราของ กทม. ส่วนที่ 2 (อินโฟกราฟิก)",
+                label: "ดูอัตราของ กทม. ส่วนที่ 2 (อินโฟกราฟิก)",
                 href: "/emergency/bma-flood-claims-rates-2-2026-10.jpg",
               },
             ],
@@ -881,7 +883,7 @@ const floodingClaims: EmergencyGuide = {
           },
           {
             kind: "paragraph",
-            text: "และต้องใช้เอกสารเพิ่มเติมตามประเภทที่ขอรับ",
+            text: "เปิดดูประเภทที่ต้องการขอรับ เพื่อดูเอกสารเพิ่มเติม",
           },
           {
             kind: "details",
@@ -949,11 +951,6 @@ const floodingClaims: EmergencyGuide = {
               },
             ],
           },
-          { kind: "heading", text: "หากเอกสารไม่ครบ" },
-          {
-            kind: "paragraph",
-            text: "หากเอกสารไม่ครบ ไม่มีโฉนด ชื่อหลังโฉนดไม่ตรงกับผู้ยื่น หรือที่อยู่อาศัยไม่มีเลขที่บ้าน ให้ติดต่อสำนักงานเขต เจ้าหน้าที่จะสอบบันทึกถ้อยคำ (ปค.14) แทน",
-          },
           {
             kind: "links",
             links: [
@@ -966,65 +963,67 @@ const floodingClaims: EmergencyGuide = {
         ],
       },
       {
-        slug: "claim-online",
-        title: "ยื่นขอเงินช่วยเหลือของ กทม. ทางออนไลน์",
+        slug: "apply-for-9000-baht",
+        title: "ยื่นขอเงิน 9,000 บาท",
         blocks: [
           {
-            kind: "warning",
-            text: "ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย",
+            kind: "paragraph",
+            text: "เปิดลงทะเบียนตั้งแต่เวลา 08.00 น. วันที่ 2 ตุลาคม 2569 ยังไม่มีการประกาศวันปิดรับ ควรยื่นโดยเร็วที่สุด",
           },
-          { kind: "heading", text: "ก่อนเริ่ม" },
           {
-            kind: "list",
-            items: [
-              "ยืนยันตัวตนในแอป ThaiD หรือทางรัฐไว้ก่อน",
-              "เตรียมภาพถ่ายความเสียหายและเอกสารเป็นไฟล์หรือรูปในโทรศัพท์",
-            ],
+            kind: "inset",
+            text: "ผูกพร้อมเพย์กับเลขบัตรประชาชนไว้กับธนาคารก่อน หากยังไม่ได้ผูก เพราะเงินจะโอนเข้าทางนี้",
           },
-          { kind: "heading", text: "ขั้นตอนการยื่น" },
+          { kind: "heading", text: "ผ่านแอปทางรัฐ" },
           {
             kind: "steps",
             items: [
-              "เข้า claim.bangkok.go.th แล้วเลือกตรวจสอบสิทธิ",
-              "ตอบคำถามเรื่องที่พัก ความเสียหาย และการบาดเจ็บ",
-              "หากระบบแสดงว่าอาจมีสิทธิ ให้กดยอมรับแล้วดำเนินการต่อ",
-              "อัปโหลดเอกสาร แล้วกรอกและเซ็นเอกสารออนไลน์ ไม่ต้องปรินต์",
+              "เข้าสู่ระบบ",
+              "แตะ บริการทั้งหมด แล้วเลือกหมวด ลงทะเบียนตรวจสอบสิทธิ",
+              "เลือก ยื่นขอรับเงินเยียวยาผู้ประสบภัย แล้วอนุญาตการเข้าถึงข้อมูลและยอมรับเงื่อนไข",
+              "แตะ ลงทะเบียนขอรับความช่วยเหลือ กรอกข้อมูล ตรวจสอบความถูกต้อง แล้วส่งแบบฟอร์ม",
             ],
           },
+          { kind: "heading", text: "ที่สำนักงานเขต" },
           {
             kind: "paragraph",
-            text: "ผลการตรวจสอบสิทธิในระบบยังไม่ใช่คำตัดสิน เจ้าหน้าที่เขตจะตรวจสอบทุกคำร้อง",
-          },
-          { kind: "start", label: "ยื่นออนไลน์", href: "https://claim.bangkok.go.th/" },
-          {
-            kind: "paragraph",
-            text: "ค่าซ่อมแซมที่เจ้าบ้านหรือเจ้าของบ้านเป็นผู้ยื่น จะได้รับการตรวจสอบสิทธิและเยียวยาได้เร็ว",
+            text: "หากไม่มีสมาร์ตโฟน เจ้าหน้าที่จะช่วยกรอกข้อมูลให้ และยื่นขอเงินช่วยเหลือของ กทม. ไปพร้อมกันได้",
           },
         ],
       },
       {
-        slug: "district-office",
-        title: "ยื่นที่สำนักงานเขต",
+        slug: "claim-from-the-bma",
+        title: "ยื่นขอเงินช่วยเหลือของ กทม.",
         blocks: [
+          { kind: "warning", text: "ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย" },
           {
-            kind: "paragraph",
-            text: "ที่สำนักงานเขตยื่นขอเงินของรัฐบาลและเงินช่วยเหลือของ กทม. ได้พร้อมกัน ให้ไปที่สำนักงานเขตตามที่ตั้งของบ้านที่ถูกน้ำท่วม ในวันจันทร์ถึงศุกร์ เวลาราชการ",
+            kind: "card",
+            title: "ยื่นออนไลน์",
+            rows: [
+              ["ที่ไหน", "claim.bangkok.go.th"],
+              ["เมื่อไร", "ได้ตลอด 24 ชั่วโมง"],
+              ["ต้องเตรียม", "ยืนยันตัวตนในแอป ThaiD หรือทางรัฐ และรูปเอกสารกับภาพความเสียหาย"],
+              ["แบบฟอร์ม", "กรอกและเซ็นออนไลน์ ไม่ต้องปรินต์"],
+            ],
           },
           {
-            kind: "steps",
-            items: [
-              "ดาวน์โหลดแบบสอบข้อเท็จจริง หรือรับได้ที่สำนักงานเขต",
-              "กรอกแบบฟอร์ม",
-              "นำแบบฟอร์ม สำเนาเอกสาร และบัตรประชาชนไปยื่นที่สำนักงานเขต",
+            kind: "card",
+            title: "ยื่นที่สำนักงานเขต",
+            rows: [
+              ["ที่ไหน", "สำนักงานเขตตามที่ตั้งของบ้านที่ถูกน้ำท่วม"],
+              ["เมื่อไร", "วันจันทร์ถึงศุกร์ เวลาราชการ"],
+              ["ต้องเตรียม", "แบบสอบข้อเท็จจริงและสำเนาเอกสารฉบับกระดาษ"],
+              ["เพิ่มเติม", "ยื่นขอเงิน 9,000 บาทไปพร้อมกันได้"],
             ],
           },
           {
             kind: "paragraph",
-            text: "เจ้าหน้าที่ช่วยกรอกแบบฟอร์มและบันทึกข้อมูลขอเงินของรัฐบาลให้ได้",
+            text: "เว็บไซต์จะตรวจสอบสิทธิก่อนเริ่มยื่น ผลที่ได้ยังไม่ใช่คำตัดสิน เจ้าหน้าที่เขตจะตรวจสอบทุกคำร้อง",
           },
+          { kind: "start", label: "ยื่นออนไลน์", href: "https://claim.bangkok.go.th/" },
           {
             kind: "paragraph",
-            text: "หากไม่ทราบว่าต้องไปสำนักงานเขตใด โทรสายด่วน กทม. 1555",
+            text: "ค่าซ่อมแซมที่เจ้าบ้านหรือเจ้าของบ้านเป็นผู้ยื่น จะได้รับการตรวจสอบสิทธิและเยียวยาได้เร็ว หากไม่ทราบว่าต้องไปสำนักงานเขตใด โทร 1555",
           },
           {
             kind: "links",
@@ -1041,84 +1040,117 @@ const floodingClaims: EmergencyGuide = {
         slug: "after-you-apply",
         title: "หลังยื่นคำร้อง",
         blocks: [
-          { kind: "heading", text: "เงินช่วยเหลือจากรัฐบาล" },
           {
-            kind: "list",
-            items: [
-              "ติดตามสถานะได้ในแอปทางรัฐ",
-              "หากผ่านการตรวจสอบ ธนาคารออมสินจะโอนเงินเข้าพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน",
-              "ยังไม่มีการประกาศวันจ่ายเงิน",
-            ],
-          },
-          { kind: "heading", text: "เงินช่วยเหลือของ กทม." },
-          {
-            kind: "list",
-            items: [
-              "หากต้องการข้อมูลเพิ่ม เจ้าหน้าที่เขตจะติดต่อทาง SMS และอาจลงพื้นที่ตรวจสอบความเสียหาย",
-              "กทม. โอนเงินเข้าพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน หรือเข้าบัญชีธนาคาร ซึ่งอาจมีค่าธรรมเนียมหากไม่ใช่ธนาคารกรุงไทย",
-              "กทม. ระบุว่าใช้เวลาดำเนินการจ่ายไม่ต่ำกว่า 60 วัน และยังกำหนดวันจ่ายที่แน่นอนไม่ได้ เพราะมีผู้ได้รับผลกระทบราว 270,000 ถึง 300,000 ครัวเรือน",
+            kind: "card",
+            title: "เงินช่วยเหลือจากรัฐบาล",
+            rows: [
+              ["ติดตามสถานะ", "ในแอปทางรัฐ"],
+              ["ผู้โอนเงิน", "ธนาคารออมสิน"],
+              ["รับเงินทาง", "พร้อมเพย์ที่ผูกกับเลขบัตรประชาชน"],
+              ["เมื่อไร", "ยังไม่ประกาศวันจ่าย"],
             ],
           },
           {
-            kind: "inset",
-            text: "เงินที่ได้รับจริงอาจต่ำกว่าอัตราสูงสุด เพราะ กทม. จ่ายตามความเสียหายที่ตรวจพบ",
-          },
-        ],
-      },
-      {
-        slug: "if-you-rent",
-        title: "กรณีเช่าที่พัก",
-        blocks: [
-          {
-            kind: "list",
-            items: [
-              "ผู้เช่าขอรับเงิน 9,000 บาทของรัฐบาลได้ โดยผู้เช่าเป็นผู้รับเงิน ไม่ใช่เจ้าของบ้าน",
-              "ผู้เช่าขอค่าซ่อมแซมบ้านจาก กทม. ไม่ได้ การซ่อมแซมตัวอาคารโดยปกติเป็นหน้าที่ของผู้ให้เช่า",
-              "ผู้เช่าขอรับความช่วยเหลืออื่นของ กทม. ได้ เช่น ค่าที่พักชั่วคราว ค่าดำรงชีพเบื้องต้น และค่าเครื่องมือประกอบอาชีพ แม้ไม่มีชื่อในทะเบียนบ้าน",
-              "เก็บสัญญาเช่าและใบเสร็จค่าเช่าไว้ เพราะต้องใช้เป็นหลักฐานว่าอาศัยอยู่ที่นั่น",
-            ],
-          },
-          {
-            kind: "inset",
-            text: "ถ่ายภาพเฟอร์นิเจอร์และอุปกรณ์ของผู้ให้เช่า และขอความยินยอมเป็นลายลักษณ์อักษรก่อนทิ้ง",
-          },
-        ],
-      },
-      {
-        slug: "if-you-are-not-thai",
-        title: "สำหรับผู้ที่ไม่มีสัญชาติไทย",
-        blocks: [
-          {
-            kind: "paragraph",
-            text: "ทั้งสองโครงการไม่ได้ระบุว่าผู้ที่ไม่มีสัญชาติไทยยื่นได้หรือไม่ ทั้งคู่ตรวจสอบผู้ยื่นกับฐานข้อมูลทะเบียนราษฎร จ่ายเงินผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน และระบบออนไลน์ต้องใช้ ThaiD หรือทางรัฐ",
-          },
-          {
-            kind: "steps",
-            items: [
-              "นำหนังสือเดินทาง สัญญาเช่าหรือหลักฐานที่อยู่อื่น และภาพถ่ายความเสียหายไปที่สำนักงานเขต",
-              "สอบถามว่ามีสิทธิขอรับอะไรได้บ้าง",
-            ],
-          },
-          {
-            kind: "list",
-            items: [
-              "หากมีประกันจากสถานทูต ทุนการศึกษา หรือที่ทำเอง ให้ติดต่อบริษัทประกันก่อนทำความสะอาด",
-              "ขอให้เพื่อนคนไทยหรือ BIRSA ช่วยกรอกแบบฟอร์มภาษาไทย",
+            kind: "card",
+            title: "เงินช่วยเหลือของ กทม.",
+            rows: [
+              [
+                "ขั้นตอนถัดไป",
+                "หากต้องการข้อมูลเพิ่ม เจ้าหน้าที่เขตจะติดต่อทาง SMS และอาจลงพื้นที่ตรวจสอบความเสียหาย",
+              ],
+              [
+                "รับเงินทาง",
+                "พร้อมเพย์ที่ผูกกับเลขบัตรประชาชน หรือบัญชีธนาคาร ซึ่งอาจมีค่าธรรมเนียมหากไม่ใช่ธนาคารกรุงไทย",
+              ],
+              [
+                "เมื่อไร",
+                "ไม่ต่ำกว่า 60 วัน ยังกำหนดวันที่แน่นอนไม่ได้ เพราะมีผู้ได้รับผลกระทบราว 270,000 ถึง 300,000 ครัวเรือน",
+              ],
             ],
           },
         ],
       },
       {
-        slug: "get-help",
-        title: "ขอความช่วยเหลือเรื่องการยื่นคำร้อง",
+        slug: "common-questions",
+        title: "คำถามที่พบบ่อย",
         blocks: [
+          {
+            kind: "details",
+            summary: "ต้องไปแจ้งความหรือลงบันทึกประจำวันหรือไม่",
+            blocks: [{ kind: "paragraph", text: "ไม่ต้อง ทั้งสองโครงการไม่ต้องใช้" }],
+          },
+          {
+            kind: "details",
+            summary: "รถจมน้ำได้ชดเชยไหม",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "ไม่ได้ หากทำประกันรถยนต์ไว้ ให้ติดต่อตัวแทนประกันภัย",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "เช่าห้องหรืออยู่คอนโด ไม่มีชื่อในทะเบียนบ้าน มีสิทธิไหม",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "มีสิทธิ ขอรับเงิน 9,000 บาทได้ โดยผู้เช่าเป็นผู้รับเงิน และขอรับความช่วยเหลือของ กทม. ประเภทอื่นนอกจากค่าซ่อมแซมได้ เก็บสัญญาเช่าและใบเสร็จค่าเช่าไว้เป็นหลักฐานว่าอาศัยอยู่ที่นั่น",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "ใครรับผิดชอบค่าซ่อมแซมบ้านเช่า",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "โดยปกติเป็นหน้าที่ของผู้ให้เช่า ถ่ายภาพเฟอร์นิเจอร์และอุปกรณ์ของผู้ให้เช่า และขอความยินยอมเป็นลายลักษณ์อักษรก่อนทิ้ง",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "ไม่มีสัญชาติไทย ยื่นได้ไหม",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "ทั้งสองโครงการไม่ได้ระบุไว้ ทั้งคู่ตรวจสอบผู้ยื่นกับฐานข้อมูลทะเบียนราษฎร จ่ายเงินผ่านพร้อมเพย์ที่ผูกกับเลขบัตรประชาชน และระบบออนไลน์ต้องใช้ ThaiD หรือทางรัฐ",
+              },
+              {
+                kind: "paragraph",
+                text: "นำหนังสือเดินทาง หลักฐานที่อยู่ และภาพถ่ายความเสียหายไปสอบถามที่สำนักงานเขต หากมีประกันจากสถานทูต ทุนการศึกษา หรือที่ทำเอง ให้ติดต่อบริษัทประกัน",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "เอกสารไม่ครบ ต้องทำอย่างไร",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "หากเอกสารไม่ครบ ไม่มีโฉนด ชื่อหลังโฉนดไม่ตรงกับผู้ยื่น หรือที่อยู่อาศัยไม่มีเลขที่บ้าน ให้ติดต่อสำนักงานเขต เจ้าหน้าที่จะสอบบันทึกถ้อยคำ (ปค.14) แทน",
+              },
+            ],
+          },
+          {
+            kind: "details",
+            summary: "จะได้รับเงินเต็มจำนวนไหม",
+            blocks: [
+              {
+                kind: "paragraph",
+                text: "ไม่แน่เสมอไป กทม. ไม่ได้จ่ายแบบเหมาจ่าย แต่พิจารณาตามประเภทและความเสียหายจริง คุณสมบัติ และเอกสารหลักฐาน และเจ้าหน้าที่อาจตรวจสอบข้อเท็จจริง",
+              },
+            ],
+          },
+          { kind: "heading", text: "ขอความช่วยเหลือ" },
           {
             kind: "list",
             items: [
-              "โทรสายด่วน กทม. 1555 ตลอด 24 ชั่วโมง สอบถามเรื่องเงินช่วยเหลือของ กทม. หรือสำนักงานเขตที่ต้องไป",
-              "โทร ปภ. 1784 หรือ LINE @1784DDPM สอบถามเรื่องเงินช่วยเหลือจากรัฐบาล",
-              "สอบถามสำนักงานเขต ในวันจันทร์ถึงศุกร์ เวลาราชการ",
-              "นักศึกษา BIR ขอให้ BIRSA ช่วยอธิบายแบบฟอร์มได้",
+              "สายด่วน กทม. 1555 ตลอด 24 ชั่วโมง เรื่องเงินช่วยเหลือของ กทม. หรือสำนักงานเขตที่ต้องไป",
+              "ปภ. โทร 1784 หรือ LINE @1784DDPM เรื่องเงินช่วยเหลือจากรัฐบาล",
+              "สำนักงานเขต วันจันทร์ถึงศุกร์ เวลาราชการ",
+              "BIRSA หากเป็นนักศึกษา BIR และต้องการให้ช่วยอธิบายแบบฟอร์ม",
             ],
           },
           {

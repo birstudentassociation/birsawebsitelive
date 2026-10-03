@@ -100,8 +100,8 @@ export type EmergencySection = {
   /** Documents or pages, shown last. A site path (`/emergency/...`) or an https URL. */
   links?: { label: string; href: string }[];
   /**
-   * Pages on this site to go to next, shown after the body. The first is a
-   * GOV.UK start button, the rest are links. Paths have no locale prefix.
+   * Where to go next, shown after the body. The first is a GOV.UK start
+   * button, the rest are links. A site path with no locale prefix, or an https URL.
    */
   actions?: { label: string; href: string; description?: string }[];
   /**
@@ -204,6 +204,8 @@ export type GuideBlock =
   | { kind: "warning"; text: string }
   /** The first row of `rows` is the header. Every row has the same length. */
   | { kind: "table"; caption: string; rows: string[][] }
+  /** A GOV.UK summary card: a titled list of facts, each a label and a value. */
+  | { kind: "card"; title: string; rows: [string, string][] }
   /** A collapsed disclosure for detail only some readers need. */
   | { kind: "details"; summary: string; blocks: GuideBlock[] }
   /** A GOV.UK start button. A site path (`/emergency/...`) or an https URL. */

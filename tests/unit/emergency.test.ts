@@ -114,7 +114,7 @@ describe("emergency guides", () => {
       }
       for (const section of content.sections) {
         for (const action of section.actions ?? []) {
-          expect(action.href).toMatch(/^\/emergency\/[a-z0-9/-]+$/);
+          expect(action.href).toMatch(/^(https:\/\/|\/emergency\/[a-z0-9/-]+$)/);
         }
         const stepIds = (section.stepByStep ?? []).map((step) => step.id);
         expect(new Set(stepIds).size).toBe(stepIds.length);

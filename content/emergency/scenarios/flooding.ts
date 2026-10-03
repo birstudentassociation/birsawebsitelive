@@ -303,15 +303,15 @@ const flooding: EmergencyScenario = {
         ],
         actions: [
           {
-            label: "Check what you can claim",
-            href: "/emergency/flooding/claims/check",
-            description: "Up to 6 questions. It takes about 2 minutes.",
-          },
-          {
-            label: "Read the guide to claiming",
+            label: "See what you can claim",
             href: "/emergency/flooding/claims",
             description:
-              "Who can get what, the documents you need and how to apply, one thing at a time.",
+              "Both schemes side by side, the amounts and the documents you need, from the BMA's infographics and the news.",
+          },
+          {
+            label: "Claim BMA compensation at claim.bangkok.go.th",
+            href: "https://claim.bangkok.go.th/",
+            description: "The BMA's own site checks whether you qualify before you claim.",
           },
         ],
       },
@@ -407,9 +407,9 @@ const flooding: EmergencyScenario = {
             blurb: "There are 2 separate schemes. Apply to both if you qualify.",
             tasks: [
               {
-                id: "check",
-                label: "Check what you can claim",
-                href: "/emergency/flooding/claims/check",
+                id: "read",
+                label: "Find out what you can claim and the documents you need",
+                href: "/emergency/flooding/claims",
               },
               {
                 id: "government",
@@ -418,8 +418,8 @@ const flooding: EmergencyScenario = {
               },
               {
                 id: "bma",
-                label: "Claim BMA compensation within 30 days",
-                href: "/emergency/flooding/claims/claim-online",
+                label: "Claim BMA compensation online within 30 days",
+                href: "https://claim.bangkok.go.th/",
               },
             ],
           },
@@ -642,14 +642,15 @@ const flooding: EmergencyScenario = {
         ],
         actions: [
           {
-            label: "ตรวจสอบว่าขอรับอะไรได้บ้าง",
-            href: "/emergency/flooding/claims/check",
-            description: "คำถามไม่เกิน 6 ข้อ ใช้เวลาราว 2 นาที",
+            label: "ดูว่าขอรับอะไรได้บ้าง",
+            href: "/emergency/flooding/claims",
+            description:
+              "เทียบเงินช่วยเหลือทั้งสองแหล่ง อัตรา และเอกสารที่ต้องใช้ จากอินโฟกราฟิกของ กทม. และข่าว",
           },
           {
-            label: "อ่านคู่มือการขอรับเงินช่วยเหลือ",
-            href: "/emergency/flooding/claims",
-            description: "ใครได้อะไร ต้องใช้เอกสารอะไร และยื่นอย่างไร ทีละเรื่อง",
+            label: "ยื่นขอเงินช่วยเหลือของ กทม. ที่ claim.bangkok.go.th",
+            href: "https://claim.bangkok.go.th/",
+            description: "เว็บไซต์ของ กทม. ตรวจสอบสิทธิให้ก่อนยื่นคำร้อง",
           },
         ],
       },
@@ -744,9 +745,9 @@ const flooding: EmergencyScenario = {
             blurb: "เงินช่วยเหลือมี 2 แหล่งที่แยกจากกัน หากเข้าเกณฑ์ให้ยื่นทั้งสองทาง",
             tasks: [
               {
-                id: "check",
-                label: "ตรวจสอบว่าขอรับอะไรได้บ้าง",
-                href: "/emergency/flooding/claims/check",
+                id: "read",
+                label: "ดูว่าขอรับอะไรได้บ้างและต้องใช้เอกสารอะไร",
+                href: "/emergency/flooding/claims",
               },
               {
                 id: "government",
@@ -755,8 +756,8 @@ const flooding: EmergencyScenario = {
               },
               {
                 id: "bma",
-                label: "ยื่นขอเงินช่วยเหลือของ กทม. ภายใน 30 วัน",
-                href: "/emergency/flooding/claims/claim-online",
+                label: "ยื่นขอเงินช่วยเหลือของ กทม. ทางออนไลน์ภายใน 30 วัน",
+                href: "https://claim.bangkok.go.th/",
               },
             ],
           },

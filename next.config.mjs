@@ -67,6 +67,24 @@ const nextConfig = {
         destination: "/:lang/student-life/course-reviews/:code",
         permanent: true,
       },
+      // Flood claims guide parts merged on 3 October 2026, and the claims checker
+      // removed because the BMA's own site checks eligibility. Temporary, as the
+      // guide only lives while the flood alert is up.
+      {
+        source: "/:lang/emergency/flooding/claims/check",
+        destination: "/:lang/emergency/flooding/claims",
+        permanent: false,
+      },
+      ...["claim-online", "district-office"].map((part) => ({
+        source: `/:lang/emergency/flooding/claims/${part}`,
+        destination: "/:lang/emergency/flooding/claims/claim-from-the-bma",
+        permanent: false,
+      })),
+      ...["if-you-rent", "if-you-are-not-thai", "get-help"].map((part) => ({
+        source: `/:lang/emergency/flooding/claims/${part}`,
+        destination: "/:lang/emergency/flooding/claims/common-questions",
+        permanent: false,
+      })),
       // Guides moved from audience folders to topics; see lib/student-life-redirects.mjs.
       ...studentLifeRedirects(),
       // The "Get an answer" section was retired; see lib/answers-redirects.mjs.

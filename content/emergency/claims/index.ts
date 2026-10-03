@@ -1,7 +1,6 @@
 /**
  * Claims guides linked from emergency guides, keyed by scenario id. Each one is
- * served at `/emergency/<scenario>/claims`, one part per page, with a checker
- * at `/emergency/<scenario>/claims/check` when `checkers` has an entry.
+ * served at `/emergency/<scenario>/claims`, one part per page.
  */
 import type { Locale } from "@/lib/i18n";
 import type { ScenarioId } from "@/content/emergency/scenarios";
