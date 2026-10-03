@@ -247,7 +247,7 @@ describe("buildEarthquakeReading", () => {
     expect(reading.items).toHaveLength(2);
     const first = required(reading.items?.[0]);
     expect(first.title.en).toMatch(/^Magnitude 6\.7, Mandalay, Myanmar, \d+ km away$/);
-    expect(first.title.th).toMatch(/^ขนาด 6\.7 มัณฑะเลย์ เมียนมา /);
+    expect(first.title.th).toMatch(/^แผ่นดินไหวขนาด 6\.7 มัณฑะเลย์ เมียนมา /);
     for (const text of [first.title.en, first.title.th]) expect(text).not.toMatch(/[:\-–—]/);
   });
 

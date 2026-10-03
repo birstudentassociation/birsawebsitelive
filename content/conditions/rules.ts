@@ -72,7 +72,7 @@ export const cardTitles: Record<CardId, Text> = {
 export const levelLabels: Record<Level, Text> = {
   normal: { en: "Normal", th: "ปกติ" },
   takeCare: { en: "Take care", th: "ควรระวัง" },
-  disruption: { en: "Disruption likely", th: "อาจกระทบการเดินทาง" },
+  disruption: { en: "Disruption likely", th: "มีแนวโน้มได้รับผลกระทบ" },
   unknown: { en: "Cannot check right now", th: "ตรวจสอบไม่ได้ในขณะนี้" },
 };
 
@@ -203,7 +203,7 @@ export const verdictCopy: Record<CardId, Record<Level, VerdictCopy>> = {
     normal: {
       headline: {
         en: "Air and heat are at levels most people can manage outdoors.",
-        th: "คุณภาพอากาศและอุณหภูมิอยู่ในระดับที่คนส่วนใหญ่อยู่กลางแจ้งได้",
+        th: "คุณภาพอากาศและอุณหภูมิอยู่ในระดับที่คนส่วนใหญ่ทำกิจกรรมกลางแจ้งได้ตามปกติ",
       },
       action: {
         en: "Drink water and take shade in the middle of the day as usual.",
@@ -243,7 +243,7 @@ export const verdictCopy: Record<CardId, Record<Level, VerdictCopy>> = {
 export const ruleWhy: Record<RuleId, Text> = {
   R1: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} m or higher, so water is rising towards the piers.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพตั้งแต่ ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. ขึ้นไป น้ำกำลังสูงขึ้นใกล้ท่าเรือ`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. ขึ้นไป น้ำบริเวณท่าเรือจึงสูงกว่าปกติ`,
   },
   R2: {
     en: `The Chao Phraya Dam is releasing ${whole(DAM_RELEASE_TAKE_CARE_M3S)} cubic metres a second or more, so the river runs higher downstream.`,
@@ -251,19 +251,19 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   R3: {
     en: `It is within ${HIGH_TIDE_WINDOW_HOURS} hours of a predicted high tide above ${metres(HIGH_TIDE_MIN_M)} m, when the river at the piers is at its highest.`,
-    th: `ขณะนี้อยู่ในช่วง ${HIGH_TIDE_WINDOW_HOURS} ชั่วโมงก่อนหรือหลังน้ำขึ้นสูงที่คาดว่าเกิน ${metres(HIGH_TIDE_MIN_M)} ม. ซึ่งเป็นช่วงที่น้ำหน้าท่าเรือสูงที่สุด`,
+    th: `ขณะนี้อยู่ในช่วง ${HIGH_TIDE_WINDOW_HOURS} ชั่วโมงก่อนหรือหลังเวลาน้ำขึ้นสูงสุด ซึ่งคาดว่าจะสูงเกิน ${metres(HIGH_TIDE_MIN_M)} ม. น้ำหน้าท่าเรือจะสูงที่สุดในช่วงนี้`,
   },
   R4: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m or higher. The bank is ${metres(RIVER_KRUNG_THEP_BANK_M)} m.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพตั้งแต่ ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ขณะที่ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ขณะที่ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
   },
   R5: {
     en: `The river at Pak Khlong Talat is at ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} m or higher, the Bangkok Metropolitan Administration warning level.`,
-    th: `ระดับน้ำที่ปากคลองตลาดตั้งแต่ ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ขึ้นไป ซึ่งเป็นระดับเฝ้าระวังของ กทม.`,
+    th: `ระดับน้ำที่ปากคลองตลาดสูงถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ขึ้นไป ซึ่งเป็นระดับเฝ้าระวังของ กทม.`,
   },
   R6: {
     en: `The dam releases ${whole(DAM_RELEASE_DISRUPTION_M3S)} cubic metres a second or more and a high tide above ${metres(HIGH_TIDE_MIN_M)} m is due within ${TIDE_LOOKAHEAD_HOURS} hours. Together they can push the river over the piers.`,
-    th: `เขื่อนระบายน้ำตั้งแต่ ${whole(DAM_RELEASE_DISRUPTION_M3S)} ลูกบาศก์เมตรต่อวินาทีขึ้นไป และจะมีน้ำขึ้นสูงเกิน ${metres(HIGH_TIDE_MIN_M)} ม. ภายใน ${TIDE_LOOKAHEAD_HOURS} ชั่วโมง สองอย่างนี้รวมกันอาจดันน้ำท่วมท่าเรือ`,
+    th: `เขื่อนระบายน้ำตั้งแต่ ${whole(DAM_RELEASE_DISRUPTION_M3S)} ลูกบาศก์เมตรต่อวินาทีขึ้นไป และจะมีน้ำขึ้นสูงเกิน ${metres(HIGH_TIDE_MIN_M)} ม. ภายใน ${TIDE_LOOKAHEAD_HOURS} ชั่วโมง ทั้งสองอย่างนี้อาจทำให้น้ำท่วมท่าเรือ`,
   },
   C1: {
     en: `Rain of ${HEAVY_RAIN_MMH} mm or more in an hour is forecast within the next ${RAIN_LOOKAHEAD_HOURS} hours.`,
@@ -271,11 +271,11 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   C2: {
     en: `A Bangkok Metropolitan Administration road sensor near campus shows ${ROAD_FLOOD_TAKE_CARE_CM} cm or more of standing water.`,
-    th: `เซ็นเซอร์น้ำท่วมถนนของ กทม. ใกล้มหาวิทยาลัยวัดน้ำขังได้ ${ROAD_FLOOD_TAKE_CARE_CM} ซม. ขึ้นไป`,
+    th: `เซนเซอร์น้ำท่วมถนนของ กทม. ใกล้มหาวิทยาลัยวัดน้ำขังได้ ${ROAD_FLOOD_TAKE_CARE_CM} ซม. ขึ้นไป`,
   },
   C3: {
     en: "The Thai Meteorological Department has issued a warning that names Bangkok in the past 36 hours.",
-    th: "กรมอุตุนิยมวิทยาประกาศเตือนที่กล่าวถึงกรุงเทพฯ ภายใน 36 ชั่วโมงที่ผ่านมา",
+    th: "กรมอุตุนิยมวิทยาออกประกาศเตือนที่ระบุถึงกรุงเทพฯ ภายใน 36 ชั่วโมงที่ผ่านมา",
   },
   C4: {
     en: "The Thai Meteorological Department has a current alert that covers Bangkok.",
@@ -283,15 +283,15 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   C5: {
     en: "Heavy rain is forecast close to a high tide while the river is high. The drains cannot empty into the river, so water backs up on campus.",
-    th: "คาดว่าฝนจะตกหนักใกล้ช่วงน้ำขึ้นสูงขณะที่แม่น้ำสูงอยู่ ท่อระบายน้ำระบายลงแม่น้ำไม่ได้ น้ำจึงเอ่อล้นขึ้นมาในมหาวิทยาลัย",
+    th: "คาดว่าฝนจะตกหนักในช่วงน้ำขึ้นสูงขณะที่แม่น้ำยังสูงอยู่ น้ำในท่อระบายน้ำจึงระบายลงแม่น้ำไม่ทันและอาจเอ่อล้นขึ้นมาในมหาวิทยาลัย",
   },
   C6: {
     en: "The Hydro Informatics Institute shows the campus inside an urban flood warning area.",
-    th: "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน) แสดงว่ามหาวิทยาลัยอยู่ในพื้นที่เตือนภัยน้ำท่วมในเมือง",
+    th: "สถาบันสารสนเทศทรัพยากรน้ำ (องค์การมหาชน) ระบุว่ามหาวิทยาลัยอยู่ในพื้นที่เตือนภัยน้ำท่วมในเมือง",
   },
   C7: {
     en: `A Bangkok Metropolitan Administration road sensor near campus shows ${ROAD_FLOOD_DISRUPTION_CM} cm or more of standing water.`,
-    th: `เซ็นเซอร์น้ำท่วมถนนของ กทม. ใกล้มหาวิทยาลัยวัดน้ำขังได้ ${ROAD_FLOOD_DISRUPTION_CM} ซม. ขึ้นไป`,
+    th: `เซนเซอร์น้ำท่วมถนนของ กทม. ใกล้มหาวิทยาลัยวัดน้ำขังได้ ${ROAD_FLOOD_DISRUPTION_CM} ซม. ขึ้นไป`,
   },
   T1: {
     en: "Traffic reports show a flood, diversion or road closure within 3 km of campus.",
@@ -311,11 +311,11 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   T5: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m or higher, so boats may stop.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพตั้งแต่ ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป เรืออาจหยุดวิ่ง`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป เรืออาจหยุดวิ่ง`,
   },
   T6: {
     en: "An earthquake that Bangkok would feel happened in the past 6 hours. The MRT and BTS stop to check their tracks.",
-    th: "เกิดแผ่นดินไหวที่กรุงเทพฯ รู้สึกได้ภายใน 6 ชั่วโมงที่ผ่านมา MRT และ BTS จะหยุดวิ่งเพื่อตรวจสอบราง",
+    th: "ภายใน 6 ชั่วโมงที่ผ่านมามีแผ่นดินไหวที่รับรู้แรงสั่นได้ในกรุงเทพฯ รถไฟฟ้า MRT และ BTS จะหยุดให้บริการชั่วคราวเพื่อตรวจสอบความปลอดภัย",
   },
   H1: {
     en: `The 24 hour average of PM2.5 dust is above ${PM25_WHO_GUIDELINE_UGM3} micrograms per cubic metre, the World Health Organization guideline.`,
@@ -327,11 +327,11 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   H3: {
     en: `The UV index today is forecast at ${UV_INDEX_TAKE_CARE} or more, which is very high.`,
-    th: `คาดว่าดัชนีรังสียูวีวันนี้จะอยู่ที่ ${UV_INDEX_TAKE_CARE} ขึ้นไป ซึ่งสูงมาก`,
+    th: `คาดว่าดัชนีรังสียูวีวันนี้จะอยู่ที่ ${UV_INDEX_TAKE_CARE} ขึ้นไป ซึ่งอยู่ในระดับสูงมาก`,
   },
   H4: {
     en: `The 24 hour average of PM2.5 dust is above ${PM25_WHO_INTERIM_TARGET_3_UGM3} micrograms per cubic metre, the World Health Organization interim target 3.`,
-    th: `ค่าเฉลี่ย 24 ชั่วโมงของฝุ่น PM2.5 สูงกว่า ${PM25_WHO_INTERIM_TARGET_3_UGM3} ไมโครกรัมต่อลูกบาศก์เมตร ซึ่งเกินเป้าหมายระหว่างทางที่ 3 ขององค์การอนามัยโลก`,
+    th: `ค่าเฉลี่ย 24 ชั่วโมงของฝุ่น PM2.5 สูงกว่า ${PM25_WHO_INTERIM_TARGET_3_UGM3} ไมโครกรัมต่อลูกบาศก์เมตร ซึ่งเกินค่าเป้าหมายระยะกลางที่ 3 ขององค์การอนามัยโลก`,
   },
   H5: {
     en: `The heat index is forecast to reach ${HEAT_INDEX_DISRUPTION_C} °C or more, a level where heat stroke is likely.`,

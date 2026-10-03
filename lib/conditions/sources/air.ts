@@ -42,7 +42,7 @@ const AIRBKK_SOURCE = {
 };
 
 const AIR4THAI_SOURCE = {
-  name: { en: "Pollution Control Department Air4Thai", th: "กรมควบคุมมลพิษ Air4Thai" },
+  name: { en: "Pollution Control Department Air4Thai", th: "กรมควบคุมมลพิษ (Air4Thai)" },
   url: "https://air4thai.pcd.go.th/",
 };
 

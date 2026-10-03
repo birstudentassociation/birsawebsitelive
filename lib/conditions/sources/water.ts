@@ -581,7 +581,10 @@ const TIDE_BASE: ReadingBase = {
   id: "tide",
   unit: "m",
   staleAfterMinutes: 1440,
-  station: text("Chao Phraya river mouth tide (N01)", "น้ำขึ้นน้ำลง ปากแม่น้ำเจ้าพระยา (N01)"),
+  station: text(
+    "Navy Headquarters tide station (N01)",
+    "สถานีน้ำขึ้นน้ำลงกองบัญชาการกองทัพเรือ (N01)"
+  ),
   source: TIDE_SOURCE,
   modelled: true,
 };
@@ -636,20 +639,26 @@ function riverLevelReading(
 function bankDetail(graph: WaterlevelGraph): Text | undefined {
   if (graph.bankLevel === null) return undefined;
   const level = twoDecimals(graph.bankLevel);
-  return text(`Bank ${level} m`, `ตลิ่ง ${level} ม.`);
+  return text(`Bank ${level} m`, `ตลิ่งสูง ${level} ม.`);
 }
 
 function pakKhlongTalatDetail(graph: WaterlevelGraph): Text | undefined {
   if (graph.warningLevel === null || graph.criticalLevel === null) return undefined;
   const warning = twoDecimals(graph.warningLevel);
   const wall = twoDecimals(graph.criticalLevel);
-  return text(`Warning ${warning} m, wall ${wall} m`, `เตือนภัย ${warning} ม. กำแพง ${wall} ม.`);
+  return text(
+    `Warning ${warning} m, wall ${wall} m`,
+    `ระดับเตือนภัย ${warning} ม. กำแพงกั้นน้ำ ${wall} ม.`
+  );
 }
 
 function bmaThresholdDetail(level: BmaStationLevel): Text {
   const warning = twoDecimals(level.warning ?? BMA_PAK_KHLONG_TALAT_WARNING);
   const wall = twoDecimals(level.critical ?? BMA_PAK_KHLONG_TALAT_WALL);
-  return text(`Warning ${warning} m, wall ${wall} m`, `เตือนภัย ${warning} ม. กำแพง ${wall} ม.`);
+  return text(
+    `Warning ${warning} m, wall ${wall} m`,
+    `ระดับเตือนภัย ${warning} ม. กำแพงกั้นน้ำ ${wall} ม.`
+  );
 }
 
 export function pakKhlongTalatReading(
@@ -719,7 +728,7 @@ function nonthaburiDetail(thresholds: HiiThresholds | null): Text | undefined {
   const warning = twoDecimals(thresholds.warning);
   return text(
     `Warning ${warning} m, critical ${critical} m`,
-    `เตือนภัย ${warning} ม. วิกฤต ${critical} ม.`
+    `ระดับเตือนภัย ${warning} ม. ระดับวิกฤต ${critical} ม.`
   );
 }
 

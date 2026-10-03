@@ -179,7 +179,7 @@ export function buildRoadReadings(events: LongdoEvent[] | null, now: Date): Read
       staleAfterMinutes: 30,
       station: {
         en: "Within 3 km of Tha Prachan campus",
-        th: "ในรัศมี 3 กม. จากวิทยาเขตท่าพระจันทร์",
+        th: "ในรัศมี 3 กม. จากธรรมศาสตร์ ท่าพระจันทร์",
       },
       source: LONGDO_SOURCE,
       items: incidents ? incidentItems(incidents) : undefined,
@@ -192,7 +192,7 @@ export function buildRoadReadings(events: LongdoEvent[] | null, now: Date): Read
       staleAfterMinutes: 30,
       station: {
         en: "Within 1 km of Tha Prachan campus",
-        th: "ในรัศมี 1 กม. จากวิทยาเขตท่าพระจันทร์",
+        th: "ในรัศมี 1 กม. จากธรรมศาสตร์ ท่าพระจันทร์",
       },
       source: LONGDO_SOURCE,
       items: closures ? incidentItems(closures) : undefined,
@@ -319,7 +319,7 @@ function quakeItem(quake: Quake): ReadingItem {
   return {
     title: {
       en: `Magnitude ${magnitude}, ${quake.place.en}, ${km} km away`,
-      th: `ขนาด ${magnitude} ${quake.place.th} ห่างจากท่าพระจันทร์ ${km} กม.`,
+      th: `แผ่นดินไหวขนาด ${magnitude} ${quake.place.th} ห่างจากท่าพระจันทร์ ${km} กม.`,
     },
     at: toBangkokIso(quake.timeMs),
     distanceKm: km,
@@ -393,7 +393,7 @@ export function buildStormReading(storms: Storm[] | null, now: Date): Reading {
     staleAfterMinutes: 360,
     station: {
       en: "Active tropical cyclones worldwide",
-      th: "พายุหมุนเขตร้อนที่ยังเคลื่อนตัวอยู่ทั่วโลก",
+      th: "พายุหมุนเขตร้อนที่ยังมีกำลังอยู่ทั่วโลก",
     },
     source: { name: { en: "GDACS", th: "GDACS" }, url: "https://www.gdacs.org/" },
     detail,
