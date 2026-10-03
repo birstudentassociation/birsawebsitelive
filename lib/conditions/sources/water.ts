@@ -163,6 +163,67 @@ function thousands(value: number): string {
   return value.toLocaleString("en-GB");
 }
 
+export type BmaStationLevel = {
+  value: number;
+  at: string;
+  warning: number | null;
+  critical: number | null;
+};
+
+export function extractEmbeddedArray(html: string, marker: string): unknown[] | null {
+  const markerIndex = html.indexOf(marker);
+  if (markerIndex === -1) return null;
+  const start = html.indexOf("[", markerIndex + marker.length);
+  if (start === -1) return null;
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = start; i < html.length; i++) {
+    const c = html[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (c === "\\") escaped = true;
+      else if (c === '"') inString = false;
+      continue;
+    }
+    if (c === '"') inString = true;
+    else if (c === "[") depth++;
+    else if (c === "]" && --depth === 0) {
+      try {
+        const parsed: unknown = JSON.parse(html.slice(start, i + 1));
+        return Array.isArray(parsed) ? parsed : null;
+      } catch {
+        return null;
+      }
+    }
+  }
+  return null;
+}
+
+function bmaTimestampToIso(value: unknown): string | null {
+  const raw = asString(value);
+  if (!raw) return null;
+  const dotNet = /^\/Date\((\d+)\)\/$/.exec(raw);
+  if (dotNet) return toBangkokIso(Number(dotNet[1]));
+  return localToIso(raw);
+}
+
+export function parseBmaStation(html: string, waterId: number): BmaStationLevel | null {
+  const stations = extractEmbeddedArray(html, BMA_SUMMARY_MARKER);
+  if (!stations) return null;
+  const station = stations.find((row) => isRecord(row) && asNumber(row.water_id) === waterId);
+  if (!isRecord(station)) return null;
+  const value = asNumber(station.wl_in);
+  const at = bmaTimestampToIso(station.site_timestamp);
+  if (value === null || at === null) return null;
+  return {
+    value,
+    at,
+    warning: asNumber(station.warning),
+    critical: asNumber(station.critical),
+  };
+}
+
 export function parseWaterlevelGraph(payload: unknown): WaterlevelGraph | null {
   if (!isRecord(payload) || !isRecord(payload.data)) return null;
   const graph = payload.data.graph_data;
@@ -465,6 +526,20 @@ const SAMSEN_BASE: ReadingBase = {
   source: RID_SOURCE,
 };
 
+const BMA_SUMMARY_URL = "https://weather.bangkok.go.th/water/summary";
+const BMA_SUMMARY_MARKER = "waterSummaryList = ";
+const BMA_PAK_KHLONG_TALAT_ID = 76;
+const BMA_PAK_KHLONG_TALAT_WARNING = 2.8;
+const BMA_PAK_KHLONG_TALAT_WALL = 3.0;
+
+const BMA_DIRECT_SOURCE = {
+  name: {
+    en: "Department of Drainage and Sewerage, Bangkok",
+    th: "สำนักการระบายน้ำ กรุงเทพมหานคร",
+  },
+  url: `https://weather.bangkok.go.th/water/StationDetail?id=${BMA_PAK_KHLONG_TALAT_ID}`,
+};
+
 const PAK_KHLONG_TALAT_BASE: ReadingBase = {
   id: "riverPakKhlongTalat",
   unit: "m",
@@ -569,6 +644,30 @@ function pakKhlongTalatDetail(graph: WaterlevelGraph): Text | undefined {
   const warning = twoDecimals(graph.warningLevel);
   const wall = twoDecimals(graph.criticalLevel);
   return text(`Warning ${warning} m, wall ${wall} m`, `เตือนภัย ${warning} ม. กำแพง ${wall} ม.`);
+}
+
+function bmaThresholdDetail(level: BmaStationLevel): Text {
+  const warning = twoDecimals(level.warning ?? BMA_PAK_KHLONG_TALAT_WARNING);
+  const wall = twoDecimals(level.critical ?? BMA_PAK_KHLONG_TALAT_WALL);
+  return text(`Warning ${warning} m, wall ${wall} m`, `เตือนภัย ${warning} ม. กำแพง ${wall} ม.`);
+}
+
+export function pakKhlongTalatReading(
+  bmaHtml: string | null,
+  graph: WaterlevelGraph | null,
+  now: Date
+): Reading {
+  const direct = bmaHtml === null ? null : parseBmaStation(bmaHtml, BMA_PAK_KHLONG_TALAT_ID);
+  if (direct) {
+    return guard(PAK_KHLONG_TALAT_BASE, () => ({
+      ...PAK_KHLONG_TALAT_BASE,
+      source: BMA_DIRECT_SOURCE,
+      value: direct.value,
+      observedAt: direct.at,
+      detail: bmaThresholdDetail(direct),
+    }));
+  }
+  return riverLevelReading(PAK_KHLONG_TALAT_BASE, graph, now, pakKhlongTalatDetail);
 }
 
 const DAM_THRESHOLD_DETAIL = text(
@@ -700,6 +799,7 @@ export async function fetchWaterReadings(now: Date): Promise<Reading[]> {
     rainPayload,
     roadPayload,
     urbanPayload,
+    bmaSummaryHtml,
   ] = await Promise.all([
     fetchGraph("tele_waterlevel", 4, now),
     fetchGraph("tele_waterlevel", 2599, now),
@@ -712,6 +812,7 @@ export async function fetchWaterReadings(now: Date): Promise<Reading[]> {
     getJson(`${THAIWATER_API}/public/rain_24h_graph?station_id=6855775`),
     getJson(`${THAIWATER_API}/public/flood_road`),
     getJson(URBAN_FLOOD_URL),
+    getText(BMA_SUMMARY_URL, { headers: { accept: "text/html" } }),
   ]);
 
   const thresholds = metadataRaw === null ? null : parseHiiThresholds(metadataRaw, "CPY014");
@@ -719,7 +820,7 @@ export async function fetchWaterReadings(now: Date): Promise<Reading[]> {
   return [
     riverLevelReading(KRUNG_THEP_BASE, krungThepGraph, now, bankDetail),
     riverLevelReading(SAMSEN_BASE, samsenGraph, now, bankDetail),
-    riverLevelReading(PAK_KHLONG_TALAT_BASE, pakKhlongTalatGraph, now, pakKhlongTalatDetail),
+    pakKhlongTalatReading(bmaSummaryHtml, pakKhlongTalatGraph, now),
     damReleaseReading(damGraph, now),
     forecastReading(DAM_FORECAST_BASE, damForecastRows, now, DAM_THRESHOLD_DETAIL),
     forecastReading(NONTHABURI_FORECAST_BASE, nonthaburiRows, now, nonthaburiDetail(thresholds)),

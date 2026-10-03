@@ -5,6 +5,8 @@ import {
   fetchWaterReadings,
   hourlyGraphSeries,
   latestGraphValue,
+  pakKhlongTalatReading,
+  parseBmaStation,
   parseFewsCsv,
   parseFloodRoad,
   parseHiiThresholds,
@@ -270,6 +272,57 @@ describe("pointInGeoJson", () => {
     const geoJson = fixtureJson("water-urban-flood.json");
     expect(pointInGeoJson(geoJson, 100.71, 13.72)).toBe(true);
     expect(pointInGeoJson(geoJson, CAMPUS.lon, CAMPUS.lat)).toBe(false);
+  });
+});
+
+describe("parseBmaStation", () => {
+  const summary = fixtureText("water-bma-summary.html");
+
+  it("reads Pak Khlong Talat from the embedded station list", () => {
+    expect(parseBmaStation(summary, 76)).toEqual({
+      value: 1.59,
+      at: "2026-10-03T09:10:00+07:00",
+      warning: 2.8,
+      critical: 3,
+    });
+  });
+
+  it("reads .NET style timestamps", () => {
+    const html =
+      'waterSummaryList = [{"water_id":76,"wl_in":"1.70","site_timestamp":"/Date(1790994600000)/"}]';
+    expect(parseBmaStation(html, 76)?.at).toBe("2026-10-03T09:30:00+07:00");
+    expect(parseBmaStation(html, 76)?.value).toBe(1.7);
+  });
+
+  it("returns null for a Cloudflare challenge page", () => {
+    expect(parseBmaStation(fixtureText("water-bma-challenge.html"), 76)).toBeNull();
+  });
+
+  it("returns null when the station is missing or has no level", () => {
+    expect(parseBmaStation(summary, 999)).toBeNull();
+    expect(
+      parseBmaStation(
+        'waterSummaryList = [{"water_id":76,"wl_in":null,"site_timestamp":"2026-10-03 09:10:00"}]',
+        76
+      )
+    ).toBeNull();
+  });
+});
+
+describe("pakKhlongTalatReading", () => {
+  const graph = parseWaterlevelGraph(fixtureJson("water-pakkhlongtalat.json"));
+
+  it("prefers BMA's own gauge when its page is served", () => {
+    const reading = pakKhlongTalatReading(fixtureText("water-bma-summary.html"), graph, now);
+    expect(reading.value).toBe(1.59);
+    expect(reading.observedAt).toBe("2026-10-03T09:10:00+07:00");
+    expect(reading.source.url).toBe("https://weather.bangkok.go.th/water/StationDetail?id=76");
+    expect(reading.detail?.en).toBe("Warning 2.80 m, wall 3.00 m");
+  });
+
+  it("falls back to the ThaiWater copy when BMA serves a challenge", () => {
+    const reading = pakKhlongTalatReading(fixtureText("water-bma-challenge.html"), graph, now);
+    expect(reading.source.url).toBe("https://www.thaiwater.net/water/wl");
   });
 });
 
