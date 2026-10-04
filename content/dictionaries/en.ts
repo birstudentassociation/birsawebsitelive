@@ -170,7 +170,7 @@ export const en = {
     attributionHeading: "Data sources",
     attributions: [
       "Forecasts from Open-Meteo.com, licensed under CC BY 4.0.",
-      "Weather warnings and earthquake reports from the Thai Meteorological Department (data.tmd.go.th).",
+      "Weather warnings, weather station readings and earthquake reports from the Thai Meteorological Department (data.tmd.go.th).",
       "River, rain, dam and tide data from HII ThaiWater.",
       "Road flood sensors and PM2.5 readings from the Bangkok Metropolitan Administration (BMA).",
       "Official air quality from the Pollution Control Department (PCD).",

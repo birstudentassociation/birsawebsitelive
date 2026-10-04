@@ -471,6 +471,18 @@ refreshes about every five minutes.
   the level it triggers (`takeCare` or `disruption`), and an English and Thai `why` line. The
   card titles, level words, headlines and actions are in the same file. Change a number or a
   sentence there and the page, the API and the tests follow.
+- **Where the thresholds come from.** River levels are set from the 2021 season, when the river
+  came over the wall by the riverside canteen while Krung Thep Bridge peaked between 1.73 m and
+  2.03 m (Pak Khlong Talat 2.09 m to 2.37 m). The dam release only raises take care, at the
+  2,500 m³/s rate at which the Royal Irrigation Department warns Bangkok. PM2.5 uses the Pollution
+  Control Department's orange (above 37.5) and red (above 75) bands. Heat uses the Thai
+  Meteorological Department's dangerous (42 °C) and very dangerous (52 °C) heat index levels,
+  checked against both the forecast and the measured reading. Model rain is averaged over a wide
+  area and never reached 20 mm an hour in the 2025 rainy season, so the forecast rules use the WMO
+  heavy (7.6 mm) and moderate (2.5 mm) rates, and the rain gauge at Memorial Bridge catches the
+  downpours the model misses. The earthquake check counts magnitude 7.5 or more within 1,500 km,
+  so a quake like Myanmar's in March 2025 (1,036 km away) is caught. The UV index is shown but
+  does not change a verdict, because Bangkok reaches very high UV on most clear days.
 - **Reading names and threshold lines** live in `content/conditions/readings.ts`. Each reading has
   a label and a one line description of what it is checked against, in both languages. The
   same file sets which section of the page the reading appears in.

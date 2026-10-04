@@ -16,11 +16,14 @@ const units: Record<ReadingId, Unit> = {
   riverForecastNonthaburi: "m",
   tide: "m",
   rainGauge24h: "mm",
+  rainGauge3h: "mm",
   roadFlood: "cm",
   urbanFloodWarning: "flag",
   rainForecast: "mmh",
   rainProbability: "percent",
   heatIndex: "celsius",
+  heatIndexObserved: "celsius",
+  thunderstorm: "flag",
   uvIndex: "uv",
   tmdWarning: "flag",
   capAlert: "count",
@@ -73,6 +76,18 @@ const quietRain = rainSeries([
   ["2026-10-02T00:00:00+07:00", 0],
 ]);
 
+const quietGauge = rainSeries([
+  ["2026-10-01T19:00:00+07:00", 0],
+  ["2026-10-01T20:00:00+07:00", 0],
+  ["2026-10-01T21:00:00+07:00", 0],
+]);
+
+function gauge(points: [string, number][]) {
+  const series = rainSeries(points);
+  const total = series.reduce((sum, point) => sum + point.value, 0);
+  return reading("rainGauge3h", total, { staleAfterMinutes: 90, series });
+}
+
 function calmReadings(replacements: Reading[] = []): Reading[] {
   const defaults: Reading[] = [
     reading("riverKrungThep", 1.0),
@@ -80,6 +95,7 @@ function calmReadings(replacements: Reading[] = []): Reading[] {
     reading("damRelease", 1000, { staleAfterMinutes: 240 }),
     reading("tide", 0.5, { staleAfterMinutes: 1440, series: calmTide }),
     reading("rainForecast", 0, { staleAfterMinutes: 180, series: quietRain }),
+    reading("rainGauge3h", 0, { staleAfterMinutes: 90, series: quietGauge }),
     reading("roadFlood", 0),
     reading("urbanFloodWarning", 0),
     reading("tmdWarning", 0),
@@ -89,6 +105,8 @@ function calmReadings(replacements: Reading[] = []): Reading[] {
     reading("earthquake", 0, { staleAfterMinutes: 30 }),
     reading("pm25Nearest", 10, { staleAfterMinutes: 120 }),
     reading("heatIndex", 35, { staleAfterMinutes: 180 }),
+    reading("heatIndexObserved", 36, { staleAfterMinutes: 240 }),
+    reading("thunderstorm", 0, { staleAfterMinutes: 180 }),
     reading("uvIndex", 3, { staleAfterMinutes: 360 }),
     reading("storm", 10000, { staleAfterMinutes: 360 }),
   ];
@@ -143,15 +161,15 @@ describe("single value rules", () => {
       rule: "R1",
       card: "riverside",
       level: "takeCare",
-      replacement: reading("riverKrungThep", 1.5),
-      justBelow: reading("riverKrungThep", 1.49),
+      replacement: reading("riverKrungThep", 1.7),
+      justBelow: reading("riverKrungThep", 1.69),
     },
     {
       rule: "R2",
       card: "riverside",
       level: "takeCare",
-      replacement: reading("damRelease", 1800, { staleAfterMinutes: 240 }),
-      justBelow: reading("damRelease", 1799, { staleAfterMinutes: 240 }),
+      replacement: reading("damRelease", 2500, { staleAfterMinutes: 240 }),
+      justBelow: reading("damRelease", 2499, { staleAfterMinutes: 240 }),
     },
     {
       rule: "R4",
@@ -164,15 +182,15 @@ describe("single value rules", () => {
       rule: "R5",
       card: "riverside",
       level: "disruption",
-      replacement: reading("riverPakKhlongTalat", 2.8),
-      justBelow: reading("riverPakKhlongTalat", 2.79),
+      replacement: reading("riverPakKhlongTalat", 2.2),
+      justBelow: reading("riverPakKhlongTalat", 2.19),
     },
     {
       rule: "C1",
       card: "campus",
       level: "takeCare",
-      replacement: reading("rainForecast", 20, { staleAfterMinutes: 180, series: quietRain }),
-      justBelow: reading("rainForecast", 19, { staleAfterMinutes: 180, series: quietRain }),
+      replacement: reading("rainForecast", 7.6, { staleAfterMinutes: 180, series: quietRain }),
+      justBelow: reading("rainForecast", 7.5, { staleAfterMinutes: 180, series: quietRain }),
     },
     {
       rule: "C2",
@@ -210,6 +228,48 @@ describe("single value rules", () => {
       justBelow: reading("roadFlood", 19),
     },
     {
+      rule: "C8",
+      card: "campus",
+      level: "takeCare",
+      replacement: gauge([
+        ["2026-10-01T20:00:00+07:00", 0],
+        ["2026-10-01T21:00:00+07:00", 20],
+      ]),
+      justBelow: gauge([
+        ["2026-10-01T20:00:00+07:00", 0],
+        ["2026-10-01T21:00:00+07:00", 19.9],
+      ]),
+    },
+    {
+      rule: "C9",
+      card: "campus",
+      level: "disruption",
+      replacement: gauge([
+        ["2026-10-01T19:00:00+07:00", 30],
+        ["2026-10-01T20:00:00+07:00", 18],
+        ["2026-10-01T21:00:00+07:00", 12],
+      ]),
+      justBelow: gauge([
+        ["2026-10-01T19:00:00+07:00", 30],
+        ["2026-10-01T20:00:00+07:00", 18],
+        ["2026-10-01T21:00:00+07:00", 11.9],
+      ]),
+    },
+    {
+      rule: "C10",
+      card: "campus",
+      level: "disruption",
+      replacement: reading("riverKrungThep", 1.9),
+      justBelow: reading("riverKrungThep", 1.89),
+    },
+    {
+      rule: "C11",
+      card: "campus",
+      level: "takeCare",
+      replacement: reading("earthquake", 7.7, { staleAfterMinutes: 30 }),
+      justBelow: reading("earthquake", 0, { staleAfterMinutes: 30 }),
+    },
+    {
       rule: "T1",
       card: "travel",
       level: "takeCare",
@@ -238,39 +298,68 @@ describe("single value rules", () => {
       justBelow: reading("earthquake", 0, { staleAfterMinutes: 30 }),
     },
     {
+      rule: "T7",
+      card: "travel",
+      level: "disruption",
+      replacement: gauge([
+        ["2026-10-01T19:00:00+07:00", 40],
+        ["2026-10-01T20:00:00+07:00", 20],
+        ["2026-10-01T21:00:00+07:00", 0],
+      ]),
+      justBelow: gauge([
+        ["2026-10-01T19:00:00+07:00", 40],
+        ["2026-10-01T20:00:00+07:00", 19.9],
+        ["2026-10-01T21:00:00+07:00", 0],
+      ]),
+    },
+    {
       rule: "H1",
       card: "health",
       level: "takeCare",
-      replacement: reading("pm25Nearest", 15.1, { staleAfterMinutes: 120 }),
-      justBelow: reading("pm25Nearest", 15, { staleAfterMinutes: 120 }),
+      replacement: reading("pm25Nearest", 37.6, { staleAfterMinutes: 120 }),
+      justBelow: reading("pm25Nearest", 37.5, { staleAfterMinutes: 120 }),
     },
     {
       rule: "H2",
       card: "health",
       level: "takeCare",
-      replacement: reading("heatIndex", 41, { staleAfterMinutes: 180 }),
-      justBelow: reading("heatIndex", 40.9, { staleAfterMinutes: 180 }),
+      replacement: reading("heatIndex", 42, { staleAfterMinutes: 180 }),
+      justBelow: reading("heatIndex", 41.9, { staleAfterMinutes: 180 }),
     },
     {
-      rule: "H3",
+      rule: "H2",
       card: "health",
       level: "takeCare",
-      replacement: reading("uvIndex", 8, { staleAfterMinutes: 360 }),
-      justBelow: reading("uvIndex", 7, { staleAfterMinutes: 360 }),
+      replacement: reading("heatIndexObserved", 42, { staleAfterMinutes: 240 }),
+      justBelow: reading("heatIndexObserved", 41.9, { staleAfterMinutes: 240 }),
+    },
+    {
+      rule: "H7",
+      card: "health",
+      level: "takeCare",
+      replacement: reading("thunderstorm", 1, { staleAfterMinutes: 180 }),
+      justBelow: reading("thunderstorm", 0, { staleAfterMinutes: 180 }),
     },
     {
       rule: "H4",
       card: "health",
       level: "disruption",
-      replacement: reading("pm25Nearest", 37.6, { staleAfterMinutes: 120 }),
-      justBelow: reading("pm25Nearest", 37.5, { staleAfterMinutes: 120 }),
+      replacement: reading("pm25Nearest", 75.1, { staleAfterMinutes: 120 }),
+      justBelow: reading("pm25Nearest", 75, { staleAfterMinutes: 120 }),
     },
     {
       rule: "H5",
       card: "health",
       level: "disruption",
-      replacement: reading("heatIndex", 54, { staleAfterMinutes: 180 }),
-      justBelow: reading("heatIndex", 53.9, { staleAfterMinutes: 180 }),
+      replacement: reading("heatIndex", 52, { staleAfterMinutes: 180 }),
+      justBelow: reading("heatIndex", 51.9, { staleAfterMinutes: 180 }),
+    },
+    {
+      rule: "H5",
+      card: "health",
+      level: "disruption",
+      replacement: reading("heatIndexObserved", 52, { staleAfterMinutes: 240 }),
+      justBelow: reading("heatIndexObserved", 51.9, { staleAfterMinutes: 240 }),
     },
     {
       rule: "H6",
@@ -294,84 +383,86 @@ describe("single value rules", () => {
   });
 });
 
-describe("riverside tide rules", () => {
-  const dam = (value: number) => reading("damRelease", value, { staleAfterMinutes: 240 });
+describe("riverside tide rule R3", () => {
   const tide = (peaks: { at: string; height: number }[]) =>
     reading("tide", 0.7, { staleAfterMinutes: 1440, series: tideSeries(peaks) });
+  const soonTide = tide([{ at: "2026-10-01T23:30:00+07:00", height: 0.7 }]);
 
-  it("R3 fires within 2 hours of a high tide above 0.60 m", () => {
+  it("fires when the river is at 1.50 m and a high tide is due within 3 hours", () => {
     const riverside = cardOf(
-      buildVerdicts(calmReadings([tide([{ at: "2026-10-01T22:30:00+07:00", height: 0.7 }])]), NOW),
+      buildVerdicts(calmReadings([soonTide, reading("riverKrungThep", 1.5)]), NOW),
       "riverside"
     );
     expect(hitIds(riverside)).toEqual(["R3"]);
     expect(riverside.level).toBe("takeCare");
   });
 
-  it("R3 counts a high tide that has just passed", () => {
+  it("stays quiet while the river is below 1.50 m, however high the tide", () => {
     const riverside = cardOf(
-      buildVerdicts(calmReadings([tide([{ at: "2026-10-01T19:30:00+07:00", height: 0.7 }])]), NOW),
-      "riverside"
-    );
-    expect(hitIds(riverside)).toContain("R3");
-  });
-
-  it("R3 ignores a tide more than 2 hours away", () => {
-    const riverside = cardOf(
-      buildVerdicts(calmReadings([tide([{ at: "2026-10-02T00:00:00+07:00", height: 0.9 }])]), NOW),
+      buildVerdicts(
+        calmReadings([
+          tide([{ at: "2026-10-01T22:30:00+07:00", height: 0.99 }]),
+          reading("riverKrungThep", 1.49),
+        ]),
+        NOW
+      ),
       "riverside"
     );
     expect(hitIds(riverside)).toEqual([]);
   });
 
-  it("R3 ignores a high tide of 0.60 m or less", () => {
+  it("ignores a high tide that has already passed", () => {
     const riverside = cardOf(
-      buildVerdicts(calmReadings([tide([{ at: "2026-10-01T22:00:00+07:00", height: 0.6 }])]), NOW),
+      buildVerdicts(
+        calmReadings([
+          tide([{ at: "2026-10-01T20:30:00+07:00", height: 0.9 }]),
+          reading("riverKrungThep", 1.6),
+        ]),
+        NOW
+      ),
       "riverside"
     );
     expect(hitIds(riverside)).toEqual([]);
   });
 
-  it("R3 ignores a point on a rising slope that is not a local maximum", () => {
-    const rising = ["20:00", "21:00", "22:00", "23:00"].map((time, index) => ({
-      at: `2026-10-01T${time}:00+07:00`,
-      value: 0.7 + index * 0.1,
-    }));
+  it("ignores a high tide more than 3 hours ahead", () => {
     const riverside = cardOf(
       buildVerdicts(
-        calmReadings([reading("tide", 1, { staleAfterMinutes: 1440, series: rising })]),
+        calmReadings([
+          tide([{ at: "2026-10-02T00:40:00+07:00", height: 0.9 }]),
+          reading("riverKrungThep", 1.6),
+        ]),
         NOW
       ),
       "riverside"
     );
-    expect(hitIds(riverside)).not.toContain("R3");
+    expect(hitIds(riverside)).toEqual([]);
   });
 
-  it("R6 needs both the dam at 2,400 and a tide above 0.60 m in the next 24 hours", () => {
-    const farTide = [{ at: "2026-10-02T15:00:00+07:00", height: 0.8 }];
-    const both = cardOf(buildVerdicts(calmReadings([dam(2400), tide(farTide)]), NOW), "riverside");
-    expect(hitIds(both)).toEqual(["R2", "R6"]);
-    expect(both.level).toBe("disruption");
-
-    const damOnly = cardOf(buildVerdicts(calmReadings([dam(2400)]), NOW), "riverside");
-    expect(hitIds(damOnly)).toEqual(["R2"]);
-
-    const lowDam = cardOf(
-      buildVerdicts(calmReadings([dam(2399), tide(farTide)]), NOW),
-      "riverside"
-    );
-    expect(hitIds(lowDam)).toEqual(["R2"]);
-  });
-
-  it("R6 ignores a tide more than 24 hours ahead", () => {
+  it("ignores a high tide of 0.60 m or less", () => {
     const riverside = cardOf(
       buildVerdicts(
-        calmReadings([dam(2500), tide([{ at: "2026-10-02T23:00:00+07:00", height: 0.9 }])]),
+        calmReadings([
+          tide([{ at: "2026-10-01T23:00:00+07:00", height: 0.6 }]),
+          reading("riverKrungThep", 1.6),
+        ]),
         NOW
       ),
       "riverside"
     );
-    expect(hitIds(riverside)).not.toContain("R6");
+    expect(hitIds(riverside)).toEqual([]);
+  });
+
+  it("never raises a disruption from the dam release alone", () => {
+    const riverside = cardOf(
+      buildVerdicts(
+        calmReadings([reading("damRelease", 3000, { staleAfterMinutes: 240 }), soonTide]),
+        NOW
+      ),
+      "riverside"
+    );
+    expect(hitIds(riverside)).toEqual(["R2"]);
+    expect(riverside.level).toBe("takeCare");
   });
 });
 
@@ -459,9 +550,9 @@ describe("travel rules T2 and T3", () => {
     ).map((item) => ({ ...item, observedAt: morning.toISOString() }));
   }
 
-  it("T2 fires for 10 mm in the morning rush hour", () => {
+  it("T2 fires for 2.5 mm in the morning rush hour", () => {
     const travel = cardOf(
-      buildVerdicts(morningReadings([["2026-10-02T07:00:00+07:00", 10]]), morning),
+      buildVerdicts(morningReadings([["2026-10-02T07:00:00+07:00", 2.5]]), morning),
       "travel"
     );
     expect(hitIds(travel)).toEqual(["T2"]);
@@ -477,11 +568,11 @@ describe("travel rules T2 and T3", () => {
     expect(hitIds(cardOf(buildVerdicts(readings, evening), "travel"))).toEqual(["T2"]);
   });
 
-  it("T2 ignores rain outside the rush hours and below 10 mm", () => {
+  it("T2 ignores rain outside the rush hours and below 2.5 mm", () => {
     expect(
       hitIds(
         cardOf(
-          buildVerdicts(morningReadings([["2026-10-02T09:00:00+07:00", 9.9]]), morning),
+          buildVerdicts(morningReadings([["2026-10-02T09:00:00+07:00", 2.4]]), morning),
           "travel"
         )
       )
@@ -496,7 +587,7 @@ describe("travel rules T2 and T3", () => {
 
   it("T3 follows the riverside card at takeCare and at disruption", () => {
     const takeCare = cardOf(
-      buildVerdicts(calmReadings([reading("riverKrungThep", 1.6)]), NOW),
+      buildVerdicts(calmReadings([reading("riverKrungThep", 1.75)]), NOW),
       "travel"
     );
     expect(hitIds(takeCare)).toEqual(["T3"]);
@@ -521,7 +612,7 @@ describe("health fallback and levels", () => {
       buildVerdicts(
         calmReadings([
           reading("pm25Nearest", null, { staleAfterMinutes: 120 }),
-          reading("pm25Official", 40, { staleAfterMinutes: 180 }),
+          reading("pm25Official", 80, { staleAfterMinutes: 180 }),
         ]),
         NOW
       ),
@@ -551,7 +642,7 @@ describe("health fallback and levels", () => {
     const health = cardOf(
       buildVerdicts(
         calmReadings([
-          reading("heatIndex", 41, { staleAfterMinutes: 180 }),
+          reading("heatIndex", 43, { staleAfterMinutes: 180 }),
           reading("storm", 250, { staleAfterMinutes: 360 }),
         ]),
         NOW
@@ -565,10 +656,10 @@ describe("health fallback and levels", () => {
 
 describe("unknown and stale data", () => {
   it("is unknown when a required input is missing and no rule fired", () => {
-    const readings = calmReadings().filter((item) => item.id !== "damRelease");
+    const readings = calmReadings().filter((item) => item.id !== "tide");
     const riverside = cardOf(buildVerdicts(readings, NOW), "riverside");
     expect(riverside.level).toBe("unknown");
-    expect(riverside.unchecked).toEqual(["damRelease"]);
+    expect(riverside.unchecked).toEqual(["tide"]);
     expect(riverside.headline).toEqual(verdictCopy.riverside.unknown.headline);
   });
 
@@ -586,6 +677,22 @@ describe("unknown and stale data", () => {
     const health = cardOf(buildVerdicts(readings, NOW), "health");
     expect(health.level).toBe("unknown");
     expect(health.unchecked).toEqual(["pm25Nearest", "pm25Official"]);
+  });
+
+  it("checks heat from the station when the heat forecast is missing", () => {
+    const readings = calmReadings().filter((item) => item.id !== "heatIndex");
+    const health = cardOf(buildVerdicts(readings, NOW), "health");
+    expect(health.level).toBe("normal");
+    expect(health.unchecked).toEqual([]);
+  });
+
+  it("is unknown for health when neither heat reading is fresh", () => {
+    const readings = calmReadings().filter(
+      (item) => item.id !== "heatIndex" && item.id !== "heatIndexObserved"
+    );
+    const health = cardOf(buildVerdicts(readings, NOW), "health");
+    expect(health.level).toBe("unknown");
+    expect(health.unchecked).toEqual(["heatIndex", "heatIndexObserved"]);
   });
 
   it("is unknown for campus when the rain forecast is missing", () => {
@@ -612,6 +719,7 @@ describe("unknown and stale data", () => {
     const riverside = cardOf(buildVerdicts(readings, NOW), "riverside");
     expect(riverside.level).toBe("normal");
     expect(riverside.unchecked).toEqual(["riverPakKhlongTalat"]);
+    expect(cardOf(buildVerdicts(readings, NOW), "riverside").level).toBe("normal");
     const campus = cardOf(buildVerdicts(readings, NOW), "campus");
     expect(campus.level).toBe("normal");
     expect(campus.unchecked).toEqual(["roadFlood"]);
@@ -630,7 +738,7 @@ describe("unknown and stale data", () => {
   });
 
   it("counts a reading exactly at its stale limit as fresh", () => {
-    const onTheLimit = reading("riverKrungThep", 1.6, {
+    const onTheLimit = reading("riverKrungThep", 1.7, {
       observedAt: new Date(NOW.getTime() - 60 * 60_000).toISOString(),
     });
     const riverside = cardOf(buildVerdicts(calmReadings([onTheLimit]), NOW), "riverside");
@@ -674,25 +782,33 @@ describe("replay of 1 October 2026 at 21:20", () => {
     reading("roadIncidents", 0, { staleAfterMinutes: 30 }),
   ]);
 
-  it("gives riverside disruption, travel take care, campus normal and health take care", () => {
+  it("stays normal everywhere, as the river was 0.87 m below the bank", () => {
     const verdicts = buildVerdicts(replay, NOW);
     expect(verdicts.map((verdict) => [verdict.card, verdict.level])).toEqual([
-      ["travel", "takeCare"],
+      ["travel", "normal"],
       ["campus", "normal"],
-      ["riverside", "disruption"],
-      ["health", "takeCare"],
+      ["riverside", "normal"],
+      ["health", "normal"],
     ]);
   });
+});
 
-  it("explains each verdict with the rules that fired", () => {
-    const verdicts = buildVerdicts(replay, NOW);
-    expect(hitIds(cardOf(verdicts, "riverside"))).toEqual(["R2", "R3", "R6"]);
-    expect(hitIds(cardOf(verdicts, "travel"))).toEqual(["T3"]);
-    expect(hitIds(cardOf(verdicts, "campus"))).toEqual([]);
-    expect(hitIds(cardOf(verdicts, "health"))).toEqual(["H1"]);
-    expect(cardOf(verdicts, "riverside").headline).toEqual(
-      verdictCopy.riverside.disruption.headline
-    );
+describe("replay of the November 2021 high tide", () => {
+  const night = new Date("2021-11-08T19:00:00+07:00");
+  const stamp = (item: Reading) => ({ ...item, observedAt: night.toISOString() });
+  const replay = calmReadings([
+    reading("riverKrungThep", 2.03),
+    reading("riverPakKhlongTalat", 2.37),
+    reading("damRelease", 2086, { staleAfterMinutes: 240 }),
+  ]).map(stamp);
+
+  it("gives riverside, campus and travel disruption", () => {
+    const verdicts = buildVerdicts(replay, night);
+    expect(hitIds(cardOf(verdicts, "riverside"))).toEqual(["R1", "R4", "R5"]);
+    expect(hitIds(cardOf(verdicts, "campus"))).toEqual(["C10"]);
+    expect(hitIds(cardOf(verdicts, "travel"))).toEqual(["T3", "T5"]);
+    expect(cardOf(verdicts, "riverside").level).toBe("disruption");
+    expect(cardOf(verdicts, "campus").level).toBe("disruption");
   });
 });
 

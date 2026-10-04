@@ -1,0 +1,60 @@
+{
+  "@attributes": { "Version": "2.0" },
+  "Header": {
+    "Title": "Weather3Hours",
+    "Description": "Weather Observation for every 3 hour (1:00, 4:00, 7:00, 10:00, 13:00, 16:00, 19:00, 22:00) ",
+    "Uri": "http://data.tmd.go.th/api/Weather3Hours/V2/index.php",
+    "LastBuildDate": "2026-10-04 18:49:27",
+    "CopyRight": "Thai Meteorological Department:2016",
+    "Generator": "TMDData_API Services",
+    "status": "200 OK"
+  },
+  "Stations": {
+    "Station": [
+      {
+        "WmoStationNumber": "48456",
+        "StationNameThai": "สนามบินดอนเมือง",
+        "StationNameEnglish": "DON MUANG AIRPORT",
+        "Province": "กรุงเทพมหานคร",
+        "Latitude": "13.91917",
+        "Longitude": "100.60500",
+        "Observation": {
+          "DateTime": "10/04/2026 16:00:00",
+          "StationPressure": "1007.23",
+          "MeanSeaLevelPressure": "1008.64",
+          "AirTemperature": "25.8",
+          "DewPoint": "23.6",
+          "RelativeHumidity": "88",
+          "VaporPressure": "29.13",
+          "LandVisibility": "10.00",
+          "WindDirection": "190",
+          "WindSpeed": "3.7",
+          "Rainfall": "16.00",
+          "Rainfall24Hr": "16.00"
+        }
+      },
+      {
+        "WmoStationNumber": "48455",
+        "StationNameThai": "กรุงเทพมหานคร",
+        "StationNameEnglish": "BANGKOK METROPOLIS",
+        "Province": "กรุงเทพมหานคร",
+        "Latitude": "13.72639",
+        "Longitude": "100.56000",
+        "Observation": {
+          "DateTime": "10/04/2026 16:00:00",
+          "StationPressure": "1008.91",
+          "MeanSeaLevelPressure": "1009.40",
+          "AirTemperature": "26.1",
+          "DewPoint": "24.9",
+          "RelativeHumidity": "93",
+          "VaporPressure": "31.57",
+          "LandVisibility": "10.00",
+          "WindDirection": "000",
+          "WindSpeed": "0.0",
+          "Rainfall": "1.40",
+          "Rainfall24Hr": "1.40"
+        }
+      }
+    ]
+  }
+}

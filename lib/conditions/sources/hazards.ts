@@ -32,6 +32,11 @@ const QUAKE_WINDOW_MS = 6 * HOUR_MS;
 const QUAKE_DUPLICATE_MS = 2 * 60_000;
 const QUAKE_DUPLICATE_KM = 50;
 const NO_STORM_KM = 10_000;
+const FELT_TIERS = [
+  { magnitude: 5, withinKm: 500 },
+  { magnitude: 6.5, withinKm: 1000 },
+  { magnitude: 7.5, withinKm: 1500 },
+];
 const STORM_GRACE_MS = 24 * HOUR_MS;
 
 export type LongdoEvent = {
@@ -310,7 +315,7 @@ export function feltInBangkok(quake: Quake, now: Date): boolean {
   const ageMs = now.getTime() - quake.timeMs;
   if (ageMs < -5 * 60_000 || ageMs > QUAKE_WINDOW_MS) return false;
   const km = distanceKm(CAMPUS, quake);
-  return (quake.magnitude >= 5 && km <= 500) || (quake.magnitude >= 6.5 && km <= 1000);
+  return FELT_TIERS.some((tier) => quake.magnitude >= tier.magnitude && km <= tier.withinKm);
 }
 
 function quakeItem(quake: Quake): ReadingItem {
@@ -417,10 +422,10 @@ function usgsUrl(now: Date): string {
   );
   const query = new URLSearchParams({
     format: "geojson",
-    minlatitude: "5",
-    maxlatitude: "22",
-    minlongitude: "92",
-    maxlongitude: "106",
+    minlatitude: "0",
+    maxlatitude: "28",
+    minlongitude: "88",
+    maxlongitude: "112",
     minmagnitude: "4.5",
     starttime: since.toISOString().slice(0, 19),
   });

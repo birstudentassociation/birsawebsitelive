@@ -8,6 +8,7 @@ import {
   parseCapAlert,
   parseCapRss,
   parseOpenMeteo,
+  parseTmdObservedHeat,
   parseTmdWarnings,
 } from "@/lib/conditions/sources/weather";
 
@@ -51,13 +52,20 @@ describe("parseOpenMeteo", () => {
     return found;
   };
 
-  it("returns the four readings in order", () => {
+  it("returns the five readings in order", () => {
     expect(readings.map((reading) => reading.id)).toEqual([
       "rainForecast",
       "rainProbability",
       "heatIndex",
+      "thunderstorm",
       "uvIndex",
     ]);
+  });
+
+  it("flags a thunderstorm forecast in the next three hours", () => {
+    expect(byId("thunderstorm").value).toBe(1);
+    const later = parseOpenMeteo(json("open-meteo.json"), new Date("2026-10-03T11:40:00+07:00"));
+    expect(later.find((reading) => reading.id === "thunderstorm")?.value).toBe(0);
   });
 
   it("takes the maximum precipitation over the next three hours", () => {
@@ -88,7 +96,7 @@ describe("parseOpenMeteo", () => {
     const raw = json("open-meteo.json") as { daily: { uv_index_max: number[] } };
     expect(byId("uvIndex").value).toBe(Math.round((raw.daily.uv_index_max[0] ?? 0) * 10) / 10);
     const nextDay = parseOpenMeteo(json("open-meteo.json"), new Date("2026-10-04T08:00:00+07:00"));
-    expect(nextDay[3]?.value).toBe(Math.round((raw.daily.uv_index_max[1] ?? 0) * 10) / 10);
+    expect(nextDay[4]?.value).toBe(Math.round((raw.daily.uv_index_max[1] ?? 0) * 10) / 10);
   });
 
   it("marks every reading modelled and stamped at fetch time", () => {
@@ -102,7 +110,7 @@ describe("parseOpenMeteo", () => {
   it("returns null values for malformed input", () => {
     for (const bad of [null, "text", {}, { hourly: { time: "x" } }]) {
       const result = parseOpenMeteo(bad, MORNING);
-      expect(result).toHaveLength(4);
+      expect(result).toHaveLength(5);
       for (const reading of result) {
         expect(reading.value).toBeNull();
         expect(reading.observedAt).toBeNull();
@@ -128,6 +136,25 @@ describe("parseOpenMeteo", () => {
     expect(result[1]?.value).toBeNull();
     expect(result[2]?.series).toHaveLength(1);
     expect(result[3]?.value).toBeNull();
+    expect(result[4]?.value).toBeNull();
+  });
+});
+
+describe("parseTmdObservedHeat", () => {
+  it("computes the heat index at the Bangkok Metropolis station", () => {
+    const reading = parseTmdObservedHeat(json("tmd-weather3hours.json"));
+    expect(reading.id).toBe("heatIndexObserved");
+    expect(reading.value).toBe(Math.round(heatIndexCelsius(26.1, 93) * 10) / 10);
+    expect(reading.observedAt).toBe("2026-10-04T16:00:00+07:00");
+    expect(reading.detail?.en).toBe("Air 26.1 °C, humidity 93%");
+  });
+
+  it("returns a null reading when the station is missing or the feed is malformed", () => {
+    for (const bad of [null, {}, { Stations: { Station: [] } }]) {
+      const reading = parseTmdObservedHeat(bad);
+      expect(reading.value).toBeNull();
+      expect(reading.observedAt).toBeNull();
+    }
   });
 });
 

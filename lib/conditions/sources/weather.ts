@@ -15,13 +15,17 @@ const MAX_CAP_FILES = 8;
 
 const OPEN_METEO_URL =
   `https://api.open-meteo.com/v1/forecast?latitude=${CAMPUS.lat}&longitude=${CAMPUS.lon}` +
-  "&hourly=temperature_2m,relative_humidity_2m,precipitation,precipitation_probability" +
+  "&hourly=temperature_2m,relative_humidity_2m,precipitation,precipitation_probability,weather_code" +
   "&daily=uv_index_max&forecast_days=2&timezone=Asia%2FBangkok";
 
 const TMD_WARNING_BASE = "https://data.tmd.go.th/api/WeatherWarningNews/v2/";
 const TMD_CAP_RSS_URL = "https://www.tmd.go.th/en/api/xml/CAP";
 const TMD_WARNING_PAGE = "https://www.tmd.go.th/en/warning-and-events/warning-storm";
 const TMD_DATA_URL = "https://data.tmd.go.th/";
+const TMD_OBSERVATION_BASE = "https://data.tmd.go.th/api/Weather3Hours/V2/";
+const TMD_BANGKOK_STATION = "48455";
+const THUNDERSTORM_CODES = [95, 96, 99];
+const THUNDERSTORM_HOURS = 3;
 
 const OPEN_METEO_SOURCE = {
   name: { en: "Open-Meteo (CC BY 4.0)", th: "Open-Meteo (CC BY 4.0)" },
@@ -153,6 +157,7 @@ type HourlyRow = {
   humidity: number | null;
   precipitation: number | null;
   probability: number | null;
+  weatherCode: number | null;
 };
 
 function readHourly(raw: unknown): HourlyRow[] {
@@ -165,6 +170,7 @@ function readHourly(raw: unknown): HourlyRow[] {
   const humidity = column("relative_humidity_2m");
   const precipitation = column("precipitation");
   const probability = column("precipitation_probability");
+  const weatherCode = column("weather_code");
   const rows: HourlyRow[] = [];
   times.forEach((time, index) => {
     const at = bangkokLocalToEpoch(time);
@@ -175,6 +181,7 @@ function readHourly(raw: unknown): HourlyRow[] {
       humidity: asNumber(humidity[index]),
       precipitation: asNumber(precipitation[index]),
       probability: asNumber(probability[index]),
+      weatherCode: asNumber(weatherCode[index]),
     });
   });
   return rows;
@@ -212,6 +219,10 @@ export function parseOpenMeteo(raw: unknown, now: Date): Reading[] {
   const rainValue = maxOf(nonNull(next3.map((row) => row.precipitation)));
   const probabilityValue = maxOf(nonNull(next3.map((row) => row.probability)));
   const heatValue12 = maxOf(nonNull(next12.map(heatValue)));
+  const isThunderstorm = (row: HourlyRow) =>
+    row.weatherCode !== null && THUNDERSTORM_CODES.includes(row.weatherCode);
+  const codes = nextHours(THUNDERSTORM_HOURS).filter((row) => row.weatherCode !== null);
+  const thunderstormValue = codes.length === 0 ? null : codes.some(isThunderstorm) ? 1 : 0;
 
   const base = {
     station: MODEL_STATION,
@@ -251,6 +262,15 @@ export function parseOpenMeteo(raw: unknown, now: Date): Reading[] {
       staleAfterMinutes: 180,
       series: seriesOf(heatValue),
     },
+    {
+      ...base,
+      id: "thunderstorm",
+      value: nullable(thunderstormValue),
+      unit: "flag",
+      observedAt: thunderstormValue === null ? null : nullableObservedAt,
+      staleAfterMinutes: 180,
+      series: seriesOf((row) => (row.weatherCode === null ? null : isThunderstorm(row) ? 1 : 0)),
+    },
     parseUvIndex(raw, now),
   ];
 }
@@ -273,6 +293,53 @@ function parseUvIndex(raw: unknown, now: Date): Reading {
     station: MODEL_STATION,
     source: OPEN_METEO_SOURCE,
     modelled: true,
+  };
+}
+
+function stationRecords(raw: unknown): UnknownRecord[] {
+  if (!isRecord(raw) || !isRecord(raw.Stations)) return [];
+  const stations = raw.Stations.Station;
+  if (Array.isArray(stations)) return stations.filter(isRecord);
+  return isRecord(stations) ? [stations] : [];
+}
+
+function tmdObservationEpoch(value: unknown): number | null {
+  if (typeof value !== "string") return null;
+  const match = /^(\d{2})\/(\d{2})\/(\d{4}) (\d{2}:\d{2}(?::\d{2})?)/.exec(value.trim());
+  if (!match) return bangkokLocalToEpoch(value);
+  const [, month, day, year, clock] = match;
+  return bangkokLocalToEpoch(`${year}-${month}-${day} ${clock}`);
+}
+
+export function parseTmdObservedHeat(raw: unknown): Reading {
+  const station = stationRecords(raw).find(
+    (entry) => String(entry.WmoStationNumber ?? "").trim() === TMD_BANGKOK_STATION
+  );
+  const observation = station && isRecord(station.Observation) ? station.Observation : null;
+  const temperature = asNumber(observation?.AirTemperature);
+  const humidity = asNumber(observation?.RelativeHumidity);
+  const at = tmdObservationEpoch(observation?.DateTime);
+  const usable =
+    temperature !== null && humidity !== null && at !== null && humidity >= 0 && humidity <= 100;
+  return {
+    id: "heatIndexObserved",
+    value: usable ? roundTo(heatIndexCelsius(temperature, humidity), 1) : null,
+    unit: "celsius",
+    observedAt: usable ? bangkokIso(at) : null,
+    staleAfterMinutes: 240,
+    station: {
+      en: "Bangkok Metropolis weather station (48455)",
+      th: "สถานีอุตุนิยมวิทยากรุงเทพมหานคร (48455)",
+    },
+    source: { name: TMD_NAME, url: TMD_DATA_URL },
+    ...(usable
+      ? {
+          detail: {
+            en: `Air ${temperature.toFixed(1)} °C, humidity ${Math.round(humidity)}%`,
+            th: `อุณหภูมิ ${temperature.toFixed(1)} °C ความชื้น ${Math.round(humidity)}%`,
+          },
+        }
+      : {}),
   };
 }
 
@@ -470,20 +537,22 @@ async function fetchCapAlerts(): Promise<CapAlert[] | null> {
   return readable.flatMap(parseCapAlert);
 }
 
-function tmdWarningUrl(): string {
+function tmdUrl(base: string): string {
   const uid = process.env.TMD_API_UID || "api";
   const key = process.env.TMD_API_KEY || "api12345";
-  return `${TMD_WARNING_BASE}?uid=${encodeURIComponent(uid)}&ukey=${encodeURIComponent(key)}&format=json`;
+  return `${base}?uid=${encodeURIComponent(uid)}&ukey=${encodeURIComponent(key)}&format=json`;
 }
 
 export async function fetchWeatherReadings(now: Date): Promise<Reading[]> {
-  const [openMeteo, warnings, capAlerts] = await Promise.all([
+  const [openMeteo, warnings, capAlerts, observations] = await Promise.all([
     getJson(OPEN_METEO_URL).catch(() => null),
-    getJson(tmdWarningUrl()).catch(() => null),
+    getJson(tmdUrl(TMD_WARNING_BASE)).catch(() => null),
     fetchCapAlerts().catch(() => null),
+    getJson(tmdUrl(TMD_OBSERVATION_BASE)).catch(() => null),
   ]);
   return [
     ...parseOpenMeteo(openMeteo, now),
+    parseTmdObservedHeat(observations),
     parseTmdWarnings(warnings, now),
     buildCapReading(capAlerts, now),
   ];

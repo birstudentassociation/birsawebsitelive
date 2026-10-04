@@ -1,16 +1,18 @@
 import type { ReadingId, Text } from "@/lib/conditions/types";
 import {
   CAP_ALERT_TAKE_CARE_COUNT,
-  DAM_RELEASE_DISRUPTION_M3S,
   DAM_RELEASE_TAKE_CARE_M3S,
   HEAT_INDEX_DISRUPTION_C,
   HEAT_INDEX_TAKE_CARE_C,
   HEAVY_RAIN_MMH,
-  HIGH_TIDE_MIN_M,
-  PM25_WHO_GUIDELINE_UGM3,
-  PM25_WHO_INTERIM_TARGET_3_UGM3,
+  HIGH_TIDE_AHEAD_HOURS,
+  PM25_THAI_RED_UGM3,
+  PM25_THAI_STANDARD_UGM3,
+  RAIN_FALLEN_3H_DISRUPTION_MM,
+  RAIN_FALLEN_HOUR_TAKE_CARE_MM,
   RIVER_KRUNG_THEP_BANK_M,
   RIVER_KRUNG_THEP_DISRUPTION_M,
+  RIVER_KRUNG_THEP_RISING_M,
   RIVER_KRUNG_THEP_TAKE_CARE_M,
   RIVER_PAK_KHLONG_TALAT_DISRUPTION_M,
   RIVER_PAK_KHLONG_TALAT_WALL_M,
@@ -18,7 +20,7 @@ import {
   ROAD_FLOOD_TAKE_CARE_CM,
   RUSH_HOUR_RAIN_MMH,
   STORM_DISRUPTION_KM,
-  UV_INDEX_TAKE_CARE,
+  UV_INDEX_VERY_HIGH,
 } from "@/content/conditions/rules";
 
 export type ReadingCopy = { label: Text; threshold: Text };
@@ -38,8 +40,8 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
   riverKrungThep: {
     label: { en: "River at Krung Thep Bridge", th: "แม่น้ำเจ้าพระยาที่สะพานกรุงเทพ" },
     threshold: {
-      en: `Take care from ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} m, disruption from ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m. Bank ${metres(RIVER_KRUNG_THEP_BANK_M)} m.`,
-      th: `ควรระวังเมื่อถึง ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
+      en: `Take care from ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} m, or from ${metres(RIVER_KRUNG_THEP_RISING_M)} m when a high tide is near. Disruption from ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m. Bank ${metres(RIVER_KRUNG_THEP_BANK_M)} m.`,
+      th: `ควรระวังเมื่อถึง ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. หรือเมื่อถึง ${metres(RIVER_KRUNG_THEP_RISING_M)} ม. ในช่วงใกล้น้ำขึ้นสูงสุด มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
     },
   },
   riverSamsen: {
@@ -52,15 +54,15 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
   riverPakKhlongTalat: {
     label: { en: "River at Pak Khlong Talat", th: "แม่น้ำเจ้าพระยาที่ปากคลองตลาด" },
     threshold: {
-      en: `Disruption from ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} m. Wall ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} m.`,
-      th: `มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. กำแพงกั้นน้ำสูง ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} ม.`,
+      en: `Disruption from ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} m, the level that flooded the riverside in 2021. Wall ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} m.`,
+      th: `มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ซึ่งเป็นระดับที่น้ำท่วมริมน้ำในปี 2564 กำแพงกั้นน้ำสูง ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} ม.`,
     },
   },
   damRelease: {
     label: { en: "Chao Phraya Dam release", th: "การระบายน้ำเขื่อนเจ้าพระยา" },
     threshold: {
-      en: `Take care from ${whole(DAM_RELEASE_TAKE_CARE_M3S)} cubic metres a second. Disruption from ${whole(DAM_RELEASE_DISRUPTION_M3S)} when a high tide is due.`,
-      th: `ควรระวังเมื่อระบาย ${whole(DAM_RELEASE_TAKE_CARE_M3S)} ลูกบาศก์เมตรต่อวินาที มีแนวโน้มกระทบเมื่อระบาย ${whole(DAM_RELEASE_DISRUPTION_M3S)} และมีน้ำขึ้นสูง`,
+      en: `Take care from ${whole(DAM_RELEASE_TAKE_CARE_M3S)} cubic metres a second. Each extra 100 cubic metres a second raises the river at Pak Khlong Talat by only about 2 cm, so the release alone never raises a disruption.`,
+      th: `ควรระวังเมื่อระบาย ${whole(DAM_RELEASE_TAKE_CARE_M3S)} ลูกบาศก์เมตรต่อวินาที ทุก 100 ลูกบาศก์เมตรต่อวินาทีที่เพิ่มขึ้นทำให้ระดับน้ำที่ปากคลองตลาดสูงขึ้นเพียงราว 2 ซม. การระบายน้ำอย่างเดียวจึงไม่ถือเป็นเหตุให้กระทบ`,
     },
   },
   damReleaseForecast: {
@@ -86,8 +88,8 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
   tide: {
     label: { en: "Next high tide", th: "น้ำขึ้นสูงสุดครั้งถัดไป" },
     threshold: {
-      en: `Counts above ${metres(HIGH_TIDE_MIN_M)} m. Take care within 2 hours of it.`,
-      th: `นับเฉพาะน้ำขึ้นที่สูงกว่า ${metres(HIGH_TIDE_MIN_M)} ม. ควรระวังในช่วง 2 ชั่วโมงก่อนและหลังเวลาน้ำขึ้นสูงสุด`,
+      en: `Take care when a high tide is due within ${HIGH_TIDE_AHEAD_HOURS} hours and the river is already at ${metres(RIVER_KRUNG_THEP_RISING_M)} m.`,
+      th: `ควรระวังเมื่อจะมีน้ำขึ้นสูงสุดภายใน ${HIGH_TIDE_AHEAD_HOURS} ชั่วโมง และระดับแม่น้ำถึง ${metres(RIVER_KRUNG_THEP_RISING_M)} ม. แล้ว`,
     },
   },
   rainGauge24h: {
@@ -95,6 +97,13 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
     threshold: {
       en: "Shown for information. It does not change a verdict.",
       th: "แสดงไว้เพื่อประกอบการติดตาม ไม่มีผลต่อการประเมิน",
+    },
+  },
+  rainGauge3h: {
+    label: { en: "Rain in the last 3 hours", th: "ปริมาณฝน 3 ชั่วโมงที่ผ่านมา" },
+    threshold: {
+      en: `Take care from ${RAIN_FALLEN_HOUR_TAKE_CARE_MM} mm in the latest hour, disruption from ${RAIN_FALLEN_3H_DISRUPTION_MM} mm in 3 hours.`,
+      th: `ควรระวังเมื่อฝนตก ${RAIN_FALLEN_HOUR_TAKE_CARE_MM} มม. ในชั่วโมงล่าสุด มีแนวโน้มกระทบเมื่อฝนตก ${RAIN_FALLEN_3H_DISRUPTION_MM} มม. ใน 3 ชั่วโมง`,
     },
   },
   roadFlood: {
@@ -128,15 +137,29 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
   heatIndex: {
     label: { en: "Heat index in the next 12 hours", th: "ดัชนีความร้อนใน 12 ชั่วโมงข้างหน้า" },
     threshold: {
-      en: `Take care from ${HEAT_INDEX_TAKE_CARE_C} °C, disruption from ${HEAT_INDEX_DISRUPTION_C} °C.`,
-      th: `ควรระวังเมื่อถึง ${HEAT_INDEX_TAKE_CARE_C} °C มีแนวโน้มกระทบเมื่อถึง ${HEAT_INDEX_DISRUPTION_C} °C`,
+      en: `Take care from ${HEAT_INDEX_TAKE_CARE_C} °C, disruption from ${HEAT_INDEX_DISRUPTION_C} °C, the Thai Meteorological Department's dangerous and very dangerous levels.`,
+      th: `ควรระวังเมื่อถึง ${HEAT_INDEX_TAKE_CARE_C} °C มีแนวโน้มกระทบเมื่อถึง ${HEAT_INDEX_DISRUPTION_C} °C ตามเกณฑ์ระดับอันตรายและอันตรายมากของกรมอุตุนิยมวิทยา`,
+    },
+  },
+  heatIndexObserved: {
+    label: { en: "Heat index measured now", th: "ดัชนีความร้อนที่วัดได้ล่าสุด" },
+    threshold: {
+      en: `Measured about 8 km from campus. Take care from ${HEAT_INDEX_TAKE_CARE_C} °C, disruption from ${HEAT_INDEX_DISRUPTION_C} °C.`,
+      th: `วัดที่สถานีห่างจากมหาวิทยาลัยราว 8 กม. ควรระวังเมื่อถึง ${HEAT_INDEX_TAKE_CARE_C} °C มีแนวโน้มกระทบเมื่อถึง ${HEAT_INDEX_DISRUPTION_C} °C`,
+    },
+  },
+  thunderstorm: {
+    label: { en: "Thunderstorms in the next 3 hours", th: "พายุฝนฟ้าคะนองใน 3 ชั่วโมงข้างหน้า" },
+    threshold: {
+      en: "Take care when a thunderstorm is forecast.",
+      th: "ควรระวังเมื่อคาดว่าจะมีพายุฝนฟ้าคะนอง",
     },
   },
   uvIndex: {
     label: { en: "UV index today", th: "ดัชนีรังสียูวีวันนี้" },
     threshold: {
-      en: `Take care from ${UV_INDEX_TAKE_CARE}.`,
-      th: `ควรระวังเมื่อถึง ${UV_INDEX_TAKE_CARE}`,
+      en: `Shown for information. ${UV_INDEX_VERY_HIGH} or more is very high, which Bangkok reaches on most clear days.`,
+      th: `แสดงไว้เพื่อประกอบการติดตาม ค่าตั้งแต่ ${UV_INDEX_VERY_HIGH} ขึ้นไปถือว่าสูงมาก ซึ่งกรุงเทพฯ มีค่าระดับนี้ในวันที่ท้องฟ้าโปร่งเกือบทุกวัน`,
     },
   },
   tmdWarning: {
@@ -159,8 +182,8 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
   pm25Nearest: {
     label: { en: "PM2.5 dust at Suan Luang Rama 8", th: "ฝุ่น PM2.5 ที่สวนหลวง ร.8" },
     threshold: {
-      en: `24 hour average. Take care above ${PM25_WHO_GUIDELINE_UGM3}, disruption above ${PM25_WHO_INTERIM_TARGET_3_UGM3} micrograms per cubic metre.`,
-      th: `ค่าเฉลี่ย 24 ชั่วโมง ควรระวังเมื่อเกิน ${PM25_WHO_GUIDELINE_UGM3} มีแนวโน้มกระทบเมื่อเกิน ${PM25_WHO_INTERIM_TARGET_3_UGM3} ไมโครกรัมต่อลูกบาศก์เมตร`,
+      en: `24 hour average. Take care above ${PM25_THAI_STANDARD_UGM3}, disruption above ${PM25_THAI_RED_UGM3} micrograms per cubic metre.`,
+      th: `ค่าเฉลี่ย 24 ชั่วโมง ควรระวังเมื่อเกิน ${PM25_THAI_STANDARD_UGM3} มีแนวโน้มกระทบเมื่อเกิน ${PM25_THAI_RED_UGM3} ไมโครกรัมต่อลูกบาศก์เมตร`,
     },
   },
   pm25Official: {
@@ -169,8 +192,8 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
       th: "ฝุ่น PM2.5 จากสถานีกรมควบคุมมลพิษ",
     },
     threshold: {
-      en: `Used when the nearer station has no reading. Take care above ${PM25_WHO_GUIDELINE_UGM3}, disruption above ${PM25_WHO_INTERIM_TARGET_3_UGM3}.`,
-      th: `ใช้เมื่อสถานีที่ใกล้กว่าไม่มีข้อมูล ควรระวังเมื่อเกิน ${PM25_WHO_GUIDELINE_UGM3} มีแนวโน้มกระทบเมื่อเกิน ${PM25_WHO_INTERIM_TARGET_3_UGM3}`,
+      en: `Used when the nearer station has no reading. Take care above ${PM25_THAI_STANDARD_UGM3}, disruption above ${PM25_THAI_RED_UGM3}.`,
+      th: `ใช้เมื่อสถานีที่ใกล้กว่าไม่มีข้อมูล ควรระวังเมื่อเกิน ${PM25_THAI_STANDARD_UGM3} มีแนวโน้มกระทบเมื่อเกิน ${PM25_THAI_RED_UGM3}`,
     },
   },
   pm25Forecast: {
@@ -226,6 +249,7 @@ export const readingSections: ReadingSection[] = [
       "riverForecastNonthaburi",
       "tide",
       "rainGauge24h",
+      "rainGauge3h",
       "roadFlood",
       "urbanFloodWarning",
     ],
@@ -233,7 +257,16 @@ export const readingSections: ReadingSection[] = [
   {
     id: "weather",
     heading: { en: "Weather", th: "สภาพอากาศ" },
-    readings: ["rainForecast", "rainProbability", "heatIndex", "uvIndex", "tmdWarning", "capAlert"],
+    readings: [
+      "rainForecast",
+      "rainProbability",
+      "thunderstorm",
+      "heatIndex",
+      "heatIndexObserved",
+      "uvIndex",
+      "tmdWarning",
+      "capAlert",
+    ],
   },
   {
     id: "air",

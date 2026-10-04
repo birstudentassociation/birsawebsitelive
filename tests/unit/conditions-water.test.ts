@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
+  despike,
   fetchWaterReadings,
   hourlyGraphSeries,
   latestGraphValue,
@@ -14,6 +15,7 @@ import {
   parseTideNextHigh,
   parseWaterlevelGraph,
   pointInGeoJson,
+  recentRain,
   summariseForecast,
 } from "@/lib/conditions/sources/water";
 import { CAMPUS, type Reading } from "@/lib/conditions/types";
@@ -320,9 +322,84 @@ describe("pakKhlongTalatReading", () => {
     expect(reading.detail?.en).toBe("Warning 2.80 m, wall 3.00 m");
   });
 
+  it("uses the ThaiWater copy when BMA's reading jumps away from it", () => {
+    const telemetry = {
+      points: [{ at: "2026-10-03T09:00:00+07:00", value: 1.6, discharge: null }],
+      bankLevel: 3,
+      warningLevel: 2.8,
+      criticalLevel: 3,
+    };
+    const spike =
+      'waterSummaryList = [{"water_id":76,"wl_in":3,"site_timestamp":"2026-10-03 09:10:00"}]';
+    const reading = pakKhlongTalatReading(spike, telemetry, now);
+    expect(reading.value).toBe(1.6);
+    expect(reading.source.url).toBe("https://www.thaiwater.net/water/wl");
+  });
+
   it("falls back to the ThaiWater copy when BMA serves a challenge", () => {
     const reading = pakKhlongTalatReading(fixtureText("water-bma-challenge.txt"), graph, now);
     expect(reading.source.url).toBe("https://www.thaiwater.net/water/wl");
+  });
+});
+
+describe("despike", () => {
+  const point = (at: string, value: number | null) => ({
+    at: `2026-10-04T${at}:00+07:00`,
+    value,
+    discharge: null,
+  });
+
+  it("drops a lone jump to the wall height, as the Pak Khlong Talat gauge sends", () => {
+    const cleaned = despike([point("20:30", 1.52), point("20:45", 3), point("21:00", 1.55)]);
+    expect(cleaned.map((entry) => entry.value)).toEqual([1.52, null, 1.55]);
+  });
+
+  it("drops a jump at the newest point so it never becomes the latest reading", () => {
+    const cleaned = despike([point("20:30", 1.52), point("20:45", 3)]);
+    expect(cleaned.map((entry) => entry.value)).toEqual([1.52, null]);
+  });
+
+  it("keeps real tidal changes and accepts a new level after a long gap", () => {
+    const cleaned = despike([
+      point("18:00", 1.2),
+      point("18:10", 1.28),
+      point("18:20", 1.35),
+      point("20:00", 2),
+    ]);
+    expect(cleaned.map((entry) => entry.value)).toEqual([1.2, 1.28, 1.35, 2]);
+  });
+});
+
+describe("recentRain", () => {
+  it("adds up the past three hours and keeps the hourly series", () => {
+    const summary = recentRain(
+      {
+        value: 50,
+        observedAt: "2026-10-03T09:00:00+07:00",
+        series: [
+          { at: "2026-10-03T05:00:00+07:00", value: 20 },
+          { at: "2026-10-03T07:00:00+07:00", value: 12 },
+          { at: "2026-10-03T08:00:00+07:00", value: 6.5 },
+          { at: "2026-10-03T09:00:00+07:00", value: 11.5 },
+        ],
+      },
+      now
+    );
+    expect(summary.value).toBe(30);
+    expect(summary.series.map((entry) => entry.value)).toEqual([12, 6.5, 11.5]);
+    expect(summary.observedAt).toBe("2026-10-03T09:00:00+07:00");
+  });
+
+  it("has no value when the gauge has not reported for three hours", () => {
+    const summary = recentRain(
+      {
+        value: 4,
+        observedAt: "2026-10-03T05:00:00+07:00",
+        series: [{ at: "2026-10-03T05:00:00+07:00", value: 4 }],
+      },
+      now
+    );
+    expect(summary.value).toBeNull();
   });
 });
 
@@ -336,11 +413,12 @@ describe("fetchWaterReadings", () => {
     "riverForecastNonthaburi",
     "tide",
     "rainGauge24h",
+    "rainGauge3h",
     "roadFlood",
     "urbanFloodWarning",
   ];
 
-  it("returns all ten readings with null values when every feed fails", async () => {
+  it("returns all eleven readings with null values when every feed fails", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("offline")));
     const readings = await fetchWaterReadings(now);
     expect(readings.map((reading) => reading.id)).toEqual(expectedIds);
@@ -376,7 +454,7 @@ describe("fetchWaterReadings", () => {
       if (!found) throw new Error(`missing ${id}`);
       return found;
     };
-    expect(readings).toHaveLength(10);
+    expect(readings).toHaveLength(11);
     expect(byId("riverKrungThep").value).toBe(1);
     expect(byId("riverKrungThep").detail?.en).toBe("Bank 2.16 m");
     expect(byId("damRelease").value).toBe(2500);
@@ -385,6 +463,8 @@ describe("fetchWaterReadings", () => {
     expect(byId("tide").value).toBeCloseTo(0.91377);
     expect(byId("tide").detail?.en).toBe("Next high tide at 20:00");
     expect(byId("rainGauge24h").value).toBe(21);
+    expect(byId("rainGauge3h").value).toBe(0);
+    expect(byId("rainGauge3h").observedAt).toBe("2026-10-03T08:00:00+07:00");
     expect(byId("roadFlood").value).toBeNull();
     expect(byId("urbanFloodWarning").value).toBe(0);
     expect(byId("riverPakKhlongTalat").observedAt).toBe("2026-09-28T13:15:00+07:00");

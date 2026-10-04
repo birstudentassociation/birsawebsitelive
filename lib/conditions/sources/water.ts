@@ -18,6 +18,9 @@ const BANGKOK_OFFSET_MS = 7 * HOUR_MS;
 const ROAD_SENSOR_RADIUS_KM = 3;
 const CHAO_PHRAYA_DAM_ALARM = 2176;
 const CHAO_PHRAYA_DAM_CRITICAL = 2720;
+const SPIKE_JUMP_M = 0.5;
+const SPIKE_WINDOW_MS = HOUR_MS;
+const RAIN_RECENT_HOURS = 3;
 
 const THAIWATER_SOURCE = {
   name: {
@@ -224,6 +227,21 @@ export function parseBmaStation(html: string, waterId: number): BmaStationLevel 
   };
 }
 
+export function despike(points: GraphPoint[]): GraphPoint[] {
+  let previous: { value: number; ms: number } | null = null;
+  return points.map((point) => {
+    if (point.value === null) return point;
+    const ms = isoMs(point.at);
+    const isSpike =
+      previous !== null &&
+      ms - previous.ms <= SPIKE_WINDOW_MS &&
+      Math.abs(point.value - previous.value) > SPIKE_JUMP_M;
+    if (isSpike) return { ...point, value: null };
+    previous = { value: point.value, ms };
+    return point;
+  });
+}
+
 export function parseWaterlevelGraph(payload: unknown): WaterlevelGraph | null {
   if (!isRecord(payload) || !isRecord(payload.data)) return null;
   const graph = payload.data.graph_data;
@@ -238,7 +256,7 @@ export function parseWaterlevelGraph(payload: unknown): WaterlevelGraph | null {
   }
   points.sort((a, b) => isoMs(a.at) - isoMs(b.at));
   return {
-    points,
+    points: despike(points),
     bankLevel: asNumber(payload.data.min_bank),
     warningLevel: asNumber(payload.data.warning_level),
     criticalLevel: asNumber(payload.data.critical_level),
@@ -434,6 +452,18 @@ export function parseRainGauge(payload: unknown, now: Date): RainGaugeSummary {
   };
 }
 
+export function recentRain(summary: RainGaugeSummary, now: Date): RainGaugeSummary {
+  const since = now.getTime() - RAIN_RECENT_HOURS * HOUR_MS;
+  const series = summary.series.filter((point) => isoMs(point.at) > since);
+  if (series.length === 0) return { value: null, observedAt: null, series: [] };
+  const total = series.reduce((sum, point) => sum + point.value, 0);
+  return {
+    value: Math.round(total * 10) / 10,
+    observedAt: series[series.length - 1]?.at ?? null,
+    series,
+  };
+}
+
 function ringContains(ring: unknown, lon: number, lat: number): boolean {
   if (!Array.isArray(ring)) return false;
   let inside = false;
@@ -597,6 +627,14 @@ const RAIN_GAUGE_BASE: ReadingBase = {
   source: DWR_RAIN_SOURCE,
 };
 
+const RAIN_RECENT_BASE: ReadingBase = {
+  id: "rainGauge3h",
+  unit: "mm",
+  staleAfterMinutes: 90,
+  station: text("Memorial Bridge rain gauge", "สถานีวัดฝนสะพานพุทธ"),
+  source: DWR_RAIN_SOURCE,
+};
+
 const ROAD_FLOOD_BASE: ReadingBase = {
   id: "roadFlood",
   unit: "cm",
@@ -667,7 +705,13 @@ export function pakKhlongTalatReading(
   now: Date
 ): Reading {
   const direct = bmaHtml === null ? null : parseBmaStation(bmaHtml, BMA_PAK_KHLONG_TALAT_ID);
-  if (direct) {
+  const telemetry = graph ? latestGraphValue(graph, "value", now) : null;
+  const disagrees =
+    direct !== null &&
+    telemetry !== null &&
+    Math.abs(isoMs(direct.at) - isoMs(telemetry.at)) <= SPIKE_WINDOW_MS &&
+    Math.abs(direct.value - telemetry.value) > SPIKE_JUMP_M;
+  if (direct && !disagrees) {
     return guard(PAK_KHLONG_TALAT_BASE, () => ({
       ...PAK_KHLONG_TALAT_BASE,
       source: BMA_DIRECT_SOURCE,
@@ -763,6 +807,23 @@ function rainGaugeReading(payload: unknown, now: Date): Reading {
   });
 }
 
+function rainRecentReading(payload: unknown, now: Date): Reading {
+  const base = RAIN_RECENT_BASE;
+  return guard(base, () => {
+    const summary = recentRain(parseRainGauge(payload, now), now);
+    if (summary.value === null) return failed(base);
+    const lastHour = summary.series[summary.series.length - 1]?.value ?? 0;
+    const amount = String(Math.round(lastHour * 10) / 10);
+    return {
+      ...base,
+      value: summary.value,
+      observedAt: summary.observedAt,
+      detail: text(`${amount} mm in the latest hour`, `${amount} มม. ในชั่วโมงล่าสุด`),
+      series: summary.series,
+    };
+  });
+}
+
 function roadFloodReading(payload: unknown, now: Date): Reading {
   const base = ROAD_FLOOD_BASE;
   return guard(base, () => {
@@ -835,6 +896,7 @@ export async function fetchWaterReadings(now: Date): Promise<Reading[]> {
     forecastReading(NONTHABURI_FORECAST_BASE, nonthaburiRows, now, nonthaburiDetail(thresholds)),
     tideReading(tideRaw, now),
     rainGaugeReading(rainPayload, now),
+    rainRecentReading(rainPayload, now),
     roadFloodReading(roadPayload, now),
     urbanFloodReading(urbanPayload, now),
   ];

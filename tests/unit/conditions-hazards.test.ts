@@ -215,6 +215,8 @@ describe("mergeQuakes and feltInBangkok", () => {
     expect(feltInBangkok(quake({ lat: 19.5, lon: 97, magnitude: 5.6 }), now)).toBe(false);
     expect(feltInBangkok(quake({ lat: 19.5, lon: 97, magnitude: 6.5 }), now)).toBe(true);
     expect(feltInBangkok(quake({ lat: 3, lon: 98, magnitude: 7 }), now)).toBe(false);
+    expect(feltInBangkok(quake({ lat: 22.011, lon: 95.936, magnitude: 7.7 }), now)).toBe(true);
+    expect(feltInBangkok(quake({ lat: 22.011, lon: 95.936, magnitude: 7.4 }), now)).toBe(false);
     const sevenHoursAgo = now.getTime() - 7 * 3_600_000;
     expect(
       feltInBangkok(quake({ lat: 14.5, lon: 100.5, magnitude: 6, timeMs: sevenHoursAgo }), now)
