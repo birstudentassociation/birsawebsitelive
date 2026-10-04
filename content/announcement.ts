@@ -38,7 +38,7 @@ export type SiteAnnouncement = {
 };
 
 export const announcement: SiteAnnouncement = {
-  active: true,
+  active: false,
   severity: "warning",
   href: "/news/khlong-thom-center-fire-advisory",
   // 24 hours from when this advisory went up (2026-08-29 09:52 UTC).
