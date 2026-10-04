@@ -15,6 +15,7 @@ import LiveUpdates from "@/components/emergency/LiveUpdates";
 import CallButtons from "@/components/emergency/CallButtons";
 import ContactList from "@/components/emergency/ContactList";
 import GuideSection from "@/components/emergency/GuideSection";
+import { StartButton } from "@/components/emergency/GuideBlocks";
 
 type Params = { lang: string; scenario: string };
 
@@ -79,13 +80,23 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
         {isLive && live ? (
           <AlertStatus locale={locale} live={live} t={t} updatesHref="#live-updates" />
         ) : (
-          <Notice title={t.notLiveTitle}>
-            <p>
-              {t.notLiveBody}{" "}
-              <Link href={localeHref(locale, "/emergency")} className="underline">
-                {t.seeAll}
-              </Link>
-            </p>
+          <Notice title={c.notLive?.title ?? t.notLiveTitle}>
+            <div className="flex flex-col gap-3">
+              <p>{c.notLive?.body ?? t.notLiveBody}</p>
+              {c.notLive?.action ? (
+                <StartButton
+                  label={c.notLive.action.label}
+                  href={c.notLive.action.href}
+                  locale={locale}
+                  newTabLabel={dict.a11y.newTab}
+                />
+              ) : null}
+              <p>
+                <Link href={localeHref(locale, "/emergency")} className="underline">
+                  {t.seeAll}
+                </Link>
+              </p>
+            </div>
           </Notice>
         )}
 

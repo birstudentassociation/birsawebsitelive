@@ -22,6 +22,13 @@ function allText(content: EmergencyContent): string[] {
     content.summary,
     content.banner,
     ...content.now,
+    ...(content.notLive
+      ? [
+          content.notLive.title,
+          content.notLive.body,
+          ...(content.notLive.action ? [content.notLive.action.label] : []),
+        ]
+      : []),
     ...content.sections.flatMap((section) => [
       section.heading,
       ...(section.body ?? []),
@@ -55,6 +62,8 @@ describe("emergency guides", () => {
   it.each(scenarioIds)("%s has the same structure in English and Thai", (id) => {
     const { en, th } = scenarios[id];
     expect(th.now.length).toBe(en.now.length);
+    expect(th.notLive?.action?.href).toBe(en.notLive?.action?.href);
+    expect(Boolean(th.notLive)).toBe(Boolean(en.notLive));
     expect(th.sections.map((section) => section.id)).toEqual(
       en.sections.map((section) => section.id)
     );

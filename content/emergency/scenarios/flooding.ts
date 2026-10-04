@@ -5,8 +5,9 @@ import type { EmergencyScenario } from "@/content/emergency/types";
  * and exams, a step by step for going home, cleaning up and staying well, and
  * links to the claims guide in `content/emergency/claims/flooding.ts`, from
  * BMA, DDPM and Department of Disease Control announcements and the sources
- * below. When the alert is ended, restore the general flooding guide from git
- * history (commit 2656287).
+ * below. While no alert is live, `notLive` points readers to the claims guide.
+ * Once claims close, restore the general flooding guide from git history
+ * (commit 2656287).
  */
 const flooding: EmergencyScenario = {
   id: "flooding",
@@ -223,6 +224,11 @@ const flooding: EmergencyScenario = {
       "The floods that began on 24 September have gone down across most of Bangkok. Parts of Lat Krabang and Saphan Sung are still under water, and more heavy rain is forecast for 5 and 6 October. Work through the steps below, and claim money for any damage.",
     banner:
       "The floods have gone down. Find out how to claim the government's 9,000 baht and BMA compensation.",
+    notLive: {
+      title: "The floods are over but you can still claim money",
+      body: "If the place you usually live was flooded, you may be able to get 9,000 baht from the government and compensation from the BMA. Apply to both, and claim from the BMA within 30 days of the flood.",
+      action: { label: "See what you can claim", href: "/emergency/flooding/claims" },
+    },
     now: [
       "Photograph or film the damage before you clean up or throw anything away.",
       "Claim money for the damage. Check what you can get below, and claim from the BMA within 30 days of the flood.",
@@ -556,6 +562,11 @@ const flooding: EmergencyScenario = {
     summary:
       "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ เหลือบางส่วนของเขตลาดกระบังและเขตสะพานสูงที่ยังมีน้ำท่วมขัง และคาดว่าจะมีฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม ทำตามขั้นตอนด้านล่าง และยื่นขอรับเงินช่วยเหลือค่าเสียหาย",
     banner: "น้ำลดแล้ว ดูวิธีขอรับเงิน 9,000 บาทของรัฐบาลและเงินช่วยเหลือค่าเสียหายของ กทม.",
+    notLive: {
+      title: "น้ำท่วมผ่านไปแล้ว แต่ยังขอรับเงินช่วยเหลือได้",
+      body: "หากที่อยู่อาศัยประจำถูกน้ำท่วม คุณอาจได้รับเงิน 9,000 บาทจากรัฐบาล และเงินช่วยเหลือค่าเสียหายจาก กทม. ต้องยื่นทั้งสองทาง ส่วนของ กทม. ต้องยื่นภายใน 30 วันนับแต่วันที่ประสบภัย",
+      action: { label: "ดูว่าขอรับอะไรได้บ้าง", href: "/emergency/flooding/claims" },
+    },
     now: [
       "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ",
       "ยื่นขอรับเงินช่วยเหลือค่าเสียหาย ตรวจสอบได้ด้านล่างว่าขอรับอะไรได้บ้าง และยื่นขอเงินของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย",

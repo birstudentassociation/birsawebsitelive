@@ -133,6 +133,11 @@ export type EmergencyContent = {
   banner: string;
   /** The few actions that matter most, in order. Shown first, in a box. */
   now: string[];
+  /**
+   * Replaces the generic "no alert" notice while this guide is not the live
+   * alert, e.g. to send people to claims once an incident has ended.
+   */
+  notLive?: { title: string; body: string; action?: { label: string; href: string } };
   sections: EmergencySection[];
 };
 
