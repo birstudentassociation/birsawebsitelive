@@ -776,4 +776,19 @@ export const staticPages: StaticPage[] = [
       th: ["การเข้าถึง", "มาตรฐาน", "โปรแกรมอ่านหน้าจอ", "ปัญหาที่ทราบ", "การออกแบบ"],
     },
   },
+  {
+    id: "page:6-october",
+    path: "/6-october",
+    section: "page",
+    kind: "reference",
+    title: { en: "6 October 1976", th: "6 ตุลา 2519" },
+    summary: {
+      en: "Remembering the students and others killed at Thammasat, Tha Prachan, on 6 October 1976.",
+      th: "รำลึกถึงนักศึกษาและประชาชนผู้เสียชีวิตในเหตุการณ์ 6 ตุลา 2519 ที่ธรรมศาสตร์ ท่าพระจันทร์",
+    },
+    keywords: {
+      en: ["6 october", "6 october 1976", "massacre", "thammasat massacre", "doct6", "memorial"],
+      th: ["6 ตุลา", "หกตุลา", "6 ตุลา 2519", "สังหารหมู่", "บันทึก 6 ตุลา", "รำลึก"],
+    },
+  },
 ];
