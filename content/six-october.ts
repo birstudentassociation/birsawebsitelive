@@ -1017,6 +1017,17 @@ export type Quote = {
   href: string;
 };
 
+export type WalkingTour = {
+  heading: string;
+  intro: string;
+  details: { label: string; value: string }[];
+  stopsHeading: string;
+  stops: { place: string; about: string }[];
+  note: string;
+  sourceLabel: string;
+  sourceHref: string;
+};
+
 export type SixOctoberCopy = {
   title: string;
   eyebrow: string;
@@ -1052,6 +1063,7 @@ export type SixOctoberCopy = {
   learnIntro: string;
   learnLinks: { label: string; href: string }[];
   closing: string;
+  walkingTour: WalkingTour;
   creditsHeading: string;
   creditsIntro: string;
   creditsTerms: string;
@@ -1156,6 +1168,46 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "Share a document or a memory", href: `${DOCT6}/contribute` },
     ],
     closing: "We will never forget them.",
+    walkingTour: {
+      heading: "Walking tour of the 6 October sites",
+      intro:
+        "The 50 years of 6 October events at Thammasat University, Tha Prachan, include a walking tour of four places where the massacre and the events around it happened. The tour is a chance to understand the story on the ground where it took place.",
+      details: [
+        { label: "Dates", value: "4 and 6 October 2026" },
+        { label: "Tour times", value: "One tour each day, from 4.30pm to 6.30pm" },
+        {
+          label: "Registration",
+          value: "Open on both days, from 1pm to 1.30pm and from 4pm to 4.30pm",
+        },
+        { label: "Place", value: "Thammasat University, Tha Prachan" },
+      ],
+      stopsHeading: "The four stops",
+      stops: [
+        {
+          place: "In front of the Main Hall",
+          about:
+            "The shooting from the museum side into the area in front of the Main Hall, and the death of Jarupong Thongsin and the five women who died on 6 October 1976.",
+        },
+        {
+          place: "The football field, beside the Faculty of Commerce and Accountancy",
+          about:
+            "The volunteer nurses of the Medical Volunteers for the People, and the mass arrest and detention.",
+        },
+        {
+          place: "Lan Pho",
+          about:
+            "The play performed on 4 October 1976, and the going out to negotiate with the government, and the arrests that followed.",
+        },
+        {
+          place: "The pier at Lan Pridi",
+          about:
+            "The escape down to the river and the swim across it, the shooting by river police, and what followed at Siriraj Hospital.",
+        },
+      ],
+      note: "The tour starts as soon as registration closes. Bring an umbrella or rain gear.",
+      sourceLabel: "Announcement from 6tula2519 on Instagram",
+      sourceHref: "https://www.instagram.com/6tula2519/",
+    },
     creditsHeading: "Sources and credits",
     creditsIntro:
       "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It is an Associated Press photograph, published by Khaosod.",
@@ -1244,6 +1296,45 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "ร่วมเผชิญอยุติธรรม ร่วมความทรงจำ", href: `${DOCT6}/contribute` },
     ],
     closing: "เราจะไม่มีวันลืมพวกเขา",
+    walkingTour: {
+      heading: "Walking Tour 4 จุดเหตุการณ์สำคัญ",
+      intro:
+        "งาน 50 ปี 6 ตุลา ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มีกิจกรรม Walking Tour 4 จุดเหตุการณ์สำคัญ ที่จะพาทุกท่านร่วมทำความเข้าใจเรื่องราวบนพื้นที่เหตุการณ์จริง",
+      details: [
+        { label: "วันที่", value: "4 และ 6 ตุลาคม 2569" },
+        { label: "รอบเดินทัวร์", value: "วันละ 1 รอบ เวลา 16.30 ถึง 18.30 น." },
+        {
+          label: "ลงทะเบียน",
+          value:
+            "เปิดทั้งสองวัน ช่วงที่ 1 เวลา 13.00 ถึง 13.30 น. ช่วงที่ 2 เวลา 16.00 ถึง 16.30 น.",
+        },
+        { label: "สถานที่", value: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์" },
+      ],
+      stopsHeading: "4 จุดที่ไปเยือน",
+      stops: [
+        {
+          place: "หน้าหอประชุมใหญ่",
+          about:
+            "การบุกยิงจากฝั่งพิพิธภัณฑ์เข้ามายังบริเวณหน้าหอประชุมใหญ่ การเสียชีวิตของคุณจารุพงษ์ ทองสินธุ์ และผู้หญิงทั้ง 5 คนที่เสียชีวิตในวันที่ 6 ตุลาคม 2519",
+        },
+        {
+          place: "สนามฟุตบอล (ตึกบัญชี)",
+          about: "พยาบาลเพื่อมวลชน (พ.ม.ช.) และการถูกจับกุมคุมขัง",
+        },
+        {
+          place: "ลานโพธิ์",
+          about: "การแสดงละครในวันที่ 4 ตุลาคม 2519 การออกไปเจรจากับรัฐบาล และการถูกจับกุมคุมขัง",
+        },
+        {
+          place: "ท่าน้ำ ลานปรีดี",
+          about:
+            "การหนีลงท่าว่ายน้ำข้าม และการถูกยิงจากตำรวจน้ำ ไปจนถึงเหตุการณ์ที่โรงพยาบาลศิริราช",
+        },
+      ],
+      note: "กิจกรรมจะเริ่มทันทีหลังปิดการลงทะเบียน ขอให้นำร่มหรืออุปกรณ์กันฝนติดตัวมาด้วย",
+      sourceLabel: "ประกาศจาก 6tula2519 บน Instagram",
+      sourceHref: "https://www.instagram.com/6tula2519/",
+    },
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
       "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเป็นภาพของสำนักข่าวเอพี เผยแพร่โดยข่าวสด",
