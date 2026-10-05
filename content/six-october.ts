@@ -51,24 +51,24 @@ const photo = (
   source: string = s011
 ): SixOctoberImage => ({ src, width, height, source, alt, caption, credit });
 
-const khaosod = "https://www.khaosod.co.th/wpapp/uploads/2018/10/6tula_01.jpg";
+const khaosod = "https://www.khaosod.co.th/wpapp/uploads/2018/10/Thailand-Massacre-Ann_Cham-12.jpg";
 
 export const hero: SixOctoberImage = {
-  src: "/6-october/hero-field.webp",
-  width: 600,
-  height: 338,
+  src: "/6-october/hero-thammasat.webp",
+  width: 2400,
+  height: 1619,
   source: khaosod,
   alt: {
-    en: "Hundreds of students lie face down across the Thammasat football field, many stripped to the waist, while a soldier holding a rifle stands over them. The Dome building and its spire rise behind.",
-    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ หลายคนถูกถอดเสื้อ ทหารถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
+    en: "Hundreds of students lie face down across the Thammasat football field, most stripped to the waist with their hands behind their heads, while a policeman holding a rifle stands over them. The Dome building and its spire rise behind.",
+    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ ส่วนใหญ่ถูกถอดเสื้อ มือประสานไว้ที่ท้ายทอย ตำรวจถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
   },
   caption: {
     en: "Behind the title, the football field of Thammasat University on the morning of 6 October 1976, with the Dome behind.",
     th: "ภาพเบื้องหลังชื่อเรื่อง สนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519 เบื้องหลังคือตึกโดม",
   },
   credit: {
-    en: "Photographer unknown. Published by Khaosod.",
-    th: "ไม่ทราบผู้ถ่ายภาพ ภาพเผยแพร่โดยข่าวสด",
+    en: "Photograph by The Associated Press, published by Khaosod.",
+    th: "ภาพโดยสำนักข่าวเอพี เผยแพร่โดยข่าวสด",
   },
 };
 
@@ -1159,7 +1159,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "We do not forget.",
     creditsHeading: "Sources and credits",
     creditsIntro:
-      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It was published by Khaosod, which does not name the photographer.",
+      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It is an Associated Press photograph, published by Khaosod.",
     creditsTerms:
       "The archive shares its material for education and the public interest and asks that it be credited. Ask the archive, or the families of the dead, before any commercial use.",
     photoSource: "View on doct6.com",
@@ -1249,7 +1249,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "เราไม่ลืม",
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
-      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเผยแพร่โดยข่าวสดโดยไม่ระบุชื่อผู้ถ่ายภาพ",
+      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเป็นภาพของสำนักข่าวเอพี เผยแพร่โดยข่าวสด",
     creditsTerms:
       "เอกสารหรือหลักฐานที่ปรากฏในเว็บไซต์ “บันทึก 6 ตุลา” มีจุดประสงค์เพื่อการเรียนรู้และประโยชน์ต่อสังคมเท่านั้น หากต้องการนำไปใช้ในทางธุรกิจหรือเพื่อแสวงหากำไร กรุณาติดต่อโครงการก่อนหรือขออนุญาตโดยตรงจากครอบครัวของผู้เสียชีวิต",
     photoSource: "ดูที่ doct6.com",

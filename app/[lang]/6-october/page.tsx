@@ -39,10 +39,10 @@ export async function generateMetadata({
     path: "/6-october",
   });
   const image = {
-    url: "/6-october/og-dome.jpg",
+    url: "/6-october/og-field.jpg",
     width: 1200,
     height: 630,
-    alt: images.fieldBuses.alt[lang],
+    alt: hero.alt[lang],
   };
   return {
     ...base,
