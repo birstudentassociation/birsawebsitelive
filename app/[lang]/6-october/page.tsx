@@ -92,14 +92,17 @@ function PullQuote({
     <figure className="flex flex-col gap-4">
       <blockquote cite={quote.href} className="flex flex-col gap-3">
         <p
-          className={`font-display leading-snug text-balance ${
+          className={`font-display leading-snug text-balance whitespace-pre-line ${
             size === "lg" ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
           }`}
         >
           {quoted(quote.text)}
         </p>
         {quote.original ? (
-          <p lang="th" className={`font-thai text-lg leading-relaxed italic ${quiet}`}>
+          <p
+            lang="th"
+            className={`font-thai text-lg leading-relaxed whitespace-pre-line italic ${quiet}`}
+          >
             {quoted(quote.original)}
           </p>
         ) : null}
@@ -470,6 +473,44 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
               </li>
             ))}
           </ul>
+        </section>
+
+        <section
+          aria-labelledby="walking-tour"
+          className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-6"
+        >
+          <h2 id="walking-tour" className="font-display text-3xl">
+            {t.walkingTour.heading}
+          </h2>
+          <p className="leading-relaxed">{t.walkingTour.intro}</p>
+          <dl className="grid grid-cols-1 border-t border-line sm:grid-cols-[10rem_1fr]">
+            {t.walkingTour.details.map((d) => (
+              <div key={d.label} className="contents">
+                <dt className="border-b border-line pt-4 text-sm font-semibold text-muted sm:pb-4">
+                  {d.label}
+                </dt>
+                <dd className="border-b border-line pt-1 pb-4 leading-relaxed sm:pt-4">
+                  {d.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <h3 className="font-display text-2xl">{t.walkingTour.stopsHeading}</h3>
+          <ol className="flex list-decimal flex-col gap-4 pl-6 marker:font-semibold">
+            {t.walkingTour.stops.map((stop) => (
+              <li key={stop.place} className="leading-relaxed">
+                <span className="font-semibold">{stop.place}</span>
+                <br />
+                {stop.about}
+              </li>
+            ))}
+          </ol>
+          <p className="leading-relaxed">{t.walkingTour.note}</p>
+          <p className="text-sm text-muted">
+            <ExternalLink href={t.walkingTour.sourceHref} newTabLabel={newTab} className={link}>
+              {t.walkingTour.sourceLabel}
+            </ExternalLink>
+          </p>
         </section>
 
         <section className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-3 border-t border-line pt-8">

@@ -60,11 +60,11 @@ export const hero: SixOctoberImage = {
   source: khaosod,
   alt: {
     en: "Hundreds of students lie face down across the Thammasat football field, most stripped to the waist with their hands behind their heads, while a policeman holding a rifle stands over them. The Dome building and its spire rise behind.",
-    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ ส่วนใหญ่ถูกถอดเสื้อ มือประสานไว้ที่ท้ายทอย ตำรวจถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
+    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ ถูกถอดเสื้อ โดนสั่งให้เอามือประสานไว้ที่ท้ายทอย ตำรวจถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
   },
   caption: {
     en: "Behind the title, the football field of Thammasat University on the morning of 6 October 1976, with the Dome behind.",
-    th: "ภาพเบื้องหลังชื่อเรื่อง สนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519 เบื้องหลังคือตึกโดม",
+    th: "ภาพพื้นหลังแสดงให้เห็นสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519",
   },
   credit: {
     en: "Photograph by The Associated Press, published by Khaosod.",
@@ -112,7 +112,7 @@ export const images = {
     1001,
     {
       en: "A policeman kneels and aims a rifle while others crouch on the grass beside him.",
-      th: "ตำรวจคุกเข่าเล็งปืนไรเฟิล ขณะที่คนอื่นหมอบอยู่บนสนามหญ้าข้างกัน",
+      th: "ตำรวจคุกเข่าเล็งปืนไรเฟิล ขณะที่คนอื่นหมอบอยู่บนสนามหญ้าเรียงกัน",
     },
     { en: "At the Great Hall.", th: "เหตุการณ์บริเวณหอประชุมใหญ่" }
   ),
@@ -145,7 +145,7 @@ export const images = {
     1032,
     {
       en: "Students in shirts and trousers lie and crawl across the grass of the football field.",
-      th: "นักศึกษาในเสื้อเชิ้ตและกางเกงนอนและคลานอยู่บนสนามหญ้า",
+      th: "นักศึกษาใส่เสื้อเชิ้ตและกางเกง นอนและคลานอยู่บนสนามหญ้า",
     },
     {
       en: "The football field at Thammasat University.",
@@ -158,7 +158,7 @@ export const images = {
     977,
     {
       en: "Young people walk in a line with their hands on their heads past an armed man on the Thammasat football field.",
-      th: "คนหนุ่มสาวเดินเรียงแถวเอามือประสานบนศีรษะ ผ่านชายถืออาวุธในสนามฟุตบอลมหาวิทยาลัยธรรมศาสตร์",
+      th: "คนเดินเรียงแถวเอามือประสานบนศีรษะ มีเจ้าหน้าที่ถืออาวุธในสนามฟุตบอลมหาวิทยาลัยธรรมศาสตร์",
     },
     {
       en: "The football field at Thammasat University.",
@@ -171,7 +171,7 @@ export const images = {
     1370,
     {
       en: "Hundreds of students lie face down in rows across the football field, many stripped to the waist, while police stand along the far side in front of the university buildings.",
-      th: "นักศึกษาหลายร้อยคนนอนคว่ำเรียงแถวเต็มสนามฟุตบอล หลายคนถูกถอดเสื้อ ตำรวจยืนเรียงอยู่ด้านหลังหน้าอาคารของมหาวิทยาลัย",
+      th: "นักศึกษาหลายร้อยคนนอนคว่ำเรียงแถวเต็มสนามฟุตบอล ซึ่งทุกคนได้ถูกสั่งให้ถอดเสื้อ ตำรวจยืนเรียงอยู่ด้านหลังหน้าอาคารของมหาวิทยาลัย",
     },
     {
       en: "The football field at Thammasat University.",
@@ -317,7 +317,7 @@ export const portraits: Portrait[] = [
     href: `${DOCT6}/archives/4102`,
     about: {
       en: "19. A third year Liberal Arts student at Thammasat. His parents, Chinda and Lim, searched the country for their son.",
-      th: "อายุ 19 ปี นักศึกษาชั้นปีที่ 3 คณะศิลปศาสตร์ มหาวิทยาลัยธรรมศาสตร์ พ่อจินดาและแม่ลิ้มพลิกแผ่นดินตามหาลูก",
+      th: "อายุ 19 ปี นักศึกษาชั้นปีที่ 3 คณะศิลปศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ซึ่งพ่อจินดาและแม่ลิ้มพลิกแผ่นดินตามหาเขา",
     },
     credit: archiveCredit,
   },
@@ -1017,6 +1017,17 @@ export type Quote = {
   href: string;
 };
 
+export type WalkingTour = {
+  heading: string;
+  intro: string;
+  details: { label: string; value: string }[];
+  stopsHeading: string;
+  stops: { place: string; about: string }[];
+  note: string;
+  sourceLabel: string;
+  sourceHref: string;
+};
+
 export type SixOctoberCopy = {
   title: string;
   eyebrow: string;
@@ -1052,6 +1063,7 @@ export type SixOctoberCopy = {
   learnIntro: string;
   learnLinks: { label: string; href: string }[];
   closing: string;
+  walkingTour: WalkingTour;
   creditsHeading: string;
   creditsIntro: string;
   creditsTerms: string;
@@ -1060,9 +1072,11 @@ export type SixOctoberCopy = {
 };
 
 const how = `${DOCT6}/learn-about/how`;
+const saengDaoWiki =
+  "https://th.wikipedia.org/wiki/%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B8%94%E0%B8%B2%E0%B8%A7%E0%B9%81%E0%B8%AB%E0%B9%88%E0%B8%87%E0%B8%A8%E0%B8%A3%E0%B8%B1%E0%B8%97%E0%B8%98%E0%B8%B2";
 const victimsPage = `${DOCT6}/remember/victims`;
 
-const epigraphTh = "ความใฝ่ฝันถึงสังคมใหม่ไม่ใช่ความผิด";
+const epigraphTh = "ขอเยาะเย้ยทุกข์ยากขวากหนามลำเค็ญ\nคนยังคง ยืนเด่นโดยท้าทาย";
 const impunityTh =
   "แต่ที่น่าประหลาดใจที่สุดก็คือ การก่อกรณีนองเลือดครั้งนี้ ไม่มีการจับกุมฆาตกรผู้ก่อการสังหารเลยแม้แต่คนเดียว";
 const humanityTh = "การทำความรู้จักตัวตนของเหยื่อก็คือการแสดงความเคารพต่อความเป็นมนุษย์ของพวกเขา";
@@ -1072,18 +1086,18 @@ const aimTh =
 export const copy: Record<Locale, SixOctoberCopy> = {
   en: {
     title: "6 October 1976",
-    eyebrow: "50 years",
+    eyebrow: "50 YEARS ON",
     lede: "On the morning of 6 October 1976, police and armed civilians massacred students and members of the public at Thammasat University, Tha Prachan. We remember them.",
     metaDescription:
-      "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on. What happened, the names of the dead and where to learn more.",
+      "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on.",
     breadcrumb: "6 October 1976",
     contentNote:
-      "This page describes killing and violence against students. It contains historical photographs of the morning, but none that show the dead.",
+      "This page describes killing and violence against students. None of the photographs shown on this page depict the dead.",
     epigraph: {
-      text: "The dream of a new society is not a crime.",
+      text: "I scoff at sorrow, at the thorns and bitter trial; man yet stands tall, magnificent in defiance.",
       original: epigraphTh,
-      cite: "Suthachai Yimprasert, How 6 October happened, conclusion",
-      href: `${how}/conclusion`,
+      cite: "Jit Phumisak, from the song Saeng Dao Haeng Sattha",
+      href: saengDaoWiki,
     },
     remembranceHeading: "Fifty years on",
     remembrance: [
@@ -1092,7 +1106,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     ],
     backgroundHeading: "How it came to this",
     background: [
-      "Documentation of Oct 6 traces the massacre back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
+      "The origins of the massacre can be traced back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
       "On 19 September 1976 Field Marshal Thanom Kittikachorn came home from Singapore as a novice and was ordained a monk at Wat Bowonniwet. On 24 September two Nakhon Pathom electricity workers were beaten to death while putting up posters against him, and their bodies were hanged at the gate of a housing estate.",
       "On 4 October students rallied at Lan Pho, and the Thammasat drama club staged a play about the Nakhon Pathom hanging. The next day the Dao Siam newspaper used a photograph of the play to attack the student movement, claiming the students had deliberately insulted the monarchy.",
     ],
@@ -1117,15 +1131,14 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       cite: "Documentation of Oct 6, Victims of the violence",
       href: victimsPage,
     },
-    namesIntro:
-      "These are the 40 students and members of the public who died in the massacre, as Documentation of Oct 6 records them. The archive gives their names in Thai. Where it has written someone's story, their name links to it.",
+    namesIntro: "These are the 40 students and members of the public who died in the massacre.",
     readMoreAbout: "Read about",
     age: (years) => `Aged ${years}`,
     separator: ". ",
     namesSource: "The victims page of Documentation of Oct 6",
     deadHeading: "How many died",
     deadIntro:
-      "Fifty years on, even the number of dead is uncertain. The records do not agree, and Documentation of Oct 6 explains why.",
+      "Fifty years on, even the number of dead is uncertain. The official figures, the autopsy reports, and the archive's count of the dead all differ.",
     figures: [
       { value: "39", label: "dead in the official figures" },
       { value: "46", label: "dead, at least, in the autopsy reports" },
@@ -1137,7 +1150,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     whyHeading: "Why we remember",
     why: [
       "Documentation of Oct 6 is an online archive that collects, preserves and organises evidence that was scattered for decades. It holds the autopsy reports, the newspapers, the radio recordings, the photographs, and the stories of the people who died, told by their families and friends.",
-      "We are a student association at Tha Prachan. We keep their memory on the ground where they were killed.",
+      "BIRSA would like to contribute to keeping their memory on the ground where they were killed.",
     ],
     whyQuote: {
       text: "So that anyone can reach the evidence more easily, so that interest and research into 6 October can carry far into the future, and to fight the effort to make society forget 6 October.",
@@ -1155,6 +1168,46 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "Share a document or a memory", href: `${DOCT6}/contribute` },
     ],
     closing: "We will never forget them.",
+    walkingTour: {
+      heading: "Walking tour of the 6 October sites",
+      intro:
+        "The 50 years of 6 October events at Thammasat University, Tha Prachan, include a walking tour of four places where the massacre and the events around it happened. The tour is a chance to understand the story on the ground where it took place.",
+      details: [
+        { label: "Dates", value: "4 and 6 October 2026" },
+        { label: "Tour times", value: "One tour each day, from 4.30pm to 6.30pm" },
+        {
+          label: "Registration",
+          value: "Open on both days, from 1pm to 1.30pm and from 4pm to 4.30pm",
+        },
+        { label: "Place", value: "Thammasat University, Tha Prachan" },
+      ],
+      stopsHeading: "The four stops",
+      stops: [
+        {
+          place: "In front of the Main Hall",
+          about:
+            "The shooting from the museum side into the area in front of the Main Hall, and the death of Jarupong Thongsin and the five women who died on 6 October 1976.",
+        },
+        {
+          place: "The football field, beside the Faculty of Commerce and Accountancy",
+          about:
+            "The volunteer nurses of the Medical Volunteers for the People, and the mass arrest and detention.",
+        },
+        {
+          place: "Lan Pho",
+          about:
+            "The play performed on 4 October 1976, and the going out to negotiate with the government, and the arrests that followed.",
+        },
+        {
+          place: "The pier at Lan Pridi",
+          about:
+            "The escape down to the river and the swim across it, the shooting by river police, and what followed at Siriraj Hospital.",
+        },
+      ],
+      note: "The tour starts as soon as registration closes. Bring an umbrella or rain gear.",
+      sourceLabel: "Announcement from 6tula2519 on Instagram",
+      sourceHref: "https://www.instagram.com/6tula2519/",
+    },
     creditsHeading: "Sources and credits",
     creditsIntro:
       "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It is an Associated Press photograph, published by Khaosod.",
@@ -1166,21 +1219,20 @@ export const copy: Record<Locale, SixOctoberCopy> = {
   th: {
     title: "6 ตุลา 2519",
     eyebrow: "50 ปี 6 ตุลา",
-    lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
-    metaDescription:
-      "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เกิดอะไรขึ้น รายชื่อผู้เสียชีวิต และแหล่งข้อมูลจากโครงการบันทึก 6 ตุลา",
+    lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอร่วมรำลึกถึงผู้วายชนม์",
+    metaDescription: "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
     breadcrumb: "6 ตุลา 2519",
     contentNote:
-      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา มีภาพถ่ายทางประวัติศาสตร์ของเช้าวันนั้น แต่ไม่มีภาพผู้เสียชีวิต",
+      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา ไม่มีภาพที่ปรากฎการกระทำต่อผู้เสียชีวิต",
     epigraph: {
       text: epigraphTh,
-      cite: "สุธาชัย ยิ้มประเสริฐ บทสรุป เหตุการณ์ 6 ตุลาฯ เกิดขึ้นได้อย่างไร",
-      href: `${how}/conclusion`,
+      cite: "จิตร ภูมิศักดิ์ เพลง แสงดาวแห่งศรัทธา",
+      href: saengDaoWiki,
     },
     remembranceHeading: "ครบ 50 ปี",
     remembrance: [
-      "นักศึกษาประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก นักศึกษาประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน กลับถูกจับกุมทั้งหมดภายในวันนั้นเอง และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
-      "ผู้เสียชีวิตมักถูกจดจำในฐานะตัวเลขความตายเท่านั้น บางคนจนถึงวันนี้ยังไม่มีใครรู้ชื่อ ท่าพระจันทร์คือที่ที่เราเรียนกันทุกวันนี้ และเป็นที่ที่เรื่องทั้งหมดนี้เกิดขึ้น",
+      "นักศึกษาและประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ในวันที่ 6 ตุลา ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก มีการจับกุมนักศึกษาและประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
+      "เราขอร่วมรำลึกถึงผู้วายชนม์ และรำลึกถึงเหตุการณ์ที่เกิดขึ้นในวันนั้น",
     ],
     backgroundHeading: "ย้อนดูที่มา",
     background: [
@@ -1227,7 +1279,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     whyHeading: "ทำไมเราต้องจำ",
     why: [
       "โครงการ “บันทึก 6 ตุลา” คือแหล่งข้อมูลออนไลน์ที่มุ่งเก็บรวบรวมรักษาและจัดระบบข้อมูลที่ยังกระจัดกระจายในที่ต่างๆ ทั้งเอกสารชันสูตรพลิกศพ หนังสือพิมพ์ เสียงจากวิทยุ ภาพถ่าย และเรื่องราวของผู้เสียชีวิตจากปากคำของครอบครัวและเพื่อน",
-      "เราเป็นสมาคมนักศึกษาที่ท่าพระจันทร์ เราขอร่วมรักษาความทรงจำของพวกเขาไว้บนผืนดินที่พวกเขาถูกสังหาร",
+      "เราขอร่วมรักษาความทรงจำของพวกเขาไว้",
     ],
     whyQuote: {
       text: aimTh,
@@ -1244,6 +1296,45 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "ร่วมเผชิญอยุติธรรม ร่วมความทรงจำ", href: `${DOCT6}/contribute` },
     ],
     closing: "เราจะไม่มีวันลืมพวกเขา",
+    walkingTour: {
+      heading: "Walking Tour 4 จุดเหตุการณ์สำคัญ",
+      intro:
+        "งาน 50 ปี 6 ตุลา ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มีกิจกรรม Walking Tour 4 จุดเหตุการณ์สำคัญ ที่จะพาทุกท่านร่วมทำความเข้าใจเรื่องราวบนพื้นที่เหตุการณ์จริง",
+      details: [
+        { label: "วันที่", value: "4 และ 6 ตุลาคม 2569" },
+        { label: "รอบเดินทัวร์", value: "วันละ 1 รอบ เวลา 16.30 ถึง 18.30 น." },
+        {
+          label: "ลงทะเบียน",
+          value:
+            "เปิดทั้งสองวัน ช่วงที่ 1 เวลา 13.00 ถึง 13.30 น. ช่วงที่ 2 เวลา 16.00 ถึง 16.30 น.",
+        },
+        { label: "สถานที่", value: "มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์" },
+      ],
+      stopsHeading: "4 จุดที่ไปเยือน",
+      stops: [
+        {
+          place: "หน้าหอประชุมใหญ่",
+          about:
+            "การบุกยิงจากฝั่งพิพิธภัณฑ์เข้ามายังบริเวณหน้าหอประชุมใหญ่ การเสียชีวิตของคุณจารุพงษ์ ทองสินธุ์ และผู้หญิงทั้ง 5 คนที่เสียชีวิตในวันที่ 6 ตุลาคม 2519",
+        },
+        {
+          place: "สนามฟุตบอล (ตึกบัญชี)",
+          about: "พยาบาลเพื่อมวลชน (พ.ม.ช.) และการถูกจับกุมคุมขัง",
+        },
+        {
+          place: "ลานโพธิ์",
+          about: "การแสดงละครในวันที่ 4 ตุลาคม 2519 การออกไปเจรจากับรัฐบาล และการถูกจับกุมคุมขัง",
+        },
+        {
+          place: "ท่าน้ำ ลานปรีดี",
+          about:
+            "การหนีลงท่าว่ายน้ำข้าม และการถูกยิงจากตำรวจน้ำ ไปจนถึงเหตุการณ์ที่โรงพยาบาลศิริราช",
+        },
+      ],
+      note: "กิจกรรมจะเริ่มทันทีหลังปิดการลงทะเบียน ขอให้นำร่มหรืออุปกรณ์กันฝนติดตัวมาด้วย",
+      sourceLabel: "ประกาศจาก 6tula2519 บน Instagram",
+      sourceHref: "https://www.instagram.com/6tula2519/",
+    },
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
       "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเป็นภาพของสำนักข่าวเอพี เผยแพร่โดยข่าวสด",
