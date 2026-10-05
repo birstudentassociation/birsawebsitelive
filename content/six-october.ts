@@ -1150,7 +1150,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     whyHeading: "Why we remember",
     why: [
       "Documentation of Oct 6 is an online archive that collects, preserves and organises evidence that was scattered for decades. It holds the autopsy reports, the newspapers, the radio recordings, the photographs, and the stories of the people who died, told by their families and friends.",
-      "We are a student association at Tha Prachan. We keep their memory on the ground where they were killed.",
+      "BIRSA would like to contribute to keeping their memory on the ground where they were killed.",
     ],
     whyQuote: {
       text: "So that anyone can reach the evidence more easily, so that interest and research into 6 October can carry far into the future, and to fight the effort to make society forget 6 October.",
@@ -1279,7 +1279,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     whyHeading: "ทำไมเราต้องจำ",
     why: [
       "โครงการ “บันทึก 6 ตุลา” คือแหล่งข้อมูลออนไลน์ที่มุ่งเก็บรวบรวมรักษาและจัดระบบข้อมูลที่ยังกระจัดกระจายในที่ต่างๆ ทั้งเอกสารชันสูตรพลิกศพ หนังสือพิมพ์ เสียงจากวิทยุ ภาพถ่าย และเรื่องราวของผู้เสียชีวิตจากปากคำของครอบครัวและเพื่อน",
-      "เราเป็นสมาคมนักศึกษาที่ท่าพระจันทร์ เราขอร่วมรักษาความทรงจำของพวกเขาไว้บนผืนดินที่พวกเขาถูกสังหาร",
+      "เราขอร่วมรักษาความทรงจำของพวกเขาไว้",
     ],
     whyQuote: {
       text: aimTh,
