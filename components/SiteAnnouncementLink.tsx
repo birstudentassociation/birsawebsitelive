@@ -26,6 +26,7 @@ type Props = {
 const severityClasses: Record<AnnouncementSeverity, string> = {
   warning: "border-warning bg-warning-tint text-ink",
   info: "border-info bg-info-tint text-ink",
+  remembrance: "border-black bg-[#0d0c0b] text-white",
 };
 
 export default function SiteAnnouncementLink({ href, message, cta, severity, expiresAt }: Props) {

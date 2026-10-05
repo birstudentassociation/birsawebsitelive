@@ -18,7 +18,7 @@
 import type { Locale } from "@/lib/i18n";
 
 /** Amber (warning) reads more urgent than blue (info); neither reads as a red emergency. */
-export type AnnouncementSeverity = "info" | "warning";
+export type AnnouncementSeverity = "info" | "warning" | "remembrance";
 
 export type SiteAnnouncement = {
   active: boolean;
@@ -38,18 +38,17 @@ export type SiteAnnouncement = {
 };
 
 export const announcement: SiteAnnouncement = {
-  active: false,
-  severity: "warning",
-  href: "/news/khlong-thom-center-fire-advisory",
-  // 24 hours from when this advisory went up (2026-08-29 09:52 UTC).
-  expiresAt: "2026-08-30T09:52:00Z",
+  active: true,
+  severity: "remembrance",
+  href: "/6-october",
+  expiresAt: "2026-10-06T17:00:00Z",
   message: {
-    en: "A fire has badly damaged Khlong Thom Center near campus. Avoid the area and allow extra time to travel.",
-    th: "เพลิงไหม้คลองถมเซ็นเตอร์ใกล้มหาวิทยาลัยเสียหายหนัก เลี่ยงพื้นที่ และเผื่อเวลาเดินทาง",
+    en: "Fifty years on from 6 October 1976, we remember the students and members of the public killed at Thammasat, Tha Prachan.",
+    th: "50 ปี 6 ตุลา 2519 รำลึกถึงนักศึกษาและประชาชนผู้ถูกสังหารในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
   },
   cta: {
-    en: "Read the safety advice",
-    th: "อ่านคำแนะนำด้านความปลอดภัย",
+    en: "Remember them",
+    th: "ร่วมรำลึก",
   },
 };
 
