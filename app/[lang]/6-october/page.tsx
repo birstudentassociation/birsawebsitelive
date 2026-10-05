@@ -232,18 +232,20 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
   return (
     <article>
       <header className="relative isolate overflow-hidden bg-[#0d0c0b] text-white">
-        <Image
-          src={hero.src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="-z-10 object-cover object-[60%_center] opacity-75 grayscale"
-        />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d0c0b] via-[#0d0c0b]/75 to-[#0d0c0b]/10"
-        />
+          className="absolute inset-x-0 top-0 -z-10 h-[28rem] sm:inset-0 sm:h-auto"
+        >
+          <Image
+            src={hero.src}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[right_top] opacity-75 grayscale"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c0b] via-[#0d0c0b]/60 to-[#0d0c0b]/10 sm:via-[#0d0c0b]/75" />
+        </div>
         <div className="wrap flex min-h-[40rem] flex-col justify-between gap-16 py-10 sm:min-h-[48rem]">
           <Breadcrumbs
             locale={locale}
@@ -256,11 +258,6 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
             <h1 className="font-display text-6xl leading-none text-balance text-white sm:text-8xl lg:text-9xl">
               {t.title}
             </h1>
-            <p className="flex flex-col gap-1 border-y border-white/30 py-4 font-display text-xl text-white sm:flex-row sm:gap-8 sm:text-2xl">
-              {t.dates.map((d) => (
-                <span key={d}>{d}</span>
-              ))}
-            </p>
             <p className="max-w-[var(--measure)] text-lg leading-relaxed text-white/90 sm:text-xl">
               {t.lede}
             </p>

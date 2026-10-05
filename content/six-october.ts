@@ -1020,7 +1020,6 @@ export type Quote = {
 export type SixOctoberCopy = {
   title: string;
   eyebrow: string;
-  dates: string[];
   lede: string;
   metaDescription: string;
   breadcrumb: string;
@@ -1074,7 +1073,6 @@ export const copy: Record<Locale, SixOctoberCopy> = {
   en: {
     title: "6 October 1976",
     eyebrow: "50 years",
-    dates: ["Wednesday 6 October 1976", "Remembered 6 October 2026"],
     lede: "On the morning of 6 October 1976, police and armed civilians massacred students and members of the public at Thammasat University, Tha Prachan. We remember them.",
     metaDescription:
       "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on. What happened, the names of the dead and where to learn more.",
@@ -1168,7 +1166,6 @@ export const copy: Record<Locale, SixOctoberCopy> = {
   th: {
     title: "6 ตุลา 2519",
     eyebrow: "50 ปี 6 ตุลา",
-    dates: ["วันพุธที่ 6 ตุลาคม 2519", "รำลึก 6 ตุลาคม 2569"],
     lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
     metaDescription:
       "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เกิดอะไรขึ้น รายชื่อผู้เสียชีวิต และแหล่งข้อมูลจากโครงการบันทึก 6 ตุลา",
