@@ -38,7 +38,12 @@ export async function generateMetadata({
     description: t.metaDescription,
     path: "/6-october",
   });
-  const image = { url: "/6-october/og-dome.jpg", width: 1200, height: 630, alt: hero.alt[lang] };
+  const image = {
+    url: "/6-october/og-dome.jpg",
+    width: 1200,
+    height: 630,
+    alt: images.fieldBuses.alt[lang],
+  };
   return {
     ...base,
     openGraph: { ...base.openGraph, images: [image] },
@@ -47,6 +52,8 @@ export async function generateMetadata({
 }
 
 const link = "text-current underline decoration-1 underline-offset-4 hover:decoration-2";
+
+const quoted = (text: string) => `\u201c${text}\u201d`;
 
 function Figure({
   image,
@@ -101,11 +108,11 @@ function PullQuote({
             size === "lg" ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
           }`}
         >
-          {quote.text}
+          {quoted(quote.text)}
         </p>
         {quote.original ? (
-          <p lang="th" className={`font-thai text-lg leading-relaxed ${quiet}`}>
-            {quote.original}
+          <p lang="th" className={`font-thai text-lg leading-relaxed italic ${quiet}`}>
+            {quoted(quote.original)}
           </p>
         ) : null}
       </blockquote>
@@ -139,11 +146,11 @@ function TestimonyQuote({
           lang={locale}
           className="font-display text-xl leading-snug text-balance text-ink sm:text-2xl"
         >
-          {q[locale]}
+          {quoted(q[locale])}
         </p>
         {locale === "en" ? (
-          <p lang="th" className="font-thai leading-relaxed text-muted">
-            {q.th}
+          <p lang="th" className="font-thai leading-relaxed text-muted italic">
+            {quoted(q.th)}
           </p>
         ) : null}
       </blockquote>
@@ -171,7 +178,7 @@ function StoryBlock({
     case "moment":
       return (
         <div className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-1 sm:flex-row sm:gap-6">
-          <p className="w-24 shrink-0 font-display text-2xl text-ink tabular-nums">
+          <p className="shrink-0 font-display text-2xl whitespace-nowrap text-ink tabular-nums sm:w-32">
             {block.time[locale]}
           </p>
           <p className="text-lg leading-relaxed">{block.text[locale]}</p>
@@ -231,7 +238,7 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover object-[12%_30%] opacity-70 sm:object-[30%_30%]"
+          className="-z-10 object-cover object-[60%_center] opacity-75 grayscale"
         />
         <div
           aria-hidden="true"
@@ -246,7 +253,14 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
           />
           <div className="mt-auto flex max-w-3xl flex-col gap-5">
             <p className="text-sm tracking-[0.2em] text-white/80 uppercase">{t.eyebrow}</p>
-            <h1 className="font-display text-5xl text-white sm:text-7xl">{t.title}</h1>
+            <h1 className="font-display text-6xl leading-none text-balance text-white sm:text-8xl lg:text-9xl">
+              {t.title}
+            </h1>
+            <p className="flex flex-col gap-1 border-y border-white/30 py-4 font-display text-xl text-white sm:flex-row sm:gap-8 sm:text-2xl">
+              {t.dates.map((d) => (
+                <span key={d}>{d}</span>
+              ))}
+            </p>
             <p className="max-w-[var(--measure)] text-lg leading-relaxed text-white/90 sm:text-xl">
               {t.lede}
             </p>
@@ -257,7 +271,7 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
           <p className="max-w-3xl text-xs leading-relaxed text-white/75">
             {hero.caption[locale]} {hero.credit[locale]}{" "}
             <ExternalLink href={hero.source} newTabLabel={newTab} className={link}>
-              {t.photoSource}
+              {t.heroSource}
             </ExternalLink>
           </p>
         </div>

@@ -51,22 +51,41 @@ const photo = (
   source: string = s011
 ): SixOctoberImage => ({ src, width, height, source, alt, caption, credit });
 
-/** The football field and the Dome, shown greyscale behind the page title. */
-export const hero = photo(
-  "/6-october/hero-dome.webp",
-  2200,
-  1434,
-  {
-    en: "Police with rifles stand among buses on the wet Thammasat football field, with the Dome building and its spire behind them and an empty chair in the foreground.",
-    th: "ตำรวจถืออาวุธยืนอยู่ท่ามกลางรถโดยสารบนสนามฟุตบอลธรรมศาสตร์ที่เปียกน้ำ เบื้องหลังคือตึกโดม เบื้องหน้ามีเก้าอี้ว่างตัวหนึ่ง",
+const khaosod = "https://www.khaosod.co.th/wpapp/uploads/2018/10/6tula_01.jpg";
+
+export const hero: SixOctoberImage = {
+  src: "/6-october/hero-field.webp",
+  width: 600,
+  height: 338,
+  source: khaosod,
+  alt: {
+    en: "Hundreds of students lie face down across the Thammasat football field, many stripped to the waist, while a soldier holding a rifle stands over them. The Dome building and its spire rise behind.",
+    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ หลายคนถูกถอดเสื้อ ทหารถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
   },
-  {
-    en: "Behind the title, the football field of Thammasat University, with the Dome behind.",
-    th: "ภาพเบื้องหลังชื่อเรื่อง บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เบื้องหลังคือตึกโดม",
-  }
-);
+  caption: {
+    en: "Behind the title, the football field of Thammasat University on the morning of 6 October 1976, with the Dome behind.",
+    th: "ภาพเบื้องหลังชื่อเรื่อง สนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519 เบื้องหลังคือตึกโดม",
+  },
+  credit: {
+    en: "Photographer unknown. Published by Khaosod.",
+    th: "ไม่ทราบผู้ถ่ายภาพ ภาพเผยแพร่โดยข่าวสด",
+  },
+};
 
 export const images = {
+  fieldBuses: photo(
+    "/6-october/field-buses.webp",
+    2200,
+    1434,
+    {
+      en: "Police with rifles stand among buses on the wet Thammasat football field, with the Dome building and its spire behind them and an empty chair in the foreground.",
+      th: "ตำรวจถืออาวุธยืนอยู่ท่ามกลางรถโดยสารบนสนามฟุตบอลธรรมศาสตร์ที่เปียกน้ำ เบื้องหลังคือตึกโดม เบื้องหน้ามีเก้าอี้ว่างตัวหนึ่ง",
+    },
+    {
+      en: "The football field at Thammasat University, with the Dome behind.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เบื้องหลังคือตึกโดม",
+    }
+  ),
   museum: photo(
     "/6-october/police-national-museum.webp",
     1600,
@@ -666,8 +685,8 @@ export const testimonies = {
     href: suchada,
   },
   boom: {
-    th: "ฉันง่วงหลับไปและมาสะดุ้งสุดตัวตื่นขึ้น ด้วยเสียง “ตูม” ที่ดังสนั่นหวั่นไหวจนตึกสะเทือน",
-    en: "I had dozed off, and I woke with a violent start at a “boom” so loud the whole building shook.",
+    th: "ฉันง่วงหลับไปและมาสะดุ้งสุดตัวตื่นขึ้น ด้วยเสียง ‘ตูม’ ที่ดังสนั่นหวั่นไหวจนตึกสะเทือน",
+    en: "I had dozed off, and I woke with a violent start at a ‘boom’ so loud the whole building shook.",
     speaker: suchadaSpeaker,
     href: suchada,
   },
@@ -678,8 +697,8 @@ export const testimonies = {
     href: thongchai,
   },
   stopFiring: {
-    th: "“หยุดยิง ! หยุดยิงครับ พวกเราไม่มีอาวุธ เราไม่มีอะไร พี่ๆทหารครับ พี่ๆตำรวจครับ ให้พวกเราออกไป…” เสียงนั้นแหบแห้งสั่นเครือ บีบคั้นหัวใจฉันยิ่งนัก",
-    en: "“Stop firing! Please stop firing! We have no weapons. We have nothing. Brothers in the army, brothers in the police, let us out…” The voice was hoarse and trembling, and it wrung my heart.",
+    th: "‘หยุดยิง ! หยุดยิงครับ พวกเราไม่มีอาวุธ เราไม่มีอะไร พี่ๆทหารครับ พี่ๆตำรวจครับ ให้พวกเราออกไป…’ เสียงนั้นแหบแห้งสั่นเครือ บีบคั้นหัวใจฉันยิ่งนัก",
+    en: "‘Stop firing! Please stop firing! We have no weapons. We have nothing. Brothers in the army, brothers in the police, let us out…’ The voice was hoarse and trembling, and it wrung my heart.",
     speaker: suchadaSpeaker,
     href: suchada,
   },
@@ -709,7 +728,7 @@ export const testimonies = {
   },
   unknownMan: {
     th: "คนเสียชีวิตนี่เขาจะเขียนว่าชายไทยไม่ทราบชื่อ ยังจำได้ตลอดว่า ชายไทยไม่ทราบชื่อ เพราะเขาไม่มีหลักฐานไม่มีอะไรที่จะรู้ เราก็ไม่เคยคิดว่าน้องจะเสียชีวิต เพราะเขาเป็นคนฉลาด",
-    en: "The dead were written down as “Thai man, name unknown”. I have never forgotten it, “Thai man, name unknown”, because there was no paper, nothing to say who he was. We never thought our brother could have died, because he was clever.",
+    en: "The dead were written down as ‘Thai man, name unknown’. I have never forgotten it, ‘Thai man, name unknown’, because there was no paper, nothing to say who he was. We never thought our brother could have died, because he was clever.",
     speaker: natdaSpeaker,
     href: `${DOCT6}/archives/2442`,
   },
@@ -730,7 +749,7 @@ export const testimonies = {
   },
   neighbour: {
     th: "ข้างบ้านนี่ ลูกเขากลับจากกรุงเทพ ได้ยินเสียงเขาเรียกว่า อภิสิทธิ์มา ไอ้น้องมาเว้ยๆ เปิดประตูออกไป อ้าว ไม่ใช่",
-    en: "Next door, the neighbours' son came home from Bangkok, and I heard them call out, “Apisit is here, the boy is here!” I opened the door and went out. Oh. It was not him.",
+    en: "Next door, the neighbours' son came home from Bangkok, and I heard them call out, ‘Apisit is here, the boy is here!’ I opened the door and went out. Oh. It was not him.",
     speaker: {
       en: "Bangoen Thainiyom, mother of Apisit Thainiyom",
       th: "บังเอิญ ไทยนิยม แม่ของอภิสิทธิ์ ไทยนิยม",
@@ -952,6 +971,7 @@ export const story: Chapter[] = [
       ),
       pair("busLine", "busLoading"),
       say("bangKhen"),
+      show("fieldBuses", true),
     ],
   },
   {
@@ -1000,6 +1020,7 @@ export type Quote = {
 export type SixOctoberCopy = {
   title: string;
   eyebrow: string;
+  dates: string[];
   lede: string;
   metaDescription: string;
   breadcrumb: string;
@@ -1036,6 +1057,7 @@ export type SixOctoberCopy = {
   creditsIntro: string;
   creditsTerms: string;
   photoSource: string;
+  heroSource: string;
 };
 
 const how = `${DOCT6}/learn-about/how`;
@@ -1052,6 +1074,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
   en: {
     title: "6 October 1976",
     eyebrow: "50 years",
+    dates: ["Wednesday 6 October 1976", "Remembered 6 October 2026"],
     lede: "On the morning of 6 October 1976, police and armed civilians massacred students and members of the public at Thammasat University, Tha Prachan. We remember them.",
     metaDescription:
       "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on. What happened, the names of the dead and where to learn more.",
@@ -1136,14 +1159,16 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "We do not forget.",
     creditsHeading: "Sources and credits",
     creditsIntro:
-      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner.",
+      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It was published by Khaosod, which does not name the photographer.",
     creditsTerms:
       "The archive shares its material for education and the public interest and asks that it be credited. Ask the archive, or the families of the dead, before any commercial use.",
     photoSource: "View on doct6.com",
+    heroSource: "View on Khaosod",
   },
   th: {
     title: "6 ตุลา 2519",
     eyebrow: "50 ปี 6 ตุลา",
+    dates: ["วันพุธที่ 6 ตุลาคม 2519", "รำลึก 6 ตุลาคม 2569"],
     lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
     metaDescription:
       "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เกิดอะไรขึ้น รายชื่อผู้เสียชีวิต และแหล่งข้อมูลจากโครงการบันทึก 6 ตุลา",
@@ -1224,9 +1249,10 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "เราไม่ลืม",
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
-      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ",
+      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเผยแพร่โดยข่าวสดโดยไม่ระบุชื่อผู้ถ่ายภาพ",
     creditsTerms:
       "เอกสารหรือหลักฐานที่ปรากฏในเว็บไซต์ “บันทึก 6 ตุลา” มีจุดประสงค์เพื่อการเรียนรู้และประโยชน์ต่อสังคมเท่านั้น หากต้องการนำไปใช้ในทางธุรกิจหรือเพื่อแสวงหากำไร กรุณาติดต่อโครงการก่อนหรือขออนุญาตโดยตรงจากครอบครัวของผู้เสียชีวิต",
     photoSource: "ดูที่ doct6.com",
+    heroSource: "ดูที่ข่าวสด",
   },
 };
