@@ -10,10 +10,14 @@ import {
   hero,
   images,
   portraits,
+  story,
+  testimonies,
   victims,
   DOCT6,
+  type Block,
   type Quote,
   type SixOctoberImage,
+  type TestimonyKey,
 } from "@/content/six-october";
 
 export function generateStaticParams() {
@@ -34,7 +38,7 @@ export async function generateMetadata({
     description: t.metaDescription,
     path: "/6-october",
   });
-  const image = { url: "/6-october/og.jpg", width: 1200, height: 630, alt: hero.alt[lang] };
+  const image = { url: "/6-october/og-dome.jpg", width: 1200, height: 630, alt: hero.alt[lang] };
   return {
     ...base,
     openGraph: { ...base.openGraph, images: [image] },
@@ -49,11 +53,13 @@ function Figure({
   locale,
   newTab,
   linkLabel,
+  sizes = "(min-width: 64rem) 30rem, 100vw",
 }: {
   image: SixOctoberImage;
   locale: Locale;
   newTab: string;
   linkLabel: string;
+  sizes?: string;
 }) {
   return (
     <figure className="flex flex-col gap-3">
@@ -62,7 +68,7 @@ function Figure({
         alt={image.alt[locale]}
         width={image.width}
         height={image.height}
-        sizes="(min-width: 64rem) 30rem, 100vw"
+        sizes={sizes}
         className="w-full bg-sunken"
       />
       <figcaption className="text-sm leading-relaxed text-muted">
@@ -112,6 +118,102 @@ function PullQuote({
   );
 }
 
+function TestimonyQuote({
+  id,
+  locale,
+  newTab,
+  centred,
+}: {
+  id: TestimonyKey;
+  locale: Locale;
+  newTab: string;
+  centred?: boolean;
+}) {
+  const q = testimonies[id];
+  return (
+    <figure
+      className={`flex flex-col gap-3 ${centred ? "items-center" : "border-l-2 border-ink pl-6"}`}
+    >
+      <blockquote cite={q.href} className="flex flex-col gap-3">
+        <p
+          lang={locale}
+          className="font-display text-xl leading-snug text-balance text-ink sm:text-2xl"
+        >
+          {q[locale]}
+        </p>
+        {locale === "en" ? (
+          <p lang="th" className="font-thai leading-relaxed text-muted">
+            {q.th}
+          </p>
+        ) : null}
+      </blockquote>
+      <figcaption className="text-sm text-muted">
+        <ExternalLink href={q.href} newTabLabel={newTab} className={link}>
+          {q.speaker[locale]}
+        </ExternalLink>
+      </figcaption>
+    </figure>
+  );
+}
+
+function StoryBlock({
+  block,
+  locale,
+  newTab,
+  photoSource,
+}: {
+  block: Block;
+  locale: Locale;
+  newTab: string;
+  photoSource: string;
+}) {
+  switch (block.kind) {
+    case "moment":
+      return (
+        <div className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-1 sm:flex-row sm:gap-6">
+          <p className="w-24 shrink-0 font-display text-2xl text-ink tabular-nums">
+            {block.time[locale]}
+          </p>
+          <p className="text-lg leading-relaxed">{block.text[locale]}</p>
+        </div>
+      );
+    case "testimony":
+      return (
+        <div className="mx-auto w-full max-w-[var(--measure)]">
+          <TestimonyQuote id={block.id} locale={locale} newTab={newTab} />
+        </div>
+      );
+    case "photo":
+      return (
+        <div className={`mx-auto w-full ${block.wide ? "max-w-6xl" : "max-w-3xl"}`}>
+          <Figure
+            image={images[block.photo]}
+            locale={locale}
+            newTab={newTab}
+            linkLabel={photoSource}
+            sizes={
+              block.wide ? "(min-width: 72rem) 72rem, 100vw" : "(min-width: 48rem) 48rem, 100vw"
+            }
+          />
+        </div>
+      );
+    case "pair":
+      return (
+        <div className="mx-auto grid w-full max-w-5xl gap-10 md:grid-cols-2">
+          {block.photos.map((p) => (
+            <Figure
+              key={p}
+              image={images[p]}
+              locale={locale}
+              newTab={newTab}
+              linkLabel={photoSource}
+            />
+          ))}
+        </div>
+      );
+  }
+}
+
 export default async function SixOctoberPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -129,20 +231,20 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover opacity-35"
+          className="-z-10 object-cover object-[12%_30%] opacity-70 sm:object-[30%_30%]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d0c0b] via-[#0d0c0b]/70 to-[#0d0c0b]/30"
+          className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0d0c0b] via-[#0d0c0b]/75 to-[#0d0c0b]/10"
         />
-        <div className="wrap flex min-h-[34rem] flex-col justify-between gap-16 py-10 sm:min-h-[40rem]">
+        <div className="wrap flex min-h-[40rem] flex-col justify-between gap-16 py-10 sm:min-h-[48rem]">
           <Breadcrumbs
             locale={locale}
             label={dict.a11y.breadcrumb}
             onDark
             items={[{ label: dict.site.name, href: "/" }, { label: t.breadcrumb }]}
           />
-          <div className="flex max-w-3xl flex-col gap-5">
+          <div className="mt-auto flex max-w-3xl flex-col gap-5">
             <p className="text-sm tracking-[0.2em] text-white/80 uppercase">{t.eyebrow}</p>
             <h1 className="font-display text-5xl text-white sm:text-7xl">{t.title}</h1>
             <p className="max-w-[var(--measure)] text-lg leading-relaxed text-white/90 sm:text-xl">
@@ -184,56 +286,43 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
           ))}
         </section>
 
-        <div className="mx-auto grid w-full max-w-5xl gap-10 md:grid-cols-2">
+        <div className="mx-auto w-full max-w-3xl">
           <Figure image={images.scouts} locale={locale} newTab={newTab} linkLabel={t.photoSource} />
-          <Figure image={images.rally} locale={locale} newTab={newTab} linkLabel={t.photoSource} />
         </div>
 
-        <section className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-8">
-          <div className="flex flex-col gap-3">
-            <h2 className="font-display text-3xl">{t.timelineHeading}</h2>
-            <p className="leading-relaxed text-muted">{t.timelineIntro}</p>
+        <section aria-labelledby="story" className="flex flex-col gap-20">
+          <div className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-3">
+            <h2 id="story" className="font-display text-3xl">
+              {t.storyHeading}
+            </h2>
+            <p className="leading-relaxed text-muted">{t.storyIntro}</p>
           </div>
-          {t.days.map((day) => (
-            <div key={day.heading} className="flex flex-col gap-4">
-              <h3 className="text-sm font-semibold tracking-[0.15em] text-muted uppercase">
-                {day.heading}
-              </h3>
-              <ol className="flex flex-col border-l border-line-strong">
-                {day.moments.map((m) => (
-                  <li
-                    key={m.time}
-                    className="relative flex flex-col gap-1 pb-6 pl-6 sm:flex-row sm:gap-6"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-2 -left-[5px] h-2.5 w-2.5 rounded-full border border-line-strong bg-cream"
-                    />
-                    <span className="w-24 shrink-0 font-semibold text-ink tabular-nums">
-                      {m.time}
-                    </span>
-                    <span className="leading-relaxed">{m.text}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
+          {story.map((chapter) => (
+            <section
+              key={chapter.id}
+              aria-labelledby={`chapter-${chapter.id}`}
+              className="flex flex-col gap-10"
+            >
+              <div className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-2 border-t border-line-strong pt-8">
+                <p className="text-sm font-semibold tracking-[0.15em] text-muted uppercase">
+                  {chapter.kicker[locale]}
+                </p>
+                <h3 id={`chapter-${chapter.id}`} className="font-display text-3xl sm:text-4xl">
+                  {chapter.heading[locale]}
+                </h3>
+              </div>
+              {chapter.blocks.map((block, i) => (
+                <StoryBlock
+                  key={`${chapter.id}-${i}`}
+                  block={block}
+                  locale={locale}
+                  newTab={newTab}
+                  photoSource={t.photoSource}
+                />
+              ))}
+            </section>
           ))}
         </section>
-
-        <div className="mx-auto grid w-full max-w-5xl gap-10 md:grid-cols-2">
-          <Figure
-            image={images.football}
-            locale={locale}
-            newTab={newTab}
-            linkLabel={t.photoSource}
-          />
-          <Figure
-            image={images.detained}
-            locale={locale}
-            newTab={newTab}
-            linkLabel={t.photoSource}
-          />
-        </div>
 
         <section className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-5">
           <h2 className="font-display text-3xl">{t.afterHeading}</h2>
@@ -351,14 +440,20 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
               {p}
             </p>
           ))}
+          {(["justice", "innocent", "heroes", "door"] as const).map((id) => (
+            <TestimonyQuote key={id} id={id} locale={locale} newTab={newTab} />
+          ))}
           <div className="border-l-2 border-ink pl-6">
             <PullQuote quote={t.whyQuote} newTab={newTab} />
           </div>
         </section>
 
-        <p className="mx-auto max-w-3xl text-center font-display text-3xl text-balance sm:text-4xl">
-          {t.closing}
-        </p>
+        <section className="mx-auto flex w-full max-w-3xl flex-col items-center gap-12 py-8 text-center">
+          {(["cannotForget", "neverForgotten"] as const).map((id) => (
+            <TestimonyQuote key={id} id={id} locale={locale} newTab={newTab} centred />
+          ))}
+          <p className="font-display text-4xl text-balance sm:text-5xl">{t.closing}</p>
+        </section>
 
         <section className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-4">
           <h2 className="font-display text-2xl">{t.learnHeading}</h2>

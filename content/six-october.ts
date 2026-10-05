@@ -25,8 +25,8 @@ export type SixOctoberImage = {
 };
 
 const unknownPhotographer: Record<Locale, string> = {
-  en: "Photographer unknown. From the set Pathomporn Srimanta gave to Documentation of Oct 6 in 2017, which the archive says carries no record of photographer or owner.",
-  th: "ไม่ทราบผู้ถ่ายภาพ ภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการบันทึก 6 ตุลา เมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ",
+  en: "Photographer unknown. Pathomporn Srimanta set, Documentation of Oct 6.",
+  th: "ไม่ทราบผู้ถ่ายภาพ ภาพชุดคุณปฐมพร ศรีมันตะ โครงการบันทึก 6 ตุลา",
 };
 
 const lombard: Record<Locale, string> = {
@@ -39,85 +39,232 @@ const archiveCredit: Record<Locale, string> = {
   th: "ภาพจากโครงการบันทึก 6 ตุลา ซึ่งไม่ได้ระบุชื่อผู้ถ่ายภาพ",
 };
 
-/** The Tha Prachan gate, shown greyscale behind the page title. */
-export const hero: SixOctoberImage = {
-  src: "/6-october/hero.webp",
-  width: 2000,
-  height: 1234,
-  source: `${DOCT6}/archives/2235`,
-  alt: {
-    en: "A crowd stands around a city bus pushed against the Tha Prachan gate of Thammasat University.",
-    th: "ฝูงชนยืนล้อมรถเมล์ที่ถูกดันเข้าชนประตูท่าพระจันทร์ มหาวิทยาลัยธรรมศาสตร์",
+const s011 = `${DOCT6}/archives/2235`;
+
+const photo = (
+  src: string,
+  width: number,
+  height: number,
+  alt: Record<Locale, string>,
+  caption: Record<Locale, string>,
+  credit: Record<Locale, string> = unknownPhotographer,
+  source: string = s011
+): SixOctoberImage => ({ src, width, height, source, alt, caption, credit });
+
+/** The football field and the Dome, shown greyscale behind the page title. */
+export const hero = photo(
+  "/6-october/hero-dome.webp",
+  2200,
+  1434,
+  {
+    en: "Police with rifles stand among buses on the wet Thammasat football field, with the Dome building and its spire behind them and an empty chair in the foreground.",
+    th: "ตำรวจถืออาวุธยืนอยู่ท่ามกลางรถโดยสารบนสนามฟุตบอลธรรมศาสตร์ที่เปียกน้ำ เบื้องหลังคือตึกโดม เบื้องหน้ามีเก้าอี้ว่างตัวหนึ่ง",
   },
-  caption: {
-    en: "Behind the title, the Tha Prachan gate of Thammasat University.",
-    th: "ภาพเบื้องหลังชื่อเรื่อง บริเวณประตูท่าพระจันทร์ มหาวิทยาลัยธรรมศาสตร์",
-  },
-  credit: unknownPhotographer,
-};
+  {
+    en: "Behind the title, the football field of Thammasat University, with the Dome behind.",
+    th: "ภาพเบื้องหลังชื่อเรื่อง บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เบื้องหลังคือตึกโดม",
+  }
+);
 
 export const images = {
-  football: {
-    src: "/6-october/football-field.webp",
-    width: 1600,
-    height: 977,
-    source: `${DOCT6}/archives/2235`,
-    alt: {
+  museum: photo(
+    "/6-october/police-national-museum.webp",
+    1600,
+    986,
+    {
+      en: "Uniformed police run crouching past the gate of the National Museum.",
+      th: "ตำรวจในเครื่องแบบวิ่งก้มตัวผ่านประตูพิพิธภัณฑสถานแห่งชาติ",
+    },
+    { en: "In front of the National Museum.", th: "บริเวณหน้าพิพิธภัณฑสถานแห่งชาติ" }
+  ),
+  mainGate: photo(
+    "/6-october/main-gate.webp",
+    1600,
+    1013,
+    {
+      en: "A wrecked sentry box and an overturned cart lie at the main gate, with a dense crowd beyond the railings.",
+      th: "ป้อมยามพังและรถเข็นคว่ำอยู่หน้าประตูใหญ่ ฝูงชนหนาแน่นอยู่หลังรั้ว",
+    },
+    { en: "The main gate of Thammasat University.", th: "บริเวณประตูใหญ่ มหาวิทยาลัยธรรมศาสตร์" }
+  ),
+  greatHall: photo(
+    "/6-october/great-hall-rifle.webp",
+    1600,
+    1001,
+    {
+      en: "A policeman kneels and aims a rifle while others crouch on the grass beside him.",
+      th: "ตำรวจคุกเข่าเล็งปืนไรเฟิล ขณะที่คนอื่นหมอบอยู่บนสนามหญ้าข้างกัน",
+    },
+    { en: "At the Great Hall.", th: "เหตุการณ์บริเวณหอประชุมใหญ่" }
+  ),
+  inside: photo(
+    "/6-october/inside-building.webp",
+    1600,
+    1014,
+    {
+      en: "Armed men stand in the shadows of a corridor inside a university building.",
+      th: "ชายถืออาวุธยืนอยู่ในเงามืดของทางเดินภายในอาคาร",
+    },
+    { en: "Inside a teaching building.", th: "ภายในอาคารเรียน" }
+  ),
+  gate: photo(
+    "/6-october/tha-prachan-gate.webp",
+    1600,
+    1020,
+    {
+      en: "A crowd stands around a city bus pushed against the Tha Prachan gate of Thammasat University.",
+      th: "ฝูงชนยืนล้อมรถเมล์ที่ถูกดันเข้าชนประตูท่าพระจันทร์ มหาวิทยาลัยธรรมศาสตร์",
+    },
+    {
+      en: "The Tha Prachan gate of Thammasat University.",
+      th: "บริเวณประตูท่าพระจันทร์ มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  fieldLying: photo(
+    "/6-october/field-lying.webp",
+    1600,
+    1032,
+    {
+      en: "Students in shirts and trousers lie and crawl across the grass of the football field.",
+      th: "นักศึกษาในเสื้อเชิ้ตและกางเกงนอนและคลานอยู่บนสนามหญ้า",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  surrender: photo(
+    "/6-october/football-field.webp",
+    1600,
+    977,
+    {
       en: "Young people walk in a line with their hands on their heads past an armed man on the Thammasat football field.",
       th: "คนหนุ่มสาวเดินเรียงแถวเอามือประสานบนศีรษะ ผ่านชายถืออาวุธในสนามฟุตบอลมหาวิทยาลัยธรรมศาสตร์",
     },
-    caption: {
+    {
       en: "The football field at Thammasat University.",
       th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  fieldWide: photo(
+    "/6-october/field-wide.webp",
+    2200,
+    1370,
+    {
+      en: "Hundreds of students lie face down in rows across the football field, many stripped to the waist, while police stand along the far side in front of the university buildings.",
+      th: "นักศึกษาหลายร้อยคนนอนคว่ำเรียงแถวเต็มสนามฟุตบอล หลายคนถูกถอดเสื้อ ตำรวจยืนเรียงอยู่ด้านหลังหน้าอาคารของมหาวิทยาลัย",
     },
-    credit: unknownPhotographer,
-  },
-  detained: {
-    src: "/6-october/detained-students.webp",
-    width: 1600,
-    height: 1044,
-    source: `${DOCT6}/archives/8753`,
-    alt: {
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  crawling: photo(
+    "/6-october/field-crawling.webp",
+    1600,
+    1000,
+    {
+      en: "Shirtless young men crawl on hands and knees in a line between police officers holding rifles.",
+      th: "ชายหนุ่มถูกถอดเสื้อคลานเข่าเรียงแถวผ่านตำรวจที่ถือปืน",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  guard: photo(
+    "/6-october/field-guard.webp",
+    1600,
+    1024,
+    {
+      en: "Two armed police stand over rows of students lying face down with their hands behind their heads.",
+      th: "ตำรวจถืออาวุธสองนายยืนคุมนักศึกษาที่นอนคว่ำเรียงแถว มือประสานไว้ที่ท้ายทอย",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  detained: photo(
+    "/6-october/detained-students.webp",
+    1600,
+    1044,
+    {
       en: "Rows of students lie face down on the grass, many stripped to the waist, while police stand over them in front of parked buses.",
       th: "นักศึกษานอนคว่ำเรียงแถวบนสนามหญ้า หลายคนถูกถอดเสื้อ ตำรวจยืนคุมอยู่หน้ารถโดยสารที่จอดเรียงกัน",
     },
-    caption: {
-      en: "Students ordered to lie face down at Thammasat, late on the morning of 6 October 1976.",
-      th: "นักศึกษาประชาชนถูกสั่งให้นอนคว่ำในมหาวิทยาลัยธรรมศาสตร์ สายวันที่ 6 ตุลาคม 2519",
+    {
+      en: "Thammasat, late on the morning of 6 October 1976. Frank Lombard arrived at about 10.45.",
+      th: "มหาวิทยาลัยธรรมศาสตร์ สายวันที่ 6 ตุลาคม 2519 แฟรงค์ ลอมบาร์ดไปถึงประมาณ 10.45 น.",
     },
-    credit: lombard,
-  },
-  rally: {
-    src: "/6-october/royal-plaza-rally.webp",
-    width: 1600,
-    height: 1007,
-    source: `${DOCT6}/archives/2235`,
-    alt: {
+    lombard,
+    `${DOCT6}/archives/8753`
+  ),
+  busLine: photo(
+    "/6-october/bus-line.webp",
+    1600,
+    1061,
+    {
+      en: "Shirtless detainees stand in a line with their hands on their heads beside a bus, watched by a helmeted policeman.",
+      th: "ผู้ถูกจับถูกถอดเสื้อยืนเรียงแถวเอามือประสานบนศีรษะข้างรถโดยสาร มีตำรวจสวมหมวกเหล็กคุม",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  busLoading: photo(
+    "/6-october/bus-loading.webp",
+    1600,
+    1007,
+    {
+      en: "Detainees with their hands on their heads climb onto a bus while a policeman looks on.",
+      th: "ผู้ถูกจับเอามือประสานบนศีรษะทยอยขึ้นรถโดยสาร มีตำรวจยืนคุม",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  fieldPolice: photo(
+    "/6-october/field-police.webp",
+    1600,
+    990,
+    {
+      en: "Armed Border Patrol Police gather on the litter strewn football field.",
+      th: "ตำรวจตระเวนชายแดนถืออาวุธรวมกลุ่มอยู่บนสนามฟุตบอลที่เกลื่อนไปด้วยเศษกระดาษ",
+    },
+    {
+      en: "The football field at Thammasat University.",
+      th: "บริเวณสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์",
+    }
+  ),
+  rally: photo(
+    "/6-october/royal-plaza-rally.webp",
+    1600,
+    1007,
+    {
       en: "A dense crowd fills the Royal Plaza in front of the Ananta Samakhom Throne Hall.",
       th: "ฝูงชนหนาแน่นเต็มลานพระบรมรูปทรงม้า หน้าพระที่นั่งอนันตสมาคม",
     },
-    caption: {
-      en: "A rally at the Royal Plaza.",
-      th: "การชุมนุมที่ลานพระบรมรูปทรงม้า",
-    },
-    credit: unknownPhotographer,
-  },
-  scouts: {
-    src: "/6-october/village-scouts.webp",
-    width: 1600,
-    height: 1032,
-    source: `${DOCT6}/archives/2235`,
-    alt: {
+    { en: "A rally at the Royal Plaza.", th: "การชุมนุมที่ลานพระบรมรูปทรงม้า" }
+  ),
+  scouts: photo(
+    "/6-october/village-scouts.webp",
+    1600,
+    1032,
+    {
       en: "Village Scouts in neckerchiefs stand in a long line along a road, some holding flags.",
       th: "ลูกเสือชาวบ้านผูกผ้าพันคอยืนเรียงแถวยาวริมถนน บางคนถือธง",
     },
-    caption: {
+    {
       en: "A line of Village Scouts at Wat Bowonniwet Vihara.",
       th: "แถวลูกเสือชาวบ้านบริเวณวัดบวรนิเวศวิหาร",
-    },
-    credit: unknownPhotographer,
-  },
-} satisfies Record<string, SixOctoberImage>;
+    }
+  ),
+};
+
+export type PhotoKey = keyof typeof images;
 
 export type Portrait = {
   name: Record<Locale, string>;
@@ -150,7 +297,7 @@ export const portraits: Portrait[] = [
     height: 375,
     href: `${DOCT6}/archives/4102`,
     about: {
-      en: "19. A third year Liberal Arts student at Thammasat. His parents, Jinda and Lim, searched the country for their son.",
+      en: "19. A third year Liberal Arts student at Thammasat. His parents, Chinda and Lim, searched the country for their son.",
       th: "อายุ 19 ปี นักศึกษาชั้นปีที่ 3 คณะศิลปศาสตร์ มหาวิทยาลัยธรรมศาสตร์ พ่อจินดาและแม่ลิ้มพลิกแผ่นดินตามหาลูก",
     },
     credit: archiveCredit,
@@ -462,6 +609,386 @@ export const victims: Victim[] = [
   burned(4),
 ];
 
+type L = Record<Locale, string>;
+
+/**
+ * Words of survivors, families and witnesses, copied exactly from the pages of
+ * Documentation of Oct 6 named in `href`. The English is a faithful rendering.
+ * None of them describes the dead in detail, and none touches the monarchy.
+ */
+export type Testimony = { th: string; en: string; speaker: L; href: string };
+
+const suchada = `${DOCT6}/archives/10259`;
+const thongchai = `${DOCT6}/archives/13829`;
+const thatsanee = `${DOCT6}/archives/8216`;
+const somthat = `${DOCT6}/archives/4085`;
+const thongsin = `${DOCT6}/archives/10262`;
+
+const suchadaSpeaker: L = {
+  en: "Suchada Chakphisut, a first year Thammasat student in the drama club in 1976",
+  th: "สุชาดา จักรพิสุทธิ์ นักศึกษาปีหนึ่ง ชมรมนาฎศิลป์และการละคร มหาวิทยาลัยธรรมศาสตร์ ในปี 2519",
+};
+const thongchaiSpeaker: L = {
+  en: "Thongchai Winichakul, a student leader on the stage that morning, in a 2000 interview",
+  th: "ธงชัย วินิจจะกูล ผู้นำนักศึกษา ในบทสัมภาษณ์ปี 2543",
+};
+const thatsaneeSpeaker: L = {
+  en: "Thatsanee Sichan, a close friend of Wimonwan Rungthongbaisuri",
+  th: "ทัศนีย์ ศรีจันทร์ เพื่อนสนิทของวิมลวรรณ รุ่งทองใบสุรีย์",
+};
+const somthatSpeaker: L = {
+  en: "Somthat Bunthaphan, the eldest brother of Supol Phan",
+  th: "สมทัด บุญทะพาน พี่ชายคนโตของสุพล พาน",
+};
+const limSpeaker: L = {
+  en: "Lim Thongsin, Jarupong's mother, in 2002",
+  th: "แม่ลิ้ม ทองสินธุ์ แม่ของจารุพงษ์ ปี 2545",
+};
+const natdaSpeaker: L = {
+  en: "Natda Iamkhong, Danaisak's elder sister",
+  th: "นัดดา เอี่ยมคง พี่สาวของดนัยศักดิ์ เอี่ยมคง",
+};
+
+export const testimonies = {
+  radio: {
+    th: "สถานีวิทยุยานเกราะจึงได้เริ่มผนึกกำลังกับผู้บริหารสถานีวิทยุต่าง ๆ สองร้อยหกสิบสถานี พร้อมกับผู้จัดรายการจำนวนมาก ซึ่งเป็นชมรมวิทยุเสรีและด้านมวลชนมหาศาล ซึ่งเป็นผู้ฟังเป็นกำลังร่วมปฏิบัติการ",
+    en: "Yan Kreua radio therefore began joining forces with the managers of two hundred and sixty radio stations and many presenters, the Free Radio Association and an enormous mass base, whose listeners were a force taking part in the operation.",
+    speaker: {
+      en: "Lieutenant Colonel Uthan Sanitwong na Ayutthaya of Yan Kreua radio, in his statement to police in December 1976",
+      th: "พ.ท.อุทาร สนิทวงศ์ ณ อยุธยา สถานีวิทยุยานเกราะ ในบันทึกคำให้การต่อตำรวจ ธันวาคม 2519",
+    },
+    href: `${DOCT6}/archives/15228`,
+  },
+  waiting: {
+    th: "จนตกเย็น ฉันก็ ยังไม่ได้กินข้าว และดูเหมือนไม่มีใครในห้องชมรมได้กินข้าวเย็น เราเอาขนมของขบเคี้ยวมาแบ่งกันกิน",
+    en: "By evening I still had not eaten, and it seemed nobody in the club room had eaten supper. We shared out snacks.",
+    speaker: suchadaSpeaker,
+    href: suchada,
+  },
+  boom: {
+    th: "ฉันง่วงหลับไปและมาสะดุ้งสุดตัวตื่นขึ้น ด้วยเสียง “ตูม” ที่ดังสนั่นหวั่นไหวจนตึกสะเทือน",
+    en: "I had dozed off, and I woke with a violent start at a “boom” so loud the whole building shook.",
+    speaker: suchadaSpeaker,
+    href: suchada,
+  },
+  grenade: {
+    th: "ตี 5 ครึ่ง น. พอระเบิดลงเห็นคนนอนเป็นแพ แล้วก็มีคนมาบอกว่าตายเป็นสิบ บาดเจ็บจำนวนหนึ่ง",
+    en: "At half past five, when the bomb came down, I saw people lying all across the ground. Then someone came to tell me ten or more were dead, and others wounded.",
+    speaker: thongchaiSpeaker,
+    href: thongchai,
+  },
+  stopFiring: {
+    th: "“หยุดยิง ! หยุดยิงครับ พวกเราไม่มีอาวุธ เราไม่มีอะไร พี่ๆทหารครับ พี่ๆตำรวจครับ ให้พวกเราออกไป…” เสียงนั้นแหบแห้งสั่นเครือ บีบคั้นหัวใจฉันยิ่งนัก",
+    en: "“Stop firing! Please stop firing! We have no weapons. We have nothing. Brothers in the army, brothers in the police, let us out…” The voice was hoarse and trembling, and it wrung my heart.",
+    speaker: suchadaSpeaker,
+    href: suchada,
+  },
+  schoolgirl: {
+    th: "ฉันเหลือบเห็นเด็กผู้หญิงในชุดนักเรียนคอซอง นั่งปิดหน้าซุกตัวร้องไห้โฮๆกับมุมตึก ฉันรีบคว้าตัวน้องมากอดไว้ แล้วเราก็ร้องไห้ด้วยกัน",
+    en: "I caught sight of a schoolgirl in her sailor collar uniform, huddled in the corner of the building with her face in her hands, sobbing. I pulled her to me and held her, and we cried together.",
+    speaker: suchadaSpeaker,
+    href: suchada,
+  },
+  river: {
+    th: "มีเสียงตำรวจน้ำตะโกนบอกว่า นักศึกษาธรรมศาสตร์ที่หนีออกนั้นให้กลับขึ้นฝั่งเดี๋ยวนี้ ไม่งั้นจะยิง พวกเรากลัวกันมาก มีเพื่อนนักศึกษาชายถอดเสื้อ บอกไปว่า พวกเรายอมแพ้แล้วนะ ไม่ทันขาดคำ แป๊บเดียวเสียงปืนดังมาหนึ่งนัด มีเสียงตะโกนว่ามีคนถูกยิง",
+    en: "The river police shouted that the Thammasat students who had fled must come back ashore at once, or they would shoot. We were terrified. A male student took off his shirt and called out that we surrendered. Before he had finished, a single shot rang out, and someone shouted that a person had been hit.",
+    speaker: thatsaneeSpeaker,
+    href: thatsanee,
+  },
+  strip: {
+    th: "เวลาขึ้นจากน้ำก็เอาปืนจี้ บังคับให้คุณถอดเสื้อแล้ววิ่งไปรวมกันอยู่ที่ วัดมหาธาตุ",
+    en: "As you came up out of the water they put a gun to you, made you take off your shirt, and run to gather at Wat Mahathat.",
+    speaker: thongchaiSpeaker,
+    href: thongchai,
+  },
+  bangKhen: {
+    th: "จากนั้น พี่ถูกนำไปขังรวมกันกับเพื่อนๆ อีกประมาณสามพันคนที่บางเขน แล้วก็ได้ข่าวตรงนั้นเองว่า เพื่อนที่ถูกยิงนั้นคือวิมลวรรณซึ่งไปเสียชีวิตที่โรงพยาบาลศิริราช",
+    en: "Then I was locked up at Bang Khen with about three thousand of my friends, and it was there that I heard the friend who had been shot was Wimonwan. She had died at Siriraj Hospital.",
+    speaker: thatsaneeSpeaker,
+    href: thatsanee,
+  },
+  unknownMan: {
+    th: "คนเสียชีวิตนี่เขาจะเขียนว่าชายไทยไม่ทราบชื่อ ยังจำได้ตลอดว่า ชายไทยไม่ทราบชื่อ เพราะเขาไม่มีหลักฐานไม่มีอะไรที่จะรู้ เราก็ไม่เคยคิดว่าน้องจะเสียชีวิต เพราะเขาเป็นคนฉลาด",
+    en: "The dead were written down as “Thai man, name unknown”. I have never forgotten it, “Thai man, name unknown”, because there was no paper, nothing to say who he was. We never thought our brother could have died, because he was clever.",
+    speaker: natdaSpeaker,
+    href: `${DOCT6}/archives/2442`,
+  },
+  morgue: {
+    th: "ผมไม่กล้าเข้าไป ผมยืนอยู่ข้างนอก ผมเป็นผู้ชายแต่ผมไม่กล้าไป แม่ผมกับพี่สาวคนหนึ่งเขาเข้าไปดูด้วยกัน ด้วยความที่แม่เป็นห่วงลูก เขาต้องเข้าไปดู",
+    en: "I could not bring myself to go in. I stood outside. I am a man, but I did not dare. My mother and one of my sisters went in together, because a mother who fears for her child has to go and see.",
+    speaker: somthatSpeaker,
+    href: somthat,
+  },
+  sleeves: {
+    th: "ความจริงเขาจับลูกแม่แล้วนะ เพราะตอนที่ไปรับศพ แขนเสื้อทั้งสองข้างยังผูกอยู่กับเอว เขาจับแล้วทำไมต้องฆ่ากัน ยิงทำไม เขาจับคนไม่ผิดอย่างนั้น ใครจะรับผิดชอบ",
+    en: "They had already caught my son. When I went to collect him, both his shirt sleeves were still tied around his waist. If they had caught him, why kill him? Why shoot? They caught a boy who had done nothing wrong. Who will take responsibility?",
+    speaker: {
+      en: "Lek, mother of Manu Witthayaphon",
+      th: "แม่เล็ก แม่ของมนู วิทยาภรณ์",
+    },
+    href: `${DOCT6}/archives/13471`,
+  },
+  neighbour: {
+    th: "ข้างบ้านนี่ ลูกเขากลับจากกรุงเทพ ได้ยินเสียงเขาเรียกว่า อภิสิทธิ์มา ไอ้น้องมาเว้ยๆ เปิดประตูออกไป อ้าว ไม่ใช่",
+    en: "Next door, the neighbours' son came home from Bangkok, and I heard them call out, “Apisit is here, the boy is here!” I opened the door and went out. Oh. It was not him.",
+    speaker: {
+      en: "Bangoen Thainiyom, mother of Apisit Thainiyom",
+      th: "บังเอิญ ไทยนิยม แม่ของอภิสิทธิ์ ไทยนิยม",
+    },
+    href: `${DOCT6}/archives/2140`,
+  },
+  crowds: {
+    th: "เห็นคนหมื่น คนแสน แต่ลูกเรา เราไม่เห็นว่าไปไหน ทำไมมันไม่ออกให้แม่เห็นสักที",
+    en: "I see tens of thousands, hundreds of thousands of people, but my own child I never see. Why will he not come out, just once, and let his mother see him?",
+    speaker: limSpeaker,
+    href: thongsin,
+  },
+  silence: {
+    th: "เราต่างก็มองหน้ากันแล้วก็ไม่มีใครพูด แต่หลายคนเขาก็ร้องไห้ แต่ก็ไม่มีใครพูดอะไร หรือปรึกษาหารือกัน ในยุคสมัยนั้นความหวาดกลัวมันสูงมาก",
+    en: "We all looked at one another and nobody spoke. Many were crying, but nobody said anything or talked it over. In those days the fear was very great.",
+    speaker: somthatSpeaker,
+    href: somthat,
+  },
+  justice: {
+    th: "ลูกของเราอยากหาความเป็นธรรม หาความยุติธรรม และให้คนทุกคนได้รับสิทธิเสรีภาพ สมควรตามรัฐธรรมนูญ",
+    en: "Our son wanted fairness, he wanted justice, and he wanted everyone to have the rights and freedoms the constitution gives them.",
+    speaker: {
+      en: "Chinda Thongsin, a teacher and Jarupong's father, in 2002",
+      th: "ครูจินดา ทองสินธุ์ พ่อของจารุพงษ์ ปี 2545",
+    },
+    href: thongsin,
+  },
+  innocent: {
+    th: "ผมรู้ดีอยู่ว่า น้องชายผมเขาไม่มีอาวุธอะไรเลย เขาเป็นคนบริสุทธิ์คนหนึ่งที่มีความรู้สึกอยากเรียกร้องสิ่งที่ถูกต้อง เรียกร้องสิ่งซึ่งสังคมขณะนั้นต้องการให้มันดีกว่าเดิม แค่นั้นเอง",
+    en: "I know very well my brother had no weapon at all. He was an innocent man who wanted to ask for what was right, to ask for the society of his time to be better than it was. That is all.",
+    speaker: somthatSpeaker,
+    href: somthat,
+  },
+  heroes: {
+    th: "พี่ไม่เข้าใจว่า ทำไม 6 ตุลาถึงไม่ใช่วีรชน ในสายตาของคนไทย จริงๆ แล้ว เขาเป็นวีรชนของคนไทยทุกๆ คน",
+    en: "I do not understand why the people of 6 October are not heroes in the eyes of Thai people. In truth, they are heroes to every Thai.",
+    speaker: {
+      en: "Rungthip Wongngamdi, younger sister of Phumisak Sirasuphaluekchai",
+      th: "รุ่งทิพย์ วงศ์งามดี น้องสาวของภูมิศักดิ์ ศิระศุภฤกษ์ชัย",
+    },
+    href: `${DOCT6}/archives/8212`,
+  },
+  door: {
+    th: "ไม่มีเหตุผลอะไรเลยในลักษณะของเหตุการณ์หนึ่งที่เราจะปิดประตูของความเป็นจริงเอาไว้ไม่ให้คนรับรู้ โอเค เราอาจจะค่อยๆ ลืมมันไป แต่บานประตูนั้นก็ควรจะแง้มออกมาเพื่อให้ทุกคนได้มองเข้าไปว่า เกิดอะไรขึ้นในช่วงประวัติศาสตร์ช่วงนั้นมากกว่า",
+    en: "There is no reason to shut the door on the truth of an event like this so that people never know. Fine, we may slowly forget. But that door should be left ajar, so that everyone can look in and see what happened in that part of our history.",
+    speaker: somthatSpeaker,
+    href: somthat,
+  },
+  cannotForget: {
+    th: "คิดว่าวันไหนก็ตามหากหมดชีวิตก็จะลืม … แต่นี่มันลืมไม่ลง แม่ลืมไม่ได้",
+    en: "I think that whenever my life ends, then I will forget… but this I cannot let go. A mother cannot forget.",
+    speaker: limSpeaker,
+    href: thongsin,
+  },
+  neverForgotten: {
+    th: "อยากบอกว่า พี่รักน้อง พี่ไม่เคยลืมเลย … ไม่ได้ไปจากหัวใจเราเลย",
+    en: "I want to tell him, your sister loves you, I have never forgotten… you have never left our hearts.",
+    speaker: natdaSpeaker,
+    href: `${DOCT6}/archives/2442`,
+  },
+} satisfies Record<string, Testimony>;
+
+export type TestimonyKey = keyof typeof testimonies;
+
+export type Block =
+  | { kind: "moment"; time: L; text: L }
+  | { kind: "photo"; photo: PhotoKey; wide?: boolean }
+  | { kind: "pair"; photos: [PhotoKey, PhotoKey] }
+  | { kind: "testimony"; id: TestimonyKey };
+
+export type Chapter = { id: string; kicker: L; heading: L; blocks: Block[] };
+
+const at = (en: string, th: string, textEn: string, textTh: string): Block => ({
+  kind: "moment",
+  time: { en, th },
+  text: { en: textEn, th: textTh },
+});
+const say = (id: TestimonyKey): Block => ({ kind: "testimony", id });
+const show = (p: PhotoKey, wide = false): Block => ({ kind: "photo", photo: p, wide });
+const pair = (a: PhotoKey, b: PhotoKey): Block => ({ kind: "pair", photos: [a, b] });
+
+/**
+ * The day, chapter by chapter. Times and the Thai of each moment follow the
+ * timeline of Documentation of Oct 6; photographs sit where their archive
+ * captions place them, though the archive records no clock time for them.
+ */
+export const story: Chapter[] = [
+  {
+    id: "night",
+    kicker: { en: "Tuesday 5 October 1976", th: "วันอังคารที่ 5 ตุลาคม 2519" },
+    heading: { en: "The night before", th: "คืนก่อนเกิดเหตุ" },
+    blocks: [
+      at(
+        "10.00",
+        "10.00 น.",
+        "Yan Kreua army radio runs a special programme. Its presenter repeats that the rally at Thammasat is no longer against Thanom, but an insult to the monarchy.",
+        "สถานีวิทยุยานเกราะเปิดรายการพิเศษ เสียงของ พ.ท.อุทาร สนิทวงศ์ กล่าวเน้นเป็นระยะว่า “เดี๋ยวนี้การชุมนุมที่ธรรมศาสตร์ไม่ใช่เป็นเรื่องต่อต้านพระถนอมแล้ว หากแต่เป็นเรื่องหมิ่นพระบรมเดชานุภาพ”"
+      ),
+      say("radio"),
+      at(
+        "13.30",
+        "13.30 น.",
+        "Ramkhamhaeng students prepare to set out for Thammasat in 25 vehicles.",
+        "นักศึกษารามคำแหงเตรียมออกเดินทางไปสมทบที่ธรรมศาสตร์ 25 คันรถ"
+      ),
+      at(
+        "Evening",
+        "ตกเย็น",
+        "The rally swells to tens of thousands and moves from Lan Pho to the football field.",
+        "จำนวนผู้ร่วมชุมนุมเพิ่มมากขึ้นนับหมื่นคน จึงย้ายการชุมนุมจากบริเวณลานโพธิ์มายังสนามฟุตบอล"
+      ),
+      say("waiting"),
+      at(
+        "20.35",
+        "20.35 น.",
+        "For the first time, Yan Kreua and the Free Radio Association call the students and people at Thammasat “troublemakers”, and say there “may be bloodshed”.",
+        "นับเป็นครั้งแรกที่สถานีวิทยุยานเกราะ และชมรมวิทยุเสรี เรียกกลุ่มนักศึกษาประชาชนที่ธรรมศาสตร์ว่า “ผู้ก่อความไม่สงบ” และกล่าวคำว่า “อาจมีการนองเลือดขึ้น”"
+      ),
+      at(
+        "21.30",
+        "21.30 น.",
+        "The National Student Centre of Thailand brings the two student actors before the press to show their innocence.",
+        "ศนท. นำนายอภินันท์ บัวหภักดี และนายวิโรจน์ ตั้งวาณิชย์ สมาชิกชุมนุมนาฏศิลป์และการละคร มหาวิทยาลัยธรรมศาสตร์ มาแสดงความบริสุทธิ์ใจ"
+      ),
+      at(
+        "All night",
+        "ตลอดคืน",
+        "Yan Kreua and the Free Radio Association broadcast through the night, calling on the public and the Village Scouts to gather at the Royal Plaza.",
+        "สถานีวิทยุยานเกราะและชมรมวิทยุเสรีออกอากาศตลอดคืนเรียกร้องให้ประชาชนและลูกเสือชาวบ้านไปชุมนุมที่ลานพระบรมรูปทรงม้า"
+      ),
+    ],
+  },
+  {
+    id: "dawn",
+    kicker: { en: "Wednesday 6 October, before dawn", th: "วันพุธที่ 6 ตุลาคม ก่อนรุ่งสาง" },
+    heading: { en: "The first shots", th: "เสียงปืนนัดแรก" },
+    blocks: [
+      at(
+        "01.40",
+        "01.40 น.",
+        "About 100 people burn posters at the Sanam Luang gate of the university. The first shot rings out. Scattered shots follow, but no one is hurt.",
+        "กลุ่มคนประมาณ 100 คนได้บุกเข้าไปเผาแผ่นโปสเตอร์หน้าประตูมหาวิทยาลัยธรรมศาสตร์ ด้านสนามหลวง มีเสียงปืนนัดแรกดังขึ้นและมีการยิงตอบโต้ประปรายแต่ไม่มีใครบาดเจ็บ"
+      ),
+      at(
+        "04.00",
+        "04.00 น.",
+        "Border Patrol Police from Naresuan camp, Hua Hin, arrive, surround the university from the Sanam Luang side, and post armed men in the National Museum.",
+        "ตำรวจตระเวนชายแดน จากค่ายนเรศวร หัวหิน เดินทางมาถึง และยกกำลังเข้าล้อมมหาวิทยาลัยจากทางด้านสนามหลวง และนำกำลังติดอาวุธไปตั้งในพิพิธภัณฑสถานแห่งชาติ"
+      ),
+      show("museum"),
+      say("boom"),
+      at(
+        "05.30",
+        "05.30 น.",
+        "The first M79 grenade, fired by police outside the university, lands among the crowd on the football field. Four people are killed and others are wounded.",
+        "ระเบิดเอ็ม.๗๙ ลูกแรก ถูกยิงมาจากฝ่ายตำรวจนอกมหาวิทยาลัย ตกกลางผู้ชุมนุมที่สนามฟุตบอล มีผู้เสียชีวิต ๔ คน และบาดเจ็บอีกจำนวนหนึ่ง"
+      ),
+      say("grenade"),
+    ],
+  },
+  {
+    id: "fire",
+    kicker: { en: "6 October, from 07.00", th: "6 ตุลาคม ตั้งแต่ 07.00 น." },
+    heading: { en: "Under fire", th: "ใต้ห่ากระสุน" },
+    blocks: [
+      at(
+        "07.00",
+        "07.00 น.",
+        "Police pour heavy fire into the university from the Great Hall and the National Museum. Thousands shelter in the buildings around the football field. Dozens are killed.",
+        "เจ้าหน้าที่ตำรวจระดมยิงเข้ามาในมหาวิทยาลัยอย่างหนัก จากด้านหน้าหอประชุมใหญ่ และพิพิธภัณฑสถาน ผู้ชุมนุมนับพันคน ต้องหนีเข้าไปหลบในอาคารรอบสนามฟุตบอล มีผู้เสียชีวิตหลายสิบคน"
+      ),
+      pair("greatHall", "inside"),
+      say("stopFiring"),
+      say("schoolgirl"),
+      at(
+        "07.00",
+        "07.00 น.",
+        "Outside, the crowd at the gate drives two buses into it to force a way in.",
+        "ฝูงชนหน้าประตูมหาวิทยาลัยพยายามบุกเข้าไปในมหาวิทยาลัยโดยใช้รถบัสสองคันขับพุ่งเข้าชนประตู"
+      ),
+      pair("gate", "mainGate"),
+      say("river"),
+    ],
+  },
+  {
+    id: "surrender",
+    kicker: { en: "6 October, from 08.25", th: "6 ตุลาคม ตั้งแต่ 08.25 น." },
+    heading: { en: "Surrender", th: "ยอมจำนน" },
+    blocks: [
+      at(
+        "08.25",
+        "08.25 น.",
+        "Border Patrol Police break into the university and move to seize the protesters sheltering in the buildings around the football field.",
+        "ตชด.บุกเข้าไปในมหาวิทยาลัยได้สำเร็จ และได้พยายามเข้าจับกุมฝ่ายผู้ชุมนุมที่หลบตามอาคารรอบสนามฟุตบอล"
+      ),
+      pair("fieldLying", "surrender"),
+      at(
+        "10.30",
+        "10.30 น.",
+        "Students and members of the public are ordered to lie face down. Men and women are forced to take off their shirts.",
+        "นักศึกษาประชาชนถูกสั่งให้นอนคว่ำ นักศึกษาชายและหญิงถูกบังคับให้ถอดเสื้อ"
+      ),
+      show("fieldWide", true),
+      say("strip"),
+      pair("crawling", "guard"),
+      show("detained", true),
+    ],
+  },
+  {
+    id: "taken",
+    kicker: { en: "6 October, late morning", th: "6 ตุลาคม ช่วงสาย" },
+    heading: { en: "Taken away", th: "ถูกควบคุมตัว" },
+    blocks: [
+      at(
+        "10.30",
+        "10.30 น.",
+        "They are loaded onto buses and trucks and taken to be locked up at police stations, the largest at Nakhon Pathom, Chonburi and the Bang Khen police school. By the end of the day, 3,094 people have been arrested.",
+        "ผู้ถูกจับถูกควบคุมตัวไว้ทยอยลำเลียงขึ้นรถเมล์และรถสองแถวส่งไปขังตามสถานีตำรวจต่างๆ มี 3 แหล่งใหญ่ๆ ได้แก่ นครปฐม ชลบุรี และ ร.ร.ตำรวจนครบาลบางเขน ตลอดวันนั้นนักศึกษาประชาชนถูกจับกุม 3,094 คน"
+      ),
+      pair("busLine", "busLoading"),
+      say("bangKhen"),
+    ],
+  },
+  {
+    id: "coup",
+    kicker: { en: "6 October, afternoon and evening", th: "6 ตุลาคม บ่ายถึงค่ำ" },
+    heading: { en: "The coup", th: "รัฐประหาร" },
+    blocks: [
+      at(
+        "12.30",
+        "12.30 น.",
+        "Tens of thousands of Village Scouts and others rally at the Royal Plaza.",
+        "กลุ่มลูกเสือชาวบ้านและประชาชนจำนวนหลายหมื่นคนชุมนุมอยู่ที่ลานพระบรมรูปทรงม้า"
+      ),
+      pair("rally", "fieldPolice"),
+      at(
+        "18.00",
+        "18.00 น.",
+        "Admiral Sangad Chaloryu, head of the National Administrative Reform Council, announces that it has seized power.",
+        "พล.ร.อ.สงัด ชลออยู่ หัวหน้าคณะปฏิรูปการปกครองแผ่นดิน ประกาศยึดอำนาจ"
+      ),
+    ],
+  },
+  {
+    id: "search",
+    kicker: { en: "The days after", th: "วันต่อๆ มา" },
+    heading: { en: "The search", th: "การตามหา" },
+    blocks: [
+      say("unknownMan"),
+      say("morgue"),
+      say("sleeves"),
+      say("neighbour"),
+      say("crowds"),
+      say("silence"),
+    ],
+  },
+];
+
 export type Quote = {
   text: string;
   /** The Thai the archive printed, shown under an English rendering. */
@@ -469,9 +996,6 @@ export type Quote = {
   cite: string;
   href: string;
 };
-
-export type Moment = { time: string; text: string };
-export type Day = { heading: string; moments: Moment[] };
 
 export type SixOctoberCopy = {
   title: string;
@@ -485,9 +1009,8 @@ export type SixOctoberCopy = {
   remembrance: string[];
   backgroundHeading: string;
   background: string[];
-  timelineHeading: string;
-  timelineIntro: string;
-  days: Day[];
+  storyHeading: string;
+  storyIntro: string;
   afterHeading: string;
   after: string[];
   afterQuote: Quote;
@@ -552,77 +1075,9 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       "On 19 September 1976 Field Marshal Thanom Kittikachorn came home from Singapore as a novice and was ordained a monk at Wat Bowonniwet. On 24 September two Nakhon Pathom electricity workers were beaten to death while putting up posters against him, and their bodies were hanged at the gate of a housing estate.",
       "On 4 October students rallied at Lan Pho, and the Thammasat drama club staged a play about the Nakhon Pathom hanging. The next day the Dao Siam newspaper used a photograph of the play to attack the student movement, claiming the students had deliberately insulted the monarchy.",
     ],
-    timelineHeading: "What happened",
-    timelineIntro:
-      "These moments follow the timeline Documentation of Oct 6 compiled from the records of the day.",
-    days: [
-      {
-        heading: "Tuesday 5 October 1976",
-        moments: [
-          {
-            time: "10.00",
-            text: "Yan Kreua army radio runs a special programme. Its presenter repeats that the rally at Thammasat is no longer against Thanom, but an insult to the monarchy.",
-          },
-          {
-            time: "13.30",
-            text: "Ramkhamhaeng students prepare to set out for Thammasat in 25 vehicles.",
-          },
-          {
-            time: "Evening",
-            text: "The rally swells to tens of thousands and moves from Lan Pho to the football field.",
-          },
-          {
-            time: "20.35",
-            text: "For the first time, Yan Kreua and the Free Radio Association call the students and people at Thammasat “troublemakers”, and say there “may be bloodshed”.",
-          },
-          {
-            time: "21.30",
-            text: "The National Student Centre of Thailand brings the two student actors before the press to show their innocence.",
-          },
-          {
-            time: "All night",
-            text: "Yan Kreua and the Free Radio Association broadcast through the night, calling on the public and the Village Scouts to gather at the Royal Plaza.",
-          },
-        ],
-      },
-      {
-        heading: "Wednesday 6 October 1976",
-        moments: [
-          {
-            time: "01.40",
-            text: "About 100 people burn posters at the Sanam Luang gate of the university. The first shot rings out. Scattered shots follow, but no one is hurt.",
-          },
-          {
-            time: "04.00",
-            text: "Border Patrol Police from Naresuan camp, Hua Hin, arrive, surround the university from the Sanam Luang side, and post armed men in the National Museum.",
-          },
-          {
-            time: "05.30",
-            text: "The first M79 grenade, fired by police outside the university, lands among the crowd on the football field. Four people are killed and others are wounded.",
-          },
-          {
-            time: "07.00",
-            text: "Police pour heavy fire into the university from the Great Hall and the National Museum. Thousands shelter in the buildings around the football field. Dozens are killed. Outside, the crowd drives two buses into the gate.",
-          },
-          {
-            time: "08.25",
-            text: "Border Patrol Police break into the university and move to seize the protesters sheltering around the football field.",
-          },
-          {
-            time: "10.30",
-            text: "Students and members of the public are ordered to lie face down. Men and women are forced to take off their shirts. They are loaded onto buses and trucks and taken to police stations.",
-          },
-          {
-            time: "12.30",
-            text: "Tens of thousands of Village Scouts and others rally at the Royal Plaza.",
-          },
-          {
-            time: "18.00",
-            text: "Admiral Sangad Chaloryu, head of the National Administrative Reform Council, announces that it has seized power.",
-          },
-        ],
-      },
-    ],
+    storyHeading: "What happened",
+    storyIntro:
+      "The times follow the timeline Documentation of Oct 6 compiled from the records of the day. The words are those of the people who were there, and of the families who lost them.",
     afterHeading: "What came after",
     after: [
       "Police arrested 3,094 people that day, 2,432 men and 662 women. The 6 October defendants were held and tried for almost two years. On 16 September 1978 all 18 defendants, and one more in the criminal court, were amnestied and freed.",
@@ -681,7 +1136,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "We do not forget.",
     creditsHeading: "Sources and credits",
     creditsIntro:
-      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it.",
+      "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner.",
     creditsTerms:
       "The archive shares its material for education and the public interest and asks that it be credited. Ask the archive, or the families of the dead, before any commercial use.",
     photoSource: "View on doct6.com",
@@ -711,76 +1166,9 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       "วันที่ 19 กันยายน 2519 จอมพลถนอม กิตติขจร บวชเณรจากสิงคโปร์ แล้วเดินทางถึงประเทศไทย และอุปสมบทเป็นพระภิกษุที่วัดบวรนิเวศฯ วันที่ 24 กันยายน นายวิชัย เกษศรีพงษา และนายชุมพร ทุมไมย พนักงานการไฟฟ้านครปฐม ถูกซ้อมตายระหว่างออกติดโปสเตอร์ประท้วงต่อต้านพระถนอม และถูกนำศพไปแขวนคอที่ประตูทางเข้าที่จัดสรรแห่งหนึ่งในจังหวัดนครปฐม",
       "วันที่ 4 ตุลาคม มีการชุมนุมที่ลานโพธิ์ มีการอภิปรายและการแสดงละครเกี่ยวกับกรณีฆ่าแขวนคอพนักงานการไฟฟ้านครปฐม จัดโดยชุมนุมนาฏศิลป์และการละคร มหาวิทยาลัยธรรมศาสตร์ วันรุ่งขึ้น หนังสือพิมพ์ดาวสยามนำรูปละครแขวนคอมาเป็นเครื่องมือ ออกเผยแพร่โจมตีขบวนการนักศึกษาว่าจงใจหมิ่นพระบรมเดชานุภาพ",
     ],
-    timelineHeading: "ลำดับเหตุการณ์",
-    timelineIntro: "ลำดับเหตุการณ์ต่อไปนี้มาจากที่โครงการบันทึก 6 ตุลา รวบรวมจากบันทึกของวันนั้น",
-    days: [
-      {
-        heading: "วันอังคารที่ 5 ตุลาคม 2519",
-        moments: [
-          {
-            time: "10.00 น.",
-            text: "สถานีวิทยุยานเกราะเปิดรายการพิเศษ เสียงของ พ.ท.อุทาร สนิทวงศ์ กล่าวเน้นเป็นระยะว่า “เดี๋ยวนี้การชุมนุมที่ธรรมศาสตร์ไม่ใช่เป็นเรื่องต่อต้านพระถนอมแล้ว หากแต่เป็นเรื่องหมิ่นพระบรมเดชานุภาพ”",
-          },
-          {
-            time: "13.30 น.",
-            text: "นักศึกษารามคำแหงเตรียมออกเดินทางไปสมทบที่ธรรมศาสตร์ 25 คันรถ",
-          },
-          {
-            time: "ตกเย็น",
-            text: "จำนวนผู้ร่วมชุมนุมเพิ่มมากขึ้นนับหมื่นคน จึงย้ายการชุมนุมจากบริเวณลานโพธิ์มายังสนามฟุตบอล",
-          },
-          {
-            time: "20.35 น.",
-            text: "นับเป็นครั้งแรกที่สถานีวิทยุยานเกราะ และชมรมวิทยุเสรี เรียกกลุ่มนักศึกษาประชาชนที่ธรรมศาสตร์ว่า “ผู้ก่อความไม่สงบ” และกล่าวคำว่า “อาจมีการนองเลือดขึ้น”",
-          },
-          {
-            time: "21.30 น.",
-            text: "ศนท. นำนายอภินันท์ บัวหภักดี และนายวิโรจน์ ตั้งวาณิชย์ สมาชิกชุมนุมนาฏศิลป์และการละคร มหาวิทยาลัยธรรมศาสตร์ มาแสดงความบริสุทธิ์ใจ",
-          },
-          {
-            time: "ตลอดคืน",
-            text: "สถานีวิทยุยานเกราะและชมรมวิทยุเสรีออกอากาศตลอดคืนเรียกร้องให้ประชาชนและลูกเสือชาวบ้านไปชุมนุมที่ลานพระบรมรูปทรงม้า",
-          },
-        ],
-      },
-      {
-        heading: "วันพุธที่ 6 ตุลาคม 2519",
-        moments: [
-          {
-            time: "01.40 น.",
-            text: "กลุ่มคนประมาณ 100 คนได้บุกเข้าไปเผาแผ่นโปสเตอร์หน้าประตูมหาวิทยาลัยธรรมศาสตร์ ด้านสนามหลวง มีเสียงปืนนัดแรกดังขึ้นและมีการยิงตอบโต้ประปรายแต่ไม่มีใครบาดเจ็บ",
-          },
-          {
-            time: "04.00 น.",
-            text: "ตำรวจตระเวนชายแดน จากค่ายนเรศวร หัวหิน เดินทางมาถึง และยกกำลังเข้าล้อมมหาวิทยาลัยจากทางด้านสนามหลวง และนำกำลังติดอาวุธไปตั้งในพิพิธภัณฑสถานแห่งชาติ",
-          },
-          {
-            time: "05.30 น.",
-            text: "ระเบิดเอ็ม.๗๙ ลูกแรก ถูกยิงมาจากฝ่ายตำรวจนอกมหาวิทยาลัย ตกกลางผู้ชุมนุมที่สนามฟุตบอล มีผู้เสียชีวิต ๔ คน และบาดเจ็บอีกจำนวนหนึ่ง",
-          },
-          {
-            time: "07.00 น.",
-            text: "เจ้าหน้าที่ตำรวจระดมยิงเข้ามาในมหาวิทยาลัยอย่างหนัก จากด้านหน้าหอประชุมใหญ่ และพิพิธภัณฑสถาน ผู้ชุมนุมนับพันคน ต้องหนีเข้าไปหลบในอาคารรอบสนามฟุตบอล มีผู้เสียชีวิตหลายสิบคน ฝูงชนหน้าประตูมหาวิทยาลัยใช้รถบัสสองคันขับพุ่งเข้าชนประตู",
-          },
-          {
-            time: "08.25 น.",
-            text: "ตชด.บุกเข้าไปในมหาวิทยาลัยได้สำเร็จ และได้พยายามเข้าจับกุมฝ่ายผู้ชุมนุมที่หลบตามอาคารรอบสนามฟุตบอล",
-          },
-          {
-            time: "10.30 น.",
-            text: "นักศึกษาประชาชนถูกสั่งให้นอนคว่ำ นักศึกษาชายและหญิงถูกบังคับให้ถอดเสื้อ แล้วถูกควบคุมตัวทยอยลำเลียงขึ้นรถเมล์และรถสองแถวส่งไปขังตามสถานีตำรวจต่างๆ",
-          },
-          {
-            time: "12.30 น.",
-            text: "กลุ่มลูกเสือชาวบ้านและประชาชนจำนวนหลายหมื่นคนชุมนุมอยู่ที่ลานพระบรมรูปทรงม้า",
-          },
-          {
-            time: "18.00 น.",
-            text: "พล.ร.อ.สงัด ชลออยู่ หัวหน้าคณะปฏิรูปการปกครองแผ่นดิน ประกาศยึดอำนาจ",
-          },
-        ],
-      },
-    ],
+    storyHeading: "เกิดอะไรขึ้น",
+    storyIntro:
+      "ลำดับเวลาเป็นไปตามที่โครงการบันทึก 6 ตุลา รวบรวมจากบันทึกของวันนั้น ส่วนถ้อยคำเป็นของผู้อยู่ในเหตุการณ์ และครอบครัวของผู้ที่จากไป",
     afterHeading: "หลังเหตุการณ์",
     after: [
       "นักศึกษาประชาชนถูกจับกุม 3,094 คน เป็นชาย 2,432 คน หญิง 662 คน ผู้ต้องหาคดี 6 ตุลา ถูกคุมขังและดำเนินคดีอยู่เกือบ 2 ปีจึงจะได้รับการปล่อยตัว วันที่ 16 กันยายน 2521 ผู้ต้องหาคดี 6 ตุลา ทั้ง 18 คน ได้รับการนิรโทษกรรม พร้อมกับผู้ต้องหาในศาลอาญาอีก 1 คน",
@@ -836,7 +1224,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     closing: "เราไม่ลืม",
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
-      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้",
+      "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ",
     creditsTerms:
       "เอกสารหรือหลักฐานที่ปรากฏในเว็บไซต์ “บันทึก 6 ตุลา” มีจุดประสงค์เพื่อการเรียนรู้และประโยชน์ต่อสังคมเท่านั้น หากต้องการนำไปใช้ในทางธุรกิจหรือเพื่อแสวงหากำไร กรุณาติดต่อโครงการก่อนหรือขออนุญาตโดยตรงจากครอบครัวของผู้เสียชีวิต",
     photoSource: "ดูที่ doct6.com",
