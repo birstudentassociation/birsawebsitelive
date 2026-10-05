@@ -822,6 +822,14 @@ export type Block =
 
 export type Chapter = { id: string; kicker: L; heading: L; blocks: Block[] };
 
+const loose: Record<string, number> = { Evening: 18 * 60, "All night": 23 * 60 };
+
+export function momentClock(chapterId: string, time: string) {
+  const match = /^(\d{2})\.(\d{2})$/.exec(time);
+  const minutes = match ? Number(match[1]) * 60 + Number(match[2]) : loose[time];
+  return { day: chapterId === "night" ? 5 : 6, minutes: minutes ?? 0 };
+}
+
 const at = (en: string, th: string, textEn: string, textTh: string): Block => ({
   kind: "moment",
   time: { en, th },
@@ -1069,6 +1077,7 @@ export type SixOctoberCopy = {
   creditsTerms: string;
   photoSource: string;
   heroSource: string;
+  atThisHour: string;
 };
 
 const how = `${DOCT6}/learn-about/how`;
@@ -1215,6 +1224,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       "The archive shares its material for education and the public interest and asks that it be credited. Ask the archive, or the families of the dead, before any commercial use.",
     photoSource: "View on doct6.com",
     heroSource: "View on Khaosod",
+    atThisHour: "50 years ago at this hour",
   },
   th: {
     title: "6 ตุลา 2519",
@@ -1342,5 +1352,6 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       "เอกสารหรือหลักฐานที่ปรากฏในเว็บไซต์ “บันทึก 6 ตุลา” มีจุดประสงค์เพื่อการเรียนรู้และประโยชน์ต่อสังคมเท่านั้น หากต้องการนำไปใช้ในทางธุรกิจหรือเพื่อแสวงหากำไร กรุณาติดต่อโครงการก่อนหรือขออนุญาตโดยตรงจากครอบครัวของผู้เสียชีวิต",
     photoSource: "ดูที่ doct6.com",
     heroSource: "ดูที่ข่าวสด",
+    atThisHour: "เมื่อ 50 ปีก่อน ณ เวลานี้",
   },
 };

@@ -5,8 +5,10 @@ import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
+import MomentTime, { type Clock } from "./MomentTime";
 import {
   copy,
+  momentClock,
   hero,
   images,
   portraits,
@@ -159,19 +161,26 @@ function StoryBlock({
   locale,
   newTab,
   photoSource,
+  clocks,
+  nowLabel,
 }: {
   block: Block;
   locale: Locale;
   newTab: string;
   photoSource: string;
+  clocks?: { clock: Clock; next: Clock | null };
+  nowLabel: string;
 }) {
   switch (block.kind) {
     case "moment":
       return (
         <div className="mx-auto flex w-full max-w-[var(--measure)] flex-col gap-1 sm:flex-row sm:gap-6">
-          <p className="shrink-0 font-display text-2xl whitespace-nowrap text-ink tabular-nums sm:w-32">
-            {block.time[locale]}
-          </p>
+          <MomentTime
+            time={block.time[locale]}
+            clock={clocks?.clock ?? { day: 0, minutes: 0 }}
+            next={clocks?.next ?? null}
+            nowLabel={nowLabel}
+          />
           <p className="text-lg leading-relaxed">{block.text[locale]}</p>
         </div>
       );
@@ -219,6 +228,20 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
   const dict = getDictionary(locale);
   const t = copy[locale];
   const newTab = dict.a11y.newTab;
+  const moments = story.flatMap((chapter) =>
+    chapter.blocks.flatMap((block, i) =>
+      block.kind === "moment"
+        ? [{ key: `${chapter.id}-${i}`, clock: momentClock(chapter.id, block.time.en) }]
+        : []
+    )
+  );
+  const later = (a: Clock, b: Clock) => a.day > b.day || (a.day === b.day && a.minutes > b.minutes);
+  const clocks = new Map(
+    moments.map((m) => [
+      m.key,
+      { clock: m.clock, next: moments.find((n) => later(n.clock, m.clock))?.clock ?? null },
+    ])
+  );
 
   return (
     <article className="six-october">
@@ -320,6 +343,8 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
                   locale={locale}
                   newTab={newTab}
                   photoSource={t.photoSource}
+                  clocks={clocks.get(`${chapter.id}-${i}`)}
+                  nowLabel={t.atThisHour}
                 />
               ))}
             </section>
