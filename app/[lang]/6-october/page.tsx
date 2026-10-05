@@ -31,24 +31,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
-  const t = copy[lang];
-  const base = buildMetadata({
+  return buildMetadata({
     locale: lang,
-    title: t.title,
-    description: t.metaDescription,
+    title: copy[lang].title,
+    description: copy[lang].metaDescription,
     path: "/6-october",
   });
-  const image = {
-    url: "/6-october/og-field.jpg",
-    width: 1200,
-    height: 630,
-    alt: hero.alt[lang],
-  };
-  return {
-    ...base,
-    openGraph: { ...base.openGraph, images: [image] },
-    twitter: { ...base.twitter, card: "summary_large_image", images: [image.url] },
-  };
 }
 
 const link = "text-current underline decoration-1 underline-offset-4 hover:decoration-2";

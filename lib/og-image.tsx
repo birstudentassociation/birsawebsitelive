@@ -157,3 +157,81 @@ export async function renderEmergencyOgImage({
     OG_SIZE
   );
 }
+
+function photoSrc(file: string) {
+  const photo = fs.readFileSync(path.join(process.cwd(), "public", file));
+  return `data:image/jpeg;base64,${photo.toString("base64")}`;
+}
+
+export async function renderCommemorationOgImage({
+  photo,
+  eyebrow,
+  title,
+  closing,
+}: {
+  photo: string;
+  eyebrow: string;
+  title: string;
+  closing: string;
+}) {
+  const [eyebrowText, titleText, closingText, name] = await Promise.all([
+    shapeText(eyebrow, 30, 600, WHITE),
+    shapeText(title, 96, 700, WHITE),
+    shapeText(closing, 38, 600, WHITE),
+    shapeText("BIR Student Association", 28, 700, WHITE),
+  ]);
+  return new ImageResponse(
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        position: "relative",
+        backgroundColor: "#0d0c0b",
+      }}
+    >
+      <img
+        src={photoSrc(photo)}
+        width={OG_SIZE.width}
+        height={OG_SIZE.height}
+        alt=""
+        style={{ position: "absolute", top: 0, left: 0, opacity: 0.8 }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage:
+            "linear-gradient(to right, rgba(13,12,11,0.95) 0%, rgba(13,12,11,0.75) 45%, rgba(13,12,11,0.1) 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          padding: "56px 72px",
+        }}
+      >
+        <ShapedText pieces={eyebrowText} size={30} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, maxWidth: 720 }}>
+          <ShapedText pieces={titleText} size={96} />
+          <ShapedText pieces={closingText} size={38} />
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <div style={{ display: "flex", backgroundColor: WHITE, borderRadius: 14, padding: 6 }}>
+            <img src={logoSrc()} width={56} height={56} alt="" />
+          </div>
+          <ShapedText pieces={name} size={28} />
+        </div>
+      </div>
+    </div>,
+    OG_SIZE
+  );
+}
