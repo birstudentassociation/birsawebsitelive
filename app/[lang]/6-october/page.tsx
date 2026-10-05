@@ -92,14 +92,17 @@ function PullQuote({
     <figure className="flex flex-col gap-4">
       <blockquote cite={quote.href} className="flex flex-col gap-3">
         <p
-          className={`font-display leading-snug text-balance ${
+          className={`font-display leading-snug text-balance whitespace-pre-line ${
             size === "lg" ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl"
           }`}
         >
           {quoted(quote.text)}
         </p>
         {quote.original ? (
-          <p lang="th" className={`font-thai text-lg leading-relaxed italic ${quiet}`}>
+          <p
+            lang="th"
+            className={`font-thai text-lg leading-relaxed whitespace-pre-line italic ${quiet}`}
+          >
             {quoted(quote.original)}
           </p>
         ) : null}
