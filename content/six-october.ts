@@ -60,11 +60,11 @@ export const hero: SixOctoberImage = {
   source: khaosod,
   alt: {
     en: "Hundreds of students lie face down across the Thammasat football field, most stripped to the waist with their hands behind their heads, while a policeman holding a rifle stands over them. The Dome building and its spire rise behind.",
-    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ ส่วนใหญ่ถูกถอดเสื้อ มือประสานไว้ที่ท้ายทอย ตำรวจถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
+    th: "นักศึกษาหลายร้อยคนนอนคว่ำเต็มสนามฟุตบอลธรรมศาสตร์ ถูกถอดเสื้อ โดนสั่งให้เอามือประสานไว้ที่ท้ายทอย ตำรวจถือปืนยืนคุมอยู่ เบื้องหลังคือตึกโดมและยอดโดม",
   },
   caption: {
     en: "Behind the title, the football field of Thammasat University on the morning of 6 October 1976, with the Dome behind.",
-    th: "ภาพเบื้องหลังชื่อเรื่อง สนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519 เบื้องหลังคือตึกโดม",
+    th: "ภาพพื้นหลังแสดงให้เห็นสนามฟุตบอล มหาวิทยาลัยธรรมศาสตร์ เช้าวันที่ 6 ตุลาคม 2519",
   },
   credit: {
     en: "Photograph by The Associated Press, published by Khaosod.",
@@ -112,7 +112,7 @@ export const images = {
     1001,
     {
       en: "A policeman kneels and aims a rifle while others crouch on the grass beside him.",
-      th: "ตำรวจคุกเข่าเล็งปืนไรเฟิล ขณะที่คนอื่นหมอบอยู่บนสนามหญ้าข้างกัน",
+      th: "ตำรวจคุกเข่าเล็งปืนไรเฟิล ขณะที่คนอื่นหมอบอยู่บนสนามหญ้าเรียงกัน",
     },
     { en: "At the Great Hall.", th: "เหตุการณ์บริเวณหอประชุมใหญ่" }
   ),
@@ -145,7 +145,7 @@ export const images = {
     1032,
     {
       en: "Students in shirts and trousers lie and crawl across the grass of the football field.",
-      th: "นักศึกษาในเสื้อเชิ้ตและกางเกงนอนและคลานอยู่บนสนามหญ้า",
+      th: "นักศึกษาใส่เสื้อเชิ้ตและกางเกง นอนและคลานอยู่บนสนามหญ้า",
     },
     {
       en: "The football field at Thammasat University.",
@@ -158,7 +158,7 @@ export const images = {
     977,
     {
       en: "Young people walk in a line with their hands on their heads past an armed man on the Thammasat football field.",
-      th: "คนหนุ่มสาวเดินเรียงแถวเอามือประสานบนศีรษะ ผ่านชายถืออาวุธในสนามฟุตบอลมหาวิทยาลัยธรรมศาสตร์",
+      th: "คนเดินเรียงแถวเอามือประสานบนศีรษะ มีเจ้าหน้าที่ถืออาวุธในสนามฟุตบอลมหาวิทยาลัยธรรมศาสตร์",
     },
     {
       en: "The football field at Thammasat University.",
@@ -171,7 +171,7 @@ export const images = {
     1370,
     {
       en: "Hundreds of students lie face down in rows across the football field, many stripped to the waist, while police stand along the far side in front of the university buildings.",
-      th: "นักศึกษาหลายร้อยคนนอนคว่ำเรียงแถวเต็มสนามฟุตบอล หลายคนถูกถอดเสื้อ ตำรวจยืนเรียงอยู่ด้านหลังหน้าอาคารของมหาวิทยาลัย",
+      th: "นักศึกษาหลายร้อยคนนอนคว่ำเรียงแถวเต็มสนามฟุตบอล ซึ่งทุกคนได้ถูกสั่งให้ถอดเสื้อ ตำรวจยืนเรียงอยู่ด้านหลังหน้าอาคารของมหาวิทยาลัย",
     },
     {
       en: "The football field at Thammasat University.",
@@ -317,7 +317,7 @@ export const portraits: Portrait[] = [
     href: `${DOCT6}/archives/4102`,
     about: {
       en: "19. A third year Liberal Arts student at Thammasat. His parents, Chinda and Lim, searched the country for their son.",
-      th: "อายุ 19 ปี นักศึกษาชั้นปีที่ 3 คณะศิลปศาสตร์ มหาวิทยาลัยธรรมศาสตร์ พ่อจินดาและแม่ลิ้มพลิกแผ่นดินตามหาลูก",
+      th: "อายุ 19 ปี นักศึกษาชั้นปีที่ 3 คณะศิลปศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ซึ่งพ่อจินดาและแม่ลิ้มพลิกแผ่นดินตามหาเขา",
     },
     credit: archiveCredit,
   },
@@ -1062,7 +1062,7 @@ export type SixOctoberCopy = {
 const how = `${DOCT6}/learn-about/how`;
 const victimsPage = `${DOCT6}/remember/victims`;
 
-const epigraphTh = "ความใฝ่ฝันถึงสังคมใหม่ไม่ใช่ความผิด";
+const epigraphTh = "ขอเยาะเย้ยทุกข์ยากขวากหนามลำเค็ญ คนยังคง ยืนเด่นโดยท้าทาย";
 const impunityTh =
   "แต่ที่น่าประหลาดใจที่สุดก็คือ การก่อกรณีนองเลือดครั้งนี้ ไม่มีการจับกุมฆาตกรผู้ก่อการสังหารเลยแม้แต่คนเดียว";
 const humanityTh = "การทำความรู้จักตัวตนของเหยื่อก็คือการแสดงความเคารพต่อความเป็นมนุษย์ของพวกเขา";
@@ -1075,14 +1075,14 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     eyebrow: "50 years",
     lede: "On the morning of 6 October 1976, police and armed civilians massacred students and members of the public at Thammasat University, Tha Prachan. We remember them.",
     metaDescription:
-      "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on. What happened, the names of the dead and where to learn more.",
+      "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on.",
     breadcrumb: "6 October 1976",
     contentNote:
-      "This page describes killing and violence against students. It contains historical photographs of the morning, but none that show the dead.",
+      "This page describes killing and violence against students. None of the photographs shown on this page depict the dead.",
     epigraph: {
-      text: "The dream of a new society is not a crime.",
+      text: "I scoff at sorrow, at the thorns and bitter trial; man yet stands tall, magnificent in defiance.",
       original: epigraphTh,
-      cite: "Suthachai Yimprasert, How 6 October happened, conclusion",
+      cite: "Jit Phumisak, from Khon Yang Khong Yuen Den Doi Tha Thai",
       href: `${how}/conclusion`,
     },
     remembranceHeading: "Fifty years on",
@@ -1092,7 +1092,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     ],
     backgroundHeading: "How it came to this",
     background: [
-      "Documentation of Oct 6 traces the massacre back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
+      "The origins of the massacre can be traced back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
       "On 19 September 1976 Field Marshal Thanom Kittikachorn came home from Singapore as a novice and was ordained a monk at Wat Bowonniwet. On 24 September two Nakhon Pathom electricity workers were beaten to death while putting up posters against him, and their bodies were hanged at the gate of a housing estate.",
       "On 4 October students rallied at Lan Pho, and the Thammasat drama club staged a play about the Nakhon Pathom hanging. The next day the Dao Siam newspaper used a photograph of the play to attack the student movement, claiming the students had deliberately insulted the monarchy.",
     ],
@@ -1118,7 +1118,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       href: victimsPage,
     },
     namesIntro:
-      "These are the 40 students and members of the public who died in the massacre, as Documentation of Oct 6 records them. The archive gives their names in Thai. Where it has written someone's story, their name links to it.",
+      "These are the 40 students and members of the public who died in the massacre.",
     readMoreAbout: "Read about",
     age: (years) => `Aged ${years}`,
     separator: ". ",
@@ -1168,19 +1168,19 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     eyebrow: "50 ปี 6 ตุลา",
     lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
     metaDescription:
-      "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เกิดอะไรขึ้น รายชื่อผู้เสียชีวิต และแหล่งข้อมูลจากโครงการบันทึก 6 ตุลา",
+      "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
     breadcrumb: "6 ตุลา 2519",
     contentNote:
-      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา มีภาพถ่ายทางประวัติศาสตร์ของเช้าวันนั้น แต่ไม่มีภาพผู้เสียชีวิต",
+      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา ไม่มีภาพที่ปรากฎการกระทำต่อผู้เสียชีวิต",
     epigraph: {
       text: epigraphTh,
-      cite: "สุธาชัย ยิ้มประเสริฐ บทสรุป เหตุการณ์ 6 ตุลาฯ เกิดขึ้นได้อย่างไร",
+      cite: "จิตร ภูมิศักดิ์ เพลง คนยังคงยืนเด่นโดยท้าทาย",
       href: `${how}/conclusion`,
     },
     remembranceHeading: "ครบ 50 ปี",
     remembrance: [
-      "นักศึกษาประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก นักศึกษาประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน กลับถูกจับกุมทั้งหมดภายในวันนั้นเอง และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
-      "ผู้เสียชีวิตมักถูกจดจำในฐานะตัวเลขความตายเท่านั้น บางคนจนถึงวันนี้ยังไม่มีใครรู้ชื่อ ท่าพระจันทร์คือที่ที่เราเรียนกันทุกวันนี้ และเป็นที่ที่เรื่องทั้งหมดนี้เกิดขึ้น",
+      "นักศึกษาและประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ในวันที่ 6 ตุลา ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก มีการจับกุมนักศึกษาและประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
+      "เราขอรำลึกถึงผู้วายชนม์ และรำลึกถีงเหตุการณ์ที่เกิดขึ้นในวันนั้น",
     ],
     backgroundHeading: "ย้อนดูที่มา",
     background: [
