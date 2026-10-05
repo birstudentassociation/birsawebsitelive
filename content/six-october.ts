@@ -1126,7 +1126,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     namesSource: "The victims page of Documentation of Oct 6",
     deadHeading: "How many died",
     deadIntro:
-      "Fifty years on, even the number of dead is uncertain. The records do not agree, and Documentation of Oct 6 explains why.",
+      "Fifty years on, even the number of dead is uncertain. The official figures, the autopsy reports, and the archive's count of the dead all differ.",
     figures: [
       { value: "39", label: "dead in the official figures" },
       { value: "46", label: "dead, at least, in the autopsy reports" },
@@ -1167,7 +1167,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
   th: {
     title: "6 ตุลา 2519",
     eyebrow: "50 ปี 6 ตุลา",
-    lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
+    lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอร่วมรำลึกถึงพวกเขา",
     metaDescription: "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
     breadcrumb: "6 ตุลา 2519",
     contentNote:
@@ -1180,7 +1180,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     remembranceHeading: "ครบ 50 ปี",
     remembrance: [
       "นักศึกษาและประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ในวันที่ 6 ตุลา ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก มีการจับกุมนักศึกษาและประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
-      "เราขอรำลึกถึงผู้วายชนม์ และรำลึกถีงเหตุการณ์ที่เกิดขึ้นในวันนั้น",
+      "เราขอร่วมรำลึกถึงผู้วายชนม์ และรำลึกถีงเหตุการณ์ที่เกิดขึ้นในวันนั้น",
     ],
     backgroundHeading: "ย้อนดูที่มา",
     background: [
