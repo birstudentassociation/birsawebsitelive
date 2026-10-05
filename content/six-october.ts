@@ -1074,7 +1074,7 @@ const aimTh =
 export const copy: Record<Locale, SixOctoberCopy> = {
   en: {
     title: "6 October 1976",
-    eyebrow: "50 years",
+    eyebrow: "50 YEARS ON",
     lede: "On the morning of 6 October 1976, police and armed civilians massacred students and members of the public at Thammasat University, Tha Prachan. We remember them.",
     metaDescription:
       "Remembering the 6 October 1976 massacre at Thammasat University, Tha Prachan, fifty years on.",
