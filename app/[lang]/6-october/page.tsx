@@ -230,7 +230,7 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
   const newTab = dict.a11y.newTab;
 
   return (
-    <article>
+    <article className="six-october">
       <header className="relative isolate overflow-hidden bg-[#0d0c0b] text-white">
         <div
           aria-hidden="true"

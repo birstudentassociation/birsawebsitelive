@@ -196,6 +196,10 @@ html[lang="th"] .font-display {
   letter-spacing: 0.06em;
 }
 
+html[lang="th"] .six-october .font-display {
+  font-family: var(--font-th-display), var(--font-th), sans-serif;
+}
+
 /* Thai leading. Thai stacks tone marks above the loop and vowels below it, so
    a Thai line inks close to a full em where the Latin equivalent inks about
    0.7 -- and the display face is scaled to 140% on top of that. The heading

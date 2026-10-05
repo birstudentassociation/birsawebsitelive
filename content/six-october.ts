@@ -671,9 +671,9 @@ const natdaSpeaker: L = {
 export const testimonies = {
   radio: {
     th: "สถานีวิทยุยานเกราะจึงได้เริ่มผนึกกำลังกับผู้บริหารสถานีวิทยุต่าง ๆ สองร้อยหกสิบสถานี พร้อมกับผู้จัดรายการจำนวนมาก ซึ่งเป็นชมรมวิทยุเสรีและด้านมวลชนมหาศาล ซึ่งเป็นผู้ฟังเป็นกำลังร่วมปฏิบัติการ",
-    en: "Yan Kreua radio therefore began joining forces with the managers of two hundred and sixty radio stations and many presenters, the Free Radio Association and an enormous mass base, whose listeners were a force taking part in the operation.",
+    en: "Yan Kraw radio therefore began joining forces with the managers of two hundred and sixty radio stations and many presenters, the Free Radio Association and an enormous mass base, whose listeners were a force taking part in the operation.",
     speaker: {
-      en: "Lieutenant Colonel Uthan Sanitwong na Ayutthaya of Yan Kreua radio, in his statement to police in December 1976",
+      en: "Lieutenant Colonel Uthan Sanitwong na Ayutthaya of Yan Kraw radio, in his statement to police in December 1976",
       th: "พ.ท.อุทาร สนิทวงศ์ ณ อยุธยา สถานีวิทยุยานเกราะ ในบันทึกคำให้การต่อตำรวจ ธันวาคม 2519",
     },
     href: `${DOCT6}/archives/15228`,
@@ -845,7 +845,7 @@ export const story: Chapter[] = [
       at(
         "10.00",
         "10.00 น.",
-        "Yan Kreua army radio runs a special programme. Its presenter repeats that the rally at Thammasat is no longer against Thanom, but an insult to the monarchy.",
+        "Yan Kraw army radio runs a special programme. Its presenter repeats that the rally at Thammasat is no longer against Thanom, but an insult to the monarchy.",
         "สถานีวิทยุยานเกราะเปิดรายการพิเศษ เสียงของ พ.ท.อุทาร สนิทวงศ์ กล่าวเน้นเป็นระยะว่า “เดี๋ยวนี้การชุมนุมที่ธรรมศาสตร์ไม่ใช่เป็นเรื่องต่อต้านพระถนอมแล้ว หากแต่เป็นเรื่องหมิ่นพระบรมเดชานุภาพ”"
       ),
       say("radio"),
@@ -865,7 +865,7 @@ export const story: Chapter[] = [
       at(
         "20.35",
         "20.35 น.",
-        "For the first time, Yan Kreua and the Free Radio Association call the students and people at Thammasat “troublemakers”, and say there “may be bloodshed”.",
+        "For the first time, Yan Kraw and the Free Radio Association call the students and people at Thammasat “troublemakers”, and say there “may be bloodshed”.",
         "นับเป็นครั้งแรกที่สถานีวิทยุยานเกราะ และชมรมวิทยุเสรี เรียกกลุ่มนักศึกษาประชาชนที่ธรรมศาสตร์ว่า “ผู้ก่อความไม่สงบ” และกล่าวคำว่า “อาจมีการนองเลือดขึ้น”"
       ),
       at(
@@ -877,7 +877,7 @@ export const story: Chapter[] = [
       at(
         "All night",
         "ตลอดคืน",
-        "Yan Kreua and the Free Radio Association broadcast through the night, calling on the public and the Village Scouts to gather at the Royal Plaza.",
+        "Yan Kraw and the Free Radio Association broadcast through the night, calling on the public and the Village Scouts to gather at the Royal Plaza.",
         "สถานีวิทยุยานเกราะและชมรมวิทยุเสรีออกอากาศตลอดคืนเรียกร้องให้ประชาชนและลูกเสือชาวบ้านไปชุมนุมที่ลานพระบรมรูปทรงม้า"
       ),
     ],
