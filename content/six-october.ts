@@ -1060,6 +1060,8 @@ export type SixOctoberCopy = {
 };
 
 const how = `${DOCT6}/learn-about/how`;
+const saengDaoWiki =
+  "https://th.wikipedia.org/wiki/%E0%B9%81%E0%B8%AA%E0%B8%87%E0%B8%94%E0%B8%B2%E0%B8%A7%E0%B9%81%E0%B8%AB%E0%B9%88%E0%B8%87%E0%B8%A8%E0%B8%A3%E0%B8%B1%E0%B8%97%E0%B8%98%E0%B8%B2";
 const victimsPage = `${DOCT6}/remember/victims`;
 
 const epigraphTh = "ขอเยาะเย้ยทุกข์ยากขวากหนามลำเค็ญ คนยังคง ยืนเด่นโดยท้าทาย";
@@ -1082,8 +1084,8 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     epigraph: {
       text: "I scoff at sorrow, at the thorns and bitter trial; man yet stands tall, magnificent in defiance.",
       original: epigraphTh,
-      cite: "Jit Phumisak, from Khon Yang Khong Yuen Den Doi Tha Thai",
-      href: `${how}/conclusion`,
+      cite: "Jit Phumisak, from the song Saeng Dao Haeng Sattha",
+      href: saengDaoWiki,
     },
     remembranceHeading: "Fifty years on",
     remembrance: [
@@ -1117,8 +1119,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       cite: "Documentation of Oct 6, Victims of the violence",
       href: victimsPage,
     },
-    namesIntro:
-      "These are the 40 students and members of the public who died in the massacre.",
+    namesIntro: "These are the 40 students and members of the public who died in the massacre.",
     readMoreAbout: "Read about",
     age: (years) => `Aged ${years}`,
     separator: ". ",
@@ -1167,15 +1168,14 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     title: "6 ตุลา 2519",
     eyebrow: "50 ปี 6 ตุลา",
     lede: "เช้าวันที่ 6 ตุลาคม 2519 เกิดการฆาตกรรมหมู่นักศึกษาและประชาชนในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ เราขอรำลึกถึงพวกเขา",
-    metaDescription:
-      "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
+    metaDescription: "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
     breadcrumb: "6 ตุลา 2519",
     contentNote:
       "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา ไม่มีภาพที่ปรากฎการกระทำต่อผู้เสียชีวิต",
     epigraph: {
       text: epigraphTh,
-      cite: "จิตร ภูมิศักดิ์ เพลง คนยังคงยืนเด่นโดยท้าทาย",
-      href: `${how}/conclusion`,
+      cite: "จิตร ภูมิศักดิ์ เพลง แสงดาวแห่งศรัทธา",
+      href: saengDaoWiki,
     },
     remembranceHeading: "ครบ 50 ปี",
     remembrance: [
