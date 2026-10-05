@@ -1154,7 +1154,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "The evidence", href: `${DOCT6}/documents` },
       { label: "Share a document or a memory", href: `${DOCT6}/contribute` },
     ],
-    closing: "We do not forget.",
+    closing: "We will never forget them.",
     creditsHeading: "Sources and credits",
     creditsIntro:
       "Every fact, quotation and photograph on this page comes from Documentation of Oct 6 (บันทึก 6 ตุลา, doct6.com). Each photograph and quotation links to the page where the archive publishes it. Most of the photographs come from a set Pathomporn Srimanta gave to the archive in 2017, which carries no record of photographer or owner. The photograph behind the title is the one exception. It is an Associated Press photograph, published by Khaosod.",
@@ -1243,7 +1243,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
       { label: "หลักฐาน", href: `${DOCT6}/documents` },
       { label: "ร่วมเผชิญอยุติธรรม ร่วมความทรงจำ", href: `${DOCT6}/contribute` },
     ],
-    closing: "เราไม่ลืม",
+    closing: "เราจะไม่มีวันลืมพวกเขา",
     creditsHeading: "แหล่งที่มาและเครดิต",
     creditsIntro:
       "ข้อเท็จจริง ข้อความที่อ้างอิง และภาพถ่ายทุกภาพในหน้านี้มาจากโครงการบันทึก 6 ตุลา (Documentation of Oct 6, doct6.com) ภาพและข้อความแต่ละชิ้นมีลิงก์ไปยังหน้าที่โครงการเผยแพร่ไว้ ภาพส่วนใหญ่มาจากภาพชุดที่คุณปฐมพร ศรีมันตะ มอบให้โครงการเมื่อปี 2560 ซึ่งโครงการระบุว่าไม่มีข้อมูลผู้ถ่ายภาพและเจ้าของ ยกเว้นภาพเบื้องหลังชื่อเรื่อง ซึ่งเป็นภาพของสำนักข่าวเอพี เผยแพร่โดยข่าวสด",
