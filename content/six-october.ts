@@ -1060,6 +1060,8 @@ export type SixOctoberCopy = {
   age: (years: number) => string;
   separator: string;
   namesSource: string;
+  playMusic: string;
+  pauseMusic: string;
   deadHeading: string;
   deadIntro: string;
   figures: { value: string; label: string }[];
@@ -1145,6 +1147,8 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     age: (years) => `Aged ${years}`,
     separator: ". ",
     namesSource: "The victims page of Documentation of Oct 6",
+    playMusic: "Play music",
+    pauseMusic: "Pause music",
     deadHeading: "How many died",
     deadIntro:
       "Fifty years on, even the number of dead is uncertain. The official figures, the autopsy reports, and the archive's count of the dead all differ.",
@@ -1275,6 +1279,8 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     age: (years) => `อายุ ${years} ปี`,
     separator: " ",
     namesSource: "หน้าเหยื่อความรุนแรง โครงการบันทึก 6 ตุลา",
+    playMusic: "เปิดเพลง",
+    pauseMusic: "หยุดเพลง",
     deadHeading: "มีผู้เสียชีวิตกี่คน",
     deadIntro:
       "ผ่านมา 50 ปี ข้อเท็จจริงพื้นฐานอย่างจำนวนผู้เสียชีวิตก็ยังไม่ตรงกัน โครงการบันทึก 6 ตุลา อธิบายที่มาของแต่ละตัวเลขไว้",

@@ -5,6 +5,7 @@ import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
+import MemorialAudio from "@/components/MemorialAudio";
 import MomentTime, { type Clock } from "./MomentTime";
 import {
   copy,
@@ -364,7 +365,17 @@ export default async function SixOctoberPage({ params }: { params: Promise<{ lan
         </section>
       </div>
 
-      <section aria-labelledby="names" className="bg-[#0d0c0b] py-16 text-white sm:py-24">
+      <section
+        id="names-section"
+        aria-labelledby="names"
+        className="bg-[#0d0c0b] py-16 text-white sm:py-24"
+      >
+        <MemorialAudio
+          videoId="8jO4fd5KYNQ"
+          sectionId="names-section"
+          playLabel={t.playMusic}
+          pauseLabel={t.pauseMusic}
+        />
         <div className="wrap flex flex-col gap-14">
           <div className="mx-auto flex max-w-3xl flex-col gap-8 text-center">
             <h2 id="names" className="font-display text-4xl text-white sm:text-5xl">
