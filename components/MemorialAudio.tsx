@@ -118,7 +118,7 @@ export default function MemorialAudio({
         if (!visible) stop();
         else if (activatedRef.current && !mutedByUserRef.current) start();
       },
-      { threshold: 0.15 }
+      { threshold: 0, rootMargin: "-15% 0px -15% 0px" }
     );
     observer.observe(section);
     return () => observer.disconnect();
