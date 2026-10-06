@@ -633,7 +633,7 @@ type L = Record<Locale, string>;
 /**
  * Words of survivors, families and witnesses, copied exactly from the pages of
  * Documentation of Oct 6 named in `href`. The English is a faithful rendering.
- * None of them describes the dead in detail, and none touches the monarchy.
+ * None of them touches the monarchy.
  */
 export type Testimony = { th: string; en: string; speaker: L; href: string };
 
@@ -642,6 +642,7 @@ const thongchai = `${DOCT6}/archives/13829`;
 const thatsanee = `${DOCT6}/archives/8216`;
 const somthat = `${DOCT6}/archives/4085`;
 const thongsin = `${DOCT6}/archives/10262`;
+const suchat = `${DOCT6}/archives/13823`;
 
 const suchadaSpeaker: L = {
   en: "Suchada Chakphisut, a first year Thammasat student in the drama club in 1976",
@@ -663,12 +664,22 @@ const limSpeaker: L = {
   en: "Lim Thongsin, Jarupong's mother, in 2002",
   th: "แม่ลิ้ม ทองสินธุ์ แม่ของจารุพงษ์ ปี 2545",
 };
+const suchatSpeaker: L = {
+  en: "Suchat Arayaphatthanakul, a taxi driver who passed Sanam Luang that morning, in an interview",
+  th: "สุชาติ อารยพัฒนกุล คนขับแท็กซี่ที่ผ่านสนามหลวงในเช้าวันนั้น ในบทสัมภาษณ์",
+};
 const natdaSpeaker: L = {
   en: "Natda Iamkhong, Danaisak's elder sister",
   th: "นัดดา เอี่ยมคง พี่สาวของดนัยศักดิ์ เอี่ยมคง",
 };
 
 export const testimonies = {
+  sanamLuang: {
+    th: "เห็นว่าแขวนแล้วและมีคนไปซ้อม ไปทำร้ายก็เข้าใจว่าเขาตายแล้ว ก็ยืนดูอยู่สักประเดี๋ยวหนึ่งก็เดินเลยข้ามสนามหลวงไปหารถ ก็เห็นควันไปขึ้นมีคนมุงดูอยู่ก็เห็นศพถูกเผาโดยยางรถยนต์ ประมาณ 3-4 คน",
+    en: "I saw that they had already been hanged and that people were going to beat them. I understood they were dead. I stood watching for a short while, then walked across Sanam Luang to find my car. I saw smoke rising and people crowding round, and I saw bodies being burned with car tyres, about three or four of them.",
+    speaker: suchatSpeaker,
+    href: suchat,
+  },
   radio: {
     th: "สถานีวิทยุยานเกราะจึงได้เริ่มผนึกกำลังกับผู้บริหารสถานีวิทยุต่าง ๆ สองร้อยหกสิบสถานี พร้อมกับผู้จัดรายการจำนวนมาก ซึ่งเป็นชมรมวิทยุเสรีและด้านมวลชนมหาศาล ซึ่งเป็นผู้ฟังเป็นกำลังร่วมปฏิบัติการ",
     en: "Yan Kraw radio therefore began joining forces with the managers of two hundred and sixty radio stations and many presenters, the Free Radio Association and an enormous mass base, whose listeners were a force taking part in the operation.",
@@ -940,13 +951,31 @@ export const story: Chapter[] = [
       ),
       pair("gate", "mainGate"),
       say("river"),
+      at(
+        "07.50",
+        "07.50 น.",
+        "Commandos, the Special Operations Unit and local police ring the university. Police Lieutenant General Chumphon Lohachala and Police Major Generals Sanae Sitthiphan and Yutthana Wannakowit arrive and join the command.",
+        "ตำรวจหน่วยคอมมานโด หน่วยปฏิบัติการพิเศษ (นปพ.) และตำรวจท้องที่ ล้อมอยู่โดยรอบมหาวิทยาลัย โดยมี พล.ต.ท.ชุมพล โลหะชาละ พล.ต.ต.เสน่ห์ สิทธิพันธ์ และพล.ต.ต.ยุทธนา วรรณโกวิท มาถึงที่เกิดเหตุและเข้าร่วมบัญชาการ"
+      ),
     ],
   },
   {
     id: "surrender",
-    kicker: { en: "6 October, from 08.25", th: "6 ตุลาคม ตั้งแต่ 08.25 น." },
+    kicker: { en: "6 October, from 08.10", th: "6 ตุลาคม ตั้งแต่ 08.10 น." },
     heading: { en: "Surrender", th: "ยอมจำนน" },
     blocks: [
+      at(
+        "08.10",
+        "08.10 น.",
+        "Police Major General Sanae Sitthiphan orders armed Border Patrol Police to prepare to enter the university. Gunfire is constant. Police tell the students to surrender. Several try to run out, and the people waiting outside lynch them.",
+        "พล.ต.ต.เสน่ห์ สิทธิพันธ์ บัญชาการให้ตำรวจตระเวนชายแดน (ตชด.) อาวุธครบมือเตรียมบุกเข้าไปในมหาวิทยาลัยธรรมศาสตร์ เสียงปืนดังรุนแรงตลอดเวลา ตำรวจประกาศให้นักศึกษายอมจำนน นักศึกษาหลายคนพยายามวิ่งออกมาข้างนอก จึงถูกประชาชนที่อยู่ภายนอกรุมประชาทัณฑ์"
+      ),
+      at(
+        "08.18",
+        "08.18 น.",
+        "Border Patrol Police take over from the local police, and two more vehicles of reinforcements arrive.",
+        "ตชด.เข้าประจำการแทนตำรวจท้องที่ และมีกำลังใหม่เข้ามาเสริมอีก 2 คันรถ"
+      ),
       at(
         "08.25",
         "08.25 น.",
@@ -962,6 +991,12 @@ export const story: Chapter[] = [
       ),
       show("fieldWide", true),
       say("strip"),
+      at(
+        "10.30",
+        "10.30 น.",
+        "Women students are left in their bras, ordered to put their hands on their heads and crawl along the ground, and police kick them as they crawl.",
+        "นักศึกษาหญิงเหลือแต่เสื้อชั้นใน ถูกสั่งให้เอามือกุมหัว นอนคว่ำคลานไปตามพื้น ระหว่างที่คลานไปตามพื้นก็ถูกเตะถีบจากตำรวจ"
+      ),
       pair("crawling", "guard"),
       show("detained", true),
     ],
@@ -977,9 +1012,29 @@ export const story: Chapter[] = [
         "They are loaded onto buses and trucks and taken to be locked up at police stations, the largest at Nakhon Pathom, Chonburi and the Bang Khen police school. By the end of the day, 3,094 people have been arrested.",
         "ผู้ถูกจับถูกควบคุมตัวไว้ทยอยลำเลียงขึ้นรถเมล์และรถสองแถวส่งไปขังตามสถานีตำรวจต่างๆ มี 3 แหล่งใหญ่ๆ ได้แก่ นครปฐม ชลบุรี และ ร.ร.ตำรวจนครบาลบางเขน ตลอดวันนั้นนักศึกษาประชาชนถูกจับกุม 3,094 คน"
       ),
+      at(
+        "10.30",
+        "10.30 น.",
+        "As they climb onto the vehicles they are cursed, pelted with objects and kicked by police, Red Gaur thugs and Village Scouts. As they step down at the places where they are locked up, police rob them of their belongings and valuables.",
+        "ระหว่างขึ้นรถก็ถูกด่าทออย่างหยาบคายและถูกขว้างปาเตะถีบจากตำรวจและอันธพาลกระทิงแดง ลูกเสือชาวบ้าน ระหว่างลงจากรถไปยังที่คุมขังก็ถูกตำรวจปล้นชิงทรัพย์สินและของมีค่าไป"
+      ),
       pair("busLine", "busLoading"),
       say("bangKhen"),
       show("fieldBuses", true),
+    ],
+  },
+  {
+    id: "sanamluang",
+    kicker: { en: "6 October, from 10.45", th: "6 ตุลาคม ตั้งแต่ 10.45 น." },
+    heading: { en: "At Sanam Luang", th: "ที่สนามหลวง" },
+    blocks: [
+      at(
+        "10.45",
+        "10.45 น.",
+        "Preecha Sae Hia is one of five people hanged at Sanam Luang. He is hanged near the Royal Society building, the red building, at about 10.45 to 11.00. The autopsy report shows he was brutally beaten before he died. He was 25.",
+        "ปรีชา แซ่เฮียเป็นหนึ่งในเหยื่อห้าคนที่ถูกแขวนคอบริเวณท้องสนามหลวงในเช้าวันที่ 6 ตุลาคม 2519 คุณปรีชาถูกแขวนคอบริเวณใกล้กับตึกราชบัณฑิตยสถาน (ตึกแดง) ช่วงเวลาเกิดเหตุประมาณ 10.45-11.00 น. รายงานชันสูตรพลิกศพเป็นพยานหลักฐานที่ชี้ว่าคุณปรีชาถูกทารุณกรรมอย่างเหี้ยมโหดก่อนจะเสียชีวิต ขณะเสียชีวิตเขาอายุได้ 25 ปี"
+      ),
+      say("sanamLuang"),
     ],
   },
   {
