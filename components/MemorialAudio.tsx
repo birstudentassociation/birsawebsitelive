@@ -112,13 +112,15 @@ export default function MemorialAudio({
     if (!section) return;
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.some((entry) => entry.isIntersecting);
+        const visible = entries.some(
+          (entry) => entry.isIntersecting || entry.boundingClientRect.bottom < 0
+        );
         inViewRef.current = visible;
         setInView(visible);
         if (!visible) stop();
         else if (activatedRef.current && !mutedByUserRef.current) start();
       },
-      { threshold: 0, rootMargin: "-15% 0px -15% 0px" }
+      { threshold: 0, rootMargin: "0px 0px -15% 0px" }
     );
     observer.observe(section);
     return () => observer.disconnect();
