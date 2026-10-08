@@ -22,8 +22,6 @@ export const advisoryCopy: Record<
     why: string[];
     announcementHeading: string;
     announcementLede: string;
-    originalLabel: string;
-    translationLabel: string;
     contact: string;
   }
 > = {
@@ -82,9 +80,7 @@ export const advisoryCopy: Record<
     ],
     announcementHeading: "The announcement in full",
     announcementLede:
-      "The university announced these arrangements on 7 August 2026. The Thai original comes first, followed by an English translation.",
-    originalLabel: "Thai original",
-    translationLabel: "English translation",
+      "The university announced these arrangements on 7 August 2026. This is an English translation of the Thai original.",
     contact: "Contact your faculty if you need to confirm arrangements for a specific class.",
   },
   th: {
@@ -141,10 +137,7 @@ export const advisoryCopy: Record<
       "มหาวิทยาลัยธรรมศาสตร์จึงกำหนดแนวทางการเรียนการสอนและการปฏิบัติงานที่ท่าพระจันทร์ในช่วงการประชุม",
     ],
     announcementHeading: "ประกาศฉบับเต็ม",
-    announcementLede:
-      "มหาวิทยาลัยประกาศแนวทางนี้เมื่อวันที่ 7 สิงหาคม 2569 ด้านล่างเป็นต้นฉบับภาษาไทย ตามด้วยคำแปลภาษาอังกฤษ",
-    originalLabel: "ต้นฉบับภาษาไทย",
-    translationLabel: "คำแปลภาษาอังกฤษ",
+    announcementLede: "มหาวิทยาลัยประกาศแนวทางนี้เมื่อวันที่ 7 สิงหาคม 2569",
     contact: "หากต้องการยืนยันรูปแบบการเรียนของรายวิชาใด ให้ติดต่อคณะของตน",
   },
 };

@@ -124,29 +124,18 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
           </section>
         </div>
 
-        <section aria-labelledby="announcement-heading" className="flex flex-col gap-6">
-          <div className="flex max-w-[var(--measure)] flex-col items-start gap-4">
-            <span className="inline-flex rounded-full bg-white p-2 shadow-sm ring-1 ring-line">
-              <Image
-                src="/emergency/thammasat-seal.svg"
-                alt={t.sealAlt}
-                width={96}
-                height={96}
-                className="h-20 w-20 sm:h-24 sm:w-24"
-                priority
-              />
-            </span>
-            <div>
-              <h2 id="announcement-heading" className="font-display text-2xl">
-                {t.announcementHeading}
-              </h2>
-              <p className="mt-2 leading-relaxed text-muted">{t.announcementLede}</p>
-            </div>
+        <section aria-labelledby="announcement-heading" className="flex flex-col gap-4">
+          <div className="max-w-[var(--measure)]">
+            <h2 id="announcement-heading" className="font-display text-2xl">
+              {t.announcementHeading}
+            </h2>
+            <p className="mt-2 leading-relaxed text-muted">{t.announcementLede}</p>
           </div>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <AnnouncementPanel label={t.originalLabel} lang="th" text={announcementThai} />
-            <AnnouncementPanel label={t.translationLabel} lang="en" text={announcementEnglish} />
-          </div>
+          <AnnouncementPanel
+            lang={locale}
+            text={locale === "th" ? announcementThai : announcementEnglish}
+            sealAlt={t.sealAlt}
+          />
         </section>
       </div>
     </>
@@ -154,43 +143,50 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
 }
 
 function AnnouncementPanel({
-  label,
   lang,
   text,
+  sealAlt,
 }: {
-  label: string;
   lang: Locale;
   text: AnnouncementText;
+  sealAlt: string;
 }) {
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-sm font-semibold text-muted">{label}</p>
-      <article
-        lang={lang}
-        className="flex flex-col gap-4 rounded-md border border-line bg-surface p-5"
-      >
-        <header className="flex flex-col gap-2 text-center">
-          <h3 className="font-display text-xl">{text.title}</h3>
-          <p className="leading-relaxed font-semibold">{text.subject}</p>
-        </header>
-        {text.paragraphs.map((paragraph) => (
-          <p key={paragraph} className="leading-relaxed">
-            {paragraph}
-          </p>
-        ))}
-        <p className="leading-relaxed">{text.intro}</p>
-        <ol className="flex list-decimal flex-col gap-3 pl-6 leading-relaxed">
-          {text.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ol>
-        <p className="text-center leading-relaxed">{text.dateline}</p>
-        <p className="text-center leading-relaxed">
-          {text.signatory}
-          <br />
-          {text.position}
+    <article
+      lang={lang}
+      className="flex max-w-[var(--measure)] flex-col gap-4 rounded-md border border-line bg-surface p-5 sm:p-8"
+    >
+      <header className="flex flex-col items-center gap-3 text-center">
+        <span className="inline-flex rounded-full bg-white p-2 shadow-sm ring-1 ring-line">
+          <Image
+            src="/emergency/thammasat-seal.svg"
+            alt={sealAlt}
+            width={96}
+            height={96}
+            className="h-20 w-20 sm:h-24 sm:w-24"
+            priority
+          />
+        </span>
+        <h3 className="font-display text-xl">{text.title}</h3>
+        <p className="leading-relaxed font-semibold">{text.subject}</p>
+      </header>
+      {text.paragraphs.map((paragraph) => (
+        <p key={paragraph} className="leading-relaxed">
+          {paragraph}
         </p>
-      </article>
-    </div>
+      ))}
+      <p className="leading-relaxed">{text.intro}</p>
+      <ol className="flex list-decimal flex-col gap-3 pl-6 leading-relaxed">
+        {text.items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ol>
+      <p className="text-center leading-relaxed">{text.dateline}</p>
+      <p className="text-center leading-relaxed">
+        {text.signatory}
+        <br />
+        {text.position}
+      </p>
+    </article>
   );
 }
