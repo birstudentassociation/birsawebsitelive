@@ -183,7 +183,7 @@ export const announcementThai: AnnouncementText = {
     "ขอให้ส่วนงานและบุคลากรที่ปฏิบัติหน้าที่ประจำ ณ ท่าพระจันทร์ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) ในวันจันทร์ที่ ๑๒ ตุลาคม ๒๕๖๙ และในช่วงระหว่างวันพุธที่ ๑๔ ตุลาคม ๒๕๖๙ และวันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙",
   ],
   dateline: "ประกาศ ณ วันที่ ๗ เดือน สิงหาคม พ.ศ. ๒๕๖๙",
-  signatory: "(ศาสตราจารย์ศุภวัสดิ์ ชัชวาลย์)",
+  signatory: "(ศาสตราจารย์ศุภสวัสดิ์ ชัชวาลย์)",
   position: "อธิการบดี",
 };
 
@@ -202,6 +202,6 @@ export const announcementEnglish: AnnouncementText = {
     "Units and personnel on regular duty at Tha Prachan are requested to work away from their usual premises (work from home) on Monday 12 October 2026 and between Wednesday 14 October 2026 and Thursday 15 October 2026.",
   ],
   dateline: "Announced on 7 August 2026 (Buddhist Era 2569)",
-  signatory: "(Professor Suphawat Chatchawan)",
+  signatory: "(Professor Supasawad Chardchawarn)",
   position: "Rector",
 };
