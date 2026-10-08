@@ -16,6 +16,7 @@
  * replace the whole object when the next one comes along.
  */
 import type { Locale } from "@/lib/i18n";
+import { advisoryBanner } from "@/content/advisory";
 
 /** Amber (warning) reads more urgent than blue (info); neither reads as a red emergency. */
 export type AnnouncementSeverity = "info" | "warning" | "remembrance";
@@ -39,17 +40,11 @@ export type SiteAnnouncement = {
 
 export const announcement: SiteAnnouncement = {
   active: true,
-  severity: "remembrance",
-  href: "/6-october",
-  expiresAt: "2026-10-06T17:00:00Z",
-  message: {
-    en: "Fifty years on from 6 October 1976, we remember the students and members of the public killed at Thammasat, Tha Prachan.",
-    th: "50 ปี 6 ตุลา 2519 รำลึกถึงนักศึกษาและประชาชนผู้ถูกสังหารในมหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
-  },
-  cta: {
-    en: "Remember them",
-    th: "ร่วมรำลึก",
-  },
+  severity: "warning",
+  href: "/advisory",
+  expiresAt: "2026-10-16T16:59:00Z",
+  message: advisoryBanner.message,
+  cta: advisoryBanner.cta,
 };
 
 /** The banner's expiry as epoch milliseconds, or null when unset or unparseable. */

@@ -791,4 +791,39 @@ export const staticPages: StaticPage[] = [
       th: ["6 ตุลา", "หกตุลา", "6 ตุลา 2519", "สังหารหมู่", "บันทึก 6 ตุลา", "รำลึก"],
     },
   },
+  {
+    id: "page:advisory",
+    path: "/advisory",
+    section: "page",
+    kind: "reference",
+    title: {
+      en: "Classes online for the World Bank and IMF meetings",
+      th: "เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
+    },
+    summary: {
+      en: "Classes move online on 12 October and 14 to 16 October 2026, and Tha Prachan closes on 16 October.",
+      th: "เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 และงดปฏิบัติงานที่ท่าพระจันทร์วันที่ 16 ตุลาคม",
+    },
+    keywords: {
+      en: [
+        "advisory",
+        "online classes",
+        "world bank",
+        "imf",
+        "annual meetings",
+        "work from home",
+        "16 october",
+      ],
+      th: [
+        "ประกาศ",
+        "เรียนออนไลน์",
+        "ธนาคารโลก",
+        "ไอเอ็มเอฟ",
+        "ประชุมประจำปี",
+        "หยุด",
+        "16 ตุลาคม",
+      ],
+    },
+    priority: 0.6,
+  },
 ];
