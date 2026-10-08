@@ -3,7 +3,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { advisoryCopy } from "@/content/advisory";
+import {
+  advisoryCopy,
+  announcementEnglish,
+  announcementThai,
+  type AnnouncementText,
+} from "@/content/advisory";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
 import PageHeader from "@/components/PageHeader";
@@ -45,18 +50,6 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
             label={dict.a11y.breadcrumb}
             items={[{ label: dict.site.name, href: "/" }, { label: t.breadcrumb }]}
           />
-        }
-        helpSlot={
-          <span className="inline-flex rounded-full bg-white p-2 shadow-sm ring-1 ring-line">
-            <Image
-              src="/emergency/thammasat-seal.svg"
-              alt={t.sealAlt}
-              width={96}
-              height={96}
-              className="h-20 w-20 sm:h-24 sm:w-24"
-              priority
-            />
-          </span>
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
@@ -129,15 +122,75 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
               </p>
             ))}
           </section>
-
-          <section aria-labelledby="source-heading" className="flex flex-col gap-3">
-            <h2 id="source-heading" className="font-display text-2xl">
-              {t.sourceHeading}
-            </h2>
-            <p className="leading-relaxed text-muted">{t.source}</p>
-          </section>
         </div>
+
+        <section aria-labelledby="announcement-heading" className="flex flex-col gap-6">
+          <div className="flex max-w-[var(--measure)] flex-col items-start gap-4">
+            <span className="inline-flex rounded-full bg-white p-2 shadow-sm ring-1 ring-line">
+              <Image
+                src="/emergency/thammasat-seal.svg"
+                alt={t.sealAlt}
+                width={96}
+                height={96}
+                className="h-20 w-20 sm:h-24 sm:w-24"
+                priority
+              />
+            </span>
+            <div>
+              <h2 id="announcement-heading" className="font-display text-2xl">
+                {t.announcementHeading}
+              </h2>
+              <p className="mt-2 leading-relaxed text-muted">{t.announcementLede}</p>
+            </div>
+          </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <AnnouncementPanel label={t.originalLabel} lang="th" text={announcementThai} />
+            <AnnouncementPanel label={t.translationLabel} lang="en" text={announcementEnglish} />
+          </div>
+        </section>
       </div>
     </>
+  );
+}
+
+function AnnouncementPanel({
+  label,
+  lang,
+  text,
+}: {
+  label: string;
+  lang: Locale;
+  text: AnnouncementText;
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <p className="text-sm font-semibold text-muted">{label}</p>
+      <article
+        lang={lang}
+        className="flex flex-col gap-4 rounded-md border border-line bg-surface p-5"
+      >
+        <header className="flex flex-col gap-2 text-center">
+          <h3 className="font-display text-xl">{text.title}</h3>
+          <p className="leading-relaxed font-semibold">{text.subject}</p>
+        </header>
+        {text.paragraphs.map((paragraph) => (
+          <p key={paragraph} className="leading-relaxed">
+            {paragraph}
+          </p>
+        ))}
+        <p className="leading-relaxed">{text.intro}</p>
+        <ol className="flex list-decimal flex-col gap-3 pl-6 leading-relaxed">
+          {text.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ol>
+        <p className="text-center leading-relaxed">{text.dateline}</p>
+        <p className="text-center leading-relaxed">
+          {text.signatory}
+          <br />
+          {text.position}
+        </p>
+      </article>
+    </div>
   );
 }
