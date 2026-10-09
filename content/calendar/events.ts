@@ -391,6 +391,16 @@ export const calendarEvents: CalendarEvent[] = [
     kind: "university",
   },
   {
+    id: "oct-six-october-50",
+    start: "2026-10-06",
+    title: {
+      en: "6 October, 50 years on",
+      th: "6 ตุลา ครบรอบ 50 ปี",
+    },
+    slug: "activity-calendar",
+    kind: "university",
+  },
+  {
     id: "oct-asa-ir-fundraising",
     start: "2026-10-06",
     end: "2026-11-07",
@@ -399,6 +409,46 @@ export const calendarEvents: CalendarEvent[] = [
       th: "ระดมทุนค่ายอาสาไออาร์ 6",
     },
     slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "oct-14-october",
+    start: "2026-10-14",
+    title: {
+      en: "14 October 1973 uprising anniversary",
+      th: "วันมหาวิปโยค",
+    },
+    slug: "activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "oct-bir-seminar",
+    start: "2026-10-22",
+    title: {
+      en: "BIR Seminar",
+      th: "BIR Seminar",
+    },
+    slug: "activity-calendar",
+    kind: "birsa",
+  },
+  {
+    id: "oct-tak-bai",
+    start: "2026-10-24",
+    title: {
+      en: "22 years since Tak Bai",
+      th: "22 ปี สลายการชุมนุมตากใบ",
+    },
+    slug: "activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "oct-tpc-open-house",
+    start: "2026-10-31",
+    title: {
+      en: "TPC Open House 2026",
+      th: "TPC Open House 2026",
+    },
+    slug: "activity-calendar",
     kind: "university",
   },
   {
