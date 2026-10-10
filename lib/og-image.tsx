@@ -324,31 +324,41 @@ export async function renderCard({
   );
 }
 
-const SITE_COPY: Record<Locale, { name: string; other: string; detail: string }> = {
+const SITE_COPY: Record<Locale, { name: string[]; other: string; detail: string }> = {
   en: {
-    name: "BIR Student Association",
+    name: ["BIR Student", "Association"],
     other: "สโมสรนักศึกษาการเมืองและการระหว่างประเทศ",
     detail: "Politics and International Relations, Thammasat University",
   },
   th: {
-    name: "สโมสรนักศึกษาการเมืองและการระหว่างประเทศ",
+    name: ["สโมสรนักศึกษา", "การเมืองและการระหว่างประเทศ"],
     other: "BIR Student Association",
     detail: "คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์",
   },
 };
+
+/** The name over its lines, at the largest size where every line fits. */
+async function siteName(lines: string[]): Promise<Fitted> {
+  const sizes = [76, 68, 60, 54, 48];
+  for (const size of sizes) {
+    const fitted = await Promise.all(
+      lines.map((line) =>
+        fitText(line, { style: "display", color: BRAND, sizes: [size], maxWidth: 700, maxLines: 1 })
+      )
+    );
+    if (fitted.every((text) => !hasEllipsis(text)) || size === sizes.at(-1)) {
+      return { ...fitted[0]!, lines: fitted.flatMap((text) => text.lines) };
+    }
+  }
+  throw new Error("unreachable");
+}
 
 /** The site-wide card: the logo and the association's name in both languages, page language first. */
 export async function renderSiteOgImage(locale: Locale = "th") {
   const copy = SITE_COPY[locale];
   const host = siteHost();
   const [name, other, detail, domain] = await Promise.all([
-    fitText(copy.name, {
-      style: "display",
-      color: BRAND,
-      sizes: locale === "th" ? [64, 58, 52, 48, 44] : [76, 68, 60],
-      maxWidth: 700,
-      maxLines: locale === "th" ? 1 : 2,
-    }),
+    siteName(copy.name),
     lineText(copy.other, "strong", INK, 32),
     fitText(copy.detail, { style: "text", color: MUTED, sizes: [28], maxWidth: 700, maxLines: 2 }),
     host ? lineText(host, "strong", BRAND, 26) : Promise.resolve(null),

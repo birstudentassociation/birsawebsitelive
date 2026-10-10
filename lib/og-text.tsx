@@ -10,8 +10,8 @@ import path from "node:path";
  * handed to Satori as an SVG image. Lines are broken here too, word by word,
  * so a title can be fitted to a number of lines before it is drawn.
  *
- * The faces follow the site's type: Fraunces and JenjrusVris for display,
- * Lexend and Sarabun for text. Each word takes the face for its script, and
+ * English uses the site's faces, Fraunces for display and Lexend for text.
+ * Thai uses Sarabun throughout. Each word takes the face for its script, and
  * anything a face cannot draw falls back to Sarabun, which covers both.
  */
 
@@ -42,7 +42,7 @@ function loadFont(file: string) {
 export type OgStyle = "display" | "text" | "strong";
 
 const FACES: Record<OgStyle, { latin: string; thai: string }> = {
-  display: { latin: "Fraunces-SemiBold.ttf", thai: "JenjrusVris.ttf" },
+  display: { latin: "Fraunces-SemiBold.ttf", thai: "Sarabun-Bold.ttf" },
   text: { latin: "Lexend-Medium.ttf", thai: "Sarabun-SemiBold.ttf" },
   strong: { latin: "Lexend-SemiBold.ttf", thai: "Sarabun-Bold.ttf" },
 };
