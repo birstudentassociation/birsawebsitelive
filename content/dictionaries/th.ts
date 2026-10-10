@@ -353,8 +353,6 @@ export const th: typeof en = {
     lede: "ค้นหารายวิชาทั้งหมดของ BIR ทั้งรหัสวิชา หน่วยกิต วิชาบังคับก่อน และคำอธิบายของทุกรายวิชาในหลักสูตร",
     browseHeading: "เรียกดูรายวิชา",
     searchPlaceholder: "ค้นหาด้วยรหัสวิชา ชื่อวิชา หรือคำสำคัญ…",
-    statsHeading: "ภาพรวม",
-    statsTotalCourses: "จำนวนรายวิชาทั้งหมด",
     trackLabel: "กลุ่มวิชา",
     allTracks: "ทุกกลุ่มวิชา",
     tracks: {

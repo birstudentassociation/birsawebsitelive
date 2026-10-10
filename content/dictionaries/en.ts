@@ -356,8 +356,6 @@ export const en = {
     lede: "Notes on all BIR courses and electives. Workload, assessment style, and what to expect before you register.",
     browseHeading: "Browse the catalogue",
     searchPlaceholder: "Search by code, title, or keyword…",
-    statsHeading: "At a glance",
-    statsTotalCourses: "Courses in the catalogue",
     trackLabel: "Track",
     allTracks: "All tracks",
     tracks: {

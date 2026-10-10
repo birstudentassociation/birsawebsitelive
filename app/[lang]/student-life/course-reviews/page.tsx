@@ -6,7 +6,6 @@ import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import CourseStats from "@/components/course-review/CourseStats";
 import CourseReviewBrowser, {
   CourseReviewBrowserFallback,
   type CourseReviewDict,
@@ -96,16 +95,6 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
         }
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        <CourseStats
-          courses={courses}
-          locale={locale}
-          dict={{
-            heading: t.statsHeading,
-            totalCourses: t.statsTotalCourses,
-            tracks: t.tracks,
-          }}
-        />
-
         <Suspense
           fallback={
             <CourseReviewBrowserFallback courses={courses} locale={locale} dict={browserDict} />
