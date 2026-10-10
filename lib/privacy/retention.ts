@@ -33,6 +33,7 @@
  * lib/inventory/notifications.ts: an unconfigured database means there is
  * nothing to purge, not an error.
  */
+import type { VercelPoolClient } from "@vercel/postgres";
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import { RETENTION_YEARS } from "@/content/privacy/register";
 
@@ -209,7 +210,7 @@ export async function purgeExpiredPersonalData(
 
   const cutoff = retentionCutoff(now);
   const counts = emptyCounts();
-  let client: Awaited<ReturnType<typeof sql.connect>> | undefined;
+  let client: VercelPoolClient | undefined;
 
   try {
     client = await sql.connect();
