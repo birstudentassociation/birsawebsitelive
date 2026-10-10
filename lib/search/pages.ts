@@ -801,8 +801,8 @@ export const staticPages: StaticPage[] = [
       th: "เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
     },
     summary: {
-      en: "Classes move online on 12 October and 14 to 16 October 2026, and Tha Prachan closes on 16 October.",
-      th: "เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 และงดปฏิบัติงานที่ท่าพระจันทร์วันที่ 16 ตุลาคม",
+      en: "Classes move online on 12 October and 14 to 16 October 2026. 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
+      th: "เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 วันที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
     },
     keywords: {
       en: [

@@ -28,8 +28,8 @@ export const advisoryCopy: Record<
   en: {
     title: "Classes move online for the World Bank and IMF meetings",
     metaDescription:
-      "Thammasat moves classes online on 12 October and 14 to 16 October 2026, and closes Tha Prachan on 16 October, for the World Bank and IMF Annual Meetings.",
-    lede: "Thammasat University moves teaching online on 12 October and from 14 to 16 October 2026, and closes its offices at Tha Prachan on 16 October.",
+      "Thammasat moves classes online on 12 October and 14 to 16 October 2026. 13 October is a public holiday, and the BIR Office is closed from 12 to 16 October.",
+    lede: "Thammasat University moves teaching online on 12 October and from 14 to 16 October 2026. Tuesday 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
     sealAlt: "Seal of Thammasat University",
     breadcrumb: "Advisory",
     noticeTitle: "Classes move online on the dates below",
@@ -42,31 +42,32 @@ export const advisoryCopy: Record<
       {
         date: "Monday 12 October 2026",
         classes: "Online. No classroom teaching.",
-        work: "Staff work from home.",
+        work: "Staff work from home. The BIR Office is closed.",
       },
       {
         date: "Tuesday 13 October 2026",
         classes: "Public holiday. No classes.",
-        work: "Public holiday. Offices closed.",
+        work: "Public holiday. All offices are closed, including the BIR Office.",
       },
       {
         date: "Wednesday 14 October 2026",
         classes: "Online. No classroom teaching.",
-        work: "Staff work from home.",
+        work: "Staff work from home. The BIR Office is closed.",
       },
       {
         date: "Thursday 15 October 2026",
         classes: "Online. No classroom teaching.",
-        work: "Staff work from home.",
+        work: "Staff work from home. The BIR Office is closed.",
       },
       {
         date: "Friday 16 October 2026",
         classes: "Online. No classroom teaching.",
-        work: "Closed to teaching, work and official business, except staff their supervisors have assigned.",
+        work: "Closed to teaching, work and official business, except staff their supervisors have assigned. The BIR Office is closed.",
       },
     ],
     meansHeading: "What this means for you",
     means: [
+      "Tuesday 13 October is a public holiday, so there are no classes.",
       "The university asks faculties and instructors to move classes to an online format on 12 October and from 14 to 16 October.",
       "The university asks units to suspend classroom teaching on those days.",
       "The university asks units to suspend official business at Tha Prachan on 16 October, except for staff their supervisors have already assigned to duty.",
@@ -78,6 +79,7 @@ export const advisoryCopy: Record<
       "On 19 May 2026 the Cabinet approved Friday 16 October 2026 as a special public holiday in Bangkok. It also agreed that government agencies in Bangkok work from home on Monday 12 October and on Wednesday 14 and Thursday 15 October.",
       "The Cabinet did this to ease traffic, to help delegates travel to the Annual Meetings of the World Bank Group and the International Monetary Fund 2026, and to keep the visiting finance ministers and central bank governors safe.",
       "Thammasat University set out how it will teach and work at Tha Prachan during the meetings in response.",
+      "Tuesday 13 October is already a public holiday.",
     ],
     announcementHeading: "The announcement in full",
     announcementLede:
@@ -87,8 +89,8 @@ export const advisoryCopy: Record<
   th: {
     title: "ธรรมศาสตร์ให้เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
     metaDescription:
-      "มหาวิทยาลัยธรรมศาสตร์ให้เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 และงดปฏิบัติงานที่ท่าพระจันทร์วันที่ 16 ตุลาคม ช่วงประชุมธนาคารโลกและ IMF",
-    lede: "มหาวิทยาลัยธรรมศาสตร์ปรับการเรียนการสอนเป็นออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม 2569 และงดการปฏิบัติงานที่ท่าพระจันทร์ในวันที่ 16 ตุลาคม",
+      "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 วันที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
+    lede: "มหาวิทยาลัยธรรมศาสตร์ปรับการเรียนการสอนเป็นออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม 2569 วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
     sealAlt: "ตราสัญลักษณ์มหาวิทยาลัยธรรมศาสตร์",
     breadcrumb: "ประกาศแจ้งเตือน",
     noticeTitle: "เรียนออนไลน์ตามวันที่ระบุด้านล่าง",
@@ -101,35 +103,36 @@ export const advisoryCopy: Record<
       {
         date: "วันจันทร์ที่ 12 ตุลาคม 2569",
         classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home)",
+        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
       },
       {
         date: "วันอังคารที่ 13 ตุลาคม 2569",
-        classes: "วันหยุดราชการ งดการเรียนการสอน",
-        work: "วันหยุดราชการ",
+        classes: "วันหยุดราชการ ไม่มีการเรียนการสอน",
+        work: "วันหยุดราชการ สำนักงานทุกแห่งปิดทำการ รวมถึงสำนักงาน BIR",
       },
       {
         date: "วันพุธที่ 14 ตุลาคม 2569",
         classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home)",
+        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
       },
       {
         date: "วันพฤหัสบดีที่ 15 ตุลาคม 2569",
         classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home)",
+        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
       },
       {
         date: "วันศุกร์ที่ 16 ตุลาคม 2569",
         classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "งดการเรียนการสอน การปฏิบัติงาน และการติดต่อราชการ ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายให้ปฏิบัติหน้าที่",
+        work: "งดการเรียนการสอน การปฏิบัติงาน และการติดต่อราชการ ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายให้ปฏิบัติหน้าที่ สำนักงาน BIR ปิดทำการ",
       },
     ],
     meansHeading: "สิ่งที่นักศึกษาต้องรู้",
     means: [
+      "วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ จึงไม่มีการเรียนการสอน",
       "มหาวิทยาลัยขอความร่วมมือส่วนงานและคณาจารย์ปรับการเรียนการสอนเป็นรูปแบบออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม",
       "มหาวิทยาลัยขอให้งดการเรียนการสอนในรูปแบบชั้นเรียนในวันดังกล่าว",
       "มหาวิทยาลัยขอให้ส่วนงานงดการติดต่อราชการที่ท่าพระจันทร์ในวันที่ 16 ตุลาคม ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายหน้าที่ไว้แล้ว",
-      "สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม 2569 หากมีเรื่องเร่งด่วน โปรดส่งอีเมลถึง bir@tu.ac.th",
+      "สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม 2569 หากมีเรื่องเร่งด่วน ให้ส่งอีเมลถึง bir@tu.ac.th",
       "หากไม่แน่ใจว่ารายวิชาของตนเรียนอย่างไร ให้สอบถามอาจารย์ผู้สอน",
     ],
     whyHeading: "เหตุผลของการเปลี่ยนแปลง",
@@ -137,6 +140,7 @@ export const advisoryCopy: Record<
       "เมื่อวันที่ 19 พฤษภาคม 2569 คณะรัฐมนตรีอนุมัติให้วันศุกร์ที่ 16 ตุลาคม 2569 เป็นวันหยุดราชการเป็นกรณีพิเศษในพื้นที่กรุงเทพมหานคร และเห็นชอบให้หน่วยงานราชการในกรุงเทพมหานครปฏิบัติงานนอกสถานที่ตั้งในวันจันทร์ที่ 12 ตุลาคม วันพุธที่ 14 ตุลาคม และวันพฤหัสบดีที่ 15 ตุลาคม",
       "มติดังกล่าวมีเป้าหมายเพื่อบรรเทาปัญหาการจราจร อำนวยความสะดวกแก่ผู้เข้าร่วมการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี 2569 และดูแลความปลอดภัยของรัฐมนตรีว่าการกระทรวงการคลังและผู้ว่าการธนาคารกลางของประเทศสมาชิก",
       "มหาวิทยาลัยธรรมศาสตร์จึงกำหนดแนวทางการเรียนการสอนและการปฏิบัติงานที่ท่าพระจันทร์ในช่วงการประชุม",
+      "วันอังคารที่ 13 ตุลาคม 2569 เป็นวันหยุดราชการอยู่แล้ว",
     ],
     announcementHeading: "ประกาศฉบับเต็ม",
     announcementLede: "มหาวิทยาลัยประกาศแนวทางนี้เมื่อวันที่ 7 สิงหาคม 2569",
@@ -146,8 +150,8 @@ export const advisoryCopy: Record<
 
 export const advisoryBanner: { message: Bi; cta: Bi } = {
   message: {
-    en: "Thammasat Tha Prachan moves classes online on 12 October and from 14 to 16 October for the World Bank and IMF meetings.",
-    th: "ธรรมศาสตร์ ท่าพระจันทร์ เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม ช่วงประชุมธนาคารโลกและ IMF",
+    en: "Classes at Thammasat Tha Prachan are online on 12 October and from 14 to 16 October. 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
+    th: "ธรรมศาสตร์ ท่าพระจันทร์ เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม วันที่ 13 ตุลาคมเป็นวันหยุดราชการ สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
   },
   cta: { en: "Read the advisory", th: "อ่านประกาศ" },
 };
