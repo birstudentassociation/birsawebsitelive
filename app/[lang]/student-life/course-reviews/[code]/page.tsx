@@ -106,8 +106,8 @@ export default async function CourseDetailPage({
           />
         }
       />
-      <div className="wrap flex flex-col gap-10 py-10">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="wrap flex flex-col gap-7 py-7 sm:gap-10 sm:py-10">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           <Tag variant="brand">{t.tracks[course.track]}</Tag>
           <Tag variant="forest">{t.categories[course.category]}</Tag>
           {course.reviews?.length ? (
@@ -117,11 +117,11 @@ export default async function CourseDetailPage({
           ) : null}
         </div>
 
-        <section aria-labelledby="facts-heading" className="flex flex-col gap-3">
-          <h2 id="facts-heading" className="font-display text-xl">
+        <section aria-labelledby="facts-heading" className="flex flex-col gap-2 sm:gap-3">
+          <h2 id="facts-heading" className="font-display text-lg sm:text-xl">
             {t.factsHeading}
           </h2>
-          <dl className="grid gap-x-6 gap-y-4 text-sm sm:grid-cols-[minmax(10rem,14rem)_1fr]">
+          <dl className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface text-sm">
             <Fact label={t.creditsLabel}>
               {course.credits.total} ({course.credits.lecture}-{course.credits.lab}-
               {course.credits.selfStudy})
@@ -144,13 +144,23 @@ export default async function CourseDetailPage({
               </Fact>
             ) : null}
             <Fact label={t.recommendedTermLabel}>
-              {terms.length > 0
-                ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
-                : t.notInPlan}
+              <p>
+                {terms.length > 0
+                  ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
+                  : t.notInPlan}
+              </p>
+              <p className="mt-1">
+                <Link
+                  href={localeHref(locale, "/services/study-plan")}
+                  className="font-semibold text-brand-deep hover:text-brand-dark"
+                >
+                  {t.studyPlanLink} &rarr;
+                </Link>
+              </p>
             </Fact>
             {minors.length > 0 ? (
               <Fact label={t.minorsLabel}>
-                <ul className="flex flex-col gap-1">
+                <ul className="flex flex-col gap-0.5">
                   {minors.map((minor) => (
                     <li key={minor.id}>
                       {minor.name[locale]} (
@@ -189,25 +199,17 @@ export default async function CourseDetailPage({
               </Fact>
             ) : null}
           </dl>
-          <p className="text-sm">
-            <Link
-              href={localeHref(locale, "/services/study-plan")}
-              className="font-semibold text-brand-deep hover:text-brand-dark"
-            >
-              {t.studyPlanLink} &rarr;
-            </Link>
-          </p>
         </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl">{t.descriptionHeading}</h2>
+        <section className="flex flex-col gap-2 sm:gap-3">
+          <h2 className="font-display text-lg sm:text-xl">{t.descriptionHeading}</h2>
           <p className="max-w-[var(--measure)] leading-relaxed whitespace-pre-line text-ink">
             {course.description[locale]}
           </p>
         </section>
 
-        <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl">{t.assessmentFactsHeading}</h2>
+        <section className="flex flex-col gap-2 sm:gap-3">
+          <h2 className="font-display text-lg sm:text-xl">{t.assessmentFactsHeading}</h2>
           {course.assessmentFacts ? (
             <AssessmentFacts facts={course.assessmentFacts} locale={locale} t={t} />
           ) : (
@@ -215,8 +217,8 @@ export default async function CourseDetailPage({
           )}
         </section>
 
-        <section className="flex flex-col gap-6">
-          <h2 className="font-display text-xl">{t.reviewHeading}</h2>
+        <section className="flex flex-col gap-4 sm:gap-6">
+          <h2 className="font-display text-lg sm:text-xl">{t.reviewHeading}</h2>
 
           {reviews.length ? (
             reviews.map((review, index) => (
@@ -235,13 +237,13 @@ export default async function CourseDetailPage({
         {prevCourse || nextCourse ? (
           <nav
             aria-label={t.courseNav}
-            className="grid grid-cols-1 gap-4 border-t border-line pt-8 sm:grid-cols-2"
+            className="grid grid-cols-2 gap-2 border-t border-line pt-5 sm:gap-4 sm:pt-8"
           >
             <div>
               {prevCourse ? (
                 <Link
                   href={localeHref(locale, `/student-life/course-reviews/${prevCourse.code}`)}
-                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 hover:border-brand"
+                  className="flex h-full min-h-11 flex-col gap-0.5 rounded-lg border border-line bg-surface p-3 text-sm hover:border-brand sm:gap-1 sm:p-4 sm:text-base"
                 >
                   <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     &larr; {t.previous}
@@ -256,7 +258,7 @@ export default async function CourseDetailPage({
               {nextCourse ? (
                 <Link
                   href={localeHref(locale, `/student-life/course-reviews/${nextCourse.code}`)}
-                  className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 text-right hover:border-brand"
+                  className="flex h-full min-h-11 flex-col gap-0.5 rounded-lg border border-line bg-surface p-3 text-right text-sm hover:border-brand sm:gap-1 sm:p-4 sm:text-base"
                 >
                   <span className="text-xs font-semibold tracking-wide text-muted uppercase">
                     {t.next} &rarr;
@@ -272,7 +274,7 @@ export default async function CourseDetailPage({
 
         <Link
           href={catalogHref}
-          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
+          className="-my-2 inline-flex min-h-11 items-center self-start text-sm font-semibold text-brand-deep hover:text-brand-dark"
         >
           &larr; {t.backToCatalog}
         </Link>
@@ -283,7 +285,7 @@ export default async function CourseDetailPage({
 
 function CourseReview({ review, locale, t }: { review: StudentReview; locale: Locale; t: Dict }) {
   return (
-    <article className="flex flex-col gap-8">
+    <article className="flex flex-col gap-4 sm:gap-6">
       <header className="flex flex-col gap-1">
         <h3 className="font-display text-lg text-ink">
           {termLabel(t.reviewTerm, review.term, t, locale)}
@@ -304,23 +306,23 @@ function CourseReview({ review, locale, t }: { review: StudentReview; locale: Lo
         {fillTemplate(t.reviewBasedOn, { count: review.reviewCount })}
       </p>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1 sm:gap-2">
         <h4 className="font-semibold text-ink">{t.workloadHeading}</h4>
-        <p className="max-w-[var(--measure)] leading-relaxed text-muted">
+        <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted sm:text-base">
           {review.workload[locale]}
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1 sm:gap-2">
         <h4 className="font-semibold text-ink">{t.assessmentHeading}</h4>
-        <p className="max-w-[var(--measure)] leading-relaxed text-muted">
+        <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted sm:text-base">
           {review.assessmentStyle[locale]}
         </p>
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1 sm:gap-2">
         <h4 className="font-semibold text-ink">{t.tipsHeading}</h4>
-        <ul className="flex list-disc flex-col gap-1.5 pl-5 leading-relaxed text-muted">
+        <ul className="flex list-disc flex-col gap-1 pl-5 text-sm leading-relaxed text-muted sm:gap-1.5 sm:text-base">
           {review.tips.map((tip, i) => (
             <li key={i}>{tip[locale]}</li>
           ))}
@@ -328,17 +330,17 @@ function CourseReview({ review, locale, t }: { review: StudentReview; locale: Lo
       </div>
 
       {review.quotes && review.quotes.length > 0 ? (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1 sm:gap-2">
           <h4 className="font-semibold text-ink">{t.quotesHeading}</h4>
-          <ul className="flex flex-col gap-3">
+          <ul className="flex flex-col gap-2 sm:gap-3">
             {review.quotes.map((quote, i) => (
               <li
                 key={i}
-                className="rounded-md border-l-4 border-brand bg-sunken p-4 text-sm text-ink"
+                className="rounded-md border-l-4 border-brand bg-sunken px-3 py-2.5 text-sm text-ink sm:p-4"
               >
                 <p className="italic">&ldquo;{quote.text[locale]}&rdquo;</p>
                 {quote.attribution ? (
-                  <p className="mt-2 text-xs text-muted">&middot; {quote.attribution[locale]}</p>
+                  <p className="mt-1 text-xs text-muted">&middot; {quote.attribution[locale]}</p>
                 ) : null}
               </li>
             ))}
@@ -351,21 +353,21 @@ function CourseReview({ review, locale, t }: { review: StudentReview; locale: Lo
 
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <>
+    <div className="grid grid-cols-[6.75rem_1fr] gap-x-3 px-3 py-2 sm:grid-cols-[14rem_1fr] sm:gap-x-6 sm:px-4 sm:py-2.5">
       <dt className="font-semibold text-ink">{label}</dt>
-      <dd className="text-muted">{children}</dd>
-    </>
+      <dd className="min-w-0 text-muted">{children}</dd>
+    </div>
   );
 }
 
 function CourseLinks({ codes, locale }: { codes: string[]; locale: Locale }) {
   return (
-    <ul className="flex flex-wrap gap-x-3 gap-y-1">
+    <ul className="flex flex-wrap gap-1.5">
       {codes.map((code) => (
         <li key={code}>
           <Link
             href={localeHref(locale, `/student-life/course-reviews/${code}`)}
-            className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
+            className="inline-block rounded-full bg-brand-tint px-2.5 py-0.5 text-xs font-semibold text-brand-deep hover:text-brand-dark"
           >
             {code}
           </Link>
@@ -385,27 +387,29 @@ function AssessmentFacts({
   t: Dict;
 }) {
   return (
-    <div className="flex flex-col gap-4 text-sm">
+    <div className="flex flex-col gap-3 rounded-lg border border-line bg-surface p-3 text-sm sm:gap-4 sm:p-4">
       <h3 className="font-semibold text-ink">
         {termLabel(t.assessmentFactsTerm, facts.term, t, locale)}
       </h3>
       {facts.weights && facts.weights.length > 0 ? (
-        <table className="w-full max-w-md border-collapse text-left">
+        <table className="w-full border-collapse text-left tabular-nums sm:max-w-md">
           <caption className="pb-2 text-left font-semibold text-ink">{t.assessmentLabel}</caption>
           <tbody>
             {facts.weights.map((component) => (
               <tr key={component.label.en} className="border-t border-line">
-                <th scope="row" className="py-2 pr-4 font-normal text-muted">
+                <th scope="row" className="py-1.5 pr-4 font-normal text-muted sm:py-2">
                   {component.label[locale]}
                 </th>
-                <td className="py-2 text-right font-medium text-ink">{component.weight}%</td>
+                <td className="py-1.5 text-right font-medium text-ink sm:py-2">
+                  {component.weight}%
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : null}
       {facts.examFormat ? (
-        <p>
+        <p className="border-t border-line pt-3">
           <span className="font-semibold text-ink">{t.examFormatLabel}: </span>
           <span className="text-muted">{facts.examFormat[locale]}</span>
         </p>
