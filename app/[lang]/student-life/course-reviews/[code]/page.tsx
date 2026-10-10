@@ -12,8 +12,25 @@ import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 import { courses } from "@/content/course-review/courses";
-import type { StudentReview } from "@/content/course-review/types";
+import type {
+  AcademicTerm,
+  StudentReview,
+  Syllabus as SyllabusData,
+} from "@/content/course-review/types";
+import { minorsFor, prerequisiteCodes, recommendedTerms, unlocks } from "@/lib/course-review/facts";
 import { studentLifeLabel } from "@/content/student-life/topics";
+
+type Dict = ReturnType<typeof getDictionary>["courseReview"];
+
+function termRank(semester: AcademicTerm["semester"]): number {
+  return semester === "summer" ? 3 : semester;
+}
+
+function termLabel(template: string, term: AcademicTerm, t: Dict): string {
+  const semester =
+    term.semester === "summer" ? t.summer : term.semester === 1 ? t.semester1 : t.semester2;
+  return fillTemplate(template, { semester, year: term.year });
+}
 
 // Nested under the literal `course-reviews` route (see the parent page.tsx
 // for why that segment already wins over the generic `[audience]` route).
@@ -59,6 +76,13 @@ export default async function CourseDetailPage({
   const prevCourse = index > 0 ? courses[index - 1] : null;
   const nextCourse = index < courses.length - 1 ? courses[index + 1] : null;
   const otherLocale: Locale = locale === "en" ? "th" : "en";
+  const prerequisites = prerequisiteCodes(course.code);
+  const neededFor = unlocks(course.code);
+  const terms = recommendedTerms(course.code);
+  const minors = minorsFor(course.code);
+  const reviews = [...(course.reviews ?? [])].sort(
+    (a, b) => b.term.year - a.term.year || termRank(b.term.semester) - termRank(a.term.semester)
+  );
   const catalogHref = localeHref(locale, "/student-life/course-reviews");
 
   return (
@@ -91,52 +115,87 @@ export default async function CourseDetailPage({
           ) : null}
         </div>
 
-        <div className="flex flex-wrap gap-2 text-sm">
-          <span className="rounded-full bg-sunken px-3 py-1.5 font-medium text-ink">
-            {course.credits.total} {t.credits} ({course.credits.lecture}-{course.credits.lab}-
-            {course.credits.selfStudy})
-          </span>
-          <span className="rounded-full bg-sunken px-3 py-1.5 font-medium text-ink">
-            {formatYearLevel(course.yearLevel, t.yearLabel)}
-          </span>
-        </div>
-
-        {course.prerequisite ? (
+        <section aria-labelledby="facts-heading" className="flex flex-col gap-3">
+          <h2 id="facts-heading" className="font-display text-xl">
+            {t.factsHeading}
+          </h2>
+          <dl className="grid gap-x-6 gap-y-4 text-sm sm:grid-cols-[minmax(10rem,14rem)_1fr]">
+            <Fact label={t.creditsLabel}>
+              {course.credits.total} ({course.credits.lecture}-{course.credits.lab}-
+              {course.credits.selfStudy})
+            </Fact>
+            <Fact label={t.yearLevelLabel}>
+              {formatYearLevel(course.yearLevel, t.yearLabel, t.yearTo)}
+            </Fact>
+            <Fact label={t.prerequisite}>
+              {prerequisites.length > 0 ? (
+                <CourseLinks codes={prerequisites} locale={locale} />
+              ) : course.prerequisite ? (
+                course.prerequisite[locale]
+              ) : (
+                t.prerequisitesNone
+              )}
+            </Fact>
+            {neededFor.length > 0 ? (
+              <Fact label={t.unlocksLabel}>
+                <CourseLinks codes={neededFor} locale={locale} />
+              </Fact>
+            ) : null}
+            <Fact label={t.recommendedTermLabel}>
+              {terms.length > 0
+                ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
+                : t.notInPlan}
+            </Fact>
+            {minors.length > 0 ? (
+              <Fact label={t.minorsLabel}>
+                <ul className="flex flex-col gap-1">
+                  {minors.map((minor) => (
+                    <li key={minor.id}>
+                      {minor.name[locale]} (
+                      {minor.role === "required" ? t.minorRequired : t.minorElective})
+                    </li>
+                  ))}
+                </ul>
+              </Fact>
+            ) : null}
+            {course.instructors && course.instructors.length > 0 ? (
+              <Fact label={t.instructorsHeading}>
+                <ul className="flex flex-wrap gap-x-2 gap-y-1">
+                  {course.instructors.map((instructor, i) => (
+                    <li key={instructor.name.en} className="flex items-center gap-2">
+                      {instructor.profileUrl ? (
+                        <a
+                          href={instructor.profileUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
+                        >
+                          {instructor.name[locale]}
+                        </a>
+                      ) : (
+                        <span className="font-medium text-ink">{instructor.name[locale]}</span>
+                      )}
+                      {i < course.instructors!.length - 1 ? (
+                        <span aria-hidden className="text-muted">
+                          &middot;
+                        </span>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-1 text-xs text-muted">{t.instructorsNote}</p>
+              </Fact>
+            ) : null}
+          </dl>
           <p className="text-sm">
-            <span className="font-semibold text-ink">{t.prerequisite}: </span>
-            <span className="text-muted">{course.prerequisite[locale]}</span>
+            <Link
+              href={localeHref(locale, "/services/study-plan")}
+              className="font-semibold text-brand-deep hover:text-brand-dark"
+            >
+              {t.studyPlanLink} &rarr;
+            </Link>
           </p>
-        ) : null}
-
-        {course.instructors && course.instructors.length > 0 ? (
-          <section className="flex flex-col gap-1.5">
-            <h2 className="text-sm font-semibold text-ink">{t.instructorsHeading}</h2>
-            <ul className="flex flex-wrap gap-x-2 gap-y-1 text-sm">
-              {course.instructors.map((instructor, i) => (
-                <li key={instructor.name.en} className="flex items-center gap-2">
-                  {instructor.profileUrl ? (
-                    <a
-                      href={instructor.profileUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
-                    >
-                      {instructor.name[locale]}
-                    </a>
-                  ) : (
-                    <span className="font-medium text-ink">{instructor.name[locale]}</span>
-                  )}
-                  {i < course.instructors!.length - 1 ? (
-                    <span aria-hidden className="text-muted">
-                      &middot;
-                    </span>
-                  ) : null}
-                </li>
-              ))}
-            </ul>
-            <p className="text-xs text-muted">{t.instructorsNote}</p>
-          </section>
-        ) : null}
+        </section>
 
         <section className="flex flex-col gap-3">
           <h2 className="font-display text-xl">{t.descriptionHeading}</h2>
@@ -145,11 +204,20 @@ export default async function CourseDetailPage({
           </p>
         </section>
 
+        <section className="flex flex-col gap-3">
+          <h2 className="font-display text-xl">{t.syllabusHeading}</h2>
+          {course.syllabus ? (
+            <Syllabus syllabus={course.syllabus} locale={locale} t={t} />
+          ) : (
+            <p className="text-sm text-muted">{t.syllabusMissing}</p>
+          )}
+        </section>
+
         <section className="flex flex-col gap-6">
           <h2 className="font-display text-xl">{t.reviewHeading}</h2>
 
-          {course.reviews?.length ? (
-            course.reviews.map((review, index) => (
+          {reviews.length ? (
+            reviews.map((review, index) => (
               <CourseReview key={index} review={review} locale={locale} t={t} />
             ))
           ) : (
@@ -164,7 +232,7 @@ export default async function CourseDetailPage({
 
         {prevCourse || nextCourse ? (
           <nav
-            aria-label={t.reviewHeading}
+            aria-label={t.courseNav}
             className="grid grid-cols-1 gap-4 border-t border-line pt-8 sm:grid-cols-2"
           >
             <div>
@@ -211,17 +279,17 @@ export default async function CourseDetailPage({
   );
 }
 
-function CourseReview({
-  review,
-  locale,
-  t,
-}: {
-  review: StudentReview;
-  locale: Locale;
-  t: ReturnType<typeof getDictionary>["courseReview"];
-}) {
+function CourseReview({ review, locale, t }: { review: StudentReview; locale: Locale; t: Dict }) {
   return (
-    <div className="flex flex-col gap-8">
+    <article className="flex flex-col gap-8">
+      <header className="flex flex-col gap-1">
+        <h3 className="font-display text-lg text-ink">{termLabel(t.reviewTerm, review.term, t)}</h3>
+        {review.instructor ? (
+          <p className="text-sm text-muted">
+            {t.reviewInstructor} {review.instructor.name[locale]}
+          </p>
+        ) : null}
+      </header>
       {review.sample ? (
         <Notice variant="placeholder" title={t.sampleReviewTitle}>
           <p>{t.sampleReviewBody}</p>
@@ -233,21 +301,21 @@ function CourseReview({
       </p>
 
       <div className="flex flex-col gap-2">
-        <h3 className="font-semibold text-ink">{t.workloadHeading}</h3>
+        <h4 className="font-semibold text-ink">{t.workloadHeading}</h4>
         <p className="max-w-[var(--measure)] leading-relaxed text-muted">
           {review.workload[locale]}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="font-semibold text-ink">{t.assessmentHeading}</h3>
+        <h4 className="font-semibold text-ink">{t.assessmentHeading}</h4>
         <p className="max-w-[var(--measure)] leading-relaxed text-muted">
           {review.assessmentStyle[locale]}
         </p>
       </div>
 
       <div className="flex flex-col gap-2">
-        <h3 className="font-semibold text-ink">{t.tipsHeading}</h3>
+        <h4 className="font-semibold text-ink">{t.tipsHeading}</h4>
         <ul className="flex list-disc flex-col gap-1.5 pl-5 leading-relaxed text-muted">
           {review.tips.map((tip, i) => (
             <li key={i}>{tip[locale]}</li>
@@ -257,7 +325,7 @@ function CourseReview({
 
       {review.quotes && review.quotes.length > 0 ? (
         <div className="flex flex-col gap-2">
-          <h3 className="font-semibold text-ink">{t.quotesHeading}</h3>
+          <h4 className="font-semibold text-ink">{t.quotesHeading}</h4>
           <ul className="flex flex-col gap-3">
             {review.quotes.map((quote, i) => (
               <li
@@ -272,6 +340,79 @@ function CourseReview({
             ))}
           </ul>
         </div>
+      ) : null}
+    </article>
+  );
+}
+
+function Fact({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <>
+      <dt className="font-semibold text-ink">{label}</dt>
+      <dd className="text-muted">{children}</dd>
+    </>
+  );
+}
+
+function CourseLinks({ codes, locale }: { codes: string[]; locale: Locale }) {
+  return (
+    <ul className="flex flex-wrap gap-x-3 gap-y-1">
+      {codes.map((code) => (
+        <li key={code}>
+          <Link
+            href={localeHref(locale, `/student-life/course-reviews/${code}`)}
+            className="font-medium text-brand-deep underline underline-offset-2 hover:text-brand-dark"
+          >
+            {code}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Syllabus({ syllabus, locale, t }: { syllabus: SyllabusData; locale: Locale; t: Dict }) {
+  return (
+    <div className="flex flex-col gap-4 text-sm">
+      <h3 className="font-semibold text-ink">{termLabel(t.syllabusTerm, syllabus.term, t)}</h3>
+      {syllabus.assessment && syllabus.assessment.length > 0 ? (
+        <table className="w-full max-w-md border-collapse text-left">
+          <caption className="pb-2 text-left font-semibold text-ink">{t.assessmentLabel}</caption>
+          <tbody>
+            {syllabus.assessment.map((component) => (
+              <tr key={component.label.en} className="border-t border-line">
+                <th scope="row" className="py-2 pr-4 font-normal text-muted">
+                  {component.label[locale]}
+                </th>
+                <td className="py-2 text-right font-medium text-ink">{component.weight}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : null}
+      {syllabus.examFormat ? (
+        <p>
+          <span className="font-semibold text-ink">{t.examFormatLabel}: </span>
+          <span className="text-muted">{syllabus.examFormat[locale]}</span>
+        </p>
+      ) : null}
+      {syllabus.attendance ? (
+        <p>
+          <span className="font-semibold text-ink">{t.attendanceLabel}: </span>
+          <span className="text-muted">{syllabus.attendance[locale]}</span>
+        </p>
+      ) : null}
+      {syllabus.sourceUrl ? (
+        <p>
+          <a
+            href={syllabus.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="font-semibold text-brand-deep underline underline-offset-2 hover:text-brand-dark"
+          >
+            {t.syllabusSourceLink}
+          </a>
+        </p>
       ) : null}
     </div>
   );

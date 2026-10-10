@@ -26,11 +26,11 @@ export const CATEGORY_ORDER: CourseCategory[] = [
 ];
 
 /** Formats e.g. `[1]` -> "Year 1" or `[3, 4]` -> "Year 3 to 4". */
-export function formatYearLevel(yearLevel: number[], yearLabel: string): string {
+export function formatYearLevel(yearLevel: number[], yearLabel: string, to: string): string {
   if (yearLevel.length === 0) return yearLabel;
   const min = Math.min(...yearLevel);
   const max = Math.max(...yearLevel);
-  return min === max ? `${yearLabel} ${min}` : `${yearLabel} ${min} to ${max}`;
+  return min === max ? `${yearLabel} ${min}` : `${yearLabel} ${min} ${to} ${max}`;
 }
 
 /** Fills a "{current}"/"{total}"-style template, e.g. dict.pageOf. */

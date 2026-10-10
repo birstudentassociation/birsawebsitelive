@@ -379,6 +379,9 @@ export const en = {
     },
     credits: "credits",
     yearLabel: "Year",
+    yearTo: "to",
+    creditsLabel: "Credits",
+    yearLevelLabel: "Usually taken in",
     prerequisite: "Prerequisite",
     instructorsHeading: "Instructor",
     instructorsNote:
@@ -422,10 +425,10 @@ export const en = {
     examFormatLabel: "Exam format",
     attendanceLabel: "Attendance",
     syllabusSourceLink: "Read the official syllabus",
-    syllabusTerm: "Syllabus for semester {semester}, {year}",
+    syllabusTerm: "Syllabus for {semester}, {year}",
     syllabusMissing:
       "BIRSA has not recorded the syllabus for this course yet. Check the course outline with the faculty before you register.",
-    reviewTerm: "Taken in semester {semester}, {year}",
+    reviewTerm: "Taken in {semester}, {year}",
     reviewInstructor: "Taught by",
     courseNav: "Other courses",
     studyPlanLink: "Plan when to take it",

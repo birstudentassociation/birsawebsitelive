@@ -8,6 +8,7 @@ import { absoluteUrl } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 import { contact, socials } from "@/content/site";
 import type { Course } from "@/content/course-review/types";
+import { prerequisiteCodes } from "@/lib/course-review/facts";
 import type { ClubFrontmatter, NewsFrontmatter } from "@/lib/content";
 
 type JsonLdObject = Record<string, unknown>;
@@ -119,6 +120,9 @@ export function newsJsonLd(
 }
 
 export function courseJsonLd(locale: Locale, course: Course): JsonLdObject {
+  const prerequisites = prerequisiteCodes(course.code).map((code) =>
+    absoluteUrl(locale, `/student-life/course-reviews/${code}`)
+  );
   return {
     "@context": "https://schema.org",
     "@type": "Course",
@@ -128,6 +132,8 @@ export function courseJsonLd(locale: Locale, course: Course): JsonLdObject {
     url: absoluteUrl(locale, `/student-life/course-reviews/${course.code}`),
     inLanguage: IN_LANGUAGE[locale],
     provider: university,
+    numberOfCredits: course.credits.total,
+    ...(prerequisites.length ? { coursePrerequisites: prerequisites } : {}),
   };
 }
 

@@ -541,6 +541,44 @@ should try it once before they need it.
   entry's time shows as "last updated".
 - To end the alert, set `activeEmergency` back to `null` and commit.
 
+## Course reviews (`content/course-review/`)
+
+The course pages under `/student-life/course-reviews` are driven by `content/course-review/courses.ts`,
+one entry per PI course, sorted by code. The types and their comments are in `types.ts`. Titles,
+descriptions and instructor names are bilingual (`{ en, th }`), and both languages must be filled in.
+
+### Adding a review
+
+Add a `reviews` entry to the course. A review is written only: there are no scores or star
+ratings, and the tests fail if a numeric rating field is added. Describe how the course felt in
+words.
+
+- `reviewCount`: how many students the summary draws on.
+- `term`: the Buddhist Era academic year and semester (`1`, `2` or `"summer"`), for example
+  `{ year: 2567, semester: 1 }`.
+- `instructor`: who taught that term, when known. Reuse the instructor constant defined at the top
+  of the file.
+- `workload`, `assessmentStyle`, `tips`, and optionally `quotes`. Attribute quotes by year of
+  study only, never by name.
+
+Set `sample: true` on any review written to demonstrate the layout rather than taken from real
+students, so the pages can say it is an example. Remove the flag only when the entry is replaced by
+a real submission.
+
+### Syllabus facts
+
+The optional `syllabus` block holds objective facts such as assessment weights, exam format and
+attendance. Record them only from an official syllabus for a named term, never from memory or
+hearsay. Assessment weights must add up to 100. Add `sourceUrl` (https) only when the syllabus is
+public.
+
+### Do not hand-write curriculum facts
+
+Prerequisites, what a course unlocks, its recommended term and the minors it counts towards are
+derived from `content/curriculum/2568.ts` by `lib/course-review/facts.ts`. Do not copy them into
+`courses.ts`. To correct one, fix the curriculum data and the course pages follow. Every course
+code and credit total in the catalogue must match that data; `npm run test` checks it.
+
 ## How publishing works
 
 The site is deployed on Vercel and auto-deploys from this repository. To publish a change:

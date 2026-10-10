@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
@@ -6,7 +7,10 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import CourseStats from "@/components/course-review/CourseStats";
-import CourseReviewBrowser from "@/components/course-review/CourseReviewBrowser";
+import CourseReviewBrowser, {
+  CourseReviewBrowserFallback,
+  type CourseReviewDict,
+} from "@/components/course-review/CourseReviewBrowser";
 import { courses } from "@/content/course-review/courses";
 import { studentLifeLabel } from "@/content/student-life/topics";
 
@@ -44,6 +48,36 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
   const dict = getDictionary(locale);
   const t = dict.courseReview;
 
+  const browserDict: CourseReviewDict = {
+    browseHeading: t.browseHeading,
+    searchLabel: dict.actions.search,
+    searchPlaceholder: t.searchPlaceholder,
+    trackLabel: t.trackLabel,
+    allTracks: t.allTracks,
+    categoryLabel: dict.actions.category,
+    allCategories: dict.actions.allCategories,
+    yearFilterLabel: t.yearFilterLabel,
+    allYears: t.allYears,
+    reviewedFilterLabel: t.reviewedFilterLabel,
+    showing: dict.actions.showing,
+    result: dict.actions.result,
+    results: dict.actions.results,
+    noResults: dict.actions.noResults,
+    clearFilters: dict.actions.clearFilters,
+    tracks: t.tracks,
+    categories: t.categories,
+    credits: t.credits,
+    yearLabel: t.yearLabel,
+    yearTo: t.yearTo,
+    prerequisite: t.prerequisite,
+    instructor: t.instructorsHeading,
+    reviewedBadge: t.reviewedBadge,
+    sampleBadge: t.sampleBadge,
+    previous: t.previous,
+    next: t.next,
+    pageOf: t.pageOf,
+  };
+
   return (
     <>
       <PageHeader
@@ -72,35 +106,13 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
           }}
         />
 
-        <CourseReviewBrowser
-          courses={courses}
-          locale={locale}
-          dict={{
-            browseHeading: t.browseHeading,
-            searchLabel: dict.actions.search,
-            searchPlaceholder: t.searchPlaceholder,
-            trackLabel: t.trackLabel,
-            allTracks: t.allTracks,
-            categoryLabel: dict.actions.category,
-            allCategories: dict.actions.allCategories,
-            showing: dict.actions.showing,
-            result: dict.actions.result,
-            results: dict.actions.results,
-            noResults: dict.actions.noResults,
-            clearFilters: dict.actions.clearFilters,
-            tracks: t.tracks,
-            categories: t.categories,
-            credits: t.credits,
-            yearLabel: t.yearLabel,
-            prerequisite: t.prerequisite,
-            instructor: t.instructorsHeading,
-            reviewedBadge: t.reviewedBadge,
-            sampleBadge: t.sampleBadge,
-            previous: t.previous,
-            next: t.next,
-            pageOf: t.pageOf,
-          }}
-        />
+        <Suspense
+          fallback={
+            <CourseReviewBrowserFallback courses={courses} locale={locale} dict={browserDict} />
+          }
+        >
+          <CourseReviewBrowser courses={courses} locale={locale} dict={browserDict} />
+        </Suspense>
 
         <Link
           href={localeHref(locale, "/student-life")}

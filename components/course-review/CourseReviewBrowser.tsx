@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Field from "@/components/Field";
 import Card, { CardTitle } from "@/components/Card";
 import Tag from "@/components/Tag";
@@ -13,8 +14,16 @@ import {
   formatYearLevel,
   fillTemplate,
 } from "@/components/course-review/constants";
+import {
+  DEFAULT_FILTERS,
+  filterCourses,
+  parseFilters,
+  serialiseFilters,
+  type CourseFilters,
+} from "@/lib/course-review/filter";
 
 const PAGE_SIZE = 12;
+const YEARS = [1, 2, 3, 4];
 
 export type CourseReviewDict = {
   browseHeading: string;
@@ -24,6 +33,9 @@ export type CourseReviewDict = {
   allTracks: string;
   categoryLabel: string;
   allCategories: string;
+  yearFilterLabel: string;
+  allYears: string;
+  reviewedFilterLabel: string;
   showing: string;
   result: string;
   results: string;
@@ -33,6 +45,7 @@ export type CourseReviewDict = {
   categories: Record<CourseCategory, string>;
   credits: string;
   yearLabel: string;
+  yearTo: string;
   prerequisite: string;
   instructor: string;
   reviewedBadge: string;
@@ -50,43 +63,28 @@ export type CourseReviewBrowserProps = {
 };
 
 /**
- * Client-side search + track/category filter + pagination over the full
- * course list. The list is passed in fully rendered/serialisable; this
- * component only narrows and paginates what's shown, mirroring the pattern
- * used by `ClubsExplorer`. Search/filter counts and page count are always
- * derived from `courses.length` / `.filter()` results, so this keeps working
- * as the catalogue grows.
+ * Search, filter and paginate the course list. Filter state lives in the URL
+ * (see `lib/course-review/filter.ts`) so filtered views are shareable. The URL
+ * is read once on mount and then only written, with replaceState, so it never
+ * adds history entries and a lagging URL can never overwrite what was typed.
+ * Needs a <Suspense> boundary because of useSearchParams.
  */
 export default function CourseReviewBrowser({ courses, locale, dict }: CourseReviewBrowserProps) {
-  const [query, setQuery] = useState("");
-  const [track, setTrack] = useState<CourseTrack | "all">("all");
-  const [category, setCategory] = useState<CourseCategory | "all">("all");
-  const [page, setPage] = useState(1);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [filters, setFilters] = useState<CourseFilters>(() =>
+    parseFilters(new URLSearchParams(searchParams.toString()))
+  );
   // After a Previous/Next press, keep keyboard focus inside the pager: when the
   // pressed button becomes disabled at a boundary, focus is redirected to its
   // still-enabled sibling so it is never lost to <body> (WCAG 2.4.3).
   const pendingFocus = useRef<"prev" | "next" | null>(null);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return courses.filter((course) => {
-      const matchesTrack = track === "all" || course.track === track;
-      const matchesCategory = category === "all" || course.category === category;
-      const matchesQuery =
-        q.length === 0 ||
-        course.code.toLowerCase().includes(q) ||
-        course.title.en.toLowerCase().includes(q) ||
-        course.title.th.toLowerCase().includes(q) ||
-        course.description.en.toLowerCase().includes(q) ||
-        course.description.th.toLowerCase().includes(q);
-      return matchesTrack && matchesCategory && matchesQuery;
-    });
-  }, [courses, query, track, category]);
-
+  const filtered = useMemo(() => filterCourses(courses, filters), [courses, filters]);
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
+  const currentPage = Math.min(filters.page, totalPages);
   const pageCourses = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-  const hasFilters = query.trim().length > 0 || track !== "all" || category !== "all";
+  const hasFilters = serialiseFilters({ ...filters, page: 1 }).size > 0;
 
   useEffect(() => {
     if (!pendingFocus.current) return;
@@ -95,32 +93,23 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
     document.getElementById(id)?.focus();
   }, [currentPage]);
 
+  function update(next: CourseFilters) {
+    setFilters(next);
+    const qs = serialiseFilters(next).toString();
+    window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
+  }
+
+  function change(patch: Partial<CourseFilters>) {
+    update({ ...filters, ...patch, page: 1 });
+  }
+
   function goToPage(target: number) {
     const next = Math.min(totalPages, Math.max(1, target));
     // If the button just pressed will disable at this boundary, hand focus to
     // the opposite button, which stays enabled.
     if (next > currentPage) pendingFocus.current = next === totalPages ? "prev" : "next";
     else if (next < currentPage) pendingFocus.current = next === 1 ? "next" : "prev";
-    setPage(next);
-  }
-
-  function handleQueryChange(value: string) {
-    setQuery(value);
-    setPage(1);
-  }
-  function handleTrackChange(value: string) {
-    setTrack(value as CourseTrack | "all");
-    setPage(1);
-  }
-  function handleCategoryChange(value: string) {
-    setCategory(value as CourseCategory | "all");
-    setPage(1);
-  }
-  function clearFilters() {
-    setQuery("");
-    setTrack("all");
-    setCategory("all");
-    setPage(1);
+    update({ ...filters, page: next });
   }
 
   const trackOptions = [
@@ -130,6 +119,10 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
   const categoryOptions = [
     { value: "all", label: dict.allCategories },
     ...CATEGORY_ORDER.map((value) => ({ value, label: dict.categories[value] })),
+  ];
+  const yearOptions = [
+    { value: "all", label: dict.allYears },
+    ...YEARS.map((value) => ({ value: String(value), label: `${dict.yearLabel} ${value}` })),
   ];
 
   const statusText =
@@ -143,32 +136,54 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
       <h2 id="course-browse-heading" className="font-display text-xl">
         {dict.browseHeading}
       </h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Field
           as="input"
           type="search"
           name="course-search"
           label={dict.searchLabel}
           placeholder={dict.searchPlaceholder}
-          value={query}
-          onChange={(event) => handleQueryChange(event.target.value)}
+          value={filters.query}
+          onChange={(event) => change({ query: event.target.value })}
         />
         <Field
           as="select"
           name="course-track"
           label={dict.trackLabel}
-          value={track}
-          onChange={(event) => handleTrackChange(event.target.value)}
+          value={filters.track}
+          onChange={(event) => change({ track: event.target.value as CourseFilters["track"] })}
           options={trackOptions}
         />
         <Field
           as="select"
           name="course-category"
           label={dict.categoryLabel}
-          value={category}
-          onChange={(event) => handleCategoryChange(event.target.value)}
+          value={filters.category}
+          onChange={(event) =>
+            change({ category: event.target.value as CourseFilters["category"] })
+          }
           options={categoryOptions}
         />
+        <Field
+          as="select"
+          name="course-year"
+          label={dict.yearFilterLabel}
+          value={String(filters.year)}
+          onChange={(event) =>
+            change({ year: event.target.value === "all" ? "all" : Number(event.target.value) })
+          }
+          options={yearOptions}
+        />
+        <label className="flex items-center gap-2.5 text-sm font-semibold text-ink sm:col-span-2 lg:col-span-4">
+          <input
+            type="checkbox"
+            name="course-reviewed"
+            checked={filters.reviewed}
+            onChange={(event) => change({ reviewed: event.target.checked })}
+            className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
+          />
+          {dict.reviewedFilterLabel}
+        </label>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -176,7 +191,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
           {statusText}
         </p>
         {hasFilters ? (
-          <Button variant="secondary" onClick={clearFilters}>
+          <Button variant="secondary" onClick={() => update(DEFAULT_FILTERS)}>
             {dict.clearFilters}
           </Button>
         ) : null}
@@ -188,11 +203,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {pageCourses.map((course) => (
-              <CourseCard key={course.code} course={course} locale={locale} dict={dict} />
-            ))}
-          </div>
+          <CourseGrid courses={pageCourses} locale={locale} dict={dict} />
 
           {totalPages > 1 ? (
             <nav
@@ -223,6 +234,36 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
         </>
       )}
     </section>
+  );
+}
+
+/** Suspense fallback: the unfiltered first page as a plain list, no controls. */
+export function CourseReviewBrowserFallback({ courses, locale, dict }: CourseReviewBrowserProps) {
+  return (
+    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-6">
+      <h2 id="course-browse-heading" className="font-display text-xl">
+        {dict.browseHeading}
+      </h2>
+      <CourseGrid courses={courses.slice(0, PAGE_SIZE)} locale={locale} dict={dict} />
+    </section>
+  );
+}
+
+function CourseGrid({
+  courses,
+  locale,
+  dict,
+}: {
+  courses: Course[];
+  locale: Locale;
+  dict: CourseReviewDict;
+}) {
+  return (
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {courses.map((course) => (
+        <CourseCard key={course.code} course={course} locale={locale} dict={dict} />
+      ))}
+    </div>
   );
 }
 
@@ -262,7 +303,7 @@ function CourseCard({
           {course.credits.selfStudy})
         </span>
         <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">
-          {formatYearLevel(course.yearLevel, dict.yearLabel)}
+          {formatYearLevel(course.yearLevel, dict.yearLabel, dict.yearTo)}
         </span>
       </div>
       {course.prerequisite ? (
