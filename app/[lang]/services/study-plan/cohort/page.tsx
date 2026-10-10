@@ -6,6 +6,8 @@ import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
+import ContinuePlan from "@/components/study-plan/ContinuePlan";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft, submitCohortStep } from "../actions";
 import { STUDY_PLAN_STEPS } from "../steps";
@@ -39,6 +41,7 @@ export default async function StudyPlanCohortPage({
   const dict = getDictionary(locale);
   const chrome = buildWizardChromeLabels(locale);
   const copy = buildStudyPlanCopy(locale);
+  const planLinkCopy = buildPlanLinkCopy(locale);
 
   // readDraft is safe to call during render (read-only); the draft is only
   // ever written from a Server Action, in submitCohortStep.
@@ -55,6 +58,11 @@ export default async function StudyPlanCohortPage({
       <PageHeader title={copy.cohort.title} />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
+          {/* Renders only for a visitor with JavaScript and a plan saved on this device. */}
+          <ContinuePlan
+            copy={planLinkCopy.resume}
+            planHref={localeHref(locale, "/services/study-plan/plan")}
+          />
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           <QuestionStepForm
             action={submitCohortStep.bind(null, locale)}

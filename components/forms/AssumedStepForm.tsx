@@ -12,6 +12,7 @@
  * free elective may be any Thammasat University course: there is no
  * catalogue entry to tick, only a count to confirm.
  */
+import Link from "next/link";
 import { useActionState } from "react";
 import Button from "@/components/Button";
 import ErrorSummary from "@/components/ErrorSummary";
@@ -28,6 +29,10 @@ export type AssumedStepFormProps = {
   /** The plan as it stood on arrival at this step, carried forward in a hidden field. */
   plan: string;
   groups: AssumedCourseGroup[];
+  /** The localised course page path without the code, e.g. "/en/student-life/course-reviews". */
+  courseLinkBase: string;
+  /** Text of each course's link to its page; the code follows it as screen reader text. */
+  courseLinkLabel: string;
   freeElectiveLabel: string;
   freeElectiveHint: string;
   freeElectiveDefault: number;
@@ -42,6 +47,8 @@ export default function AssumedStepForm({
   action,
   plan,
   groups,
+  courseLinkBase,
+  courseLinkLabel,
   freeElectiveLabel,
   freeElectiveHint,
   freeElectiveDefault,
@@ -74,22 +81,31 @@ export default function AssumedStepForm({
             </legend>
             <div className="flex flex-col gap-2">
               {group.courses.map((course) => (
-                <label
-                  key={course.code}
-                  className="flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border border-input-border bg-surface p-3 has-checked:border-brand has-checked:bg-brand-tint"
-                >
-                  <input
-                    type="checkbox"
-                    name="passed"
-                    value={course.code}
-                    defaultChecked
-                    className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
-                  />
-                  <span className="text-sm text-ink">
-                    <span className="font-semibold">{course.code}</span>
-                    {course.title ? ` ${course.title}` : ""}
-                  </span>
-                </label>
+                // The link sits beside the label rather than inside it: a
+                // link in a label would fight the label's own click, which
+                // ticks the box.
+                <div key={course.code} className="flex items-center gap-3">
+                  <label className="flex min-h-11 flex-1 cursor-pointer items-center gap-3 rounded-lg border border-input-border bg-surface p-3 has-checked:border-brand has-checked:bg-brand-tint">
+                    <input
+                      type="checkbox"
+                      name="passed"
+                      value={course.code}
+                      defaultChecked
+                      className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
+                    />
+                    <span className="text-sm text-ink">
+                      <span className="font-semibold">{course.code}</span>
+                      {course.title ? ` ${course.title}` : ""}
+                    </span>
+                  </label>
+                  <Link
+                    href={`${courseLinkBase}/${course.code}`}
+                    className="focus-halo shrink-0 text-sm font-semibold text-brand-deep hover:underline"
+                  >
+                    {courseLinkLabel}
+                    <span className="sr-only"> {course.code}</span>
+                  </Link>
+                </div>
               ))}
             </div>
           </fieldset>

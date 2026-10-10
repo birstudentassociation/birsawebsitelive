@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import { CURRICULUM_VERSIONS, type CurriculumVersion, type TermRef } from "@/content/curriculum";
+import { courseContextLine } from "@/lib/course-review/context";
+import { ADD_PARAM, applyAddParam } from "@/lib/study-plan/addToPlan";
 import {
-  CURRICULUM_VERSIONS,
-  type CategoryId,
-  type CurriculumVersion,
-  type TermKind,
-  type TermRef,
-} from "@/content/curriculum";
-import { nextTerm, planTotals, remainingRequirements, termIndex } from "@/lib/study-plan/derive";
+  nextTerm,
+  planTotals,
+  remainingRequirements,
+  screenTerms,
+  termKey,
+} from "@/lib/study-plan/derive";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
+import { resolvePosition } from "@/lib/study-plan/position";
 import {
   suggestForTerm,
   type SuggestedCourse,
@@ -21,17 +24,23 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import AddOutcomeNotice from "@/components/study-plan/AddOutcomeNotice";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import TermEditor, {
-  termKey,
   type TermEditorCourse,
   type TermEditorCourseGroup,
   type TermEditorSlot,
 } from "@/components/study-plan/TermEditor";
 import PlanStore from "@/components/study-plan/PlanStore";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
-import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import {
+  buildStudyPlanCopy,
+  categoryLabel,
+  formatTermRef,
+  type StudyPlanCopy,
+} from "@/components/study-plan/studyPlanCopy";
 import {
   addCourseToTerm,
   addTermToPlan,
@@ -62,42 +71,24 @@ export async function generateMetadata({
 
 /** e.g. "Year 3, Semester 1", built from the same `copy.terms` labels every other step in this journey uses. */
 function formatTermLabel(copy: StudyPlanCopy, term: TermRef): string {
-  return `${copy.terms.yearTemplate.replace("{n}", String(term.year))}, ${copy.terms[term.kind]}`;
+  return formatTermRef(copy.terms, term);
 }
 
 /**
- * Name for one row of "what you still owe". The three minor buckets are
- * named for the student's actual chosen minor, not generically, so a student
- * never has to remember which minor they picked to read their own plan; the
- * `minorElectiveOther` bucket (a student's electives from a minor other than
- * their own) is likewise anchored to the chosen minor, since that is what
- * makes those credits "other" in the first place.
+ * Converts one engine-side suggested course into the shape `TermEditor`
+ * renders, adding the catalogue's one line of facts about it where there is
+ * one. `contextLine` is built once per page render with the locale's copy.
  */
-function categoryLabel(
-  copy: StudyPlanCopy,
-  categoryId: CategoryId,
-  categoryName: string,
-  minorName: string
-): string {
-  switch (categoryId) {
-    case "minorRequired":
-      return copy.plan.minorRequiredTemplate.replace("{minor}", minorName);
-    case "minorElective":
-      return copy.plan.minorElectiveTemplate.replace("{minor}", minorName);
-    case "minorElectiveOther":
-      return copy.plan.minorElectiveOtherTemplate.replace("{minor}", minorName);
-    default:
-      return categoryName;
-  }
-}
-
-/** Converts one engine-side suggested course into the shape `TermEditor` renders. */
-function toTermEditorCourse(course: SuggestedCourse): TermEditorCourse {
+function toTermEditorCourse(
+  course: SuggestedCourse,
+  contextLine: (code: string) => string | null
+): TermEditorCourse {
   return {
     code: course.code,
     title: course.title,
     credits: course.credits,
     missingPrerequisites: course.missingPrerequisites,
+    context: contextLine(course.code),
   };
 }
 
@@ -116,15 +107,17 @@ function buildCourseGroups(
   version: CurriculumVersion,
   locale: Locale,
   minorName: string,
-  suggestion: TermSuggestion
+  suggestion: TermSuggestion,
+  contextLine: (code: string) => string | null
 ): TermEditorCourseGroup[] {
+  const toCourse = (course: SuggestedCourse) => toTermEditorCourse(course, contextLine);
   return suggestion.groups.map((group) => {
     if (group.id === "recommended") {
       return {
         id: group.id,
         label: copy.plan.pickRecommendedGroup,
         remaining: null,
-        courses: group.courses.map(toTermEditorCourse),
+        courses: group.courses.map(toCourse),
       };
     }
     if (group.id === "other") {
@@ -132,17 +125,22 @@ function buildCourseGroups(
         id: group.id,
         label: copy.plan.pickOtherGroup,
         remaining: null,
-        courses: group.courses.map(toTermEditorCourse),
+        courses: group.courses.map(toCourse),
       };
     }
     const categoryName = version.categories.find((c) => c.id === group.id)?.name[locale] ?? "";
     return {
       id: group.id,
-      label: categoryLabel(copy, group.id, categoryName, minorName),
+      label: categoryLabel(copy.plan, group.id, categoryName, minorName),
       remaining: group.remaining,
-      courses: group.courses.map(toTermEditorCourse),
+      courses: group.courses.map(toCourse),
     };
   });
+}
+
+/** The first value of a query parameter, which Next types as a string or an array when repeated. */
+function firstParam(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
 }
 
 /**
@@ -156,29 +154,54 @@ export default async function StudyPlanPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ [PLAN_FIELD]?: string; term?: string; notice?: string }>;
+  searchParams: Promise<{
+    [PLAN_FIELD]?: string;
+    [ADD_PARAM]?: string | string[];
+    term?: string | string[];
+    notice?: string;
+  }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const copy = buildStudyPlanCopy(locale);
+  const linkCopy = buildPlanLinkCopy(locale);
 
-  const { [PLAN_FIELD]: rawPlan, term: requestedTermKey, notice } = await searchParams;
-  const plan = rawPlan ? deserialisePlan(rawPlan) : null;
-  if (!plan) {
+  const {
+    [PLAN_FIELD]: rawPlan,
+    [ADD_PARAM]: rawAdd,
+    term: rawTermKey,
+    notice,
+  } = await searchParams;
+  const requestedTermKey = firstParam(rawTermKey);
+  const addRequest = firstParam(rawAdd);
+  const arrivingPlan = rawPlan ? deserialisePlan(rawPlan) : null;
+  if (!arrivingPlan) {
     redirect(localeHref(locale, "/services/study-plan/minor"));
   }
 
   // readDraft is safe to call during render (read-only); the draft is only
-  // ever written from a Server Action.
+  // ever written from a Server Action. The draft lasts thirty minutes, so a
+  // plan resumed from the device days later arrives without it; the position
+  // is then worked out from the cohort and today's date instead of sending
+  // the student back through a question they answered when they built it.
   const draft = await getStudyPlanDraft();
-  if (!draft.positionYear || !draft.positionKind) {
+  const position = resolvePosition(draft, arrivingPlan.cohort, new Date());
+  if (!position) {
     redirect(localeHref(locale, "/services/study-plan/where"));
   }
-  const position: TermRef = {
-    year: Number(draft.positionYear),
-    kind: draft.positionKind as TermKind,
-  };
+
+  // A course page's "Add to plan" link arrives as `?add=CODE&term=KEY`. It is
+  // applied to the plan that came with it before anything is drawn, and either
+  // confirmed (with an undo that returns the plan exactly as it arrived) or
+  // refused with the reason, in which case the plan on screen is the one that
+  // arrived. It never throws: `applyAddParam` returns a refusal for anything
+  // it cannot apply.
+  const addOutcome =
+    addRequest !== undefined
+      ? applyAddParam(arrivingPlan, addRequest, requestedTermKey, position)
+      : null;
+  const plan = addOutcome?.status === "added" ? addOutcome.plan : arrivingPlan;
 
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const chosenMinor = version.minors.find((m) => m.id === plan.minorId);
@@ -206,19 +229,8 @@ export default async function StudyPlanPage({
   // student running behind the recommended plan's nominal end (see
   // `addTermToPlan`) has appended terms of their own, and those have to keep
   // showing up here too, or they would vanish again on the next render.
-  const cutoff = termIndex(position);
-  const recommendedFutureTerms = version.recommendedPlan.value
-    .map((t) => t.term)
-    .filter((term) => termIndex(term) >= cutoff);
-  const seenTermKeys = new Set<string>();
-  const futureTerms: TermRef[] = [];
-  for (const term of [...recommendedFutureTerms, ...plan.terms.map((t) => t.term)]) {
-    const key = termKey(term);
-    if (seenTermKeys.has(key)) continue;
-    seenTermKeys.add(key);
-    futureTerms.push(term);
-  }
-  futureTerms.sort((a, b) => termIndex(a) - termIndex(b));
+  const futureTerms = screenTerms(version, plan, position);
+  const seenTermKeys = new Set(futureTerms.map(termKey));
 
   // Exactly one term is expanded, so the screen offers one thing to act on
   // rather than ten. Which one is the server's decision, not the browser's:
@@ -266,8 +278,11 @@ export default async function StudyPlanPage({
     pickRemainingTemplate: copy.plan.pickRemainingTemplate,
     pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
     internshipOnlyTerm: copy.plan.internshipOnlyTerm,
+    courseLink: linkCopy.picker.courseLink,
     courseSearch: { ...copy.courseSearch, prompt: copy.plan.addCoursePrompt },
   };
+  const courseHref = (code: string) => localeHref(locale, `/student-life/course-reviews/${code}`);
+  const contextLine = (code: string) => courseContextLine(code, locale, linkCopy.picker);
 
   return (
     <>
@@ -275,6 +290,15 @@ export default async function StudyPlanPage({
       {/* Renders nothing; only mirrors the plan to localStorage so it survives closing the tab. */}
       <PlanStore plan={serialisedPlan} />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
+        {addOutcome ? (
+          <AddOutcomeNotice
+            outcome={addOutcome}
+            linkCopy={linkCopy}
+            version={version}
+            undoHref={`${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(arrivingPlan))}`}
+          />
+        ) : null}
+
         <InferenceNotice version={version} cohortCode={plan.cohort} locale={locale} />
 
         <div className="flex flex-col gap-4 rounded-lg border border-line p-5">
@@ -332,7 +356,7 @@ export default async function StudyPlanPage({
                   <tr key={shortfall.category.id} className="border-b border-line">
                     <td className="py-2 pr-3 text-ink">
                       {categoryLabel(
-                        copy,
+                        copy.plan,
                         shortfall.category.id,
                         shortfall.category.name[locale],
                         minorName
@@ -394,11 +418,18 @@ export default async function StudyPlanPage({
               };
             });
             const suggestion = suggestForTerm(version, plan, term);
-            const courseGroups = buildCourseGroups(copy, version, locale, minorName, suggestion);
+            const courseGroups = buildCourseGroups(
+              copy,
+              version,
+              locale,
+              minorName,
+              suggestion,
+              contextLine
+            );
             const openSlots: TermEditorSlot[] = suggestion.openSlots.map((slot) => ({
               id: slot.id,
               label: slot.label[locale],
-              candidates: slot.candidates.map(toTermEditorCourse),
+              candidates: slot.candidates.map((course) => toTermEditorCourse(course, contextLine)),
             }));
             return (
               <TermEditor
@@ -417,6 +448,7 @@ export default async function StudyPlanPage({
                 addAction={addCourseToTerm.bind(null, locale)}
                 removeAction={removeCourseFromTerm.bind(null, locale)}
                 freeElectiveAction={setTermFreeElectiveCredits.bind(null, locale)}
+                courseHref={courseHref}
                 copy={termEditorCopy}
               />
             );

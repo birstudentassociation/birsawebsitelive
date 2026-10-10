@@ -12,13 +12,14 @@
  */
 import {
   CURRENT_VERSION,
+  codesIn,
   courseNode,
   prerequisites,
   recommendedIn,
   unlocks as unlocksIn,
   type MinorMembership,
 } from "@/lib/courses/graph";
-import type { Course as CurriculumCourse, TermRef } from "@/content/curriculum/types";
+import type { Course as CurriculumCourse, MinorId, TermRef } from "@/content/curriculum/types";
 
 /** The 2568 curriculum entry for a course code, if the curriculum lists it. */
 export function curriculumCourse(code: string): CurriculumCourse | undefined {
@@ -43,4 +44,22 @@ export function recommendedTerms(code: string): TermRef[] {
 /** The minors a course counts towards, and whether it is required or elective there. */
 export function minorsFor(code: string): MinorMembership[] {
   return [...(courseNode(code)?.versions[CURRENT_VERSION]?.minors ?? [])];
+}
+
+/**
+ * For each minor, the codes of the courses in it, required or elective,
+ * sorted. This is what the catalogue's minor filter reads, passed to the
+ * browser as plain data so the client never imports the graph.
+ */
+export function minorMembers(): Record<MinorId, string[]> {
+  const members: Record<MinorId, string[]> = {
+    governance: [],
+    publicAdministration: [],
+    globalPoliticalEconomy: [],
+  };
+  for (const code of codesIn(CURRENT_VERSION)) {
+    for (const minor of minorsFor(code)) members[minor.id].push(code);
+  }
+  for (const codes of Object.values(members)) codes.sort();
+  return members;
 }

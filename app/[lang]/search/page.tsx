@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { exactCourseHref } from "@/lib/search/intent";
 import { runSearch } from "@/lib/search/query";
 import { sectionLabel, sectionOrder } from "@/lib/search/sections";
 import type { SectionKey } from "@/lib/search/types";
@@ -113,6 +114,10 @@ export default async function SearchPage({
 
   const { q, section: sectionParam } = await searchParams;
   const query = q ?? "";
+  // A query that is exactly a course code ("PI380", "pi 380") is not a search,
+  // it is a destination: go straight to that course's page.
+  const courseHref = exactCourseHref(locale, query);
+  if (courseHref) redirect(courseHref);
   // Unknown section values are ignored rather than 404ing: a stale or
   // hand-edited `?section=` should fall back to "all sections", not break
   // the page.

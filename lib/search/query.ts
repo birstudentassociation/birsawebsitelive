@@ -10,7 +10,8 @@
  */
 import { localeHref, type Locale } from "@/lib/i18n";
 import { buildIndex, search, type SearchIndex } from "@/lib/search/engine";
-import { matchIntent, type BestBet } from "@/lib/search/intent";
+import { courseNode } from "@/lib/courses/graph";
+import { exactCourseCode, matchIntent, type BestBet } from "@/lib/search/intent";
 import { staticPages } from "@/lib/search/pages";
 import { sectionLabel, sectionOrder } from "@/lib/search/sections";
 import { checkDocs } from "@/lib/search/sources/checks";
@@ -157,10 +158,25 @@ export type Suggestion = {
 
 export function suggest(locale: Locale, rawQuery: string, limit = 8): Suggestion[] {
   const response = runSearch(locale, rawQuery, { limit });
-  return response.results.map((result) => ({
+  const suggestions = response.results.map((result) => ({
     title: result.doc.title,
     href: result.doc.href,
     section: result.doc.section,
     sectionLabel: sectionLabel(locale, result.doc.section),
   }));
+
+  // A query that is exactly a course code leads with that course, for any code
+  // with a page. The ranked index only knows the catalogue's courses, so
+  // without this "LAS101" would suggest nothing.
+  const code = exactCourseCode(rawQuery);
+  const node = code ? courseNode(code) : undefined;
+  if (!node) return suggestions;
+  const href = localeHref(locale, `/student-life/course-reviews/${node.code}`);
+  const lead: Suggestion = {
+    title: `${node.code} ${node.catalogue ? node.catalogue.title[locale] : node.title}`,
+    href,
+    section: "courses",
+    sectionLabel: sectionLabel(locale, "courses"),
+  };
+  return [lead, ...suggestions.filter((suggestion) => suggestion.href !== href)].slice(0, limit);
 }

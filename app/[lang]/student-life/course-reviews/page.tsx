@@ -9,7 +9,11 @@ import CourseReviewBrowser, {
   CourseReviewBrowserFallback,
   type CourseReviewDict,
 } from "@/components/course-review/CourseReviewBrowser";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { courses } from "@/content/course-review/courses";
+import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import { CURRENT_VERSION } from "@/lib/courses/graph";
+import { minorMembers } from "@/lib/course-review/facts";
 import { studentLifeLabel } from "@/content/student-life/topics";
 
 // Literal route: sits as a sibling of `[audience]/page.tsx` and takes
@@ -76,6 +80,13 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
     pageOf: t.pageOf,
   };
 
+  // The minors of the curriculum the catalogue describes, named in the page's
+  // language, for the minor filter.
+  const minorOptions = CURRICULUM_VERSIONS[CURRENT_VERSION].minors.map((minor) => ({
+    id: minor.id,
+    label: minor.name[locale],
+  }));
+
   return (
     <>
       <PageHeader
@@ -99,7 +110,14 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             <CourseReviewBrowserFallback courses={courses} locale={locale} dict={browserDict} />
           }
         >
-          <CourseReviewBrowser courses={courses} locale={locale} dict={browserDict} />
+          <CourseReviewBrowser
+            courses={courses}
+            locale={locale}
+            dict={browserDict}
+            minorOptions={minorOptions}
+            minorMembers={minorMembers()}
+            planCopy={buildPlanLinkCopy(locale).browser}
+          />
         </Suspense>
       </div>
     </>

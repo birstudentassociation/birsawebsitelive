@@ -22,6 +22,7 @@ import {
   startYearFromCohort,
   type StudyPlan,
 } from "@/lib/study-plan/plan";
+import { resolvePosition } from "@/lib/study-plan/position";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { resolveCourseCode } from "@/lib/study-plan/courseMatch";
 import { clearDraft, mergeDraft, readDraft } from "@/components/forms/draftCookie";
@@ -539,8 +540,11 @@ export async function populatePlanFromRecommended(
     redirect(localeHref(locale, "/services/study-plan/minor"));
   }
 
+  // The draft cookie lasts thirty minutes, so a plan resumed from the device
+  // later has none; the plan screen then works the position out from the
+  // cohort and the calendar, and this has to agree with it.
   const draft = await readDraft<StudyPlanDraft>(STUDY_PLAN_COOKIE);
-  const position = draftPosition(draft);
+  const position = resolvePosition(draft, current.cohort, new Date());
   if (!position) {
     redirect(localeHref(locale, "/services/study-plan/where"));
   }

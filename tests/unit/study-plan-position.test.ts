@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { academicTermAt, derivePosition } from "@/lib/study-plan/position";
+import { academicTermAt, derivePosition, resolvePosition } from "@/lib/study-plan/position";
 
 describe("academicTermAt", () => {
   it("maps August to December to semester 1 of the academic year starting that Gregorian year", () => {
@@ -92,5 +92,41 @@ describe("derivePosition", () => {
     expect(derivePosition("6", new Date("2026-08-04T12:00:00+07:00"))).toBeNull();
     expect(derivePosition("abc", new Date("2026-08-04T12:00:00+07:00"))).toBeNull();
     expect(derivePosition("", new Date("2026-08-04T12:00:00+07:00"))).toBeNull();
+  });
+});
+
+describe("resolvePosition", () => {
+  const today = new Date("2026-08-04T12:00:00+07:00");
+
+  it("prefers the position the student chose over the calendar", () => {
+    // Cohort 67 would be derived as year 3; the student said they are behind.
+    expect(resolvePosition({ positionYear: "2", positionKind: "semester2" }, "67", today)).toEqual({
+      year: 2,
+      kind: "semester2",
+    });
+  });
+
+  it("falls back to the cohort and the calendar when the draft has expired", () => {
+    expect(resolvePosition({}, "67", today)).toEqual({ year: 3, kind: "semester1" });
+  });
+
+  it("treats a half-complete or invalid draft as no draft", () => {
+    const derived = { year: 3, kind: "semester1" };
+    expect(resolvePosition({ positionYear: "2" }, "67", today)).toEqual(derived);
+    expect(resolvePosition({ positionKind: "semester2" }, "67", today)).toEqual(derived);
+    expect(resolvePosition({ positionYear: "9", positionKind: "semester1" }, "67", today)).toEqual(
+      derived
+    );
+    expect(resolvePosition({ positionYear: "x", positionKind: "semester1" }, "67", today)).toEqual(
+      derived
+    );
+    expect(resolvePosition({ positionYear: "2", positionKind: "winter" }, "67", today)).toEqual(
+      derived
+    );
+  });
+
+  it("is null when neither the draft nor the cohort gives a position", () => {
+    expect(resolvePosition({}, "99", today)).toBeNull();
+    expect(resolvePosition({}, "abc", today)).toBeNull();
   });
 });

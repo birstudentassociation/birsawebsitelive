@@ -42,11 +42,13 @@
  * quick-add buttons are real elements and could carry markup, but they say
  * it the same way, so the two never disagree.
  */
+import Link from "next/link";
 import Button from "@/components/Button";
 import CourseCombobox, {
   type CourseComboboxCopy,
   type CourseComboboxGroup,
 } from "@/components/forms/CourseCombobox";
+import { termKey } from "@/lib/study-plan/derive";
 import { PLAN_FIELD } from "@/lib/study-plan/plan";
 import type { TermRef } from "@/content/curriculum";
 import TermFreeElectiveForm, { type TermFreeElectiveState } from "./TermFreeElectiveForm";
@@ -57,6 +59,12 @@ export type TermEditorCourse = {
   credits: number;
   /** Prerequisite codes not met before this term. Annotated, never withheld. */
   missingPrerequisites: string[];
+  /**
+   * One line of facts from the course catalogue (how it is assessed, whether
+   * student reviews exist, who teaches it), shown under the course in the quick
+   * add cards. Absent where the catalogue has nothing to say.
+   */
+  context?: string | null;
 };
 
 export type TermEditorCourseGroup = {
@@ -102,6 +110,8 @@ export type TermEditorCopy = {
   pickPrerequisiteTemplate: string;
   /** Shown in place of the pick panel and the add-course form when `internshipOnly` is true. */
   internshipOnlyTerm: string;
+  /** Text of the link to a course's page; the course code follows it as screen reader text. */
+  courseLink: string;
   /** Copy for the add-course `CourseCombobox`; shared verbatim with the fill step's slots. */
   courseSearch: CourseComboboxCopy;
 };
@@ -146,6 +156,8 @@ export type TermEditorProps = {
     prevState: TermFreeElectiveState,
     formData: FormData
   ) => Promise<TermFreeElectiveState>;
+  /** The course page for a code, so every code on this screen links to it. */
+  courseHref: (code: string) => string;
   copy: TermEditorCopy;
 };
 
@@ -160,9 +172,7 @@ export type TermEditorProps = {
 const MAX_CANDIDATE_BUTTONS = 6;
 
 /** The URL fragment and anchor id for one term, shared with the plan screen's `?term=` parameter. */
-export function termKey(term: TermRef): string {
-  return `${term.year}-${term.kind}`;
-}
+export { termKey };
 
 /**
  * An optgroup's visible label: the group's own name, plus how many credits
@@ -200,29 +210,53 @@ function courseOptionLabel(copy: TermEditorCopy, course: TermEditorCourse): stri
  * control and then the other is never told two different things about the
  * same course. The accessible name gets the verb the plus sign only implies.
  */
-function AddCourseButton({ course, copy }: { course: TermEditorCourse; copy: TermEditorCopy }) {
+function AddCourseButton({
+  course,
+  copy,
+  courseHref,
+}: {
+  course: TermEditorCourse;
+  copy: TermEditorCopy;
+  courseHref: (code: string) => string;
+}) {
+  // The card is a button beside a link, not a link inside a button: nesting
+  // one interactive element in another is invalid and breaks for assistive
+  // technology. The button keeps the whole sentence, so pressing it still
+  // adds the course; the link sits at the card's edge and opens the course page.
   return (
-    <button
-      type="submit"
-      name="code"
-      value={course.code}
-      className="focus-halo flex items-start gap-2 rounded-md border border-line bg-surface px-3 py-2 text-left text-sm text-ink transition-colors hover:border-brand-deep hover:bg-brand-tint"
-    >
-      <span aria-hidden="true" className="font-semibold text-brand-deep">
-        +
-      </span>
-      <span className="min-w-0">
-        <span className="sr-only">{copy.addButtonLabel} </span>
-        {`${course.code} ${course.title}`}
-        <span className="text-muted">
-          {" · "}
-          {course.credits} {copy.creditsUnit}
-          {course.missingPrerequisites.length > 0
-            ? ` · ${copy.pickPrerequisiteTemplate.replace("{codes}", course.missingPrerequisites.join(", "))}`
-            : ""}
+    <div className="flex items-start rounded-md border border-line bg-surface text-sm text-ink transition-colors hover:border-brand-deep hover:bg-brand-tint">
+      <button
+        type="submit"
+        name="code"
+        value={course.code}
+        className="focus-halo flex min-w-0 flex-1 items-start gap-2 rounded-l-md px-3 py-2 text-left"
+      >
+        <span aria-hidden="true" className="font-semibold text-brand-deep">
+          +
         </span>
-      </span>
-    </button>
+        <span className="min-w-0">
+          <span className="sr-only">{copy.addButtonLabel} </span>
+          {`${course.code} ${course.title}`}
+          <span className="text-muted">
+            {" · "}
+            {course.credits} {copy.creditsUnit}
+            {course.missingPrerequisites.length > 0
+              ? ` · ${copy.pickPrerequisiteTemplate.replace("{codes}", course.missingPrerequisites.join(", "))}`
+              : ""}
+          </span>
+          {course.context ? (
+            <span className="mt-0.5 block text-xs text-muted">{course.context}</span>
+          ) : null}
+        </span>
+      </button>
+      <Link
+        href={courseHref(course.code)}
+        className="focus-halo shrink-0 rounded-r-md px-3 py-2 text-sm font-semibold text-brand-deep hover:underline"
+      >
+        {copy.courseLink}
+        <span className="sr-only"> {course.code}</span>
+      </Link>
+    </div>
   );
 }
 
@@ -241,6 +275,7 @@ export default function TermEditor({
   addAction,
   removeAction,
   freeElectiveAction,
+  courseHref,
   copy,
 }: TermEditorProps) {
   const termCredits = placed.reduce((sum, course) => sum + course.credits, 0) + freeElectiveCredits;
@@ -346,7 +381,12 @@ export default function TermEditor({
                   className="flex items-center justify-between gap-3 rounded-md border border-line bg-surface p-3 text-sm"
                 >
                   <span className="text-ink">
-                    <span className="font-semibold">{course.code}</span>
+                    <Link
+                      href={courseHref(course.code)}
+                      className="font-semibold text-brand-deep hover:underline"
+                    >
+                      {course.code}
+                    </Link>
                     {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
                     {copy.creditsUnit}
                   </span>
@@ -404,7 +444,12 @@ export default function TermEditor({
                       <>
                         <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                           {slot.candidates.slice(0, MAX_CANDIDATE_BUTTONS).map((course) => (
-                            <AddCourseButton key={course.code} course={course} copy={copy} />
+                            <AddCourseButton
+                              key={course.code}
+                              course={course}
+                              copy={copy}
+                              courseHref={courseHref}
+                            />
                           ))}
                         </div>
                         {slot.candidates.length > MAX_CANDIDATE_BUTTONS ? (
@@ -425,7 +470,12 @@ export default function TermEditor({
                 {namedRecommended.length > 0 ? (
                   <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                     {namedRecommended.map((course) => (
-                      <AddCourseButton key={course.code} course={course} copy={copy} />
+                      <AddCourseButton
+                        key={course.code}
+                        course={course}
+                        copy={copy}
+                        courseHref={courseHref}
+                      />
                     ))}
                   </div>
                 ) : null}

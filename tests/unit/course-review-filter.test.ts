@@ -3,11 +3,13 @@ import { courses } from "@/content/course-review/courses";
 import type { Course } from "@/content/course-review/types";
 import {
   DEFAULT_FILTERS,
+  MINOR_IDS,
   filterCourses,
   parseFilters,
   serialiseFilters,
   type CourseFilters,
 } from "@/lib/course-review/filter";
+import { minorMembers, minorsFor } from "@/lib/course-review/facts";
 
 const withFilters = (patch: Partial<CourseFilters>): CourseFilters => ({
   ...DEFAULT_FILTERS,
@@ -101,6 +103,83 @@ describe("filterCourses", () => {
     expect(filterCourses(courses, withFilters({ page: 7 }))).toEqual(courses);
   });
 
+  describe("minor filter", () => {
+    const listed = {
+      governance: ["PI380", "PI390"],
+      publicAdministration: ["PI340"],
+      globalPoliticalEconomy: [],
+    };
+
+    it("keeps the courses the membership lists for that minor", () => {
+      const result = filterCourses(courses, withFilters({ minor: "governance" }), {
+        minorMembers: listed,
+      });
+      expect(codesOf(result)).toEqual(["PI380", "PI390"]);
+    });
+
+    it("keeps nothing for a minor with no members, or when no membership is given", () => {
+      const gpe = withFilters({ minor: "globalPoliticalEconomy" });
+      expect(filterCourses(courses, gpe, { minorMembers: listed })).toEqual([]);
+      // A missing table must never read as "every course".
+      expect(filterCourses(courses, withFilters({ minor: "governance" }))).toEqual([]);
+    });
+
+    it("combines with the other filters", () => {
+      const result = filterCourses(courses, withFilters({ minor: "governance", query: "PI390" }), {
+        minorMembers: listed,
+      });
+      expect(codesOf(result)).toEqual(["PI390"]);
+    });
+
+    it("matches the course graph's membership for the current curriculum", () => {
+      // The page passes the graph's membership, so this is the real filter.
+      const members = minorMembers();
+      for (const minor of MINOR_IDS) {
+        const result = filterCourses(courses, withFilters({ minor }), { minorMembers: members });
+        expect(result.length, minor).toBeGreaterThan(0);
+        for (const course of result) {
+          expect(
+            minorsFor(course.code).map((m) => m.id),
+            `${course.code} in ${minor}`
+          ).toContain(minor);
+        }
+      }
+    });
+  });
+
+  describe("with my plan filters", () => {
+    const plan = {
+      notPassed: (code: string) => code !== "PI121",
+      ready: (code: string) => code === "PI270" || code === "PI121",
+      short: (code: string) => code === "PI270",
+    };
+
+    it("applies each filter through the plan matcher", () => {
+      expect(
+        codesOf(filterCourses(courses, withFilters({ notPassed: true }), { plan }))
+      ).not.toContain("PI121");
+      expect(codesOf(filterCourses(courses, withFilters({ ready: true }), { plan }))).toEqual([
+        "PI121",
+        "PI270",
+      ]);
+      expect(codesOf(filterCourses(courses, withFilters({ short: true }), { plan }))).toEqual([
+        "PI270",
+      ]);
+    });
+
+    it("combines them", () => {
+      const result = filterCourses(courses, withFilters({ notPassed: true, ready: true }), {
+        plan,
+      });
+      expect(codesOf(result)).toEqual(["PI270"]);
+    });
+
+    it("does nothing without a plan, so the same URL works for a visitor who has none", () => {
+      const on = withFilters({ notPassed: true, ready: true, short: true });
+      expect(filterCourses(courses, on)).toEqual(courses);
+    });
+  });
+
   it("preserves catalogue order", () => {
     const result = codesOf(filterCourses(courses, withFilters({ year: 2 })));
     expect(result).toEqual([...result].sort());
@@ -118,10 +197,33 @@ describe("parseFilters and serialiseFilters", () => {
       track: "governance-transnational",
       category: "minor-elective",
       year: 3,
+      minor: "globalPoliticalEconomy",
       reviewed: true,
+      notPassed: true,
+      ready: true,
+      short: true,
       page: 4,
     };
     expect(parseFilters(serialiseFilters(filters))).toEqual(filters);
+  });
+
+  it("round-trips each minor through the URL and drops one it does not know", () => {
+    for (const minor of MINOR_IDS) {
+      const params = serialiseFilters(withFilters({ minor }));
+      expect(params.get("minor")).toBe(minor);
+      expect(parseFilters(new URLSearchParams(params.toString())).minor).toBe(minor);
+    }
+    expect(serialiseFilters(withFilters({ minor: "all" })).has("minor")).toBe(false);
+    expect(parseFilters(new URLSearchParams("minor=astrology")).minor).toBe("all");
+    expect(parseFilters(new URLSearchParams("minor=Governance")).minor).toBe("all");
+  });
+
+  it("serialises the plan filters as 1 and reads only 1 back", () => {
+    expect(
+      serialiseFilters(withFilters({ notPassed: true, ready: true, short: true })).toString()
+    ).toBe("notPassed=1&ready=1&short=1");
+    const parsed = parseFilters(new URLSearchParams("notPassed=true&ready=0&short=1"));
+    expect([parsed.notPassed, parsed.ready, parsed.short]).toEqual([false, false, true]);
   });
 
   it("round-trips a Thai query", () => {

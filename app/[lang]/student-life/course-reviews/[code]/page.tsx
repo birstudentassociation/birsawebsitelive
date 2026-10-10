@@ -11,6 +11,8 @@ import Button from "@/components/Button";
 import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
+import YourPlanPanel from "@/components/course-review/YourPlanPanel";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { courses } from "@/content/course-review/courses";
 import type {
   AcademicTerm,
@@ -193,6 +195,15 @@ export default async function CourseDetailPage({
             </Tag>
           ) : null}
         </div>
+
+        {/* Renders only for a visitor with JavaScript and a plan saved on this device. */}
+        <YourPlanPanel
+          code={node.code}
+          locale={locale}
+          copy={buildPlanLinkCopy(locale)}
+          planHref={localeHref(locale, "/services/study-plan/plan")}
+          courseLinkBase={localeHref(locale, "/student-life/course-reviews")}
+        />
 
         <section aria-labelledby="facts-heading" className="flex flex-col gap-2 sm:gap-3">
           <h2 id="facts-heading" className="font-display text-lg sm:text-xl">

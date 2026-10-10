@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { CURRICULUM_VERSIONS, type CategoryId, type TermRef } from "@/content/curriculum";
+import Link from "next/link";
+import { CURRICULUM_VERSIONS, type TermRef } from "@/content/curriculum";
 import { planTotals, remainingRequirements } from "@/lib/study-plan/derive";
 import { checkPlan } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
@@ -14,7 +15,11 @@ import { buildMetadata } from "@/lib/seo";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import FindingsList from "@/components/study-plan/FindingsList";
 import Notice from "@/components/Notice";
-import { buildStudyPlanCopy, type StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
+import {
+  buildStudyPlanCopy,
+  categoryLabel,
+  type StudyPlanCopy,
+} from "@/components/study-plan/studyPlanCopy";
 
 export async function generateMetadata({
   params,
@@ -39,23 +44,20 @@ function formatTermLabel(copy: StudyPlanCopy, term: TermRef): string {
   return `${copy.terms.yearTemplate.replace("{n}", String(term.year))}, ${copy.terms[term.kind]}`;
 }
 
-/** See the identical function on the plan screen: the three minor buckets are named for the student's actual chosen minor. */
-function categoryLabel(
-  copy: StudyPlanCopy,
-  categoryId: CategoryId,
-  categoryName: string,
-  minorName: string
-): string {
-  switch (categoryId) {
-    case "minorRequired":
-      return copy.plan.minorRequiredTemplate.replace("{minor}", minorName);
-    case "minorElective":
-      return copy.plan.minorElectiveTemplate.replace("{minor}", minorName);
-    case "minorElectiveOther":
-      return copy.plan.minorElectiveOtherTemplate.replace("{minor}", minorName);
-    default:
-      return categoryName;
-  }
+/**
+ * A course code that opens the course page, in the page's own text colour on
+ * paper: the underline marks it as a link on screen, and the printout loses
+ * nothing because the code is still printed.
+ */
+function CourseCodeLink({ code, locale }: { code: string; locale: Locale }) {
+  return (
+    <Link
+      href={localeHref(locale, `/student-life/course-reviews/${code}`)}
+      className="font-semibold text-brand-deep underline underline-offset-2 hover:text-brand-dark print:text-ink"
+    >
+      {code}
+    </Link>
+  );
 }
 
 /**
@@ -140,7 +142,7 @@ export default async function StudyPlanPrintPage({
           <ul className="mt-3 flex flex-col gap-1 text-sm">
             {passedCourses.map((course) => (
               <li key={course.code}>
-                <span className="font-semibold">{course.code}</span>
+                <CourseCodeLink code={course.code} locale={locale} />
                 {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
                 {copy.plan.creditsUnit}
               </li>
@@ -178,7 +180,7 @@ export default async function StudyPlanPrintPage({
                   <ul className="mt-2 flex flex-col gap-1 text-sm">
                     {printTerm.courses.map((course) => (
                       <li key={course.code}>
-                        <span className="font-semibold">{course.code}</span>
+                        <CourseCodeLink code={course.code} locale={locale} />
                         {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
                         {copy.plan.creditsUnit}
                       </li>
@@ -233,7 +235,7 @@ export default async function StudyPlanPrintPage({
                 <tr key={shortfall.category.id} className="border-b border-line">
                   <td className="py-2 pr-3 text-ink">
                     {categoryLabel(
-                      copy,
+                      copy.plan,
                       shortfall.category.id,
                       shortfall.category.name[locale],
                       minorName

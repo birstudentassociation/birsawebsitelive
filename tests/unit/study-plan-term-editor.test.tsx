@@ -54,6 +54,7 @@ const copy: TermEditorCopy = {
   pickRemainingTemplate: "{n} credits still needed",
   pickPrerequisiteTemplate: "needs {codes} first",
   internshipOnlyTerm: "This summer is given over to the internship.",
+  courseLink: "Course page",
   courseSearch: {
     prompt: "Choose a course",
     typeaheadHint: "Start typing a course code or name.",
@@ -92,6 +93,7 @@ function renderEditor(overrides: {
       addAction={noop}
       removeAction={noop}
       freeElectiveAction={noopState}
+      courseHref={(code) => `/en/student-life/course-reviews/${code}`}
       copy={copy}
     />
   );
@@ -339,6 +341,58 @@ describe("TermEditor", () => {
     expect(
       ui.getByText("This term already has the 18 credits the recommended plan schedules.")
     ).toBeDefined();
+  });
+});
+
+describe("TermEditor course links", () => {
+  /** Every anchor in the container, as its href. */
+  function hrefs(container: HTMLElement): string[] {
+    return [...container.querySelectorAll("a")].map((a) => a.getAttribute("href") ?? "");
+  }
+
+  it("links a placed course's code to its course page", () => {
+    const { container, ui } = renderEditor({ placed: [pi470] });
+    const link = ui.getByRole("link", { name: "PI470" });
+    expect(link.getAttribute("href")).toBe("/en/student-life/course-reviews/PI470");
+    expect(hrefs(container)).toContain("/en/student-life/course-reviews/PI470");
+  });
+
+  it("puts a course page link beside each quick-add button, not inside it", () => {
+    const { container } = renderEditor({ courseGroups: [{ ...recommended, courses: [pi380] }] });
+    const button = container.querySelector<HTMLButtonElement>('button[value="PI380"]');
+    expect(button?.querySelector("a")).toBeNull();
+    const link = [...container.querySelectorAll("a")].find((a) =>
+      a.getAttribute("href")?.endsWith("/PI380")
+    );
+    expect(link?.textContent).toBe("Course page PI380");
+    // Same card, so the two read as one course.
+    expect(link?.parentElement).toBe(button?.parentElement);
+  });
+
+  it("links the candidates of an open choice too", () => {
+    const { container } = renderEditor({
+      openSlots: [
+        {
+          id: "minorElective1",
+          label: "Minor Elective Course 1",
+          candidates: [
+            { code: "PI381", title: "Local Government", credits: 3, missingPrerequisites: [] },
+          ],
+        },
+      ],
+    });
+    expect(hrefs(container)).toContain("/en/student-life/course-reviews/PI381");
+  });
+
+  it("shows the catalogue's one line of context under a quick-add course, when there is one", () => {
+    const withContext = { ...pi470, context: "Final exam 40% · Taught by Dr A" };
+    const { container, ui } = renderEditor({
+      courseGroups: [{ ...recommended, courses: [withContext, pi380] }],
+    });
+    expect(ui.getByText("Final exam 40% · Taught by Dr A")).toBeDefined();
+    // A course with no context gets no empty line.
+    const plain = container.querySelector<HTMLButtonElement>('button[value="PI380"]');
+    expect(plain?.querySelectorAll(".block").length).toBe(0);
   });
 });
 

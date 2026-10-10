@@ -6,7 +6,9 @@
  * findings.ts`'s header comment); this component only presents them, in an
  * order that puts what most needs attention first.
  */
-import type { Locale } from "@/lib/i18n";
+import Link from "next/link";
+import { hasPage } from "@/lib/courses/graph";
+import { localeHref, type Locale } from "@/lib/i18n";
 import type { Finding } from "@/lib/study-plan/findings";
 
 const SEVERITY_ORDER: Record<Finding["severity"], number> = {
@@ -20,6 +22,39 @@ const SEVERITY_BORDER: Record<Finding["severity"], string> = {
   warning: "border-warning",
   note: "border-line-strong",
 };
+
+/**
+ * A course code as findings write them, e.g. PI300 or LAS101, not part of a
+ * longer run of letters or digits. The capture group makes `split` keep the
+ * codes, at the odd indices.
+ */
+const COURSE_CODE = /(?<![A-Za-z0-9])([A-Z]{2,4}\d{3})(?![A-Za-z0-9])/;
+
+/**
+ * A finding's message with each course code that has a page turned into a
+ * link to it, so "PI300 needs PI211 passed first" takes the student to PI211
+ * in one step. The messages stay plain strings in `checkPlan`, so the findings
+ * engine is unchanged and a code with no page is simply left as text.
+ */
+function MessageWithCourseLinks({ message, locale }: { message: string; locale: Locale }) {
+  return (
+    <>
+      {message.split(COURSE_CODE).map((part, i) =>
+        i % 2 === 1 && hasPage(part) ? (
+          <Link
+            key={i}
+            href={localeHref(locale, `/student-life/course-reviews/${part}`)}
+            className="font-semibold text-brand-deep underline underline-offset-2 hover:text-brand-dark print:text-ink"
+          >
+            {part}
+          </Link>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
 
 export type FindingsListProps = {
   findings: Finding[];
@@ -46,7 +81,9 @@ export default function FindingsList({ findings, locale, emptyMessage }: Finding
           key={finding.id}
           className={`rounded-md border-l-4 bg-surface p-3 text-sm ${SEVERITY_BORDER[finding.severity]}`}
         >
-          <p className="text-ink">{finding.message[locale]}</p>
+          <p className="text-ink">
+            <MessageWithCourseLinks message={finding.message[locale]} locale={locale} />
+          </p>
           <p className="mt-1 text-xs text-muted">{finding.source.provision}</p>
         </li>
       ))}

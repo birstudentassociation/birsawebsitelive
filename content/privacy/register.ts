@@ -623,8 +623,8 @@ export const browserStorage: BrowserStorageRecord[] = [
   {
     key: "birsa-study-plan",
     purpose: {
-      en: "Keeps a copy of the study plan you built, so it is still there if you close the tab and come back. Only set once you reach the plan screen, never sent to BIRSA, and cleared straight away by the delete button on that screen.",
-      th: "เก็บสำเนาแผนการศึกษาที่ท่านจัดทำไว้ เพื่อให้ยังคงอยู่แม้ท่านปิดแท็บแล้วกลับมาใหม่ กำหนดค่าเมื่อท่านไปถึงหน้าแผนการศึกษาเท่านั้น ไม่มีการส่งข้อมูลนี้ไปยัง BIRSA แต่อย่างใด และจะถูกลบทันทีเมื่อท่านกดปุ่มลบในหน้าดังกล่าว",
+      en: "Keeps a copy of the study plan you built, so it is still there if you close the tab and come back. The study plan start page offers to continue from it, and course pages and the course catalogue read it, on your device only, to show where a course sits in your plan. Only set once you reach the plan screen, never sent to BIRSA, and cleared straight away by the delete button on that screen.",
+      th: "เก็บสำเนาแผนการศึกษาที่ท่านจัดทำไว้ เพื่อให้ยังคงอยู่แม้ท่านปิดแท็บแล้วกลับมาใหม่ หน้าเริ่มต้นของบริการแผนการศึกษาจะเสนอให้ทำต่อจากแผนนี้ และหน้ารายวิชากับแคตตาล็อกรายวิชาจะอ่านแผนนี้ในอุปกรณ์ของท่านเท่านั้น เพื่อแสดงว่ารายวิชาอยู่ตรงไหนในแผนของท่าน กำหนดค่าเมื่อท่านไปถึงหน้าแผนการศึกษาเท่านั้น ไม่มีการส่งข้อมูลนี้ไปยัง BIRSA แต่อย่างใด และจะถูกลบทันทีเมื่อท่านกดปุ่มลบในหน้าดังกล่าว",
     },
   },
 ];

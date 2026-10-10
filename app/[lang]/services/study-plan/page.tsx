@@ -6,6 +6,8 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import Notice from "@/components/Notice";
+import ContinuePlan from "@/components/study-plan/ContinuePlan";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 
 export async function generateMetadata({
@@ -47,6 +49,7 @@ export default async function StudyPlanStartPage({
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const copy = buildStudyPlanCopy(locale);
+  const planLinkCopy = buildPlanLinkCopy(locale);
   const servicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
   // Set by `deleteStudyPlan`'s redirect (app/[lang]/services/study-plan/actions.ts).
@@ -77,6 +80,12 @@ export default async function StudyPlanStartPage({
             {copy.start.deletedBody}
           </Notice>
         ) : null}
+
+        {/* Renders only for a visitor with JavaScript and a plan saved on this device. */}
+        <ContinuePlan
+          copy={planLinkCopy.resume}
+          planHref={localeHref(locale, "/services/study-plan/plan")}
+        />
 
         <div>
           <h2 className="font-display text-xl">{copy.start.beforeYouStart}</h2>

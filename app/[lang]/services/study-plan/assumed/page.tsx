@@ -9,6 +9,7 @@ import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
 import AssumedStepForm, { type AssumedCourseGroup } from "@/components/forms/AssumedStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
+import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft, submitAssumedStep } from "../actions";
 import { STUDY_PLAN_STEPS } from "../steps";
@@ -112,6 +113,8 @@ export default async function StudyPlanAssumedPage({
             action={submitAssumedStep.bind(null, locale)}
             plan={serialisePlan(plan)}
             groups={groups}
+            courseLinkBase={localeHref(locale, "/student-life/course-reviews")}
+            courseLinkLabel={buildPlanLinkCopy(locale).picker.courseLink}
             freeElectiveLabel={copy.assumed.freeElectiveLabel}
             freeElectiveHint={copy.assumed.freeElectiveHint}
             freeElectiveDefault={freeElectiveDefault}

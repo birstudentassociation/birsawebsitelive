@@ -13,7 +13,7 @@
  * repeatedly; anything more speculative belongs in page keywords instead,
  * where it can influence ranking without making a claim.
  */
-import { courses } from "@/content/course-review/courses";
+import { courseNode, hasPage } from "@/lib/courses/graph";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { fold } from "@/lib/search/text";
 
@@ -219,6 +219,62 @@ const rules: Rule[] = [
         {
           label: bi(locale, "Choosing your courses", "การเลือกรายวิชา"),
           href: localeHref(locale, "/student-life/studying/curriculum"),
+        },
+      ],
+    }),
+  },
+  {
+    id: "what-next",
+    // Above the broad "course-reviews" and "study-plan" rules, whose triggers
+    // ("which course", "credits") also appear in these questions: asking what
+    // you can take next is a more specific need than either.
+    weight: 3,
+    triggers: [
+      "what can i take",
+      "what can i take next",
+      "what should i take next",
+      "what to take next",
+      "what courses can i take",
+      "which courses can i take",
+      "what classes can i take",
+      "what can i register for",
+      "courses i can take",
+      "classes i can take",
+      "courses for next semester",
+      "courses for next term",
+      "next semester courses",
+      "next term courses",
+      "เทอมหน้าเรียนอะไร",
+      "เทอมหน้าลงวิชาอะไร",
+      "ภาคหน้าเรียนอะไร",
+      "ลงวิชาอะไรดี",
+      "ลงวิชาอะไรได้",
+      "ลงทะเบียนวิชาอะไรได้",
+      "วิชาที่ลงได้",
+      "วิชาที่เรียนได้",
+      "เรียนอะไรต่อ",
+      "เรียนวิชาอะไรต่อ",
+    ],
+    build: (locale) => ({
+      id: "what-next",
+      title: bi(locale, "What you can take next", "วิชาที่เรียนต่อได้ในภาคหน้า"),
+      description: bi(
+        locale,
+        "The course catalogue, narrowed to courses you have not passed and whose prerequisites you will have met by next term. Those filters, and one for credits you still need, appear when a study plan is saved on this device. Without one you see every course.",
+        "รายวิชาในแคตตาล็อกที่ยังไม่ผ่านและผ่านวิชาที่ต้องเรียนก่อนครบภายในภาคหน้า ตัวกรองนี้ และตัวกรองหมวดที่ยังขาดหน่วยกิต จะแสดงเมื่อมีแผนการศึกษาบันทึกไว้ในอุปกรณ์เครื่องนี้ หากไม่มีแผนจะแสดงทุกรายวิชา"
+      ),
+      action: {
+        label: bi(locale, "See courses you can take next", "ดูวิชาที่เรียนต่อได้"),
+        href: `${localeHref(locale, "/student-life/course-reviews")}?notPassed=1&ready=1`,
+      },
+      links: [
+        {
+          label: bi(locale, "Make or continue your study plan", "จัดหรือทำแผนการศึกษาต่อ"),
+          href: localeHref(locale, "/services/study-plan"),
+        },
+        {
+          label: bi(locale, "All courses", "รายวิชาทั้งหมด"),
+          href: localeHref(locale, "/student-life/course-reviews"),
         },
       ],
     }),
@@ -914,27 +970,62 @@ const rules: Rule[] = [
   },
 ];
 
-/** Course codes look like "PI280" or "pi 280"; students type both. */
-const COURSE_CODE = /\b([a-z]{2,3})\s?(\d{3})\b/;
+/**
+ * Course codes are two to four letters then three digits ("PI280", "LAS101"),
+ * and students type them with or without a space ("pi 280").
+ */
+const COURSE_CODE = /\b([a-z]{2,4})\s?(\d{3})\b/;
 
 /**
- * A query that is (or contains) a real course code is unambiguous: send the
- * reader straight to that course rather than to the browse page.
+ * The code a whole query names, if every code the curriculum lists has a page
+ * for it. "PI380", "pi 380" and "pi380" all name PI380. Null when the query is
+ * anything more than a code, or names a code with no page.
+ */
+export function exactCourseCode(query: string): string | null {
+  const match = /^([a-z]{2,4})\s?(\d{3})$/.exec(fold(query));
+  if (!match) return null;
+  const code = `${match[1] ?? ""}${match[2] ?? ""}`.toUpperCase();
+  return hasPage(code) ? code : null;
+}
+
+/**
+ * Where a query that is exactly a course code should go: straight to that
+ * course's page, for any code with a page. Undefined for every other query,
+ * which then gets ordinary results.
+ */
+export function exactCourseHref(locale: Locale, query: string): string | undefined {
+  const code = exactCourseCode(query);
+  return code ? localeHref(locale, `/student-life/course-reviews/${code}`) : undefined;
+}
+
+/**
+ * A query that is (or contains) a real course code is unambiguous: offer the
+ * reader that course rather than the browse page. A course in the review
+ * catalogue is described by its catalogue entry; any other code the
+ * curriculum lists has a facts-only page, described by what the curriculum
+ * holds.
  */
 function courseCodeBet(locale: Locale, foldedQuery: string): BestBet | undefined {
   const match = COURSE_CODE.exec(foldedQuery);
   if (!match) return undefined;
   const code = `${match[1] ?? ""}${match[2] ?? ""}`.toUpperCase();
-  const course = courses.find((candidate) => candidate.code.toUpperCase() === code);
-  if (!course) return undefined;
+  const node = courseNode(code);
+  if (!node) return undefined;
+  const course = node.catalogue;
 
   return {
-    id: `course:${course.code}`,
-    title: `${course.code}: ${course.title[locale]}`,
-    description: course.description[locale],
+    id: `course:${node.code}`,
+    title: `${node.code}: ${course ? course.title[locale] : node.title}`,
+    description: course
+      ? course.description[locale]
+      : bi(
+          locale,
+          `${node.latest.credits} credits. What the curriculum says about it: the prerequisites, what it counts towards and where the recommended plan puts it.`,
+          `${node.latest.credits} หน่วยกิต ข้อมูลจากหลักสูตร ได้แก่ วิชาที่ต้องผ่านก่อน หมวดที่นับหน่วยกิต และภาคการศึกษาที่แผนแนะนำจัดไว้`
+        ),
     action: {
       label: bi(locale, "Open this course", "เปิดรายวิชานี้"),
-      href: localeHref(locale, `/student-life/course-reviews/${course.code}`),
+      href: localeHref(locale, `/student-life/course-reviews/${node.code}`),
     },
     links: [
       {

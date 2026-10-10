@@ -6,8 +6,14 @@ import Field from "@/components/Field";
 import { CardTitle } from "@/components/Card";
 import Tag from "@/components/Tag";
 import Button from "@/components/Button";
+import type { PlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import { useStoredPlan } from "@/components/study-plan/useStoredPlan";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Course, CourseCategory, CourseTrack } from "@/content/course-review/types";
+import type { MinorId } from "@/content/curriculum/types";
+import type { CourseStatus } from "@/lib/course-review/planPanel";
+import type { PlanContext } from "@/lib/course-review/planContext";
+import type { StudyPlan } from "@/lib/study-plan/plan";
 import {
   CATEGORY_ORDER,
   TRACK_ORDER,
@@ -62,6 +68,48 @@ export type CourseReviewBrowserProps = {
   dict: CourseReviewDict;
 };
 
+/** What the browser needs beyond the list itself for the minor filter and the plan-aware parts. */
+export type CourseReviewBrowserExtras = {
+  /** The curriculum's minors, named in the page's language, in the order the filter lists them. */
+  minorOptions: { id: MinorId; label: string }[];
+  /** For each minor, the codes of the courses in it, from the course graph. */
+  minorMembers: Record<MinorId, string[]>;
+  /** Labels for the minor filter, the "with my plan" filters and the card tags. */
+  planCopy: PlanLinkCopy["browser"];
+};
+
+/**
+ * The plan-aware context for a stored plan, or null while there is none. The
+ * module that builds it holds the curriculum, so it is imported only once a
+ * plan is found: a visitor without one never downloads it, and the catalogue
+ * is exactly what it was for them. The state is set in the promise callback,
+ * not synchronously in the effect, and is keyed by the plan it was built for,
+ * so a plan that changes or is deleted never shows an answer for the old one.
+ */
+function usePlanContext(): PlanContext | null {
+  const stored = useStoredPlan();
+  const [built, setBuilt] = useState<{ plan: StudyPlan; context: PlanContext } | null>(null);
+
+  useEffect(() => {
+    if (!stored) return;
+    let cancelled = false;
+    import("@/lib/course-review/planContext")
+      .then(({ buildPlanContext }) => {
+        if (!cancelled) {
+          setBuilt({ plan: stored.plan, context: buildPlanContext(stored.plan, new Date()) });
+        }
+      })
+      .catch(() => {
+        // The plan filters just do not appear; the catalogue still works.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [stored]);
+
+  return stored && built?.plan === stored.plan ? built.context : null;
+}
+
 /**
  * Search, filter and paginate the course list. Filter state lives in the URL
  * (see `lib/course-review/filter.ts`) so filtered views are shareable. The URL
@@ -69,7 +117,14 @@ export type CourseReviewBrowserProps = {
  * adds history entries and a lagging URL can never overwrite what was typed.
  * Needs a <Suspense> boundary because of useSearchParams.
  */
-export default function CourseReviewBrowser({ courses, locale, dict }: CourseReviewBrowserProps) {
+export default function CourseReviewBrowser({
+  courses,
+  locale,
+  dict,
+  minorOptions,
+  minorMembers,
+  planCopy,
+}: CourseReviewBrowserProps & CourseReviewBrowserExtras) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [filters, setFilters] = useState<CourseFilters>(() =>
@@ -80,11 +135,24 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
   // still-enabled sibling so it is never lost to <body> (WCAG 2.4.3).
   const pendingFocus = useRef<"prev" | "next" | null>(null);
 
-  const filtered = useMemo(() => filterCourses(courses, filters), [courses, filters]);
+  // Null for a visitor with no stored plan, in which case the "with my plan"
+  // filters are neither shown nor applied, even if the URL carries them.
+  const planContext = usePlanContext();
+
+  const filtered = useMemo(
+    () => filterCourses(courses, filters, { minorMembers, plan: planContext?.matcher }),
+    [courses, filters, minorMembers, planContext]
+  );
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(filters.page, totalPages);
   const pageCourses = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-  const hasFilters = serialiseFilters({ ...filters, page: 1 }).size > 0;
+  // "Clear filters" counts only what is actually narrowing the list, so a
+  // plan filter carried in the URL of a visitor with no plan does not offer
+  // to clear something that is doing nothing.
+  const activeFilters = planContext
+    ? filters
+    : { ...filters, notPassed: false, ready: false, short: false };
+  const hasFilters = serialiseFilters({ ...activeFilters, page: 1 }).size > 0;
 
   useEffect(() => {
     if (!pendingFocus.current) return;
@@ -124,6 +192,10 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
     { value: "all", label: dict.allYears },
     ...YEARS.map((value) => ({ value: String(value), label: `${dict.yearLabel} ${value}` })),
   ];
+  const minorSelectOptions = [
+    { value: "all", label: planCopy.allMinors },
+    ...minorOptions.map((option) => ({ value: option.id, label: option.label })),
+  ];
 
   const statusText =
     `${dict.showing} ${filtered.length} ${filtered.length === 1 ? dict.result : dict.results}` +
@@ -136,7 +208,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
       <h2 id="course-browse-heading" className="font-display text-xl">
         {dict.browseHeading}
       </h2>
-      <div className="grid grid-cols-2 gap-x-3 gap-y-3 sm:gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-3 sm:gap-4 lg:grid-cols-5">
         <Field
           className="col-span-2 lg:col-span-1"
           as="input"
@@ -175,7 +247,15 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
           }
           options={yearOptions}
         />
-        <label className="flex min-h-11 items-center gap-2.5 self-end text-sm leading-tight font-semibold text-ink lg:col-span-4">
+        <Field
+          as="select"
+          name="course-minor"
+          label={planCopy.minorLabel}
+          value={filters.minor}
+          onChange={(event) => change({ minor: event.target.value as CourseFilters["minor"] })}
+          options={minorSelectOptions}
+        />
+        <label className="flex min-h-11 items-center gap-2.5 self-end text-sm leading-tight font-semibold text-ink lg:col-span-5">
           <input
             type="checkbox"
             name="course-reviewed"
@@ -185,6 +265,33 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
           />
           {dict.reviewedFilterLabel}
         </label>
+        {planContext ? (
+          <fieldset className="col-span-2 flex flex-col gap-1 lg:col-span-5">
+            <legend className="text-sm font-semibold text-ink">{planCopy.planHeading}</legend>
+            <p className="text-xs text-muted sm:text-sm">{planCopy.planNote}</p>
+            {(
+              [
+                ["notPassed", planCopy.notPassed],
+                ["ready", planCopy.ready],
+                ["short", planCopy.short],
+              ] as const
+            ).map(([key, label]) => (
+              <label
+                key={key}
+                className="flex min-h-11 items-center gap-2.5 text-sm leading-tight font-semibold text-ink"
+              >
+                <input
+                  type="checkbox"
+                  name={`course-${key}`}
+                  checked={filters[key]}
+                  onChange={(event) => change({ [key]: event.target.checked })}
+                  className="focus-halo h-5 w-5 shrink-0 border-input-border accent-brand"
+                />
+                {label}
+              </label>
+            ))}
+          </fieldset>
+        ) : null}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
@@ -204,7 +311,13 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
         </div>
       ) : (
         <>
-          <CourseGrid courses={pageCourses} locale={locale} dict={dict} />
+          <CourseGrid
+            courses={pageCourses}
+            locale={locale}
+            dict={dict}
+            statusOf={planContext?.status}
+            planCopy={planCopy}
+          />
 
           {totalPages > 1 ? (
             <nav
@@ -254,15 +367,27 @@ function CourseGrid({
   courses,
   locale,
   dict,
+  statusOf,
+  planCopy,
 }: {
   courses: Course[];
   locale: Locale;
   dict: CourseReviewDict;
+  /** Present only when a plan is stored; absent means no status tags. */
+  statusOf?: (code: string) => CourseStatus;
+  planCopy?: PlanLinkCopy["browser"];
 }) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
       {courses.map((course) => (
-        <CourseCard key={course.code} course={course} locale={locale} dict={dict} />
+        <CourseCard
+          key={course.code}
+          course={course}
+          locale={locale}
+          dict={dict}
+          status={statusOf?.(course.code)}
+          planCopy={planCopy}
+        />
       ))}
     </div>
   );
@@ -272,10 +397,14 @@ function CourseCard({
   course,
   locale,
   dict,
+  status,
+  planCopy,
 }: {
   course: Course;
   locale: Locale;
   dict: CourseReviewDict;
+  status?: CourseStatus;
+  planCopy?: PlanLinkCopy["browser"];
 }) {
   const otherLocale: Locale = locale === "en" ? "th" : "en";
   const href = localeHref(locale, `/student-life/course-reviews/${course.code}`);
@@ -298,6 +427,12 @@ function CourseCard({
               ? dict.sampleBadge
               : dict.reviewedBadge}
           </Tag>
+        ) : null}
+        {status?.kind === "passed" && planCopy ? (
+          <Tag variant="forest">{planCopy.passedTag}</Tag>
+        ) : null}
+        {status?.kind === "planned" && planCopy ? (
+          <Tag variant="brand">{planCopy.plannedTag}</Tag>
         ) : null}
       </div>
       <div>

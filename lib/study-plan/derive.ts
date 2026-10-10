@@ -51,6 +51,15 @@ export function termIndex(term: TermRef): number {
   return term.year * 10 + TERM_ORDER[term.kind];
 }
 
+/**
+ * The key for one term in URLs and anchors, e.g. "3-semester1": the plan
+ * screen's `?term=` parameter, a term's `#term-` anchor, and the `term` half
+ * of a course page's `?add=` link. `parseTermKey` in addToPlan.ts reads it back.
+ */
+export function termKey(term: TermRef): string {
+  return `${term.year}-${term.kind}`;
+}
+
 /** Term kinds in sequence within a year, used by `nextTerm` to step forward one at a time. */
 const TERM_SEQUENCE: TermKind[] = ["semester1", "semester2", "summer"];
 
@@ -122,6 +131,52 @@ export function nextTerm(term: TermRef): TermRef | null {
   }
   const year = term.year + 1;
   return year > MAX_TERM_YEAR ? null : { year, kind: "semester1" };
+}
+
+/**
+ * Every term the plan screen offers for editing: the recommended plan's terms
+ * from `position` onward, plus any term the student has appended or touched.
+ * Whether or not anything is planned in a term, it is offered. In term order,
+ * each once. Shared by the plan screen and by `applyAddParam`, so "a term the
+ * student could see on the screen" and "a term a link may add to" cannot
+ * disagree.
+ */
+export function screenTerms(
+  version: CurriculumVersion,
+  plan: { terms: PlannedCourseTerm[] },
+  position: TermRef
+): TermRef[] {
+  const cutoff = termIndex(position);
+  const recommendedFuture = version.recommendedPlan.value
+    .map((t) => t.term)
+    .filter((term) => termIndex(term) >= cutoff);
+  const seen = new Set<number>();
+  const terms: TermRef[] = [];
+  for (const term of [...recommendedFuture, ...plan.terms.map((t) => t.term)]) {
+    if (seen.has(termIndex(term))) continue;
+    seen.add(termIndex(term));
+    terms.push(term);
+  }
+  return terms.sort((a, b) => termIndex(a) - termIndex(b));
+}
+
+/**
+ * The terms a course may be added to by link: every term the plan screen
+ * offers from `position` onward, plus the one "Add another term" would append
+ * after them. A link's term is checked against this, and a course page
+ * suggests only from it, so a suggestion can never be one the plan screen
+ * would then refuse.
+ */
+export function addableTerms(
+  version: CurriculumVersion,
+  plan: { terms: PlannedCourseTerm[] },
+  position: TermRef
+): TermRef[] {
+  const cutoff = termIndex(position);
+  const offered = screenTerms(version, plan, position).filter((t) => termIndex(t) >= cutoff);
+  const last = offered.at(-1);
+  const following = last ? nextTerm(last) : position;
+  return following ? [...offered, following] : offered;
 }
 
 /**

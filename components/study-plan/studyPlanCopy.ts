@@ -12,7 +12,7 @@
  * guarantee without that trap.
  */
 import type { Locale } from "@/lib/i18n";
-import type { TermKind } from "@/content/curriculum";
+import type { CategoryId, TermKind, TermRef } from "@/content/curriculum";
 
 export type StudyPlanCopy = {
   meta: { title: string; description: string };
@@ -248,6 +248,44 @@ export function formatDerivedPosition(copy: StudyPlanCopy, year: number, kind: T
   return copy.where.derivedExplanation
     .replace("{year}", copy.terms.yearTemplate.replace("{n}", String(year)))
     .replace("{term}", copy.terms[kind]);
+}
+
+/** e.g. "Year 3, Semester 1", built from the same `copy.terms` labels every step in this journey uses. */
+export function formatTermRef(terms: StudyPlanCopy["terms"], term: TermRef): string {
+  return `${terms.yearTemplate.replace("{n}", String(term.year))}, ${terms[term.kind]}`;
+}
+
+/** The three templates that name a minor bucket for the student's own minor. */
+export type CategoryTemplates = Pick<
+  StudyPlanCopy["plan"],
+  "minorRequiredTemplate" | "minorElectiveTemplate" | "minorElectiveOtherTemplate"
+>;
+
+/**
+ * Name for one credit category. The three minor buckets are named for the
+ * student's actual chosen minor, not generically, so a student never has to
+ * remember which minor they picked to read their own plan; the
+ * `minorElectiveOther` bucket (a student's electives from a minor other than
+ * their own) is likewise anchored to the chosen minor, since that is what
+ * makes those credits "other" in the first place. Shared by the plan screen,
+ * the print page and the course pages' "Your plan" panel.
+ */
+export function categoryLabel(
+  templates: CategoryTemplates,
+  categoryId: CategoryId,
+  categoryName: string,
+  minorName: string
+): string {
+  switch (categoryId) {
+    case "minorRequired":
+      return templates.minorRequiredTemplate.replace("{minor}", minorName);
+    case "minorElective":
+      return templates.minorElectiveTemplate.replace("{minor}", minorName);
+    case "minorElectiveOther":
+      return templates.minorElectiveOtherTemplate.replace("{minor}", minorName);
+    default:
+      return categoryName;
+  }
 }
 
 const en: StudyPlanCopy = {

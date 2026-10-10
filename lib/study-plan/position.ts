@@ -100,3 +100,25 @@ export function derivePosition(cohort: string, now: Date): DerivedPosition | nul
 
   return { term, now: nowTerm, clamped };
 }
+
+const TERM_KINDS: readonly TermKind[] = ["semester1", "semester2", "summer"];
+
+/**
+ * Where a student is, for a screen that cannot assume the journey's draft
+ * cookie is still there. The draft holds the position the student chose on
+ * the `where` step, and it wins when it is complete and valid, because it is
+ * the student's own answer. It lasts thirty minutes, though, and a plan
+ * resumed from `localStorage` days later arrives without it; the calendar and
+ * the cohort then give the best available answer. Null when neither does,
+ * which leaves the caller to send the student back to the question.
+ */
+export function resolvePosition(
+  draft: { positionYear?: string; positionKind?: string },
+  cohort: string,
+  now: Date
+): TermRef | null {
+  const year = Number(draft.positionYear);
+  const kind = TERM_KINDS.find((candidate) => candidate === draft.positionKind);
+  if (kind && Number.isInteger(year) && year >= 1 && year <= 8) return { year, kind };
+  return derivePosition(cohort, now)?.term ?? null;
+}
