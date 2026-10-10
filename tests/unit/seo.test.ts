@@ -197,6 +197,19 @@ describe("event lifecycle", () => {
     expect(isArchivedEvent(event, new Date("2027-08-11T00:00:00Z"))).toBe(true);
   });
 
+  it("keeps a start-only event current until its Bangkok start day ends", () => {
+    const startOnly = { ...event, start: "2026-08-10T09:00:00+07:00", end: undefined };
+    expect(isPastEvent(startOnly, new Date("2026-08-10T10:00:00+07:00"))).toBe(false);
+    expect(isPastEvent(startOnly, new Date("2026-08-10T23:59:00+07:00"))).toBe(false);
+    expect(isPastEvent(startOnly, new Date("2026-08-11T00:00:01+07:00"))).toBe(true);
+  });
+
+  it("uses the Bangkok day, not the UTC day, for a late start-only event", () => {
+    const startOnly = { ...event, start: "2026-08-10T23:00:00+07:00", end: undefined };
+    expect(isPastEvent(startOnly, new Date("2026-08-10T16:59:00Z"))).toBe(false);
+    expect(isPastEvent(startOnly, new Date("2026-08-10T17:00:01Z"))).toBe(true);
+  });
+
   it("never treats news or undated events as past", () => {
     const now = new Date("2030-01-01T00:00:00Z");
     expect(isPastEvent({ ...event, type: "news" }, now)).toBe(false);

@@ -10,6 +10,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import type { Locale } from "@/lib/i18n";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
@@ -186,11 +187,18 @@ export type NewsFrontmatter = z.infer<typeof newsFrontmatterSchema>;
 /** How long an event stays in search results after it ends. */
 export const EVENT_INDEX_DAYS = 365;
 
-/** When an event post's event ends, or `null` for news and undated events. */
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * When an event post's event ends, or `null` for news and undated events. An
+ * event with a start and no end runs to the end of its Asia/Bangkok start day.
+ */
 export function eventEndsAt(frontmatter: NewsFrontmatter): Date | null {
   if (frontmatter.type !== "event") return null;
-  const end = frontmatter.end ?? frontmatter.start;
-  return end ? new Date(end) : null;
+  if (frontmatter.end) return new Date(frontmatter.end);
+  if (!frontmatter.start) return null;
+  const startDay = todayInBangkok(new Date(frontmatter.start));
+  return new Date(new Date(`${startDay}T00:00:00+07:00`).getTime() + DAY_MS);
 }
 
 /** True once an event post's event is over. */
@@ -202,7 +210,7 @@ export function isPastEvent(frontmatter: NewsFrontmatter, now: Date = new Date()
 /** True once an event ended long enough ago that search engines should drop it. */
 export function isArchivedEvent(frontmatter: NewsFrontmatter, now: Date = new Date()): boolean {
   const end = eventEndsAt(frontmatter);
-  return end !== null && now.getTime() - end.getTime() > EVENT_INDEX_DAYS * 24 * 60 * 60 * 1000;
+  return end !== null && now.getTime() - end.getTime() > EVENT_INDEX_DAYS * DAY_MS;
 }
 
 export type ActivityFrontmatter = z.infer<typeof activityFrontmatterSchema>;
