@@ -18,8 +18,15 @@
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import type { VercelPoolClient } from "@/lib/inventory/db";
 import { todayInBangkok } from "@/lib/bangkok-today";
-import type { Loan, LoanStatus, TrackingMode, UnitCondition } from "@/lib/inventory/types";
+import type {
+  Loan,
+  LoanStatus,
+  TrackingMode,
+  UnitCondition,
+  UnitState,
+} from "@/lib/inventory/types";
 import { upsertBorrower, countActiveLoans } from "@/lib/inventory/borrowers";
+import { isRealCalendarDate } from "@/lib/validation";
 
 /** Used when a borrower's max_concurrent_loans is null. */
 const DEFAULT_MAX_CONCURRENT_LOANS = 3;
@@ -72,10 +79,6 @@ function mapRow(row: LoanRow): Loan {
   };
 }
 
-function isUniqueViolation(err: unknown): boolean {
-  return !!err && typeof err === "object" && (err as { code?: string }).code === "23505";
-}
-
 function isExclusionViolation(err: unknown): boolean {
   return !!err && typeof err === "object" && (err as { code?: string }).code === "23P01";
 }
@@ -113,6 +116,83 @@ async function withTransaction<T>(body: (client: VercelPoolClient) => Promise<T>
   } finally {
     client.release();
   }
+}
+
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** Postgres rejects a malformed uuid with an error, so ids from a request are checked before they reach a query. */
+export function isUuid(value: string): boolean {
+  return UUID_PATTERN.test(value);
+}
+
+/**
+ * The state a unit should be in given the loans still active on it: out on
+ * loan beats reserved beats available. Maintenance and retired are decided
+ * by officers and are never overridden by a loan transition. A unit returned
+ * lost is retired and one returned damaged goes to maintenance, whatever else
+ * is booked against it.
+ */
+export function deriveUnitState(
+  current: UnitState,
+  activeStatuses: LoanStatus[],
+  conditionIn?: UnitCondition | null
+): UnitState {
+  if (current === "retired") {
+    return current;
+  }
+  if (conditionIn === "lost") {
+    return "retired";
+  }
+  if (current === "maintenance") {
+    return current;
+  }
+  if (conditionIn === "damaged") {
+    return "maintenance";
+  }
+  if (activeStatuses.some((status) => status === "checked_out" || status === "overdue")) {
+    return "on_loan";
+  }
+  if (activeStatuses.includes("approved")) {
+    return "reserved";
+  }
+  return "available";
+}
+
+/**
+ * Recomputes a unit's state from the loans still active on it. Locks the unit
+ * row so two transitions on loans that share it cannot each miss the other.
+ * Call it after the loan row has been updated, inside the same transaction.
+ */
+async function syncUnitState(
+  client: VercelPoolClient,
+  unitId: string,
+  conditionIn?: UnitCondition | null
+): Promise<void> {
+  const unitResult = await client.query<{ state: UnitState }>(
+    `select state from units where id = $1 for update`,
+    [unitId]
+  );
+  const unit = unitResult.rows[0];
+  if (!unit) {
+    return;
+  }
+
+  const loansResult = await client.query<{ status: LoanStatus }>(
+    `select status from loans
+     where unit_id = $1 and status in ('approved', 'checked_out', 'overdue')`,
+    [unitId]
+  );
+  const next = deriveUnitState(
+    unit.state,
+    loansResult.rows.map((row) => row.status),
+    conditionIn
+  );
+
+  await client.query(
+    `update units set state = $1, condition = coalesce($2, condition), updated_at = now()
+     where id = $3`,
+    [next, conditionIn ?? null, unitId]
+  );
 }
 
 /** Builds a short human-friendly reference, e.g. "FAK-7Q2X" for "first-aid-kit". */
@@ -183,8 +263,20 @@ export async function getItemAvailabilityForRange(
         and not exists (
           select 1 from loans l
           where l.unit_id = u.id
-            and l.status in ('pending', 'approved', 'checked_out', 'overdue')
-            and daterange(l.start_date, l.end_date, '[]') && daterange(${startDate}::date, ${endDate}::date, '[]')
+            and (
+              (
+                l.status in ('pending', 'approved')
+                and daterange(l.start_date, l.end_date, '[]') && daterange(${startDate}::date, ${endDate}::date, '[]')
+              )
+              or (
+                l.status in ('checked_out', 'overdue')
+                and daterange(
+                  l.start_date,
+                  case when l.end_date < ${todayInBangkok()}::date then null else l.end_date end,
+                  '[]'
+                ) && daterange(${startDate}::date, ${endDate}::date, '[]')
+              )
+            )
         )
     `;
     const available = Number(availableResult.rows[0]?.count ?? 0);
@@ -207,7 +299,13 @@ export async function createLoanRequest(input: {
   | {
       ok: false;
       reason:
-        "not-configured" | "invalid" | "unavailable" | "blocklisted" | "limit-exceeded" | "error";
+        | "not-configured"
+        | "invalid"
+        | "unavailable"
+        | "blocklisted"
+        | "limit-exceeded"
+        | "email-mismatch"
+        | "error";
     }
 > {
   if (!isInventoryConfigured()) {
@@ -217,7 +315,10 @@ export async function createLoanRequest(input: {
   try {
     const itemResult = await sql<{ id: string; max_loan_days: number }>`
       select id, max_loan_days from items
-      where key = ${input.itemKey} and is_retired = false
+      where key = ${input.itemKey}
+        and is_retired = false
+        and online_loanable = true
+        and tracking_mode = 'asset'
       limit 1
     `;
     const item = itemResult.rows[0];
@@ -225,11 +326,11 @@ export async function createLoanRequest(input: {
       return { ok: false, reason: "invalid" };
     }
 
-    const start = new Date(input.startDate);
-    const end = new Date(input.endDate);
-    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+    if (!isRealCalendarDate(input.startDate) || !isRealCalendarDate(input.endDate)) {
       return { ok: false, reason: "invalid" };
     }
+    const start = new Date(input.startDate);
+    const end = new Date(input.endDate);
 
     // Bangkok's calendar day, not the server's UTC one: otherwise a pickup
     // date that is already in the past in Thailand slips through for the
@@ -244,52 +345,59 @@ export async function createLoanRequest(input: {
       return { ok: false, reason: "invalid" };
     }
 
-    const borrower = await upsertBorrower(input.borrower);
-    if (!borrower) {
-      return { ok: false, reason: "error" };
-    }
-    if (borrower.blocklisted) {
-      return { ok: false, reason: "blocklisted" };
-    }
-
-    const activeCount = await countActiveLoans(borrower.id);
-    const limit = borrower.maxConcurrentLoans ?? DEFAULT_MAX_CONCURRENT_LOANS;
-    if (activeCount >= limit) {
-      return { ok: false, reason: "limit-exceeded" };
-    }
-
-    const availability = await getItemAvailabilityForRange(
-      input.itemKey,
-      input.startDate,
-      input.endDate
-    );
-    if (availability.available <= 0) {
-      return { ok: false, reason: "unavailable" };
-    }
-
-    // Retry a small number of times in the rare event of a reference
-    // collision (the column has a unique constraint).
-    let lastError: unknown;
-    for (let attempt = 0; attempt < 5; attempt++) {
-      const reference = generateReference(input.itemKey);
-      try {
-        await sql`
-          insert into loans (reference, item_id, borrower_id, quantity, start_date, end_date, reason, status)
-          values (
-            ${reference}, ${item.id}, ${borrower.id}, ${input.quantity ?? 1},
-            ${input.startDate}, ${input.endDate}, ${input.reason ?? null}, 'pending'
-          )
-        `;
-        return { ok: true, reference };
-      } catch (err) {
-        if (isUniqueViolation(err)) {
-          lastError = err;
-          continue;
-        }
-        throw err;
+    // The borrower row stays locked from the upsert until commit, so two
+    // simultaneous requests from one student queue up here and the second
+    // sees the first's loan when it counts.
+    return await withTransaction(async (client) => {
+      const upserted = await upsertBorrower(input.borrower, client);
+      if (!upserted.ok) {
+        return { ok: false as const, reason: upserted.reason };
       }
-    }
-    throw lastError;
+      const borrower = upserted.borrower;
+      if (borrower.blocklisted) {
+        return { ok: false as const, reason: "blocklisted" as const };
+      }
+
+      const activeCount = await countActiveLoans(borrower.id, client);
+      const limit = borrower.maxConcurrentLoans ?? DEFAULT_MAX_CONCURRENT_LOANS;
+      if (activeCount >= limit) {
+        return { ok: false as const, reason: "limit-exceeded" as const };
+      }
+
+      const availability = await getItemAvailabilityForRange(
+        input.itemKey,
+        input.startDate,
+        input.endDate
+      );
+      if (availability.available <= 0) {
+        return { ok: false as const, reason: "unavailable" as const };
+      }
+
+      // Retry a small number of times in the rare event of a reference
+      // collision (the column has a unique constraint).
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const reference = generateReference(input.itemKey);
+        const inserted = await client.query(
+          `insert into loans (reference, item_id, borrower_id, quantity, start_date, end_date, reason, status)
+           values ($1, $2, $3, $4, $5, $6, $7, 'pending')
+           on conflict (reference) do nothing
+           returning id`,
+          [
+            reference,
+            item.id,
+            borrower.id,
+            input.quantity ?? 1,
+            input.startDate,
+            input.endDate,
+            input.reason ?? null,
+          ]
+        );
+        if (inserted.rows.length > 0) {
+          return { ok: true as const, reference };
+        }
+      }
+      throw new Error("Could not generate a unique loan reference");
+    });
   } catch {
     return { ok: false, reason: "error" };
   }
@@ -332,7 +440,7 @@ export async function listLoans(opts?: {
 }
 
 export async function getLoan(id: string): Promise<Loan | null> {
-  if (!isInventoryConfigured()) {
+  if (!isInventoryConfigured() || !isUuid(id)) {
     return null;
   }
 
@@ -385,6 +493,8 @@ export async function decideLoan(input: {
         | "not-found"
         | "already-decided"
         | "unit-required"
+        | "unit-not-found"
+        | "unit-invalid"
         | "unavailable"
         | "error";
     }
@@ -422,11 +532,44 @@ export async function decideLoan(input: {
     if (!input.unitId) {
       return { ok: false, reason: "unit-required" };
     }
+    if (!isUuid(input.unitId)) {
+      return { ok: false, reason: "unit-not-found" };
+    }
 
     const unitId = input.unitId;
-    let row: LoanRow | undefined;
+    const today = todayInBangkok();
+    let outcome:
+      | { kind: "approved"; row: LoanRow }
+      | { kind: "already-decided" | "unit-not-found" | "unit-invalid" | "unavailable" };
     try {
-      row = await withTransaction(async (client) => {
+      outcome = await withTransaction(async (client) => {
+        const unitResult = await client.query<{ item_id: string; state: UnitState }>(
+          `select item_id, state from units where id = $1 for update`,
+          [unitId]
+        );
+        const unit = unitResult.rows[0];
+        if (!unit) {
+          return { kind: "unit-not-found" as const };
+        }
+        if (unit.item_id !== existing.itemId) {
+          return { kind: "unit-invalid" as const };
+        }
+        if (unit.state === "maintenance" || unit.state === "retired") {
+          return { kind: "unavailable" as const };
+        }
+
+        const stuck = await client.query(
+          `select 1 from loans
+           where unit_id = $1 and id <> $2
+             and status in ('checked_out', 'overdue')
+             and end_date < $3::date
+           limit 1`,
+          [unitId, input.id, today]
+        );
+        if (stuck.rows.length > 0) {
+          return { kind: "unavailable" as const };
+        }
+
         const result = await client.query<LoanRow>(
           `update loans
            set unit_id = $1, status = 'approved', decided_by = $2, decided_at = now()
@@ -436,15 +579,12 @@ export async function decideLoan(input: {
         );
         const updated = result.rows[0];
         if (!updated) {
-          return undefined;
+          return { kind: "already-decided" as const };
         }
 
-        await client.query(
-          `update units set state = 'reserved', updated_at = now() where id = $1`,
-          [unitId]
-        );
+        await syncUnitState(client, unitId);
 
-        return updated;
+        return { kind: "approved" as const, row: updated };
       });
     } catch (err) {
       if (isExclusionViolation(err)) {
@@ -453,11 +593,11 @@ export async function decideLoan(input: {
       throw err;
     }
 
-    if (!row) {
-      return { ok: false, reason: "already-decided" };
+    if (outcome.kind !== "approved") {
+      return { ok: false, reason: outcome.kind };
     }
 
-    return { ok: true, loan: mapRow(row) };
+    return { ok: true, loan: mapRow(outcome.row) };
   } catch {
     return { ok: false, reason: "error" };
   }
@@ -499,9 +639,7 @@ export async function checkoutLoan(input: {
       }
 
       if (updated.unit_id) {
-        await client.query(`update units set state = 'on_loan', updated_at = now() where id = $1`, [
-          updated.unit_id,
-        ]);
+        await syncUnitState(client, updated.unit_id);
       }
 
       return updated;
@@ -555,19 +693,7 @@ export async function checkinLoan(input: {
       }
 
       if (updated.unit_id) {
-        if (input.conditionIn) {
-          await client.query(
-            `update units
-             set state = 'available', condition = $1, updated_at = now()
-             where id = $2`,
-            [input.conditionIn, updated.unit_id]
-          );
-        } else {
-          await client.query(
-            `update units set state = 'available', updated_at = now() where id = $1`,
-            [updated.unit_id]
-          );
-        }
+        await syncUnitState(client, updated.unit_id, input.conditionIn);
       }
 
       return updated;
@@ -619,10 +745,7 @@ export async function cancelLoan(input: {
       }
 
       if (updated.unit_id) {
-        await client.query(
-          `update units set state = 'available', updated_at = now() where id = $1`,
-          [updated.unit_id]
-        );
+        await syncUnitState(client, updated.unit_id);
       }
 
       return updated;

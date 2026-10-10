@@ -38,32 +38,83 @@ function mapRow(row: BorrowerRow): Borrower {
   };
 }
 
-/** Inserts a borrower, or refreshes name/email/phone on an existing tu_student_id. Returns null when unconfigured or on error. */
-export async function upsertBorrower(input: {
-  tuStudentId: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-}): Promise<Borrower | null> {
+type Queryable = {
+  query: <R>(text: string, values?: unknown[]) => Promise<{ rows: R[] }>;
+};
+
+function normaliseEmail(email: string): string {
+  return email.trim().toLowerCase();
+}
+
+async function upsertBorrowerWith(
+  run: Queryable,
+  input: { tuStudentId: string; name: string; email: string; phone?: string | null }
+): Promise<{ ok: true; borrower: Borrower } | { ok: false; reason: "email-mismatch" | "error" }> {
+  await run.query(
+    `insert into borrowers (tu_student_id, name, email, phone)
+     values ($1, $2, $3, $4)
+     on conflict (tu_student_id) do nothing`,
+    [input.tuStudentId, input.name, input.email, input.phone ?? null]
+  );
+
+  const result = await run.query<BorrowerRow>(
+    `select * from borrowers where tu_student_id = $1 for update`,
+    [input.tuStudentId]
+  );
+  const row = result.rows[0];
+  if (!row) {
+    return { ok: false, reason: "error" };
+  }
+
+  if (normaliseEmail(row.email) !== normaliseEmail(input.email)) {
+    return { ok: false, reason: "email-mismatch" };
+  }
+
+  if (input.phone && input.phone !== row.phone) {
+    const updated = await run.query<BorrowerRow>(
+      `update borrowers set phone = $1, updated_at = now() where id = $2 returning *`,
+      [input.phone, row.id]
+    );
+    const updatedRow = updated.rows[0];
+    return updatedRow ? { ok: true, borrower: mapRow(updatedRow) } : { ok: false, reason: "error" };
+  }
+
+  return { ok: true, borrower: mapRow(row) };
+}
+
+/**
+ * Finds or creates the borrower for a public loan request. An existing
+ * borrower's name and email are never overwritten from this path: a request
+ * that names a known student ID with a different email is refused with
+ * `email-mismatch`, so nobody can take over another student's loans by
+ * submitting their ID. Only the phone number is refreshed, and only when the
+ * email matches. Pass a transaction `client` to run inside it, in which case
+ * errors propagate so the caller can roll back.
+ */
+export async function upsertBorrower(
+  input: {
+    tuStudentId: string;
+    name: string;
+    email: string;
+    phone?: string | null;
+  },
+  client?: Queryable
+): Promise<
+  | { ok: true; borrower: Borrower }
+  | { ok: false; reason: "not-configured" | "email-mismatch" | "error" }
+> {
   if (!isInventoryConfigured()) {
-    return null;
+    return { ok: false, reason: "not-configured" };
+  }
+
+  if (client) {
+    return upsertBorrowerWith(client, input);
   }
 
   try {
-    const result = await sql<BorrowerRow>`
-      insert into borrowers (tu_student_id, name, email, phone)
-      values (${input.tuStudentId}, ${input.name}, ${input.email}, ${input.phone ?? null})
-      on conflict (tu_student_id) do update
-        set name = excluded.name,
-            email = excluded.email,
-            phone = coalesce(excluded.phone, borrowers.phone),
-            updated_at = now()
-      returning *
-    `;
-    const row = result.rows[0];
-    return row ? mapRow(row) : null;
+    return await upsertBorrowerWith(sql, input);
   } catch {
-    return null;
+    return { ok: false, reason: "error" };
   }
 }
 
@@ -181,19 +232,29 @@ export async function updateBorrower(
   }
 }
 
-/** Counts a borrower's active loans (pending/approved/checked_out/overdue). Returns 0 when unconfigured or on error. */
-export async function countActiveLoans(borrowerId: string): Promise<number> {
+/**
+ * Counts a borrower's active loans (pending/approved/checked_out/overdue).
+ * Returns 0 when unconfigured. Without a `client` it also returns 0 on error,
+ * which suits display. With a `client` (the loan request path) errors
+ * propagate, so a limit check can never pass because the count failed.
+ */
+export async function countActiveLoans(borrowerId: string, client?: Queryable): Promise<number> {
   if (!isInventoryConfigured()) {
     return 0;
   }
 
-  try {
-    const result = await sql<{ count: string }>`
-      select count(*)::text as count
+  const text = `select count(*)::text as count
       from loans
-      where borrower_id = ${borrowerId}
-        and status in ('pending', 'approved', 'checked_out', 'overdue')
-    `;
+      where borrower_id = $1
+        and status in ('pending', 'approved', 'checked_out', 'overdue')`;
+
+  if (client) {
+    const result = await client.query<{ count: string }>(text, [borrowerId]);
+    return Number(result.rows[0]?.count ?? 0);
+  }
+
+  try {
+    const result = await sql.query<{ count: string }>(text, [borrowerId]);
     return Number(result.rows[0]?.count ?? 0);
   } catch {
     return 0;

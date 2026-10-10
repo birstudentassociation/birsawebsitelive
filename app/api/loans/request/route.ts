@@ -59,6 +59,20 @@ export async function POST(request: Request) {
     if (created.reason === "invalid") {
       return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
     }
+    if (created.reason === "email-mismatch") {
+      return NextResponse.json(
+        {
+          ok: false,
+          reason: "validation",
+          errors: {
+            studentEmail: [
+              "This student ID has already been used with a different email address. Use that email address, or contact BIRSA.",
+            ],
+          },
+        },
+        { status: 400 }
+      );
+    }
     if (created.reason === "unavailable") {
       return NextResponse.json({ ok: false, reason: "unavailable" }, { status: 409 });
     }

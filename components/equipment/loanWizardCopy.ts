@@ -125,6 +125,9 @@ export type LoanWizardLabels = {
     blocklistedBody: string;
     limitExceededTitle: string;
     limitExceededBody: string;
+    emailMismatchTitle: string;
+    emailMismatchBody: string;
+    changeEmail: string;
     notConfiguredTitle: string;
     notConfiguredBody: string;
     contactLink: string;
@@ -246,6 +249,10 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
         limitExceededTitle: "คุณมีคำขอยืมอุปกรณ์ค้างอยู่เกินจำนวนที่กำหนด",
         limitExceededBody:
           "กรุณาคืนหรือรอผลคำขอที่ค้างอยู่ก่อน จึงจะสามารถส่งคำขอใหม่ได้ ติดต่อ BIRSA หากต้องการความช่วยเหลือ",
+        emailMismatchTitle: "อีเมลไม่ตรงกับที่เคยใช้กับรหัสนักศึกษานี้",
+        emailMismatchBody:
+          "รหัสนักศึกษานี้เคยใช้ส่งคำขอด้วยอีเมลอื่น กรุณาใช้อีเมลเดิมที่เคยใช้ หากไม่สามารถใช้อีเมลนั้นได้แล้ว กรุณาติดต่อ BIRSA",
+        changeEmail: "เปลี่ยนอีเมล",
         notConfiguredTitle: "ระบบส่งคำขอออนไลน์กำลังอยู่ระหว่างการเตรียมการ",
         notConfiguredBody: "กรุณาติดต่อ BIRSA โดยตรงเพื่อขอยืมอุปกรณ์ผ่านหน้า",
         contactLink: "ติดต่อ BIRSA",
@@ -363,6 +370,10 @@ export function buildLoanWizardLabels(locale: Locale, item: LoanWizardItem): Loa
       limitExceededTitle: "You have too many open loan requests",
       limitExceededBody:
         "Wait for an existing request to be returned or decided before sending a new one. Contact BIRSA if you need help.",
+      emailMismatchTitle: "This student ID has been used with a different email address",
+      emailMismatchBody:
+        "Use the email address you gave on your first request. If you can no longer use it, contact BIRSA.",
+      changeEmail: "Change email address",
       notConfiguredTitle: "Online requests are still being set up",
       notConfiguredBody: "Contact BIRSA directly to request this item through the",
       contactLink: "contact page",

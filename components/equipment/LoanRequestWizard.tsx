@@ -89,6 +89,20 @@ export default function LoanRequestWizard({
     );
   }
 
+  if (state.status === "email-mismatch") {
+    return (
+      <ResultPanel
+        variant="error"
+        title={labels.results.emailMismatchTitle}
+        body={<p>{labels.results.emailMismatchBody}</p>}
+        retryHref={`${requestHref}/email?returnTo=check`}
+        retryLabel={labels.results.changeEmail}
+        actionHref={contactHref}
+        actionLabel={labels.results.contactLink}
+      />
+    );
+  }
+
   if (state.status === "not-configured") {
     return (
       <ResultPanel

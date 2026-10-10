@@ -63,6 +63,12 @@ export async function POST(request: Request) {
     if (decided.reason === "unit-required") {
       return NextResponse.json({ ok: false, reason: "unit-required" }, { status: 400 });
     }
+    if (decided.reason === "unit-not-found") {
+      return NextResponse.json({ ok: false, reason: "unit-not-found" }, { status: 404 });
+    }
+    if (decided.reason === "unit-invalid") {
+      return NextResponse.json({ ok: false, reason: "unit-invalid" }, { status: 400 });
+    }
     if (decided.reason === "unavailable") {
       return NextResponse.json({ ok: false, reason: "unavailable" }, { status: 409 });
     }

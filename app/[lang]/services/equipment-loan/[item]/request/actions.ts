@@ -63,6 +63,7 @@ export type CheckState =
         | "unavailable"
         | "blocklisted"
         | "limit-exceeded"
+        | "email-mismatch"
         | "not-configured"
         | "rate-limited"
         | "error";
@@ -366,6 +367,8 @@ export async function submitLoanRequestCheck(
         return { status: "blocklisted" };
       case "limit-exceeded":
         return { status: "limit-exceeded" };
+      case "email-mismatch":
+        return { status: "email-mismatch" };
       default:
         return { status: "error" };
     }
