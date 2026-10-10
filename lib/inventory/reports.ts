@@ -11,9 +11,18 @@
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import type { LoanStatus } from "@/lib/inventory/types";
 
-/** Wraps a CSV field in double quotes (doubling internal quotes) when it contains a comma, quote, or newline. */
+const FORMULA_PREFIX = /^[=+\-@\t\r]/;
+const PLAIN_NUMBER = /^-\d+(\.\d+)?$/;
+
+/**
+ * Wraps a CSV field in double quotes (doubling internal quotes) when it contains a comma, quote, or newline.
+ * Values a spreadsheet could read as a formula get a leading single quote (OWASP CSV injection guidance).
+ */
 function csvField(value: unknown): string {
-  const str = value === null || value === undefined ? "" : String(value);
+  let str = value === null || value === undefined ? "" : String(value);
+  if (FORMULA_PREFIX.test(str) && !PLAIN_NUMBER.test(str)) {
+    str = `'${str}`;
+  }
   if (/[",\n\r]/.test(str)) {
     return `"${str.replace(/"/g, '""')}"`;
   }
