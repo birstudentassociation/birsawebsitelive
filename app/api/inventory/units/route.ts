@@ -32,7 +32,9 @@ export async function GET(request: Request) {
   const state = (searchParams.get("state") as UnitState | null) ?? undefined;
   const locationId = searchParams.get("locationId") ?? undefined;
 
-  const units = await listUnits({ itemId, state, locationId });
+  const custodianId = auth.officer.custodianId ?? undefined;
+
+  const units = await listUnits({ itemId, state, locationId, custodianId });
   return NextResponse.json({ ok: true, units }, { status: 200 });
 }
 

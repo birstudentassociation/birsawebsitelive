@@ -52,11 +52,12 @@ export function rangesOverlap(aStart: string, aEnd: string, bStart: string, bEnd
   return aStart <= bEnd && aEnd >= bStart;
 }
 
-/** Lists units, optionally filtered by item, state, and/or location. Ordered by label. */
+/** Lists units, optionally filtered by item, state, location, and/or owning custodian. Ordered by label. */
 export async function listUnits(opts?: {
   itemId?: string;
   state?: UnitState;
   locationId?: string;
+  custodianId?: string;
 }): Promise<Unit[]> {
   if (!isInventoryConfigured()) {
     return [];
@@ -66,11 +67,16 @@ export async function listUnits(opts?: {
     const itemId = opts?.itemId ?? null;
     const state = opts?.state ?? null;
     const locationId = opts?.locationId ?? null;
+    const custodianId = opts?.custodianId ?? null;
     const result = await sql<UnitRow>`
       select * from units
       where (${itemId}::uuid is null or item_id = ${itemId}::uuid)
         and (${state}::text is null or state = ${state}::text)
         and (${locationId}::uuid is null or location_id = ${locationId}::uuid)
+        and (
+          ${custodianId}::uuid is null
+          or item_id in (select id from items where custodian_id = ${custodianId}::uuid)
+        )
       order by label
     `;
     return result.rows.map(mapRow);
