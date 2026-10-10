@@ -43,6 +43,17 @@ export type ShuttleLine = Timetable & {
 /** Bangkok date, ISO `YYYY-MM-DD`, from which each line's `schedule` applies. Before it, `previous` does. */
 export const newTimetableFrom = "2026-10-01";
 
+/**
+ * Bangkok dates, ISO `YYYY-MM-DD`, that are public holidays. The shuttle does
+ * not run on them, even on a weekday. Online-class days are not holidays and
+ * do not belong here.
+ */
+export const holidayDates: readonly string[] = ["2026-10-13"];
+
+export function isHoliday(date: string): boolean {
+  return holidayDates.includes(date);
+}
+
 export const shuttleLines: ShuttleLine[] = [
   {
     id: "sanam-chai",
@@ -324,6 +335,7 @@ export function getBangkokParts(date: Date = new Date()): BangkokParts {
 
 export type NextDepartureResult =
   | { status: "no-service-weekend" }
+  | { status: "no-service-holiday" }
   | { status: "not-in-service" }
   | {
       status: "upcoming";
@@ -336,8 +348,8 @@ export type NextDepartureResult =
 
 /**
  * Given Bangkok weekday/minute-of-day parts, returns the next scheduled
- * departure for a line, at whole-minute granularity. Weekends never have
- * service. On a weekday, finds the earliest departure strictly after the
+ * departure for a line, at whole-minute granularity. Weekends and public
+ * holidays never have service. On a weekday, finds the earliest departure strictly after the
  * current minute; this naturally covers "mid-service" (the next slot) and
  * "after last bus" (nothing found -> not-in-service). Before the first bus
  * of the day, the board still counts as not-in-service until we're within
@@ -348,6 +360,10 @@ export type NextDepartureResult =
 export function nextDeparture(lineId: LineId, parts: BangkokParts): NextDepartureResult {
   if (parts.weekday === 0 || parts.weekday === 6) {
     return { status: "no-service-weekend" };
+  }
+
+  if (isHoliday(parts.date)) {
+    return { status: "no-service-holiday" };
   }
 
   const departures = getDepartureMinutes(lineId, parts.date);

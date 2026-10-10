@@ -173,3 +173,20 @@ describe("nextDeparture", () => {
     expect(minutes.every((m, i) => m >= 0 && m < 24 * 60 && times[i] !== undefined)).toBe(true);
   });
 });
+
+describe("nextDeparture on public holidays", () => {
+  it("has no service on Tuesday 13 October 2026", () => {
+    const result = nextDeparture("sanam-chai", parts(2, 8, 0, "2026-10-13"));
+    expect(result.status).toBe("no-service-holiday");
+  });
+
+  it("still runs on the online-class day of 16 October 2026", () => {
+    const result = nextDeparture("sanam-chai", parts(5, 8, 0, "2026-10-16"));
+    expect(result.status).toBe("upcoming");
+  });
+
+  it("runs on an ordinary weekday", () => {
+    const result = nextDeparture("pinklao", parts(3, 8, 0, "2026-10-14"));
+    expect(result.status).toBe("upcoming");
+  });
+});

@@ -38,6 +38,8 @@ type Labels = {
   nextDeparture: string;
   weekendTitle: string;
   weekendBody: string;
+  holidayTitle: string;
+  holidayBody: string;
   offTitle: string;
   offBody: string;
   minutes: (n: number) => string;
@@ -51,6 +53,8 @@ const labels: Record<Locale, Labels> = {
     nextDeparture: "Next departure",
     weekendTitle: "Not in service",
     weekendBody: "Service runs Monday to Friday. There's no shuttle at weekends.",
+    holidayTitle: "Not in service",
+    holidayBody: "There's no shuttle on public holidays.",
     offTitle: "Not in service",
     offBody: "The next bus shows here about an hour before it departs.",
     minutes: (n) => `in ${n} min`,
@@ -62,6 +66,8 @@ const labels: Record<Locale, Labels> = {
     nextDeparture: "รถคันต่อไป",
     weekendTitle: "งดให้บริการ",
     weekendBody: "ให้บริการวันจันทร์ถึงศุกร์เท่านั้น เสาร์อาทิตย์ไม่มีรถ",
+    holidayTitle: "งดให้บริการ",
+    holidayBody: "วันหยุดนักขัตฤกษ์ไม่มีรถเวียน",
     offTitle: "งดให้บริการ",
     offBody: "รถคันต่อไปจะแสดงที่นี่ประมาณหนึ่งชั่วโมงก่อนออก",
     minutes: (n) => `อีก ${n} นาที`,
@@ -84,6 +90,15 @@ function StatusBlock({
       <div>
         <p className="font-semibold text-ink">{t.weekendTitle}</p>
         <p className="text-sm text-muted">{t.weekendBody}</p>
+      </div>
+    );
+  }
+
+  if (result.status === "no-service-holiday") {
+    return (
+      <div>
+        <p className="font-semibold text-ink">{t.holidayTitle}</p>
+        <p className="text-sm text-muted">{t.holidayBody}</p>
       </div>
     );
   }

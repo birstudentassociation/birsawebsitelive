@@ -76,7 +76,7 @@ function renderStatus(locale: Locale, result: NextDepartureResult | undefined) {
   if (result.status === "no-service-weekend") {
     return <span className="oh-board-state">{t(COPY.homeWeekend, locale)}</span>;
   }
-  if (result.status === "not-in-service") {
+  if (result.status === "not-in-service" || result.status === "no-service-holiday") {
     return <span className="oh-board-state">{t(COPY.homeClosed, locale)}</span>;
   }
   return (
