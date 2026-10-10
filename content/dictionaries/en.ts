@@ -355,7 +355,7 @@ export const en = {
     title: "Course reviews",
     lede: "Notes on all BIR courses and electives. Workload, assessment style, and what to expect before you register.",
     browseHeading: "Browse the catalogue",
-    searchPlaceholder: "Search by code, title, or keyword…",
+    searchPlaceholder: "Code, title or lecturer",
     trackLabel: "Track",
     allTracks: "All tracks",
     tracks: {
@@ -387,7 +387,6 @@ export const en = {
     previous: "Previous",
     next: "Next",
     pageOf: "Page {current} of {total}",
-    backToGuides: "Back to student life",
     reviewedBadge: "Reviewed",
     sampleBadge: "Example review",
     sampleReviewTitle: "Example content, not a real review",

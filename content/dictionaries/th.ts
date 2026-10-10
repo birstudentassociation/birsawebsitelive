@@ -352,7 +352,7 @@ export const th: typeof en = {
     title: "รีวิวรายวิชา",
     lede: "ค้นหารายวิชาทั้งหมดของ BIR ทั้งรหัสวิชา หน่วยกิต วิชาบังคับก่อน และคำอธิบายของทุกรายวิชาในหลักสูตร",
     browseHeading: "เรียกดูรายวิชา",
-    searchPlaceholder: "ค้นหาด้วยรหัสวิชา ชื่อวิชา หรือคำสำคัญ…",
+    searchPlaceholder: "รหัสวิชา ชื่อวิชา หรือผู้สอน",
     trackLabel: "กลุ่มวิชา",
     allTracks: "ทุกกลุ่มวิชา",
     tracks: {
@@ -383,7 +383,6 @@ export const th: typeof en = {
     previous: "ก่อนหน้า",
     next: "ถัดไป",
     pageOf: "หน้า {current} จาก {total}",
-    backToGuides: "กลับไปชีวิตนักศึกษา",
     reviewedBadge: "มีรีวิว",
     sampleBadge: "รีวิวตัวอย่าง",
     sampleReviewTitle: "เนื้อหาตัวอย่าง ไม่ใช่รีวิวจริง",

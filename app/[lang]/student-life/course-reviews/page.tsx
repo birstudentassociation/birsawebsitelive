@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -94,7 +93,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
           />
         }
       />
-      <div className="wrap flex flex-col gap-10 py-10">
+      <div className="wrap flex flex-col gap-4 py-6 sm:gap-6 sm:py-10">
         <Suspense
           fallback={
             <CourseReviewBrowserFallback courses={courses} locale={locale} dict={browserDict} />
@@ -102,13 +101,6 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
         >
           <CourseReviewBrowser courses={courses} locale={locale} dict={browserDict} />
         </Suspense>
-
-        <Link
-          href={localeHref(locale, "/student-life")}
-          className="text-sm font-semibold text-brand-deep hover:text-brand-dark"
-        >
-          &larr; {t.backToGuides}
-        </Link>
       </div>
     </>
   );

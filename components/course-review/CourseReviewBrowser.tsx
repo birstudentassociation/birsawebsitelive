@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Field from "@/components/Field";
-import Card, { CardTitle } from "@/components/Card";
+import { CardTitle } from "@/components/Card";
 import Tag from "@/components/Tag";
 import Button from "@/components/Button";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -132,12 +132,13 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
       : "");
 
   return (
-    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-6">
+    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-4 sm:gap-6">
       <h2 id="course-browse-heading" className="font-display text-xl">
         {dict.browseHeading}
       </h2>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-3 sm:gap-4 lg:grid-cols-4">
         <Field
+          className="col-span-2 lg:col-span-1"
           as="input"
           type="search"
           name="course-search"
@@ -174,7 +175,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
           }
           options={yearOptions}
         />
-        <label className="flex items-center gap-2.5 text-sm font-semibold text-ink sm:col-span-2 lg:col-span-4">
+        <label className="flex min-h-11 items-center gap-2.5 self-end text-sm leading-tight font-semibold text-ink lg:col-span-4">
           <input
             type="checkbox"
             name="course-reviewed"
@@ -186,7 +187,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
         </label>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
         <p role="status" className="text-sm text-muted">
           {statusText}
         </p>
@@ -240,7 +241,7 @@ export default function CourseReviewBrowser({ courses, locale, dict }: CourseRev
 /** Suspense fallback: the unfiltered first page as a plain list, no controls. */
 export function CourseReviewBrowserFallback({ courses, locale, dict }: CourseReviewBrowserProps) {
   return (
-    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-6">
+    <section aria-labelledby="course-browse-heading" className="flex flex-col gap-4 sm:gap-6">
       <h2 id="course-browse-heading" className="font-display text-xl">
         {dict.browseHeading}
       </h2>
@@ -259,7 +260,7 @@ function CourseGrid({
   dict: CourseReviewDict;
 }) {
   return (
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
       {courses.map((course) => (
         <CourseCard key={course.code} course={course} locale={locale} dict={dict} />
       ))}
@@ -279,12 +280,18 @@ function CourseCard({
   const otherLocale: Locale = locale === "en" ? "th" : "en";
   const href = localeHref(locale, `/student-life/course-reviews/${course.code}`);
 
+  const yearText = formatYearLevel(course.yearLevel, dict.yearLabel, dict.yearTo);
+  const creditsText = `${course.credits.total} ${dict.credits} (${course.credits.lecture}-${course.credits.lab}-${course.credits.selfStudy})`;
+  const instructors = course.instructors?.map((instructor) => instructor.name[locale]).join(", ");
+
   return (
-    <Card href={href}>
-      <div className="flex flex-wrap items-center gap-2">
+    <div className="group relative flex flex-col gap-1.5 rounded-lg border border-line bg-surface p-4 shadow-sm transition-shadow duration-150 hover:shadow-md sm:gap-2 sm:p-5">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <span className="font-mono text-sm font-semibold text-ink">{course.code}</span>
         <Tag variant="brand">{dict.tracks[course.track]}</Tag>
-        <Tag variant="forest">{dict.categories[course.category]}</Tag>
+        <Tag variant="forest" className="hidden sm:inline-flex">
+          {dict.categories[course.category]}
+        </Tag>
         {course.reviews?.length ? (
           <Tag variant="neutral">
             {course.reviews.every((review) => review.sample)
@@ -294,30 +301,32 @@ function CourseCard({
         ) : null}
       </div>
       <div>
-        <CardTitle href={href}>{course.title[locale]}</CardTitle>
-        <p className="text-sm text-muted">{course.title[otherLocale]}</p>
+        <CardTitle href={href} className="text-base sm:text-lg">
+          {course.title[locale]}
+        </CardTitle>
+        <p className="truncate text-xs text-muted sm:text-sm">{course.title[otherLocale]}</p>
       </div>
-      <div className="flex flex-wrap gap-2 text-xs">
+      <p className="text-xs text-muted sm:hidden">
+        {[dict.categories[course.category], creditsText, yearText].join(" \u00b7 ")}
+      </p>
+      <div className="hidden flex-wrap gap-2 text-xs sm:flex">
         <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">
-          {course.credits.total} {dict.credits} ({course.credits.lecture}-{course.credits.lab}-
-          {course.credits.selfStudy})
+          {creditsText}
         </span>
-        <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">
-          {formatYearLevel(course.yearLevel, dict.yearLabel, dict.yearTo)}
-        </span>
+        <span className="rounded-full bg-sunken px-2.5 py-1 font-medium text-ink">{yearText}</span>
       </div>
       {course.prerequisite ? (
-        <p className="text-sm text-muted">
+        <p className="hidden text-sm text-muted sm:block">
           <span className="font-semibold text-ink">{dict.prerequisite}: </span>
           {course.prerequisite[locale]}
         </p>
       ) : null}
-      {course.instructors && course.instructors.length > 0 ? (
-        <p className="text-sm text-muted">
+      {instructors ? (
+        <p className="truncate text-xs text-muted sm:text-sm sm:whitespace-normal">
           <span className="font-semibold text-ink">{dict.instructor}: </span>
-          {course.instructors.map((instructor) => instructor.name[locale]).join(", ")}
+          {instructors}
         </p>
       ) : null}
-    </Card>
+    </div>
   );
 }
