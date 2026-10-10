@@ -37,7 +37,6 @@ export async function generateMetadata({
     title: entry.frontmatter.title,
     description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/news/${slug}`,
-    hasOwnShareImage: true,
     article: {
       publishedTime: entry.frontmatter.date,
       modifiedTime: entry.frontmatter.updated,

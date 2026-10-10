@@ -1,13 +1,13 @@
-import { isLocale } from "@/lib/i18n";
-import { OG_SIZE, renderSiteOgImage, shareImageMetadata } from "@/lib/og-image";
-import { SITE_IMAGE_ALT } from "@/lib/seo";
+import { locales } from "@/lib/i18n";
+import { OG_SIZE, renderSiteOgImage } from "@/lib/og-image";
 
+export const alt =
+  "BIR Student Association, Politics and International Relations, Thammasat University";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
-export async function generateImageMetadata({ params }: { params: Promise<{ lang?: string }> }) {
-  const { lang = "" } = (await params) ?? {};
-  return shareImageMetadata(SITE_IMAGE_ALT[isLocale(lang) ? lang : "en"]);
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }));
 }
 
 /**

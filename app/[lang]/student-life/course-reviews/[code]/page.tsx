@@ -39,7 +39,6 @@ export async function generateMetadata({
     title: `${course.code} ${course.title[locale]}`,
     description: course.description[locale],
     path: `/student-life/course-reviews/${course.code}`,
-    hasOwnShareImage: true,
   });
 }
 

@@ -1,7 +1,1 @@
-export {
-  default,
-  generateImageMetadata,
-  size,
-  contentType,
-  generateStaticParams,
-} from "./opengraph-image";
+export { default, alt, size, contentType, generateStaticParams } from "./opengraph-image";

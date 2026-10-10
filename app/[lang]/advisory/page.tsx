@@ -29,7 +29,6 @@ export async function generateMetadata({
     title: advisoryCopy[lang].title,
     description: advisoryCopy[lang].metaDescription,
     path: "/advisory",
-    hasOwnShareImage: true,
   });
 }
 

@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   buildMetadata,
@@ -5,6 +7,7 @@ import {
   DESCRIPTION_MIN,
   fitDescription,
   fitTitle,
+  hasOwnShareImage,
   TITLE_MAX,
   type BuildMetadataOptions,
 } from "@/lib/seo";
@@ -19,6 +22,7 @@ import {
 } from "@/lib/content";
 import { courses } from "@/content/course-review/courses";
 import { locales, type Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site-url";
 
 function titleOf(options: BuildMetadataOptions): string {
   const { title } = buildMetadata(options);
@@ -227,33 +231,71 @@ describe("event lifecycle", () => {
 
 describe("buildMetadata share images", () => {
   const options = { title: "Clubs", description: "x".repeat(100), path: "/clubs" };
+  const images = (value: unknown) => value as { url: string; alt: string }[];
 
   it.each(locales)("falls back to the site-wide share images for %s", (locale) => {
     const { openGraph, twitter } = buildMetadata({ ...options, locale });
-    const ogImages = openGraph?.images as { url: string }[];
-    const twitterImages = twitter?.images as { url: string }[];
-    expect(ogImages).toHaveLength(1);
-    expect(ogImages[0]?.url).toBe(`/${locale}/opengraph-image/default`);
-    expect(twitterImages).toHaveLength(1);
-    expect(twitterImages[0]?.url).toBe(`/${locale}/twitter-image/default`);
-  });
-
-  it("leaves the images to the segment's own image file when asked", () => {
-    const { openGraph, twitter } = buildMetadata({
-      ...options,
-      locale: "en",
-      hasOwnShareImage: true,
+    expect(images(openGraph?.images)).toHaveLength(1);
+    expect(images(openGraph?.images)[0]).toMatchObject({
+      url: `${SITE_URL}/${locale}/opengraph-image`,
+      width: 1200,
+      height: 630,
     });
-    expect(openGraph?.images).toBeUndefined();
-    expect(twitter?.images).toBeUndefined();
+    expect(images(twitter?.images)).toHaveLength(1);
+    expect(images(twitter?.images)[0]).toMatchObject({
+      url: `${SITE_URL}/${locale}/twitter-image`,
+      width: 1200,
+      height: 630,
+    });
   });
 
-  it("describes the fallback images in the page language", () => {
+  it.each([
+    ["/6-october", "6-october"],
+    ["/advisory", "advisory"],
+    ["/emergency/fire", "emergency/fire"],
+    ["/news/welcome-bir-batch-18", "news/welcome-bir-batch-18"],
+    ["/student-life/course-reviews/PS101", "student-life/course-reviews/PS101"],
+  ])("points %s at its own share images", (path, segment) => {
+    const { openGraph, twitter } = buildMetadata({ ...options, locale: "th", path });
+    expect(images(openGraph?.images)).toHaveLength(1);
+    expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/th/${segment}/opengraph-image`);
+    expect(images(twitter?.images)).toHaveLength(1);
+    expect(images(twitter?.images)[0]?.url).toBe(`${SITE_URL}/th/${segment}/twitter-image`);
+  });
+
+  it("uses the site-wide images for the home page", () => {
+    const { openGraph } = buildMetadata({ ...options, locale: "en", path: "/" });
+    expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/en/opengraph-image`);
+  });
+
+  it("describes the images in the page language", () => {
     const en = buildMetadata({ ...options, locale: "en" });
     const th = buildMetadata({ ...options, locale: "th" });
-    const alt = (m: typeof en) => (m.openGraph?.images as { alt: string }[])[0]?.alt;
+    const alt = (m: typeof en) => images(m.openGraph?.images)[0]?.alt;
     expect(alt(en)).toMatch(/Thammasat/);
     expect(alt(th)).toMatch(/[฀-๿]/);
     expect(alt(th)).not.toMatch(/[A-Za-z]{4}/);
+    const own = buildMetadata({ ...options, locale: "th", title: "ข่าว", path: "/news/x" });
+    expect(images(own.openGraph?.images)[0]?.alt).toBe("ข่าว");
+    expect(images(own.twitter?.images)[0]?.alt).toBe("ข่าว");
+  });
+
+  it("matches the segments that have their own image files", () => {
+    const root = path.join(process.cwd(), "app", "[lang]");
+    const opengraph: string[] = [];
+    const twitter: string[] = [];
+    const walk = (dir: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const segment = `/${path.relative(root, dir).split(path.sep).join("/")}`;
+        if (entry.isDirectory()) walk(path.join(dir, entry.name));
+        else if (entry.name === "opengraph-image.tsx") opengraph.push(segment);
+        else if (entry.name === "twitter-image.tsx") twitter.push(segment);
+      }
+    };
+    walk(root);
+    expect(opengraph.sort()).toEqual(twitter.sort());
+    for (const segment of opengraph.filter((s) => s !== "/")) {
+      expect(hasOwnShareImage(segment.replace(/\[[^\]]+\]/g, "sample")), segment).toBe(true);
+    }
   });
 });

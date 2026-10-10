@@ -3,14 +3,8 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 import type { HeroTone } from "@/content/emergency/types";
 import { ShapedText, shapeText } from "@/lib/og-text";
-import { SHARE_IMAGE_ID } from "@/lib/seo";
 
 export const OG_SIZE = { width: 1200, height: 630 };
-
-/** Image metadata with a locale-aware alt; the id is fixed so the URL is predictable. */
-export function shareImageMetadata(alt: string) {
-  return [{ id: SHARE_IMAGE_ID, alt, size: OG_SIZE, contentType: "image/png" }];
-}
 
 const BRAND = "#d81f26";
 const CREAM = "#fbf7ef";

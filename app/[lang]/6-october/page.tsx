@@ -39,7 +39,6 @@ export async function generateMetadata({
     title: copy[lang].title,
     description: copy[lang].metaDescription,
     path: "/6-october",
-    hasOwnShareImage: true,
   });
 }
 

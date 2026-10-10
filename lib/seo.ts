@@ -30,9 +30,19 @@ export const SITE_IMAGE_ALT: Record<Locale, string> = {
   th: "สโมสรนักศึกษาการเมืองและการระหว่างประเทศ มหาวิทยาลัยธรรมศาสตร์",
 };
 
-export const SHARE_IMAGE_ID = "default";
-
 const SHARE_IMAGE_SIZE = { width: 1200, height: 630 };
+
+const OWN_SHARE_IMAGE_PATHS = [
+  /^\/(6-october|advisory)$/,
+  /^\/emergency\/[^/]+$/,
+  /^\/news\/[^/]+$/,
+  /^\/student-life\/course-reviews\/[^/]+$/,
+];
+
+/** Whether the segment at `path` has its own opengraph-image and twitter-image files. */
+export function hasOwnShareImage(path: string): boolean {
+  return OWN_SHARE_IMAGE_PATHS.some((pattern) => pattern.test(path));
+}
 
 export type ArticleMetadata = {
   /** ISO date or date-time the article was first published. */
@@ -50,8 +60,6 @@ export type BuildMetadataOptions = {
   path: string;
   /** Marks the page as an Open Graph article (news posts). */
   article?: ArticleMetadata;
-  /** Set when the page's segment has its own opengraph-image and twitter-image files. */
-  hasOwnShareImage?: boolean;
 };
 
 /** Absolute URL for `path` under a given locale, e.g. `/en/news`. */
@@ -118,7 +126,6 @@ export function buildMetadata({
   description,
   path,
   article,
-  hasOwnShareImage = false,
 }: BuildMetadataOptions): Metadata {
   const languages: Record<string, string> = { "x-default": absoluteUrl("th", path) };
   for (const loc of locales) {
@@ -129,10 +136,11 @@ export function buildMetadata({
   const socialTitle = title.trim();
   const fittedDescription = fitDescription(description);
   const url = absoluteUrl(locale, path);
+  const own = hasOwnShareImage(path);
   const shareImage = (name: "opengraph-image" | "twitter-image") => ({
-    url: `/${locale}/${name}/${SHARE_IMAGE_ID}`,
+    url: `${own ? url : absoluteUrl(locale, "/")}/${name}`,
     ...SHARE_IMAGE_SIZE,
-    alt: SITE_IMAGE_ALT[locale],
+    alt: own ? socialTitle : SITE_IMAGE_ALT[locale],
   });
 
   return {
@@ -149,7 +157,7 @@ export function buildMetadata({
       locale: OG_LOCALES[locale],
       alternateLocale: locales.filter((l) => l !== locale).map((l) => OG_LOCALES[l]),
       url,
-      ...(hasOwnShareImage ? {} : { images: [shareImage("opengraph-image")] }),
+      images: [shareImage("opengraph-image")],
       ...(article
         ? {
             type: "article" as const,
@@ -163,7 +171,7 @@ export function buildMetadata({
       card: "summary_large_image",
       title: socialTitle,
       description: fittedDescription,
-      ...(hasOwnShareImage ? {} : { images: [shareImage("twitter-image")] }),
+      images: [shareImage("twitter-image")],
     },
   };
 }
