@@ -795,8 +795,8 @@ export const staticPages: StaticPage[] = [
     section: "page",
     kind: "reference",
     title: {
-      en: "Classes online for the World Bank and IMF meetings",
-      th: "เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
+      en: "Classes move online for the World Bank and IMF meetings",
+      th: "ธรรมศาสตร์ให้เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
     },
     summary: {
       en: "Classes move online on 12 October and 14 to 16 October 2026. 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
