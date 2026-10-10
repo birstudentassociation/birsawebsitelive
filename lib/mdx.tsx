@@ -5,6 +5,7 @@
  * and accessibility handling for free.
  */
 import type { AnchorHTMLAttributes, ReactNode, TableHTMLAttributes, ThHTMLAttributes } from "react";
+import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -25,6 +26,7 @@ import LiveBusTracker from "@/components/bus-tracker/LiveBusTracker";
 import PlacesSection from "@/components/places/PlacesSection";
 import RelatedClubs from "@/components/clubs/RelatedClubs";
 import type { Locale } from "@/lib/i18n";
+import { localiseMdxHref } from "@/lib/mdx-href";
 
 export type MdxProps = {
   source: string;
@@ -49,6 +51,14 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
           <ExternalLink href={href} newTabLabel={newTabLabel}>
             {children}
           </ExternalLink>
+        );
+      }
+      const localised = localiseMdxHref(href, locale);
+      if (localised !== href) {
+        return (
+          <Link href={localised} {...rest}>
+            {children}
+          </Link>
         );
       }
       return (
