@@ -209,9 +209,10 @@ export async function purgeExpiredPersonalData(
 
   const cutoff = retentionCutoff(now);
   const counts = emptyCounts();
-  const client = await sql.connect();
+  let client: Awaited<ReturnType<typeof sql.connect>> | undefined;
 
   try {
+    client = await sql.connect();
     await client.query("begin");
 
     // a. Loans: only CLOSED loans, and only by how long ago they closed.
@@ -405,12 +406,12 @@ export async function purgeExpiredPersonalData(
     return { ok: true, counts };
   } catch {
     try {
-      await client.query("rollback");
+      await client?.query("rollback");
     } catch {
       // The connection is on its way out either way; nothing more to do.
     }
     return { ok: false, reason: "error" };
   } finally {
-    client.release();
+    client?.release();
   }
 }

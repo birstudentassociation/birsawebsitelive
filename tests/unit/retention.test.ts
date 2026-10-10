@@ -26,11 +26,17 @@ import { RETENTION_YEARS } from "@/content/privacy/register";
 const dbState = vi.hoisted(() => ({
   configured: true,
   client: null as unknown,
+  connectError: null as Error | null,
 }));
 
 vi.mock("@/lib/inventory/db", () => ({
   isInventoryConfigured: () => dbState.configured,
-  sql: { connect: async () => dbState.client },
+  sql: {
+    connect: async () => {
+      if (dbState.connectError) throw dbState.connectError;
+      return dbState.client;
+    },
+  },
 }));
 
 let store: Store;
@@ -449,6 +455,7 @@ function freshStore(): Store {
 
 beforeEach(() => {
   dbState.configured = true;
+  dbState.connectError = null;
   store = freshStore();
   dbState.client = makeFakeClient(store);
 });
@@ -458,6 +465,11 @@ describe("purgeExpiredPersonalData", () => {
     dbState.configured = false;
     const result = await purgeExpiredPersonalData(NOW);
     expect(result).toEqual({ ok: false, reason: "not-configured" });
+  });
+
+  it("reports an error rather than throwing when the connection cannot be opened", async () => {
+    dbState.connectError = new Error("connection refused");
+    await expect(purgeExpiredPersonalData(NOW)).resolves.toEqual({ ok: false, reason: "error" });
   });
 
   it("never purges an open loan of any age", async () => {

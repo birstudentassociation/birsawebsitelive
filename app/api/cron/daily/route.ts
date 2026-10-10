@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasValidCronSecret } from "@/app/api/_lib/cronAuth";
-import { isCronConfigured, runDailyJob } from "@/lib/inventory/notifications";
+import { runDailyJob } from "@/lib/inventory/notifications";
 import { purgeExpiredPersonalData } from "@/lib/privacy/retention";
 
 /**
@@ -15,10 +15,6 @@ import { purgeExpiredPersonalData } from "@/lib/privacy/retention";
  * period, and one cron job is one less thing to configure and forget.
  */
 export async function GET(request: Request) {
-  if (!isCronConfigured()) {
-    return NextResponse.json({ ok: false, reason: "not-configured" }, { status: 200 });
-  }
-
   if (!hasValidCronSecret(request)) {
     return NextResponse.json({ ok: false, reason: "unauthorized" }, { status: 401 });
   }
