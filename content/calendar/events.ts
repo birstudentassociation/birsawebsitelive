@@ -326,7 +326,7 @@ export const calendarEvents: CalendarEvent[] = [
       th: "แต่งตั้งคณะกรรมการแกนนักศึกษา BIR รุ่นที่ 18",
     },
     slug: "bir18-student-council-appointed-2026",
-    kind: "university",
+    kind: "birsa",
   },
   {
     id: "sep-bitkub-survival-guide",
@@ -409,6 +409,37 @@ export const calendarEvents: CalendarEvent[] = [
       th: "ระดมทุนค่ายอาสาไออาร์ 6",
     },
     slug: "asa-ir-6-camp-recruitment",
+    kind: "university",
+  },
+  {
+    id: "oct-online-classes-12",
+    start: "2026-10-12",
+    title: {
+      en: "Classes online, BIR Office closed",
+      th: "เรียนออนไลน์ สำนักงาน BIR ปิดทำการ",
+    },
+    slug: "activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "oct-public-holiday-13",
+    start: "2026-10-13",
+    title: {
+      en: "Public holiday, no classes",
+      th: "วันหยุดราชการ ไม่มีการเรียนการสอน",
+    },
+    slug: "activity-calendar",
+    kind: "university",
+  },
+  {
+    id: "oct-online-classes-14-16",
+    start: "2026-10-14",
+    end: "2026-10-16",
+    title: {
+      en: "Classes online, BIR Office closed",
+      th: "เรียนออนไลน์ สำนักงาน BIR ปิดทำการ",
+    },
+    slug: "activity-calendar",
     kind: "university",
   },
   {
