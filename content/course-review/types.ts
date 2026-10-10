@@ -116,17 +116,16 @@ export type AssessmentComponent = {
 };
 
 /**
- * Objective facts from a course's syllabus, as opposed to student opinion.
- * Optional: recorded only once BIRSA has the syllabus for a given term.
+ * Plain facts about how a course is assessed, as opposed to student opinion.
+ * Syllabi are copyrighted and not public, so this holds facts restated in
+ * BIRSA's own words and never syllabus text or a link to the document.
  */
-export type Syllabus = {
-  /** Term the syllabus applies to. */
+export type AssessmentFacts = {
+  /** Term the facts apply to. */
   term: AcademicTerm;
-  assessment?: AssessmentComponent[];
+  weights?: AssessmentComponent[];
   examFormat?: Bi;
   attendance?: Bi;
-  /** Link to the official syllabus or course outline, when public. */
-  sourceUrl?: string;
 };
 
 export type Course = {
@@ -149,6 +148,6 @@ export type Course = {
   description: Bi;
   /** Aggregated student reviews, split by instructor and term. Present only once BIRSA has collected some. */
   reviews?: StudentReview[];
-  /** Objective syllabus facts: present only once BIRSA has recorded them. */
-  syllabus?: Syllabus;
+  /** How the course is assessed: present only once BIRSA has recorded it. */
+  assessmentFacts?: AssessmentFacts;
 };

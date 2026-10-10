@@ -565,12 +565,22 @@ Set `sample: true` on any review written to demonstrate the layout rather than t
 students, so the pages can say it is an example. Remove the flag only when the entry is replaced by
 a real submission.
 
-### Syllabus facts
+### Assessment facts
 
-The optional `syllabus` block holds objective facts such as assessment weights, exam format and
-attendance. Record them only from an official syllabus for a named term, never from memory or
-hearsay. Assessment weights must add up to 100. Add `sourceUrl` (https) only when the syllabus is
-public.
+Syllabi are copyrighted and are not public. Never copy syllabus text onto the site, never upload or
+link to a syllabus, and never reproduce its weekly schedule or reading list.
+
+The optional `assessmentFacts` block holds plain facts about how a course is assessed for a named
+term. Facts are not covered by copyright, so these are fine when written in your own words.
+
+- `weights` lists each part of the grade and its percentage, for example a midterm at 30. The
+  weights must add up to 100.
+- `examFormat` says whether exams are open or closed book, in person or take home, and so on.
+- `attendance` states any attendance requirement.
+
+Record them only from the syllabus for that term, never from memory or hearsay.
+
+The course descriptions come from the public curriculum document and may be copied as published.
 
 ### Do not hand-write curriculum facts
 

@@ -59,13 +59,11 @@ function biFields(course: (typeof courses)[number]): [string, Bi | undefined][] 
       if (quote.attribution) fields.push([`review ${r} quote ${i} attribution`, quote.attribution]);
     });
   });
-  const syllabus = course.syllabus;
-  if (syllabus) {
-    (syllabus.assessment ?? []).forEach((c, i) =>
-      fields.push([`syllabus assessment ${i}`, c.label])
-    );
-    if (syllabus.examFormat) fields.push(["syllabus examFormat", syllabus.examFormat]);
-    if (syllabus.attendance) fields.push(["syllabus attendance", syllabus.attendance]);
+  const facts = course.assessmentFacts;
+  if (facts) {
+    (facts.weights ?? []).forEach((c, i) => fields.push([`assessment weight ${i}`, c.label]));
+    if (facts.examFormat) fields.push(["assessment examFormat", facts.examFormat]);
+    if (facts.attendance) fields.push(["assessment attendance", facts.attendance]);
   }
   return fields;
 }
@@ -171,21 +169,19 @@ describe("course review catalogue: reviews", () => {
   });
 });
 
-describe("course review catalogue: syllabus", () => {
-  const withSyllabus = courses.filter((course) => course.syllabus);
+describe("course review catalogue: assessment facts", () => {
+  const withFacts = courses.filter((course) => course.assessmentFacts);
 
-  it("has assessment weights summing to 100 and an https source", () => {
-    for (const course of withSyllabus) {
-      const { assessment, sourceUrl, term } = course.syllabus!;
-      expect(term.year, course.code).toBeGreaterThanOrEqual(2560);
-      expect([1, 2, "summer"], course.code).toContain(term.semester);
-      if (assessment) {
-        const total = assessment.reduce((sum, c) => sum + c.weight, 0);
+  it("has weights summing to 100 and no syllabus link", () => {
+    for (const course of withFacts) {
+      const facts = course.assessmentFacts!;
+      expect(facts.term.year, course.code).toBeGreaterThanOrEqual(2560);
+      expect([1, 2, "summer"], course.code).toContain(facts.term.semester);
+      expect(Object.keys(facts), course.code).not.toContain("sourceUrl");
+      if (facts.weights) {
+        const total = facts.weights.reduce((sum, c) => sum + c.weight, 0);
         expect(total, course.code).toBe(100);
-        for (const c of assessment) expect(c.weight, course.code).toBeGreaterThan(0);
-      }
-      if (sourceUrl !== undefined) {
-        expect(new URL(sourceUrl).protocol, course.code).toBe("https:");
+        for (const c of facts.weights) expect(c.weight, course.code).toBeGreaterThan(0);
       }
     }
   });

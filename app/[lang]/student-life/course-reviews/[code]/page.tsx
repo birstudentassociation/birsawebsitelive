@@ -15,7 +15,7 @@ import { courses } from "@/content/course-review/courses";
 import type {
   AcademicTerm,
   StudentReview,
-  Syllabus as SyllabusData,
+  AssessmentFacts as AssessmentFactsData,
 } from "@/content/course-review/types";
 import { minorsFor, prerequisiteCodes, recommendedTerms, unlocks } from "@/lib/course-review/facts";
 import { studentLifeLabel } from "@/content/student-life/topics";
@@ -205,11 +205,11 @@ export default async function CourseDetailPage({
         </section>
 
         <section className="flex flex-col gap-3">
-          <h2 className="font-display text-xl">{t.syllabusHeading}</h2>
-          {course.syllabus ? (
-            <Syllabus syllabus={course.syllabus} locale={locale} t={t} />
+          <h2 className="font-display text-xl">{t.assessmentFactsHeading}</h2>
+          {course.assessmentFacts ? (
+            <AssessmentFacts facts={course.assessmentFacts} locale={locale} t={t} />
           ) : (
-            <p className="text-sm text-muted">{t.syllabusMissing}</p>
+            <p className="text-sm text-muted">{t.assessmentFactsMissing}</p>
           )}
         </section>
 
@@ -371,15 +371,23 @@ function CourseLinks({ codes, locale }: { codes: string[]; locale: Locale }) {
   );
 }
 
-function Syllabus({ syllabus, locale, t }: { syllabus: SyllabusData; locale: Locale; t: Dict }) {
+function AssessmentFacts({
+  facts,
+  locale,
+  t,
+}: {
+  facts: AssessmentFactsData;
+  locale: Locale;
+  t: Dict;
+}) {
   return (
     <div className="flex flex-col gap-4 text-sm">
-      <h3 className="font-semibold text-ink">{termLabel(t.syllabusTerm, syllabus.term, t)}</h3>
-      {syllabus.assessment && syllabus.assessment.length > 0 ? (
+      <h3 className="font-semibold text-ink">{termLabel(t.assessmentFactsTerm, facts.term, t)}</h3>
+      {facts.weights && facts.weights.length > 0 ? (
         <table className="w-full max-w-md border-collapse text-left">
           <caption className="pb-2 text-left font-semibold text-ink">{t.assessmentLabel}</caption>
           <tbody>
-            {syllabus.assessment.map((component) => (
+            {facts.weights.map((component) => (
               <tr key={component.label.en} className="border-t border-line">
                 <th scope="row" className="py-2 pr-4 font-normal text-muted">
                   {component.label[locale]}
@@ -390,28 +398,16 @@ function Syllabus({ syllabus, locale, t }: { syllabus: SyllabusData; locale: Loc
           </tbody>
         </table>
       ) : null}
-      {syllabus.examFormat ? (
+      {facts.examFormat ? (
         <p>
           <span className="font-semibold text-ink">{t.examFormatLabel}: </span>
-          <span className="text-muted">{syllabus.examFormat[locale]}</span>
+          <span className="text-muted">{facts.examFormat[locale]}</span>
         </p>
       ) : null}
-      {syllabus.attendance ? (
+      {facts.attendance ? (
         <p>
           <span className="font-semibold text-ink">{t.attendanceLabel}: </span>
-          <span className="text-muted">{syllabus.attendance[locale]}</span>
-        </p>
-      ) : null}
-      {syllabus.sourceUrl ? (
-        <p>
-          <a
-            href={syllabus.sourceUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="font-semibold text-brand-deep underline underline-offset-2 hover:text-brand-dark"
-          >
-            {t.syllabusSourceLink}
-          </a>
+          <span className="text-muted">{facts.attendance[locale]}</span>
         </p>
       ) : null}
     </div>
