@@ -547,6 +547,20 @@ The course pages under `/student-life/course-reviews` are driven by `content/cou
 one entry per PI course, sorted by code. The types and their comments are in `types.ts`. Titles,
 descriptions and instructor names are bilingual (`{ en, th }`), and both languages must be filled in.
 
+### Where reviews come from
+
+Most reviews no longer need a commit. Students submit anonymous reviews on each course page, an
+officer approves them in the console, and once a course, term and instructor has five approved
+submissions an officer publishes a summary. Published summaries live in the database and are merged
+with the reviews in `courses.ts` when the page renders. Add to `courses.ts` only to seed a review
+by hand; a published summary for the same term and instructor replaces the hand-written one.
+
+Reviews have the same rules whichever way they arrive: written in words, no scores. A workload
+estimate is the one number allowed, and only as the count of students who chose each hours a week
+band, shown as "8 of 12 students said 3 to 6 hours a week", never averaged. A review from more than
+three academic years ago is marked as dated on the page, and the page says when the instructor in
+a review is not among the course's current instructors.
+
 ### Adding a review
 
 Add a `reviews` entry to the course. A review is written only: there are no scores or star

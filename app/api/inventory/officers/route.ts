@@ -9,7 +9,7 @@ import { recordAudit } from "@/lib/inventory/audit";
 const createOfficerSchema = z.object({
   email: z.string().email(),
   name: z.string().min(1).max(120),
-  role: z.enum(["admin", "inventory_manager", "loan_officer", "read_only"]),
+  role: z.enum(["admin", "inventory_manager", "loan_officer", "read_only", "academic_affairs"]),
   passcode: z.string().min(6).max(200),
   custodianId: z.string().nullable().optional(),
 });

@@ -17,6 +17,7 @@
     "perf": "lhci autorun"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/blob": "^2.8.1",
     "@vercel/postgres": "^0.10.0",

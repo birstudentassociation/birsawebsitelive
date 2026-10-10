@@ -14,10 +14,12 @@ const ALLOWED_REVIEW_KEYS = new Set<keyof StudentReview>([
   "reviewCount",
   "term",
   "instructor",
+  "instructorElsewhere",
   "workload",
   "assessmentStyle",
   "tips",
   "quotes",
+  "workloadBands",
 ]);
 
 /**

@@ -116,6 +116,7 @@ originals.
 | `OFFICER_SESSION_SECRET` | Signing key for the per-officer session cookie (`openssl rand -hex 32`). Without it, officer sign-in is unavailable. |
 | `CRON_SECRET`            | Bearer token the daily cron (`/api/cron/daily`) requires.                                                            |
 | `BLOB_READ_WRITE_TOKEN`  | Vercel Blob token for inventory item photos. Auto-set by the Blob integration; without it uploads are disabled.      |
+| `ANTHROPIC_API_KEY`      | Lets the course review console ask Claude for a draft summary. Without it officers write summaries by hand.          |
 
 ## Project structure
 
@@ -154,6 +155,20 @@ To stand it up on a fresh database:
 
 Optional extras: `BLOB_READ_WRITE_TOKEN` enables item photos, and `CRON_SECRET` enables the
 daily loan-reminder emails sent by the Vercel Cron job declared in `vercel.json`.
+
+## Course reviews
+
+Students write anonymous course reviews at `/[lang]/student-life/course-reviews/[code]/review`. The
+form asks for no name, student ID or email address, and stores no IP address. Officers with the
+`admin` or `academic_affairs` role approve submissions in the console at
+`/[lang]/officer/inventory/course-reviews`. Once a course, term and instructor has five approved
+submissions, an officer can draft a summary with Claude (when `ANTHROPIC_API_KEY` is set), edit it,
+and publish it; nothing publishes without an officer approving the text. Published summaries are
+held in the database and appear on the course page within the hour, or at once after publishing.
+
+To switch it on: attach Postgres, run `node scripts/migrate.mjs` (migration `013` adds the tables
+and the `academic_affairs` role), and add an officer with that role through the console. With no
+database the course pages keep the `/contact` invitation and the form says it is not available.
 
 ## Emergency alerts
 

@@ -5,6 +5,7 @@ import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import { getSessionOfficer } from "@/lib/inventory/auth";
 import { getCustodian } from "@/lib/inventory/custodians";
+import { canModerateReviews } from "@/lib/course-review/access";
 import { ConsoleNav, LogoutButton } from "@/components/inventory/ConsoleGate";
 
 /**
@@ -54,6 +55,7 @@ type NavCopy = {
   reports: string;
   officers: string;
   organisations: string;
+  courseReviews: string;
   /** Label for the scope-indicator pill shown to club custodians. */
   viewingLabel: string;
 };
@@ -69,6 +71,7 @@ const navCopy: Record<Locale, NavCopy> = {
     reports: "Reports",
     officers: "Officers",
     organisations: "Organisations",
+    courseReviews: "Course reviews",
     viewingLabel: "Viewing:",
   },
   th: {
@@ -81,6 +84,7 @@ const navCopy: Record<Locale, NavCopy> = {
     reports: "รายงาน",
     officers: "เจ้าหน้าที่",
     organisations: "องค์กร/ชมรม",
+    courseReviews: "รีวิวรายวิชา",
     viewingLabel: "กำลังดู:",
   },
 };
@@ -109,15 +113,24 @@ export default async function OfficerInventoryLayout({
     scopeName = custodian ? custodian.name[locale] : null;
   }
 
-  const navItems = [
-    { href: "/officer/inventory", label: t.dashboard },
-    { href: "/officer/inventory/items", label: t.catalogue },
-    { href: "/officer/inventory/loans", label: t.loans },
-    { href: "/officer/inventory/borrowers", label: t.borrowers },
-    { href: "/officer/inventory/reports", label: t.reports },
-    { href: "/officer/inventory/officers", label: t.officers },
-    ...(isGlobalOfficer ? [{ href: "/officer/inventory/custodians", label: t.organisations }] : []),
-  ];
+  // Academic Affairs officers have the course review console and nothing
+  // else, so their nav is just that and the dashboard that points to it.
+  const reviewsItem = { href: "/officer/inventory/course-reviews", label: t.courseReviews };
+  const navItems =
+    officer?.role === "academic_affairs"
+      ? [{ href: "/officer/inventory", label: t.dashboard }, reviewsItem]
+      : [
+          { href: "/officer/inventory", label: t.dashboard },
+          { href: "/officer/inventory/items", label: t.catalogue },
+          { href: "/officer/inventory/loans", label: t.loans },
+          { href: "/officer/inventory/borrowers", label: t.borrowers },
+          { href: "/officer/inventory/reports", label: t.reports },
+          { href: "/officer/inventory/officers", label: t.officers },
+          ...(isGlobalOfficer
+            ? [{ href: "/officer/inventory/custodians", label: t.organisations }]
+            : []),
+          ...(officer && canModerateReviews(officer) ? [reviewsItem] : []),
+        ];
 
   return (
     <div className="flex min-h-screen flex-col">

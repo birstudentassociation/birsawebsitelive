@@ -9,7 +9,9 @@ import { recordAudit } from "@/lib/inventory/audit";
 
 const updateOfficerSchema = z.object({
   name: z.string().min(1).max(120).optional(),
-  role: z.enum(["admin", "inventory_manager", "loan_officer", "read_only"]).optional(),
+  role: z
+    .enum(["admin", "inventory_manager", "loan_officer", "read_only", "academic_affairs"])
+    .optional(),
   isActive: z.boolean().optional(),
   passcode: z.string().min(6).max(200).optional(),
   custodianId: z.string().nullable().optional(),
