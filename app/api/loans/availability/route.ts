@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { getItemAvailabilityForRange } from "@/lib/inventory/loans";
+import { isRealCalendarDate } from "@/lib/validation";
 
 export async function GET(request: Request) {
   const ip = getClientIp(request);
@@ -14,6 +15,10 @@ export async function GET(request: Request) {
   const end = searchParams.get("end");
 
   if (!itemKey || !start || !end) {
+    return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
+  }
+
+  if (!isRealCalendarDate(start) || !isRealCalendarDate(end) || end < start) {
     return NextResponse.json({ ok: false, reason: "validation" }, { status: 400 });
   }
 

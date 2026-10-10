@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { contactSchema } from "@/lib/validation";
+import {
+  contactSchema,
+  inventoryLoanRequestSchema,
+  isRealCalendarDate,
+  loanRequestSchema,
+} from "@/lib/validation";
 
 const validInput = {
   name: "Alex",
@@ -50,5 +55,63 @@ describe("contactSchema", () => {
     const { nickname: _nickname, ...withoutNickname } = validInput;
     const result = contactSchema.safeParse(withoutNickname);
     expect(result.success).toBe(true);
+  });
+});
+
+describe("isRealCalendarDate", () => {
+  it("accepts real dates, including a leap day", () => {
+    expect(isRealCalendarDate("2026-02-28")).toBe(true);
+    expect(isRealCalendarDate("2028-02-29")).toBe(true);
+    expect(isRealCalendarDate("2026-12-31")).toBe(true);
+  });
+
+  it("rejects dates that roll over into the next month", () => {
+    expect(isRealCalendarDate("2026-02-31")).toBe(false);
+    expect(isRealCalendarDate("2026-02-29")).toBe(false);
+    expect(isRealCalendarDate("2026-04-31")).toBe(false);
+  });
+
+  it("rejects out-of-range months and days, and malformed strings", () => {
+    expect(isRealCalendarDate("2026-13-01")).toBe(false);
+    expect(isRealCalendarDate("2026-00-10")).toBe(false);
+    expect(isRealCalendarDate("2026-01-00")).toBe(false);
+    expect(isRealCalendarDate("2026-1-1")).toBe(false);
+    expect(isRealCalendarDate("")).toBe(false);
+  });
+});
+
+describe("loan request schemas and calendar dates", () => {
+  const base = {
+    itemKey: "first-aid-kit",
+    studentName: "Alex",
+    studentId: "6512345678",
+    studentEmail: "alex@example.com",
+  };
+
+  it("inventoryLoanRequestSchema rejects 2026-02-31", () => {
+    const result = inventoryLoanRequestSchema.safeParse({
+      ...base,
+      startDate: "2026-02-31",
+      endDate: "2026-03-05",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("inventoryLoanRequestSchema accepts real dates", () => {
+    const result = inventoryLoanRequestSchema.safeParse({
+      ...base,
+      startDate: "2026-02-27",
+      endDate: "2026-03-05",
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it("loanRequestSchema rejects an impossible return date", () => {
+    const result = loanRequestSchema.safeParse({
+      ...base,
+      pickupDate: "2026-02-27",
+      returnDate: "2026-02-30",
+    });
+    expect(result.success).toBe(false);
   });
 });

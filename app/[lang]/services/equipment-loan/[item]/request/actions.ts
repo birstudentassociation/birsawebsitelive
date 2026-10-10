@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { inventoryLoanRequestSchema } from "@/lib/validation";
+import { inventoryLoanRequestSchema, isRealCalendarDate } from "@/lib/validation";
 import { checkRateLimit } from "@/app/api/_lib/guard";
 import { createLoanRequest, getItemAvailabilityForRange } from "@/lib/inventory/loans";
 import { getItemByKey } from "@/lib/inventory/items";
@@ -89,8 +89,6 @@ function addDaysISO(iso: string, days: number): string {
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
 }
-
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 function stepHref(locale: Locale, itemKey: string, step: LoanStep): string {
   return localeHref(locale, `/services/equipment-loan/${itemKey}/request/${STEP_SLUG[step]}`);
@@ -232,11 +230,11 @@ export async function submitDatesStep(
   const errors: { startDate?: string; endDate?: string } = {};
 
   if (!startDate) errors.startDate = labels.dates.errorStartRequired;
-  else if (!ISO_DATE.test(startDate)) errors.startDate = labels.dates.errorStartInvalid;
+  else if (!isRealCalendarDate(startDate)) errors.startDate = labels.dates.errorStartInvalid;
   else if (startDate < todayISO()) errors.startDate = labels.dates.errorStartPast;
 
   if (!endDate) errors.endDate = labels.dates.errorEndRequired;
-  else if (!ISO_DATE.test(endDate)) errors.endDate = labels.dates.errorEndInvalid;
+  else if (!isRealCalendarDate(endDate)) errors.endDate = labels.dates.errorEndInvalid;
   else if (startDate && endDate < startDate) errors.endDate = labels.dates.errorEndBeforeStart;
   else if (startDate && endDate > addDaysISO(startDate, maxLoanDays)) {
     errors.endDate = labels.dates.errorTooLong;

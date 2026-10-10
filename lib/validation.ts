@@ -34,14 +34,31 @@ export const startClubSchema = z.object({
 export type ContactInput = z.infer<typeof contactSchema>;
 export type StartClubInput = z.infer<typeof startClubSchema>;
 
+const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+/** True only for a real `YYYY-MM-DD` calendar date, so 2026-02-31 is rejected rather than rolled over. */
+export function isRealCalendarDate(value: string): boolean {
+  if (!ISO_DATE_PATTERN.test(value)) {
+    return false;
+  }
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year!, month! - 1, day!));
+  return (
+    date.getUTCFullYear() === year && date.getUTCMonth() === month! - 1 && date.getUTCDate() === day
+  );
+}
+
+const calendarDate = (message?: string) =>
+  z.string().refine(isRealCalendarDate, message ? { message } : undefined);
+
 export const loanRequestSchema = z
   .object({
     itemKey: z.string().min(1, "Choose an item"),
     studentName: z.string().min(1, "Enter your name").max(120),
     studentId: z.string().min(1, "Enter your student ID").max(40),
     studentEmail: z.string().email("Enter a valid email"),
-    pickupDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter a valid date"),
-    returnDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter a valid date"),
+    pickupDate: calendarDate("Enter a valid date"),
+    returnDate: calendarDate("Enter a valid date"),
     reason: z.string().max(1000).optional().or(z.literal("")),
     nickname: honeypot,
   })
@@ -66,8 +83,8 @@ export const inventoryLoanRequestSchema = z
     studentId: z.string().min(1).max(40),
     studentEmail: z.string().email(),
     phone: z.string().max(40).optional().or(z.literal("")),
-    startDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    endDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    startDate: calendarDate(),
+    endDate: calendarDate(),
     reason: z.string().max(1000).optional().or(z.literal("")),
     nickname: honeypot,
   })
