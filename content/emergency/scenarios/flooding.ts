@@ -295,7 +295,6 @@ const flooding: EmergencyScenario = {
           },
         ],
         links: [
-          { label: "Read the advisory on online classes from 12 to 16 October", href: "/advisory" },
           {
             label: "Read the university announcement No. 2 of 29 September (scanned, in Thai)",
             href: "/emergency/tu-announcement-2-2026-09-29.jpg",
@@ -641,7 +640,6 @@ const flooding: EmergencyScenario = {
           },
         ],
         links: [
-          { label: "อ่านประกาศเรียนออนไลน์วันที่ 12 ถึง 16 ตุลาคม", href: "/advisory" },
           {
             label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ ฉบับที่ 2 วันที่ 29 กันยายน (ฉบับสแกน)",
             href: "/emergency/tu-announcement-2-2026-09-29.jpg",
