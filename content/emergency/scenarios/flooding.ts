@@ -217,11 +217,11 @@ const flooding: EmergencyScenario = {
       href: "https://www.thaiwater.net/water/wl",
     },
   ],
-  reviewed: "2026-10-03",
+  reviewed: "2026-10-10",
   en: {
     title: "After the Bangkok floods",
     summary:
-      "The floods that began on 24 September have gone down across most of Bangkok. Parts of Lat Krabang and Saphan Sung are still under water, and more heavy rain is forecast for 5 and 6 October. Work through the steps below, and claim money for any damage.",
+      "The floods that began on 24 September had gone down across most of Bangkok by 3 October, although some low-lying areas may still hold water. Work through the steps below, and claim money for any damage.",
     banner:
       "The floods have gone down. Find out how to claim the government's 9,000 baht and BMA compensation.",
     notLive: {
@@ -233,22 +233,26 @@ const flooding: EmergencyScenario = {
       "Photograph or film the damage before you clean up or throw anything away.",
       "Claim money for the damage. Check what you can get below, and claim from the BMA within 30 days of the flood.",
       "Keep the power off at the main switch until the floor, wiring and sockets are dry.",
-      "Sit any postponed midterms on Sunday 4 or Sunday 11 October.",
-      "Heavy rain is forecast for 5 and 6 October. Keep away from the piers at high tide.",
+      "Classes are online on 12 October and from 14 to 16 October. 13 October is a public holiday.",
+      "If your midterm was set for Sunday 27 September, it moved to Sunday 11 October. Check with your lecturer.",
     ],
     sections: [
       {
         id: "thammasat",
         heading: "Thammasat classes and exams",
         body: [
-          "All classes at every campus were online until Saturday 3 October. By 16:00 on 3 October the university had not announced arrangements from Monday 5 October.",
+          "Classes are online on Monday 12 October and from Wednesday 14 to Friday 16 October 2026. Tuesday 13 October is a public holiday. The university made these arrangements for the World Bank and IMF meetings, not because of the floods. The BIR Office is closed from 12 to 16 October.",
+          "All classes at every campus were online until Saturday 3 October.",
           "The university's announcement of 29 September says that after 3 October lecturers may keep classes online or hybrid while students are still affected. Your lecturer will tell you in advance. If you are still affected by the floods, tell your lecturer or your faculty office.",
         ],
         directory: [
           {
             heading: "Midterm exams, undergraduate programmes",
             places: [
-              { name: "Exams set for Saturday 26 September", detail: "Moved to Sunday 4 October" },
+              {
+                name: "Exams set for Saturday 26 September",
+                detail: "Moved to Sunday 4 October. Ask your lecturer if you missed it.",
+              },
               { name: "Exams set for Sunday 27 September", detail: "Moved to Sunday 11 October" },
               {
                 name: "Exams already held that you could not sit because of the rain",
@@ -291,6 +295,7 @@ const flooding: EmergencyScenario = {
           },
         ],
         links: [
+          { label: "Read the advisory on online classes from 12 to 16 October", href: "/advisory" },
           {
             label: "Read the university announcement No. 2 of 29 September (scanned, in Thai)",
             href: "/emergency/tu-announcement-2-2026-09-29.jpg",
@@ -515,13 +520,13 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "weather",
-        heading: "More rain on 5 and 6 October",
+        heading: "Staying safe in rain and high water",
         body: [
-          "At 05:00 on 3 October the Thai Meteorological Department warned of thunderstorms, strong winds and heavy to very heavy rain in Bangkok on 5 and 6 October, which can cause flash flooding in low areas. The BMA is lowering the main canals to make room, and expects showers on and off rather than days of heavy rain.",
+          "Heavy rain can flood low areas of Bangkok again while the canals and drains recover. Check the Thai Meteorological Department warnings and the BMA flood alert page before you travel.",
         ],
         items: [
-          "Parts of Saphan Sung and the Kheha Romklao flats in Lat Krabang are still flooded while Khlong Prawet Burirom drains.",
-          "The Chao Phraya Dam is still releasing 2,500 cubic metres a second. Keep away from Tha Prachan, Tha Chang and other piers at high tide, because they are outside the river wall.",
+          "Parts of Saphan Sung and the Kheha Romklao flats in Lat Krabang were still flooded on 3 October. Check the BMA flood alert page for the current position.",
+          "Keep away from Tha Prachan, Tha Chang and other piers at high tide while the river is high, because they are outside the river wall.",
           "Do not walk or drive through floodwater.",
           "Check the BMA flood alert page before you travel.",
           "Keep your phone charged and your documents in a waterproof bag.",
@@ -560,7 +565,7 @@ const flooding: EmergencyScenario = {
   th: {
     title: "หลังน้ำท่วมกรุงเทพฯ",
     summary:
-      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ เหลือบางส่วนของเขตลาดกระบังและเขตสะพานสูงที่ยังมีน้ำท่วมขัง และคาดว่าจะมีฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม ทำตามขั้นตอนด้านล่าง และยื่นขอรับเงินช่วยเหลือค่าเสียหาย",
+      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ ณ วันที่ 3 ตุลาคม ซึ่งบางพื้นที่ลุ่มอาจยังมีน้ำท่วมขัง ทำตามขั้นตอนด้านล่าง และยื่นขอรับเงินช่วยเหลือค่าเสียหาย",
     banner: "น้ำลดแล้ว ดูวิธีขอรับเงิน 9,000 บาทของรัฐบาลและเงินช่วยเหลือค่าเสียหายของ กทม.",
     notLive: {
       title: "น้ำท่วมผ่านไปแล้ว แต่ยังขอรับเงินช่วยเหลือได้",
@@ -571,15 +576,16 @@ const flooding: EmergencyScenario = {
       "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ",
       "ยื่นขอรับเงินช่วยเหลือค่าเสียหาย ตรวจสอบได้ด้านล่างว่าขอรับอะไรได้บ้าง และยื่นขอเงินของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย",
       "ยกคัตเอาต์ค้างไว้จนกว่าพื้น สายไฟ และเต้ารับจะแห้งสนิท",
-      "เข้าสอบกลางภาคที่เลื่อนไปวันอาทิตย์ที่ 4 หรือวันอาทิตย์ที่ 11 ตุลาคม",
-      "คาดว่าจะมีฝนตกหนักในวันที่ 5 และ 6 ตุลาคม หลีกเลี่ยงท่าเรือในช่วงน้ำขึ้น",
+      "เรียนออนไลน์วันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม ส่วนวันที่ 13 ตุลาคมเป็นวันหยุดราชการ",
+      "รายวิชาที่เดิมสอบกลางภาควันอาทิตย์ที่ 27 กันยายน เลื่อนไปสอบวันอาทิตย์ที่ 11 ตุลาคม สอบถามอาจารย์ผู้สอนให้แน่ใจ",
     ],
     sections: [
       {
         id: "thammasat",
         heading: "การเรียนและการสอบของธรรมศาสตร์",
         body: [
-          "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม จนถึงเวลา 16.00 น. วันที่ 3 ตุลาคม มหาวิทยาลัยยังไม่ประกาศรูปแบบการเรียนตั้งแต่วันจันทร์ที่ 5 ตุลาคม",
+          "ธรรมศาสตร์ให้เรียนออนไลน์วันจันทร์ที่ 12 ตุลาคม และวันพุธที่ 14 ถึงวันศุกร์ที่ 16 ตุลาคม 2569 ส่วนวันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ มหาวิทยาลัยปรับการเรียนครั้งนี้เพราะการประชุมธนาคารโลกและ IMF ไม่ได้เกี่ยวกับน้ำท่วม สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
+          "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
           "ประกาศมหาวิทยาลัยเมื่อวันที่ 29 กันยายนระบุว่า หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป และจะแจ้งล่วงหน้า หากยังได้รับผลกระทบจากน้ำท่วม ให้แจ้งอาจารย์ผู้สอนหรือหน่วยงานของคณะ",
         ],
         directory: [
@@ -588,7 +594,7 @@ const flooding: EmergencyScenario = {
             places: [
               {
                 name: "รายวิชาที่สอบวันเสาร์ที่ 26 กันยายน",
-                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 4 ตุลาคม",
+                detail: "เลื่อนไปสอบวันอาทิตย์ที่ 4 ตุลาคม หากพลาดการสอบ ให้สอบถามอาจารย์ผู้สอน",
               },
               {
                 name: "รายวิชาที่สอบวันอาทิตย์ที่ 27 กันยายน",
@@ -635,6 +641,7 @@ const flooding: EmergencyScenario = {
           },
         ],
         links: [
+          { label: "อ่านประกาศเรียนออนไลน์วันที่ 12 ถึง 16 ตุลาคม", href: "/advisory" },
           {
             label: "อ่านประกาศมหาวิทยาลัยธรรมศาสตร์ ฉบับที่ 2 วันที่ 29 กันยายน (ฉบับสแกน)",
             href: "/emergency/tu-announcement-2-2026-09-29.jpg",
@@ -857,13 +864,13 @@ const flooding: EmergencyScenario = {
       },
       {
         id: "weather",
-        heading: "ฝนตกหนักอีกในวันที่ 5 และ 6 ตุลาคม",
+        heading: "ดูแลความปลอดภัยเมื่อฝนตกและน้ำสูง",
         body: [
-          "เวลา 05.00 น. วันที่ 3 ตุลาคม กรมอุตุนิยมวิทยาเตือนว่ากรุงเทพฯ จะมีพายุฝนฟ้าคะนอง ลมกระโชกแรง และฝนตกหนักถึงหนักมากในวันที่ 5 และ 6 ตุลาคม ซึ่งอาจทำให้เกิดน้ำท่วมฉับพลันในที่ลุ่ม กทม. กำลังพร่องน้ำในคลองหลักเพื่อรองรับฝน และคาดว่าจะเป็นฝนตกเป็นช่วง ๆ ไม่ใช่ฝนตกหนักสะสมหลายวัน",
+          "ฝนตกหนักอาจทำให้พื้นที่ลุ่มในกรุงเทพฯ ท่วมอีกได้ ขณะที่คลองและท่อระบายน้ำยังฟื้นตัว ตรวจสอบประกาศเตือนของกรมอุตุนิยมวิทยาและหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนเดินทาง",
         ],
         items: [
-          "บางส่วนของเขตสะพานสูงและเคหะร่มเกล้า เขตลาดกระบัง ยังมีน้ำท่วมขังระหว่างรอระบายน้ำจากคลองประเวศบุรีรมย์",
-          "เขื่อนเจ้าพระยายังระบายน้ำ 2,500 ลูกบาศก์เมตรต่อวินาที หลีกเลี่ยงท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ๆ ในช่วงน้ำขึ้น เพราะอยู่นอกแนวกำแพงกั้นน้ำ",
+          "ณ วันที่ 3 ตุลาคม บางส่วนของเขตสะพานสูงและเคหะร่มเกล้า เขตลาดกระบัง ยังมีน้ำท่วมขัง ตรวจสอบสถานการณ์ล่าสุดได้ที่หน้าแจ้งเตือนน้ำท่วมของ กทม.",
+          "หลีกเลี่ยงท่าพระจันทร์ ท่าช้าง และท่าเรืออื่น ๆ ในช่วงน้ำขึ้นขณะที่แม่น้ำยังสูง เพราะอยู่นอกแนวกำแพงกั้นน้ำ",
           "อย่าเดินหรือขับรถลุยน้ำท่วม",
           "ตรวจสอบหน้าแจ้งเตือนน้ำท่วมของ กทม. ก่อนออกเดินทาง",
           "ชาร์จโทรศัพท์ให้พร้อม และเก็บเอกสารไว้ในถุงกันน้ำ",
