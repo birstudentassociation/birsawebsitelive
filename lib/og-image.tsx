@@ -43,6 +43,14 @@ function siteHost(): string | null {
   return hostname === "localhost" ? null : host.replace(/^www\./, "");
 }
 
+/**
+ * Title sizes for the script of `text`. Sarabun sets Thai larger on the em
+ * than Fraunces sets English, so Thai takes a smaller scale to look the same.
+ */
+function scaleFor(text: string, latin: number[], thai: number[]) {
+  return /[\u0E00-\u0E7F]/.test(text) ? thai : latin;
+}
+
 function leadingFor(text: Fitted, latin: number, thai: number) {
   return text.ascent > 1 ? thai : latin;
 }
@@ -270,7 +278,7 @@ export async function renderCard({
 
   const titleRoom = MIDDLE_HEIGHT - chipsBlock;
   const shapedTitle = await Promise.all(
-    [96, 84, 76, 68, 60, 54, 48].map((size) =>
+    scaleFor(title, [76, 68, 62, 56, 50, 46], [64, 58, 52, 48, 44, 40]).map((size) =>
       fitText(title, { style: "display", color: INK, sizes: [size], maxWidth: width, maxLines: 3 })
     )
   );
@@ -339,7 +347,7 @@ const SITE_COPY: Record<Locale, { name: string[]; other: string; detail: string 
 
 /** The name over its lines, at the largest size where every line fits. */
 async function siteName(lines: string[]): Promise<Fitted> {
-  const sizes = [76, 68, 60, 54, 48];
+  const sizes = scaleFor(lines.join(" "), [72, 64, 58, 52], [58, 52, 48, 44]);
   for (const size of sizes) {
     const fitted = await Promise.all(
       lines.map((line) =>
@@ -426,7 +434,7 @@ export async function renderEmergencyOgImage({
     fitText(headline, {
       style: "strong",
       color: WHITE,
-      sizes: [72, 64, 56, 50, 44],
+      sizes: scaleFor(headline, [64, 58, 52, 46, 42], [58, 52, 48, 44, 40]),
       maxWidth: width,
       maxLines: context ? 3 : 4,
     }),
@@ -494,7 +502,7 @@ export async function renderCommemorationOgImage({
     fitText(title, {
       style: "display",
       color: WHITE,
-      sizes: [104, 92, 80],
+      sizes: scaleFor(title, [96, 84, 72], [84, 76, 68]),
       maxWidth: 720,
       maxLines: 2,
     }),
