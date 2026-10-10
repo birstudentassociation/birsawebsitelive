@@ -32,6 +32,7 @@ export async function generateMetadata({
     title: dict.site.fullName,
     description: dict.site.description,
     path: "/",
+    hasOwnShareImage: true,
   });
 }
 

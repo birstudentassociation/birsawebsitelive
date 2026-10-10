@@ -1,8 +1,8 @@
 import { courses } from "@/content/course-review/courses";
 import { isLocale, locales } from "@/lib/i18n";
-import { OG_SIZE, renderPageOgImage, renderSiteOgImage } from "@/lib/og-image";
+import { OG_SIZE, renderPageOgImage, renderSiteOgImage, shareImageMetadata } from "@/lib/og-image";
+import { SITE_IMAGE_ALT } from "@/lib/seo";
 
-export const alt = "BIR course review";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
@@ -11,6 +11,17 @@ export function generateStaticParams() {
 }
 
 const eyebrow = { en: "Course reviews", th: "รีวิววิชาเรียน" };
+
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ lang?: string; code?: string }>;
+}) {
+  const { lang = "", code = "" } = (await params) ?? {};
+  const course = courses.find((c) => c.code === code);
+  const locale = isLocale(lang) ? lang : "en";
+  return shareImageMetadata(course ? course.title[locale] : SITE_IMAGE_ALT[locale]);
+}
 
 export default async function OpengraphImage({
   params,

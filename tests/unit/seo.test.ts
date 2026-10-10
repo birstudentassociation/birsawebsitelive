@@ -224,3 +224,36 @@ describe("event lifecycle", () => {
     }
   });
 });
+
+describe("buildMetadata share images", () => {
+  const options = { title: "Clubs", description: "x".repeat(100), path: "/clubs" };
+
+  it.each(locales)("falls back to the site-wide share images for %s", (locale) => {
+    const { openGraph, twitter } = buildMetadata({ ...options, locale });
+    const ogImages = openGraph?.images as { url: string }[];
+    const twitterImages = twitter?.images as { url: string }[];
+    expect(ogImages).toHaveLength(1);
+    expect(ogImages[0]?.url).toBe(`/${locale}/opengraph-image/default`);
+    expect(twitterImages).toHaveLength(1);
+    expect(twitterImages[0]?.url).toBe(`/${locale}/twitter-image/default`);
+  });
+
+  it("leaves the images to the segment's own image file when asked", () => {
+    const { openGraph, twitter } = buildMetadata({
+      ...options,
+      locale: "en",
+      hasOwnShareImage: true,
+    });
+    expect(openGraph?.images).toBeUndefined();
+    expect(twitter?.images).toBeUndefined();
+  });
+
+  it("describes the fallback images in the page language", () => {
+    const en = buildMetadata({ ...options, locale: "en" });
+    const th = buildMetadata({ ...options, locale: "th" });
+    const alt = (m: typeof en) => (m.openGraph?.images as { alt: string }[])[0]?.alt;
+    expect(alt(en)).toMatch(/Thammasat/);
+    expect(alt(th)).toMatch(/[฀-๿]/);
+    expect(alt(th)).not.toMatch(/[A-Za-z]{4}/);
+  });
+});

@@ -1,14 +1,31 @@
 import { getScenario, hasScenario, scenarioIds } from "@/content/emergency/scenarios";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
 import { alertBanner, getLiveAlert } from "@/lib/emergency";
-import { OG_SIZE, renderEmergencyOgImage, renderSiteOgImage } from "@/lib/og-image";
+import {
+  OG_SIZE,
+  renderEmergencyOgImage,
+  renderSiteOgImage,
+  shareImageMetadata,
+} from "@/lib/og-image";
+import { SITE_IMAGE_ALT } from "@/lib/seo";
 
-export const alt = "BIR Student Association emergency guidance";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => scenarioIds.map((scenario) => ({ lang, scenario })));
+}
+
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ lang?: string; scenario?: string }>;
+}) {
+  const { lang = "", scenario = "" } = (await params) ?? {};
+  const locale = isLocale(lang) ? lang : "en";
+  return shareImageMetadata(
+    hasScenario(scenario) ? getScenario(scenario)[locale].title : SITE_IMAGE_ALT[locale]
+  );
 }
 
 export default async function OpengraphImage({

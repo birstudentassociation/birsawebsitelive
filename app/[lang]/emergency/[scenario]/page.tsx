@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       title: c.title,
       description,
       path: `/emergency/${scenario}`,
+      hasOwnShareImage: true,
     }),
     robots: { index: false, follow: false },
   };
