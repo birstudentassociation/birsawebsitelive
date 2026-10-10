@@ -21,7 +21,9 @@ import {
   guideTopics,
 } from "@/lib/content";
 import { courses } from "@/content/course-review/courses";
-import { locales, type Locale } from "@/lib/i18n";
+import { fillTemplate } from "@/components/course-review/constants";
+import { allCourseCodes, courseNode } from "@/lib/courses/graph";
+import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 
 function titleOf(options: BuildMetadataOptions): string {
@@ -142,6 +144,21 @@ describe("every indexable content page has a search-ready title and description"
         description: c.description[locale],
         path: `/student-life/course-reviews/${c.code}`,
       })),
+      // Codes outside the review catalogue get a facts-only page, whose
+      // description comes from the dictionary template rather than the catalogue.
+      ...allCourseCodes()
+        .map((code) => courseNode(code)!)
+        .filter((node) => !node.catalogue)
+        .map((node) => ({
+          locale: locale as Locale,
+          title: `${node.code} ${node.title}`,
+          description: fillTemplate(getDictionary(locale).courseReview.factsOnlyDescription, {
+            code: node.code,
+            title: node.title,
+            credits: node.latest.credits,
+          }),
+          path: `/student-life/course-reviews/${node.code}`,
+        })),
     ];
 
     it(`${locale}: titles fit in ${TITLE_MAX} characters and name BIRSA at most once`, () => {

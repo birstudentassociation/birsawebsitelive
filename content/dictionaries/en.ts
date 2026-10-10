@@ -428,5 +428,18 @@ export const en = {
     reviewInstructor: "Taught by",
     courseNav: "Other courses",
     studyPlanLink: "Plan when to take it",
+    factsOnlyBadge: "Curriculum facts only",
+    factsOnlyLede:
+      "Facts from the BIR curriculum. Course titles are in English in both languages, as in the curriculum documents.",
+    factsOnlyDescription:
+      "{code} {title}. Credits: {credits}. Prerequisites, recommended term and where it counts in the BIR curriculum.",
+    factsOnlyDescriptionBody:
+      "This course is not in the PI course catalogue, so BIRSA has no description for it. This page shows only what the curriculum records.",
+    countsTowardsLabel: "Counts towards",
+    notInCurriculum: "Not in this curriculum",
+    minorCourseCategory: "Minor course",
+    notCountedInTotal: "not counted in the credit total",
+    replacedByLabel: "Replaced by",
+    replacesLabel: "Replaces",
   },
 };

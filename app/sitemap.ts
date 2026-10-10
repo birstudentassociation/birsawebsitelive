@@ -14,7 +14,7 @@ import {
   guideTopics,
 } from "@/lib/content";
 import { documents } from "@/content/activity/regulations";
-import { courses } from "@/content/course-review/courses";
+import { allCourseCodes } from "@/lib/courses/graph";
 import { service as smartAnswers } from "@/content/smart-answers";
 import { onboardingAudiences } from "@/content/onboarding";
 import { SITE_URL } from "@/lib/site-url";
@@ -117,8 +117,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Course reviews are a dedicated route (not a guide track), so
     // `getGuideEntries` never emits them; list each course code explicitly.
-    for (const course of courses) {
-      entries.push(entry(locale, `/student-life/course-reviews/${course.code}`));
+    // That is every code any curriculum version lists, not only the review
+    // catalogue, because the facts-only pages are real pages too.
+    for (const code of allCourseCodes()) {
+      entries.push(entry(locale, `/student-life/course-reviews/${code}`));
     }
 
     for (const club of getClubEntries(locale)) {

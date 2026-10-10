@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { courseJsonLd } from "@/lib/structured-data";
+import { courseJsonLd, curriculumCourseJsonLd } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -17,13 +17,47 @@ import type {
   StudentReview,
   AssessmentFacts as AssessmentFactsData,
 } from "@/content/course-review/types";
-import { minorsFor, prerequisiteCodes, recommendedTerms, unlocks } from "@/lib/course-review/facts";
+import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import type { CategoryId, CurriculumVersionId, TermRef } from "@/content/curriculum/types";
+import {
+  VERSION_ORDER,
+  allCourseCodes,
+  courseNode,
+  equivalentTo,
+  prerequisites as prerequisitesIn,
+  recommendedIn,
+  unlocks as unlocksIn,
+  type CourseNode,
+} from "@/lib/courses/graph";
 import { studentLifeLabel } from "@/content/student-life/topics";
 
 type Dict = ReturnType<typeof getDictionary>["courseReview"];
 
 function termRank(semester: AcademicTerm["semester"]): number {
   return semester === "summer" ? 3 : semester;
+}
+
+/** "Year 2, Semester 1; Year 2, Summer", or the fallback when the plan never names the course. */
+function termsText(terms: TermRef[], t: Dict): string {
+  return terms.length > 0
+    ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
+    : t.notInPlan;
+}
+
+/**
+ * The bucket a course counts towards in one version, in that version's own
+ * words. Minor courses carry the pooled `"minor"` category, which has no
+ * credit category of its own, so it gets a plain label here.
+ */
+function categoryName(
+  versionId: CurriculumVersionId,
+  category: CategoryId,
+  locale: Locale,
+  t: Dict
+): string {
+  if (category === "minor") return t.minorCourseCategory;
+  const found = CURRICULUM_VERSIONS[versionId].categories.find((c) => c.id === category);
+  return found ? found.name[locale] : category;
 }
 
 function termLabel(template: string, term: AcademicTerm, t: Dict, locale: Locale): string {
@@ -37,9 +71,24 @@ function termLabel(template: string, term: AcademicTerm, t: Dict, locale: Locale
 // Nested under the literal `course-reviews` route (see the parent page.tsx
 // for why that segment already wins over the generic `[audience]` route).
 // `[code]` is the only dynamic part, e.g. /student-life/course-reviews/PI121.
+//
+// Every code any curriculum version lists has a page. Codes in the review
+// catalogue get the full page; the rest (the TU, EL, LAS, AH and EE courses,
+// and PI courses only older versions list) get the same page with the facts
+// the curriculum holds and nothing else. They are reachable by link and by URL
+// but are not in the catalogue browser, which stays the PI catalogue.
 
 export function generateStaticParams() {
-  return locales.flatMap((lang) => courses.map((course) => ({ lang, code: course.code })));
+  return locales.flatMap((lang) => allCourseCodes().map((code) => ({ lang, code })));
+}
+
+/** Plain-language summary for a page that has no catalogue description to offer. */
+function factsOnlyDescription(node: CourseNode, t: Dict): string {
+  return fillTemplate(t.factsOnlyDescription, {
+    code: node.code,
+    title: node.title,
+    credits: node.latest.credits,
+  });
 }
 
 export async function generateMetadata({
@@ -50,14 +99,24 @@ export async function generateMetadata({
   const { lang, code } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const course = courses.find((c) => c.code === code);
-  if (!course) return {};
+  const node = courseNode(code);
+  if (!node) return {};
+  const path = `/student-life/course-reviews/${node.code}`;
+  const course = node.catalogue;
+  if (!course) {
+    return buildMetadata({
+      locale,
+      title: `${node.code} ${node.title}`,
+      description: factsOnlyDescription(node, getDictionary(locale).courseReview),
+      path,
+    });
+  }
 
   return buildMetadata({
     locale,
     title: `${course.code} ${course.title[locale]}`,
     description: course.description[locale],
-    path: `/student-life/course-reviews/${course.code}`,
+    path,
   });
 }
 
@@ -72,27 +131,39 @@ export default async function CourseDetailPage({
   const dict = getDictionary(locale);
   const t = dict.courseReview;
 
-  const index = courses.findIndex((c) => c.code === code);
-  const course = courses[index];
-  if (!course) notFound();
+  const node = courseNode(code);
+  if (!node) notFound();
+  // Present for the PI catalogue; absent for a facts-only page.
+  const course = node.catalogue;
+  // The latest version that lists the code. For every catalogue course that
+  // is 2568, so these are the same facts the page has always shown.
+  const version = node.latest.version;
+  const index = course ? courses.findIndex((c) => c.code === code) : -1;
   const prevCourse = index > 0 ? courses[index - 1] : null;
-  const nextCourse = index < courses.length - 1 ? courses[index + 1] : null;
+  const nextCourse = index >= 0 && index < courses.length - 1 ? courses[index + 1] : null;
   const otherLocale: Locale = locale === "en" ? "th" : "en";
-  const prerequisites = prerequisiteCodes(course.code);
-  const neededFor = unlocks(course.code);
-  const terms = recommendedTerms(course.code);
-  const minors = minorsFor(course.code);
-  const reviews = [...(course.reviews ?? [])].sort(
+  const prerequisites = prerequisitesIn(node.code, version);
+  const neededFor = unlocksIn(node.code, version);
+  const terms = recommendedIn(node.code, version);
+  const minors = node.latest.minors;
+  const equivalents = equivalentTo(node.code);
+  const reviews = [...(course?.reviews ?? [])].sort(
     (a, b) => b.term.year - a.term.year || termRank(b.term.semester) - termRank(a.term.semester)
   );
   const catalogHref = localeHref(locale, "/student-life/course-reviews");
 
   return (
     <>
-      <JsonLd data={courseJsonLd(locale, course)} />
+      <JsonLd
+        data={
+          course
+            ? courseJsonLd(locale, course)
+            : curriculumCourseJsonLd(locale, node, factsOnlyDescription(node, t))
+        }
+      />
       <PageHeader
-        title={`${course.code}: ${course.title[locale]}`}
-        lede={course.title[otherLocale]}
+        title={`${node.code}: ${course ? course.title[locale] : node.title}`}
+        lede={course ? course.title[otherLocale] : t.factsOnlyLede}
         breadcrumbs={
           <Breadcrumbs
             locale={locale}
@@ -101,16 +172,22 @@ export default async function CourseDetailPage({
               { label: dict.site.name, href: "/" },
               { label: studentLifeLabel[locale], href: "/student-life" },
               { label: t.title, href: "/student-life/course-reviews" },
-              { label: course.code },
+              { label: node.code },
             ]}
           />
         }
       />
       <div className="wrap flex flex-col gap-7 py-7 sm:gap-10 sm:py-10">
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-          <Tag variant="brand">{t.tracks[course.track]}</Tag>
-          <Tag variant="forest">{t.categories[course.category]}</Tag>
-          {course.reviews?.length ? (
+          {course ? (
+            <>
+              <Tag variant="brand">{t.tracks[course.track]}</Tag>
+              <Tag variant="forest">{t.categories[course.category]}</Tag>
+            </>
+          ) : (
+            <Tag variant="neutral">{t.factsOnlyBadge}</Tag>
+          )}
+          {course?.reviews?.length ? (
             <Tag variant="neutral">
               {course.reviews.every((review) => review.sample) ? t.sampleBadge : t.reviewedBadge}
             </Tag>
@@ -123,16 +200,37 @@ export default async function CourseDetailPage({
           </h2>
           <dl className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface text-sm">
             <Fact label={t.creditsLabel}>
-              {course.credits.total} ({course.credits.lecture}-{course.credits.lab}-
-              {course.credits.selfStudy})
+              {course
+                ? `${course.credits.total} (${course.credits.lecture}-${course.credits.lab}-${course.credits.selfStudy})`
+                : node.latest.credits}
             </Fact>
-            <Fact label={t.yearLevelLabel}>
-              {formatYearLevel(course.yearLevel, t.yearLabel, t.yearTo)}
-            </Fact>
+            {course ? (
+              <Fact label={t.yearLevelLabel}>
+                {formatYearLevel(course.yearLevel, t.yearLabel, t.yearTo)}
+              </Fact>
+            ) : (
+              <Fact label={t.countsTowardsLabel}>
+                <ul className="flex flex-col gap-0.5">
+                  {VERSION_ORDER.map((id) => {
+                    const facts = node.versions[id];
+                    return (
+                      <li key={id}>
+                        {CURRICULUM_VERSIONS[id].label[locale]}:{" "}
+                        {facts
+                          ? `${categoryName(id, facts.category, locale, t)}${
+                              facts.excludedFromTotal ? ` (${t.notCountedInTotal})` : ""
+                            }`
+                          : t.notInCurriculum}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Fact>
+            )}
             <Fact label={t.prerequisite}>
               {prerequisites.length > 0 ? (
                 <CourseLinks codes={prerequisites} locale={locale} />
-              ) : course.prerequisite ? (
+              ) : course?.prerequisite ? (
                 course.prerequisite[locale]
               ) : (
                 t.prerequisitesNone
@@ -144,11 +242,18 @@ export default async function CourseDetailPage({
               </Fact>
             ) : null}
             <Fact label={t.recommendedTermLabel}>
-              <p>
-                {terms.length > 0
-                  ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
-                  : t.notInPlan}
-              </p>
+              {course ? (
+                <p>{termsText(terms, t)}</p>
+              ) : (
+                <ul className="flex flex-col gap-0.5">
+                  {VERSION_ORDER.filter((id) => node.versions[id]).map((id) => (
+                    <li key={id}>
+                      {CURRICULUM_VERSIONS[id].label[locale]}:{" "}
+                      {termsText(recommendedIn(node.code, id), t)}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <p className="mt-1">
                 <Link
                   href={localeHref(locale, "/services/study-plan")}
@@ -170,7 +275,21 @@ export default async function CourseDetailPage({
                 </ul>
               </Fact>
             ) : null}
-            {course.instructors && course.instructors.length > 0 ? (
+            {equivalents.map((equivalent) => (
+              <Fact
+                key={equivalent.code}
+                label={equivalent.relation === "replacedBy" ? t.replacedByLabel : t.replacesLabel}
+              >
+                <CourseLinks codes={[equivalent.code]} locale={locale} />
+                <p className="mt-1 text-xs">
+                  {CURRICULUM_VERSIONS[equivalent.since].label[locale]}
+                  {equivalent.derivation.kind === "inferred"
+                    ? `. ${equivalent.derivation.reason[locale]}`
+                    : ""}
+                </p>
+              </Fact>
+            ))}
+            {course?.instructors && course.instructors.length > 0 ? (
               <Fact label={t.instructorsHeading}>
                 <ul className="flex flex-wrap gap-x-2 gap-y-1">
                   {course.instructors.map((instructor, i) => (
@@ -203,14 +322,18 @@ export default async function CourseDetailPage({
 
         <section className="flex flex-col gap-2 sm:gap-3">
           <h2 className="font-display text-lg sm:text-xl">{t.descriptionHeading}</h2>
-          <p className="max-w-[var(--measure)] leading-relaxed whitespace-pre-line text-ink">
-            {course.description[locale]}
-          </p>
+          {course ? (
+            <p className="max-w-[var(--measure)] leading-relaxed whitespace-pre-line text-ink">
+              {course.description[locale]}
+            </p>
+          ) : (
+            <p className="text-sm text-muted">{t.factsOnlyDescriptionBody}</p>
+          )}
         </section>
 
         <section className="flex flex-col gap-2 sm:gap-3">
           <h2 className="font-display text-lg sm:text-xl">{t.assessmentFactsHeading}</h2>
-          {course.assessmentFacts ? (
+          {course?.assessmentFacts ? (
             <AssessmentFacts facts={course.assessmentFacts} locale={locale} t={t} />
           ) : (
             <p className="text-sm text-muted">{t.assessmentFactsMissing}</p>

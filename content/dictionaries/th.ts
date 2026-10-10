@@ -424,5 +424,17 @@ export const th: typeof en = {
     reviewInstructor: "ผู้สอน",
     courseNav: "รายวิชาอื่น",
     studyPlanLink: "วางแผนว่าจะเรียนเมื่อไร",
+    factsOnlyBadge: "ข้อมูลจากหลักสูตรเท่านั้น",
+    factsOnlyLede: "ข้อมูลจากหลักสูตร BIR ชื่อวิชาใช้ภาษาอังกฤษทั้งสองภาษาตามเอกสารหลักสูตร",
+    factsOnlyDescription:
+      "{code} {title} {credits} หน่วยกิต วิชาที่ต้องเรียนมาก่อน ภาคเรียนที่แนะนำ และหมวดที่นับในหลักสูตร BIR",
+    factsOnlyDescriptionBody:
+      "วิชานี้ไม่อยู่ในรายวิชากลุ่ม PI ที่ BIRSA จัดทำไว้ จึงยังไม่มีคำอธิบายรายวิชา หน้านี้แสดงเฉพาะข้อมูลที่ระบุไว้ในหลักสูตร",
+    countsTowardsLabel: "นับเป็นหน่วยกิตหมวด",
+    notInCurriculum: "ไม่มีในหลักสูตรนี้",
+    minorCourseCategory: "วิชาโท",
+    notCountedInTotal: "ไม่นับรวมในหน่วยกิตที่ใช้สำเร็จการศึกษา",
+    replacedByLabel: "ถูกแทนที่ด้วยวิชา",
+    replacesLabel: "ใช้แทนวิชา",
   },
 };

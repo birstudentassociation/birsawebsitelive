@@ -9,6 +9,7 @@ import { SITE_URL } from "@/lib/site-url";
 import { contact, socials } from "@/content/site";
 import type { Course } from "@/content/course-review/types";
 import { prerequisiteCodes } from "@/lib/course-review/facts";
+import { prerequisites, type CourseNode } from "@/lib/courses/graph";
 import type { ClubFrontmatter, NewsFrontmatter } from "@/lib/content";
 
 type JsonLdObject = Record<string, unknown>;
@@ -119,22 +120,61 @@ export function newsJsonLd(
   };
 }
 
-export function courseJsonLd(locale: Locale, course: Course): JsonLdObject {
-  const prerequisites = prerequisiteCodes(course.code).map((code) =>
+/** The fields a schema.org `Course` is built from, whichever model the course came from. */
+type CourseSchemaSource = {
+  code: string;
+  name: string;
+  description: string;
+  credits: number;
+  prerequisites: string[];
+};
+
+function courseSchema(locale: Locale, course: CourseSchemaSource): JsonLdObject {
+  const prerequisites = course.prerequisites.map((code) =>
     absoluteUrl(locale, `/student-life/course-reviews/${code}`)
   );
   return {
     "@context": "https://schema.org",
     "@type": "Course",
-    name: course.title[locale],
+    name: course.name,
     courseCode: course.code,
-    description: course.description[locale],
+    description: course.description,
     url: absoluteUrl(locale, `/student-life/course-reviews/${course.code}`),
     inLanguage: IN_LANGUAGE[locale],
     provider: university,
-    numberOfCredits: course.credits.total,
+    numberOfCredits: course.credits,
     ...(prerequisites.length ? { coursePrerequisites: prerequisites } : {}),
   };
+}
+
+export function courseJsonLd(locale: Locale, course: Course): JsonLdObject {
+  return courseSchema(locale, {
+    code: course.code,
+    name: course.title[locale],
+    description: course.description[locale],
+    credits: course.credits.total,
+    prerequisites: prerequisiteCodes(course.code),
+  });
+}
+
+/**
+ * The same schema for a course the review catalogue does not hold, built from
+ * its latest curriculum entry. The title is English in both locales, as in the
+ * curriculum documents, and the caller supplies the description because the
+ * curriculum has none to give.
+ */
+export function curriculumCourseJsonLd(
+  locale: Locale,
+  node: CourseNode,
+  description: string
+): JsonLdObject {
+  return courseSchema(locale, {
+    code: node.code,
+    name: node.title,
+    description,
+    credits: node.latest.credits,
+    prerequisites: prerequisites(node.code, node.latest.version),
+  });
 }
 
 export function clubJsonLd(
