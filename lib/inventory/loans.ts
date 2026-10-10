@@ -120,18 +120,10 @@ async function withTransaction<T>(body: (client: VercelPoolClient) => Promise<T>
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-/** Postgres rejects a malformed uuid with an error, so ids from a request are checked before they reach a query. */
 export function isUuid(value: string): boolean {
   return UUID_PATTERN.test(value);
 }
 
-/**
- * The state a unit should be in given the loans still active on it: out on
- * loan beats reserved beats available. Maintenance and retired are decided
- * by officers and are never overridden by a loan transition. A unit returned
- * lost is retired and one returned damaged goes to maintenance, whatever else
- * is booked against it.
- */
 export function deriveUnitState(
   current: UnitState,
   activeStatuses: LoanStatus[],
@@ -158,11 +150,6 @@ export function deriveUnitState(
   return "available";
 }
 
-/**
- * Recomputes a unit's state from the loans still active on it. Locks the unit
- * row so two transitions on loans that share it cannot each miss the other.
- * Call it after the loan row has been updated, inside the same transaction.
- */
 async function syncUnitState(
   client: VercelPoolClient,
   unitId: string,

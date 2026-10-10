@@ -64,11 +64,6 @@ export function pluralize(count: number, forms: { one: string; other: string }):
 
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
-/**
- * The time zone to format an ISO value in. A date-only string parses as UTC
- * midnight, so it is read back in UTC to keep its day; a full datetime is read
- * in Asia/Bangkok so every viewer sees the Bangkok day.
- */
 function dateTimeZone(isoDate: string): "UTC" | "Asia/Bangkok" {
   return DATE_ONLY.test(isoDate) ? "UTC" : "Asia/Bangkok";
 }

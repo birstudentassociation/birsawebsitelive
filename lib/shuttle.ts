@@ -43,11 +43,6 @@ export type ShuttleLine = Timetable & {
 /** Bangkok date, ISO `YYYY-MM-DD`, from which each line's `schedule` applies. Before it, `previous` does. */
 export const newTimetableFrom = "2026-10-01";
 
-/**
- * Bangkok dates, ISO `YYYY-MM-DD`, that are public holidays. The shuttle does
- * not run on them, even on a weekday. Online-class days are not holidays and
- * do not belong here.
- */
 export const holidayDates: readonly string[] = ["2026-10-13"];
 
 export function isHoliday(date: string): boolean {

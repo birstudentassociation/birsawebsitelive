@@ -185,7 +185,6 @@ export type StudyPlanCopy = {
     updateFreeElectiveButton: string;
     /** Shown when a term's free elective credit count is out of range. */
     freeElectiveError: string;
-    /** Shown after an attempt to add a course to a term that already holds the most courses a term can. */
     termFullError: string;
     creditsUnit: string;
     /** Label for the control that appends the next term after the last one shown. */

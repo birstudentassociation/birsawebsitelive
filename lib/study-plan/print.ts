@@ -60,11 +60,6 @@ export function plannedTermsForPrint(
     }));
 }
 
-/**
- * The "generated on" date for the print page, on the Bangkok calendar so the
- * server's own time zone never shifts the day. Thai keeps the default
- * th-TH calendar.
- */
 export function generatedOnForPrint(locale: "en" | "th", now: Date = new Date()): string {
   return now.toLocaleDateString(locale === "th" ? "th-TH" : "en-GB", {
     year: "numeric",

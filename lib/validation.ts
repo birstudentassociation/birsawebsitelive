@@ -36,7 +36,6 @@ export type StartClubInput = z.infer<typeof startClubSchema>;
 
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
-/** True only for a real `YYYY-MM-DD` calendar date, so 2026-02-31 is rejected rather than rolled over. */
 export function isRealCalendarDate(value: string): boolean {
   if (!ISO_DATE_PATTERN.test(value)) {
     return false;

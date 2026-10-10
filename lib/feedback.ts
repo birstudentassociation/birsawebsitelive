@@ -11,6 +11,7 @@
  * concern, not part of the inventory suite; both simply point at the same
  * POSTGRES_URL.
  */
+import { csvField } from "@/lib/csv";
 import { sql } from "@/lib/inventory/db";
 import { FEEDBACK_RATINGS, type FeedbackRating } from "@/lib/validation";
 
@@ -158,15 +159,6 @@ export async function getRatingCounts(): Promise<Record<FeedbackRating, number>>
   } catch {
     return zeroRatingCounts();
   }
-}
-
-/** Wraps a CSV field in double quotes (doubling internal quotes) when it contains a comma, quote, or newline. */
-function csvField(value: unknown): string {
-  const str = value === null || value === undefined ? "" : String(value);
-  if (/[",\n\r]/.test(str)) {
-    return `"${str.replace(/"/g, '""')}"`;
-  }
-  return str;
 }
 
 function csvRow(fields: unknown[]): string {

@@ -26,7 +26,6 @@ function pruneExpired(now: number): void {
   }
 }
 
-/** Number of buckets currently held, for tests. */
 export function activeBucketCount(): number {
   return buckets.size;
 }
@@ -73,18 +72,12 @@ export function checkRateLimit(ip: string, scope = "global", maxRequests = MAX_R
   return true;
 }
 
-/**
- * True if `ip` has already used up the budget for `scope`, without spending
- * any of it. Pair with `recordRateLimitFailure` where only failed attempts
- * should count, such as sign-in.
- */
 export function isRateLimited(ip: string, scope: string, maxRequests = MAX_REQUESTS): boolean {
   const bucket = buckets.get(`${scope}:${ip}`);
   if (!bucket || Date.now() - bucket.windowStart > WINDOW_MS) return false;
   return bucket.count >= maxRequests;
 }
 
-/** Spends one token of the budget for `scope`; the counterpart of `isRateLimited`. */
 export function recordRateLimitFailure(ip: string, scope: string): void {
   const now = Date.now();
   pruneExpired(now);
@@ -97,7 +90,6 @@ export function recordRateLimitFailure(ip: string, scope: string): void {
   bucket.count += 1;
 }
 
-/** Gives back one token that `checkRateLimit` spent, for an attempt that should not count. */
 export function refundRateLimit(ip: string, scope: string): void {
   const key = `${scope}:${ip}`;
   const bucket = buckets.get(key);
