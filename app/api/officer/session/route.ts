@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { getClientIp, isRateLimited, recordRateLimitFailure } from "@/app/api/_lib/guard";
 import {
   OFFICER_COOKIE,
   authenticateOfficer,
@@ -14,7 +14,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  if (!checkRateLimit(ip, "officer-login")) {
+  if (isRateLimited(ip, "officer-login")) {
     return NextResponse.json({ ok: false, reason: "rate-limited" }, { status: 429 });
   }
 
@@ -29,6 +29,7 @@ export async function POST(request: Request) {
 
   // Honeypot: a real user never fills this hidden field.
   if (record.nickname) {
+    recordRateLimitFailure(ip, "officer-login");
     return NextResponse.json({ ok: true }, { status: 200 });
   }
 
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
 
   const officer = await authenticateOfficer(email, passcode);
   if (!officer) {
+    recordRateLimitFailure(ip, "officer-login");
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 

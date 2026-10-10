@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { startClubSchema } from "@/lib/validation";
-import { checkRateLimit } from "@/app/api/_lib/guard";
+import { checkRateLimit, refundRateLimit } from "@/app/api/_lib/guard";
 import { renderStartClub } from "@/lib/email/templates";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
@@ -175,7 +175,8 @@ export async function submitStartClubCheck(
   const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h), "start-club")) {
+  const ip = ipFromHeaders(h);
+  if (!checkRateLimit(ip, "start-club")) {
     return { status: "error" };
   }
 
@@ -195,6 +196,7 @@ export async function submitStartClubCheck(
   });
 
   if (!result.success) {
+    refundRateLimit(ip, "start-club");
     const firstIssue = result.error.issues[0];
     const path = firstIssue?.path[0];
     const step = typeof path === "string" ? FIELD_TO_STEP[path] : undefined;

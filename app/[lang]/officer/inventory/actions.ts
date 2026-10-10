@@ -3,7 +3,7 @@
 import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { defaultLocale, isLocale, localeHref, type Locale } from "@/lib/i18n";
-import { checkRateLimit } from "@/app/api/_lib/guard";
+import { isRateLimited, recordRateLimitFailure } from "@/app/api/_lib/guard";
 import {
   OFFICER_COOKIE,
   authenticateOfficer,
@@ -48,12 +48,14 @@ export async function submitOfficerLogin(
   const locale: Locale = isLocale(localeInput) ? localeInput : defaultLocale;
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h), "officer-login")) {
+  const ip = ipFromHeaders(h);
+  if (isRateLimited(ip, "officer-login")) {
     return { status: "rate-limited" };
   }
 
   // Honeypot filled: behave exactly like a failed sign-in, never reveal detection.
   if (nickname) {
+    recordRateLimitFailure(ip, "officer-login");
     return { status: "incorrect" };
   }
 
@@ -72,6 +74,7 @@ export async function submitOfficerLogin(
 
   const officer = await authenticateOfficer(email, passcode);
   if (!officer) {
+    recordRateLimitFailure(ip, "officer-login");
     return { status: "incorrect" };
   }
 

@@ -15,6 +15,22 @@ type Bucket = { count: number; windowStart: number };
 
 const buckets = new Map<string, Bucket>();
 
+const PRUNE_INTERVAL_MS = 60 * 1000;
+let lastPrune = 0;
+
+function pruneExpired(now: number): void {
+  if (now - lastPrune < PRUNE_INTERVAL_MS) return;
+  lastPrune = now;
+  for (const [key, bucket] of buckets) {
+    if (now - bucket.windowStart > WINDOW_MS) buckets.delete(key);
+  }
+}
+
+/** Number of buckets currently held, for tests. */
+export function activeBucketCount(): number {
+  return buckets.size;
+}
+
 /** Extracts the client IP from `x-forwarded-for` (first value) or falls back to "unknown". */
 export function getClientIp(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
@@ -40,6 +56,7 @@ export function getClientIp(request: Request): string {
  */
 export function checkRateLimit(ip: string, scope = "global", maxRequests = MAX_REQUESTS): boolean {
   const now = Date.now();
+  pruneExpired(now);
   const key = `${scope}:${ip}`;
   const bucket = buckets.get(key);
 
@@ -54,4 +71,40 @@ export function checkRateLimit(ip: string, scope = "global", maxRequests = MAX_R
 
   bucket.count += 1;
   return true;
+}
+
+/**
+ * True if `ip` has already used up the budget for `scope`, without spending
+ * any of it. Pair with `recordRateLimitFailure` where only failed attempts
+ * should count, such as sign-in.
+ */
+export function isRateLimited(ip: string, scope: string, maxRequests = MAX_REQUESTS): boolean {
+  const bucket = buckets.get(`${scope}:${ip}`);
+  if (!bucket || Date.now() - bucket.windowStart > WINDOW_MS) return false;
+  return bucket.count >= maxRequests;
+}
+
+/** Spends one token of the budget for `scope`; the counterpart of `isRateLimited`. */
+export function recordRateLimitFailure(ip: string, scope: string): void {
+  const now = Date.now();
+  pruneExpired(now);
+  const key = `${scope}:${ip}`;
+  const bucket = buckets.get(key);
+  if (!bucket || now - bucket.windowStart > WINDOW_MS) {
+    buckets.set(key, { count: 1, windowStart: now });
+    return;
+  }
+  bucket.count += 1;
+}
+
+/** Gives back one token that `checkRateLimit` spent, for an attempt that should not count. */
+export function refundRateLimit(ip: string, scope: string): void {
+  const key = `${scope}:${ip}`;
+  const bucket = buckets.get(key);
+  if (!bucket) return;
+  if (bucket.count <= 1) {
+    buckets.delete(key);
+    return;
+  }
+  bucket.count -= 1;
 }

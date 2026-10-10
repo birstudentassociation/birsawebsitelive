@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { contactSchema } from "@/lib/validation";
-import { checkRateLimit } from "@/app/api/_lib/guard";
+import { checkRateLimit, refundRateLimit } from "@/app/api/_lib/guard";
 import { renderContact } from "@/lib/email/templates";
 import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
 import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
@@ -201,7 +201,8 @@ export async function submitContactCheck(
   const nickname = String(formData.get("nickname") ?? "");
 
   const h = await headers();
-  if (!checkRateLimit(ipFromHeaders(h), "contact")) {
+  const ip = ipFromHeaders(h);
+  if (!checkRateLimit(ip, "contact")) {
     return { status: "error" };
   }
 
@@ -213,6 +214,7 @@ export async function submitContactCheck(
 
   const result = contactSchema.safeParse({ ...draft, nickname });
   if (!result.success) {
+    refundRateLimit(ip, "contact");
     const firstIssue = result.error.issues[0];
     const path = firstIssue?.path[0];
     const step = typeof path === "string" ? FIELD_TO_STEP[path] : undefined;
