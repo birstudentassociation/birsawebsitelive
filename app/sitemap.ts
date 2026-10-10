@@ -83,7 +83,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const post of getEntries("news", locale)) {
       if (isArchivedEvent(post.frontmatter)) continue;
-      entries.push(entry(locale, `/news/${post.slug}`, post.frontmatter.date));
+      entries.push(
+        entry(locale, `/news/${post.slug}`, post.frontmatter.updated ?? post.frontmatter.date)
+      );
     }
 
     for (const page of getEntries("activity", locale)) {

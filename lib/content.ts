@@ -57,6 +57,8 @@ const newsFrontmatterSchema = z.object({
   /** Search result description, when the summary is too long or too short for one. */
   metaDescription: z.string().min(1).optional(),
   date: dateOnly,
+  /** When a published post was last corrected or changed. */
+  updated: dateOnly.optional(),
   type: z.enum(["news", "event"]),
   category: z.string().min(1),
   location: z.string().optional(),

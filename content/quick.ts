@@ -21,7 +21,6 @@ export type QuickIcon =
   | "instagram"
   | "facebook"
   | "email"
-  | "line"
   | "alert"
   | "external";
 
@@ -46,7 +45,6 @@ export type QuickGroup = {
 const instagram = socials.find((s) => s.id === "instagram")!;
 const facebook = socials.find((s) => s.id === "facebook")!;
 const email = socials.find((s) => s.id === "email")!;
-const line = socials.find((s) => s.id === "line")!;
 const birProgram = officialLinks.find((l) => l.id === "birProgram")!;
 const faculty = officialLinks.find((l) => l.id === "faculty")!;
 
@@ -199,14 +197,6 @@ export const quickGroups: QuickGroup[] = [
         icon: "facebook",
         en: { label: "Facebook", hint: "BIR Student Association" },
         th: { label: "เฟซบุ๊ก", hint: "BIR Student Association" },
-      },
-      {
-        key: "line",
-        href: line.href,
-        placeholder: true,
-        icon: "line",
-        en: { label: "LINE", hint: "Coming soon" },
-        th: { label: "LINE", hint: "เร็ว ๆ นี้" },
       },
       {
         key: "email",

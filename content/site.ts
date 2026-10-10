@@ -7,7 +7,7 @@ import type { Locale } from "@/lib/i18n";
 export type LocalizedText = Record<Locale, string>;
 
 export type Social = {
-  id: "instagram" | "facebook" | "email" | "line";
+  id: "instagram" | "facebook" | "email";
   label: string;
   href: string;
   /** True when the destination is not yet a real BIRSA-owned channel. */
@@ -29,12 +29,6 @@ export const socials: Social[] = [
     id: "email",
     label: "Email",
     href: "mailto:birsa@tu.ac.th",
-  },
-  {
-    id: "line",
-    label: "LINE",
-    href: "#",
-    placeholder: true,
   },
 ];
 

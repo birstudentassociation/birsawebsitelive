@@ -81,6 +81,8 @@ Optional fields for either type:
 
 - `links`: an array of `{ label, href }` for related links (e.g. a registration form).
 - `placeholder: true`: add this while the post is still example content.
+- `updated`: the date you corrected or changed a post after publishing it, as `YYYY-MM-DD`. Leave
+  `date` as it was.
 - `metaDescription`: the text shown under the title in search results, when the `summary` is
   too long or too short for it (see [Search results](#search-results)).
 

@@ -6,7 +6,7 @@
 import { localeHref, type Locale } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
-import { socials } from "@/content/site";
+import { contact, socials } from "@/content/site";
 import type { Course } from "@/content/course-review/types";
 import type { ClubFrontmatter, NewsFrontmatter } from "@/lib/content";
 
@@ -15,6 +15,11 @@ type JsonLdObject = Record<string, unknown>;
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 
 const IN_LANGUAGE: Record<Locale, string> = { en: "en", th: "th" };
+
+const POSTAL_ADDRESS: Record<Locale, { streetAddress: string; addressLocality: string }> = {
+  en: { streetAddress: "2 Prachan Road", addressLocality: "Bangkok" },
+  th: { streetAddress: "2 ถนนพระจันทร์", addressLocality: "กรุงเทพฯ" },
+};
 
 const university = {
   "@type": "CollegeOrUniversity",
@@ -31,7 +36,22 @@ export function organizationJsonLd(locale: Locale): JsonLdObject {
     alternateName: ["BIRSA", "สโมสรนักศึกษา BIR"],
     url: `${SITE_URL}/${locale}`,
     logo: `${SITE_URL}/birsa-logo.png`,
-    email: "birsa@tu.ac.th",
+    email: contact.email,
+    telephone: contact.phone.replace(/^0/, "+66 "),
+    address: {
+      "@type": "PostalAddress",
+      ...POSTAL_ADDRESS[locale],
+      postalCode: "10200",
+      addressCountry: "TH",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: contact.email,
+      telephone: contact.phone.replace(/^0/, "+66 "),
+      availableLanguage: ["th", "en"],
+      url: absoluteUrl(locale, "/contact"),
+    },
     parentOrganization: university,
     sameAs: socials
       .filter((s) => s.href.startsWith("https://") && !s.placeholder)
@@ -90,6 +110,7 @@ export function newsJsonLd(
     "@type": "NewsArticle",
     headline: frontmatter.title,
     datePublished: frontmatter.date,
+    dateModified: frontmatter.updated ?? frontmatter.date,
     mainEntityOfPage: url,
     articleSection: frontmatter.category,
     author: { "@id": ORGANIZATION_ID, name: "BIR Student Association (BIRSA)" },

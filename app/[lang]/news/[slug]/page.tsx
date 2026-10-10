@@ -37,7 +37,11 @@ export async function generateMetadata({
     title: entry.frontmatter.title,
     description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/news/${slug}`,
-    article: { publishedTime: entry.frontmatter.date, section: newsLabel[lang] },
+    article: {
+      publishedTime: entry.frontmatter.date,
+      modifiedTime: entry.frontmatter.updated,
+      section: newsLabel[lang],
+    },
   });
   return isArchivedEvent(entry.frontmatter)
     ? { ...metadata, robots: { index: false, follow: true } }
