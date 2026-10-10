@@ -81,11 +81,27 @@ export type AcademicTerm = {
 };
 
 /**
+ * The optional reported estimate of hours a week. A band the student chose,
+ * not a measurement and not a rating.
+ */
+export type WorkloadBand = "under_3" | "3_to_6" | "over_6";
+
+/**
+ * How many of a review's students chose each workload band. Shown only as a
+ * distribution in words ("8 of 12 students said 3 to 6 hours a week"), never
+ * averaged or reduced to one number. Counts are not scores: they say how many
+ * people answered, not how good or hard the course is.
+ */
+export type WorkloadBandCounts = Partial<Record<WorkloadBand, number>>;
+
+/**
  * Structured, aggregated student feedback for a course, distinct from the
  * official curriculum `description`. A course can carry several, so feedback
  * can be split by instructor and term. Optional: most courses won't have any
- * until BIRSA collects real submissions (see the course detail page's
- * "no review yet" state, which invites students to write one via /contact).
+ * until BIRSA publishes a summary of real submissions (see the course detail
+ * page's "no review yet" state, which invites students to write one). Reviews
+ * published through the officer console are held in the database and merged
+ * with these at render time (lib/course-review/published.ts).
  * Subjective qualities are described in words, never scored.
  */
 export type StudentReview = {
@@ -102,10 +118,17 @@ export type StudentReview = {
   term: AcademicTerm;
   /** Who taught the course in that term, when known. */
   instructor?: Instructor;
+  /**
+   * True when the students said someone other than the course's listed
+   * instructors taught it, so `instructor` is absent on purpose.
+   */
+  instructorElsewhere?: boolean;
   workload: Bi;
   assessmentStyle: Bi;
   tips: Bi[];
   quotes?: ReviewQuote[];
+  /** How many students chose each workload band, when any did. See `WorkloadBandCounts`. */
+  workloadBands?: WorkloadBandCounts;
 };
 
 /** One graded component of a course, e.g. the final exam. */

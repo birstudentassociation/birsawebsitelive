@@ -61,7 +61,9 @@ type Labels = {
   retentionYearsSuffix: string;
   /** Separator before the trigger label. Thai runs นับแต่ straight into it with no space. */
   retentionTriggerJoin: string;
-  retentionTriggerLabels: Record<RetentionTrigger, string>;
+  retentionTriggerLabels: Record<Exclude<RetentionTrigger, "until-unpublished">, string>;
+  /** The retention cell for a record that holds no personal data and is not deleted on a timer. */
+  retentionUntilUnpublished: string;
 
   processorsTitle: string;
   processorsIntro: string;
@@ -119,6 +121,7 @@ const content: Record<Locale, Labels> = {
       closed: "closure",
       "last-active": "last activity",
     },
+    retentionUntilUnpublished: "Until an officer takes it down",
 
     processorsTitle: "Processors",
     processorsIntro:
@@ -186,6 +189,7 @@ const content: Record<Locale, Labels> = {
       closed: "วันที่รายการสิ้นสุด",
       "last-active": "วันที่มีการเปลี่ยนแปลงข้อมูลครั้งล่าสุด",
     },
+    retentionUntilUnpublished: "จนกว่าเจ้าหน้าที่จะถอดออก",
 
     processorsTitle: "ผู้ประมวลผลข้อมูลส่วนบุคคล",
     processorsIntro:
@@ -224,6 +228,7 @@ const content: Record<Locale, Labels> = {
 };
 
 function retentionCell(t: Labels, activity: (typeof activities)[number]): string {
+  if (activity.retentionTrigger === "until-unpublished") return t.retentionUntilUnpublished;
   const trigger = t.retentionTriggerLabels[activity.retentionTrigger];
   return `${RETENTION_YEARS} ${t.retentionYearsSuffix}${t.retentionTriggerJoin}${trigger}`;
 }

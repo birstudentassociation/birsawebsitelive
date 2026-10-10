@@ -70,7 +70,9 @@ type Labels = {
   /** Separator between the trigger label and the closing clause. Thai takes no comma. */
   retentionSuffixJoin: string;
   retentionSuffix: string;
-  retentionTriggerLabels: Record<RetentionTrigger, string>;
+  retentionTriggerLabels: Record<Exclude<RetentionTrigger, "until-unpublished">, string>;
+  /** Replaces the whole two-year sentence for a record that holds no personal data and is not deleted on a timer. */
+  retentionUntilUnpublished: string;
 
   retentionTitle: string;
   retentionBody1: string;
@@ -147,6 +149,7 @@ const content: Record<Locale, Labels> = {
       closed: "the day the record closes",
       "last-active": "the last time it changed",
     },
+    retentionUntilUnpublished: "Kept until an officer takes it down.",
 
     retentionTitle: "How long we keep it, in short",
     retentionBody1:
@@ -156,7 +159,7 @@ const content: Record<Locale, Labels> = {
 
     transferTitle: "Sending your data outside Thailand",
     transferBody1:
-      "Some of the outside providers we use are not based in Thailand. Resend, which delivers our email, and Vercel, which hosts this site and its database, are both in the United States. OpenStreetMap, which supplies the maps on this site, is in the United Kingdom. Thailand's Personal Data Protection Committee has not found either country to give an adequate level of protection, and we don't claim it has.",
+      "Some of the outside providers we use are not based in Thailand. Resend, which delivers our email, and Vercel, which hosts this site and its database, are both in the United States. OpenStreetMap, which supplies the maps on this site, is in the United Kingdom. Anthropic, whose Claude service helps officers draft summaries of course reviews, is in the United States. Thailand's Personal Data Protection Committee has not found either country to give an adequate level of protection, and we don't claim it has.",
     transferBody2:
       "Instead, we rely on section 28(3) of the Act: the transfer is necessary to perform a contract with you, or to take steps you've asked for before entering one, for example sending you an email or running the equipment loan you requested. Each provider's data processing agreement also carries the safeguards required under section 29, paragraph 3, of the Act.",
 
@@ -231,6 +234,7 @@ const content: Record<Locale, Labels> = {
       closed: "วันที่รายการดังกล่าวสิ้นสุด",
       "last-active": "วันที่มีการเปลี่ยนแปลงข้อมูลครั้งล่าสุด",
     },
+    retentionUntilUnpublished: "เก็บรักษาไว้จนกว่าเจ้าหน้าที่จะถอดออก",
 
     retentionTitle: "ระยะเวลาการเก็บรักษาข้อมูลส่วนบุคคล",
     retentionBody1:
@@ -240,7 +244,7 @@ const content: Record<Locale, Labels> = {
 
     transferTitle: "การส่งหรือโอนข้อมูลส่วนบุคคลไปยังต่างประเทศ",
     transferBody1:
-      "ผู้ให้บริการภายนอกบางรายที่ BIRSA ใช้บริการมิได้ตั้งอยู่ในราชอาณาจักร ได้แก่ Resend ซึ่งให้บริการจัดส่งอีเมล และ Vercel ซึ่งให้บริการโฮสติ้งและฐานข้อมูล ทั้งสองรายตั้งอยู่ในสหรัฐอเมริกา ส่วน OpenStreetMap ซึ่งให้บริการภาพแผนที่ ตั้งอยู่ในสหราชอาณาจักร คณะกรรมการคุ้มครองข้อมูลส่วนบุคคลยังมิได้ประกาศกำหนดว่าประเทศปลายทางดังกล่าวมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอ และ BIRSA มิได้กล่าวอ้างเช่นนั้น",
+      "ผู้ให้บริการภายนอกบางรายที่ BIRSA ใช้บริการมิได้ตั้งอยู่ในราชอาณาจักร ได้แก่ Resend ซึ่งให้บริการจัดส่งอีเมล และ Vercel ซึ่งให้บริการโฮสติ้งและฐานข้อมูล ทั้งสองรายตั้งอยู่ในสหรัฐอเมริกา ส่วน OpenStreetMap ซึ่งให้บริการภาพแผนที่ ตั้งอยู่ในสหราชอาณาจักร และ Anthropic ซึ่งให้บริการ Claude ที่ช่วยเจ้าหน้าที่ร่างบทสรุปรีวิวรายวิชา ตั้งอยู่ในสหรัฐอเมริกา คณะกรรมการคุ้มครองข้อมูลส่วนบุคคลยังมิได้ประกาศกำหนดว่าประเทศปลายทางดังกล่าวมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอ และ BIRSA มิได้กล่าวอ้างเช่นนั้น",
     transferBody2:
       "การส่งหรือโอนข้อมูลดังกล่าวจึงอาศัยข้อยกเว้นตามมาตรา 28(3) แห่งพระราชบัญญัติ กล่าวคือ เป็นการจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งท่านเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของท่านก่อนเข้าทำสัญญานั้น เช่น การจัดส่งอีเมลถึงท่าน หรือการดำเนินการตามคำขอยืมอุปกรณ์ นอกจากนี้ ข้อตกลงการประมวลผลข้อมูลส่วนบุคคลของผู้ให้บริการแต่ละรายยังได้จัดให้มีมาตรการคุ้มครองที่เหมาะสมตามมาตรา 29 วรรคสาม แห่งพระราชบัญญัติด้วย",
 
@@ -292,6 +296,7 @@ const content: Record<Locale, Labels> = {
  * is visibly wrong to a Thai reader.
  */
 function retentionSentence(t: Labels, activity: (typeof activities)[number]): string {
+  if (activity.retentionTrigger === "until-unpublished") return t.retentionUntilUnpublished;
   const triggerLabel = t.retentionTriggerLabels[activity.retentionTrigger];
   return `${t.retentionPrefix}${t.retentionTriggerJoin}${triggerLabel}${t.retentionSuffixJoin}${t.retentionSuffix}`;
 }

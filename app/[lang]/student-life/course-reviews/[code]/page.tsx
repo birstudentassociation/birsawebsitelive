@@ -16,6 +16,7 @@ import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { courses } from "@/content/course-review/courses";
 import type {
   AcademicTerm,
+  Instructor,
   StudentReview,
   AssessmentFacts as AssessmentFactsData,
 } from "@/content/course-review/types";
@@ -32,12 +33,21 @@ import {
   type CourseNode,
 } from "@/lib/courses/graph";
 import { studentLifeLabel } from "@/content/student-life/topics";
+import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
+import { reviewFreshness } from "@/lib/course-review/freshness";
+import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
+import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { describeBandDistribution } from "@/lib/course-review/workload";
 
 type Dict = ReturnType<typeof getDictionary>["courseReview"];
 
-function termRank(semester: AcademicTerm["semester"]): number {
-  return semester === "summer" ? 3 : semester;
-}
+/**
+ * Published reviews come from the database, so the page is regenerated at
+ * most an hour after the last request. Publishing and unpublishing from the
+ * officer console revalidate the affected pages straight away; this is the
+ * backstop for anything that changes the data some other way.
+ */
+export const revalidate = 3600;
 
 /** "Year 2, Semester 1; Year 2, Summer", or the fallback when the plan never names the course. */
 function termsText(terms: TermRef[], t: Dict): string {
@@ -149,9 +159,15 @@ export default async function CourseDetailPage({
   const terms = recommendedIn(node.code, version);
   const minors = node.latest.minors;
   const equivalents = equivalentTo(node.code);
-  const reviews = [...(course?.reviews ?? [])].sort(
-    (a, b) => b.term.year - a.term.year || termRank(b.term.semester) - termRank(a.term.semester)
+  // The reviews held in the repository plus those officers have published
+  // from approved submissions. Empty when the database isn't configured.
+  const reviews = mergeReviews(
+    course?.reviews ?? [],
+    await listPublishedReviews(node.code, course?.instructors)
   );
+  const collecting = isCourseReviewConfigured();
+  const writeReviewHref = localeHref(locale, `/student-life/course-reviews/${node.code}/review`);
+  const now = new Date();
   const catalogHref = localeHref(locale, "/student-life/course-reviews");
 
   return (
@@ -189,9 +205,9 @@ export default async function CourseDetailPage({
           ) : (
             <Tag variant="neutral">{t.factsOnlyBadge}</Tag>
           )}
-          {course?.reviews?.length ? (
+          {reviews.length ? (
             <Tag variant="neutral">
-              {course.reviews.every((review) => review.sample) ? t.sampleBadge : t.reviewedBadge}
+              {reviews.every((review) => review.sample) ? t.sampleBadge : t.reviewedBadge}
             </Tag>
           ) : null}
         </div>
@@ -355,15 +371,47 @@ export default async function CourseDetailPage({
           <h2 className="font-display text-lg sm:text-xl">{t.reviewHeading}</h2>
 
           {reviews.length ? (
-            reviews.map((review, index) => (
-              <CourseReview key={index} review={review} locale={locale} t={t} />
-            ))
+            <>
+              {reviews.map((review, index) => (
+                <CourseReview
+                  key={index}
+                  review={review}
+                  locale={locale}
+                  t={t}
+                  currentInstructors={course?.instructors}
+                  now={now}
+                />
+              ))}
+              {collecting ? (
+                <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
+                  {t.collect.addReviewPrompt}
+                  <Link
+                    href={writeReviewHref}
+                    className="inline-flex min-h-11 items-center font-semibold text-brand-deep hover:text-brand-dark"
+                  >
+                    {t.collect.writeReviewLink} &rarr;
+                  </Link>
+                </p>
+              ) : null}
+            </>
           ) : (
             <Notice variant="placeholder" title={t.noReviewTitle}>
-              <p className="mb-3">{t.noReviewBody}</p>
-              <Button href={localeHref(locale, "/contact")} variant="secondary">
-                {dict.actions.contactUs}
-              </Button>
+              <p className="mb-3">
+                {collecting
+                  ? fillTemplate(t.collect.noReviewBodyCollecting, {
+                      threshold: PUBLICATION_THRESHOLD,
+                    })
+                  : t.noReviewBody}
+              </p>
+              {collecting ? (
+                <Button href={writeReviewHref} variant="secondary">
+                  {t.collect.writeReviewLink}
+                </Button>
+              ) : (
+                <Button href={localeHref(locale, "/contact")} variant="secondary">
+                  {dict.actions.contactUs}
+                </Button>
+              )}
             </Notice>
           )}
         </section>
@@ -417,17 +465,49 @@ export default async function CourseDetailPage({
   );
 }
 
-function CourseReview({ review, locale, t }: { review: StudentReview; locale: Locale; t: Dict }) {
+function CourseReview({
+  review,
+  locale,
+  t,
+  currentInstructors,
+  now,
+}: {
+  review: StudentReview;
+  locale: Locale;
+  t: Dict;
+  currentInstructors: readonly Instructor[] | undefined;
+  now: Date;
+}) {
+  const freshness = reviewFreshness(review, currentInstructors, now);
+  const bandSentences = review.workloadBands
+    ? describeBandDistribution(review.workloadBands, {
+        labels: t.collect.bandLabels,
+        sentence: t.collect.bandSentence,
+        sentenceSingle: t.collect.bandSentenceSingle,
+      })
+    : [];
   return (
     <article className="flex flex-col gap-4 sm:gap-6">
       <header className="flex flex-col gap-1">
-        <h3 className="font-display text-lg text-ink">
+        <h3 className="flex flex-wrap items-center gap-2 font-display text-lg text-ink">
           {termLabel(t.reviewTerm, review.term, t, locale)}
+          {freshness.dated ? <Tag variant="neutral">{t.collect.datedBadge}</Tag> : null}
         </h3>
         {review.instructor ? (
           <p className="text-sm text-muted">
             {t.reviewInstructor} {review.instructor.name[locale]}
           </p>
+        ) : null}
+        {freshness.dated ? <p className="text-sm text-muted">{t.collect.datedNote}</p> : null}
+        {freshness.instructor === "changed" && review.instructor ? (
+          <p className="text-sm text-muted">
+            {fillTemplate(t.collect.instructorChangedNote, {
+              name: review.instructor.name[locale],
+            })}
+          </p>
+        ) : null}
+        {freshness.instructor === "elsewhere" ? (
+          <p className="text-sm text-muted">{t.collect.instructorElsewhereNote}</p>
         ) : null}
       </header>
       {review.sample ? (
@@ -445,6 +525,17 @@ function CourseReview({ review, locale, t }: { review: StudentReview; locale: Lo
         <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted sm:text-base">
           {review.workload[locale]}
         </p>
+        {bandSentences.length > 0 ? (
+          <div className="flex max-w-[var(--measure)] flex-col gap-1 text-sm text-muted">
+            <h5 className="font-semibold text-ink">{t.collect.bandsHeading}</h5>
+            <ul className="flex list-disc flex-col gap-0.5 pl-5">
+              {bandSentences.map((sentence) => (
+                <li key={sentence}>{sentence}</li>
+              ))}
+            </ul>
+            <p className="text-xs">{t.collect.bandNote}</p>
+          </div>
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-1 sm:gap-2">

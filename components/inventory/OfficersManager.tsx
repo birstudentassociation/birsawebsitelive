@@ -112,6 +112,7 @@ const copy: Record<Locale, Copy> = {
       inventory_manager: "Inventory manager",
       loan_officer: "Loan officer",
       read_only: "Read only",
+      academic_affairs: "Academic affairs",
     },
     lastLoginLabel: (date) => `Last signed in ${date}`,
     neverLoggedInLabel: "Never signed in",
@@ -161,6 +162,7 @@ const copy: Record<Locale, Copy> = {
       inventory_manager: "ผู้จัดการครุภัณฑ์",
       loan_officer: "เจ้าหน้าที่ยืม-คืน",
       read_only: "ดูอย่างเดียว",
+      academic_affairs: "ฝ่ายวิชาการ",
     },
     lastLoginLabel: (date) => `เข้าสู่ระบบล่าสุด ${date}`,
     neverLoggedInLabel: "ยังไม่เคยเข้าสู่ระบบ",
@@ -170,7 +172,13 @@ const copy: Record<Locale, Copy> = {
   },
 };
 
-const ROLES: Role[] = ["admin", "inventory_manager", "loan_officer", "read_only"];
+const ROLES: Role[] = [
+  "admin",
+  "inventory_manager",
+  "loan_officer",
+  "read_only",
+  "academic_affairs",
+];
 
 type RowMessage = { kind: "success" | "error"; text: string };
 type FieldName = "email" | "name" | "role" | "passcode";

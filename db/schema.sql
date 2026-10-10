@@ -69,3 +69,70 @@ create table if not exists purge_log (
 
 create index if not exists purge_log_ran_at_idx
   on purge_log (ran_at desc);
+
+-- Course review collection: anonymous submissions, and the summaries officers
+-- publish from them. Like satisfaction_feedback, a submission stores no name,
+-- student ID, email address, IP address or user agent. Mirrors
+-- db/migrations/013_course_reviews.sql, which also adds the academic_affairs
+-- officer role. The two tables reference officers(id), so this block needs the
+-- inventory migrations to have run first.
+
+create table if not exists course_review_submissions (
+  id uuid primary key default gen_random_uuid(),
+  course_code text not null,
+  term_year integer not null
+    check (term_year between 2500 and 2700),
+  term_semester text not null
+    check (term_semester in ('1', '2', 'summer')),
+  instructor_key text not null,
+  workload text not null,
+  workload_band text
+    check (workload_band in ('under_3', '3_to_6', 'over_6')),
+  assessment text not null,
+  tips text[] not null default '{}',
+  quote text,
+  locale text not null
+    check (locale in ('en', 'th')),
+  status text not null default 'pending'
+    check (status in ('pending', 'approved', 'rejected')),
+  moderated_by uuid references officers(id),
+  moderated_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists course_review_submissions_group_idx
+  on course_review_submissions (course_code, term_year, term_semester, instructor_key);
+
+create index if not exists course_review_submissions_status_idx
+  on course_review_submissions (status);
+
+create index if not exists course_review_submissions_created_at_idx
+  on course_review_submissions (created_at);
+
+create table if not exists published_course_reviews (
+  id uuid primary key default gen_random_uuid(),
+  course_code text not null,
+  term_year integer not null
+    check (term_year between 2500 and 2700),
+  term_semester text not null
+    check (term_semester in ('1', '2', 'summer')),
+  instructor_key text not null,
+  instructor_name_en text,
+  instructor_name_th text,
+  review_count integer not null
+    check (review_count > 0),
+  workload_en text not null,
+  workload_th text not null,
+  assessment_en text not null,
+  assessment_th text not null,
+  tips jsonb not null default '[]'::jsonb,
+  quotes jsonb not null default '[]'::jsonb,
+  band_counts jsonb not null default '{}'::jsonb,
+  published_by uuid references officers(id),
+  published_at timestamptz not null default now(),
+  submission_ids uuid[] not null default '{}',
+  unique (course_code, term_year, term_semester, instructor_key)
+);
+
+create index if not exists published_course_reviews_course_code_idx
+  on published_course_reviews (course_code);

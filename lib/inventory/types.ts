@@ -8,7 +8,8 @@
  * lib/equipment-loan.ts.
  */
 
-export type Role = "admin" | "inventory_manager" | "loan_officer" | "read_only";
+export type Role =
+  "admin" | "inventory_manager" | "loan_officer" | "read_only" | "academic_affairs";
 
 export type TrackingMode = "asset" | "consumable";
 

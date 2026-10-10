@@ -402,6 +402,28 @@ export const en = {
     noReviewTitle: "No student review yet",
     noReviewBody:
       "BIRSA has not collected a student review for this course yet. If you've taken it and are willing to write a short, honest one, get in touch.",
+    collect: {
+      writeReviewLink: "Write a review",
+      noReviewBodyCollecting:
+        "BIRSA has not published a student review for this course yet. If you have taken it, you can write a short, honest one. Reviews are anonymous. BIRSA publishes a summary only once at least {threshold} students have reviewed the same course, term and instructor.",
+      addReviewPrompt: "Taken this course? You can add your own review.",
+      datedBadge: "Dated",
+      datedNote:
+        "This review is from more than three academic years ago, so the course may have changed since.",
+      instructorChangedNote:
+        "The instructor in this review, {name}, is not on the current instructor list for this course.",
+      instructorElsewhereNote:
+        "The students who wrote this review said someone who is not on the current instructor list taught the course.",
+      bandsHeading: "Hours a week students reported",
+      bandLabels: {
+        under_3: "under 3 hours a week",
+        "3_to_6": "3 to 6 hours a week",
+        over_6: "over 6 hours a week",
+      },
+      bandSentence: "{count} of {total} students who gave an estimate said {band}.",
+      bandSentenceSingle: "One student who gave an estimate said {band}.",
+      bandNote: "Students chose these estimates themselves. They are not an average or a rating.",
+    },
     backToCatalog: "Back to the course catalogue",
     yearFilterLabel: "Year",
     allYears: "All years",

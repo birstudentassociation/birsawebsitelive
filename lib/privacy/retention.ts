@@ -179,6 +179,7 @@ export type PurgeCounts = {
   borrowers: number;
   auditLog: number;
   satisfactionFeedback: number;
+  courseReviewSubmissions: number;
   custodiansCleared: number;
   officersAnonymised: number;
 };
@@ -190,6 +191,7 @@ function emptyCounts(): PurgeCounts {
     borrowers: 0,
     auditLog: 0,
     satisfactionFeedback: 0,
+    courseReviewSubmissions: 0,
     custodiansCleared: 0,
     officersAnonymised: 0,
   };
@@ -305,7 +307,19 @@ export async function purgeExpiredPersonalData(
     );
     counts.satisfactionFeedback = feedbackDeleted.rowCount ?? 0;
 
-    // f. Custodians: clear contact fields, keep the row. Clubs are not
+    // f. course_review_submissions: age alone, whatever the status. The free
+    // text is unmoderated until an officer approves it and may contain
+    // whatever a visitor chose to type. Published summaries are not touched:
+    // they hold no personal data about students and stay until unpublished
+    // (published_course_reviews.submission_ids is deliberately not a foreign
+    // key, so deleting the raw rows leaves them intact).
+    const reviewsDeleted = await client.query(
+      `delete from course_review_submissions where created_at < $1`,
+      [cutoff.toISOString()]
+    );
+    counts.courseReviewSubmissions = reviewsDeleted.rowCount ?? 0;
+
+    // g. Custodians: clear contact fields, keep the row. Clubs are not
     // personal data; the people who answer for them are.
     const officerActivityRows = await client.query<{
       custodian_id: string | null;
@@ -369,7 +383,7 @@ export async function purgeExpiredPersonalData(
       counts.custodiansCleared = cleared.rowCount ?? 0;
     }
 
-    // g. Officers: anonymise, never delete. audit_log.officer_id and
+    // h. Officers: anonymise, never delete. audit_log.officer_id and
     // loans.decided_by / checked_out_by / checked_in_by all reference them,
     // so deleting the row (or nulling those columns) would erase who
     // approved or handled a loan, which is exactly the accountability

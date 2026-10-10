@@ -259,6 +259,8 @@ type Store = {
   borrowers: { id: string; updated_at: string }[];
   audit_log: { id: string; created_at: string; officer_id: string | null }[];
   satisfaction_feedback: { id: string; created_at: string }[];
+  course_review_submissions: { id: string; created_at: string; status: string }[];
+  published_course_reviews: { id: string; published_at: string }[];
   custodians: {
     id: string;
     created_at: string;
@@ -370,6 +372,15 @@ function makeFakeClient(s: Store): FakeClient {
         return { rows: [] as T[], rowCount: before - s.satisfaction_feedback.length };
       }
 
+      if (text.includes("delete from course_review_submissions")) {
+        const cutoff = params[0] as string;
+        const before = s.course_review_submissions.length;
+        s.course_review_submissions = s.course_review_submissions.filter(
+          (r) => !(r.created_at < cutoff)
+        );
+        return { rows: [] as T[], rowCount: before - s.course_review_submissions.length };
+      }
+
       if (text.includes("as last_active from officers")) {
         const rows = s.officers
           .filter((o) => o.custodian_id !== null)
@@ -446,6 +457,8 @@ function freshStore(): Store {
     borrowers: [],
     audit_log: [],
     satisfaction_feedback: [],
+    course_review_submissions: [],
+    published_course_reviews: [],
     custodians: [],
     officers: [],
     items: [],
@@ -577,6 +590,27 @@ describe("purgeExpiredPersonalData", () => {
     // anonymised, but not deleted) officer.
     expect(store.audit_log).toHaveLength(1);
     expect(store.audit_log[0]!.officer_id).toBe("officer-1");
+  });
+
+  it("purges raw course review submissions of any status after two years, and never a published summary", async () => {
+    store.course_review_submissions.push(
+      { id: "old-pending", created_at: yearsAgoPlusDays(2, -1), status: "pending" },
+      { id: "old-approved", created_at: yearsAgoPlusDays(3, 0), status: "approved" },
+      { id: "old-rejected", created_at: yearsAgoPlusDays(2, -30), status: "rejected" },
+      { id: "recent", created_at: yearsAgoPlusDays(1, 0), status: "approved" },
+      { id: "just-inside", created_at: yearsAgoPlusDays(2, 1), status: "pending" }
+    );
+    store.published_course_reviews.push({ id: "summary", published_at: yearsAgoPlusDays(5, 0) });
+
+    const result = await purgeExpiredPersonalData(NOW);
+
+    expect(result).toMatchObject({ ok: true, counts: { courseReviewSubmissions: 3 } });
+    expect(store.course_review_submissions.map((r) => r.id).sort()).toEqual([
+      "just-inside",
+      "recent",
+    ]);
+    // The retention job has no statement that touches the published table.
+    expect(store.published_course_reviews).toHaveLength(1);
   });
 
   it("is idempotent: a second run does not re-anonymise or double-count", async () => {

@@ -56,6 +56,9 @@ type Copy = {
   officersLink: string;
   scopedLoansNoticeTitle: string;
   scopedLoansNoticeBody: string;
+  courseReviewsTitle: string;
+  courseReviewsBody: string;
+  courseReviewsLink: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -92,6 +95,10 @@ const copy: Record<Locale, Copy> = {
     scopedLoansNoticeTitle: "Loan requests are handled centrally",
     scopedLoansNoticeBody:
       "BIRSA officers handle all loan requests. This dashboard shows only your club's low-stock consumables.",
+    courseReviewsTitle: "Course reviews",
+    courseReviewsBody:
+      "Approve anonymous course review submissions and publish summaries. This is the part of the console your role covers.",
+    courseReviewsLink: "Go to course reviews",
   },
   th: {
     title: "แดชบอร์ด",
@@ -126,6 +133,10 @@ const copy: Record<Locale, Copy> = {
     scopedLoansNoticeTitle: "คำขอยืมดำเนินการโดยส่วนกลาง",
     scopedLoansNoticeBody:
       "เจ้าหน้าที่ BIRSA เป็นผู้พิจารณาคำขอยืมทั้งหมด แดชบอร์ดนี้แสดงเฉพาะสต็อกวัสดุสิ้นเปลืองของชมรมคุณที่ใกล้หมด",
+    courseReviewsTitle: "รีวิวรายวิชา",
+    courseReviewsBody:
+      "อนุมัติรีวิวรายวิชานิรนามที่ส่งเข้ามา และเผยแพร่บทสรุป ส่วนนี้คือส่วนของคอนโซลที่บทบาทของคุณใช้ได้",
+    courseReviewsLink: "ไปที่รีวิวรายวิชา",
   },
 };
 
@@ -179,6 +190,13 @@ export default async function OfficerInventoryDashboardPage({
         ) : !isInventoryConfigured() ? (
           <Notice variant="warning" title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
+          </Notice>
+        ) : officer.role === "academic_affairs" ? (
+          <Notice variant="info" title={t.courseReviewsTitle}>
+            <p className="mb-3">{t.courseReviewsBody}</p>
+            <Button href={localeHref(locale, "/officer/inventory/course-reviews")}>
+              {t.courseReviewsLink}
+            </Button>
           </Notice>
         ) : (
           <DashboardBoards locale={locale} t={t} custodianId={officer.custodianId} />

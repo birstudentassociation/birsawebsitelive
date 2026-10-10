@@ -60,6 +60,8 @@ type Copy = {
   statusLabels: Record<LoanStatus, string>;
   scopedNoticeTitle: string;
   scopedNoticeBody: string;
+  academicNoticeTitle: string;
+  academicNoticeBody: string;
 };
 
 const copy: Record<Locale, Copy> = {
@@ -84,6 +86,9 @@ const copy: Record<Locale, Copy> = {
     scopedNoticeTitle: "Loan requests are handled by BIRSA officers",
     scopedNoticeBody:
       "Your club's items are managed from the Catalogue. BIRSA officers decide, hand off, and check in loan requests centrally.",
+    academicNoticeTitle: "Loan requests are not part of your role",
+    academicNoticeBody:
+      "The loans queue holds borrowers' details, which the Academic affairs role does not need. Course reviews are in the console menu.",
   },
   th: {
     title: "คิวคำขอยืม",
@@ -106,6 +111,9 @@ const copy: Record<Locale, Copy> = {
     scopedNoticeTitle: "คำขอยืมดำเนินการโดยเจ้าหน้าที่ BIRSA",
     scopedNoticeBody:
       "รายการของชมรมคุณจัดการได้ที่หน้ารายการครุภัณฑ์ เจ้าหน้าที่ BIRSA เป็นผู้พิจารณา ส่งมอบ และรับคืนคำขอยืมโดยส่วนกลาง",
+    academicNoticeTitle: "คำขอยืมไม่อยู่ในบทบาทของคุณ",
+    academicNoticeBody:
+      "คิวคำขอยืมมีข้อมูลของผู้ยืม ซึ่งบทบาทฝ่ายวิชาการไม่จำเป็นต้องใช้ ส่วนรีวิวรายวิชาอยู่ในเมนูของคอนโซล",
   },
 };
 
@@ -144,6 +152,21 @@ export default async function OfficerLoansQueuePage({
           <Notice variant="info" title={t.signInTitle}>
             <p className="mb-3">{t.signInBody}</p>
             <Button href={localeHref(locale, "/officer/inventory")}>{t.signInCta}</Button>
+          </Notice>
+        </div>
+      </>
+    );
+  }
+
+  // The queue carries borrowers' names and contact details. Academic Affairs
+  // officers are signed in to the same console but have no use for them.
+  if (officer.role === "academic_affairs") {
+    return (
+      <>
+        <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
+        <div className="wrap py-10">
+          <Notice variant="info" title={t.academicNoticeTitle}>
+            {t.academicNoticeBody}
           </Notice>
         </div>
       </>

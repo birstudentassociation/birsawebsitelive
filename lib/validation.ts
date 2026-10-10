@@ -10,6 +10,7 @@
  */
 import { z } from "zod";
 import { dataRights } from "@/content/privacy/register";
+import { WORKLOAD_BANDS } from "@/lib/course-review/workload";
 
 const honeypot = z.string().max(0, "Leave this field empty").optional().or(z.literal(""));
 
@@ -133,6 +134,78 @@ export const feedbackSchema = z.object({
 });
 
 export type FeedbackInput = z.infer<typeof feedbackSchema>;
+
+/**
+ * Length limits for the course review form, shared with the form's
+ * `maxLength` attributes so the page and the server agree. Thai packs a
+ * sentence into far fewer characters than English, so the minimum is low.
+ */
+export const COURSE_REVIEW_LIMITS = {
+  minText: 10,
+  workload: 1000,
+  assessment: 1000,
+  tip: 300,
+  quote: 500,
+  maxTips: 3,
+} as const;
+
+/**
+ * Anything that looks like it would identify a person: an email address, a
+ * run of nine or more digits (a student ID or a phone number), or a phone
+ * number written with separators. The form asks for none of these, so one in
+ * the free text is a mistake the reader should be told about before it is
+ * stored. A heuristic, not a guarantee; officers still read every submission.
+ */
+export function looksIdentifying(text: string): boolean {
+  return (
+    /[^\s@]+@[^\s@]+\.[^\s@]+/.test(text) ||
+    /\d{9,}/.test(text) ||
+    /\b0\d{1,2}[- ]\d{3}[- ]\d{3,4}\b/.test(text)
+  );
+}
+
+/**
+ * Course review submission. The messages are codes, not sentences: the form's
+ * server action maps each code to bilingual wording, so the schema stays
+ * language-free. `term` and `instructor` are only checked for shape here; that
+ * they are a term the form offers and an instructor on the course is checked
+ * against the course in lib/course-review/submit.ts.
+ */
+const reviewText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .min(1, "required")
+    .min(COURSE_REVIEW_LIMITS.minText, "tooShort")
+    .max(max, "tooLong")
+    .refine((text) => !looksIdentifying(text), "identifying");
+
+const optionalReviewText = (max: number) =>
+  z
+    .string()
+    .trim()
+    .max(max, "tooLong")
+    .refine((text) => !looksIdentifying(text), "identifying")
+    .optional()
+    .or(z.literal(""));
+
+export const courseReviewSubmissionSchema = z.object({
+  code: z.string().min(1).max(20),
+  term: z
+    .string()
+    .min(1, "required")
+    .regex(/^\d{4}-(1|2|summer)$/, "invalidChoice"),
+  instructor: z.string().min(1, "required").max(100),
+  workload: reviewText(COURSE_REVIEW_LIMITS.workload),
+  workloadBand: z.enum(WORKLOAD_BANDS, "invalidChoice").optional().or(z.literal("")),
+  assessment: reviewText(COURSE_REVIEW_LIMITS.assessment),
+  tips: z.array(optionalReviewText(COURSE_REVIEW_LIMITS.tip)).max(COURSE_REVIEW_LIMITS.maxTips),
+  quote: optionalReviewText(COURSE_REVIEW_LIMITS.quote),
+  locale: z.enum(["en", "th"]),
+  nickname: honeypot,
+});
+
+export type CourseReviewSubmissionInput = z.infer<typeof courseReviewSubmissionSchema>;
 
 /**
  * The `/privacy/your-data` journey, through which a reader exercises a PDPA

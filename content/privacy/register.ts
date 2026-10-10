@@ -42,8 +42,14 @@ export const RETENTION_YEARS = 2;
  * When the clock starts. For a loan this is the day the loan closes, not the
  * day it opens, so an open loan is never purged out from under an officer who
  * still needs to get the equipment back.
+ *
+ * `until-unpublished` is the exception that is not a clock at all: it is for a
+ * record that holds no personal data about the people who gave rise to it,
+ * such as a published course review summary, which stays until an officer
+ * removes it. The pages render it as that, not as the two-year rule, and the
+ * retention job does not touch it.
  */
-export type RetentionTrigger = "created" | "closed" | "last-active";
+export type RetentionTrigger = "created" | "closed" | "last-active" | "until-unpublished";
 
 export type LawfulBasis = {
   /** The subsection of section 24 relied on, e.g. "24(3)". */
@@ -368,6 +374,73 @@ export const activities: ProcessingActivity[] = [
     retentionTrigger: "created",
   },
   {
+    id: "course-review",
+    name: { en: "Course reviews you submit", th: "รีวิวรายวิชาที่ท่านส่งถึง BIRSA" },
+    purpose: {
+      en: "So BIRSA can publish an anonymous summary of what a course was like for students.",
+      th: "เพื่อให้ BIRSA จัดทำและเผยแพร่บทสรุปแบบไม่ระบุตัวตนว่ารายวิชาหนึ่งเป็นอย่างไรสำหรับนักศึกษา",
+    },
+    basis: BASIS_LEGITIMATE_INTEREST,
+    collects: [
+      {
+        en: "The course, the term and the instructor you pick",
+        th: "รายวิชา ภาคการศึกษา และอาจารย์ผู้สอนที่ท่านเลือก",
+      },
+      {
+        en: "What you write about the workload, the assessment, any tips and any quote, and the hours a week range if you choose one",
+        th: "ข้อความที่ท่านเขียนเกี่ยวกับปริมาณงาน การวัดผล เคล็ดลับ และข้อความที่ยกมา รวมถึงช่วงชั่วโมงต่อสัปดาห์หากท่านเลือก",
+      },
+      {
+        en: "Whether you were reading in Thai or English",
+        th: "ภาษาที่ท่านเลือกอ่าน ไทยหรืออังกฤษ",
+      },
+    ],
+    ifYouDoNot: {
+      en: "A review is entirely optional. We do not ask for your name, your student ID, your email address or anything else that identifies you, so please do not type those into the boxes, and do not name other students. An officer reads every review and leaves out anything that could identify someone.",
+      th: "การส่งรีวิวเป็นไปตามความสมัครใจทั้งหมด BIRSA มิได้ขอชื่อ รหัสนักศึกษา ที่อยู่อีเมล หรือข้อมูลอื่นใดที่ระบุตัวท่านได้ จึงขอความร่วมมือมิให้กรอกข้อมูลดังกล่าวลงในช่องใด ๆ และมิให้ระบุชื่อนักศึกษาท่านอื่น เจ้าหน้าที่จะอ่านทุกรีวิวและตัดข้อความที่อาจระบุตัวบุคคลออก",
+    },
+    recipients: ["vercel-postgres", "anthropic"],
+    storage: "database",
+    retentionTrigger: "created",
+    retentionNote: {
+      en: "A review is published only as part of a summary written from at least five approved reviews of the same course, term and instructor. An officer may ask an AI service to draft that summary from approved reviews. It is sent the text of those reviews and nothing about who wrote them, because BIRSA does not hold that. Reviews that are not approved are never sent.",
+      th: "BIRSA จะเผยแพร่รีวิวในรูปบทสรุปที่จัดทำจากรีวิวที่อนุมัติแล้วของรายวิชา ภาคการศึกษา และอาจารย์ผู้สอนเดียวกันอย่างน้อยห้ารายการเท่านั้น เจ้าหน้าที่อาจให้บริการปัญญาประดิษฐ์ช่วยร่างบทสรุปดังกล่าวจากรีวิวที่อนุมัติแล้ว โดยจะส่งเฉพาะข้อความของรีวิว มิได้ส่งข้อมูลว่าผู้ใดเป็นผู้เขียน เนื่องจาก BIRSA มิได้เก็บข้อมูลดังกล่าว และจะไม่ส่งรีวิวที่ยังไม่ได้รับการอนุมัติ",
+    },
+  },
+  {
+    id: "course-review-summary",
+    name: {
+      en: "Published course review summaries",
+      th: "บทสรุปรีวิวรายวิชาที่เผยแพร่",
+    },
+    purpose: {
+      en: "So students can read what past students said about a course.",
+      th: "เพื่อให้นักศึกษาอ่านความเห็นของรุ่นพี่เกี่ยวกับรายวิชาได้",
+    },
+    basis: BASIS_LEGITIMATE_INTEREST,
+    collects: [
+      {
+        en: "A summary an officer has written or edited from at least five approved reviews, with no names and nothing that identifies a student",
+        th: "บทสรุปที่เจ้าหน้าที่เขียนหรือแก้ไขจากรีวิวที่อนุมัติแล้วอย่างน้อยห้ารายการ โดยไม่มีชื่อและไม่มีข้อมูลใดที่ระบุตัวนักศึกษาได้",
+      },
+      {
+        en: "The name of the instructor, as the faculty's own staff directory lists it",
+        th: "ชื่ออาจารย์ผู้สอนตามที่ปรากฏในทำเนียบคณาจารย์ของคณะ",
+      },
+    ],
+    ifYouDoNot: {
+      en: "This is not collected from you. It is written by BIRSA officers from reviews that other students chose to send. It holds no personal data about students. It names the instructor in their role as the teacher of the course, and says nothing about them beyond how the course was run.",
+      th: "ข้อมูลนี้มิได้เก็บรวบรวมจากท่านโดยตรง เจ้าหน้าที่ BIRSA เป็นผู้จัดทำจากรีวิวที่นักศึกษาอื่นเลือกส่งมา และไม่มีข้อมูลส่วนบุคคลของนักศึกษา ทั้งนี้ระบุชื่ออาจารย์ผู้สอนในฐานะผู้สอนรายวิชา และไม่กล่าวถึงอาจารย์เกินกว่าลักษณะการจัดการเรียนการสอน",
+    },
+    recipients: ["vercel-postgres"],
+    storage: "database",
+    retentionTrigger: "until-unpublished",
+    retentionNote: {
+      en: "It is not deleted on a timer, because it holds no personal data about students.",
+      th: "ไม่ถูกลบตามกำหนดเวลา เนื่องจากไม่มีข้อมูลส่วนบุคคลของนักศึกษา",
+    },
+  },
+  {
     id: "rate-limiting",
     name: {
       en: "Stopping form abuse",
@@ -447,8 +520,8 @@ export const processors: Processor[] = [
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
-      en: "Loan and borrower records, officer accounts, the log of officer actions, and page feedback.",
-      th: "รายการยืมและข้อมูลผู้ยืม บัญชีผู้ใช้งานของเจ้าหน้าที่ บันทึกการดำเนินการของเจ้าหน้าที่ และความคิดเห็นต่อหน้าเว็บไซต์",
+      en: "Loan and borrower records, officer accounts, the log of officer actions, page feedback, and course reviews with their published summaries.",
+      th: "รายการยืมและข้อมูลผู้ยืม บัญชีผู้ใช้งานของเจ้าหน้าที่ บันทึกการดำเนินการของเจ้าหน้าที่ ความคิดเห็นต่อหน้าเว็บไซต์ และรีวิวรายวิชาพร้อมบทสรุปที่เผยแพร่",
     },
   },
   {
@@ -463,6 +536,20 @@ export const processors: Processor[] = [
     receives: {
       en: "Photographs of equipment that officers upload. No personal data.",
       th: "ภาพถ่ายอุปกรณ์ที่เจ้าหน้าที่อัปโหลด โดยไม่มีข้อมูลส่วนบุคคล",
+    },
+  },
+  {
+    id: "anthropic",
+    name: "Anthropic",
+    role: {
+      en: "Drafts summaries of course reviews for officers to edit",
+      th: "ให้บริการปัญญาประดิษฐ์ที่ช่วยร่างบทสรุปรีวิวรายวิชาให้เจ้าหน้าที่แก้ไข",
+    },
+    country: { en: "United States", th: "สหรัฐอเมริกา" },
+    outsideThailand: true,
+    receives: {
+      en: "The text of course reviews that an officer has approved, for one course and term at a time, when an officer asks for a draft. No names, email addresses or IP addresses go with it, because BIRSA does not collect them. Nothing is published until an officer has edited the draft.",
+      th: "ข้อความของรีวิวรายวิชาที่เจ้าหน้าที่อนุมัติแล้ว ครั้งละหนึ่งรายวิชาและหนึ่งภาคการศึกษา เมื่อเจ้าหน้าที่ขอให้ร่างบทสรุป โดยไม่ส่งชื่อ ที่อยู่อีเมล หรือหมายเลขไอพีไปด้วย เนื่องจาก BIRSA มิได้เก็บรวบรวมข้อมูลดังกล่าว และจะไม่เผยแพร่สิ่งใดจนกว่าเจ้าหน้าที่จะแก้ไขร่างบทสรุป",
     },
   },
   {
