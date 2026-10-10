@@ -26,10 +26,12 @@ function termRank(semester: AcademicTerm["semester"]): number {
   return semester === "summer" ? 3 : semester;
 }
 
-function termLabel(template: string, term: AcademicTerm, t: Dict): string {
+function termLabel(template: string, term: AcademicTerm, t: Dict, locale: Locale): string {
   const semester =
     term.semester === "summer" ? t.summer : term.semester === 1 ? t.semester1 : t.semester2;
-  return fillTemplate(template, { semester, year: term.year });
+  const start = term.year - 543;
+  const year = locale === "th" ? term.year : `${start}/${String(start + 1).slice(-2)}`;
+  return fillTemplate(template, { semester, year });
 }
 
 // Nested under the literal `course-reviews` route (see the parent page.tsx
@@ -283,7 +285,9 @@ function CourseReview({ review, locale, t }: { review: StudentReview; locale: Lo
   return (
     <article className="flex flex-col gap-8">
       <header className="flex flex-col gap-1">
-        <h3 className="font-display text-lg text-ink">{termLabel(t.reviewTerm, review.term, t)}</h3>
+        <h3 className="font-display text-lg text-ink">
+          {termLabel(t.reviewTerm, review.term, t, locale)}
+        </h3>
         {review.instructor ? (
           <p className="text-sm text-muted">
             {t.reviewInstructor} {review.instructor.name[locale]}
@@ -382,7 +386,9 @@ function AssessmentFacts({
 }) {
   return (
     <div className="flex flex-col gap-4 text-sm">
-      <h3 className="font-semibold text-ink">{termLabel(t.assessmentFactsTerm, facts.term, t)}</h3>
+      <h3 className="font-semibold text-ink">
+        {termLabel(t.assessmentFactsTerm, facts.term, t, locale)}
+      </h3>
       {facts.weights && facts.weights.length > 0 ? (
         <table className="w-full max-w-md border-collapse text-left">
           <caption className="pb-2 text-left font-semibold text-ink">{t.assessmentLabel}</caption>

@@ -363,6 +363,43 @@ export const courses: Course[] = [
   {
     code: "PI300",
     instructors: [SIKARN],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        { label: { en: "Presentation 1", th: "การนำเสนอครั้งที่ 1" }, weight: 10 },
+        { label: { en: "Presentation 2", th: "การนำเสนอครั้งที่ 2" }, weight: 20 },
+        { label: { en: "Group research proposal", th: "โครงร่างงานวิจัยกลุ่ม" }, weight: 30 },
+        {
+          label: {
+            en: "Participation in the first presentation weeks",
+            th: "การมีส่วนร่วมในสัปดาห์นำเสนอครั้งที่ 1",
+          },
+          weight: 10,
+        },
+        {
+          label: {
+            en: "Participation in the second presentation weeks",
+            th: "การมีส่วนร่วมในสัปดาห์นำเสนอครั้งที่ 2",
+          },
+          weight: 15,
+        },
+        {
+          label: {
+            en: "Quizzes, attendance and participation",
+            th: "แบบทดสอบย่อย การเข้าเรียน และการมีส่วนร่วม",
+          },
+          weight: 15,
+        },
+      ],
+      examFormat: {
+        en: "There is no midterm or final exam. The grade comes entirely from coursework.",
+        th: "วิชานี้ไม่มีสอบกลางภาคและปลายภาค คะแนนทั้งหมดมาจากงานระหว่างภาค",
+      },
+      attendance: {
+        en: "Attendance is checked at random and pop quizzes count towards it. Arriving more than 15 minutes late counts as an absence.",
+        th: "อาจารย์สุ่มเช็กชื่อ และแบบทดสอบย่อยที่ไม่แจ้งล่วงหน้านับเป็นการเข้าเรียนด้วย มาสายเกิน 15 นาทีถือว่าขาดเรียน",
+      },
+    },
     title: { en: "Social Science Methodology", th: "วิธีวิทยาทางสังคมศาสตร์" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
@@ -417,6 +454,39 @@ export const courses: Course[] = [
   {
     code: "PI340",
     instructors: [AJIRAPA],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        { label: { en: "Reading summaries", th: "บทสรุปการอ่าน" }, weight: 20 },
+        {
+          label: { en: "Group policy paper presentation", th: "การนำเสนอรายงานนโยบายกลุ่ม" },
+          weight: 20,
+        },
+        {
+          label: {
+            en: "Group policy analysis and redesign paper",
+            th: "รายงานวิเคราะห์และออกแบบนโยบายใหม่ของกลุ่ม",
+          },
+          weight: 40,
+        },
+        {
+          label: { en: "Peer evaluation within the group", th: "การประเมินกันเองภายในกลุ่ม" },
+          weight: 10,
+        },
+        {
+          label: { en: "Attendance and participation", th: "การเข้าเรียนและการมีส่วนร่วม" },
+          weight: 10,
+        },
+      ],
+      examFormat: {
+        en: "There is no midterm or final exam. The grade comes entirely from coursework.",
+        th: "วิชานี้ไม่มีสอบกลางภาคและปลายภาค คะแนนทั้งหมดมาจากงานระหว่างภาค",
+      },
+      attendance: {
+        en: "Arriving late beyond the set limit counts as an absence. No minimum attendance is stated.",
+        th: "มาสายเกินเวลาที่กำหนดถือว่าขาดเรียน ไม่ได้กำหนดเกณฑ์การเข้าเรียนขั้นต่ำ",
+      },
+    },
     title: {
       en: "Public Policy and Management in the Global Context",
       th: "นโยบายและการจัดการสาธารณะในบริบทโลก",
@@ -519,6 +589,40 @@ export const courses: Course[] = [
   {
     code: "PI347",
     instructors: [SIKARN],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        {
+          label: { en: "Budget data analysis homework", th: "การบ้านวิเคราะห์ข้อมูลงบประมาณ" },
+          weight: 10,
+        },
+        {
+          label: { en: "Current events discussion", th: "การอภิปรายเหตุการณ์ปัจจุบัน" },
+          weight: 10,
+        },
+        { label: { en: "Term paper presentation", th: "การนำเสนอรายงานประจำภาค" }, weight: 15 },
+        {
+          label: { en: "Budget analysis term paper", th: "รายงานวิเคราะห์งบประมาณประจำภาค" },
+          weight: 25,
+        },
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 30 },
+        {
+          label: {
+            en: "Quizzes, attendance and participation",
+            th: "แบบทดสอบย่อย การเข้าเรียน และการมีส่วนร่วม",
+          },
+          weight: 10,
+        },
+      ],
+      examFormat: {
+        en: "One final exam covering the whole course, with true or false, short answer, essay and calculation questions. There is no midterm. Make-up exams need the instructor's written approval in advance.",
+        th: "มีสอบปลายภาคครั้งเดียวครอบคลุมเนื้อหาทั้งวิชา ข้อสอบมีทั้งแบบถูกผิด ตอบสั้น เรียงความ และโจทย์คำนวณ ไม่มีสอบกลางภาค การสอบซ่อมต้องได้รับอนุมัติจากอาจารย์เป็นลายลักษณ์อักษรล่วงหน้า",
+      },
+      attendance: {
+        en: "Attendance is checked at random and pop quizzes count towards it. Arriving more than 15 minutes late counts as an absence.",
+        th: "อาจารย์สุ่มเช็กชื่อ และแบบทดสอบย่อยที่ไม่แจ้งล่วงหน้านับเป็นการเข้าเรียนด้วย มาสายเกิน 15 นาทีถือว่าขาดเรียน",
+      },
+    },
     title: { en: "Fiscal and Budgeting", th: "การคลังและการงบประมาณ" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
@@ -560,6 +664,19 @@ export const courses: Course[] = [
   {
     code: "PI364",
     instructors: [JARAN],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 40 },
+        { label: { en: "Term paper and presentation", th: "รายงานและการนำเสนอ" }, weight: 40 },
+        { label: { en: "Class participation", th: "การมีส่วนร่วมในชั้นเรียน" }, weight: 10 },
+        { label: { en: "Assignments", th: "งานมอบหมาย" }, weight: 10 },
+      ],
+      attendance: {
+        en: "Arriving 15 minutes late counts as late, and two lates count as one absence. Four absences bar you from the final exam.",
+        th: "มาสาย 15 นาทีนับเป็นการมาสาย มาสายสองครั้งนับเป็นขาดเรียนหนึ่งครั้ง และขาดเรียนสี่ครั้งจะหมดสิทธิ์สอบปลายภาค",
+      },
+    },
     title: { en: "Middle East in Global Politics", th: "ตะวันออกกลางในการเมืองโลก" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "elective-area",
@@ -886,6 +1003,27 @@ export const courses: Course[] = [
   {
     code: "PI390",
     instructors: [PONGKWAN],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        { label: { en: "In-class activities", th: "กิจกรรมในชั้นเรียน" }, weight: 10 },
+        {
+          label: { en: "Individual debate brief", th: "เอกสารสรุปประเด็นอภิปรายรายบุคคล" },
+          weight: 15,
+        },
+        { label: { en: "Group debate project", th: "โครงงานอภิปรายกลุ่ม" }, weight: 20 },
+        { label: { en: "Midterm exam", th: "สอบกลางภาค" }, weight: 25 },
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 30 },
+      ],
+      examFormat: {
+        en: "Both exams are sat in person. Each asks you to explain six key concepts and then write an essay, short at the midterm and longer at the final. The final covers the whole course.",
+        th: "สอบทั้งสองครั้งในห้องสอบ แต่ละครั้งให้อธิบายแนวคิดสำคัญหกข้อแล้วเขียนเรียงความ กลางภาคเป็นเรียงความสั้น ปลายภาคเป็นเรียงความยาว และข้อสอบปลายภาคครอบคลุมเนื้อหาทั้งวิชา",
+      },
+      attendance: {
+        en: "Attendance is not taken. Missing classes can cost in-class activity marks, though only your best five of ten activities count.",
+        th: "ไม่มีการเช็กชื่อ แต่การขาดเรียนอาจทำให้เสียคะแนนกิจกรรมในชั้นเรียน ซึ่งนับเฉพาะห้าครั้งที่ได้คะแนนสูงสุดจากทั้งหมดสิบครั้ง",
+      },
+    },
     title: { en: "Global Political Economy", th: "เศรษฐกิจการเมืองโลก" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
@@ -1208,6 +1346,23 @@ export const courses: Course[] = [
   {
     code: "PI487",
     instructors: [JOSEPH],
+    assessmentFacts: {
+      term: { year: 2569, semester: 1 },
+      weights: [
+        { label: { en: "Attendance", th: "การเข้าเรียน" }, weight: 20 },
+        { label: { en: "Midterm exam", th: "สอบกลางภาค" }, weight: 25 },
+        { label: { en: "Group presentation", th: "การนำเสนองานกลุ่ม" }, weight: 20 },
+        { label: { en: "Final oral assessment", th: "สอบปากเปล่าปลายภาค" }, weight: 35 },
+      ],
+      examFormat: {
+        en: "The final is an oral exam, a one to one session of about 10 minutes with the instructor on theory and country cases. The midterm format is not stated.",
+        th: "สอบปลายภาคเป็นการสอบปากเปล่าตัวต่อตัวกับอาจารย์ประมาณ 10 นาที ถามเรื่องทฤษฎีและกรณีศึกษารายประเทศ ส่วนรูปแบบสอบกลางภาคไม่ได้ระบุไว้",
+      },
+      attendance: {
+        en: "Attendance is worth 20% of the grade. No minimum or penalty per absence is stated.",
+        th: "การเข้าเรียนคิดเป็นร้อยละ 20 ของคะแนนรวม ไม่ได้ระบุเกณฑ์ขั้นต่ำหรือการหักคะแนนเมื่อขาดเรียน",
+      },
+    },
     title: {
       en: "The International Relations of Rising Powers",
       th: "ความสัมพันธ์ระหว่างประเทศของอำนาจใหม่",
