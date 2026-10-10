@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { quantityMismatchReason } from "@/app/api/_lib/inventoryInput";
 import { requireRole } from "@/lib/inventory/auth";
 import { listItems, createItem } from "@/lib/inventory/items";
 import { getCustodian, getCustodianBySlug } from "@/lib/inventory/custodians";
@@ -16,7 +17,7 @@ const createItemSchema = z.object({
   description: bilingualSchema.optional(),
   trackingMode: z.enum(["asset", "consumable"]),
   defaultLocationId: z.string().optional(),
-  maxLoanDays: z.number(),
+  maxLoanDays: z.number().int().positive(),
   onlineLoanable: z.boolean().optional(),
   qtyOnHand: z.number().nullable().optional(),
   reorderThreshold: z.number().nullable().optional(),
@@ -68,6 +69,11 @@ export async function POST(request: Request) {
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
       { status: 400 }
     );
+  }
+
+  const mismatch = quantityMismatchReason(parsed.data.trackingMode, parsed.data.qtyOnHand);
+  if (mismatch) {
+    return NextResponse.json({ ok: false, reason: mismatch }, { status: 400 });
   }
 
   let custodianId: string | null;

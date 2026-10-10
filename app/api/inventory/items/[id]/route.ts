@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { isUuid, notFoundResponse, quantityMismatchReason } from "@/app/api/_lib/inventoryInput";
 import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
 import { getItem, updateItem } from "@/lib/inventory/items";
 import { getCustodian } from "@/lib/inventory/custodians";
@@ -14,7 +15,7 @@ const updateItemSchema = z.object({
   name: bilingualSchema.optional(),
   description: bilingualSchema.optional(),
   defaultLocationId: z.string().nullable().optional(),
-  maxLoanDays: z.number().optional(),
+  maxLoanDays: z.number().int().positive().optional(),
   onlineLoanable: z.boolean().optional(),
   qtyOnHand: z.number().nullable().optional(),
   reorderThreshold: z.number().nullable().optional(),
@@ -38,6 +39,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   let body: unknown;
   try {
@@ -60,6 +64,13 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
   if (!canManageCustodian(auth.officer, item.custodianId)) {
     return NextResponse.json({ ok: false }, { status: 403 });
+  }
+
+  if ("qtyOnHand" in parsed.data) {
+    const mismatch = quantityMismatchReason(item.trackingMode, parsed.data.qtyOnHand ?? null);
+    if (mismatch) {
+      return NextResponse.json({ ok: false, reason: mismatch }, { status: 400 });
+    }
   }
 
   const patch = { ...parsed.data };
@@ -103,6 +114,9 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   const item = await getItem(id);
   if (!item) {

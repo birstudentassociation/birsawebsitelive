@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { isUuid, notFoundResponse } from "@/app/api/_lib/inventoryInput";
 import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
 import { closeMaintenance, getMaintenanceEntry } from "@/lib/inventory/maintenance";
 import { getUnit } from "@/lib/inventory/units";
@@ -28,6 +29,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   let body: unknown;
   try {

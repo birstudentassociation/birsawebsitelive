@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { isUuid, notFoundResponse } from "@/app/api/_lib/inventoryInput";
 import { requireRole } from "@/lib/inventory/auth";
-import { updateOfficer } from "@/lib/inventory/officers";
+import { listOfficers, updateOfficer } from "@/lib/inventory/officers";
 import { getCustodian } from "@/lib/inventory/custodians";
 import { recordAudit } from "@/lib/inventory/audit";
 
@@ -33,6 +34,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   let body: unknown;
   try {
@@ -47,6 +51,20 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       { ok: false, reason: "validation", errors: parsed.error.flatten().fieldErrors },
       { status: 400 }
     );
+  }
+
+  const stepsDown =
+    id === auth.officer.id &&
+    (parsed.data.isActive === false ||
+      (parsed.data.role !== undefined && parsed.data.role !== "admin"));
+  if (stepsDown) {
+    const officers = await listOfficers();
+    const activeAdmins = officers.filter(
+      (o) => o.role === "admin" && o.isActive && o.custodianId === null
+    );
+    if (activeAdmins.length <= 1) {
+      return NextResponse.json({ ok: false, reason: "last-admin" }, { status: 409 });
+    }
   }
 
   if (parsed.data.custodianId) {

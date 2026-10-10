@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { isUuid, notFoundResponse } from "@/app/api/_lib/inventoryInput";
 import { requireRole, canManageCustodian } from "@/lib/inventory/auth";
 import { adjustStock } from "@/lib/inventory/consumables";
 import { getItem } from "@/lib/inventory/items";
 import { recordAudit } from "@/lib/inventory/audit";
 
 const adjustStockSchema = z.object({
-  delta: z.number(),
+  delta: z.number().int(),
   reason: z.string().optional(),
 });
 
@@ -27,6 +28,9 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   let body: unknown;
   try {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
+import { isUuid, notFoundResponse } from "@/app/api/_lib/inventoryInput";
 import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { getBorrower, updateBorrower } from "@/lib/inventory/borrowers";
 import { recordAudit } from "@/lib/inventory/audit";
@@ -33,6 +34,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
   const borrower = await getBorrower(id);
   if (!borrower) {
     return NextResponse.json({ ok: false, reason: "not-found" }, { status: 404 });
@@ -57,6 +61,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   }
 
   const { id } = await params;
+  if (!isUuid(id)) {
+    return notFoundResponse();
+  }
 
   let body: unknown;
   try {
