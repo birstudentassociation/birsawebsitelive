@@ -168,7 +168,7 @@ test.describe("accordion: keyboard-only", () => {
   test("opens and closes with the keyboard and reports the correct expanded state", async ({
     page,
   }) => {
-    await page.goto("/en/student-life/rules-and-rights/rights-and-facilities");
+    await page.goto("/en/news/tpc-crazy-week-2026");
 
     // Chromium exposes <details>/<summary> as an accessibility-tree "group",
     // not a "button": Playwright only supports the `expanded` role filter on
@@ -177,10 +177,10 @@ test.describe("accordion: keyboard-only", () => {
     // would perceive it: whether the body content is exposed at all. The
     // native `open` attribute is the authoritative, spec-defined signal
     // behind that state.
-    const details = page.locator("details").filter({ hasText: "Which app do I actually need?" });
+    const details = page.locator("details").filter({ hasText: "11 August, Back to School" });
     const summary = details.locator("summary");
     await expect(details).not.toHaveAttribute("open", "");
-    await expect(page.getByText("TU Greats App")).not.toBeVisible();
+    await expect(page.getByText("Time travel back to secondary school")).not.toBeVisible();
 
     await summary.scrollIntoViewIfNeeded();
     await summary.focus();
@@ -191,13 +191,13 @@ test.describe("accordion: keyboard-only", () => {
     await expect(summary).toBeFocused();
     // The body text is now genuinely in the accessibility tree, not just
     // visually revealed.
-    await expect(page.getByText("TU Greats App")).toBeVisible();
+    await expect(page.getByText("Time travel back to secondary school")).toBeVisible();
 
     // Space also toggles a native <details>/<summary>, and it closes again.
     await page.keyboard.press(" ");
     await expect(details).not.toHaveAttribute("open", "");
     await expect(summary).toBeFocused();
-    await expect(page.getByText("TU Greats App")).not.toBeVisible();
+    await expect(page.getByText("Time travel back to secondary school")).not.toBeVisible();
   });
 });
 

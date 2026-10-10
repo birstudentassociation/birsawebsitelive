@@ -397,13 +397,16 @@ test.describe("document title and lang attribute", () => {
       // not translate, for example the club "TU MUN". What must never happen
       // is two different pages in the SAME language sharing a title, because
       // then neither the tab strip nor a screen reader can tell them apart.
+      // Query-string variants of one page, such as /openhouse?arrive=..., share
+      // its title by design, so they are keyed on the pathname alone.
+      const pathname = path.split("?")[0] ?? path;
       const key = `${expectedLang}::${title}`;
       const owner = seenTitles.get(key);
       expect(
-        owner,
+        owner === undefined || owner === pathname,
         `title "${title}" is also used by ${owner}: every page in a language needs a distinct title`
-      ).toBeUndefined();
-      seenTitles.set(key, path);
+      ).toBe(true);
+      seenTitles.set(key, pathname);
 
       await expect(page.locator("html")).toHaveAttribute("lang", expectedLang);
     });
