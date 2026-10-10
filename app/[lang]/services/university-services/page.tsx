@@ -178,7 +178,7 @@ const copy: Record<
         "For male students born in 2006 (B.E. 2549) at the Tha Prachan, Rangsit and Pattaya campuses. Submit in one round only.",
       roundsTitle: "Submission rounds (choose one)",
       rounds: [
-        { term: "Round 1", desc: "10 August to 9 October 2026" },
+        { term: "Round 1", desc: "10 August to 9 October 2026 (closed)" },
         { term: "Round 2", desc: "11 January to 10 February 2027" },
       ],
       stepsTitle: "What to do",
@@ -342,7 +342,7 @@ const copy: Record<
         "สำหรับนักศึกษาชายที่เกิด พ.ศ. 2549 ศูนย์ท่าพระจันทร์ / ศูนย์รังสิต / ศูนย์พัทยา เลือกยื่นเพียงรอบเดียว",
       roundsTitle: "รอบการยื่น (เลือกรอบเดียว)",
       rounds: [
-        { term: "รอบที่ 1", desc: "10 สิงหาคม ถึง 9 ตุลาคม 2569" },
+        { term: "รอบที่ 1", desc: "10 สิงหาคม ถึง 9 ตุลาคม 2569 (ปิดรับแล้ว)" },
         { term: "รอบที่ 2", desc: "11 มกราคม ถึง 10 กุมภาพันธ์ 2570" },
       ],
       stepsTitle: "ขั้นตอนการดำเนินการ",
