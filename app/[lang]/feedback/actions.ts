@@ -43,9 +43,12 @@ function ipFromHeaders(h: Headers): string {
   return first || "unknown";
 }
 
-/** Strips a query string and fragment, so nothing accidentally captured there (e.g. a "?email=" typo'd into a link) ends up stored. */
+const MAX_PATH_LENGTH = 300;
+
+/** Strips a query string and fragment, so nothing accidentally captured there (e.g. a "?email=" typo'd into a link) ends up stored, and truncates to the schema's limit. */
 function sanitizePath(rawPath: string): string {
-  return rawPath.split("?")[0]?.split("#")[0] || "/";
+  const path = rawPath.split("?")[0]?.split("#")[0] || "/";
+  return path.slice(0, MAX_PATH_LENGTH);
 }
 
 /**
