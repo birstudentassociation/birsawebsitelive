@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { formatDate, isLocale, localeHref, pluralize, swapLocalePath } from "@/lib/i18n";
 
 describe("localeHref", () => {
@@ -54,6 +54,27 @@ describe("pluralize", () => {
 });
 
 describe("formatDate", () => {
+  const originalTz = process.env.TZ;
+  afterEach(() => {
+    if (originalTz === undefined) delete process.env.TZ;
+    else process.env.TZ = originalTz;
+  });
+
+  it("shows the same day for a date-only string in any host time zone", () => {
+    for (const tz of ["America/Los_Angeles", "Pacific/Kiritimati", "UTC"]) {
+      process.env.TZ = tz;
+      expect(formatDate("en", "2026-01-15")).toBe("15 January 2026");
+    }
+  });
+
+  it("shows the Bangkok day for a full datetime in any host time zone", () => {
+    for (const tz of ["America/Los_Angeles", "UTC"]) {
+      process.env.TZ = tz;
+      expect(formatDate("en", "2026-01-15T18:00:00Z")).toBe("16 January 2026");
+      expect(formatDate("en", "2026-01-15T08:00:00+07:00")).toBe("15 January 2026");
+    }
+  });
+
   it("formats using the Gregorian calendar for both locales, never Buddhist Era", () => {
     const en = formatDate("en", "2026-01-15");
     const th = formatDate("th", "2026-01-15");

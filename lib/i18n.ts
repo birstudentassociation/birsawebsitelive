@@ -62,9 +62,21 @@ export function pluralize(count: number, forms: { one: string; other: string }):
   return count === 1 ? forms.one : forms.other;
 }
 
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * The time zone to format an ISO value in. A date-only string parses as UTC
+ * midnight, so it is read back in UTC to keep its day; a full datetime is read
+ * in Asia/Bangkok so every viewer sees the Bangkok day.
+ */
+function dateTimeZone(isoDate: string): "UTC" | "Asia/Bangkok" {
+  return DATE_ONLY.test(isoDate) ? "UTC" : "Asia/Bangkok";
+}
+
 /**
  * Format an ISO date (YYYY-MM-DD or full ISO datetime) per-locale using the
- * Gregorian calendar (never Buddhist Era) with a long month.
+ * Gregorian calendar (never Buddhist Era) with a long month. Date-only values
+ * keep their day; full datetimes show the Asia/Bangkok day.
  */
 export function formatDate(locale: Locale, isoDate: string): string {
   const date = new Date(isoDate);
@@ -74,6 +86,7 @@ export function formatDate(locale: Locale, isoDate: string): string {
     month: "long",
     year: "numeric",
     calendar: "gregory",
+    timeZone: dateTimeZone(isoDate),
   }).format(date);
 }
 
@@ -87,5 +100,6 @@ export function formatGuideDate(locale: Locale, isoDate: string): string {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: dateTimeZone(isoDate),
   }).format(new Date(isoDate));
 }
