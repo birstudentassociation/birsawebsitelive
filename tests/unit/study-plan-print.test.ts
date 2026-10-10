@@ -1,6 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
-import { passedCoursesForPrint, plannedTermsForPrint } from "@/lib/study-plan/print";
+import {
+  generatedOnForPrint,
+  passedCoursesForPrint,
+  plannedTermsForPrint,
+} from "@/lib/study-plan/print";
 
 const version = CURRICULUM_VERSIONS["2564-rev2566"];
 
@@ -64,5 +68,26 @@ describe("plannedTermsForPrint", () => {
       "3-semester2",
       "3-summer",
     ]);
+  });
+});
+
+describe("generatedOnForPrint", () => {
+  const original = process.env.TZ;
+  afterEach(() => {
+    if (original === undefined) delete process.env.TZ;
+    else process.env.TZ = original;
+  });
+
+  it("uses the Bangkok day when the server runs in UTC", () => {
+    process.env.TZ = "UTC";
+    const now = new Date("2026-10-10T20:00:00Z");
+    expect(generatedOnForPrint("en", now)).toBe("11 October 2026");
+  });
+
+  it("keeps the Buddhist calendar for Thai", () => {
+    process.env.TZ = "UTC";
+    const now = new Date("2026-10-10T20:00:00Z");
+    expect(generatedOnForPrint("th", now)).toContain("2569");
+    expect(generatedOnForPrint("th", now)).toContain("11");
   });
 });

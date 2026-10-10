@@ -4,7 +4,11 @@ import { CURRICULUM_VERSIONS, type CategoryId, type TermRef } from "@/content/cu
 import { planTotals, remainingRequirements } from "@/lib/study-plan/derive";
 import { checkPlan } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
-import { passedCoursesForPrint, plannedTermsForPrint } from "@/lib/study-plan/print";
+import {
+  generatedOnForPrint,
+  passedCoursesForPrint,
+  plannedTermsForPrint,
+} from "@/lib/study-plan/print";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
@@ -101,11 +105,7 @@ export default async function StudyPlanPrintPage({
     totalFreeElectiveCredits
   );
 
-  const generatedOn = new Date().toLocaleDateString(locale === "th" ? "th-TH" : "en-GB", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const generatedOn = generatedOnForPrint(locale);
 
   return (
     <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
