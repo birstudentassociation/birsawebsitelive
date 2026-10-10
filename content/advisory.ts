@@ -46,8 +46,8 @@ export const advisoryCopy: Record<
       },
       {
         date: "Tuesday 13 October 2026",
-        classes: "Not covered by this announcement.",
-        work: "Not covered by this announcement.",
+        classes: "Public holiday. No classes.",
+        work: "Public holiday. Offices closed.",
       },
       {
         date: "Wednesday 14 October 2026",
@@ -104,8 +104,8 @@ export const advisoryCopy: Record<
       },
       {
         date: "วันอังคารที่ 13 ตุลาคม 2569",
-        classes: "ไม่อยู่ในประกาศฉบับนี้",
-        work: "ไม่อยู่ในประกาศฉบับนี้",
+        classes: "วันหยุดราชการ งดการเรียนการสอน",
+        work: "วันหยุดราชการ",
       },
       {
         date: "วันพุธที่ 14 ตุลาคม 2569",
