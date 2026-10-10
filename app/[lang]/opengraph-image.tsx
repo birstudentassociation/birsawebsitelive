@@ -1,4 +1,4 @@
-import { locales } from "@/lib/i18n";
+import { isLocale, locales } from "@/lib/i18n";
 import { OG_SIZE, renderSiteOgImage } from "@/lib/og-image";
 
 export const alt =
@@ -14,6 +14,7 @@ export function generateStaticParams() {
  * Shared Open Graph image for every page under `/[lang]` (Next.js falls back
  * to this for any route that doesn't define its own).
  */
-export default function OpengraphImage() {
-  return renderSiteOgImage();
+export default async function OpengraphImage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  return renderSiteOgImage(isLocale(lang) ? lang : undefined);
 }

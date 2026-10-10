@@ -20,6 +20,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ lan
   if (!isLocale(lang)) return renderSiteOgImage();
   const t = advisoryCopy[lang];
   return renderEmergencyOgImage({
+    locale: lang,
     tone: "red",
     eyebrow: t.breadcrumb,
     headline: t.title,

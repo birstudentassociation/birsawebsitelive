@@ -233,8 +233,30 @@ describe("buildMetadata share images", () => {
   const options = { title: "Clubs", description: "x".repeat(100), path: "/clubs" };
   const images = (value: unknown) => value as { url: string; alt: string }[];
 
-  it.each(locales)("falls back to the site-wide share images for %s", (locale) => {
+  it.each(locales)("gives a listed page its section card for %s", (locale) => {
     const { openGraph, twitter } = buildMetadata({ ...options, locale });
+    const card = { url: `${SITE_URL}/${locale}/og/clubs`, width: 1200, height: 630 };
+    expect(images(openGraph?.images)).toEqual([expect.objectContaining(card)]);
+    expect(images(twitter?.images)).toEqual([expect.objectContaining(card)]);
+    expect(images(openGraph?.images)[0]?.alt).toBe(locale === "th" ? "ชมรม" : "Clubs");
+  });
+
+  it.each([
+    ["/contact/email", "contact"],
+    ["/services/equipment-loan/projector/request/dates", "services/equipment-loan"],
+    ["/emergency/flooding/claims", "emergency"],
+    ["/student-life/getting-started/international", "student-life/getting-started"],
+  ])("gives %s the card of the nearest listed page", (path, card) => {
+    const { openGraph } = buildMetadata({ ...options, locale: "en", path });
+    expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/en/og/${card}`);
+  });
+
+  it.each(locales)("falls back to the site-wide share images for %s", (locale) => {
+    const { openGraph, twitter } = buildMetadata({
+      ...options,
+      locale,
+      path: "/officer/inventory",
+    });
     expect(images(openGraph?.images)).toHaveLength(1);
     expect(images(openGraph?.images)[0]).toMatchObject({
       url: `${SITE_URL}/${locale}/opengraph-image`,
@@ -255,6 +277,9 @@ describe("buildMetadata share images", () => {
     ["/emergency/fire", "emergency/fire"],
     ["/news/welcome-bir-batch-18", "news/welcome-bir-batch-18"],
     ["/student-life/course-reviews/PS101", "student-life/course-reviews/PS101"],
+    ["/clubs/asa-ir", "clubs/asa-ir"],
+    ["/activity/bir-programme", "activity/bir-programme"],
+    ["/student-life/money/bank-account", "student-life/money/bank-account"],
   ])("points %s at its own share images", (path, segment) => {
     const { openGraph, twitter } = buildMetadata({ ...options, locale: "th", path });
     expect(images(openGraph?.images)).toHaveLength(1);
@@ -269,8 +294,8 @@ describe("buildMetadata share images", () => {
   });
 
   it("describes the images in the page language", () => {
-    const en = buildMetadata({ ...options, locale: "en" });
-    const th = buildMetadata({ ...options, locale: "th" });
+    const en = buildMetadata({ ...options, locale: "en", path: "/search" });
+    const th = buildMetadata({ ...options, locale: "th", path: "/search" });
     const alt = (m: typeof en) => images(m.openGraph?.images)[0]?.alt;
     expect(alt(en)).toMatch(/Thammasat/);
     expect(alt(th)).toMatch(/[฀-๿]/);

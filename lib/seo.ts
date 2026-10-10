@@ -11,6 +11,7 @@
 import type { Metadata } from "next";
 import { locales, type Locale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
+import { nearestSharePage } from "@/lib/share-pages";
 
 export const SITE_NAME = "BIRSA";
 export const TITLE_MAX = 60;
@@ -36,7 +37,9 @@ const OWN_SHARE_IMAGE_PATHS = [
   /^\/(6-october|advisory)$/,
   /^\/emergency\/[^/]+$/,
   /^\/news\/[^/]+$/,
-  /^\/student-life\/course-reviews\/[^/]+$/,
+  /^\/activity\/(?!approval-check$|regulations$|roles$)[^/]+$/,
+  /^\/clubs\/(?!start$|start-check$)[^/]+$/,
+  /^\/student-life\/(?!getting-started\/)[^/]+\/[^/]+$/,
 ];
 
 /** Whether the segment at `path` has its own opengraph-image and twitter-image files. */
@@ -136,12 +139,23 @@ export function buildMetadata({
   const socialTitle = title.trim();
   const fittedDescription = fitDescription(description);
   const url = absoluteUrl(locale, path);
-  const own = hasOwnShareImage(path);
-  const shareImage = (name: "opengraph-image" | "twitter-image") => ({
-    url: `${own ? url : absoluteUrl(locale, "/")}/${name}`,
-    ...SHARE_IMAGE_SIZE,
-    alt: own ? socialTitle : SITE_IMAGE_ALT[locale],
-  });
+  const shareImage = (name: "opengraph-image" | "twitter-image") => {
+    if (hasOwnShareImage(path))
+      return { url: `${url}/${name}`, ...SHARE_IMAGE_SIZE, alt: socialTitle };
+    const page = nearestSharePage(path);
+    if (page && !hasOwnShareImage(page.path)) {
+      return {
+        url: `${SITE_URL}/${locale}/og${page.path}`,
+        ...SHARE_IMAGE_SIZE,
+        alt: page.title[locale],
+      };
+    }
+    return {
+      url: `${absoluteUrl(locale, "/")}/${name}`,
+      ...SHARE_IMAGE_SIZE,
+      alt: SITE_IMAGE_ALT[locale],
+    };
+  };
 
   return {
     title: { absolute: fullTitle },

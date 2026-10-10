@@ -16,6 +16,7 @@ export default async function OpengraphImage({ params }: { params: Promise<{ lan
   if (!isLocale(lang)) return renderSiteOgImage();
   const t = copy[lang];
   return renderCommemorationOgImage({
+    locale: lang,
     photo: "6-october/og-field.jpg",
     eyebrow: t.eyebrow,
     title: t.title,

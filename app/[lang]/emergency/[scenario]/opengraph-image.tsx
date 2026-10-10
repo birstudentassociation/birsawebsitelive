@@ -23,6 +23,7 @@ export default async function OpengraphImage({
   const live = getLiveAlert();
   const isLive = live?.scenario.id === s.id;
   return renderEmergencyOgImage({
+    locale: lang,
     tone: s.hero,
     eyebrow: isLive ? t.liveAlert : t.breadcrumb,
     headline: isLive && live ? alertBanner(live, lang) : s[lang].title,
