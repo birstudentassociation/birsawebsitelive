@@ -464,7 +464,7 @@ export const calendarEvents: CalendarEvent[] = [
   },
   {
     id: "oct-tak-bai",
-    start: "2026-10-24",
+    start: "2026-10-25",
     title: {
       en: "22 years since Tak Bai",
       th: "22 ปี สลายการชุมนุมตากใบ",
