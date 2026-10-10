@@ -9,6 +9,7 @@ import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
 import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
 import { CONTACT_STEPS, type ContactStep } from "./steps";
 import { deriveContactSeed } from "./seed";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 const COOKIE = "birsa_contact_draft";
 
@@ -239,14 +240,16 @@ export async function submitContactCheck(
       message,
     });
 
-    await resend.emails.send({
-      from,
-      to: inbox,
-      replyTo: email,
-      subject: rendered.subject,
-      html: rendered.html,
-      text: rendered.text,
-    });
+    throwIfEmailFailed(
+      await resend.emails.send({
+        from,
+        to: inbox,
+        replyTo: email,
+        subject: rendered.subject,
+        html: rendered.html,
+        text: rendered.text,
+      })
+    );
 
     await clearDraft(COOKIE);
     return { status: "success" };

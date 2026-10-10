@@ -59,7 +59,7 @@ describe("csv formula injection", () => {
 
   it("prefixes a leading carriage return and still quotes the field", async () => {
     setRow({ name: "\rx" });
-    expect(await dataLine()).toContain(",\"'\rx\",");
+    expect(await dataLine()).toContain(',"\'\rx",');
   });
 
   it("quotes and escapes a dangerous value containing a comma and quotes", async () => {

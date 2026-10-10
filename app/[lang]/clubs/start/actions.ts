@@ -9,6 +9,7 @@ import { localeHref, type Locale } from "@/lib/i18n";
 import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCookie";
 import { buildStartClubWizardLabels } from "@/components/forms/startClubWizardCopy";
 import { START_CLUB_STEPS, type StartClubStep } from "./steps";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 const COOKIE = "birsa_start_club_draft";
 
@@ -215,14 +216,16 @@ export async function submitStartClubCheck(
 
     const rendered = renderStartClub({ name, email, clubName, description, members });
 
-    await resend.emails.send({
-      from,
-      to: inbox,
-      replyTo: email,
-      subject: rendered.subject,
-      html: rendered.html,
-      text: rendered.text,
-    });
+    throwIfEmailFailed(
+      await resend.emails.send({
+        from,
+        to: inbox,
+        replyTo: email,
+        subject: rendered.subject,
+        html: rendered.html,
+        text: rendered.text,
+      })
+    );
 
     await clearDraft(COOKIE);
     return { status: "success" };

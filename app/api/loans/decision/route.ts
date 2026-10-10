@@ -7,6 +7,7 @@ import { getItem } from "@/lib/inventory/items";
 import { getBorrower } from "@/lib/inventory/borrowers";
 import { recordAudit } from "@/lib/inventory/audit";
 import { renderLoanApproved, renderLoanRejected } from "@/lib/email/templates";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 const decisionSchema = z.object({
   id: z.string().min(1),
@@ -112,13 +113,15 @@ export async function POST(request: Request) {
                 reference: decided.loan.reference,
               });
 
-        await resend.emails.send({
-          from,
-          to: borrower.email,
-          subject: email.subject,
-          html: email.html,
-          text: email.text,
-        });
+        throwIfEmailFailed(
+          await resend.emails.send({
+            from,
+            to: borrower.email,
+            subject: email.subject,
+            html: email.html,
+            text: email.text,
+          })
+        );
       }
     } catch {
       // Notification email is optional; the decision itself already succeeded.

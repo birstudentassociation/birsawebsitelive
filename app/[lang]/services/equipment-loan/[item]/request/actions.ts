@@ -12,6 +12,7 @@ import { todayInBangkok } from "@/lib/bangkok-today";
 import { readDraft, writeDraft, clearDraft } from "@/components/forms/draftCookie";
 import type { LoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import type { LoanStep } from "./steps";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 const COOKIE = "birsa_loan_request_draft";
 
@@ -393,14 +394,16 @@ export async function submitLoanRequestCheck(
         reason: values.reason || undefined,
       });
 
-      await resend.emails.send({
-        from,
-        to: inbox,
-        replyTo: values.studentEmail,
-        subject: email.subject,
-        html: email.html,
-        text: email.text,
-      });
+      throwIfEmailFailed(
+        await resend.emails.send({
+          from,
+          to: inbox,
+          replyTo: values.studentEmail,
+          subject: email.subject,
+          html: email.html,
+          text: email.text,
+        })
+      );
     } catch {
       // Notification email is optional; the request itself already succeeded.
     }

@@ -10,6 +10,7 @@ import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCooki
 import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
 import { rightById, rightsDeadlineIso } from "@/lib/privacy/rightsRequest";
 import type { RightsStep } from "./steps";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 const COOKIE = "birsa_rights_draft";
 
@@ -210,14 +211,16 @@ export async function submitRightsCheck(
         deadlineTh: formatDate("th", deadlineIso),
       });
 
-      await resend.emails.send({
-        from,
-        to: inbox,
-        replyTo: email,
-        subject: rendered.subject,
-        html: rendered.html,
-        text: rendered.text,
-      });
+      throwIfEmailFailed(
+        await resend.emails.send({
+          from,
+          to: inbox,
+          replyTo: email,
+          subject: rendered.subject,
+          html: rendered.html,
+          text: rendered.text,
+        })
+      );
 
       return true;
     } catch {

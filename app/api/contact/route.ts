@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/validation";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { renderContact } from "@/lib/email/templates";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 export async function GET() {
   return NextResponse.json({ ok: false }, { status: 405 });
@@ -63,14 +64,16 @@ export async function POST(request: Request) {
       message,
     });
 
-    await resend.emails.send({
-      from,
-      to: inbox,
-      replyTo: email,
-      subject: rendered.subject,
-      html: rendered.html,
-      text: rendered.text,
-    });
+    throwIfEmailFailed(
+      await resend.emails.send({
+        from,
+        to: inbox,
+        replyTo: email,
+        subject: rendered.subject,
+        html: rendered.html,
+        text: rendered.text,
+      })
+    );
 
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch {

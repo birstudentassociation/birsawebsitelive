@@ -4,6 +4,7 @@ import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { createLoanRequest } from "@/lib/inventory/loans";
 import { getItemByKey } from "@/lib/inventory/items";
 import { renderOfficerNewRequest } from "@/lib/email/templates";
+import { throwIfEmailFailed } from "@/lib/email/send";
 
 export async function GET() {
   return NextResponse.json({ ok: false }, { status: 405 });
@@ -94,14 +95,16 @@ export async function POST(request: Request) {
         reason,
       });
 
-      await resend.emails.send({
-        from,
-        to: inbox,
-        replyTo: studentEmail,
-        subject: email.subject,
-        html: email.html,
-        text: email.text,
-      });
+      throwIfEmailFailed(
+        await resend.emails.send({
+          from,
+          to: inbox,
+          replyTo: studentEmail,
+          subject: email.subject,
+          html: email.html,
+          text: email.text,
+        })
+      );
     } catch {
       // Notification email is optional; the request itself already succeeded.
     }

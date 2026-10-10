@@ -9,6 +9,7 @@
  * status changes or throws out of this module.
  */
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
+import { throwIfEmailFailed } from "@/lib/email/send";
 import { todayInBangkok } from "@/lib/bangkok-today";
 import { getLowStockItems } from "@/lib/inventory/consumables";
 import {
@@ -59,7 +60,7 @@ type ResendClient = {
       subject: string;
       text: string;
       html?: string;
-    }) => Promise<unknown>;
+    }) => Promise<{ error: { message?: string } | null } | null | undefined>;
   };
 };
 
@@ -89,13 +90,15 @@ async function sendMail(
   input: { to: string; subject: string; text: string; html?: string }
 ): Promise<boolean> {
   try {
-    await resend.emails.send({
-      from: fromAddress(),
-      to: input.to,
-      subject: input.subject,
-      text: input.text,
-      html: input.html,
-    });
+    throwIfEmailFailed(
+      await resend.emails.send({
+        from: fromAddress(),
+        to: input.to,
+        subject: input.subject,
+        text: input.text,
+        html: input.html,
+      })
+    );
     return true;
   } catch {
     return false;
