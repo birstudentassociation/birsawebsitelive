@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createRequire } from "node:module";
 
 /**
  * Text for Open Graph cards, shaped with HarfBuzz and drawn as vector paths.
@@ -11,26 +10,12 @@ import { createRequire } from "node:module";
  * handed to Satori as an SVG image, and wrapping still happens word by word.
  */
 
-type Glyph = { g: number; ax: number; dx: number; dy: number };
-type HbFont = { glyphToPath: (id: number) => string };
-type Hb = {
-  createBlob: (data: Uint8Array) => unknown;
-  createFace: (blob: unknown, index: number) => { upem: number };
-  createFont: (face: unknown) => HbFont;
-  createBuffer: () => {
-    addText: (text: string) => void;
-    guessSegmentProperties: () => void;
-    json: () => Glyph[];
-    destroy: () => void;
-  };
-  shape: (font: HbFont, buffer: unknown) => void;
-};
+type Hb = typeof import("harfbuzzjs");
 
 // Loaded at run time so the bundler leaves the WebAssembly loader alone.
-const require = createRequire(import.meta.url);
 let hbReady: Promise<Hb> | null = null;
 function harfbuzz(): Promise<Hb> {
-  hbReady ??= require("harfbuzzjs") as Promise<Hb>;
+  hbReady ??= import("harfbuzzjs");
   return hbReady;
 }
 
@@ -40,14 +25,17 @@ const FONT_FILES: Record<OgWeight, string> = {
   700: "Sarabun-Bold.ttf",
 };
 
-const fonts = new Map<OgWeight, Promise<{ hb: Hb; font: HbFont; upem: number }>>();
+const fonts = new Map<
+  OgWeight,
+  Promise<{ hb: Hb; font: InstanceType<Hb["Font"]>; upem: number }>
+>();
 function fontFor(weight: OgWeight) {
   let entry = fonts.get(weight);
   if (!entry) {
     entry = harfbuzz().then((hb) => {
       const data = fs.readFileSync(path.join(process.cwd(), "assets", "fonts", FONT_FILES[weight]));
-      const face = hb.createFace(hb.createBlob(new Uint8Array(data)), 0);
-      return { hb, font: hb.createFont(face), upem: face.upem };
+      const face = new hb.Face(new hb.Blob(new Uint8Array(data)), 0);
+      return { hb, font: new hb.Font(face), upem: face.upem };
     });
     fonts.set(weight, entry);
   }
@@ -62,19 +50,19 @@ type Piece = { kind: "word"; src: string; width: number; height: number } | { ki
 
 async function shapeWord(text: string, size: number, weight: OgWeight, color: string) {
   const { hb, font, upem } = await fontFor(weight);
-  const buffer = hb.createBuffer();
+  const buffer = new hb.Buffer();
   buffer.addText(text);
   buffer.guessSegmentProperties();
   hb.shape(font, buffer);
-  const glyphs = buffer.json();
-  buffer.destroy();
+  const glyphs = buffer.getGlyphInfosAndPositions();
 
   let x = 0;
   const paths: string[] = [];
   for (const glyph of glyphs) {
-    const d = font.glyphToPath(glyph.g);
-    if (d) paths.push(`<path transform="translate(${x + glyph.dx} ${glyph.dy})" d="${d}"/>`);
-    x += glyph.ax;
+    const d = font.glyphToPath(glyph.codepoint);
+    const { xAdvance = 0, xOffset = 0, yOffset = 0 } = glyph;
+    if (d) paths.push(`<path transform="translate(${x + xOffset} ${yOffset})" d="${d}"/>`);
+    x += xAdvance;
   }
   const top = ASCENT * upem;
   const total = (ASCENT + DESCENT) * upem;

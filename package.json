@@ -23,7 +23,7 @@
     "clsx": "^2.1.1",
     "github-slugger": "^2.0.0",
     "gray-matter": "^4.0.3",
-    "harfbuzzjs": "^0.4.15",
+    "harfbuzzjs": "^1.6.3",
     "next": "^16.4.0",
     "next-mdx-remote": "^6.0.0",
     "react": "^19.3.0",
