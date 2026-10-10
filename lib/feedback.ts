@@ -3,16 +3,15 @@
  * "feedback pages"): submitting a response, reading it back for the officer
  * console, and a CSV export builder.
  *
- * Follows the same convention as lib/inventory/db.ts: import `sql` from
- * `@vercel/postgres` directly and gate every read/write behind
+ * Imports `sql` from `@/lib/inventory/db` so the shared type parsers (dates
+ * as raw strings) apply here too, and gates every read/write behind
  * `isFeedbackConfigured()`, so the site stays buildable and renderable with
  * zero environment configuration and a missing database never crashes a
- * page. This module is kept self-contained (its own `sql` import and its own
- * tiny CSV helpers) rather than importing from lib/inventory/*, because
- * feedback is a site-wide concern, not part of the inventory suite; both
- * simply point at the same POSTGRES_URL.
+ * page. It keeps its own tiny CSV helpers because feedback is a site-wide
+ * concern, not part of the inventory suite; both simply point at the same
+ * POSTGRES_URL.
  */
-import { sql } from "@vercel/postgres";
+import { sql } from "@/lib/inventory/db";
 import { FEEDBACK_RATINGS, type FeedbackRating } from "@/lib/validation";
 
 export function isFeedbackConfigured(): boolean {

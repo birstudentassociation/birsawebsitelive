@@ -8,7 +8,13 @@
  * zero environment configuration, and gives us one place to swap the
  * underlying client later if needed.
  */
-export { sql } from "@vercel/postgres";
+import { sql, types } from "@vercel/postgres";
+
+const PG_DATE_OID = 1082;
+
+types.setTypeParser(PG_DATE_OID, (value: string) => value);
+
+export { sql };
 
 /**
  * The pooled client handed out by `sql.connect()`, for the multi-statement
