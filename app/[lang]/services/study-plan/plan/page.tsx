@@ -156,14 +156,14 @@ export default async function StudyPlanPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ [PLAN_FIELD]?: string; term?: string }>;
+  searchParams: Promise<{ [PLAN_FIELD]?: string; term?: string; notice?: string }>;
 }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const copy = buildStudyPlanCopy(locale);
 
-  const { [PLAN_FIELD]: rawPlan, term: requestedTermKey } = await searchParams;
+  const { [PLAN_FIELD]: rawPlan, term: requestedTermKey, notice } = await searchParams;
   const plan = rawPlan ? deserialisePlan(rawPlan) : null;
   if (!plan) {
     redirect(localeHref(locale, "/services/study-plan/minor"));
@@ -350,6 +350,9 @@ export default async function StudyPlanPage({
         <div className="flex flex-col gap-4">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
           <p className="leading-relaxed text-muted">{copy.plan.termsHint}</p>
+          {notice === "termFull" ? (
+            <Notice variant="warning">{copy.plan.termFullError}</Notice>
+          ) : null}
 
           {/*
             Before the term list, not after it: filling every term at once is

@@ -99,6 +99,7 @@ export type StudyPlanCopy = {
     freeElectiveLabel: string;
     freeElectiveHint: string;
     freeElectiveError: string;
+    passedError: string;
   };
   /**
    * Labels shared by every control where a student types a course code or a
@@ -184,6 +185,8 @@ export type StudyPlanCopy = {
     updateFreeElectiveButton: string;
     /** Shown when a term's free elective credit count is out of range. */
     freeElectiveError: string;
+    /** Shown after an attempt to add a course to a term that already holds the most courses a term can. */
+    termFullError: string;
     creditsUnit: string;
     /** Label for the control that appends the next term after the last one shown. */
     addTermButton: string;
@@ -342,6 +345,7 @@ const en: StudyPlanCopy = {
     freeElectiveHint:
       "Free electives can be any Thammasat University course, so we cannot list them. Tell us the credits and we will count them.",
     freeElectiveError: "Enter a number of credits between 0 and 60",
+    passedError: "Choose no more than 120 courses, each with a valid course code",
   },
   courseSearch: {
     prompt: "Choose a course",
@@ -402,6 +406,8 @@ const en: StudyPlanCopy = {
     freeElectiveLabel: "Free elective credits this term",
     updateFreeElectiveButton: "Update",
     freeElectiveError: "Enter a number of credits between 0 and 21",
+    termFullError:
+      "That term already has 15 courses, which is the most it can hold. Remove one before adding another.",
     creditsUnit: "credits",
     addTermButton: "Add another term",
     printLinkLabel: "Print this plan",
@@ -533,6 +539,7 @@ const th: StudyPlanCopy = {
     freeElectiveHint:
       "วิชาเลือกเสรีอาจเป็นวิชาใดก็ได้ของมหาวิทยาลัยธรรมศาสตร์ เราจึงไม่สามารถแสดงรายชื่อวิชาได้ โปรดแจ้งจำนวนหน่วยกิต และระบบจะนับให้ท่าน",
     freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 60",
+    passedError: "เลือกได้ไม่เกิน 120 รายวิชา และแต่ละวิชาต้องมีรหัสวิชาที่ถูกต้อง",
   },
   courseSearch: {
     prompt: "เลือกรายวิชา",
@@ -593,6 +600,8 @@ const th: StudyPlanCopy = {
     freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
     updateFreeElectiveButton: "บันทึก",
     freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 21",
+    termFullError:
+      "ภาคการศึกษานี้มีครบ 15 รายวิชาแล้ว ซึ่งเป็นจำนวนสูงสุดที่เพิ่มได้ โปรดลบรายวิชาออกก่อนเพิ่มวิชาใหม่",
     creditsUnit: "หน่วยกิต",
     addTermButton: "เพิ่มภาคการศึกษาอีกหนึ่งภาค",
     printLinkLabel: "พิมพ์แผนนี้",

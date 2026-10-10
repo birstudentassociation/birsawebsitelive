@@ -53,6 +53,10 @@ export type StudyPlan = {
 /** Course codes are two to four letters then three digits, e.g. PI574, LAS101. */
 const courseCode = z.string().regex(/^[A-Z]{2,4}\d{3}$/);
 
+export const MAX_TERMS = 24;
+export const MAX_CODES_PER_TERM = 15;
+export const MAX_PASSED_COURSES = 120;
+
 const termRef = z.object({
   // Up to 8 so a plan can represent breaking the seven-year limit and be
   // told about it, rather than being unrepresentable.
@@ -65,17 +69,17 @@ const studyPlanSchema = z.object({
   cohort: z.string().regex(/^\d{2}$/),
   startYear: z.number().int().min(2560).max(2599),
   minorId: z.enum(["governance", "publicAdministration", "globalPoliticalEconomy"]),
-  passed: z.array(courseCode).max(120),
+  passed: z.array(courseCode).max(MAX_PASSED_COURSES),
   freeElectiveCreditsPassed: z.number().int().min(0).max(60),
   terms: z
     .array(
       z.object({
         term: termRef,
-        codes: z.array(courseCode).max(15),
+        codes: z.array(courseCode).max(MAX_CODES_PER_TERM),
         freeElectiveCredits: z.number().int().min(0).max(21),
       })
     )
-    .max(20),
+    .max(MAX_TERMS),
 });
 
 /** Name of the hidden input that carries the plan across every form post. */

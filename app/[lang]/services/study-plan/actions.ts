@@ -15,6 +15,8 @@ import {
 } from "@/lib/study-plan/derive";
 import {
   deserialisePlan,
+  MAX_CODES_PER_TERM,
+  MAX_PASSED_COURSES,
   PLAN_FIELD,
   serialisePlan,
   startYearFromCohort,
@@ -96,12 +98,18 @@ function findTermEntryIndex(plan: StudyPlan, term: TermRef): number {
  * can be relied on to do. The fragment goes along too, so the browser also
  * scrolls there.
  */
-function redirectToPlan(locale: Locale, plan: StudyPlan, focus?: TermRef | null): never {
+function redirectToPlan(
+  locale: Locale,
+  plan: StudyPlan,
+  focus?: TermRef | null,
+  notice?: "termFull"
+): never {
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const terms = clearInternshipSummers(version, plan.terms);
   const key = focus ? `${focus.year}-${focus.kind}` : null;
   redirect(
     `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan({ ...plan, terms }))}` +
+      (notice ? `&notice=${notice}` : "") +
       (key ? `&term=${key}#term-${key}` : "")
   );
 }
@@ -259,9 +267,17 @@ export async function submitAssumedStep(
   // Rebuilt from exactly the checkboxes that came back, not merged with
   // `current.passed`: an unchecked box means "I did not take this", and
   // that has to be able to remove a course, not just add one.
+  const passedResult = z
+    .array(courseCodeSchema)
+    .max(MAX_PASSED_COURSES)
+    .safeParse(formData.getAll("passed").map(String));
+  if (!passedResult.success) {
+    return { status: "invalid", error: copy.assumed.passedError };
+  }
+
   const plan: StudyPlan = {
     ...current,
-    passed: formData.getAll("passed").map(String),
+    passed: passedResult.data,
     freeElectiveCreditsPassed: freeElectiveResult.data,
   };
   const encodedPlan = encodeURIComponent(serialisePlan(plan));
@@ -368,11 +384,18 @@ export async function addCourseToTerm(locale: Locale, formData: FormData): Promi
       : resolveCourseCode(version.courses.value, raw);
 
   let terms = current.terms;
+  let notice: "termFull" | undefined;
   if (term && code) {
     const alreadyPlaced =
       current.passed.includes(code) || current.terms.some((t) => t.codes.includes(code));
-    if (!alreadyPlaced) {
-      const index = findTermEntryIndex(current, term);
+    const index = findTermEntryIndex(current, term);
+    if (
+      !alreadyPlaced &&
+      index !== -1 &&
+      (current.terms[index]?.codes.length ?? 0) >= MAX_CODES_PER_TERM
+    ) {
+      notice = "termFull";
+    } else if (!alreadyPlaced) {
       terms =
         index === -1
           ? [...current.terms, { term, codes: [code], freeElectiveCredits: 0 }]
@@ -380,7 +403,7 @@ export async function addCourseToTerm(locale: Locale, formData: FormData): Promi
     }
   }
 
-  redirectToPlan(locale, { ...current, terms }, term);
+  redirectToPlan(locale, { ...current, terms }, term, notice);
 }
 
 /**
