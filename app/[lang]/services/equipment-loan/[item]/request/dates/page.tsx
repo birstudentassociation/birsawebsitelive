@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import { getItemByKey } from "@/lib/inventory/items";
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
@@ -27,14 +28,6 @@ export async function generateMetadata({
     description: item.name[locale],
     path: `/services/equipment-loan/${itemKey}/request/dates`,
   });
-}
-
-function todayISO(): string {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, "0");
-  const d = String(now.getDate()).padStart(2, "0");
-  return `${y}-${m}-${d}`;
 }
 
 export default async function LoanRequestDatesPage({
@@ -71,7 +64,7 @@ export default async function LoanRequestDatesPage({
             labels={labels}
             defaultStartDate={draft.startDate}
             defaultEndDate={draft.endDate}
-            minStartDate={todayISO()}
+            minStartDate={todayInBangkok()}
             maxLoanDays={item.maxLoanDays}
           />
         </div>
