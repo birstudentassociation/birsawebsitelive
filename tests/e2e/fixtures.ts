@@ -27,8 +27,8 @@
  */
 import { test as base, expect } from "@playwright/test";
 
-export const test = base.extend<{ reducedMotion: void }>({
-  reducedMotion: [
+export const test = base.extend<{ reducedMotionEmulation: void }>({
+  reducedMotionEmulation: [
     async ({ page }, use) => {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await use();
