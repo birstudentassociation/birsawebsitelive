@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState, type ReactElement } from "react";
+import { useMemo, useState, useSyncExternalStore, type ReactElement } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import { todayInBangkok } from "@/lib/bangkok-today";
 import { formatDate, localeHref, type Locale } from "@/lib/i18n";
 import type { CalendarEvent, CalendarEventKind } from "@/content/calendar/events";
 
@@ -29,8 +30,9 @@ export type EventCalendarLabels = {
 export type EventCalendarProps = {
   events: CalendarEvent[];
   locale: Locale;
-  /** Current date in Asia/Bangkok as `YYYY-MM-DD`, computed on the server so
-   *  SSR and hydration agree (no `new Date()` in the client render path). */
+  /** Date in Asia/Bangkok as `YYYY-MM-DD` when the page was built. It is
+   *  rendered first so SSR and hydration agree, then replaced after mount by
+   *  the current Bangkok date. */
   todayKey: string;
   labels: EventCalendarLabels;
   /** Absolute https:// URL of this locale's calendar.ics feed. */
@@ -98,6 +100,10 @@ const KIND_TINT: Record<CalendarEventKind, string> = {
   university: "bg-warning-tint",
 };
 
+function subscribeNever(): () => void {
+  return () => {};
+}
+
 function pad(n: number): string {
   return String(n).padStart(2, "0");
 }
@@ -151,11 +157,11 @@ export default function EventCalendar({
       });
   }, [events]);
 
-  const todayMonthKey = todayKey.slice(0, 7);
-  const initialMonthIndex = Math.max(
-    0,
-    months.findIndex((m) => m.key === todayMonthKey)
-  );
+  const monthIndexFor = (day: string) =>
+    Math.max(
+      0,
+      months.findIndex((m) => m.key === day.slice(0, 7))
+    );
 
   const firstEventDayOfMonth = useMemo(
     () =>
@@ -169,16 +175,23 @@ export default function EventCalendar({
     [events]
   );
 
-  const [monthIndex, setMonthIndex] = useState(initialMonthIndex);
-  const [selectedDay, setSelectedDay] = useState<string | null>(() => {
-    const monthKey = months[initialMonthIndex]?.key;
+  // Prefer today if it falls in the opening month and has events.
+  const openingDay = (day: string, index: number): string | null => {
+    const monthKey = months[index]?.key;
     if (!monthKey) return null;
-    // Prefer today if it falls in the opening month and has events.
-    if (monthKey === todayMonthKey && events.some((e) => coversDay(e, todayKey))) {
-      return todayKey;
-    }
+    if (monthKey === day.slice(0, 7) && events.some((e) => coversDay(e, day))) return day;
     return firstEventDayOfMonth(monthKey);
-  });
+  };
+
+  const today = useSyncExternalStore(
+    subscribeNever,
+    () => todayInBangkok(),
+    () => todayKey
+  );
+  const [pickedMonthIndex, setPickedMonthIndex] = useState<number | null>(null);
+  const [pickedDay, setPickedDay] = useState<string | null | undefined>(undefined);
+  const monthIndex = pickedMonthIndex ?? monthIndexFor(today);
+  const selectedDay = pickedDay === undefined ? openingDay(today, monthIndex) : pickedDay;
 
   const current = months[monthIndex];
 
@@ -242,8 +255,8 @@ export default function EventCalendar({
     const clamped = Math.min(Math.max(nextIndex, 0), months.length - 1);
     const target = months[clamped];
     if (!target || clamped === monthIndex) return;
-    setMonthIndex(clamped);
-    setSelectedDay(firstEventDayOfMonth(target.key));
+    setPickedMonthIndex(clamped);
+    setPickedDay(firstEventDayOfMonth(target.key));
   }
 
   function eventRangeLabel(event: CalendarEvent): string {
@@ -352,7 +365,7 @@ export default function EventCalendar({
                         const dayEvents = events.filter((e) => coversDay(e, dayKey));
                         const singleEvents = dayEvents.filter((e) => !isPeriod(e));
                         const hasEvents = dayEvents.length > 0;
-                        const isToday = dayKey === todayKey;
+                        const isToday = dayKey === today;
                         const isSelected = dayKey === selectedDay;
 
                         return (
@@ -360,7 +373,7 @@ export default function EventCalendar({
                             key={i}
                             type="button"
                             disabled={!hasEvents}
-                            onClick={() => setSelectedDay(dayKey)}
+                            onClick={() => setPickedDay(dayKey)}
                             aria-pressed={isSelected}
                             aria-current={isToday ? "date" : undefined}
                             aria-label={dayLabel(dayKey, dayEvents.length)}

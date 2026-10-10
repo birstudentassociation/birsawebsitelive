@@ -12,7 +12,7 @@
  * They also cover the subscribe links, which are the only route by which a
  * reader reaches the .ics feed.
  */
-import { describe, expect, it, afterEach } from "vitest";
+import { describe, expect, it, afterEach, beforeEach, vi } from "vitest";
 import { render, screen, fireEvent, cleanup, within } from "@testing-library/react";
 // This repo has no global vitest setup file, so the jest-dom matchers are
 // registered per test file that needs them.
@@ -21,7 +21,15 @@ import "@testing-library/jest-dom/vitest";
 import EventCalendar, { type EventCalendarLabels } from "@/components/home/EventCalendar";
 import { calendarEvents, type CalendarEvent } from "@/content/calendar/events";
 
-afterEach(cleanup);
+beforeEach(() => {
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(new Date("2026-07-28T05:00:00Z"));
+});
+
+afterEach(() => {
+  cleanup();
+  vi.useRealTimers();
+});
 
 const labels: EventCalendarLabels = {
   prevMonth: "Previous month",
@@ -151,6 +159,38 @@ describe("EventCalendar subscribe panel", () => {
     expect(screen.getByRole("link", { name: labels.subscribe.https })).toHaveAttribute(
       "href",
       ICS_URL
+    );
+  });
+});
+
+describe("EventCalendar today", () => {
+  const events: CalendarEvent[] = [
+    { ...calendarEvents[0]!, id: "oct-10", start: "2026-10-10", end: undefined },
+    { ...calendarEvents[0]!, id: "oct-11", start: "2026-10-11", end: undefined },
+    { ...calendarEvents[0]!, id: "nov-2", start: "2026-11-02", end: undefined },
+  ];
+
+  it("corrects a stale server day after mount using the Bangkok date", () => {
+    vi.setSystemTime(new Date("2026-10-10T20:00:00Z"));
+    renderCalendar(events, "2026-10-10");
+
+    const current = screen.getByRole("button", { current: "date" });
+    expect(current).toHaveAccessibleName(/^11 October 2026/);
+  });
+
+  it("moves to the current month when the server month is stale", () => {
+    vi.setSystemTime(new Date("2026-10-31T18:00:00Z"));
+    renderCalendar(events, "2026-10-31");
+
+    expect(currentMonth()).toBe("November 2026");
+  });
+
+  it("keeps the server day when it is still current", () => {
+    vi.setSystemTime(new Date("2026-10-10T05:00:00Z"));
+    renderCalendar(events, "2026-10-10");
+
+    expect(screen.getByRole("button", { current: "date" })).toHaveAccessibleName(
+      /^10 October 2026/
     );
   });
 });
