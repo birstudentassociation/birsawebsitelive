@@ -144,51 +144,52 @@ export const courses: Course[] = [
     },
     // Mockup content that demonstrates the student-review layout. Not a real
     // submission; replace once BIRSA collects an actual review for PI121.
-    review: {
-      sample: true,
-      reviewCount: 27,
-      overallRating: 4.3,
-      workloadRating: 2,
-      difficultyRating: 1.5,
-      workload: {
-        en: "Light. There's no textbook to keep up with. Most weeks involve attending the guest lecture and writing a short reflection afterward. Budget about an hour per reflection for more than a summary.",
-        th: "เบา ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ หากต้องการเขียนให้ดีกว่าการสรุปเนื้อหา ควรกันเวลาไว้ประมาณหนึ่งชั่วโมงต่อชิ้น",
-      },
-      assessmentStyle: {
-        en: "Graded on short reflective write-ups submitted after each guest lecture, plus in-class participation. No midterm, no final exam.",
-        th: "ให้คะแนนจากงานเขียนสะท้อนความคิดสั้น ๆ ที่ส่งหลังบรรยายแต่ละครั้ง บวกกับการมีส่วนร่วมในชั้นเรียน ไม่มีสอบกลางภาคหรือปลายภาค",
-      },
-      tips: [
-        {
-          en: "Go to every lecture in person. Reflection prompts usually reference something specific the speaker said, and are difficult to write from the recording alone.",
-          th: "ควรไปฟังบรรยายให้ครบทุกครั้ง โจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง การดูย้อนหลังอย่างเดียวทำให้เขียนได้ยากกว่า",
+    reviews: [
+      {
+        sample: true,
+        reviewCount: 27,
+        term: { year: 2567, semester: 1 },
+        instructor: THANES,
+        workload: {
+          en: "Light. There's no textbook to keep up with. Most weeks involve attending the guest lecture and writing a short reflection afterward. Budget about an hour per reflection for more than a summary.",
+          th: "เบา ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ หากต้องการเขียนให้ดีกว่าการสรุปเนื้อหา ควรกันเวลาไว้ประมาณหนึ่งชั่วโมงต่อชิ้น",
         },
-        {
-          en: "Keep reflections short, specific, and tied to that week's speaker. Generic essays about social science tend to score lower.",
-          th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้น เรียงความกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
+        assessmentStyle: {
+          en: "Graded on short reflective write-ups submitted after each guest lecture, plus in-class participation. No midterm, no final exam.",
+          th: "ให้คะแนนจากงานเขียนสะท้อนความคิดสั้น ๆ ที่ส่งหลังบรรยายแต่ละครั้ง บวกกับการมีส่วนร่วมในชั้นเรียน ไม่มีสอบกลางภาคหรือปลายภาค",
         },
-        {
-          en: "Suitable as a first-semester course for a low-stress option while adjusting to university workload elsewhere.",
-          th: "เหมาะเป็นวิชาของเทอมแรกสำหรับผู้ที่ต้องการวิชาที่ไม่กดดัน ระหว่างปรับตัวกับภาระงานวิชาอื่นในมหาวิทยาลัย",
-        },
-      ],
-      quotes: [
-        {
-          text: {
-            en: "Genuinely one of the more relaxed courses in year one, a good way to ease into how Thammasat expects you to write.",
-            th: "เป็นวิชาที่ผ่อนคลายที่สุดวิชาหนึ่งในปีหนึ่ง เหมาะกับการค่อย ๆ ปรับตัวให้ชินกับสไตล์การเขียนที่ธรรมศาสตร์คาดหวัง",
+        tips: [
+          {
+            en: "Go to every lecture in person. Reflection prompts usually reference something specific the speaker said, and are difficult to write from the recording alone.",
+            th: "ควรไปฟังบรรยายให้ครบทุกครั้ง โจทย์สะท้อนความคิดมักอ้างอิงสิ่งที่วิทยากรพูดไว้เฉพาะเจาะจง การดูย้อนหลังอย่างเดียวทำให้เขียนได้ยากกว่า",
           },
-          attribution: { en: "2nd-year student", th: "นักศึกษาชั้นปีที่ 2" },
-        },
-        {
-          text: {
-            en: "The guest speaker lineup changes every year, so ask around for who's coming this semester. Some sessions are much more engaging than others.",
-            th: "รายชื่อวิทยากรเปลี่ยนทุกปี ลองถามรุ่นพี่ดูว่าเทอมนี้ใครมาบ้าง เพราะบางครั้งก็น่าสนใจกว่าครั้งอื่นมาก",
+          {
+            en: "Keep reflections short, specific, and tied to that week's speaker. Generic essays about social science tend to score lower.",
+            th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้น เรียงความกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
           },
-          attribution: { en: "3rd-year student", th: "นักศึกษาชั้นปีที่ 3" },
-        },
-      ],
-    },
+          {
+            en: "Suitable as a first-semester course for a low-stress option while adjusting to university workload elsewhere.",
+            th: "เหมาะเป็นวิชาของเทอมแรกสำหรับผู้ที่ต้องการวิชาที่ไม่กดดัน ระหว่างปรับตัวกับภาระงานวิชาอื่นในมหาวิทยาลัย",
+          },
+        ],
+        quotes: [
+          {
+            text: {
+              en: "Genuinely one of the more relaxed courses in year one, a good way to ease into how Thammasat expects you to write.",
+              th: "เป็นวิชาที่ผ่อนคลายที่สุดวิชาหนึ่งในปีหนึ่ง เหมาะกับการค่อย ๆ ปรับตัวให้ชินกับสไตล์การเขียนที่ธรรมศาสตร์คาดหวัง",
+            },
+            attribution: { en: "2nd-year student", th: "นักศึกษาชั้นปีที่ 2" },
+          },
+          {
+            text: {
+              en: "The guest speaker lineup changes every year, so ask around for who's coming this semester. Some sessions are much more engaging than others.",
+              th: "รายชื่อวิทยากรเปลี่ยนทุกปี ลองถามรุ่นพี่ดูว่าเทอมนี้ใครมาบ้าง เพราะบางครั้งก็น่าสนใจกว่าครั้งอื่นมาก",
+            },
+            attribution: { en: "3rd-year student", th: "นักศึกษาชั้นปีที่ 3" },
+          },
+        ],
+      },
+    ],
   },
   {
     code: "PI122",

@@ -10,7 +10,7 @@
  *
  * A few decisions worth flagging:
  *
- * - Course reviews: only `PI121` currently has a `review`, and it is marked
+ * - Course reviews: only `PI121` currently has a review, and it is marked
  *   `sample: true` (demo content, not a real submission). Sample reviews are
  *   deliberately excluded from `body`/`priority` so search never surfaces
  *   fabricated workload/assessment claims as if a student wrote them, and
@@ -92,7 +92,7 @@ function codeWithSpace(code: string): string {
 }
 
 /**
- * Prerequisite note plus real (non-sample) review text. A `review.sample`
+ * Prerequisite note plus real (non-sample) review text. A `sample`
  * entry is demo content written to preview the layout, not a real student
  * submission, so it never contributes searchable body text.
  */
@@ -100,8 +100,8 @@ function courseBody(course: Course, locale: Locale): string | undefined {
   const parts: string[] = [];
   if (course.prerequisite) parts.push(course.prerequisite[locale]);
 
-  const review = course.review;
-  if (review && !review.sample) {
+  for (const review of course.reviews ?? []) {
+    if (review.sample) continue;
     parts.push(review.workload[locale], review.assessmentStyle[locale]);
     parts.push(...review.tips.map((tip) => tip[locale]));
     for (const quote of review.quotes ?? []) {
@@ -114,8 +114,7 @@ function courseBody(course: Course, locale: Locale): string | undefined {
 }
 
 function courseDoc(locale: Locale, course: Course): SearchDoc {
-  const review = course.review;
-  const hasRealReview = Boolean(review && !review.sample);
+  const hasRealReview = (course.reviews ?? []).some((review) => !review.sample);
   return {
     id: `course:${course.code}`,
     locale,

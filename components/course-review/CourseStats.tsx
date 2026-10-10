@@ -18,8 +18,7 @@ export type CourseStatsProps = {
  * Visual overview above the browsable course list: six stat tiles, the first
  * showing every course in the catalogue combined, followed by one tile per
  * track showing that track's course count. All numbers are derived from
- * `courses` (never hardcoded), so this stays correct as the catalogue grows
- * from the current placeholder set to the full ~84 courses.
+ * `courses` (never hardcoded), so this stays correct as the catalogue grows.
  */
 export default function CourseStats({ courses, locale, dict }: CourseStatsProps) {
   const numberFormat = locale === "th" ? "th-TH" : "en-GB";

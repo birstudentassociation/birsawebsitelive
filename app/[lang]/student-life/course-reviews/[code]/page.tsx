@@ -10,9 +10,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
-import RatingBar from "@/components/course-review/RatingBar";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 import { courses } from "@/content/course-review/courses";
+import type { StudentReview } from "@/content/course-review/types";
 import { studentLifeLabel } from "@/content/student-life/topics";
 
 // Nested under the literal `course-reviews` route (see the parent page.tsx
@@ -84,8 +84,10 @@ export default async function CourseDetailPage({
         <div className="flex flex-wrap items-center gap-2">
           <Tag variant="brand">{t.tracks[course.track]}</Tag>
           <Tag variant="forest">{t.categories[course.category]}</Tag>
-          {course.review ? (
-            <Tag variant="neutral">{course.review.sample ? t.sampleBadge : t.reviewedBadge}</Tag>
+          {course.reviews?.length ? (
+            <Tag variant="neutral">
+              {course.reviews.every((review) => review.sample) ? t.sampleBadge : t.reviewedBadge}
+            </Tag>
           ) : null}
         </div>
 
@@ -146,8 +148,10 @@ export default async function CourseDetailPage({
         <section className="flex flex-col gap-6">
           <h2 className="font-display text-xl">{t.reviewHeading}</h2>
 
-          {course.review ? (
-            <CourseReview review={course.review} locale={locale} t={t} />
+          {course.reviews?.length ? (
+            course.reviews.map((review, index) => (
+              <CourseReview key={index} review={review} locale={locale} t={t} />
+            ))
           ) : (
             <Notice variant="placeholder" title={t.noReviewTitle}>
               <p className="mb-3">{t.noReviewBody}</p>
@@ -212,7 +216,7 @@ function CourseReview({
   locale,
   t,
 }: {
-  review: NonNullable<(typeof courses)[number]["review"]>;
+  review: StudentReview;
   locale: Locale;
   t: ReturnType<typeof getDictionary>["courseReview"];
 }) {
@@ -227,16 +231,6 @@ function CourseReview({
       <p className="text-sm text-muted">
         {fillTemplate(t.reviewBasedOn, { count: review.reviewCount })}
       </p>
-
-      <div className="flex flex-col gap-4 rounded-lg border border-line bg-surface p-5">
-        <RatingBar label={t.ratingOverall} value={review.overallRating} outOf={t.ratingOutOf} />
-        <RatingBar label={t.ratingWorkload} value={review.workloadRating} outOf={t.ratingOutOf} />
-        <RatingBar
-          label={t.ratingDifficulty}
-          value={review.difficultyRating}
-          outOf={t.ratingOutOf}
-        />
-      </div>
 
       <div className="flex flex-col gap-2">
         <h3 className="font-semibold text-ink">{t.workloadHeading}</h3>

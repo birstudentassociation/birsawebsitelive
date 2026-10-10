@@ -74,11 +74,19 @@ export type ReviewQuote = {
   attribution?: Bi;
 };
 
+/** An academic term. `year` is the Buddhist Era academic year, e.g. 2567. */
+export type AcademicTerm = {
+  year: number;
+  semester: 1 | 2 | "summer";
+};
+
 /**
  * Structured, aggregated student feedback for a course, distinct from the
- * official curriculum `description`. Optional: most courses won't have this
+ * official curriculum `description`. A course can carry several, so feedback
+ * can be split by instructor and term. Optional: most courses won't have any
  * until BIRSA collects real submissions (see the course detail page's
  * "no review yet" state, which invites students to write one via /contact).
+ * Subjective qualities are described in words, never scored.
  */
 export type StudentReview = {
   /**
@@ -90,16 +98,35 @@ export type StudentReview = {
   sample?: boolean;
   /** How many students' feedback this summary is drawn from. */
   reviewCount: number;
-  /** 1 to 5, overall recommendation. */
-  overallRating: number;
-  /** 1 to 5, 1 = light workload, 5 = heavy. */
-  workloadRating: number;
-  /** 1 to 5, 1 = easy, 5 = very difficult. */
-  difficultyRating: number;
+  /** The term the students took the course in. */
+  term: AcademicTerm;
+  /** Who taught the course in that term, when known. */
+  instructor?: Instructor;
   workload: Bi;
   assessmentStyle: Bi;
   tips: Bi[];
   quotes?: ReviewQuote[];
+};
+
+/** One graded component of a course, e.g. the final exam. */
+export type AssessmentComponent = {
+  label: Bi;
+  /** Percentage of the final grade. */
+  weight: number;
+};
+
+/**
+ * Objective facts from a course's syllabus, as opposed to student opinion.
+ * Optional: recorded only once BIRSA has the syllabus for a given term.
+ */
+export type Syllabus = {
+  /** Term the syllabus applies to. */
+  term: AcademicTerm;
+  assessment?: AssessmentComponent[];
+  examFormat?: Bi;
+  attendance?: Bi;
+  /** Link to the official syllabus or course outline, when public. */
+  sourceUrl?: string;
 };
 
 export type Course = {
@@ -120,6 +147,8 @@ export type Course = {
    */
   instructors?: Instructor[];
   description: Bi;
-  /** Aggregated student review: present only once BIRSA has collected one. */
-  review?: StudentReview;
+  /** Aggregated student reviews, split by instructor and term. Present only once BIRSA has collected some. */
+  reviews?: StudentReview[];
+  /** Objective syllabus facts: present only once BIRSA has recorded them. */
+  syllabus?: Syllabus;
 };

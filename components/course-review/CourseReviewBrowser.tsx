@@ -55,7 +55,7 @@ export type CourseReviewBrowserProps = {
  * component only narrows and paginates what's shown, mirroring the pattern
  * used by `ClubsExplorer`. Search/filter counts and page count are always
  * derived from `courses.length` / `.filter()` results, so this keeps working
- * once the placeholder data is replaced by the full ~84-course catalogue.
+ * as the catalogue grows.
  */
 export default function CourseReviewBrowser({ courses, locale, dict }: CourseReviewBrowserProps) {
   const [query, setQuery] = useState("");
@@ -244,9 +244,11 @@ function CourseCard({
         <span className="font-mono text-sm font-semibold text-ink">{course.code}</span>
         <Tag variant="brand">{dict.tracks[course.track]}</Tag>
         <Tag variant="forest">{dict.categories[course.category]}</Tag>
-        {course.review ? (
+        {course.reviews?.length ? (
           <Tag variant="neutral">
-            {course.review.sample ? dict.sampleBadge : dict.reviewedBadge}
+            {course.reviews.every((review) => review.sample)
+              ? dict.sampleBadge
+              : dict.reviewedBadge}
           </Tag>
         ) : null}
       </div>
