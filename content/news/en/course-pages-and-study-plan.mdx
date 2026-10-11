@@ -1,0 +1,258 @@
+---
+title: "Every course now has a page that reads your study plan"
+summary: "Every BIR course has its own page, and each page reads your saved study plan to show what the course counts towards and whether your prerequisites are met."
+metaDescription: "Every course now has a page that checks itself against your study plan. The catalogue gains filters and a prerequisite map, and the study plan can test a change before you make it."
+date: 2026-10-11
+type: news
+category: announcements
+links:
+  - label: "Plan your BIR degree"
+    href: "/services/study-plan"
+  - label: "Browse the course catalogue"
+    href: "/student-life/course-reviews"
+  - label: "BIR office website (birpolsci.com)"
+    href: "https://www.birpolsci.com"
+---
+
+Every course in the BIR curriculum now has its own page. If you have saved a study plan, the page reads it and tells you where the course stands for you. The study plan service can also show what a change would do before you make it.
+
+The screenshots below use an invented student from cohort 67, in Year 3, Semester 1, taking the Governance and Transnational Studies minor. This student has not yet passed PI280, so the screens show how a chain of prerequisites reaches graduation.
+
+## What is new
+
+This update adds
+
+- a page for every course, including general education courses such as TU105, EL105 and LAS101
+- a "Your plan" panel on each course page that reads your saved study plan
+- minor and plan filters, a prerequisite map and a side-by-side comparison in the course catalogue
+- term-by-term tools in the study plan, covering assessment, the critical path, "If I move this later" and alternative plans
+- a read-only link to share your plan with an advisor, and a button that emails the BIR office about your plan
+
+## How the pieces connect
+
+{/* prettier-ignore */}
+<svg
+  role="img"
+  aria-labelledby="flow-title flow-desc"
+  viewBox="0 0 340 392"
+  className="mx-auto block w-full max-w-sm"
+>
+  <title id="flow-title">How the course catalogue, course pages, study plan and BIR office connect</title>
+  <desc id="flow-desc">You open a course from the catalogue. The course page reads your study plan, and its Add to your plan link puts the course into the plan. The study plan is saved in your browser. From the plan you can email the BIR office.</desc>
+  <defs>
+    <marker id="flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8 z" className="fill-muted" />
+    </marker>
+  </defs>
+  <rect x="20" y="8" width="230" height="64" rx="10" className="fill-surface stroke-line-strong" />
+  <text x="36" y="36" fontSize="16" fontWeight="600" className="fill-ink">Course catalogue</text>
+  <text x="36" y="58" fontSize="13" className="fill-muted">Filters, map and search by code</text>
+  <path d="M 135 72 L 135 108" className="stroke-muted fill-none" strokeWidth="2" markerEnd="url(#flow-arrow)" />
+  <text x="147" y="95" fontSize="12" className="fill-muted">open a course</text>
+  <rect x="20" y="112" width="230" height="64" rx="10" className="fill-surface stroke-line-strong" />
+  <text x="36" y="140" fontSize="16" fontWeight="600" className="fill-ink">Course page</text>
+  <text x="36" y="162" fontSize="13" className="fill-muted">Reads your saved plan</text>
+  <path d="M 135 176 L 135 212" className="stroke-muted fill-none" strokeWidth="2" markerEnd="url(#flow-arrow)" />
+  <text x="147" y="199" fontSize="12" className="fill-muted">Add to your plan</text>
+  <rect x="20" y="216" width="230" height="64" rx="10" className="fill-brand-tint stroke-brand-deep" />
+  <text x="36" y="244" fontSize="16" fontWeight="600" className="fill-ink">Study plan</text>
+  <text x="36" y="266" fontSize="13" className="fill-muted">Saved in your browser only</text>
+  <path d="M 250 232 C 300 232 300 144 254 144" className="stroke-muted fill-none" strokeWidth="2" strokeDasharray="5 4" markerEnd="url(#flow-arrow)" />
+  <text x="262" y="256" fontSize="12" className="fill-muted">read back</text>
+  <path d="M 135 280 L 135 316" className="stroke-muted fill-none" strokeWidth="2" markerEnd="url(#flow-arrow)" />
+  <text x="147" y="303" fontSize="12" className="fill-muted">email about the plan</text>
+  <rect x="20" y="320" width="230" height="64" rx="10" className="fill-surface stroke-line-strong" />
+  <text x="36" y="348" fontSize="16" fontWeight="600" className="fill-ink">BIR office</text>
+  <text x="36" y="370" fontSize="13" className="fill-muted">Answers academic questions</text>
+</svg>
+
+## Find a course page
+
+Every course has a page at `/student-life/course-reviews/` followed by its code, for example `/student-life/course-reviews/PI380`. Search the site for a code such as PI380 and you go straight to that page.
+
+Courses outside the PI catalogue, such as TU105, EL105 and LAS101, have a page with the facts from the curriculum. The page shows the credits, prerequisites, recommended term and what the course counts towards.
+
+If a plan is saved in your browser, the course page shows a "Your plan" panel. It says
+
+- whether you have passed the course or planned it
+- what the course counts towards, including which part of your minor
+- whether your plan meets its prerequisites
+- a link to add it to your plan
+- what putting it off a term does to your graduation, when the course is already in your plan
+
+<img
+  src="/news/course-pages-and-study-plan/course-panel-en.webp"
+  alt="The Your plan panel on the PI383 course page. It says the course is not in the plan yet, counts towards Governance and Transnational Studies elective courses and has no prerequisites. It offers an Add to your plan link with a suggested term of Year 3, Semester 2."
+  width="350"
+  height="384"
+  loading="lazy"
+/>
+
+## Filter the catalogue
+
+The course catalogue has four new filters. "Minor" narrows the list to one minor. Under "With my plan", "Not yet passed", "Prerequisites met by next term" and "Counts towards a category I still need" use your saved plan. The plan filters appear only when a plan is saved on the device.
+
+<img
+  src="/news/course-pages-and-study-plan/catalogue-filters-en.webp"
+  alt="The course catalogue with the Minor filter set to Governance and Transnational Studies. The With my plan filters Not yet passed and Prerequisites met by next term are ticked, and the page shows 13 results."
+  width="390"
+  height="1250"
+  loading="lazy"
+/>
+
+The "Prerequisite map" at the bottom of the catalogue draws which courses unlock which. With a saved plan, the colours show whether each course is passed, in your plan or still locked. The lists under "What unlocks what" hold the same information as text.
+
+<img
+  src="/news/course-pages-and-study-plan/prerequisite-map-en.webp"
+  alt="The prerequisite map. PI211 and PI271 sit on the left and feed PI280, PI300, PI320, PI321 and PI390, with colours showing which courses are passed or in the plan."
+  width="390"
+  height="1026"
+  loading="lazy"
+/>
+
+## Make your study plan
+
+The service takes about 10 minutes. Have the first two digits of your student ID ready, and your transcript if you have taken anything outside the standard plan.
+
+1. Open [Plan your BIR degree](/services/study-plan) and select "Start now".
+2. Enter the first two digits of your student ID, for example 67, and select "Continue".
+3. Check the curriculum shown against your transcript. Select "Yes, this matches" and then "Continue". If you select "No, or I am not sure", the service sends you to the BIR office instead of guessing.
+4. Check the year and semester. The service works them out from your student ID, so it suggests "Year 3" and "Semester 1" for cohort 67 in October 2026. Change them if you took leave, are repeating a year or are taking longer than the standard plan.
+5. Choose your minor. You can come back and change it.
+6. On "Check what we have assumed", uncheck any course you did not take, failed or replaced. Enter the free elective credits you have passed.
+7. If the service shows "Fill in what these courses were", choose the course you took for each slot, or tick "I have not taken this yet".
+8. On the "Your plan" screen, select "Fill in named courses" to place the courses the recommended plan names for each term ahead of you and the required courses for your minor. Open a term to add the rest.
+
+When you come back later, the start page shows "Continue your plan" and takes you to the plan saved on that device.
+
+<img
+  src="/news/course-pages-and-study-plan/continue-en.webp"
+  alt="The start page of the study plan service with a notice headed Continue your plan. It says a plan for cohort 67 is saved on this device and nothing is sent to BIRSA, and it has a Continue your plan button."
+  width="350"
+  height="210"
+  loading="lazy"
+/>
+
+<img
+  src="/news/course-pages-and-study-plan/plan-overview-en.webp"
+  alt="The top of the Your plan screen for the sample student. It shows 103 of 127 credits planned, Year 4, Semester 1 as the projected graduation term, and a note that the plan is 24 credits short."
+  width="390"
+  height="493"
+  loading="lazy"
+/>
+
+Each term shows how its courses are assessed, taken from the assessment facts BIRSA has on record. The line under "Year 3, Semester 1" below says which courses have a final exam, which are coursework only and which have nothing on record yet.
+
+<img
+  src="/news/course-pages-and-study-plan/term-assessment-en.webp"
+  alt="The closed Year 3, Semester 1 term listing PI300, PI390, PI380 and PI381 with 12 credits. A line says one course has a final exam, one is coursework only and two have nothing on record."
+  width="348"
+  height="193"
+  loading="lazy"
+/>
+
+Courses on the critical path carry the mark "On the critical path". Other courses in your plan depend on them, and the chain runs to your last term, so moving them later moves graduation.
+
+When a term has an open choice, such as a minor elective, "What this term still needs" lists the courses you can take. They count towards that choice for your curriculum and minor, and their prerequisites are met by that term. The list is ordered by fit to your plan, and reviews play no part in the order.
+
+<img
+  src="/news/course-pages-and-study-plan/shortlist-en.webp"
+  alt="The What this term still needs panel for Year 4, Semester 1. It lists elective courses with their credits and instructors, and each course has a Course page link and a Compare link."
+  width="390"
+  height="1050"
+  loading="lazy"
+/>
+
+## Add a course from its page
+
+1. Search the site for the course code, or open it from the catalogue.
+2. Read the "Your plan" panel. It says what the course counts towards and whether your prerequisites are covered.
+3. Select "Add to your plan". The panel suggests a term, and you can change it on the plan screen.
+4. Check the confirmation "Added to your plan" at the top of the plan screen. Select "Undo" if you did not mean to add it.
+
+<img
+  src="/news/course-pages-and-study-plan/added-en.webp"
+  alt="The confirmation Added to your plan, saying PI383 Ethics and International Relations is now in Year 3, Semester 2, with an Undo link."
+  width="350"
+  height="135"
+  loading="lazy"
+/>
+
+## Compare two courses
+
+1. Open the page of one of the courses.
+2. Find "Compare" followed by the course code and "with another course". Start typing a code or a name, and pick the second course from the list.
+3. Select "Compare".
+4. Read the two courses side by side. The table covers credits, what each counts towards, prerequisites, how each is assessed, the terms recorded and what students have reported. The section "For your plan" appears when a plan is saved.
+
+The page does not rank the two courses. You can also select "Compare with" next to a course in a term's list to start from the plan screen.
+
+<img
+  src="/news/course-pages-and-study-plan/compare-en.webp"
+  alt="The Compare two courses page with PI364 and PI366 side by side. Rows cover credits, what each counts towards, prerequisites, how each is assessed and a For your plan section."
+  width="720"
+  height="1668"
+  loading="lazy"
+/>
+
+## Try "If I move this later" and a minor switch
+
+1. Open the plan screen and open a term.
+2. Under a course, select "If I move this later". It says which term the course moves to, whether graduation moves, and which other courses are pushed back so their prerequisites still come first.
+3. Scroll to "Scenarios" and find "If I switch minor".
+4. Under "Minor to try", choose another minor and select "Show what changes". The result shows which credits count the same way, which move to electives outside the minor, and how many credits you are still short.
+5. Select "Keep this as a scenario" to save it as a named plan on this device. "If I spend a term away" works in the same way for an exchange or a leave.
+6. Under "Your saved plans", select "Compare with current" to put two plans side by side.
+
+<img
+  src="/news/course-pages-and-study-plan/plan-term-en.webp"
+  alt="The open Year 3, Semester 2 term. PI280 carries the mark On the critical path, and its If I move this later panel says graduation would move from Year 4, Semester 1 to Year 4, Semester 2."
+  width="390"
+  height="888"
+  loading="lazy"
+/>
+
+<img
+  src="/news/course-pages-and-study-plan/minor-switch-en.webp"
+  alt="The If I switch minor panel showing the result under Public Administration and Public Policy. 15 credits move to electives outside the minor, and the credits still short rise from 24 to 33."
+  width="350"
+  height="758"
+  loading="lazy"
+/>
+
+## Share your plan or ask the BIR office
+
+1. Open the plan screen and scroll to "Share this plan or ask about it".
+2. Under "Share with an advisor", select "Copy link" and send the link to your advisor. The link opens a page they can read but not change.
+3. Under "Ask the BIR office about this plan", select "Email the BIR office about my plan". Your email app opens a message to bir@tu.ac.th with a summary of your plan.
+4. Read and change the email, then send it. If the summary is missing, copy it from "Your plan summary" and paste it in.
+
+The plan is inside the link, after the # sign. A browser never sends that part to a server, so BIRSA does not receive it. Anyone who has the link can read the plan, so send it only to the person you mean to.
+
+The summary lists your courses by term, what the service found, your curriculum and your minor. It does not include your name, your student ID or the courses you have passed.
+
+<img
+  src="/news/course-pages-and-study-plan/share-en.webp"
+  alt="The Share with an advisor panel, with a read-only link, a Copy link button and an Open the read-only view link."
+  width="350"
+  height="718"
+  loading="lazy"
+/>
+
+<img
+  src="/news/course-pages-and-study-plan/ask-en.webp"
+  alt="The Ask the BIR office about this plan panel, with an Email the BIR office about my plan button, a plan summary, and the BIR office email address and phone number."
+  width="350"
+  height="1089"
+  loading="lazy"
+/>
+
+## Your plan stays in your browser
+
+The plan is stored in your browser on that device. BIRSA does not store it. To clear it, open the plan screen and select "Delete this plan" under "Delete your plan". This also removes any other plans you saved with it.
+
+## Who to ask
+
+The BIR office, not BIRSA, announces BIR's registration and add-drop dates. It posts them on [birpolsci.com](https://www.birpolsci.com) and on the BIR Program Facebook page. The study plan does not check whether a course runs in the term you place it in.
+
+The BIR office also answers academic questions. Email bir@tu.ac.th or call 02-221-6111 ext. 3409.
