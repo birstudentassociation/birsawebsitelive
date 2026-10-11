@@ -16,7 +16,7 @@
  */
 import { CURRICULUM_VERSIONS, type TermRef } from "@/content/curriculum";
 import type { Locale } from "@/lib/i18n";
-import { checkPlan, type Finding } from "@/lib/study-plan/findings";
+import { checkPlan, type Finding, type FindingSources } from "@/lib/study-plan/findings";
 import type { StudyPlan } from "@/lib/study-plan/plan";
 import { plannedTermsForPrint } from "@/lib/study-plan/print";
 
@@ -55,7 +55,8 @@ export function planSummaryText(
   plan: StudyPlan,
   locale: Locale,
   labels: PlanSummaryLabels,
-  limit: number = PLAN_SUMMARY_LIMIT
+  limit: number = PLAN_SUMMARY_LIMIT,
+  sources?: FindingSources
 ): string {
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const minor = version.minors.find((m) => m.id === plan.minorId)?.name[locale] ?? "";
@@ -91,7 +92,7 @@ export function planSummaryText(
     return `${cut.slice(0, Math.max(cut.lastIndexOf("\n"), 0))}\n${labels.truncated}`;
   }
 
-  const findings = [...checkPlan(version, plan)].sort(
+  const findings = [...checkPlan(version, plan, sources)].sort(
     (a, b) => SEVERITY_ORDER[a.severity] - SEVERITY_ORDER[b.severity]
   );
   const out = [base, "", labels.findingsHeading];

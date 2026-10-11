@@ -16,6 +16,7 @@ import type {
   StudentReview,
   WorkloadBandCounts,
 } from "@/content/course-review/types";
+import { courseNode } from "@/lib/courses/graph";
 import { sql } from "@/lib/inventory/db";
 import { groupId, meetsThreshold, type GroupKey } from "@/lib/course-review/groups";
 import { instructorByKey, instructorKey, OTHER_INSTRUCTOR } from "@/lib/course-review/instructors";
@@ -179,6 +180,54 @@ export async function listPublishedReviews(
       where course_code = ${courseCode}
     `;
     return result.rows.map((row) => rowToReview(row, instructors));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Every published review, by course code. For the screens that look at many
+ * courses at once (the plan screen's workload lines and shortlist), which
+ * would otherwise query once per course. Returns an empty map when the database
+ * isn't configured or the query fails, so those screens fall back to the
+ * reviews held in the repository alone.
+ */
+export async function listPublishedReviewsByCourse(): Promise<Map<string, StudentReview[]>> {
+  const byCourse = new Map<string, StudentReview[]>();
+  if (!isCourseReviewConfigured()) {
+    return byCourse;
+  }
+  try {
+    const result = await sql<PublishedRow>`
+      select course_code, term_year, term_semester, instructor_key, instructor_name_en,
+             instructor_name_th, review_count, workload_en, workload_th, assessment_en,
+             assessment_th, tips, quotes, band_counts, published_at
+      from published_course_reviews
+    `;
+    for (const row of result.rows) {
+      const review = rowToReview(row, courseNode(row.course_code)?.catalogue?.instructors);
+      byCourse.set(row.course_code, [...(byCourse.get(row.course_code) ?? []), review]);
+    }
+    return byCourse;
+  } catch {
+    return new Map();
+  }
+}
+
+/**
+ * The course codes that have at least one published review, sorted. For the
+ * catalogue's "reviewed" badge and filter, which need only whether a course has
+ * one. Empty when the database isn't configured or the query fails.
+ */
+export async function listPublishedReviewCodes(): Promise<string[]> {
+  if (!isCourseReviewConfigured()) {
+    return [];
+  }
+  try {
+    const result = await sql<Pick<PublishedRow, "course_code">>`
+      select distinct course_code from published_course_reviews order by course_code
+    `;
+    return result.rows.map((row) => row.course_code);
   } catch {
     return [];
   }

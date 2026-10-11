@@ -18,6 +18,7 @@
 import type { CurriculumVersion, MinorId, TermRef } from "@/content/curriculum";
 import { parseTermKey } from "@/lib/study-plan/addToPlan";
 import { termIndex, termKey } from "@/lib/study-plan/derive";
+import type { FindingSources } from "@/lib/study-plan/findings";
 import { PLAN_FIELD, deserialisePlan, serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
 import { awayTerm, compareScenarios, minorSwitch, type AwayKind } from "@/lib/study-plan/scenarios";
 import {
@@ -48,6 +49,8 @@ export type ScenarioSectionProps = {
   insight: TermInsightCopy;
   /** The localised plan screen path, e.g. "/en/services/study-plan/plan". */
   planHref: string;
+  /** Where the comparison's findings read reviews from, so it counts what the plan screen counts. */
+  sources?: FindingSources;
   /** The raw query values, each already reduced to its first value. */
   params: {
     minor?: string;
@@ -92,6 +95,7 @@ export default function ScenarioSection({
   copy,
   insight,
   planHref,
+  sources,
   params,
 }: ScenarioSectionProps) {
   const serialisedPlan = serialisePlan(plan);
@@ -121,7 +125,8 @@ export default function ScenarioSection({
   const comparison = otherPlan
     ? compareScenarios(
         { name: s.currentTag, plan },
-        { name: cleanScenarioName(params.compareName ?? "") ?? s.defaultName, plan: otherPlan }
+        { name: cleanScenarioName(params.compareName ?? "") ?? s.defaultName, plan: otherPlan },
+        sources
       )
     : null;
 

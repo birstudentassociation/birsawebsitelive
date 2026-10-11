@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import type { AcademicTerm, StudentReview } from "@/content/course-review/types";
 import { CURRICULUM_VERSIONS, type CurriculumVersion, type TermRef } from "@/content/curriculum";
 import { courseContextLine } from "@/lib/course-review/context";
+import { listPublishedReviewsByCourse } from "@/lib/course-review/published";
+import { findingSourcesFor, reviewsFor } from "@/lib/course-review/reviewSources";
+import { reviewLine, type ReviewLineCopy } from "@/lib/course-review/reviewSummary";
+import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { comparePath } from "@/lib/courses/compare";
 import {
+  HISTORY_COPY,
   OFFERING_HISTORY_NOTICE,
   historyLine,
   offeringHistory,
+  type OfferingHistory,
 } from "@/lib/courses/offeringHistory";
 import { ADD_PARAM, applyAddParam } from "@/lib/study-plan/addToPlan";
 import {
@@ -16,9 +24,13 @@ import {
   screenTerms,
   termKey,
 } from "@/lib/study-plan/derive";
-import { profileLine, termAssessmentProfile } from "@/lib/study-plan/assessmentProfile";
+import {
+  describeRecordedTerm,
+  profileLine,
+  termAssessmentProfile,
+} from "@/lib/study-plan/assessmentProfile";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
-import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
+import { deserialisePlan, PLAN_FIELD, serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
 import { resolvePosition } from "@/lib/study-plan/position";
 import {
   AWAY_FIELD,
@@ -29,12 +41,14 @@ import {
 } from "@/lib/study-plan/scenarioStore";
 import { criticalPath, whatIf } from "@/lib/study-plan/whatIf";
 import { whatIfSentences } from "@/lib/study-plan/whatIfText";
+import { shortlistForSlot } from "@/lib/study-plan/shortlist";
 import {
   suggestForTerm,
   type SuggestedCourse,
   type TermSuggestion,
 } from "@/lib/study-plan/suggest";
-import { isLocale, localeHref, type Locale } from "@/lib/i18n";
+import { termWorkloadProfile, workloadLine } from "@/lib/study-plan/workloadProfile";
+import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
@@ -48,9 +62,13 @@ import TermEditor, {
   type TermEditorSlot,
 } from "@/components/study-plan/TermEditor";
 import PlanStore from "@/components/study-plan/PlanStore";
+import ReviewPrompt from "@/components/study-plan/ReviewPrompt";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
 import ScenarioSection from "@/components/study-plan/ScenarioSection";
-import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
+import {
+  buildTermInsightCopy,
+  type TermInsightCopy,
+} from "@/components/study-plan/termInsightCopy";
 import PlanOutreach from "@/components/study-plan/PlanOutreach";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import {
@@ -92,15 +110,15 @@ function formatTermLabel(copy: StudyPlanCopy, term: TermRef): string {
   return formatTermRef(copy.terms, term);
 }
 
+/** The catalogue's facts and recorded history for a course as one line; `reviews: false` leaves the reviews flag out. */
+type ContextLine = (code: string, options?: { reviews?: boolean }) => string | null;
+
 /**
  * Converts one engine-side suggested course into the shape `TermEditor`
  * renders, adding the catalogue's one line of facts about it where there is
  * one. `contextLine` is built once per page render with the locale's copy.
  */
-function toTermEditorCourse(
-  course: SuggestedCourse,
-  contextLine: (code: string) => string | null
-): TermEditorCourse {
+function toTermEditorCourse(course: SuggestedCourse, contextLine: ContextLine): TermEditorCourse {
   return {
     code: course.code,
     title: course.title,
@@ -126,7 +144,7 @@ function buildCourseGroups(
   locale: Locale,
   minorName: string,
   suggestion: TermSuggestion,
-  contextLine: (code: string) => string | null
+  contextLine: ContextLine
 ): TermEditorCourseGroup[] {
   const toCourse = (course: SuggestedCourse) => toTermEditorCourse(course, contextLine);
   return suggestion.groups.map((group) => {
@@ -152,6 +170,81 @@ function buildCourseGroups(
       label: categoryLabel(copy.plan, group.id, categoryName, minorName),
       remaining: group.remaining,
       courses: group.courses.map(toCourse),
+    };
+  });
+}
+
+/**
+ * Turns `suggestForTerm`'s open choices into the shortlists `TermEditor`
+ * renders. Each is the ranked list from `shortlistForSlot`, with each
+ * candidate's review line and a link to compare it with another candidate, and
+ * a sentence for each reason a course that counts towards the choice was left
+ * out. The order is the shortlist's own; nothing here reads the reviews it
+ * displays.
+ */
+function buildOpenSlots(args: {
+  version: CurriculumVersion;
+  plan: StudyPlan;
+  term: TermRef;
+  locale: Locale;
+  suggestion: TermSuggestion;
+  contextLine: ContextLine;
+  lookups: {
+    offeringHistory: (code: string) => OfferingHistory | null;
+    reviews: (code: string) => readonly StudentReview[];
+  };
+  insight: TermInsightCopy;
+  reviewCopy: ReviewLineCopy;
+}): TermEditorSlot[] {
+  const { version, plan, term, locale, suggestion, contextLine, lookups, insight } = args;
+  const copy = insight.shortlist;
+  const termLabel = (recorded: AcademicTerm) =>
+    describeRecordedTerm(recorded, locale, insight.profile);
+  return suggestion.openSlots.map((slot) => {
+    const shortlist = shortlistForSlot(version, plan, term, slot, lookups);
+    const codes = shortlist.entries.map((entry) => entry.course.code);
+    const leftOut: string[] = [];
+    if (shortlist.leftOut.prerequisites.length > 0) {
+      leftOut.push(
+        copy.leftOutPrerequisites.replace("{codes}", shortlist.leftOut.prerequisites.join(", "))
+      );
+    }
+    if (shortlist.leftOut.notRecordedInKind.length > 0) {
+      leftOut.push(
+        copy.leftOutHistory
+          .replace("{kind}", HISTORY_COPY[locale][term.kind])
+          .replace("{codes}", shortlist.leftOut.notRecordedInKind.join(", "))
+      );
+    }
+    return {
+      id: slot.id,
+      label: slot.label[locale],
+      candidates: shortlist.entries.map((entry, index) => {
+        const course = toTermEditorCourse(entry.course, (code) =>
+          contextLine(code, { reviews: false })
+        );
+        // Each candidate is compared with the top of the list, and the top one with the next.
+        const other = codes[index === 0 ? 1 : 0];
+        const fit: string[] = [];
+        if (entry.course.recommendedHere) fit.push(copy.recommendedHere);
+        if (entry.unlocksCount === 1) fit.push(copy.unlocksOne);
+        else if (entry.unlocksCount > 1) {
+          fit.push(copy.unlocksTemplate.replace("{n}", String(entry.unlocksCount)));
+        }
+        return {
+          ...course,
+          fit,
+          reviewLine: reviewLine(entry.reviews, args.reviewCopy, termLabel),
+          compare: other
+            ? {
+                href: localeHref(locale, comparePath(entry.course.code, other)),
+                label: copy.compareLink.replace("{code}", other),
+              }
+            : null,
+        };
+      }),
+      leftOut,
+      leftOutCodes: [...shortlist.leftOut.prerequisites, ...shortlist.leftOut.notRecordedInKind],
     };
   });
 }
@@ -230,7 +323,12 @@ export default async function StudyPlanPage({
 
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
 
-  const findings = checkPlan(version, plan);
+  // The reviews published from the database, read once, so the findings, the
+  // workload lines, the offering history and the shortlists below all stand
+  // on the reviews a course page shows. Empty with no database configured.
+  const published = await listPublishedReviewsByCourse();
+  const sources = findingSourcesFor(published);
+  const findings = checkPlan(version, plan, sources);
   const shortfalls = remainingRequirements(
     version,
     allCodes,
@@ -305,20 +403,39 @@ export default async function StudyPlanPage({
     criticalLabel: insight.critical.label,
     criticalHint: insight.critical.hint,
     whatIfSummary: insight.whatIf.summary,
+    shortlistOrderNote: insight.shortlist.orderNote,
+    shortlistLeftOutNote: insight.shortlist.leftOutNote,
+    shortlistNoneEligible: insight.shortlist.noneEligible,
     courseSearch: { ...copy.courseSearch, prompt: copy.plan.addCoursePrompt },
   };
   const courseHref = (code: string) => localeHref(locale, `/student-life/course-reviews/${code}`);
   // The catalogue's facts about a course, then where it has been recorded as
   // taught. That second part is derived history, not an offering promise, and
   // the plan screen says so once, above the terms.
-  const contextLine = (code: string) => {
-    const history = offeringHistory(code);
+  const contextLine: ContextLine = (code, options) => {
+    const history = offeringHistory(code, published.get(code) ?? []);
     const parts = [
-      courseContextLine(code, locale, linkCopy.picker),
+      courseContextLine(code, locale, linkCopy.picker, {
+        extraReviews: published.get(code) ?? [],
+        reviews: options?.reviews,
+      }),
       history ? historyLine(history, locale, insight.history) : null,
     ].filter(Boolean);
     return parts.length > 0 ? parts.join(" · ") : null;
   };
+  // How the shortlists word what students reported. The wording of the bands
+  // is the course page's own.
+  const collect = getDictionary(locale).courseReview.collect;
+  const reviewCopy: ReviewLineCopy = {
+    ...insight.reviewLine,
+    band: {
+      labels: collect.bandLabels,
+      sentence: collect.bandSentence,
+      sentenceSingle: collect.bandSentenceSingle,
+    },
+  };
+  // Whether the review form exists, which decides whether the reminder to write one is shown.
+  const reviewFormLive = isCourseReviewConfigured();
   const planHref = localeHref(locale, "/services/study-plan/plan");
 
   return (
@@ -361,6 +478,14 @@ export default async function StudyPlanPage({
             </div>
           </dl>
         </div>
+
+        {/* Renders nothing on the server. In the browser, only for a course in the term that has just ended, and only when the review form is live. */}
+        <ReviewPrompt
+          plan={plan}
+          live={reviewFormLive}
+          copy={linkCopy.reviewPrompt}
+          courseLinkBase={localeHref(locale, "/student-life/course-reviews")}
+        />
 
         <div>
           <h2 className="font-display text-xl">{copy.plan.findingsHeading}</h2>
@@ -473,11 +598,20 @@ export default async function StudyPlanPage({
               suggestion,
               contextLine
             );
-            const openSlots: TermEditorSlot[] = suggestion.openSlots.map((slot) => ({
-              id: slot.id,
-              label: slot.label[locale],
-              candidates: slot.candidates.map((course) => toTermEditorCourse(course, contextLine)),
-            }));
+            const openSlots = buildOpenSlots({
+              version,
+              plan,
+              term,
+              locale,
+              suggestion,
+              contextLine,
+              lookups: {
+                offeringHistory: sources.offeringHistory,
+                reviews: (code) => reviewsFor(code, published),
+              },
+              insight,
+              reviewCopy,
+            });
             return (
               <TermEditor
                 key={termKey(term)}
@@ -491,6 +625,11 @@ export default async function StudyPlanPage({
                   termAssessmentProfile(plannedTerm?.codes ?? []),
                   locale,
                   insight.profile
+                )}
+                workloadLine={workloadLine(
+                  termWorkloadProfile(plannedTerm?.codes ?? [], sources.reviews),
+                  locale,
+                  insight.workload
                 )}
                 courseGroups={courseGroups}
                 openSlots={openSlots}
@@ -525,6 +664,7 @@ export default async function StudyPlanPage({
           copy={copy}
           insight={insight}
           planHref={planHref}
+          sources={sources}
           params={{
             minor: firstParam(query[MINOR_FIELD]),
             away: firstParam(query[AWAY_FIELD]),

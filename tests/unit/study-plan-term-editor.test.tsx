@@ -54,6 +54,9 @@ const copy: TermEditorCopy = {
   termEmpty: "Nothing planned yet",
   moreOptionsLabel: "Add something else to this term",
   moreCandidatesTemplate: "{n} more courses fit this choice.",
+  shortlistOrderNote: "Ordered by how they fit your plan. Reviews play no part in the order.",
+  shortlistLeftOutNote: "They are still in the full course list below.",
+  shortlistNoneEligible: "No course for this choice can be taken in this term yet.",
   recommendedTermCompleteTemplate:
     "This term already has the {n} credits the recommended plan schedules.",
   pickRemainingTemplate: "{n} credits still needed",
@@ -85,6 +88,7 @@ function renderEditor(overrides: {
   freeElectiveCredits?: number;
   defaultOpen?: boolean;
   assessmentLine?: string | null;
+  workloadLine?: string | null;
 }) {
   const { container } = render(
     <TermEditor
@@ -94,6 +98,7 @@ function renderEditor(overrides: {
       placed={overrides.placed ?? []}
       freeElectiveCredits={overrides.freeElectiveCredits ?? 0}
       assessmentLine={overrides.assessmentLine}
+      workloadLine={overrides.workloadLine}
       courseGroups={overrides.courseGroups ?? []}
       openSlots={overrides.openSlots ?? []}
       internshipOnly={overrides.internshipOnly ?? false}
@@ -472,5 +477,129 @@ describe("TermEditor term insights", () => {
     const { container } = renderEditor({ placed: [pi470] });
     expect(container.querySelector("li details")).toBeNull();
     expect(container.textContent).not.toContain("critical path");
+  });
+});
+
+describe("TermEditor shortlist", () => {
+  const first = {
+    code: "PI380",
+    title: "Public Policy",
+    credits: 3,
+    missingPrerequisites: [],
+    fit: ["In the recommended plan for this term", "Opens 2 later courses"],
+    reviewLine: "Student reviews on record, latest for semester 1, 2025/26.",
+    compare: {
+      href: "/en/student-life/course-reviews/compare?a=PI380&b=PI381",
+      label: "Compare with PI381",
+    },
+  };
+  const second = {
+    code: "PI381",
+    title: "Local Government",
+    credits: 3,
+    missingPrerequisites: [],
+    reviewLine: "No student reviews yet.",
+    compare: {
+      href: "/en/student-life/course-reviews/compare?a=PI381&b=PI380",
+      label: "Compare with PI380",
+    },
+  };
+  const slot: TermEditorSlot = {
+    id: "minorRequired1",
+    label: "Minor Required Course 1",
+    candidates: [first, second],
+    leftOut: ["Left out because their prerequisites are not met by this term (PI382)."],
+    leftOutCodes: ["PI382"],
+  };
+
+  it("lists the candidates in the order it is given, each with its review line and fit", () => {
+    const { container, ui } = renderEditor({ openSlots: [slot] });
+    expect(addButtonValues(container)).toEqual(["PI380", "PI381"]);
+    expect(
+      ui.getByText("Student reviews on record, latest for semester 1, 2025/26.")
+    ).toBeDefined();
+    expect(ui.getByText("No student reviews yet.")).toBeDefined();
+    expect(
+      ui.getByText("In the recommended plan for this term \u00b7 Opens 2 later courses")
+    ).toBeDefined();
+  });
+
+  it("links to compare each candidate with another, outside the button", () => {
+    const { container } = renderEditor({ openSlots: [slot] });
+    const links = [...container.querySelectorAll("a")].filter((a) =>
+      a.getAttribute("href")?.includes("/compare")
+    );
+    expect(links.map((a) => [a.textContent, a.getAttribute("href")])).toEqual([
+      ["Compare with PI381", "/en/student-life/course-reviews/compare?a=PI380&b=PI381"],
+      ["Compare with PI380", "/en/student-life/course-reviews/compare?a=PI381&b=PI380"],
+    ]);
+    for (const link of links) expect(link.closest("button")).toBeNull();
+  });
+
+  it("says once how the shortlists are ordered, and that reviews play no part", () => {
+    const { container } = renderEditor({ openSlots: [slot, { ...slot, id: "minorRequired2" }] });
+    expect(container.textContent?.match(/Reviews play no part in the order/g)).toHaveLength(1);
+  });
+
+  it("says which courses were left out and why, and that they are still available", () => {
+    const { ui } = renderEditor({ openSlots: [slot] });
+    expect(
+      ui.getByText("Left out because their prerequisites are not met by this term (PI382).")
+    ).toBeDefined();
+    expect(ui.getByText("They are still in the full course list below.")).toBeDefined();
+  });
+
+  it("does not show a left-out recommended course again as a plain button", () => {
+    const { container } = renderEditor({
+      openSlots: [slot],
+      courseGroups: [
+        {
+          ...recommended,
+          courses: [
+            { code: "PI382", title: "Left out", credits: 3, missingPrerequisites: ["PI121"] },
+            { code: "PI380", title: "Public Policy", credits: 3, missingPrerequisites: [] },
+          ],
+        },
+      ],
+    });
+    // PI380 is on the shortlist and PI382 was left out of it; neither is repeated under the generic list.
+    expect(addButtonValues(container).filter((code) => code === "PI382")).toEqual([]);
+    expect(addButtonValues(container).filter((code) => code === "PI380")).toHaveLength(1);
+  });
+
+  it("tells a slot whose candidates were all left out from a slot with nothing to list", () => {
+    const allLeftOut: TermEditorSlot = {
+      id: "areaElective1",
+      label: "Area Studies Elective 1",
+      candidates: [],
+      leftOut: ["Left out because their prerequisites are not met by this term (PI364, PI365)."],
+      leftOutCodes: ["PI364", "PI365"],
+    };
+    const nothing: TermEditorSlot = {
+      id: "freeElective1",
+      label: "Free Elective 1",
+      candidates: [],
+    };
+    const { ui } = renderEditor({ openSlots: [allLeftOut] });
+    expect(ui.getByText("No course for this choice can be taken in this term yet.")).toBeDefined();
+    expect(ui.queryByText("Any Thammasat course counts here.")).toBeNull();
+    // The free elective box is only lifted out of the drawer for a slot the catalogue cannot list at all.
+    expect(ui.getByLabelText("Free elective credits").closest("details.text-sm")).not.toBeNull();
+    cleanup();
+    const free = renderEditor({ openSlots: [nothing] });
+    expect(free.ui.getByText("Any Thammasat course counts here.")).toBeDefined();
+    expect(free.ui.getByLabelText("Free elective credits").closest("details.text-sm")).toBeNull();
+  });
+
+  it("shows the term's workload line under its assessment line, when there is one", () => {
+    const line = "Two courses in this term are reported as over 6 hours a week.";
+    const assessmentLine = "Assessment on record for 2 of 3 courses.";
+    const { container, ui } = renderEditor({ assessmentLine, workloadLine: line });
+    expect(ui.getByText(line)).toBeDefined();
+    const lines = [...container.querySelectorAll("summary .block")].map((el) => el.textContent);
+    expect(lines.indexOf(line)).toBe(lines.indexOf(assessmentLine) + 1);
+    cleanup();
+    const none = renderEditor({ assessmentLine, workloadLine: null });
+    expect(none.ui.queryByText(line)).toBeNull();
   });
 });

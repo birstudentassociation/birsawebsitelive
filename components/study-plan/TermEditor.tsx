@@ -41,6 +41,13 @@
  * a missing prerequisite stays folded into the option's plain text. The
  * quick-add buttons are real elements and could carry markup, but they say
  * it the same way, so the two never disagree.
+ *
+ * An open choice lists a shortlist (lib/study-plan/shortlist.ts) rather than
+ * every course that could fill it: the courses that can be taken in this term,
+ * in an order that depends on the plan alone, each with a line on what student
+ * reviews say, a link to the course page and a link to compare it with another
+ * candidate. What the shortlist left out is said in words, with the codes, and
+ * every one of those courses is still in the full picker below.
  */
 import Link from "next/link";
 import Button from "@/components/Button";
@@ -65,6 +72,19 @@ export type TermEditorCourse = {
    * add cards. Absent where the catalogue has nothing to say.
    */
   context?: string | null;
+  /**
+   * For a shortlisted candidate: what its place in the plan is, as short
+   * sentences ("Opens 2 later courses"), shown under the course.
+   */
+  fit?: string[];
+  /**
+   * For a shortlisted candidate: whether student reviews exist and what they
+   * say about workload, as a distribution in words. Display only; it plays no
+   * part in the order.
+   */
+  reviewLine?: string | null;
+  /** For a shortlisted candidate: the link that compares it with another candidate. */
+  compare?: { href: string; label: string } | null;
   /**
    * For a course already placed in this term: whether it is on the critical
    * path (moving it later moves graduation), shown as a small mark.
@@ -91,7 +111,20 @@ export type TermEditorSlot = {
   id: string;
   /** The recommended plan's own words for the choice, already localised. */
   label: string;
+  /** The shortlist, in order: courses that can be taken in this term. */
   candidates: TermEditorCourse[];
+  /**
+   * Sentences saying which courses that count towards the choice are not on
+   * the shortlist, and why, each with the course codes.
+   */
+  leftOut?: string[];
+  /**
+   * The codes of the courses that count towards the choice but are not on the
+   * shortlist. They are also kept out of the generic recommended list, so a
+   * course left out here does not reappear as a plain button under another
+   * heading.
+   */
+  leftOutCodes?: string[];
 };
 
 export type TermEditorCopy = {
@@ -113,6 +146,12 @@ export type TermEditorCopy = {
   moreOptionsLabel: string;
   /** Contains "{n}"; shown when a slot has more candidates than the quick-add row lists. */
   moreCandidatesTemplate: string;
+  /** Said once above the open choices: how the shortlists are decided and ordered. */
+  shortlistOrderNote: string;
+  /** Said under what a shortlist left out. */
+  shortlistLeftOutNote: string;
+  /** Said when courses count towards a choice but none made the shortlist. */
+  shortlistNoneEligible: string;
   /** Contains "{n}"; shown when this term has reached its prescribed load. */
   recommendedTermCompleteTemplate: string;
   /** Contains "{n}"; filled with the credits still owed in a group. */
@@ -146,6 +185,12 @@ export type TermEditorProps = {
    * named course.
    */
   assessmentLine?: string | null;
+  /**
+   * One short line about the workload students have reported for the term's
+   * courses (see lib/study-plan/workloadProfile.ts), shown under the
+   * assessment line. Null when no course in the term has an estimate on record.
+   */
+  workloadLine?: string | null;
   /** Catalogue courses not yet passed and not yet placed in any term, grouped by what they would count toward. */
   courseGroups: TermEditorCourseGroup[];
   /** Choices the recommended plan leaves open in this term ("Minor Elective Course 1"). */
@@ -246,7 +291,7 @@ function AddCourseButton({
   // one interactive element in another is invalid and breaks for assistive
   // technology. The button keeps the whole sentence, so pressing it still
   // adds the course; the link sits at the card's edge and opens the course page.
-  return (
+  const card = (
     <div className="flex items-start rounded-md border border-line bg-surface text-sm text-ink transition-colors hover:border-brand-deep hover:bg-brand-tint">
       <button
         type="submit"
@@ -270,6 +315,12 @@ function AddCourseButton({
           {course.context ? (
             <span className="mt-0.5 block text-xs text-muted">{course.context}</span>
           ) : null}
+          {course.fit && course.fit.length > 0 ? (
+            <span className="mt-0.5 block text-xs text-muted">{course.fit.join(" \u00b7 ")}</span>
+          ) : null}
+          {course.reviewLine ? (
+            <span className="mt-0.5 block text-xs text-muted">{course.reviewLine}</span>
+          ) : null}
         </span>
       </button>
       <Link
@@ -278,6 +329,19 @@ function AddCourseButton({
       >
         {copy.courseLink}
         <span className="sr-only"> {course.code}</span>
+      </Link>
+    </div>
+  );
+  if (!course.compare) return card;
+  // The compare link sits under the card, outside the button's form control, as a link of its own.
+  return (
+    <div className="flex flex-col gap-1">
+      {card}
+      <Link
+        href={course.compare.href}
+        className="focus-halo self-start rounded-md px-3 text-sm font-semibold text-brand-deep hover:underline"
+      >
+        {course.compare.label}
       </Link>
     </div>
   );
@@ -290,6 +354,7 @@ export default function TermEditor({
   placed,
   freeElectiveCredits,
   assessmentLine,
+  workloadLine,
   courseGroups,
   openSlots,
   recommendedTermComplete,
@@ -330,7 +395,10 @@ export default function TermEditor({
   // grouping reflects them; here that would print the same course twice, once
   // under its slot's own label and once under a generic heading.
   const slotCandidateCodes = new Set(
-    openSlots.flatMap((slot) => slot.candidates.map((c) => c.code))
+    openSlots.flatMap((slot) => [
+      ...slot.candidates.map((c) => c.code),
+      ...(slot.leftOutCodes ?? []),
+    ])
   );
   const namedRecommended = (
     courseGroups.find((group) => group.id === "recommended")?.courses ?? []
@@ -353,7 +421,10 @@ export default function TermEditor({
   // rest of the manual controls. Never shown for an internship summer, where
   // the rule zeroes it anyway (see `internshipOnly` above).
   const freeElectiveInline =
-    !recommendedTermComplete && openSlots.some((slot) => slot.candidates.length === 0);
+    !recommendedTermComplete &&
+    openSlots.some(
+      (slot) => slot.candidates.length === 0 && (slot.leftOutCodes?.length ?? 0) === 0
+    );
 
   const summaryCodes = placed.map((course) => course.code).join(", ");
 
@@ -385,6 +456,9 @@ export default function TermEditor({
           </span>
           {assessmentLine ? (
             <span className="mt-0.5 block text-xs text-muted">{assessmentLine}</span>
+          ) : null}
+          {workloadLine ? (
+            <span className="mt-0.5 block text-xs text-muted">{workloadLine}</span>
           ) : null}
         </span>
         <span
@@ -479,6 +553,12 @@ export default function TermEditor({
 
                 <h4 className="font-display text-sm font-semibold text-ink">{copy.pickHeading}</h4>
 
+                {openSlots.some(
+                  (slot) => slot.candidates.length > 0 || (slot.leftOutCodes?.length ?? 0) > 0
+                ) ? (
+                  <p className="text-xs leading-relaxed text-muted">{copy.shortlistOrderNote}</p>
+                ) : null}
+
                 {/*
                   One block per open choice: the recommended plan's own label
                   for the choice, then the courses that fill it as buttons that
@@ -511,9 +591,19 @@ export default function TermEditor({
                           </p>
                         ) : null}
                       </>
+                    ) : (slot.leftOutCodes?.length ?? 0) > 0 ? (
+                      <p className="text-sm text-muted">{copy.shortlistNoneEligible}</p>
                     ) : (
                       <p className="text-sm text-muted">{copy.pickSlotAnyCourse}</p>
                     )}
+                    {slot.leftOut && slot.leftOut.length > 0 ? (
+                      <div className="flex flex-col gap-1 text-xs text-muted">
+                        {slot.leftOut.map((sentence) => (
+                          <p key={sentence}>{sentence}</p>
+                        ))}
+                        <p>{copy.shortlistLeftOutNote}</p>
+                      </div>
+                    ) : null}
                   </div>
                 ))}
 

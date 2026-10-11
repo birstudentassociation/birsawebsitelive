@@ -246,6 +246,17 @@ When a stored plan has a course in a term that has just ended, the plan screen s
 form. Derived on the device, nothing tracked, dismissible per course and remembered in the
 plan envelope.
 
+**As built.** The reminder is derived on the device (`lib/study-plan/reviewPrompt.ts`,
+`components/study-plan/ReviewPrompt.tsx`) and shown on the plan screen and in the "Your plan"
+panel of that course's page, only when the review form is live (the same database
+configuration the form checks). "Just ended" is the most recent completed term from
+`academicTermAt`, with one exception. Most students take no summer session, so when the term
+just gone is a summer and the plan has nothing in it, semester 2 is the term that just ended.
+Only that one term is offered, at most three courses at a time. Dismissals are kept per course
+in the stored envelope as `dismissedReviewPrompts`, which the schema defaults to an empty list,
+so version 1 plans and version 2 envelopes written before the field parse unchanged. Deleting
+the plan deletes them.
+
 ### 6.4 Review freshness
 
 Reviews already carry term and instructor. Sort by recency (done), mark reviews older than
@@ -266,6 +277,42 @@ Only once a meaningful share of courses have real reviews. Before that it is emp
   review summary inline. Ranked by fit to the plan, not by any quality score.
 - **Compare two courses.** Side-by-side facts, assessment shape and review summaries for two
   candidates for the same slot.
+
+### As built
+
+**Term workload profile** (`lib/study-plan/workloadProfile.ts`, `lib/course-review/reviewSummary.ts`).
+Reads the workload bands on repository reviews and on reviews published from the database,
+through one lookup, so a review moved into the database is never counted twice. Sample reviews
+never count. The rules, each a named constant or a documented comparison.
+
+- A course's answers are those of its most recent term with at least 3 band answers
+  (`MIN_BAND_ANSWERS`). Summaries of one term, such as one per instructor, are summed. Terms are
+  never mixed, and there is no age cut-off, because the line always says which term it rests on.
+- A course counts as "mostly over 6 hours a week" when more than half of those answers chose
+  that band. Exactly half does not.
+- The line under a term says how many courses are mostly in the top band, names them, and
+  states the number of student reports and the term they are for. Courses with no usable
+  estimate are named, never assumed. A term where no course has an estimate gets no line.
+- The `workloadLoad` note is raised when 2 or more courses in a term are mostly in the top band
+  (`WORKLOAD_TOP_BAND_TERM_COUNT`). Its source cites the term and the rule. It is a note and
+  never blocks. Bands are only ever counted: nothing averages them or turns a course into a
+  number.
+
+**Elective shortlist** (`lib/study-plan/shortlist.ts`). For every open choice in a term, the
+candidates are kept if they count towards the choice for the student's version and minor,
+their prerequisites are passed or planned in a strictly earlier term, and, where offering
+history exists for the course, it has been recorded in this kind of term. A course with no
+history is kept. What was left out is named, with the reason, and stays in the full picker.
+The order uses the plan alone. Courses the recommended plan puts in this term come first, then
+the course that unlocks more courses the student has not passed, then the course code. Reviews
+are shown on each candidate and play no part in the order, which a test enforces.
+
+**Compare two courses** (`/student-life/course-reviews/compare?a=PI380&b=PI381`,
+`lib/courses/compare.ts`). Facts, assessment shape, offering history, prerequisites, unlocks,
+what each counts towards and review summaries, side by side and not ranked. A visitor with a
+plan on the device also gets rows for their own plan, added in the browser. Every pair is
+`noindex`, because there are far too many pairs and each is thin. It is linked from the
+shortlist and from a GET form on each course page that works without JavaScript.
 
 ---
 

@@ -65,10 +65,15 @@ function groupHref(locale: Locale, key: GroupKey): string {
   return `${localeHref(locale, "/officer/inventory/course-reviews/group")}?g=${encodeURIComponent(groupId(key))}`;
 }
 
-/** Course pages cache published reviews, so a publish or unpublish refreshes both languages of that page straight away. */
+/**
+ * Course pages and the catalogue cache published reviews (the catalogue for its
+ * "reviewed" badge and filter), so a publish or unpublish refreshes both
+ * languages of the course page and of the catalogue straight away.
+ */
 function revalidateCoursePages(courseCode: string): void {
   for (const locale of locales) {
     revalidatePath(localeHref(locale, `/student-life/course-reviews/${courseCode}`));
+    revalidatePath(localeHref(locale, "/student-life/course-reviews"));
   }
 }
 

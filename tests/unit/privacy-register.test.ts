@@ -120,6 +120,15 @@ describe("privacy register", () => {
     expect(entry?.purpose.th.trim().length).toBeGreaterThan(0);
   });
 
+  it("says the study plan key also remembers dismissed review reminders, and that this stays on the device", () => {
+    const entry = browserStorage.find((k) => k.key === "birsa-study-plan");
+    expect(entry?.purpose.en).toMatch(/dismiss the reminder/i);
+    expect(entry?.purpose.en).toMatch(/course code is kept here too/i);
+    expect(entry?.purpose.en).toMatch(/nothing about it is sent to BIRSA/i);
+    expect(entry?.purpose.th).toContain("ปิดข้อความเตือน");
+    expect(entry?.purpose.th).toContain("ไม่มีข้อมูลใดเกี่ยวกับข้อความนี้ถูกส่งไปยัง BIRSA");
+  });
+
   it("resolves every processor an activity names", () => {
     // s.23(4) requires the notice to name the categories of recipient. A
     // dangling id would render as a blank recipient rather than fail loudly.

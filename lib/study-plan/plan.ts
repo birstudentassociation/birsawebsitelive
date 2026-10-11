@@ -162,8 +162,29 @@ const scenarioId = z.string().regex(/^[a-z0-9]{1,12}$/);
 
 export type PlanScenario = { id: string; name: string; plan: StudyPlan };
 
-/** The value kept under `birsa-study-plan` from version 2 on. */
-export type PlanEnvelope = { v: 2; active: string; plans: PlanScenario[] };
+/**
+ * The most course codes whose review prompt can be remembered as dismissed.
+ * Far more than a degree has courses, so it is only a bound on a tampered
+ * value; `dismissReviewPrompt` drops the oldest past it.
+ */
+export const MAX_DISMISSED_REVIEW_PROMPTS = 200;
+
+/**
+ * The value kept under `birsa-study-plan` from version 2 on.
+ *
+ * `dismissedReviewPrompts` holds the course codes whose "help next year's
+ * students" prompt the student has dismissed (see
+ * `lib/study-plan/reviewPrompt.ts`). It was added after version 2 first
+ * shipped, without a version bump: the schema defaults it to an empty list, so
+ * every envelope written before it existed still parses, and one written with
+ * it is read by an older build as an envelope with an extra field it ignores.
+ */
+export type PlanEnvelope = {
+  v: 2;
+  active: string;
+  plans: PlanScenario[];
+  dismissedReviewPrompts: string[];
+};
 
 const envelopeSchema = z
   .object({
@@ -179,6 +200,7 @@ const envelopeSchema = z
       )
       .min(1)
       .max(MAX_SCENARIOS),
+    dismissedReviewPrompts: z.array(courseCode).max(MAX_DISMISSED_REVIEW_PROMPTS).default([]),
   })
   .refine((envelope) => new Set(envelope.plans.map((p) => p.id)).size === envelope.plans.length)
   .refine((envelope) => envelope.plans.some((p) => p.id === envelope.active));
@@ -190,7 +212,7 @@ export function activePlan(envelope: PlanEnvelope): StudyPlan {
 
 /** A one-plan envelope, which is what a version 1 value becomes. */
 export function envelopeOf(plan: StudyPlan, name = DEFAULT_SCENARIO_NAME): PlanEnvelope {
-  return { v: 2, active: "s1", plans: [{ id: "s1", name, plan }] };
+  return { v: 2, active: "s1", plans: [{ id: "s1", name, plan }], dismissedReviewPrompts: [] };
 }
 
 export function serialiseEnvelope(envelope: PlanEnvelope): string {

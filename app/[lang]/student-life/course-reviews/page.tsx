@@ -16,7 +16,18 @@ import { courses } from "@/content/course-review/courses";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import { CURRENT_VERSION } from "@/lib/courses/graph";
 import { minorMembers } from "@/lib/course-review/facts";
+import { listPublishedReviewCodes } from "@/lib/course-review/published";
 import { studentLifeLabel } from "@/content/student-life/topics";
+
+/**
+ * Whether a course has a published review comes from the database, so the page
+ * is regenerated at most an hour after the last request, exactly as the course
+ * pages are. Publishing and unpublishing from the officer console revalidate it
+ * straight away; this is the backstop for anything that changes the data some
+ * other way. With no database configured the codes are empty and the page is
+ * the one a static build has always produced.
+ */
+export const revalidate = 3600;
 
 // Literal route: sits as a sibling of `[audience]/page.tsx` and takes
 // precedence over the dynamic `[audience]` segment for exactly this URL, so
@@ -51,6 +62,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
   const locale: Locale = lang;
   const dict = getDictionary(locale);
   const t = dict.courseReview;
+  const publishedReviewCodes = await listPublishedReviewCodes();
 
   const browserDict: CourseReviewDict = {
     browseHeading: t.browseHeading,
@@ -109,7 +121,12 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
       <div className="wrap flex flex-col gap-4 py-6 sm:gap-6 sm:py-10">
         <Suspense
           fallback={
-            <CourseReviewBrowserFallback courses={courses} locale={locale} dict={browserDict} />
+            <CourseReviewBrowserFallback
+              courses={courses}
+              locale={locale}
+              dict={browserDict}
+              publishedReviewCodes={publishedReviewCodes}
+            />
           }
         >
           <CourseReviewBrowser
@@ -119,6 +136,7 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             minorOptions={minorOptions}
             minorMembers={minorMembers()}
             planCopy={buildPlanLinkCopy(locale).browser}
+            publishedReviewCodes={publishedReviewCodes}
           />
         </Suspense>
         <PrerequisiteMap

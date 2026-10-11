@@ -12,6 +12,8 @@ import { deriveContactSeed } from "./seed";
 import { throwIfEmailFailed } from "@/lib/email/send";
 import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
+import { listPublishedReviewsByCourse } from "@/lib/course-review/published";
+import { findingSourcesFor } from "@/lib/course-review/reviewSources";
 import { planSummaryText } from "@/lib/study-plan/summaryText";
 
 const COOKIE = "birsa_contact_draft";
@@ -118,7 +120,14 @@ export async function startPlanQuestion(locale: Locale, formData: FormData): Pro
   await mergeDraft<ContactDraft>(COOKIE, {
     category: "academic",
     subject: copy.ask.subject,
-    planSummary: planSummaryText(plan, locale, copy.summary),
+    // The findings in the summary count the reviews a course page shows, the published ones included.
+    planSummary: planSummaryText(
+      plan,
+      locale,
+      copy.summary,
+      undefined,
+      findingSourcesFor(await listPublishedReviewsByCourse())
+    ),
   });
   redirect(localeHref(locale, "/contact/message"));
 }

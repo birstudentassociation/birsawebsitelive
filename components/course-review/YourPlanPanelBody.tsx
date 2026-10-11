@@ -15,6 +15,7 @@ import Link from "next/link";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import type { TermRef } from "@/content/curriculum";
 import type { PlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import ReviewPrompt from "@/components/study-plan/ReviewPrompt";
 import { categoryLabel, formatTermRef } from "@/components/study-plan/studyPlanCopy";
 import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
 import { derivePlanPanel, type PrerequisiteState } from "@/lib/course-review/planPanel";
@@ -30,6 +31,7 @@ export type YourPlanPanelBodyProps = {
   copy: PlanLinkCopy;
   planHref: string;
   courseLinkBase: string;
+  reviewLive?: boolean;
   plan: StudyPlan;
   /** The plan re-serialised from the validated plan, ready for a link. */
   serialisedPlan: string;
@@ -57,6 +59,7 @@ export default function YourPlanPanelBody({
   copy,
   planHref,
   courseLinkBase,
+  reviewLive = false,
   plan,
   serialisedPlan,
 }: YourPlanPanelBodyProps) {
@@ -182,6 +185,17 @@ export default function YourPlanPanelBody({
           ) : null}
         </dl>
       )}
+
+      {/* Only for a course in the term that has just ended, and only when the review form is live. */}
+      {view.versionCode !== null ? (
+        <ReviewPrompt
+          plan={plan}
+          onlyCode={view.versionCode}
+          live={reviewLive}
+          copy={copy.reviewPrompt}
+          courseLinkBase={courseLinkBase}
+        />
+      ) : null}
 
       {view.versionCode !== null ? (
         <div className="flex flex-col gap-1.5 text-sm">

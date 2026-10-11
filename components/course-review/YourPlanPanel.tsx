@@ -28,6 +28,8 @@ export type YourPlanPanelProps = {
   planHref: string;
   /** The localised course page path without the code, e.g. "/en/student-life/course-reviews". */
   courseLinkBase: string;
+  /** Whether the review form is live, which is what lets the panel ask for a review of a course just finished. */
+  reviewLive?: boolean;
 };
 
 export default function YourPlanPanel(props: YourPlanPanelProps) {

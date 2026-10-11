@@ -195,9 +195,11 @@ export type StudyPlanCopy = {
   };
   /**
    * The delete section at the bottom of the plan screen. Deliberately spells
-   * out that there is no server-side copy: a student who has used the
-   * equipment loan service, which does hold their data, should not have to
-   * guess whether this one is the same.
+   * out that there is no server-side copy of the plan: a student who has used
+   * the equipment loan service, which does hold their data, should not have to
+   * guess whether this one is the same. It also says what is true for a student
+   * who shared their electives anonymously, which is the one thing BIRSA holds:
+   * rows that cannot be linked back to them, deleted on the retention schedule.
    */
   delete: {
     heading: string;
@@ -309,7 +311,7 @@ const en: StudyPlanCopy = {
     startButton: "Start now",
     deletedTitle: "Your plan has been deleted",
     deletedBody:
-      "It has been cleared from this browser. BIRSA never held a copy of it, so there is nothing left anywhere to delete.",
+      "It has been cleared from this browser. BIRSA never held a copy of the plan itself. If you had shared your planned electives anonymously, those rows cannot be linked back to you and are deleted on the retention schedule.",
   },
   cohort: {
     title: "What are the first two digits of your student ID?",
@@ -457,7 +459,7 @@ const en: StudyPlanCopy = {
   },
   delete: {
     heading: "Delete your plan",
-    body: "This plan lives only in your browser. It was never sent to a BIRSA server, so there is nothing for us to delete on our side, unlike the equipment loan service, which does hold your data. Deleting it here clears the copy kept on this device, including any other scenarios you saved with it.",
+    body: "The plan itself lives only in your browser. It was never sent to a BIRSA server, unlike the equipment loan service, which does hold your data. Deleting it here clears the copy kept on this device, including any other scenarios you saved with it. If you chose to share your planned electives anonymously with Academic Affairs, that is the one thing BIRSA holds. It is a list of courses and a term with nothing in it that could be linked back to you, so we cannot find or delete it for you in particular. Those anonymous rows are deleted on the retention schedule BIRSA publishes in its privacy record.",
     buttonLabel: "Delete this plan",
   },
   print: {
@@ -503,7 +505,7 @@ const th: StudyPlanCopy = {
     startButton: "เริ่มต้น",
     deletedTitle: "ลบแผนการศึกษาของท่านเรียบร้อยแล้ว",
     deletedBody:
-      "ข้อมูลถูกลบออกจากเบราว์เซอร์นี้แล้ว เนื่องจาก BIRSA ไม่เคยเก็บสำเนาข้อมูลนี้ไว้ จึงไม่มีข้อมูลใดหลงเหลืออยู่ที่ต้องลบอีก",
+      "ข้อมูลถูกลบออกจากเบราว์เซอร์นี้แล้ว BIRSA ไม่เคยเก็บสำเนาของแผนการศึกษาเอง หากท่านเคยแบ่งปันวิชาเลือกที่วางแผนไว้แบบไม่ระบุตัวตน ข้อมูลเหล่านั้นไม่อาจเชื่อมโยงกลับมาถึงท่านได้ และจะถูกลบตามกำหนดระยะเวลาการเก็บรักษาข้อมูล",
   },
   cohort: {
     title: "เลขรหัสนักศึกษาสองหลักแรกของท่านคืออะไร",
@@ -651,7 +653,7 @@ const th: StudyPlanCopy = {
   },
   delete: {
     heading: "ลบแผนการศึกษาของท่าน",
-    body: "แผนการศึกษานี้จัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น มิได้มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ของ BIRSA แต่อย่างใด จึงไม่มีข้อมูลฝั่ง BIRSA ที่ต้องลบ ซึ่งแตกต่างจากบริการยืมอุปกรณ์ที่มีการเก็บข้อมูลของท่านไว้ การลบในหน้านี้เป็นการลบสำเนาที่จัดเก็บไว้บนอุปกรณ์นี้เท่านั้น รวมถึงแผนทางเลือกอื่นที่ท่านบันทึกไว้ด้วย",
+    body: "ตัวแผนการศึกษาจัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น มิได้มีการส่งไปยังเซิร์ฟเวอร์ของ BIRSA แต่อย่างใด ซึ่งแตกต่างจากบริการยืมอุปกรณ์ที่มีการเก็บข้อมูลของท่านไว้ การลบในหน้านี้เป็นการลบสำเนาที่จัดเก็บไว้บนอุปกรณ์นี้ รวมถึงแผนทางเลือกอื่นที่ท่านบันทึกไว้ด้วย หากท่านเลือกแบ่งปันวิชาเลือกที่วางแผนไว้ให้ฝ่ายวิชาการแบบไม่ระบุตัวตน สิ่งเดียวที่ BIRSA เก็บไว้คือรายชื่อวิชากับภาคการศึกษา ซึ่งไม่มีข้อมูลใดที่เชื่อมโยงกลับมาถึงท่านได้ เราจึงไม่อาจค้นหาหรือลบข้อมูลนี้เฉพาะของท่านได้ ข้อมูลที่ไม่ระบุตัวตนเหล่านี้จะถูกลบตามกำหนดระยะเวลาการเก็บรักษาข้อมูลที่ BIRSA เผยแพร่ไว้ในบันทึกการประมวลผลข้อมูลส่วนบุคคล",
     buttonLabel: "ลบแผนการศึกษานี้",
   },
   print: {

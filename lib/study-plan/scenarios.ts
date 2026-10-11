@@ -31,7 +31,7 @@ import {
   remainingRequirements,
   type CategoryShortfall,
 } from "@/lib/study-plan/derive";
-import { checkPlan } from "@/lib/study-plan/findings";
+import { checkPlan, type FindingSources } from "@/lib/study-plan/findings";
 import type { StudyPlan } from "@/lib/study-plan/plan";
 import { whatIf, type WhatIfResult } from "@/lib/study-plan/whatIf";
 
@@ -222,7 +222,11 @@ export type ScenarioComparison = {
 };
 
 /** The figures a comparison shows for one plan, each in the plan's own curriculum version. */
-export function summariseScenario(name: string, plan: StudyPlan): ScenarioSummary {
+export function summariseScenario(
+  name: string,
+  plan: StudyPlan,
+  sources?: FindingSources
+): ScenarioSummary {
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
   const shortfalls = remainingRequirements(
@@ -232,7 +236,7 @@ export function summariseScenario(name: string, plan: StudyPlan): ScenarioSummar
     totalFreeElectiveCredits
   );
   const findings = { problem: 0, warning: 0, note: 0 };
-  for (const finding of checkPlan(version, plan)) findings[finding.severity] += 1;
+  for (const finding of checkPlan(version, plan, sources)) findings[finding.severity] += 1;
   return {
     name,
     graduation: projectedGraduation(plan),
@@ -255,10 +259,11 @@ function sameTerm(a: TermRef | null, b: TermRef | null): boolean {
 
 export function compareScenarios(
   a: { name: string; plan: StudyPlan },
-  b: { name: string; plan: StudyPlan }
+  b: { name: string; plan: StudyPlan },
+  sources?: FindingSources
 ): ScenarioComparison {
-  const left = summariseScenario(a.name, a.plan);
-  const right = summariseScenario(b.name, b.plan);
+  const left = summariseScenario(a.name, a.plan, sources);
+  const right = summariseScenario(b.name, b.plan, sources);
   const ids = new Map<CategoryId, LocalizedText>();
   for (const category of [...left.categories, ...right.categories]) {
     if (!ids.has(category.id)) ids.set(category.id, category.name);

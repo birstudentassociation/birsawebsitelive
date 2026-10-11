@@ -2,8 +2,9 @@
  * Copy for the places where the study plan and the course catalogue point at
  * each other: resuming a saved plan, the confirmation after adding a course
  * by link, the "Your plan" panel on a course page, the one line of context
- * under a course in the plan screen's picker, and the catalogue's minor and
- * "with my plan" filters.
+ * under a course in the plan screen's picker, the catalogue's minor and
+ * "with my plan" filters, and the reminder to review a course that has just
+ * ended.
  *
  * Kept in its own module, typed explicitly like `studyPlanCopy.ts` so the Thai
  * must cover every English key, rather than added to the site dictionary,
@@ -97,6 +98,23 @@ export type PlanLinkCopy = {
     short: string;
     passedTag: string;
     plannedTag: string;
+  };
+  /**
+   * The reminder, on the plan screen and in a course page's "Your plan" panel,
+   * to review a course from the term that has just ended. Worked out on the
+   * device and dismissible per course.
+   */
+  reviewPrompt: {
+    /** Contains "{code}". */
+    template: string;
+    /** The link's text; the course code follows it as screen reader text. */
+    writeLink: string;
+    /** The dismiss button's text; the course code follows it as screen reader text. */
+    dismiss: string;
+    /** Contains "{code}". Announced after a dismissal. */
+    dismissedStatus: string;
+    /** Said once under the reminder. */
+    note: string;
   };
 };
 
@@ -192,6 +210,13 @@ const en: OwnCopy = {
     passedTag: "Passed",
     plannedTag: "In your plan",
   },
+  reviewPrompt: {
+    template: "You finished {code} last term. Two minutes to help next year's students?",
+    writeLink: "Write a review",
+    dismiss: "Not now",
+    dismissedStatus: "We will not ask about {code} again on this device.",
+    note: "Reviews are anonymous. This reminder is worked out on this device from your plan and the date, and nothing about it is sent to BIRSA.",
+  },
 };
 
 const th: OwnCopy = {
@@ -268,5 +293,13 @@ const th: OwnCopy = {
     short: "นับเป็นหน่วยกิตหมวดที่ยังขาดอยู่",
     passedTag: "ผ่านแล้ว",
     plannedTag: "อยู่ในแผน",
+  },
+  reviewPrompt: {
+    template:
+      "ภาคเรียนที่ผ่านมาท่านเรียนวิชา {code} จบแล้ว ขอเวลาสองนาทีเพื่อช่วยรุ่นน้องในปีหน้าได้หรือไม่",
+    writeLink: "เขียนรีวิว",
+    dismiss: "ยังไม่ต้อง",
+    dismissedStatus: "จะไม่ถามเรื่องวิชา {code} อีกในอุปกรณ์เครื่องนี้",
+    note: "รีวิวไม่ระบุตัวตน ข้อความเตือนนี้คำนวณในอุปกรณ์ของท่านจากแผนและวันที่ปัจจุบัน และไม่มีข้อมูลใดเกี่ยวกับข้อความนี้ถูกส่งไปยัง BIRSA",
   },
 };

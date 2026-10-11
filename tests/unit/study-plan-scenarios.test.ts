@@ -42,7 +42,12 @@ const plan: StudyPlan = {
 describe("the stored envelope", () => {
   it("migrates a bare version 1 plan into a one-scenario envelope", () => {
     const migrated = parseStoredPlans(serialisePlan(plan));
-    expect(migrated).toEqual({ v: 2, active: "s1", plans: [{ id: "s1", name: "Main", plan }] });
+    expect(migrated).toEqual({
+      v: 2,
+      active: "s1",
+      plans: [{ id: "s1", name: "Main", plan }],
+      dismissedReviewPrompts: [],
+    });
     expect(parseStoredPlans(serialisePlan(plan), "หลัก")?.plans[0]?.name).toBe("หลัก");
   });
 

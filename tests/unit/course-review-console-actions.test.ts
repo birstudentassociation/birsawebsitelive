@@ -259,8 +259,11 @@ describe("publishSummaryAction", () => {
       entityId: GROUP,
       detail: { reviewCount: 5, origin: "claude-draft" },
     });
+    // The course page, and the catalogue whose "reviewed" badge and filter read the same data.
     expect(mocks.revalidatePath.mock.calls.map((call) => call[0]).sort()).toEqual([
+      "/en/student-life/course-reviews",
       "/en/student-life/course-reviews/PI280",
+      "/th/student-life/course-reviews",
       "/th/student-life/course-reviews/PI280",
     ]);
     expect(target).toBe(
@@ -310,7 +313,7 @@ describe("unpublishSummaryAction", () => {
       action: "course_review.unpublish",
       entityId: GROUP,
     });
-    expect(mocks.revalidatePath).toHaveBeenCalledTimes(2);
+    expect(mocks.revalidatePath).toHaveBeenCalledTimes(4);
     expect(target).toBe(
       `/th/officer/inventory/course-reviews/group?g=${encodeURIComponent(GROUP)}&done=unpublished`
     );

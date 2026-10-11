@@ -13,7 +13,7 @@ export type CourseFilters = {
   year: number | "all";
   /** Keep only courses that are in this minor, required or elective (current curriculum). */
   minor: MinorId | "all";
-  /** Keep only courses that have at least one review. */
+  /** Keep only courses that have at least one review, in the repository or published from the database. */
   reviewed: boolean;
   /**
    * The three "with my plan" filters. They mean something only when a plan is
@@ -57,13 +57,21 @@ export type PlanMatcher = {
  * so the catalogue works, and its tests run, without a curriculum or a plan:
  * `minorMembers` maps each minor to the course codes in it (the course graph's
  * membership for the current curriculum, built by `minorMembers` in
- * `lib/course-review/facts.ts`), and `plan` exists only when the visitor has a
- * stored plan.
+ * `lib/course-review/facts.ts`), `plan` exists only when the visitor has a
+ * stored plan, and `publishedReviewCodes` lists the courses that have a review
+ * published from the database, which the catalogue page reads on the server
+ * (`listPublishedReviewCodes` in `lib/course-review/published.ts`).
  */
 export type FilterContext = {
   minorMembers?: Readonly<Partial<Record<MinorId, readonly string[]>>>;
   plan?: PlanMatcher;
+  publishedReviewCodes?: readonly string[];
 };
+
+/** Whether a course has any review: held in the repository (a sample one counts) or published from the database. */
+export function hasAnyReview(course: Course, publishedReviewCodes: ReadonlySet<string>): boolean {
+  return !!course.reviews?.length || publishedReviewCodes.has(course.code);
+}
 
 const TRACKS: readonly CourseTrack[] = [
   "foundational",
@@ -113,7 +121,8 @@ function searchText(course: Course): string {
  * somewhere in the course's code, titles, descriptions or instructor names
  * (course and review instructors, both languages). `reviewed` keeps courses
  * with any review at all, sample reviews included, so the filter can be
- * demonstrated before real reviews exist. `minor` keeps the courses the
+ * demonstrated before real reviews exist, and courses with a review published
+ * from the database, which are real. `minor` keeps the courses the
  * context lists for that minor, and keeps none if the context lists none, so a
  * missing membership table can never read as "every course". The "with my
  * plan" filters apply only when the context carries a plan matcher. `page` is
@@ -128,12 +137,13 @@ export function filterCourses(
   const tokens = normalised === "" ? [] : normalised.split(" ");
   const minorCodes = filters.minor === "all" ? null : context.minorMembers?.[filters.minor];
   const plan = context.plan;
+  const published = new Set(context.publishedReviewCodes ?? []);
   return courses.filter((course) => {
     if (filters.track !== "all" && course.track !== filters.track) return false;
     if (filters.category !== "all" && course.category !== filters.category) return false;
     if (filters.year !== "all" && !course.yearLevel.includes(filters.year)) return false;
     if (filters.minor !== "all" && !minorCodes?.includes(course.code)) return false;
-    if (filters.reviewed && !course.reviews?.length) return false;
+    if (filters.reviewed && !hasAnyReview(course, published)) return false;
     if (plan) {
       if (filters.notPassed && !plan.notPassed(course.code)) return false;
       if (filters.ready && !plan.ready(course.code)) return false;

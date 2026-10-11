@@ -9,11 +9,14 @@
  *
  * "Student reviews" is shown only for a review that is not a sample: the one
  * review in the catalogue today is demonstration content, and advertising it
- * in a picker would claim feedback that does not exist.
+ * in a picker would claim feedback that does not exist. Reviews published from
+ * the database count the same as the repository's, and are passed in as
+ * `extraReviews`; a list that describes reviews in more detail itself (the
+ * elective shortlist) leaves the flag out with `reviews: false`.
  */
 import type { Locale } from "@/lib/i18n";
 import { courseNode } from "@/lib/courses/graph";
-import type { AssessmentFacts, Course } from "@/content/course-review/types";
+import type { AssessmentFacts, Course, StudentReview } from "@/content/course-review/types";
 
 export type ContextCopy = {
   /** Contains "{n}". */
@@ -43,20 +46,44 @@ export function assessmentShape(
   return total === 100 && !anyExam ? copy.courseworkOnly : null;
 }
 
+/** What else a context line can be told about a course. */
+export type ContextOptions = {
+  /** Reviews published from the database, counted beside the repository's. */
+  extraReviews?: readonly StudentReview[];
+  /** False to leave the "Student reviews" flag out. Defaults to true. */
+  reviews?: boolean;
+};
+
 /** The picker's context line for a course code, or null when the catalogue has nothing to say. */
-export function courseContextLine(code: string, locale: Locale, copy: ContextCopy): string | null {
+export function courseContextLine(
+  code: string,
+  locale: Locale,
+  copy: ContextCopy,
+  options: ContextOptions = {}
+): string | null {
   const course = courseNode(code)?.catalogue;
-  return course ? courseContext(course, locale, copy) : null;
+  if (course) return courseContext(course, locale, copy, options);
+  // A code outside the catalogue has no facts to state, but a published review for it is still worth a flag.
+  const published = options.extraReviews?.some((review) => !review.sample);
+  return options.reviews !== false && published ? copy.studentReviews : null;
 }
 
 /** The context line for a catalogue entry, or null when it holds nothing worth a line. */
-export function courseContext(course: Course, locale: Locale, copy: ContextCopy): string | null {
+export function courseContext(
+  course: Course,
+  locale: Locale,
+  copy: ContextCopy,
+  options: ContextOptions = {}
+): string | null {
   const parts: string[] = [];
 
   const shape = assessmentShape(course.assessmentFacts, copy);
   if (shape) parts.push(shape);
 
-  if (course.reviews?.some((review) => !review.sample)) parts.push(copy.studentReviews);
+  const reviews = [...(course.reviews ?? []), ...(options.extraReviews ?? [])];
+  if (options.reviews !== false && reviews.some((review) => !review.sample)) {
+    parts.push(copy.studentReviews);
+  }
 
   const names = (course.instructors ?? []).map((instructor) => instructor.name[locale]);
   if (names.length > 0) {

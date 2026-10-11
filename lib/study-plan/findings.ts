@@ -9,13 +9,13 @@
  * comes near the first is the `offering` note, which reports where a course
  * has been recorded as taught and never says where it will run.
  *
- * The term-level notes (`examLoad`, `offering`) and the `deferral` warning rest
- * on the course catalogue, so `checkPlan` takes the lookups as an optional
- * third argument. The defaults read the catalogue; a test, or a caller that
- * also holds published reviews, supplies its own.
+ * The term-level notes (`examLoad`, `workloadLoad`, `offering`) and the
+ * `deferral` warning rest on the course catalogue, so `checkPlan` takes the
+ * lookups as an optional third argument. The defaults read the catalogue; a
+ * test, or a caller that also holds published reviews, supplies its own.
  */
 import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
-import type { AssessmentFacts } from "@/content/course-review/types";
+import type { AssessmentFacts, StudentReview } from "@/content/course-review/types";
 import {
   HISTORY_COPY,
   describeTerms,
@@ -34,6 +34,15 @@ import {
 } from "./assessmentProfile";
 import type { StudyPlan } from "./plan";
 import {
+  WORKLOAD_COPY,
+  WORKLOAD_TOP_BAND_TERM_COUNT,
+  catalogueReviews,
+  describeReportedTerms,
+  reportCount,
+  stacksWorkload,
+  termWorkloadProfile,
+} from "./workloadProfile";
+import {
   isInternshipSummer,
   planTotals,
   projectedGraduation,
@@ -46,6 +55,8 @@ import { deferralsOnCriticalPath } from "./whatIf";
 export type FindingSources = {
   assessmentFacts?: (code: string) => AssessmentFacts | undefined;
   offeringHistory?: (code: string) => OfferingHistory | null;
+  /** Every review held for a course, repository and published together. Sample reviews are ignored. */
+  reviews?: (code: string) => readonly StudentReview[];
 };
 
 export type Finding = {
@@ -75,6 +86,7 @@ export function checkPlan(
 ): Finding[] {
   const assessmentFacts = sources.assessmentFacts ?? catalogueAssessmentFacts;
   const historyOf = sources.offeringHistory ?? ((code: string) => offeringHistory(code));
+  const reviewsOf = sources.reviews ?? catalogueReviews;
   const findings: Finding[] = [];
   const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
   const rules = version.rules.value;
@@ -195,6 +207,42 @@ export function checkPlan(
       source: {
         document: "Course catalogue, assessment facts",
         provision: `Recorded for ${recordedFor("en")}; at least ${EXAM_HEAVY_TERM_COUNT} courses with a final exam of ${EXAM_HEAVY_WEIGHT}% or more`,
+      },
+    });
+  }
+
+  // Reported workload. A term with several courses that most students who
+  // gave an estimate put at over 6 hours a week is worth knowing about before
+  // registering. It rests only on courses with enough estimates, so the ones
+  // with none are named, and the source cites the term and the number of
+  // student reports it stands on. Bands are described, never averaged.
+  for (const term of terms) {
+    const profile = termWorkloadProfile(term.codes, reviewsOf);
+    if (!stacksWorkload(profile)) continue;
+    const label = termLabel(term.term);
+    const heavy = profile.topBand.map((entry) => entry.code).join(", ");
+    const reports = reportCount(profile.topBand);
+    const reportedFor = (locale: "en" | "th") =>
+      describeReportedTerms(profile.topBand, locale, WORKLOAD_COPY[locale]);
+    const missing = profile.unreported.join(", ");
+    findings.push({
+      id: `workloadLoad:${term.term.year}-${term.term.kind}`,
+      severity: "note",
+      message: {
+        en: `${label.en} has ${profile.topBand.length} courses that most students who gave an estimate report as ${WORKLOAD_COPY.en.topBandLabel} (${heavy}), from ${reports} student reports for ${reportedFor("en")}.${
+          profile.unreported.length > 0
+            ? ` No workload estimates are on record for ${missing}, so there may be more.`
+            : ""
+        } This is only a note. It describes what students reported for those terms, not what this term will be like.`,
+        th: `${label.th}มีรายวิชาที่นักศึกษาส่วนใหญ่ซึ่งให้ข้อมูลระบุว่าใช้เวลา${WORKLOAD_COPY.th.topBandLabel}ถึง ${profile.topBand.length} วิชา (${heavy}) จากรายงานของนักศึกษา ${reports} คน ของ${reportedFor("th")}${
+          profile.unreported.length > 0
+            ? ` ส่วนวิชา ${missing} ยังไม่มีข้อมูลปริมาณงาน จึงอาจมีมากกว่านี้`
+            : ""
+        } ข้อความนี้เป็นเพียงข้อสังเกต และเป็นสิ่งที่นักศึกษารายงานไว้ในภาคเหล่านั้น ไม่ใช่การยืนยันว่าภาคนี้จะเป็นเช่นนั้น`,
+      },
+      source: {
+        document: "Student course reviews, workload estimates",
+        provision: `Reported for ${reportedFor("en")}; at least ${WORKLOAD_TOP_BAND_TERM_COUNT} courses where most estimates are ${WORKLOAD_COPY.en.topBandLabel}; sample reviews excluded`,
       },
     });
   }

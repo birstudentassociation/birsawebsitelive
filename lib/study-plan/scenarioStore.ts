@@ -1,6 +1,7 @@
 /**
  * Managing the named plans in the stored envelope: add, rename, delete, switch
- * and replace the active plan.
+ * and replace the active plan, and remembering which review prompts the student
+ * has dismissed.
  *
  * Pure functions that return a new envelope, or null for a change they refuse,
  * so a caller can say why or simply do nothing; none of them touches storage
@@ -11,6 +12,7 @@
  * parser are in `plan.ts`.
  */
 import {
+  MAX_DISMISSED_REVIEW_PROMPTS,
   MAX_SCENARIOS,
   MAX_SCENARIO_NAME_LENGTH,
   type PlanEnvelope,
@@ -60,7 +62,7 @@ export function addScenario(
   const clean = cleanScenarioName(name);
   if (!clean || envelope.plans.length >= MAX_SCENARIOS) return null;
   const id = nextScenarioId(envelope);
-  return { v: 2, active: id, plans: [...envelope.plans, { id, name: clean, plan }] };
+  return { ...envelope, active: id, plans: [...envelope.plans, { id, name: clean, plan }] };
 }
 
 export function renameScenario(
@@ -80,7 +82,7 @@ export function renameScenario(
 export function deleteScenario(envelope: PlanEnvelope, id: string): PlanEnvelope | null {
   if (envelope.plans.length <= 1 || !envelope.plans.some((p) => p.id === id)) return null;
   const plans = envelope.plans.filter((p) => p.id !== id);
-  return { v: 2, active: envelope.active === id ? plans[0]!.id : envelope.active, plans };
+  return { ...envelope, active: envelope.active === id ? plans[0]!.id : envelope.active, plans };
 }
 
 export function switchScenario(envelope: PlanEnvelope, id: string): PlanEnvelope | null {
@@ -92,5 +94,24 @@ export function setActivePlan(envelope: PlanEnvelope, plan: StudyPlan): PlanEnve
   return {
     ...envelope,
     plans: envelope.plans.map((p) => (p.id === envelope.active ? { ...p, plan } : p)),
+  };
+}
+
+/** True when the student has dismissed the review prompt for this course. */
+export function isReviewPromptDismissed(envelope: PlanEnvelope, code: string): boolean {
+  return envelope.dismissedReviewPrompts.includes(code);
+}
+
+/**
+ * Remembers that the student dismissed the review prompt for a course. Saying
+ * it twice changes nothing. Past `MAX_DISMISSED_REVIEW_PROMPTS` the oldest is
+ * forgotten, which at worst shows one old prompt again.
+ */
+export function dismissReviewPrompt(envelope: PlanEnvelope, code: string): PlanEnvelope {
+  if (isReviewPromptDismissed(envelope, code)) return envelope;
+  const dismissed = [...envelope.dismissedReviewPrompts, code];
+  return {
+    ...envelope,
+    dismissedReviewPrompts: dismissed.slice(-MAX_DISMISSED_REVIEW_PROMPTS),
   };
 }

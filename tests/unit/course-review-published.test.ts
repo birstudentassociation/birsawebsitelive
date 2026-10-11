@@ -28,7 +28,9 @@ vi.mock("@/lib/inventory/db", () => ({
 }));
 
 import {
+  listPublishedReviewCodes,
   listPublishedReviews,
+  listPublishedReviewsByCourse,
   mergeReviews,
   publishGroup,
   rowToReview,
@@ -245,6 +247,52 @@ describe("listPublishedReviews", () => {
   it("returns an empty list when the query fails, so the page still renders", async () => {
     db.fail = true;
     await expect(listPublishedReviews("PI280")).resolves.toEqual([]);
+  });
+});
+
+describe("listPublishedReviewsByCourse", () => {
+  it("returns an empty map without touching the database when it is not configured", async () => {
+    vi.stubEnv("POSTGRES_URL", "");
+    const byCourse = await listPublishedReviewsByCourse();
+    expect(byCourse.size).toBe(0);
+    expect(db.calls).toEqual([]);
+  });
+
+  it("groups every published review under its course code, in one query", async () => {
+    db.publishedRows = [
+      publishedRow(),
+      publishedRow({ term_year: 2568, band_counts: { over_6: 4 } }),
+      publishedRow({ course_code: "PI390" }),
+    ];
+    const byCourse = await listPublishedReviewsByCourse();
+    expect([...byCourse.keys()].sort()).toEqual(["PI280", "PI390"]);
+    expect(byCourse.get("PI280")).toHaveLength(2);
+    expect(byCourse.get("PI280")![1]!.workloadBands).toEqual({ over_6: 4 });
+    expect(db.calls).toHaveLength(1);
+  });
+
+  it("returns an empty map when the query fails, so the screen falls back to the repository", async () => {
+    db.fail = true;
+    expect((await listPublishedReviewsByCourse()).size).toBe(0);
+  });
+});
+
+describe("listPublishedReviewCodes", () => {
+  it("returns an empty list without touching the database when it is not configured", async () => {
+    vi.stubEnv("POSTGRES_URL", "");
+    await expect(listPublishedReviewCodes()).resolves.toEqual([]);
+    expect(db.calls).toEqual([]);
+  });
+
+  it("returns the codes of courses with a published review", async () => {
+    db.publishedRows = [{ course_code: "PI280" }, { course_code: "PI390" }];
+    await expect(listPublishedReviewCodes()).resolves.toEqual(["PI280", "PI390"]);
+    expect((db.calls[0] as Call).text).toContain("distinct course_code");
+  });
+
+  it("returns an empty list when the query fails, so the catalogue still renders", async () => {
+    db.fail = true;
+    await expect(listPublishedReviewCodes()).resolves.toEqual([]);
   });
 });
 

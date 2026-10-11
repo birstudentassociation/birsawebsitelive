@@ -51,22 +51,26 @@ function termOrder(term: AcademicTerm): number {
 
 /**
  * The terms a course is recorded as taught in, or null when nothing is
- * recorded (including every code the review catalogue does not hold). Sample
- * reviews are demonstration content and never count.
+ * recorded. A code outside the review catalogue has no reviews or assessment
+ * facts of its own, so it has a history only when `extraReviews` (the
+ * summaries published from the database, which any course page can collect)
+ * name a term; a code no curriculum lists has none. Sample reviews are
+ * demonstration content and never count.
  */
 export function offeringHistory(
   code: string,
   extraReviews: readonly StudentReview[] = []
 ): OfferingHistory | null {
-  const course = courseNode(code)?.catalogue;
-  if (!course) return null;
+  const node = courseNode(code);
+  if (!node) return null;
+  const course = node.catalogue;
 
   const found = new Map<number, AcademicTerm>();
   const add = (term: AcademicTerm) => found.set(termOrder(term), term);
-  for (const review of [...(course.reviews ?? []), ...extraReviews]) {
+  for (const review of [...(course?.reviews ?? []), ...extraReviews]) {
     if (!review.sample) add(review.term);
   }
-  if (course.assessmentFacts) add(course.assessmentFacts.term);
+  if (course?.assessmentFacts) add(course.assessmentFacts.term);
   if (found.size === 0) return null;
 
   const terms = [...found.entries()].sort((a, b) => a[0] - b[0]).map(([, term]) => term);

@@ -11,6 +11,8 @@ import Button from "@/components/Button";
 import Notice from "@/components/Notice";
 import Tag from "@/components/Tag";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
+import CompareForm from "@/components/course-review/CompareForm";
+import CourseLinks from "@/components/course-review/CourseLinks";
 import YourPlanPanel from "@/components/course-review/YourPlanPanel";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
@@ -28,7 +30,6 @@ import type {
   AssessmentFacts as AssessmentFactsData,
 } from "@/content/course-review/types";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
-import type { CategoryId, CurriculumVersionId, TermRef } from "@/content/curriculum/types";
 import {
   VERSION_ORDER,
   allCourseCodes,
@@ -41,6 +42,7 @@ import {
 } from "@/lib/courses/graph";
 import { studentLifeLabel } from "@/content/student-life/topics";
 import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
+import { categoryName, termsText } from "@/lib/course-review/display";
 import { reviewFreshness } from "@/lib/course-review/freshness";
 import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
 import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
@@ -58,29 +60,6 @@ type Dict = ReturnType<typeof getDictionary>["courseReview"];
  * backstop for anything that changes the data some other way.
  */
 export const revalidate = 3600;
-
-/** "Year 2, Semester 1; Year 2, Summer", or the fallback when the plan never names the course. */
-function termsText(terms: TermRef[], t: Dict): string {
-  return terms.length > 0
-    ? terms.map((term) => `${t.yearLabel} ${term.year}, ${t[term.kind]}`).join("; ")
-    : t.notInPlan;
-}
-
-/**
- * The bucket a course counts towards in one version, in that version's own
- * words. Minor courses carry the pooled `"minor"` category, which has no
- * credit category of its own, so it gets a plain label here.
- */
-function categoryName(
-  versionId: CurriculumVersionId,
-  category: CategoryId,
-  locale: Locale,
-  t: Dict
-): string {
-  if (category === "minor") return t.minorCourseCategory;
-  const found = CURRICULUM_VERSIONS[versionId].categories.find((c) => c.id === category);
-  return found ? found.name[locale] : category;
-}
 
 function termLabel(template: string, term: AcademicTerm, t: Dict, locale: Locale): string {
   const semester =
@@ -237,6 +216,7 @@ export default async function CourseDetailPage({
           copy={buildPlanLinkCopy(locale)}
           planHref={localeHref(locale, "/services/study-plan/plan")}
           courseLinkBase={localeHref(locale, "/student-life/course-reviews")}
+          reviewLive={collecting}
         />
 
         <section aria-labelledby="facts-heading" className="flex flex-col gap-2 sm:gap-3">
@@ -387,6 +367,8 @@ export default async function CourseDetailPage({
             ) : null}
           </dl>
         </section>
+
+        <CompareForm code={node.code} locale={locale} />
 
         <section className="flex flex-col gap-2 sm:gap-3">
           <h2 className="font-display text-lg sm:text-xl">{t.descriptionHeading}</h2>
@@ -623,23 +605,6 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
       <dt className="font-semibold text-ink">{label}</dt>
       <dd className="min-w-0 text-muted">{children}</dd>
     </div>
-  );
-}
-
-function CourseLinks({ codes, locale }: { codes: string[]; locale: Locale }) {
-  return (
-    <ul className="flex flex-wrap gap-1.5">
-      {codes.map((code) => (
-        <li key={code}>
-          <Link
-            href={localeHref(locale, `/student-life/course-reviews/${code}`)}
-            className="inline-block rounded-full bg-brand-tint px-2.5 py-0.5 text-xs font-semibold text-brand-deep hover:text-brand-dark"
-          >
-            {code}
-          </Link>
-        </li>
-      ))}
-    </ul>
   );
 }
 

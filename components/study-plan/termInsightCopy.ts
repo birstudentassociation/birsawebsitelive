@@ -1,30 +1,95 @@
 /**
- * Copy for the term-level tools: the assessment line under a term, the
- * critical path mark and "If I move this later", scenarios (the switcher, the
- * minor switch, a term away and the comparison), the prerequisite map on the
- * catalogue page, and offering history.
+ * Copy for the term-level tools: the assessment and workload lines under a
+ * term, the critical path mark and "If I move this later", scenarios (the
+ * switcher, the minor switch, a term away and the comparison), the prerequisite
+ * map on the catalogue page, offering history, the elective shortlist and the
+ * compare-two-courses page.
  *
  * Kept in its own module and typed explicitly like `studyPlanCopy.ts` and
  * `planLinkCopy.ts`, so the Thai must cover every English key, rather than
  * added to the site dictionary. The sentence templates for the assessment line,
- * the what-if sentences and the history line sit with the code that fills them
- * (`PROFILE_COPY`, `HISTORY_COPY`) because findings use them too; they are
- * gathered here so a screen has one object to take its words from.
+ * the workload line, the what-if sentences and the history line sit with the
+ * code that fills them (`PROFILE_COPY`, `WORKLOAD_COPY`, `HISTORY_COPY`)
+ * because findings use them too; they are gathered here so a screen has one
+ * object to take its words from. The wording of the workload bands themselves
+ * stays in the site dictionary, where the course page has it, and the pages
+ * that need it pass it in.
  *
  * Everything states a fact about a plan or a course. Nothing scores or ranks.
  * Thai is written as Thai, not translated word for word.
  */
 import type { Locale } from "@/lib/i18n";
 import { HISTORY_COPY, type HistoryCopy } from "@/lib/courses/offeringHistory";
+import type { ReviewLineCopy } from "@/lib/course-review/reviewSummary";
 import { PROFILE_COPY, type ProfileCopy } from "@/lib/study-plan/assessmentProfile";
 import type { WhatIfCopy } from "@/lib/study-plan/whatIfText";
+import { WORKLOAD_COPY, type WorkloadCopy } from "@/lib/study-plan/workloadProfile";
 
 export type TermInsightCopy = {
   profile: ProfileCopy;
+  workload: WorkloadCopy;
   history: HistoryCopy;
   /** The label of the offering history fact on a course page. */
   historyLabel: string;
   historyNoticeTitle: string;
+  /** The review line a candidate carries in a list. The band wording is passed in from the site dictionary. */
+  reviewLine: Omit<ReviewLineCopy, "band">;
+  shortlist: {
+    heading: string;
+    /** Said once under the heading: how the order is decided, and that reviews play no part in it. */
+    orderNote: string;
+    /** Contains "{n}". */
+    unlocksTemplate: string;
+    unlocksOne: string;
+    recommendedHere: string;
+    /** Contains "{code}"; the course it is compared with. */
+    compareLink: string;
+    /** Contains "{codes}". Said of courses that count towards the choice but need a prerequisite not met by this term. */
+    leftOutPrerequisites: string;
+    /** Contains "{codes}" and "{kind}" (semester 1, semester 2 or summer). */
+    leftOutHistory: string;
+    leftOutNote: string;
+    /** Said when every course that counts towards the choice was left out. */
+    noneEligible: string;
+  };
+  courseCompare: {
+    title: string;
+    lede: string;
+    /** The heading of the form that picks two courses. */
+    pickHeading: string;
+    firstLabel: string;
+    secondLabel: string;
+    pickButton: string;
+    /** The small form on a course page. Contains "{code}". */
+    pageFormLabel: string;
+    pageFormButton: string;
+    missing: string;
+    /** Contains "{codes}". */
+    unknown: string;
+    /** Contains "{code}". */
+    same: string;
+    notRanked: string;
+    /** Said in a cell with nothing to list, such as a course nothing depends on. */
+    none: string;
+    /** Said in the history row for a course with no recorded history. */
+    noHistory: string;
+    /** The link from a review cell to the course's own page. */
+    coursePage: string;
+    courseRow: string;
+    assessmentRow: string;
+    reviewsRow: string;
+    /** Contains "{n}". */
+    finalExamTemplate: string;
+    courseworkOnly: string;
+    otherExam: string;
+    assessmentUnknown: string;
+    /** Contains "{term}". */
+    assessmentRecordedFor: string;
+    /** The heading of the part that reads the plan saved on this device. */
+    forYourPlan: string;
+    /** Said once, under the plan rows. */
+    forYourPlanNote: string;
+  };
   critical: {
     label: string;
     hint: string;
@@ -149,14 +214,70 @@ export type TermInsightCopy = {
 
 export function buildTermInsightCopy(locale: Locale): TermInsightCopy {
   const base = locale === "th" ? th : en;
-  return { ...base, profile: PROFILE_COPY[locale], history: HISTORY_COPY[locale] };
+  return {
+    ...base,
+    profile: PROFILE_COPY[locale],
+    workload: WORKLOAD_COPY[locale],
+    history: HISTORY_COPY[locale],
+  };
 }
 
-type OwnCopy = Omit<TermInsightCopy, "profile" | "history">;
+type OwnCopy = Omit<TermInsightCopy, "profile" | "workload" | "history">;
 
 const en: OwnCopy = {
   historyLabel: "Recorded history",
   historyNoticeTitle: "About this history",
+  reviewLine: {
+    none: "No student reviews yet.",
+    existsTemplate: "Student reviews on record, latest for {term}.",
+    noBands: "No workload estimates in hours yet.",
+    bandsTemplate: "Hours a week students reported for {term}. {sentences}",
+  },
+  shortlist: {
+    heading: "Courses you can take for this choice",
+    orderNote:
+      "These count towards this choice for your curriculum and minor, have their prerequisites met by this term, and, where BIRSA has a recorded history for a course, have been recorded in this kind of term. They are ordered by how they fit your plan, with courses the recommended plan puts in this term first, then courses that open up more later courses, then by course code. Reviews play no part in the order.",
+    unlocksTemplate: "Opens {n} later courses",
+    unlocksOne: "Opens one later course",
+    recommendedHere: "In the recommended plan for this term",
+    compareLink: "Compare with {code}",
+    leftOutPrerequisites:
+      "Left out because their prerequisites are not met by this term ({codes}).",
+    leftOutHistory:
+      "Left out because they have never been recorded in a {kind} term ({codes}). That is history, not a promise.",
+    leftOutNote: "They are still in the full course list below, because nothing here blocks you.",
+    noneEligible:
+      "No course that counts towards this choice has its prerequisites met by this term and a recorded history in it.",
+  },
+  courseCompare: {
+    title: "Compare two courses",
+    lede: "Facts, assessment, offering history, what each course unlocks and what students have reported, side by side.",
+    pickHeading: "Choose two courses",
+    firstLabel: "First course",
+    secondLabel: "Second course",
+    pickButton: "Compare",
+    pageFormLabel: "Compare {code} with another course",
+    pageFormButton: "Compare",
+    missing: "Choose two courses to compare.",
+    unknown: "We could not find a course for {codes}. Course codes look like PI380.",
+    same: "{code} is the same course twice. Choose two different courses.",
+    notRanked:
+      "The two courses are set side by side and are not ranked. Nothing on this page says one is better than the other.",
+    none: "None",
+    noHistory: "Nothing recorded yet.",
+    coursePage: "Course page",
+    courseRow: "Course",
+    assessmentRow: "How it is assessed",
+    reviewsRow: "Student reviews",
+    finalExamTemplate: "Final exam worth {n}% of the grade.",
+    courseworkOnly: "Coursework only.",
+    otherExam: "An exam, but not a final exam.",
+    assessmentUnknown: "No assessment facts are recorded yet.",
+    assessmentRecordedFor: "Recorded for {term}.",
+    forYourPlan: "For your plan",
+    forYourPlanNote:
+      "This uses the study plan saved on this device. It is never sent to BIRSA, and it is shown only when a plan is saved.",
+  },
   critical: {
     label: "On the critical path",
     hint: "Other courses in your plan depend on this one, and that chain runs to your last term. Moving it later moves graduation.",
@@ -284,6 +405,57 @@ const en: OwnCopy = {
 const th: OwnCopy = {
   historyLabel: "ประวัติที่เคยบันทึกไว้",
   historyNoticeTitle: "เกี่ยวกับข้อมูลประวัตินี้",
+  reviewLine: {
+    none: "ยังไม่มีรีวิวจากนักศึกษา",
+    existsTemplate: "มีรีวิวจากนักศึกษา ล่าสุดของ{term}",
+    noBands: "ยังไม่มีข้อมูลจำนวนชั่วโมงต่อสัปดาห์",
+    bandsTemplate: "จำนวนชั่วโมงต่อสัปดาห์ที่นักศึกษารายงานของ{term} {sentences}",
+  },
+  shortlist: {
+    heading: "วิชาที่ท่านเรียนได้สำหรับตัวเลือกนี้",
+    orderNote:
+      "วิชาเหล่านี้นับเข้าตัวเลือกนี้ตามหลักสูตรและวิชาโทของท่าน มีวิชาที่ต้องผ่านก่อนครบภายในภาคนี้ และหาก BIRSA มีประวัติที่เคยบันทึกไว้ ก็เคยมีบันทึกว่าเปิดในภาคประเภทนี้ เรียงตามความเหมาะกับแผนของท่าน โดยวิชาที่แผนแนะนำให้เรียนในภาคนี้อยู่ก่อน ตามด้วยวิชาที่เป็นพื้นฐานของวิชาอื่นในภายหลังมากกว่า แล้วเรียงตามรหัสวิชา รีวิวไม่มีผลต่อการเรียงลำดับ",
+    unlocksTemplate: "เป็นพื้นฐานของวิชาที่เรียนต่อ {n} วิชา",
+    unlocksOne: "เป็นพื้นฐานของวิชาที่เรียนต่อ 1 วิชา",
+    recommendedHere: "อยู่ในแผนที่แนะนำสำหรับภาคนี้",
+    compareLink: "เปรียบเทียบกับ {code}",
+    leftOutPrerequisites: "ไม่แสดงเพราะวิชาที่ต้องผ่านก่อนยังไม่ครบภายในภาคนี้ ({codes})",
+    leftOutHistory:
+      "ไม่แสดงเพราะไม่เคยมีบันทึกว่าเปิดใน{kind} ({codes}) ข้อมูลนี้เป็นเพียงประวัติ ไม่ใช่คำยืนยัน",
+    leftOutNote:
+      "วิชาเหล่านี้ยังอยู่ในรายการวิชาทั้งหมดด้านล่าง เพราะที่นี่ไม่มีสิ่งใดห้ามท่านเลือก",
+    noneEligible:
+      "ไม่มีวิชาใดที่นับเข้าตัวเลือกนี้และมีวิชาที่ต้องผ่านก่อนครบภายในภาคนี้พร้อมประวัติที่เคยบันทึกว่าเปิดในภาคประเภทนี้",
+  },
+  courseCompare: {
+    title: "เปรียบเทียบสองรายวิชา",
+    lede: "ข้อมูลรายวิชา การวัดผล ประวัติการเปิดสอน วิชาที่เรียนต่อได้ และสิ่งที่นักศึกษารายงานไว้ วางเทียบกันสองวิชา",
+    pickHeading: "เลือกสองรายวิชา",
+    firstLabel: "วิชาแรก",
+    secondLabel: "วิชาที่สอง",
+    pickButton: "เปรียบเทียบ",
+    pageFormLabel: "เปรียบเทียบวิชา {code} กับอีกวิชาหนึ่ง",
+    pageFormButton: "เปรียบเทียบ",
+    missing: "โปรดเลือกสองรายวิชาที่ต้องการเปรียบเทียบ",
+    unknown: "ไม่พบรายวิชาสำหรับ {codes} รหัสวิชามีลักษณะเช่น PI380",
+    same: "วิชา {code} ถูกเลือกซ้ำสองครั้ง โปรดเลือกสองรายวิชาที่ต่างกัน",
+    notRanked:
+      "สองรายวิชานี้วางเทียบกันเท่านั้น ไม่มีการจัดอันดับ และไม่มีส่วนใดในหน้านี้บอกว่าวิชาใดดีกว่ากัน",
+    none: "ไม่มี",
+    noHistory: "ยังไม่มีบันทึก",
+    coursePage: "หน้ารายวิชา",
+    courseRow: "รายวิชา",
+    assessmentRow: "การวัดผล",
+    reviewsRow: "รีวิวจากนักศึกษา",
+    finalExamTemplate: "มีสอบปลายภาค คิดเป็นร้อยละ {n} ของคะแนนรวม",
+    courseworkOnly: "วัดผลจากงานในรายวิชาทั้งหมด",
+    otherExam: "มีสอบ แต่ไม่ใช่สอบปลายภาค",
+    assessmentUnknown: "ยังไม่มีข้อมูลการวัดผล",
+    assessmentRecordedFor: "ข้อมูลของ{term}",
+    forYourPlan: "ตามแผนของท่าน",
+    forYourPlanNote:
+      "ส่วนนี้ใช้แผนการศึกษาที่บันทึกไว้ในอุปกรณ์เครื่องนี้ ไม่ถูกส่งไปยัง BIRSA และจะแสดงเฉพาะเมื่อมีแผนที่บันทึกไว้",
+  },
   critical: {
     label: "ถ้าเลื่อนจะทำให้จบช้า",
     hint: "มีรายวิชาอื่นในแผนของท่านที่ต้องเรียนต่อจากวิชานี้ และลำดับวิชาเหล่านั้นต่อเนื่องไปถึงภาคสุดท้ายของแผน การเลื่อนวิชานี้ออกไปจึงทำให้สำเร็จการศึกษาช้าลง",

@@ -63,10 +63,13 @@ describe("uncertain curriculum data is disclosed, never silent", () => {
     for (const page of [
       "app/[lang]/services/study-plan/curriculum/page.tsx",
       "app/[lang]/services/study-plan/plan/page.tsx",
-      "app/[lang]/services/study-plan/plan/print/page.tsx",
+      // The print page and the advisor's read-only view both render `PlanDocument`,
+      // which is where the notice is drawn for them.
+      "components/study-plan/PlanDocument.tsx",
     ]) {
       expect(read(page), `${page} must render <InferenceNotice`).toContain("<InferenceNotice");
     }
+    expect(read("app/[lang]/services/study-plan/plan/print/page.tsx")).toContain("<PlanDocument");
   });
 
   it("records every version's sources so a maintainer can get back to the page", () => {

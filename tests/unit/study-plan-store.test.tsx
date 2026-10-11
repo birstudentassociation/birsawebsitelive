@@ -69,7 +69,12 @@ const stored = () => parseStoredPlans(window.localStorage.getItem(KEY));
 describe("PlanStore", () => {
   it("writes the plan to localStorage under birsa-study-plan as a one-scenario envelope", () => {
     render(<PlanStore plan={serialisePlan(plan)} />);
-    expect(stored()).toEqual({ v: 2, active: "s1", plans: [{ id: "s1", name: "Main", plan }] });
+    expect(stored()).toEqual({
+      v: 2,
+      active: "s1",
+      plans: [{ id: "s1", name: "Main", plan }],
+      dismissedReviewPrompts: [],
+    });
     expect(window.localStorage.getItem(KEY)?.startsWith("{")).toBe(true);
   });
 

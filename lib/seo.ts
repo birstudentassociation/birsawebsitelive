@@ -39,7 +39,8 @@ const OWN_SHARE_IMAGE_PATHS = [
   /^\/news\/[^/]+$/,
   /^\/activity\/(?!approval-check$|regulations$|roles$)[^/]+$/,
   /^\/clubs\/(?!start$|start-check$)[^/]+$/,
-  /^\/student-life\/(?!getting-started\/)[^/]+\/[^/]+$/,
+  // The compare page is a literal segment among the `[code]` pages and has no image of its own.
+  /^\/student-life\/(?!getting-started\/|course-reviews\/compare$)[^/]+\/[^/]+$/,
 ];
 
 /** Whether the segment at `path` has its own opengraph-image and twitter-image files. */

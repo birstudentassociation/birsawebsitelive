@@ -66,6 +66,8 @@ export type CourseReviewBrowserProps = {
   courses: Course[];
   locale: Locale;
   dict: CourseReviewDict;
+  /** Codes of the courses with a review published from the database, so they count as reviewed beside those whose reviews are in the repository. */
+  publishedReviewCodes?: readonly string[];
 };
 
 /** What the browser needs beyond the list itself for the minor filter and the plan-aware parts. */
@@ -124,6 +126,7 @@ export default function CourseReviewBrowser({
   minorOptions,
   minorMembers,
   planCopy,
+  publishedReviewCodes = [],
 }: CourseReviewBrowserProps & CourseReviewBrowserExtras) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -140,8 +143,13 @@ export default function CourseReviewBrowser({
   const planContext = usePlanContext();
 
   const filtered = useMemo(
-    () => filterCourses(courses, filters, { minorMembers, plan: planContext?.matcher }),
-    [courses, filters, minorMembers, planContext]
+    () =>
+      filterCourses(courses, filters, {
+        minorMembers,
+        plan: planContext?.matcher,
+        publishedReviewCodes,
+      }),
+    [courses, filters, minorMembers, planContext, publishedReviewCodes]
   );
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(filters.page, totalPages);
@@ -317,6 +325,7 @@ export default function CourseReviewBrowser({
             dict={dict}
             statusOf={planContext?.status}
             planCopy={planCopy}
+            publishedReviewCodes={publishedReviewCodes}
           />
 
           {totalPages > 1 ? (
@@ -352,13 +361,23 @@ export default function CourseReviewBrowser({
 }
 
 /** Suspense fallback: the unfiltered first page as a plain list, no controls. */
-export function CourseReviewBrowserFallback({ courses, locale, dict }: CourseReviewBrowserProps) {
+export function CourseReviewBrowserFallback({
+  courses,
+  locale,
+  dict,
+  publishedReviewCodes,
+}: CourseReviewBrowserProps) {
   return (
     <section aria-labelledby="course-browse-heading" className="flex flex-col gap-4 sm:gap-6">
       <h2 id="course-browse-heading" className="font-display text-xl">
         {dict.browseHeading}
       </h2>
-      <CourseGrid courses={courses.slice(0, PAGE_SIZE)} locale={locale} dict={dict} />
+      <CourseGrid
+        courses={courses.slice(0, PAGE_SIZE)}
+        locale={locale}
+        dict={dict}
+        publishedReviewCodes={publishedReviewCodes}
+      />
     </section>
   );
 }
@@ -369,6 +388,7 @@ function CourseGrid({
   dict,
   statusOf,
   planCopy,
+  publishedReviewCodes = [],
 }: {
   courses: Course[];
   locale: Locale;
@@ -376,7 +396,9 @@ function CourseGrid({
   /** Present only when a plan is stored; absent means no status tags. */
   statusOf?: (code: string) => CourseStatus;
   planCopy?: PlanLinkCopy["browser"];
+  publishedReviewCodes?: readonly string[];
 }) {
+  const published = new Set(publishedReviewCodes);
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
       {courses.map((course) => (
@@ -387,6 +409,7 @@ function CourseGrid({
           dict={dict}
           status={statusOf?.(course.code)}
           planCopy={planCopy}
+          hasPublishedReview={published.has(course.code)}
         />
       ))}
     </div>
@@ -399,12 +422,15 @@ function CourseCard({
   dict,
   status,
   planCopy,
+  hasPublishedReview,
 }: {
   course: Course;
   locale: Locale;
   dict: CourseReviewDict;
   status?: CourseStatus;
   planCopy?: PlanLinkCopy["browser"];
+  /** A review for this course is published from the database, which is real feedback. */
+  hasPublishedReview: boolean;
 }) {
   const otherLocale: Locale = locale === "en" ? "th" : "en";
   const href = localeHref(locale, `/student-life/course-reviews/${course.code}`);
@@ -421,9 +447,9 @@ function CourseCard({
         <Tag variant="forest" className="hidden sm:inline-flex">
           {dict.categories[course.category]}
         </Tag>
-        {course.reviews?.length ? (
+        {hasPublishedReview || course.reviews?.length ? (
           <Tag variant="neutral">
-            {course.reviews.every((review) => review.sample)
+            {!hasPublishedReview && course.reviews?.every((review) => review.sample)
               ? dict.sampleBadge
               : dict.reviewedBadge}
           </Tag>
