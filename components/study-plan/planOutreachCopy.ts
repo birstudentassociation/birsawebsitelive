@@ -82,6 +82,8 @@ export type PlanOutreachCopy = {
     note: string;
     /** The subject of the email the button opens. */
     subject: string;
+    /** The email body when the summary is too long for a link: a prompt to paste it. */
+    pasteBody: string;
     summaryLabel: string;
     summaryHint: string;
     otherWaysHeading: string;
@@ -191,9 +193,11 @@ const en: OwnCopy = {
     button: "Email the BIR office about my plan",
     note: "The summary lists your courses by term, what this service found, your curriculum and your minor. It does not include your name, your student ID or the courses you have passed.",
     subject: "Question about my study plan",
+    pasteBody:
+      "My question:\n\n\nMy study plan summary (pasted from the BIRSA study plan page):\n\n",
     summaryLabel: "Your plan summary",
     summaryHint:
-      "If your email app leaves the message empty, select this text, copy it and paste it into your email.",
+      "If your email does not already contain this summary, select this text, copy it and paste it into your email.",
     otherWaysHeading: "Other ways to reach the BIR office",
   },
   calendar: {
@@ -304,8 +308,9 @@ const th: OwnCopy = {
     button: "ส่งอีเมลถึงสำนักงานโครงการ BIR เกี่ยวกับแผนของฉัน",
     note: "สรุปประกอบด้วยรายวิชาแยกตามภาคการศึกษา สิ่งที่ระบบตรวจพบ หลักสูตร และวิชาโทของท่าน ไม่มีชื่อ รหัสนักศึกษา หรือรายวิชาที่ท่านผ่านแล้ว",
     subject: "คำถามเกี่ยวกับแผนการศึกษา",
+    pasteBody: "คำถามของฉัน\n\n\nสรุปแผนการศึกษาของฉัน (คัดลอกจากหน้าแผนการศึกษาของ BIRSA)\n\n",
     summaryLabel: "สรุปแผนของท่าน",
-    summaryHint: "หากแอปอีเมลของท่านไม่ใส่ข้อความให้ ให้เลือกข้อความนี้ คัดลอก แล้ววางในอีเมล",
+    summaryHint: "หากอีเมลของท่านยังไม่มีสรุปนี้ ให้เลือกข้อความนี้ คัดลอก แล้ววางในอีเมล",
     otherWaysHeading: "ช่องทางอื่นในการติดต่อสำนักงานโครงการ BIR",
   },
   calendar: {

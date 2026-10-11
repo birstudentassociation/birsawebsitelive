@@ -105,3 +105,19 @@ describe("the BIR office details", () => {
     );
   });
 });
+
+describe("mailtoHrefWithFallback", () => {
+  it("carries the whole body when the link stays short", async () => {
+    const { mailtoHrefWithFallback } = await import("@/lib/mailto");
+    const href = mailtoHrefWithFallback("bir@tu.ac.th", "Subject", "Short plan", "Paste it");
+    expect(decodeURIComponent(href)).toContain("Short plan");
+  });
+
+  it("swaps in the paste prompt when the encoded link would pass the limit", async () => {
+    const { mailtoHrefWithFallback, MAILTO_MAX_LENGTH } = await import("@/lib/mailto");
+    const href = mailtoHrefWithFallback("bir@tu.ac.th", "Subject", "แผน".repeat(300), "Paste it");
+    expect(href.length).toBeLessThanOrEqual(MAILTO_MAX_LENGTH);
+    expect(decodeURIComponent(href)).toContain("Paste it");
+    expect(decodeURIComponent(href)).not.toContain("แผน");
+  });
+});

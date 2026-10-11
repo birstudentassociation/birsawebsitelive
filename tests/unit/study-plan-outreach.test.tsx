@@ -42,6 +42,7 @@ import { decodeShareFragment } from "@/lib/study-plan/shareFragment";
 import { PLAN_SUMMARY_LIMIT, planSummaryText } from "@/lib/study-plan/summaryText";
 import { serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
 import { encodeShareFragment } from "@/lib/study-plan/shareFragment";
+import { MAILTO_MAX_LENGTH } from "@/lib/mailto";
 
 const KEY = "birsa-elective-demand";
 const NOW = new Date("2026-10-11T05:00:00Z");
@@ -177,7 +178,7 @@ describe("the ask the BIR office section", () => {
     expect(body.length).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);
   });
 
-  it("keeps the body under the summary cap, in both languages, for a full plan", () => {
+  it("keeps the link short enough for mail apps, in both languages, for a full plan", () => {
     const heavy: StudyPlan = {
       ...plan,
       terms: (["semester1", "semester2"] as const).flatMap((kind) =>
@@ -190,9 +191,14 @@ describe("the ask the BIR office section", () => {
     };
     for (const locale of ["en", "th"] as const) {
       const { container } = renderSection(locale, heavy);
-      const body = new URL(askLink(container).getAttribute("href")!).searchParams.get("body")!;
-      expect(body.length, locale).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);
-      expect(body.length, locale).toBeGreaterThan(500);
+      const href = askLink(container).getAttribute("href")!;
+      expect(href.length, locale).toBeLessThanOrEqual(MAILTO_MAX_LENGTH);
+      expect(new URL(href).searchParams.get("body"), locale).toBe(
+        buildPlanOutreachCopy(locale).ask.pasteBody
+      );
+      const box = container.querySelector<HTMLTextAreaElement>("#ask-bir-office textarea")!;
+      expect(box.value.length, locale).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);
+      expect(box.value.length, locale).toBeGreaterThan(500);
       cleanup();
     }
   });
@@ -201,10 +207,9 @@ describe("the ask the BIR office section", () => {
     const { container } = renderSection();
     const box = container.querySelector<HTMLTextAreaElement>("#ask-bir-office textarea")!;
     expect(box.readOnly).toBe(true);
-    const body = new URL(askLink(container).getAttribute("href")!).searchParams.get("body")!;
-    expect(box.value).toBe(body);
+    expect(box.value).toBe(planSummaryText(plan, "en", buildPlanOutreachCopy("en").summary));
     expect(container.querySelector("#ask-bir-office")!.textContent).toMatch(
-      /If your email app leaves the message empty, select this text/
+      /If your email does not already contain this summary, select this text/
     );
   });
 
@@ -234,9 +239,13 @@ describe("the ask the BIR office section", () => {
     );
     const url = new URL(askLink(container).getAttribute("href")!);
     expect(url.searchParams.get("subject")).toBe("คำถามเกี่ยวกับแผนการศึกษา");
-    const body = url.searchParams.get("body")!;
-    expect(body).toContain("สรุปแผนการศึกษา");
-    expect(body).toBe(planSummaryText(plan, "th", buildPlanOutreachCopy("th").summary));
+    // Thai percent-encodes to nine characters a letter, so even this small
+    // plan is too long for a link: the email asks for the summary to be
+    // pasted, and the page shows it to copy.
+    expect(url.searchParams.get("body")).toBe(buildPlanOutreachCopy("th").ask.pasteBody);
+    const box = section.querySelector<HTMLTextAreaElement>("textarea")!;
+    expect(box.value).toBe(planSummaryText(plan, "th", buildPlanOutreachCopy("th").summary));
+    expect(box.value).toContain("สรุปแผนการศึกษา");
     expect(section.textContent).toContain("02-221-6111 ต่อ 3409");
   });
 

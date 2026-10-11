@@ -31,7 +31,7 @@ import { DEMAND_THRESHOLD } from "@/lib/elective-demand/threshold";
 import { academicTermLabel } from "@/lib/elective-demand/terms";
 import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
 import type { FindingSources } from "@/lib/study-plan/findings";
-import { mailtoHref } from "@/lib/mailto";
+import { mailtoHrefWithFallback } from "@/lib/mailto";
 import { PLAN_FIELD, type StudyPlan } from "@/lib/study-plan/plan";
 import {
   encodeTermsParam,
@@ -98,9 +98,14 @@ export default function PlanOutreach({
 
   // Ask the BIR office: the summary goes in the body of an email the student
   // sends from their own mail app, and is shown below to copy by hand for the
-  // apps that ignore the body.
+  // apps that ignore the body and for summaries too long to travel in a link.
   const summary = planSummaryText(plan, locale, copy.summary, undefined, findingSources);
-  const askHref = mailtoHref(birOffice.email, copy.ask.subject, summary);
+  const askHref = mailtoHrefWithFallback(
+    birOffice.email,
+    copy.ask.subject,
+    summary,
+    copy.ask.pasteBody
+  );
 
   // Registration dates: whatever the calendar holds, tagged for these terms.
   const plannedTerms = plannedAcademicTerms(plan);

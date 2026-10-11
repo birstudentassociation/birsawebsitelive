@@ -10,3 +10,22 @@
 export function mailtoHref(address: string, subject: string, body: string): string {
   return `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
+
+/**
+ * Some mail apps cut a `mailto:` link well short of what browsers allow
+ * (Outlook on Windows near 2,000 characters), and a Thai body percent-encodes
+ * to nine characters per letter. Past this length the link carries
+ * `fallbackBody` instead, a short note asking the reader to paste the text
+ * the page shows them, so no app opens a message cut off mid-sentence.
+ */
+export const MAILTO_MAX_LENGTH = 2000;
+
+export function mailtoHrefWithFallback(
+  address: string,
+  subject: string,
+  body: string,
+  fallbackBody: string
+): string {
+  const full = mailtoHref(address, subject, body);
+  return full.length <= MAILTO_MAX_LENGTH ? full : mailtoHref(address, subject, fallbackBody);
+}
