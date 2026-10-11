@@ -9,13 +9,14 @@
  *
  * This calendar carries no academic dates. Registration, payment, add-drop,
  * withdrawal, exam and I-grade windows are deliberately absent: BIR is a
- * special programme whose own dates are announced separately by BIRSA, and the
- * regular-programme windows in the Registrar's PDF would contradict them. The
- * Registrar's university-wide dates live in the `academic-calendar-2569` news
- * post instead.
+ * special programme whose own dates are announced separately by the BIR office,
+ * and the regular-programme windows in the Registrar's PDF would contradict
+ * them. The Registrar's university-wide dates live in the
+ * `academic-calendar-2569` news post instead.
  *
- * When BIRSA does announce BIR's registration or add-drop dates for a term,
- * record them here with the `academic` field. The study plan screen lists and
+ * When the BIR office announces BIR's registration or add-drop dates for a
+ * term (on birpolsci.com and the BIR Program Facebook page), record them here
+ * with the `academic` field. The study plan screen lists and
  * exports the entries tagged for the terms in a student's plan, and shows
  * "no registration dates recorded yet" until there are some. See "Registration
  * and add-drop dates" in docs/EDITING.md.

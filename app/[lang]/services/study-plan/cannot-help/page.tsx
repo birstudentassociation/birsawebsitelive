@@ -8,6 +8,7 @@ import { contact } from "@/content/site";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import BirOfficeContact from "@/components/BirOfficeContact";
 import { buildStudyPlanCopy, formatUnsupportedCohort } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft } from "../actions";
 
@@ -81,15 +82,8 @@ export default async function StudyPlanCannotHelpPage({
 
         <div>
           <h2 className="font-display text-xl">{copy.cannotHelp.contactHeading}</h2>
-          <ul className="mt-2 flex flex-col gap-1 text-sm text-muted">
-            <li>{contact.address[locale]}</li>
-            <li>
-              <a href={`mailto:${contact.email}`} className="text-brand-deep hover:underline">
-                {contact.email}
-              </a>
-            </li>
-            <li>{contact.phone}</li>
-          </ul>
+          <p className="mt-2 text-sm text-muted">{contact.address[locale]}</p>
+          <BirOfficeContact locale={locale} className="mt-3" />
         </div>
 
         <div>

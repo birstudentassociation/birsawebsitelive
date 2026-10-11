@@ -687,6 +687,7 @@ export default async function StudyPlanPage({
           serialisedPlan={serialisedPlan}
           locale={locale}
           demandLive={demandLive}
+          findingSources={sources}
         />
 
         <Notice variant="info" title={copy.plan.doesNotCheckHeading}>

@@ -178,10 +178,11 @@ to a server, so the read-only page works without BIRSA receiving the plan. **Sha
 electives** sends only course codes, planned terms and the curriculum version to the
 `elective_demand_entries` table; officers with the `admin` or `academic_affairs` role see counts per
 course and term, and a CSV, at `/[lang]/officer/inventory/course-demand`, and a course page says
-"Planned by 20 or more students" for a term once that many have planned it. **Ask Academic Affairs**
-starts a contact message with an editable summary of the plan attached. **Registration dates**
-lists, and exports as `.ics`, the entries in `content/calendar/events.ts` tagged for the terms in the
-plan (none are recorded yet; see `docs/EDITING.md`).
+"Planned by 20 or more students" for a term once that many have planned it. **Ask the BIR office**
+is a `mailto:` link to bir@tu.ac.th with the plan summary in its body, and the same summary as text
+to copy, so a question about a plan never passes through BIRSA. **Registration dates** lists, and
+exports as `.ics`, the entries in `content/calendar/events.ts` tagged for the terms in the plan
+(none are recorded yet, and the BIR office announces them, not BIRSA; see `docs/EDITING.md`).
 
 To switch the elective demand signal on: attach Postgres and run `node scripts/migrate.mjs`
 (migration `014` adds the table). With no database the plan screen leaves the elective section out,

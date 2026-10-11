@@ -4,9 +4,9 @@
  * The activity calendar (`content/calendar/events.ts`) holds a window only
  * when an entry carries the `academic` field naming the window and the term it
  * is for. Nothing is derived or assumed here: BIR is a special programme whose
- * dates BIRSA announces itself, so a term with no tagged entry has no dates
- * and the plan screen says so rather than offering the Registrar's regular
- * programme windows. Adding the entries is a content change (see
+ * dates the BIR office announces itself, so a term with no tagged entry has no
+ * dates and the plan screen says so rather than offering the Registrar's
+ * regular programme windows. Adding the entries is a content change (see
  * docs/EDITING.md); this module and the export route pick them up unchanged.
  *
  * The term list travels in the query of the export link as `terms`, for

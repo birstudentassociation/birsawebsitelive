@@ -94,8 +94,8 @@ export const staticPages: StaticPage[] = [
     kind: "guide",
     title: { en: "What's on", th: "ข่าวและกิจกรรม" },
     summary: {
-      en: "News, events and the academic calendar: registration dates, exams, holidays and BIRSA activities.",
-      th: "ข่าว กิจกรรม และปฏิทินการศึกษา ทั้งวันลงทะเบียน สอบ วันหยุด และกิจกรรมของ BIRSA",
+      en: "News, events, the university's academic calendar, holidays and BIRSA activities. The BIR office announces BIR's own registration dates.",
+      th: "ข่าว กิจกรรม ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR เป็นผู้ประกาศ",
     },
     keywords: {
       en: [

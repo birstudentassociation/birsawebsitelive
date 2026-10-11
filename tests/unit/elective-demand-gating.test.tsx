@@ -92,7 +92,7 @@ describe("the plan screen section with and without a table to receive electives"
     expect(container.querySelector("#share-electives")).toBeNull();
     expect(container.textContent).not.toContain("Share my planned electives");
     expect(container.querySelector("#share-with-advisor")).not.toBeNull();
-    expect(container.querySelector("#ask-academic-affairs")).not.toBeNull();
+    expect(container.querySelector("#ask-bir-office")).not.toBeNull();
     expect(container.querySelector("#registration-dates")).not.toBeNull();
   });
 

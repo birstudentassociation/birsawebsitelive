@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { contactSchema } from "@/lib/validation";
+import { ACADEMIC_CATEGORY } from "@/components/forms/contactWizardCopy";
+import { birOffice } from "@/content/site";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { renderContact } from "@/lib/email/templates";
 import { throwIfEmailFailed } from "@/lib/email/send";
@@ -12,7 +14,6 @@ const CATEGORY_LABELS: Record<string, string> = {
   question: "A question",
   suggestion: "A suggestion",
   problem: "A problem to report",
-  academic: "Studies and Academic Affairs",
   other: "Something else",
 };
 
@@ -34,6 +35,24 @@ export async function POST(request: Request) {
   // pointing at the trap field.
   if (typeof body === "object" && body !== null && (body as { nickname?: unknown }).nickname) {
     return NextResponse.json({ ok: true }, { status: 200 });
+  }
+
+  // Questions about studies are the BIR office's to answer, not BIRSA's. Say
+  // so, with where to send them, rather than a field error that reads as a
+  // typo. Nothing is emailed.
+  if (
+    typeof body === "object" &&
+    body !== null &&
+    (body as { category?: unknown }).category === ACADEMIC_CATEGORY
+  ) {
+    return NextResponse.json(
+      {
+        ok: false,
+        reason: "academic",
+        contact: { email: birOffice.email, url: birOffice.website },
+      },
+      { status: 422 }
+    );
   }
 
   const result = contactSchema.safeParse(body);

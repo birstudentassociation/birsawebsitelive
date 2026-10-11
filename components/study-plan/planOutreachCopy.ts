@@ -1,7 +1,7 @@
 /**
  * Copy for the places where a study plan leaves the student's device or asks
  * someone a question: sharing it with an advisor, sending the electives in it
- * to Academic Affairs, asking Academic Affairs about it, exporting its
+ * to Academic Affairs, asking the BIR office about it, listing its
  * registration dates, and the line a course page shows once enough students
  * have planned the course.
  *
@@ -11,8 +11,10 @@
  * written as Thai, not translated word for word.
  *
  * Everything here is optional for the student and says so. Nothing describes
- * a procedure BIRSA does not have: Academic Affairs reads what is sent, and
- * the copy never promises an answer, a decision or a course running.
+ * a procedure BIRSA does not have: Academic Affairs reads the electives sent
+ * to it, the BIR office answers questions about courses and registration and
+ * announces BIR's registration dates, and the copy never promises an answer, a
+ * decision or a course running.
  */
 import type { Locale } from "@/lib/i18n";
 import type { PlanSummaryLabels } from "@/lib/study-plan/summaryText";
@@ -78,11 +80,11 @@ export type PlanOutreachCopy = {
     body: string;
     button: string;
     note: string;
+    /** The subject of the email the button opens. */
     subject: string;
-  };
-  attach: {
-    label: string;
-    hint: string;
+    summaryLabel: string;
+    summaryHint: string;
+    otherWaysHeading: string;
   };
   calendar: {
     heading: string;
@@ -91,7 +93,9 @@ export type PlanOutreachCopy = {
     download: string;
     emptyTitle: string;
     emptyBody: string;
-    announcementsLink: string;
+    websiteLink: string;
+    contactLink: string;
+    calendarPostLink: string;
   };
   published: {
     label: string;
@@ -182,26 +186,28 @@ const en: OwnCopy = {
     },
   },
   ask: {
-    heading: "Ask Academic Affairs about this plan",
-    body: "This opens the contact form with a short summary of your plan ready to attach. You can read it, change it or delete it before you send anything. Nothing is sent until you press send on the last page.",
-    button: "Start a message about my plan",
+    heading: "Ask the BIR office about this plan",
+    body: "The BIR office answers questions about courses and registration. This opens an email to the BIR office with a summary of your plan already in it. You can read and change the email before you send it. BIRSA does not receive it.",
+    button: "Email the BIR office about my plan",
     note: "The summary lists your courses by term, what this service found, your curriculum and your minor. It does not include your name, your student ID or the courses you have passed.",
     subject: "Question about my study plan",
-  },
-  attach: {
-    label: "Study plan summary",
-    hint: "This is a summary of the plan you came from. It goes with your message. You can change it, or delete all of it to send your message without it.",
+    summaryLabel: "Your plan summary",
+    summaryHint:
+      "If your email app leaves the message empty, select this text, copy it and paste it into your email.",
+    otherWaysHeading: "Other ways to reach the BIR office",
   },
   calendar: {
     heading: "Registration and add-drop dates",
     intro:
-      "These are the dates BIRSA has recorded for the terms in your plan. Download them to add to your own calendar.",
+      "These are the dates the BIR office has announced for the terms in your plan. Download them to add to your own calendar.",
     windows: { registration: "Registration", "add-drop": "Add and drop" },
     download: "Download the dates (.ics)",
     emptyTitle: "No registration dates recorded yet",
     emptyBody:
-      "BIRSA has not recorded registration or add-drop dates for the terms in your plan. BIR is a special programme, so its dates are announced by BIRSA and are not the same as the Registrar's. Use the dates BIRSA announces. When they are recorded, they will appear here for you to download.",
-    announcementsLink: "Where BIRSA announces academic dates",
+      "The BIR office announces registration and add-drop dates for BIR. BIR is a special programme, so its dates are not the same as the Registrar's. Find them on birpolsci.com or ask the BIR office. When they are recorded here, you will be able to download them.",
+    websiteLink: "Registration dates on birpolsci.com",
+    contactLink: "Contact the BIR office",
+    calendarPostLink: "University-wide dates in the AY 2569 calendar",
   },
   published: {
     label: "Student interest",
@@ -293,26 +299,27 @@ const th: OwnCopy = {
     },
   },
   ask: {
-    heading: "สอบถามฝ่ายวิชาการเกี่ยวกับแผนนี้",
-    body: "ปุ่มนี้จะพาไปยังแบบฟอร์มติดต่อพร้อมสรุปแผนของท่านที่เตรียมไว้ให้แนบ ท่านอ่าน แก้ไข หรือลบสรุปนั้นได้ก่อนส่ง และจะไม่มีการส่งข้อความใดจนกว่าท่านจะกดส่งในหน้าสุดท้าย",
-    button: "เริ่มเขียนข้อความเกี่ยวกับแผนของฉัน",
+    heading: "สอบถามสำนักงานโครงการ BIR เกี่ยวกับแผนนี้",
+    body: "สำนักงานโครงการ BIR เป็นผู้ตอบคำถามเรื่องรายวิชาและการลงทะเบียน ปุ่มนี้จะเปิดอีเมลถึงสำนักงานพร้อมสรุปแผนของท่านที่เตรียมไว้ให้ ท่านอ่านและแก้ไขอีเมลได้ก่อนส่ง BIRSA ไม่ได้รับอีเมลนี้",
+    button: "ส่งอีเมลถึงสำนักงานโครงการ BIR เกี่ยวกับแผนของฉัน",
     note: "สรุปประกอบด้วยรายวิชาแยกตามภาคการศึกษา สิ่งที่ระบบตรวจพบ หลักสูตร และวิชาโทของท่าน ไม่มีชื่อ รหัสนักศึกษา หรือรายวิชาที่ท่านผ่านแล้ว",
     subject: "คำถามเกี่ยวกับแผนการศึกษา",
-  },
-  attach: {
-    label: "สรุปแผนการศึกษา",
-    hint: "นี่คือสรุปแผนที่ท่านเปิดมา จะถูกส่งไปพร้อมข้อความของท่าน ท่านแก้ไขได้ หรือลบทั้งหมดเพื่อส่งข้อความโดยไม่แนบสรุปนี้",
+    summaryLabel: "สรุปแผนของท่าน",
+    summaryHint: "หากแอปอีเมลของท่านไม่ใส่ข้อความให้ ให้เลือกข้อความนี้ คัดลอก แล้ววางในอีเมล",
+    otherWaysHeading: "ช่องทางอื่นในการติดต่อสำนักงานโครงการ BIR",
   },
   calendar: {
     heading: "วันลงทะเบียนและวันเพิ่มถอนรายวิชา",
     intro:
-      "นี่คือวันที่ BIRSA บันทึกไว้สำหรับภาคการศึกษาในแผนของท่าน ดาวน์โหลดเพื่อเพิ่มลงในปฏิทินของท่านเองได้",
+      "นี่คือวันที่สำนักงานโครงการ BIR ประกาศไว้สำหรับภาคการศึกษาในแผนของท่าน ดาวน์โหลดเพื่อเพิ่มลงในปฏิทินของท่านเองได้",
     windows: { registration: "ลงทะเบียน", "add-drop": "เพิ่มถอนรายวิชา" },
     download: "ดาวน์โหลดวันที่เหล่านี้ (.ics)",
     emptyTitle: "ยังไม่มีการบันทึกวันลงทะเบียน",
     emptyBody:
-      "BIRSA ยังไม่ได้บันทึกวันลงทะเบียนหรือวันเพิ่มถอนรายวิชาของภาคการศึกษาในแผนของท่าน หลักสูตร BIR เป็นหลักสูตรพิเศษ BIRSA จึงเป็นผู้ประกาศวันเหล่านี้ และไม่ตรงกับวันของสำนักทะเบียน โปรดใช้วันที่ BIRSA ประกาศ เมื่อบันทึกวันเหล่านี้แล้ว จะแสดงที่นี่ให้ดาวน์โหลดได้",
-    announcementsLink: "ดูว่า BIRSA ประกาศวันสำคัญทางการศึกษาที่ใด",
+      "สำนักงานโครงการ BIR เป็นผู้ประกาศวันลงทะเบียนและวันเพิ่มถอนรายวิชาของ BIR ซึ่งเป็นหลักสูตรพิเศษ จึงไม่ตรงกับวันของสำนักงานทะเบียนนักศึกษา ดูวันเหล่านี้ได้ที่ birpolsci.com หรือสอบถามสำนักงานโครงการ BIR เมื่อบันทึกวันเหล่านี้ไว้ที่นี่แล้ว ท่านจะดาวน์โหลดได้",
+    websiteLink: "วันลงทะเบียนที่ birpolsci.com",
+    contactLink: "ติดต่อสำนักงานโครงการ BIR",
+    calendarPostLink: "วันของมหาวิทยาลัยในปฏิทินการศึกษา 2569",
   },
   published: {
     label: "ความสนใจของนักศึกษา",

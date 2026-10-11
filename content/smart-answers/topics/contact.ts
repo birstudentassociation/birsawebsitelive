@@ -8,14 +8,15 @@
  * events, or a fallback to BIRSA. It reuses the routing already verified in
  * `content/student-life/en/rules-and-rights/rights-and-facilities.mdx` and
  * `.../health-and-safety/staying-safe.mdx` (registration to the Registrar,
- * programme matters to the faculty student committee, general matters to TUSU
- * Tha Prachan), the elected-body ladder in `content/activity/en/student-bodies.mdx`,
- * and the BIR programme office contact in `content/activity/en/bir-programme.mdx`.
+ * general matters to TUSU Tha Prachan), the elected-body ladder in
+ * `content/activity/en/student-bodies.mdx`, and the BIR programme office
+ * contact in `content/activity/en/bir-programme.mdx`. Academic questions, such
+ * as course content, fees and grading, go to the BIR office and not to BIRSA.
  *
  * "I have a problem" (`q-problem-kind`) is narrower: someone already has a
  * problem and needs to know who receives it, what happens next, and what
  * protection exists. Registration and teaching problems reuse the same
- * subject-based routing. Harassment or misconduct by another student is
+ * subject-based routing, with teaching and grading going to the BIR office. Harassment or misconduct by another student is
  * grounded in the University Regulation on Student Discipline, B.E. 2568
  * (`content/activity/regulations/discipline-2568`): ข้อ 7(2) defines the
  * conduct, ข้อ 13 to 24 set out how the Dean has to act on a report, and ข้อ
@@ -311,28 +312,35 @@ export const contact: SmartAnswerService = {
       kind: "outcome",
       id: "out-contact-programme",
       title: {
-        en: "Contact BIRSA, or the BIR programme office directly",
-        th: "ติดต่อ BIRSA หรือสำนักงานหลักสูตร BIR โดยตรง",
+        en: "Contact the BIR office",
+        th: "ติดต่อสำนักงานโครงการ BIR",
       },
       summary: {
-        en: "Course content and other programme matters go to your faculty student committee first, because rules differ between faculties. For BIR, that committee is BIRSA. For fees or anything that needs the programme office directly, contact it yourself.",
-        th: "เรื่องเนื้อหารายวิชาและเรื่องอื่นของหลักสูตร ให้ติดต่อกรรมการนักศึกษาประจำคณะก่อน เพราะแต่ละคณะมีเงื่อนไขต่างกัน สำหรับ BIR กรรมการนักศึกษาคือ BIRSA ส่วนค่าใช้จ่ายหรือเรื่องที่ต้องติดต่อสำนักงานหลักสูตรโดยตรง ให้ติดต่อได้เอง",
+        en: "Course content, fees and other programme matters go to the BIR office, the Faculty's own office for the programme. BIRSA is the student association and does not answer academic questions.",
+        th: "เรื่องเนื้อหารายวิชา ค่าใช้จ่าย และเรื่องอื่นของหลักสูตร ให้ติดต่อสำนักงานโครงการ BIR ซึ่งเป็นสำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นสโมสรนักศึกษาและไม่ได้ตอบคำถามเรื่องการเรียน",
+      },
+      owner: {
+        en: "The BIR office decides these matters. BIRSA cannot answer them for you.",
+        th: "สำนักงานโครงการ BIR เป็นผู้ตัดสินเรื่องนี้ BIRSA ไม่สามารถตอบแทนได้",
       },
       body: [
         {
           kind: "paragraph",
           text: {
-            en: "BIRSA is BIR's own elected faculty student committee. For official academic matters (fees, enrolment, forms that need the programme office's signature), contact the BIR programme office directly.",
-            th: "BIRSA คือคณะกรรมการนักศึกษาประจำสาขา BIR ที่มาจากการเลือกตั้ง สำหรับเรื่องทางการของหลักสูตร เช่น ค่าใช้จ่าย การขึ้นทะเบียน หรือแบบฟอร์มที่ต้องมีลายเซ็นสำนักงานหลักสูตร ให้ติดต่อสำนักงานหลักสูตร BIR โดยตรง",
+            en: "Email bir@tu.ac.th or call 02-221-6111 ext. 3409. Forms that need the programme office's signature also go through the BIR office.",
+            th: "อีเมล bir@tu.ac.th หรือโทร 02-221-6111 ต่อ 3409 แบบฟอร์มที่ต้องมีลายเซ็นสำนักงานโครงการก็ยื่นผ่านสำนักงานโครงการ BIR เช่นกัน",
           },
         },
       ],
       actions: [
-        { label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" },
         {
-          label: { en: "Email the BIR programme office", th: "ส่งอีเมลถึงสำนักงานหลักสูตร BIR" },
+          label: { en: "Email the BIR office", th: "ส่งอีเมลถึงสำนักงานโครงการ BIR" },
           href: "mailto:bir@tu.ac.th",
           external: true,
+        },
+        {
+          label: { en: "Contact details and opening hours", th: "ช่องทางติดต่อและเวลาทำการ" },
+          href: "/student-life/first-weeks/about-bir",
         },
       ],
       related: [
@@ -345,7 +353,6 @@ export const contact: SmartAnswerService = {
           href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
-      contactCategory: "question",
     },
 
     {
@@ -573,30 +580,43 @@ export const contact: SmartAnswerService = {
       kind: "outcome",
       id: "out-problem-teaching",
       title: {
-        en: "Take this to your faculty student committee first",
-        th: "แจ้งเรื่องนี้ที่กรรมการนักศึกษาประจำคณะก่อน",
+        en: "Take this to the BIR office",
+        th: "แจ้งเรื่องนี้ที่สำนักงานโครงการ BIR",
       },
       summary: {
-        en: "Problems with course content, teaching, or grading go to your faculty student committee first, because the rules and channels differ between faculties. For BIR, that committee is BIRSA.",
-        th: "ปัญหาเรื่องเนื้อหารายวิชา การสอน หรือการให้คะแนน ให้แจ้งกรรมการนักศึกษาประจำคณะก่อน เพราะแต่ละคณะมีระเบียบและช่องทางต่างกัน สำหรับ BIR กรรมการนักศึกษาคือ BIRSA",
+        en: "Problems with course content, teaching or grading go to the BIR office, the Faculty's own office for the programme. BIRSA is the student association and does not handle academic matters.",
+        th: "ปัญหาเรื่องเนื้อหารายวิชา การสอน หรือการให้คะแนน ให้แจ้งสำนักงานโครงการ BIR ซึ่งเป็นสำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นสโมสรนักศึกษาและไม่ได้ดูแลเรื่องวิชาการ",
+      },
+      owner: {
+        en: "The BIR office and the Faculty decide these matters.",
+        th: "สำนักงานโครงการ BIR และคณะเป็นผู้ตัดสินเรื่องนี้",
       },
       body: [
         {
           kind: "paragraph",
           text: {
-            en: "BIRSA is BIR's own elected faculty student committee, so raise this with BIRSA directly. Where the problem needs the programme office itself (a grade dispute after BIRSA has raised it, for instance), BIRSA can tell you the next step.",
-            th: "BIRSA คือคณะกรรมการนักศึกษาประจำสาขา BIR ที่มาจากการเลือกตั้ง สามารถแจ้งเรื่องกับ BIRSA ได้โดยตรง หากเรื่องต้องส่งต่อให้สำนักงานหลักสูตรเอง เช่น กรณีโต้แย้งคะแนนหลังจาก BIRSA ยกเรื่องแล้ว BIRSA จะบอกขั้นตอนถัดไปให้",
+            en: "Email bir@tu.ac.th or call 02-221-6111 ext. 3409. Say which course and which term it is about.",
+            th: "อีเมล bir@tu.ac.th หรือโทร 02-221-6111 ต่อ 3409 โปรดระบุรายวิชาและภาคการศึกษาที่เกี่ยวข้อง",
           },
         },
       ],
-      actions: [{ label: { en: "Contact BIRSA", th: "ติดต่อ BIRSA" }, href: "/contact" }],
+      actions: [
+        {
+          label: { en: "Email the BIR office", th: "ส่งอีเมลถึงสำนักงานโครงการ BIR" },
+          href: "mailto:bir@tu.ac.th",
+          external: true,
+        },
+        {
+          label: { en: "Contact details and opening hours", th: "ช่องทางติดต่อและเวลาทำการ" },
+          href: "/student-life/first-weeks/about-bir",
+        },
+      ],
       related: [
         {
           label: { en: "Your rights and welfare", th: "สิทธิและสวัสดิการของคุณ" },
           href: "/student-life/rules-and-rights/rights-and-facilities",
         },
       ],
-      contactCategory: "problem",
     },
 
     {

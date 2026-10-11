@@ -115,10 +115,12 @@ describe("the privacy register", () => {
     expect(entry!.purpose.th.length).toBeGreaterThan(40);
   });
 
-  it("mentions the plan summary in the contact message and its draft cookie", () => {
-    expect(JSON.stringify(activityById("contact-message")!.collects)).toMatch(/study plan screen/);
+  it("no longer mentions a plan summary in the contact message or its draft cookie", () => {
+    // A question about a plan goes to the BIR office by the student's own email, not through BIRSA.
+    expect(JSON.stringify(activityById("contact-message")!.collects)).not.toMatch(/study plan/i);
     const cookie = cookieRecords.find((record) => record.name === "birsa_contact_draft");
-    expect(cookie!.purpose.en).toMatch(/plan summary/);
+    expect(cookie!.purpose.en).not.toMatch(/plan/i);
+    expect(cookie!.purpose.th).not.toMatch(/แผน/);
   });
 });
 

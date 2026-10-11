@@ -315,6 +315,14 @@ const rules: Rule[] = [
           href: localeHref(locale, "/contact/where-to-go"),
         },
         {
+          label: bi(
+            locale,
+            "Questions about your studies go to the BIR office",
+            "เรื่องการเรียนสอบถามสำนักงานโครงการ BIR"
+          ),
+          href: localeHref(locale, "/contact/academic"),
+        },
+        {
           label: bi(locale, "Who does what on the committee", "หน้าที่ของคณะกรรมการ"),
           href: localeHref(locale, "/activity/roles"),
         },
@@ -953,8 +961,8 @@ const rules: Rule[] = [
       title: bi(locale, "Dates and what's on", "วันสำคัญและกิจกรรม"),
       description: bi(
         locale,
-        "Registration, exams, holidays and BIRSA events. You can also subscribe to the calendar so the dates appear in your own app.",
-        "การลงทะเบียน สอบ วันหยุด และกิจกรรมของ BIRSA ท่านสามารถกดติดตามปฏิทินเพื่อให้วันสำคัญไปแสดงในแอปของท่านได้"
+        "The university's academic calendar, holidays and BIRSA events. The BIR office announces BIR's registration dates on birpolsci.com. You can also subscribe to the calendar so the dates appear in your own app.",
+        "ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR ประกาศที่ birpolsci.com ท่านสามารถกดติดตามปฏิทินเพื่อให้วันสำคัญไปแสดงในแอปของท่านได้"
       ),
       action: {
         label: bi(locale, "See what's on", "ดูข่าวและกิจกรรม"),

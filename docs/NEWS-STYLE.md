@@ -96,8 +96,8 @@ Passive voice hides who does the thing, which on this site is exactly the inform
 needs, because BIRSA, the Faculty, the Registrar and the University are four different desks.
 
 ```
-Bad   Registration, payment and add-drop dates for BIR are announced separately by BIRSA.
-Good  BIRSA announces BIR's registration, payment and add-drop dates separately.
+Bad   Registration, payment and add-drop dates for BIR are announced separately by the BIR office.
+Good  The BIR office announces BIR's registration, payment and add-drop dates separately.
 ```
 
 ```
@@ -246,11 +246,11 @@ Everything else in the GOV.UK style guide applies as written.
 ภาษาไทยไม่นิยมรูปถูกกระทำแบบอังกฤษ `ถูก` มักสื่อความหมายในทางลบ ส่วน `ได้รับการ` และ `โดย` ที่ห้อยท้าย
 ประโยคเป็นร่องรอยของการแปล วิธีแก้คือ **เอาผู้กระทำขึ้นต้นประโยค**
 
-| อย่าเขียน                               | เขียนว่า                                     |
-| --------------------------------------- | -------------------------------------------- |
-| กำหนดการ...ประกาศแยกต่างหากโดย BIRSA    | BIRSA จะประกาศกำหนดการ...แยกต่างหาก          |
-| TPC Crazy Week จัดโดยองค์การนักศึกษา... | องค์การนักศึกษา... เป็นผู้จัด TPC Crazy Week |
-| ผู้ชนะจะถูกประกาศเวลา 19.00 น.          | กรรมการจะประกาศผู้ชนะเวลา 19.00 น.           |
+| อย่าเขียน                                         | เขียนว่า                                          |
+| ------------------------------------------------- | ------------------------------------------------- |
+| กำหนดการ...ประกาศแยกต่างหากโดยสำนักงานโครงการ BIR | สำนักงานโครงการ BIR จะประกาศกำหนดการ...แยกต่างหาก |
+| TPC Crazy Week จัดโดยองค์การนักศึกษา...           | องค์การนักศึกษา... เป็นผู้จัด TPC Crazy Week      |
+| ผู้ชนะจะถูกประกาศเวลา 19.00 น.                    | กรรมการจะประกาศผู้ชนะเวลา 19.00 น.                |
 
 ### 3.4 คำและรูปประโยคที่ส่อว่าแปลมา
 

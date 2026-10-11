@@ -343,8 +343,8 @@ const en: StudyPlanCopy = {
       "Double degree routes are not covered. The credit totals differ between the source documents, and the UK routes are counted in credits that do not compare to Thai credits.",
     whatToDo: "What to do instead",
     whatToDoBody:
-      "Take your transcript to the BIR programme office. They can confirm your curriculum and plan the rest of your degree with you.",
-    contactHeading: "Ask the faculty",
+      "Take your transcript to the BIR office. They can confirm your curriculum and plan the rest of your degree with you.",
+    contactHeading: "Ask the BIR office",
     sourcesHeading: "Read the source documents",
     backToServices: "Back to services",
   },
@@ -537,8 +537,8 @@ const th: StudyPlanCopy = {
       "บริการนี้ไม่ครอบคลุมหลักสูตรควบสองปริญญา เนื่องจากยอดหน่วยกิตในเอกสารต้นทางแต่ละฉบับไม่ตรงกัน และหน่วยกิตของหลักสูตรฝั่งสหราชอาณาจักรไม่สามารถเทียบกับหน่วยกิตไทยได้โดยตรง",
     whatToDo: "สิ่งที่ควรทำแทน",
     whatToDoBody:
-      "นำใบแสดงผลการศึกษาของท่านไปที่สำนักงานหลักสูตร BIR เพื่อยืนยันหลักสูตรและวางแผนการศึกษาที่เหลือร่วมกับท่าน",
-    contactHeading: "ติดต่อคณะ",
+      "นำใบแสดงผลการศึกษาของท่านไปที่สำนักงานโครงการ BIR เพื่อยืนยันหลักสูตรและวางแผนการศึกษาที่เหลือร่วมกับท่าน",
+    contactHeading: "สอบถามสำนักงานโครงการ BIR",
     sourcesHeading: "อ่านเอกสารต้นทาง",
     backToServices: "กลับไปหน้าบริการ",
   },

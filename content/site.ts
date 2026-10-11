@@ -42,6 +42,25 @@ export const contact = {
   secondaryEmail: "birstudentassociation@gmail.com",
 };
 
+/**
+ * The BIR office, the Faculty's own office for the programme (see the "About
+ * BIR" guide). It answers academic questions and announces BIR's academic
+ * dates, on its website and the BIR Program Facebook page. BIRSA does neither,
+ * so every "ask about your studies" route on this site ends here.
+ */
+export const birOffice = {
+  email: "bir@tu.ac.th",
+  phone: { phone: "02-221-6111", ext: "3409" },
+  website: "https://www.birpolsci.com",
+  websiteLabel: "birpolsci.com",
+  /** The guide section with the office's contact details, and its heading's anchor in each language. */
+  contactPath: "/student-life/first-weeks/about-bir",
+  contactAnchor: {
+    en: "contact-the-bir-office",
+    th: "ติดต่อสำนักงานโครงการ-bir",
+  } satisfies LocalizedText,
+};
+
 export type OfficialLink = {
   id: "birProgram" | "faculty" | "registrar" | "university";
   label: LocalizedText;

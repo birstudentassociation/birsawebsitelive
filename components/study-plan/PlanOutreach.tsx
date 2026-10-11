@@ -1,7 +1,7 @@
 /**
  * What a student can do with a finished plan beyond reading it: share it with
- * an advisor, send the electives in it to Academic Affairs, ask Academic
- * Affairs about it, and export the registration dates for its terms.
+ * an advisor, send the electives in it to Academic Affairs, ask the BIR office
+ * about it, and see the registration dates for its terms.
  *
  * One self-contained section for the bottom of the plan screen, so the screen
  * itself needs a single line to carry it. Every part is optional and every part
@@ -9,24 +9,29 @@
  * holds, through the plan's own types, and nothing here depends on how the
  * browser stores it. The share link carries the plan in its fragment, which a
  * browser never sends to a server; the elective form carries a list of course
- * and term pairs and nothing else; the "ask" button posts the plan to a server
- * action that only builds a draft for the student to read and edit.
+ * and term pairs and nothing else; the "ask" link is a `mailto:` to the BIR
+ * office with the plan summary in its body, and the same summary is shown as
+ * text to copy, so nothing about the question passes through BIRSA.
  */
 import Link from "next/link";
 import Notice from "@/components/Notice";
 import Field from "@/components/Field";
+import BirOfficeContact, { birOfficeContactHref } from "@/components/BirOfficeContact";
+import ExternalLink from "@/components/ExternalLink";
 import CopyLinkButton from "@/components/study-plan/CopyLinkButton";
 import ElectiveDemandForm from "@/components/study-plan/ElectiveDemandForm";
 import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
-import { startPlanQuestion } from "@/app/[lang]/contact/actions";
 import { submitElectiveDemand } from "@/app/[lang]/services/study-plan/share-actions";
 import { calendarEvents, type CalendarEvent } from "@/content/calendar/events";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
+import { birOffice } from "@/content/site";
 import { currentTerm, termKey } from "@/lib/course-review/terms";
 import { buildDemandPayload, encodeDemandEntries } from "@/lib/elective-demand/payload";
 import { DEMAND_THRESHOLD } from "@/lib/elective-demand/threshold";
 import { academicTermLabel } from "@/lib/elective-demand/terms";
-import { localeHref, type Locale } from "@/lib/i18n";
+import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
+import type { FindingSources } from "@/lib/study-plan/findings";
+import { mailtoHref } from "@/lib/mailto";
 import { PLAN_FIELD, type StudyPlan } from "@/lib/study-plan/plan";
 import {
   encodeTermsParam,
@@ -34,6 +39,7 @@ import {
   registrationEventsFor,
 } from "@/lib/study-plan/registrationDates";
 import { encodeShareFragment, shareDateOf } from "@/lib/study-plan/shareFragment";
+import { planSummaryText } from "@/lib/study-plan/summaryText";
 import { SITE_URL } from "@/lib/site-url";
 
 export type PlanOutreachProps = {
@@ -43,6 +49,8 @@ export type PlanOutreachProps = {
   locale: Locale;
   /** Whether the elective demand table exists to receive a submission (`isElectiveDemandLive`). */
   demandLive: boolean;
+  /** What the findings in the emailed summary count besides the plan, such as published reviews. */
+  findingSources?: FindingSources;
   /** The instant the screen is rendered at; a parameter so a test can fix it. */
   now?: Date;
 };
@@ -72,6 +80,7 @@ export default function PlanOutreach({
   serialisedPlan,
   locale,
   demandLive,
+  findingSources,
   now = new Date(),
 }: PlanOutreachProps) {
   const copy = buildPlanOutreachCopy(locale);
@@ -86,6 +95,12 @@ export default function PlanOutreach({
   const demand = buildDemandPayload(plan);
   const sendingTerm = currentTerm(now);
   const planHref = `${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisedPlan)}`;
+
+  // Ask the BIR office: the summary goes in the body of an email the student
+  // sends from their own mail app, and is shown below to copy by hand for the
+  // apps that ignore the body.
+  const summary = planSummaryText(plan, locale, copy.summary, undefined, findingSources);
+  const askHref = mailtoHref(birOffice.email, copy.ask.subject, summary);
 
   // Registration dates: whatever the calendar holds, tagged for these terms.
   const plannedTerms = plannedAcademicTerms(plan);
@@ -162,22 +177,31 @@ export default function PlanOutreach({
         </div>
       ) : null}
 
-      <div
-        id="ask-academic-affairs"
-        className="flex flex-col gap-3 rounded-lg border border-line p-5"
-      >
+      <div id="ask-bir-office" className="flex flex-col gap-3 rounded-lg border border-line p-5">
         <h3 className="font-display text-lg">{copy.ask.heading}</h3>
         <p className="leading-relaxed text-muted">{copy.ask.body}</p>
-        <form action={startPlanQuestion.bind(null, locale)}>
-          <input type="hidden" name={PLAN_FIELD} value={serialisedPlan} />
-          <button
-            type="submit"
-            className="focus-halo inline-flex h-11 items-center justify-center rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold whitespace-nowrap text-ink transition-colors duration-150 hover:bg-sunken"
+        <p>
+          {/* A plain anchor: a mailto link, not a page to prefetch. */}
+          <a
+            href={askHref}
+            className="focus-halo inline-flex min-h-11 items-center justify-center rounded-lg border-[1.5px] border-ink px-5 py-2 text-center text-[0.95rem] font-semibold text-ink transition-colors duration-150 hover:bg-sunken"
           >
             {copy.ask.button}
-          </button>
-        </form>
+          </a>
+        </p>
+        <Field
+          as="textarea"
+          name="plan-summary"
+          label={copy.ask.summaryLabel}
+          hint={copy.ask.summaryHint}
+          value={summary}
+          readOnly
+          rows={10}
+          spellCheck={false}
+        />
         <p className="text-sm text-muted">{copy.ask.note}</p>
+        <h4 className="font-display text-base">{copy.ask.otherWaysHeading}</h4>
+        <BirOfficeContact locale={locale} />
       </div>
 
       <div
@@ -210,14 +234,33 @@ export default function PlanOutreach({
         ) : (
           <Notice variant="info" title={copy.calendar.emptyTitle}>
             <p>{copy.calendar.emptyBody}</p>
-            <p className="mt-2">
-              <Link
-                href={localeHref(locale, "/news/academic-calendar-2569")}
-                className="font-semibold text-brand-deep hover:underline"
-              >
-                {copy.calendar.announcementsLink} &rarr;
-              </Link>
-            </p>
+            <ul className="mt-2 flex flex-col gap-1">
+              <li>
+                <ExternalLink
+                  href={birOffice.website}
+                  newTabLabel={getDictionary(locale).a11y.newTab}
+                  className="font-semibold text-brand-deep hover:underline"
+                >
+                  {copy.calendar.websiteLink}
+                </ExternalLink>
+              </li>
+              <li>
+                <Link
+                  href={birOfficeContactHref(locale)}
+                  className="font-semibold text-brand-deep hover:underline"
+                >
+                  {copy.calendar.contactLink} &rarr;
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={localeHref(locale, "/news/academic-calendar-2569")}
+                  className="font-semibold text-brand-deep hover:underline"
+                >
+                  {copy.calendar.calendarPostLink} &rarr;
+                </Link>
+              </li>
+            </ul>
           </Notice>
         )}
       </div>

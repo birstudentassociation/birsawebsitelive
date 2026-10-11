@@ -1,6 +1,6 @@
 /**
  * Registration and add-drop dates for the terms in a plan. The calendar holds
- * none today (BIRSA announces BIR's dates separately), so what is tested is
+ * none today (the BIR office announces BIR's dates separately), so what is tested is
  * the mechanism: which events count, how the planned terms are worked out, how
  * the term list in the export link is read back, and what the export route
  * answers with and without dates. Fixtures stand in for the dates; none of
@@ -216,9 +216,7 @@ describe("the registration.ics route", () => {
     const response = await GET(request("2570-1"), params("en"));
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("text/calendar; charset=utf-8");
-    expect(response.headers.get("content-disposition")).toContain(
-      "birsa-registration-dates-en.ics"
-    );
+    expect(response.headers.get("content-disposition")).toContain("bir-registration-dates-en.ics");
     const body = await response.text();
     expect(body).toContain("BEGIN:VCALENDAR\r\n");
     expect(body).toContain("UID:reg-s1@");
@@ -227,7 +225,7 @@ describe("the registration.ics route", () => {
     expect(body).not.toContain("UID:untagged@");
     expect(body).toContain("DTSTART;VALUE=DATE:20270712");
     expect(body).toContain("DTEND;VALUE=DATE:20270717");
-    expect(body).toContain("X-WR-CALNAME:BIRSA registration and add-drop dates");
+    expect(body).toContain("X-WR-CALNAME:BIR registration and add-drop dates");
   });
 
   it("names the calendar in Thai for a Thai reader", async () => {
@@ -242,7 +240,10 @@ describe("the registration.ics route", () => {
     const response = await GET(request("2570-1"), params("en"));
     expect(response.status).toBe(404);
     expect(response.headers.get("content-type")).toBe("text/plain; charset=utf-8");
-    expect(await response.text()).toMatch(/has not recorded registration or add-drop dates/);
+    const text = await response.text();
+    expect(text).toMatch(/No registration or add-drop dates are recorded/);
+    expect(text).toContain("The BIR office announces them on birpolsci.com");
+    expect(text).not.toContain("BIRSA");
   });
 
   it("answers 404 for terms it cannot read, and for no terms at all", async () => {

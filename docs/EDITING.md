@@ -103,11 +103,13 @@ Old monthly URLs such as `/news/august-2026-activity-calendar` redirect here per
 
 ### Registration and add-drop dates
 
-The study plan screen can list BIRSA's registration and add-drop dates for the terms in a student's
+The study plan screen can list BIR's registration and add-drop dates for the terms in a student's
 plan and offer them as an `.ics` download. **No such dates are recorded yet**, so the screen says
-"No registration dates recorded yet". It never shows the Registrar's regular-programme windows:
-BIR is a special programme, and BIRSA announces its own dates (see the `academic-calendar-2569`
-post). Add an entry only once BIRSA has announced the dates.
+"No registration dates recorded yet" and sends students to the BIR office. It never shows the
+Registrar's regular-programme windows: BIR is a special programme, and the BIR office announces its
+own dates on [birpolsci.com](https://www.birpolsci.com) and the BIR Program Facebook page (see the
+`academic-calendar-2569` post). BIRSA does not announce academic dates. Add an entry only once the
+BIR office has announced the dates, and copy them from that announcement.
 
 To record a window, add an entry to `content/calendar/events.ts` with the `academic` field:
 
@@ -118,7 +120,7 @@ To record a window, add an entry to `content/calendar/events.ts` with the `acade
   end: "2027-07-16",
   title: { en: "Course registration, semester 1", th: "ลงทะเบียนเรียน ภาคเรียนที่ 1" },
   slug: "academic-calendar-2570",
-  kind: "birsa",
+  kind: "university",
   academic: { window: "registration", term: { year: 2570, semester: 1 } },
 },
 ```
@@ -127,7 +129,8 @@ To record a window, add an entry to `content/calendar/events.ts` with the `acade
 - `term` is the term the window is for: the Buddhist Era academic year and `1`, `2` or `"summer"`.
   Summer belongs to the academic year it closes, so summer 2569 falls in June and July 2570.
 - `start` and `end` are inclusive, `YYYY-MM-DD`. Leave `end` out for a single day.
-- Point `slug` at the news post that announces the dates, and give both languages a title.
+- Point `slug` at the news post that carries the dates, and give both languages a title. Use
+  `kind: "university"`, because the dates are the BIR office's and not BIRSA's own activities.
 
 That is all. The plan screen then lists the entries for the terms in the plan and links to the
 download, the same entries appear in the activity calendar and its feed, and

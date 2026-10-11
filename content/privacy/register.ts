@@ -122,10 +122,6 @@ export const activities: ProcessingActivity[] = [
         en: "What you write in the message, including the subject you pick",
         th: "เนื้อหาข้อความที่ท่านกรอก รวมถึงหัวข้อเรื่องที่ท่านเลือก",
       },
-      {
-        en: "If you start from the study plan screen, a summary of your plan that you can read, change or delete before you send",
-        th: "หากท่านเริ่มจากหน้าแผนการศึกษา จะมีสรุปแผนของท่านที่ท่านอ่าน แก้ไข หรือลบได้ก่อนส่ง",
-      },
     ],
     ifYouDoNot: {
       en: "You have to give a name and an email address, because without them we have no way to reply. Nothing else is required.",
@@ -650,8 +646,8 @@ export const cookieRecords: CookieRecord[] = [
   {
     name: "birsa_contact_draft",
     purpose: {
-      en: "Holds your answers as you move between the pages of the contact form, so going back does not lose them. If you start from the study plan screen it also holds the plan summary you chose to attach.",
-      th: "จัดเก็บคำตอบของท่านระหว่างการเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อมิให้ข้อมูลสูญหายเมื่อย้อนกลับ หากท่านเริ่มจากหน้าแผนการศึกษา จะจัดเก็บสรุปแผนที่ท่านเลือกแนบไว้ด้วย",
+      en: "Holds your answers as you move between the pages of the contact form, so going back does not lose them.",
+      th: "จัดเก็บคำตอบของท่านระหว่างการเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อมิให้ข้อมูลสูญหายเมื่อย้อนกลับ",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,

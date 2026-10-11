@@ -18,20 +18,29 @@ export const CONTACT_CATEGORY_VALUES = [
 ] as const;
 export type ContactCategory = (typeof CONTACT_CATEGORY_VALUES)[number];
 
+/**
+ * The category for questions about studies, courses and registration. It is
+ * offered so students find it, but it never starts a message: BIRSA does not
+ * answer these, the BIR office does, so choosing it opens the page that says
+ * how to reach the office (`/contact/academic`) and the server refuses to email
+ * it to BIRSA's inbox.
+ */
+export const ACADEMIC_CATEGORY = "academic" satisfies ContactCategory;
+
 export function contactCategoryLabel(locale: Locale, value: ContactCategory): string {
   const labels: Record<Locale, Record<ContactCategory, string>> = {
     en: {
       question: "A question",
       suggestion: "A suggestion",
       problem: "A problem to report",
-      academic: "Studies and Academic Affairs",
+      academic: "Studies, courses and registration",
       other: "Something else",
     },
     th: {
       question: "คำถามทั่วไป",
       suggestion: "ข้อเสนอแนะ",
       problem: "แจ้งปัญหา",
-      academic: "การเรียนและฝ่ายวิชาการ",
+      academic: "การเรียน รายวิชา และการลงทะเบียน",
       other: "เรื่องอื่น ๆ",
     },
   };
@@ -58,6 +67,15 @@ export type ContactWizardLabels = {
   checkMessageLabel: string;
   checkNameLabel: string;
   checkEmailLabel: string;
+  /** The page a student who picks the academic category is sent to. */
+  academic: {
+    title: string;
+    noticeTitle: string;
+    noticeBody: string;
+    contactHeading: string;
+    datesNote: string;
+    back: string;
+  };
 };
 
 export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
@@ -73,8 +91,6 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
             return "ข้อเสนอแนะของคุณคืออะไร";
           case "question":
             return "คำถามของคุณคืออะไร";
-          case "academic":
-            return "คุณต้องการสอบถามเรื่องการเรียนว่าอย่างไร";
           case "other":
             return "บอกรายละเอียดเพิ่มเติม";
           default:
@@ -89,8 +105,6 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
             return "บอกสิ่งที่คุณอยากให้เปลี่ยนแปลงหรือเพิ่มเติม";
           case "question":
             return "ถามได้ทุกเรื่องเกี่ยวกับกฎระเบียบ กำหนดเวลา หรือบริการ";
-          case "academic":
-            return "บอกสิ่งที่คุณอยากทราบ หากคุณมาจากแผนการศึกษา สรุปแผนจะแนบไว้ให้ตรวจในหน้าสุดท้าย";
           default:
             return "ให้รายละเอียดมากที่สุดเท่าที่ทำได้";
         }
@@ -103,6 +117,16 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
       checkMessageLabel: "ข้อความ",
       checkNameLabel: "ชื่อ",
       checkEmailLabel: "อีเมล",
+      academic: {
+        title: "เรื่องการเรียนสอบถามสำนักงานโครงการ BIR",
+        noticeTitle: "BIRSA ไม่ได้ตอบคำถามเรื่องการเรียน",
+        noticeBody:
+          "สำนักงานโครงการ BIR เป็นผู้ตอบคำถามเรื่องรายวิชา การลงทะเบียน ผลการเรียน และเรื่องวิชาการอื่น ๆ ส่วน BIRSA เป็นสโมสรนักศึกษา แบบฟอร์มนี้จึงไม่ส่งเรื่องเหล่านี้ให้ BIRSA โปรดติดต่อสำนักงานโครงการ BIR โดยตรง",
+        contactHeading: "ติดต่อสำนักงานโครงการ BIR",
+        datesNote:
+          "สำนักงานโครงการ BIR ประกาศวันลงทะเบียนและวันสำคัญทางการศึกษาของ BIR ที่ birpolsci.com และเฟซบุ๊ก BIR Program",
+        back: "เลือกเรื่องอื่น",
+      },
     };
   }
 
@@ -117,8 +141,6 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
           return "What is your suggestion?";
         case "question":
           return "What is your question?";
-        case "academic":
-          return "What do you want to ask about your studies?";
         case "other":
           return "Tell us more";
         default:
@@ -133,8 +155,6 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
           return "Tell us what you would like to see changed or added.";
         case "question":
           return "Ask anything about rules, deadlines or services.";
-        case "academic":
-          return "Say what you want to know. If you came from your study plan, its summary is attached on the last page for you to check.";
         default:
           return "Give as much detail as you can.";
       }
@@ -147,5 +167,15 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
     checkMessageLabel: "Message",
     checkNameLabel: "Name",
     checkEmailLabel: "Email address",
+    academic: {
+      title: "Ask the BIR office about your studies",
+      noticeTitle: "BIRSA does not answer questions about studies",
+      noticeBody:
+        "The BIR office answers questions about courses, registration, grades and other academic matters. BIRSA is the student association, so this form does not send them to BIRSA. Contact the BIR office directly.",
+      contactHeading: "Contact the BIR office",
+      datesNote:
+        "The BIR office also announces BIR's registration dates and other academic dates on birpolsci.com and the BIR Program Facebook page.",
+      back: "Choose a different topic",
+    },
   };
 }

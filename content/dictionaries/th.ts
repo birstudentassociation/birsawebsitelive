@@ -440,7 +440,7 @@ export const th: typeof en = {
     attendanceLabel: "การเข้าเรียน",
     assessmentFactsTerm: "{semester} ปีการศึกษา {year}",
     assessmentFactsMissing:
-      "BIRSA ยังไม่ได้บันทึกวิธีวัดผลของวิชานี้ ก่อนลงทะเบียนควรสอบถามรายละเอียดจากคณะอีกครั้ง",
+      "BIRSA ยังไม่ได้บันทึกวิธีวัดผลของวิชานี้ ก่อนลงทะเบียนควรสอบถามรายละเอียดจากสำนักงานโครงการ BIR",
     reviewTerm: "เรียนใน{semester} ปีการศึกษา {year}",
     reviewInstructor: "ผู้สอน",
     courseNav: "รายวิชาอื่น",

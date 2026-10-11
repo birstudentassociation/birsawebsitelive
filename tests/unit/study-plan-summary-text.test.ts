@@ -1,8 +1,8 @@
 /**
- * The plain-text plan summary attached to a question for Academic Affairs.
+ * The plain-text plan summary that goes in the email to the BIR office.
  * It says what the plan screen says (courses by term, what was found, the
  * curriculum and the minor), leaves out what the question does not need, fits
- * the draft cookie that carries it, and reads as a person's text in both
+ * the limit set for a mailto body, and reads as a person's text in both
  * languages.
  */
 import { describe, expect, it } from "vitest";
@@ -118,7 +118,7 @@ describe("planSummaryText and its limit", () => {
     })),
   };
 
-  it("stays within the limit that fits the draft cookie", () => {
+  it("stays within the limit for the body of a mailto link", () => {
     for (const locale of ["en", "th"] as const) {
       const text = planSummaryText(heavy, locale, labels(locale));
       expect(text.length, locale).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);

@@ -1,18 +1,18 @@
 /**
- * A plan as plain text, for the "Ask Academic Affairs about this plan" route.
+ * A plan as plain text, for the "Ask the BIR office about this plan" email.
  *
- * The officer who answers reads an email, not the plan screen, so the summary
+ * The person who answers reads an email, not the plan screen, so the summary
  * says what the plan screen would: the curriculum and minor, the courses in
  * each planned term with their credits, and what the service found, worst
  * first. It leaves out the cohort, the student's name and the courses they
  * have passed, none of which the question needs. The student reads and edits
- * this text before sending it (see the contact form's check step), so it is
- * written to be read by a person, not parsed.
+ * it in their mail app before sending, so it is written to be read by a
+ * person, not parsed.
  *
- * The text rides in the contact journey's draft cookie, which a browser
- * silently drops past about 4 KB, so it is held to `PLAN_SUMMARY_LIMIT`
- * characters. Courses are never dropped to fit; findings are, least serious
- * last, with a line saying how many are on the plan screen instead.
+ * It becomes the body of a `mailto:` link, where a long text risks being cut
+ * by the student's mail app, so it is held to `PLAN_SUMMARY_LIMIT` characters.
+ * Courses are never dropped to fit; findings are, least serious last, with a
+ * line saying how many are on the plan screen instead.
  */
 import { CURRICULUM_VERSIONS, type TermRef } from "@/content/curriculum";
 import type { Locale } from "@/lib/i18n";

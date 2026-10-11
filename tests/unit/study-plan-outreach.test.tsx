@@ -39,7 +39,8 @@ import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy"
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
 import type { CalendarEvent } from "@/content/calendar/events";
 import { decodeShareFragment } from "@/lib/study-plan/shareFragment";
-import { deserialisePlan, serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
+import { PLAN_SUMMARY_LIMIT, planSummaryText } from "@/lib/study-plan/summaryText";
+import { serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
 import { encodeShareFragment } from "@/lib/study-plan/shareFragment";
 
 const KEY = "birsa-elective-demand";
@@ -134,27 +135,113 @@ describe("the share-with-an-advisor section", () => {
   });
 });
 
-describe("the ask Academic Affairs section", () => {
-  it("is a plain form that posts the plan to a server action, so it works without JavaScript", () => {
-    const { container } = render(
+describe("the ask the BIR office section", () => {
+  const renderSection = (locale: "en" | "th" = "en", askPlan: StudyPlan = plan) =>
+    render(
       <PlanOutreach
-        plan={plan}
-        serialisedPlan={serialisePlan(plan)}
-        locale="en"
+        plan={askPlan}
+        serialisedPlan={serialisePlan(askPlan)}
+        locale={locale}
         demandLive={false}
         now={NOW}
       />
     );
-    const form = container.querySelector("#ask-academic-affairs form")!;
-    const hidden = form.querySelector<HTMLInputElement>('input[type="hidden"][name="plan"]')!;
-    expect(deserialisePlan(hidden.value)).toEqual(plan);
-    expect(form.querySelector('button[type="submit"]')!.textContent).toBe(
-      "Start a message about my plan"
+
+  const askLink = (container: HTMLElement) =>
+    container.querySelector<HTMLAnchorElement>('#ask-bir-office a[href^="mailto:"]')!;
+
+  it("is a mailto link to the BIR office, so it works without JavaScript and passes through no form", () => {
+    const { container } = renderSection();
+    const section = container.querySelector("#ask-bir-office")!;
+    expect(section.querySelector("h3")!.textContent).toBe("Ask the BIR office about this plan");
+    expect(section.querySelector("form")).toBeNull();
+    const link = askLink(container);
+    expect(link.textContent).toBe("Email the BIR office about my plan");
+    expect(link.getAttribute("href")!.startsWith("mailto:bir@tu.ac.th?")).toBe(true);
+  });
+
+  it("carries a subject and the plan summary, URL-encoded, in the mailto", () => {
+    const { container } = renderSection();
+    const href = askLink(container).getAttribute("href")!;
+    // The query is percent-encoded, not form-encoded: a space is %20 and a line break %0A.
+    expect(href).toContain("subject=Question%20about%20my%20study%20plan");
+    expect(href).toContain("%0A");
+    expect(href).not.toMatch(/[ \n]/);
+
+    const url = new URL(href);
+    expect(url.searchParams.get("subject")).toBe(buildPlanOutreachCopy("en").ask.subject);
+    const body = url.searchParams.get("body")!;
+    expect(body).toBe(planSummaryText(plan, "en", buildPlanOutreachCopy("en").summary));
+    expect(body).toContain("Year 3, Semester 1: PI364, PI380");
+    expect(body).toContain("Minor: Governance");
+    expect(body.length).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);
+  });
+
+  it("keeps the body under the summary cap, in both languages, for a full plan", () => {
+    const heavy: StudyPlan = {
+      ...plan,
+      terms: (["semester1", "semester2"] as const).flatMap((kind) =>
+        [1, 2, 3, 4].map((year) => ({
+          term: { year, kind },
+          codes: ["PI300", "PI320", "PI321", "PI390", "PI470", "PI370", "PI364", "PI365"],
+          freeElectiveCredits: 0,
+        }))
+      ),
+    };
+    for (const locale of ["en", "th"] as const) {
+      const { container } = renderSection(locale, heavy);
+      const body = new URL(askLink(container).getAttribute("href")!).searchParams.get("body")!;
+      expect(body.length, locale).toBeLessThanOrEqual(PLAN_SUMMARY_LIMIT);
+      expect(body.length, locale).toBeGreaterThan(500);
+      cleanup();
+    }
+  });
+
+  it("shows the same summary as selectable text, for a mail app that ignores the body", () => {
+    const { container } = renderSection();
+    const box = container.querySelector<HTMLTextAreaElement>("#ask-bir-office textarea")!;
+    expect(box.readOnly).toBe(true);
+    const body = new URL(askLink(container).getAttribute("href")!).searchParams.get("body")!;
+    expect(box.value).toBe(body);
+    expect(container.querySelector("#ask-bir-office")!.textContent).toMatch(
+      /If your email app leaves the message empty, select this text/
     );
   });
 
-  it("promises nothing is sent until the student presses send", () => {
-    const { container } = render(
+  it("offers the phone number and the BIR office contact section as alternatives", () => {
+    const { container } = renderSection();
+    const section = container.querySelector("#ask-bir-office")!;
+    const phone = section.querySelector<HTMLAnchorElement>('a[href^="tel:"]')!;
+    expect(phone.getAttribute("href")).toBe("tel:022216111,3409");
+    expect(phone.textContent).toBe("02-221-6111 ext. 3409");
+    expect(
+      section.querySelector<HTMLAnchorElement>('a[href*="/about-bir"]')!.getAttribute("href")
+    ).toBe("/en/student-life/first-weeks/about-bir#contact-the-bir-office");
+  });
+
+  it("sends nothing to BIRSA and says so", () => {
+    const { container } = renderSection();
+    const text = container.querySelector("#ask-bir-office")!.textContent!;
+    expect(text).toContain("BIRSA does not receive it");
+    expect(container.querySelector('#ask-bir-office a[href*="/contact"]')).toBeNull();
+  });
+
+  it("is in Thai for a Thai reader, with a Thai subject and summary", () => {
+    const { container } = renderSection("th");
+    const section = container.querySelector("#ask-bir-office")!;
+    expect(section.querySelector("h3")!.textContent).toBe(
+      "สอบถามสำนักงานโครงการ BIR เกี่ยวกับแผนนี้"
+    );
+    const url = new URL(askLink(container).getAttribute("href")!);
+    expect(url.searchParams.get("subject")).toBe("คำถามเกี่ยวกับแผนการศึกษา");
+    const body = url.searchParams.get("body")!;
+    expect(body).toContain("สรุปแผนการศึกษา");
+    expect(body).toBe(planSummaryText(plan, "th", buildPlanOutreachCopy("th").summary));
+    expect(section.textContent).toContain("02-221-6111 ต่อ 3409");
+  });
+
+  it("is in the server-rendered markup, which is all a reader without JavaScript gets", () => {
+    const html = renderToString(
       <PlanOutreach
         plan={plan}
         serialisedPlan={serialisePlan(plan)}
@@ -163,9 +250,9 @@ describe("the ask Academic Affairs section", () => {
         now={NOW}
       />
     );
-    expect(container.querySelector("#ask-academic-affairs")!.textContent).toMatch(
-      /Nothing is sent until you press send/
-    );
+    expect(html).toContain('href="mailto:bir@tu.ac.th?subject=');
+    expect(html).toContain("tel:022216111,3409");
+    expect(html).toContain("Year 3, Semester 1: PI364, PI380");
   });
 });
 
@@ -197,6 +284,53 @@ describe("the registration dates section", () => {
         .querySelector('#registration-dates a[href$="/news/academic-calendar-2569"]')!
         .getAttribute("href")
     ).toBe("/en/news/academic-calendar-2569");
+  });
+
+  it("says the BIR office announces the dates, and points to birpolsci.com and the BIR office", () => {
+    const { container } = render(
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
+    );
+    const section = container.querySelector("#registration-dates")!;
+    expect(section.textContent).toContain(
+      "The BIR office announces registration and add-drop dates"
+    );
+    expect(section.textContent).not.toContain("BIRSA");
+    expect(section.querySelector('a[href="https://www.birpolsci.com"]')!.textContent).toContain(
+      "Registration dates on birpolsci.com"
+    );
+    expect(
+      section.querySelector(
+        'a[href="/en/student-life/first-weeks/about-bir#contact-the-bir-office"]'
+      )!.textContent
+    ).toContain("Contact the BIR office");
+  });
+
+  it("says the same in Thai", () => {
+    const { container } = render(
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="th"
+        demandLive={false}
+        now={NOW}
+      />
+    );
+    const section = container.querySelector("#registration-dates")!;
+    expect(section.textContent).toContain("ยังไม่มีการบันทึกวันลงทะเบียน");
+    expect(section.textContent).toContain("สำนักงานโครงการ BIR เป็นผู้ประกาศวันลงทะเบียน");
+    expect(section.textContent).not.toContain("BIRSA");
+    expect(section.querySelector('a[href="https://www.birpolsci.com"]')).not.toBeNull();
+    expect(
+      section.querySelector(
+        'a[href="/th/student-life/first-weeks/about-bir#ติดต่อสำนักงานโครงการ-bir"]'
+      )
+    ).not.toBeNull();
   });
 
   it("lists the windows for the planned terms and links to a download naming those terms", () => {

@@ -26,13 +26,13 @@ import {
 } from "@/lib/study-plan/registrationDates";
 
 const CALENDAR_NAME: Record<Locale, string> = {
-  en: "BIRSA registration and add-drop dates",
-  th: "วันลงทะเบียนและวันเพิ่มถอนรายวิชาตามที่ BIRSA ประกาศ",
+  en: "BIR registration and add-drop dates",
+  th: "วันลงทะเบียนและวันเพิ่มถอนรายวิชาของ BIR ตามที่สำนักงานโครงการ BIR ประกาศ",
 };
 
 const NO_DATES: Record<Locale, string> = {
-  en: "BIRSA has not recorded registration or add-drop dates for those terms yet.",
-  th: "BIRSA ยังไม่ได้บันทึกวันลงทะเบียนหรือวันเพิ่มถอนรายวิชาของภาคการศึกษาเหล่านั้น",
+  en: "No registration or add-drop dates are recorded for those terms yet. The BIR office announces them on birpolsci.com.",
+  th: "ยังไม่มีการบันทึกวันลงทะเบียนหรือวันเพิ่มถอนรายวิชาของภาคการศึกษาเหล่านั้น สำนักงานโครงการ BIR ประกาศวันเหล่านี้ที่ birpolsci.com",
 };
 
 export async function GET(request: Request, { params }: { params: Promise<{ lang: string }> }) {
@@ -54,7 +54,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ lang
     status: 200,
     headers: {
       "Content-Type": "text/calendar; charset=utf-8",
-      "Content-Disposition": `attachment; filename="birsa-registration-dates-${locale}.ics"`,
+      "Content-Disposition": `attachment; filename="bir-registration-dates-${locale}.ics"`,
       "Cache-Control": "no-store",
     },
   });

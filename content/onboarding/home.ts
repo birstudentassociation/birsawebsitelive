@@ -69,10 +69,10 @@ export const homeTrack: OnboardingTrack = {
             th: "บันทึกวันปฐมนิเทศและวันเปิดเทอมลงในปฏิทิน",
           },
           hint: {
-            en: "BIRSA posts the dates in news.",
-            th: "BIRSA ประกาศวันที่ในหน้าข่าว",
+            en: "The BIR office announces them on birpolsci.com and the BIR Program Facebook page.",
+            th: "สำนักงานโครงการ BIR ประกาศวันที่ที่ birpolsci.com และเฟซบุ๊ก BIR Program",
           },
-          href: "/news",
+          href: "/student-life/first-weeks/first-two-weeks",
         },
       ],
     },

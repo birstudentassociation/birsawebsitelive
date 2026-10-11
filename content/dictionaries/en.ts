@@ -445,7 +445,7 @@ export const en = {
     attendanceLabel: "Attendance",
     assessmentFactsTerm: "For {semester}, {year}",
     assessmentFactsMissing:
-      "BIRSA has not recorded how this course is assessed yet. Check with the faculty before you register.",
+      "BIRSA has not recorded how this course is assessed yet. Ask the BIR office before you register.",
     reviewTerm: "Taken in {semester}, {year}",
     reviewInstructor: "Taught by",
     courseNav: "Other courses",

@@ -14,10 +14,17 @@ import { WORKLOAD_BANDS } from "@/lib/course-review/workload";
 
 const honeypot = z.string().max(0, "Leave this field empty").optional().or(z.literal(""));
 
+/**
+ * What a message to BIRSA can be about. Studies, courses and registration are
+ * not on the list: the BIR office answers those, and the contact form sends
+ * the student there instead of writing to BIRSA (see `ACADEMIC_CATEGORY`).
+ */
+export const CONTACT_CATEGORIES = ["question", "suggestion", "problem", "other"] as const;
+
 export const contactSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email().max(200),
-  category: z.enum(["question", "suggestion", "problem", "academic", "other"]),
+  category: z.enum(CONTACT_CATEGORIES),
   subject: z.string().min(1).max(150),
   message: z.string().min(15).max(5000),
   nickname: honeypot,

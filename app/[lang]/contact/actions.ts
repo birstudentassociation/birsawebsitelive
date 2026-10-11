@@ -10,11 +10,7 @@ import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCooki
 import { CONTACT_STEPS, type ContactStep } from "./steps";
 import { deriveContactSeed } from "./seed";
 import { throwIfEmailFailed } from "@/lib/email/send";
-import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
-import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
-import { listPublishedReviewsByCourse } from "@/lib/course-review/published";
-import { findingSourcesFor } from "@/lib/course-review/reviewSources";
-import { planSummaryText } from "@/lib/study-plan/summaryText";
+import { ACADEMIC_CATEGORY } from "@/components/forms/contactWizardCopy";
 
 const COOKIE = "birsa_contact_draft";
 
@@ -25,12 +21,6 @@ export type ContactDraft = {
   message?: string;
   name?: string;
   email?: string;
-  /**
-   * A plain-text summary of a study plan, set only by `startPlanQuestion`. It
-   * is shown on the check step in an editable box and sent only if it is still
-   * in that box when the student presses send.
-   */
-  planSummary?: string;
 };
 
 export type ContactValues = Record<"name" | "email" | "category" | "subject" | "message", string>;
@@ -47,20 +37,8 @@ const CATEGORY_LABELS: Record<string, string> = {
   question: "A question",
   suggestion: "A suggestion",
   problem: "A problem to report",
-  academic: "Studies and Academic Affairs",
   other: "Something else",
 };
-
-/** The most characters of plan summary a message may carry. The summary builder stops well short of it. */
-const MAX_PLAN_SUMMARY_CHARS = 2500;
-
-/** What the student left in the summary box: trimmed, with the NUL character Postgres and email reject removed, and capped. */
-function cleanPlanSummary(value: FormDataEntryValue | null): string {
-  return String(value ?? "")
-    .replace(/\u0000/g, "")
-    .trim()
-    .slice(0, MAX_PLAN_SUMMARY_CHARS);
-}
 
 export type StepState = { status: "idle" | "invalid"; error?: string };
 
@@ -100,36 +78,9 @@ export async function getContactDraft(): Promise<ContactDraft> {
   return readDraft<ContactDraft>(COOKIE);
 }
 
-/**
- * Starts a contact message from the study plan screen: puts the academic
- * category, a subject and a summary of the plan into the draft, then sends the
- * student to the message step to write their question. Nothing is emailed here.
- * The summary comes back on the check step in a box the student can edit or
- * empty, and goes with the message only if it is still there when they press
- * send. A plan that does not validate starts the plan journey over rather than
- * writing a draft from it.
- *
- * Works with JavaScript off: it is a plain form post to a server action.
- */
-export async function startPlanQuestion(locale: Locale, formData: FormData): Promise<void> {
-  const plan = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
-  if (!plan) {
-    redirect(localeHref(locale, "/services/study-plan/minor"));
-  }
-  const copy = buildPlanOutreachCopy(locale);
-  await mergeDraft<ContactDraft>(COOKIE, {
-    category: "academic",
-    subject: copy.ask.subject,
-    // The findings in the summary count the reviews a course page shows, the published ones included.
-    planSummary: planSummaryText(
-      plan,
-      locale,
-      copy.summary,
-      undefined,
-      findingSourcesFor(await listPublishedReviewsByCourse())
-    ),
-  });
-  redirect(localeHref(locale, "/contact/message"));
+/** Where a student who picks the academic category is sent instead of on to the message step. */
+function academicHref(locale: Locale): string {
+  return localeHref(locale, "/contact/academic");
 }
 
 export async function submitCategoryStep(
@@ -140,6 +91,12 @@ export async function submitCategoryStep(
 ): Promise<StepState> {
   const dict = getDictionary(locale);
   const value = String(formData.get("category") ?? "");
+  // BIRSA does not answer questions about studies, so this category never
+  // starts a message. The BIR office does, and the page says how to reach it.
+  // Nothing is written to the draft, so there is nothing to send later.
+  if (value === ACADEMIC_CATEGORY) {
+    redirect(academicHref(locale));
+  }
   const result = contactSchema.shape.category.safeParse(value);
   if (!result.success) {
     return { status: "invalid", error: dict.form.errors.categoryRequired };
@@ -157,9 +114,6 @@ export async function submitCategoryStep(
   await mergeDraft<ContactDraft>(COOKIE, {
     category: result.data,
     ...(subject ? { subject } : {}),
-    // A plan summary belongs to the academic question it was started for;
-    // choosing another category drops it rather than carrying it along.
-    ...(result.data === "academic" ? {} : { planSummary: undefined }),
   });
   redirect(destinationHref(locale, "category", returnTo));
 }
@@ -257,9 +211,13 @@ export async function submitContactCheck(
 ): Promise<CheckState> {
   const draft = await readDraft<ContactDraft>(COOKIE);
   const nickname = String(formData.get("nickname") ?? "");
-  // The summary is read from the box on the check step, not from the draft:
-  // what is sent is what the student can see, and an emptied box means none.
-  const planSummary = cleanPlanSummary(formData.get("planSummary"));
+
+  // A draft left with the academic category (from before it stopped being
+  // sendable, or from a hand-edited cookie) goes to the BIR office page, not
+  // to BIRSA's inbox.
+  if (draft.category === ACADEMIC_CATEGORY) {
+    redirect(academicHref(locale));
+  }
 
   const h = await headers();
   const ip = ipFromHeaders(h);
@@ -286,7 +244,7 @@ export async function submitContactCheck(
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    return { status: "fallback", draft: { ...draft, planSummary } };
+    return { status: "fallback", draft };
   }
 
   try {
@@ -300,7 +258,7 @@ export async function submitContactCheck(
       email,
       categoryLabel: CATEGORY_LABELS[category] ?? category,
       subject,
-      message: planSummary ? `${message}\n\n${planSummary}` : message,
+      message,
     });
 
     throwIfEmailFailed(

@@ -22,12 +22,12 @@ describe("published reviews reach every screen that counts reviews", () => {
     expect(source).toContain("shortlistForSlot(");
   });
 
-  it("passes them to the print page's document and the contact summary", () => {
+  it("passes them to the print page's document and the summary emailed to the BIR office", () => {
     expect(read("app/[lang]/services/study-plan/plan/print/page.tsx")).toContain(
       "findingSourcesFor(await listPublishedReviewsByCourse())"
     );
-    expect(read("app/[lang]/contact/actions.ts")).toContain(
-      "findingSourcesFor(await listPublishedReviewsByCourse())"
+    expect(read("app/[lang]/services/study-plan/plan/page.tsx")).toContain(
+      "findingSources={sources}"
     );
   });
 
