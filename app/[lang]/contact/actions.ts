@@ -10,6 +10,9 @@ import { readDraft, mergeDraft, clearDraft } from "@/components/forms/draftCooki
 import { CONTACT_STEPS, type ContactStep } from "./steps";
 import { deriveContactSeed } from "./seed";
 import { throwIfEmailFailed } from "@/lib/email/send";
+import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
+import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
+import { planSummaryText } from "@/lib/study-plan/summaryText";
 
 const COOKIE = "birsa_contact_draft";
 
@@ -20,6 +23,12 @@ export type ContactDraft = {
   message?: string;
   name?: string;
   email?: string;
+  /**
+   * A plain-text summary of a study plan, set only by `startPlanQuestion`. It
+   * is shown on the check step in an editable box and sent only if it is still
+   * in that box when the student presses send.
+   */
+  planSummary?: string;
 };
 
 export type ContactValues = Record<"name" | "email" | "category" | "subject" | "message", string>;
@@ -36,8 +45,20 @@ const CATEGORY_LABELS: Record<string, string> = {
   question: "A question",
   suggestion: "A suggestion",
   problem: "A problem to report",
+  academic: "Studies and Academic Affairs",
   other: "Something else",
 };
+
+/** The most characters of plan summary a message may carry. The summary builder stops well short of it. */
+const MAX_PLAN_SUMMARY_CHARS = 2500;
+
+/** What the student left in the summary box: trimmed, with the NUL character Postgres and email reject removed, and capped. */
+function cleanPlanSummary(value: FormDataEntryValue | null): string {
+  return String(value ?? "")
+    .replace(/\u0000/g, "")
+    .trim()
+    .slice(0, MAX_PLAN_SUMMARY_CHARS);
+}
 
 export type StepState = { status: "idle" | "invalid"; error?: string };
 
@@ -77,6 +98,31 @@ export async function getContactDraft(): Promise<ContactDraft> {
   return readDraft<ContactDraft>(COOKIE);
 }
 
+/**
+ * Starts a contact message from the study plan screen: puts the academic
+ * category, a subject and a summary of the plan into the draft, then sends the
+ * student to the message step to write their question. Nothing is emailed here.
+ * The summary comes back on the check step in a box the student can edit or
+ * empty, and goes with the message only if it is still there when they press
+ * send. A plan that does not validate starts the plan journey over rather than
+ * writing a draft from it.
+ *
+ * Works with JavaScript off: it is a plain form post to a server action.
+ */
+export async function startPlanQuestion(locale: Locale, formData: FormData): Promise<void> {
+  const plan = deserialisePlan(String(formData.get(PLAN_FIELD) ?? ""));
+  if (!plan) {
+    redirect(localeHref(locale, "/services/study-plan/minor"));
+  }
+  const copy = buildPlanOutreachCopy(locale);
+  await mergeDraft<ContactDraft>(COOKIE, {
+    category: "academic",
+    subject: copy.ask.subject,
+    planSummary: planSummaryText(plan, locale, copy.summary),
+  });
+  redirect(localeHref(locale, "/contact/message"));
+}
+
 export async function submitCategoryStep(
   locale: Locale,
   returnTo: string | undefined,
@@ -102,6 +148,9 @@ export async function submitCategoryStep(
   await mergeDraft<ContactDraft>(COOKIE, {
     category: result.data,
     ...(subject ? { subject } : {}),
+    // A plan summary belongs to the academic question it was started for;
+    // choosing another category drops it rather than carrying it along.
+    ...(result.data === "academic" ? {} : { planSummary: undefined }),
   });
   redirect(destinationHref(locale, "category", returnTo));
 }
@@ -199,6 +248,9 @@ export async function submitContactCheck(
 ): Promise<CheckState> {
   const draft = await readDraft<ContactDraft>(COOKIE);
   const nickname = String(formData.get("nickname") ?? "");
+  // The summary is read from the box on the check step, not from the draft:
+  // what is sent is what the student can see, and an emptied box means none.
+  const planSummary = cleanPlanSummary(formData.get("planSummary"));
 
   const h = await headers();
   const ip = ipFromHeaders(h);
@@ -225,7 +277,7 @@ export async function submitContactCheck(
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    return { status: "fallback", draft };
+    return { status: "fallback", draft: { ...draft, planSummary } };
   }
 
   try {
@@ -239,7 +291,7 @@ export async function submitContactCheck(
       email,
       categoryLabel: CATEGORY_LABELS[category] ?? category,
       subject,
-      message,
+      message: planSummary ? `${message}\n\n${planSummary}` : message,
     });
 
     throwIfEmailFailed(

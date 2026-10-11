@@ -7,7 +7,8 @@
  * ever runs (see `deleteStudyPlan` in app/[lang]/services/study-plan/actions.ts
  * and the delete section in .../plan/page.tsx).
  *
- * All this adds is clearing `PlanStore`'s localStorage mirror before the
+ * All this adds is clearing `PlanStore`'s localStorage mirror (and the
+ * browser's note that electives were sent, see `demandMarker.ts`) before the
  * form posts, so JavaScript readers do not end up with a stale copy sitting
  * next to the "your plan was deleted" confirmation shown on the page they
  * land on. No `mounted` gate: the fallback button is real markup already, so
@@ -24,6 +25,7 @@
  */
 import type { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
+import { clearDemandMarker } from "./demandMarker";
 import { clearStoredPlan } from "./PlanStore";
 
 export default function DeletePlanButton({
@@ -37,6 +39,7 @@ export default function DeletePlanButton({
       type="submit"
       onClick={() => {
         clearStoredPlan();
+        clearDemandMarker();
       }}
       className={clsx(
         "focus-halo inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-brand-strong px-5 text-[0.95rem] font-semibold whitespace-nowrap text-white transition-colors duration-150 hover:opacity-85",

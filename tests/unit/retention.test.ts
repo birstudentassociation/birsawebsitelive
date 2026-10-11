@@ -261,6 +261,13 @@ type Store = {
   satisfaction_feedback: { id: string; created_at: string }[];
   course_review_submissions: { id: string; created_at: string; status: string }[];
   published_course_reviews: { id: string; published_at: string }[];
+  /**
+   * Whether `elective_demand_entries` exists. It comes from migration 014, which
+   * may not have been applied when the purge first runs on a new deploy, hence
+   * the `to_regclass` probe. Dates are `YYYY-MM-DD`, the column being a `date`.
+   */
+  elective_demand_table_exists: boolean;
+  elective_demand_entries: { id: string; created_on: string }[];
   custodians: {
     id: string;
     created_at: string;
@@ -381,6 +388,25 @@ function makeFakeClient(s: Store): FakeClient {
         return { rows: [] as T[], rowCount: before - s.course_review_submissions.length };
       }
 
+      if (text.includes("to_regclass('public.elective_demand_entries')")) {
+        return {
+          rows: [{ present: s.elective_demand_table_exists }] as unknown as T[],
+          rowCount: 1,
+        };
+      }
+
+      if (text.includes("delete from elective_demand_entries")) {
+        if (!s.elective_demand_table_exists) {
+          throw new Error('relation "elective_demand_entries" does not exist');
+        }
+        const cutoff = params[0] as string;
+        const before = s.elective_demand_entries.length;
+        s.elective_demand_entries = s.elective_demand_entries.filter(
+          (r) => !(r.created_on < cutoff)
+        );
+        return { rows: [] as T[], rowCount: before - s.elective_demand_entries.length };
+      }
+
       if (text.includes("as last_active from officers")) {
         const rows = s.officers
           .filter((o) => o.custodian_id !== null)
@@ -459,6 +485,8 @@ function freshStore(): Store {
     satisfaction_feedback: [],
     course_review_submissions: [],
     published_course_reviews: [],
+    elective_demand_table_exists: true,
+    elective_demand_entries: [],
     custodians: [],
     officers: [],
     items: [],
@@ -611,6 +639,36 @@ describe("purgeExpiredPersonalData", () => {
     ]);
     // The retention job has no statement that touches the published table.
     expect(store.published_course_reviews).toHaveLength(1);
+  });
+
+  it("purges elective demand rows by the day they arrived, two years on", async () => {
+    const day = (iso: string) => iso.slice(0, 10);
+    store.elective_demand_entries.push(
+      { id: "old", created_on: day(yearsAgoPlusDays(3, 0)) },
+      { id: "just-expired", created_on: day(yearsAgoPlusDays(2, -2)) },
+      { id: "just-inside", created_on: day(yearsAgoPlusDays(2, 2)) },
+      { id: "recent", created_on: day(yearsAgoPlusDays(0, 0)) }
+    );
+
+    const result = await purgeExpiredPersonalData(NOW);
+
+    expect(result).toMatchObject({ ok: true, counts: { electiveDemandEntries: 2 } });
+    expect(store.elective_demand_entries.map((r) => r.id).sort()).toEqual([
+      "just-inside",
+      "recent",
+    ]);
+  });
+
+  it("skips elective demand when migration 014 has not been applied, and still purges the rest", async () => {
+    store.elective_demand_table_exists = false;
+    store.satisfaction_feedback.push({ id: "old-feedback", created_at: yearsAgoPlusDays(3, 0) });
+
+    const result = await purgeExpiredPersonalData(NOW);
+
+    expect(result).toMatchObject({
+      ok: true,
+      counts: { electiveDemandEntries: 0, satisfactionFeedback: 1 },
+    });
   });
 
   it("is idempotent: a second run does not re-anonymise or double-count", async () => {

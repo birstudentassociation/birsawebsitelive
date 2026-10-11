@@ -17,7 +17,7 @@ const honeypot = z.string().max(0, "Leave this field empty").optional().or(z.lit
 export const contactSchema = z.object({
   name: z.string().min(1).max(100),
   email: z.string().email().max(200),
-  category: z.enum(["question", "suggestion", "problem", "other"]),
+  category: z.enum(["question", "suggestion", "problem", "academic", "other"]),
   subject: z.string().min(1).max(150),
   message: z.string().min(15).max(5000),
   nickname: honeypot,

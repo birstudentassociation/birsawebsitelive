@@ -117,6 +117,8 @@ function line(name: string, value: string): string {
 export type BuildIcsOptions = {
   /** Absolute site origin, e.g. `https://example.com` (no trailing slash). */
   siteUrl: string;
+  /** The calendar's name in each locale. Defaults to the activity calendar's. */
+  name?: Record<Locale, string>;
 };
 
 /**
@@ -136,7 +138,7 @@ export function buildIcs(
   lines.push(line("PRODID", "-//BIRSA Portal//Activity Calendar//EN"));
   lines.push("CALSCALE:GREGORIAN");
   lines.push("METHOD:PUBLISH");
-  lines.push(line("X-WR-CALNAME", escapeIcsText(CALENDAR_NAME[locale])));
+  lines.push(line("X-WR-CALNAME", escapeIcsText((options.name ?? CALENDAR_NAME)[locale])));
   lines.push("X-WR-TIMEZONE:Asia/Bangkok");
 
   const dtStampValue = ICS_REVISION.replace(/[-:]/g, "");

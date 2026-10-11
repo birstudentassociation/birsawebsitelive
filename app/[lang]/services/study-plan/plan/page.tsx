@@ -51,6 +51,7 @@ import PlanStore from "@/components/study-plan/PlanStore";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
 import ScenarioSection from "@/components/study-plan/ScenarioSection";
 import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
+import PlanOutreach from "@/components/study-plan/PlanOutreach";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import {
   buildStudyPlanCopy,
@@ -538,6 +539,8 @@ export default async function StudyPlanPage({
             {copy.plan.printLinkLabel} &rarr;
           </Link>
         </div>
+
+        <PlanOutreach plan={plan} serialisedPlan={serialisedPlan} locale={locale} />
 
         <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
           <ul className="flex flex-col gap-1.5">

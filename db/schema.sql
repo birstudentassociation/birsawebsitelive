@@ -136,3 +136,21 @@ create table if not exists published_course_reviews (
 
 create index if not exists published_course_reviews_course_code_idx
   on published_course_reviews (course_code);
+
+create table if not exists elective_demand_entries (
+  id uuid primary key default gen_random_uuid(),
+  curriculum_version text not null
+    check (curriculum_version in ('2564', '2564-rev2566', '2568')),
+  course_code text not null,
+  term_year integer not null
+    check (term_year between 2500 and 2700),
+  term_semester text not null
+    check (term_semester in ('1', '2', 'summer')),
+  created_on date not null default current_date
+);
+
+create index if not exists elective_demand_entries_course_term_idx
+  on elective_demand_entries (course_code, term_year, term_semester);
+
+create index if not exists elective_demand_entries_created_on_idx
+  on elective_demand_entries (created_on);

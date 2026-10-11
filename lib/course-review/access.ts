@@ -1,5 +1,6 @@
 /**
- * Who may use the course review moderation console.
+ * Who may use the course review moderation console, and the elective demand
+ * page and export beside it, which are Academic Affairs' too.
  *
  * Admins and the Academic Affairs role, and only BIRSA-wide ones: a club's
  * officers are scoped to that club's equipment, and course reviews belong to
