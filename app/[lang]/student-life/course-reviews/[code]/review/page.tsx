@@ -12,7 +12,7 @@ import { reviewFormCopy } from "@/components/course-review/reviewFormCopy";
 import { courseNode } from "@/lib/courses/graph";
 import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
 import { instructorKey, OTHER_INSTRUCTOR } from "@/lib/course-review/instructors";
-import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { isCourseReviewLive } from "@/lib/course-review/submissions";
 import { recentTerms, termKey, termYearLabel } from "@/lib/course-review/terms";
 import { studentLifeLabel } from "@/content/student-life/topics";
 import { submitReviewAction } from "./actions";
@@ -60,6 +60,7 @@ export default async function WriteReviewPage({
 
   const node = courseNode(code);
   if (!node) notFound();
+  const collecting = await isCourseReviewLive();
 
   const courseHref = `/student-life/course-reviews/${node.code}`;
   const course = node.catalogue;
@@ -93,7 +94,7 @@ export default async function WriteReviewPage({
         }
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-7 py-7 sm:gap-10 sm:py-10">
-        {isCourseReviewConfigured() ? (
+        {collecting ? (
           <>
             <section aria-labelledby="how-heading" className="flex flex-col gap-2">
               <h2 id="how-heading" className="font-display text-lg sm:text-xl">

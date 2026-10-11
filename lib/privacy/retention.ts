@@ -315,11 +315,20 @@ export async function purgeExpiredPersonalData(
     // they hold no personal data about students and stay until unpublished
     // (published_course_reviews.submission_ids is deliberately not a foreign
     // key, so deleting the raw rows leaves them intact).
-    const reviewsDeleted = await client.query(
-      `delete from course_review_submissions where created_at < $1`,
-      [cutoff.toISOString()]
+    //
+    // The table comes from migration 013, so its existence is checked first,
+    // for the same reason as elective_demand_entries below.
+    const reviewsExist = await client.query<{ present: boolean }>(
+      `select to_regclass('public.course_review_submissions') is not null as present`,
+      []
     );
-    counts.courseReviewSubmissions = reviewsDeleted.rowCount ?? 0;
+    if (reviewsExist.rows[0]?.present) {
+      const reviewsDeleted = await client.query(
+        `delete from course_review_submissions where created_at < $1`,
+        [cutoff.toISOString()]
+      );
+      counts.courseReviewSubmissions = reviewsDeleted.rowCount ?? 0;
+    }
 
     // g. elective_demand_entries: age alone, by the day each row arrived.
     // They hold no personal data (a course, a term and a curriculum version,

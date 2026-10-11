@@ -14,13 +14,23 @@
  * table can tell which rows came from the same student, let alone who that was.
  */
 import type { AcademicTerm } from "@/content/course-review/types";
-import { sql } from "@/lib/inventory/db";
+import { sql, tableExists } from "@/lib/inventory/db";
 import { pgArray, semesterColumn, termFromColumns } from "@/lib/course-review/submissions";
 import type { DemandPayload } from "@/lib/elective-demand/payload";
 import { publishableTerms, type TermDemand } from "@/lib/elective-demand/threshold";
 
 export function isElectiveDemandConfigured(): boolean {
   return !!process.env.POSTGRES_URL;
+}
+
+/**
+ * Whether students can share their electives: a database, and migration 014
+ * applied to it. The plan screen asks this rather than
+ * `isElectiveDemandConfigured()`, so the opt-in is not offered before there is
+ * a table to receive it.
+ */
+export async function isElectiveDemandLive(): Promise<boolean> {
+  return isElectiveDemandConfigured() && (await tableExists("elective_demand_entries"));
 }
 
 /** A course, a term and how many students planned it, as the officer console shows them. */

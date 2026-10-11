@@ -13,7 +13,7 @@
  * unmoderated until an officer approves them.
  */
 import type { AcademicTerm, WorkloadBand } from "@/content/course-review/types";
-import { sql } from "@/lib/inventory/db";
+import { sql, tableExists } from "@/lib/inventory/db";
 import {
   groupSubmissions,
   type GroupKey,
@@ -43,6 +43,16 @@ export function toIsoString(value: string | Date): string {
 
 export function isCourseReviewConfigured(): boolean {
   return !!process.env.POSTGRES_URL;
+}
+
+/**
+ * Whether students can submit a review: a database, and migration 013 applied
+ * to it. Everything a student sees asks this rather than
+ * `isCourseReviewConfigured()`, so a deploy that lands before the migration
+ * shows the old invitation instead of a form that fails on submit.
+ */
+export async function isCourseReviewLive(): Promise<boolean> {
+  return isCourseReviewConfigured() && (await tableExists("course_review_submissions"));
 }
 
 export type ReviewSubmission = {

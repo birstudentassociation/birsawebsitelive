@@ -73,7 +73,13 @@ afterEach(() => {
 describe("the share-with-an-advisor section", () => {
   const section = () => {
     const result = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     return result;
   };
@@ -112,7 +118,13 @@ describe("the share-with-an-advisor section", () => {
 
   it("is in Thai for a Thai reader", () => {
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="th" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="th"
+        demandLive={false}
+        now={NOW}
+      />
     );
     expect(container.querySelector("#share-with-advisor h3")!.textContent).toBe(
       "ส่งแผนให้อาจารย์ที่ปรึกษา"
@@ -125,7 +137,13 @@ describe("the share-with-an-advisor section", () => {
 describe("the ask Academic Affairs section", () => {
   it("is a plain form that posts the plan to a server action, so it works without JavaScript", () => {
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     const form = container.querySelector("#ask-academic-affairs form")!;
     const hidden = form.querySelector<HTMLInputElement>('input[type="hidden"][name="plan"]')!;
@@ -137,7 +155,13 @@ describe("the ask Academic Affairs section", () => {
 
   it("promises nothing is sent until the student presses send", () => {
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     expect(container.querySelector("#ask-academic-affairs")!.textContent).toMatch(
       /Nothing is sent until you press send/
@@ -157,7 +181,13 @@ describe("the registration dates section", () => {
 
   it("says no dates are recorded when the calendar holds none, and offers no download", () => {
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     const text = container.querySelector("#registration-dates")!.textContent!;
     expect(text).toContain("No registration dates recorded yet");
@@ -180,7 +210,13 @@ describe("the registration dates section", () => {
       },
     ];
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     const section = container.querySelector("#registration-dates")!;
     expect(section.textContent).not.toContain("No registration dates recorded yet");
@@ -196,7 +232,13 @@ describe("the registration dates section", () => {
   it("writes a date range once, naming the month where it is shared", () => {
     calendar.events = [{ ...window2570("range", "2027-07-12", 1), end: "2027-07-16" }];
     const { container } = render(
-      <PlanOutreach plan={plan} serialisedPlan={serialisePlan(plan)} locale="en" now={NOW} />
+      <PlanOutreach
+        plan={plan}
+        serialisedPlan={serialisePlan(plan)}
+        locale="en"
+        demandLive={false}
+        now={NOW}
+      />
     );
     expect(container.querySelector("#registration-dates li")!.textContent).toBe(
       "Registration, Semester 1, 2027/28: 12 to 16 July 2027"

@@ -7,7 +7,8 @@ import { courseContextLine } from "@/lib/course-review/context";
 import { listPublishedReviewsByCourse } from "@/lib/course-review/published";
 import { findingSourcesFor, reviewsFor } from "@/lib/course-review/reviewSources";
 import { reviewLine, type ReviewLineCopy } from "@/lib/course-review/reviewSummary";
-import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { isCourseReviewLive } from "@/lib/course-review/submissions";
+import { isElectiveDemandLive } from "@/lib/elective-demand/store";
 import { comparePath } from "@/lib/courses/compare";
 import {
   HISTORY_COPY,
@@ -435,7 +436,8 @@ export default async function StudyPlanPage({
     },
   };
   // Whether the review form exists, which decides whether the reminder to write one is shown.
-  const reviewFormLive = isCourseReviewConfigured();
+  const reviewFormLive = await isCourseReviewLive();
+  const demandLive = await isElectiveDemandLive();
   const planHref = localeHref(locale, "/services/study-plan/plan");
 
   return (
@@ -680,7 +682,12 @@ export default async function StudyPlanPage({
           </Link>
         </div>
 
-        <PlanOutreach plan={plan} serialisedPlan={serialisedPlan} locale={locale} />
+        <PlanOutreach
+          plan={plan}
+          serialisedPlan={serialisedPlan}
+          locale={locale}
+          demandLive={demandLive}
+        />
 
         <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
           <ul className="flex flex-col gap-1.5">

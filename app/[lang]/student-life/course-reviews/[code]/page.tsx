@@ -45,7 +45,7 @@ import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
 import { categoryName, termsText } from "@/lib/course-review/display";
 import { reviewFreshness } from "@/lib/course-review/freshness";
 import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
-import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { isCourseReviewLive } from "@/lib/course-review/submissions";
 import { listDemandTerms } from "@/lib/elective-demand/store";
 import { academicTermLabel } from "@/lib/elective-demand/terms";
 import { DEMAND_THRESHOLD } from "@/lib/elective-demand/threshold";
@@ -158,7 +158,7 @@ export default async function CourseDetailPage({
   // ones included) and the assessment facts. Derived history, disclosed below.
   const insight = buildTermInsightCopy(locale);
   const history = offeringHistory(node.code, reviews);
-  const collecting = isCourseReviewConfigured();
+  const collecting = await isCourseReviewLive();
   const writeReviewHref = localeHref(locale, `/student-life/course-reviews/${node.code}/review`);
   const now = new Date();
   // The terms enough students have planned this course for, as a band: the

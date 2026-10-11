@@ -3,7 +3,7 @@
 import { headers } from "next/headers";
 import { checkRateLimit, refundRateLimit } from "@/app/api/_lib/guard";
 import { DEMAND_FIELDS, validateDemand } from "@/lib/elective-demand/payload";
-import { insertDemand, isElectiveDemandConfigured } from "@/lib/elective-demand/store";
+import { insertDemand, isElectiveDemandLive } from "@/lib/elective-demand/store";
 
 /** The rate limit scope for sending electives, separate from every other form's. */
 const DEMAND_RATE_LIMIT_SCOPE = "elective-demand";
@@ -83,7 +83,7 @@ export async function submitElectiveDemand(
     return { status: result.reason };
   }
 
-  if (!isElectiveDemandConfigured()) {
+  if (!(await isElectiveDemandLive())) {
     refundRateLimit(ip, DEMAND_RATE_LIMIT_SCOPE);
     return { status: "not-configured" };
   }

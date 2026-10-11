@@ -9,6 +9,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import type { Instructor, StudentReview } from "@/content/course-review/types";
 
 const published = vi.hoisted(() => ({ reviews: [] as unknown[] }));
+// Whether migration 013 has been applied, which a configured database alone does not tell.
+const tables = vi.hoisted(() => ({ reviewTable: true }));
 
 vi.mock("next/navigation", () => ({
   notFound: () => {
@@ -18,6 +20,15 @@ vi.mock("next/navigation", () => ({
 vi.mock("@/lib/course-review/published", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/course-review/published")>();
   return { ...actual, listPublishedReviews: async () => published.reviews };
+});
+
+vi.mock("@/lib/inventory/db", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/inventory/db")>();
+  return {
+    ...actual,
+    tableExists: async (table: string) =>
+      actual.isInventoryConfigured() && table === "course_review_submissions" && tables.reviewTable,
+  };
 });
 
 import CourseDetailPage, { revalidate } from "@/app/[lang]/student-life/course-reviews/[code]/page";
@@ -48,6 +59,7 @@ function review(overrides: Partial<StudentReview> = {}): StudentReview {
 
 beforeEach(() => {
   published.reviews = [];
+  tables.reviewTable = true;
   vi.stubEnv("POSTGRES_URL", "");
 });
 afterEach(() => {
@@ -164,6 +176,23 @@ describe("course page reviews: the invitation", () => {
     const html = await render("en");
     expect(html).toContain("Taken this course? You can add your own review.");
     expect(html).toContain(`href="/en/student-life/course-reviews/${course.code}/review"`);
+  });
+
+  it("keeps the /contact invitation when the database is connected but migration 013 has not been applied", async () => {
+    vi.stubEnv("POSTGRES_URL", "postgres://example.invalid/db");
+    tables.reviewTable = false;
+    const html = await render("en");
+    expect(html).toContain("No student review yet");
+    expect(html).toContain("get in touch");
+    expect(html).not.toContain("Write a review");
+    expect(html).not.toContain(`/student-life/course-reviews/${course.code}/review"`);
+  });
+
+  it("does not offer it under existing reviews when the table is missing", async () => {
+    vi.stubEnv("POSTGRES_URL", "postgres://example.invalid/db");
+    tables.reviewTable = false;
+    published.reviews = [review()];
+    expect(await render("en")).not.toContain("Taken this course?");
   });
 
   it("does not offer it under existing reviews when the database is not connected", async () => {

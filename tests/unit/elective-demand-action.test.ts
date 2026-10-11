@@ -10,11 +10,15 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const db = vi.hoisted(() => ({
   calls: [] as { text: string; values: unknown[] }[],
   fail: false,
+  tableExists: true,
 }));
 const requester = vi.hoisted(() => ({ ip: "198.51.100.7" }));
 
 vi.mock("@/lib/inventory/db", () => ({
   isInventoryConfigured: () => !!process.env.POSTGRES_URL,
+  // Whether migration 014 has been applied. Answered here rather than through
+  // `sql`, so `db.calls` stays a record of what the action stores.
+  tableExists: async () => !!process.env.POSTGRES_URL && db.tableExists,
   sql: async (strings: TemplateStringsArray, ...values: unknown[]) => {
     db.calls.push({ text: strings.join("?"), values });
     if (db.fail) throw new Error("database down");
@@ -48,6 +52,7 @@ beforeEach(() => {
   vi.stubEnv("POSTGRES_URL", "postgres://example");
   db.calls = [];
   db.fail = false;
+  db.tableExists = true;
   // A fresh address per test, so rate limit buckets never leak between them.
   counter += 1;
   requester.ip = `203.0.113.${counter}`;
@@ -136,6 +141,25 @@ describe("submitElectiveDemand", () => {
       status: "not-configured",
     });
     expect(db.calls).toHaveLength(0);
+  });
+
+  it("says nothing was stored when the database has no elective_demand_entries table yet", async () => {
+    db.tableExists = false;
+    await expect(submitElectiveDemand({ status: "idle" }, form())).resolves.toEqual({
+      status: "not-configured",
+    });
+    expect(db.calls).toHaveLength(0);
+  });
+
+  it("does not count a send refused for a missing table against the rate limit", async () => {
+    db.tableExists = false;
+    for (let i = 0; i < 12; i += 1) {
+      await submitElectiveDemand({ status: "idle" }, form());
+    }
+    db.tableExists = true;
+    await expect(submitElectiveDemand({ status: "idle" }, form())).resolves.toEqual({
+      status: "shared",
+    });
   });
 
   it("reports an error, not success, when the insert fails", async () => {

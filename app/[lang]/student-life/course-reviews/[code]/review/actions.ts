@@ -11,7 +11,7 @@ import {
   type RawReviewForm,
   type ReviewErrors,
 } from "@/lib/course-review/submit";
-import { insertSubmission, isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { insertSubmission, isCourseReviewLive } from "@/lib/course-review/submissions";
 
 /** What the reader typed, kept so a failed submission does not lose it. */
 export type ReviewFormValues = {
@@ -138,7 +138,7 @@ export async function submitReviewAction(
     return { status: "invalid", errors: result.errors, values };
   }
 
-  if (!isCourseReviewConfigured()) {
+  if (!(await isCourseReviewLive())) {
     refundRateLimit(ip, REVIEW_RATE_LIMIT_SCOPE);
     return { status: "not-configured", values };
   }

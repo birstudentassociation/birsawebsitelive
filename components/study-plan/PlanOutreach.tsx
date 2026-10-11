@@ -24,7 +24,6 @@ import { calendarEvents, type CalendarEvent } from "@/content/calendar/events";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import { currentTerm, termKey } from "@/lib/course-review/terms";
 import { buildDemandPayload, encodeDemandEntries } from "@/lib/elective-demand/payload";
-import { isElectiveDemandConfigured } from "@/lib/elective-demand/store";
 import { DEMAND_THRESHOLD } from "@/lib/elective-demand/threshold";
 import { academicTermLabel } from "@/lib/elective-demand/terms";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -42,6 +41,8 @@ export type PlanOutreachProps = {
   /** The plan as the screen carries it, `serialisePlan(plan)`. */
   serialisedPlan: string;
   locale: Locale;
+  /** Whether the elective demand table exists to receive a submission (`isElectiveDemandLive`). */
+  demandLive: boolean;
   /** The instant the screen is rendered at; a parameter so a test can fix it. */
   now?: Date;
 };
@@ -70,6 +71,7 @@ export default function PlanOutreach({
   plan,
   serialisedPlan,
   locale,
+  demandLive,
   now = new Date(),
 }: PlanOutreachProps) {
   const copy = buildPlanOutreachCopy(locale);
@@ -137,7 +139,7 @@ export default function PlanOutreach({
         <p className="text-sm text-muted">{copy.share.noScriptNote}</p>
       </div>
 
-      {isElectiveDemandConfigured() ? (
+      {demandLive ? (
         <div id="share-electives" className="flex flex-col gap-3 rounded-lg border border-line p-5">
           <h3 className="font-display text-lg">{copy.demand.heading}</h3>
           <p className="leading-relaxed text-muted">{copy.demand.intro}</p>

@@ -43,11 +43,21 @@ describe("published reviews reach every screen that counts reviews", () => {
 
   it("shows the reminder on the plan screen and in the course panel only when the review form is live", () => {
     const plan = read("app/[lang]/services/study-plan/plan/page.tsx");
-    expect(plan).toContain("const reviewFormLive = isCourseReviewConfigured();");
+    expect(plan).toContain("const reviewFormLive = await isCourseReviewLive();");
     expect(plan).toContain("live={reviewFormLive}");
     expect(read("app/[lang]/student-life/course-reviews/[code]/page.tsx")).toContain(
       "reviewLive={collecting}"
     );
+  });
+
+  it("offers the elective opt-in on the plan screen only when its table exists, not merely when a database is set", () => {
+    const plan = read("app/[lang]/services/study-plan/plan/page.tsx");
+    expect(plan).toContain("const demandLive = await isElectiveDemandLive();");
+    expect(plan).toContain("demandLive={demandLive}");
+    for (const source of [plan, read("components/study-plan/PlanOutreach.tsx")]) {
+      expect(source).not.toContain("isCourseReviewConfigured");
+      expect(source).not.toContain("isElectiveDemandConfigured");
+    }
   });
 
   it("keeps the shared view free of the database, because its plan never reaches the server", () => {

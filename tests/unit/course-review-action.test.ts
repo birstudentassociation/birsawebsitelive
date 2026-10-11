@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const db = vi.hoisted(() => ({ insertSubmission: vi.fn(), configured: true }));
+const db = vi.hoisted(() => ({ insertSubmission: vi.fn(), configured: true, tableExists: true }));
 const requester = vi.hoisted(() => ({ ip: "198.51.100.7" }));
 
 vi.mock("next/headers", () => ({
@@ -13,6 +13,8 @@ vi.mock("next/navigation", () => ({
 }));
 vi.mock("@/lib/course-review/submissions", () => ({
   isCourseReviewConfigured: () => db.configured,
+  // Live means a database and migration 013 applied to it.
+  isCourseReviewLive: async () => db.configured && db.tableExists,
   insertSubmission: db.insertSubmission,
 }));
 
@@ -58,6 +60,7 @@ beforeEach(() => {
   db.insertSubmission.mockReset();
   db.insertSubmission.mockResolvedValue(true);
   db.configured = true;
+  db.tableExists = true;
   // A fresh address per test, so rate limit buckets never leak between them.
   counter += 1;
   requester.ip = `203.0.113.${counter}`;
@@ -112,6 +115,23 @@ describe("submitReviewAction", () => {
     const state = await submitReviewAction({ status: "idle" }, form());
     expect(state.status).toBe("not-configured");
     expect(db.insertSubmission).not.toHaveBeenCalled();
+  });
+
+  it("says so, and stores nothing, when the database is there but migration 013 has not been applied", async () => {
+    db.tableExists = false;
+    const state = await submitReviewAction({ status: "idle" }, form());
+    expect(state.status).toBe("not-configured");
+    expect(db.insertSubmission).not.toHaveBeenCalled();
+  });
+
+  it("does not count a refused submission against the rate limit when the table is missing", async () => {
+    db.tableExists = false;
+    for (let i = 0; i < 6; i += 1) {
+      await submitReviewAction({ status: "idle" }, form());
+    }
+    db.tableExists = true;
+    const target = await redirectOf(submitReviewAction({ status: "idle" }, form()));
+    expect(target).toBe("/en/student-life/course-reviews/PI280/review/sent");
   });
 
   it("reports a failed insert rather than pretending it worked", async () => {

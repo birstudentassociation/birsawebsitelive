@@ -259,6 +259,11 @@ type Store = {
   borrowers: { id: string; updated_at: string }[];
   audit_log: { id: string; created_at: string; officer_id: string | null }[];
   satisfaction_feedback: { id: string; created_at: string }[];
+  /**
+   * Whether `course_review_submissions` exists. It comes from migration 013, so
+   * the purge probes for it with `to_regclass` too.
+   */
+  course_review_table_exists: boolean;
   course_review_submissions: { id: string; created_at: string; status: string }[];
   published_course_reviews: { id: string; published_at: string }[];
   /**
@@ -379,7 +384,17 @@ function makeFakeClient(s: Store): FakeClient {
         return { rows: [] as T[], rowCount: before - s.satisfaction_feedback.length };
       }
 
+      if (text.includes("to_regclass('public.course_review_submissions')")) {
+        return {
+          rows: [{ present: s.course_review_table_exists }] as unknown as T[],
+          rowCount: 1,
+        };
+      }
+
       if (text.includes("delete from course_review_submissions")) {
+        if (!s.course_review_table_exists) {
+          throw new Error('relation "course_review_submissions" does not exist');
+        }
         const cutoff = params[0] as string;
         const before = s.course_review_submissions.length;
         s.course_review_submissions = s.course_review_submissions.filter(
@@ -483,6 +498,7 @@ function freshStore(): Store {
     borrowers: [],
     audit_log: [],
     satisfaction_feedback: [],
+    course_review_table_exists: true,
     course_review_submissions: [],
     published_course_reviews: [],
     elective_demand_table_exists: true,
@@ -639,6 +655,24 @@ describe("purgeExpiredPersonalData", () => {
     ]);
     // The retention job has no statement that touches the published table.
     expect(store.published_course_reviews).toHaveLength(1);
+  });
+
+  it("skips course reviews when migration 013 has not been applied, and still purges the rest", async () => {
+    store.course_review_table_exists = false;
+    store.satisfaction_feedback.push({ id: "old-feedback", created_at: yearsAgoPlusDays(3, 0) });
+    store.elective_demand_entries.push({
+      id: "old-demand",
+      created_on: yearsAgoPlusDays(3, 0).slice(0, 10),
+    });
+
+    const result = await purgeExpiredPersonalData(NOW);
+
+    expect(result).toMatchObject({
+      ok: true,
+      counts: { courseReviewSubmissions: 0, satisfactionFeedback: 1, electiveDemandEntries: 1 },
+    });
+    expect(store.satisfaction_feedback).toHaveLength(0);
+    expect(store.elective_demand_entries).toHaveLength(0);
   });
 
   it("purges elective demand rows by the day they arrived, two years on", async () => {

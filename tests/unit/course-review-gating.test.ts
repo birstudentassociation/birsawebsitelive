@@ -11,6 +11,7 @@ import {
   decideSubmission,
   insertSubmission,
   isCourseReviewConfigured,
+  isCourseReviewLive,
   listGroupSubmissions,
   listSubmissionGroups,
 } from "@/lib/course-review/submissions";
@@ -43,6 +44,10 @@ describe("course reviews with no environment configured", () => {
   it("reports itself as not configured", () => {
     expect(isCourseReviewConfigured()).toBe(false);
     expect(isSummariserConfigured()).toBe(false);
+  });
+
+  it("is not live either", async () => {
+    await expect(isCourseReviewLive()).resolves.toBe(false);
   });
 
   it("reads return nothing", async () => {

@@ -14,6 +14,7 @@ import { demandCsvFromDatabase, DEMAND_CSV_HEADER } from "@/lib/elective-demand/
 import {
   insertDemand,
   isElectiveDemandConfigured,
+  isElectiveDemandLive,
   listDemandCounts,
   listDemandTerms,
 } from "@/lib/elective-demand/store";
@@ -44,6 +45,10 @@ describe("elective demand with no environment configured", () => {
     expect(isElectiveDemandConfigured()).toBe(false);
   });
 
+  it("is not live either", async () => {
+    await expect(isElectiveDemandLive()).resolves.toBe(false);
+  });
+
   it("reads return nothing", async () => {
     await expect(listDemandCounts()).resolves.toEqual([]);
     await expect(listDemandTerms("PI364", new Date())).resolves.toEqual([]);
@@ -70,19 +75,20 @@ describe("elective demand with no environment configured", () => {
   });
 });
 
-describe("the plan screen section with and without a database", () => {
-  const renderSection = () =>
+describe("the plan screen section with and without a table to receive electives", () => {
+  const renderSection = (demandLive: boolean) =>
     render(
       <PlanOutreach
         plan={plan}
         serialisedPlan="x"
         locale="en"
+        demandLive={demandLive}
         now={new Date("2026-10-11T05:00:00Z")}
       />
     );
 
-  it("leaves the elective sharing out with no database, and keeps the rest", () => {
-    const { container } = renderSection();
+  it("leaves the elective sharing out when it is not live, and keeps the rest", () => {
+    const { container } = renderSection(false);
     expect(container.querySelector("#share-electives")).toBeNull();
     expect(container.textContent).not.toContain("Share my planned electives");
     expect(container.querySelector("#share-with-advisor")).not.toBeNull();
@@ -90,10 +96,15 @@ describe("the plan screen section with and without a database", () => {
     expect(container.querySelector("#registration-dates")).not.toBeNull();
   });
 
-  it("offers it once a database is configured", () => {
-    vi.stubEnv("POSTGRES_URL", "postgres://example");
-    const { container } = renderSection();
+  it("offers it once it is live", () => {
+    const { container } = renderSection(true);
     expect(container.querySelector("#share-electives")).not.toBeNull();
     expect(container.textContent).toContain("Share my planned electives anonymously");
+  });
+
+  it("does not offer it because a database is configured: the caller decides, from the table", () => {
+    vi.stubEnv("POSTGRES_URL", "postgres://example");
+    const { container } = renderSection(false);
+    expect(container.querySelector("#share-electives")).toBeNull();
   });
 });
