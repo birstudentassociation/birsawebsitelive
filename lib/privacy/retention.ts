@@ -180,6 +180,7 @@ export type PurgeCounts = {
   auditLog: number;
   satisfactionFeedback: number;
   courseReviewSubmissions: number;
+  electiveDemandEntries: number;
   custodiansCleared: number;
   officersAnonymised: number;
 };
@@ -192,6 +193,7 @@ function emptyCounts(): PurgeCounts {
     auditLog: 0,
     satisfactionFeedback: 0,
     courseReviewSubmissions: 0,
+    electiveDemandEntries: 0,
     custodiansCleared: 0,
     officersAnonymised: 0,
   };
@@ -319,7 +321,28 @@ export async function purgeExpiredPersonalData(
     );
     counts.courseReviewSubmissions = reviewsDeleted.rowCount ?? 0;
 
-    // g. Custodians: clear contact fields, keep the row. Clubs are not
+    // g. elective_demand_entries: age alone, by the day each row arrived.
+    // They hold no personal data (a course, a term and a curriculum version,
+    // with nothing to say who shared them), but the register promises the
+    // same two years as everything else and the counts are only meant to
+    // describe the students currently planning. The table comes from
+    // migration 014, which may not have been applied yet when this job first
+    // runs on a new deploy, and querying a missing relation would abort the
+    // transaction and roll back every other step, so its existence is checked
+    // first, as with equipment_loans above.
+    const demandExists = await client.query<{ present: boolean }>(
+      `select to_regclass('public.elective_demand_entries') is not null as present`,
+      []
+    );
+    if (demandExists.rows[0]?.present) {
+      const demandDeleted = await client.query(
+        `delete from elective_demand_entries where created_on < $1`,
+        [cutoff.toISOString().slice(0, 10)]
+      );
+      counts.electiveDemandEntries = demandDeleted.rowCount ?? 0;
+    }
+
+    // h. Custodians: clear contact fields, keep the row. Clubs are not
     // personal data; the people who answer for them are.
     const officerActivityRows = await client.query<{
       custodian_id: string | null;
@@ -383,7 +406,7 @@ export async function purgeExpiredPersonalData(
       counts.custodiansCleared = cleared.rowCount ?? 0;
     }
 
-    // h. Officers: anonymise, never delete. audit_log.officer_id and
+    // i. Officers: anonymise, never delete. audit_log.officer_id and
     // loans.decided_by / checked_out_by / checked_in_by all reference them,
     // so deleting the row (or nulling those columns) would erase who
     // approved or handled a loan, which is exactly the accountability

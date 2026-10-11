@@ -27,6 +27,12 @@ export type ContactCheckFormProps = {
   changeLabel: string;
   submitLabel: string;
   submittingLabel: string;
+  /**
+   * Set when the message was started from the study plan screen. The summary is
+   * shown in a box the student can edit or empty, and is sent only if it is
+   * still in the box when they press send.
+   */
+  planSummaryField?: { label: string; hint: string };
 };
 
 const initialState: CheckState = { status: "idle" };
@@ -54,6 +60,7 @@ export default function ContactForm({
   changeLabel,
   submitLabel,
   submittingLabel,
+  planSummaryField,
 }: ContactCheckFormProps) {
   const formId = useId();
   const [state, formAction, isPending] = useActionState(action, initialState);
@@ -74,6 +81,7 @@ export default function ContactForm({
       `${dict.form.subject}: ${d.subject ?? ""}`,
       "",
       d.message ?? "",
+      ...(d.planSummary ? ["", d.planSummary] : []),
     ].join("\n");
   }
 
@@ -180,6 +188,18 @@ export default function ContactForm({
           changeLabel={changeLabel}
         />
       </dl>
+
+      {planSummaryField && draft.planSummary ? (
+        <Field
+          as="textarea"
+          name="planSummary"
+          label={planSummaryField.label}
+          hint={planSummaryField.hint}
+          defaultValue={draft.planSummary}
+          rows={12}
+          maxLength={2500}
+        />
+      ) : null}
 
       <p className="text-sm text-muted">{dict.form.privacyNote}</p>
 

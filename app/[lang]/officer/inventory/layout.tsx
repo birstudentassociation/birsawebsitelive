@@ -56,6 +56,7 @@ type NavCopy = {
   officers: string;
   organisations: string;
   courseReviews: string;
+  electiveDemand: string;
   /** Label for the scope-indicator pill shown to club custodians. */
   viewingLabel: string;
 };
@@ -72,6 +73,7 @@ const navCopy: Record<Locale, NavCopy> = {
     officers: "Officers",
     organisations: "Organisations",
     courseReviews: "Course reviews",
+    electiveDemand: "Elective demand",
     viewingLabel: "Viewing:",
   },
   th: {
@@ -85,6 +87,7 @@ const navCopy: Record<Locale, NavCopy> = {
     officers: "เจ้าหน้าที่",
     organisations: "องค์กร/ชมรม",
     courseReviews: "รีวิวรายวิชา",
+    electiveDemand: "ความต้องการวิชาเลือก",
     viewingLabel: "กำลังดู:",
   },
 };
@@ -113,12 +116,14 @@ export default async function OfficerInventoryLayout({
     scopeName = custodian ? custodian.name[locale] : null;
   }
 
-  // Academic Affairs officers have the course review console and nothing
-  // else, so their nav is just that and the dashboard that points to it.
+  // Academic Affairs officers have the course review console and the
+  // elective demand page, and nothing else, so their nav is just those and
+  // the dashboard that points to them.
   const reviewsItem = { href: "/officer/inventory/course-reviews", label: t.courseReviews };
+  const demandItem = { href: "/officer/inventory/course-demand", label: t.electiveDemand };
   const navItems =
     officer?.role === "academic_affairs"
-      ? [{ href: "/officer/inventory", label: t.dashboard }, reviewsItem]
+      ? [{ href: "/officer/inventory", label: t.dashboard }, reviewsItem, demandItem]
       : [
           { href: "/officer/inventory", label: t.dashboard },
           { href: "/officer/inventory/items", label: t.catalogue },
@@ -129,7 +134,7 @@ export default async function OfficerInventoryLayout({
           ...(isGlobalOfficer
             ? [{ href: "/officer/inventory/custodians", label: t.organisations }]
             : []),
-          ...(officer && canModerateReviews(officer) ? [reviewsItem] : []),
+          ...(officer && canModerateReviews(officer) ? [reviewsItem, demandItem] : []),
         ];
 
   return (

@@ -9,7 +9,13 @@
  */
 import type { Locale } from "@/lib/i18n";
 
-export const CONTACT_CATEGORY_VALUES = ["question", "suggestion", "problem", "other"] as const;
+export const CONTACT_CATEGORY_VALUES = [
+  "question",
+  "suggestion",
+  "problem",
+  "academic",
+  "other",
+] as const;
 export type ContactCategory = (typeof CONTACT_CATEGORY_VALUES)[number];
 
 export function contactCategoryLabel(locale: Locale, value: ContactCategory): string {
@@ -18,12 +24,14 @@ export function contactCategoryLabel(locale: Locale, value: ContactCategory): st
       question: "A question",
       suggestion: "A suggestion",
       problem: "A problem to report",
+      academic: "Studies and Academic Affairs",
       other: "Something else",
     },
     th: {
       question: "คำถามทั่วไป",
       suggestion: "ข้อเสนอแนะ",
       problem: "แจ้งปัญหา",
+      academic: "การเรียนและฝ่ายวิชาการ",
       other: "เรื่องอื่น ๆ",
     },
   };
@@ -65,6 +73,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
             return "ข้อเสนอแนะของคุณคืออะไร";
           case "question":
             return "คำถามของคุณคืออะไร";
+          case "academic":
+            return "คุณต้องการสอบถามเรื่องการเรียนว่าอย่างไร";
           case "other":
             return "บอกรายละเอียดเพิ่มเติม";
           default:
@@ -79,6 +89,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
             return "บอกสิ่งที่คุณอยากให้เปลี่ยนแปลงหรือเพิ่มเติม";
           case "question":
             return "ถามได้ทุกเรื่องเกี่ยวกับกฎระเบียบ กำหนดเวลา หรือบริการ";
+          case "academic":
+            return "บอกสิ่งที่คุณอยากทราบ หากคุณมาจากแผนการศึกษา สรุปแผนจะแนบไว้ให้ตรวจในหน้าสุดท้าย";
           default:
             return "ให้รายละเอียดมากที่สุดเท่าที่ทำได้";
         }
@@ -105,6 +117,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
           return "What is your suggestion?";
         case "question":
           return "What is your question?";
+        case "academic":
+          return "What do you want to ask about your studies?";
         case "other":
           return "Tell us more";
         default:
@@ -119,6 +133,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
           return "Tell us what you would like to see changed or added.";
         case "question":
           return "Ask anything about rules, deadlines or services.";
+        case "academic":
+          return "Say what you want to know. If you came from your study plan, its summary is attached on the last page for you to check.";
         default:
           return "Give as much detail as you can.";
       }

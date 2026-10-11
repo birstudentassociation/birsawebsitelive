@@ -122,6 +122,10 @@ export const activities: ProcessingActivity[] = [
         en: "What you write in the message, including the subject you pick",
         th: "เนื้อหาข้อความที่ท่านกรอก รวมถึงหัวข้อเรื่องที่ท่านเลือก",
       },
+      {
+        en: "If you start from the study plan screen, a summary of your plan that you can read, change or delete before you send",
+        th: "หากท่านเริ่มจากหน้าแผนการศึกษา จะมีสรุปแผนของท่านที่ท่านอ่าน แก้ไข หรือลบได้ก่อนส่ง",
+      },
     ],
     ifYouDoNot: {
       en: "You have to give a name and an email address, because without them we have no way to reply. Nothing else is required.",
@@ -441,6 +445,39 @@ export const activities: ProcessingActivity[] = [
     },
   },
   {
+    id: "elective-demand",
+    name: {
+      en: "Elective plans you choose to share",
+      th: "วิชาเลือกที่ท่านเลือกแบ่งปันให้ฝ่ายวิชาการ",
+    },
+    purpose: {
+      en: "So Academic Affairs can see how many students plan to take each elective course in each term, and tell the programme office.",
+      th: "เพื่อให้ฝ่ายวิชาการทราบว่ามีนักศึกษากี่คนวางแผนเรียนวิชาเลือกแต่ละวิชาในแต่ละภาคการศึกษา และแจ้งต่อสำนักงานหลักสูตร",
+    },
+    basis: BASIS_LEGITIMATE_INTEREST,
+    collects: [
+      {
+        en: "The elective courses in your study plan, and the term you planned each one for",
+        th: "วิชาเลือกในแผนการศึกษาของท่าน และภาคการศึกษาที่ท่านวางแผนเรียนแต่ละวิชา",
+      },
+      {
+        en: "Which curriculum your plan follows, 2564, 2564 revised 2566 or 2568",
+        th: "หลักสูตรที่แผนของท่านใช้ ได้แก่ หลักสูตร 2564 หลักสูตร 2564 ฉบับปรับปรุง 2566 หรือหลักสูตร 2568",
+      },
+    ],
+    ifYouDoNot: {
+      en: "Sharing is entirely optional. It happens only if you tick the box and press send, and your plan works the same if you do not. We do not ask for your name, student ID, cohort or minor, or the courses you have passed, and nothing stored can be matched to you or to another submission. Please send once a term from the browser you use.",
+      th: "การแบ่งปันเป็นไปตามความสมัครใจทั้งหมด จะเกิดขึ้นเมื่อท่านทำเครื่องหมายในช่องและกดส่งเท่านั้น และแผนของท่านใช้งานได้เหมือนเดิมหากท่านไม่ส่ง BIRSA มิได้ขอชื่อ รหัสนักศึกษา รุ่น วิชาโท หรือรายวิชาที่ท่านผ่านแล้ว และข้อมูลที่เก็บไว้ไม่อาจเชื่อมโยงถึงท่านหรือเชื่อมโยงกับการส่งครั้งอื่นได้ ขอให้ส่งหนึ่งครั้งต่อภาคการศึกษาจากเบราว์เซอร์ที่ท่านใช้",
+    },
+    recipients: ["vercel-postgres"],
+    storage: "database",
+    retentionTrigger: "created",
+    retentionNote: {
+      en: "A course page says only that 20 or more students planned the course for a term, once that is true, and never shows the number. The limit of one send a term from a browser is a courtesy kept in your browser, and the server also limits how often one network can send, so the figure is an indication and not an exact count. As on every form on this site, the network address is held in memory for ten minutes to limit abuse and is never stored with what you share.",
+      th: "หน้ารายวิชาจะระบุเพียงว่ามีนักศึกษาวางแผนเรียนวิชานั้นในภาคการศึกษาหนึ่งตั้งแต่ 20 คนขึ้นไป เมื่อเป็นเช่นนั้นจริง และจะไม่แสดงตัวเลขที่แน่นอน การจำกัดให้ส่งได้หนึ่งครั้งต่อภาคการศึกษาจากหนึ่งเบราว์เซอร์เป็นเพียงข้อตกลงที่เก็บไว้ในเบราว์เซอร์ของท่าน และเซิร์ฟเวอร์จำกัดความถี่ของการส่งจากเครือข่ายเดียวกันด้วย ตัวเลขจึงเป็นเพียงข้อบ่งชี้ ไม่ใช่จำนวนที่แน่นอน เช่นเดียวกับทุกแบบฟอร์มในเว็บไซต์นี้ หมายเลขไอพีจะถูกเก็บไว้ในหน่วยความจำสิบนาทีเพื่อป้องกันการใช้งานในทางที่ผิด และไม่ถูกบันทึกร่วมกับข้อมูลที่ท่านแบ่งปัน",
+    },
+  },
+  {
     id: "rate-limiting",
     name: {
       en: "Stopping form abuse",
@@ -520,8 +557,8 @@ export const processors: Processor[] = [
     country: { en: "United States", th: "สหรัฐอเมริกา" },
     outsideThailand: true,
     receives: {
-      en: "Loan and borrower records, officer accounts, the log of officer actions, page feedback, and course reviews with their published summaries.",
-      th: "รายการยืมและข้อมูลผู้ยืม บัญชีผู้ใช้งานของเจ้าหน้าที่ บันทึกการดำเนินการของเจ้าหน้าที่ ความคิดเห็นต่อหน้าเว็บไซต์ และรีวิวรายวิชาพร้อมบทสรุปที่เผยแพร่",
+      en: "Loan and borrower records, officer accounts, the log of officer actions, page feedback, course reviews with their published summaries, and the elective courses students choose to share.",
+      th: "รายการยืมและข้อมูลผู้ยืม บัญชีผู้ใช้งานของเจ้าหน้าที่ บันทึกการดำเนินการของเจ้าหน้าที่ ความคิดเห็นต่อหน้าเว็บไซต์ รีวิวรายวิชาพร้อมบทสรุปที่เผยแพร่ และวิชาเลือกที่นักศึกษาเลือกแบ่งปัน",
     },
   },
   {
@@ -613,8 +650,8 @@ export const cookieRecords: CookieRecord[] = [
   {
     name: "birsa_contact_draft",
     purpose: {
-      en: "Holds your answers as you move between the pages of the contact form, so going back does not lose them.",
-      th: "จัดเก็บคำตอบของท่านระหว่างการเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อมิให้ข้อมูลสูญหายเมื่อย้อนกลับ",
+      en: "Holds your answers as you move between the pages of the contact form, so going back does not lose them. If you start from the study plan screen it also holds the plan summary you chose to attach.",
+      th: "จัดเก็บคำตอบของท่านระหว่างการเปลี่ยนหน้าในแบบฟอร์มติดต่อ เพื่อมิให้ข้อมูลสูญหายเมื่อย้อนกลับ หากท่านเริ่มจากหน้าแผนการศึกษา จะจัดเก็บสรุปแผนที่ท่านเลือกแนบไว้ด้วย",
     },
     expires: { en: "Thirty minutes", th: "สามสิบนาที" },
     essential: true,
@@ -712,6 +749,13 @@ export const browserStorage: BrowserStorageRecord[] = [
     purpose: {
       en: "Keeps a copy of the study plan you built, so it is still there if you close the tab and come back. The study plan start page offers to continue from it, and course pages and the course catalogue read it, on your device only, to show where a course sits in your plan. Only set once you reach the plan screen, never sent to BIRSA, and cleared straight away by the delete button on that screen.",
       th: "เก็บสำเนาแผนการศึกษาที่ท่านจัดทำไว้ เพื่อให้ยังคงอยู่แม้ท่านปิดแท็บแล้วกลับมาใหม่ หน้าเริ่มต้นของบริการแผนการศึกษาจะเสนอให้ทำต่อจากแผนนี้ และหน้ารายวิชากับแคตตาล็อกรายวิชาจะอ่านแผนนี้ในอุปกรณ์ของท่านเท่านั้น เพื่อแสดงว่ารายวิชาอยู่ตรงไหนในแผนของท่าน กำหนดค่าเมื่อท่านไปถึงหน้าแผนการศึกษาเท่านั้น ไม่มีการส่งข้อมูลนี้ไปยัง BIRSA แต่อย่างใด และจะถูกลบทันทีเมื่อท่านกดปุ่มลบในหน้าดังกล่าว",
+    },
+  },
+  {
+    key: "birsa-elective-demand",
+    purpose: {
+      en: "Remembers the term in which you sent your planned electives to Academic Affairs, so the plan screen offers one send from this browser each term. It holds only term names such as 2569-1, never what you sent. Never sent to BIRSA, and cleared straight away by the delete button on the plan screen, or by clearing your browser data.",
+      th: "จดจำภาคการศึกษาที่ท่านส่งวิชาเลือกที่วางแผนไว้ให้ฝ่ายวิชาการ เพื่อให้หน้าแผนการศึกษาเปิดให้ส่งได้หนึ่งครั้งต่อภาคการศึกษาจากเบราว์เซอร์นี้ เก็บเฉพาะชื่อภาคการศึกษา เช่น 2569-1 ไม่เก็บสิ่งที่ท่านส่ง ไม่มีการส่งข้อมูลนี้ไปยัง BIRSA และจะถูกลบทันทีเมื่อท่านกดปุ่มลบในหน้าแผนการศึกษา หรือเมื่อท่านล้างข้อมูลของเบราว์เซอร์",
     },
   },
 ];

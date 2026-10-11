@@ -12,6 +12,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   question: "A question",
   suggestion: "A suggestion",
   problem: "A problem to report",
+  academic: "Studies and Academic Affairs",
   other: "Something else",
 };
 

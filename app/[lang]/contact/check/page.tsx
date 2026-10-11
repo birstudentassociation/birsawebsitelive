@@ -7,6 +7,7 @@ import StepNav from "@/components/forms/StepNav";
 import ContactForm from "@/components/forms/ContactForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildContactWizardLabels } from "@/components/forms/contactWizardCopy";
+import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import { getContactDraft, submitContactCheck } from "../actions";
 import { submitFeedbackAction } from "@/app/[lang]/feedback/actions";
 import { CONTACT_STEPS } from "../steps";
@@ -61,6 +62,7 @@ export default async function ContactCheckPage({ params }: { params: Promise<{ l
             changeLabel={chrome.change}
             submitLabel={dict.form.send}
             submittingLabel={dict.form.sending}
+            planSummaryField={buildPlanOutreachCopy(locale).attach}
           />
         </div>
       </div>

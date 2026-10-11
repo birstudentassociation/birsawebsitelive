@@ -170,6 +170,23 @@ To switch it on: attach Postgres, run `node scripts/migrate.mjs` (migration `013
 and the `academic_affairs` role), and add an officer with that role through the console. With no
 database the course pages keep the `/contact` invitation and the form says it is not available.
 
+## Study plan: sharing, elective demand and questions
+
+The plan screen ends with four optional actions. **Share with an advisor** builds a link to
+`/[lang]/services/study-plan/view` with the plan in the URL fragment (after `#`), which a browser never sends
+to a server, so the read-only page works without BIRSA receiving the plan. **Share my planned
+electives** sends only course codes, planned terms and the curriculum version to the
+`elective_demand_entries` table; officers with the `admin` or `academic_affairs` role see counts per
+course and term, and a CSV, at `/[lang]/officer/inventory/course-demand`, and a course page says
+"Planned by 20 or more students" for a term once that many have planned it. **Ask Academic Affairs**
+starts a contact message with an editable summary of the plan attached. **Registration dates**
+lists, and exports as `.ics`, the entries in `content/calendar/events.ts` tagged for the terms in the
+plan (none are recorded yet; see `docs/EDITING.md`).
+
+To switch the elective demand signal on: attach Postgres and run `node scripts/migrate.mjs`
+(migration `014` adds the table). With no database the plan screen leaves the elective section out,
+the course pages show nothing, and the officer page says the database is not connected.
+
 ## Emergency alerts
 
 Eleven researched emergency guides live in `content/emergency/`, in English and Thai. To raise

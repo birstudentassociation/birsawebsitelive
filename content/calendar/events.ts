@@ -14,13 +14,23 @@
  * Registrar's university-wide dates live in the `academic-calendar-2569` news
  * post instead.
  *
+ * When BIRSA does announce BIR's registration or add-drop dates for a term,
+ * record them here with the `academic` field. The study plan screen lists and
+ * exports the entries tagged for the terms in a student's plan, and shows
+ * "no registration dates recorded yet" until there are some. See "Registration
+ * and add-drop dates" in docs/EDITING.md.
+ *
  * `kind` drives the colour accent:
  *   birsa      : BIRSA's own activities (brand red)
  *   university : university and faculty commemorations (warning amber)
  */
+import type { AcademicTerm } from "@/content/course-review/types";
 import type { Locale } from "@/lib/i18n";
 
 export type CalendarEventKind = "birsa" | "university";
+
+/** The two windows a student plans their registration around. */
+export type AcademicWindowKind = "registration" | "add-drop";
 
 export type CalendarEvent = {
   id: string;
@@ -32,6 +42,13 @@ export type CalendarEvent = {
   /** News slug to open when the item is clicked (no locale prefix). */
   slug: string;
   kind: CalendarEventKind;
+  /**
+   * Set only on a registration or add-drop window. Names the window and the
+   * academic term it is for (Buddhist Era year and semester, e.g.
+   * `{ year: 2569, semester: 1 }`), which is what lets the study plan screen
+   * pick out the windows for the terms in a plan.
+   */
+  academic?: { window: AcademicWindowKind; term: AcademicTerm };
 };
 
 export const calendarEvents: CalendarEvent[] = [

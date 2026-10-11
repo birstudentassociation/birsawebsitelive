@@ -13,6 +13,7 @@ import Tag from "@/components/Tag";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 import YourPlanPanel from "@/components/course-review/YourPlanPanel";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import { courses } from "@/content/course-review/courses";
 import type {
   AcademicTerm,
@@ -37,6 +38,9 @@ import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
 import { reviewFreshness } from "@/lib/course-review/freshness";
 import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
 import { isCourseReviewConfigured } from "@/lib/course-review/submissions";
+import { listDemandTerms } from "@/lib/elective-demand/store";
+import { academicTermLabel } from "@/lib/elective-demand/terms";
+import { DEMAND_THRESHOLD } from "@/lib/elective-demand/threshold";
 import { describeBandDistribution } from "@/lib/course-review/workload";
 
 type Dict = ReturnType<typeof getDictionary>["courseReview"];
@@ -168,6 +172,10 @@ export default async function CourseDetailPage({
   const collecting = isCourseReviewConfigured();
   const writeReviewHref = localeHref(locale, `/student-life/course-reviews/${node.code}/review`);
   const now = new Date();
+  // The terms enough students have planned this course for, as a band: the
+  // read hands back terms only, never a count. Empty with no database.
+  const demandTerms = await listDemandTerms(node.code, now);
+  const published = buildPlanOutreachCopy(locale).published;
   const catalogHref = localeHref(locale, "/student-life/course-reviews");
 
   return (
@@ -290,6 +298,23 @@ export default async function CourseDetailPage({
                 </Link>
               </p>
             </Fact>
+            {demandTerms.length > 0 ? (
+              <Fact label={published.label}>
+                <ul className="flex flex-col gap-0.5">
+                  {demandTerms.map((term) => (
+                    <li key={`${term.year}-${term.semester}`}>
+                      {fillTemplate(published.template, {
+                        n: DEMAND_THRESHOLD,
+                        term: academicTermLabel(term, locale),
+                      })}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-1 text-xs text-muted">
+                  {fillTemplate(published.note, { n: DEMAND_THRESHOLD })}
+                </p>
+              </Fact>
+            ) : null}
             {minors.length > 0 ? (
               <Fact label={t.minorsLabel}>
                 <ul className="flex flex-col gap-0.5">

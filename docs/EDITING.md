@@ -101,6 +101,39 @@ Do not start a new post each month. At the start of each month:
 
 Old monthly URLs such as `/news/august-2026-activity-calendar` redirect here permanently.
 
+### Registration and add-drop dates
+
+The study plan screen can list BIRSA's registration and add-drop dates for the terms in a student's
+plan and offer them as an `.ics` download. **No such dates are recorded yet**, so the screen says
+"No registration dates recorded yet". It never shows the Registrar's regular-programme windows:
+BIR is a special programme, and BIRSA announces its own dates (see the `academic-calendar-2569`
+post). Add an entry only once BIRSA has announced the dates.
+
+To record a window, add an entry to `content/calendar/events.ts` with the `academic` field:
+
+```ts
+{
+  id: "ay70-s1-registration",
+  start: "2027-07-12",
+  end: "2027-07-16",
+  title: { en: "Course registration, semester 1", th: "ลงทะเบียนเรียน ภาคเรียนที่ 1" },
+  slug: "academic-calendar-2570",
+  kind: "birsa",
+  academic: { window: "registration", term: { year: 2570, semester: 1 } },
+},
+```
+
+- `window` is `"registration"` or `"add-drop"`.
+- `term` is the term the window is for: the Buddhist Era academic year and `1`, `2` or `"summer"`.
+  Summer belongs to the academic year it closes, so summer 2569 falls in June and July 2570.
+- `start` and `end` are inclusive, `YYYY-MM-DD`. Leave `end` out for a single day.
+- Point `slug` at the news post that announces the dates, and give both languages a title.
+
+That is all. The plan screen then lists the entries for the terms in the plan and links to the
+download, the same entries appear in the activity calendar and its feed, and
+`tests/unit/study-plan-registration-dates.test.ts` checks the filtering. Bump `ICS_REVISION` in
+`lib/ics.ts` so subscribers to the feed notice the change.
+
 ### Past events
 
 An event post (`type: event` with a `start`) looks after itself once it is over:
@@ -595,6 +628,16 @@ term. Facts are not covered by copyright, so these are fine when written in your
 Record them only from the syllabus for that term, never from memory or hearsay.
 
 The course descriptions come from the public curriculum document and may be copied as published.
+
+### Elective demand
+
+Students can opt in, from the study plan screen, to share the elective courses in their plan with
+Academic Affairs. Only course codes, the term each is planned for and the curriculum version are
+sent. A course page says "Planned by 20 or more students for <term>" once that many have planned it
+for a term, and never shows the number. The threshold is `DEMAND_THRESHOLD` in
+`lib/elective-demand/threshold.ts`; changing it needs no migration, and the page text follows it.
+Officers see the exact counts, and a CSV export, in the console under Elective demand. Nothing about
+it is edited by hand.
 
 ### Do not hand-write curriculum facts
 
