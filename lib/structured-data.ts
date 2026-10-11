@@ -23,6 +23,29 @@ const POSTAL_ADDRESS: Record<Locale, { streetAddress: string; addressLocality: s
   th: { streetAddress: "2 ถนนพระจันทร์", addressLocality: "กรุงเทพฯ" },
 };
 
+const RANGSIT_POSTAL_ADDRESS: Record<
+  Locale,
+  { streetAddress: string; addressLocality: string; addressRegion: string }
+> = {
+  en: {
+    streetAddress: "99 Moo 18 Phahonyothin Road",
+    addressLocality: "Khlong Luang",
+    addressRegion: "Pathum Thani",
+  },
+  th: {
+    streetAddress: "99 หมู่ 18 ถนนพหลโยธิน",
+    addressLocality: "คลองหลวง",
+    addressRegion: "ปทุมธานี",
+  },
+};
+
+const THA_PRACHAN_REGION: Record<Locale, string> = { en: "Bangkok", th: "กรุงเทพฯ" };
+
+const DEFAULT_EVENT_LOCATION: Record<Locale, string> = {
+  en: "Thammasat University",
+  th: "มหาวิทยาลัยธรรมศาสตร์",
+};
+
 const university = {
   "@type": "CollegeOrUniversity",
   name: "Thammasat University",
@@ -92,6 +115,20 @@ export function newsJsonLd(
   };
 
   if (frontmatter.type === "event" && frontmatter.start) {
+    const organizer = {
+      "@type": "Organization",
+      "@id": ORGANIZATION_ID,
+      name: "BIR Student Association (BIRSA)",
+      url: `${SITE_URL}/${locale}`,
+    };
+    const isRangsit = /Rangsit|รังสิต/.test(frontmatter.location ?? "");
+    const address = isRangsit
+      ? { ...RANGSIT_POSTAL_ADDRESS[locale], postalCode: "12120" }
+      : {
+          ...POSTAL_ADDRESS[locale],
+          addressRegion: THA_PRACHAN_REGION[locale],
+          postalCode: "10200",
+        };
     return {
       ...base,
       "@type": "Event",
@@ -100,10 +137,21 @@ export function newsJsonLd(
       ...(frontmatter.end ? { endDate: frontmatter.end } : {}),
       eventStatus: "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-      ...(frontmatter.location
-        ? { location: { "@type": "Place", name: frontmatter.location } }
-        : {}),
-      organizer: { "@id": ORGANIZATION_ID, name: "BIR Student Association (BIRSA)" },
+      location: {
+        "@type": "Place",
+        name: frontmatter.location || DEFAULT_EVENT_LOCATION[locale],
+        address: { "@type": "PostalAddress", ...address, addressCountry: "TH" },
+      },
+      organizer,
+      performer: organizer,
+      offers: {
+        "@type": "Offer",
+        url,
+        price: 0,
+        priceCurrency: "THB",
+        availability: "https://schema.org/InStock",
+        validFrom: frontmatter.date,
+      },
     };
   }
 

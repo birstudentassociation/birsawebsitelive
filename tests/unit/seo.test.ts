@@ -109,6 +109,93 @@ describe("structured data", () => {
   });
 });
 
+describe("event structured data", () => {
+  const event = (location?: string) => ({
+    title: "Open house",
+    summary: "An open house.",
+    date: "2026-03-01",
+    type: "event" as const,
+    category: "Events",
+    start: "2026-03-10T10:00:00+07:00",
+    ...(location !== undefined ? { location } : {}),
+  });
+  type Address = Record<string, string>;
+  type EventJson = {
+    organizer: { url: string };
+    performer: unknown;
+    location: { "@type": string; name: string; address: Address };
+    offers: unknown;
+  };
+  const build = (locale: Locale, location?: string) =>
+    newsJsonLd(locale, "open-house", event(location), "An open house.") as unknown as EventJson;
+
+  it("gives the organizer a url and reuses it as the performer", () => {
+    const data = build("en");
+    expect(data.organizer.url).toBe(`${SITE_URL}/en`);
+    expect(data.performer).toEqual(data.organizer);
+    expect(build("th").organizer.url).toBe(`${SITE_URL}/th`);
+  });
+
+  it("uses the Rangsit address for a Rangsit location", () => {
+    const data = build("en", "Rangsit campus, Building SC");
+    expect(data.location.name).toBe("Rangsit campus, Building SC");
+    expect(data.location.address).toEqual({
+      "@type": "PostalAddress",
+      streetAddress: "99 Moo 18 Phahonyothin Road",
+      addressLocality: "Khlong Luang",
+      addressRegion: "Pathum Thani",
+      postalCode: "12120",
+      addressCountry: "TH",
+    });
+  });
+
+  it("uses the Tha Prachan address for a Tha Prachan location", () => {
+    const data = build("en", "Tha Prachan campus, Building SC");
+    expect(data.location.address).toEqual({
+      "@type": "PostalAddress",
+      streetAddress: "2 Prachan Road",
+      addressLocality: "Bangkok",
+      addressRegion: "Bangkok",
+      postalCode: "10200",
+      addressCountry: "TH",
+    });
+  });
+
+  it("uses the Rangsit address for a Thai Rangsit location", () => {
+    const data = build("th", "ศูนย์รังสิต อาคารเรียนรวม");
+    expect(data.location.address).toEqual({
+      "@type": "PostalAddress",
+      streetAddress: "99 หมู่ 18 ถนนพหลโยธิน",
+      addressLocality: "คลองหลวง",
+      addressRegion: "ปทุมธานี",
+      postalCode: "12120",
+      addressCountry: "TH",
+    });
+  });
+
+  it("falls back to Thammasat University at Tha Prachan when there is no location", () => {
+    const en = build("en");
+    expect(en.location["@type"]).toBe("Place");
+    expect(en.location.name).toBe("Thammasat University");
+    expect(en.location.address.postalCode).toBe("10200");
+    const th = build("th");
+    expect(th.location.name).toBe("มหาวิทยาลัยธรรมศาสตร์");
+    expect(th.location.address.addressRegion).toBe("กรุงเทพฯ");
+  });
+
+  it("offers every event free of charge", () => {
+    const data = build("en");
+    expect(data.offers).toEqual({
+      "@type": "Offer",
+      url: `${SITE_URL}/en/news/open-house`,
+      price: 0,
+      priceCurrency: "THB",
+      availability: "https://schema.org/InStock",
+      validFrom: "2026-03-01",
+    });
+  });
+});
+
 describe("every indexable content page has a search-ready title and description", () => {
   for (const locale of locales) {
     const pages: BuildMetadataOptions[] = [
