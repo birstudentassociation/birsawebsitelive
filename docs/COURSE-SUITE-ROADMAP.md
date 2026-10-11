@@ -1,7 +1,8 @@
 # Course reviews and study plan: roadmap
 
 Date: 2026-10-10
-Status: proposal, nothing here is built
+Status: approved 2026-10-10, all phases built 2026-10-11. Not yet run against a production
+database or the Anthropic API.
 
 The course review catalogue (`/student-life/course-reviews`) and the study plan service
 (`/services/study-plan`) were built separately and still mostly behave as two products. This
@@ -335,6 +336,10 @@ Each item is opt-in and aggregate. See `docs/CAPABILITY-ROADMAP.md` section 5.
 ---
 
 ## 9. Decisions needed
+
+All five were approved on 2026-10-10 as recommended below, with a publication threshold of 5.
+Decision 5 is recorded in `content/curriculum/equivalences.ts`, where every equivalence stays
+unverified until the faculty signs it off.
 
 1. **Workload bands.** Are reported hours-per-week bands compatible with "described in words,
    never scored"? They make 5.1 and 7 far more useful. Recommendation: yes, as a reported
