@@ -84,6 +84,19 @@ export function organizationJsonLd(locale: Locale): JsonLdObject {
   };
 }
 
+export function websiteJsonLd(locale: Locale): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "BIRSA",
+    alternateName: ["BIR Student Association", "สโมสรนักศึกษา BIR"],
+    url: `${SITE_URL}/`,
+    inLanguage: IN_LANGUAGE[locale],
+    publisher: { "@id": ORGANIZATION_ID },
+  };
+}
+
 export type BreadcrumbTrailItem = { label: string; href?: string };
 
 export function breadcrumbJsonLd(locale: Locale, items: BreadcrumbTrailItem[]): JsonLdObject {

@@ -3,7 +3,7 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
-import { organizationJsonLd } from "@/lib/structured-data";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -86,6 +86,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <>
+      <JsonLd data={websiteJsonLd(locale)} />
       <JsonLd data={organizationJsonLd(locale)} />
       {/* Hero */}
       <section className="border-b border-line bg-cream">
@@ -94,7 +95,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             <h1 className="font-display text-4xl sm:text-5xl">{copy.hero.heading}</h1>
             <p className="mt-4 text-lg text-muted">{copy.hero.intro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>
+              <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>{" "}
               <Button href={localeHref(locale, "/services")} variant="secondary">
                 {copy.hero.secondaryCta}
               </Button>
