@@ -117,7 +117,6 @@ export function newsJsonLd(
   if (frontmatter.type === "event" && frontmatter.start) {
     const organizer = {
       "@type": "Organization",
-      "@id": ORGANIZATION_ID,
       name: "BIR Student Association (BIRSA)",
       url: `${SITE_URL}/${locale}`,
     };
