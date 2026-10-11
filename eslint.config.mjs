@@ -35,6 +35,12 @@ const config = [
       ],
     },
   },
+  {
+    // Satori renders these Open Graph images and only understands a plain
+    // `<img>`, so `next/image` cannot stand in for it.
+    files: ["lib/og-image.tsx", "lib/og-text.tsx"],
+    rules: { "@next/next/no-img-element": "off" },
+  },
 ];
 
 export default config;
