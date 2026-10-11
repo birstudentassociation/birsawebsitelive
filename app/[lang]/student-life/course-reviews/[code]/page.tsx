@@ -13,6 +13,12 @@ import Tag from "@/components/Tag";
 import { formatYearLevel, fillTemplate } from "@/components/course-review/constants";
 import YourPlanPanel from "@/components/course-review/YourPlanPanel";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
+import {
+  OFFERING_HISTORY_NOTICE,
+  historyLine,
+  offeringHistory,
+} from "@/lib/courses/offeringHistory";
 import { courses } from "@/content/course-review/courses";
 import type {
   AcademicTerm,
@@ -165,6 +171,10 @@ export default async function CourseDetailPage({
     course?.reviews ?? [],
     await listPublishedReviews(node.code, course?.instructors)
   );
+  // Where the course is recorded as taught, from review terms (the published
+  // ones included) and the assessment facts. Derived history, disclosed below.
+  const insight = buildTermInsightCopy(locale);
+  const history = offeringHistory(node.code, reviews);
   const collecting = isCourseReviewConfigured();
   const writeReviewHref = localeHref(locale, `/student-life/course-reviews/${node.code}/review`);
   const now = new Date();
@@ -290,6 +300,12 @@ export default async function CourseDetailPage({
                 </Link>
               </p>
             </Fact>
+            {history ? (
+              <Fact label={insight.historyLabel}>
+                <p>{historyLine(history, locale, insight.history)}</p>
+                <p className="mt-1 text-xs">{OFFERING_HISTORY_NOTICE[locale]}</p>
+              </Fact>
+            ) : null}
             {minors.length > 0 ? (
               <Fact label={t.minorsLabel}>
                 <ul className="flex flex-col gap-0.5">

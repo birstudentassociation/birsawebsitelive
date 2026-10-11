@@ -5,11 +5,48 @@
  * the service says so, cites the provision, and leaves the decision with
  * them. Three things are deliberately not checked: whether
  * a course runs in the term it was placed in, anything at the Dean's or an
- * advisor's discretion, and anything depending on GPA.
+ * advisor's discretion, and anything depending on GPA. The one thing that
+ * comes near the first is the `offering` note, which reports where a course
+ * has been recorded as taught and never says where it will run.
+ *
+ * The term-level notes (`examLoad`, `offering`) and the `deferral` warning rest
+ * on the course catalogue, so `checkPlan` takes the lookups as an optional
+ * third argument. The defaults read the catalogue; a test, or a caller that
+ * also holds published reviews, supplies its own.
  */
 import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
+import type { AssessmentFacts } from "@/content/course-review/types";
+import {
+  HISTORY_COPY,
+  describeTerms,
+  offeringHistory,
+  recordedInKind,
+  type OfferingHistory,
+} from "@/lib/courses/offeringHistory";
+import {
+  EXAM_HEAVY_TERM_COUNT,
+  EXAM_HEAVY_WEIGHT,
+  PROFILE_COPY,
+  catalogueAssessmentFacts,
+  describeRecordedTerm,
+  stacksExams,
+  termAssessmentProfile,
+} from "./assessmentProfile";
 import type { StudyPlan } from "./plan";
-import { isInternshipSummer, planTotals, remainingRequirements, termIndex } from "./derive";
+import {
+  isInternshipSummer,
+  planTotals,
+  projectedGraduation,
+  remainingRequirements,
+  termIndex,
+} from "./derive";
+import { deferralsOnCriticalPath } from "./whatIf";
+
+/** Where the term-level findings read the catalogue from. */
+export type FindingSources = {
+  assessmentFacts?: (code: string) => AssessmentFacts | undefined;
+  offeringHistory?: (code: string) => OfferingHistory | null;
+};
 
 export type Finding = {
   /** Stable id so a test can name one finding without matching on copy. */
@@ -31,7 +68,13 @@ function termLabel(term: TermRef): { en: string; th: string } {
   };
 }
 
-export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[] {
+export function checkPlan(
+  version: CurriculumVersion,
+  plan: StudyPlan,
+  sources: FindingSources = {}
+): Finding[] {
+  const assessmentFacts = sources.assessmentFacts ?? catalogueAssessmentFacts;
+  const historyOf = sources.offeringHistory ?? ((code: string) => offeringHistory(code));
   const findings: Finding[] = [];
   const byCode = new Map(version.courses.value.map((c) => [c.code, c]));
   const rules = version.rules.value;
@@ -120,6 +163,86 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
     });
   }
 
+  // Exam load. A term that stacks several courses with a heavy final exam is
+  // worth knowing about before registering. It rests only on courses with
+  // recorded facts, so the courses with none are named: the real count may be
+  // higher, never lower. The source cites the recorded term the facts are for.
+  for (const term of terms) {
+    const profile = termAssessmentProfile(term.codes, assessmentFacts);
+    if (!stacksExams(profile)) continue;
+    const label = termLabel(term.term);
+    const heavy = profile.examHeavy.map((e) => `${e.code} (${e.weight}%)`).join(", ");
+    const recordedFor = (locale: "en" | "th") =>
+      profile.recordedTerms
+        .map((recorded) => describeRecordedTerm(recorded, locale, PROFILE_COPY[locale]))
+        .join(locale === "en" ? "; " : " ");
+    const missing = profile.unknown.join(", ");
+    findings.push({
+      id: `examLoad:${term.term.year}-${term.term.kind}`,
+      severity: "note",
+      message: {
+        en: `${label.en} has ${profile.examHeavy.length} courses with a final exam worth ${EXAM_HEAVY_WEIGHT}% or more of the grade (${heavy}).${
+          profile.unknown.length > 0
+            ? ` Nothing is on record for ${missing}, so there may be more.`
+            : ""
+        } This is only a note, and the weights are those recorded for ${recordedFor("en")}.`,
+        th: `${label.th}มีรายวิชาที่สอบปลายภาคคิดเป็นร้อยละ ${EXAM_HEAVY_WEIGHT} ขึ้นไปของคะแนนรวมถึง ${profile.examHeavy.length} วิชา (${heavy})${
+          profile.unknown.length > 0
+            ? ` ส่วนวิชา ${missing} ยังไม่มีข้อมูลการวัดผล จึงอาจมีมากกว่านี้`
+            : ""
+        } ข้อความนี้เป็นเพียงข้อสังเกต และสัดส่วนคะแนนเป็นข้อมูลของ${recordedFor("th")}`,
+      },
+      source: {
+        document: "Course catalogue, assessment facts",
+        provision: `Recorded for ${recordedFor("en")}; at least ${EXAM_HEAVY_TERM_COUNT} courses with a final exam of ${EXAM_HEAVY_WEIGHT}% or more`,
+      },
+    });
+  }
+
+  // Offering history. Only for a course with any history at all: a course
+  // with no recorded term tells us nothing, and silence there is not a signal.
+  // Reported as history ("has not been recorded"), never as "will not run".
+  for (const term of terms) {
+    for (const code of term.codes) {
+      const history = historyOf(code);
+      if (!history || recordedInKind(history, term.term.kind)) continue;
+      const label = termLabel(term.term);
+      const recorded = (locale: "en" | "th") =>
+        describeTerms(history, locale, HISTORY_COPY[locale]);
+      findings.push({
+        id: `offering:${code}`,
+        severity: "note",
+        message: {
+          en: `${code} is in ${label.en}. It has only been recorded as taught in ${recorded("en")}, and never in a ${HISTORY_COPY.en[term.term.kind]} term. That is history, not a promise, and a term may be missing only because nobody recorded it. Check the faculty timetable before you register.`,
+          th: `วิชา ${code} อยู่ในแผนของ${label.th} แต่เคยมีบันทึกว่าเปิดสอนเฉพาะใน${recorded("th")} และไม่เคยมีบันทึกว่าเปิดใน${HISTORY_COPY.th[term.term.kind]} ข้อมูลนี้เป็นเพียงประวัติ ไม่ใช่คำยืนยัน และภาคที่ไม่ปรากฏอาจเป็นเพราะยังไม่มีผู้บันทึก โปรดตรวจสอบตารางสอนของคณะก่อนลงทะเบียน`,
+        },
+        source: {
+          document: "Course catalogue, student review and assessment fact terms",
+          provision: `Recorded as taught in ${recorded("en")}; derived history, not an offering promise`,
+        },
+      });
+    }
+  }
+
+  // Deferrals. A course the plan holds later than the recommended plan does,
+  // on a prerequisite chain that runs to the last planned term, while the plan
+  // graduates later than the recommended plan does.
+  for (const deferral of deferralsOnCriticalPath(version, plan)) {
+    const where = termLabel(deferral.planned);
+    const recommended = termLabel(deferral.recommended);
+    const graduation = termLabel(deferral.graduation);
+    const recommendedGraduation = termLabel(deferral.recommendedGraduation);
+    findings.push({
+      id: `deferral:${deferral.code}`,
+      severity: "warning",
+      message: {
+        en: `${deferral.code} is in ${where.en}, later than the recommended plan, which has it in ${recommended.en}. Courses that need it follow it, and that chain runs to your last term, so any delay here moves graduation. This plan graduates in ${graduation.en}, where the recommended plan finishes in ${recommendedGraduation.en}.`,
+        th: `วิชา ${deferral.code} อยู่ใน${where.th} ซึ่งช้ากว่าแผนที่แนะนำที่จัดไว้ใน${recommended.th} วิชาที่ต้องใช้วิชานี้เป็นพื้นฐานต้องเรียนตามหลัง และลำดับวิชาเหล่านี้ต่อเนื่องไปถึงภาคสุดท้ายของแผน การเลื่อนวิชานี้จึงทำให้สำเร็จการศึกษาช้าลง แผนนี้จบใน${graduation.th} ขณะที่แผนที่แนะนำจบใน${recommendedGraduation.th}`,
+      },
+      source: curriculumSource,
+    });
+  }
+
   // Completion.
   const { allCodes, totalFreeElectiveCredits } = planTotals(plan);
   const shortfalls = remainingRequirements(
@@ -158,10 +281,7 @@ export function checkPlan(version: CurriculumVersion, plan: StudyPlan): Finding[
   return findings;
 }
 
-/** The last term the plan places a course in, or null if nothing is planned. */
-export function projectedGraduation(plan: StudyPlan): TermRef | null {
-  const terms = [...plan.terms]
-    .filter((t) => t.codes.length > 0 || t.freeElectiveCredits > 0)
-    .sort((a, b) => termIndex(a.term) - termIndex(b.term));
-  return terms.at(-1)?.term ?? null;
-}
+// Lives in derive.ts so `whatIf` can use it without importing this module,
+// which imports `whatIf` for the deferral finding. Re-exported because this is
+// where callers have always found it.
+export { projectedGraduation };

@@ -457,7 +457,7 @@ const en: StudyPlanCopy = {
   },
   delete: {
     heading: "Delete your plan",
-    body: "This plan lives only in your browser. It was never sent to a BIRSA server, so there is nothing for us to delete on our side, unlike the equipment loan service, which does hold your data. Deleting it here clears the copy kept on this device.",
+    body: "This plan lives only in your browser. It was never sent to a BIRSA server, so there is nothing for us to delete on our side, unlike the equipment loan service, which does hold your data. Deleting it here clears the copy kept on this device, including any other scenarios you saved with it.",
     buttonLabel: "Delete this plan",
   },
   print: {
@@ -651,7 +651,7 @@ const th: StudyPlanCopy = {
   },
   delete: {
     heading: "ลบแผนการศึกษาของท่าน",
-    body: "แผนการศึกษานี้จัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น มิได้มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ของ BIRSA แต่อย่างใด จึงไม่มีข้อมูลฝั่ง BIRSA ที่ต้องลบ ซึ่งแตกต่างจากบริการยืมอุปกรณ์ที่มีการเก็บข้อมูลของท่านไว้ การลบในหน้านี้เป็นการลบสำเนาที่จัดเก็บไว้บนอุปกรณ์นี้เท่านั้น",
+    body: "แผนการศึกษานี้จัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น มิได้มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ของ BIRSA แต่อย่างใด จึงไม่มีข้อมูลฝั่ง BIRSA ที่ต้องลบ ซึ่งแตกต่างจากบริการยืมอุปกรณ์ที่มีการเก็บข้อมูลของท่านไว้ การลบในหน้านี้เป็นการลบสำเนาที่จัดเก็บไว้บนอุปกรณ์นี้เท่านั้น รวมถึงแผนทางเลือกอื่นที่ท่านบันทึกไว้ด้วย",
     buttonLabel: "ลบแผนการศึกษานี้",
   },
   print: {

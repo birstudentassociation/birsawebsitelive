@@ -60,6 +60,16 @@ export function termKey(term: TermRef): string {
   return `${term.year}-${term.kind}`;
 }
 
+/** The last term the plan places a course in, or null if nothing is planned. */
+export function projectedGraduation(plan: {
+  terms: { term: TermRef; codes: string[]; freeElectiveCredits: number }[];
+}): TermRef | null {
+  const terms = [...plan.terms]
+    .filter((t) => t.codes.length > 0 || t.freeElectiveCredits > 0)
+    .sort((a, b) => termIndex(a.term) - termIndex(b.term));
+  return terms.at(-1)?.term ?? null;
+}
+
 /** Term kinds in sequence within a year, used by `nextTerm` to step forward one at a time. */
 const TERM_SEQUENCE: TermKind[] = ["semester1", "semester2", "summer"];
 

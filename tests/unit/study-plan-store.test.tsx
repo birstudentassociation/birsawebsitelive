@@ -31,6 +31,14 @@ import { cleanup, fireEvent, render } from "@testing-library/react";
 
 import PlanStore, { clearStoredPlan, readStoredPlan } from "@/components/study-plan/PlanStore";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
+import {
+  envelopeOf,
+  parseStoredPlans,
+  serialiseEnvelope,
+  serialisePlan,
+  type StudyPlan,
+} from "@/lib/study-plan/plan";
+import { addScenario, switchScenario } from "@/lib/study-plan/scenarioStore";
 
 const KEY = "birsa-study-plan";
 
@@ -44,22 +52,63 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+const plan: StudyPlan = {
+  versionId: "2564-rev2566",
+  cohort: "66",
+  startYear: 2566,
+  minorId: "governance",
+  passed: ["PI211"],
+  freeElectiveCreditsPassed: 0,
+  terms: [],
+};
+const otherPlan: StudyPlan = { ...plan, passed: ["PI211", "PI271"] };
+
+/** What is in storage, parsed. */
+const stored = () => parseStoredPlans(window.localStorage.getItem(KEY));
+
 describe("PlanStore", () => {
-  it("writes the serialised plan to localStorage under birsa-study-plan", () => {
-    render(<PlanStore plan="plan-a" />);
-    expect(window.localStorage.getItem(KEY)).toBe("plan-a");
+  it("writes the plan to localStorage under birsa-study-plan as a one-scenario envelope", () => {
+    render(<PlanStore plan={serialisePlan(plan)} />);
+    expect(stored()).toEqual({ v: 2, active: "s1", plans: [{ id: "s1", name: "Main", plan }] });
+    expect(window.localStorage.getItem(KEY)?.startsWith("{")).toBe(true);
+  });
+
+  it("names the first scenario in the page's language", () => {
+    render(<PlanStore plan={serialisePlan(plan)} defaultName="แผนหลัก" />);
+    expect(stored()?.plans[0]?.name).toBe("แผนหลัก");
   });
 
   it("overwrites the stored plan when re-rendered with a different plan", () => {
-    const { rerender } = render(<PlanStore plan="plan-a" />);
-    expect(window.localStorage.getItem(KEY)).toBe("plan-a");
+    const { rerender } = render(<PlanStore plan={serialisePlan(plan)} />);
+    rerender(<PlanStore plan={serialisePlan(otherPlan)} />);
+    expect(stored()?.plans).toHaveLength(1);
+    expect(stored()?.plans[0]?.plan).toEqual(otherPlan);
+  });
 
-    rerender(<PlanStore plan="plan-b" />);
-    expect(window.localStorage.getItem(KEY)).toBe("plan-b");
+  it("saves the plan on screen as the active scenario and leaves the others alone", () => {
+    const envelope = addScenario(envelopeOf(plan), "Away", plan)!;
+    window.localStorage.setItem(KEY, serialiseEnvelope(switchScenario(envelope, "s1")!));
+    render(<PlanStore plan={serialisePlan(otherPlan)} />);
+    expect(stored()?.plans.map((p) => [p.id, p.name, p.plan.passed.length])).toEqual([
+      ["s1", "Main", 2],
+      ["s2", "Away", 1],
+    ]);
+    expect(stored()?.active).toBe("s1");
+  });
+
+  it("upgrades a plan stored by an earlier visit without losing it", () => {
+    window.localStorage.setItem(KEY, serialisePlan(plan));
+    render(<PlanStore plan={serialisePlan(otherPlan)} />);
+    expect(stored()?.plans).toEqual([{ id: "s1", name: "Main", plan: otherPlan }]);
+  });
+
+  it("writes nothing for a value that is not a plan", () => {
+    render(<PlanStore plan="plan-a" />);
+    expect(window.localStorage.getItem(KEY)).toBeNull();
   });
 
   it("renders no DOM, which is what makes skipping the mounted/hydration gate correct", () => {
-    const { container } = render(<PlanStore plan="plan-a" />);
+    const { container } = render(<PlanStore plan={serialisePlan(plan)} />);
     expect(container.innerHTML).toBe("");
   });
 
@@ -68,7 +117,7 @@ describe("PlanStore", () => {
       throw new DOMException("QuotaExceededError");
     });
 
-    expect(() => render(<PlanStore plan="plan-a" />)).not.toThrow();
+    expect(() => render(<PlanStore plan={serialisePlan(plan)} />)).not.toThrow();
     // Reach past the mock (still active) to confirm nothing was written:
     // getItem is untouched, so this reads the real, empty storage.
     expect(window.localStorage.getItem(KEY)).toBeNull();

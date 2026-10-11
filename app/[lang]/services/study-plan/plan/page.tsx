@@ -3,6 +3,11 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { CURRICULUM_VERSIONS, type CurriculumVersion, type TermRef } from "@/content/curriculum";
 import { courseContextLine } from "@/lib/course-review/context";
+import {
+  OFFERING_HISTORY_NOTICE,
+  historyLine,
+  offeringHistory,
+} from "@/lib/courses/offeringHistory";
 import { ADD_PARAM, applyAddParam } from "@/lib/study-plan/addToPlan";
 import {
   nextTerm,
@@ -11,9 +16,19 @@ import {
   screenTerms,
   termKey,
 } from "@/lib/study-plan/derive";
+import { profileLine, termAssessmentProfile } from "@/lib/study-plan/assessmentProfile";
 import { checkPlan, projectedGraduation } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD, serialisePlan } from "@/lib/study-plan/plan";
 import { resolvePosition } from "@/lib/study-plan/position";
+import {
+  AWAY_FIELD,
+  AWAY_KIND_FIELD,
+  COMPARE_FIELD,
+  COMPARE_NAME_FIELD,
+  MINOR_FIELD,
+} from "@/lib/study-plan/scenarioStore";
+import { criticalPath, whatIf } from "@/lib/study-plan/whatIf";
+import { whatIfSentences } from "@/lib/study-plan/whatIfText";
 import {
   suggestForTerm,
   type SuggestedCourse,
@@ -34,6 +49,8 @@ import TermEditor, {
 } from "@/components/study-plan/TermEditor";
 import PlanStore from "@/components/study-plan/PlanStore";
 import DeletePlanButton from "@/components/study-plan/DeletePlanButton";
+import ScenarioSection from "@/components/study-plan/ScenarioSection";
+import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import {
   buildStudyPlanCopy,
@@ -159,6 +176,11 @@ export default async function StudyPlanPage({
     [ADD_PARAM]?: string | string[];
     term?: string | string[];
     notice?: string;
+    [MINOR_FIELD]?: string | string[];
+    [AWAY_FIELD]?: string | string[];
+    [AWAY_KIND_FIELD]?: string | string[];
+    [COMPARE_FIELD]?: string | string[];
+    [COMPARE_NAME_FIELD]?: string | string[];
   }>;
 }) {
   const { lang } = await params;
@@ -166,13 +188,10 @@ export default async function StudyPlanPage({
   const locale: Locale = lang;
   const copy = buildStudyPlanCopy(locale);
   const linkCopy = buildPlanLinkCopy(locale);
+  const insight = buildTermInsightCopy(locale);
 
-  const {
-    [PLAN_FIELD]: rawPlan,
-    [ADD_PARAM]: rawAdd,
-    term: rawTermKey,
-    notice,
-  } = await searchParams;
+  const query = await searchParams;
+  const { [PLAN_FIELD]: rawPlan, [ADD_PARAM]: rawAdd, term: rawTermKey, notice } = query;
   const requestedTermKey = firstParam(rawTermKey);
   const addRequest = firstParam(rawAdd);
   const arrivingPlan = rawPlan ? deserialisePlan(rawPlan) : null;
@@ -221,6 +240,9 @@ export default async function StudyPlanPage({
   const earnedCredits = version.graduationCredits.value - totalRemaining;
 
   const projected = projectedGraduation(plan);
+
+  // Courses whose deferral moves graduation, marked in the term lists.
+  const critical = new Set(criticalPath(version, plan));
 
   // Every future term is offered for editing, whether or not the student has
   // put anything in it yet. The recommended plan's own term list seeds this
@@ -279,23 +301,37 @@ export default async function StudyPlanPage({
     pickPrerequisiteTemplate: copy.plan.pickPrerequisiteTemplate,
     internshipOnlyTerm: copy.plan.internshipOnlyTerm,
     courseLink: linkCopy.picker.courseLink,
+    criticalLabel: insight.critical.label,
+    criticalHint: insight.critical.hint,
+    whatIfSummary: insight.whatIf.summary,
     courseSearch: { ...copy.courseSearch, prompt: copy.plan.addCoursePrompt },
   };
   const courseHref = (code: string) => localeHref(locale, `/student-life/course-reviews/${code}`);
-  const contextLine = (code: string) => courseContextLine(code, locale, linkCopy.picker);
+  // The catalogue's facts about a course, then where it has been recorded as
+  // taught. That second part is derived history, not an offering promise, and
+  // the plan screen says so once, above the terms.
+  const contextLine = (code: string) => {
+    const history = offeringHistory(code);
+    const parts = [
+      courseContextLine(code, locale, linkCopy.picker),
+      history ? historyLine(history, locale, insight.history) : null,
+    ].filter(Boolean);
+    return parts.length > 0 ? parts.join(" · ") : null;
+  };
+  const planHref = localeHref(locale, "/services/study-plan/plan");
 
   return (
     <>
       <PageHeader title={copy.plan.title} lede={copy.plan.hint} />
       {/* Renders nothing; only mirrors the plan to localStorage so it survives closing the tab. */}
-      <PlanStore plan={serialisedPlan} />
+      <PlanStore plan={serialisedPlan} defaultName={insight.scenarios.defaultName} />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
         {addOutcome ? (
           <AddOutcomeNotice
             outcome={addOutcome}
             linkCopy={linkCopy}
             version={version}
-            undoHref={`${localeHref(locale, "/services/study-plan/plan")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(arrivingPlan))}`}
+            undoHref={`${planHref}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(arrivingPlan))}`}
           />
         ) : null}
 
@@ -374,6 +410,10 @@ export default async function StudyPlanPage({
         <div className="flex flex-col gap-4">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
           <p className="leading-relaxed text-muted">{copy.plan.termsHint}</p>
+          <p className="text-sm leading-relaxed text-muted">
+            <span className="font-semibold text-ink">{insight.historyNoticeTitle}. </span>
+            {OFFERING_HISTORY_NOTICE[locale]}
+          </p>
           {notice === "termFull" ? (
             <Notice variant="warning">{copy.plan.termFullError}</Notice>
           ) : null}
@@ -415,6 +455,12 @@ export default async function StudyPlanPage({
                 title: course?.title ?? "",
                 credits: course?.credits ?? 0,
                 missingPrerequisites: [],
+                critical: critical.has(code),
+                whatIf: whatIfSentences(
+                  whatIf(version, plan, { kind: "deferCourse", code }),
+                  insight.whatIf,
+                  (t) => formatTermLabel(copy, t)
+                ),
               };
             });
             const suggestion = suggestForTerm(version, plan, term);
@@ -440,6 +486,11 @@ export default async function StudyPlanPage({
                 plan={serialisedPlan}
                 placed={placed}
                 freeElectiveCredits={plannedTerm?.freeElectiveCredits ?? 0}
+                assessmentLine={profileLine(
+                  termAssessmentProfile(plannedTerm?.codes ?? []),
+                  locale,
+                  insight.profile
+                )}
                 courseGroups={courseGroups}
                 openSlots={openSlots}
                 internshipOnly={suggestion.internshipOnly}
@@ -465,6 +516,22 @@ export default async function StudyPlanPage({
             </form>
           ) : null}
         </div>
+
+        <ScenarioSection
+          locale={locale}
+          version={version}
+          plan={plan}
+          copy={copy}
+          insight={insight}
+          planHref={planHref}
+          params={{
+            minor: firstParam(query[MINOR_FIELD]),
+            away: firstParam(query[AWAY_FIELD]),
+            awayKind: firstParam(query[AWAY_KIND_FIELD]),
+            compare: firstParam(query[COMPARE_FIELD]),
+            compareName: firstParam(query[COMPARE_NAME_FIELD]),
+          }}
+        />
 
         <div>
           <Link href={printHref} className="font-semibold text-brand-deep hover:underline">

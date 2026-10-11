@@ -3,6 +3,11 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { CURRICULUM_VERSIONS, type TermRef } from "@/content/curriculum";
 import { planTotals, remainingRequirements } from "@/lib/study-plan/derive";
+import {
+  PROFILE_COPY,
+  profileLine,
+  termAssessmentProfile,
+} from "@/lib/study-plan/assessmentProfile";
 import { checkPlan } from "@/lib/study-plan/findings";
 import { deserialisePlan, PLAN_FIELD } from "@/lib/study-plan/plan";
 import {
@@ -165,6 +170,11 @@ export default async function StudyPlanPrintPage({
           {plannedTerms.map((printTerm) => {
             const termCredits =
               printTerm.courses.reduce((n, c) => n + c.credits, 0) + printTerm.freeElectiveCredits;
+            const assessmentLine = profileLine(
+              termAssessmentProfile(printTerm.courses.map((c) => c.code)),
+              locale,
+              PROFILE_COPY[locale]
+            );
             return (
               <div
                 key={`${printTerm.term.year}-${printTerm.term.kind}`}
@@ -176,6 +186,9 @@ export default async function StudyPlanPrintPage({
                     {termCredits} {copy.plan.creditsUnit}
                   </p>
                 </div>
+                {assessmentLine ? (
+                  <p className="mt-1 text-xs text-muted">{assessmentLine}</p>
+                ) : null}
                 {printTerm.courses.length > 0 ? (
                   <ul className="mt-2 flex flex-col gap-1 text-sm">
                     {printTerm.courses.map((course) => (

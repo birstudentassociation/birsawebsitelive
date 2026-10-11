@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -9,7 +9,9 @@ import CourseReviewBrowser, {
   CourseReviewBrowserFallback,
   type CourseReviewDict,
 } from "@/components/course-review/CourseReviewBrowser";
+import PrerequisiteMap from "@/components/course-review/PrerequisiteMap";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
+import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
 import { courses } from "@/content/course-review/courses";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import { CURRENT_VERSION } from "@/lib/courses/graph";
@@ -119,6 +121,11 @@ export default async function CourseReviewsPage({ params }: { params: Promise<{ 
             planCopy={buildPlanLinkCopy(locale).browser}
           />
         </Suspense>
+        <PrerequisiteMap
+          copy={buildTermInsightCopy(locale).map}
+          trackLabels={t.tracks}
+          courseLinkBase={localeHref(locale, "/student-life/course-reviews")}
+        />
       </div>
     </>
   );

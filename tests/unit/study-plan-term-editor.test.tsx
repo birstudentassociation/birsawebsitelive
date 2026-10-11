@@ -24,14 +24,19 @@
  * file, and a document-wide query for text this component repeats (the
  * "no courses left" line, say) would match an earlier case's markup.
  */
-import { describe, expect, it } from "vitest";
-import { render, within, fireEvent } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, render, within, fireEvent } from "@testing-library/react";
 import TermEditor, {
   type TermEditorCopy,
   type TermEditorCourseGroup,
   type TermEditorSlot,
 } from "@/components/study-plan/TermEditor";
 import type { TermFreeElectiveState } from "@/components/study-plan/TermFreeElectiveForm";
+
+// Unmounting after each case stops React's scheduled work running after the
+// jsdom window is torn down, which otherwise fails the run now and then with
+// "window is not defined" even though every case passed.
+afterEach(cleanup);
 
 const copy: TermEditorCopy = {
   creditsTemplate: "{n} credits",
@@ -55,6 +60,9 @@ const copy: TermEditorCopy = {
   pickPrerequisiteTemplate: "needs {codes} first",
   internshipOnlyTerm: "This summer is given over to the internship.",
   courseLink: "Course page",
+  criticalLabel: "On the critical path",
+  criticalHint: "Moving it later moves graduation.",
+  whatIfSummary: "If I move this later",
   courseSearch: {
     prompt: "Choose a course",
     typeaheadHint: "Start typing a course code or name.",
@@ -76,6 +84,7 @@ function renderEditor(overrides: {
   placed?: TermEditorCourseGroup["courses"];
   freeElectiveCredits?: number;
   defaultOpen?: boolean;
+  assessmentLine?: string | null;
 }) {
   const { container } = render(
     <TermEditor
@@ -84,6 +93,7 @@ function renderEditor(overrides: {
       plan="PLAN"
       placed={overrides.placed ?? []}
       freeElectiveCredits={overrides.freeElectiveCredits ?? 0}
+      assessmentLine={overrides.assessmentLine}
       courseGroups={overrides.courseGroups ?? []}
       openSlots={overrides.openSlots ?? []}
       internshipOnly={overrides.internshipOnly ?? false}
@@ -422,5 +432,45 @@ describe("TermEditor internshipOnly", () => {
       placed: [{ code: "PI574", title: "Internship", credits: 1, missingPrerequisites: [] }],
     });
     expect(ui.getByText("Remove")).toBeDefined();
+  });
+});
+
+describe("TermEditor term insights", () => {
+  it("shows the assessment line under the term's name even when the term is closed", () => {
+    const { ui } = renderEditor({
+      placed: [pi470],
+      defaultOpen: false,
+      assessmentLine: "Assessment on record for 1 of 1 courses.",
+    });
+    expect(ui.getByText("Assessment on record for 1 of 1 courses.")).toBeTruthy();
+  });
+
+  it("shows no line for a term that has none", () => {
+    const { container } = renderEditor({ placed: [pi470] });
+    expect(container.textContent).not.toContain("Assessment on record");
+  });
+
+  it("marks a critical-path course and offers what moving it later does, in a native disclosure", () => {
+    const { container, ui } = renderEditor({
+      placed: [
+        {
+          ...pi470,
+          critical: true,
+          whatIf: ["Moves PI470 to Year 3, Semester 2.", "Graduation stays in Year 4, Semester 1."],
+        },
+      ],
+    });
+    expect(ui.getByText("On the critical path")).toBeTruthy();
+    const details = container.querySelector("li details");
+    expect(details?.querySelector("summary")?.textContent).toContain("If I move this later");
+    expect(details?.textContent).toContain("Graduation stays in Year 4, Semester 1.");
+    // The disclosure holds no form control, so it adds nothing to the form's payload.
+    expect(details?.querySelector("input, button, select")).toBeNull();
+  });
+
+  it("marks and discloses nothing for a course with neither", () => {
+    const { container } = renderEditor({ placed: [pi470] });
+    expect(container.querySelector("li details")).toBeNull();
+    expect(container.textContent).not.toContain("critical path");
   });
 });

@@ -19,7 +19,14 @@ import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import { allCourseCodes, counterparts, versionsOf } from "@/lib/courses/graph";
 import { applyAddParam } from "@/lib/study-plan/addToPlan";
-import { deserialisePlan, serialisePlan, type StudyPlan } from "@/lib/study-plan/plan";
+import {
+  deserialisePlan,
+  envelopeOf,
+  serialiseEnvelope,
+  serialisePlan,
+  type StudyPlan,
+} from "@/lib/study-plan/plan";
+import { addScenario } from "@/lib/study-plan/scenarioStore";
 
 const KEY = "birsa-study-plan";
 const copy = buildPlanLinkCopy("en");
@@ -55,6 +62,22 @@ describe("ContinuePlan", () => {
     expect(deserialisePlan(sent)).toEqual(plan);
     expect(container.textContent).toContain("cohort 66");
     expect(container.textContent).toContain("Nothing is sent to BIRSA");
+  });
+
+  it("continues from the active scenario when several are saved", () => {
+    const other = { ...plan, cohort: "67", startYear: 2567 };
+    const envelope = addScenario(envelopeOf(plan), "Away", other)!;
+    window.localStorage.setItem(KEY, serialiseEnvelope(envelope));
+    const { container, getByRole } = render_();
+    expect(container.textContent).toContain("cohort 67");
+    const sent = decodeURIComponent(getByRole("link").getAttribute("href")!.split("?plan=")[1]!);
+    expect(deserialisePlan(sent)).toEqual(other);
+  });
+
+  it("renders nothing for an envelope that has been tampered with", () => {
+    const envelope = envelopeOf(plan);
+    window.localStorage.setItem(KEY, JSON.stringify({ ...envelope, active: "gone" }));
+    expect(render_().container.innerHTML).toBe("");
   });
 
   it("renders nothing when no plan is stored", () => {
@@ -152,6 +175,18 @@ describe("YourPlanPanelBody", () => {
     expect(getByRole("link", { name: /Open your plan/ }).getAttribute("href")).toContain(
       "/en/services/study-plan/plan?plan="
     );
+  });
+
+  it("says what moving a planned course later does to graduation, and only for a planned course", () => {
+    const planned = body("PI340").container.textContent ?? "";
+    expect(planned).toContain("If you move it later");
+    expect(planned).toContain("Moves PI340 from Year 3, Semester 2 to Year 4, Semester 1.");
+    // The only planned course, so it is the last term: graduation moves with it.
+    expect(planned).toContain("Graduation moves from Year 3, Semester 2 to Year 4, Semester 1.");
+    cleanup();
+    expect(body("PI211").container.textContent).not.toContain("If you move it later");
+    cleanup();
+    expect(body("PI300").container.textContent).not.toContain("If you move it later");
   });
 
   it("says a course is passed", () => {

@@ -16,10 +16,13 @@ import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import type { TermRef } from "@/content/curriculum";
 import type { PlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { categoryLabel, formatTermRef } from "@/components/study-plan/studyPlanCopy";
+import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
 import { derivePlanPanel, type PrerequisiteState } from "@/lib/course-review/planPanel";
 import { ADD_PARAM } from "@/lib/study-plan/addToPlan";
 import { termKey } from "@/lib/study-plan/derive";
 import { PLAN_FIELD, type StudyPlan } from "@/lib/study-plan/plan";
+import { whatIf } from "@/lib/study-plan/whatIf";
+import { whatIfSentences } from "@/lib/study-plan/whatIfText";
 
 export type YourPlanPanelBodyProps = {
   code: string;
@@ -72,6 +75,19 @@ export default function YourPlanPanelBody({
       {target}
     </Link>
   );
+
+  // What moving a planned course one term later does, in the student's own
+  // curriculum: the same calculation as the plan screen's "If I move this
+  // later", so the two cannot disagree.
+  const insight = buildTermInsightCopy(locale);
+  const deferral =
+    view.versionCode && view.status.kind === "planned"
+      ? whatIfSentences(
+          whatIf(version, plan, { kind: "deferCourse", code: view.versionCode }),
+          insight.whatIf,
+          termText
+        )
+      : [];
 
   const planLink = (extra: string) =>
     `${planHref}?${PLAN_FIELD}=${encodeURIComponent(serialisedPlan)}${extra}`;
@@ -155,12 +171,15 @@ export default function YourPlanPanelBody({
               </>
             )}
           </Row>
-          {/*
-            Phase 2 slot: "what deferring this course costs" (the projected
-            graduation term with and without it, for a course on a
-            prerequisite chain) is a further <Row> here. It needs `plan` and
-            `view`, both already in scope, and nothing above depends on it.
-          */}
+          {deferral.length > 0 ? (
+            <Row label={insight.whatIf.panelLabel}>
+              <ul className="flex flex-col gap-1">
+                {deferral.map((sentence) => (
+                  <li key={sentence}>{sentence}</li>
+                ))}
+              </ul>
+            </Row>
+          ) : null}
         </dl>
       )}
 

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
 import FindingsList from "@/components/study-plan/FindingsList";
 import type { Finding } from "@/lib/study-plan/findings";
 
@@ -18,6 +18,10 @@ const findings: Finding[] = [
     source: { document: "2564-rev2566", provision: "Curriculum 2021, 2023 revision" },
   },
 ];
+
+// Unmount after each case so React's scheduled work cannot run after the jsdom window
+// is torn down, which otherwise fails the run now and then with "window is not defined".
+afterEach(cleanup);
 
 describe("FindingsList", () => {
   /** The paragraph holding a finding's message, whatever it is split into. */

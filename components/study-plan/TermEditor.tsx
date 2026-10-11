@@ -65,6 +65,17 @@ export type TermEditorCourse = {
    * add cards. Absent where the catalogue has nothing to say.
    */
   context?: string | null;
+  /**
+   * For a course already placed in this term: whether it is on the critical
+   * path (moving it later moves graduation), shown as a small mark.
+   */
+  critical?: boolean;
+  /**
+   * For a course already placed in this term: what moving it one term later
+   * would do, as sentences, shown in a native disclosure so it works with
+   * JavaScript off. Absent for the picker's suggestions.
+   */
+  whatIf?: string[] | null;
 };
 
 export type TermEditorCourseGroup = {
@@ -112,6 +123,11 @@ export type TermEditorCopy = {
   internshipOnlyTerm: string;
   /** Text of the link to a course's page; the course code follows it as screen reader text. */
   courseLink: string;
+  /** The mark on a course on the critical path, and its longer explanation. */
+  criticalLabel: string;
+  criticalHint: string;
+  /** The summary of the "if I move this later" disclosure under a placed course. */
+  whatIfSummary: string;
   /** Copy for the add-course `CourseCombobox`; shared verbatim with the fill step's slots. */
   courseSearch: CourseComboboxCopy;
 };
@@ -123,6 +139,13 @@ export type TermEditorProps = {
   plan: string;
   placed: TermEditorCourse[];
   freeElectiveCredits: number;
+  /**
+   * One short line about how the term's courses are assessed, from the
+   * catalogue's recorded facts (see lib/study-plan/assessmentProfile.ts), shown
+   * under the term's name even when the term is closed. Null for a term with no
+   * named course.
+   */
+  assessmentLine?: string | null;
   /** Catalogue courses not yet passed and not yet placed in any term, grouped by what they would count toward. */
   courseGroups: TermEditorCourseGroup[];
   /** Choices the recommended plan leaves open in this term ("Minor Elective Course 1"). */
@@ -266,6 +289,7 @@ export default function TermEditor({
   plan,
   placed,
   freeElectiveCredits,
+  assessmentLine,
   courseGroups,
   openSlots,
   recommendedTermComplete,
@@ -359,6 +383,9 @@ export default function TermEditor({
               ? copy.termEmpty
               : `${summaryCodes}${summaryCodes ? " · " : ""}${copy.creditsTemplate.replace("{n}", String(termCredits))}`}
           </span>
+          {assessmentLine ? (
+            <span className="mt-0.5 block text-xs text-muted">{assessmentLine}</span>
+          ) : null}
         </span>
         <span
           aria-hidden="true"
@@ -378,27 +405,50 @@ export default function TermEditor({
               {placed.map((course) => (
                 <li
                   key={course.code}
-                  className="flex items-center justify-between gap-3 rounded-md border border-line bg-surface p-3 text-sm"
+                  className="flex flex-col gap-2 rounded-md border border-line bg-surface p-3 text-sm"
                 >
-                  <span className="text-ink">
-                    <Link
-                      href={courseHref(course.code)}
-                      className="font-semibold text-brand-deep hover:underline"
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-ink">
+                      <Link
+                        href={courseHref(course.code)}
+                        className="font-semibold text-brand-deep hover:underline"
+                      >
+                        {course.code}
+                      </Link>
+                      {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
+                      {copy.creditsUnit}
+                    </span>
+                    <button
+                      type="submit"
+                      name="code"
+                      value={course.code}
+                      className="focus-halo shrink-0 text-sm font-semibold text-brand-deep hover:underline"
                     >
-                      {course.code}
-                    </Link>
-                    {course.title ? ` ${course.title}` : ""} &middot; {course.credits}{" "}
-                    {copy.creditsUnit}
-                  </span>
-                  <button
-                    type="submit"
-                    name="code"
-                    value={course.code}
-                    className="focus-halo shrink-0 text-sm font-semibold text-brand-deep hover:underline"
-                  >
-                    {copy.removeLabel}
-                    <span className="sr-only"> {course.code}</span>
-                  </button>
+                      {copy.removeLabel}
+                      <span className="sr-only"> {course.code}</span>
+                    </button>
+                  </div>
+                  {course.critical ? (
+                    <p className="text-xs text-muted">
+                      <span className="rounded-full bg-warning-tint px-2.5 py-0.5 font-semibold text-ink">
+                        {copy.criticalLabel}
+                      </span>{" "}
+                      {copy.criticalHint}
+                    </p>
+                  ) : null}
+                  {course.whatIf && course.whatIf.length > 0 ? (
+                    <details className="text-xs">
+                      <summary className="focus-halo cursor-pointer font-semibold text-brand-deep">
+                        {copy.whatIfSummary}
+                        <span className="sr-only"> {course.code}</span>
+                      </summary>
+                      <ul className="mt-2 flex flex-col gap-1 text-muted">
+                        {course.whatIf.map((sentence) => (
+                          <li key={sentence}>{sentence}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : null}
                 </li>
               ))}
             </ul>
