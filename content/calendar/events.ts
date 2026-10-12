@@ -474,10 +474,10 @@ export const calendarEvents: CalendarEvent[] = [
     id: "oct-bir-seminar",
     start: "2026-10-22",
     title: {
-      en: "BIR Seminar",
-      th: "BIR Seminar",
+      en: "24/7 No Rest Under Capitalism, 16:00 in R.103",
+      th: "สัมมนา 24/7 เมื่อทุนนิยมไม่เคยให้เราพัก 16.00 น. ห้อง ร.103",
     },
-    slug: "activity-calendar",
+    slug: "no-rest-under-capitalism-seminar-2026",
     kind: "birsa",
   },
   {
