@@ -194,6 +194,14 @@ export const courses: Course[] = [
   {
     code: "PI122",
     instructors: [THANES],
+    assessmentFacts: {
+      term: { year: 2568, semester: 2 },
+      weights: [{ label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 100 }],
+      examFormat: {
+        en: "The whole grade comes from one final exam at the end of the course. There is no midterm and no coursework.",
+        th: "คะแนนทั้งหมดมาจากการสอบปลายภาคครั้งเดียวเมื่อจบวิชา ไม่มีสอบกลางภาคและไม่มีงานระหว่างภาค",
+      },
+    },
     title: { en: "Introduction to Humanities", th: "ความรู้เบื้องต้นทางมนุษยศาสตร์" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "general-education",
@@ -207,6 +215,21 @@ export const courses: Course[] = [
   {
     code: "PI210",
     instructors: [THAME],
+    assessmentFacts: {
+      term: { year: 2568, semester: 2 },
+      weights: [
+        { label: { en: "Midterm exam", th: "สอบกลางภาค" }, weight: 40 },
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 60 },
+      ],
+      examFormat: {
+        en: "Both exams are essays. The two hour midterm asks you to answer two of six questions on Western and Eastern philosophy. The three hour final covers the rest of the course and asks you to answer three of seven questions. Participation is not marked separately but can raise or lower your final grade.",
+        th: "ข้อสอบทั้งสองครั้งเป็นข้อเขียนเชิงเรียงความ สอบกลางภาคสองชั่วโมง เลือกตอบสองข้อจากหกข้อเรื่องปรัชญาตะวันตกและตะวันออก สอบปลายภาคสามชั่วโมงครอบคลุมเนื้อหาที่เหลือ เลือกตอบสามข้อจากเจ็ดข้อ การมีส่วนร่วมในชั้นเรียนไม่ได้คิดคะแนนแยก แต่อาจารย์อาจนำมาพิจารณาเพิ่มหรือลดเกรดได้",
+      },
+      attendance: {
+        en: "Attendance is compulsory and checked. You must attend at least 80% of classes, and missing three or more without a valid reason may mean retaking the course.",
+        th: "การเข้าเรียนเป็นภาคบังคับและมีการเช็กชื่อ ต้องเข้าเรียนไม่น้อยกว่าร้อยละ 80 ของชั้นเรียนทั้งหมด หากขาดเรียนตั้งแต่สามครั้งขึ้นไปโดยไม่มีเหตุผลอันสมควรอาจต้องลงเรียนวิชานี้ใหม่",
+      },
+    },
     title: { en: "Introduction to Political Philosophy", th: "ปรัชญาการเมืองเบื้องต้น" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "core",
@@ -249,6 +272,21 @@ export const courses: Course[] = [
   {
     code: "PI270",
     instructors: [PEERA],
+    assessmentFacts: {
+      term: { year: 2568, semester: 2 },
+      weights: [
+        { label: { en: "Midterm exam", th: "สอบกลางภาค" }, weight: 50 },
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 50 },
+      ],
+      examFormat: {
+        en: "Both exams are sat in person and answered in essay form. To score highly you need to show you have read the assigned readings, not only the lectures. Group seminar presentations are expected but not marked.",
+        th: "สอบทั้งสองครั้งในห้องสอบ ตอบเป็นเรียงความ หากต้องการคะแนนสูงต้องแสดงให้เห็นว่าอ่านเอกสารที่มอบหมาย ไม่ใช่อาศัยเนื้อหาจากการบรรยายอย่างเดียว การนำเสนองานกลุ่มในช่วงสัมมนาเป็นสิ่งที่คาดหวังแต่ไม่มีคะแนน",
+      },
+      attendance: {
+        en: "Attendance is not required and does not affect your grade, though the instructor may take roll at random.",
+        th: "ไม่บังคับเข้าเรียนและการเข้าเรียนไม่มีผลต่อเกรด แม้อาจารย์อาจสุ่มเช็กชื่อไว้เป็นข้อมูล",
+      },
+    },
     title: { en: "Diplomatic History", th: "ประวัติศาสตร์การทูต" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "required",
@@ -278,6 +316,23 @@ export const courses: Course[] = [
   {
     code: "PI272",
     instructors: [JOSEPH],
+    assessmentFacts: {
+      term: { year: 2568, semester: 2 },
+      weights: [
+        { label: { en: "Attendance", th: "การเข้าเรียน" }, weight: 20 },
+        { label: { en: "Midterm exam", th: "สอบกลางภาค" }, weight: 25 },
+        { label: { en: "Group presentation", th: "การนำเสนองานกลุ่ม" }, weight: 20 },
+        { label: { en: "Final oral assessment", th: "สอบปากเปล่าปลายภาค" }, weight: 35 },
+      ],
+      examFormat: {
+        en: "The midterm is a two hour exam. The final is an oral exam, a one to one session of 10 to 15 minutes with the instructor on the course's key ideas and cases.",
+        th: "สอบกลางภาคใช้เวลาสองชั่วโมง ส่วนสอบปลายภาคเป็นการสอบปากเปล่าตัวต่อตัวกับอาจารย์ราว 10 ถึง 15 นาที ถามแนวคิดและกรณีศึกษาสำคัญของวิชา",
+      },
+      attendance: {
+        en: "Attendance is worth 20% of the grade. No minimum or penalty per absence is stated.",
+        th: "การเข้าเรียนคิดเป็นร้อยละ 20 ของคะแนนรวม ไม่ได้ระบุเกณฑ์ขั้นต่ำหรือการหักคะแนนเมื่อขาดเรียน",
+      },
+    },
     title: { en: "Foreign Policy Analysis", th: "การวิเคราะห์นโยบายต่างประเทศ" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "required",
@@ -350,6 +405,27 @@ export const courses: Course[] = [
   {
     code: "PI293",
     instructors: [COWIE],
+    assessmentFacts: {
+      term: { year: 2568, semester: "summer" },
+      weights: [
+        {
+          label: {
+            en: "Participation, short essays and quizzes",
+            th: "การมีส่วนร่วม เรียงความสั้น และแบบทดสอบย่อย",
+          },
+          weight: 40,
+        },
+        { label: { en: "Final exam", th: "สอบปลายภาค" }, weight: 60 },
+      ],
+      examFormat: {
+        en: "The final exam is based on the readings. Before every class you write and print a short essay of two or three paragraphs on the reading, and missing one costs 5%. Surprise quizzes on the readings can make up to 15% within the participation mark.",
+        th: "สอบปลายภาคอิงจากเอกสารที่อ่าน ก่อนเรียนทุกครั้งต้องเขียนเรียงความสั้นสองถึงสามย่อหน้าเกี่ยวกับเอกสารนั้นแล้วพิมพ์มา ไม่มีงานส่งจะถูกหักร้อยละ 5 แบบทดสอบย่อยที่ไม่แจ้งล่วงหน้าอาจคิดได้ถึงร้อยละ 15 ภายในคะแนนการมีส่วนร่วม",
+      },
+      attendance: {
+        en: "Attendance is checked twice each class. Each missed class costs 5% and arriving more than 15 minutes late or leaving early costs 2%. Missing more than four classes without good reason means an F.",
+        th: "เช็กชื่อสองครั้งในทุกคาบ ขาดเรียนหนึ่งครั้งหักร้อยละ 5 มาสายเกิน 15 นาทีหรือออกก่อนเวลาหักร้อยละ 2 หากขาดเรียนเกินสี่ครั้งโดยไม่มีเหตุผลอันสมควรจะได้เกรด F",
+      },
+    },
     title: { en: "Introduction to Political Economy", th: "ความรู้เบื้องต้นทางเศรษฐกิจการเมือง" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
@@ -576,6 +652,25 @@ export const courses: Course[] = [
   {
     code: "PI346",
     instructors: [WIJITBUSABA],
+    assessmentFacts: {
+      term: { year: 2568, semester: 2 },
+      weights: [
+        { label: { en: "News analysis", th: "บทวิเคราะห์ข่าว" }, weight: 10 },
+        {
+          label: { en: "Group urban observation project", th: "โครงงานกลุ่มสำรวจเมือง" },
+          weight: 30,
+        },
+        {
+          label: { en: "Group comparative cities project", th: "โครงงานกลุ่มเปรียบเทียบเมือง" },
+          weight: 30,
+        },
+        { label: { en: "Individual essay", th: "เรียงความรายบุคคล" }, weight: 30 },
+      ],
+      examFormat: {
+        en: "There is no written midterm or final exam. Both group projects end in a class presentation, and the course includes field visits in Bangkok.",
+        th: "วิชานี้ไม่มีสอบข้อเขียนกลางภาคและปลายภาค โครงงานกลุ่มทั้งสองชิ้นต้องนำเสนอในชั้นเรียน และมีการลงพื้นที่ศึกษาดูงานในกรุงเทพฯ",
+      },
+    },
     title: { en: "Urban Planning and Development Policy", th: "นโยบายการพัฒนาและจัดการเมือง" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",
@@ -939,6 +1034,25 @@ export const courses: Course[] = [
   {
     code: "PI385",
     instructors: [CHAYANIT],
+    assessmentFacts: {
+      term: { year: 2568, semester: "summer" },
+      weights: [
+        {
+          label: { en: "Class engagement and attendance", th: "การเข้าเรียนและการมีส่วนร่วม" },
+          weight: 30,
+        },
+        { label: { en: "Three reflection papers", th: "บทสะท้อนความคิดสามชิ้น" }, weight: 30 },
+        { label: { en: "Term paper", th: "รายงานประจำภาค" }, weight: 40 },
+      ],
+      examFormat: {
+        en: "There is no sit down exam. The term paper applies the course's ideas to a topic you choose. You must sign a statement on AI use, and the instructor may hold a short oral check on your paper.",
+        th: "วิชานี้ไม่มีการสอบในห้องสอบ รายงานประจำภาคให้นำแนวคิดของวิชาไปวิเคราะห์หัวข้อที่เลือกเอง ต้องลงนามรับรองการใช้ AI และอาจารย์อาจเรียกสอบปากเปล่าสั้น ๆ เพื่อยืนยันว่าเป็นงานของตนเอง",
+      },
+      attendance: {
+        en: "Attendance counts within the 30% class engagement mark. No minimum is stated.",
+        th: "การเข้าเรียนนับรวมอยู่ในคะแนนการมีส่วนร่วมร้อยละ 30 ไม่ได้กำหนดเกณฑ์ขั้นต่ำ",
+      },
+    },
     title: { en: "Peace Studies", th: "สันติภาพศึกษา" },
     credits: { total: 3, lecture: 3, lab: 0, selfStudy: 6 },
     category: "minor-elective",

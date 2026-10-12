@@ -7,7 +7,7 @@
  * Only what the catalogue has recorded is counted. A course with no recorded
  * facts, or facts that do not add up to a whole grade, is listed as unknown by
  * code and is never assumed to have, or not have, an exam. Most courses are in
- * that position today (six courses have facts), so every line this produces
+ * that position today (thirteen courses have facts), so every line this produces
  * says how many courses it rests on, and the term the facts were recorded for,
  * rather than reading as a statement about the whole term.
  *
