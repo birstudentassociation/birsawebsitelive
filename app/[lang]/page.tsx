@@ -108,7 +108,8 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               width={320}
               height={320}
               className="h-auto w-full max-w-[18rem] opacity-90"
-              priority
+              sizes="288px"
+              loading="lazy"
             />
           </div>
         </div>

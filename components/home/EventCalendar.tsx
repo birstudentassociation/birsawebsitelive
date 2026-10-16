@@ -378,7 +378,7 @@ export default function EventCalendar({
                             aria-current={isToday ? "date" : undefined}
                             aria-label={dayLabel(dayKey, dayEvents.length)}
                             className={clsx(
-                              "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm transition-colors",
+                              "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm",
                               hasEvents
                                 ? "cursor-pointer font-semibold text-ink"
                                 : "cursor-default text-muted",

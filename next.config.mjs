@@ -34,6 +34,21 @@ const nextConfig = {
   poweredByHeader: false,
   // Loads its WebAssembly from its own folder at run time; bundling breaks that.
   serverExternalPackages: ["harfbuzzjs"],
+  turbopack: {
+    resolveAlias: {
+      // Next ships a polyfill for String.trimStart, Array.at, Array.flat,
+      // Object.fromEntries and similar. Every browser this site supports has
+      // them natively, so drop it from the main bundle (Lighthouse "Legacy
+      // JavaScript").
+      "../build/polyfills/polyfill-module": "./lib/empty-polyfill.js",
+    },
+  },
+  experimental: {
+    // Inline the (small) stylesheet into each page's HTML so the first paint no
+    // longer waits on two render-blocking CSS requests. Static routes allow
+    // inline styles in their CSP.
+    inlineCss: true,
+  },
   images: {
     // AVIF first so Vercel's image optimizer serves AVIF to supporting browsers.
     formats: ["image/avif", "image/webp"],
