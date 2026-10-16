@@ -47,6 +47,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/quick",
       "/news",
       "/contact",
+      // Dedicated landing page for study questions, which BIRSA does not answer.
+      "/contact/academic",
+      "/openhouse",
       "/activity",
       "/activity/roles",
       "/activity/regulations",
@@ -61,6 +64,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/services/university-services",
       "/services/equipment-loan",
       "/services/equipment-loan/status",
+      "/services/equipment-loan/directory",
+      // Entry point only: the cohort, plan and other steps are stateful.
+      "/services/study-plan",
       "/standards",
       "/6-october",
       "/advisory",
@@ -82,13 +88,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     for (const post of getEntries("news", locale)) {
-      if (isArchivedEvent(post.frontmatter)) continue;
+      if (isArchivedEvent(post.frontmatter) || post.frontmatter.placeholder) continue;
       entries.push(
         entry(locale, `/news/${post.slug}`, post.frontmatter.updated ?? post.frontmatter.date)
       );
     }
 
     for (const page of getEntries("activity", locale)) {
+      if (page.frontmatter.placeholder) continue;
       entries.push(entry(locale, `/activity/${page.slug}`, page.frontmatter.updated));
     }
 
@@ -109,6 +116,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const topic of guideTopics) {
       entries.push(entry(locale, `/student-life/${topic}`));
       for (const guide of getGuideEntries(locale, topic)) {
+        if (guide.frontmatter.placeholder) continue;
         entries.push(
           entry(locale, `/student-life/${topic}/${guide.slug}`, guide.frontmatter.reviewed)
         );
@@ -124,6 +132,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     for (const club of getClubEntries(locale)) {
+      if (club.frontmatter.placeholder) continue;
       entries.push(entry(locale, `/clubs/${club.slug}`, club.frontmatter.updated));
     }
   }

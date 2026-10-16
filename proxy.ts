@@ -81,6 +81,11 @@ export function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = `/${activeLocale}${pathname === "/" ? "" : pathname}`;
     const response = NextResponse.redirect(url);
+    // The target depends on the cookie and Accept-Language, so shared caches
+    // must not reuse one visitor's redirect for another. Stays a temporary
+    // (307) redirect for the same reason.
+    response.headers.set("Vary", "Accept-Language, Cookie");
+    response.headers.set("Cache-Control", "private, no-store");
 
     // Only write the locale cookie when it actually changes, so a returning
     // visitor whose cookie already matches doesn't pick up a fresh

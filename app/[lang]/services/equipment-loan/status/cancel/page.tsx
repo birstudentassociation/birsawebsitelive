@@ -19,6 +19,7 @@ export async function generateMetadata({
   const locale: Locale = lang;
   const title = locale === "th" ? "ยกเลิกคำขอยืม" : "Cancel this loan request";
   return buildMetadata({
+    noindex: true,
     locale,
     title,
     description: title,

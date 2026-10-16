@@ -10,7 +10,9 @@ import {
   type Locale,
 } from "@/lib/i18n";
 import { getGuideEntries, getGuideEntry, guideTopics, isGuideTopic } from "@/lib/content";
-import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, buildMetadata } from "@/lib/seo";
+import { articleJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import { Mdx } from "@/lib/mdx";
 import { extractToc } from "@/lib/toc";
 import PageHeader from "@/components/PageHeader";
@@ -155,8 +157,19 @@ export default async function StudentLifeGuidePage({
     </ul>
   );
 
+  const guideUrl = absoluteUrl(locale, guidePath);
+
   return (
     <>
+      <JsonLd
+        data={articleJsonLd(locale, {
+          url: guideUrl,
+          headline: frontmatter.title,
+          description: frontmatter.metaDescription ?? frontmatter.summary,
+          dateModified: frontmatter.updated,
+          image: `${guideUrl}/opengraph-image`,
+        })}
+      />
       <PageHeader
         title={frontmatter.title}
         lede={frontmatter.summary}

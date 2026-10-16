@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, formatDate, localeHref, locales, type Locale } from "@/lib/i18n";
 import { getEntries, getEntry } from "@/lib/content";
-import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, buildMetadata } from "@/lib/seo";
+import { articleJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import { Mdx } from "@/lib/mdx";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -25,12 +27,16 @@ export async function generateMetadata({
   const entry = getEntry("activity", locale, slug);
   if (!entry) return {};
 
-  return buildMetadata({
+  const metadata = buildMetadata({
     locale,
     title: entry.frontmatter.title,
     description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
     path: `/activity/${slug}`,
   });
+  // Placeholder pages hold no real content yet, so keep them out of search.
+  return entry.frontmatter.placeholder
+    ? { ...metadata, robots: { index: false, follow: true } }
+    : metadata;
 }
 
 const labels: Record<
@@ -64,9 +70,21 @@ export default async function ActivityDetailPage({
   if (!entry) notFound();
 
   const t = labels[locale];
+  const pageUrl = absoluteUrl(locale, `/activity/${slug}`);
 
   return (
     <>
+      {entry.frontmatter.placeholder ? null : (
+        <JsonLd
+          data={articleJsonLd(locale, {
+            url: pageUrl,
+            headline: entry.frontmatter.title,
+            description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
+            dateModified: entry.frontmatter.updated,
+            image: `${pageUrl}/opengraph-image`,
+          })}
+        />
+      )}
       <PageHeader
         title={entry.frontmatter.title}
         lede={entry.frontmatter.summary}

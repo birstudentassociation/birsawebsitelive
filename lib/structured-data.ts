@@ -3,7 +3,7 @@
  * search engines read to understand what a page is about (a news article, an
  * event, a course, a club) beyond its title and description.
  */
-import { localeHref, type Locale } from "@/lib/i18n";
+import { getDictionary, localeHref, type Locale } from "@/lib/i18n";
 import { absoluteUrl } from "@/lib/seo";
 import { SITE_URL } from "@/lib/site-url";
 import { contact, socials } from "@/content/site";
@@ -11,10 +11,23 @@ import type { Course } from "@/content/course-review/types";
 import { prerequisiteCodes } from "@/lib/course-review/facts";
 import { prerequisites, type CourseNode } from "@/lib/courses/graph";
 import type { ClubFrontmatter, NewsFrontmatter } from "@/lib/content";
+import type { RegulationDoc } from "@/content/activity/regulations/types";
 
 type JsonLdObject = Record<string, unknown>;
 
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
+
+const ORGANIZATION_NAME = "BIR Student Association (BIRSA)";
+
+/** The site organisation as a reference other entities (author, publisher) can embed. */
+function organizationRef(locale: Locale): JsonLdObject {
+  return {
+    "@type": "Organization",
+    "@id": ORGANIZATION_ID,
+    name: ORGANIZATION_NAME,
+    url: `${SITE_URL}/${locale}`,
+  };
+}
 
 const IN_LANGUAGE: Record<Locale, string> = { en: "en", th: "th" };
 
@@ -60,7 +73,13 @@ export function organizationJsonLd(locale: Locale): JsonLdObject {
     name: "BIR Student Association (BIRSA)",
     alternateName: ["BIRSA", "สโมสรนักศึกษา BIR"],
     url: `${SITE_URL}/${locale}`,
-    logo: `${SITE_URL}/birsa-logo.png`,
+    description: getDictionary(locale).site.description,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/birsa-logo.png`,
+      width: 512,
+      height: 512,
+    },
     email: contact.email,
     telephone: contact.phone.replace(/^0/, "+66 "),
     address: {
@@ -130,7 +149,7 @@ export function newsJsonLd(
   if (frontmatter.type === "event" && frontmatter.start) {
     const organizer = {
       "@type": "Organization",
-      name: "BIR Student Association (BIRSA)",
+      name: ORGANIZATION_NAME,
       url: `${SITE_URL}/${locale}`,
     };
     const isRangsit = /Rangsit|รังสิต/.test(frontmatter.location ?? "");
@@ -175,8 +194,85 @@ export function newsJsonLd(
     dateModified: frontmatter.updated ?? frontmatter.date,
     mainEntityOfPage: url,
     articleSection: frontmatter.category,
-    author: { "@id": ORGANIZATION_ID, name: "BIR Student Association (BIRSA)" },
-    publisher: { "@id": ORGANIZATION_ID, name: "BIR Student Association (BIRSA)" },
+    author: organizationRef(locale),
+    publisher: organizationRef(locale),
+  };
+}
+
+export type ArticleJsonLdInput = {
+  url: string;
+  headline: string;
+  description: string;
+  datePublished?: string;
+  dateModified?: string;
+  image: string | string[];
+  section?: string;
+};
+
+/** A schema.org `Article` published by the site organisation. Only dates that exist are emitted. */
+export function articleJsonLd(locale: Locale, input: ArticleJsonLdInput): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    url: input.url,
+    mainEntityOfPage: input.url,
+    inLanguage: IN_LANGUAGE[locale],
+    image: input.image,
+    ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    ...(input.dateModified ? { dateModified: input.dateModified } : {}),
+    ...(input.section ? { articleSection: input.section } : {}),
+    author: organizationRef(locale),
+    publisher: organizationRef(locale),
+  };
+}
+
+/** A regulation or notice page, as a schema.org `Legislation` issued by its authority. */
+export function regulationJsonLd(locale: Locale, doc: RegulationDoc): JsonLdObject {
+  const url = absoluteUrl(locale, `/activity/regulations/${doc.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Legislation",
+    name: doc.citation[locale],
+    alternateName: doc.shortTitle[locale],
+    url,
+    inLanguage: IN_LANGUAGE[locale],
+    legislationPassedBy: { "@type": "Organization", name: doc.authority[locale] },
+    publisher: organizationRef(locale),
+    isPartOf: { "@type": "WebPage", url: absoluteUrl(locale, "/activity/regulations") },
+  };
+}
+
+/** Wraps an organisation as the subject of a `ProfilePage`. */
+function profilePage(
+  locale: Locale,
+  url: string,
+  mainEntity: JsonLdObject,
+  dateModified?: string
+): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url,
+    inLanguage: IN_LANGUAGE[locale],
+    ...(dateModified ? { dateModified } : {}),
+    mainEntity,
+  };
+}
+
+/** The contact page, about the site organisation. */
+export function contactPageJsonLd(locale: Locale, name: string, description: string): JsonLdObject {
+  const url = absoluteUrl(locale, "/contact");
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name,
+    description,
+    url,
+    inLanguage: IN_LANGUAGE[locale],
+    about: { "@id": ORGANIZATION_ID },
+    mainEntity: { "@id": ORGANIZATION_ID },
   };
 }
 
@@ -245,13 +341,19 @@ export function clubJsonLd(
   const sameAs = (frontmatter.links ?? [])
     .map((link) => link.href)
     .filter((href) => href.startsWith("https://"));
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: frontmatter.title,
-    description: frontmatter.tagline,
-    url: absoluteUrl(locale, `/clubs/${slug}`),
-    parentOrganization: { "@id": ORGANIZATION_ID, name: "BIR Student Association (BIRSA)" },
-    ...(sameAs.length ? { sameAs } : {}),
-  };
+  const url = absoluteUrl(locale, `/clubs/${slug}`);
+  return profilePage(
+    locale,
+    url,
+    {
+      "@type": "Organization",
+      "@id": `${url}#organization`,
+      name: frontmatter.title,
+      description: frontmatter.tagline,
+      url,
+      parentOrganization: { "@id": ORGANIZATION_ID, name: ORGANIZATION_NAME },
+      ...(sameAs.length ? { sameAs } : {}),
+    },
+    frontmatter.updated
+  );
 }

@@ -10,6 +10,8 @@ const rootDict = getDictionary(defaultLocale);
 
 export const metadata: Metadata = {
   title: `${rootDict.notFound.title} | ${rootDict.site.name}`,
+  description: rootDict.notFound.body,
+  robots: { index: false, follow: true },
 };
 
 /**

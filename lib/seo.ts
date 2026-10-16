@@ -64,6 +64,13 @@ export type BuildMetadataOptions = {
   path: string;
   /** Marks the page as an Open Graph article (news posts). */
   article?: ArticleMetadata;
+  /** Keeps the page out of search results while still letting crawlers follow its links. */
+  noindex?: boolean;
+};
+
+const FEED_TITLES: Record<Locale, string> = {
+  en: "BIRSA news",
+  th: "ข่าว BIRSA",
 };
 
 /** Absolute URL for `path` under a given locale, e.g. `/en/news`. */
@@ -130,6 +137,7 @@ export function buildMetadata({
   description,
   path,
   article,
+  noindex,
 }: BuildMetadataOptions): Metadata {
   const languages: Record<string, string> = { "x-default": absoluteUrl("th", path) };
   for (const loc of locales) {
@@ -164,7 +172,17 @@ export function buildMetadata({
     alternates: {
       canonical: url,
       languages,
+      // A page's `alternates` replaces the layout's wholesale, so the feed
+      // link lives here to reach every page.
+      types: {
+        "application/rss+xml": [
+          { url: `${SITE_URL}/${locale}/news/feed.xml`, title: FEED_TITLES[locale] },
+        ],
+      },
     },
+    ...(noindex
+      ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } }
+      : {}),
     openGraph: {
       title: socialTitle,
       description: fittedDescription,

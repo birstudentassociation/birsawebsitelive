@@ -30,6 +30,7 @@ export async function generateMetadata({
       : `Fill in the online form to request to borrow the ${item.name.en.toLowerCase()} from BIRSA.`;
 
   return buildMetadata({
+    noindex: true,
     locale,
     title,
     description,

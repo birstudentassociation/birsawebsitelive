@@ -146,6 +146,16 @@ const nextConfig = {
         headers: [{ key: "Content-Security-Policy", value: buildStaticCsp() }],
       },
       {
+        // Non-HTML endpoints (JSON, images, the calendar feed) are not pages
+        // to rank. The header, not robots.txt, keeps them out of the index.
+        source: "/api/:path*",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+      {
+        source: "/:lang(th|en)/calendar.ics",
+        headers: [{ key: "X-Robots-Tag", value: "noindex" }],
+      },
+      {
         // Static image assets can be replaced in place without a filename
         // change, so cache for a week with SWR rather than marking immutable.
         source: "/birsa-logo.png",

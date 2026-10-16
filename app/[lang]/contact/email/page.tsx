@@ -19,7 +19,13 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const title = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
-  return buildMetadata({ locale, title, description: title, path: "/contact/email" });
+  return buildMetadata({
+    noindex: true,
+    locale,
+    title,
+    description: title,
+    path: "/contact/email",
+  });
 }
 
 export default async function ContactEmailPage({

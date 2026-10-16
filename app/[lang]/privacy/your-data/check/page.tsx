@@ -20,6 +20,7 @@ export async function generateMetadata({
   const locale: Locale = lang;
   const wizard = buildRightsWizardLabels(locale);
   return buildMetadata({
+    noindex: true,
     locale,
     title: wizard.checkTitle,
     description: wizard.checkTitle,

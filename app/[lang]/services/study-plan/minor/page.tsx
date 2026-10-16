@@ -22,6 +22,7 @@ export async function generateMetadata({
   const copy = buildStudyPlanCopy(locale);
 
   return buildMetadata({
+    noindex: true,
     locale,
     title: copy.minor.title,
     description: copy.minor.hint,

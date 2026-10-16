@@ -32,6 +32,7 @@ const copy = {
     title: "What's on",
     lede: "News and events from BIRSA. For anything more immediate, follow us on",
     and: "and",
+    rss: "Subscribe with RSS",
     typeLabel: "Type",
     allTypes: "All",
     news: "News",
@@ -50,6 +51,7 @@ const copy = {
     title: "ข่าวและกิจกรรม",
     lede: "ข่าวสารและกิจกรรมล่าสุดจาก BIRSA หากอยากรู้ความเคลื่อนไหวแบบเรียลไทม์ ติดตามเราได้ที่",
     and: "และ",
+    rss: "ติดตามผ่าน RSS",
     typeLabel: "ประเภท",
     allTypes: "ทั้งหมด",
     news: "ข่าว",
@@ -143,6 +145,14 @@ export default async function NewsPage({
             Facebook
           </ExternalLink>
           .
+        </p>
+        <p className="mb-8 text-sm">
+          <a
+            href={`${localeHref(locale, "/news")}/feed.xml`}
+            className="font-semibold text-brand-deep underline hover:text-brand-dark"
+          >
+            {text.rss}
+          </a>
         </p>
 
         <nav aria-label={text.filterNav} className="mb-6 flex flex-col gap-4">

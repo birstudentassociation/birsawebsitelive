@@ -19,7 +19,13 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
   const title = locale === "th" ? "เริ่มชมรมใหม่" : "Start a club";
-  return buildMetadata({ locale, title, description: title, path: "/clubs/start/members" });
+  return buildMetadata({
+    noindex: true,
+    locale,
+    title,
+    description: title,
+    path: "/clubs/start/members",
+  });
 }
 
 export default async function StartClubMembersPage({

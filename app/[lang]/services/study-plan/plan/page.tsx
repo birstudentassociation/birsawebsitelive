@@ -99,6 +99,7 @@ export async function generateMetadata({
   const copy = buildStudyPlanCopy(locale);
 
   return buildMetadata({
+    noindex: true,
     locale,
     title: copy.plan.title,
     description: copy.plan.hint,

@@ -70,6 +70,8 @@ export type ContactWizardLabels = {
   /** The page a student who picks the academic category is sent to. */
   academic: {
     title: string;
+    /** Search-result description, 70 to 160 characters. */
+    description: string;
     noticeTitle: string;
     noticeBody: string;
     contactHeading: string;
@@ -119,6 +121,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
       checkEmailLabel: "อีเมล",
       academic: {
         title: "เรื่องการเรียนสอบถามสำนักงานโครงการ BIR",
+        description:
+          "BIRSA ไม่ได้ตอบคำถามเรื่องรายวิชา การลงทะเบียน และผลการเรียน โปรดติดต่อสำนักงานโครงการ BIR ซึ่งดูแลเรื่องเหล่านี้ ตามช่องทางในหน้านี้",
         noticeTitle: "BIRSA ไม่ได้ตอบคำถามเรื่องการเรียน",
         noticeBody:
           "สำนักงานโครงการ BIR เป็นผู้ตอบคำถามเรื่องรายวิชา การลงทะเบียน ผลการเรียน และเรื่องวิชาการอื่น ๆ ส่วน BIRSA เป็นสโมสรนักศึกษา แบบฟอร์มนี้จึงไม่ส่งเรื่องเหล่านี้ให้ BIRSA โปรดติดต่อสำนักงานโครงการ BIR โดยตรง",
@@ -169,6 +173,8 @@ export function buildContactWizardLabels(locale: Locale): ContactWizardLabels {
     checkEmailLabel: "Email address",
     academic: {
       title: "Ask the BIR office about your studies",
+      description:
+        "BIRSA does not answer questions about courses, registration or grades. Contact the BIR office, which handles these, using the details on this page.",
       noticeTitle: "BIRSA does not answer questions about studies",
       noticeBody:
         "The BIR office answers questions about courses, registration, grades and other academic matters. BIRSA is the student association, so this form does not send them to BIRSA. Contact the BIR office directly.",

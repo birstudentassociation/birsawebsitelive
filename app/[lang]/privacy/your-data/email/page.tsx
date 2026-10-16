@@ -20,7 +20,13 @@ export async function generateMetadata({
   const locale: Locale = lang;
   const title =
     locale === "th" ? "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" : "Ask about your data";
-  return buildMetadata({ locale, title, description: title, path: "/privacy/your-data/email" });
+  return buildMetadata({
+    noindex: true,
+    locale,
+    title,
+    description: title,
+    path: "/privacy/your-data/email",
+  });
 }
 
 export default async function RightsEmailPage({

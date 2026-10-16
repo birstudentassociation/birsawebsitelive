@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { contactPageJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ExternalLink from "@/components/ExternalLink";
@@ -20,6 +22,17 @@ import { CONTACT_STEPS } from "./steps";
 import { deriveContactSeed } from "./seed";
 import { socials, contact } from "@/content/site";
 
+const contactMeta: Record<Locale, { title: string; description: string }> = {
+  th: {
+    title: "ติดต่อ BIRSA",
+    description: "ส่งข้อความถึง BIRSA หรือติดต่อโดยตรงทางอีเมลและโซเชียลมีเดีย",
+  },
+  en: {
+    title: "Contact BIRSA",
+    description: "Send BIRSA a message, or reach us directly by email and social media.",
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -29,12 +42,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
 
-  const title = locale === "th" ? "ติดต่อ BIRSA" : "Contact BIRSA";
-  const description =
-    locale === "th"
-      ? "ส่งข้อความถึง BIRSA หรือติดต่อโดยตรงทางอีเมลและโซเชียลมีเดีย"
-      : "Send BIRSA a message, or reach us directly by email and social media.";
-
+  const { title, description } = contactMeta[locale];
   return buildMetadata({ locale, title, description, path: "/contact" });
 }
 
@@ -107,6 +115,9 @@ export default async function ContactPage({
 
   return (
     <>
+      <JsonLd
+        data={contactPageJsonLd(locale, contactMeta[locale].title, contactMeta[locale].description)}
+      />
       <PageHeader
         title={t.title}
         lede={t.lede}

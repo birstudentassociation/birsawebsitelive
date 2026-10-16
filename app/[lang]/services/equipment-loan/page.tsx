@@ -407,8 +407,11 @@ export default async function EquipmentLoanPage({
                     <img
                       src={item.photoUrl}
                       alt={item.name[locale]}
+                      width={640}
+                      height={192}
+                      decoding="async"
                       loading="lazy"
-                      className="max-h-48 w-full rounded-lg border border-line object-cover"
+                      className="h-48 w-full rounded-lg border border-line object-cover"
                     />
                   ) : null}
                   <div className="flex flex-wrap gap-2">

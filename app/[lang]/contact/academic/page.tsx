@@ -22,8 +22,8 @@ export async function generateMetadata({
   const { lang } = await params;
   if (!isLocale(lang)) return {};
   const locale: Locale = lang;
-  const { title } = buildContactWizardLabels(locale).academic;
-  return buildMetadata({ locale, title, description: title, path: "/contact/academic" });
+  const { title, description } = buildContactWizardLabels(locale).academic;
+  return buildMetadata({ locale, title, description, path: "/contact/academic" });
 }
 
 export default async function ContactAcademicPage({

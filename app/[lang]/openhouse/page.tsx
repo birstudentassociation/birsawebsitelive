@@ -20,10 +20,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { lang } = await params;
   if (!isLocale(lang)) return {};
+  const description =
+    lang === "th"
+      ? "Open House วันที่ 31 ตุลาคม ที่คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มาลองเดินดูหนึ่งวันของการเรียนและชีวิตนักศึกษา BIR"
+      : "Open House on 31 October at the Faculty of Political Science, Thammasat University, Tha Prachan. Walk through a day of studying and student life in BIR.";
   const base = buildMetadata({
     locale: lang,
     title: t(COPY.event, lang),
-    description: t(COPY.sub, lang),
+    description,
     path: "/openhouse",
   });
 

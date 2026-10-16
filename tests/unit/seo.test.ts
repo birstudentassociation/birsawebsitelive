@@ -428,3 +428,33 @@ describe("buildMetadata share images", () => {
     }
   });
 });
+
+describe("buildMetadata noindex", () => {
+  const base = {
+    locale: "en" as const,
+    title: "Step",
+    description: "A step.",
+    path: "/contact/name",
+  };
+
+  it("is indexable by default and sets no page-level robots", () => {
+    expect(buildMetadata(base).robots).toBeUndefined();
+  });
+
+  it("keeps the page out of the index but lets crawlers follow links", () => {
+    const meta = buildMetadata({ ...base, noindex: true });
+    expect(meta.robots).toEqual({
+      index: false,
+      follow: true,
+      googleBot: { index: false, follow: true },
+    });
+    expect(meta.alternates?.canonical).toBe(`${SITE_URL}/en/contact/name`);
+    expect(meta.alternates?.languages).toBeDefined();
+  });
+
+  it("links the news feed from every page", () => {
+    expect(buildMetadata(base).alternates?.types).toEqual({
+      "application/rss+xml": [{ url: `${SITE_URL}/en/news/feed.xml`, title: "BIRSA news" }],
+    });
+  });
+});

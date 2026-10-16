@@ -22,6 +22,7 @@ export async function generateMetadata({
   const item = await getItemByKey(itemKey);
   if (!item) return {};
   return buildMetadata({
+    noindex: true,
     locale,
     title: item.name[locale],
     description: item.name[locale],

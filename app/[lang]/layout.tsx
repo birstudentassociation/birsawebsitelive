@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { Fraunces, Lexend, Sarabun } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
@@ -43,6 +43,14 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbf7ef" },
+    { media: "(prefers-color-scheme: dark)", color: "#201b17" },
+  ],
+  colorScheme: "light dark",
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -59,6 +67,18 @@ export async function generateMetadata({
       template: `%s | ${dict.site.name}`,
     },
     description: dict.site.description,
+    applicationName: dict.site.name,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }
 

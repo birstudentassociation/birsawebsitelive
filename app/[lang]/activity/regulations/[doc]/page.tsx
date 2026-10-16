@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
+import { regulationJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import RegulationView from "@/components/regulations/RegulationView";
@@ -53,6 +55,7 @@ export default async function RegulationDocPage({
 
   return (
     <>
+      <JsonLd data={regulationJsonLd(locale, doc)} />
       <PageHeader
         title={doc.shortTitle[locale]}
         lede={doc.citation[locale]}

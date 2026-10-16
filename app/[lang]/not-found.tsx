@@ -28,7 +28,11 @@ export async function generateMetadata({
   const locale: Locale = lang && isLocale(lang) ? lang : defaultLocale;
   const dict = getDictionary(locale);
 
-  return { title: `${dict.notFound.title} | ${dict.site.name}` };
+  return {
+    title: `${dict.notFound.title} | ${dict.site.name}`,
+    description: dict.notFound.body,
+    robots: { index: false, follow: true },
+  };
 }
 
 export default async function NotFound({ params }: { params?: Promise<{ lang: string }> }) {
