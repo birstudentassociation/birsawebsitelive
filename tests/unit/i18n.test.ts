@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { formatDate, isLocale, localeHref, pluralize, swapLocalePath } from "@/lib/i18n";
+import {
+  formatDate,
+  formatGuideDate,
+  isLocale,
+  localeHref,
+  pluralize,
+  swapLocalePath,
+} from "@/lib/i18n";
 
 describe("localeHref", () => {
   it("prefixes the root path with just the locale", () => {
@@ -83,5 +90,23 @@ describe("formatDate", () => {
     expect(th).toContain("2026");
     expect(en).not.toContain("2569");
     expect(th).not.toContain("2569");
+  });
+
+  it("returns identical output on repeated (cached) calls for both locales", () => {
+    for (let i = 0; i < 3; i++) {
+      expect(formatDate("en", "2026-01-15")).toBe("15 January 2026");
+      expect(formatDate("en", "2026-01-15T18:00:00Z")).toBe("16 January 2026");
+      expect(formatDate("th", "2026-01-15")).toBe("15 มกราคม 2026");
+      expect(formatDate("th", "2026-01-15T18:00:00Z")).toBe("16 มกราคม 2026");
+    }
+  });
+});
+
+describe("formatGuideDate", () => {
+  it("uses Buddhist Era for Thai and Gregorian for English", () => {
+    for (let i = 0; i < 2; i++) {
+      expect(formatGuideDate("th", "2026-01-15")).toBe("15 มกราคม 2569");
+      expect(formatGuideDate("en", "2026-01-15")).toBe("15 January 2026");
+    }
   });
 });

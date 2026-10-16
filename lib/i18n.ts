@@ -68,6 +68,27 @@ function dateTimeZone(isoDate: string): "UTC" | "Asia/Bangkok" {
   return DATE_ONLY.test(isoDate) ? "UTC" : "Asia/Bangkok";
 }
 
+const dateTimeFormats = new Map<string, Intl.DateTimeFormat>();
+
+/**
+ * Return a shared `Intl.DateTimeFormat` for the given locale and options.
+ * Constructing one is slow (~0.5 ms on a throttled mobile CPU) and the event
+ * calendar formats dozens of dates during hydration, so formatters are cached
+ * by locale plus every option (including `timeZone`).
+ */
+function cachedDateTimeFormat(
+  locale: string,
+  options: Intl.DateTimeFormatOptions
+): Intl.DateTimeFormat {
+  const key = `${locale}|${JSON.stringify(options)}`;
+  let formatter = dateTimeFormats.get(key);
+  if (!formatter) {
+    formatter = new Intl.DateTimeFormat(locale, options);
+    dateTimeFormats.set(key, formatter);
+  }
+  return formatter;
+}
+
 /**
  * Format an ISO date (YYYY-MM-DD or full ISO datetime) per-locale using the
  * Gregorian calendar (never Buddhist Era) with a long month. Date-only values
@@ -76,7 +97,7 @@ function dateTimeZone(isoDate: string): "UTC" | "Asia/Bangkok" {
 export function formatDate(locale: Locale, isoDate: string): string {
   const date = new Date(isoDate);
   const intlLocale = locale === "th" ? "th-TH-u-ca-gregory" : "en-GB";
-  return new Intl.DateTimeFormat(intlLocale, {
+  return cachedDateTimeFormat(intlLocale, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -91,7 +112,7 @@ export function formatDate(locale: Locale, isoDate: string): string {
  */
 export function formatGuideDate(locale: Locale, isoDate: string): string {
   if (locale !== "th") return formatDate(locale, isoDate);
-  return new Intl.DateTimeFormat("th-TH-u-ca-buddhist", {
+  return cachedDateTimeFormat("th-TH-u-ca-buddhist", {
     day: "numeric",
     month: "long",
     year: "numeric",

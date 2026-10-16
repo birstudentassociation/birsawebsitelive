@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
@@ -184,23 +185,28 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </h2>
             <p className="mt-2 text-lg text-muted">{copy.calendar.intro}</p>
           </div>
-          <EventCalendar
-            events={calendarEvents}
-            locale={locale}
-            todayKey={todayKey}
-            icsUrl={`${SITE_URL}/${locale}/calendar.ics`}
-            labels={{
-              prevMonth: copy.calendar.prevMonth,
-              nextMonth: copy.calendar.nextMonth,
-              selectedFor: copy.calendar.selectedFor,
-              noEventsDay: copy.calendar.noEventsDay,
-              open: copy.calendar.open,
-              eventCount: copy.calendar.eventCount,
-              legend: copy.calendar.legend,
-              styleLegend: copy.calendar.styleLegend,
-              subscribe: copy.calendar.subscribe,
-            }}
-          />
+          {/* A Suspense boundary lets React hydrate the calendar as its own
+              interruptible unit rather than inside the page's single task. The
+              server HTML still contains the full calendar. */}
+          <Suspense fallback={null}>
+            <EventCalendar
+              events={calendarEvents}
+              locale={locale}
+              todayKey={todayKey}
+              icsUrl={`${SITE_URL}/${locale}/calendar.ics`}
+              labels={{
+                prevMonth: copy.calendar.prevMonth,
+                nextMonth: copy.calendar.nextMonth,
+                selectedFor: copy.calendar.selectedFor,
+                noEventsDay: copy.calendar.noEventsDay,
+                open: copy.calendar.open,
+                eventCount: copy.calendar.eventCount,
+                legend: copy.calendar.legend,
+                styleLegend: copy.calendar.styleLegend,
+                subscribe: copy.calendar.subscribe,
+              }}
+            />
+          </Suspense>
         </div>
       </section>
 

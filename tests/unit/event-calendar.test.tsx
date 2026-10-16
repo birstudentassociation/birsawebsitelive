@@ -194,3 +194,20 @@ describe("EventCalendar today", () => {
     );
   });
 });
+
+describe("EventCalendar markup", () => {
+  it("draws icons from one hidden sprite and offsets the first week without fillers", () => {
+    const { container } = renderCalendar(calendarEvents, "2026-07-28");
+
+    // July 2026 starts on a Wednesday, so the 1st sits in column 4.
+    expect(screen.getByRole("button", { name: /^1 July 2026/ })).toHaveStyle({
+      gridColumnStart: "4",
+    });
+    expect(container.querySelectorAll('div[aria-hidden="true"]:empty')).toHaveLength(0);
+
+    for (const use of container.querySelectorAll("use")) {
+      const id = use.getAttribute("href")!.slice(1);
+      expect(container.querySelector(`symbol[id="${id}"]`)).not.toBeNull();
+    }
+  });
+});

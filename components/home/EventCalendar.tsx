@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore, type ReactElement } from "react";
+import { useId, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import { todayInBangkok } from "@/lib/bangkok-today";
@@ -39,51 +39,62 @@ export type EventCalendarProps = {
   icsUrl: string;
 };
 
-type IconProps = { className?: string };
-
-/** Five-point star: birsa. */
-function StarIcon({ className }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinejoin="round"
-      strokeLinecap="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M10 2.2 12.35 7.7 18.3 8.3 13.8 12.3 15.1 18.1 10 15 4.9 18.1 6.2 12.3 1.7 8.3 7.65 7.7Z" />
-    </svg>
-  );
-}
-
-/** Columned building / landmark: university. */
-function BuildingIcon({ className }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.6}
-      strokeLinejoin="round"
-      strokeLinecap="round"
-      aria-hidden="true"
-      className={className}
-    >
+/** Icon shapes on a 20x20 grid, drawn once per calendar in a hidden sprite and
+ *  referenced with `<use>`, so a day cell costs one `<svg>` per event. */
+const KIND_SHAPE: Record<CalendarEventKind, ReactNode> = {
+  // Five-point star: birsa.
+  birsa: (
+    <path d="M10 2.2 12.35 7.7 18.3 8.3 13.8 12.3 15.1 18.1 10 15 4.9 18.1 6.2 12.3 1.7 8.3 7.65 7.7Z" />
+  ),
+  // Columned building / landmark: university.
+  university: (
+    <>
       <path d="M2.5 7.2 10 2.5l7.5 4.7" />
       <path d="M3.3 7.6h13.4V16H3.3Z" />
       <path d="M5.8 7.6V16M9.9 7.6V16M14 7.6V16" />
       <path d="M2.5 16h15" />
+    </>
+  ),
+};
+
+const KINDS = Object.keys(KIND_SHAPE) as CalendarEventKind[];
+
+function IconSprite({ prefix }: { prefix: string }) {
+  return (
+    <svg aria-hidden="true" className="hidden">
+      {KINDS.map((kind) => (
+        <symbol
+          key={kind}
+          id={`${prefix}-${kind}`}
+          viewBox="0 0 20 20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.6}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        >
+          {KIND_SHAPE[kind]}
+        </symbol>
+      ))}
     </svg>
   );
 }
 
-const KIND_ICON: Record<CalendarEventKind, (props: IconProps) => ReactElement> = {
-  birsa: StarIcon,
-  university: BuildingIcon,
-};
+function KindIcon({
+  prefix,
+  kind,
+  className,
+}: {
+  prefix: string;
+  kind: CalendarEventKind;
+  className: string;
+}) {
+  return (
+    <svg aria-hidden="true" className={className}>
+      <use href={`#${prefix}-${kind}`} />
+    </svg>
+  );
+}
 
 const KIND_TEXT: Record<CalendarEventKind, string> = {
   birsa: "text-brand",
@@ -139,6 +150,8 @@ export default function EventCalendar({
   labels,
   icsUrl,
 }: EventCalendarProps) {
+  // Unique per instance; useId's punctuation is stripped so it is a safe fragment.
+  const iconPrefix = `cal-icon-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const webcalUrl = icsUrl.replace(/^https?:\/\//, "webcal://");
   const intlLocale = locale === "th" ? "th-TH-u-ca-gregory" : "en-GB";
 
@@ -246,6 +259,31 @@ export default function EventCalendar({
     return { periods: inMonth, laneOf: lanes, laneCount: laneEnds.length };
   }, [events, current]);
 
+  // Events per day of the visible month, computed once instead of per cell.
+  // `single` drops multi-day periods, which render as ribbons, not icons.
+  const eventsByDay = useMemo(() => {
+    const byDay = new Map<string, { all: CalendarEvent[]; single: CalendarEvent[] }>();
+    if (!current) return byDay;
+    const monthFirst = keyOf(current.year, current.month0, 1);
+    const daysInMonth = new Date(current.year, current.month0 + 1, 0).getDate();
+    const monthLast = keyOf(current.year, current.month0, daysInMonth);
+    for (const e of events) {
+      const end = e.end ?? e.start;
+      if (e.start > monthLast || end < monthFirst) continue;
+      const from = e.start < monthFirst ? 1 : Number(e.start.slice(8, 10));
+      const to = end > monthLast ? daysInMonth : Number(end.slice(8, 10));
+      const period = isPeriod(e);
+      for (let d = from; d <= to; d += 1) {
+        const dayKey = keyOf(current.year, current.month0, d);
+        let entry = byDay.get(dayKey);
+        if (!entry) byDay.set(dayKey, (entry = { all: [], single: [] }));
+        entry.all.push(e);
+        if (!period) entry.single.push(e);
+      }
+    }
+    return byDay;
+  }, [events, current]);
+
   const selectedEvents = useMemo(
     () => (selectedDay ? events.filter((e) => coversDay(e, selectedDay)) : []),
     [events, selectedDay]
@@ -281,6 +319,7 @@ export default function EventCalendar({
 
   return (
     <div className="flex flex-col gap-6">
+      <IconSprite prefix={iconPrefix} />
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
         {/* Calendar grid */}
         <div className="rounded-lg border border-line bg-surface p-4 shadow-sm sm:p-5">
@@ -360,10 +399,13 @@ export default function EventCalendar({
                   <div key={weekIndex} className="flex flex-col">
                     <div className="grid grid-cols-7 gap-1">
                       {week.map((day, i) => {
-                        if (day === null) return <div key={i} aria-hidden="true" />;
+                        // Filler cells are not rendered: the first day of a short
+                        // first week is pushed to its column instead.
+                        if (day === null) return null;
                         const dayKey = keyOf(current.year, current.month0, day);
-                        const dayEvents = events.filter((e) => coversDay(e, dayKey));
-                        const singleEvents = dayEvents.filter((e) => !isPeriod(e));
+                        const entry = eventsByDay.get(dayKey);
+                        const dayEvents = entry?.all ?? [];
+                        const singleEvents = entry?.single ?? [];
                         const hasEvents = dayEvents.length > 0;
                         const isToday = dayKey === today;
                         const isSelected = dayKey === selectedDay;
@@ -377,6 +419,9 @@ export default function EventCalendar({
                             aria-pressed={isSelected}
                             aria-current={isToday ? "date" : undefined}
                             aria-label={dayLabel(dayKey, dayEvents.length)}
+                            style={
+                              i > 0 && week[i - 1] === null ? { gridColumnStart: i + 1 } : undefined
+                            }
                             className={clsx(
                               "focus-halo relative flex aspect-square w-full flex-col items-center justify-center gap-1 rounded-md text-sm",
                               hasEvents
@@ -390,32 +435,25 @@ export default function EventCalendar({
                               isToday && !isSelected && "ring-2 ring-line-strong ring-inset"
                             )}
                           >
-                            <span>{day}</span>
+                            {day}
                             {singleEvents.length > 0 ? (
                               <span
                                 className="flex flex-wrap items-center justify-center gap-0.5"
                                 aria-hidden="true"
                               >
-                                {singleEvents.slice(0, 3).map((e) => {
-                                  const Icon = KIND_ICON[e.kind];
-                                  return (
-                                    <span
-                                      key={e.id}
-                                      title={e.title[locale]}
-                                      className={clsx(
-                                        "inline-flex h-4 w-4 items-center justify-center rounded",
-                                        isSelected ? "bg-white/25" : KIND_TINT[e.kind]
-                                      )}
-                                    >
-                                      <Icon
-                                        className={clsx(
-                                          "h-3 w-3",
-                                          isSelected ? "text-white" : KIND_TEXT[e.kind]
-                                        )}
-                                      />
-                                    </span>
-                                  );
-                                })}
+                                {singleEvents.slice(0, 3).map((e) => (
+                                  <KindIcon
+                                    key={e.id}
+                                    prefix={iconPrefix}
+                                    kind={e.kind}
+                                    className={clsx(
+                                      "h-4 w-4 rounded p-0.5",
+                                      isSelected
+                                        ? "bg-white/25 text-white"
+                                        : [KIND_TINT[e.kind], KIND_TEXT[e.kind]]
+                                    )}
+                                  />
+                                ))}
                               </span>
                             ) : null}
                           </button>
@@ -449,7 +487,6 @@ export default function EventCalendar({
                               const roundedLeft = p.start >= weekFirstKey!;
                               const roundedRight = (p.end ?? p.start) <= weekLastKey!;
                               const lane = laneOf.get(p.id) ?? 0;
-                              const Icon = KIND_ICON[p.kind];
 
                               return (
                                 <Link
@@ -469,7 +506,11 @@ export default function EventCalendar({
                                     roundedLeft ? clsx("border-l-4", KIND_BORDER[p.kind]) : ""
                                   )}
                                 >
-                                  <Icon className={clsx("h-3 w-3 shrink-0", KIND_TEXT[p.kind])} />
+                                  <KindIcon
+                                    prefix={iconPrefix}
+                                    kind={p.kind}
+                                    className={clsx("h-3 w-3 shrink-0", KIND_TEXT[p.kind])}
+                                  />
                                   <span className="truncate">{p.title[locale]}</span>
                                 </Link>
                               );
@@ -486,15 +527,16 @@ export default function EventCalendar({
           {/* Legend */}
           <div className="mt-4 flex flex-col gap-2">
             <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-              {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => {
-                const Icon = KIND_ICON[k];
-                return (
-                  <li key={k} className="flex items-center gap-1.5">
-                    <Icon className={clsx("h-3.5 w-3.5", KIND_TEXT[k])} />
-                    {labels.legend[k]}
-                  </li>
-                );
-              })}
+              {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => (
+                <li key={k} className="flex items-center gap-1.5">
+                  <KindIcon
+                    prefix={iconPrefix}
+                    kind={k}
+                    className={clsx("h-3.5 w-3.5", KIND_TEXT[k])}
+                  />
+                  {labels.legend[k]}
+                </li>
+              ))}
             </ul>
             <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               <li className="flex items-center gap-1.5">
@@ -505,12 +547,11 @@ export default function EventCalendar({
                 {labels.styleLegend.period}
               </li>
               <li className="flex items-center gap-1.5">
-                <span
-                  className="inline-flex h-4 w-4 items-center justify-center rounded bg-brand-tint"
-                  aria-hidden="true"
-                >
-                  <StarIcon className="h-3 w-3 text-brand" />
-                </span>
+                <KindIcon
+                  prefix={iconPrefix}
+                  kind="birsa"
+                  className="h-4 w-4 rounded bg-brand-tint p-0.5 text-brand"
+                />
                 {labels.styleLegend.single}
               </li>
             </ul>
@@ -535,27 +576,28 @@ export default function EventCalendar({
           </p>
           {selectedEvents.length > 0 ? (
             <ul className="flex flex-col gap-2">
-              {selectedEvents.map((event) => {
-                const Icon = KIND_ICON[event.kind];
-                return (
-                  <li key={event.id}>
-                    <Link
-                      href={localeHref(locale, `/news/${event.slug}`)}
-                      className="group focus-halo flex gap-2.5 rounded-md border border-line bg-surface p-3 transition-colors hover:border-brand"
-                    >
-                      <Icon className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])} />
-                      <span className="min-w-0">
-                        <span className="block text-sm leading-snug font-semibold text-ink group-hover:underline">
-                          {event.title[locale]}
-                        </span>
-                        <span className="mt-0.5 block text-xs text-muted">
-                          {eventRangeLabel(event)}
-                        </span>
+              {selectedEvents.map((event) => (
+                <li key={event.id}>
+                  <Link
+                    href={localeHref(locale, `/news/${event.slug}`)}
+                    className="group focus-halo flex gap-2.5 rounded-md border border-line bg-surface p-3 transition-colors hover:border-brand"
+                  >
+                    <KindIcon
+                      prefix={iconPrefix}
+                      kind={event.kind}
+                      className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])}
+                    />
+                    <span className="min-w-0">
+                      <span className="block text-sm leading-snug font-semibold text-ink group-hover:underline">
+                        {event.title[locale]}
                       </span>
-                    </Link>
-                  </li>
-                );
-              })}
+                      <span className="mt-0.5 block text-xs text-muted">
+                        {eventRangeLabel(event)}
+                      </span>
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           ) : (
             <p className="text-sm text-muted">{labels.noEventsDay}</p>
