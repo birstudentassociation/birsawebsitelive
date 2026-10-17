@@ -41,13 +41,21 @@ export type PlanSummaryLabels = {
   /** Said when even the courses did not fit and the end was cut. */
   truncated: string;
   /** Year and term names, the same ones the plan screen uses. */
-  terms: { yearTemplate: string; semester1: string; semester2: string; summer: string };
+  terms: {
+    yearTemplate: string;
+    termTemplate: string;
+    semester1: string;
+    semester2: string;
+    summer: string;
+  };
 };
 
 const SEVERITY_ORDER: Record<Finding["severity"], number> = { problem: 0, warning: 1, note: 2 };
 
 function termText(labels: PlanSummaryLabels, term: TermRef): string {
-  return `${labels.terms.yearTemplate.replace("{n}", String(term.year))}, ${labels.terms[term.kind]}`;
+  return labels.terms.termTemplate
+    .replace("{n}", String(term.year))
+    .replace("{term}", labels.terms[term.kind]);
 }
 
 /** The summary of `plan`, in `locale`, at most `limit` characters. */

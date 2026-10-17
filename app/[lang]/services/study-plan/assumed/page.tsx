@@ -10,7 +10,7 @@ import StepNav from "@/components/forms/StepNav";
 import AssumedStepForm, { type AssumedCourseGroup } from "@/components/forms/AssumedStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
-import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
+import { buildStudyPlanCopy, formatTermRef } from "@/components/study-plan/studyPlanCopy";
 import { getStudyPlanDraft, submitAssumedStep } from "../actions";
 import { STUDY_PLAN_STEPS } from "../steps";
 
@@ -86,7 +86,7 @@ export default async function StudyPlanAssumedPage({
     }
     if (courses.length === 0) continue;
     groups.push({
-      termLabel: `${copy.terms.yearTemplate.replace("{n}", String(term.term.year))}, ${copy.terms[term.term.kind]}`,
+      termLabel: formatTermRef(copy.terms, term.term),
       courses,
     });
   }

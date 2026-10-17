@@ -113,7 +113,7 @@ describe("PrerequisiteMap", () => {
 
   it("is written in Thai for Thai readers", () => {
     const { container } = map("th");
-    expect(container.textContent).toContain("แผนผังวิชาที่ต้องผ่านก่อน");
+    expect(container.textContent).toContain("แผนผังวิชาบังคับก่อน");
   });
 
   it("stays the track map when the stored value is not a plan", () => {

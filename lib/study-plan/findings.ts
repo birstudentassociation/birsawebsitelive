@@ -112,7 +112,7 @@ export function checkPlan(
           severity: "problem",
           message: {
             en: `${code} needs ${prereq} passed first. You have placed it in ${termLabel(term.term).en} without ${prereq} before it.`,
-            th: `วิชา ${code} ต้องผ่านวิชา ${prereq} ก่อน ท่านจัดวิชานี้ไว้ใน${termLabel(term.term).th} โดยไม่มีวิชา ${prereq} มาก่อน`,
+            th: `วิชา ${code} ต้องผ่านวิชา ${prereq} ก่อน แต่แผนจัดวิชานี้ไว้ใน${termLabel(term.term).th} โดยไม่มีวิชา ${prereq} มาก่อน`,
           },
           source: curriculumSource,
         });
@@ -144,7 +144,7 @@ export function checkPlan(
       severity: "problem",
       message: {
         en: `You have ${credits} credits in ${termLabel(term.term).en}. The limit is ${limit} credits.`,
-        th: `ท่านลงทะเบียน ${credits} หน่วยกิตใน${termLabel(term.term).th} ข้อกำหนดคือ ${limitTh} หน่วยกิต`,
+        th: `แผนมี ${credits} หน่วยกิตใน${termLabel(term.term).th} แต่ข้อกำหนดคือ ${limitTh} หน่วยกิต`,
       },
       source: rulesSource,
     });
@@ -169,7 +169,7 @@ export function checkPlan(
       severity: "warning",
       message: {
         en: `The internship takes up the whole of ${termLabel(term.term).en}. You have other courses or free elective credits placed there too; the internship is the whole term, so nothing else belongs alongside it.`,
-        th: `การฝึกงานใช้เวลาทั้งภาคการศึกษาของ${termLabel(term.term).th} ท่านมีรายวิชาอื่นหรือหน่วยกิตวิชาเลือกเสรีจัดไว้ในภาคเดียวกันด้วย เนื่องจากการฝึกงานถือเป็นภาคการศึกษาทั้งหมด จึงไม่ควรมีรายวิชาอื่นควบคู่ไปด้วย`,
+        th: `การฝึกงานใช้เวลาทั้งภาคการศึกษาของ${termLabel(term.term).th} แต่แผนมีรายวิชาอื่นหรือหน่วยกิตวิชาเลือกเสรีอยู่ในภาคเดียวกันด้วย เนื่องจากการฝึกงานถือเป็นภาคการศึกษาทั้งหมด จึงไม่ควรมีรายวิชาอื่นควบคู่ไปด้วย`,
       },
       source: curriculumSource,
     });
@@ -320,7 +320,7 @@ export function checkPlan(
       severity: "problem",
       message: {
         en: `This plan runs into year ${lastTerm.year}. You have ${rules.maxYears} years from when you started to finish the degree, and leave does not extend that.`,
-        th: `แผนนี้ยาวถึงชั้นปีที่ ${lastTerm.year} ท่านมีเวลา ${rules.maxYears} ปีนับจากปีที่เข้าศึกษาเพื่อสำเร็จการศึกษา และการลาพักการศึกษาไม่ทำให้ระยะเวลานี้ขยายออกไป`,
+        th: `แผนนี้ยาวถึงชั้นปีที่ ${lastTerm.year} ข้อกำหนดให้เวลา ${rules.maxYears} ปีนับจากปีที่เข้าศึกษาเพื่อสำเร็จการศึกษา และการลาพักการศึกษาไม่ทำให้ระยะเวลานี้ขยายออกไป`,
       },
       source: rulesSource,
     });

@@ -265,8 +265,8 @@ describe("YourPlanPanelBody", () => {
 
   it("renders in Thai with Thai text", () => {
     const { container } = body("PI340", {}, "th");
-    expect(container.textContent).toContain("แผนการศึกษาของท่าน");
-    expect(container.textContent).toContain("วางแผนไว้ที่ ชั้นปีที่ 3, ภาคการศึกษาที่ 2");
+    expect(container.textContent).toContain("แผนการศึกษาของคุณ");
+    expect(container.textContent).toContain("อยู่ในแผนที่ชั้นปีที่ 3 ภาคการศึกษาที่ 2");
   });
 
   it("states facts and never a score", () => {

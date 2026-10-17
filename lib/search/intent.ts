@@ -164,11 +164,11 @@ const rules: Rule[] = [
     ],
     build: (locale) => ({
       id: "study-plan",
-      title: bi(locale, "Check your degree plan", "ตรวจแผนการศึกษาของท่าน"),
+      title: bi(locale, "Check your degree plan", "ตรวจแผนการศึกษา"),
       description: bi(
         locale,
         "Enter what you have taken and what you plan to take. We check it against your curriculum: credits, prerequisites, the internship rule, and whether you are on track to graduate.",
-        "กรอกวิชาที่เรียนแล้วและที่วางแผนจะเรียน ระบบจะตรวจกับหลักสูตรของท่าน ทั้งหน่วยกิต วิชาบังคับก่อน กฎการฝึกงาน และโอกาสจบตามกำหนด"
+        "กรอกวิชาที่เรียนแล้วและที่วางแผนจะเรียน ระบบจะตรวจกับหลักสูตรของคุณ ทั้งหน่วยกิต วิชาบังคับก่อน กฎการฝึกงาน และโอกาสจบตามกำหนด"
       ),
       action: {
         label: bi(locale, "Start planning", "เริ่มวางแผน"),
@@ -261,7 +261,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "The course catalogue, narrowed to courses you have not passed and whose prerequisites you will have met by next term. Those filters, and one for credits you still need, appear when a study plan is saved on this device. Without one you see every course.",
-        "รายวิชาในแคตตาล็อกที่ยังไม่ผ่านและผ่านวิชาที่ต้องเรียนก่อนครบภายในภาคหน้า ตัวกรองนี้ และตัวกรองหมวดที่ยังขาดหน่วยกิต จะแสดงเมื่อมีแผนการศึกษาบันทึกไว้ในอุปกรณ์เครื่องนี้ หากไม่มีแผนจะแสดงทุกรายวิชา"
+        "รายวิชาที่ยังไม่ผ่านและลงเรียนได้ในภาคหน้า ตัวกรองนี้และตัวกรองหมวดที่ยังขาดหน่วยกิตจะแสดงเมื่อมีแผนการศึกษาบันทึกไว้ในอุปกรณ์เครื่องนี้ หากไม่มีแผนจะแสดงทุกรายวิชา"
       ),
       action: {
         label: bi(locale, "See courses you can take next", "ดูวิชาที่เรียนต่อได้"),

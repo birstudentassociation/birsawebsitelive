@@ -50,14 +50,14 @@ describe("buildStudyPlanCopy", () => {
       expect(en.delete.body).toMatch(/plan itself lives only in your browser/i);
       expect(en.delete.body).toMatch(/never sent to a BIRSA server/i);
       expect(buildStudyPlanCopy("th").delete.body).toContain(
-        "ตัวแผนการศึกษาจัดเก็บไว้ในเบราว์เซอร์ของท่านเท่านั้น"
+        "แผนการศึกษาเก็บอยู่ในเบราว์เซอร์นี้เท่านั้น"
       );
     });
 
     it("says the anonymous demand rows cannot be linked back, and go on the retention schedule", () => {
       const patterns = {
         en: [/anonymous/i, /linked back to you/i, /retention schedule/i],
-        th: [/ไม่ระบุตัวตน/, /เชื่อมโยงกลับมาถึงท่านได้/, /ระยะเวลาการเก็บรักษา/],
+        th: [/ไม่ระบุตัวตน/, /โยงกลับมาถึงตัวคุณไม่ได้/, /ระยะเวลาการเก็บรักษา/],
       };
       for (const locale of locales) {
         const { delete: section, start } = buildStudyPlanCopy(locale);

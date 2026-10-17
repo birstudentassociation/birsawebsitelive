@@ -234,11 +234,9 @@ describe("the ask the BIR office section", () => {
   it("is in Thai for a Thai reader, with a Thai subject and summary", () => {
     const { container } = renderSection("th");
     const section = container.querySelector("#ask-bir-office")!;
-    expect(section.querySelector("h3")!.textContent).toBe(
-      "สอบถามสำนักงานโครงการ BIR เกี่ยวกับแผนนี้"
-    );
+    expect(section.querySelector("h3")!.textContent).toBe("สอบถามสำนักงานโครงการ BIR เรื่องแผนนี้");
     const url = new URL(askLink(container).getAttribute("href")!);
-    expect(url.searchParams.get("subject")).toBe("คำถามเกี่ยวกับแผนการศึกษา");
+    expect(url.searchParams.get("subject")).toBe("สอบถามเรื่องแผนการศึกษา");
     // Thai percent-encodes to nine characters a letter, so even this small
     // plan is too long for a link: the email asks for the summary to be
     // pasted, and the page shows it to copy.
@@ -331,8 +329,8 @@ describe("the registration dates section", () => {
       />
     );
     const section = container.querySelector("#registration-dates")!;
-    expect(section.textContent).toContain("ยังไม่มีการบันทึกวันลงทะเบียน");
-    expect(section.textContent).toContain("สำนักงานโครงการ BIR เป็นผู้ประกาศวันลงทะเบียน");
+    expect(section.textContent).toContain("ยังไม่มีวันลงทะเบียนในระบบ");
+    expect(section.textContent).toContain("สำนักงานโครงการ BIR จึงประกาศวันลงทะเบียน");
     expect(section.textContent).not.toContain("BIRSA");
     expect(section.querySelector('a[href="https://www.birpolsci.com"]')).not.toBeNull();
     expect(
@@ -487,7 +485,7 @@ describe("SharedPlanView", () => {
         startHref="/th/services/study-plan"
       />
     );
-    expect(container.textContent).toContain("อ่านได้อย่างเดียว");
+    expect(container.textContent).toContain("ดูได้อย่างเดียว");
     expect(container.textContent).toContain("ภาคการศึกษาที่วางแผนไว้");
   });
 });
