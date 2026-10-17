@@ -226,7 +226,7 @@ describe("every indexable content page has a search-ready title and description"
           locale,
           title: e.frontmatter.title,
           description: e.frontmatter.metaDescription ?? e.frontmatter.summary,
-          path: `/information/${topic}/${e.slug}`,
+          path: `/services/${topic}/${e.slug}`,
         }))
       ),
       ...getClubEntries(locale).map((e) => ({
@@ -360,7 +360,7 @@ describe("buildMetadata share images", () => {
     ["/services/equipment-loan/projector/request/dates", "services/equipment-loan"],
     ["/emergency/flooding/claims", "emergency"],
     ["/student-life/getting-started/international", "student-life/getting-started"],
-    ["/information/applying-to-bir", "information/applying-to-bir"],
+    ["/services/applying-to-bir", "services/applying-to-bir"],
   ])("gives %s the card of the nearest listed page", (path, card) => {
     const { openGraph } = buildMetadata({ ...options, locale: "en", path });
     expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/en/og/${card}`);
@@ -395,7 +395,7 @@ describe("buildMetadata share images", () => {
     ["/clubs/asa-ir", "clubs/asa-ir"],
     ["/activity/bir-programme", "activity/bir-programme"],
     ["/student-life/money/bank-account", "student-life/money/bank-account"],
-    ["/information/applying-to-bir/documents", "information/applying-to-bir/documents"],
+    ["/services/applying-to-bir/documents", "services/applying-to-bir/documents"],
   ])("points %s at its own share images", (path, segment) => {
     const { openGraph, twitter } = buildMetadata({ ...options, locale: "th", path });
     expect(images(openGraph?.images)).toHaveLength(1);

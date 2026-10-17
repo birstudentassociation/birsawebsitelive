@@ -57,7 +57,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/activity/regulations",
       "/clubs",
       "/clubs/start",
-      "/information",
       "/student-life",
       "/student-life/course-reviews",
       "/student-life/getting-started",
@@ -127,12 +126,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     for (const topic of informationTopics) {
-      entries.push(entry(locale, `/information/${topic}`));
+      entries.push(entry(locale, `/services/${topic}`));
       for (const guide of getInformationGuideEntries(locale, topic)) {
         if (guide.frontmatter.placeholder) continue;
-        entries.push(
-          entry(locale, `/information/${topic}/${guide.slug}`, guide.frontmatter.reviewed)
-        );
+        entries.push(entry(locale, `/services/${topic}/${guide.slug}`, guide.frontmatter.reviewed));
       }
     }
 

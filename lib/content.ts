@@ -145,7 +145,7 @@ const informationTopicSchema = z.enum(informationTopics);
 /** Same shape as a student-life guide, but `related` holds locale-less site paths. */
 export const informationGuideFrontmatterSchema = studentLifeFrontmatterSchema.extend({
   topic: informationTopicSchema,
-  /** Other pages on the site, as locale-less paths such as "/information/applying-to-bir/documents". */
+  /** Other pages on the site, as locale-less paths such as "/services/applying-to-bir/documents". */
   related: z.array(z.string().regex(/^\/[a-z0-9/-]+$/)).default([]),
 });
 

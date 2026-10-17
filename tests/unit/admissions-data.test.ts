@@ -114,11 +114,11 @@ describe("admission rounds data", () => {
 
   it("points guides at the spec slugs", () => {
     expect(Object.fromEntries(admissionRounds.map((r) => [r.id, r.guide]))).toEqual({
-      "inter-portfolio-1": "/information/applying-to-bir/inter-portfolio-1",
-      "inter-portfolio-2": "/information/applying-to-bir/inter-portfolio-2",
-      "tcas-3": "/information/applying-to-bir/tcas-3-written-exam",
-      "non-thai-1": "/information/applying-to-bir/non-thai-applicants",
-      "non-thai-2": "/information/applying-to-bir/non-thai-applicants",
+      "inter-portfolio-1": "/services/applying-to-bir/inter-portfolio-1",
+      "inter-portfolio-2": "/services/applying-to-bir/inter-portfolio-2",
+      "tcas-3": "/services/applying-to-bir/tcas-3-written-exam",
+      "non-thai-1": "/services/applying-to-bir/non-thai-applicants",
+      "non-thai-2": "/services/applying-to-bir/non-thai-applicants",
     });
   });
 

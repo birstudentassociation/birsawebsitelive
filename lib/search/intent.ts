@@ -660,16 +660,16 @@ const rules: Rule[] = [
       ),
       action: {
         label: bi(locale, "Apply to BIR step by step", "ขั้นตอนการสมัครเรียน BIR"),
-        href: localeHref(locale, "/information/applying-to-bir"),
+        href: localeHref(locale, "/services/applying-to-bir"),
       },
       links: [
         {
           label: bi(locale, "Compare the admission rounds", "เปรียบเทียบรอบรับสมัคร"),
-          href: localeHref(locale, "/information/applying-to-bir/admission-rounds"),
+          href: localeHref(locale, "/services/applying-to-bir/admission-rounds"),
         },
         {
           label: bi(locale, "Key dates for 2027 entry", "กำหนดการสำคัญสำหรับปี 2570"),
-          href: localeHref(locale, "/information/applying-to-bir/key-dates"),
+          href: localeHref(locale, "/services/applying-to-bir/key-dates"),
         },
       ],
     }),

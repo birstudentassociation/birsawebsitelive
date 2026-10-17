@@ -77,7 +77,7 @@ export default function HeaderNavClient({
   }, [open]);
 
   return (
-    <div className="xl:hidden" ref={containerRef}>
+    <div className="lg:hidden" ref={containerRef}>
       <button
         ref={toggleRef}
         type="button"

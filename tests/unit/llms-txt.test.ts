@@ -9,8 +9,8 @@ describe("/llms.txt", () => {
     const body = await response.text();
     expect(body.split("\n")[0]).toMatch(/^# \S/);
     expect(body).toContain("## Student life guides");
-    expect(body).toContain("## Information");
-    expect(body).toContain("/en/information)");
+    expect(body).toContain("## Applying to BIR");
+    expect(body).toContain("/en/services/applying-to-bir)");
     expect(body).toMatch(/- \[[^\]]+\]\(https?:\/\/[^)]+\/en\/news\/[a-z0-9-]+\)/);
   });
 });

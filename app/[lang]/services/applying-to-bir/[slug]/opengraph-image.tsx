@@ -1,6 +1,6 @@
 import { getInformationGuideEntries, getInformationGuideEntry } from "@/lib/content";
 import { audienceLabels } from "@/content/student-life/labels";
-import { informationLabel, informationTopicCopy } from "@/content/information/topics";
+import { informationTopicCopy } from "@/content/information/topics";
 import { formatGuideDate, isLocale, locales } from "@/lib/i18n";
 import { OG_SIZE, renderCard, renderSiteOgImage } from "@/lib/og-image";
 
@@ -29,7 +29,7 @@ export default async function OpengraphImage({
   const { title, summary, audience, reviewed } = entry.frontmatter;
   return renderCard({
     locale: lang,
-    eyebrow: `${informationLabel[lang]} · ${informationTopicCopy[lang][TOPIC].title}`,
+    eyebrow: informationTopicCopy[lang][TOPIC].title,
     title,
     summary,
     meta: [`${checked[lang]} ${formatGuideDate(lang, reviewed)}`],

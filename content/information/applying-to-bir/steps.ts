@@ -5,7 +5,7 @@
  */
 import type { Bi, OnboardingStep } from "@/content/onboarding/types";
 
-const guide = (slug: string) => `/information/applying-to-bir/${slug}`;
+const guide = (slug: string) => `/services/applying-to-bir/${slug}`;
 
 export const applyingLede: Bi = {
   en: "Six steps from checking you can apply to confirming your place, for 2027 entry. Tick each task when it is done. Your ticks are saved in this browser only.",

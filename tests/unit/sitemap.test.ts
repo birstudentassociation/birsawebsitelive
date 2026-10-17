@@ -50,14 +50,13 @@ describe("sitemap", () => {
     }
   });
 
-  it("lists the information section and every non-placeholder information guide", () => {
+  it("lists the applying to BIR pages and every non-placeholder information guide", () => {
     for (const locale of locales) {
-      expect(paths.has(`/${locale}/information`)).toBe(true);
       for (const topic of informationTopics) {
-        expect(paths.has(`/${locale}/information/${topic}`)).toBe(true);
+        expect(paths.has(`/${locale}/services/${topic}`)).toBe(true);
         for (const guide of getInformationGuideEntries(locale, topic)) {
           if (guide.frontmatter.placeholder) continue;
-          expect(paths.has(`/${locale}/information/${topic}/${guide.slug}`)).toBe(true);
+          expect(paths.has(`/${locale}/services/${topic}/${guide.slug}`)).toBe(true);
         }
       }
     }

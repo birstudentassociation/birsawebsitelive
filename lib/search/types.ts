@@ -11,7 +11,6 @@ export type SectionKey =
   | "services"
   | "tools"
   | "equipment"
-  | "information"
   | "student-life"
   | "clubs"
   | "news"

@@ -1,6 +1,6 @@
 /**
- * Section and topic copy for `/information`. Shared between the index, the
- * topic page, the guide breadcrumbs and the guide image cards. Authored
+ * Topic copy for the guides under `/services`. Shared between the topic page,
+ * the guide breadcrumbs and the guide image cards. Authored
  * natively per locale, not translated.
  *
  * `href` values are locale-less paths; pass them through `localeHref`.
@@ -9,17 +9,6 @@ import type { Locale } from "@/lib/i18n";
 import type { InformationTopic } from "@/lib/content";
 
 export type InformationTopicCopy = { title: string; lede: string };
-
-/** Breadcrumb and page label for the section itself. */
-export const informationLabel: Record<Locale, string> = {
-  en: "Information",
-  th: "ข้อมูล",
-};
-
-export const informationLede: Record<Locale, string> = {
-  en: "Official information about BIR, checked against the programme's own website.",
-  th: "ข้อมูลทางการเกี่ยวกับ BIR ที่ตรวจสอบกับเว็บไซต์ของหลักสูตรโดยตรง",
-};
 
 export const informationTopicCopy: Record<
   Locale,

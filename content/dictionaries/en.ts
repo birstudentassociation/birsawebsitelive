@@ -25,7 +25,6 @@ export const en = {
   nav: [
     { href: "/news", label: "What's on" },
     { href: "/services", label: "Find a service" },
-    { href: "/information", label: "Information" },
     { href: "/clubs", label: "Clubs" },
     { href: "/activity", label: "BIRSA activity" },
   ],

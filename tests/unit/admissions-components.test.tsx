@@ -20,7 +20,7 @@ describe("AdmissionRoundsTable", () => {
     const headings = screen.getAllByRole("heading", { level: 3 });
     expect(headings).toHaveLength(admissionRounds.length);
     const link = within(headings[2]!).getByRole("link", { name: "TCAS 3" });
-    expect(link.getAttribute("href")).toBe("/en/information/applying-to-bir/tcas-3-written-exam");
+    expect(link.getAttribute("href")).toBe("/en/services/applying-to-bir/tcas-3-written-exam");
     const card = screen.getByRole("region", { name: "TCAS 3" });
     const keys = Array.from(card.querySelectorAll("dt")).map((dt) => dt.textContent);
     expect(keys).toEqual([
@@ -37,7 +37,7 @@ describe("AdmissionRoundsTable", () => {
   it("localises Thai links and dates", () => {
     render(<AdmissionRoundsTable locale="th" />);
     const link = screen.getByRole("link", { name: "Inter-Portfolio 1" });
-    expect(link.getAttribute("href")).toBe("/th/information/applying-to-bir/inter-portfolio-1");
+    expect(link.getAttribute("href")).toBe("/th/services/applying-to-bir/inter-portfolio-1");
     expect(screen.getAllByText("6 ตุลาคม ถึง 6 พฤศจิกายน 2569").length).toBeGreaterThan(0);
   });
 });
@@ -93,8 +93,6 @@ describe("EnglishTestScores", () => {
     expect(within(table).getByText("At least 50 percent")).toBeTruthy();
     expect(within(table).getAllByRole("rowheader")).toHaveLength(4);
     const links = within(table).getAllByRole("link", { name: "Inter-Portfolio 1" });
-    expect(links[0]?.getAttribute("href")).toBe(
-      "/en/information/applying-to-bir/inter-portfolio-1"
-    );
+    expect(links[0]?.getAttribute("href")).toBe("/en/services/applying-to-bir/inter-portfolio-1");
   });
 });

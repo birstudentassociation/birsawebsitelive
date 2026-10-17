@@ -12,7 +12,7 @@ import { extractHeadings } from "@/lib/toc";
 import { applyingSteps } from "@/content/information/applying-to-bir/steps";
 import { locales } from "@/lib/i18n";
 
-const guidePathPattern = /^\/information\/([a-z0-9-]+)\/([a-z0-9-]+)$/;
+const guidePathPattern = /^\/services\/([a-z0-9-]+)\/([a-z0-9-]+)$/;
 
 describe("information guides", () => {
   for (const topic of informationTopics) {
@@ -83,7 +83,7 @@ describe("information guides", () => {
     expect(
       informationGuideFrontmatterSchema.safeParse({
         ...base,
-        related: ["/information/applying-to-bir/documents"],
+        related: ["/services/applying-to-bir/documents"],
       }).success
     ).toBe(true);
   });
@@ -97,7 +97,7 @@ describe("information guides", () => {
             `"${entry.topic}/${entry.slug}" (${locale}) relates to missing "${ref}"`
           ).not.toBeNull();
           expect(ref, `"${entry.slug}" relates to itself`).not.toBe(
-            `/information/${entry.topic}/${entry.slug}`
+            `/services/${entry.topic}/${entry.slug}`
           );
         }
       }
@@ -118,7 +118,7 @@ describe("information guides", () => {
 
     it(`every internal link in an information guide points at a real guide (${locale})`, () => {
       for (const entry of getAllInformationGuideEntries(locale)) {
-        const links = [...entry.content.matchAll(/\]\((\/information\/[a-z0-9/-]+)(?:#[^)]*)?\)/g)];
+        const links = [...entry.content.matchAll(/\]\((\/services\/[a-z0-9/-]+)(?:#[^)]*)?\)/g)];
         for (const [, href] of links) {
           expect(
             resolveRelatedPath(locale, href as string),

@@ -17,7 +17,7 @@ import NavList, { NavListItem } from "@/components/NavList";
 import StepByStep from "@/components/onboarding/StepByStep";
 import Notice from "@/components/Notice";
 import { onboardingUiCopy } from "@/content/onboarding";
-import { informationLabel, informationTopicCopy } from "@/content/information/topics";
+import { informationTopicCopy } from "@/content/information/topics";
 import { applyingLede, applyingSteps } from "@/content/information/applying-to-bir/steps";
 
 const TOPIC = "applying-to-bir";
@@ -44,7 +44,7 @@ export async function generateMetadata({
     locale,
     title: informationTopicCopy[locale][TOPIC].title,
     description: informationTopicCopy[locale][TOPIC].lede,
-    path: `/information/${TOPIC}`,
+    path: `/services/${TOPIC}`,
   });
 }
 
@@ -53,6 +53,7 @@ export default async function ApplyingToBirPage({ params }: { params: Promise<{ 
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
   const dict = getDictionary(locale);
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
   const t = copy[locale];
   const ui = onboardingUiCopy[locale];
   const topicCopy = informationTopicCopy[locale][TOPIC];
@@ -71,7 +72,7 @@ export default async function ApplyingToBirPage({ params }: { params: Promise<{ 
             label={dict.a11y.breadcrumb}
             items={[
               { label: dict.site.name, href: "/" },
-              { label: informationLabel[locale], href: "/information" },
+              { label: infoServicesLabel, href: "/services" },
               { label: topicCopy.title },
             ]}
           />
@@ -119,7 +120,7 @@ export default async function ApplyingToBirPage({ params }: { params: Promise<{ 
             {guides.map((entry) => (
               <NavListItem
                 key={entry.slug}
-                href={localeHref(locale, `/information/${TOPIC}/${entry.slug}`)}
+                href={localeHref(locale, `/services/${TOPIC}/${entry.slug}`)}
                 title={entry.frontmatter.title}
                 as="h3"
                 footnote={`${t.checked} ${formatGuideDate(locale, entry.frontmatter.reviewed)}`}

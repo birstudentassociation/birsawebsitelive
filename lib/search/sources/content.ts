@@ -89,7 +89,7 @@ function activityDoc(locale: Locale, entry: Entry<ActivityFrontmatter>): SearchD
 }
 
 type GuideSource = {
-  section: "student-life" | "information";
+  section: "student-life" | "services";
   idPrefix: string;
   path: string;
   badge: string;
@@ -160,9 +160,9 @@ function informationGuideDocs(
 ): SearchDoc[] {
   return guideDocsFrom(locale, {
     ...entry,
-    section: "information",
+    section: "services",
     idPrefix: `information:${topic}:${entry.slug}`,
-    path: `/information/${topic}/${entry.slug}`,
+    path: `/services/${topic}/${entry.slug}`,
     badge: informationTopicCopy[locale][topic].title,
   });
 }

@@ -5,7 +5,7 @@ import { getInformationGuideEntries, getInformationGuideEntry } from "@/lib/cont
 import { resolveRelatedPath } from "@/lib/guide-related";
 import { buildMetadata } from "@/lib/seo";
 import GuideArticle from "@/components/guide/GuideArticle";
-import { informationLabel, informationTopicCopy } from "@/content/information/topics";
+import { informationTopicCopy } from "@/content/information/topics";
 
 const TOPIC = "applying-to-bir";
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
     locale,
     title: entry.frontmatter.title,
     description: entry.frontmatter.metaDescription ?? entry.frontmatter.summary,
-    path: `/information/${TOPIC}/${slug}`,
+    path: `/services/${TOPIC}/${slug}`,
   });
 }
 
@@ -47,6 +47,7 @@ export default async function InformationGuidePage({
   if (!entry) notFound();
   const { frontmatter } = entry;
 
+  const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
   const topicLabel = informationTopicCopy[locale][TOPIC].title;
   const siblings = getInformationGuideEntries(locale, TOPIC).filter(
     (e) => !e.frontmatter.placeholder
@@ -65,25 +66,25 @@ export default async function InformationGuidePage({
     <GuideArticle
       locale={locale}
       entry={entry}
-      guidePath={`/information/${TOPIC}/${slug}`}
+      guidePath={`/services/${TOPIC}/${slug}`}
       breadcrumbs={[
         { label: dict.site.name, href: "/" },
-        { label: informationLabel[locale], href: "/information" },
-        { label: topicLabel, href: `/information/${TOPIC}` },
+        { label: infoServicesLabel, href: "/services" },
+        { label: topicLabel, href: `/services/${TOPIC}` },
         { label: frontmatter.title },
       ]}
       related={related}
       prev={
         prevEntry
-          ? { href: `/information/${TOPIC}/${prevEntry.slug}`, title: prevEntry.frontmatter.title }
+          ? { href: `/services/${TOPIC}/${prevEntry.slug}`, title: prevEntry.frontmatter.title }
           : null
       }
       next={
         nextEntry
-          ? { href: `/information/${TOPIC}/${nextEntry.slug}`, title: nextEntry.frontmatter.title }
+          ? { href: `/services/${TOPIC}/${nextEntry.slug}`, title: nextEntry.frontmatter.title }
           : null
       }
-      back={{ href: `/information/${TOPIC}`, label: topicLabel }}
+      back={{ href: `/services/${TOPIC}`, label: topicLabel }}
     />
   );
 }

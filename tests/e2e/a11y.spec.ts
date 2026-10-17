@@ -27,9 +27,8 @@ const publicPaths = [
   "/clubs/tu-mun", // club detail: MDX body with a table and a related-clubs block
   "/clubs/bir-mock-fund", // club detail: MDX body with a Notice callout
   "/clubs/start", // start-a-club form
-  "/information", // section index
-  "/information/applying-to-bir", // step by step with a guide list
-  "/information/applying-to-bir/admission-rounds", // guide with a comparison table
+  "/services/applying-to-bir", // step by step with a guide list
+  "/services/applying-to-bir/admission-rounds", // guide with a comparison table
   "/student-life", // track index (sideways nav)
   "/student-life/getting-started", // step-by-step audience chooser
   "/student-life/getting-started/international", // step-by-step track (client-enhanced checklist)

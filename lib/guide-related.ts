@@ -11,11 +11,7 @@ import {
   isInformationTopic,
 } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
-import {
-  informationLabel,
-  informationLede,
-  informationTopicCopy,
-} from "@/content/information/topics";
+import { informationTopicCopy } from "@/content/information/topics";
 import { studentLifeTopics } from "@/content/student-life/topics";
 
 export type RelatedLink = { href: string; title: string; summary: string };
@@ -24,11 +20,8 @@ export function resolveRelatedPath(locale: Locale, href: string): RelatedLink | 
   const [section, topic, slug, ...rest] = href.split("/").slice(1);
   if (rest.length > 0 || !section) return null;
 
-  if (section === "information") {
-    if (!topic) {
-      return { href, title: informationLabel[locale], summary: informationLede[locale] };
-    }
-    if (!isInformationTopic(topic)) return null;
+  if (section === "services") {
+    if (!topic || !isInformationTopic(topic)) return null;
     if (!slug) {
       const copy = informationTopicCopy[locale][topic];
       return { href, title: copy.title, summary: copy.lede };

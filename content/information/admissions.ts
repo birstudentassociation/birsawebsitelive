@@ -49,7 +49,7 @@ export type EnglishTest = {
   acceptedFor: AdmissionRoundId[];
 };
 
-export const GUIDE_BASE = "/information/applying-to-bir";
+export const GUIDE_BASE = "/services/applying-to-bir";
 
 const nonThaiWho: Localised = {
   en: "Applicants who are not Thai and do not hold a Thai passport. You must be in Grade 12 with at least four semesters of results, or have finished Grade 12 or equivalent.",
