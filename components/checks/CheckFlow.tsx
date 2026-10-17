@@ -7,6 +7,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import PageHeader from "@/components/PageHeader";
 import VisuallyHidden from "@/components/VisuallyHidden";
 import FeedbackForm from "@/components/feedback/FeedbackForm";
@@ -233,8 +234,12 @@ export default function CheckFlow({
             );
           }
           if (block.kind === "note") {
-            return (
-              <Notice key={index} variant={block.tone === "warning" ? "warning" : "info"}>
+            return block.tone === "warning" ? (
+              <WarningText key={index} locale={locale}>
+                {block.text[locale]}
+              </WarningText>
+            ) : (
+              <Notice key={index} variant="info">
                 {block.text[locale]}
               </Notice>
             );

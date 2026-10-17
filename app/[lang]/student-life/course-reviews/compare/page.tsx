@@ -5,7 +5,7 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import { fillTemplate } from "@/components/course-review/constants";
 import CompareForm from "@/components/course-review/CompareForm";
 import ComparePlanRows from "@/components/course-review/ComparePlanRows";
@@ -220,13 +220,13 @@ export default async function CompareCoursesPage({
         />
 
         {!result.ok ? (
-          <Notice variant="warning">
+          <WarningText locale={locale}>
             {result.reason === "missing"
               ? c.missing
               : result.reason === "unknown"
                 ? fillTemplate(c.unknown, { codes: result.unknown.join(", ") })
                 : fillTemplate(c.same, { code: result.code })}
-          </Notice>
+          </WarningText>
         ) : (
           <section aria-labelledby="compare-heading" className="flex flex-col gap-3">
             <h2 id="compare-heading" className="sr-only">

@@ -281,6 +281,7 @@ describe("AddOutcomeNotice", () => {
   const notice = (code: string, term: string) =>
     render(
       <AddOutcomeNotice
+        locale="en"
         outcome={applyAddParam(plan, code, term, position)}
         linkCopy={copy}
         version={version}

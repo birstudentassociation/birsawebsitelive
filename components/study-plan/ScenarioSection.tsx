@@ -30,7 +30,7 @@ import {
 import { whatIfSentences } from "@/lib/study-plan/whatIfText";
 import Button from "@/components/Button";
 import Field from "@/components/Field";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import SaveScenarioButton from "@/components/study-plan/SaveScenarioButton";
 import ScenarioManager from "@/components/study-plan/ScenarioManager";
 import type { TermInsightCopy } from "@/components/study-plan/termInsightCopy";
@@ -404,7 +404,7 @@ export default function ScenarioSection({
               {awayKind === "leave" ? insight.awayTerm.leaveNote : insight.awayTerm.exchangeNote}
             </p>
             {awayResult.beyondTimeLimit ? (
-              <Notice variant="warning">{insight.awayTerm.beyondLimit}</Notice>
+              <WarningText locale={locale}>{insight.awayTerm.beyondLimit}</WarningText>
             ) : null}
             <SaveScenarioButton
               plan={serialisePlan(awayResult.plan)}

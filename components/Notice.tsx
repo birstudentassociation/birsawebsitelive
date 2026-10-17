@@ -1,11 +1,10 @@
 import clsx from "clsx";
 
-type Variant = "info" | "success" | "warning" | "error" | "placeholder";
+type Variant = "info" | "success" | "error" | "placeholder";
 
 const styles: Record<Variant, { border: string; bg: string; text: string }> = {
   info: { border: "border-info", bg: "bg-info-tint", text: "text-ink" },
   success: { border: "border-success", bg: "bg-success-tint", text: "text-ink" },
-  warning: { border: "border-warning", bg: "bg-warning-tint", text: "text-ink" },
   error: { border: "border-error", bg: "bg-error-tint", text: "text-ink" },
   placeholder: { border: "border-warning", bg: "bg-warning-tint", text: "text-ink" },
 };
@@ -22,14 +21,6 @@ function NoticeIcon({ variant }: { variant: Variant }) {
       return (
         <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
           <path d="M4 10.5 8 14l8-8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      );
-    case "warning":
-      return (
-        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
-          <path d="M10 2 1 17h18L10 2Z" strokeLinejoin="round" strokeLinecap="round" />
-          <path d="M10 8v4" strokeLinecap="round" />
-          <circle cx="10" cy="14.5" r="0.9" fill="currentColor" stroke="none" />
         </svg>
       );
     case "error":
@@ -70,7 +61,7 @@ export type NoticeProps = {
 };
 
 /**
- * Callout box for info/success/warning/error messaging, plus a `placeholder`
+ * Callout box for info/success/error messaging (warnings use WarningText), plus a `placeholder`
  * variant used to mark example content that BIRSA will replace. Never the
  * sole way meaning is conveyed: icon, colour and text always travel
  * together.

@@ -13,6 +13,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import Accordion from "@/components/Accordion";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
+import WarningText, { type WarningTextProps } from "@/components/WarningText";
 import Email from "@/components/Email";
 import GoogleForm, { type GoogleFormProps } from "@/components/GoogleForm";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
@@ -83,6 +84,9 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       return <th scope={scope ?? "col"} {...rest} />;
     },
     Notice,
+    WarningText: (props: Omit<WarningTextProps, "locale">) => (
+      <WarningText {...props} locale={locale} />
+    ),
     Email,
     // `defaultOpen` is deliberately not exposed to MDX: next-mdx-remote strips
     // JSX attribute expressions, so a boolean prop could only ever arrive as a

@@ -171,7 +171,7 @@ export default async function SearchPage({
           </div>
         ) : (
           <div className="flex flex-col gap-8">
-            {response.bestBet ? <BestBetCard bestBet={response.bestBet} /> : null}
+            {response.bestBet ? <BestBetCard bestBet={response.bestBet} locale={locale} /> : null}
 
             {response.didYouMean ? (
               <p className="text-sm text-ink">

@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { Locale } from "@/lib/i18n";
 import type { BestBet } from "@/lib/search/intent";
 import Button from "@/components/Button";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 
 export type BestBetCardProps = {
   bestBet: BestBet;
+  locale: Locale;
 };
 
 /**
@@ -12,7 +14,7 @@ export type BestBetCardProps = {
  * results. Title is an `<h2>` so it slots under the page's single `<h1>`
  * without skipping a level; `ResultList`'s own headingless rows sit below it.
  */
-export default function BestBetCard({ bestBet }: BestBetCardProps) {
+export default function BestBetCard({ bestBet, locale }: BestBetCardProps) {
   return (
     <div className="flex flex-col gap-4 rounded-lg border-2 border-brand bg-brand-tint/40 p-6">
       <div className="flex flex-col gap-2">
@@ -39,7 +41,7 @@ export default function BestBetCard({ bestBet }: BestBetCardProps) {
       {/* `note` is only ever used for safety information (e.g. emergency
           phone numbers), so it gets the `warning` treatment: icon + colour +
           text together, never colour alone. */}
-      {bestBet.note ? <Notice variant="warning">{bestBet.note}</Notice> : null}
+      {bestBet.note ? <WarningText locale={locale}>{bestBet.note}</WarningText> : null}
     </div>
   );
 }

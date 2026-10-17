@@ -10,13 +10,16 @@
  */
 import Link from "next/link";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import type { PlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { formatTermRef } from "@/components/study-plan/studyPlanCopy";
 import type { CurriculumVersion } from "@/content/curriculum";
+import type { Locale } from "@/lib/i18n";
 import type { AddResult } from "@/lib/study-plan/addToPlan";
 
 export type AddOutcomeNoticeProps = {
   outcome: AddResult;
+  locale: Locale;
   linkCopy: PlanLinkCopy;
   version: CurriculumVersion;
   /** The plan screen with the plan exactly as it arrived, and no `add`. */
@@ -32,6 +35,7 @@ function fill(template: string, values: Record<string, string>): string {
 
 export default function AddOutcomeNotice({
   outcome,
+  locale,
   linkCopy,
   version,
   undoHref,
@@ -40,7 +44,7 @@ export default function AddOutcomeNotice({
 
   if (outcome.status === "refused") {
     return (
-      <Notice variant="warning" title={linkCopy.add.refusedTitle}>
+      <WarningText locale={locale} title={linkCopy.add.refusedTitle}>
         <p>
           {fill(linkCopy.add.reasons[outcome.reason], {
             code: outcome.code || linkCopy.add.noCode,
@@ -48,7 +52,7 @@ export default function AddOutcomeNotice({
           })}
         </p>
         <p className="mt-1">{linkCopy.add.unchanged}</p>
-      </Notice>
+      </WarningText>
     );
   }
 

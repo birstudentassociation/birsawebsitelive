@@ -6,6 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Card, { CardTitle } from "@/components/Card";
 import Button from "@/components/Button";
 import OfficerLogin from "@/components/inventory/OfficerLogin";
@@ -181,16 +182,16 @@ export default async function OfficerInventoryDashboardPage({
         {!officer ? (
           <div className="flex flex-col gap-8">
             {!isInventoryAuthConfigured() ? (
-              <Notice variant="warning" title={t.authNotConfiguredTitle}>
+              <WarningText locale={locale} title={t.authNotConfiguredTitle}>
                 {t.authNotConfiguredBody}
-              </Notice>
+              </WarningText>
             ) : null}
             <OfficerLogin locale={locale} />
           </div>
         ) : !isInventoryConfigured() ? (
-          <Notice variant="warning" title={t.dbNotConfiguredTitle}>
+          <WarningText locale={locale} title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
-          </Notice>
+          </WarningText>
         ) : officer.role === "academic_affairs" ? (
           <Notice variant="info" title={t.courseReviewsTitle}>
             <p className="mb-3">{t.courseReviewsBody}</p>

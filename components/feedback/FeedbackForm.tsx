@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import type { FeedbackState } from "@/app/[lang]/feedback/actions";
@@ -83,9 +84,9 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
 
       {state.status === "not-configured" ? (
         <div ref={resultRef} tabIndex={-1} className="focus-halo">
-          <Notice variant="warning" title={t.notConfiguredTitle}>
+          <WarningText locale={locale} title={t.notConfiguredTitle}>
             {t.notConfiguredBody}
-          </Notice>
+          </WarningText>
         </div>
       ) : null}
 

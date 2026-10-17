@@ -7,7 +7,7 @@
  * place on the page only when there is something to disclose, not merely
  * when there is a record that something was once uncertain.
  */
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import { disclosures, inferredParts, type CurriculumVersion } from "@/content/curriculum";
 import type { Locale } from "@/lib/i18n";
 import { buildStudyPlanCopy } from "./studyPlanCopy";
@@ -68,13 +68,13 @@ export default function InferenceNotice({ version, cohortCode, locale }: Inferen
   const copy = buildStudyPlanCopy(locale);
 
   return (
-    <Notice variant="warning" title={copy.inference.heading}>
+    <WarningText locale={locale} title={copy.inference.heading}>
       <ul className="flex flex-col gap-2">
         {sentences.map((sentence) => (
           <li key={sentence.key}>{sentence.text}</li>
         ))}
       </ul>
       <p className="mt-2">{copy.inference.checkSources}</p>
-    </Notice>
+    </WarningText>
   );
 }

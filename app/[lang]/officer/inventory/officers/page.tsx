@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import OfficersManager from "@/components/inventory/OfficersManager";
 import { getSessionOfficer } from "@/lib/inventory/auth";
@@ -118,13 +119,13 @@ export default async function OfficerInventoryOfficersPage({
             </div>
           </div>
         ) : officer.role !== "admin" ? (
-          <Notice variant="warning" title={t.adminsOnlyTitle}>
+          <WarningText locale={locale} title={t.adminsOnlyTitle}>
             {t.adminsOnlyBody}
-          </Notice>
+          </WarningText>
         ) : !isInventoryConfigured() ? (
-          <Notice variant="warning" title={t.dbNotConfiguredTitle}>
+          <WarningText locale={locale} title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
-          </Notice>
+          </WarningText>
         ) : (
           <OfficersManager
             locale={locale}

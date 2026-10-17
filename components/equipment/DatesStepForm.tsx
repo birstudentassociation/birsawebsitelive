@@ -4,13 +4,16 @@ import { useActionState } from "react";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
+import type { Locale } from "@/lib/i18n";
 import type { DatesStepState } from "@/app/[lang]/services/equipment-loan/[item]/request/actions";
 import type { LoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 
 export type DatesStepFormProps = {
   action: (prevState: DatesStepState, formData: FormData) => Promise<DatesStepState>;
   labels: LoanWizardLabels;
+  locale: Locale;
   defaultStartDate?: string;
   defaultEndDate?: string;
   minStartDate: string;
@@ -38,6 +41,7 @@ function addDaysISO(iso: string, days: number): string {
 export default function DatesStepForm({
   action,
   labels,
+  locale,
   defaultStartDate,
   defaultEndDate,
   minStartDate,
@@ -82,9 +86,9 @@ export default function DatesStepForm({
       />
 
       {state.status === "unavailable" ? (
-        <Notice variant="warning" title={labels.dates.noneFreeTitle}>
+        <WarningText locale={locale} title={labels.dates.noneFreeTitle}>
           <p role="status">{labels.dates.noneFreeBody}</p>
-        </Notice>
+        </WarningText>
       ) : null}
       {state.status === "check-error" ? (
         <Notice variant="error" title={labels.dates.checkErrorTitle}>

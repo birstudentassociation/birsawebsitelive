@@ -219,6 +219,15 @@ Also cut, per EDITING.md:
 
 Everything else in the GOV.UK style guide applies as written.
 
+### 2.13 Warning text
+
+Use `<WarningText title="...">` for a warning in a news post, not `<Notice variant="warning">`.
+Write the `title` as a short, complete statement of what the reader must do or avoid, and keep the
+body to the detail they need. The colon rule and the no dashes rule apply to the title and the body
+in both languages, so write `Do this before 1 August 2026` and do not start with a label such as "Warning",
+because the component already adds a hidden "Warning" or "คำเตือน" for screen readers. Add the
+same block to both the `en/` and `th/` files.
+
 ---
 
 ## 3. Thai: professional and natural

@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import ReviewForm from "@/components/course-review/ReviewForm";
 import { fillTemplate } from "@/components/course-review/constants";
 import { reviewFormCopy } from "@/components/course-review/reviewFormCopy";
@@ -116,12 +116,12 @@ export default async function WriteReviewPage({
             />
           </>
         ) : (
-          <Notice variant="warning" title={t.unavailableTitle}>
+          <WarningText locale={locale} title={t.unavailableTitle}>
             <p className="mb-3">{t.unavailableBody}</p>
             <Button href={localeHref(locale, "/contact")} variant="secondary">
               {dict.actions.contactUs}
             </Button>
-          </Notice>
+          </WarningText>
         )}
         <div>
           <Button href={localeHref(locale, courseHref)} variant="secondary">

@@ -6,7 +6,7 @@ import { getItemByKey, getItemAvailabilitySummary } from "@/lib/inventory/items"
 import { buildLoanWizardLabels } from "@/components/equipment/loanWizardCopy";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 
 export async function generateMetadata({
@@ -102,9 +102,9 @@ export default async function EquipmentLoanRequestPage({
       <>
         <PageHeader title={item.name[locale]} breadcrumbs={breadcrumbs} />
         <div className="wrap flex max-w-[var(--measure)] flex-col gap-6 py-10">
-          <Notice variant="warning" title={t.unavailableTitle}>
+          <WarningText locale={locale} title={t.unavailableTitle}>
             <p>{t.unavailableBody}</p>
-          </Notice>
+          </WarningText>
           <div>
             <Button href={catalogueHref} variant="secondary">
               {t.backToCatalogue}

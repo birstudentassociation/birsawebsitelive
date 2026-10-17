@@ -63,6 +63,7 @@ export default async function LoanRequestDatesPage({
           <DatesStepForm
             action={submitDatesStep.bind(null, locale, itemKey, returnTo, labels, item.maxLoanDays)}
             labels={labels}
+            locale={locale}
             defaultStartDate={draft.startDate}
             defaultEndDate={draft.endDate}
             minStartDate={todayInBangkok()}

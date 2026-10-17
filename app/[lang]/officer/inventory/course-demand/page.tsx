@@ -4,6 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
 import { fillTemplate } from "@/components/course-review/constants";
@@ -97,9 +98,9 @@ export default async function OfficerElectiveDemandPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="warning" title={t.noAccessTitle}>
+          <WarningText locale={locale} title={t.noAccessTitle}>
             {t.noAccessBody}
-          </Notice>
+          </WarningText>
         </div>
       </>
     );
@@ -110,9 +111,9 @@ export default async function OfficerElectiveDemandPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="warning" title={t.dbNotConfiguredTitle}>
+          <WarningText locale={locale} title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
-          </Notice>
+          </WarningText>
         </div>
       </>
     );

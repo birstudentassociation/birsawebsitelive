@@ -369,6 +369,27 @@ Rules for guides:
 
 Both activity and student-life entries accept an optional `placeholder: true`.
 
+## Warning text
+
+Use `<WarningText>` for a warning the reader must not miss, such as a deadline they can lose
+something by missing or an action that cannot be undone. Do not use `<Notice variant="warning">`,
+which no longer exists as a warning style.
+
+```mdx
+<WarningText title="Do this before 1 August 2026">
+  Set up multi-factor authentication before the deadline, or you will lose access to your account.
+</WarningText>
+```
+
+- `title` is optional. With a title, it is the bold line and the body follows at normal weight.
+  Without one, the whole body is bold.
+- The body is optional.
+- The locale is set automatically, so do not pass it. Screen readers hear "Warning" or "คำเตือน"
+  before the text.
+- Use it sparingly. Two or three on a page make none of them stand out.
+- Add it to both the `en/` and `th/` files, with the same `title` meaning in each language.
+- Other `<Notice>` variants, such as `placeholder`, are unchanged.
+
 ## Placeholder flag and Notice removal checklist (going live)
 
 Before telling students a piece of content is final, go through this checklist:

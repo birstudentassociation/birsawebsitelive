@@ -20,6 +20,7 @@
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import PlanDocument from "@/components/study-plan/PlanDocument";
 import type { PlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import type { StudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
@@ -71,9 +72,9 @@ export default function SharedPlanView({ locale, copy, view, startHref }: Shared
   if (hash === "" || hash === "#") {
     return (
       <div className="flex flex-col gap-4">
-        <Notice variant="warning" title={view.emptyTitle}>
+        <WarningText locale={locale} title={view.emptyTitle}>
           {view.emptyBody}
-        </Notice>
+        </WarningText>
         {startLink}
       </div>
     );
@@ -83,9 +84,9 @@ export default function SharedPlanView({ locale, copy, view, startHref }: Shared
   if (!shared) {
     return (
       <div className="flex flex-col gap-4">
-        <Notice variant="warning" title={view.invalidTitle}>
+        <WarningText locale={locale} title={view.invalidTitle}>
           {view.invalidBody}
-        </Notice>
+        </WarningText>
         {startLink}
       </div>
     );

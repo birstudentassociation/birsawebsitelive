@@ -15,6 +15,7 @@ import { useActionState, useEffect, useId, useRef } from "react";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import StatusPill from "@/components/inventory/StatusPill";
 import { formatDate, localeHref } from "@/lib/i18n";
@@ -165,9 +166,9 @@ export default function StatusLookup({
           </Notice>
         ) : null}
         {state.status === "rate-limited" ? (
-          <Notice variant="warning" title={labels.rateLimitedTitle}>
+          <WarningText locale={locale} title={labels.rateLimitedTitle}>
             <p>{labels.rateLimitedBody}</p>
-          </Notice>
+          </WarningText>
         ) : null}
         {state.status === "error" ? (
           <Notice variant="error" title={labels.errorTitle}>

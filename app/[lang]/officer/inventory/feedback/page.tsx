@@ -4,6 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import { getSessionOfficer } from "@/lib/inventory/auth";
@@ -165,9 +166,9 @@ export default async function OfficerFeedbackPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="warning" title={t.dbNotConfiguredTitle}>
+          <WarningText locale={locale} title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
-          </Notice>
+          </WarningText>
         </div>
       </>
     );

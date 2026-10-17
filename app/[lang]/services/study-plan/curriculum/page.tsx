@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 import { resolveCohort } from "@/content/curriculum";
 import PageHeader from "@/components/PageHeader";
 import StepNav from "@/components/forms/StepNav";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
 import CurriculumConfirmForm from "@/components/forms/CurriculumConfirmForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -114,7 +114,7 @@ export default async function StudyPlanCurriculumPage({
             ) : null}
 
             {mapping.provenance.kind === "attested" ? (
-              <Notice variant="warning">{copy.curriculum.attestedWarning}</Notice>
+              <WarningText locale={locale}>{copy.curriculum.attestedWarning}</WarningText>
             ) : null}
           </div>
 

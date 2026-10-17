@@ -53,6 +53,7 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import AddOutcomeNotice from "@/components/study-plan/AddOutcomeNotice";
 import InferenceNotice from "@/components/study-plan/InferenceNotice";
@@ -450,6 +451,7 @@ export default async function StudyPlanPage({
         {addOutcome ? (
           <AddOutcomeNotice
             outcome={addOutcome}
+            locale={locale}
             linkCopy={linkCopy}
             version={version}
             undoHref={`${planHref}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(arrivingPlan))}`}
@@ -544,7 +546,7 @@ export default async function StudyPlanPage({
             {OFFERING_HISTORY_NOTICE[locale]}
           </p>
           {notice === "termFull" ? (
-            <Notice variant="warning">{copy.plan.termFullError}</Notice>
+            <WarningText locale={locale}>{copy.plan.termFullError}</WarningText>
           ) : null}
 
           {/*

@@ -3,7 +3,7 @@
  *
  * The content loader hands back unrendered MDX, so indexing it directly would
  * fill the index with component names, import statements and markdown
- * punctuation. Readers never type `<Notice variant="warning">`, so none of it
+ * punctuation. Readers never type `<WarningText title="...">`, so none of it
  * should be searchable; the words inside those components very much should.
  */
 

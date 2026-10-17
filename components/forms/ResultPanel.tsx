@@ -1,8 +1,11 @@
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
+import type { Locale } from "@/lib/i18n";
 import Button from "@/components/Button";
 
 export type ResultPanelProps = {
   variant: "info" | "warning" | "error";
+  locale: Locale;
   title: string;
   body: React.ReactNode;
   actionHref?: string;
@@ -21,6 +24,7 @@ export type ResultPanelProps = {
  */
 export default function ResultPanel({
   variant,
+  locale,
   title,
   body,
   actionHref,
@@ -30,9 +34,15 @@ export default function ResultPanel({
 }: ResultPanelProps) {
   return (
     <div className="flex flex-col gap-5">
-      <Notice variant={variant} title={title}>
-        {body}
-      </Notice>
+      {variant === "warning" ? (
+        <WarningText locale={locale} title={title}>
+          {body}
+        </WarningText>
+      ) : (
+        <Notice variant={variant} title={title}>
+          {body}
+        </Notice>
+      )}
       <div className="flex gap-3">
         {retryHref ? (
           <Button href={retryHref} variant={actionHref ? "secondary" : "primary"}>

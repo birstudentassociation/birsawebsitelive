@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import type { Locale } from "@/lib/i18n";
 import { submitOfficerLogin, type OfficerLoginState } from "@/app/[lang]/officer/inventory/actions";
@@ -178,9 +178,9 @@ function InteractiveOfficerLogin({ locale }: OfficerLoginProps) {
   return (
     <div className="max-w-md" aria-live="polite">
       {notConfigured ? (
-        <Notice variant="warning" title={t.notConfiguredTitle} className="mb-6">
+        <WarningText locale={locale} title={t.notConfiguredTitle} className="mb-6">
           {t.notConfiguredBody}
-        </Notice>
+        </WarningText>
       ) : null}
 
       <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
@@ -279,14 +279,14 @@ function OfficerLoginFallback({ locale }: OfficerLoginProps) {
   return (
     <div className="max-w-md" aria-live="polite">
       {state.status === "not-configured" ? (
-        <Notice variant="warning" title={t.notConfiguredTitle} className="mb-6">
+        <WarningText locale={locale} title={t.notConfiguredTitle} className="mb-6">
           {t.notConfiguredBody}
-        </Notice>
+        </WarningText>
       ) : null}
       {state.status === "rate-limited" ? (
-        <Notice variant="warning" title={t.rateLimitedTitle} className="mb-6">
+        <WarningText locale={locale} title={t.rateLimitedTitle} className="mb-6">
           {t.rateLimitedBody}
-        </Notice>
+        </WarningText>
       ) : null}
 
       <form action={formAction} noValidate className="flex flex-col gap-5">

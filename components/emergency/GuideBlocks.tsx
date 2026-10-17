@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ExternalLink from "@/components/ExternalLink";
+import WarningText from "@/components/WarningText";
 import type { GuideBlock } from "@/content/emergency/types";
 import { localeHref, type Locale } from "@/lib/i18n";
 
@@ -124,15 +125,9 @@ export default function GuideBlocks({ blocks, locale, newTabLabel }: Props) {
             );
           case "warning":
             return (
-              <div key={index} className="flex items-start gap-3">
-                <span
-                  aria-hidden="true"
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink font-display text-lg font-bold text-surface"
-                >
-                  !
-                </span>
-                <p className="pt-1 leading-relaxed font-semibold text-ink">{block.text}</p>
-              </div>
+              <WarningText key={index} locale={locale}>
+                {block.text}
+              </WarningText>
             );
           case "table": {
             const [head, ...rows] = block.rows;

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Field from "@/components/Field";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import CollectionNotice from "@/components/forms/CollectionNotice";
 import { fillTemplate } from "@/components/course-review/constants";
@@ -131,9 +132,15 @@ export default function ReviewForm({
 
       {statusNotice ? (
         <div ref={resultRef} tabIndex={-1} className="focus-halo">
-          <Notice variant={statusNotice.variant} title={statusNotice.title}>
-            {statusNotice.body}
-          </Notice>
+          {statusNotice.variant === "warning" ? (
+            <WarningText locale={locale} title={statusNotice.title}>
+              {statusNotice.body}
+            </WarningText>
+          ) : (
+            <Notice variant={statusNotice.variant} title={statusNotice.title}>
+              {statusNotice.body}
+            </Notice>
+          )}
         </div>
       ) : null}
 

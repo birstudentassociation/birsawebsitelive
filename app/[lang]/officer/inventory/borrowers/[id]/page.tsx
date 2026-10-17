@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import { getSessionOfficer } from "@/lib/inventory/auth";
 import { getBorrower, countActiveLoans } from "@/lib/inventory/borrowers";
@@ -124,9 +125,9 @@ export default async function OfficerBorrowerDetailPage({
       <>
         <PageHeader title={t.title} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="warning" title={t.noAccessTitle}>
+          <WarningText locale={locale} title={t.noAccessTitle}>
             {t.noAccessBody}
-          </Notice>
+          </WarningText>
         </div>
       </>
     );

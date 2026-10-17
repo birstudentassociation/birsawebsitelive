@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import Button from "@/components/Button";
 import CustodiansManager from "@/components/inventory/CustodiansManager";
 import { getSessionOfficer } from "@/lib/inventory/auth";
@@ -132,13 +133,13 @@ export default async function OfficerInventoryCustodiansPage({
       />
       <div className="wrap py-10">
         {officer.role !== "admin" || officer.custodianId !== null ? (
-          <Notice variant="warning" title={t.accessDeniedTitle}>
+          <WarningText locale={locale} title={t.accessDeniedTitle}>
             {t.accessDeniedBody}
-          </Notice>
+          </WarningText>
         ) : !isInventoryConfigured() ? (
-          <Notice variant="warning" title={t.dbNotConfiguredTitle}>
+          <WarningText locale={locale} title={t.dbNotConfiguredTitle}>
             {t.dbNotConfiguredBody}
-          </Notice>
+          </WarningText>
         ) : (
           <CustodiansManager
             locale={locale}

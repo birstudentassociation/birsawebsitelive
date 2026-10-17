@@ -8,6 +8,7 @@ import Field from "@/components/Field";
 import SummaryRow from "@/components/forms/SummaryRow";
 import type { RightsDraft, CheckState } from "@/app/[lang]/privacy/your-data/actions";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import WarningText from "@/components/WarningText";
 import { localeHref } from "@/lib/i18n";
 import { buildRightsWizardLabels } from "@/components/forms/rightsWizardCopy";
 import { buildWizardChromeLabels } from "@/components/forms/wizardChromeCopy";
@@ -68,25 +69,21 @@ export default function RightsCheckForm({ locale, dict, draft, action }: RightsC
   if (state.status === "fallback") {
     return (
       <div className="flex flex-col gap-4">
-        <div
-          ref={resultRef}
-          tabIndex={-1}
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-warning bg-warning-tint p-6 text-ink"
-        >
-          <p className="font-semibold">{dict.form.fallbackTitle}</p>
-          <p className="mt-1 text-sm">
-            {dict.form.fallbackBody}{" "}
-            <Email
-              address="birsa@tu.ac.th"
-              className="font-medium text-brand-deep hover:text-brand-dark"
-            />{" "}
-            /{" "}
-            <Email
-              address="birstudentassociation@gmail.com"
-              className="font-medium text-brand-deep hover:text-brand-dark"
-            />
-          </p>
+        <div ref={resultRef} tabIndex={-1} role="status" className="focus-halo">
+          <WarningText title={dict.form.fallbackTitle} locale={locale}>
+            <p className="text-sm">
+              {dict.form.fallbackBody}{" "}
+              <Email
+                address="birsa@tu.ac.th"
+                className="font-medium text-brand-deep hover:text-brand-dark"
+              />{" "}
+              /{" "}
+              <Email
+                address="birstudentassociation@gmail.com"
+                className="font-medium text-brand-deep hover:text-brand-dark"
+              />
+            </p>
+          </WarningText>
         </div>
         <Field
           as="textarea"

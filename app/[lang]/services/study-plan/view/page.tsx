@@ -5,7 +5,7 @@ import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import SharedPlanView from "@/components/study-plan/SharedPlanView";
 import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import { buildStudyPlanCopy } from "@/components/study-plan/studyPlanCopy";
@@ -75,14 +75,14 @@ export default async function SharedStudyPlanPage({
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         <noscript>
-          <Notice variant="warning" title={view.noScriptTitle}>
+          <WarningText locale={locale} title={view.noScriptTitle}>
             <p>{view.noScriptBody}</p>
             <p className="mt-2">
               <Link href={startHref} className="font-semibold text-brand-deep hover:underline">
                 {view.noScriptLink} &rarr;
               </Link>
             </p>
-          </Notice>
+          </WarningText>
         </noscript>
         <SharedPlanView locale={locale} copy={copy} view={view} startHref={startHref} />
       </div>

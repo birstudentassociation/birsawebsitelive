@@ -56,6 +56,7 @@ export default function LoanRequestWizard({
   if (state.status === "unavailable") {
     return (
       <ResultPanel
+        locale={locale}
         variant="warning"
         title={labels.results.unavailableTitle}
         body={<p>{labels.results.unavailableBody}</p>}
@@ -68,6 +69,7 @@ export default function LoanRequestWizard({
   if (state.status === "blocklisted") {
     return (
       <ResultPanel
+        locale={locale}
         variant="error"
         title={labels.results.blocklistedTitle}
         body={<p>{labels.results.blocklistedBody}</p>}
@@ -80,6 +82,7 @@ export default function LoanRequestWizard({
   if (state.status === "limit-exceeded") {
     return (
       <ResultPanel
+        locale={locale}
         variant="warning"
         title={labels.results.limitExceededTitle}
         body={<p>{labels.results.limitExceededBody}</p>}
@@ -92,6 +95,7 @@ export default function LoanRequestWizard({
   if (state.status === "email-mismatch") {
     return (
       <ResultPanel
+        locale={locale}
         variant="error"
         title={labels.results.emailMismatchTitle}
         body={<p>{labels.results.emailMismatchBody}</p>}
@@ -106,6 +110,7 @@ export default function LoanRequestWizard({
   if (state.status === "not-configured") {
     return (
       <ResultPanel
+        locale={locale}
         variant="info"
         title={labels.results.notConfiguredTitle}
         body={
@@ -129,6 +134,7 @@ export default function LoanRequestWizard({
   if (state.status === "rate-limited") {
     return (
       <ResultPanel
+        locale={locale}
         variant="warning"
         title={labels.results.rateLimitedTitle}
         body={<p>{labels.results.rateLimitedBody}</p>}
@@ -141,6 +147,7 @@ export default function LoanRequestWizard({
   if (state.status === "error") {
     return (
       <ResultPanel
+        locale={locale}
         variant="error"
         title={labels.results.errorTitle}
         body={<p>{labels.results.errorBody}</p>}

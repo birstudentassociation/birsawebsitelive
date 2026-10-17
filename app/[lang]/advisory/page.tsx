@@ -10,7 +10,7 @@ import {
   type AnnouncementText,
 } from "@/content/advisory";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import Notice from "@/components/Notice";
+import WarningText from "@/components/WarningText";
 import PageHeader from "@/components/PageHeader";
 
 export function generateStaticParams() {
@@ -54,9 +54,9 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
       />
       <div className="wrap flex flex-col gap-10 py-10">
         <div className="max-w-[var(--measure)]">
-          <Notice variant="warning" title={t.noticeTitle}>
+          <WarningText locale={locale} title={t.noticeTitle}>
             {t.notice}
-          </Notice>
+          </WarningText>
         </div>
 
         <section aria-labelledby="dates-heading" className="flex flex-col gap-4">

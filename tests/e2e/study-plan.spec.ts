@@ -40,7 +40,7 @@ test.describe("study plan version gate", () => {
 
     // No warning notice of any kind: neither the shared InferenceNotice
     // heading (copy.inference.heading, the only heading that component ever
-    // renders) nor a bare warning-styled box (Notice variant="warning",
+    // renders) nor a bare warning-styled box (a WarningText,
     // e.g. the separate attested-mapping notice on this same page, which
     // also no longer applies now that cohort 69's mapping is documented
     // too). Checking both the text and the structural class means this
@@ -48,7 +48,7 @@ test.describe("study plan version gate", () => {
     // heading, not just if this exact sentence were reworded.
     await expect(page.getByText(copy.inference.heading)).toHaveCount(0);
     await expect(page.getByText(copy.inference.checkSources)).toHaveCount(0);
-    await expect(page.locator(".border-warning")).toHaveCount(0);
+    await expect(page.locator(".warning-text")).toHaveCount(0);
   });
 
   // This used to be the companion to the test above, proving the notice
