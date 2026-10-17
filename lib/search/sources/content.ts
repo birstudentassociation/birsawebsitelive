@@ -1,8 +1,8 @@
 /**
- * Turn the site's MDX content (news, BIRSA activity, student-life guides,
- * clubs) into search documents.
+ * Turn the site's MDX content (news, BIRSA activity, student-life and
+ * information guides, clubs) into search documents.
  *
- * These four sections share one shape: a filesystem entry with typed
+ * These sections share one shape: a filesystem entry with typed
  * frontmatter and an MDX body, loaded through `@/lib/content`. Building their
  * `SearchDoc`s here, in one place, keeps that mapping (which frontmatter
  * field becomes the date, which becomes the badge) out of the loaders
@@ -16,16 +16,20 @@ import {
   getClubEntries,
   getEntries,
   getAllGuideEntries,
+  getAllInformationGuideEntries,
   type ActivityFrontmatter,
   type ClubFrontmatter,
   type Entry,
   type GuideTopic,
+  type InformationGuideFrontmatter,
+  type InformationTopic,
   type NewsFrontmatter,
   type StudentLifeFrontmatter,
 } from "@/lib/content";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { extractH2Sections } from "@/lib/toc";
 import { studentLifeTopics } from "@/content/student-life/topics";
+import { informationTopicCopy } from "@/content/information/topics";
 import { mdxHeadings, mdxToText } from "@/lib/search/mdx-text";
 import type { SearchDoc } from "@/lib/search/types";
 
@@ -84,18 +88,22 @@ function activityDoc(locale: Locale, entry: Entry<ActivityFrontmatter>): SearchD
   };
 }
 
-function guideDocs(
-  locale: Locale,
-  topic: GuideTopic,
-  entry: Entry<StudentLifeFrontmatter>
-): SearchDoc[] {
-  const { frontmatter, slug, content } = entry;
-  const badge = studentLifeTopics[locale][topic].title;
-  const path = `/student-life/${topic}/${slug}`;
+type GuideSource = {
+  section: "student-life" | "information";
+  idPrefix: string;
+  path: string;
+  badge: string;
+  frontmatter: StudentLifeFrontmatter | InformationGuideFrontmatter;
+  slug: string;
+  content: string;
+};
+
+function guideDocsFrom(locale: Locale, source: GuideSource): SearchDoc[] {
+  const { frontmatter, slug, content, section, idPrefix, path, badge } = source;
   const guide: SearchDoc = {
-    id: `student-life:${topic}:${slug}`,
+    id: idPrefix,
     locale,
-    section: "student-life",
+    section,
     kind: "guide",
     href: localeHref(locale, path),
     title: frontmatter.title,
@@ -114,21 +122,49 @@ function guideDocs(
 
   // One result per H2, opening the guide at that heading, so a query such as
   // "Rangsit" or "90 day" lands on the right part of a long page.
-  const sections: SearchDoc[] = extractH2Sections(content).map((section) => ({
-    id: `student-life:${topic}:${slug}#${section.id}`,
+  const sections: SearchDoc[] = extractH2Sections(content).map((h2) => ({
+    id: `${idPrefix}#${h2.id}`,
     locale,
-    section: "student-life",
+    section,
     kind: "guide",
-    href: `${localeHref(locale, path)}#${section.id}`,
-    title: `${section.label} (${frontmatter.title})`,
+    href: `${localeHref(locale, path)}#${h2.id}`,
+    title: `${h2.label} (${frontmatter.title})`,
     summary: frontmatter.title,
-    keywords: keywordsOf([section.label]),
-    body: mdxToText(section.body),
+    keywords: keywordsOf([h2.label]),
+    body: mdxToText(h2.body),
     date: frontmatter.reviewed,
     badge,
   }));
 
   return [guide, ...sections];
+}
+
+function guideDocs(
+  locale: Locale,
+  topic: GuideTopic,
+  entry: Entry<StudentLifeFrontmatter>
+): SearchDoc[] {
+  return guideDocsFrom(locale, {
+    ...entry,
+    section: "student-life",
+    idPrefix: `student-life:${topic}:${entry.slug}`,
+    path: `/student-life/${topic}/${entry.slug}`,
+    badge: studentLifeTopics[locale][topic].title,
+  });
+}
+
+function informationGuideDocs(
+  locale: Locale,
+  topic: InformationTopic,
+  entry: Entry<InformationGuideFrontmatter>
+): SearchDoc[] {
+  return guideDocsFrom(locale, {
+    ...entry,
+    section: "information",
+    idPrefix: `information:${topic}:${entry.slug}`,
+    path: `/information/${topic}/${entry.slug}`,
+    badge: informationTopicCopy[locale][topic].title,
+  });
 }
 
 function clubDoc(locale: Locale, entry: Entry<ClubFrontmatter>): SearchDoc {
@@ -171,6 +207,11 @@ export function contentDocs(locale: Locale): SearchDoc[] {
   for (const { topic, ...entry } of getAllGuideEntries(locale)) {
     if (entry.frontmatter.placeholder) continue;
     docs.push(...guideDocs(locale, topic, entry));
+  }
+
+  for (const { topic, ...entry } of getAllInformationGuideEntries(locale)) {
+    if (entry.frontmatter.placeholder) continue;
+    docs.push(...informationGuideDocs(locale, topic, entry));
   }
 
   for (const entry of getClubEntries(locale)) {

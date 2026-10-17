@@ -40,6 +40,7 @@ const OWN_SHARE_IMAGE_PATHS = [
   /^\/activity\/(?!approval-check$|regulations$|roles$)[^/]+$/,
   /^\/clubs\/(?!start$|start-check$)[^/]+$/,
   // The compare page is a literal segment among the `[code]` pages and has no image of its own.
+  /^\/information\/[^/]+\/[^/]+$/,
   /^\/student-life\/(?!getting-started\/|course-reviews\/compare$)[^/]+\/[^/]+$/,
 ];
 

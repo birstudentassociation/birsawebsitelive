@@ -41,13 +41,13 @@ export default function Header({ locale }: HeaderProps) {
           </span>
         </Link>
 
-        <nav aria-label={dict.a11y.primaryNav} className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label={dict.a11y.primaryNav} className="hidden xl:block">
+          <ul className="flex items-center gap-0 2xl:gap-1">
             {dict.nav.map((item) => (
               <li key={item.href}>
                 <DesktopNavItem
                   href={localeHref(locale, item.href)}
-                  className="flex h-16 items-center border-b-2 border-transparent px-3 text-[0.95rem] font-semibold text-ink hover:text-brand-deep"
+                  className="flex h-16 items-center border-b-2 border-transparent px-2 text-[0.9rem] font-semibold whitespace-nowrap text-ink hover:text-brand-deep 2xl:px-3 2xl:text-[0.95rem]"
                   activeClassName="!border-brand !text-brand-deep"
                 >
                   {item.label}

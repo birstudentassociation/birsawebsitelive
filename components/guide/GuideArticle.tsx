@@ -1,0 +1,325 @@
+import Link from "next/link";
+import { getDictionary, formatGuideDate, localeHref, type Locale } from "@/lib/i18n";
+import { absoluteUrl } from "@/lib/seo";
+import { articleJsonLd } from "@/lib/structured-data";
+import JsonLd from "@/components/JsonLd";
+import { Mdx } from "@/lib/mdx";
+import { extractToc } from "@/lib/toc";
+import PageHeader from "@/components/PageHeader";
+import Breadcrumbs, { type BreadcrumbItem } from "@/components/Breadcrumbs";
+import Button from "@/components/Button";
+import ExternalLink from "@/components/ExternalLink";
+import Tag from "@/components/Tag";
+import { audienceLabels } from "@/content/student-life/labels";
+
+type GuideFrontmatter = {
+  title: string;
+  summary: string;
+  metaDescription?: string;
+  updated: string;
+  reviewed: string;
+  audience: "all" | "international" | "thai";
+  owner?: string;
+  quickAnswers: { q: string; a: string; anchor?: string }[];
+  sources: { label: string; href: string }[];
+};
+
+export type GuideArticleProps = {
+  locale: Locale;
+  entry: { content: string; frontmatter: GuideFrontmatter };
+  /** Locale-less path of this guide. */
+  guidePath: string;
+  breadcrumbs: BreadcrumbItem[];
+  related: { href: string; title: string; summary: string }[];
+  prev: { href: string; title: string } | null;
+  next: { href: string; title: string } | null;
+  back: { href: string; label: string };
+};
+
+const labels: Record<
+  Locale,
+  {
+    updated: string;
+    checked: string;
+    owner: string;
+    quickAnswers: string;
+    readMore: string;
+    onThisPage: string;
+    related: string;
+    sources: string;
+    prevNextNav: string;
+    previous: string;
+    next: string;
+    helpTitle: string;
+    helpBody: string;
+    helpCta: string;
+    backTo: string;
+  }
+> = {
+  en: {
+    updated: "Updated",
+    checked: "Last checked",
+    owner: "Responsible office",
+    quickAnswers: "Quick answers",
+    readMore: "Details",
+    onThisPage: "On this page",
+    related: "Related guides",
+    sources: "Sources",
+    prevNextNav: "Previous and next guides",
+    previous: "Previous",
+    next: "Next",
+    helpTitle: "Report a problem with this guide",
+    helpBody:
+      "Students write and update this guide. If something is wrong or out of date, tell BIRSA.",
+    helpCta: "Tell BIRSA",
+    backTo: "Back to",
+  },
+  th: {
+    updated: "อัปเดตล่าสุด",
+    checked: "ตรวจสอบล่าสุด",
+    owner: "หน่วยงานที่รับผิดชอบ",
+    quickAnswers: "คำตอบโดยย่อ",
+    readMore: "รายละเอียด",
+    onThisPage: "ในหน้านี้",
+    related: "คู่มือที่เกี่ยวข้อง",
+    sources: "แหล่งที่มา",
+    prevNextNav: "คู่มือก่อนหน้าและถัดไป",
+    previous: "ก่อนหน้า",
+    next: "ถัดไป",
+    helpTitle: "แจ้งปัญหาเกี่ยวกับคู่มือนี้",
+    helpBody: "นักศึกษาเป็นผู้เขียนและดูแลคู่มือนี้ หากพบข้อมูลที่ผิดหรือล้าสมัย แจ้ง BIRSA ได้",
+    helpCta: "แจ้ง BIRSA",
+    backTo: "กลับไป",
+  },
+};
+
+/**
+ * The shared body of a guide page: header, quick answers, contents, MDX,
+ * related guides, sources, previous and next links and the report box. Used by
+ * the student-life and information guide routes. Hrefs are locale-less.
+ */
+export default function GuideArticle({
+  locale,
+  entry,
+  guidePath,
+  breadcrumbs,
+  related,
+  prev: prevEntry,
+  next: nextEntry,
+  back,
+}: GuideArticleProps) {
+  const dict = getDictionary(locale);
+  const { frontmatter } = entry;
+  const t = labels[locale];
+  const backHref = localeHref(locale, back.href);
+
+  const toc = extractToc(entry.content);
+  const showToc = toc.length >= 2;
+
+  const reportHref = `${localeHref(locale, "/contact")}?about=${encodeURIComponent(
+    localeHref(locale, guidePath)
+  )}`;
+
+  const tocList = (
+    <ul className="flex flex-col gap-2 text-sm">
+      {toc.map((item) => (
+        <li key={item.id} className={item.level === 3 ? "ml-4" : undefined}>
+          <a href={`#${item.id}`} className="text-brand-deep hover:text-brand-dark">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+
+  const guideUrl = absoluteUrl(locale, guidePath);
+
+  return (
+    <>
+      <JsonLd
+        data={articleJsonLd(locale, {
+          url: guideUrl,
+          headline: frontmatter.title,
+          description: frontmatter.metaDescription ?? frontmatter.summary,
+          dateModified: frontmatter.updated,
+          image: `${guideUrl}/opengraph-image`,
+        })}
+      />
+      <PageHeader
+        title={frontmatter.title}
+        lede={frontmatter.summary}
+        breadcrumbs={
+          <Breadcrumbs locale={locale} label={dict.a11y.breadcrumb} items={breadcrumbs} />
+        }
+      />
+      <div className="wrap py-10 lg:grid lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-x-12">
+        <div className="flex min-w-0 flex-col gap-8">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted">
+            {frontmatter.audience !== "all" ? (
+              <Tag variant="brand">{audienceLabels[locale][frontmatter.audience]}</Tag>
+            ) : null}
+            {frontmatter.owner ? (
+              <p>
+                {t.owner} {frontmatter.owner}
+              </p>
+            ) : null}
+            <p>
+              {t.checked} {formatGuideDate(locale, frontmatter.reviewed)}
+            </p>
+            <p>
+              {t.updated} {formatGuideDate(locale, frontmatter.updated)}
+            </p>
+          </div>
+
+          {frontmatter.quickAnswers.length > 0 ? (
+            <section
+              aria-labelledby="quick-answers"
+              className="rounded-lg border border-line bg-sunken p-5"
+            >
+              <h2 id="quick-answers" className="font-display text-lg">
+                {t.quickAnswers}
+              </h2>
+              <dl className="mt-3 flex flex-col gap-4">
+                {frontmatter.quickAnswers.map((item) => (
+                  <div key={item.q}>
+                    <dt className="font-semibold text-ink">{item.q}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-ink">
+                      {item.a}
+                      {item.anchor ? (
+                        <>
+                          {" "}
+                          <a
+                            href={`#${item.anchor}`}
+                            className="font-semibold text-brand-deep underline hover:text-brand-dark"
+                          >
+                            {t.readMore}
+                          </a>
+                        </>
+                      ) : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ) : null}
+
+          {showToc ? (
+            <details className="rounded-lg border border-line bg-sunken p-5 lg:hidden print:hidden">
+              <summary className="cursor-pointer text-sm font-semibold tracking-wide text-muted uppercase">
+                {t.onThisPage}
+              </summary>
+              <nav aria-label={t.onThisPage} className="mt-3">
+                {tocList}
+              </nav>
+            </details>
+          ) : null}
+
+          <Mdx source={entry.content} newTabLabel={dict.a11y.newTab} locale={locale} />
+
+          {related.length > 0 ? (
+            <section aria-labelledby="related-guides" className="print:hidden">
+              <h2 id="related-guides" className="font-display text-xl">
+                {t.related}
+              </h2>
+              <ul className="mt-3 flex flex-col gap-2">
+                {related.map(({ href, title, summary }) => (
+                  <li key={href}>
+                    <Link
+                      href={localeHref(locale, href)}
+                      className="font-semibold text-brand-deep underline underline-offset-4 hover:text-brand-dark"
+                    >
+                      {title}
+                    </Link>
+                    <span className="block text-sm text-muted">{summary}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {frontmatter.sources.length > 0 ? (
+            <section aria-labelledby="guide-sources" className="text-sm text-muted">
+              <h2 id="guide-sources" className="font-semibold text-ink">
+                {t.sources}
+              </h2>
+              <ul className="mt-2 flex flex-col gap-1">
+                {frontmatter.sources.map((source) => (
+                  <li key={source.href}>
+                    <ExternalLink
+                      href={source.href}
+                      newTabLabel={dict.a11y.newTab}
+                      className="text-brand-deep underline hover:text-brand-dark"
+                    >
+                      {source.label}
+                    </ExternalLink>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {prevEntry || nextEntry ? (
+            <nav
+              aria-label={t.prevNextNav}
+              className="grid grid-cols-1 gap-4 border-t border-line pt-8 sm:grid-cols-2 print:hidden"
+            >
+              <div>
+                {prevEntry ? (
+                  <Link
+                    href={localeHref(locale, prevEntry.href)}
+                    className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 hover:border-brand"
+                  >
+                    <span className="text-xs font-semibold tracking-wide text-muted uppercase">
+                      &larr; {t.previous}
+                    </span>
+                    <span className="font-semibold text-ink">{prevEntry.title}</span>
+                  </Link>
+                ) : null}
+              </div>
+              <div>
+                {nextEntry ? (
+                  <Link
+                    href={localeHref(locale, nextEntry.href)}
+                    className="flex h-full flex-col gap-1 rounded-lg border border-line bg-surface p-4 text-right hover:border-brand"
+                  >
+                    <span className="text-xs font-semibold tracking-wide text-muted uppercase">
+                      {t.next} &rarr;
+                    </span>
+                    <span className="font-semibold text-ink">{nextEntry.title}</span>
+                  </Link>
+                ) : null}
+              </div>
+            </nav>
+          ) : null}
+
+          <div className="flex flex-col items-start gap-4 rounded-lg border border-line bg-sunken p-8 print:hidden">
+            <h2 className="font-display text-xl">{t.helpTitle}</h2>
+            <p className="max-w-[var(--measure)] text-muted">{t.helpBody}</p>
+            <Button href={reportHref}>{t.helpCta}</Button>
+          </div>
+
+          <Link
+            href={backHref}
+            className="text-sm font-semibold text-brand-deep hover:text-brand-dark print:hidden"
+          >
+            &larr; {t.backTo} {back.label}
+          </Link>
+        </div>
+
+        {showToc ? (
+          <aside className="hidden lg:block print:hidden">
+            <nav
+              aria-label={t.onThisPage}
+              className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-lg border border-line bg-sunken p-5"
+            >
+              <h2 className="text-sm font-semibold tracking-wide text-muted uppercase">
+                {t.onThisPage}
+              </h2>
+              <div className="mt-3">{tocList}</div>
+            </nav>
+          </aside>
+        ) : null}
+      </div>
+    </>
+  );
+}

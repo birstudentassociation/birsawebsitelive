@@ -131,6 +131,24 @@ const studentLifeFrontmatterSchema = z.object({
   placeholder: z.boolean().optional(),
 });
 
+/** The topics under `/information`, in display order. Also the folder names under `content/information/{locale}/`. */
+export const informationTopics = ["applying-to-bir"] as const;
+
+export type InformationTopic = (typeof informationTopics)[number];
+
+export function isInformationTopic(value: string): value is InformationTopic {
+  return (informationTopics as readonly string[]).includes(value);
+}
+
+const informationTopicSchema = z.enum(informationTopics);
+
+/** Same shape as a student-life guide, but `related` holds locale-less site paths. */
+export const informationGuideFrontmatterSchema = studentLifeFrontmatterSchema.extend({
+  topic: informationTopicSchema,
+  /** Other pages on the site, as locale-less paths such as "/information/applying-to-bir/documents". */
+  related: z.array(z.string().regex(/^\/[a-z0-9/-]+$/)).default([]),
+});
+
 const aboutFrontmatterSchema = z.object({
   title: z.string().min(1),
   summary: z.string().min(1),
@@ -215,6 +233,7 @@ export function isArchivedEvent(frontmatter: NewsFrontmatter, now: Date = new Da
 
 export type ActivityFrontmatter = z.infer<typeof activityFrontmatterSchema>;
 export type StudentLifeFrontmatter = z.infer<typeof studentLifeFrontmatterSchema>;
+export type InformationGuideFrontmatter = z.infer<typeof informationGuideFrontmatterSchema>;
 export type AboutFrontmatter = z.infer<typeof aboutFrontmatterSchema>;
 export type ClubFrontmatter = z.infer<typeof clubFrontmatterSchema>;
 
@@ -363,6 +382,53 @@ export function getAllGuideEntries(
 ): (Entry<StudentLifeFrontmatter> & { topic: GuideTopic })[] {
   return guideTopics.flatMap((topic) =>
     getGuideEntries(locale, topic).map((entry) => ({ ...entry, topic }))
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Information guides: `content/information/{locale}/{topic}/{slug}.mdx`
+// ---------------------------------------------------------------------------
+
+/** Returns all guides in an information topic for a locale, sorted by `order` asc. */
+export function getInformationGuideEntries(
+  locale: Locale,
+  topic: InformationTopic
+): Entry<InformationGuideFrontmatter>[] {
+  const cacheKey = `information:${locale}:${topic}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached as Entry<InformationGuideFrontmatter>[];
+
+  const dir = path.join(CONTENT_ROOT, "information", locale, topic);
+  const entries = readMdxDir(dir).map(({ slug, raw, filePath }) => {
+    const entry = parseEntry(informationGuideFrontmatterSchema, slug, raw, filePath);
+    if (entry.frontmatter.topic !== topic) {
+      throw new Error(
+        `Invalid frontmatter in ${path.relative(process.cwd(), filePath)}:\n  - topic: "${entry.frontmatter.topic}" does not match its folder "${topic}"`
+      );
+    }
+    return entry;
+  });
+
+  const sorted = [...entries].sort((a, b) => a.frontmatter.order - b.frontmatter.order);
+  cache.set(cacheKey, sorted as Entry[]);
+  return sorted;
+}
+
+/** Returns a single information guide by topic and slug, or `null` if it doesn't exist. */
+export function getInformationGuideEntry(
+  locale: Locale,
+  topic: InformationTopic,
+  slug: string
+): Entry<InformationGuideFrontmatter> | null {
+  return getInformationGuideEntries(locale, topic).find((entry) => entry.slug === slug) ?? null;
+}
+
+/** Every information guide for a locale, in topic display order then `order`, each with its topic. */
+export function getAllInformationGuideEntries(
+  locale: Locale
+): (Entry<InformationGuideFrontmatter> & { topic: InformationTopic })[] {
+  return informationTopics.flatMap((topic) =>
+    getInformationGuideEntries(locale, topic).map((entry) => ({ ...entry, topic }))
   );
 }
 

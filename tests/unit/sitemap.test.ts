@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
 import sitemap from "@/app/sitemap";
-import { getEntries, getGuideEntries, guideTopics } from "@/lib/content";
+import {
+  getEntries,
+  getGuideEntries,
+  getInformationGuideEntries,
+  guideTopics,
+  informationTopics,
+} from "@/lib/content";
 import { locales } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/site-url";
 
@@ -40,6 +46,19 @@ describe("sitemap", () => {
         "/contact/academic",
       ]) {
         expect(paths.has(`/${locale}${p}`)).toBe(true);
+      }
+    }
+  });
+
+  it("lists the information section and every non-placeholder information guide", () => {
+    for (const locale of locales) {
+      expect(paths.has(`/${locale}/information`)).toBe(true);
+      for (const topic of informationTopics) {
+        expect(paths.has(`/${locale}/information/${topic}`)).toBe(true);
+        for (const guide of getInformationGuideEntries(locale, topic)) {
+          if (guide.frontmatter.placeholder) continue;
+          expect(paths.has(`/${locale}/information/${topic}/${guide.slug}`)).toBe(true);
+        }
       }
     }
   });

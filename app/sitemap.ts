@@ -10,6 +10,8 @@ import {
   getClubEntries,
   getEntries,
   getGuideEntries,
+  getInformationGuideEntries,
+  informationTopics,
   isArchivedEvent,
   guideTopics,
 } from "@/lib/content";
@@ -55,6 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/activity/regulations",
       "/clubs",
       "/clubs/start",
+      "/information",
       "/student-life",
       "/student-life/course-reviews",
       "/student-life/getting-started",
@@ -119,6 +122,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         if (guide.frontmatter.placeholder) continue;
         entries.push(
           entry(locale, `/student-life/${topic}/${guide.slug}`, guide.frontmatter.reviewed)
+        );
+      }
+    }
+
+    for (const topic of informationTopics) {
+      entries.push(entry(locale, `/information/${topic}`));
+      for (const guide of getInformationGuideEntries(locale, topic)) {
+        if (guide.frontmatter.placeholder) continue;
+        entries.push(
+          entry(locale, `/information/${topic}/${guide.slug}`, guide.frontmatter.reviewed)
         );
       }
     }

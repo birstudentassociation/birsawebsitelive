@@ -17,6 +17,9 @@ import WarningText, { type WarningTextProps } from "@/components/WarningText";
 import Email from "@/components/Email";
 import GoogleForm, { type GoogleFormProps } from "@/components/GoogleForm";
 import CommitteeRoster from "@/components/about/CommitteeRoster";
+import AdmissionRoundsTable from "@/components/information/AdmissionRoundsTable";
+import AdmissionDates from "@/components/information/AdmissionDates";
+import EnglishTestScores from "@/components/information/EnglishTestScores";
 import ReportHarassment from "@/components/ReportHarassment";
 import ShuttleTimer from "@/components/shuttle/ShuttleTimer";
 import ShuttleRoute from "@/components/shuttle/ShuttleRoute";
@@ -100,6 +103,11 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       <GoogleForm {...props} locale={locale} />
     ),
     CommitteeRoster: () => <CommitteeRoster locale={locale} />,
+    AdmissionRoundsTable: () => <AdmissionRoundsTable locale={locale} />,
+    AdmissionDates: ({ round }: { round?: string }) => (
+      <AdmissionDates locale={locale} round={round} />
+    ),
+    EnglishTestScores: () => <EnglishTestScores locale={locale} />,
     // Authored under an existing `##`, so the callout drops to `<h3>` to keep
     // the heading order sequential.
     ReportHarassment: () => <ReportHarassment locale={locale} headingLevel="h3" />,

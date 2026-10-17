@@ -24,6 +24,7 @@ export const th: typeof en = {
   nav: [
     { href: "/news", label: "ข่าวและกิจกรรม" },
     { href: "/services", label: "ค้นหาบริการ" },
+    { href: "/information", label: "ข้อมูล" },
     { href: "/clubs", label: "ชมรม" },
     { href: "/activity", label: "การดำเนินงานของ BIRSA" },
   ],
