@@ -2,7 +2,7 @@ import type { Locale } from "@/lib/i18n";
 
 export type Bi = { en: string; th: string };
 
-/** 31 October 2026, 08:00–16:00, Faculty of Political Science, TU Tha Prachan. */
+/** 31 October 2026, 08:00 to 16:00, Faculty of Political Science, TU Tha Prachan. */
 export const OPEN_HOUSE = {
   dateISO: "2026-10-31",
   startHour: 8,
@@ -17,7 +17,7 @@ export const OPEN_HOUSE = {
 } as const;
 
 /**
- * A short, honest glimpse of what each subject actually grapples with — "what
+ * A short, honest glimpse of what each subject actually grapples with: "what
  * could this class teach you", not a syllabus. Grounded in the official
  * curriculum descriptions in `content/course-review/courses.ts`; the framing is
  * BIRSA editorial and names only ideas genuinely central to the field, never a
@@ -44,7 +44,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       hook: { en: "What makes power worth obeying?", th: "อำนาจแบบไหนที่คนควรยอมทำตาม" },
       opens: {
         en: "Justice, the state, freedom and the good life are the oldest arguments in politics, and none of them is settled. You read Hobbes, Rousseau and Rawls alongside traditions from beyond the West, from Confucian ideas of virtuous rule to Kautilya’s statecraft, and learn to take an idea apart before deciding whether you agree with it.",
-        th: "ความยุติธรรม รัฐ เสรีภาพ ชีวิตที่ดี ล้วนเป็นคำถามที่เก่าแก่ที่สุดของการเมืองและยังไม่มีใครตอบจบ คุณจะได้อ่านงานของฮอบส์ รุสโซ และรอลส์ ควบคู่ไปกับแนวคิดนอกสายตะวันตก ทั้งการปกครองโดยผู้มีคุณธรรมแบบขงจื๊อและตำราการปกครองของเกาฏิลยะ แล้วฝึกแยกแยะความคิดออกเป็นชิ้น ๆ แทนที่จะแค่เห็นด้วย",
+        th: "ความยุติธรรม รัฐ เสรีภาพ ชีวิตที่ดี ล้วนเป็นคำถามที่เก่าแก่ที่สุดของการเมืองและยังไม่มีใครตอบจบ คุณจะได้อ่านงานของฮอบส์ รุสโซ และรอลส์ ควบคู่ไปกับแนวคิดนอกสายตะวันตก ทั้งการปกครองโดยผู้มีคุณธรรมแบบขงจื๊อและตำราการปกครองของเกาฏิลยะ แล้วฝึกแยกแยะความคิดออกเป็นชิ้น ๆ ก่อนตัดสินใจว่าเห็นด้วยหรือไม่",
       },
       thinkers: [
         { en: "Justice", th: "ความยุติธรรม" },
@@ -54,7 +54,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       ],
       takeaway: {
         en: "You leave able to argue a position, and to find its weakest point.",
-        th: "คุณจะออกไปพร้อมกับการโต้แย้งความคิดได้ และมองเห็นจุดอ่อนของมันด้วย",
+        th: "คุณจะโต้แย้งจุดยืนหนึ่งได้ และมองเห็นจุดอ่อนของจุดยืนนั้น",
       },
     },
   },
@@ -68,7 +68,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       },
       opens: {
         en: "Between a policy on paper and a service you actually use sits a whole machinery, from Weber’s bureaucracy to budgets, accountability and ethics, along with the old question of where politics ends and administration begins. This is where you learn how the state is run, and where it breaks.",
-        th: "ระหว่างนโยบายบนกระดาษกับบริการที่คุณใช้จริง มีกลไกทั้งระบบคั่นอยู่ ทั้งระบบราชการแบบเวเบอร์ งบประมาณ ความรับผิดชอบ และจริยธรรม รวมถึงคำถามเก่าแก่ว่าการเมืองสิ้นสุดตรงไหนและการบริหารเริ่มต้นตรงไหน ที่นี่คือที่ที่คุณจะได้เรียนว่ารัฐทำงานอย่างไร และพังตรงไหน",
+        th: "ระหว่างนโยบายบนกระดาษกับบริการที่คุณใช้จริง มีกลไกทั้งระบบคั่นอยู่ ทั้งระบบราชการแบบเวเบอร์ งบประมาณ ความรับผิดชอบ และจริยธรรม รวมถึงคำถามเก่าแก่ว่าการเมืองสิ้นสุดตรงไหนและการบริหารเริ่มต้นตรงไหน คุณจะได้เรียนว่ารัฐทำงานอย่างไร และล้มเหลวตรงไหน",
       },
       thinkers: [
         { en: "Politics vs administration", th: "การเมืองกับการบริหาร" },
@@ -91,8 +91,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "อะไรผูกมัดประเทศที่ไม่ต้องขึ้นกับใคร",
       },
       opens: {
-        en: "With no world government, what makes international law real? You work case by case through its sources, sovereignty, the law of the sea, and moments like Nuremberg that held individuals to account, reasoning the way lawyers actually argue it.",
-        th: "ในเมื่อไม่มีรัฐบาลโลก อะไรทำให้กฎหมายระหว่างประเทศมีผลจริง คุณจะได้ไล่เรียงทีละกรณี ทั้งที่มาของกฎหมาย อำนาจอธิปไตย กฎหมายทะเล และเหตุการณ์อย่างการพิจารณาคดีนูเรมเบิร์กที่เอาผิดบุคคลได้ อย่างที่เขาถกเถียงกันจริง",
+        en: "With no world government, what makes international law real? You work case by case through its sources, sovereignty, the law of the sea, and moments like Nuremberg that held individuals to account, reasoning the way lawyers argue it.",
+        th: "ในเมื่อไม่มีรัฐบาลโลก อะไรทำให้กฎหมายระหว่างประเทศมีผลจริง คุณจะได้ไล่เรียงทีละกรณี ทั้งที่มาของกฎหมาย อำนาจอธิปไตย กฎหมายทะเล และเหตุการณ์อย่างการพิจารณาคดีนูเรมเบิร์กที่เอาผิดบุคคลได้ ตามวิธีที่นักกฎหมายใช้โต้แย้ง",
       },
       thinkers: [
         { en: "Sovereignty", th: "อำนาจอธิปไตย" },
@@ -126,7 +126,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       ],
       takeaway: {
         en: "You stop seeing the economy as natural, and start seeing it as built.",
-        th: "คุณจะเลิกมองเศรษฐกิจว่าเป็นเรื่องธรรมชาติ แล้วเห็นว่ามันถูกสร้างขึ้น",
+        th: "คุณจะเลิกมองเศรษฐกิจว่าเป็นเรื่องธรรมชาติ และเห็นว่าเศรษฐกิจเป็นสิ่งที่มนุษย์สร้างขึ้น",
       },
     },
   },
@@ -137,7 +137,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       hook: { en: "Who decides what the world notices?", th: "ใครเป็นคนกำหนดว่าโลกจะสนใจอะไร" },
       opens: {
         en: "News, memes and feeds shape politics as much as they report it. You study how media set the agenda and frame what we argue about, how information and misinformation spread, and how social platforms changed who gets to speak.",
-        th: "ข่าว มีม และฟีด มีส่วนกำหนดการเมืองพอ ๆ กับที่รายงานมัน คุณจะได้ศึกษาว่าสื่อจัดวาระและวางกรอบสิ่งที่เราถกเถียงกันอย่างไร ข้อมูลจริงและข้อมูลลวงแพร่กระจายอย่างไร และแพลตฟอร์มออนไลน์เปลี่ยนว่าใครมีสิทธิ์พูดไปแค่ไหน",
+        th: "ข่าว มีม และฟีด มีส่วนกำหนดการเมืองพอ ๆ กับที่รายงานการเมือง คุณจะได้ศึกษาว่าสื่อจัดวาระและวางกรอบสิ่งที่เราถกเถียงกันอย่างไร ข้อมูลจริงและข้อมูลลวงแพร่กระจายอย่างไร และแพลตฟอร์มออนไลน์เปลี่ยนแปลงว่าใครมีโอกาสได้พูด",
       },
       thinkers: [
         { en: "Agenda-setting", th: "การจัดวาระ" },
@@ -147,7 +147,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       ],
       takeaway: {
         en: "You learn to read the medium, not just the message.",
-        th: "คุณจะอ่านตัวสื่อเป็น ไม่ใช่แค่เนื้อหาที่มันบอก",
+        th: "คุณจะอ่านตัวสื่อเป็น ไม่ใช่เพียงเนื้อหาที่สื่อนำเสนอ",
       },
     },
   },
@@ -161,7 +161,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
       },
       opens: {
         en: "Terrorism, nuclear weapons, human rights and trade are where IR theory meets the headlines. You set realism, liberalism and constructivism against real events, including Wendt’s claim that “anarchy is what states make of it”, to see which explanations hold up.",
-        th: "การก่อการร้าย อาวุธนิวเคลียร์ สิทธิมนุษยชน การค้า ที่นี่คือจุดที่ทฤษฎีความสัมพันธ์ระหว่างประเทศมาเจอกับพาดหัวข่าว คุณจะได้เอาสัจนิยม เสรีนิยม และคอนสตรัคติวิสต์มาปะทะกับเหตุการณ์จริง แล้วดูว่าคำอธิบายไหนอยู่รอด",
+        th: "การก่อการร้าย อาวุธนิวเคลียร์ สิทธิมนุษยชน การค้า เป็นจุดที่ทฤษฎีความสัมพันธ์ระหว่างประเทศพบกับพาดหัวข่าว คุณจะได้นำสัจนิยม เสรีนิยม และคอนสตรัคติวิสต์มาเทียบกับเหตุการณ์จริง เพื่อดูว่าคำอธิบายใดใช้ได้จริง",
       },
       thinkers: [
         { en: "Realism vs liberalism", th: "สัจนิยมกับเสรีนิยม" },
@@ -170,8 +170,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         { en: "Human rights", th: "สิทธิมนุษยชน" },
       ],
       takeaway: {
-        en: "You learn to explain the news instead of just following it.",
-        th: "คุณจะอธิบายข่าวได้ ไม่ใช่แค่ตามข่าว",
+        en: "You learn to explain the news instead of only following it.",
+        th: "คุณจะอธิบายข่าวได้ ไม่ใช่เพียงติดตามข่าว",
       },
     },
   },
@@ -217,35 +217,35 @@ export const HOME_ROUTES: Record<string, { card: Bi; line: Bi }> = {
     card: { en: "The ferry back across the river", th: "นั่งเรือข้ามฟากกลับ" },
     line: {
       en: "You came in on the ferry, so it’s the ferry back across.",
-      th: "เช้านี้มาทางเรือข้ามฟาก ขากลับก็ข้ามฟากกลับไปเหมือนเดิม",
+      th: "เช้านี้มาทางเรือข้ามฟาก ขากลับจึงข้ามฟากกลับเช่นเดิม",
     },
   },
   bus: {
     card: { en: "The bus home", th: "นั่งรถเมล์กลับ" },
     line: {
       en: "You came in by bus, so it’s the stop across Phra Chan Road.",
-      th: "เช้านี้มารถเมล์ ขากลับก็ไปรอที่ป้ายฝั่งตรงข้ามถนนพระจันทร์",
+      th: "เช้านี้มารถเมล์ ขากลับจึงรอที่ป้ายฝั่งตรงข้ามถนนพระจันทร์",
     },
   },
   mrt: {
     card: { en: "Back to MRT Sanam Chai", th: "กลับไปขึ้น MRT สนามไชย" },
     line: {
       en: "You came in on the MRT, so it’s back to Sanam Chai.",
-      th: "เช้านี้มา MRT ขากลับก็ไปขึ้นที่สนามไชย",
+      th: "เช้านี้มา MRT ขากลับจึงขึ้นที่สนามไชย",
     },
   },
   shuttle: {
     card: { en: "The shuttle to Sanam Chai", th: "รถรับส่งไปสนามไชย" },
     line: {
       en: "You came in on the shuttle. Here is when the next ones leave.",
-      th: "เช้านี้มารถรับส่ง นี่คือรอบถัดไปที่จะออก",
+      th: "เช้านี้มารถรับส่ง รอบถัดไปที่จะออกมีดังนี้",
     },
   },
   walk: {
     card: { en: "Walking back through the old city", th: "เดินกลับผ่านเมืองเก่า" },
     line: {
       en: "You walked in, so you’ll walk out through the old city.",
-      th: "เช้านี้เดินมา ขากลับก็เดินผ่านเมืองเก่ากลับไป",
+      th: "เช้านี้เดินมา ขากลับจึงเดินผ่านเมืองเก่ากลับ",
     },
   },
 };
@@ -287,7 +287,7 @@ export const LUNCH_DIRECTIONS: {
     label: { en: "Walk up to Banglamphu", th: "เดินไปบางลำพู" },
     blurb: {
       en: "Ten to fifteen minutes each way along Phra Athit Road, so order quickly.",
-      th: "เดินเลียบถนนพระอาทิตย์ไปราวสิบถึงสิบห้านาที สั่งเร็วหน่อยก็กลับทัน",
+      th: "เดินเลียบถนนพระอาทิตย์ไปราวสิบถึงสิบห้านาที ควรสั่งอาหารให้เร็วเพื่อให้กลับทัน",
     },
     ferry: false,
     places: ["khun-daeng", "nai-soie", "banglamphu-duck", "khanom-jeen-banglamphu"],
@@ -399,23 +399,23 @@ export const COPY: Copy = {
   eyebrow: { en: "BIR · Tha Prachan", th: "BIR · ท่าพระจันทร์" },
   event: { en: "Open House · 31 October", th: "Open House · 31 ตุลาคม" },
   headline: {
-    en: "Studying is just one part of the day.",
-    th: "การเรียนเป็นแค่ส่วนหนึ่งของวัน",
+    en: "Studying is one part of the day.",
+    th: "การเรียนเป็นส่วนหนึ่งของวัน",
   },
   sub: {
     en: "Come and spend the rest of it with us.",
-    th: "มาใช้เวลาที่เหลือของวันด้วยกันสิ",
+    th: "มาใช้เวลาที่เหลือของวันกับเรา",
   },
-  walk: { en: "Walk through a day", th: "ลองเดินดูสักวันที่นี่" },
+  walk: { en: "Walk through a day", th: "เดินดูหนึ่งวันที่นี่" },
   hereToday: { en: "I’m here at Open House", th: "ฉันอยู่ที่งาน Open House" },
   scroll: { en: "Scroll to begin", th: "เลื่อนลงเพื่อเริ่ม" },
   arrivalTime: { en: "08:42", th: "08:42" },
   classTime: { en: "09:15", th: "09:15" },
   classKicker: { en: "First class", th: "คาบแรก" },
-  classPrompt: { en: "What would you sit in on?", th: "อยากลองเข้าเรียนวิชาไหน" },
+  classPrompt: { en: "What would you sit in on?", th: "อยากเข้าเรียนวิชาไหน" },
   classNote: {
-    en: "Six of the things people study here. Sit in on one, and it stays with your day.",
-    th: "หกวิชาที่คนที่นี่เรียนกัน ลองเข้าไปนั่งเรียนสักวิชา แล้วมันจะติดอยู่กับวันของคุณ",
+    en: "Six of the subjects studied here. Sit in on one and it is added to your day.",
+    th: "หกวิชาที่เรียนกันที่นี่ เลือกเข้าเรียนหนึ่งวิชา วิชานั้นจะรวมอยู่ในวันของคุณ",
   },
   classHint: {
     en: "Pick a class to sit in on",
@@ -432,7 +432,7 @@ export const COPY: Copy = {
   arcKicker: { en: "All year", th: "ตลอดทั้งปี" },
   arcInvite: {
     en: "Everything the day pointed to is still open.",
-    th: "ทุกที่ที่วันนี้พาไปดู ยังเปิดอยู่ตลอด",
+    th: "ทุกสิ่งที่ปรากฏในวันนี้ยังเปิดตลอดทั้งปี",
   },
   arcLinks: [
     {
@@ -445,20 +445,20 @@ export const COPY: Copy = {
   ],
   arriveTime: { en: "08:42", th: "08:42" },
   arriveKicker: { en: "Getting there", th: "การเดินทางมา" },
-  arrivePrompt: { en: "How would you get here?", th: "คุณจะเดินทางมายังไง" },
+  arrivePrompt: { en: "How would you get here?", th: "คุณจะเดินทางมาอย่างไร" },
   arriveNote: {
-    en: "Tha Prachan sits right on the river in the old city. People arrive one of a few ways.",
-    th: "ท่าพระจันทร์อยู่ริมแม่น้ำในย่านเมืองเก่า คนที่นี่มากันอยู่ไม่กี่ทาง",
+    en: "Tha Prachan sits on the river in the old city. People arrive one of a few ways.",
+    th: "ท่าพระจันทร์อยู่ริมแม่น้ำในย่านเมืองเก่า มีทางมาหลักอยู่ไม่กี่ทาง",
   },
   lunchTime: { en: "12:07", th: "12:07" },
   lunchKicker: { en: "Fifty-three minutes for lunch", th: "มีเวลากินข้าวห้าสิบสามนาที" },
   lunchPrompt: {
-    en: "Your next class is at 13:00. Where are we going?",
-    th: "คาบต่อไปบ่ายโมง จะไปกินที่ไหนดี",
+    en: "Your next class is at 13:00. Where do you go?",
+    th: "คาบต่อไปบ่ายโมง จะไปกินที่ไหน",
   },
   lunchNote: {
-    en: "Three directions from the gate, each with a few places students actually go.",
-    th: "จากประตูคณะมีสามทางให้เลือก แต่ละทางมีร้านที่นักศึกษาไปกินกันจริงๆ อยู่ไม่กี่ร้าน",
+    en: "Three directions from the gate, each with a few places students go.",
+    th: "จากประตูคณะมีสามทางให้เลือก แต่ละทางมีร้านที่นักศึกษาไปกินอยู่ไม่กี่ร้าน",
   },
   lunchMap: {
     en: "BIRSA keeps a much larger student map of Tha Prachan, Wang Lang and Pinklao.",
@@ -472,8 +472,8 @@ export const COPY: Copy = {
   clubsKicker: { en: "Class is over", th: "เลิกเรียนแล้ว" },
   clubsPrompt: { en: "Class is done. Where do you go?", th: "เลิกเรียนแล้ว จะไปไหนต่อ" },
   clubsNote: {
-    en: "Twelve clubs, all run by students. Some rehearse, some hold mock parliaments, some head off to volunteer camp. Pick one and look inside.",
-    th: "สิบสองชมรมที่นักศึกษาดูแลกันเอง บางชมรมซ้อมดนตรี บางชมรมจัดประชุมสภาจำลอง บางชมรมออกค่ายอาสา ลองเลือกเข้าไปดูสักชมรม",
+    en: "Twelve clubs, all run by students. Some rehearse, some hold mock parliaments, some head off to volunteer camp. Choose one to find out more.",
+    th: "สิบสองชมรมที่นักศึกษาเป็นผู้ดูแล บางชมรมซ้อมดนตรี บางชมรมจัดประชุมสภาจำลอง บางชมรมออกค่ายอาสา เลือกหนึ่งชมรมเพื่อดูรายละเอียด",
   },
   clubsAll: { en: "See all BIR clubs", th: "ดูชมรม BIR ทั้งหมด" },
   joinLabel: { en: "Joining", th: "การเข้าร่วม" },
@@ -488,17 +488,17 @@ export const COPY: Copy = {
   betweenKicker: { en: "Between classes", th: "ช่วงว่างระหว่างคาบ" },
   betweenLine: {
     en: "There is a lot of university in the hours that aren’t on a timetable.",
-    th: "มหาวิทยาลัยมีอะไรอยู่เยอะในชั่วโมงที่ไม่มีอยู่ในตารางเรียน",
+    th: "ชีวิตมหาวิทยาลัยจำนวนมากอยู่ในช่วงเวลานอกตารางเรียน",
   },
   betweenBody: {
     en: "A coffee on the way to the next building. Printing something too close to a deadline. Someone you know, on the steps by the river. Most of it never makes the prospectus.",
-    th: "กาแฟแก้วหนึ่งระหว่างเดินไปตึกถัดไป งานที่ปรินต์เอาตอนใกล้เดดไลน์ คนรู้จักสักคนที่บันไดริมน้ำ เรื่องพวกนี้ส่วนใหญ่ไม่เคยอยู่ในโบรชัวร์",
+    th: "กาแฟแก้วหนึ่งระหว่างเดินไปตึกถัดไป งานที่พิมพ์ตอนใกล้กำหนดส่ง คนรู้จักสักคนที่บันไดริมน้ำ เรื่องเหล่านี้ส่วนใหญ่ไม่เคยอยู่ในเอกสารแนะนำหลักสูตร",
   },
   backTime: { en: "13:23", th: "13:23" },
   backKicker: { en: "Back to class", th: "กลับเข้าเรียน" },
   backLine: {
     en: "The afternoon seminar is quieter, and it turns over questions like these.",
-    th: "คาบสัมมนาช่วงบ่ายจะเงียบกว่า และมักวนอยู่กับคำถามทำนองนี้",
+    th: "คาบสัมมนาช่วงบ่ายเงียบกว่า และถกคำถามทำนองนี้",
   },
   backQuestions: [
     {
@@ -510,13 +510,13 @@ export const COPY: Copy = {
       th: "การเมืองในประเทศกลายเป็นนโยบายต่างประเทศตอนไหน",
     },
     {
-      en: "What does international law actually constrain?",
-      th: "จริง ๆ แล้วกฎหมายระหว่างประเทศจำกัดอะไรได้บ้าง",
+      en: "What does international law constrain?",
+      th: "กฎหมายระหว่างประเทศจำกัดอะไรได้บ้าง",
     },
   ],
   backNote: {
-    en: "No single answer, which is rather the point.",
-    th: "ไม่มีคำตอบเดียว ซึ่งนั่นแหละคือประเด็น",
+    en: "No single answer.",
+    th: "ไม่มีคำตอบเดียว",
   },
   duskTime: { en: "17:48", th: "17:48" },
   duskKicker: { en: "The campus changes", th: "เมื่อคณะเปลี่ยนไป" },
@@ -541,13 +541,13 @@ export const COPY: Copy = {
   homeClosed: { en: "Finished for the day", th: "หมดรอบของวันแล้ว" },
   evtWelcome: { en: "You’re here. Welcome.", th: "คุณมาถึงแล้ว ยินดีต้อนรับ" },
   evtLead: {
-    en: "Open House is on today. Here is what is useful while you’re on campus.",
-    th: "วันนี้มีงาน Open House นี่คือสิ่งที่น่าจะมีประโยชน์ระหว่างอยู่ในคณะ",
+    en: "Open House is on today.",
+    th: "วันนี้มีงาน Open House",
   },
   evtProgramme: { en: "Today’s programme", th: "กำหนดการวันนี้" },
   evtProgrammeTbc: {
     en: "The full programme is being confirmed. Times and rooms will appear here closer to the day.",
-    th: "กำหนดการฉบับเต็มกำลังยืนยัน เวลาและห้องจะขึ้นตรงนี้เมื่อใกล้ถึงวันงาน",
+    th: "กำหนดการฉบับเต็มอยู่ระหว่างยืนยัน เวลาและห้องจะแสดงที่นี่เมื่อใกล้ถึงวันงาน",
   },
   evtFindRoom: { en: "Find the room", th: "หาห้อง" },
   evtExplore: { en: "Explore BIR", th: "สำรวจ BIR" },
@@ -558,16 +558,16 @@ export const COPY: Copy = {
   },
   arcLead: {
     en: "You can still walk the day, and everything it points to is open all year.",
-    th: "คุณยังลองเดินดูทั้งวันได้ และทุกอย่างที่มันพาไปก็เปิดให้ดูได้ตลอดทั้งปี",
+    th: "คุณยังเดินดูทั้งวันได้ และทุกสิ่งที่กล่าวถึงเปิดให้ดูตลอดทั้งปี",
   },
   dayTime: { en: "Your day", th: "วันของคุณ" },
   dayKicker: { en: "Your day", th: "วันของคุณ" },
   daySubtitle: { en: "A day you tried on", th: "วันหนึ่งที่คุณได้ลองใช้" },
   dayEmpty: {
-    en: "Make a choice above and it will gather here.",
-    th: "เลือกด้านบนสักอย่าง แล้วมันจะมารวมกันตรงนี้",
+    en: "Your choices appear here.",
+    th: "สิ่งที่คุณเลือกจะแสดงที่นี่",
   },
-  nameLabel: { en: "Add your name (optional)", th: "ใส่ชื่อก็ได้ ถ้าอยากใส่" },
+  nameLabel: { en: "Add your name (optional)", th: "เพิ่มชื่อของคุณ (ไม่บังคับ)" },
   namePlaceholder: { en: "Your name", th: "ชื่อของคุณ" },
   save: { en: "Save card", th: "บันทึกการ์ด" },
   copy: { en: "Copy link", th: "คัดลอกลิงก์" },
@@ -579,8 +579,8 @@ export const COPY: Copy = {
     en: "Come and see it without the screen.",
     th: "มาดูของจริงโดยไม่ต้องผ่านหน้าจอ",
   },
-  whenLabel: { en: "When", th: "เมื่อไหร่" },
-  whereLabel: { en: "Where", th: "ที่ไหน" },
+  whenLabel: { en: "When", th: "วันและเวลา" },
+  whereLabel: { en: "Where", th: "สถานที่" },
   directions: { en: "Directions", th: "เส้นทาง" },
   programme: { en: "Official BIR programme", th: "ข้อมูลหลักสูตร BIR อย่างเป็นทางการ" },
   programmeNote: {

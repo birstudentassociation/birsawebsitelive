@@ -1059,7 +1059,7 @@ export const story: Chapter[] = [
   },
   {
     id: "search",
-    kicker: { en: "The days after", th: "วันต่อๆ มา" },
+    kicker: { en: "The days after", th: "วันต่อ ๆ มา" },
     heading: { en: "The search", th: "การตามหา" },
     blocks: [
       say("unknownMan"),
@@ -1172,7 +1172,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     ],
     backgroundHeading: "How it came to this",
     background: [
-      "The origins of the massacre can be traced back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
+      "The origins of the massacre can be traced back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right-wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
       "On 19 September 1976 Field Marshal Thanom Kittikachorn came home from Singapore as a novice and was ordained a monk at Wat Bowonniwet. On 24 September two Nakhon Pathom electricity workers were beaten to death while putting up posters against him, and their bodies were hanged at the gate of a housing estate.",
       "On 4 October students rallied at Lan Pho, and the Thammasat drama club staged a play about the Nakhon Pathom hanging. The next day the Dao Siam newspaper used a photograph of the play to attack the student movement, claiming the students had deliberately insulted the monarchy.",
     ],
@@ -1218,7 +1218,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     whyHeading: "Why we remember",
     why: [
       "Documentation of Oct 6 is an online archive that collects, preserves and organises evidence that was scattered for decades. It holds the autopsy reports, the newspapers, the radio recordings, the photographs, and the stories of the people who died, told by their families and friends.",
-      "BIRSA would like to contribute to keeping their memory on the ground where they were killed.",
+      "BIRSA wants to help keep their memory on the ground where they were killed.",
     ],
     whyQuote: {
       text: "So that anyone can reach the evidence more easily, so that interest and research into 6 October can carry far into the future, and to fight the effort to make society forget 6 October.",
@@ -1292,7 +1292,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     metaDescription: "รำลึก 50 ปี 6 ตุลา 2519 การฆาตกรรมหมู่ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์",
     breadcrumb: "6 ตุลา 2519",
     contentNote:
-      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา ไม่มีภาพที่ปรากฏการกระทำต่อผู้เสียชีวิต",
+      "หน้านี้กล่าวถึงการสังหารและความรุนแรงต่อนักศึกษา ไม่มีภาพถ่ายในหน้านี้ที่แสดงผู้เสียชีวิต",
     epigraph: {
       text: epigraphTh,
       cite: "จิตร ภูมิศักดิ์ เพลง แสงดาวแห่งศรัทธา",
@@ -1300,7 +1300,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     },
     remembranceHeading: "ครบ 50 ปี",
     remembrance: [
-      "นักศึกษาและประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ในวันที่ 6 ตุลา ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก มีการจับกุมนักศึกษาและประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน และในเย็นวันเดียวกันนั้นเอง ก็เกิดการรัฐประหารฟื้นเผด็จการ",
+      "นักศึกษาและประชาชนนับหมื่นคนชุมนุมในมหาวิทยาลัยธรรมศาสตร์เพื่อต่อต้านพระถนอม ในวันที่ 6 ตุลา ก่อนรุ่งสาง ตำรวจตระเวนชายแดนยกกำลังเข้าล้อมมหาวิทยาลัย แล้วระดมยิงเข้ามาอย่างหนัก มีการจับกุมนักศึกษาและประชาชนที่เหลือรอดจากการถูกสังหารจำนวน 3,094 คน และในเย็นวันเดียวกัน เกิดการรัฐประหารฟื้นเผด็จการ",
       "เราขอร่วมรำลึกถึงผู้วายชนม์ และรำลึกถึงเหตุการณ์ที่เกิดขึ้นในวันนั้น",
     ],
     backgroundHeading: "ย้อนดูที่มา",
@@ -1347,9 +1347,9 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     ],
     figuresNote:
       "เอกสารชันสูตรพลิกศพรวมเจ้าหน้าที่ 5 ราย และชายอีก 1 รายที่เสียชีวิตในห้องขังเมื่อเดือนมกราคม 2520 โครงการไม่นับรายนี้ในตัวเลข 40 แต่นับนักศึกษาหญิงที่เสียชีวิตจากบาดแผลเมื่อเดือนธันวาคม 2519 ขณะที่แหล่งข่าวอ้างอิงจากการเก็บศพของเจ้าหน้าที่มูลนิธิร่วมกตัญญู ประมาณว่ามีนักศึกษาประชาชนเสียชีวิต 530 คน",
-    whyHeading: "ทำไมเราต้องจำ",
+    whyHeading: "เหตุผลที่เราจดจำ",
     why: [
-      "โครงการ “บันทึก 6 ตุลา” คือแหล่งข้อมูลออนไลน์ที่มุ่งเก็บรวบรวมรักษาและจัดระบบข้อมูลที่ยังกระจัดกระจายในที่ต่างๆ ทั้งเอกสารชันสูตรพลิกศพ หนังสือพิมพ์ เสียงจากวิทยุ ภาพถ่าย และเรื่องราวของผู้เสียชีวิตจากปากคำของครอบครัวและเพื่อน",
+      "โครงการ “บันทึก 6 ตุลา” คือแหล่งข้อมูลออนไลน์ที่มุ่งเก็บรวบรวมรักษาและจัดระบบข้อมูลที่ยังกระจัดกระจายในที่ต่าง ๆ ทั้งเอกสารชันสูตรพลิกศพ หนังสือพิมพ์ เสียงจากวิทยุ ภาพถ่าย และเรื่องราวของผู้เสียชีวิตจากปากคำของครอบครัวและเพื่อน",
       "เราขอร่วมรักษาความทรงจำของพวกเขาไว้",
     ],
     whyQuote: {
@@ -1370,7 +1370,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     walkingTour: {
       heading: "Walking Tour 4 จุดเหตุการณ์สำคัญ",
       intro:
-        "งาน 50 ปี 6 ตุลา ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มีกิจกรรม Walking Tour 4 จุดเหตุการณ์สำคัญ ที่จะพาทุกท่านร่วมทำความเข้าใจเรื่องราวบนพื้นที่เหตุการณ์จริง",
+        "งาน 50 ปี 6 ตุลา ที่มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มีกิจกรรม Walking Tour 4 จุดเหตุการณ์สำคัญ ที่พาผู้เข้าร่วมทำความเข้าใจเรื่องราวบนพื้นที่เกิดเหตุจริง",
       details: [
         { label: "วันที่", value: "4 และ 6 ตุลาคม 2569" },
         { label: "รอบเดินทัวร์", value: "วันละ 1 รอบ เวลา 16.30 ถึง 18.30 น." },

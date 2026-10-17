@@ -32,7 +32,7 @@ export const advisoryCopy: Record<
     lede: "Thammasat University moves teaching online on 12 October and from 14 to 16 October 2026. Tuesday 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
     sealAlt: "Seal of Thammasat University",
     breadcrumb: "Advisory",
-    noticeTitle: "Classes move online on the dates below",
+    noticeTitle: "Classes move online on 12 and 14 to 16 October",
     notice:
       "The Cabinet's measures aim to ease traffic and support security during the Annual Meetings of the World Bank Group and the International Monetary Fund in Bangkok.",
     tableHeading: "Dates",
@@ -74,7 +74,7 @@ export const advisoryCopy: Record<
       "The BIR Office is closed from 12 to 16 October 2026. For urgent matters, email bir@tu.ac.th.",
       "Ask your instructor if you are not sure how your class will meet.",
     ],
-    whyHeading: "Why this is happening",
+    whyHeading: "Why classes are moving online",
     why: [
       "On 19 May 2026 the Cabinet agreed that government agencies in Bangkok work from home on Monday 12 October and on Wednesday 14 and Thursday 15 October. It also set special arrangements for Friday 16 October 2026 in Bangkok.",
       "The Cabinet did this to ease traffic, to help delegates travel to the Annual Meetings of the World Bank Group and the International Monetary Fund 2026, and to keep the visiting finance ministers and central bank governors safe.",
@@ -93,9 +93,9 @@ export const advisoryCopy: Record<
     lede: "มหาวิทยาลัยธรรมศาสตร์ปรับการเรียนการสอนเป็นออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม 2569 วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
     sealAlt: "ตราสัญลักษณ์มหาวิทยาลัยธรรมศาสตร์",
     breadcrumb: "ประกาศแจ้งเตือน",
-    noticeTitle: "เรียนออนไลน์ตามวันที่ระบุด้านล่าง",
+    noticeTitle: "เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม",
     notice:
-      "มาตรการของคณะรัฐมนตรีนี้มีเป้าหมายเพื่อบรรเทาปัญหาการจราจรและดูแลความปลอดภัยในช่วงการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศที่กรุงเทพมหานคร",
+      "มาตรการของคณะรัฐมนตรีมีเป้าหมายเพื่อบรรเทาปัญหาการจราจรและดูแลความปลอดภัยในช่วงการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศที่กรุงเทพมหานคร",
     tableHeading: "วันที่เปลี่ยนแปลง",
     caption: "การเปลี่ยนแปลงที่ธรรมศาสตร์ ท่าพระจันทร์ วันที่ 12 ถึง 16 ตุลาคม 2569",
     columns: { date: "วันที่", classes: "การเรียนการสอน", work: "การปฏิบัติงานที่ท่าพระจันทร์" },
@@ -130,7 +130,7 @@ export const advisoryCopy: Record<
     means: [
       "วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ จึงไม่มีการเรียนการสอน",
       "มหาวิทยาลัยขอความร่วมมือส่วนงานและคณาจารย์ปรับการเรียนการสอนเป็นรูปแบบออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม",
-      "มหาวิทยาลัยขอให้งดการเรียนการสอนในรูปแบบชั้นเรียนในวันดังกล่าว",
+      "มหาวิทยาลัยขอให้งดการเรียนการสอนในรูปแบบชั้นเรียนในวันเหล่านั้น",
       "มหาวิทยาลัยขอให้ส่วนงานงดการติดต่อราชการที่ท่าพระจันทร์ในวันที่ 16 ตุลาคม ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายหน้าที่ไว้แล้ว",
       "สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม 2569 หากมีเรื่องเร่งด่วน ให้ส่งอีเมลถึง bir@tu.ac.th",
       "หากไม่แน่ใจว่ารายวิชาของตนเรียนอย่างไร ให้สอบถามอาจารย์ผู้สอน",
@@ -138,7 +138,7 @@ export const advisoryCopy: Record<
     whyHeading: "เหตุผลของการเปลี่ยนแปลง",
     why: [
       "เมื่อวันที่ 19 พฤษภาคม 2569 คณะรัฐมนตรีเห็นชอบให้หน่วยงานราชการในกรุงเทพมหานครปฏิบัติงานนอกสถานที่ตั้งในวันจันทร์ที่ 12 ตุลาคม วันพุธที่ 14 ตุลาคม และวันพฤหัสบดีที่ 15 ตุลาคม และกำหนดมาตรการเป็นกรณีพิเศษสำหรับวันศุกร์ที่ 16 ตุลาคม 2569 ในพื้นที่กรุงเทพมหานคร",
-      "มติดังกล่าวมีเป้าหมายเพื่อบรรเทาปัญหาการจราจร อำนวยความสะดวกแก่ผู้เข้าร่วมการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี 2569 และดูแลความปลอดภัยของรัฐมนตรีว่าการกระทรวงการคลังและผู้ว่าการธนาคารกลางของประเทศสมาชิก",
+      "มติครั้งนี้มีเป้าหมายเพื่อบรรเทาปัญหาการจราจร อำนวยความสะดวกแก่ผู้เข้าร่วมการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี 2569 และดูแลความปลอดภัยของรัฐมนตรีว่าการกระทรวงการคลังและผู้ว่าการธนาคารกลางของประเทศสมาชิก",
       "มหาวิทยาลัยธรรมศาสตร์จึงกำหนดแนวทางการเรียนการสอนและการปฏิบัติงานที่ท่าพระจันทร์ในช่วงการประชุม",
       "วันอังคารที่ 13 ตุลาคม 2569 เป็นวันหยุดราชการอยู่แล้ว",
     ],

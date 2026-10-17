@@ -34,7 +34,7 @@ export const internationalTrack: OnboardingTrack = {
           },
           hint: {
             en: "Apply through thaievisa.go.th once BIR has accepted you. The visa must be used within 90 days of issue.",
-            th: "ยื่นผ่าน thaievisa.go.th หลังได้รับการตอบรับจาก BIR และต้องใช้วีซ่าภายใน 90 วันนับจากวันออกวีซ่า",
+            th: "ยื่นผ่าน thaievisa.go.th หลังที่ BIR รับเข้าศึกษาแล้ว และต้องใช้วีซ่าภายใน 90 วันนับจากวันออกวีซ่า",
           },
           href: "/student-life/before-you-arrive/student-visa",
         },
@@ -81,7 +81,7 @@ export const internationalTrack: OnboardingTrack = {
           },
           hint: {
             en: "A passport is all you need.",
-            th: "ใช้เพียงหนังสือเดินทางเท่านั้น",
+            th: "ใช้เพียงหนังสือเดินทาง",
           },
           href: "/student-life/first-weeks/sim-and-wifi",
         },
@@ -222,7 +222,7 @@ export const internationalTrack: OnboardingTrack = {
           id: "health-insurance",
           label: {
             en: "Arrange your own health insurance and find the nearest hospital",
-            th: "จัดทำประกันสุขภาพของตนเองและหาโรงพยาบาลที่ใกล้ที่สุด",
+            th: "ทำประกันสุขภาพส่วนตัวและหาโรงพยาบาลที่ใกล้ที่สุด",
           },
           href: "/student-life/health-and-safety/getting-medical-help",
         },

@@ -110,7 +110,7 @@ export const onboardingUiCopy: Record<Locale, OnboardingUiCopy> = {
       internationalBody:
         "สำหรับนักศึกษาที่ย้ายมากรุงเทพฯ จากต่างประเทศ ตั้งแต่วีซ่า สัปดาห์แรก ไปจนถึงการรายงานตัว 90 วัน",
       allGuidesTitle: "ดูคู่มือชีวิตนักศึกษาทั้งหมด",
-      allGuidesBody: "เลือกอ่านเองได้ทุกหัวข้อ ถ้าไม่มีกลุ่มใดตรงกับนักศึกษา",
+      allGuidesBody: "ดูคู่มือทุกหัวข้อ หากไม่มีกลุ่มใดตรงกับคุณ",
     },
     track: {
       privacyTitle: "รายการที่ติ๊กอยู่ในเบราว์เซอร์นี้",

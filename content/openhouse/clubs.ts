@@ -41,12 +41,12 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "ASA IR", th: "อาสาไออาร์ (ASA IR)" },
     tagline: {
       en: "Student volunteer camps built around sustainable development.",
-      th: "ค่ายอาสาของนักศึกษาที่ยึดการพัฒนาอย่างยั่งยืนเป็นหัวใจ",
+      th: "ค่ายอาสาของนักศึกษาที่มีการพัฒนาอย่างยั่งยืนเป็นแกนหลัก",
     },
     joinOpen: true,
     detail: {
       en: "Now on its sixth volunteer camp, ASA IR 6.",
-      th: "ตอนนี้ชมรมจัดค่ายมาแล้วถึงรุ่นที่หก คือ ASA IR 6",
+      th: "ปัจจุบันจัดค่ายมาแล้วถึงรุ่นที่ 6 คือ ASA IR 6",
     },
     join: {
       en: "Recruitment opens on Instagram ahead of each camp.",
@@ -66,11 +66,11 @@ export const CLUBS: OpenHouseClub[] = [
     joinOpen: true,
     detail: {
       en: "More than 50 episodes and over a thousand YouTube subscribers.",
-      th: "ช่องมีอีพีมากกว่า 50 ตอนและผู้ติดตามบน YouTube เกินหนึ่งพันคน",
+      th: "ช่องมีมากกว่า 50 ตอนและผู้ติดตามบน YouTube เกินหนึ่งพันคน",
     },
     join: {
       en: "Follow @birify on Instagram, where recruitment is posted.",
-      th: "ติดตาม @birify ทาง Instagram ซึ่งจะประกาศการรับสมาชิก",
+      th: "ติดตาม @birify ทาง Instagram ซึ่งประกาศรับสมาชิกที่นั่น",
     },
     link: { url: "https://www.instagram.com/birify/", label: "Instagram" },
     texture: "media",
@@ -98,8 +98,8 @@ export const CLUBS: OpenHouseClub[] = [
     slug: "bir-music-club",
     name: { en: "BIR Music Club", th: "ชมรมดนตรี BIR" },
     tagline: {
-      en: "The biggest music club in BIR, for players, singers, and anyone who wants to jam.",
-      th: "ชมรมดนตรีที่ใหญ่ที่สุดของ BIR สำหรับคนเล่นดนตรี นักร้อง และใครก็ตามที่อยากมาแจมด้วยกัน",
+      en: "Describes itself as the biggest music club in BIR, for players, singers and anyone who wants to jam.",
+      th: "ชมรมดนตรีที่ระบุว่าตนใหญ่ที่สุดของ BIR สำหรับนักดนตรี นักร้อง และผู้ที่ต้องการมาเล่นดนตรีด้วยกัน",
     },
     joinOpen: true,
     detail: {
@@ -128,7 +128,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     join: {
       en: "Watch @thammasatmun for staff recruitment and delegate selection.",
-      th: "ติดตาม @thammasatmun เพื่อดูการรับสมัครสตาฟและการคัดเลือกผู้แทน",
+      th: "ติดตาม @thammasatmun เพื่อดูการรับสมัครทีมงานและการคัดเลือกผู้แทน",
     },
     link: { url: "https://www.instagram.com/thammasatmun/", label: "Instagram" },
     texture: "simulation",
@@ -139,12 +139,12 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "Parliamock.TU", th: "รัฐสภาจำลอง (Parliamock.TU)" },
     tagline: {
       en: "A simulated Thai Parliament, run by students for high school participants.",
-      th: "รัฐสภาไทยจำลองที่นักศึกษาเป็นผู้จัด สำหรับน้อง ๆ มัธยมปลาย",
+      th: "รัฐสภาไทยจำลองที่นักศึกษาเป็นผู้จัด สำหรับนักเรียนมัธยมปลาย",
     },
     joinOpen: true,
     detail: {
       en: "Members run the camp; participants are high school students.",
-      th: "สมาชิกทำหน้าที่จัดค่าย ส่วนผู้เข้าร่วมคือน้อง ๆ มัธยมปลาย",
+      th: "สมาชิกทำหน้าที่จัดค่าย ส่วนผู้เข้าร่วมคือนักเรียนมัธยมปลาย",
     },
     join: {
       en: "Follow @parliamock.tu for the sign-up link and camp dates.",
@@ -177,7 +177,7 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "BIR Football", th: "ฟุตบอล BIR" },
     tagline: {
       en: "Eleven-a-side, every Friday, all levels welcome.",
-      th: "ฟุตบอล 11 คน ทุกวันศุกร์ เปิดรับทุกระดับฝีเท้า",
+      th: "ฟุตบอล 11 คน ทุกวันศุกร์ เปิดรับทุกระดับ",
     },
     joinOpen: true,
     detail: {
@@ -186,7 +186,7 @@ export const CLUBS: OpenHouseClub[] = [
     },
     join: {
       en: "No trials or experience needed; bring trainers and turn up.",
-      th: "ไม่มีการคัดตัว ไม่ต้องมีประสบการณ์ เตรียมรองเท้าผ้าใบมาได้เลย",
+      th: "ไม่มีการคัดตัว ไม่ต้องมีประสบการณ์ เตรียมรองเท้าผ้าใบมา",
     },
     link: { url: "https://www.instagram.com/birfootballclub/", label: "Instagram" },
     texture: "sport",
@@ -196,7 +196,7 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "BIR Basketball", th: "บาสเกตบอล BIR" },
     tagline: {
       en: "Pick-up games and a BIR team, from beginners to competitive players.",
-      th: "เล่นบาสสบาย ๆ และทีม BIR ตั้งแต่มือใหม่จนถึงสายแข่งขัน",
+      th: "เล่นบาสแบบไม่เป็นทางการและมีทีม BIR ตั้งแต่ผู้เริ่มเล่นจนถึงระดับแข่งขัน",
     },
     joinOpen: true,
     detail: {
@@ -215,7 +215,7 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "BIR Esports Club", th: "ชมรมอีสปอร์ต BIR" },
     tagline: {
       en: "Competitive and casual gaming, and the team that represents BIR.",
-      th: "เกมทั้งสายแข่งและสายชิล พร้อมทีมตัวแทน BIR",
+      th: "เกมทั้งแบบแข่งขันและแบบผ่อนคลาย พร้อมทีมตัวแทน BIR",
     },
     joinOpen: true,
     detail: {
@@ -235,7 +235,7 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "BIR Volleyball", th: "วอลเลย์บอล BIR" },
     tagline: {
       en: "Volleyball for BIR students, from first-timers to regulars.",
-      th: "วอลเลย์บอลสำหรับชาว BIR ตั้งแต่มือใหม่จนถึงขาประจำ",
+      th: "วอลเลย์บอลสำหรับนักศึกษา BIR ตั้งแต่ผู้เริ่มเล่นจนถึงผู้เล่นประจำ",
     },
     joinOpen: true,
     detail: {
@@ -254,7 +254,7 @@ export const CLUBS: OpenHouseClub[] = [
     name: { en: "BIR CardGame Club", th: "ชมรมการ์ดเกม BIR" },
     tagline: {
       en: "Trading card games, tabletop games, and people to play them with.",
-      th: "การ์ดเกมสะสม เกมกระดาน และเพื่อนให้ได้ลงเล่นด้วยกัน",
+      th: "การ์ดเกมสะสม เกมกระดาน และผู้ร่วมเล่น",
     },
     joinOpen: true,
     detail: {
