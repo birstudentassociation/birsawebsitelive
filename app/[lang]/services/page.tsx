@@ -80,8 +80,8 @@ const copy: Record<
     applyingToBir: {
       title: "Applying to BIR",
       description:
-        "Choose an admission round, check the dates, documents and fees, and follow the steps to apply for 2027 entry.",
-      cta: "See how to apply",
+        "Find out which admission round you can apply through, then check the dates, documents and fees for 2027 entry.",
+      cta: "Check which round to apply through",
     },
     courseReviews: {
       title: "Course reviews",
@@ -131,8 +131,8 @@ const copy: Record<
     applyingToBir: {
       title: "สมัครเรียน BIR",
       description:
-        "เลือกรอบรับสมัคร ตรวจสอบกำหนดการ เอกสารและค่าธรรมเนียม แล้วทำตามขั้นตอนการสมัครเข้าศึกษาปี 2570",
-      cta: "ดูวิธีสมัครเรียน",
+        "เช็กว่าสมัครรอบไหนได้ แล้วตรวจสอบกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570",
+      cta: "เช็กว่าสมัครรอบไหนได้",
     },
     courseReviews: {
       title: "รีวิวรายวิชา",

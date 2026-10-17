@@ -21,11 +21,12 @@ describe("the published service is structurally sound", () => {
     expect(validateService(service)).toEqual([]);
   });
 
-  it("has exactly the three checks, each hosted at its own path", () => {
+  it("has exactly the four checks, each hosted at its own path", () => {
     expect(service.topics.map((topic) => [topic.slug, topic.path])).toEqual([
       ["activity-approval", "/activity/approval-check"],
       ["club-readiness", "/clubs/start-check"],
       ["where-to-go", "/contact/where-to-go"],
+      ["admission-round", "/services/applying-to-bir/which-round"],
     ]);
   });
 
@@ -34,6 +35,7 @@ describe("the published service is structurally sound", () => {
       "q-activity-body",
       "q-club-idea",
       "q-where-root",
+      "bir-q-nationality",
     ]);
   });
 

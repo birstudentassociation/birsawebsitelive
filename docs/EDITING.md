@@ -241,14 +241,15 @@ social channel that doesn't exist).
 
 ## Checks (`content/smart-answers/`)
 
-There are three checks, each hosted on the page it belongs to rather than in a section of its
+There are four checks, each hosted on the page it belongs to rather than in a section of its
 own:
 
-| Check (`slug`)      | Lives at                   |
-| ------------------- | -------------------------- |
-| `activity-approval` | `/activity/approval-check` |
-| `club-readiness`    | `/clubs/start-check`       |
-| `where-to-go`       | `/contact/where-to-go`     |
+| Check (`slug`)      | Lives at                                |
+| ------------------- | --------------------------------------- |
+| `activity-approval` | `/activity/approval-check`              |
+| `club-readiness`    | `/clubs/start-check`                    |
+| `where-to-go`       | `/contact/where-to-go`                  |
+| `admission-round`   | `/services/applying-to-bir/which-round` |
 
 A check is a door into one graph, not a separate quiz. Topic files under
 `content/smart-answers/topics/` each export `{ topics, nodes }`, and

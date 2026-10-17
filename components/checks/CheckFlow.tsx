@@ -33,6 +33,8 @@ export type CheckFlowProps = {
   /** The raw `a` values from the URL; validated here against the authored graph. */
   answerIds: string[];
   dict: Dictionary;
+  /** A page between the section and the check, when the host page sits under one (such as a guide index). */
+  parent?: { label: string; href: string };
 };
 
 /** Label of the section a check lives in, for its breadcrumb. */
@@ -95,6 +97,7 @@ export default function CheckFlow({
   topic,
   answerIds: rawAnswerIds,
   dict,
+  parent,
 }: CheckFlowProps) {
   const t = uiCopy[locale];
   const { node, trail, answerIds } = resolveTopic(service, topic, rawAnswerIds);
@@ -186,6 +189,7 @@ export default function CheckFlow({
                 items={[
                   { label: dict.site.name, href: "/" },
                   { label: section.label, href: section.href },
+                  ...(parent ? [parent] : []),
                   { label: topic.title[locale] },
                 ]}
               />

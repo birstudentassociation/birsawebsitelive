@@ -73,7 +73,7 @@ const nonThaiSelection: Localised = {
 
 const nonThaiFee: Localised = {
   en: "1,000 baht or 35 US dollars, not refundable.",
-  th: "1,000 บาท หรือ 35 ดอลลาร์สหรัฐ ไม่คืนเงิน",
+  th: "ค่าสมัคร 1,000 บาท หรือ 35 ดอลลาร์สหรัฐ ไม่คืนเงิน",
 };
 
 export const admissionRounds: AdmissionRound[] = [
@@ -101,7 +101,7 @@ export const admissionRounds: AdmissionRound[] = [
     },
     fee: {
       en: "1,000 baht, not refundable.",
-      th: "1,000 บาท ไม่คืนเงิน",
+      th: "ค่าสมัคร 1,000 บาท ไม่คืนเงิน",
     },
     milestones: [
       {
@@ -181,7 +181,7 @@ export const admissionRounds: AdmissionRound[] = [
     },
     fee: {
       en: "1,000 baht, not refundable.",
-      th: "1,000 บาท ไม่คืนเงิน",
+      th: "ค่าสมัคร 1,000 บาท ไม่คืนเงิน",
     },
     milestones: [
       {

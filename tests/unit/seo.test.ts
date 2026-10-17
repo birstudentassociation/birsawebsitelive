@@ -361,6 +361,7 @@ describe("buildMetadata share images", () => {
     ["/emergency/flooding/claims", "emergency"],
     ["/student-life/getting-started/international", "student-life/getting-started"],
     ["/services/applying-to-bir", "services/applying-to-bir"],
+    ["/services/applying-to-bir/which-round", "services/applying-to-bir"],
   ])("gives %s the card of the nearest listed page", (path, card) => {
     const { openGraph } = buildMetadata({ ...options, locale: "en", path });
     expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/en/og/${card}`);

@@ -655,12 +655,12 @@ const rules: Rule[] = [
       title: bi(locale, "Applying to BIR", "สมัครเรียน BIR"),
       description: bi(
         locale,
-        "Choose an admission round, check the dates and requirements, and follow the steps to apply for 2027 entry.",
-        "เลือกรอบรับสมัคร ตรวจสอบวันและเกณฑ์ แล้วทำตามขั้นตอนการสมัครสำหรับการเข้าศึกษาปี 2570"
+        "Find out which admission round you can apply through, then read the dates, documents and fees for 2027 entry.",
+        "เช็กว่าสมัครรอบไหนได้ แล้วดูกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570"
       ),
       action: {
-        label: bi(locale, "Apply to BIR step by step", "ขั้นตอนการสมัครเรียน BIR"),
-        href: localeHref(locale, "/services/applying-to-bir"),
+        label: bi(locale, "Check which round you can apply through", "เช็กว่าสมัครรอบไหนได้"),
+        href: localeHref(locale, "/services/applying-to-bir/which-round"),
       },
       links: [
         {

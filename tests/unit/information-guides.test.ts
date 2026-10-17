@@ -9,10 +9,7 @@ import {
 } from "@/lib/content";
 import { resolveRelatedPath } from "@/lib/guide-related";
 import { extractHeadings } from "@/lib/toc";
-import { applyingSteps } from "@/content/information/applying-to-bir/steps";
 import { locales } from "@/lib/i18n";
-
-const guidePathPattern = /^\/services\/([a-z0-9-]+)\/([a-z0-9-]+)$/;
 
 describe("information guides", () => {
   for (const topic of informationTopics) {
@@ -128,30 +125,4 @@ describe("information guides", () => {
       }
     });
   }
-
-  it("the applying step by step only links to real guides, in both locales", () => {
-    const hrefs = applyingSteps.flatMap((step) => step.tasks.map((task) => task.href ?? ""));
-    expect(hrefs.length).toBeGreaterThan(0);
-    for (const locale of locales) {
-      for (const href of hrefs) {
-        const match = guidePathPattern.exec(href);
-        expect(match, href).not.toBeNull();
-        expect(
-          getInformationGuideEntry(locale, "applying-to-bir", match?.[2] as string),
-          `${href} (${locale})`
-        ).not.toBeNull();
-      }
-    }
-  });
-
-  it("the step by step has unique step and task ids and both languages for every label", () => {
-    const stepIds = applyingSteps.map((s) => s.id);
-    expect(new Set(stepIds).size).toBe(stepIds.length);
-    const taskIds = applyingSteps.flatMap((s) => s.tasks.map((t) => t.id));
-    expect(new Set(taskIds).size).toBe(taskIds.length);
-    for (const step of applyingSteps) {
-      expect(step.title.en && step.title.th).toBeTruthy();
-      for (const task of step.tasks) expect(task.label.en && task.label.th).toBeTruthy();
-    }
-  });
 });

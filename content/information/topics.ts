@@ -17,13 +17,13 @@ export const informationTopicCopy: Record<
   en: {
     "applying-to-bir": {
       title: "Applying to BIR",
-      lede: "Choose an admission round, check the dates and requirements, and follow the steps to apply for 2027 entry.",
+      lede: "Find out which admission round you can apply through, then read the dates, documents and fees for 2027 entry.",
     },
   },
   th: {
     "applying-to-bir": {
       title: "สมัครเรียน BIR",
-      lede: "เลือกรอบรับสมัคร ตรวจสอบวันและเกณฑ์ แล้วทำตามขั้นตอนการสมัครสำหรับการเข้าศึกษาปี 2570",
+      lede: "เช็กว่าสมัครรอบไหนได้ แล้วดูกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570",
     },
   },
 };
