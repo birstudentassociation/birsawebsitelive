@@ -152,7 +152,7 @@ export const staticPages: StaticPage[] = [
     },
     summary: {
       en: "Live checks on weather, river levels, flooding, air quality and hazards around campus, with what to do.",
-      th: "เช็กอากาศ ระดับน้ำ น้ำท่วม ฝุ่น และเหตุอันตรายรอบมหาวิทยาลัยแบบล่าสุด พร้อมคำแนะนำ",
+      th: "ดูสภาพอากาศ ระดับน้ำ น้ำท่วม ฝุ่น และเหตุอันตรายรอบมหาวิทยาลัยจากข้อมูลล่าสุด พร้อมคำแนะนำ",
     },
     keywords: {
       en: [
@@ -376,7 +376,7 @@ export const staticPages: StaticPage[] = [
     title: { en: "Plan your BIR degree", th: "วางแผนการศึกษาปริญญา BIR" },
     summary: {
       en: "Check your plan against your curriculum: credits, prerequisites, the internship rule and whether you are on track to graduate.",
-      th: "ตรวจแผนการเรียนกับหลักสูตรของท่าน ทั้งหน่วยกิต วิชาบังคับก่อน กฎการฝึกงาน และโอกาสจบตามกำหนด",
+      th: "ตรวจแผนการเรียนกับหลักสูตรของคุณ ทั้งหน่วยกิต วิชาบังคับก่อน กฎการฝึกงาน และโอกาสจบตามกำหนด",
     },
     keywords: {
       en: [
@@ -437,8 +437,8 @@ export const staticPages: StaticPage[] = [
     kind: "reference",
     title: { en: "Course reviews", th: "รีวิวรายวิชา" },
     summary: {
-      en: "What a course is actually like from students who took it: workload, assessment style and tips.",
-      th: "รายวิชาเป็นอย่างไรจริง ๆ จากนักศึกษาที่เคยเรียน ทั้งภาระงาน รูปแบบการวัดผล และคำแนะนำ",
+      en: "What a course is like from students who took it: workload, assessment style and tips.",
+      th: "รายวิชาเป็นอย่างไรจากนักศึกษาที่เคยเรียน ทั้งภาระงาน รูปแบบการวัดผล และคำแนะนำ",
     },
     keywords: {
       en: [
@@ -541,7 +541,7 @@ export const staticPages: StaticPage[] = [
     title: { en: "Start a club", th: "เริ่มชมรมใหม่" },
     summary: {
       en: "Check whether your idea can become a club, then send the proposal to BIRSA.",
-      th: "ตรวจสอบว่าแนวคิดของท่านตั้งเป็นชมรมได้หรือไม่ แล้วส่งข้อเสนอมาที่ BIRSA",
+      th: "ตรวจสอบว่าแนวคิดของคุณตั้งเป็นชมรมได้หรือไม่ แล้วส่งข้อเสนอมาที่ BIRSA",
     },
     keywords: {
       en: ["start a club", "new club", "create a club", "found a club", "club proposal"],
@@ -704,7 +704,7 @@ export const staticPages: StaticPage[] = [
     title: { en: "Privacy", th: "ประกาศความเป็นส่วนตัว" },
     summary: {
       en: "What data this site collects, why, how long it is kept, and the rights you have over it.",
-      th: "เว็บไซต์นี้เก็บข้อมูลอะไร เพราะเหตุใด เก็บนานเท่าใด และท่านมีสิทธิอะไรบ้าง",
+      th: "เว็บไซต์นี้เก็บข้อมูลอะไร เพราะเหตุใด เก็บนานเท่าใด และคุณมีสิทธิอะไรบ้าง",
     },
     keywords: {
       en: ["privacy", "pdpa", "data protection", "personal data", "what do you collect"],
@@ -752,7 +752,7 @@ export const staticPages: StaticPage[] = [
     title: { en: "Ask about your data", th: "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล" },
     summary: {
       en: "Ask for a copy of your data, or ask for it to be corrected or deleted.",
-      th: "ขอสำเนาข้อมูลของท่าน หรือขอให้แก้ไขหรือลบข้อมูล",
+      th: "ขอสำเนาข้อมูลของคุณ หรือขอให้แก้ไขหรือลบข้อมูล",
     },
     keywords: {
       en: ["delete my data", "my data", "data request", "access request", "erase", "correct"],

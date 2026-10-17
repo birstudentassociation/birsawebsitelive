@@ -168,8 +168,8 @@ export function checkPlan(
       id: `internshipSummer:${term.term.year}-${term.term.kind}`,
       severity: "warning",
       message: {
-        en: `The internship takes up the whole of ${termLabel(term.term).en}. You have other courses or free elective credits placed there too; the internship is the whole term, so nothing else belongs alongside it.`,
-        th: `การฝึกงานใช้เวลาทั้งภาคการศึกษาของ${termLabel(term.term).th} แต่แผนมีรายวิชาอื่นหรือหน่วยกิตวิชาเลือกเสรีอยู่ในภาคเดียวกันด้วย เนื่องจากการฝึกงานถือเป็นภาคการศึกษาทั้งหมด จึงไม่ควรมีรายวิชาอื่นควบคู่ไปด้วย`,
+        en: `The internship takes up the whole of ${termLabel(term.term).en}. You have other courses or free elective credits placed there too, and nothing else can sit alongside it.`,
+        th: `การฝึกงานใช้เวลาตลอด${termLabel(term.term).th} แต่แผนมีรายวิชาอื่นหรือหน่วยกิตวิชาเลือกเสรีอยู่ในภาคเดียวกันด้วย ซึ่งเรียนควบคู่กับการฝึกงานไม่ได้`,
       },
       source: curriculumSource,
     });

@@ -208,8 +208,8 @@ const rules: Rule[] = [
       title: bi(locale, "Course reviews", "รีวิวรายวิชา"),
       description: bi(
         locale,
-        "What a course is actually like, from students who took it: workload, how it is assessed, and what they wish they had known.",
-        "รายวิชาเป็นอย่างไรจริง ๆ จากนักศึกษาที่เคยเรียน ทั้งภาระงาน การวัดผล และสิ่งที่อยากรู้ก่อนลงเรียน"
+        "What a course is like, from students who took it: workload, how it is assessed, and what they wish they had known.",
+        "รายวิชาเป็นอย่างไรจากนักศึกษาที่เคยเรียน ทั้งภาระงาน การวัดผล และสิ่งที่อยากรู้ก่อนลงเรียน"
       ),
       action: {
         label: bi(locale, "Browse course reviews", "ดูรีวิวรายวิชา"),
@@ -303,7 +303,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "Send BIRSA a message, or find out which office handles your question before you write to anyone.",
-        "ส่งข้อความถึง BIRSA หรือดูว่าหน่วยงานใดรับผิดชอบเรื่องของท่านก่อนติดต่อ"
+        "ส่งข้อความถึง BIRSA หรือดูว่าหน่วยงานใดรับผิดชอบเรื่องของคุณก่อนติดต่อ"
       ),
       action: {
         label: bi(locale, "Contact BIRSA", "ติดต่อ BIRSA"),
@@ -359,7 +359,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "You can report this to the BIR Programme Office or to BIRSA's Rights Advocate. You do not have to decide what happens next when you first speak to someone.",
-        "ท่านสามารถแจ้งเรื่องต่อสำนักงานหลักสูตร BIR หรือฝ่ายสิทธินักศึกษาของ BIRSA ได้ และไม่จำเป็นต้องตัดสินใจถึงขั้นตอนถัดไปตั้งแต่การพูดคุยครั้งแรก"
+        "คุณแจ้งเรื่องต่อสำนักงานหลักสูตร BIR หรือฝ่ายสิทธินักศึกษาของ BIRSA ได้ และไม่จำเป็นต้องตัดสินใจถึงขั้นตอนถัดไปตั้งแต่การพูดคุยครั้งแรก"
       ),
       action: {
         label: bi(locale, "See who to tell and how", "ดูช่องทางการแจ้งเรื่อง"),
@@ -409,7 +409,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "What to do, who to call, and how BIRSA will tell you what is happening.",
-        "สิ่งที่ต้องทำ ผู้ที่ต้องติดต่อ และวิธีที่ BIRSA จะแจ้งสถานการณ์ให้ท่านทราบ"
+        "สิ่งที่ต้องทำ ผู้ที่ต้องติดต่อ และวิธีที่ BIRSA จะแจ้งสถานการณ์ให้คุณทราบ"
       ),
       action: {
         label: bi(locale, "Open emergency guidance", "เปิดคำแนะนำฉุกเฉิน"),
@@ -518,7 +518,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "Check whether your idea can become a club, then send the proposal to BIRSA.",
-        "ตรวจสอบว่าแนวคิดของท่านตั้งเป็นชมรมได้หรือไม่ แล้วส่งข้อเสนอมาที่ BIRSA"
+        "ตรวจสอบว่าแนวคิดของคุณตั้งเป็นชมรมได้หรือไม่ แล้วส่งข้อเสนอมาที่ BIRSA"
       ),
       action: {
         label: bi(locale, "Start the check", "เริ่มตรวจสอบ"),
@@ -655,7 +655,7 @@ const rules: Rule[] = [
       title: bi(locale, "Fees, scholarships and money", "ค่าเทอม ทุนการศึกษา และการเงิน"),
       description: bi(
         locale,
-        "What you have to pay and when, what help exists if you cannot, and what things actually cost here.",
+        "What you have to pay and when, what help exists if you cannot, and what things cost here.",
         "ต้องจ่ายอะไรเมื่อใด มีความช่วยเหลืออะไรหากจ่ายไม่ไหว และค่าใช้จ่ายจริงเป็นเท่าใด"
       ),
       action: {
@@ -741,7 +741,7 @@ const rules: Rule[] = [
       title: bi(locale, "Getting around", "การเดินทาง"),
       description: bi(
         locale,
-        "Shuttle buses between campuses, boats and buses to Tha Prachan, and how long each actually takes.",
+        "Shuttle buses between campuses, boats and buses to Tha Prachan, and how long each takes.",
         "รถรับส่งระหว่างศูนย์ เรือและรถไปท่าพระจันทร์ และเวลาที่ใช้จริงในแต่ละเส้นทาง"
       ),
       action: {
@@ -784,7 +784,7 @@ const rules: Rule[] = [
       title: bi(locale, "Places to eat nearby", "ร้านอาหารใกล้มหาวิทยาลัย"),
       description: bi(
         locale,
-        "Where students actually eat around Tha Prachan and Pinklao, with a map and rough prices.",
+        "Where students eat around Tha Prachan and Pinklao, with a map and rough prices.",
         "ร้านที่นักศึกษากินจริงแถวท่าพระจันทร์และปิ่นเกล้า พร้อมแผนที่และราคาโดยประมาณ"
       ),
       action: {
@@ -962,7 +962,7 @@ const rules: Rule[] = [
       description: bi(
         locale,
         "The university's academic calendar, holidays and BIRSA events. The BIR office announces BIR's registration dates on birpolsci.com. You can also subscribe to the calendar so the dates appear in your own app.",
-        "ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR ประกาศที่ birpolsci.com ท่านสามารถกดติดตามปฏิทินเพื่อให้วันสำคัญไปแสดงในแอปของท่านได้"
+        "ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR ประกาศที่ birpolsci.com คุณติดตามปฏิทินได้ เพื่อให้วันสำคัญแสดงในแอปของคุณ"
       ),
       action: {
         label: bi(locale, "See what's on", "ดูข่าวและกิจกรรม"),

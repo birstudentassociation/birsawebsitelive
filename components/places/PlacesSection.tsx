@@ -47,7 +47,7 @@ type Copy = {
 const copy: Record<Locale, Copy> = {
   en: {
     mapsLabel: "Open in Google Maps",
-    mapHeading: "Map of the places listed below",
+    mapHeading: "Map of the places in this list",
     areaMapCaption: {
       oldtown: "Tha Prachan, Wang Lang and the old town",
       pinklao: "Pinklao and Charansanitwong",
@@ -61,7 +61,7 @@ const copy: Record<Locale, Copy> = {
   },
   th: {
     mapsLabel: "เปิดใน Google Maps",
-    mapHeading: "แผนที่แสดงตำแหน่งของสถานที่ในรายการด้านล่าง",
+    mapHeading: "แผนที่ของสถานที่ในรายการนี้",
     areaMapCaption: {
       oldtown: "ฝั่งท่าพระจันทร์ วังหลัง และเมืองเก่า",
       pinklao: "ฝั่งปิ่นเกล้าและจรัญสนิทวงศ์",

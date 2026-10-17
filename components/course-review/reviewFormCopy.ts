@@ -72,7 +72,7 @@ export type ReviewFormCopy = {
 export const reviewFormCopy: Record<Locale, ReviewFormCopy> = {
   en: {
     title: "Write a review",
-    lede: "Tell future students what the course was really like.",
+    lede: "Tell future students what the course was like.",
     howItWorksTitle: "Before you start",
     howItWorks: [
       "Your review is anonymous. The form does not ask for your name, student ID or email address, and BIRSA does not store your IP address.",
@@ -153,7 +153,7 @@ export const reviewFormCopy: Record<Locale, ReviewFormCopy> = {
     notConfiguredBody: "The database is not connected, so this review was not saved.",
     unavailableTitle: "Reviews are not being collected yet",
     unavailableBody:
-      "This service is not switched on. If you would like to share what a course was like, contact BIRSA.",
+      "This service is not switched on. To share what a course was like, contact BIRSA.",
     errorTitle: "Something went wrong",
     errorBody: "Your review was not saved. Try again.",
     rateLimitedTitle: "Too many reviews sent",
@@ -166,12 +166,12 @@ export const reviewFormCopy: Record<Locale, ReviewFormCopy> = {
   },
   th: {
     title: "เขียนรีวิวรายวิชา",
-    lede: "เล่าให้รุ่นน้องฟังว่าวิชานี้เป็นอย่างไรจริง ๆ",
+    lede: "บอกนักศึกษารุ่นถัดไปว่าวิชานี้เป็นอย่างไร",
     howItWorksTitle: "ก่อนเริ่มเขียน",
     howItWorks: [
       "รีวิวนี้ไม่ระบุตัวตน แบบฟอร์มไม่ถามชื่อ รหัสนักศึกษา หรืออีเมลของคุณ และ BIRSA ไม่เก็บหมายเลขไอพีของคุณ",
-      "เจ้าหน้าที่จะอ่านทุกรีวิวก่อนเผยแพร่สิ่งใด และ BIRSA จะเผยแพร่เป็นบทสรุปเมื่อมีนักศึกษารีวิววิชา ภาคการศึกษา และอาจารย์ผู้สอนเดียวกันอย่างน้อย {threshold} คนเท่านั้น ข้อความของคุณจึงไม่ถูกแสดงโดยลำพัง",
-      "เล่าด้วยถ้อยคำ รีวิวไม่มีคะแนนหรือดาว",
+      "เจ้าหน้าที่จะอ่านทุกรีวิวก่อนเผยแพร่สิ่งใด และ BIRSA จะเผยแพร่เป็นบทสรุปเมื่อมีนักศึกษารีวิววิชา ภาคการศึกษา และอาจารย์ผู้สอนเดียวกันอย่างน้อย {threshold} คนเท่านั้น ข้อความของคุณจึงไม่แสดงโดยลำพัง",
+      "เขียนเป็นข้อความ รีวิวไม่มีคะแนนหรือดาว",
     ],
     termLabel: "คุณเรียนวิชานี้ในภาคการศึกษาใด",
     termHint: "รีวิวได้ย้อนหลังสามปีการศึกษา",
@@ -201,7 +201,7 @@ export const reviewFormCopy: Record<Locale, ReviewFormCopy> = {
     quoteHint: "ใช้ถ้อยคำของคุณเอง จะเป็นภาษาไทยหรืออังกฤษก็ได้ เจ้าหน้าที่อาจไม่นำไปใช้",
     charactersHint: "ไม่เกิน {max} ตัวอักษร",
     privacyWarning:
-      "ไม่ต้องใส่ชื่อ รหัสนักศึกษา ช่องทางติดต่อ หรือชื่อของนักศึกษาคนใด เล่าว่าวิชานี้เป็นอย่างไร และอย่าตำหนิตัวบุคคล",
+      "อย่าใส่ชื่อ รหัสนักศึกษา ช่องทางติดต่อ หรือชื่อของนักศึกษาคนใด อธิบายว่าวิชานี้เป็นอย่างไร และอย่าตำหนิตัวบุคคล",
     requiredLabel: "จำเป็น",
     optionalLabel: "ไม่บังคับ",
     errorSummaryTitle: "พบข้อผิดพลาด",
@@ -244,7 +244,7 @@ export const reviewFormCopy: Record<Locale, ReviewFormCopy> = {
     notConfiguredBody: "ยังไม่ได้เชื่อมต่อฐานข้อมูล จึงไม่ได้บันทึกรีวิวนี้",
     unavailableTitle: "ยังไม่เปิดรับรีวิว",
     unavailableBody:
-      "บริการนี้ยังไม่เปิดใช้งาน หากต้องการเล่าว่าวิชานี้เป็นอย่างไร ติดต่อ BIRSA ได้",
+      "บริการนี้ยังไม่เปิดใช้งาน หากต้องการแจ้งว่าวิชานี้เป็นอย่างไร ติดต่อ BIRSA ได้",
     errorTitle: "เกิดข้อผิดพลาด",
     errorBody: "ไม่ได้บันทึกรีวิวของคุณ ลองอีกครั้ง",
     rateLimitedTitle: "ส่งรีวิวบ่อยเกินไป",

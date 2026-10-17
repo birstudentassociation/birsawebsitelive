@@ -130,7 +130,7 @@ const copy: Record<Locale, Copy> = {
     hideForm: "Cancel",
     formTitle: "Add a new item",
     keyLabel: "Key",
-    keyHint: "A short, unique code used internally, e.g. tent-4p.",
+    keyHint: "A short, unique code used internally, for example tent-4p.",
     nameEnLabel: "Name (English)",
     nameThLabel: "Name (Thai)",
     descriptionEnLabel: "Description (English)",

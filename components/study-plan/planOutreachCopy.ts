@@ -129,7 +129,7 @@ const en: OwnCopy = {
     openLink: "Open the read-only view",
     copyButton: "Copy link",
     copied: "Link copied",
-    copyFailed: "Could not copy. Select the link above and copy it by hand.",
+    copyFailed: "Could not copy. Select the link and copy it by hand.",
     datedNote: "The link shows your plan as it is today. If you change your plan, make a new link.",
     noScriptNote:
       "The person you send it to needs JavaScript to open it. If they do not have it, send them your printed plan instead.",
@@ -172,7 +172,7 @@ const en: OwnCopy = {
     checkboxLabel: "Share my planned electives anonymously with Academic Affairs",
     submit: "Send my electives",
     submitting: "Sending",
-    none: "There are no elective courses in your plan yet. Add some to the terms above, then come back here.",
+    none: "There are no elective courses in your plan yet. Add elective courses to your plan first.",
     shared: "Thank you. Your planned electives were sent.",
     alreadyShared:
       "You have already sent your electives from this browser this term ({term}). You can send again next term.",
@@ -180,7 +180,7 @@ const en: OwnCopy = {
     errors: {
       "not-agreed": "Tick the box if you want to share your planned electives.",
       invalid:
-        "We could not use what was sent. Reload the plan screen and try again, and nothing was stored.",
+        "We could not use what was sent. Reload the plan screen and try again. Nothing was stored.",
       "rate-limited":
         "Several people have sent from your network in the last few minutes. Try again soon.",
       "not-configured": "Sharing is not switched on yet, so nothing was sent.",
@@ -237,7 +237,7 @@ const en: OwnCopy = {
 const th: OwnCopy = {
   heading: "ส่งแผนให้ผู้อื่นหรือสอบถามเรื่องแผน",
   intro:
-    "ทุกข้อด้านล่างเป็นทางเลือก แผนจะอยู่ในอุปกรณ์เครื่องนี้ต่อไปจนกว่าคุณจะเลือกทำข้อใดข้อหนึ่ง และไม่มีข้อใดแก้ไขแผน",
+    "ทุกข้อในส่วนนี้เป็นทางเลือก แผนจะอยู่ในอุปกรณ์เครื่องนี้ต่อไปจนกว่าคุณจะเลือกทำข้อใดข้อหนึ่ง และไม่มีข้อใดแก้ไขแผน",
   share: {
     heading: "ส่งแผนให้อาจารย์ที่ปรึกษา",
     body: "ส่งลิงก์ให้อาจารย์ที่ปรึกษาเปิดดูแผนได้ แต่แก้ไขไม่ได้ ข้อมูลแผนอยู่ในลิงก์ส่วนที่ตามหลังเครื่องหมาย # ซึ่งเบราว์เซอร์ไม่ส่งไปยังเซิร์ฟเวอร์ BIRSA จึงไม่ได้รับแผนนี้ แต่ใครก็ตามที่มีลิงก์จะเปิดดูแผนได้ จึงควรส่งให้เฉพาะคนที่ตั้งใจจะให้ดู",
@@ -245,7 +245,7 @@ const th: OwnCopy = {
     openLink: "เปิดหน้าดูแผน",
     copyButton: "คัดลอกลิงก์",
     copied: "คัดลอกลิงก์แล้ว",
-    copyFailed: "คัดลอกไม่สำเร็จ เลือกลิงก์ด้านบนแล้วคัดลอกเอง",
+    copyFailed: "คัดลอกไม่สำเร็จ เลือกลิงก์แล้วคัดลอกด้วยตนเอง",
     datedNote: "ลิงก์นี้แสดงแผนตามที่เป็นอยู่ในวันนี้ หากแก้ไขแผนภายหลัง ต้องส่งลิงก์ใหม่",
     noScriptNote:
       "ผู้รับต้องเปิดใช้ JavaScript จึงจะเปิดลิงก์นี้ได้ หากผู้รับปิดไว้ ให้ส่งแผนฉบับพิมพ์แทน",
@@ -255,9 +255,9 @@ const th: OwnCopy = {
     lede: "สำเนาแผนการศึกษาของนักศึกษา เปิดดูได้อย่างเดียว แก้ไขไม่ได้",
     readOnlyTitle: "ดูได้อย่างเดียว",
     readOnlyDated:
-      "สำเนานี้จัดทำเมื่อ {date} แก้ไขในหน้านี้ไม่ได้ และจะไม่เปลี่ยนตามเมื่อนักศึกษาแก้แผนภายหลัง เบราว์เซอร์นี้อ่านแผนจากลิงก์โดยตรง ไม่ได้ส่งแผนไปยัง BIRSA",
+      "สำเนานี้จัดทำเมื่อ {date} แก้ไขในหน้านี้ไม่ได้ และไม่อัปเดตเมื่อนักศึกษาแก้แผนภายหลัง เบราว์เซอร์นี้อ่านแผนจากลิงก์โดยตรง ไม่ได้ส่งแผนไปยัง BIRSA",
     readOnlyUndated:
-      "ลิงก์นี้ไม่ได้ระบุวันที่จัดทำ ควรถามนักศึกษาว่าเป็นแผนฉบับล่าสุดหรือไม่ แก้ไขในหน้านี้ไม่ได้ และจะไม่เปลี่ยนตามเมื่อนักศึกษาแก้แผนภายหลัง เบราว์เซอร์นี้อ่านแผนจากลิงก์โดยตรง ไม่ได้ส่งแผนไปยัง BIRSA",
+      "ลิงก์นี้ไม่ได้ระบุวันที่จัดทำ ควรถามนักศึกษาว่าเป็นแผนฉบับล่าสุดหรือไม่ แก้ไขในหน้านี้ไม่ได้ และไม่อัปเดตเมื่อนักศึกษาแก้แผนภายหลัง เบราว์เซอร์นี้อ่านแผนจากลิงก์โดยตรง ไม่ได้ส่งแผนไปยัง BIRSA",
     openedOn: "เปิดดูเมื่อ {date}",
     emptyTitle: "ลิงก์นี้ไม่มีแผน",
     emptyBody:
@@ -288,7 +288,7 @@ const th: OwnCopy = {
     checkboxLabel: "ส่งรายชื่อวิชาเลือกที่ฉันวางแผนไว้ให้ฝ่ายวิชาการ โดยไม่ระบุตัวตน",
     submit: "ส่งวิชาเลือกของฉัน",
     submitting: "กำลังส่ง",
-    none: "แผนยังไม่มีวิชาเลือก เพิ่มวิชาเลือกในภาคการศึกษาด้านบนก่อน แล้วกลับมาที่นี่",
+    none: "แผนยังไม่มีวิชาเลือก เพิ่มวิชาเลือกในแผนก่อน",
     shared: "ส่งวิชาเลือกที่วางแผนไว้เรียบร้อยแล้ว ขอบคุณ",
     alreadyShared: "เบราว์เซอร์นี้ส่งวิชาเลือกของ{term}ไปแล้ว ส่งใหม่ได้ในภาคการศึกษาถัดไป",
     errorSummaryTitle: "ยังไม่ได้ส่งวิชาเลือก",

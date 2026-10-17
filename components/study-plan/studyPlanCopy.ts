@@ -317,14 +317,14 @@ const en: StudyPlanCopy = {
   },
   cohort: {
     title: "What are the first two digits of your student ID?",
-    hint: "For example, if your ID starts 6703, enter 67. This is what tells us which curriculum you are on.",
+    hint: "For example, if your ID starts 6703, enter 67.",
     label: "First two digits",
     errorRequired: "Enter the first two digits of your student ID",
     errorFormat: "Enter two digits, for example 67",
   },
   curriculum: {
     title: "Is this your curriculum?",
-    lede: "Check this against your own transcript before you go on. If it is wrong, everything after it will be wrong too.",
+    lede: "Check this against your own transcript before you go on.",
     totalLabel: "Credits to graduate",
     coursesLabel: "Courses you should recognise from your first year",
     sourceLabel: "Read the source document",
@@ -340,7 +340,7 @@ const en: StudyPlanCopy = {
     unsupportedCohort:
       "We do not have curriculum data for student IDs starting {cohort}. We only cover cohorts 64 to 69, which is everyone currently enrolled.",
     notSure:
-      "You told us the curriculum we found does not match, or that you are not sure. We will not guess: a plan built on the wrong curriculum is worse than no plan.",
+      "You told us the curriculum we found does not match, or that you are not sure. We will not guess which curriculum is yours.",
     doubleDegree:
       "Double degree routes are not covered. The credit totals differ between the source documents, and the UK routes are counted in credits that do not compare to Thai credits.",
     whatToDo: "What to do instead",
@@ -367,8 +367,7 @@ const en: StudyPlanCopy = {
     derivedExplanation: "Based on your student ID, we think you are in {year}, {term}.",
     correctIfWrong:
       "Change this if it is wrong, for example if you took a leave of absence, are repeating a year, or are taking longer than the standard plan.",
-    clampedExplanation:
-      "Your student ID suggests you are past year 8. Select where you actually are.",
+    clampedExplanation: "Your student ID suggests you are past year 8. Select where you are.",
     yearLabel: "Year",
     termLabel: "Semester",
     errorRequired: "Select your year and semester",
@@ -398,7 +397,7 @@ const en: StudyPlanCopy = {
   },
   fill: {
     title: "Fill in what these courses were",
-    hint: "Your plan holds a slot rather than a named course here. Choose what you actually took, or leave it if you have not taken it yet.",
+    hint: "Your plan holds a slot rather than a named course here. Choose what you took, or leave it if you have not taken it yet.",
     notTakenLabel: "I have not taken this yet",
   },
   plan: {
@@ -433,10 +432,11 @@ const en: StudyPlanCopy = {
     pickOtherGroup: "Everything else",
     pickRemainingTemplate: "{n} credits still needed",
     pickSlotAnyCourse:
-      "Any Thammasat course counts here. Record it in the free elective credits box below rather than as a course.",
+      "Any Thammasat course counts here. Record it in Free elective credits this term rather than as a course.",
     termEmpty: "Nothing planned yet",
     moreOptionsLabel: "Add something else to this term",
-    moreCandidatesTemplate: "{n} more courses fit this choice. They are in the full list below.",
+    moreCandidatesTemplate:
+      "{n} more courses fit this choice. They are in the full list under Add a course.",
     pickNothingOwed:
       "This plan already covers every requirement. Anything you add here is on top of what you need.",
     recommendedTermCompleteTemplate:
@@ -455,7 +455,7 @@ const en: StudyPlanCopy = {
     printLinkLabel: "Print this plan",
     doesNotCheckHeading: "What this does not check",
     doesNotCheck: [
-      "Whether a course actually runs in the term you have placed it in.",
+      "Whether a course runs in the term you have placed it in.",
       "Anything at the Dean's or your advisor's discretion.",
       "Anything depending on your GPA.",
     ],
@@ -500,7 +500,7 @@ const th: StudyPlanCopy = {
     needs: ["เลขรหัสนักศึกษา 2 หลักแรก", "ใบแสดงผลการศึกษา หากเคยลงทะเบียนวิชานอกแผนการเรียนปกติ"],
     timeEstimate: "ใช้เวลาประมาณ 10 นาที",
     notARecord:
-      "นี่เป็นแผนการศึกษา ไม่ใช่ผลการศึกษาอย่างเป็นทางการ ข้อมูลเก็บอยู่ในเบราว์เซอร์นี้เท่านั้น และไม่มีใครที่ BIRSA เห็นข้อมูลนี้",
+      "นี่เป็นแผนการศึกษา ไม่ใช่ผลการศึกษาอย่างเป็นทางการ ข้อมูลเก็บอยู่ในเบราว์เซอร์นี้เท่านั้น และ BIRSA ไม่เห็นข้อมูลนี้",
     startButton: "เริ่มต้น",
     deletedTitle: "ลบแผนการศึกษาแล้ว",
     deletedBody:
@@ -515,7 +515,7 @@ const th: StudyPlanCopy = {
   },
   curriculum: {
     title: "หลักสูตรนี้ตรงกับของคุณหรือไม่",
-    lede: "ตรวจกับใบแสดงผลการศึกษาก่อนไปต่อ หากหลักสูตรไม่ถูกต้อง ขั้นตอนต่อจากนี้จะผิดตามไปทั้งหมด",
+    lede: "ตรวจกับใบแสดงผลการศึกษาก่อนไปต่อ หากหลักสูตรไม่ถูกต้อง ผลในขั้นตอนต่อไปจะผิดตามไปด้วย",
     totalLabel: "หน่วยกิตที่ต้องมีเพื่อสำเร็จการศึกษา",
     coursesLabel: "รายวิชาที่น่าจะคุ้นจากปีแรก",
     sourceLabel: "อ่านเอกสารต้นทาง",
@@ -530,8 +530,7 @@ const th: StudyPlanCopy = {
     title: "บริการนี้วางแผนให้คุณไม่ได้",
     unsupportedCohort:
       "ยังไม่มีข้อมูลหลักสูตรของรหัสที่ขึ้นต้นด้วย {cohort} บริการนี้รองรับรุ่น 64 ถึง 69 ซึ่งครอบคลุมนักศึกษาปัจจุบันทุกคน",
-    notSure:
-      "คุณแจ้งว่าหลักสูตรที่แสดงไม่ตรงหรือไม่แน่ใจ ระบบจะไม่เดาหลักสูตรให้ เพราะแผนที่ทำจากหลักสูตรผิดจะสร้างความเสียหายมากกว่าไม่มีแผนเลย",
+    notSure: "คุณแจ้งว่าหลักสูตรที่แสดงไม่ตรงหรือไม่แน่ใจ ระบบจะไม่เดาว่าหลักสูตรใดเป็นของคุณ",
     doubleDegree:
       "บริการนี้ไม่รองรับหลักสูตรสองปริญญา เพราะยอดหน่วยกิตในเอกสารต้นทางแต่ละฉบับไม่ตรงกัน และหน่วยกิตฝั่งสหราชอาณาจักรเทียบกับหน่วยกิตไทยโดยตรงไม่ได้",
     whatToDo: "สิ่งที่ทำได้แทน",
@@ -624,16 +623,16 @@ const th: StudyPlanCopy = {
     pickOtherGroup: "รายวิชาอื่น ๆ",
     pickRemainingTemplate: "ยังขาด {n} หน่วยกิต",
     pickSlotAnyCourse:
-      "ช่องนี้เป็นวิชาเลือกเสรี ซึ่งเป็นวิชาใดของมหาวิทยาลัยธรรมศาสตร์ก็ได้ ให้กรอกในช่องหน่วยกิตวิชาเลือกเสรีด้านล่างแทนการเลือกรายวิชา",
+      'ช่องนี้นับวิชาใดของมหาวิทยาลัยธรรมศาสตร์ก็ได้ ให้กรอกใน "หน่วยกิตวิชาเลือกเสรีในภาคนี้" แทนการเลือกรายวิชา',
     termEmpty: "ยังไม่มีรายวิชาในภาคนี้",
     moreOptionsLabel: "เพิ่มรายวิชาอื่นในภาคนี้",
-    moreCandidatesTemplate: "ยังมีอีก {n} วิชาที่เลือกได้ อยู่ในรายการทั้งหมดด้านล่าง",
+    moreCandidatesTemplate: 'ยังมีอีก {n} วิชาที่เลือกได้ ดูได้ในรายการทั้งหมดที่ "เพิ่มรายวิชา"',
     pickNothingOwed:
       "แผนนี้ครบทุกข้อกำหนดแล้ว รายวิชาที่เพิ่มต่อจากนี้จะเป็นหน่วยกิตเกินจากที่ต้องใช้",
     recommendedTermCompleteTemplate: "ภาคนี้ครบ {n} หน่วยกิตตามแผนการเรียนแนะนำแล้ว",
     pickPrerequisiteTemplate: "ต้องผ่าน {codes} ก่อน",
     internshipOnlyTerm:
-      "ภาคฤดูร้อนนี้เป็นภาคฝึกงาน ซึ่งเรียนวิชาอื่นควบคู่ไม่ได้ จึงเพิ่มรายวิชาในภาคนี้ไม่ได้",
+      "ภาคฤดูร้อนนี้เป็นภาคฝึกงาน เรียนวิชาอื่นควบคู่ไม่ได้ จึงเพิ่มรายวิชาในภาคนี้ไม่ได้",
     removeCourseButton: "ลบออก",
     freeElectiveLabel: "หน่วยกิตวิชาเลือกเสรีในภาคนี้",
     updateFreeElectiveButton: "บันทึก",

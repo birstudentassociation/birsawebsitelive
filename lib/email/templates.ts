@@ -65,12 +65,12 @@ export function renderLoanApproved(i: {
   ];
 
   const bodyHtml =
-    heading("คำขอยืมของคุณได้รับการอนุมัติ &middot; Your loan request is approved") +
+    heading("คำขอยืมของคุณได้รับอนุมัติ &middot; Your loan request is approved") +
     badge("อนุมัติแล้ว &middot; Approved", "success") +
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(`คำขอยืมของคุณได้รับการอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`) +
+        paragraph(`คำขอยืมของคุณได้รับอนุมัติแล้ว กรุณานำบัตรนักศึกษามาแสดงเมื่อมารับอุปกรณ์`) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
@@ -118,18 +118,16 @@ export function renderLoanRejected(i: {
   ];
 
   const bodyHtml =
-    heading("คำขอยืมของคุณไม่ได้รับการอนุมัติ &middot; Your loan request was not approved") +
+    heading("คำขอยืมของคุณไม่ได้รับอนุมัติ &middot; Your loan request was not approved") +
     bilingualBlock({
       th:
         paragraph(`สวัสดีคุณ${name},`) +
-        paragraph(
-          `ขอบคุณที่สนใจใช้บริการยืมอุปกรณ์ของ BIRSA คำขอยืมของคุณไม่ได้รับการอนุมัติในครั้งนี้ หากมีข้อสงสัยหรือต้องการสอบถามเพิ่มเติม สามารถติดต่อ BIRSA ได้โดยตรง`
-        ) +
+        paragraph(`คำขอยืมของคุณไม่ได้รับอนุมัติในครั้งนี้ หากมีคำถาม ติดต่อ BIRSA ได้โดยตรง`) +
         infoTable(rowsTh),
       en:
         paragraph(`Hi ${name},`) +
         paragraph(
-          `Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time. Contact BIRSA directly if you have questions.`
+          `Your loan request was not approved this time. Contact BIRSA directly if you have questions.`
         ) +
         infoTable(rowsEn),
     });
@@ -140,7 +138,7 @@ export function renderLoanRejected(i: {
     text: [
       `Hi ${i.borrowerName},`,
       "",
-      `Thank you for your interest in borrowing from BIRSA. Unfortunately, your loan request was not approved this time.`,
+      `Your loan request was not approved this time.`,
       `Reference: ${i.reference}`,
       `Item: ${i.itemNameEn}`,
       "",
@@ -236,7 +234,7 @@ export function renderDueSoon(i: {
       th:
         paragraph(`สวัสดีคุณ${name},`) +
         paragraph(
-          `อุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันดังกล่าว`
+          `อุปกรณ์ที่คุณยืมจะครบกำหนดคืนในวันที่ ${end} กรุณานำมาคืนที่ห้อง BIRSA ภายในหรือก่อนวันที่นั้น`
         ) +
         infoTable(rowsTh),
       en:
@@ -290,7 +288,7 @@ export function renderPickupReady(i: {
       th:
         paragraph(`สวัสดีคุณ${name},`) +
         paragraph(
-          `คำขอยืมของคุณได้รับการอนุมัติแล้ว และอุปกรณ์พร้อมให้มารับได้ตั้งแต่วันที่ ${start} กรุณามารับที่ห้อง BIRSA พร้อมนำบัตรนักศึกษามาแสดง`
+          `คำขอยืมของคุณได้รับอนุมัติแล้ว และอุปกรณ์พร้อมให้มารับได้ตั้งแต่วันที่ ${start} กรุณามารับที่ห้อง BIRSA พร้อมนำบัตรนักศึกษามาแสดง`
         ) +
         infoTable(rowsTh),
       en:
@@ -366,10 +364,7 @@ export function renderOfficerDigest(i: {
     heading(`สรุปประจำวัน ${date} &middot; Daily digest for ${date}`) +
     bilingualBlock({
       th: paragraph(`สรุปคลังอุปกรณ์ประจำวันของ BIRSA:`) + infoTable(rowsTh) + lowStockListTh,
-      en:
-        paragraph(`Here is today's inventory summary for BIRSA:`) +
-        infoTable(rowsEn) +
-        lowStockListEn,
+      en: paragraph(`Today's inventory summary:`) + infoTable(rowsEn) + lowStockListEn,
     });
 
   const textLowStock =
@@ -439,7 +434,7 @@ export function renderOfficerNewRequest(i: {
     heading("มีคำขอยืมใหม่ &middot; New loan request") +
     bilingualBlock({
       th:
-        paragraph(`มีคำขอยืมอุปกรณ์ใหม่รอการพิจารณา:`) +
+        paragraph(`มีคำขอยืมอุปกรณ์ใหม่รอพิจารณา:`) +
         infoTable(rowsTh) +
         (reason ? mutedParagraph(`เหตุผลการยืม: ${reason}`) : ""),
       en:
@@ -558,7 +553,7 @@ export function renderRightsRequest(i: {
   ];
 
   const bodyHtml =
-    heading("คำร้องตามสิทธิ PDPA ของคุณ &middot; A PDPA data rights request") +
+    heading("คำร้องใช้สิทธิตาม PDPA &middot; A PDPA data rights request") +
     badge(`มาตรา ${section} &middot; Section ${section}`, "warning") +
     bilingualBlock({
       th:

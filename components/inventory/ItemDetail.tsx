@@ -213,7 +213,7 @@ const copy: Record<Locale, Copy> = {
     addUnitSubmit: "Add unit",
     addingUnit: "Adding...",
     unitAdded: "Unit added.",
-    noUnits: "No units yet. Add one above.",
+    noUnits: "No units yet. Add one.",
     editUnit: "Edit",
     saveUnit: "Save",
     savingUnit: "Saving...",

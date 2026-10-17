@@ -80,14 +80,13 @@ export const feedbackCopy: Record<Locale, FeedbackCopy> = {
     ratingLabels: {
       very_satisfied: "พึงพอใจมาก",
       satisfied: "พึงพอใจ",
-      neither: "เฉย ๆ ไม่พึงพอใจและไม่ไม่พึงพอใจ",
+      neither: "ปานกลาง",
       dissatisfied: "ไม่พึงพอใจ",
       very_dissatisfied: "ไม่พึงพอใจอย่างมาก",
     },
     commentLabel: "บริการนี้ควรปรับปรุงอย่างไร",
-    commentHint: "ไม่ต้องระบุข้อมูลส่วนบุคคลหรือข้อมูลทางการเงิน",
-    privacyWarning:
-      "ไม่ต้องระบุชื่อ รหัสนักศึกษา ข้อมูลติดต่อ หรือข้อมูลทางการเงินใด ๆ ในความคิดเห็น",
+    commentHint: "อย่าระบุข้อมูลส่วนบุคคลหรือข้อมูลทางการเงิน",
+    privacyWarning: "อย่าระบุชื่อ รหัสนักศึกษา ข้อมูลติดต่อ หรือข้อมูลทางการเงินใด ๆ ในความคิดเห็น",
     requiredLabel: "จำเป็น",
     optionalLabel: "ไม่จำเป็น",
     errorSummaryTitle: "พบข้อผิดพลาด",
@@ -99,7 +98,7 @@ export const feedbackCopy: Record<Locale, FeedbackCopy> = {
     errorTitle: "เกิดข้อผิดพลาด",
     errorBody: "ไม่สามารถบันทึกความคิดเห็นได้ กรุณาลองใหม่อีกครั้ง",
     confirmationTitle: "ได้รับความคิดเห็นแล้ว",
-    confirmationBody: "ข้อมูลนี้ช่วยให้ BIRSA ปรับปรุงบริการได้ดียิ่งขึ้น",
+    confirmationBody: "ข้อมูลนี้ช่วยให้ BIRSA ปรับปรุงบริการ",
     backLink: "กลับสู่หน้าแรก",
   },
 };

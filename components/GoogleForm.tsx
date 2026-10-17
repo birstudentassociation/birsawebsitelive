@@ -5,12 +5,12 @@ import { localeHref, type Locale } from "@/lib/i18n";
 const copy = {
   en: {
     defaultTitle: "Registration form",
-    fallback: "If the form doesn't load,",
+    fallback: "If the form does not load,",
     openLink: "open it in a new tab",
     newTab: "opens in a new tab",
     dataNotice:
       "This is a Google Form, not a BIRSA form. What you type goes straight to Google and to whoever set the form up, not to this site.",
-    dataNoticeLink: "Read more in the privacy notice",
+    dataNoticeLink: "Read the privacy notice",
   },
   th: {
     defaultTitle: "แบบฟอร์มลงทะเบียน",
@@ -18,8 +18,8 @@ const copy = {
     openLink: "เปิดในแท็บใหม่",
     newTab: "เปิดในแท็บใหม่",
     dataNotice:
-      "แบบฟอร์มนี้เป็น Google Form มิใช่แบบฟอร์มของ BIRSA ข้อมูลที่ท่านกรอกจะถูกส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม โดยไม่ผ่านเว็บไซต์นี้",
-    dataNoticeLink: "อ่านรายละเอียดในประกาศความเป็นส่วนตัว",
+      "แบบฟอร์มนี้เป็น Google Form ไม่ใช่แบบฟอร์มของ BIRSA ข้อมูลที่คุณกรอกจะส่งตรงไปยัง Google และผู้จัดทำแบบฟอร์ม ไม่ผ่านเว็บไซต์นี้",
+    dataNoticeLink: "อ่านประกาศความเป็นส่วนตัว",
   },
 } as const;
 

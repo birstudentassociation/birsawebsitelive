@@ -39,24 +39,24 @@ const copy: Record<
   en: {
     title: "Ask about your data",
     privacyCrumb: "Privacy",
-    lede: "Use this if you want BIRSA to do something with the personal data we hold about you: see it, get a copy, have it corrected or deleted, or one of the other rights the Personal Data Protection Act gives you.",
+    lede: "Ask BIRSA to show you, copy, correct or delete the personal data we hold about you, or use another right the Personal Data Protection Act gives you.",
     whatTitle: "What happens",
     whatBody:
-      "Answer a few short questions about which right you want to use and how to reach you. We check the request is genuinely yours, then act on it or explain why we can't.",
+      "Answer a few short questions about which right you want to use and how to reach you. We check the request is yours, then act on it or explain why we cannot.",
     freeTitle: "This is free",
     freeBody: "BIRSA cannot charge you for making this request, whichever right you use.",
     deadlineTitle: "How long it takes",
     deadlineBody: (days) =>
-      `If you're asking to see your data under section 30, the law gives BIRSA ${days} days to answer from the day we receive your request. We aim to answer other requests just as quickly.`,
+      `If you ask to see your data under section 30, the law gives BIRSA ${days} days to answer from the day we receive your request. We aim to answer other requests as quickly.`,
     startCta: "Start now",
   },
   th: {
     title: "คำร้องขอใช้สิทธิของเจ้าของข้อมูลส่วนบุคคล",
     privacyCrumb: "ประกาศความเป็นส่วนตัว",
-    lede: "โปรดใช้แบบฟอร์มนี้เพื่อยื่นคำร้องขอให้ BIRSA ดำเนินการเกี่ยวกับข้อมูลส่วนบุคคลของคุณที่ BIRSA เก็บรักษาไว้ เช่น ขอเข้าถึงและขอรับสำเนาข้อมูล ขอให้แก้ไขข้อมูลให้ถูกต้อง ขอให้ลบหรือทำลายข้อมูล หรือขอใช้สิทธิประการอื่นตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
+    lede: "ยื่นคำร้องขอให้ BIRSA ดำเนินการเกี่ยวกับข้อมูลส่วนบุคคลของคุณที่ BIRSA เก็บรักษาไว้ เช่น ขอเข้าถึงและขอรับสำเนาข้อมูล ขอให้แก้ไขข้อมูลให้ถูกต้อง ขอให้ลบหรือทำลายข้อมูล หรือขอใช้สิทธิประการอื่นตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562",
     whatTitle: "ขั้นตอนการดำเนินการ",
     whatBody:
-      "คุณจะได้ตอบคำถามจำนวนไม่กี่ข้อ เพื่อระบุสิทธิที่คุณประสงค์จะใช้และช่องทางการติดต่อกลับ จากนั้น BIRSA จะตรวจสอบตามสมควรว่าคำร้องดังกล่าวเป็นของคุณจริง แล้วจึงดำเนินการตามคำร้อง หรือชี้แจงเหตุผลในกรณีที่ไม่อาจดำเนินการได้",
+      "คุณตอบคำถามไม่กี่ข้อ เพื่อระบุสิทธิที่ต้องการใช้และช่องทางติดต่อกลับ จากนั้น BIRSA จะตรวจสอบตามสมควรว่าคำร้องเป็นของคุณจริง แล้วจึงดำเนินการตามคำร้อง หรือชี้แจงเหตุผลในกรณีที่ไม่อาจดำเนินการได้",
     freeTitle: "ค่าใช้จ่าย",
     freeBody:
       "BIRSA ไม่เรียกเก็บค่าใช้จ่ายใดจากคุณในการยื่นคำร้องนี้ ไม่ว่าจะเป็นการใช้สิทธิประการใด",

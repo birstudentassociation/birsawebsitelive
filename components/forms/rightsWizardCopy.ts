@@ -31,15 +31,14 @@ export type RightsWizardLabels = {
 export function buildRightsWizardLabels(locale: Locale): RightsWizardLabels {
   if (locale === "th") {
     return {
-      whatHeading: "ท่านประสงค์จะใช้สิทธิใด",
-      whatLegend: "ท่านประสงค์จะใช้สิทธิใด",
-      nameHeading: "ชื่อของท่าน",
-      emailHeading: "ที่อยู่อีเมลของท่าน",
-      detailsHeading: "ข้อมูลประกอบที่ช่วยให้ค้นหาข้อมูลของท่านได้",
-      detailsHint:
-        "เช่น หมายเลขอ้างอิงการยืมอุปกรณ์ หรือที่อยู่อีเมลที่ท่านใช้ในการยืม ทั้งนี้ ไม่จำเป็นต้องกรอก",
-      checkTitle: "ตรวจสอบคำร้องของท่าน",
-      checkWhatLabel: "สิทธิที่ประสงค์จะใช้",
+      whatHeading: "คุณต้องการใช้สิทธิใด",
+      whatLegend: "คุณต้องการใช้สิทธิใด",
+      nameHeading: "ชื่อของคุณ",
+      emailHeading: "ที่อยู่อีเมลของคุณ",
+      detailsHeading: "ข้อมูลประกอบที่ช่วยให้ค้นหาข้อมูลของคุณได้",
+      detailsHint: "เช่น หมายเลขอ้างอิงการยืมอุปกรณ์ หรืออีเมลที่ใช้ตอนยืม ไม่บังคับกรอก",
+      checkTitle: "ตรวจสอบคำร้องของคุณ",
+      checkWhatLabel: "สิทธิที่ต้องการใช้",
       checkNameLabel: "ชื่อ",
       checkEmailLabel: "ที่อยู่อีเมล",
       checkDetailsLabel: "ข้อมูลประกอบ",
@@ -47,7 +46,7 @@ export function buildRightsWizardLabels(locale: Locale): RightsWizardLabels {
       send: "ส่งคำร้อง",
       sending: "กำลังส่ง…",
       errors: {
-        whatRequired: "โปรดเลือกสิทธิที่ท่านประสงค์จะใช้",
+        whatRequired: "โปรดเลือกสิทธิที่คุณต้องการใช้",
       },
     };
   }
@@ -57,7 +56,7 @@ export function buildRightsWizardLabels(locale: Locale): RightsWizardLabels {
     whatLegend: "Which right do you want to use?",
     nameHeading: "What is your name?",
     emailHeading: "What is your email address?",
-    detailsHeading: "Anything that will help us find your data?",
+    detailsHeading: "What will help us find your data?",
     detailsHint:
       "For example, an equipment loan reference number, or the email address you used when you borrowed something. This is optional.",
     checkTitle: "Check your request",

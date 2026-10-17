@@ -15,8 +15,7 @@ export const homeEn = {
   },
   calendar: {
     heading: "Activity calendar",
-    intro:
-      "Key dates for BIR students this term. Tap a highlighted day to see what's happening and read more.",
+    intro: "Key dates for BIR students this term. Select a day with events to see the details.",
     prevMonth: "Previous month",
     nextMonth: "Next month",
     selectedFor: "On {date}",
@@ -55,7 +54,7 @@ export const homeEn = {
       placesNearby: {
         label: "Food and housing nearby",
         description:
-          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos passed down by seniors, all mapped.",
+          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos recommended by seniors, all on a map.",
       },
       gettingStarted: {
         label: "Getting started at BIR",
@@ -102,8 +101,7 @@ export const homeEn = {
       },
       overview: {
         label: "BIRSA activity",
-        description:
-          "Officer roles, student regulations, transparency documents, and news, all in one place.",
+        description: "Officer roles, student regulations, transparency documents and news.",
       },
     },
   },

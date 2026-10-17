@@ -23,10 +23,10 @@ const copy: Record<
   en: {
     title: "Request sent",
     privacyCrumb: "Privacy",
-    confirmationBody: "Thank you. Your request has reached BIRSA.",
+    confirmationBody: "BIRSA has received your request.",
     deadlineTitle: "What happens next",
     deadlineBody: (days) =>
-      `If you asked to see your data under section 30, we have ${days} days from today to answer. We aim to answer other requests just as quickly.`,
+      `If you asked to see your data under section 30, we have ${days} days from today to answer. We aim to answer other requests as quickly.`,
     nextTitle: "How we'll answer",
     nextBody:
       "A BIRSA officer will reply to the email address you gave us. If we need more information to be sure the request is yours, or to find your data, we'll ask you for it there.",
@@ -41,7 +41,7 @@ const copy: Record<
       `ในกรณีที่คุณใช้สิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคลตามมาตรา 30 BIRSA จะดำเนินการโดยไม่ชักช้า แต่ต้องไม่เกิน ${days} วันนับแต่วันนี้ สำหรับคำร้องประเภทอื่น BIRSA จะดำเนินการโดยเร็วเช่นเดียวกัน`,
     nextTitle: "การติดต่อกลับ",
     nextBody:
-      "เจ้าหน้าที่ BIRSA จะติดต่อกลับไปยังที่อยู่อีเมลที่คุณระบุไว้ ในกรณีที่ BIRSA จำเป็นต้องขอข้อมูลเพิ่มเติมเพื่อตรวจสอบว่าคำร้องเป็นของคุณจริง หรือเพื่อค้นหาข้อมูลส่วนบุคคลของคุณ BIRSA จะสอบถามไปยังที่อยู่อีเมลดังกล่าว",
+      "เจ้าหน้าที่ BIRSA จะติดต่อกลับไปยังที่อยู่อีเมลที่คุณระบุไว้ ในกรณีที่ BIRSA จำเป็นต้องขอข้อมูลเพิ่มเติมเพื่อตรวจสอบว่าคำร้องเป็นของคุณจริง หรือเพื่อค้นหาข้อมูลส่วนบุคคลของคุณ BIRSA จะสอบถามไปยังที่อยู่อีเมลนั้น",
     backLink: "กลับสู่หน้าหลัก",
   },
 };

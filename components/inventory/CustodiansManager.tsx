@@ -66,7 +66,7 @@ const copy: Record<Locale, Copy> = {
     addOrganisation: "Add organisation",
     hideForm: "Cancel",
     slugLabel: "Slug",
-    slugHint: "A short, unique code, e.g. hiking-club.",
+    slugHint: "A short, unique code, for example hiking-club.",
     kindLabel: "Kind",
     kindBirsa: "BIRSA (global)",
     kindClub: "Club",

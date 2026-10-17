@@ -72,7 +72,7 @@ export const quickGroups: QuickGroup[] = [
         key: "course-reviews",
         href: "/student-life/course-reviews",
         icon: "review",
-        en: { label: "Course reviews", hint: "For finding out what a course is like" },
+        en: { label: "Course reviews", hint: "Student reviews of PI courses" },
         th: { label: "รีวิววิชาเรียน", hint: "ฐานข้อมูลรีวิววิชา PI" },
       },
       {
@@ -87,14 +87,14 @@ export const quickGroups: QuickGroup[] = [
         href: "/conditions",
         icon: "alert",
         en: { label: "Check conditions", hint: "Weather, river, flooding and air at Tha Prachan" },
-        th: { label: "เช็กสภาพอากาศ", hint: "อากาศ น้ำ น้ำท่วม และฝุ่นรอบท่าพระจันทร์" },
+        th: { label: "ตรวจสภาพอากาศ", hint: "อากาศ น้ำ น้ำท่วม และฝุ่นรอบท่าพระจันทร์" },
       },
       {
         key: "getting-started",
         href: "/student-life/getting-started",
         icon: "guide",
         en: { label: "Getting started at BIR", hint: "Step-by-step checklist for new students" },
-        th: { label: "เริ่มต้นที่ BIR", hint: "เช็กลิสต์ทีละขั้นตอนสำหรับนักศึกษาใหม่" },
+        th: { label: "เริ่มต้นที่ BIR", hint: "รายการสิ่งที่ต้องทำทีละขั้นตอนสำหรับนักศึกษาใหม่" },
       },
       {
         key: "internship",
@@ -188,7 +188,7 @@ export const quickGroups: QuickGroup[] = [
         external: true,
         icon: "instagram",
         en: { label: "Instagram", hint: "@student_birsa" },
-        th: { label: "อินสตาแกรม", hint: "@student_birsa" },
+        th: { label: "Instagram", hint: "@student_birsa" },
       },
       {
         key: "facebook",
@@ -196,7 +196,7 @@ export const quickGroups: QuickGroup[] = [
         external: true,
         icon: "facebook",
         en: { label: "Facebook", hint: "BIR Student Association" },
-        th: { label: "เฟซบุ๊ก", hint: "BIR Student Association" },
+        th: { label: "Facebook", hint: "BIR Student Association" },
       },
       {
         key: "email",

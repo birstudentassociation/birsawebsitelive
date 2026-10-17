@@ -245,7 +245,7 @@ const en: OwnCopy = {
       "Left out because their prerequisites are not met by this term ({codes}).",
     leftOutHistory:
       "Left out because they have never been recorded in a {kind} term ({codes}). That is history, not a promise.",
-    leftOutNote: "They are still in the full course list below, because nothing here blocks you.",
+    leftOutNote: "They are still in the full course list. Nothing here blocks you.",
     noneEligible:
       "No course that counts towards this choice has its prerequisites met by this term and a recorded history in it.",
   },
@@ -302,9 +302,9 @@ const en: OwnCopy = {
   scenarios: {
     heading: "Scenarios",
     intro:
-      "Keep more than one plan on this device, such as one with a term abroad, and compare them. Each is a full plan. The plan above is always the current one.",
+      "Keep more than one plan on this device, such as one with a term abroad, and compare them. Each is a full plan. The plan on this page is always the current one.",
     needsScript:
-      "Saving, switching and renaming scenarios needs JavaScript, because they are kept on this device and never sent to BIRSA. The plan on this page, the previews below and the print page all work without it.",
+      "Saving, switching and renaming scenarios needs JavaScript, because they are kept on this device and never sent to BIRSA. The plan on this page, the previews and the print page all work without it.",
     defaultName: "Main",
     savedHeading: "Your saved plans",
     currentTag: "Current",
@@ -382,8 +382,7 @@ const en: OwnCopy = {
   },
   map: {
     summary: "Prerequisite map",
-    intro:
-      "Which courses need which. A line runs from a course to the courses it unlocks. The lists below hold the same information.",
+    intro: "Which courses need which. A line runs from a course to the courses it unlocks.",
     drawingLabel: "Prerequisite map. The lists below hold the same information.",
     legendTrack: "Colours show the track",
     legendStatus: "Colours show where each course stands in your plan",
@@ -422,7 +421,7 @@ const th: OwnCopy = {
     leftOutPrerequisites: "ไม่แสดงเพราะยังผ่านวิชาบังคับก่อนไม่ครบภายในภาคนี้ ({codes})",
     leftOutHistory:
       "ไม่แสดงเพราะไม่เคยมีบันทึกว่าเปิดใน{kind} ({codes}) ข้อมูลนี้เป็นเพียงประวัติ ไม่ใช่คำยืนยัน",
-    leftOutNote: "วิชาเหล่านี้ยังอยู่ในรายการทั้งหมดด้านล่าง และยังเลือกได้ตามปกติ",
+    leftOutNote: "วิชาเหล่านี้ยังอยู่ในรายการวิชาทั้งหมด และเลือกได้ตามปกติ",
     noneEligible:
       "ไม่มีวิชาที่นับเข้าช่องนี้ ผ่านวิชาบังคับก่อนครบภายในภาคนี้ และเคยมีบันทึกว่าเปิดในภาคประเภทนี้",
   },
@@ -478,9 +477,9 @@ const th: OwnCopy = {
   scenarios: {
     heading: "แผนทางเลือก",
     intro:
-      "บันทึกแผนไว้ได้หลายแผนในอุปกรณ์เครื่องนี้ เช่น แผนที่ไปเรียนต่างประเทศ 1 ภาค แล้วนำมาเทียบกัน แต่ละแผนเป็นแผนที่สมบูรณ์ในตัว และแผนที่อยู่บนสุดคือแผนปัจจุบันเสมอ",
+      "บันทึกแผนไว้ได้หลายแผนในอุปกรณ์เครื่องนี้ เช่น แผนที่ไปเรียนต่างประเทศ 1 ภาค แล้วนำมาเทียบกัน แต่ละแผนเป็นแผนที่สมบูรณ์ในตัว และแผนในหน้านี้คือแผนปัจจุบันเสมอ",
     needsScript:
-      "การบันทึก สลับ และเปลี่ยนชื่อแผนทางเลือกต้องใช้ JavaScript เพราะแผนเหล่านี้เก็บอยู่ในอุปกรณ์เครื่องนี้และไม่ได้ส่งไปยัง BIRSA ส่วนแผนในหน้านี้ ตัวอย่างด้านล่าง และหน้าพิมพ์ ใช้ได้โดยไม่ต้องใช้ JavaScript",
+      "การบันทึก สลับ และเปลี่ยนชื่อแผนทางเลือกต้องใช้ JavaScript เพราะแผนเหล่านี้เก็บอยู่ในอุปกรณ์เครื่องนี้และไม่ได้ส่งไปยัง BIRSA ส่วนแผนในหน้านี้ ตัวอย่าง และหน้าพิมพ์ ใช้ได้โดยไม่ต้องใช้ JavaScript",
     defaultName: "แผนหลัก",
     savedHeading: "แผนที่บันทึกไว้",
     currentTag: "แผนปัจจุบัน",
@@ -556,8 +555,7 @@ const th: OwnCopy = {
   },
   map: {
     summary: "แผนผังวิชาบังคับก่อน",
-    intro:
-      "แผนผังนี้แสดงว่าวิชาใดต้องเรียนก่อนวิชาใด เส้นลากจากวิชาบังคับก่อนไปยังวิชาที่เรียนต่อได้ รายการด้านล่างมีข้อมูลเดียวกัน",
+    intro: "วิชาใดต้องเรียนก่อนวิชาใด เส้นลากจากวิชาบังคับก่อนไปยังวิชาที่เรียนต่อได้",
     drawingLabel: "แผนผังวิชาบังคับก่อน รายการด้านล่างมีข้อมูลเดียวกัน",
     legendTrack: "สีแสดงกลุ่มวิชา",
     legendStatus: "สีแสดงสถานะของแต่ละวิชาในแผน",

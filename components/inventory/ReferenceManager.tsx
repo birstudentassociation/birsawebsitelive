@@ -55,7 +55,7 @@ const copy: Record<Locale, Copy> = {
     categoriesTitle: "Categories",
     locationsTitle: "Storage locations",
     slugLabel: "Slug",
-    slugHint: "A short, unique code, e.g. camping-gear.",
+    slugHint: "A short, unique code, for example camping-gear.",
     nameEnLabel: "Name (English)",
     nameThLabel: "Name (Thai)",
     descriptionEnLabel: "Description (English)",

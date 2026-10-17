@@ -89,12 +89,12 @@ const copy: Record<Locale, Copy> = {
   en: {
     attribution: "© OpenStreetMap contributors",
     newTab: "opens in a new tab",
-    mapLabel: "Map of the places listed below",
+    mapLabel: "Map of the places in this list",
   },
   th: {
     attribution: "ข้อมูลแผนที่ © ผู้ร่วมพัฒนา OpenStreetMap",
     newTab: "เปิดในแท็บใหม่",
-    mapLabel: "แผนที่แสดงตำแหน่งของสถานที่ในรายการด้านล่าง",
+    mapLabel: "แผนที่ของสถานที่ในรายการนี้",
   },
 };
 
