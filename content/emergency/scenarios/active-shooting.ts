@@ -40,7 +40,7 @@ const activeShooting: EmergencyScenario = {
   en: {
     title: "Attack with a weapon",
     summary:
-      "What to do if someone is attacking people with a gun, knife or other weapon on or near campus. Thai police teach the same three steps as police worldwide. Run, hide, and fight only as a last resort.",
+      "What to do if someone is attacking people with a gun, knife or other weapon on or near campus. Thai police teach the same three steps as police worldwide. Run, hide and, only as a last resort, fight.",
     banner:
       "Police are responding to an attack near campus. Get away if you can, or hide. Call 191 when it is safe.",
     now: [

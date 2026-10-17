@@ -29,7 +29,7 @@ const facultyClosure: EmergencyScenario = {
   en: {
     title: "Faculty building closed",
     summary:
-      "The Faculty of Political Science building at Tha Prachan is closed. The rest of campus may still be open. This guide covers classes, deadlines and who to contact.",
+      "The Faculty of Political Science building at Tha Prachan is closed. The rest of campus may still be open. Ask your lecturer and the BIR Programme office about classes and deadlines.",
     banner:
       "The Faculty of Political Science building is closed. Check your email before coming in.",
     now: [
@@ -69,7 +69,7 @@ const facultyClosure: EmergencyScenario = {
   th: {
     title: "อาคารคณะรัฐศาสตร์ปิดทำการ",
     summary:
-      "อาคารคณะรัฐศาสตร์ ท่าพระจันทร์ ปิดทำการ ส่วนอื่นของมหาวิทยาลัยอาจยังเปิดตามปกติ หน้านี้อธิบายเรื่องการเรียน กำหนดส่งงาน และช่องทางติดต่อ",
+      "อาคารคณะรัฐศาสตร์ ท่าพระจันทร์ ปิดทำการ ส่วนอื่นของมหาวิทยาลัยอาจยังเปิดตามปกติ สอบถามอาจารย์และสำนักงานหลักสูตร BIR เรื่องการเรียนและกำหนดส่งงาน",
     banner: "อาคารคณะรัฐศาสตร์ปิดทำการ ตรวจอีเมลก่อนเดินทางมาคณะ",
     now: [
       "อย่าเพิ่งมาที่อาคารคณะจนกว่าคณะจะประกาศเปิดอีกครั้ง",
@@ -98,7 +98,7 @@ const facultyClosure: EmergencyScenario = {
       },
       {
         id: "official-news",
-        heading: "ข่าวทางการมาจากไหน",
+        heading: "ช่องทางประกาศอย่างเป็นทางการ",
         body: [
           "ประกาศปิดและเปิดอาคารมาจากคณะรัฐศาสตร์ ทางเว็บไซต์ เพจเฟซบุ๊ก และอีเมลธรรมศาสตร์ ข้อมูลจากที่อื่นให้ถือว่ายังไม่ยืนยัน จนกว่าช่องทางเหล่านี้จะประกาศตรงกัน",
         ],

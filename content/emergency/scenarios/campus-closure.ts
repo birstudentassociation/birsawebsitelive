@@ -31,7 +31,7 @@ const campusClosure: EmergencyScenario = {
   en: {
     title: "Tha Prachan campus closed",
     summary:
-      "Thammasat University has closed the whole Tha Prachan campus. This guide covers getting away safely if you are there, and what happens to classes.",
+      "Thammasat University has closed the whole Tha Prachan campus. If you are there, leave safely. Check how your classes are affected.",
     banner:
       "Tha Prachan campus is closed. Do not travel to campus until the university says it has reopened.",
     now: [
@@ -80,7 +80,7 @@ const campusClosure: EmergencyScenario = {
         id: "reopening",
         heading: "Reopening",
         body: [
-          "Only an announcement from Thammasat University reopens the campus. Expect changed timetables for a few days after.",
+          "Only an announcement from Thammasat University reopens the campus. Timetables may change for a few days after reopening.",
         ],
       },
     ],
@@ -88,7 +88,7 @@ const campusClosure: EmergencyScenario = {
   th: {
     title: "มหาวิทยาลัยปิดพื้นที่ท่าพระจันทร์",
     summary:
-      "มหาวิทยาลัยธรรมศาสตร์ประกาศปิดพื้นที่ท่าพระจันทร์ทั้งหมด หน้านี้อธิบายวิธีออกจากมหาวิทยาลัยอย่างปลอดภัยถ้าคุณอยู่ในพื้นที่ และจะเกิดอะไรกับการเรียน",
+      "มหาวิทยาลัยธรรมศาสตร์ประกาศปิดพื้นที่ท่าพระจันทร์ทั้งหมด ผู้ที่อยู่ในพื้นที่ควรออกอย่างปลอดภัย และตรวจสอบว่าการเรียนได้รับผลกระทบอย่างไร",
     banner: "มหาวิทยาลัยปิดพื้นที่ท่าพระจันทร์ อย่าเดินทางมาจนกว่ามหาวิทยาลัยจะประกาศเปิดอีกครั้ง",
     now: [
       "อย่าเดินทางมามหาวิทยาลัยจนกว่าจะมีประกาศเปิดอีกครั้ง",
@@ -111,7 +111,7 @@ const campusClosure: EmergencyScenario = {
         id: "classes",
         heading: "การเรียน การสอบ และกำหนดส่งงาน",
         items: [
-          "อย่าเพิ่งคิดว่าทุกอย่างถูกยกเลิก บางวิชาอาจเรียนออนไลน์ และการสอบอาจย้ายที่หรือเลื่อนวัน",
+          "อย่าสรุปว่าทุกอย่างยกเลิก บางวิชาอาจเรียนออนไลน์ และการสอบอาจย้ายที่หรือเลื่อนวัน",
           "ติดตามประกาศทางการจากมหาวิทยาลัยและคณะ และอีเมลจากอาจารย์แต่ละวิชา",
           "ถ้าการปิดทำให้สอบหรือส่งงานไม่ได้ ให้เขียนถึงอาจารย์และสำนักงานหลักสูตร BIR ทันที",
         ],
@@ -129,14 +129,14 @@ const campusClosure: EmergencyScenario = {
         id: "international-students",
         heading: "สำหรับนักศึกษาต่างชาติ",
         body: [
-          "เพื่อนนักศึกษาต่างชาติควรตรวจคำแนะนำการเดินทางของรัฐบาลประเทศตน และแจ้งสถานทูตว่าอยู่ที่ไหน หากการปิดเกี่ยวข้องกับความไม่สงบในวงกว้าง กองวิเทศสัมพันธ์ให้คำแนะนำเรื่องวีซ่าได้หากการเรียนหยุดชะงักเป็นเวลานาน",
+          "นักศึกษาต่างชาติควรตรวจคำแนะนำการเดินทางของรัฐบาลประเทศตน และแจ้งสถานทูตว่าอยู่ที่ไหน หากการปิดเกี่ยวข้องกับความไม่สงบในวงกว้าง กองวิเทศสัมพันธ์ให้คำแนะนำเรื่องวีซ่าได้หากการเรียนหยุดชะงักเป็นเวลานาน",
         ],
       },
       {
         id: "reopening",
         heading: "การเปิดอีกครั้ง",
         body: [
-          "มหาวิทยาลัยจะเปิดพื้นที่อีกครั้งก็ต่อเมื่อมหาวิทยาลัยธรรมศาสตร์ประกาศเท่านั้น ตารางเรียนอาจเปลี่ยนไปอีกสองสามวันหลังเปิด",
+          "พื้นที่จะเปิดอีกครั้งเมื่อมีประกาศจากมหาวิทยาลัยธรรมศาสตร์เท่านั้น ตารางเรียนอาจเปลี่ยนไปอีกสองสามวันหลังเปิด",
         ],
       },
     ],
