@@ -151,7 +151,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ห้างสรรพสินค้าสุพรีม คอมเพล็กซ์",
         },
         detail: {
-          en: "Room for 70 cars. Free on floors 3B and 3C, 26 to 30 September, for people in Dusit. One car per person, and you cannot stay in the car. Register at the security office by the car park exit, 10.30 to 21.00. Only the person who left the car can collect it, with their ID card.",
+          en: "Room for 70 cars. Free on floors 3B and 3C, 26 to 30 September, for people in Dusit. One car per person, and you cannot stay in the car. Register at the security office by the car park exit, 10:30 to 21:00. Only the person who left the car can collect it, with their ID card.",
           th: "รองรับ 70 คัน จอดฟรีที่ชั้น 3B และ 3C วันที่ 26 ถึง 30 กันยายน สำหรับผู้ได้รับผลกระทบในเขตดุสิต 1 ท่านฝากรถได้ 1 คัน ห้ามพักหรือนอนค้างในรถ ลงทะเบียนที่ห้อง รปภ. ใกล้ป้อมขาออกลานจอดรถ เวลา 10.30 ถึง 21.00 น. ผู้รับรถคืนต้องเป็นผู้ฝากและแสดงบัตรประชาชนตัวจริง",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -1278,7 +1278,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "อาคารศูนย์บริการสาธารณสุข 51(เดิม)  ในบริเวณวัดไผ่ตัน",
         },
         detail: {
-          en: "Room for 50 people. Open 08.00 to 18.00.",
+          en: "Room for 50 people. Open 08:00 to 18:00.",
           th: "รองรับ 50 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2209,7 +2209,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "สำนักงานเขตบึงกุ่ม",
         },
         detail: {
-          en: "Room for 50 people. At 23:19 on 29 September, 10 people were staying. Open 08.00 to 18.00.",
+          en: "Room for 50 people. At 23:19 on 29 September, 10 people were staying. Open 08:00 to 18:00.",
           th: "รองรับ 50 คน เวลา 23.19 น. วันที่ 29 กันยายน มีผู้เข้าพัก 10 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2221,7 +2221,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนคลองลำเจียก (หวังทองบำรุง)",
         },
         detail: {
-          en: "Room for 30 people. At 23:19 on 29 September, 11 people were staying. Open 08.00 to 18.00.",
+          en: "Room for 30 people. At 23:19 on 29 September, 11 people were staying. Open 08:00 to 18:00.",
           th: "รองรับ 30 คน เวลา 23.19 น. วันที่ 29 กันยายน มีผู้เข้าพัก 11 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2233,7 +2233,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียนวัดบางเตย",
         },
         detail: {
-          en: "Room for 0 people. Open 08.00 to 18.00.",
+          en: "Room for 0 people. Open 08:00 to 18:00.",
           th: "รองรับ 0 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2245,7 +2245,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "โรงเรียมแย้มจาดวิชชานุสรณ์",
         },
         detail: {
-          en: "Room for 0 people. Open 08.00 to 18.00.",
+          en: "Room for 0 people. Open 08:00 to 18:00.",
           th: "รองรับ 0 คน เปิด 08.00 ถึง 18.00 น.",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2459,7 +2459,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ซอยวิภาฯ 34",
         },
         detail: {
-          en: "Room for 1 cars. At 23:19 on 29 September, 1 car was parked. Room for 1 car. At 10:00 on 28 September, 1 car was parked. Free shuttle service, 08.00 to 22.00 every day, calling at Vibhavadi Rangsit Soi 34, Central Ladprao, Kasetsart University, Sripatum University, Phahonyothin 49/1, Wat Semmanari, Vibhavadi Rangsit Road and Chatuchak District Office.",
+          en: "Room for 1 car. At 23:19 on 29 September, 1 car was parked. Room for 1 car. At 10:00 on 28 September, 1 car was parked. Free shuttle service, 08:00 to 22:00 every day, calling at Vibhavadi Rangsit Soi 34, Central Ladprao, Kasetsart University, Sripatum University, Phahonyothin 49/1, Wat Semmanari, Vibhavadi Rangsit Road and Chatuchak District Office.",
           th: "รองรับ 1 คัน เวลา 23.19 น. วันที่ 29 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี เวลา 08.00 ถึง 22.00 น. ทุกวัน แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว มหาวิทยาลัยเกษตรศาสตร์ มหาวิทยาลัยศรีปทุม พหลโยธิน 49/1 วัดเสมียนนารี ถนนวิภาวดีรังสิต และสำนักงานเขตจตุจักร",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2471,7 +2471,7 @@ export const bangkokDistricts: BangkokDistrict[] = [
           th: "ปากซอยวิภาวดีฯ 34",
         },
         detail: {
-          en: "Room for 1 cars. At 23:19 on 29 September, 1 car was parked. Room for 1 car. At 10:00 on 28 September, 1 car was parked. Free shuttle service calling at Vibhavadi Rangsit Soi 34, Central Ladprao, BTS Mo Chit/Chatuchak Park, the PTT Ministry of Energy, Wat Semmanari, the Kasetsart University turning point and Chatuchak District Office.",
+          en: "Room for 1 car. At 23:19 on 29 September, 1 car was parked. Room for 1 car. At 10:00 on 28 September, 1 car was parked. Free shuttle service calling at Vibhavadi Rangsit Soi 34, Central Ladprao, BTS Mo Chit/Chatuchak Park, the PTT Ministry of Energy, Wat Semmanari, the Kasetsart University turning point and Chatuchak District Office.",
           th: "รองรับ 1 คัน เวลา 23.19 น. วันที่ 29 กันยายน มีรถจอด 1 คัน บริการรถรับส่งฟรี แวะจอดที่ซอยวิภาวดีรังสิต 34 เซ็นทรัลลาดพร้าว บีทีเอสหมอชิต/สวนจตุจักร กระทรวงพลังงาน วัดเสมียนนารี จุดกลับรถมหาวิทยาลัยเกษตรศาสตร์ และสำนักงานเขตจตุจักร",
         },
         source: "https://floodsupport.bangkok.go.th/",
@@ -2479,8 +2479,8 @@ export const bangkokDistricts: BangkokDistrict[] = [
       },
       {
         name: {
-          en: "Mixt Chatuchak (ศูนย์กาาค้า มิกซ์ จตุจักร)",
-          th: "ศูนย์กาาค้า มิกซ์ จตุจักร",
+          en: "Mixt Chatuchak (ศูนย์การค้า มิกซ์ จตุจักร)",
+          th: "ศูนย์การค้า มิกซ์ จตุจักร",
         },
         detail: {
           en: "Room for 0 cars. Special flood rate of 50 baht a car on weekdays and 150 baht at weekends, with no overnight charge. Call ahead with the driver's name and number plate.",

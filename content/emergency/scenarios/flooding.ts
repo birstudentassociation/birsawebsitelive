@@ -221,7 +221,7 @@ const flooding: EmergencyScenario = {
   en: {
     title: "After the Bangkok floods",
     summary:
-      "The floods that began on 24 September had gone down across most of Bangkok by 3 October, although some low-lying areas may still hold water. Work through the steps below, and claim money for any damage.",
+      "The floods that began on 24 September had gone down across most of Bangkok by 3 October, although some low-lying areas may still hold water.",
     banner:
       "The floods have gone down. Find out how to claim the government's 9,000 baht and BMA compensation.",
     notLive: {
@@ -231,7 +231,7 @@ const flooding: EmergencyScenario = {
     },
     now: [
       "Photograph or film the damage before you clean up or throw anything away.",
-      "Claim money for the damage. Check what you can get below, and claim from the BMA within 30 days of the flood.",
+      "Claim money for the damage. Claim from the BMA within 30 days of the flood. The claims section on this page shows what you can get.",
       "Keep the power off at the main switch until the floor, wiring and sockets are dry.",
       "Classes are online on 12 October and from 14 to 16 October. 13 October is a public holiday.",
       "If your midterm was set for Sunday 27 September, it moved to Sunday 11 October. Check with your lecturer.",
@@ -328,9 +328,7 @@ const flooding: EmergencyScenario = {
       {
         id: "after-the-flood",
         heading: "After the flood, step by step",
-        body: [
-          "Open each step to see what to do, and tick things off as you go. Your ticks are saved in this browser only.",
-        ],
+        body: ["Tick each task as you finish it. Your ticks are saved in this browser only."],
         stepByStep: [
           {
             id: "safe-to-go-back",
@@ -564,7 +562,7 @@ const flooding: EmergencyScenario = {
   th: {
     title: "หลังน้ำท่วมกรุงเทพฯ",
     summary:
-      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ ณ วันที่ 3 ตุลาคม ซึ่งบางพื้นที่ลุ่มอาจยังมีน้ำท่วมขัง ทำตามขั้นตอนด้านล่าง และยื่นขอรับเงินช่วยเหลือค่าเสียหาย",
+      "น้ำท่วมที่เริ่มตั้งแต่วันที่ 24 กันยายนลดลงแล้วในกรุงเทพฯ เกือบทุกพื้นที่ ณ วันที่ 3 ตุลาคม แต่บางพื้นที่ลุ่มอาจยังมีน้ำท่วมขัง",
     banner: "น้ำลดแล้ว ดูวิธีขอรับเงิน 9,000 บาทของรัฐบาลและเงินช่วยเหลือค่าเสียหายของ กทม.",
     notLive: {
       title: "น้ำท่วมผ่านไปแล้ว แต่ยังขอรับเงินช่วยเหลือได้",
@@ -573,7 +571,7 @@ const flooding: EmergencyScenario = {
     },
     now: [
       "ถ่ายภาพหรือวิดีโอความเสียหายไว้ก่อนทำความสะอาดหรือทิ้งของ",
-      "ยื่นขอรับเงินช่วยเหลือค่าเสียหาย ตรวจสอบได้ด้านล่างว่าขอรับอะไรได้บ้าง และยื่นขอเงินของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย",
+      "ยื่นขอรับเงินช่วยเหลือค่าเสียหาย ยื่นขอเงินของ กทม. ภายใน 30 วันนับแต่วันที่ประสบภัย หัวข้อขอรับเงินช่วยเหลือในหน้านี้ระบุว่าขอรับอะไรได้บ้าง",
       "ยกคัตเอาต์ค้างไว้จนกว่าพื้น สายไฟ และเต้ารับจะแห้งสนิท",
       "เรียนออนไลน์วันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม ส่วนวันที่ 13 ตุลาคมเป็นวันหยุดราชการ",
       "รายวิชาที่เดิมสอบกลางภาควันอาทิตย์ที่ 27 กันยายน เลื่อนไปสอบวันอาทิตย์ที่ 11 ตุลาคม สอบถามอาจารย์ผู้สอนให้แน่ใจ",
@@ -583,7 +581,7 @@ const flooding: EmergencyScenario = {
         id: "thammasat",
         heading: "การเรียนและการสอบของธรรมศาสตร์",
         body: [
-          "ธรรมศาสตร์ให้เรียนออนไลน์วันจันทร์ที่ 12 ตุลาคม และวันพุธที่ 14 ถึงวันศุกร์ที่ 16 ตุลาคม 2569 ส่วนวันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ มหาวิทยาลัยปรับการเรียนครั้งนี้เพราะการประชุมธนาคารโลกและ IMF ไม่ได้เกี่ยวกับน้ำท่วม สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
+          "ธรรมศาสตร์ให้เรียนออนไลน์วันจันทร์ที่ 12 ตุลาคม และวันพุธที่ 14 ถึงวันศุกร์ที่ 16 ตุลาคม 2569 ส่วนวันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ มหาวิทยาลัยปรับการเรียนครั้งนี้เนื่องจากการประชุมธนาคารโลกและ IMF ไม่ใช่เพราะน้ำท่วม สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
           "ทุกรายวิชาทุกศูนย์การศึกษาเรียนออนไลน์ถึงวันเสาร์ที่ 3 ตุลาคม",
           "ประกาศมหาวิทยาลัยเมื่อวันที่ 29 กันยายนระบุว่า หลังวันที่ 3 ตุลาคม หากนักศึกษายังได้รับผลกระทบ อาจารย์อาจจัดการเรียนการสอนแบบออนไลน์หรือแบบผสมผสานต่อไป และจะแจ้งล่วงหน้า หากยังได้รับผลกระทบจากน้ำท่วม ให้แจ้งอาจารย์ผู้สอนหรือหน่วยงานของคณะ",
         ],
@@ -673,9 +671,7 @@ const flooding: EmergencyScenario = {
       {
         id: "after-the-flood",
         heading: "สิ่งที่ต้องทำหลังน้ำลด ทีละขั้นตอน",
-        body: [
-          "เปิดแต่ละขั้นตอนเพื่อดูว่าต้องทำอะไร และติ๊กเมื่อทำเสร็จ ระบบเก็บรายการที่ติ๊กไว้ในเบราว์เซอร์นี้เท่านั้น",
-        ],
+        body: ["ติ๊กแต่ละรายการเมื่อทำเสร็จ ระบบเก็บรายการที่ติ๊กไว้ในเบราว์เซอร์นี้เท่านั้น"],
         stepByStep: [
           {
             id: "safe-to-go-back",
@@ -853,7 +849,7 @@ const flooding: EmergencyScenario = {
             items: [
               "โทร 1669 หากหายใจลำบาก ตัวเหลืองหรือตาเหลือง หรือปัสสาวะน้อยมาก",
               "ไปพบแพทย์หากแผลที่โดนน้ำท่วมบวมแดงหรือเจ็บมากขึ้น",
-              "ท้องร่วง ตาแดง และน้ำกัดเท้า ก็พบบ่อยหลังน้ำท่วมเช่นกัน",
+              "ท้องร่วง ตาแดง และน้ำกัดเท้า พบบ่อยหลังน้ำท่วมเช่นกัน",
               "สอบถามเรื่องโรคติดต่อได้ที่สายด่วนกรมควบคุมโรค 1422",
               "หากรู้สึกหนักใจ ให้คุยกับคนที่ไว้ใจ หรือโทรสายด่วนสุขภาพจิต 1323",
             ],

@@ -49,7 +49,7 @@ export const contacts = {
     name: { en: "Tourist Police", th: "ตำรวจท่องเที่ยว" },
     note: {
       en: "24 hours, in English and other languages. The best line if you do not speak Thai.",
-      th: "ตลอด 24 ชั่วโมง มีเจ้าหน้าที่พูดภาษาอังกฤษและภาษาอื่น เหมาะกับเพื่อนต่างชาติที่ไม่พูดภาษาไทย",
+      th: "ตลอด 24 ชั่วโมง มีเจ้าหน้าที่พูดภาษาอังกฤษและภาษาอื่น เหมาะสำหรับผู้ที่ไม่พูดภาษาไทย",
     },
   },
   erawan: {
@@ -141,7 +141,7 @@ export const contacts = {
     name: { en: "Siriraj Hospital", th: "โรงพยาบาลศิริราช" },
     note: {
       en: "The nearest large hospital, across the river from Tha Prachan. The line is in Thai only.",
-      th: "โรงพยาบาลขนาดใหญ่ที่ใกล้ที่สุด อยู่ฝั่งตรงข้ามแม่น้ำจากท่าพระจันทร์",
+      th: "โรงพยาบาลขนาดใหญ่ที่ใกล้ที่สุด อยู่ฝั่งตรงข้ามแม่น้ำจากท่าพระจันทร์ สายนี้ใช้ภาษาไทยเท่านั้น",
     },
   },
   tlhr: {

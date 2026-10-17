@@ -33,7 +33,7 @@ const healthAdvisory: EmergencyScenario = {
   en: {
     title: "Illness outbreak",
     summary:
-      "An infectious illness is spreading among students or staff. Most people recover at home. This guide covers how to avoid passing it on, when to get medical help, and what to do about classes.",
+      "An infectious illness is spreading among students or staff. Most people recover at home.",
     banner:
       "An illness is spreading in the faculty. Stay home if you are unwell and read the health advice.",
     now: [
@@ -94,8 +94,7 @@ const healthAdvisory: EmergencyScenario = {
   },
   th: {
     title: "โรคติดต่อระบาดในคณะ",
-    summary:
-      "ขณะนี้มีโรคติดต่อระบาดในหมู่นักศึกษาหรือบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองที่บ้าน หน้านี้อธิบายวิธีไม่ให้แพร่เชื้อต่อ เมื่อไรควรไปพบแพทย์ และจะทำอย่างไรกับการเรียน",
+    summary: "ขณะนี้มีโรคติดต่อระบาดในหมู่นักศึกษาหรือบุคลากร ผู้ป่วยส่วนใหญ่หายได้เองที่บ้าน",
     banner: "มีโรคติดต่อระบาดในคณะ ถ้าไม่สบายให้พักอยู่บ้าน และอ่านคำแนะนำด้านสุขภาพ",
     now: [
       "ถ้ารู้สึกไม่สบาย ให้พักอยู่บ้าน งดเข้าเรียนและร่วมกิจกรรม",

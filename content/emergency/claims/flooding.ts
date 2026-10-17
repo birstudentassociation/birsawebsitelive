@@ -99,7 +99,7 @@ const floodingClaims: EmergencyGuide = {
   en: {
     title: "Claim money after the Bangkok floods",
     summary:
-      "What the BMA, DDPM and the news have published about the 2 schemes for people whose homes were flooded, in one place. Apply through the official services.",
+      "The 2 schemes that pay people whose homes were flooded, as published by the BMA, DDPM and the news. Apply through the official services.",
     parts: [
       {
         slug: "overview",
@@ -282,7 +282,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "Only repair materials for the structure of the building, listed on the BMA's form, at what the damage really costs. Rented homes are not covered.",
+                text: "Only repair materials for the structure of the building, listed on the BMA's form, at what the damage costs. Rented homes are not covered.",
               },
             ],
           },
@@ -302,7 +302,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "Tools for the main work that supports your household, including raw materials, goods and services, at what you actually paid.",
+                text: "Tools for the main work that supports your household, including raw materials, goods and services, at what you paid.",
               },
             ],
           },
@@ -638,7 +638,7 @@ const floodingClaims: EmergencyGuide = {
   th: {
     title: "ขอรับเงินช่วยเหลือหลังน้ำท่วมกรุงเทพฯ",
     summary:
-      "รวมข้อมูลที่ กทม. ปภ. และสื่อเผยแพร่เรื่องเงินช่วยเหลือ 2 แหล่งสำหรับผู้ที่บ้านถูกน้ำท่วมไว้ในที่เดียว ยื่นคำร้องผ่านช่องทางทางการ",
+      "เงินช่วยเหลือ 2 แหล่งสำหรับผู้ที่บ้านถูกน้ำท่วม ตามที่ กทม. ปภ. และสื่อเผยแพร่ ยื่นคำร้องผ่านช่องทางทางการ",
     parts: [
       {
         slug: "overview",
@@ -739,7 +739,7 @@ const floodingClaims: EmergencyGuide = {
           { kind: "heading", text: "กรณีเช่าบ้าน" },
           {
             kind: "paragraph",
-            text: "ผู้เช่าเป็นผู้รับเงิน ไม่ใช่เจ้าของบ้าน และบ้านที่ไม่มีทะเบียนบ้านก็มีสิทธิได้",
+            text: "ผู้เช่าเป็นผู้รับเงิน ไม่ใช่เจ้าของบ้าน และบ้านที่ไม่มีทะเบียนบ้านมีสิทธิได้เช่นกัน",
           },
         ],
       },
@@ -793,7 +793,7 @@ const floodingClaims: EmergencyGuide = {
         blocks: [
           {
             kind: "paragraph",
-            text: "จำนวนเงินด้านล่างเป็นอัตราสูงสุด การช่วยเหลือไม่ได้จ่ายแบบเหมาจ่ายให้ทุกครัวเรือน แต่จ่ายตามความเสียหายที่ตรวจพบ จึงอาจได้รับต่ำกว่านี้",
+            text: "จำนวนเงินต่อไปนี้เป็นอัตราสูงสุด การช่วยเหลือไม่ได้จ่ายแบบเหมาจ่ายให้ทุกครัวเรือน แต่จ่ายตามความเสียหายที่ตรวจพบ จึงอาจได้รับต่ำกว่านี้",
           },
           {
             kind: "table",
@@ -1003,7 +1003,7 @@ const floodingClaims: EmergencyGuide = {
               ["ที่ไหน", "claim.bangkok.go.th"],
               ["เมื่อไร", "ได้ตลอด 24 ชั่วโมง"],
               ["ต้องเตรียม", "ยืนยันตัวตนในแอป ThaiD หรือทางรัฐ และรูปเอกสารกับภาพความเสียหาย"],
-              ["แบบฟอร์ม", "กรอกและเซ็นออนไลน์ ไม่ต้องปรินต์"],
+              ["แบบฟอร์ม", "กรอกและเซ็นออนไลน์ ไม่ต้องพิมพ์เอกสาร"],
             ],
           },
           {
@@ -1023,7 +1023,7 @@ const floodingClaims: EmergencyGuide = {
           { kind: "start", label: "ยื่นออนไลน์", href: "https://claim.bangkok.go.th/" },
           {
             kind: "paragraph",
-            text: "ค่าซ่อมแซมที่เจ้าบ้านหรือเจ้าของบ้านเป็นผู้ยื่น จะได้รับการตรวจสอบสิทธิและเยียวยาได้เร็ว หากไม่ทราบว่าต้องไปสำนักงานเขตใด โทร 1555",
+            text: "ค่าซ่อมแซมที่เจ้าบ้านหรือเจ้าของบ้านเป็นผู้ยื่น จะตรวจสอบได้เร็วกว่า หากไม่ทราบว่าต้องไปสำนักงานเขตใด โทร 1555",
           },
           {
             kind: "links",
@@ -1139,7 +1139,7 @@ const floodingClaims: EmergencyGuide = {
             blocks: [
               {
                 kind: "paragraph",
-                text: "ไม่แน่เสมอไป กทม. ไม่ได้จ่ายแบบเหมาจ่าย แต่พิจารณาตามประเภทและความเสียหายจริง คุณสมบัติ และเอกสารหลักฐาน และเจ้าหน้าที่อาจตรวจสอบข้อเท็จจริง",
+                text: "ไม่เสมอไป กทม. ไม่ได้จ่ายแบบเหมาจ่าย แต่พิจารณาตามประเภทและความเสียหายจริง คุณสมบัติ และเอกสารหลักฐาน และเจ้าหน้าที่อาจตรวจสอบข้อเท็จจริง",
               },
             ],
           },

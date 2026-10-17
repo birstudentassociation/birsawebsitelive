@@ -47,7 +47,7 @@ const protests: EmergencyScenario = {
   en: {
     title: "Protests near campus",
     summary:
-      "Tha Prachan is next to Sanam Luang and a short walk from Ratchadamnoen Avenue and Democracy Monument, where large gatherings often take place. This guide is about staying safe, whatever the gathering is about.",
+      "Tha Prachan is next to Sanam Luang and a short walk from Ratchadamnoen Avenue and Democracy Monument, where large gatherings often take place.",
     banner: "There is a large gathering near campus. Plan your route and follow official updates.",
     now: [
       "Check the latest update on this page and faculty announcements before you travel.",
@@ -117,7 +117,7 @@ const protests: EmergencyScenario = {
   th: {
     title: "การชุมนุมใกล้มหาวิทยาลัย",
     summary:
-      "ท่าพระจันทร์อยู่ติดสนามหลวง และเดินไปถนนราชดำเนินและอนุสาวรีย์ประชาธิปไตยได้ ซึ่งเป็นพื้นที่ชุมนุมขนาดใหญ่บ่อยครั้ง หน้านี้ว่าด้วยความปลอดภัยเท่านั้น ไม่ว่าการชุมนุมจะเป็นเรื่องใด",
+      "ท่าพระจันทร์อยู่ติดสนามหลวง และเดินไปถนนราชดำเนินกับอนุสาวรีย์ประชาธิปไตยได้ในระยะสั้น ๆ พื้นที่เหล่านี้มักมีการชุมนุมขนาดใหญ่",
     banner: "มีการชุมนุมขนาดใหญ่ใกล้มหาวิทยาลัย วางแผนเส้นทาง และติดตามประกาศทางการ",
     now: [
       "อ่านข้อมูลล่าสุดในหน้านี้และประกาศของคณะก่อนเดินทาง",
@@ -171,14 +171,14 @@ const protests: EmergencyScenario = {
         id: "international-students",
         heading: "สำหรับนักศึกษาต่างชาติ",
         body: [
-          "สหราชอาณาจักรและอีกหลายประเทศแนะนำให้ชาวต่างชาติในไทยหลีกเลี่ยงการชุมนุมทางการเมือง การเข้าร่วมหรือแม้แต่อยู่ในพื้นที่อาจกระทบวีซ่า และกฎหมายเกี่ยวกับสถาบันพระมหากษัตริย์ของไทยเข้มงวด รวมถึงโพสต์ออนไลน์ด้วย ถ้ามีเพื่อนต่างชาติอยู่ด้วย ช่วยพาเขาออกจากพื้นที่",
+          "สหราชอาณาจักรและอีกหลายประเทศแนะนำให้ชาวต่างชาติในไทยหลีกเลี่ยงการชุมนุมทางการเมือง การเข้าร่วมหรือแม้แต่อยู่ในพื้นที่อาจกระทบวีซ่า และกฎหมายเกี่ยวกับสถาบันพระมหากษัตริย์ของไทยเข้มงวด รวมถึงโพสต์ออนไลน์ด้วย ถ้ามีเพื่อนต่างชาติอยู่ด้วย ให้ช่วยพาออกจากพื้นที่",
         ],
       },
       {
         id: "online",
         heading: "สิ่งที่คุณโพสต์",
         items: [
-          "ก่อนโพสต์รูปหรือคลิป ลองคิดว่ามีใบหน้าของคนอื่นอยู่ด้วยหรือไม่",
+          "ก่อนโพสต์รูปหรือคลิป คิดก่อนว่ามีใบหน้าของคนอื่นอยู่ด้วยหรือไม่",
           "ตรวจสอบข่าวเรื่องความรุนแรงหรือการจับกุมกับแหล่งที่เชื่อถือได้ก่อนแชร์",
         ],
       },
