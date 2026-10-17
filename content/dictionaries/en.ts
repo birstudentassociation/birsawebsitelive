@@ -54,7 +54,7 @@ export const en = {
     earlierUpdates: "Show {n} earlier updates",
     readGuide: "Read what to do",
     notLiveTitle: "There is no alert for this at the moment",
-    notLiveBody: "This is guidance to read before you need it.",
+    notLiveBody: "Read this guidance before you need it.",
     seeAll: "See all emergency guidance",
     callForHelp: "Call for help",
     callForHelpLede: "Free from any phone, at any hour.",
@@ -86,7 +86,7 @@ export const en = {
       results: "{n} districts",
       office: "District office",
       ext: "ext.",
-      source: "Where we read this",
+      source: "Where this information comes from",
       unavailable: "Cannot be used",
       nearlyFull: "Nearly full",
       full: "Full",
@@ -122,7 +122,7 @@ export const en = {
     uncheckedLabel: "Not checked right now",
     nextHoursHeading: "Next 12 hours",
     nextHoursCaption:
-      "Hour by hour figures for Tha Prachan. Rain, chance of rain, tide and heat are model estimates.",
+      "Hourly figures for Tha Prachan. Rain, chance of rain, tide and heat are model estimates.",
     nextHoursScrollLabel: "Next 12 hours table, scrollable",
     nextHoursNone: "The hourly forecast is not available right now.",
     columns: {
@@ -135,7 +135,7 @@ export const en = {
     noData: "No data",
     readingsHeading: "Readings behind these checks",
     readingsLede:
-      "Every check above uses these readings. A reading that is out of date is greyed out and is not used.",
+      "Every check uses these readings. A reading that is out of date is greyed out and is not used.",
     modelEstimate: "Model estimate",
     read: "Read {time}",
     staleSince: "Not updated since {when}",
@@ -291,17 +291,17 @@ export const en = {
       "We use what you send only to answer you. We do not share it. See our privacy notice.",
     errorSummaryTitle: "There is a problem",
     genericError: "Something went wrong. Try again, or email us directly.",
-    successTitle: "Thank you. Your message is on its way",
+    successTitle: "Your message has been sent",
     successBody: "A member of the BIRSA committee will get back to you by email.",
     fallbackTitle: "Email is not set up yet",
     fallbackBody: "Send your message directly to:",
     errors: {
       nameRequired: "Enter your name",
       emailRequired: "Enter your email address",
-      emailInvalid: "Enter an email address in the correct format, like name@example.com",
+      emailInvalid: "Enter an email address in the correct format, for example name@example.com",
       subjectRequired: "Enter a subject",
       messageRequired: "Enter your message",
-      messageShort: "Your message is a little short. Add more detail",
+      messageShort: "Enter more detail in your message",
       categoryRequired: "Choose what this is about",
     },
   },
@@ -332,7 +332,7 @@ export const en = {
 
   error: {
     title: "Sorry, there is a problem with this page",
-    body: "Try again in a moment. If the problem keeps happening, let us know and we'll look into it.",
+    body: "Try again in a moment. If the problem continues, tell us.",
     tryAgain: "Try again",
     home: "Go to the home page",
   },
@@ -391,21 +391,21 @@ export const en = {
     sampleBadge: "Example review",
     sampleReviewTitle: "Example content, not a real review",
     sampleReviewBody:
-      "Everything in this section is made up to show how a finished course review will look. The workload notes, tips and quotes below are not real student feedback, so do not use them to decide whether to take this course. BIRSA will replace them once it has collected actual reviews.",
+      "This section is made up to show how a finished course review will look. The workload notes, tips and quotes are not real student feedback, so do not use them to decide whether to take this course. BIRSA will replace them once it has collected actual reviews.",
     descriptionHeading: "Course description",
     reviewHeading: "Student review",
     reviewBasedOn: "Based on {count} student reviews",
-    workloadHeading: "What the workload is like",
-    assessmentHeading: "Assessment in practice",
+    workloadHeading: "Workload",
+    assessmentHeading: "Assessment style",
     tipsHeading: "Tips from past students",
     quotesHeading: "In their words",
     noReviewTitle: "No student review yet",
     noReviewBody:
-      "BIRSA has not collected a student review for this course yet. If you've taken it and are willing to write a short, honest one, get in touch.",
+      "BIRSA has not collected a student review for this course yet. If you have taken it and can write a short review, get in touch.",
     collect: {
       writeReviewLink: "Write a review",
       noReviewBodyCollecting:
-        "BIRSA has not published a student review for this course yet. If you have taken it, you can write a short, honest one. Reviews are anonymous. BIRSA publishes a summary only once at least {threshold} students have reviewed the same course, term and instructor.",
+        "BIRSA has not published a student review for this course yet. If you have taken it, you can write a short review. Reviews are anonymous. BIRSA publishes a summary only once at least {threshold} students have reviewed the same course, term and instructor.",
       addReviewPrompt: "Taken this course? You can add your own review.",
       datedBadge: "Dated",
       datedNote:
