@@ -232,7 +232,7 @@ export const contact: SmartAnswerService = {
           kind: "paragraph",
           text: {
             en: "For sports equipment, borrow from your own faculty, or from the TUSU Tha Prachan room on floor 2 of the student activity building. Bring your student card.",
-            th: "สำหรับอุปกรณ์กีฬา ยืมได้ที่คณะของตัวเอง หรือที่ห้อง อมธ. ท่าพระจันทร์ ชั้น 2 อาคารกิจกรรมนักศึกษา อย่าลืมนำบัตรนักศึกษาไปด้วย",
+            th: "สำหรับอุปกรณ์กีฬา ยืมได้ที่คณะของตน หรือที่ห้อง อมธ. ท่าพระจันทร์ ชั้น 2 อาคารกิจกรรมนักศึกษา และนำบัตรนักศึกษาไปด้วย",
           },
         },
       ],
@@ -267,11 +267,14 @@ export const contact: SmartAnswerService = {
       title: { en: "Start a new club", th: "เริ่มชมรมใหม่" },
       summary: {
         en: "If nothing existing covers your idea, BIRSA can help you start a club.",
-        th: "ถ้ายังไม่มีชมรมที่ตรงกับไอเดียของคุณ BIRSA ช่วยให้เกิดขึ้นจริงได้",
+        th: "หากยังไม่มีชมรมที่ตรงกับแนวคิดของคุณ BIRSA ช่วยตั้งชมรมใหม่ได้",
       },
       actions: [
         {
-          label: { en: "Check if you're ready to start a club", th: "เช็กความพร้อมก่อนเริ่มชมรม" },
+          label: {
+            en: "Check if you're ready to start a club",
+            th: "ตรวจสอบความพร้อมก่อนเริ่มชมรม",
+          },
           href: "/clubs/start-check",
         },
         { label: { en: "Start a club", th: "เริ่มชมรมใหม่" }, href: "/clubs/start" },
@@ -317,7 +320,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "Course content, fees and other programme matters go to the BIR office, the Faculty's own office for the programme. BIRSA is the student association and does not answer academic questions.",
-        th: "เรื่องเนื้อหารายวิชา ค่าใช้จ่าย และเรื่องอื่นของหลักสูตร ให้ติดต่อสำนักงานโครงการ BIR ซึ่งเป็นสำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นสโมสรนักศึกษาและไม่ได้ตอบคำถามเรื่องการเรียน",
+        th: "เรื่องเนื้อหารายวิชา ค่าใช้จ่าย และเรื่องอื่นของหลักสูตร ให้ติดต่อสำนักงานโครงการ BIR สำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นองค์กรนักศึกษาและไม่ได้ตอบคำถามเรื่องการเรียน",
       },
       owner: {
         en: "The BIR office decides these matters. BIRSA cannot answer them for you.",
@@ -328,7 +331,7 @@ export const contact: SmartAnswerService = {
           kind: "paragraph",
           text: {
             en: "Email bir@tu.ac.th or call 02-221-6111 ext. 3409. Forms that need the programme office's signature also go through the BIR office.",
-            th: "อีเมล bir@tu.ac.th หรือโทร 02-221-6111 ต่อ 3409 แบบฟอร์มที่ต้องมีลายเซ็นสำนักงานโครงการก็ยื่นผ่านสำนักงานโครงการ BIR เช่นกัน",
+            th: "อีเมล bir@tu.ac.th หรือโทร 02-221-6111 ต่อ 3409 แบบฟอร์มที่ต้องมีลายเซ็นสำนักงานโครงการ ให้ยื่นผ่านสำนักงานโครงการ BIR เช่นกัน",
           },
         },
       ],
@@ -461,8 +464,8 @@ export const contact: SmartAnswerService = {
         th: "ปัญหานี้เกี่ยวกับเรื่องอะไร",
       },
       hint: {
-        en: "Who receives this depends on what it's about, not just that something went wrong.",
-        th: "ผู้รับเรื่องขึ้นอยู่กับประเภทของปัญหา ไม่ใช่แค่ว่ามีเรื่องผิดปกติเกิดขึ้น",
+        en: "Who deals with it depends on the subject of the problem.",
+        th: "ผู้รับเรื่องขึ้นอยู่กับประเภทของปัญหา",
       },
       options: [
         {
@@ -585,7 +588,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "Problems with course content, teaching or grading go to the BIR office, the Faculty's own office for the programme. BIRSA is the student association and does not handle academic matters.",
-        th: "ปัญหาเรื่องเนื้อหารายวิชา การสอน หรือการให้คะแนน ให้แจ้งสำนักงานโครงการ BIR ซึ่งเป็นสำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นสโมสรนักศึกษาและไม่ได้ดูแลเรื่องวิชาการ",
+        th: "ปัญหาเรื่องเนื้อหารายวิชา การสอน หรือการให้คะแนน ให้แจ้งสำนักงานโครงการ BIR สำนักงานของคณะที่ดูแลหลักสูตรนี้โดยตรง BIRSA เป็นองค์กรนักศึกษาและไม่ได้ดูแลเรื่องวิชาการ",
       },
       owner: {
         en: "The BIR office and the Faculty decide these matters.",
@@ -647,8 +650,8 @@ export const contact: SmartAnswerService = {
         {
           kind: "paragraph",
           text: {
-            en: "You do not need a complete account or full evidence before asking for advice. Either channel above can start things moving, or the Faculty office directly, if you would rather.",
-            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนหรือหลักฐานสมบูรณ์ก่อนขอคำแนะนำ ช่องทางใดช่องทางหนึ่งข้างต้นเริ่มเรื่องให้ได้ หรือจะแจ้งสำนักงานคณะโดยตรงก็ได้เช่นกัน",
+            en: "You do not need a complete account or full evidence before asking for advice. You can use either channel listed here, or go to the Faculty office directly.",
+            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนหรือหลักฐานสมบูรณ์ก่อนขอคำแนะนำ สามารถใช้ช่องทางใดช่องทางหนึ่งที่ระบุไว้ หรือแจ้งสำนักงานคณะโดยตรงก็ได้",
           },
         },
         {
@@ -663,7 +666,7 @@ export const contact: SmartAnswerService = {
           tone: "info",
           text: {
             en: "If someone reports this to you as a committee member, pass it to the Faculty office rather than trying to resolve it within the club or committee. The Dean is the one with the power to open a disciplinary case, not BIRSA or a club committee.",
-            th: "หากมีคนแจ้งเรื่องนี้กับคุณในฐานะกรรมการ ให้ส่งต่อสำนักงานคณะแทนการพยายามจัดการเองภายในชมรมหรือคณะกรรมการ เพราะคณบดีเท่านั้นที่มีอำนาจเปิดคดีทางวินัย ไม่ใช่ BIRSA หรือคณะกรรมการชมรม",
+            th: "หากมีคนแจ้งเรื่องนี้กับคุณในฐานะกรรมการ ให้ส่งต่อสำนักงานคณะแทนการจัดการภายในชมรมหรือคณะกรรมการ เพราะคณบดีเท่านั้นที่มีอำนาจเปิดคดีทางวินัย ไม่ใช่ BIRSA หรือคณะกรรมการชมรม",
           },
         },
         {
@@ -671,7 +674,7 @@ export const contact: SmartAnswerService = {
           tone: "info",
           text: {
             en: "If you are an international student, note that a disciplinary penalty can include suspension from study, which changes your enrolment status and can affect a visa tied to it. This applies to whoever is found to have committed the offence, not to the person reporting it.",
-            th: "หากคุณเป็นนักศึกษาต่างชาติ โปรดทราบว่าโทษทางวินัยอาจรวมถึงการพักการศึกษา ซึ่งเปลี่ยนสถานภาพนักศึกษาและอาจกระทบวีซ่าที่ผูกกับสถานภาพนั้น ทั้งนี้ใช้กับฝ่ายที่ถูกตัดสินว่ากระทำผิด ไม่ใช่ฝ่ายที่แจ้งเรื่อง",
+            th: "หากคุณเป็นนักศึกษาต่างชาติ โปรดทราบว่าโทษทางวินัยอาจรวมถึงการพักการศึกษา ซึ่งเปลี่ยนสถานภาพนักศึกษาและอาจกระทบวีซ่าที่ผูกกับสถานภาพนั้น ข้อนี้ใช้กับฝ่ายที่ถูกตัดสินว่ากระทำผิด ไม่ใช่ฝ่ายที่แจ้งเรื่อง",
           },
         },
       ],
@@ -743,8 +746,8 @@ export const contact: SmartAnswerService = {
         {
           kind: "paragraph",
           text: {
-            en: "You do not need a complete account before asking for advice. Either channel above can help you find the right place to take it from here.",
-            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนก่อนขอคำแนะนำ ช่องทางใดช่องทางหนึ่งข้างต้นช่วยหาทางที่เหมาะสมต่อไปให้ได้",
+            en: "You do not need a complete account before asking for advice. Either channel listed here can help you find the right place to take it.",
+            th: "ไม่จำเป็นต้องมีเรื่องราวครบถ้วนก่อนขอคำแนะนำ ช่องทางใดช่องทางหนึ่งที่ระบุไว้ช่วยแนะนำหน่วยงานที่เหมาะสมต่อไปได้",
           },
         },
       ],
@@ -767,7 +770,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "There is no separate complaints procedure on file for a problem with a club or a student body. Raise it with that body directly, or with BIRSA if the body itself is the problem or you are unsure who to ask.",
-        th: "ไม่มีขั้นตอนร้องเรียนแยกต่างหากสำหรับปัญหาเกี่ยวกับชมรมหรือองค์กรนักศึกษาที่เรามีระบุไว้ ให้แจ้งองค์กรนั้นโดยตรง หรือแจ้ง BIRSA หากปัญหาคือองค์กรนั้นเอง หรือไม่แน่ใจว่าจะติดต่อใคร",
+        th: "เราไม่มีขั้นตอนร้องเรียนแยกต่างหากสำหรับปัญหาเกี่ยวกับชมรมหรือองค์กรนักศึกษา ให้แจ้งองค์กรนั้นโดยตรง หรือแจ้ง BIRSA หากปัญหาอยู่ที่องค์กรนั้นเอง หรือไม่แน่ใจว่าจะติดต่อใคร",
       },
       body: [
         {
@@ -804,7 +807,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "A problem with a decision or treatment from the Faculty itself is not something BIRSA can overrule. Raise a BIR-specific matter through BIRSA as your elected faculty student committee; raise a general or unfair-treatment matter with TUSU Tha Prachan, the directly elected student union for all Tha Prachan students.",
-        th: "ปัญหาเกี่ยวกับคำสั่งหรือการปฏิบัติจากคณะโดยตรง ไม่ใช่เรื่องที่ BIRSA มีอำนาจยกเลิกได้ หากเป็นเรื่องเฉพาะของ BIR ให้ยกผ่าน BIRSA ในฐานะกรรมการนักศึกษาประจำสาขาที่มาจากการเลือกตั้ง ส่วนเรื่องทั่วไปหรือการปฏิบัติที่ไม่เป็นธรรม แจ้ง อมธ. ท่าพระจันทร์ ซึ่งเป็นองค์การนักศึกษาที่มาจากการเลือกตั้งโดยตรงและเป็นตัวแทนของนักศึกษาทั้งหมดที่ท่าพระจันทร์",
+        th: "ปัญหาเกี่ยวกับคำสั่งหรือการปฏิบัติจากคณะโดยตรง ไม่ใช่เรื่องที่ BIRSA มีอำนาจยกเลิกได้ หากเป็นเรื่องเฉพาะของ BIR ให้ยกเรื่องผ่าน BIRSA ในฐานะกรรมการนักศึกษาประจำสาขาที่มาจากการเลือกตั้ง ส่วนเรื่องทั่วไปหรือการปฏิบัติที่ไม่เป็นธรรม แจ้ง อมธ. ท่าพระจันทร์ ซึ่งเป็นองค์การนักศึกษาที่มาจากการเลือกตั้งโดยตรงและเป็นตัวแทนของนักศึกษาทั้งหมดที่ท่าพระจันทร์",
       },
       owner: {
         en: "The Faculty makes its own decisions. BIRSA and TUSU Tha Prachan can raise the matter but cannot overrule the Faculty.",
@@ -852,8 +855,8 @@ export const contact: SmartAnswerService = {
         th: "โทรหาหน่วยงานฉุกเฉินก่อน",
       },
       summary: {
-        en: "Police 191. Medical 1669. Fire and rescue 199. Call before you do anything else, including reading the rest of this page.",
-        th: "ตำรวจ 191 การแพทย์ 1669 ดับเพลิงและกู้ภัย 199 โทรก่อนทำอย่างอื่น รวมถึงก่อนอ่านหน้านี้ต่อ",
+        en: "Police 191. Medical 1669. Fire and rescue 199. Call before you do anything else.",
+        th: "ตำรวจ 191 การแพทย์ 1669 ดับเพลิงและกู้ภัย 199 โทรก่อนทำอย่างอื่น",
       },
       owner: {
         en: "Emergency services, then Thammasat security. BIRSA cannot respond to an emergency.",
@@ -903,7 +906,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "Send us the question and we will either answer it or tell you which office can.",
-        th: "ส่งคำถามมาได้เลย เราจะตอบให้ หรือบอกว่าต้องติดต่อหน่วยงานไหน",
+        th: "ส่งคำถามถึงเรา เราจะตอบ หรือแจ้งว่าควรติดต่อหน่วยงานใด",
       },
       body: [
         {
@@ -930,7 +933,7 @@ export const contact: SmartAnswerService = {
       },
       summary: {
         en: "We could not find anything in the regulations we hold that covers your situation. Rather than guess at a procedure, ask BIRSA or the Faculty office and get it in writing.",
-        th: "เราไม่พบข้อกำหนดในระเบียบที่เรามีซึ่งครอบคลุมกรณีของคุณ แทนที่จะเดาขั้นตอนเอง ให้สอบถาม BIRSA หรือสำนักงานคณะ และขอคำตอบเป็นลายลักษณ์อักษร",
+        th: "เราไม่พบข้อกำหนดในระเบียบที่เรามีซึ่งครอบคลุมกรณีของคุณ ไม่ควรเดาขั้นตอนเอง ให้สอบถาม BIRSA หรือสำนักงานคณะ และขอคำตอบเป็นลายลักษณ์อักษร",
       },
       owner: {
         en: "The Faculty office decides. BIRSA can raise it for you.",

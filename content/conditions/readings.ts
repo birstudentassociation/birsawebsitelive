@@ -55,7 +55,7 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
     label: { en: "River at Pak Khlong Talat", th: "แม่น้ำเจ้าพระยาที่ปากคลองตลาด" },
     threshold: {
       en: `Disruption from ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} m, the level that flooded the riverside in 2021. Wall ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} m.`,
-      th: `มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ซึ่งเป็นระดับที่น้ำท่วมริมน้ำในปี 2564 กำแพงกั้นน้ำสูง ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} ม.`,
+      th: `มีแนวโน้มกระทบเมื่อถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ระดับที่เคยท่วมริมน้ำในปี 2564 กำแพงกั้นน้ำสูง ${metres(RIVER_PAK_KHLONG_TALAT_WALL_M)} ม.`,
     },
   },
   damRelease: {
@@ -159,7 +159,7 @@ export const readingCopy: Record<ReadingId, ReadingCopy> = {
     label: { en: "UV index today", th: "ดัชนีรังสียูวีวันนี้" },
     threshold: {
       en: `Shown for information. ${UV_INDEX_VERY_HIGH} or more is very high, which Bangkok reaches on most clear days.`,
-      th: `แสดงไว้เพื่อประกอบการติดตาม ค่าตั้งแต่ ${UV_INDEX_VERY_HIGH} ขึ้นไปถือว่าสูงมาก ซึ่งกรุงเทพฯ มีค่าระดับนี้ในวันที่ท้องฟ้าโปร่งเกือบทุกวัน`,
+      th: `แสดงไว้เพื่อประกอบการติดตาม ค่าตั้งแต่ ${UV_INDEX_VERY_HIGH} ขึ้นไปถือว่าสูงมาก กรุงเทพฯ มีค่าระดับนี้เกือบทุกวันที่ท้องฟ้าโปร่ง`,
     },
   },
   tmdWarning: {

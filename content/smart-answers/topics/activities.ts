@@ -33,11 +33,11 @@ export const activities: SmartAnswerService = {
       path: "/activity/approval-check",
       title: {
         en: "Check if your student activity needs approval",
-        th: "เช็กว่ากิจกรรมของคุณต้องขออนุมัติหรือไม่",
+        th: "ตรวจสอบว่ากิจกรรมของคุณต้องขออนุมัติหรือไม่",
       },
       lede: {
-        en: "Answer a few quick questions to see whether your activity needs sign-off from BIRSA, the PSC, or the Faculty, and who to ask.",
-        th: "ตอบคำถามสั้น ๆ เพื่อเช็กว่ากิจกรรมที่จะจัดต้องขออนุมัติจาก BIRSA กนศ.ร. หรือคณะหรือไม่ และต้องติดต่อใคร",
+        en: "Answer a few questions to see whether your activity needs sign-off from BIRSA, the PSC, or the Faculty, and who to ask.",
+        th: "ตอบคำถามสั้น ๆ เพื่อตรวจสอบว่ากิจกรรมที่จะจัดต้องขออนุมัติจาก BIRSA กนศ.ร. หรือคณะหรือไม่ และต้องติดต่อใคร",
       },
       start: "q-activity-body",
       keywords: [
@@ -57,11 +57,11 @@ export const activities: SmartAnswerService = {
       path: "/clubs/start-check",
       title: {
         en: "Check if you're ready to start a club",
-        th: "เช็กความพร้อมก่อนเริ่มชมรม",
+        th: "ตรวจสอบความพร้อมก่อนเริ่มชมรม",
       },
       lede: {
         en: "A few questions to see whether you're ready to bring your idea to BIRSA, or what to sort out first.",
-        th: "ตอบคำถามสั้น ๆ เพื่อเช็กว่าพร้อมนำไอเดียไปเสนอ BIRSA หรือยัง หรือควรเตรียมอะไรก่อน",
+        th: "ตอบคำถามสั้น ๆ เพื่อตรวจสอบว่าพร้อมนำแนวคิดไปเสนอ BIRSA หรือไม่ หรือควรเตรียมอะไรก่อน",
       },
       start: "q-club-idea",
       keywords: [
@@ -91,7 +91,7 @@ export const activities: SmartAnswerService = {
       },
       hint: {
         en: 'If a few friends are organising something informally, choose "No".',
-        th: "ถ้าเป็นการรวมตัวกันเองแบบไม่เป็นทางการ ให้เลือก “ไม่ใช่”",
+        th: "ถ้าเป็นการรวมตัวแบบไม่เป็นทางการ ให้เลือก “ไม่ใช่”",
       },
       options: [
         {
@@ -116,8 +116,8 @@ export const activities: SmartAnswerService = {
       kind: "question",
       id: "q-activity-budget-space",
       question: {
-        en: "Does it need Faculty budget, or a room/space booking, beyond what your group already planned for this academic year?",
-        th: "กิจกรรมนี้ต้องใช้งบประมาณของคณะ หรือขอใช้ห้อง/สถานที่ เพิ่มเติมจากแผนงานที่กลุ่มของคุณเสนอไว้แล้วในปีการศึกษานี้หรือไม่",
+        en: "Does it need Faculty budget, or a room or space booking, beyond what your group already planned for this academic year?",
+        th: "กิจกรรมนี้ต้องใช้งบประมาณของคณะ หรือขอใช้ห้องหรือสถานที่เพิ่มเติมจากแผนงานที่กลุ่มของคุณเสนอไว้แล้วในปีการศึกษานี้หรือไม่",
       },
       options: [
         {
@@ -184,7 +184,7 @@ export const activities: SmartAnswerService = {
       id: "out-activity-likely-fine",
       title: {
         en: "Likely fine under your group's existing plan, but check with your committee",
-        th: "น่าจะไม่ต้องขออนุมัติเพิ่ม แต่ควรเช็กกับคณะกรรมการของกลุ่มก่อน",
+        th: "น่าจะไม่ต้องขออนุมัติเพิ่ม แต่ควรตรวจสอบกับคณะกรรมการของกลุ่มก่อน",
       },
       summary: {
         en: "Activities carried out under an existing group's approved annual plan do not need separate sign-off for each event.",
@@ -201,8 +201,8 @@ export const activities: SmartAnswerService = {
         {
           kind: "paragraph",
           text: {
-            en: "If you sit on the committee that prepared this plan, confirm the activity was actually listed when your group submitted it. If it wasn't, add it before you go ahead.",
-            th: "หากคุณเป็นกรรมการที่จัดทำแผนนี้ ตรวจสอบว่ากิจกรรมนี้ถูกระบุไว้ตั้งแต่ตอนที่กลุ่มเสนอแผนแล้วจริง ถ้ายังไม่ได้ระบุ ให้เพิ่มเข้าไปก่อนดำเนินการ",
+            en: "If you sit on the committee that prepared this plan, confirm the activity was listed when your group submitted it. If it was not, add it before you go ahead.",
+            th: "หากคุณเป็นกรรมการที่จัดทำแผนนี้ ตรวจสอบว่ากิจกรรมนี้ระบุอยู่ในแผนที่กลุ่มเสนอไว้ ถ้ายังไม่ได้ระบุ ให้เพิ่มก่อนดำเนินการ",
           },
         },
         {
@@ -250,8 +250,8 @@ export const activities: SmartAnswerService = {
         th: "ต้องขออนุมัติงบประมาณหรือสถานที่เพิ่มเติมก่อน",
       },
       summary: {
-        en: "Spending outside your group's approved budget needs the Faculty's approval before you go ahead; this is a formal step, not just a courtesy.",
-        th: "การใช้จ่ายนอกเหนือจากงบประมาณที่อนุมัติไว้แล้ว ต้องได้รับความเห็นชอบจากคณะก่อนดำเนินการ ไม่ใช่แค่แจ้งให้ทราบ",
+        en: "Spending outside your group's approved budget needs the Faculty's approval before you go ahead.",
+        th: "การใช้จ่ายนอกเหนือจากงบประมาณที่อนุมัติไว้แล้ว ต้องได้รับความเห็นชอบจากคณะก่อนดำเนินการ",
       },
       owner: {
         en: "The Faculty decides. Your group's committee raises it with the Faculty, through BIRSA or the PSC as relevant.",
@@ -303,15 +303,18 @@ export const activities: SmartAnswerService = {
       id: "out-activity-ongoing",
       title: {
         en: "Check if you're ready to start a club",
-        th: "เช็กความพร้อมก่อนเริ่มชมรม",
+        th: "ตรวจสอบความพร้อมก่อนเริ่มชมรม",
       },
       summary: {
         en: "Something ongoing is a club or group rather than a one-off activity, and starting one has its own check.",
-        th: "สิ่งที่ทำต่อเนื่องคือชมรมหรือกลุ่ม ไม่ใช่กิจกรรมครั้งเดียว และการเริ่มชมรมมีแบบเช็กของตัวเอง",
+        th: "สิ่งที่ทำต่อเนื่องคือชมรมหรือกลุ่ม ไม่ใช่กิจกรรมครั้งเดียว และการเริ่มชมรมมีแบบตรวจสอบความพร้อมโดยเฉพาะ",
       },
       actions: [
         {
-          label: { en: "Check if you're ready to start a club", th: "เช็กความพร้อมก่อนเริ่มชมรม" },
+          label: {
+            en: "Check if you're ready to start a club",
+            th: "ตรวจสอบความพร้อมก่อนเริ่มชมรม",
+          },
           href: "/clubs/start-check",
         },
       ],
@@ -357,7 +360,7 @@ export const activities: SmartAnswerService = {
         th: "สอบถามก่อนดำเนินการ กิจกรรมนอกสถานที่ต้องระวังเป็นพิเศษ",
       },
       summary: {
-        en: "We do not have a clear-cut rule on file for an unaffiliated one-off activity, and off-campus trips add real questions around safety, transport, and who's responsible if something goes wrong. Ask BIRSA or the Faculty office first.",
+        en: "We do not have a clear-cut rule on file for an unaffiliated one-off activity, and off-campus trips raise questions about safety, transport and who is responsible if something goes wrong. Ask BIRSA or the Faculty office first.",
         th: "สำหรับกิจกรรมครั้งเดียวที่ไม่มีองค์กรรองรับ เราไม่มีระเบียบที่ระบุขั้นตอนไว้ชัดเจน และการจัดนอกสถานที่ยังมีเรื่องความปลอดภัย การเดินทาง และผู้รับผิดชอบหากเกิดเหตุ ควรสอบถาม BIRSA หรือสำนักงานคณะก่อน",
       },
       owner: {
@@ -369,7 +372,7 @@ export const activities: SmartAnswerService = {
           kind: "paragraph",
           text: {
             en: "This matters even more for anything involving travel, an overnight stay, or activities with any physical risk.",
-            th: "ยิ่งสำคัญมากขึ้นถ้ากิจกรรมมีการเดินทาง ค้างคืน หรือมีความเสี่ยงทางร่างกาย",
+            th: "โดยเฉพาะกิจกรรมที่มีการเดินทาง ค้างคืน หรือมีความเสี่ยงทางร่างกาย",
           },
         },
       ],
@@ -386,7 +389,7 @@ export const activities: SmartAnswerService = {
       id: "q-club-idea",
       question: {
         en: "Is there something you want to do together that no existing club already covers?",
-        th: "มีสิ่งที่อยากทำร่วมกัน ที่ยังไม่มีชมรมไหนรองรับอยู่แล้วใช่ไหม",
+        th: "มีสิ่งที่อยากทำร่วมกันซึ่งยังไม่มีชมรมใดรองรับอยู่แล้วหรือไม่",
       },
       options: [
         {
@@ -409,7 +412,7 @@ export const activities: SmartAnswerService = {
       id: "q-club-members",
       question: {
         en: "Do you already have at least a few other students (roughly 5 or more) who want to join in?",
-        th: "ตอนนี้มีเพื่อนนักศึกษาคนอื่นที่อยากเข้าร่วมด้วยแล้วหรือยัง อย่างน้อยประมาณ 5 คน",
+        th: "ขณะนี้มีนักศึกษาคนอื่นที่อยากเข้าร่วมแล้วหรือไม่ อย่างน้อยประมาณ 5 คน",
       },
       options: [
         {
@@ -425,12 +428,12 @@ export const activities: SmartAnswerService = {
       id: "q-club-committee",
       question: {
         en: "Could a few of you take on committee roles (like chair, secretary, or treasurer) to help run it?",
-        th: "มีใครในกลุ่มพร้อมรับตำแหน่งกรรมการ เช่น ประธาน เลขานุการ หรือเหรัญญิก เพื่อช่วยดูแลชมรมไหม",
+        th: "มีใครในกลุ่มพร้อมรับตำแหน่งกรรมการ เช่น ประธาน เลขานุการ หรือเหรัญญิก เพื่อช่วยดูแลชมรมหรือไม่",
       },
       options: [
         {
           id: "yes",
-          label: { en: "Yes, we've got people for that", th: "มีคนพร้อมรับตำแหน่ง" },
+          label: { en: "Yes, we have people for that", th: "มีคนพร้อมรับตำแหน่ง" },
           next: "q-club-scope",
         },
         { id: "no", label: { en: "Not yet", th: "ยังไม่มี" }, next: "out-club-need-committee" },
@@ -474,17 +477,17 @@ export const activities: SmartAnswerService = {
       title: { en: "Check existing clubs first", th: "ลองดูชมรมที่มีอยู่ก่อน" },
       summary: {
         en: "If an existing club already covers this, joining it is usually quicker than starting a new one.",
-        th: "ถ้ามีชมรมที่ตรงกับสิ่งที่อยากทำอยู่แล้ว การเข้าร่วมมักง่ายและเร็วกว่าการเริ่มใหม่",
+        th: "ถ้ามีชมรมที่ตรงกับสิ่งที่อยากทำอยู่แล้ว การเข้าร่วมมักเร็วกว่าการเริ่มใหม่",
       },
       actions: [{ label: { en: "Browse clubs", th: "ดูรายชื่อชมรม" }, href: "/clubs" }],
     },
     {
       kind: "outcome",
       id: "out-club-find-people",
-      title: { en: "Find a few more people first", th: "หาเพื่อนร่วมทางเพิ่มก่อน" },
+      title: { en: "Find a few more people first", th: "หาคนร่วมชมรมเพิ่มก่อน" },
       summary: {
-        en: "A club needs people to run with, not just an idea. Talk to classmates or your year group before taking the next step.",
-        th: "ชมรมต้องมีคนช่วยกันทำ ไม่ใช่แค่มีไอเดีย ชวนเพื่อนร่วมชั้นหรือรุ่นเดียวกันก่อนไปขั้นตอนถัดไป",
+        en: "A club needs people as well as an idea. Talk to classmates or your year group before taking the next step.",
+        th: "ชมรมต้องมีคนช่วยกันดำเนินการ นอกเหนือจากแนวคิด ชวนเพื่อนร่วมชั้นหรือรุ่นเดียวกันก่อนไปขั้นตอนถัดไป",
       },
       actions: [
         {
@@ -502,7 +505,7 @@ export const activities: SmartAnswerService = {
       id: "out-club-need-committee",
       title: {
         en: "You'll need a small committee eventually",
-        th: "สุดท้ายแล้วจะต้องมีคณะกรรมการเล็ก ๆ",
+        th: "ต้องมีคณะกรรมการชุดเล็กในภายหลัง",
       },
       summary: {
         en: "Running a recognised group means someone has to hold basic roles: even a Faculty activity group needs at least 5 committee members, and a University-wide club needs at least 3. This is not required on day one, but identify who could take these roles on early.",
@@ -584,7 +587,7 @@ export const activities: SmartAnswerService = {
         {
           kind: "paragraph",
           text: {
-            en: "That's a separate, more formal step than the BIRSA on-ramp: a Faculty activity group needs at least 20 members and a 5-to-10-member committee, and only the Dean can approve its formation or dissolution.",
+            en: "This is a separate and more formal step than starting through BIRSA: a Faculty activity group needs at least 20 members and a 5-to-10-member committee, and only the Dean can approve its formation or dissolution.",
             th: "ขั้นตอนนี้เป็นคนละเรื่องกับการเริ่มผ่าน BIRSA และเป็นทางการมากกว่า กลุ่มกิจกรรมคณะต้องมีสมาชิกอย่างน้อย 20 คน มีคณะกรรมการ 5 ถึง 10 คน และการจัดตั้งหรือยุบเลิกทำได้โดยคำสั่งคณบดีเท่านั้น",
           },
         },
@@ -592,7 +595,7 @@ export const activities: SmartAnswerService = {
           kind: "paragraph",
           text: {
             en: "Once it is formed, the group committee has to submit its own annual work plan to the PSC. BIRSA can help you assess whether you need to take this step yet.",
-            th: "เมื่อจัดตั้งแล้ว คณะกรรมการกลุ่มใหม่นี้ต้องเสนอแผนงานประจำปีของตัวเองต่อ กนศ.ร. BIRSA ช่วยดูได้ว่าตอนนี้จำเป็นต้องทำถึงขั้นตอนนี้แล้วหรือยัง",
+            th: "เมื่อจัดตั้งแล้ว คณะกรรมการกลุ่มใหม่นี้ต้องเสนอแผนงานประจำปีของตัวเองต่อ กนศ.ร. BIRSA ช่วยประเมินได้ว่าขณะนี้จำเป็นต้องดำเนินการขั้นตอนนี้หรือไม่",
           },
         },
       ],

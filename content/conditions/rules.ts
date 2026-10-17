@@ -214,7 +214,7 @@ export const verdictCopy: Record<CardId, Record<Level, VerdictCopy>> = {
       },
       action: {
         en: "Drink water and keep to the shade around midday. The sun in Bangkok is strong enough to burn on most clear days, so use sunscreen.",
-        th: "ดื่มน้ำให้พอ และหลบแดดช่วงเที่ยงวัน แดดในกรุงเทพฯ แรงพอจะทำให้ผิวไหม้ได้ในวันที่ท้องฟ้าโปร่งเกือบทุกวัน ควรทาครีมกันแดด",
+        th: "ดื่มน้ำให้พอ และหลบแดดช่วงเที่ยงวัน แดดในกรุงเทพฯ แรงพอจะทำให้ผิวไหม้ได้เกือบทุกวันที่ท้องฟ้าโปร่ง ควรทาครีมกันแดด",
       },
     },
     takeCare: {
@@ -250,7 +250,7 @@ export const verdictCopy: Record<CardId, Record<Level, VerdictCopy>> = {
 export const ruleWhy: Record<RuleId, Text> = {
   R1: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} m or higher. In 2021, when it peaked between 1.73 m and 2.03 m, the river came over the wall by the riverside canteen.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. ขึ้นไป ในปี 2564 ซึ่งระดับสูงสุดอยู่ระหว่าง 1.73 ถึง 2.03 ม. น้ำเคยล้นกำแพงข้างโรงอาหารริมน้ำ`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_TAKE_CARE_M)} ม. ขึ้นไป ในปี 2564 ระดับน้ำสูงสุดอยู่ระหว่าง 1.73 ถึง 2.03 ม. และน้ำล้นกำแพงข้างโรงอาหารริมน้ำ`,
   },
   R2: {
     en: `The Chao Phraya Dam is releasing ${whole(DAM_RELEASE_TAKE_CARE_M3S)} cubic metres a second or more. The Royal Irrigation Department warns Bangkok at this rate, and the river here rises over the next few days.`,
@@ -262,11 +262,11 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   R4: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m or higher. The river reached this level in 2021, the year it flooded parts of the campus by the riverside canteen. The bank is ${metres(RIVER_KRUNG_THEP_BANK_M)} m.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ซึ่งเป็นปีที่น้ำท่วมบางส่วนของมหาวิทยาลัยข้างโรงอาหารริมน้ำ ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ที่น้ำท่วมบางส่วนของมหาวิทยาลัยข้างโรงอาหารริมน้ำ ตลิ่งสูง ${metres(RIVER_KRUNG_THEP_BANK_M)} ม.`,
   },
   R5: {
     en: `The river at Pak Khlong Talat is at ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} m or higher. The river reached this level in 2021, the year it flooded parts of the campus by the riverside canteen.`,
-    th: `ระดับน้ำที่ปากคลองตลาดสูงถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ซึ่งเป็นปีที่น้ำท่วมบางส่วนของมหาวิทยาลัยข้างโรงอาหารริมน้ำ`,
+    th: `ระดับน้ำที่ปากคลองตลาดสูงถึง ${metres(RIVER_PAK_KHLONG_TALAT_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ที่น้ำท่วมบางส่วนของมหาวิทยาลัยข้างโรงอาหารริมน้ำ`,
   },
   C1: {
     en: `Heavy rain of ${HEAVY_RAIN_MMH} mm or more in an hour is forecast within the next ${RAIN_LOOKAHEAD_HOURS} hours. The forecast averages over a wide area, so the heaviest showers can be much stronger.`,
@@ -306,7 +306,7 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   C10: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m or higher. The river reached this level in 2021, the year it came over the wall by the riverside canteen.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ซึ่งเป็นปีที่น้ำล้นกำแพงข้างโรงอาหารริมน้ำ`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป ระดับน้ำเคยขึ้นถึงระดับนี้ในปี 2564 ที่น้ำล้นกำแพงข้างโรงอาหารริมน้ำ`,
   },
   C11: {
     en: "An earthquake that Bangkok would feel happened in the past 6 hours. Buildings may be closed while they are checked, so follow the university's announcements.",
@@ -330,7 +330,7 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   T5: {
     en: `The river at Krung Thep Bridge is at ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} m or higher. When the river flooded Tha Prachan in 2011, the Wang Lang ferry stopped and Phra Chan Road was closed.`,
-    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป เมื่อน้ำท่วมท่าพระจันทร์ในปี 2554 เรือข้ามฟากท่าวังหลังหยุดวิ่ง และถนนพระจันทร์ถูกปิด`,
+    th: `ระดับน้ำที่สะพานกรุงเทพสูงถึง ${metres(RIVER_KRUNG_THEP_DISRUPTION_M)} ม. ขึ้นไป เมื่อน้ำท่วมท่าพระจันทร์ในปี 2554 เรือข้ามฟากท่าวังหลังหยุดวิ่ง และถนนพระจันทร์ปิด`,
   },
   T6: {
     en: "An earthquake that Bangkok would feel happened in the past 6 hours. The BTS and MRT stop to check their tracks. After the March 2025 earthquake some lines stayed closed until the next day.",
@@ -338,7 +338,7 @@ export const ruleWhy: Record<RuleId, Text> = {
   },
   T7: {
     en: `${RAIN_FALLEN_3H_DISRUPTION_MM} mm or more of rain fell in the past 3 hours at the Memorial Bridge gauge. Maharat Road has flooded after heavy rain before, so roads near campus may be slow or closed.`,
-    th: `สถานีวัดฝนสะพานพุทธวัดฝนได้ ${RAIN_FALLEN_3H_DISRUPTION_MM} มม. ขึ้นไปใน 3 ชั่วโมงที่ผ่านมา ถนนมหาราชเคยมีน้ำท่วมขังหลังฝนตกหนัก ถนนใกล้มหาวิทยาลัยจึงอาจติดขัดหรือถูกปิด`,
+    th: `สถานีวัดฝนสะพานพุทธวัดฝนได้ ${RAIN_FALLEN_3H_DISRUPTION_MM} มม. ขึ้นไปใน 3 ชั่วโมงที่ผ่านมา ถนนมหาราชเคยมีน้ำท่วมขังหลังฝนตกหนัก ถนนใกล้มหาวิทยาลัยจึงอาจติดขัดหรือปิด`,
   },
   H1: {
     en: `The 24 hour average of PM2.5 dust is above ${PM25_THAI_STANDARD_UGM3} micrograms per cubic metre, the Thai standard. The Pollution Control Department rates this orange, when health starts to be affected.`,

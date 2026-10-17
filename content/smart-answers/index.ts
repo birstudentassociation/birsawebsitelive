@@ -56,7 +56,7 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
     whoDecides: "Who decides this",
     basedOn: "Based on",
     readMore: "More detail",
-    notAnswered: "Think this outcome is wrong, or does not fit your situation?",
+    notAnswered: "Is this answer wrong, or does it not fit your situation?",
     notAnsweredAction: "Query this answer with BIRSA",
     guidanceDisclaimer:
       "This is guidance from BIRSA, a student association, not an official decision by the Faculty. If in doubt, confirm with the Faculty office.",
@@ -68,7 +68,7 @@ export const uiCopy: Record<Locale, SmartAnswersUiCopy> = {
     change: "แก้ไข",
     startAgain: "เริ่มใหม่",
     feedbackSummary: "บอกเราว่าคุณคิดอย่างไรกับคำตอบนี้",
-    feedbackHeading: "คุณคิดเห็นอย่างไรกับคำตอบที่ได้รับ",
+    feedbackHeading: "คุณมีความเห็นอย่างไรต่อคำตอบนี้",
     whoDecides: "ใครเป็นผู้ตัดสิน",
     basedOn: "อ้างอิงจาก",
     readMore: "อ่านเพิ่มเติม",
