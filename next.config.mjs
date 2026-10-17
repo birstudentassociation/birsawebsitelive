@@ -114,22 +114,6 @@ const nextConfig = {
         destination: "/:lang/services/:slug*",
         permanent: true,
       },
-      // The short-lived top-level Information section moved under /services.
-      {
-        source: "/:lang/information/applying-to-bir",
-        destination: "/:lang/services/applying-to-bir",
-        permanent: true,
-      },
-      {
-        source: "/:lang/information/applying-to-bir/:slug*",
-        destination: "/:lang/services/applying-to-bir/:slug*",
-        permanent: true,
-      },
-      {
-        source: "/:lang/information",
-        destination: "/:lang/services",
-        permanent: true,
-      },
       // Monthly calendars were separate posts; one calendar page at a fixed
       // URL is now updated each month, so its search ranking builds up.
       {
