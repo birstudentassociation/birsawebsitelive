@@ -61,7 +61,7 @@ export const EQUIVALENCES: Equivalence[] = [
       source: "bir64rev66",
       reason: {
         en: "The 2023 revision lists LAS101 where 2564 listed TU104. Both are called Critical Thinking, Reading and Writing, carry 3 credits, count as general education part 1 and sit in Year 1 semester 2 of the recommended plan. The pairing is inferred from that and has not been confirmed by the faculty.",
-        th: "หลักสูตรฉบับปรับปรุง พ.ศ. 2566 ใช้ LAS101 ในตำแหน่งเดียวกับที่หลักสูตร พ.ศ. 2564 ใช้ TU104 ทั้งสองวิชามีชื่อเดียวกันคือ Critical Thinking, Reading and Writing มี 3 หน่วยกิต นับเป็นวิชาศึกษาทั่วไป ส่วนที่ 1 และอยู่ในปี 1 ภาคเรียนที่ 2 ของแผนการเรียนที่แนะนำเหมือนกัน การจับคู่นี้เป็นข้อสรุปจากข้อมูลดังกล่าว ยังไม่ได้รับการยืนยันจากคณะ",
+        th: "หลักสูตรฉบับปรับปรุง พ.ศ. 2566 ใช้ LAS101 ในตำแหน่งเดียวกับที่หลักสูตร พ.ศ. 2564 ใช้ TU104 ทั้งสองวิชามีชื่อเดียวกันคือ Critical Thinking, Reading and Writing มี 3 หน่วยกิต นับเป็นวิชาศึกษาทั่วไป ส่วนที่ 1 และอยู่ในปี 1 ภาคเรียนที่ 2 ของแผนการเรียนที่แนะนำเหมือนกัน การจับคู่นี้เป็นข้อสรุปจากข้อมูลข้างต้น ยังไม่ได้รับการยืนยันจากคณะ",
       },
     },
     verifiedBy: null,
@@ -77,7 +77,7 @@ export const EQUIVALENCES: Equivalence[] = [
       source: "bir64rev66",
       reason: {
         en: "The 2023 revision lists EL105 where 2564 listed TU105. They are English communication courses (Communication Skills in English, then English Communication Skills), carry 3 credits, count as general education part 1 and sit in Year 1 semester 1 of the recommended plan. The pairing is inferred from that and has not been confirmed by the faculty.",
-        th: "หลักสูตรฉบับปรับปรุง พ.ศ. 2566 ใช้ EL105 ในตำแหน่งเดียวกับที่หลักสูตร พ.ศ. 2564 ใช้ TU105 ทั้งสองวิชาเป็นวิชาการสื่อสารภาษาอังกฤษ (Communication Skills in English และ English Communication Skills) มี 3 หน่วยกิต นับเป็นวิชาศึกษาทั่วไป ส่วนที่ 1 และอยู่ในปี 1 ภาคเรียนที่ 1 ของแผนการเรียนที่แนะนำเหมือนกัน การจับคู่นี้เป็นข้อสรุปจากข้อมูลดังกล่าว ยังไม่ได้รับการยืนยันจากคณะ",
+        th: "หลักสูตรฉบับปรับปรุง พ.ศ. 2566 ใช้ EL105 ในตำแหน่งเดียวกับที่หลักสูตร พ.ศ. 2564 ใช้ TU105 ทั้งสองวิชาเป็นวิชาการสื่อสารภาษาอังกฤษ (Communication Skills in English และ English Communication Skills) มี 3 หน่วยกิต นับเป็นวิชาศึกษาทั่วไป ส่วนที่ 1 และอยู่ในปี 1 ภาคเรียนที่ 1 ของแผนการเรียนที่แนะนำเหมือนกัน การจับคู่นี้เป็นข้อสรุปจากข้อมูลข้างต้น ยังไม่ได้รับการยืนยันจากคณะ",
       },
     },
     verifiedBy: null,

@@ -151,8 +151,8 @@ export const courses: Course[] = [
         term: { year: 2567, semester: 1 },
         instructor: THANES,
         workload: {
-          en: "Light. There's no textbook to keep up with. Most weeks involve attending the guest lecture and writing a short reflection afterward. Budget about an hour per reflection for more than a summary.",
-          th: "เบา ไม่มีตำราต้องอ่านตาม แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ หากต้องการเขียนให้ดีกว่าการสรุปเนื้อหา ควรกันเวลาไว้ประมาณหนึ่งชั่วโมงต่อชิ้น",
+          en: "Light. There is no textbook. Most weeks involve attending the guest lecture and writing a short reflection afterwards. A reflection that goes beyond a summary takes about an hour.",
+          th: "เบา ไม่มีตำรา แต่ละสัปดาห์ส่วนใหญ่คือไปฟังบรรยายพิเศษแล้วเขียนสะท้อนความคิดสั้น ๆ หลังจบ บทสะท้อนความคิดที่ลึกกว่าการสรุปเนื้อหาใช้เวลาประมาณหนึ่งชั่วโมงต่อชิ้น",
         },
         assessmentStyle: {
           en: "Graded on short reflective write-ups submitted after each guest lecture, plus in-class participation. No midterm, no final exam.",
@@ -168,8 +168,8 @@ export const courses: Course[] = [
             th: "เขียนสะท้อนความคิดให้สั้น เจาะจง และผูกกับวิทยากรของสัปดาห์นั้น เรียงความกว้าง ๆ เกี่ยวกับสังคมศาสตร์ทั่วไปมักได้คะแนนน้อยกว่า",
           },
           {
-            en: "Suitable as a first-semester course for a low-stress option while adjusting to university workload elsewhere.",
-            th: "เหมาะเป็นวิชาของเทอมแรกสำหรับผู้ที่ต้องการวิชาที่ไม่กดดัน ระหว่างปรับตัวกับภาระงานวิชาอื่นในมหาวิทยาลัย",
+            en: "Suitable for a first semester, while you adjust to the workload of your other courses.",
+            th: "เหมาะกับภาคเรียนแรก ขณะที่ยังปรับตัวกับภาระงานของวิชาอื่น",
           },
         ],
         quotes: [
