@@ -114,7 +114,7 @@ export default async function OfficerCourseReviewGroupPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="info" title={t.signInTitle}>
+          <Notice locale={locale} variant="info" title={t.signInTitle}>
             <p className="mb-3">{t.signInBody}</p>
             <Button href={localeHref(locale, "/officer/inventory")}>{t.signInCta}</Button>
           </Notice>
@@ -196,8 +196,16 @@ export default async function OfficerCourseReviewGroupPage({
         breadcrumbs={breadcrumbs}
       />
       <div className="wrap flex flex-col gap-10 py-10">
-        {done === "published" ? <Notice variant="success">{t.publishedDone}</Notice> : null}
-        {done === "unpublished" ? <Notice variant="success">{t.unpublishedDone}</Notice> : null}
+        {done === "published" ? (
+          <Notice locale={locale} variant="success">
+            {t.publishedDone}
+          </Notice>
+        ) : null}
+        {done === "unpublished" ? (
+          <Notice locale={locale} variant="success">
+            {t.unpublishedDone}
+          </Notice>
+        ) : null}
 
         <div className="flex flex-wrap items-center gap-3">
           <Tag variant={eligible ? "forest" : "neutral"}>
@@ -294,7 +302,7 @@ export default async function OfficerCourseReviewGroupPage({
           </h2>
 
           {published ? (
-            <Notice variant="success" title={t.publishedTitle}>
+            <Notice locale={locale} variant="success" title={t.publishedTitle}>
               <p className="mb-3">
                 {fillTemplate(t.publishedBody, {
                   count: published.reviewCount,
@@ -323,7 +331,7 @@ export default async function OfficerCourseReviewGroupPage({
               published={published !== null}
             />
           ) : (
-            <Notice variant="info" title={t.notEnoughTitle}>
+            <Notice locale={locale} variant="info" title={t.notEnoughTitle}>
               {fillTemplate(t.notEnoughBody, { n: approvalsNeeded(approved.length) })}
             </Notice>
           )}

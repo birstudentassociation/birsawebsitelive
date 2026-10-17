@@ -3,6 +3,7 @@
 import { useId, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import Tag from "@/components/Tag";
 import { todayInBangkok } from "@/lib/bangkok-today";
 import { formatDate, localeHref, type Locale } from "@/lib/i18n";
 import type { CalendarEvent, CalendarEventKind } from "@/content/calendar/events";
@@ -101,9 +102,10 @@ const KIND_TEXT: Record<CalendarEventKind, string> = {
   university: "text-warning",
 };
 
-const KIND_BORDER: Record<CalendarEventKind, string> = {
-  birsa: "border-brand",
-  university: "border-warning",
+/** The coloured Tag that names an event's type, in the detail list and the legend. */
+const KIND_TAG: Record<CalendarEventKind, "brand" | "amber"> = {
+  birsa: "brand",
+  university: "amber",
 };
 
 const KIND_TINT: Record<CalendarEventKind, string> = {
@@ -484,8 +486,6 @@ export default function EventCalendar({
                                   d !== null && keyOf(current.year, current.month0, d) === segEnd
                               );
                               if (segStartCol === -1 || segEndCol === -1) return null;
-                              const roundedLeft = p.start >= weekFirstKey!;
-                              const roundedRight = (p.end ?? p.start) <= weekLastKey!;
                               const lane = laneOf.get(p.id) ?? 0;
 
                               return (
@@ -497,14 +497,9 @@ export default function EventCalendar({
                                     gridColumn: `${segStartCol + 1} / ${segEndCol + 2}`,
                                     gridRow: lane + 1,
                                   }}
-                                  className={clsx(
-                                    "focus-halo flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-xs font-semibold transition-opacity hover:opacity-80",
-                                    KIND_TINT[p.kind],
-                                    "text-ink",
-                                    roundedLeft ? "rounded-l-md" : "",
-                                    roundedRight ? "rounded-r-md" : "",
-                                    roundedLeft ? clsx("border-l-4", KIND_BORDER[p.kind]) : ""
-                                  )}
+                                  // A plain outlined entry, not a tinted bar: the type
+                                  // shows in the icon, and in a Tag in the day's list.
+                                  className="focus-halo flex min-w-0 items-center gap-1 overflow-hidden rounded-md border border-line-strong bg-surface px-1.5 text-xs font-semibold text-ink transition-colors hover:bg-sunken"
                                 >
                                   <KindIcon
                                     prefix={iconPrefix}
@@ -529,19 +524,14 @@ export default function EventCalendar({
             <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               {(Object.keys(labels.legend) as CalendarEventKind[]).map((k) => (
                 <li key={k} className="flex items-center gap-1.5">
-                  <KindIcon
-                    prefix={iconPrefix}
-                    kind={k}
-                    className={clsx("h-3.5 w-3.5", KIND_TEXT[k])}
-                  />
-                  {labels.legend[k]}
+                  <Tag variant={KIND_TAG[k]}>{labels.legend[k]}</Tag>
                 </li>
               ))}
             </ul>
             <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
               <li className="flex items-center gap-1.5">
                 <span
-                  className="h-2.5 w-5 rounded-sm border-l-4 border-brand bg-brand-tint"
+                  className="h-2.5 w-5 rounded-sm border border-line-strong bg-surface"
                   aria-hidden="true"
                 />
                 {labels.styleLegend.period}
@@ -575,26 +565,18 @@ export default function EventCalendar({
               : ""}
           </p>
           {selectedEvents.length > 0 ? (
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col divide-y divide-line">
               {selectedEvents.map((event) => (
-                <li key={event.id}>
+                <li key={event.id} className="py-3 first:pt-0 last:pb-0">
                   <Link
                     href={localeHref(locale, `/news/${event.slug}`)}
-                    className="group focus-halo flex gap-2.5 rounded-md border border-line bg-surface p-3 transition-colors hover:border-brand"
+                    className="group focus-halo flex min-w-0 flex-col items-start gap-1 rounded-md"
                   >
-                    <KindIcon
-                      prefix={iconPrefix}
-                      kind={event.kind}
-                      className={clsx("mt-0.5 h-4 w-4 shrink-0", KIND_TEXT[event.kind])}
-                    />
-                    <span className="min-w-0">
-                      <span className="block text-sm leading-snug font-semibold text-ink group-hover:underline">
-                        {event.title[locale]}
-                      </span>
-                      <span className="mt-0.5 block text-xs text-muted">
-                        {eventRangeLabel(event)}
-                      </span>
+                    <Tag variant={KIND_TAG[event.kind]}>{labels.legend[event.kind]}</Tag>
+                    <span className="block text-sm leading-snug font-semibold text-ink group-hover:underline">
+                      {event.title[locale]}
                     </span>
+                    <span className="block text-xs text-muted">{eventRangeLabel(event)}</span>
                   </Link>
                 </li>
               ))}

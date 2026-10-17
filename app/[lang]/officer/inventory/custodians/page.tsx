@@ -103,7 +103,7 @@ export default async function OfficerInventoryCustodiansPage({
       <>
         <PageHeader title={t.title} />
         <div className="wrap flex flex-col gap-6 py-10">
-          <Notice variant="info" title={t.signInNeededTitle}>
+          <Notice locale={locale} variant="info" title={t.signInNeededTitle}>
             {t.signInNeededBody}
           </Notice>
           <div>

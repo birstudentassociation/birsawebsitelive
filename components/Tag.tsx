@@ -1,11 +1,13 @@
 import clsx from "clsx";
 
-type Variant = "neutral" | "brand" | "forest";
+type Variant = "neutral" | "brand" | "forest" | "amber" | "red";
 
 const variants: Record<Variant, string> = {
   neutral: "bg-sunken text-ink",
   brand: "bg-brand-tint text-brand-deep",
   forest: "bg-forest-tint text-forest",
+  amber: "bg-warning-tint text-warning",
+  red: "bg-error-tint text-error",
 };
 
 export type TagProps = {

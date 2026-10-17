@@ -192,7 +192,11 @@ export default async function EquipmentLoanDirectoryPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap flex flex-col gap-6 py-10">
-          <Notice variant="info" title={!configured ? t.notConfiguredTitle : t.noClubsTitle}>
+          <Notice
+            locale={locale}
+            variant="info"
+            title={!configured ? t.notConfiguredTitle : t.noClubsTitle}
+          >
             <p>
               {!configured ? t.notConfiguredBody : t.noClubsBody}{" "}
               {!configured ? (

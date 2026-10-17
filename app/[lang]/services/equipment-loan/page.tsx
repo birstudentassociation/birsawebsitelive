@@ -277,7 +277,7 @@ export default async function EquipmentLoanPage({
           </ol>
         </section>
 
-        <Notice variant="info" title={t.directoryNoticeTitle}>
+        <Notice locale={locale} variant="info" title={t.directoryNoticeTitle}>
           <p>
             {t.directoryNoticeBody}{" "}
             <a
@@ -291,7 +291,7 @@ export default async function EquipmentLoanPage({
         </Notice>
 
         {!configured ? (
-          <Notice variant="info" title={t.notConfiguredTitle}>
+          <Notice locale={locale} variant="info" title={t.notConfiguredTitle}>
             <p>
               {t.notConfiguredBody}{" "}
               <a

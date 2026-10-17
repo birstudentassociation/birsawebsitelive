@@ -582,10 +582,7 @@ function CourseReview({
           <h4 className="font-semibold text-ink">{t.quotesHeading}</h4>
           <ul className="flex flex-col gap-2 sm:gap-3">
             {review.quotes.map((quote, i) => (
-              <li
-                key={i}
-                className="rounded-md border-l-4 border-brand bg-sunken px-3 py-2.5 text-sm text-ink sm:p-4"
-              >
+              <li key={i} className="border-l-[5px] border-line-strong py-1 pl-4 text-sm text-ink">
                 <p className="italic">&ldquo;{quote.text[locale]}&rdquo;</p>
                 {quote.attribution ? (
                   <p className="mt-1 text-xs text-muted">&middot; {quote.attribution[locale]}</p>

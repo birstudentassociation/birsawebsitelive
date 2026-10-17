@@ -116,7 +116,11 @@ export default async function NewsDetailPage({
         </div>
 
         {isPastEvent(frontmatter) ? (
-          <Notice title={pastEvent[locale].title} className="mb-8 max-w-[var(--measure)]">
+          <Notice
+            locale={locale}
+            title={pastEvent[locale].title}
+            className="mb-8 max-w-[var(--measure)]"
+          >
             {pastEvent[locale].before}
             <a
               href={localeHref(locale, "/news/activity-calendar")}

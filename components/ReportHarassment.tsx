@@ -1,6 +1,7 @@
 /**
- * The harassment and bullying reporting callout: the message, the two
- * official channels (`content/reporting.ts`), and the 48-hour assurance.
+ * The harassment and bullying reporting block: a plain heading, one sentence,
+ * a GOV.UK-style summary list of the two official channels
+ * (`content/reporting.ts`), and the 48-hour assurance. No container.
  *
  * Server component with no props but the locale, so it can be dropped into
  * MDX as `<ReportHarassment />` (see `lib/mdx.tsx`) and into ordinary pages
@@ -8,7 +9,7 @@
  *
  * Renders its own `<h2>`: place it under page-level content, never inside a
  * section that would break the heading order. Colour is never the only
- * signal, the heading text carries the message on its own (WCAG 1.4.1).
+ * signal; the heading text carries the message on its own (WCAG 1.4.1).
  * The heading id is fixed, so render it at most once per page.
  *
  * Inside `.prose` (MDX) the layout utilities here win over the `.prose`
@@ -35,42 +36,43 @@ export default function ReportHarassment({
   const Heading = headingLevel;
 
   return (
-    <section
-      aria-labelledby="report-harassment"
-      className={clsx("rounded-md border-l-4 border-error bg-error-tint p-5 text-ink", className)}
-    >
-      <Heading
-        id="report-harassment"
-        className="m-0 border-b-0 pb-0 text-xl font-bold text-brand-deep"
-      >
+    <section aria-labelledby="report-harassment" className={clsx("text-ink", className)}>
+      <Heading id="report-harassment" className="m-0 border-b-0 pb-0 text-xl font-bold">
         {reportingCopy.heading[locale]}
       </Heading>
 
-      <p className="mt-3 mb-0 text-sm leading-relaxed">{reportingCopy.intro[locale]}</p>
+      <p className="mt-3 mb-0 leading-relaxed">{reportingCopy.intro[locale]}</p>
 
-      <ul className="mt-5 mb-0 grid list-none gap-5 p-0 sm:grid-cols-2">
+      <dl className="mt-5 mb-0 border-t border-line">
         {reportingChannels.map((channel) => (
-          <li key={channel.id} className="m-0 p-0">
-            <p className="m-0 text-sm font-semibold">{channel.organisation[locale]}</p>
-            <p className="m-0 text-sm text-muted">{channel.person[locale]}</p>
-            <p className="mt-2 mb-0 text-sm">
-              {reportingCopy.callLabel[locale]}{" "}
-              <a href={channel.phoneHref} className="font-semibold">
-                {channel.phone}
-              </a>
-              {channel.extension
-                ? ` ${reportingCopy.extensionLabel[locale]} ${channel.extension}`
-                : null}
-            </p>
-            <p className="mt-1 mb-0 text-sm break-words">
-              {reportingCopy.emailLabel[locale]}{" "}
-              <Email address={channel.email} className="font-semibold" />
-            </p>
-          </li>
+          <div
+            key={channel.id}
+            className="grid gap-1 border-b border-line py-3 sm:grid-cols-[2fr_3fr] sm:gap-x-6"
+          >
+            <dt className="m-0 p-0 font-semibold">
+              {channel.organisation[locale]}
+              <span className="block text-sm font-normal text-muted">{channel.person[locale]}</span>
+            </dt>
+            <dd className="m-0 p-0">
+              <p className="m-0">
+                {reportingCopy.callLabel[locale]}{" "}
+                <a href={channel.phoneHref} className="font-semibold">
+                  {channel.phone}
+                </a>
+                {channel.extension
+                  ? ` ${reportingCopy.extensionLabel[locale]} ${channel.extension}`
+                  : null}
+              </p>
+              <p className="mt-1 mb-0 break-words">
+                {reportingCopy.emailLabel[locale]}{" "}
+                <Email address={channel.email} className="font-semibold" />
+              </p>
+            </dd>
+          </div>
         ))}
-      </ul>
+      </dl>
 
-      <p className="mt-5 mb-0 text-sm font-semibold">{reportingCopy.assurance[locale]}</p>
+      <p className="mt-4 mb-0 font-semibold">{reportingCopy.assurance[locale]}</p>
     </section>
   );
 }

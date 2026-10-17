@@ -90,7 +90,7 @@ export default async function OnboardingTrackPage({
           }))}
         />
 
-        <Notice variant="info" title={t.track.privacyTitle}>
+        <Notice locale={locale} variant="info" title={t.track.privacyTitle}>
           <p>{t.track.privacyBody}</p>
           <p className="mt-2">
             <Link

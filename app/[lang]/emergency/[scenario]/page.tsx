@@ -80,7 +80,7 @@ export default async function EmergencyScenarioPage({ params }: { params: Promis
         {isLive && live ? (
           <AlertStatus locale={locale} live={live} t={t} updatesHref="#live-updates" />
         ) : (
-          <Notice title={c.notLive?.title ?? t.notLiveTitle}>
+          <Notice locale={locale} variant="important" title={c.notLive?.title ?? t.notLiveTitle}>
             <div className="flex flex-col gap-3">
               <p>{c.notLive?.body ?? t.notLiveBody}</p>
               {c.notLive?.action ? (

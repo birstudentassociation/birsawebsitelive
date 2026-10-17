@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useRef, useId } from "react";
 import Link from "next/link";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import SummaryRow from "@/components/forms/SummaryRow";
 import ResultPanel from "@/components/forms/ResultPanel";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -160,19 +161,15 @@ export default function LoanRequestWizard({
   if (state.status === "success") {
     return (
       <div className="flex flex-col gap-6">
-        <div
-          ref={confirmationRef}
-          tabIndex={-1}
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="font-display text-xl">{labels.confirmation.title}</p>
-          {state.reference ? (
-            <p className="mt-3 text-sm">
-              <span className="font-semibold">{labels.confirmation.referenceLabel}: </span>
-              <span className="font-mono text-base">{state.reference}</span>
-            </p>
-          ) : null}
+        <div ref={confirmationRef} tabIndex={-1} role="status" className="focus-halo">
+          <Panel title={labels.confirmation.title} headingLevel="h2">
+            {state.reference ? (
+              <p className="text-base">
+                {labels.confirmation.referenceLabel}:{" "}
+                <strong className="font-mono text-xl">{state.reference}</strong>
+              </p>
+            ) : null}
+          </Panel>
         </div>
         <div>
           <h2 className="font-display text-lg">{labels.confirmation.nextStepsTitle}</h2>

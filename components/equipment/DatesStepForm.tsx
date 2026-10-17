@@ -91,7 +91,7 @@ export default function DatesStepForm({
         </WarningText>
       ) : null}
       {state.status === "check-error" ? (
-        <Notice variant="error" title={labels.dates.checkErrorTitle}>
+        <Notice locale={locale} variant="error" title={labels.dates.checkErrorTitle}>
           <p role="status">{labels.dates.checkErrorBody}</p>
         </Notice>
       ) : null}

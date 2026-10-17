@@ -237,7 +237,7 @@ export default function PlanOutreach({
             </p>
           </>
         ) : (
-          <Notice variant="info" title={copy.calendar.emptyTitle}>
+          <Notice locale={locale} variant="info" title={copy.calendar.emptyTitle}>
             <p>{copy.calendar.emptyBody}</p>
             <ul className="mt-2 flex flex-col gap-1">
               <li>

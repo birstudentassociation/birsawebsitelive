@@ -290,7 +290,9 @@ export default async function StandardsPage({ params }: { params: Promise<{ lang
         <section className="flex flex-col gap-4">
           <h2 className="font-display text-2xl">{t.perfTitle}</h2>
           <p className="leading-relaxed text-muted">{t.perfBody}</p>
-          <Notice variant="info">{t.perfNotice}</Notice>
+          <Notice locale={locale} variant="info">
+            {t.perfNotice}
+          </Notice>
         </section>
 
         <section className="flex flex-col gap-4">

@@ -111,7 +111,7 @@ export default async function OfficerBorrowerDetailPage({
       <>
         <PageHeader title={t.title} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="info" title={t.signInTitle}>
+          <Notice locale={locale} variant="info" title={t.signInTitle}>
             <p className="mb-3">{t.signInBody}</p>
             <Button href={localeHref(locale, "/officer/inventory")}>{t.signInCta}</Button>
           </Notice>
@@ -139,7 +139,7 @@ export default async function OfficerBorrowerDetailPage({
       <>
         <PageHeader title={t.title} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="info" title={t.scopedNoticeTitle}>
+          <Notice locale={locale} variant="info" title={t.scopedNoticeTitle}>
             {t.scopedNoticeBody}
           </Notice>
         </div>

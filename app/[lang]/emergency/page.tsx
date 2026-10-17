@@ -63,7 +63,7 @@ export default async function EmergencyIndexPage({
             updatesHref={localeHref(locale, `/emergency/${live.scenario.id}#live-updates`)}
           />
         ) : (
-          <Notice variant="success" title={t.noAlertTitle}>
+          <Notice locale={locale} variant="success" title={t.noAlertTitle}>
             <p>{t.noAlertBody}</p>
           </Notice>
         )}

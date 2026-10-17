@@ -504,7 +504,7 @@ export default async function UniversityServicesPage({
           </ul>
         </nav>
 
-        <Notice variant="info" title={t.disclaimerTitle}>
+        <Notice locale={locale} variant="info" title={t.disclaimerTitle}>
           <p>{t.disclaimerBody}</p>
         </Notice>
 

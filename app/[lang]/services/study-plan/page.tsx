@@ -76,7 +76,7 @@ export default async function StudyPlanStartPage({
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
         {deleted === "1" ? (
-          <Notice variant="success" title={copy.start.deletedTitle}>
+          <Notice locale={locale} variant="success" title={copy.start.deletedTitle}>
             {copy.start.deletedBody}
           </Notice>
         ) : null}

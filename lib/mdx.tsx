@@ -12,7 +12,10 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import Accordion from "@/components/Accordion";
 import ExternalLink from "@/components/ExternalLink";
-import Notice from "@/components/Notice";
+import InsetText from "@/components/InsetText";
+import Notice, { type NoticeProps } from "@/components/Notice";
+import NotificationBanner, { type NotificationBannerProps } from "@/components/NotificationBanner";
+import Panel, { type PanelProps } from "@/components/Panel";
 import WarningText, { type WarningTextProps } from "@/components/WarningText";
 import Email from "@/components/Email";
 import GoogleForm, { type GoogleFormProps } from "@/components/GoogleForm";
@@ -86,7 +89,12 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       const { scope, ...rest } = props;
       return <th scope={scope ?? "col"} {...rest} />;
     },
-    Notice,
+    Notice: (props: Omit<NoticeProps, "locale">) => <Notice {...props} locale={locale} />,
+    InsetText,
+    NotificationBanner: (props: Omit<NotificationBannerProps, "locale" | "announce">) => (
+      <NotificationBanner {...props} locale={locale} />
+    ),
+    Panel: (props: PanelProps) => <Panel {...props} />,
     WarningText: (props: Omit<WarningTextProps, "locale">) => (
       <WarningText {...props} locale={locale} />
     ),

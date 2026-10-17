@@ -191,7 +191,7 @@ export default async function OfficerInventoryDashboardPage({
             {t.dbNotConfiguredBody}
           </WarningText>
         ) : officer.role === "academic_affairs" ? (
-          <Notice variant="info" title={t.courseReviewsTitle}>
+          <Notice locale={locale} variant="info" title={t.courseReviewsTitle}>
             <p className="mb-3">{t.courseReviewsBody}</p>
             <Button href={localeHref(locale, "/officer/inventory/course-reviews")}>
               {t.courseReviewsLink}
@@ -239,7 +239,7 @@ async function ScopedDashboardBoards({
 
   return (
     <div className="flex flex-col gap-10">
-      <Notice variant="info" title={t.scopedLoansNoticeTitle}>
+      <Notice locale={locale} variant="info" title={t.scopedLoansNoticeTitle}>
         {t.scopedLoansNoticeBody}
       </Notice>
 

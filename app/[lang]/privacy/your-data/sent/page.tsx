@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import { RIGHTS_RESPONSE_DAYS } from "@/content/privacy/register";
 
 const copy: Record<
@@ -83,36 +83,30 @@ export default async function RightsSentPage({ params }: { params: Promise<{ lan
 
   return (
     <>
-      <PageHeader
-        title={t.title}
-        breadcrumbs={
-          <Breadcrumbs
-            locale={locale}
-            label={dict.a11y.breadcrumb}
-            items={[
-              { label: dict.site.name, href: "/" },
-              { label: t.privacyCrumb, href: "/privacy" },
-              { label: t.title },
-            ]}
-          />
-        }
-      />
-      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
-        <div
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="text-sm">{t.confirmationBody}</p>
-        </div>
+      <div className="wrap pt-6">
+        <Breadcrumbs
+          locale={locale}
+          label={dict.a11y.breadcrumb}
+          items={[
+            { label: dict.site.name, href: "/" },
+            { label: t.privacyCrumb, href: "/privacy" },
+            { label: t.title },
+          ]}
+        />
+      </div>
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-8">
+        <Panel title={t.title}>
+          <p>{t.confirmationBody}</p>
+        </Panel>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.deadlineTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.deadlineBody(RIGHTS_RESPONSE_DAYS)}</p>
+          <p className="leading-relaxed">{t.deadlineBody(RIGHTS_RESPONSE_DAYS)}</p>
         </section>
 
         <section className="flex flex-col gap-2">
           <h2 className="font-display text-2xl">{t.nextTitle}</h2>
-          <p className="leading-relaxed text-muted">{t.nextBody}</p>
+          <p className="leading-relaxed">{t.nextBody}</p>
         </section>
 
         <div>

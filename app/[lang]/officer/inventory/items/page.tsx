@@ -78,7 +78,7 @@ export default async function OfficerInventoryItemsPage({
   if (!officer) {
     return (
       <div className="wrap flex flex-col gap-6 py-10">
-        <Notice variant="info" title={g.title}>
+        <Notice locale={locale} variant="info" title={g.title}>
           {g.body}
         </Notice>
         <div>

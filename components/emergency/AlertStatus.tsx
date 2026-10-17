@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { EmergencySeverity } from "@/content/emergency/types";
 import { alertHeadline, alertUpdatedAt, formatAlertTime, type LiveAlert } from "@/lib/emergency";
 import { localeHref, type Locale } from "@/lib/i18n";
+import Tag from "@/components/Tag";
 
 type Labels = {
   liveAlert: string;
@@ -80,9 +81,10 @@ export default function AlertStatus({
       </dl>
 
       {latest ? (
-        <div className="flex flex-col gap-1 border-l-2 border-error pl-4">
-          <p className="text-sm font-medium text-muted">
-            {t.latest} <time dateTime={latest.at}>{formatAlertTime(locale, latest.at)}</time>
+        <div className="flex flex-col gap-1 border-l-[5px] border-line-strong pl-4">
+          <p className="flex flex-wrap items-center gap-2 text-sm font-medium text-muted">
+            <Tag variant="neutral">{t.latest}</Tag>{" "}
+            <time dateTime={latest.at}>{formatAlertTime(locale, latest.at)}</time>
           </p>
           <p className="leading-relaxed font-semibold">{latest.text[locale]}</p>
           <a

@@ -13,6 +13,7 @@ import type { FormEvent, KeyboardEvent } from "react";
 import clsx from "clsx";
 import Link from "next/link";
 import Field from "@/components/Field";
+import NotificationBanner from "@/components/NotificationBanner";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
@@ -674,12 +675,9 @@ export default function ItemsManager({
       </div>
 
       {successMessage ? (
-        <div
-          role="status"
-          className="rounded-md border-l-4 border-success bg-success-tint p-3 text-sm text-ink"
-        >
-          {successMessage}
-        </div>
+        <NotificationBanner variant="success" announce locale={locale}>
+          <p>{successMessage}</p>
+        </NotificationBanner>
       ) : null}
 
       {canWrite && formOpen ? (

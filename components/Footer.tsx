@@ -46,7 +46,7 @@ export default function Footer({ locale }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t-2 border-brand bg-sunken">
+    <footer className="border-t border-line bg-sunken">
       <div className="wrap grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <h2 className="font-display text-lg">{dict.site.name}</h2>

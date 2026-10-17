@@ -82,7 +82,7 @@ export default async function OfficerElectiveDemandPage({
       <>
         <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
         <div className="wrap py-10">
-          <Notice variant="info" title={t.signInTitle}>
+          <Notice locale={locale} variant="info" title={t.signInTitle}>
             <p className="mb-3">{t.signInBody}</p>
             <Button href={localeHref(locale, "/officer/inventory")}>{t.signInCta}</Button>
           </Notice>
@@ -135,7 +135,7 @@ export default async function OfficerElectiveDemandPage({
     <>
       <PageHeader title={t.title} lede={t.lede} breadcrumbs={breadcrumbs} />
       <div className="wrap flex flex-col gap-8 py-10">
-        <Notice variant="info">
+        <Notice locale={locale} variant="info">
           <p>{fillTemplate(t.ruleBody, { threshold: DEMAND_THRESHOLD })}</p>
           <p className="mt-2">{t.softLimitBody}</p>
         </Notice>

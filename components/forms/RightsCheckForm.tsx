@@ -102,7 +102,11 @@ export default function RightsCheckForm({ locale, dict, draft, action }: RightsC
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-6">
-      {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
+      {state.status === "error" ? (
+        <Notice locale={locale} variant="error">
+          {dict.form.genericError}
+        </Notice>
+      ) : null}
 
       <dl className="divide-y divide-line rounded-lg border border-line">
         <SummaryRow

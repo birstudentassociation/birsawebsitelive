@@ -7,8 +7,9 @@
  * individually-tracked units.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
-import clsx from "clsx";
 import Button from "@/components/Button";
+import NotificationBanner from "@/components/NotificationBanner";
+import Notice from "@/components/Notice";
 import Field from "@/components/Field";
 import Pager from "@/components/Pager";
 import StatusPill from "@/components/inventory/StatusPill";
@@ -714,18 +715,17 @@ export default function LoanQueue({
         ) : null}
 
         {message ? (
-          <div
-            role={message.kind === "success" ? "status" : "alert"}
-            aria-live={message.kind === "success" ? "polite" : "assertive"}
-            className={clsx(
-              "rounded-md border-l-4 p-3 text-sm",
-              message.kind === "success"
-                ? "border-success bg-success-tint text-ink"
-                : "border-error bg-error-tint text-ink"
-            )}
-          >
-            {message.text}
-          </div>
+          message.kind === "success" ? (
+            <NotificationBanner variant="success" announce locale={locale}>
+              <p>{message.text}</p>
+            </NotificationBanner>
+          ) : (
+            <div role="alert">
+              <Notice variant="error" locale={locale}>
+                <p>{message.text}</p>
+              </Notice>
+            </div>
+          )
         ) : null}
       </article>
     );
@@ -767,18 +767,17 @@ export default function LoanQueue({
           ) : null}
         </div>
         {bulkMessage ? (
-          <div
-            role={bulkMessage.kind === "success" ? "status" : "alert"}
-            aria-live={bulkMessage.kind === "success" ? "polite" : "assertive"}
-            className={clsx(
-              "rounded-md border-l-4 p-3 text-sm",
-              bulkMessage.kind === "success"
-                ? "border-success bg-success-tint text-ink"
-                : "border-error bg-error-tint text-ink"
-            )}
-          >
-            {bulkMessage.text}
-          </div>
+          bulkMessage.kind === "success" ? (
+            <NotificationBanner variant="success" announce locale={locale}>
+              <p>{bulkMessage.text}</p>
+            </NotificationBanner>
+          ) : (
+            <div role="alert">
+              <Notice variant="error" locale={locale}>
+                <p>{bulkMessage.text}</p>
+              </Notice>
+            </div>
+          )
         ) : null}
         {pendingLoans.length === 0 ? (
           <p className="text-sm text-muted">{t.emptyList}</p>

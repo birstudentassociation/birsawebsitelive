@@ -1477,7 +1477,9 @@ function UnitRow({
       ) : null}
 
       {unit.state === "maintenance" && !openMaintenanceEntryId ? (
-        <Notice variant="info">{t.maintenanceUnknownEntry}</Notice>
+        <Notice locale={locale} variant="info">
+          {t.maintenanceUnknownEntry}
+        </Notice>
       ) : null}
 
       <LiveMessage text={message} kind="success" />

@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useId, useRef } from "react";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import Email from "@/components/Email";
 import Field from "@/components/Field";
 import SummaryRow from "@/components/forms/SummaryRow";
@@ -58,14 +59,10 @@ export default function StartClubForm({ locale, dict, draft, action }: StartClub
 
   if (state.status === "success") {
     return (
-      <div
-        ref={resultRef}
-        tabIndex={-1}
-        role="status"
-        className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-      >
-        <p className="font-semibold">{wizard.successTitle}</p>
-        <p className="mt-1 text-sm">{wizard.successBody}</p>
+      <div ref={resultRef} tabIndex={-1} role="status" className="focus-halo">
+        <Panel title={wizard.successTitle} headingLevel="h2">
+          <p className="text-base">{wizard.successBody}</p>
+        </Panel>
       </div>
     );
   }
@@ -109,7 +106,11 @@ export default function StartClubForm({ locale, dict, draft, action }: StartClub
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-6">
-      {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
+      {state.status === "error" ? (
+        <Notice variant="error" locale={locale}>
+          {dict.form.genericError}
+        </Notice>
+      ) : null}
 
       <dl className="divide-y divide-line rounded-lg border border-line">
         <SummaryRow

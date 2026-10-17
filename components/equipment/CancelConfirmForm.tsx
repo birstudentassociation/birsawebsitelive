@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useId, useRef } from "react";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { StatusLookupLabels } from "@/components/equipment/StatusLookup";
 import type { CancelState } from "@/app/[lang]/services/equipment-loan/status/actions";
@@ -49,15 +50,11 @@ export default function CancelConfirmForm({
 
   if (state.status === "done") {
     return (
-      <div
-        ref={resultRef}
-        tabIndex={-1}
-        role="status"
-        className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-      >
-        <p className="font-semibold">{labels.cancelledTitle}</p>
-        <p className="mt-1 text-sm">{labels.cancelledBody}</p>
-        <form action={resetAction} className="mt-4">
+      <div ref={resultRef} tabIndex={-1} role="status" className="focus-halo">
+        <Panel title={labels.cancelledTitle} headingLevel="h2">
+          <p className="text-base">{labels.cancelledBody}</p>
+        </Panel>
+        <form action={resetAction} className="mt-6">
           <Button type="submit" variant="secondary">
             {labels.newSearch}
           </Button>
@@ -69,7 +66,7 @@ export default function CancelConfirmForm({
   if (state.status === "not-found") {
     return (
       <div ref={resultRef} tabIndex={-1} className="focus-halo">
-        <Notice variant="info" title={labels.notFoundTitle}>
+        <Notice variant="info" title={labels.notFoundTitle} locale={locale}>
           <p>{labels.notFoundBody}</p>
         </Notice>
         <form action={resetAction} className="mt-4">
@@ -85,7 +82,7 @@ export default function CancelConfirmForm({
     <form action={formAction} noValidate className="flex flex-col gap-6">
       {state.status === "error" || state.status === "rate-limited" ? (
         <div ref={resultRef} tabIndex={-1} className="focus-halo">
-          <Notice variant="error" title={labels.cancelErrorTitle}>
+          <Notice variant="error" title={labels.cancelErrorTitle} locale={locale}>
             <p>{labels.cancelErrorBody}</p>
           </Notice>
         </div>

@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import { fillTemplate } from "@/components/course-review/constants";
 import { reviewFormCopy } from "@/components/course-review/reviewFormCopy";
 import { courseNode } from "@/lib/courses/graph";
 import { PUBLICATION_THRESHOLD } from "@/lib/course-review/groups";
 import { studentLifeLabel } from "@/content/student-life/topics";
+
+const whatNext: Record<Locale, string> = { en: "What happens next", th: "ขั้นตอนต่อไป" };
 
 /**
  * Confirmation page for a submitted review (Post/Redirect/Get target of
@@ -57,31 +59,29 @@ export default async function ReviewSentPage({
 
   return (
     <>
-      <PageHeader
-        title={t.confirmationTitle}
-        breadcrumbs={
-          <Breadcrumbs
-            locale={locale}
-            label={dict.a11y.breadcrumb}
-            items={[
-              { label: dict.site.name, href: "/" },
-              { label: studentLifeLabel[locale], href: "/student-life" },
-              { label: dict.courseReview.title, href: "/student-life/course-reviews" },
-              { label: node.code, href: courseHref },
-              { label: t.confirmationTitle },
-            ]}
-          />
-        }
-      />
-      <div className="wrap flex flex-col gap-6 py-10">
-        <div
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="text-sm">
+      <div className="wrap pt-6">
+        <Breadcrumbs
+          locale={locale}
+          label={dict.a11y.breadcrumb}
+          items={[
+            { label: dict.site.name, href: "/" },
+            { label: studentLifeLabel[locale], href: "/student-life" },
+            { label: dict.courseReview.title, href: "/student-life/course-reviews" },
+            { label: node.code, href: courseHref },
+            { label: t.confirmationTitle },
+          ]}
+        />
+      </div>
+      <div className="wrap flex max-w-[var(--measure)] flex-col gap-6 py-8">
+        <Panel title={t.confirmationTitle}>
+          <p>{node.code}</p>
+        </Panel>
+        <section className="flex flex-col gap-2">
+          <h2 className="font-display text-2xl">{whatNext[locale]}</h2>
+          <p className="leading-relaxed">
             {fillTemplate(t.confirmationBody, { threshold: PUBLICATION_THRESHOLD })}
           </p>
-        </div>
+        </section>
         <div>
           <Button href={localeHref(locale, courseHref)} variant="secondary">
             {t.backToCourse}

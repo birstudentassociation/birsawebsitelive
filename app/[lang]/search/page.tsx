@@ -225,7 +225,9 @@ export default async function SearchPage({
 
             {resultCount === 0 ? (
               <div className="flex flex-col gap-6">
-                <Notice variant="info">{dict.actions.noResults}</Notice>
+                <Notice locale={locale} variant="info">
+                  {dict.actions.noResults}
+                </Notice>
                 <PopularChips locale={locale} terms={response.popular} heading={t.popularHeading} />
                 <BrowseSections locale={locale} heading={t.browseHeading} />
               </div>

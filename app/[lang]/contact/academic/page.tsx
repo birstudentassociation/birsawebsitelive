@@ -41,7 +41,7 @@ export default async function ContactAcademicPage({
       <PageHeader title={t.title} />
       <div className="wrap max-w-[var(--measure)] py-10">
         <div className="flex flex-col gap-6">
-          <Notice variant="info" title={t.noticeTitle}>
+          <Notice locale={locale} variant="info" title={t.noticeTitle}>
             <p>{t.noticeBody}</p>
           </Notice>
           <section aria-labelledby="bir-office-heading" className="flex flex-col gap-3">

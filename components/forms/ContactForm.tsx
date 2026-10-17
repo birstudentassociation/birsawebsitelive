@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useId, useRef } from "react";
 import Notice from "@/components/Notice";
 import Button from "@/components/Button";
+import Panel from "@/components/Panel";
 import Email from "@/components/Email";
 import Field from "@/components/Field";
 import SummaryRow from "@/components/forms/SummaryRow";
@@ -84,14 +85,10 @@ export default function ContactForm({
     // they think of your service once they've finished using it").
     return (
       <div className="flex flex-col gap-8">
-        <div
-          ref={resultRef}
-          tabIndex={-1}
-          role="status"
-          className="focus-halo rounded-lg border-l-4 border-success bg-success-tint p-6 text-ink"
-        >
-          <p className="font-semibold">{dict.form.successTitle}</p>
-          <p className="mt-1 text-sm">{dict.form.successBody}</p>
+        <div ref={resultRef} tabIndex={-1} role="status" className="focus-halo">
+          <Panel title={dict.form.successTitle} headingLevel="h2">
+            <p className="text-base">{dict.form.successBody}</p>
+          </Panel>
         </div>
         <FeedbackForm
           locale={locale}
@@ -141,7 +138,11 @@ export default function ContactForm({
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-6">
-      {state.status === "error" ? <Notice variant="error">{dict.form.genericError}</Notice> : null}
+      {state.status === "error" ? (
+        <Notice variant="error" locale={locale}>
+          {dict.form.genericError}
+        </Notice>
+      ) : null}
 
       <dl className="divide-y divide-line rounded-lg border border-line">
         <SummaryRow

@@ -102,7 +102,7 @@ export default async function RightsStartPage({ params }: { params: Promise<{ la
           <p className="leading-relaxed text-muted">{t.freeBody}</p>
         </section>
 
-        <Notice variant="info" title={t.deadlineTitle}>
+        <Notice locale={locale} variant="info" title={t.deadlineTitle}>
           {t.deadlineBody(RIGHTS_RESPONSE_DAYS)}
         </Notice>
 

@@ -9,10 +9,11 @@
  */
 import { useId, useState } from "react";
 import type { FormEvent } from "react";
-import clsx from "clsx";
 import Field from "@/components/Field";
 import Button from "@/components/Button";
 import Tag from "@/components/Tag";
+import NotificationBanner from "@/components/NotificationBanner";
+import Notice from "@/components/Notice";
 import ErrorSummary, { type ErrorSummaryItem } from "@/components/ErrorSummary";
 import { useConfirmDialog } from "@/lib/useConfirmDialog";
 import type { Locale } from "@/lib/i18n";
@@ -626,18 +627,17 @@ export default function OfficersManager({
                   ) : null}
 
                   {message ? (
-                    <div
-                      role={message.kind === "success" ? "status" : "alert"}
-                      aria-live={message.kind === "success" ? "polite" : "assertive"}
-                      className={clsx(
-                        "rounded-md border-l-4 p-3 text-sm",
-                        message.kind === "success"
-                          ? "border-success bg-success-tint text-ink"
-                          : "border-error bg-error-tint text-ink"
-                      )}
-                    >
-                      {message.text}
-                    </div>
+                    message.kind === "success" ? (
+                      <NotificationBanner variant="success" announce locale={locale}>
+                        <p>{message.text}</p>
+                      </NotificationBanner>
+                    ) : (
+                      <div role="alert">
+                        <Notice variant="error" locale={locale}>
+                          <p>{message.text}</p>
+                        </Notice>
+                      </div>
+                    )
                   ) : null}
                 </article>
               );

@@ -709,7 +709,7 @@ html[lang="th"] .oh-teaser-label {
 .oh-teaser-takeaway {
   margin-top: 1.25rem;
   padding-left: 1rem;
-  border-left: 2px solid var(--color-brand);
+  border-left: 2px solid var(--color-line-strong);
   font-family: var(--font-heading);
   font-size: 1.15rem;
   line-height: 1.4;

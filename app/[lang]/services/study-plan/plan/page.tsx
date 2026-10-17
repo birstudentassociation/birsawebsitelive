@@ -693,7 +693,7 @@ export default async function StudyPlanPage({
           findingSources={sources}
         />
 
-        <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
+        <Notice locale={locale} variant="important" title={copy.plan.doesNotCheckHeading}>
           <ul className="flex flex-col gap-1.5">
             {copy.plan.doesNotCheck.map((item) => (
               <li key={item} className="flex gap-2">

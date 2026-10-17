@@ -137,7 +137,7 @@ export default function ReviewForm({
               {statusNotice.body}
             </WarningText>
           ) : (
-            <Notice variant={statusNotice.variant} title={statusNotice.title}>
+            <Notice locale={locale} variant={statusNotice.variant} title={statusNotice.title}>
               {statusNotice.body}
             </Notice>
           )}

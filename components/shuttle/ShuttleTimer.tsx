@@ -174,10 +174,14 @@ export default function ShuttleTimer({ locale }: ShuttleTimerProps) {
             <div
               key={line.id}
               className="rounded-lg border border-line bg-surface p-4"
-              style={{ borderLeftWidth: "4px", borderLeftColor: lineAccents[line.id] }}
               aria-live="polite"
             >
               <div className="mb-1 flex flex-wrap items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-3.5 w-3.5 shrink-0 rounded-full border border-ink/40"
+                  style={{ backgroundColor: lineAccents[line.id] }}
+                />
                 <h3 className="my-0 font-display text-lg">{line.name[locale]}</h3>
                 {serviceModification && isModified(line.id) ? (
                   <span className="rounded-full border border-warning bg-warning-tint px-2 py-0.5 text-xs font-semibold text-ink">

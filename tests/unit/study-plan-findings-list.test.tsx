@@ -24,9 +24,9 @@ const findings: Finding[] = [
 afterEach(cleanup);
 
 describe("FindingsList", () => {
-  /** The paragraph holding a finding's message, whatever it is split into. */
+  /** The element holding a finding's message, whatever it is split into. */
   function messageOf(container: HTMLElement, text: string): HTMLElement | undefined {
-    return [...container.querySelectorAll<HTMLElement>("p")].find((p) =>
+    return [...container.querySelectorAll<HTMLElement>("p, .warning-text")].find((p) =>
       p.textContent?.includes(text)
     );
   }
@@ -38,6 +38,20 @@ describe("FindingsList", () => {
     expect(messageOf(container, "PI300 needs PI211 passed first.")).toBeDefined();
     expect(screen.getByText(/12 credits short/)).toBeDefined();
     expect(screen.getAllByText(/Curriculum 2021, 2023 revision/).length).toBe(2);
+  });
+
+  it("tags each finding by severity and shows a problem as warning text, with no side lip", () => {
+    const { container } = render(
+      <FindingsList findings={findings} locale="en" emptyMessage="none" />
+    );
+    expect(screen.getByText("Problem")).toBeDefined();
+    expect(screen.getByText("Check")).toBeDefined();
+    expect(container.querySelectorAll(".warning-text").length).toBe(1);
+    expect(container.innerHTML).not.toMatch(/border-[ls]-\d/);
+
+    const thai = render(<FindingsList findings={findings} locale="th" emptyMessage="none" />);
+    expect(thai.getByText("ปัญหา")).toBeDefined();
+    expect(thai.getByText("ตรวจสอบ")).toBeDefined();
   });
 
   it("renders the Thai message in the Thai locale", () => {

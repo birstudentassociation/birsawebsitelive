@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
+import InsetText from "@/components/InsetText";
 import StepNav from "@/components/forms/StepNav";
 import QuestionStepForm from "@/components/forms/QuestionStepForm";
 import { buildWizardChromeLabels, formatStepOf } from "@/components/forms/wizardChromeCopy";
@@ -69,15 +70,17 @@ export default async function ContactSubjectPage({
         <div className="flex flex-col gap-6">
           <StepNav backHref={backHref} backLabel={chrome.back} progressText={progress} />
           {draft.category === "problem" ? (
-            <p className="rounded-md border-l-4 border-error bg-error-tint p-4 text-sm text-ink">
-              {harassmentNote.text}{" "}
-              <a
-                href={`${localeHref(locale, "/contact")}#report-harassment`}
-                className="font-semibold underline"
-              >
-                {harassmentNote.cta}
-              </a>
-            </p>
+            <InsetText>
+              <p className="text-sm">
+                {harassmentNote.text}{" "}
+                <a
+                  href={`${localeHref(locale, "/contact")}#report-harassment`}
+                  className="font-semibold underline"
+                >
+                  {harassmentNote.cta}
+                </a>
+              </p>
+            </InsetText>
           ) : null}
           <QuestionStepForm
             action={submitSubjectStep.bind(null, locale, returnTo)}

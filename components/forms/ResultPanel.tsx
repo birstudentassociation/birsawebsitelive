@@ -39,7 +39,7 @@ export default function ResultPanel({
           {body}
         </WarningText>
       ) : (
-        <Notice variant={variant} title={title}>
+        <Notice locale={locale} variant={variant} title={title}>
           {body}
         </Notice>
       )}

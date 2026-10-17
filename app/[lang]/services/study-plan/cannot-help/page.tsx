@@ -74,7 +74,9 @@ export default async function StudyPlanCannotHelpPage({
     <>
       <PageHeader title={copy.cannotHelp.title} />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
-        <Notice variant="info">{body}</Notice>
+        <Notice locale={locale} variant="info">
+          {body}
+        </Notice>
 
         <div>
           <h2 className="font-display text-xl">{copy.cannotHelp.whatToDo}</h2>

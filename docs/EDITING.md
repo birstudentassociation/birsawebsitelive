@@ -374,7 +374,8 @@ Both activity and student-life entries accept an optional `placeholder: true`.
 
 Use `<WarningText>` for a warning the reader must not miss, such as a deadline they can lose
 something by missing or an action that cannot be undone. Do not use `<Notice variant="warning">`,
-which no longer exists as a warning style.
+which no longer exists as a warning style. See "Boxes and notices" below for choosing between
+warning text, inset text and a banner.
 
 ```mdx
 <WarningText title="Do this before 1 August 2026">
@@ -389,7 +390,56 @@ which no longer exists as a warning style.
   before the text.
 - Use it sparingly. Two or three on a page make none of them stand out.
 - Add it to both the `en/` and `th/` files, with the same `title` meaning in each language.
-- Other `<Notice>` variants, such as `placeholder`, are unchanged.
+
+## Boxes and notices
+
+The site does not use coloured or tinted boxes with a coloured edge on one side. A unit test
+(`tests/unit/no-accent-boxes.test.ts`) fails on a one-side border in any non-grey colour, and on a
+one-side border together with a tinted fill, in `app/`, `components/` and `lib/`. Allowed are a
+grey left border with no fill (inset text), borders on all four sides, 1px grey hairline dividers,
+and solid filled panels with no edge. Do not recommend Notice colours to authors, and do not write
+`border-l-4 border-brand` or `bg-*-tint` combinations in components.
+
+Choose by purpose.
+
+| Need                                                              | Use                                                                      |
+| ----------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| An aside the reader may want but loses nothing by missing         | `<InsetText>` (or `<Notice>`, which is inset text)                       |
+| A notice that must not be missed, with no penalty for ignoring it | `<NotificationBanner>` or `<Notice variant="important">`                 |
+| A warning where missing it costs the reader something             | `<WarningText>`                                                          |
+| A success message inside a page                                   | `<NotificationBanner variant="success">` or `<Notice variant="success">` |
+| A "sent" or "done" page confirmation                              | `<Panel>`                                                                |
+| Errors on a form                                                  | `ErrorSummary`                                                           |
+
+```mdx
+<InsetText>You can apply in either round, but not both.</InsetText>
+
+<NotificationBanner title="Important" heading="Applications close on 1 August 2026">
+  Late applications are not accepted.
+</NotificationBanner>
+
+<Panel title="Application sent">Your reference is **BIR-1234**</Panel>
+```
+
+- `InsetText` has no props beyond `className`. Keep it to a short paragraph or two. It has no icon
+  and no title.
+- `NotificationBanner` takes `title` (the header strip, "Important" or "สำคัญ" by default),
+  `variant` (`neutral` or `success`) and `heading` (a bold line in the body). Use it once per
+  page at most. The locale is set automatically.
+- `Panel` takes `title` and optional body text, plus `headingLevel` (`h1` by default; inside an
+  article pass `h2`). Use it once, on a confirmation page.
+- Markdown `>` quotes render as inset text, so use them for quotations only, not for notices.
+- `<Notice>` is kept for existing content and maps to the components above.
+
+| `<Notice variant=...>` | Renders as                                                                                                                                                            |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `info` (default)       | Inset text. A `title` is a bold first line.                                                                                                                           |
+| `important`            | Neutral notification banner. A `title` of 30 characters or fewer is the header strip text. A longer one becomes the bold heading under the default "Important" strip. |
+| `success`              | Success notification banner, with the same title rule.                                                                                                                |
+| `error`                | Red-bordered block with a bold heading.                                                                                                                               |
+| `placeholder`          | Amber "Example content" tag, then inset text.                                                                                                                         |
+
+New content should use the specific component rather than `<Notice>`.
 
 ## Placeholder flag and Notice removal checklist (going live)
 

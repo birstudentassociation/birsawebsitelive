@@ -92,7 +92,7 @@ export default function FeedbackForm({ locale, sourcePath, heading, action }: Fe
 
       {state.status === "error" ? (
         <div ref={resultRef} tabIndex={-1} className="focus-halo">
-          <Notice variant="error" title={t.errorTitle}>
+          <Notice locale={locale} variant="error" title={t.errorTitle}>
             {t.errorBody}
           </Notice>
         </div>

@@ -1,88 +1,97 @@
 import clsx from "clsx";
+import type { Locale } from "@/lib/i18n";
+import InsetText from "@/components/InsetText";
+import NotificationBanner from "@/components/NotificationBanner";
+import Tag from "@/components/Tag";
 
-type Variant = "info" | "success" | "error" | "placeholder";
+type Variant = "info" | "important" | "success" | "error" | "placeholder";
 
-const styles: Record<Variant, { border: string; bg: string; text: string }> = {
-  info: { border: "border-info", bg: "bg-info-tint", text: "text-ink" },
-  success: { border: "border-success", bg: "bg-success-tint", text: "text-ink" },
-  error: { border: "border-error", bg: "bg-error-tint", text: "text-ink" },
-  placeholder: { border: "border-warning", bg: "bg-warning-tint", text: "text-ink" },
+const placeholderTag: Record<Locale, string> = {
+  en: "Example content",
+  th: "ตัวอย่างเนื้อหา",
 };
 
-function NoticeIcon({ variant }: { variant: Variant }) {
-  const common = {
-    "aria-hidden": "true" as const,
-    className: "h-5 w-5 shrink-0",
-    viewBox: "0 0 20 20",
-  };
-
-  switch (variant) {
-    case "success":
-      return (
-        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
-          <path d="M4 10.5 8 14l8-8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      );
-    case "error":
-      return (
-        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
-          <circle cx="10" cy="10" r="8" />
-          <path d="M10 6.5v4.2" strokeLinecap="round" />
-          <circle cx="10" cy="13.6" r="0.9" fill="currentColor" stroke="none" />
-        </svg>
-      );
-    case "placeholder":
-      return (
-        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
-          <path
-            d="m13.5 2.5 4 4L6 18H2v-4L13.5 2.5Z"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      );
-    case "info":
-    default:
-      return (
-        <svg {...common} fill="none" stroke="currentColor" strokeWidth={2}>
-          <circle cx="10" cy="10" r="8" />
-          <path d="M10 9v5" strokeLinecap="round" />
-          <circle cx="10" cy="6.4" r="0.9" fill="currentColor" stroke="none" />
-        </svg>
-      );
-  }
-}
+/** A `title` up to this length becomes the banner's header strip; longer ones become its heading. */
+const MAX_STRIP_TITLE = 30;
 
 export type NoticeProps = {
   variant?: Variant;
   title?: string;
+  /** Used for the default banner title and the placeholder tag. Defaults to English. */
+  locale?: Locale;
   className?: string;
   children: React.ReactNode;
 };
 
 /**
- * Callout box for info/success/error messaging (warnings use WarningText), plus a `placeholder`
- * variant used to mark example content that BIRSA will replace. Never the
- * sole way meaning is conveyed: icon, colour and text always travel
- * together.
+ * Message block built on the GOV.UK-style components, with no tinted fill or
+ * coloured side lip.
+ *
+ * - `info` (default) is inset text: grey left border, no icon. A `title` is a bold first line.
+ * - `important` is a neutral notification banner for the few notices that must not be missed.
+ *   A short `title` (30 characters or fewer) is the header strip text; a longer one is the bold
+ *   heading under a default "Important" strip.
+ * - `success` is a success notification banner. A short `title` is the strip text, a longer one
+ *   is the heading under the default strip.
+ * - `error` is a red-bordered block with a bold heading, after the GOV.UK error summary.
+ * - `placeholder` is an amber "Example content" tag followed by inset text.
+ *
+ * Warnings use WarningText.
  */
-export default function Notice({ variant = "info", title, className, children }: NoticeProps) {
-  const style = styles[variant];
-  return (
-    <div
-      className={clsx(
-        "flex gap-3 rounded-md border-l-4 p-4",
-        style.border,
-        style.bg,
-        style.text,
-        className
-      )}
-    >
-      <NoticeIcon variant={variant} />
-      <div className="min-w-0 flex-1 text-sm leading-relaxed">
-        {title ? <p className="mb-1 font-semibold">{title}</p> : null}
-        <div>{children}</div>
-      </div>
-    </div>
-  );
+export default function Notice({
+  variant = "info",
+  title,
+  locale = "en",
+  className,
+  children,
+}: NoticeProps) {
+  switch (variant) {
+    case "important":
+    case "success": {
+      const short = title !== undefined && title.length <= MAX_STRIP_TITLE;
+      return (
+        <NotificationBanner
+          variant={variant === "success" ? "success" : "neutral"}
+          title={short ? title : variant === "success" ? successTitle[locale] : undefined}
+          heading={short ? undefined : title}
+          locale={locale}
+          className={className}
+        >
+          {children}
+        </NotificationBanner>
+      );
+    }
+    case "error":
+      return (
+        <div className={clsx("border-4 border-error bg-surface p-4 text-ink", className)}>
+          {title ? <p className="mb-2 text-base font-bold">{title}</p> : null}
+          <div className="leading-relaxed [&>:last-child]:mb-0">{children}</div>
+        </div>
+      );
+    case "placeholder":
+      return (
+        <div className={className}>
+          <p className="mb-2">
+            <Tag variant="amber">{placeholderTag[locale]}</Tag>
+          </p>
+          <InsetText>
+            {title ? <p className="mb-1 font-bold">{title}</p> : null}
+            {children}
+          </InsetText>
+        </div>
+      );
+    case "info":
+    default:
+      return (
+        <InsetText className={className}>
+          {title ? <p className="mb-1 font-bold">{title}</p> : null}
+          {children}
+        </InsetText>
+      );
+  }
 }
+
+const successTitle: Record<Locale, string> = {
+  en: "Success",
+  th: "สำเร็จ",
+};

@@ -7,6 +7,8 @@
  * order that puts what most needs attention first.
  */
 import Link from "next/link";
+import Tag from "@/components/Tag";
+import WarningText from "@/components/WarningText";
 import { hasPage } from "@/lib/courses/graph";
 import { localeHref, type Locale } from "@/lib/i18n";
 import type { Finding } from "@/lib/study-plan/findings";
@@ -17,10 +19,13 @@ const SEVERITY_ORDER: Record<Finding["severity"], number> = {
   note: 2,
 };
 
-const SEVERITY_BORDER: Record<Finding["severity"], string> = {
-  problem: "border-error",
-  warning: "border-warning",
-  note: "border-line-strong",
+const SEVERITY_TAG: Record<
+  Finding["severity"],
+  { variant: "neutral" | "amber" | "red"; label: Record<Locale, string> }
+> = {
+  problem: { variant: "red", label: { en: "Problem", th: "ปัญหา" } },
+  warning: { variant: "amber", label: { en: "Check", th: "ตรวจสอบ" } },
+  note: { variant: "neutral", label: { en: "Note", th: "หมายเหตุ" } },
 };
 
 /**
@@ -75,18 +80,26 @@ export default function FindingsList({ findings, locale, emptyMessage }: Finding
   );
 
   return (
-    <ul className="flex flex-col gap-3">
-      {sorted.map((finding) => (
-        <li
-          key={finding.id}
-          className={`rounded-md border-l-4 bg-surface p-3 text-sm ${SEVERITY_BORDER[finding.severity]}`}
-        >
-          <p className="text-ink">
-            <MessageWithCourseLinks message={finding.message[locale]} locale={locale} />
-          </p>
-          <p className="mt-1 text-xs text-muted">{finding.source.provision}</p>
-        </li>
-      ))}
+    <ul className="flex flex-col divide-y divide-line border-y border-line">
+      {sorted.map((finding) => {
+        const tag = SEVERITY_TAG[finding.severity];
+        const message = (
+          <MessageWithCourseLinks message={finding.message[locale]} locale={locale} />
+        );
+        return (
+          <li key={finding.id} className="py-3 text-sm">
+            <Tag variant={tag.variant}>{tag.label[locale]}</Tag>
+            <div className="mt-2">
+              {finding.severity === "problem" ? (
+                <WarningText locale={locale}>{message}</WarningText>
+              ) : (
+                <p className="text-ink">{message}</p>
+              )}
+            </div>
+            <p className="mt-1 text-xs text-muted">{finding.source.provision}</p>
+          </li>
+        );
+      })}
     </ul>
   );
 }

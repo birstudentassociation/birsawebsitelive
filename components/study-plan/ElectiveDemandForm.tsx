@@ -97,7 +97,7 @@ export default function ElectiveDemandForm({
 
   if (state.status === "shared") {
     return (
-      <Notice variant="success">
+      <Notice locale={locale} variant="success">
         <p role="status">{copy.shared}</p>
       </Notice>
     );
@@ -105,7 +105,7 @@ export default function ElectiveDemandForm({
 
   if (alreadyShared) {
     return (
-      <Notice variant="info">
+      <Notice locale={locale} variant="info">
         <p role="status">{fill(copy.alreadyShared, { term: windowLabel })}</p>
       </Notice>
     );
@@ -120,7 +120,7 @@ export default function ElectiveDemandForm({
 
       {error ? (
         <div ref={resultRef} tabIndex={-1} role="alert" className="focus-halo">
-          <Notice variant="error" title={copy.errorSummaryTitle}>
+          <Notice locale={locale} variant="error" title={copy.errorSummaryTitle}>
             {error}
           </Notice>
         </div>

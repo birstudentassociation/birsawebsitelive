@@ -154,16 +154,20 @@ export default function SummaryEditor({
             </form>
           </>
         ) : (
-          <Notice variant="info" title={t.draftUnavailableTitle}>
+          <Notice locale={locale} variant="info" title={t.draftUnavailableTitle}>
             {t.draftUnavailableBody}
           </Notice>
         )}
         {draft.status === "drafted" || draftFailure ? (
           <div ref={draftRef} tabIndex={-1} className="focus-halo">
             {draft.status === "drafted" ? (
-              <Notice variant="success">{t.draftReady}</Notice>
+              <Notice locale={locale} variant="success">
+                {t.draftReady}
+              </Notice>
             ) : (
-              <Notice variant="error">{draftFailure}</Notice>
+              <Notice locale={locale} variant="error">
+                {draftFailure}
+              </Notice>
             )}
           </div>
         ) : null}
@@ -188,7 +192,9 @@ export default function SummaryEditor({
 
           {publish.status === "failed" ? (
             <div ref={failedRef} tabIndex={-1} className="focus-halo">
-              <Notice variant="error">{t.publishFailed[publish.reason]}</Notice>
+              <Notice locale={locale} variant="error">
+                {t.publishFailed[publish.reason]}
+              </Notice>
             </div>
           ) : null}
 

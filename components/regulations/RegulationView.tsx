@@ -287,7 +287,7 @@ function SectionViewResolved({
         level={headingLevel}
         className={
           isTop
-            ? "border-b-2 border-brand pb-2 font-display text-2xl"
+            ? "border-b border-line pb-2 font-display text-2xl"
             : "font-display text-xl text-ink"
         }
       >

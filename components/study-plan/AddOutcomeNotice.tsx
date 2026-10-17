@@ -58,7 +58,7 @@ export default function AddOutcomeNotice({
 
   const title = version.courses.value.find((c) => c.code === outcome.code)?.title ?? "";
   return (
-    <Notice variant="success" title={linkCopy.add.addedTitle}>
+    <Notice locale={locale} variant="success" title={linkCopy.add.addedTitle}>
       <p>{fill(linkCopy.add.addedBody, { code: outcome.code, title, term: termLabel })}</p>
       {outcome.requestedCode ? (
         <p className="mt-1">

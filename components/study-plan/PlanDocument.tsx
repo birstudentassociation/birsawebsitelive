@@ -294,7 +294,7 @@ export default function PlanDocument({
 
       {/* The reader of a shared copy may never have used the service, so the
           caveat travels with the plan exactly as it does on the printout. */}
-      <Notice variant="info" title={copy.plan.doesNotCheckHeading}>
+      <Notice locale={locale} variant="info" title={copy.plan.doesNotCheckHeading}>
         <ul className="flex flex-col gap-1.5">
           {copy.plan.doesNotCheck.map((item) => (
             <li key={item} className="flex gap-2">

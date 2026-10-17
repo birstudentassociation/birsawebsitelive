@@ -14,7 +14,8 @@ export type ErrorSummaryProps = {
 };
 
 /**
- * Error summary box shown at the top of a form on failed submit. Receives
+ * Error summary after the GOV.UK pattern: red border all round, surface fill,
+ * no tint. Shown at the top of a form on failed submit. Receives
  * focus on mount so screen reader / keyboard users land on it immediately;
  * each error links to its field via `#id`.
  */
@@ -41,7 +42,7 @@ export default function ErrorSummary({ title, errors }: ErrorSummaryProps) {
       ref={ref}
       role="alert"
       tabIndex={-1}
-      className="focus-halo rounded-lg border-l-4 border-error bg-error-tint p-4"
+      className="focus-halo border-4 border-error bg-surface p-4"
     >
       <h2 className="text-base font-semibold text-ink">{title}</h2>
       <ul className="mt-2 list-inside list-disc space-y-1 text-sm">

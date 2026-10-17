@@ -6,6 +6,7 @@ import type { SmartAnswerOutcome, SmartAnswerTopic } from "@/content/smart-answe
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Button from "@/components/Button";
 import ExternalLink from "@/components/ExternalLink";
+import InsetText from "@/components/InsetText";
 import Notice from "@/components/Notice";
 import WarningText from "@/components/WarningText";
 import PageHeader from "@/components/PageHeader";
@@ -53,41 +54,54 @@ function OutcomeActions({
   locale: Locale;
   dict: Dictionary;
 }) {
-  const actions = outcome.actions ?? [];
-  if (actions.length === 0) return null;
+  const [first, ...rest] = outcome.actions ?? [];
+  if (!first) return null;
 
   return (
-    <div className="flex flex-wrap gap-3 pt-2">
-      {actions.map((action, index) =>
-        // A mailto: opens a mail client, not a tab, so it must not be
-        // announced as "opens in a new tab".
-        action.external && action.href.startsWith("mailto:") ? (
-          <a
-            key={index}
-            href={action.href}
-            className="focus-halo inline-flex min-h-11 items-center rounded-lg border-[1.5px] border-ink px-5 py-2 text-[0.95rem] font-semibold text-ink hover:bg-brand-tint"
-          >
-            {action.label[locale]}
-          </a>
-        ) : action.external ? (
+    <div className="flex flex-col gap-4 pt-2">
+      <div>
+        {first.external && first.href.startsWith("mailto:") ? (
+          <Button href={first.href}>{first.label[locale]}</Button>
+        ) : first.external ? (
           <ExternalLink
-            key={index}
-            href={action.href}
+            href={first.href}
             newTabLabel={dict.a11y.newTab}
             className="focus-halo min-h-11 rounded-lg bg-brand px-5 text-[0.95rem] font-semibold text-white hover:bg-brand-strong"
           >
-            {action.label[locale]}
+            {first.label[locale]}
           </ExternalLink>
         ) : (
-          <Button
-            key={index}
-            href={localeHref(locale, action.href)}
-            variant={index === 0 ? "primary" : "secondary"}
-          >
-            {action.label[locale]}
-          </Button>
-        )
-      )}
+          <Button href={localeHref(locale, first.href)}>{first.label[locale]}</Button>
+        )}
+      </div>
+      {rest.length > 0 ? (
+        <ul className="flex list-none flex-col gap-2 p-0">
+          {rest.map((action, index) => (
+            <li key={index}>
+              {action.external && action.href.startsWith("mailto:") ? (
+                <a href={action.href} className="font-medium text-brand-deep hover:underline">
+                  {action.label[locale]}
+                </a>
+              ) : action.external ? (
+                <ExternalLink
+                  href={action.href}
+                  newTabLabel={dict.a11y.newTab}
+                  className="font-medium text-brand-deep hover:underline"
+                >
+                  {action.label[locale]}
+                </ExternalLink>
+              ) : (
+                <Link
+                  href={localeHref(locale, action.href)}
+                  className="font-medium text-brand-deep hover:underline"
+                >
+                  {action.label[locale]}
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </div>
   );
 }
@@ -225,9 +239,9 @@ export default function CheckFlow({
 
   return (
     <div className="wrap flex max-w-[var(--measure)] flex-col gap-8 py-10">
-      <div className="flex flex-col gap-4 rounded-lg border-l-4 border-brand bg-brand-tint p-6">
+      <div className="flex flex-col gap-4">
         <h1 className="font-display text-2xl sm:text-3xl">{node.title[locale]}</h1>
-        <p className="leading-relaxed text-ink">{node.summary[locale]}</p>
+        <p className="text-lg leading-relaxed text-ink">{node.summary[locale]}</p>
 
         {blocks.map((block, index) => {
           if (block.kind === "paragraph") {
@@ -243,15 +257,13 @@ export default function CheckFlow({
                 {block.text[locale]}
               </WarningText>
             ) : (
-              <Notice key={index} variant="info">
-                {block.text[locale]}
-              </Notice>
+              <InsetText key={index}>{block.text[locale]}</InsetText>
             );
           }
           return (
             <div key={index} className="flex flex-col gap-2">
               {block.title ? (
-                <h2 className="font-display text-lg text-ink">{block.title[locale]}</h2>
+                <h2 className="font-display text-xl text-ink">{block.title[locale]}</h2>
               ) : null}
               <ol className="list-inside list-decimal space-y-2 leading-relaxed text-ink">
                 {block.items.map((item, itemIndex) => (
@@ -262,17 +274,19 @@ export default function CheckFlow({
           );
         })}
 
+        <OutcomeActions outcome={node} locale={locale} dict={dict} />
+
         {node.owner ? (
-          <div className="mt-2 border-t border-line/60 pt-4">
-            <h2 className="text-sm font-semibold text-ink">{t.whoDecides}</h2>
-            <p className="mt-1 text-sm leading-relaxed text-ink">{node.owner[locale]}</p>
+          <div className="mt-2">
+            <h2 className="font-display text-xl text-ink">{t.whoDecides}</h2>
+            <p className="mt-2 leading-relaxed text-ink">{node.owner[locale]}</p>
           </div>
         ) : null}
 
         {citations.length > 0 ? (
-          <div className="mt-2 border-t border-line/60 pt-4">
-            <h2 className="text-sm font-semibold text-ink">{t.basedOn}</h2>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm">
+          <div className="mt-2">
+            <h2 className="font-display text-xl text-ink">{t.basedOn}</h2>
+            <ul className="mt-2 list-inside list-disc space-y-1">
               {citations.map((citation, index) => (
                 <li key={index}>
                   <Link
@@ -286,8 +300,6 @@ export default function CheckFlow({
             </ul>
           </div>
         ) : null}
-
-        <OutcomeActions outcome={node} locale={locale} dict={dict} />
       </div>
 
       {related.length > 0 ? (
@@ -383,7 +395,9 @@ export default function CheckFlow({
         </div>
       </details>
 
-      <Notice variant="info">{t.guidanceDisclaimer}</Notice>
+      <Notice variant="info" locale={locale}>
+        {t.guidanceDisclaimer}
+      </Notice>
     </div>
   );
 }

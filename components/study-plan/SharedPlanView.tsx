@@ -97,7 +97,7 @@ export default function SharedPlanView({ locale, copy, view, startHref }: Shared
 
   return (
     <div className="flex flex-col gap-8">
-      <Notice variant="info" title={view.readOnlyTitle}>
+      <Notice locale={locale} variant="info" title={view.readOnlyTitle}>
         <p>{sharedOn ? fill(view.readOnlyDated, { date: sharedOn }) : view.readOnlyUndated}</p>
         <p className="mt-1">{fill(view.openedOn, { date: openedOn })}</p>
       </Notice>

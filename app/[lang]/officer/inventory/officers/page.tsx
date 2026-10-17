@@ -111,7 +111,7 @@ export default async function OfficerInventoryOfficersPage({
       <div className="wrap py-10">
         {!officer ? (
           <div className="flex flex-col gap-6">
-            <Notice variant="info" title={t.signInNeededTitle}>
+            <Notice locale={locale} variant="info" title={t.signInNeededTitle}>
               {t.signInNeededBody}
             </Notice>
             <div>

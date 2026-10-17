@@ -161,7 +161,7 @@ export default function StatusLookup({
 
       <div aria-live="polite">
         {state.status === "not-found" ? (
-          <Notice variant="info" title={labels.notFoundTitle}>
+          <Notice locale={locale} variant="info" title={labels.notFoundTitle}>
             <p>{labels.notFoundBody}</p>
           </Notice>
         ) : null}
@@ -171,7 +171,7 @@ export default function StatusLookup({
           </WarningText>
         ) : null}
         {state.status === "error" ? (
-          <Notice variant="error" title={labels.errorTitle}>
+          <Notice locale={locale} variant="error" title={labels.errorTitle}>
             <p>{labels.errorBody}</p>
           </Notice>
         ) : null}
