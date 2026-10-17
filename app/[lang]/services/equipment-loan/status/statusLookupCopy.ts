@@ -5,7 +5,7 @@ export const statusLookupLabels: Record<Locale, StatusLookupLabels> = {
   en: {
     referenceLabel: "Reference number",
     referenceHint:
-      "The reference number you were given when you submitted the request, e.g. BIRSA-1234.",
+      "The reference number you were given when you submitted the request, for example BIRSA-1234.",
     emailLabel: "TU email",
     emailHint: "The email address you used on the request.",
     submit: "Check status",
@@ -19,7 +19,7 @@ export const statusLookupLabels: Record<Locale, StatusLookupLabels> = {
     },
     notFoundTitle: "We could not find a matching request",
     notFoundBody:
-      "Double-check the reference number and email address, and try again. If you're still having trouble, contact BIRSA directly.",
+      "Check the reference number and email address, and try again. If the problem continues, contact BIRSA.",
     rateLimitedTitle: "Too many attempts",
     rateLimitedBody: "Wait a moment and try again.",
     errorTitle: "Something went wrong",
@@ -88,13 +88,13 @@ export const statusLookupLabels: Record<Locale, StatusLookupLabels> = {
       no_show: "ไม่มารับอุปกรณ์",
     },
     cancelButton: "ยกเลิกคำขอนี้",
-    cancelConfirmTitle: "ยืนยันการยกเลิกคำขอยืมนี้หรือไม่",
+    cancelConfirmTitle: "ยกเลิกคำขอยืมนี้หรือไม่",
     cancelConfirmBody: "หากเปลี่ยนใจ คุณจะต้องส่งคำขอใหม่อีกครั้ง",
     confirmLabel: "ยืนยัน",
     cancelLabel: "ยกเลิก",
     cancelling: "กำลังยกเลิก…",
     cancelledTitle: "ยกเลิกคำขอแล้ว",
-    cancelledBody: "คำขอยืมของคุณถูกยกเลิกแล้ว",
+    cancelledBody: "ยกเลิกคำขอยืมของคุณแล้ว",
     cancelErrorTitle: "ไม่สามารถยกเลิกคำขอนี้ได้",
     cancelErrorBody: "กรุณาลองใหม่อีกครั้งในอีกสักครู่ หรือติดต่อ BIRSA หากยังพบปัญหา",
     newSearch: "ตรวจสอบคำขออื่น",

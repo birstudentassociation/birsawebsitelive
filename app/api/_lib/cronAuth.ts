@@ -5,7 +5,7 @@
  *
  * The comparison is constant-time. A plain `!==` on the header short-circuits
  * at the first wrong byte, which leaks the secret's prefix to anyone who can
- * time the responses — the same reason `lib/inventory/auth.ts` compares
+ * time the responses. This is the same reason `lib/inventory/auth.ts` compares
  * session tokens and passcodes with `timingSafeEqual` rather than `===`.
  */
 import { timingSafeEqual } from "node:crypto";

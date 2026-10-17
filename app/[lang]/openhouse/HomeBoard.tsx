@@ -71,7 +71,7 @@ export default function HomeBoard({ locale }: { locale: Locale }) {
 
 function renderStatus(locale: Locale, result: NextDepartureResult | undefined) {
   if (!result) {
-    return <span className="oh-board-time oh-time">—</span>;
+    return <span className="oh-board-time oh-time">-</span>;
   }
   if (result.status === "no-service-weekend") {
     return <span className="oh-board-state">{t(COPY.homeWeekend, locale)}</span>;

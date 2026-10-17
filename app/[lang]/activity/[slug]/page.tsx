@@ -52,7 +52,7 @@ const labels: Record<
   th: {
     activity: "การดำเนินงานของ BIRSA",
     back: "กลับไปหน้าการดำเนินงานของ BIRSA",
-    questions: "มีคำถาม?",
+    questions: "หากมีคำถาม",
     contact: "ติดต่อ BIRSA",
   },
 };

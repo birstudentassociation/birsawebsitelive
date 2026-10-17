@@ -97,7 +97,7 @@ const content: Record<Locale, Labels> = {
 
     aboutTitle: "About this record",
     aboutBody:
-      "This page is the structured record section 39 of the Act requires a data controller to keep. It lists what we process, why, and how, in more formal detail than the plain-language notice at /privacy. Both pages are generated from the same underlying record, so they can't drift apart or contradict each other.",
+      "The structured record that section 39 of the Act requires a data controller to keep. It lists what we process, why, and how, in more formal detail than the privacy notice. Both pages are generated from the same record, so they cannot contradict each other.",
 
     controllerTitle: "Controller",
     controllerBody:
@@ -132,15 +132,15 @@ const content: Record<Locale, Labels> = {
 
     rightsTitle: "Rights and how to access data",
     rightsBody:
-      "Data subjects hold the rights listed on our privacy notice, covering access, portability, correction, deletion, objection, restriction, withdrawing consent, and complaint. A request can be made through the /privacy/your-data journey or by emailing us directly.",
+      "Data subjects hold the rights listed on our privacy notice, covering access, portability, correction, deletion, objection, restriction, withdrawing consent, and complaint. You can make a request at /privacy/your-data or by emailing us directly.",
     rightsResponseNote: `We must answer an access request within ${RIGHTS_RESPONSE_DAYS} days, under section 30 of the Act.`,
     rightsCta: "See your rights in full",
 
     securityTitle: "Security measures (section 37(1))",
-    securityIntro: "In plain terms, here's what protects the personal data we hold:",
+    securityIntro: "These measures protect the personal data we hold:",
     securityItems: [
       "Officer passcodes are stored as a scrypt hash, a one-way scramble that cannot be turned back into the original passcode, even by us.",
-      "Sign-in sessions use a cookie that's cryptographically signed (HMAC), so it can't be forged or edited by a visitor.",
+      "Sign-in sessions use a cookie that is cryptographically signed (HMAC), so a visitor cannot forge or edit it.",
       "Officers only see and act on what their role and their club scope allow: an officer of one club cannot see another club's borrower data.",
       "The site runs under a strict Content Security Policy, which limits what scripts and resources a page is allowed to load.",
       "Forms are rate-limited, so one visitor cannot flood a form or overwhelm the system.",
@@ -153,7 +153,7 @@ const content: Record<Locale, Labels> = {
 
     dpoTitle: "Data protection officer",
     dpoBody:
-      "BIRSA is not required to appoint a data protection officer under section 41 of the Act: we're not a state agency, we don't monitor personal data on a large scale as a core activity, and we don't process the sensitive categories of data listed in section 26. We still give a named contact point, as section 23(5) requires, for anyone with a question about this record or their data.",
+      "BIRSA is not required to appoint a data protection officer under section 41 of the Act: we are not a state agency, we do not monitor personal data on a large scale as a core activity, and we do not process the sensitive categories of data listed in section 26. We still give a named contact point, as section 23(5) requires, for anyone with a question about this record or their data.",
 
     contactCta: "Contact BIRSA",
   },
@@ -164,11 +164,11 @@ const content: Record<Locale, Labels> = {
 
     aboutTitle: "ความมุ่งหมายของบันทึกฉบับนี้",
     aboutBody:
-      "เอกสารฉบับนี้คือบันทึกรายการที่มาตรา 39 แห่งพระราชบัญญัติกำหนดให้ผู้ควบคุมข้อมูลส่วนบุคคลต้องจัดทำ โดยระบุรายละเอียดของการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลอย่างเป็นทางการยิ่งกว่าประกาศความเป็นส่วนตัว ทั้งนี้ เอกสารทั้งสองฉบับจัดทำขึ้นจากชุดข้อมูลเดียวกัน จึงไม่อาจขัดหรือแย้งกันได้",
+      "บันทึกรายการที่มาตรา 39 แห่งพระราชบัญญัติกำหนดให้ผู้ควบคุมข้อมูลส่วนบุคคลต้องจัดทำ ระบุรายละเอียดของการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคลอย่างเป็นทางการยิ่งกว่าประกาศความเป็นส่วนตัว เอกสารทั้งสองฉบับจัดทำจากชุดข้อมูลเดียวกัน จึงไม่ขัดแย้งกัน",
 
     controllerTitle: "ผู้ควบคุมข้อมูลส่วนบุคคล",
     controllerBody:
-      "BIRSA (สโมสรนักศึกษาหลักสูตร BIR) หลักสูตรการเมืองและการระหว่างประเทศ (BIR) คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เป็นผู้ควบคุมข้อมูลส่วนบุคคลสำหรับกิจกรรมการประมวลผลทั้งหมดที่ปรากฏด้านล่าง",
+      "BIRSA (สโมสรนักศึกษาหลักสูตร BIR) ของหลักสูตรการเมืองและการระหว่างประเทศ (BIR) คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เป็นผู้ควบคุมข้อมูลส่วนบุคคลสำหรับกิจกรรมการประมวลผลทั้งหมดในบันทึกนี้",
     controllerAddressLabel: "ที่อยู่:",
     controllerEmailLabel: "อีเมล:",
 
@@ -200,7 +200,7 @@ const content: Record<Locale, Labels> = {
 
     rightsTitle: "สิทธิของเจ้าของข้อมูลส่วนบุคคลและวิธีการเข้าถึงข้อมูล",
     rightsBody:
-      "เจ้าของข้อมูลส่วนบุคคลมีสิทธิตามที่ระบุไว้ในประกาศความเป็นส่วนตัวของ BIRSA อันได้แก่ สิทธิขอเข้าถึงและขอรับสำเนาข้อมูล สิทธิขอให้โอนย้ายข้อมูล สิทธิขอให้แก้ไขข้อมูลให้ถูกต้อง สิทธิขอให้ลบหรือทำลายข้อมูล สิทธิคัดค้านการประมวลผล สิทธิขอให้ระงับการใช้ข้อมูล สิทธิขอถอนความยินยอม และสิทธิร้องเรียน ทั้งนี้ ท่านสามารถยื่นคำร้องผ่านขั้นตอนที่ /privacy/your-data หรือติดต่อ BIRSA ทางอีเมลโดยตรง",
+      "เจ้าของข้อมูลส่วนบุคคลมีสิทธิตามที่ระบุไว้ในประกาศความเป็นส่วนตัวของ BIRSA ได้แก่ สิทธิขอเข้าถึงและขอรับสำเนาข้อมูล สิทธิขอให้โอนย้ายข้อมูล สิทธิขอให้แก้ไขข้อมูลให้ถูกต้อง สิทธิขอให้ลบหรือทำลายข้อมูล สิทธิคัดค้านการประมวลผล สิทธิขอให้ระงับการใช้ข้อมูล สิทธิขอถอนความยินยอม และสิทธิร้องเรียน คุณยื่นคำร้องได้ที่ /privacy/your-data หรืออีเมลถึง BIRSA โดยตรง",
     rightsResponseNote: `BIRSA จะดำเนินการตามคำขอเข้าถึงข้อมูลส่วนบุคคลโดยไม่ชักช้า แต่ต้องไม่เกิน ${RIGHTS_RESPONSE_DAYS} วันนับแต่วันที่ได้รับคำขอ ตามมาตรา 30 แห่งพระราชบัญญัติ`,
     rightsCta: "ดูรายละเอียดสิทธิฉบับเต็ม",
 
@@ -218,10 +218,10 @@ const content: Record<Locale, Labels> = {
     ],
 
     breachTitle: "การแจ้งเหตุการละเมิดข้อมูลส่วนบุคคล",
-    breachBody: `ในกรณีที่ BIRSA ทราบว่ามีเหตุการละเมิดข้อมูลส่วนบุคคลซึ่งมีความเสี่ยงที่จะมีผลกระทบต่อสิทธิและเสรีภาพของท่าน มาตรา 37(4) แห่งพระราชบัญญัติกำหนดให้ต้องแจ้งเหตุดังกล่าวแก่สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลโดยไม่ชักช้า ภายใน ${BREACH_NOTIFICATION_HOURS} ชั่วโมงนับแต่ทราบเหตุเท่าที่จะสามารถกระทำได้ และในกรณีที่การละเมิดมีความเสี่ยงสูง ต้องแจ้งเจ้าของข้อมูลส่วนบุคคลที่ได้รับผลกระทบพร้อมแนวทางการเยียวยาโดยไม่ชักช้าด้วย`,
+    breachBody: `ในกรณีที่ BIRSA ทราบว่ามีเหตุการละเมิดข้อมูลส่วนบุคคลซึ่งมีความเสี่ยงที่จะมีผลกระทบต่อสิทธิและเสรีภาพของคุณ มาตรา 37(4) แห่งพระราชบัญญัติกำหนดให้ต้องแจ้งเหตุนั้นแก่สำนักงานคณะกรรมการคุ้มครองข้อมูลส่วนบุคคลโดยไม่ชักช้า ภายใน ${BREACH_NOTIFICATION_HOURS} ชั่วโมงนับแต่ทราบเหตุเท่าที่จะสามารถกระทำได้ และในกรณีที่การละเมิดมีความเสี่ยงสูง ต้องแจ้งเจ้าของข้อมูลส่วนบุคคลที่ได้รับผลกระทบพร้อมแนวทางการเยียวยาโดยไม่ชักช้าด้วย`,
     dpoTitle: "เจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคล",
     dpoBody:
-      "BIRSA ไม่มีหน้าที่ต้องจัดให้มีเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลตามมาตรา 41 แห่งพระราชบัญญัติ เนื่องจากมิได้เป็นหน่วยงานของรัฐ มิได้มีกิจกรรมหลักในการตรวจสอบข้อมูลส่วนบุคคลหรือระบบอย่างสม่ำเสมอโดยเหตุที่มีข้อมูลส่วนบุคคลเป็นจำนวนมาก และมิได้ประมวลผลข้อมูลส่วนบุคคลตามมาตรา 26 เป็นกิจกรรมหลัก อย่างไรก็ดี BIRSA ยังคงจัดให้มีช่องทางติดต่อตามที่มาตรา 23(5) แห่งพระราชบัญญัติกำหนด สำหรับผู้ที่มีข้อสงสัยเกี่ยวกับบันทึกฉบับนี้หรือเกี่ยวกับข้อมูลส่วนบุคคลของตน",
+      "BIRSA ไม่มีหน้าที่ต้องจัดให้มีเจ้าหน้าที่คุ้มครองข้อมูลส่วนบุคคลตามมาตรา 41 แห่งพระราชบัญญัติ เนื่องจากไม่ได้เป็นหน่วยงานของรัฐ ไม่ได้มีกิจกรรมหลักในการตรวจสอบข้อมูลส่วนบุคคลหรือระบบอย่างสม่ำเสมอโดยเหตุที่มีข้อมูลส่วนบุคคลเป็นจำนวนมาก และไม่ได้ประมวลผลข้อมูลส่วนบุคคลตามมาตรา 26 เป็นกิจกรรมหลัก อย่างไรก็ดี BIRSA ยังคงจัดให้มีช่องทางติดต่อตามที่มาตรา 23(5) แห่งพระราชบัญญัติกำหนด สำหรับผู้ที่มีข้อสงสัยเกี่ยวกับบันทึกฉบับนี้หรือเกี่ยวกับข้อมูลส่วนบุคคลของตน",
 
     contactCta: "ติดต่อ BIRSA",
   },

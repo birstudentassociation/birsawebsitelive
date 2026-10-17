@@ -6,8 +6,8 @@ import { parseLiveStop, STOP_IDS, type BusEtaResponse } from "@/lib/bus-tracker/
 /**
  * Same-origin proxy for the OTP "Namtang" live bus-arrival feed, powering the
  * "Live public bus tracker" guide. It fetches `stop-eta/{stopId}` for the three
- * tracked stops (2373, 1573, 1061) server-side — the upstream sends no usable
- * CORS headers, so the browser cannot read it directly — and returns only the
+ * tracked stops (2373, 1573, 1061) server-side (the upstream sends no usable
+ * CORS headers, so the browser cannot read it directly) and returns only the
  * shaped arrivals, grouped by the same `patternKey` the baked line data carries
  * (`lib/bus-tracker/data.ts`), so the client can overlay live times onto the
  * static route list.

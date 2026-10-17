@@ -66,14 +66,14 @@ const copy: Record<
 > = {
   en: {
     title: "Club equipment directory",
-    lede: "Some equipment is managed directly by clubs rather than through BIRSA's online request system. Find your club below to see what it has and how to reach them.",
+    lede: "Some equipment is managed directly by clubs rather than through BIRSA's online request system. Find your club to see what it has and how to contact it.",
     jumpNavLabel: "Jump to a club",
     notConfiguredTitle: "This directory is still being set up",
     notConfiguredBody:
       "Club equipment listings are not available online yet. Contact BIRSA for help reaching a club.",
     contactLink: "Contact BIRSA",
     noClubsTitle: "No clubs listed yet",
-    noClubsBody: "BIRSA has not published any club equipment listings yet. Check back soon.",
+    noClubsBody: "BIRSA has not published any club equipment listings yet.",
     noItemsLine: "No items listed yet.",
     availableHint: "Available",
     unavailableHint: "Currently out",
@@ -85,17 +85,17 @@ const copy: Record<
   },
   th: {
     title: "ทำเนียบอุปกรณ์ของชมรม",
-    lede: "อุปกรณ์บางรายการดูแลโดยชมรมโดยตรง ไม่ได้อยู่ในระบบส่งคำขอออนไลน์ของ BIRSA ค้นหาชมรมของคุณด้านล่างเพื่อดูว่ามีอุปกรณ์อะไรบ้างและติดต่อได้อย่างไร",
+    lede: "อุปกรณ์บางรายการดูแลโดยชมรมโดยตรง ไม่ได้อยู่ในระบบส่งคำขอออนไลน์ของ BIRSA เลือกชมรมของคุณเพื่อดูอุปกรณ์และวิธีติดต่อ",
     jumpNavLabel: "ไปที่ชมรม",
-    notConfiguredTitle: "ทำเนียบนี้กำลังอยู่ระหว่างการเตรียมการ",
+    notConfiguredTitle: "ทำเนียบนี้ยังไม่เปิดใช้งาน",
     notConfiguredBody:
       "ข้อมูลอุปกรณ์ของชมรมยังไม่พร้อมใช้งานออนไลน์ กรุณาติดต่อ BIRSA เพื่อขอความช่วยเหลือในการติดต่อชมรม",
     contactLink: "ติดต่อ BIRSA",
     noClubsTitle: "ยังไม่มีรายชื่อชมรม",
-    noClubsBody: "BIRSA ยังไม่ได้เผยแพร่รายการอุปกรณ์ของชมรม กรุณาตรวจสอบใหม่อีกครั้งเร็ว ๆ นี้",
+    noClubsBody: "BIRSA ยังไม่ได้เผยแพร่รายการอุปกรณ์ของชมรม",
     noItemsLine: "ยังไม่มีรายการอุปกรณ์",
     availableHint: "พร้อมให้ยืม",
-    unavailableHint: "ถูกยืมอยู่",
+    unavailableHint: "มีผู้ยืมอยู่",
     contactHeading: "ติดต่อ",
     instagramLabel: "Instagram",
     backCta: "กลับไปหน้าบริการยืมอุปกรณ์",

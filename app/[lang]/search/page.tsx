@@ -81,7 +81,7 @@ const copy: Record<
 };
 
 /** The handful of top-level sections offered as "somewhere to go" on the
- * empty and zero-result states — entry points, not every `SectionKey`. */
+ * empty and zero-result states, entry points, not every `SectionKey`. */
 const browseSections: { key: SectionKey; path: string }[] = [
   { key: "services", path: "/services" },
   { key: "student-life", path: "/student-life" },

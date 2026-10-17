@@ -889,7 +889,7 @@ export default function OpenHouseExperience({
                 <dd>
                   {formatDate(locale, OPEN_HOUSE.dateISO)}
                   <br />
-                  08:00–16:00
+                  08:00 to 16:00
                 </dd>
               </div>
               <div className="oh-fact">

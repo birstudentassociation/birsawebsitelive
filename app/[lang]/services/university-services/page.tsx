@@ -19,8 +19,8 @@ export async function generateMetadata({
   const title = locale === "th" ? "บริการจากมหาวิทยาลัย" : "University services";
   const description =
     locale === "th"
-      ? "บริการที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน ทั้งประกันอุบัติเหตุ การผ่อนผันเกณฑ์ทหาร การขอเอกสาร บริการให้คำปรึกษา และความช่วยเหลือด้านไอที รวบรวมไว้ในที่เดียวโดย BIRSA"
-      : "Services Thammasat University provides to all students, including accident insurance, military-service postponement, certificates, counselling, and IT help, collected in one place by BIRSA.";
+      ? "บริการที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน ทั้งประกันอุบัติเหตุ การผ่อนผันเกณฑ์ทหาร การขอเอกสาร บริการให้คำปรึกษา และความช่วยเหลือด้านไอที รวบรวมไว้ในที่เดียว"
+      : "Services Thammasat University provides to all students, including accident insurance, military-service postponement, certificates, counselling and IT help.";
 
   return buildMetadata({
     locale,
@@ -113,11 +113,11 @@ const copy: Record<
 > = {
   en: {
     title: "University services",
-    lede: "Services and support Thammasat University provides to every student. BIRSA collects them here for BIR students; the services themselves are run by the University and its offices.",
+    lede: "Services and support that Thammasat University provides to every student.",
     onThisPageLabel: "On this page",
     disclaimerTitle: "These are University-run services",
     disclaimerBody:
-      "BIRSA lists them for convenience but does not operate them. Dates and requirements can change. Always confirm the latest details on the official channel linked in each section before you act.",
+      "BIRSA lists them for convenience but does not operate them. Dates and requirements can change. Confirm the latest details on the official channel linked in each section before you act.",
     accidentInsurance: {
       title: "Accident insurance for TU students",
       intro:
@@ -134,7 +134,7 @@ const copy: Record<
         },
         {
           lead: "Advance payment",
-          text: "if your name is not listed yet, or the hospital is not a partner, pay first and submit the documents below to the responsible officer to forward to the insurer.",
+          text: "if your name is not listed yet, or the hospital is not a partner, pay first and submit the documents for an advance-payment claim to the responsible officer to forward to the insurer.",
         },
       ],
       documentsTitle: "Documents for an advance-payment claim",
@@ -201,7 +201,7 @@ const copy: Record<
     libraries: {
       title: "Libraries, study rooms and printing",
       intro:
-        "Your status as a Thammasat student gives you access to the University's libraries, bookable study rooms, and a printing allowance every semester.",
+        "Thammasat students can use the University's libraries and bookable study rooms, and receive a printing allowance every semester.",
       librariesTitle: "Libraries at and near Tha Prachan",
       libraries: [
         {
@@ -226,7 +226,7 @@ const copy: Record<
       bookingLinkLabel: "Book a study room",
       printingTitle: "Printing allowance",
       printingIntro:
-        "Every semester you receive a printing quota split between two funds, for 200 baht in total.",
+        "Every semester you receive a printing allowance of 200 baht in total, split between two funds.",
       printingFunds: [
         { term: "Faculty fund", desc: "100 baht per semester" },
         { term: "University fund", desc: "100 baht per semester" },
@@ -275,16 +275,16 @@ const copy: Record<
     closing: {
       title: "Report a problem with this page",
       body: "If you spot something wrong or outdated on this page, tell BIRSA.",
-      cta: "Report a gap",
+      cta: "Report a problem",
     },
   },
   th: {
     title: "บริการจากมหาวิทยาลัย",
-    lede: "บริการและความช่วยเหลือที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน BIRSA รวบรวมไว้ที่นี่เพื่อนักศึกษา BIR ส่วนตัวบริการดำเนินการโดยมหาวิทยาลัยและหน่วยงานที่เกี่ยวข้อง",
+    lede: "บริการและความช่วยเหลือที่มหาวิทยาลัยธรรมศาสตร์จัดให้นักศึกษาทุกคน",
     onThisPageLabel: "ในหน้านี้",
     disclaimerTitle: "บริการเหล่านี้ดำเนินการโดยมหาวิทยาลัย",
     disclaimerBody:
-      "BIRSA รวบรวมไว้เพื่อความสะดวก แต่ไม่ได้เป็นผู้ดำเนินการ กำหนดการและเงื่อนไขอาจเปลี่ยนแปลงได้ กรุณาตรวจสอบข้อมูลล่าสุดจากช่องทางทางการที่ลิงก์ไว้ในแต่ละหัวข้อก่อนดำเนินการทุกครั้ง",
+      "BIRSA รวบรวมไว้เพื่อความสะดวกและไม่ได้เป็นผู้ดำเนินการ กำหนดการและเงื่อนไขอาจเปลี่ยนแปลง ตรวจสอบข้อมูลล่าสุดจากช่องทางทางการที่ลิงก์ไว้ในแต่ละหัวข้อก่อนดำเนินการ",
     accidentInsurance: {
       title: "ประกันอุบัติเหตุสำหรับนักศึกษาธรรมศาสตร์",
       intro:
@@ -301,7 +301,7 @@ const copy: Record<
         },
         {
           lead: "สำรองจ่าย",
-          text: "หากยังไม่มีชื่อในกรมธรรม์ หรือโรงพยาบาลไม่ใช่คู่สัญญา ให้สำรองจ่ายก่อน แล้วยื่นเอกสารด้านล่างต่อเจ้าหน้าที่ผู้รับผิดชอบเพื่อส่งให้บริษัทประกัน",
+          text: "หากยังไม่มีชื่อในกรมธรรม์ หรือโรงพยาบาลไม่ใช่คู่สัญญา ให้สำรองจ่ายก่อน แล้วยื่นเอกสารสำหรับการเคลมแบบสำรองจ่ายต่อเจ้าหน้าที่ผู้รับผิดชอบเพื่อส่งให้บริษัทประกัน",
         },
       ],
       documentsTitle: "เอกสารสำหรับการเคลมแบบสำรองจ่าย",
@@ -365,7 +365,7 @@ const copy: Record<
     libraries: {
       title: "ห้องสมุด ห้องอ่านหนังสือ และสิทธิ์การพิมพ์",
       intro:
-        "สถานะนักศึกษาธรรมศาสตร์ของคุณให้สิทธิ์เข้าใช้ห้องสมุดของมหาวิทยาลัย จองห้องอ่านหนังสือ และรับสิทธิ์การพิมพ์เอกสารทุกภาคการศึกษา",
+        "นักศึกษาธรรมศาสตร์ใช้ห้องสมุดของมหาวิทยาลัยและจองห้องอ่านหนังสือได้ และได้รับสิทธิ์การพิมพ์เอกสารทุกภาคการศึกษา",
       librariesTitle: "ห้องสมุดในและใกล้ท่าพระจันทร์",
       libraries: [
         {
@@ -386,12 +386,10 @@ const copy: Record<
         },
       ],
       studyRoomsTitle: "ห้องอ่านหนังสือ",
-      studyRoomsBody:
-        "ห้องอ่านหนังสือแบบกลุ่มของห้องสมุดเหล่านี้สามารถจองล่วงหน้าผ่านระบบออนไลน์ได้",
+      studyRoomsBody: "จองห้องอ่านหนังสือแบบกลุ่มของห้องสมุดเหล่านี้ล่วงหน้าผ่านระบบออนไลน์ได้",
       bookingLinkLabel: "จองห้องอ่านหนังสือ",
       printingTitle: "สิทธิ์การพิมพ์เอกสาร",
-      printingIntro:
-        "ทุกภาคการศึกษาคุณจะได้รับสิทธิ์การพิมพ์เอกสารจาก 2 กองทุน รวมทั้งสิ้น 200 บาท",
+      printingIntro: "ทุกภาคการศึกษาคุณได้รับสิทธิ์การพิมพ์เอกสารรวม 200 บาท จาก 2 กองทุน",
       printingFunds: [
         { term: "กองทุนจากคณะ", desc: "100 บาทต่อภาคการศึกษา" },
         { term: "กองทุนจากมหาวิทยาลัย", desc: "100 บาทต่อภาคการศึกษา" },
@@ -400,11 +398,11 @@ const copy: Record<
     },
     sportFitness: {
       title: "กีฬาและการออกกำลังกาย",
-      body: "ศูนย์กีฬาและฟิตเนสของมหาวิทยาลัยธรรมศาสตร์เปิดให้นักศึกษาเข้าใช้สิ่งอำนวยความสะดวกด้านกีฬาและฟิตเนสภายในมหาวิทยาลัย",
+      body: "ศูนย์กีฬาและฟิตเนสของมหาวิทยาลัยธรรมศาสตร์เปิดให้นักศึกษาใช้สถานที่ออกกำลังกายและฟิตเนสภายในมหาวิทยาลัย",
     },
     domeAccount: {
       title: "บัญชี Dome ของคุณ",
-      body: "นักศึกษาธรรมศาสตร์ทุกคนจะได้รับบัญชี Dome ซึ่งเป็นบัญชีเดียวที่ใช้เข้าสู่ระบบออนไลน์ต่าง ๆ ของมหาวิทยาลัย ทั้งระบบทะเบียน (TU REG) อีเมลมหาวิทยาลัย Wi-Fi ภายในมหาวิทยาลัย และแอปพลิเคชันต่าง ๆ เช่น TU GREATS",
+      body: "นักศึกษาธรรมศาสตร์ทุกคนได้รับบัญชี Dome เป็นบัญชีเดียวสำหรับเข้าสู่ระบบออนไลน์ของมหาวิทยาลัย ทั้งระบบทะเบียน (TU REG) อีเมลมหาวิทยาลัย Wi-Fi ในมหาวิทยาลัย และแอป เช่น TU GREATS",
     },
     counselling: {
       title: "บริการให้คำปรึกษาและสุขภาพจิต",
@@ -440,7 +438,7 @@ const copy: Record<
     closing: {
       title: "แจ้งปัญหาเกี่ยวกับหน้านี้",
       body: "หากพบข้อมูลผิดหรือล้าสมัยในหน้านี้ แจ้ง BIRSA ได้",
-      cta: "แจ้งข้อมูลที่ขาดหาย",
+      cta: "แจ้งปัญหา",
     },
   },
 };

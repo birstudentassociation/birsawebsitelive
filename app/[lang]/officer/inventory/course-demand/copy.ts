@@ -48,7 +48,7 @@ export const demandConsoleCopy: Record<Locale, DemandConsoleCopy> = {
     dbNotConfiguredBody:
       "POSTGRES_URL is not configured, so there is no elective demand to show yet.",
     ruleBody:
-      'Students share only course codes, the term each is planned for and the curriculum version. Nothing identifies them. A course page says "Planned by {threshold} or more students" for a term once the figure below reaches {threshold}, and never shows the number. The figures here are exact counts of what was shared.',
+      'Students share only course codes, the term each is planned for and the curriculum version. Nothing identifies them. A course page says "Planned by {threshold} or more students" for a term once the figure reaches {threshold}, and never shows the number. The figures here are exact counts of what was shared.',
     softLimitBody:
       "Treat the figures as an indication. A browser sends once a term and one network can send only a few times in ten minutes, but both limits are soft, because BIRSA holds nothing that says who sent what. Only students who chose to share are counted.",
     empty: "Nobody has shared their planned electives yet.",
@@ -75,9 +75,9 @@ export const demandConsoleCopy: Record<Locale, DemandConsoleCopy> = {
     dbNotConfiguredBody:
       "ยังไม่ได้ตั้งค่า POSTGRES_URL จึงยังไม่มีข้อมูลความต้องการวิชาเลือกให้แสดง",
     ruleBody:
-      'นักศึกษาแบ่งปันเฉพาะรหัสวิชา ภาคการศึกษาที่วางแผนไว้ และเวอร์ชันของหลักสูตร ไม่มีข้อมูลที่ระบุตัวนักศึกษา หน้ารายวิชาจะระบุว่า "นักศึกษาวางแผนเรียน {threshold} คนขึ้นไป" ในภาคการศึกษาที่ตัวเลขด้านล่างถึง {threshold} และไม่แสดงตัวเลขจริง ตัวเลขในหน้านี้เป็นจำนวนที่แบ่งปันมาจริงทั้งหมด',
+      'นักศึกษาแบ่งปันเฉพาะรหัสวิชา ภาคการศึกษาที่วางแผนไว้ และเวอร์ชันของหลักสูตร ไม่มีข้อมูลที่ระบุตัวนักศึกษา หน้ารายวิชาจะระบุว่า "นักศึกษาวางแผนเรียน {threshold} คนขึ้นไป" ในภาคการศึกษาที่ตัวเลขถึง {threshold} และไม่แสดงตัวเลขจริง ตัวเลขในหน้านี้ตรงกับจำนวนที่แบ่งปันมา',
     softLimitBody:
-      "ควรใช้ตัวเลขเป็นข้อบ่งชี้เท่านั้น เบราว์เซอร์หนึ่งส่งได้หนึ่งครั้งต่อภาคการศึกษา และเครือข่ายหนึ่งส่งได้เพียงไม่กี่ครั้งในสิบนาที แต่ทั้งสองข้อจำกัดไม่เข้มงวด เพราะ BIRSA ไม่มีข้อมูลที่บอกว่าใครส่งอะไร และนับเฉพาะนักศึกษาที่เลือกแบ่งปันเท่านั้น",
+      "ใช้ตัวเลขเป็นข้อบ่งชี้ เบราว์เซอร์หนึ่งส่งได้ภาคการศึกษาละหนึ่งครั้ง และเครือข่ายหนึ่งส่งได้ไม่กี่ครั้งใน 10 นาที แต่ทั้งสองข้อจำกัดไม่เข้มงวด เพราะ BIRSA ไม่มีข้อมูลระบุว่าใครส่งอะไร และนับเฉพาะนักศึกษาที่เลือกแบ่งปัน",
     empty: "ยังไม่มีนักศึกษาแบ่งปันวิชาเลือกที่วางแผนไว้",
     tableTitle: "จำนวนนักศึกษาที่วางแผนไว้ แยกตามรายวิชาและภาคการศึกษา",
     termHeader: "ภาคการศึกษา",

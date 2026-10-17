@@ -161,17 +161,16 @@ export const consoleCopy: Record<Locale, ConsoleCopy> = {
     unpublish: "Unpublish",
     draftTitle: "Draft with Claude",
     draftBody:
-      "Sends the approved submissions to Claude, which returns a draft in both languages. The draft appears in the form below. Nothing is saved or published until you press the publish button.",
+      "Sends the approved submissions to Claude, which returns a draft in both languages. The draft appears in the form. Nothing is saved or published until you press the publish button.",
     draftButton: "Draft summary",
     draftingButton: "Drafting",
     draftUnavailableTitle: "Claude drafting is not available",
     draftUnavailableBody:
-      "ANTHROPIC_API_KEY is not set on this site. Write the summary by hand in the form below.",
+      "ANTHROPIC_API_KEY is not set on this site. Write the summary by hand in the form.",
     draftReady:
       "Draft ready. Read it, edit it and check it against the submissions before you publish.",
     draftFailed: {
-      "not-configured":
-        "Claude drafting is not set up. Write the summary by hand in the form below.",
+      "not-configured": "Claude drafting is not set up. Write the summary by hand in the form.",
       "too-few": "There are not enough approved submissions to draft a summary.",
       "below-threshold": "There are not enough approved submissions to draft a summary.",
       refused:
@@ -245,7 +244,7 @@ export const consoleCopy: Record<Locale, ConsoleCopy> = {
     rejectedHeader: "ไม่อนุมัติ",
     statusHeader: "สถานะ",
     openAction: "เปิดดู",
-    otherInstructor: "อาจารย์ท่านอื่น",
+    otherInstructor: "อาจารย์ผู้สอนอื่น",
     statusNeedsDecisions: "รอการพิจารณา",
     statusReady: "พร้อมเผยแพร่",
     statusPublished: "เผยแพร่แล้ว",
@@ -280,19 +279,19 @@ export const consoleCopy: Record<Locale, ConsoleCopy> = {
     unpublish: "ยกเลิกการเผยแพร่",
     draftTitle: "ร่างด้วย Claude",
     draftBody:
-      "ระบบจะส่งรีวิวที่อนุมัติแล้วไปให้ Claude ซึ่งส่งร่างสองภาษากลับมาแสดงในแบบฟอร์มด้านล่าง ยังไม่มีการบันทึกหรือเผยแพร่สิ่งใดจนกว่าคุณจะกดปุ่มเผยแพร่",
+      "ระบบจะส่งรีวิวที่อนุมัติแล้วไปให้ Claude ซึ่งส่งร่างสองภาษากลับมาแสดงในแบบฟอร์ม ยังไม่มีการบันทึกหรือเผยแพร่สิ่งใดจนกว่าคุณจะกดปุ่มเผยแพร่",
     draftButton: "ร่างบทสรุป",
     draftingButton: "กำลังร่าง",
     draftUnavailableTitle: "ยังใช้การร่างด้วย Claude ไม่ได้",
     draftUnavailableBody:
-      "ยังไม่ได้ตั้งค่า ANTHROPIC_API_KEY ของเว็บไซต์นี้ เขียนบทสรุปเองในแบบฟอร์มด้านล่างได้",
+      "ยังไม่ได้ตั้งค่า ANTHROPIC_API_KEY ของเว็บไซต์นี้ เขียนบทสรุปเองในแบบฟอร์มได้",
     draftReady: "ร่างเสร็จแล้ว อ่าน แก้ไข และตรวจเทียบกับรีวิวที่ส่งเข้ามาให้ครบก่อนเผยแพร่",
     draftFailed: {
-      "not-configured": "ยังไม่ได้ตั้งค่าการร่างด้วย Claude เขียนบทสรุปเองในแบบฟอร์มด้านล่างได้",
+      "not-configured": "ยังไม่ได้ตั้งค่าการร่างด้วย Claude เขียนบทสรุปเองในแบบฟอร์มได้",
       "too-few": "มีรีวิวที่อนุมัติแล้วไม่พอสำหรับร่างบทสรุป",
       "below-threshold": "มีรีวิวที่อนุมัติแล้วไม่พอสำหรับร่างบทสรุป",
       refused:
-        "Claude ไม่ร่างบทสรุปนี้ให้ เขียนเอง หรือตรวจรีวิวที่ส่งเข้ามาว่ามีเนื้อหาที่ Claude ปฏิเสธหรือไม่",
+        "Claude ปฏิเสธที่จะร่างบทสรุปนี้ เขียนบทสรุปเอง หรือตรวจว่ารีวิวมีเนื้อหาที่ทำให้ Claude ปฏิเสธหรือไม่",
       truncated: "คำตอบของ Claude ขาดตอนก่อนจบ ลองใหม่อีกครั้ง หรือเขียนบทสรุปเอง",
       "unexpected-stop": "Claude หยุดก่อนร่างเสร็จ ลองใหม่อีกครั้ง หรือเขียนบทสรุปเอง",
       "bad-output": "อ่านคำตอบของ Claude เป็นบทสรุปไม่ได้ ลองใหม่อีกครั้ง หรือเขียนบทสรุปเอง",

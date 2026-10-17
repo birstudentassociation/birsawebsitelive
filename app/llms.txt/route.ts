@@ -37,7 +37,7 @@ function buildLlmsTxt(): string {
     `> ${dict.site.description}`,
     "",
     "Every page exists in English under `/en/` and in Thai under `/th/` with the same path. " +
-      "Links below point to the English version.",
+      "Links point to the English version.",
     "",
     "## Main pages",
     "",

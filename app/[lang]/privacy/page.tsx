@@ -113,7 +113,7 @@ type Labels = {
 const content: Record<Locale, Labels> = {
   en: {
     title: "Privacy",
-    lede: "A plain-language notice of what this site collects, why, how long we keep it, and the rights you have over it.",
+    lede: "What this site collects, why we collect it, how long we keep it, and your rights over it.",
 
     controllerTitle: "Who runs this site",
     controllerBody:
@@ -121,17 +121,17 @@ const content: Record<Locale, Labels> = {
     controllerAddressLabel: "Address:",
     controllerEmailLabel: "Email:",
 
-    basisTitle: "Why we don't ask for your consent",
+    basisTitle: "Why we do not ask for your consent",
     basisBody1:
       "Almost nothing on this site runs on your consent. We rely on two other grounds in the Personal Data Protection Act instead: section 24(3), because you've asked us to do something for you, and section 24(5), where we have a legitimate interest, such as running the equipment loan service fairly for everyone.",
     basisBody2:
-      "This matters in practice. The age of majority in Thailand is twenty, so most first-year students are minors, and a minor's consent normally needs a guardian's consent too, under section 20 of the Act. Because we don't rely on consent, that requirement never comes up. Borrowing club equipment is, in any case, something a minor can decide for themselves: section 24 of the Civil and Commercial Code lets a minor carry out an act that suits their condition in life and is reasonably needed to meet their ordinary needs, and returning a borrowed camera or tent fits that description.",
+      "The age of majority in Thailand is twenty, so most first-year students are minors, and a minor's consent normally needs a guardian's consent too, under section 20 of the Act. Because we do not rely on consent, that requirement never comes up. Borrowing club equipment is, in any case, something a minor can decide for themselves: section 24 of the Civil and Commercial Code lets a minor carry out an act that suits their condition in life and is reasonably needed to meet their ordinary needs, and returning a borrowed camera or tent fits that description.",
     basisBody3:
-      "If we ever add a feature that is genuinely optional and not needed to run a service you asked for, we'll ask for your consent separately, in plain language, and you'll be free to say no. See \"Withdraw consent\" among your rights below.",
+      "If we add a feature that is optional and not needed to run a service you asked for, we'll ask for your consent separately, in plain language, and you'll be free to say no. See \"Withdraw consent\" among your rights.",
 
     activitiesTitle: "What we collect, and why",
     activitiesIntro:
-      "This is every place on this site where we collect personal data. For each one, we say why we collect it, whether you have to give it, what we collect, our legal basis, who else sees it, and how long we keep it.",
+      "For every place on this site where we collect personal data, we say why we collect it, whether you have to give it, what we collect, our legal basis, who else sees it, and how long we keep it.",
     purposeLabel: "Why we collect it",
     ifYouDoNotLabel: "Do you have to give this?",
     collectsLabel: "What we collect",
@@ -153,13 +153,13 @@ const content: Record<Locale, Labels> = {
 
     retentionTitle: "How long we keep it, in short",
     retentionBody1:
-      "Every category of personal data on this site is kept for up to two years and then deleted automatically. What differs is when the clock starts, which is set out activity by activity above.",
+      "Every category of personal data on this site is kept for up to two years and then deleted automatically. What differs is when the clock starts, which is set out for each activity above.",
     retentionBody2:
-      "For an equipment loan, the two years start on the day the loan closes, not the day you ask to borrow something. An open loan is never deleted, however old it is. The full deletion rules are set out on our record of processing activities, linked below.",
+      "For an equipment loan, the two years start on the day the loan closes, not the day you ask to borrow something. An open loan is never deleted, however old it is. The full deletion rules are in our record of processing activities.",
 
     transferTitle: "Sending your data outside Thailand",
     transferBody1:
-      "Some of the outside providers we use are not based in Thailand. Resend, which delivers our email, and Vercel, which hosts this site and its database, are both in the United States. OpenStreetMap, which supplies the maps on this site, is in the United Kingdom. Anthropic, whose Claude service helps officers draft summaries of course reviews, is in the United States. Thailand's Personal Data Protection Committee has not found either country to give an adequate level of protection, and we don't claim it has.",
+      "Some of the outside providers we use are not based in Thailand. Resend, which delivers our email, and Vercel, which hosts this site and its database, are both in the United States. OpenStreetMap, which supplies the maps on this site, is in the United Kingdom. Anthropic, whose Claude service helps officers draft summaries of course reviews, is in the United States. Thailand's Personal Data Protection Committee has not found either country to give an adequate level of protection, and we do not claim it has.",
     transferBody2:
       "Instead, we rely on section 28(3) of the Act: the transfer is necessary to perform a contract with you, or to take steps you've asked for before entering one, for example sending you an email or running the equipment loan you requested. Each provider's data processing agreement also carries the safeguards required under section 29, paragraph 3, of the Act.",
 
@@ -169,7 +169,7 @@ const content: Record<Locale, Labels> = {
 
     noAdsTitle: "No ads, no selling your data",
     noAdsBody:
-      "We don't run advertising on this site, and we never sell or trade your data. The providers named on this page only ever act on our instructions, for the purposes described here, and never for their own purposes.",
+      "We do not run advertising on this site, and we never sell or trade your data. The providers named on this page act only on our instructions, for the purposes described here, and never for their own purposes.",
 
     rightsTitle: "Your rights",
     rightsIntro:
@@ -181,7 +181,7 @@ const content: Record<Locale, Labels> = {
 
     linksTitle: "More detail",
     linksIntro:
-      "This page is a summary written in plain language. Three pages go into more depth, and all three are built from the same record we use here, so nothing on them can contradict this page.",
+      "Three other pages give more detail. All three are built from the same record as this page, so they cannot contradict it.",
     cookiesLinkTitle: "Cookies",
     cookiesLinkBody: "Every cookie this site sets, what it's for, and how long it lasts.",
     cookiesLinkCta: "Read about cookies",
@@ -193,30 +193,30 @@ const content: Record<Locale, Labels> = {
     yourDataLinkBody: "Ask to see, correct, delete, or get a copy of your data.",
     yourDataLinkCta: "Manage your data",
 
-    contactIntro: "Questions about this notice, or about your data? Get in touch:",
-    contactCta: "Contact BIRSA",
+    contactIntro: "If you have questions about this notice or your data, you can",
+    contactCta: "contact BIRSA",
   },
   th: {
     title: "ประกาศความเป็นส่วนตัว",
-    lede: "ประกาศฉบับนี้ชี้แจงว่าเว็บไซต์นี้เก็บรวบรวมข้อมูลส่วนบุคคลใด เพื่อวัตถุประสงค์ใด เก็บรักษาไว้เป็นระยะเวลาเท่าใด และท่านมีสิทธิใดบ้างเหนือข้อมูลดังกล่าว",
+    lede: "ข้อมูลส่วนบุคคลที่เว็บไซต์นี้เก็บรวบรวม วัตถุประสงค์ ระยะเวลาเก็บรักษา และสิทธิของคุณเหนือข้อมูลนั้น",
 
     controllerTitle: "ผู้ควบคุมข้อมูลส่วนบุคคล",
     controllerBody:
-      "BIRSA (สโมสรนักศึกษาหลักสูตร BIR) หลักสูตรการเมืองและการระหว่างประเทศ (BIR) คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เป็นผู้ควบคุมข้อมูลส่วนบุคคลของเว็บไซต์นี้ กล่าวคือ เป็นผู้มีอำนาจตัดสินใจเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล",
+      "BIRSA (สโมสรนักศึกษาหลักสูตร BIR) ของหลักสูตรการเมืองและการระหว่างประเทศ (BIR) คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ เป็นผู้ควบคุมข้อมูลส่วนบุคคลของเว็บไซต์นี้ คือเป็นผู้มีอำนาจตัดสินใจเกี่ยวกับการเก็บรวบรวม ใช้ หรือเปิดเผยข้อมูลส่วนบุคคล",
     controllerAddressLabel: "ที่อยู่:",
     controllerEmailLabel: "อีเมล:",
 
-    basisTitle: "เหตุใด BIRSA จึงมิได้ขอความยินยอมจากท่าน",
+    basisTitle: "เหตุใด BIRSA จึงไม่ขอความยินยอมจากคุณ",
     basisBody1:
-      "การดำเนินการเกือบทั้งหมดบนเว็บไซต์นี้มิได้อาศัยความยินยอมของท่าน แต่อาศัยฐานทางกฎหมายอื่นตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 สองประการ ได้แก่ มาตรา 24(3) ความจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งท่านเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของท่านก่อนเข้าทำสัญญานั้น และมาตรา 24(5) ความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายของ BIRSA เช่น การดูแลบริการยืมอุปกรณ์ให้เป็นธรรมแก่ผู้ใช้บริการทุกราย",
+      "การดำเนินการเกือบทั้งหมดบนเว็บไซต์นี้ไม่ได้อาศัยความยินยอมของคุณ แต่อาศัยฐานทางกฎหมายอื่นตามพระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 สองประการ ได้แก่ มาตรา 24(3) ความจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งคุณเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของคุณก่อนเข้าทำสัญญานั้น และมาตรา 24(5) ความจำเป็นเพื่อประโยชน์โดยชอบด้วยกฎหมายของ BIRSA เช่น การดูแลบริการยืมอุปกรณ์ให้เป็นธรรมแก่ผู้ใช้บริการทุกราย",
     basisBody2:
-      "ข้อนี้มีนัยสำคัญในทางปฏิบัติ เนื่องจากบุคคลย่อมบรรลุนิติภาวะเมื่อมีอายุยี่สิบปีบริบูรณ์ตามกฎหมายไทย นักศึกษาชั้นปีที่หนึ่งส่วนใหญ่จึงยังเป็นผู้เยาว์ และโดยหลักแล้วการขอความยินยอมจากผู้เยาว์ต้องได้รับความยินยอมจากผู้ใช้อำนาจปกครองด้วย ตามมาตรา 20 แห่งพระราชบัญญัติดังกล่าว เมื่อ BIRSA มิได้อาศัยความยินยอมเป็นฐานในการประมวลผล กรณีจึงไม่ตกอยู่ภายใต้บังคับของบทบัญญัติดังกล่าว อนึ่ง การยืมอุปกรณ์ของชมรมเป็นการอันผู้เยาว์อาจกระทำได้โดยลำพัง เนื่องจากเป็นการสมแก่ฐานานุรูปและจำเป็นในการดำรงชีพตามสมควร ตามมาตรา 24 แห่งประมวลกฎหมายแพ่งและพาณิชย์",
+      "บุคคลบรรลุนิติภาวะเมื่ออายุยี่สิบปีบริบูรณ์ตามกฎหมายไทย นักศึกษาชั้นปีที่หนึ่งส่วนใหญ่จึงยังเป็นผู้เยาว์ และโดยหลักแล้วการขอความยินยอมจากผู้เยาว์ต้องได้รับความยินยอมจากผู้ใช้อำนาจปกครองด้วย ตามมาตรา 20 แห่งพระราชบัญญัตินั้น เมื่อ BIRSA ไม่ได้อาศัยความยินยอมเป็นฐานในการประมวลผล จึงไม่ต้องปฏิบัติตามบทบัญญัตินั้น นอกจากนี้ การยืมอุปกรณ์ของชมรมเป็นการอันผู้เยาว์อาจกระทำได้โดยลำพัง เนื่องจากเป็นการสมแก่ฐานานุรูปและจำเป็นในการดำรงชีพตามสมควร ตามมาตรา 24 แห่งประมวลกฎหมายแพ่งและพาณิชย์",
     basisBody3:
-      'ในกรณีที่ BIRSA เพิ่มบริการซึ่งเป็นทางเลือกโดยแท้ และมิได้มีความจำเป็นต่อการให้บริการตามที่ท่านร้องขอ BIRSA จะขอความยินยอมจากท่านแยกต่างหากโดยชัดแจ้ง ด้วยข้อความที่เข้าถึงได้ง่ายและเข้าใจได้ และท่านมีอิสระที่จะปฏิเสธ ทั้งนี้ โปรดดูหัวข้อ "สิทธิขอถอนความยินยอม" ในรายการสิทธิด้านล่าง',
+      'ในกรณีที่ BIRSA เพิ่มบริการซึ่งเป็นทางเลือก และไม่ได้มีความจำเป็นต่อการให้บริการตามที่คุณร้องขอ BIRSA จะขอความยินยอมจากคุณแยกต่างหากโดยชัดแจ้ง ด้วยข้อความที่เข้าถึงได้ง่ายและเข้าใจได้ และคุณมีอิสระที่จะปฏิเสธ โปรดดูหัวข้อ "สิทธิขอถอนความยินยอม" ในรายการสิทธิของคุณ',
 
     activitiesTitle: "ข้อมูลส่วนบุคคลที่เก็บรวบรวมและวัตถุประสงค์",
     activitiesIntro:
-      "รายการต่อไปนี้คือกิจกรรมทั้งหมดบนเว็บไซต์นี้ที่มีการเก็บรวบรวมข้อมูลส่วนบุคคล โดยแต่ละรายการระบุวัตถุประสงค์ในการเก็บรวบรวม ข้อมูลที่ต้องกรอกและผลของการไม่ให้ข้อมูล ข้อมูลที่เก็บรวบรวม ฐานทางกฎหมาย ผู้รับข้อมูล และระยะเวลาการเก็บรักษา",
+      "กิจกรรมทั้งหมดบนเว็บไซต์นี้ที่มีการเก็บรวบรวมข้อมูลส่วนบุคคล พร้อมวัตถุประสงค์ในการเก็บรวบรวม ข้อมูลที่ต้องกรอกและผลของการไม่ให้ข้อมูล ข้อมูลที่เก็บรวบรวม ฐานทางกฎหมาย ผู้รับข้อมูล และระยะเวลาการเก็บรักษา",
     purposeLabel: "วัตถุประสงค์ในการเก็บรวบรวม",
     ifYouDoNotLabel: "ข้อมูลที่ต้องกรอกและผลของการไม่ให้ข้อมูล",
     collectsLabel: "ข้อมูลส่วนบุคคลที่เก็บรวบรวม",
@@ -231,42 +231,42 @@ const content: Record<Locale, Labels> = {
     retentionSuffix: "จากนั้นระบบจะลบข้อมูลโดยอัตโนมัติ",
     retentionTriggerLabels: {
       created: "วันที่ได้รับข้อมูล",
-      closed: "วันที่รายการดังกล่าวสิ้นสุด",
+      closed: "วันที่รายการสิ้นสุด",
       "last-active": "วันที่มีการเปลี่ยนแปลงข้อมูลครั้งล่าสุด",
     },
     retentionUntilUnpublished: "เก็บรักษาไว้จนกว่าเจ้าหน้าที่จะถอดออก",
 
     retentionTitle: "ระยะเวลาการเก็บรักษาข้อมูลส่วนบุคคล",
     retentionBody1:
-      "ข้อมูลส่วนบุคคลทุกประเภทบนเว็บไซต์นี้เก็บรักษาไว้ไม่เกินสองปี จากนั้นระบบจะลบโดยอัตโนมัติ สิ่งที่แตกต่างกันคือจุดเริ่มต้นนับระยะเวลา ซึ่งได้ระบุไว้แยกตามแต่ละกิจกรรมข้างต้น",
+      "ข้อมูลส่วนบุคคลทุกประเภทบนเว็บไซต์นี้เก็บรักษาไว้ไม่เกินสองปี จากนั้นระบบจะลบโดยอัตโนมัติ สิ่งที่แตกต่างกันคือจุดเริ่มต้นนับระยะเวลา ซึ่งระบุไว้ในแต่ละกิจกรรมข้างต้น",
     retentionBody2:
-      "สำหรับการยืมอุปกรณ์ ระยะเวลาสองปีเริ่มนับแต่วันที่รายการยืมสิ้นสุด มิใช่วันที่ท่านยื่นคำขอ รายการยืมที่ยังไม่สิ้นสุดจะไม่ถูกลบไม่ว่าจะล่วงเลยมานานเพียงใด ทั้งนี้ หลักเกณฑ์การลบข้อมูลฉบับเต็มปรากฏอยู่ในบันทึกรายการกิจกรรมการประมวลผลข้อมูลส่วนบุคคล ตามลิงก์ด้านล่าง",
+      "สำหรับการยืมอุปกรณ์ ระยะเวลาสองปีเริ่มนับแต่วันที่รายการยืมสิ้นสุด ไม่ใช่วันที่คุณยื่นคำขอ ระบบจะไม่ลบรายการยืมที่ยังไม่สิ้นสุด ไม่ว่าจะผ่านมานานเพียงใด หลักเกณฑ์การลบข้อมูลฉบับเต็มอยู่ในบันทึกรายการกิจกรรมการประมวลผลข้อมูลส่วนบุคคล",
 
     transferTitle: "การส่งหรือโอนข้อมูลส่วนบุคคลไปยังต่างประเทศ",
     transferBody1:
-      "ผู้ให้บริการภายนอกบางรายที่ BIRSA ใช้บริการมิได้ตั้งอยู่ในราชอาณาจักร ได้แก่ Resend ซึ่งให้บริการจัดส่งอีเมล และ Vercel ซึ่งให้บริการโฮสติ้งและฐานข้อมูล ทั้งสองรายตั้งอยู่ในสหรัฐอเมริกา ส่วน OpenStreetMap ซึ่งให้บริการภาพแผนที่ ตั้งอยู่ในสหราชอาณาจักร และ Anthropic ซึ่งให้บริการ Claude ที่ช่วยเจ้าหน้าที่ร่างบทสรุปรีวิวรายวิชา ตั้งอยู่ในสหรัฐอเมริกา คณะกรรมการคุ้มครองข้อมูลส่วนบุคคลยังมิได้ประกาศกำหนดว่าประเทศปลายทางดังกล่าวมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอ และ BIRSA มิได้กล่าวอ้างเช่นนั้น",
+      "ผู้ให้บริการภายนอกบางรายที่ BIRSA ใช้บริการไม่ได้ตั้งอยู่ในประเทศไทย ได้แก่ Resend ซึ่งให้บริการจัดส่งอีเมล และ Vercel ซึ่งให้บริการโฮสติ้งและฐานข้อมูล ทั้งสองรายตั้งอยู่ในสหรัฐอเมริกา ส่วน OpenStreetMap ซึ่งให้บริการภาพแผนที่ ตั้งอยู่ในสหราชอาณาจักร และ Anthropic ซึ่งให้บริการ Claude ที่ช่วยเจ้าหน้าที่ร่างบทสรุปรีวิวรายวิชา ตั้งอยู่ในสหรัฐอเมริกา คณะกรรมการคุ้มครองข้อมูลส่วนบุคคลยังไม่ได้ประกาศกำหนดว่าประเทศปลายทางทั้งสองมีมาตรฐานการคุ้มครองข้อมูลส่วนบุคคลที่เพียงพอ และ BIRSA ไม่ได้อ้างเช่นนั้น",
     transferBody2:
-      "การส่งหรือโอนข้อมูลดังกล่าวจึงอาศัยข้อยกเว้นตามมาตรา 28(3) แห่งพระราชบัญญัติ กล่าวคือ เป็นการจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งท่านเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของท่านก่อนเข้าทำสัญญานั้น เช่น การจัดส่งอีเมลถึงท่าน หรือการดำเนินการตามคำขอยืมอุปกรณ์ นอกจากนี้ ข้อตกลงการประมวลผลข้อมูลส่วนบุคคลของผู้ให้บริการแต่ละรายยังได้จัดให้มีมาตรการคุ้มครองที่เหมาะสมตามมาตรา 29 วรรคสาม แห่งพระราชบัญญัติด้วย",
+      "การส่งหรือโอนข้อมูลนี้จึงอาศัยข้อยกเว้นตามมาตรา 28(3) แห่งพระราชบัญญัติ คือเป็นการจำเป็นเพื่อการปฏิบัติตามสัญญาซึ่งคุณเป็นคู่สัญญา หรือเพื่อดำเนินการตามคำขอของคุณก่อนเข้าทำสัญญานั้น เช่น การจัดส่งอีเมลถึงคุณ หรือการดำเนินการตามคำขอยืมอุปกรณ์ นอกจากนี้ ข้อตกลงการประมวลผลข้อมูลส่วนบุคคลของผู้ให้บริการแต่ละรายยังได้จัดให้มีมาตรการคุ้มครองที่เหมาะสมตามมาตรา 29 วรรคสาม แห่งพระราชบัญญัติ",
 
     automatedTitle: "การตัดสินใจโดยระบบอัตโนมัติ",
     automatedBody:
-      "เมื่อท่านยื่นคำขอยืมอุปกรณ์ ระบบจะตรวจสอบโดยอัตโนมัติว่าอุปกรณ์ว่างหรือไม่ และบัญชีของท่านถูกระงับสิทธิหรือครบโควตาการยืมแล้วหรือไม่ และจะระงับคำขอที่ไม่เป็นไปตามเงื่อนไขไว้ตั้งแต่ขั้นตอนดังกล่าว ทั้งนี้ ระบบมิได้อนุมัติหรือปฏิเสธคำขอโดยอัตโนมัติแต่อย่างใด การพิจารณาคำขอทุกรายการกระทำโดยเจ้าหน้าที่ BIRSA เสมอ",
+      "เมื่อคุณยื่นคำขอยืมอุปกรณ์ ระบบจะตรวจสอบโดยอัตโนมัติว่าอุปกรณ์ว่างหรือไม่ และบัญชีของคุณถูกระงับสิทธิหรือครบโควตาการยืมแล้วหรือไม่ และจะระงับคำขอที่ไม่เป็นไปตามเงื่อนไขไว้ตั้งแต่ขั้นตอนดังกล่าว ระบบไม่อนุมัติหรือปฏิเสธคำขอโดยอัตโนมัติ เจ้าหน้าที่ BIRSA เป็นผู้พิจารณาคำขอทุกรายการ",
 
     noAdsTitle: "ไม่มีการโฆษณาและไม่มีการจำหน่ายข้อมูล",
     noAdsBody:
-      "เว็บไซต์นี้ไม่มีการโฆษณา และ BIRSA ไม่จำหน่ายหรือแลกเปลี่ยนข้อมูลส่วนบุคคลของท่านแก่บุคคลใด ผู้ให้บริการที่ระบุไว้ในประกาศฉบับนี้ดำเนินการตามคำสั่งของ BIRSA เท่านั้น เพื่อวัตถุประสงค์ที่ระบุไว้ในประกาศฉบับนี้ โดยมิได้นำไปใช้เพื่อประโยชน์ของตนเอง",
+      "เว็บไซต์นี้ไม่มีการโฆษณา และ BIRSA ไม่จำหน่ายหรือแลกเปลี่ยนข้อมูลส่วนบุคคลของคุณแก่บุคคลใด ผู้ให้บริการที่ระบุไว้ในประกาศฉบับนี้ดำเนินการตามคำสั่งของ BIRSA เท่านั้น เพื่อวัตถุประสงค์ที่ระบุไว้ในประกาศฉบับนี้ โดยไม่ได้นำไปใช้เพื่อประโยชน์ของตนเอง",
 
     rightsTitle: "สิทธิของเจ้าของข้อมูลส่วนบุคคล",
     rightsIntro:
-      "พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 รับรองสิทธิดังต่อไปนี้แก่ท่านในฐานะเจ้าของข้อมูลส่วนบุคคล ท่านสามารถใช้สิทธิดังกล่าวได้โดยยื่นคำร้องมายัง BIRSA",
+      "พระราชบัญญัติคุ้มครองข้อมูลส่วนบุคคล พ.ศ. 2562 รับรองสิทธิดังต่อไปนี้แก่คุณในฐานะเจ้าของข้อมูลส่วนบุคคล คุณใช้สิทธิได้โดยยื่นคำร้องมายัง BIRSA",
     rightsResponseNote:
-      "ในกรณีที่ท่านใช้สิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคล BIRSA จะดำเนินการตามคำขอโดยไม่ชักช้า แต่ต้องไม่เกินสามสิบวันนับแต่วันที่ได้รับคำขอ ตามมาตรา 30 แห่งพระราชบัญญัติ",
+      "ในกรณีที่คุณใช้สิทธิขอเข้าถึงและขอรับสำเนาข้อมูลส่วนบุคคล BIRSA จะดำเนินการตามคำขอโดยไม่ชักช้า แต่ต้องไม่เกินสามสิบวันนับแต่วันที่ได้รับคำขอ ตามมาตรา 30 แห่งพระราชบัญญัติ",
     rightsSectionLabel: "มาตรา",
     rightsCta: "ยื่นคำร้องขอใช้สิทธิ",
 
     linksTitle: "เอกสารประกอบ",
     linksIntro:
-      "ประกาศฉบับนี้เป็นเอกสารสรุป ยังมีเอกสารอีกสามฉบับที่ให้รายละเอียดเพิ่มเติม โดยทั้งสามฉบับจัดทำขึ้นจากชุดข้อมูลเดียวกันกับประกาศฉบับนี้ จึงไม่อาจขัดหรือแย้งกันได้",
+      "เอกสารอีกสามฉบับให้รายละเอียดเพิ่มเติม ทั้งสามฉบับจัดทำจากชุดข้อมูลเดียวกับประกาศฉบับนี้ จึงไม่ขัดแย้งกัน",
     cookiesLinkTitle: "คุกกี้",
     cookiesLinkBody: "รายการคุกกี้ทั้งหมดที่เว็บไซต์นี้ใช้ วัตถุประสงค์ และระยะเวลาการจัดเก็บ",
     cookiesLinkCta: "อ่านรายละเอียดเรื่องคุกกี้",
@@ -274,13 +274,13 @@ const content: Record<Locale, Labels> = {
     recordLinkBody:
       "บันทึกรายการตามที่มาตรา 39 แห่งพระราชบัญญัติกำหนดให้ต้องจัดทำ รวมถึงมาตรการรักษาความมั่นคงปลอดภัยและแนวปฏิบัติเมื่อเกิดเหตุการละเมิดข้อมูลส่วนบุคคล",
     recordLinkCta: "อ่านบันทึกรายการฉบับเต็ม",
-    yourDataLinkTitle: "การใช้สิทธิของท่าน",
+    yourDataLinkTitle: "การใช้สิทธิของคุณ",
     yourDataLinkBody:
-      "ยื่นคำร้องขอเข้าถึง ขอรับสำเนา ขอแก้ไข ขอลบ หรือขอใช้สิทธิอื่นเกี่ยวกับข้อมูลส่วนบุคคลของท่าน",
+      "ยื่นคำร้องขอเข้าถึง ขอรับสำเนา ขอแก้ไข ขอลบ หรือขอใช้สิทธิอื่นเกี่ยวกับข้อมูลส่วนบุคคลของคุณ",
     yourDataLinkCta: "ยื่นคำร้องขอใช้สิทธิ",
 
     contactIntro:
-      "หากท่านมีข้อสงสัยเกี่ยวกับประกาศฉบับนี้ หรือเกี่ยวกับข้อมูลส่วนบุคคลของท่าน โปรดติดต่อ:",
+      "หากคุณมีคำถามเกี่ยวกับประกาศฉบับนี้หรือข้อมูลส่วนบุคคลของคุณ สามารถ",
     contactCta: "ติดต่อ BIRSA",
   },
 };

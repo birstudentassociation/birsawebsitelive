@@ -54,7 +54,7 @@ const gateCopy: Record<Locale, { title: string; body: string; cta: string }> = {
 const pageCopy: Record<Locale, { title: string; lede: string }> = {
   en: {
     title: "Item catalogue",
-    lede: "Search, filter, and manage every item in the inventory. Add new items here and open any item for full detail.",
+    lede: "Search, filter, and manage every item in the inventory. Add items, or open an item for its full detail.",
   },
   th: {
     title: "รายการครุภัณฑ์ทั้งหมด",

@@ -651,14 +651,14 @@ html[lang="th"] .oh-map-zone {
   transition: transform 0.3s ease;
 }
 .oh-index-row[aria-expanded="true"]::after {
-  content: "–";
+  content: "\2212";
   color: var(--color-brand-deep);
 }
 .oh-index-row:hover .oh-index-title {
   transform: translateX(0.35rem);
 }
 .oh-index-row[aria-pressed="true"] .oh-index-code::before {
-  content: "— ";
+  content: "\2212\00a0";
 }
 .oh-teaser {
   padding: 0.25rem 0.25rem 2rem;

@@ -24,8 +24,8 @@ export async function generateMetadata({
   const title = locale === "th" ? "เริ่มชมรมใหม่" : "Start a club";
   const description =
     locale === "th"
-      ? "ขั้นตอนง่าย ๆ ในการเริ่มชมรมนักศึกษาใหม่กับ BIRSA"
-      : "The simple steps to start a new student club with BIRSA.";
+      ? "ขั้นตอนการเริ่มชมรมนักศึกษาใหม่กับ BIRSA"
+      : "Steps to start a new student club with BIRSA.";
 
   return buildMetadata({ locale, title, description, path: "/clubs/start" });
 }
@@ -46,12 +46,12 @@ const copy: Record<
 > = {
   en: {
     title: "Start a club",
-    lede: "If a few of you share an interest that is not covered by an existing club, BIRSA can help you get a new one off the ground.",
+    lede: "If a few of you share an interest that no existing club covers, BIRSA can help you set up a new one.",
     clubs: "Clubs",
     stepsTitle: "How it works",
     steps: [
       "Tell BIRSA your idea. Answer a few short questions about what the club would do and who it's for.",
-      "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and figure out what support you need (a room, a small budget, promotion).",
+      "Talk it through with the committee. A BIRSA committee member will get in touch to help you shape the idea and work out what support you need (a room, a small budget, promotion).",
       "Start meeting. Run your first session, and BIRSA can help spread the word to other students.",
     ],
     checkTitle: "Check what you need first",
@@ -62,17 +62,17 @@ const copy: Record<
   },
   th: {
     title: "เริ่มชมรมใหม่",
-    lede: "ถ้าคุณและเพื่อน ๆ มีความสนใจร่วมกันที่ยังไม่มีชมรมไหนรองรับ BIRSA ช่วยให้ชมรมใหม่ของคุณเกิดขึ้นจริงได้",
+    lede: "BIRSA ช่วยตั้งชมรมใหม่สำหรับความสนใจร่วมกันที่ยังไม่มีชมรมรองรับ",
     clubs: "ชมรม",
     stepsTitle: "ขั้นตอนการเริ่มชมรม",
     steps: [
       "บอกไอเดียของคุณกับ BIRSA ตอบคำถามสั้น ๆ ไม่กี่ข้อว่าชมรมนี้จะทำอะไรและเหมาะกับใคร",
       "คุยรายละเอียดกับกรรมการ กรรมการ BIRSA จะติดต่อกลับเพื่อช่วยปรับไอเดียให้ชัดเจน และดูว่าต้องการการสนับสนุนอะไรบ้าง เช่น ห้องประชุม งบประมาณเล็กน้อย หรือการประชาสัมพันธ์",
-      "เริ่มนัดพบ จัดกิจกรรมแรกของชมรม BIRSA ช่วยกระจายข่าวให้เพื่อนนักศึกษาคนอื่น ๆ รู้จักด้วย",
+      "เริ่มนัดพบ จัดกิจกรรมแรกของชมรม BIRSA ช่วยประชาสัมพันธ์ให้นักศึกษาคนอื่นรู้จัก",
     ],
-    checkTitle: "เช็กก่อนว่าต้องเตรียมอะไรบ้าง",
+    checkTitle: "ตรวจสอบสิ่งที่ต้องเตรียมก่อน",
     checkBody:
-      "การจดทะเบียนชมรมกับคณะหรือมหาวิทยาลัยมีเงื่อนไขเรื่องจำนวนสมาชิกและคณะกรรมการ แบบสอบถามนำทางจะบอกว่าคุณพร้อมแค่ไหน และต้องเตรียมอะไรก่อน",
+      "การจดทะเบียนชมรมกับคณะหรือมหาวิทยาลัยมีเงื่อนไขเรื่องจำนวนสมาชิกและคณะกรรมการ แบบสอบถามนำทางจะแจ้งว่าต้องเตรียมอะไรก่อน",
     checkCta: "เช็กความพร้อมก่อนเริ่มชมรม",
     formTitle: "บอกไอเดียของคุณ",
   },

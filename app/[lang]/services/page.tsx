@@ -22,7 +22,7 @@ export async function generateMetadata({
   const description =
     locale === "th"
       ? "บริการยืมอุปกรณ์ของ BIRSA รีวิวรายวิชา และคู่มือใช้ชีวิตนอกห้องเรียนที่ BIR เขียนโดยรุ่นพี่นักศึกษา สำหรับนักศึกษาทุกคน พร้อมข้อมูลเฉพาะสำหรับนักศึกษาต่างชาติ"
-      : "BIRSA's equipment loan service, course reviews, and plain-language guides to life outside the classroom at BIR, written by students, for everyone at BIR, plus dedicated logistics guidance for international students.";
+      : "Borrow BIRSA equipment, read course reviews and student-written guides to life at BIR, and find practical guidance for international students.";
 
   return buildMetadata({ locale, title, description, path: "/services" });
 }
@@ -54,7 +54,7 @@ const copy: Record<
       cta: "Plan your degree",
     },
     equipmentLoan: {
-      title: "Equipment Loan Service",
+      title: "Equipment loan service",
       description:
         "Borrow BIRSA equipment such as the first-aid kit for your event or everyday need.",
       cta: "Request equipment",
@@ -79,8 +79,8 @@ const copy: Record<
     courseReviews: {
       title: "Course reviews",
       description:
-        "Honest, student-written notes on BIR courses and electives: workload, assessment style, and what to expect before you register.",
-      cta: "See what's coming",
+        "Student-written notes on BIR courses and electives: workload, assessment style, and what to expect before you register.",
+      cta: "See course reviews",
     },
     guides: {
       title: "Student life guides",
@@ -92,7 +92,7 @@ const copy: Record<
   },
   th: {
     title: "ข้อมูลและบริการ",
-    lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลที่จำเป็นสำหรับการเริ่มต้นชีวิตในกรุงเทพฯ สำหรับนักศึกษาต่างชาติ",
+    lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลสำหรับนักศึกษาต่างชาติที่เริ่มต้นชีวิตในกรุงเทพฯ",
     studyPlan: {
       title: "วางแผนปริญญา BIR ของคุณ",
       description:
@@ -125,7 +125,7 @@ const copy: Record<
       title: "รีวิวรายวิชา",
       description:
         "บันทึกตรงไปตรงมาจากนักศึกษาเกี่ยวกับรายวิชาและวิชาเลือกของ BIR ทั้งปริมาณงาน รูปแบบการวัดผล และสิ่งที่ควรรู้ก่อนลงทะเบียน",
-      cta: "ดูว่ากำลังจะมีอะไรบ้าง",
+      cta: "ดูรีวิวรายวิชา",
     },
     guides: {
       title: "คู่มือชีวิตนักศึกษา",

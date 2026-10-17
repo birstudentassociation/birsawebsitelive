@@ -22,7 +22,7 @@ export async function generateMetadata({
   if (!isLocale(lang)) return {};
   const description =
     lang === "th"
-      ? "Open House วันที่ 31 ตุลาคม ที่คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ มาลองเดินดูหนึ่งวันของการเรียนและชีวิตนักศึกษา BIR"
+      ? "Open House วันที่ 31 ตุลาคม ที่คณะรัฐศาสตร์ มหาวิทยาลัยธรรมศาสตร์ ท่าพระจันทร์ ชมหนึ่งวันของการเรียนและชีวิตนักศึกษา BIR"
       : "Open House on 31 October at the Faculty of Political Science, Thammasat University, Tha Prachan. Walk through a day of studying and student life in BIR.";
   const base = buildMetadata({
     locale: lang,

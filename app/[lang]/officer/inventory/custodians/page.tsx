@@ -62,7 +62,7 @@ const copy: Record<Locale, Copy> = {
     signInNeededTitle: "Sign in",
     signInNeededBody: "Sign in on the console home to manage custodian organisations.",
     signInLink: "Go to console home",
-    accessDeniedTitle: "You do not have access to this page.",
+    accessDeniedTitle: "You do not have access to this page",
     accessDeniedBody: "Only BIRSA admins can manage custodian organisations.",
     dbNotConfiguredTitle: "The inventory database is not connected",
     dbNotConfiguredBody:

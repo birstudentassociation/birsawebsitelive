@@ -64,12 +64,12 @@ const copy: Record<Locale, { activity: string; title: string; lede: string }> = 
   en: {
     activity: "BIRSA activity",
     title: "Current officers",
-    lede: "These are the members of the BIRSA committee: officers first, then the assistant officers who support them.",
+    lede: "Members of the BIRSA committee: officers first, then the assistant officers who support them.",
   },
   th: {
     activity: "การดำเนินงานของ BIRSA",
     title: "คณะกรรมการชุดปัจจุบัน",
-    lede: "นี่คือรายชื่อคณะกรรมการ BIRSA เริ่มจากกรรมการสโมสร ตามด้วยอนุกรรมการที่ช่วยสนับสนุนงาน",
+    lede: "รายชื่อคณะกรรมการ BIRSA เริ่มจากกรรมการสโมสร ตามด้วยอนุกรรมการที่ช่วยสนับสนุนงาน",
   },
 };
 

@@ -36,7 +36,7 @@ export async function generateMetadata({
   const title = locale === "th" ? "คอนโซลเจ้าหน้าที่ CBEMS" : "CBEMS officer console";
   const description =
     locale === "th"
-      ? "CBEMS ระบบจัดการครุภัณฑ์กลางของ BIR สำหรับเจ้าหน้าที่ใช้จัดการครุภัณฑ์และการยืม-คืน"
+      ? "CBEMS ระบบจัดการครุภัณฑ์กลางของ BIR สำหรับเจ้าหน้าที่จัดการครุภัณฑ์และการยืม-คืน"
       : "CBEMS: the Central BIR Equipment Management System console for officers to manage inventory and loans.";
 
   const metadata = buildMetadata({ locale, title, description, path: "/officer/inventory" });

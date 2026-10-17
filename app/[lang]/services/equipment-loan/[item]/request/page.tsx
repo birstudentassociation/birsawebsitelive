@@ -51,15 +51,15 @@ const copy: Record<
   en: {
     unavailableTitle: "This item is currently on loan",
     unavailableBody:
-      "There are no units of this item available to borrow right now. Check back later, or contact BIRSA if it's urgent.",
+      "There are no units of this item available to borrow right now. Check again later, or contact BIRSA if it is urgent.",
     backToCatalogue: "Back to the equipment list",
     breadcrumbCatalogue: "Equipment loan service",
     breadcrumbRequest: "Request",
   },
   th: {
-    unavailableTitle: "อุปกรณ์นี้ถูกยืมอยู่ในขณะนี้",
+    unavailableTitle: "อุปกรณ์นี้มีผู้ยืมอยู่ในขณะนี้",
     unavailableBody:
-      "ขณะนี้ไม่มีอุปกรณ์ชิ้นนี้ว่างให้ยืม ลองกลับมาตรวจสอบใหม่ภายหลัง หรือติดต่อ BIRSA หากเร่งด่วน",
+      "ขณะนี้ไม่มีอุปกรณ์ชิ้นนี้ว่างให้ยืม ลองตรวจสอบอีกครั้งภายหลัง หรือติดต่อ BIRSA หากเร่งด่วน",
     backToCatalogue: "กลับไปหน้ารายการอุปกรณ์",
     breadcrumbCatalogue: "บริการยืมอุปกรณ์",
     breadcrumbRequest: "ส่งคำขอ",

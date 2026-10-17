@@ -97,8 +97,7 @@ const copy: Record<Locale, Copy> = {
     scopedLoansNoticeBody:
       "BIRSA officers handle all loan requests. This dashboard shows only your club's low-stock consumables.",
     courseReviewsTitle: "Course reviews",
-    courseReviewsBody:
-      "Approve anonymous course review submissions and publish summaries. This is the part of the console your role covers.",
+    courseReviewsBody: "Approve anonymous course review submissions and publish summaries.",
     courseReviewsLink: "Go to course reviews",
   },
   th: {
@@ -135,8 +134,7 @@ const copy: Record<Locale, Copy> = {
     scopedLoansNoticeBody:
       "เจ้าหน้าที่ BIRSA เป็นผู้พิจารณาคำขอยืมทั้งหมด แดชบอร์ดนี้แสดงเฉพาะสต็อกวัสดุสิ้นเปลืองของชมรมคุณที่ใกล้หมด",
     courseReviewsTitle: "รีวิวรายวิชา",
-    courseReviewsBody:
-      "อนุมัติรีวิวรายวิชานิรนามที่ส่งเข้ามา และเผยแพร่บทสรุป ส่วนนี้คือส่วนของคอนโซลที่บทบาทของคุณใช้ได้",
+    courseReviewsBody: "อนุมัติรีวิวรายวิชานิรนามที่ส่งเข้ามา และเผยแพร่บทสรุป",
     courseReviewsLink: "ไปที่รีวิวรายวิชา",
   },
 };

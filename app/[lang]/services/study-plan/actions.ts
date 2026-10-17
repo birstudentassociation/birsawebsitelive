@@ -360,9 +360,9 @@ export async function submitFillStep(
  * giving up, so a name the student unambiguously typed is not silently
  * dropped just because the browser never got to resolve it first.
  *
- * Silently no-ops when nothing resolves — a malformed `year`/`kind`, a code
+ * Silently no-ops when nothing resolves (a malformed `year`/`kind`, a code
  * or name that matches nothing, or one already passed or already placed
- * somewhere in the plan — rather than surfacing an error: the control only
+ * somewhere in the plan) rather than surfacing an error: the control only
  * ever offers or resolves to courses that are valid to add, so reaching this
  * branch means either the hidden fields were tampered with or the typed text
  * was ambiguous or unmatched, neither of which is a mistake worth

@@ -63,19 +63,17 @@ const copy: Record<
     title: "Contact BIRSA",
     lede: "Answer a few short questions and we'll get your message to the right person.",
     answersTitle: "Not sure who deals with this?",
-    answersBody:
-      "Answer a few questions and we will point you to the right office, so your message or visit goes to the right place first time.",
+    answersBody: "Answer a few questions and we will point you to the right office.",
     answersCta: "Find out where to go",
     otherWaysTitle: "Other ways to reach us",
-    otherWaysBody: "Email or message us on social media directly.",
+    otherWaysBody: "Email us or message us on social media.",
     emailLabel: "Email",
   },
   th: {
     title: "ติดต่อ BIRSA",
     lede: "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะส่งข้อความของคุณถึงผู้ที่เกี่ยวข้อง",
     answersTitle: "ไม่แน่ใจว่าเรื่องนี้ใครดูแล",
-    answersBody:
-      "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะบอกว่าควรติดต่อหน่วยงานไหน จะได้ไม่ต้องเสียเวลาส่งเรื่องผิดที่",
+    answersBody: "ตอบคำถามสั้น ๆ ไม่กี่ข้อ แล้วเราจะแจ้งว่าควรติดต่อหน่วยงานใด",
     answersCta: "ดูว่าควรไปที่ไหน",
     otherWaysTitle: "ช่องทางติดต่ออื่น ๆ",
     otherWaysBody: "อีเมลหรือติดต่อเราทางโซเชียลมีเดียได้โดยตรง",

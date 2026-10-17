@@ -14,7 +14,7 @@ export function generateStaticParams() {
 }
 
 const eyebrow = { en: "What's on", th: "ข่าวและกิจกรรม" };
-const ended = { en: "Event ended", th: "กิจกรรมจบแล้ว" };
+const ended = { en: "Event ended", th: "กิจกรรมสิ้นสุดแล้ว" };
 
 const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
