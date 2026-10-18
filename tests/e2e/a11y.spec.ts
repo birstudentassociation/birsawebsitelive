@@ -27,8 +27,6 @@ const publicPaths = [
   "/clubs/tu-mun", // club detail: MDX body with a table and a related-clubs block
   "/clubs/bir-mock-fund", // club detail: MDX body with a Notice callout
   "/clubs/start", // start-a-club form
-  "/services/applying-to-bir", // check start button with a guide list
-  "/services/applying-to-bir/admission-rounds", // guide with a comparison table
   "/student-life", // track index (sideways nav)
   "/student-life/getting-started", // step-by-step audience chooser
   "/student-life/getting-started/international", // step-by-step track (client-enhanced checklist)
@@ -56,8 +54,6 @@ const publicPaths = [
   "/activity/approval-check?a=no&a=oneoff&a=oncampus", // check outcome: answer, trail, feedback
   "/clubs/start-check", // check entry on the clubs side
   "/contact/where-to-go", // check entry on the contact side
-  "/services/applying-to-bir/which-round", // check entry under a guide index
-  "/services/applying-to-bir/which-round?a=thai&a=m6&a=yes&a=yes&a=yes&a=yes", // check outcome with steps and notes
 ];
 
 const locales = ["en", "th"] as const;

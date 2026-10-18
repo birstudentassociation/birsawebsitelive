@@ -1,6 +1,6 @@
 /**
  * Turn the site's MDX content (news, BIRSA activity, student-life and
- * information guides, clubs) into search documents.
+ * clubs) into search documents.
  *
  * These sections share one shape: a filesystem entry with typed
  * frontmatter and an MDX body, loaded through `@/lib/content`. Building their
@@ -16,20 +16,16 @@ import {
   getClubEntries,
   getEntries,
   getAllGuideEntries,
-  getAllInformationGuideEntries,
   type ActivityFrontmatter,
   type ClubFrontmatter,
   type Entry,
   type GuideTopic,
-  type InformationGuideFrontmatter,
-  type InformationTopic,
   type NewsFrontmatter,
   type StudentLifeFrontmatter,
 } from "@/lib/content";
 import { localeHref, type Locale } from "@/lib/i18n";
 import { extractH2Sections } from "@/lib/toc";
 import { studentLifeTopics } from "@/content/student-life/topics";
-import { informationTopicCopy } from "@/content/information/topics";
 import { mdxHeadings, mdxToText } from "@/lib/search/mdx-text";
 import type { SearchDoc } from "@/lib/search/types";
 
@@ -93,7 +89,7 @@ type GuideSource = {
   idPrefix: string;
   path: string;
   badge: string;
-  frontmatter: StudentLifeFrontmatter | InformationGuideFrontmatter;
+  frontmatter: StudentLifeFrontmatter;
   slug: string;
   content: string;
 };
@@ -153,20 +149,6 @@ function guideDocs(
   });
 }
 
-function informationGuideDocs(
-  locale: Locale,
-  topic: InformationTopic,
-  entry: Entry<InformationGuideFrontmatter>
-): SearchDoc[] {
-  return guideDocsFrom(locale, {
-    ...entry,
-    section: "services",
-    idPrefix: `information:${topic}:${entry.slug}`,
-    path: `/services/${topic}/${entry.slug}`,
-    badge: informationTopicCopy[locale][topic].title,
-  });
-}
-
 function clubDoc(locale: Locale, entry: Entry<ClubFrontmatter>): SearchDoc {
   const { frontmatter, slug, content } = entry;
   return {
@@ -207,11 +189,6 @@ export function contentDocs(locale: Locale): SearchDoc[] {
   for (const { topic, ...entry } of getAllGuideEntries(locale)) {
     if (entry.frontmatter.placeholder) continue;
     docs.push(...guideDocs(locale, topic, entry));
-  }
-
-  for (const { topic, ...entry } of getAllInformationGuideEntries(locale)) {
-    if (entry.frontmatter.placeholder) continue;
-    docs.push(...informationGuideDocs(locale, topic, entry));
   }
 
   for (const entry of getClubEntries(locale)) {

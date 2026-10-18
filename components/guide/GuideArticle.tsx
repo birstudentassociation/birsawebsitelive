@@ -96,7 +96,7 @@ const labels: Record<
 /**
  * The shared body of a guide page: header, quick answers, contents, MDX,
  * related guides, sources, previous and next links and the report box. Used by
- * the student-life and information guide routes. Hrefs are locale-less.
+ * the student-life guide routes. Hrefs are locale-less.
  */
 export default function GuideArticle({
   locale,

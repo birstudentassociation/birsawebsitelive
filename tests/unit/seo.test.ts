@@ -16,8 +16,6 @@ import {
   getClubEntries,
   getEntries,
   getGuideEntries,
-  getInformationGuideEntries,
-  informationTopics,
   isArchivedEvent,
   isPastEvent,
   guideTopics,
@@ -221,14 +219,6 @@ describe("every indexable content page has a search-ready title and description"
           path: `/student-life/${topic}/${e.slug}`,
         }))
       ),
-      ...informationTopics.flatMap((topic) =>
-        getInformationGuideEntries(locale, topic).map((e) => ({
-          locale,
-          title: e.frontmatter.title,
-          description: e.frontmatter.metaDescription ?? e.frontmatter.summary,
-          path: `/services/${topic}/${e.slug}`,
-        }))
-      ),
       ...getClubEntries(locale).map((e) => ({
         locale,
         title: e.frontmatter.title,
@@ -360,8 +350,6 @@ describe("buildMetadata share images", () => {
     ["/services/equipment-loan/projector/request/dates", "services/equipment-loan"],
     ["/emergency/flooding/claims", "emergency"],
     ["/student-life/getting-started/international", "student-life/getting-started"],
-    ["/services/applying-to-bir", "services/applying-to-bir"],
-    ["/services/applying-to-bir/which-round", "services/applying-to-bir"],
   ])("gives %s the card of the nearest listed page", (path, card) => {
     const { openGraph } = buildMetadata({ ...options, locale: "en", path });
     expect(images(openGraph?.images)[0]?.url).toBe(`${SITE_URL}/en/og/${card}`);
@@ -396,7 +384,6 @@ describe("buildMetadata share images", () => {
     ["/clubs/asa-ir", "clubs/asa-ir"],
     ["/activity/bir-programme", "activity/bir-programme"],
     ["/student-life/money/bank-account", "student-life/money/bank-account"],
-    ["/services/applying-to-bir/documents", "services/applying-to-bir/documents"],
   ])("points %s at its own share images", (path, segment) => {
     const { openGraph, twitter } = buildMetadata({ ...options, locale: "th", path });
     expect(images(openGraph?.images)).toHaveLength(1);

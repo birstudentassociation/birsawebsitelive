@@ -12,9 +12,7 @@ import {
   getClubEntries,
   getEntries,
   getGuideEntries,
-  getInformationGuideEntries,
   guideTopics,
-  informationTopics,
   isArchivedEvent,
 } from "@/lib/content";
 import { getDictionary } from "@/lib/i18n";
@@ -54,11 +52,6 @@ function buildLlmsTxt(): string {
     link("Getting started", "/student-life/getting-started", "Where to start for new students"),
     link("Clubs", "/clubs", "Student clubs and how to join"),
     link("Find a service", "/services", "University services and BIRSA equipment loans"),
-    link(
-      "Applying to BIR",
-      "/services/applying-to-bir",
-      "Admission rounds, dates, documents and fees for entry to BIR"
-    ),
     link("BIRSA activity", "/activity", "What BIRSA does, its roles and its regulations"),
     link("Regulations", "/activity/regulations"),
     link("Campus conditions", "/conditions", "Weather, air quality and flooding near campus"),
@@ -78,16 +71,6 @@ function buildLlmsTxt(): string {
           `/student-life/${topic}/${guide.slug}`,
           guide.frontmatter.summary
         )
-      );
-    }
-  }
-
-  lines.push("", "## Applying to BIR", "");
-  for (const topic of informationTopics) {
-    for (const guide of getInformationGuideEntries("en", topic)) {
-      if (guide.frontmatter.placeholder) continue;
-      lines.push(
-        link(guide.frontmatter.title, `/services/${topic}/${guide.slug}`, guide.frontmatter.summary)
       );
     }
   }

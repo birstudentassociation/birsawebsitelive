@@ -15,9 +15,8 @@ import type { Locale } from "@/lib/i18n";
 import type { SmartAnswerService } from "./types";
 import { contact } from "./topics/contact";
 import { activities } from "./topics/activities";
-import { admissions } from "./topics/admissions";
 
-const fragments: SmartAnswerService[] = [activities, contact, admissions];
+const fragments: SmartAnswerService[] = [activities, contact];
 
 export const service: SmartAnswerService = {
   topics: fragments.flatMap((fragment) => fragment.topics),

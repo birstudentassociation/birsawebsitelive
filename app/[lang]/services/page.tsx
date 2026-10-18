@@ -39,7 +39,6 @@ const copy: Record<
     servicesHeading: string;
     informationHeading: string;
     informationLede: string;
-    applyingToBir: { title: string; description: string; cta: string };
     courseReviews: { title: string; description: string; cta: string };
     guides: { title: string; description: string; cta: string };
     topQuestionsHeading: string;
@@ -77,12 +76,6 @@ const copy: Record<
     informationHeading: "Information",
     informationLede:
       "Course reviews, plus practical guides, cultural notes, and other student-life knowledge that does not fit in a syllabus.",
-    applyingToBir: {
-      title: "Applying to BIR",
-      description:
-        "Find out which admission round you can apply through, then check the dates, documents and fees for 2027 entry.",
-      cta: "Check which round to apply through",
-    },
     courseReviews: {
       title: "Course reviews",
       description:
@@ -128,12 +121,6 @@ const copy: Record<
     informationHeading: "ข้อมูล",
     informationLede:
       "รีวิวรายวิชา และความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ",
-    applyingToBir: {
-      title: "สมัครเรียน BIR",
-      description:
-        "เช็กว่าสมัครรอบไหนได้ แล้วตรวจสอบกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570",
-      cta: "เช็กว่าสมัครรอบไหนได้",
-    },
     courseReviews: {
       title: "รีวิวรายวิชา",
       description:
@@ -166,7 +153,6 @@ export default async function InformationServicesPage({
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
   const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
   const universityServicesHref = localeHref(locale, "/services/university-services");
-  const applyingHref = localeHref(locale, "/services/applying-to-bir");
   const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
   const guidesHref = localeHref(locale, "/student-life");
   const conditionsHref = localeHref(locale, "/conditions");
@@ -230,10 +216,6 @@ export default async function InformationServicesPage({
               <p className="text-sm leading-relaxed text-muted">{t.informationLede}</p>
 
               <NavList>
-                <NavListItem href={applyingHref} title={t.applyingToBir.title} as="h3">
-                  {t.applyingToBir.description}
-                </NavListItem>
-
                 <NavListItem href={courseReviewsHref} title={t.courseReviews.title} as="h3">
                   {t.courseReviews.description}
                 </NavListItem>

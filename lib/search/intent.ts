@@ -634,47 +634,6 @@ const rules: Rule[] = [
     }),
   },
   {
-    id: "apply",
-    weight: 3,
-    triggers: [
-      "apply to bir",
-      "how to apply",
-      "admission",
-      "admissions",
-      "entry requirements",
-      "tcas",
-      "inter portfolio",
-      "สมัครเรียน",
-      "สมัครเข้า",
-      "การรับสมัคร",
-      "รับสมัคร",
-      "สอบเข้า",
-    ],
-    build: (locale) => ({
-      id: "apply",
-      title: bi(locale, "Applying to BIR", "สมัครเรียน BIR"),
-      description: bi(
-        locale,
-        "Find out which admission round you can apply through, then read the dates, documents and fees for 2027 entry.",
-        "เช็กว่าสมัครรอบไหนได้ แล้วดูกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570"
-      ),
-      action: {
-        label: bi(locale, "Check which round you can apply through", "เช็กว่าสมัครรอบไหนได้"),
-        href: localeHref(locale, "/services/applying-to-bir/which-round"),
-      },
-      links: [
-        {
-          label: bi(locale, "Compare the admission rounds", "เปรียบเทียบรอบรับสมัคร"),
-          href: localeHref(locale, "/services/applying-to-bir/admission-rounds"),
-        },
-        {
-          label: bi(locale, "Key dates for 2027 entry", "กำหนดการสำคัญสำหรับปี 2570"),
-          href: localeHref(locale, "/services/applying-to-bir/key-dates"),
-        },
-      ],
-    }),
-  },
-  {
     id: "money",
     weight: 2,
     triggers: [

@@ -21,7 +21,6 @@
  */
 import { guideTopics } from "@/lib/content";
 import { studentLifeTopics } from "@/content/student-life/topics";
-import { informationTopicCopy } from "@/content/information/topics";
 import type { ResultKind, SectionKey } from "@/lib/search/types";
 
 type Bi = { en: string; th: string };
@@ -57,46 +56,6 @@ const studentLifeTopicPages: StaticPage[] = guideTopics.map((topic) => ({
 
 export const staticPages: StaticPage[] = [
   ...studentLifeTopicPages,
-  {
-    id: "page:services-applying-to-bir",
-    path: "/services/applying-to-bir",
-    section: "services",
-    kind: "guide",
-    title: {
-      en: informationTopicCopy.en["applying-to-bir"].title,
-      th: informationTopicCopy.th["applying-to-bir"].title,
-    },
-    summary: {
-      en: informationTopicCopy.en["applying-to-bir"].lede,
-      th: informationTopicCopy.th["applying-to-bir"].lede,
-    },
-    keywords: {
-      en: [
-        "apply",
-        "application",
-        "admission",
-        "admissions",
-        "how to apply",
-        "entry requirements",
-        "inter portfolio",
-        "tcas",
-        "written exam",
-        "english test",
-        "fees",
-      ],
-      th: [
-        "สมัคร",
-        "สมัครเรียน",
-        "การรับสมัคร",
-        "รับสมัคร",
-        "ขั้นตอนการสมัคร",
-        "ค่าสมัคร",
-        "สอบข้อเขียน",
-        "สอบภาษาอังกฤษ",
-      ],
-    },
-    priority: 0.7,
-  },
   {
     id: "page:home",
     path: "/",
