@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
+import { studentLifeCommonQuestions } from "@/content/student-life/topics";
 import GridRow, { GridMain } from "@/components/GridRow";
 
 export async function generateMetadata({
@@ -35,6 +37,12 @@ const copy: Record<
     equipmentDirectory: { title: string; description: string; cta: string };
     universityServices: { eyebrow: string; title: string; description: string; cta: string };
     servicesHeading: string;
+    informationHeading: string;
+    informationLede: string;
+    applyingToBir: { title: string; description: string; cta: string };
+    courseReviews: { title: string; description: string; cta: string };
+    guides: { title: string; description: string; cta: string };
+    topQuestionsHeading: string;
   }
 > = {
   en: {
@@ -66,6 +74,28 @@ const copy: Record<
       cta: "See University services",
     },
     servicesHeading: "Services",
+    informationHeading: "Information",
+    informationLede:
+      "Course reviews, plus practical guides, cultural notes, and other student-life knowledge that does not fit in a syllabus.",
+    applyingToBir: {
+      title: "Applying to BIR",
+      description:
+        "Find out which admission round you can apply through, then check the dates, documents and fees for 2027 entry.",
+      cta: "Check which round to apply through",
+    },
+    courseReviews: {
+      title: "Course reviews",
+      description:
+        "Student-written notes on BIR courses and electives: workload, assessment style, and what to expect before you register.",
+      cta: "See course reviews",
+    },
+    guides: {
+      title: "Student life guides",
+      description:
+        "Guides to applying, arriving, studying, money, health, getting around, food and housing, clubs and your rights, for every BIR student.",
+      cta: "Explore the guides",
+    },
+    topQuestionsHeading: "Top questions",
   },
   th: {
     title: "ข้อมูลและบริการ",
@@ -95,6 +125,28 @@ const copy: Record<
       cta: "ดูบริการจากมหาวิทยาลัย",
     },
     servicesHeading: "บริการ",
+    informationHeading: "ข้อมูล",
+    informationLede:
+      "รีวิวรายวิชา และความรู้ชีวิตนักศึกษาที่ไม่มีสอนในซิลลาบัส ทั้งคู่มือใช้งานจริง มุมมองด้านวัฒนธรรม และสิ่งที่รุ่นพี่อยากรู้ตั้งแต่เนิ่น ๆ",
+    applyingToBir: {
+      title: "สมัครเรียน BIR",
+      description:
+        "เช็กว่าสมัครรอบไหนได้ แล้วตรวจสอบกำหนดการ เอกสาร และค่าธรรมเนียมสำหรับการเข้าศึกษาปี 2570",
+      cta: "เช็กว่าสมัครรอบไหนได้",
+    },
+    courseReviews: {
+      title: "รีวิวรายวิชา",
+      description:
+        "บันทึกตรงไปตรงมาจากนักศึกษาเกี่ยวกับรายวิชาและวิชาเลือกของ BIR ทั้งปริมาณงาน รูปแบบการวัดผล และสิ่งที่ควรรู้ก่อนลงทะเบียน",
+      cta: "ดูรีวิวรายวิชา",
+    },
+    guides: {
+      title: "คู่มือชีวิตนักศึกษา",
+      description:
+        "คู่มือสำหรับนักศึกษา BIR ทุกคน ตั้งแต่การสมัคร การเรียน การเงิน สุขภาพ การเดินทาง อาหารและที่พัก ชมรม ไปจนถึงสิทธิของนักศึกษา",
+      cta: "ดูคู่มือทั้งหมด",
+    },
+    topQuestionsHeading: "คำถามที่พบบ่อย",
   },
 };
 
@@ -114,6 +166,9 @@ export default async function InformationServicesPage({
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
   const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
   const universityServicesHref = localeHref(locale, "/services/university-services");
+  const applyingHref = localeHref(locale, "/services/applying-to-bir");
+  const courseReviewsHref = localeHref(locale, "/student-life/course-reviews");
+  const guidesHref = localeHref(locale, "/student-life");
   const conditionsHref = localeHref(locale, "/conditions");
 
   return (
@@ -164,6 +219,43 @@ export default async function InformationServicesPage({
                   {t.universityServices.description}
                 </NavListItem>
               </NavList>
+            </GridMain>
+          </GridRow>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <GridRow>
+            <GridMain className="flex flex-col gap-4">
+              <h2 className="font-display text-2xl">{t.informationHeading}</h2>
+              <p className="text-sm leading-relaxed text-muted">{t.informationLede}</p>
+
+              <NavList>
+                <NavListItem href={applyingHref} title={t.applyingToBir.title} as="h3">
+                  {t.applyingToBir.description}
+                </NavListItem>
+
+                <NavListItem href={courseReviewsHref} title={t.courseReviews.title} as="h3">
+                  {t.courseReviews.description}
+                </NavListItem>
+
+                <NavListItem href={guidesHref} title={t.guides.title} as="h3">
+                  {t.guides.description}
+                </NavListItem>
+              </NavList>
+
+              <h3 className="mt-2 font-display text-lg">{t.topQuestionsHeading}</h3>
+              <ul className="flex flex-col gap-2">
+                {studentLifeCommonQuestions[locale].slice(0, 4).map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={localeHref(locale, item.href)}
+                      className="text-brand-deep underline decoration-1 underline-offset-4 hover:decoration-[3px]"
+                    >
+                      {item.q}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </GridMain>
           </GridRow>
         </section>
