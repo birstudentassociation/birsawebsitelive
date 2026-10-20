@@ -46,24 +46,24 @@ export const homeEn = {
   quickLinks: {
     heading: "Popular right now",
     items: {
+      shuttleBus: {
+        label: "Shuttle bus",
+        description:
+          "The next departure from Tha Prachan to MRT Sanam Chai and Pinklao, with the full timetable.",
+      },
+      liveBus: {
+        label: "Live bus times",
+        description: "Live arrival times for public buses at the three stops beside campus.",
+      },
       planDegree: {
         label: "Plan your BIR degree",
         description:
           "Build a term-by-term study plan from your curriculum, see what you still owe, and print it out.",
       },
-      placesNearby: {
-        label: "Food and housing nearby",
-        description:
-          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos recommended by seniors, all on a map.",
-      },
       gettingStarted: {
         label: "Getting started at BIR",
         description:
           "A step-by-step checklist for new students, whether you are moving to Bangkok or already here.",
-      },
-      shuttleBus: {
-        label: "Shuttle bus",
-        description: "Live departures and timetables for the campus shuttle.",
       },
     },
   },
@@ -80,16 +80,38 @@ export const homeEn = {
         description:
           "Request BIRSA equipment online, then track the request through to collection.",
       },
-      clubs: {
-        label: "BIR clubs",
-        description: "Twelve student clubs, what each one does, and how to join or start your own.",
+      placesNearby: {
+        label: "Food and housing nearby",
+        description:
+          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos recommended by seniors, all on a map.",
+      },
+    },
+  },
+  getHelp: {
+    heading: "Get help",
+    items: {
+      contact: {
+        label: "Contact BIRSA",
+        description: "Send a question, an idea or a concern to the committee.",
+      },
+      whereToGo: {
+        label: "Not sure who to ask",
+        description: "Answer a few questions to find the office that deals with it.",
+      },
+      emergency: {
+        label: "Emergency guidance",
+        description: "What to do if an emergency affects Tha Prachan campus.",
       },
     },
   },
   activityHighlight: {
-    heading: "BIRSA activity",
-    intro: "Officer roles, the regulations that govern student activities, and more.",
+    heading: "Get involved",
+    intro: "Join a club, meet the officers and see how BIRSA is run.",
     items: {
+      clubs: {
+        label: "BIR clubs",
+        description: "Twelve student clubs, what each one does, and how to join or start your own.",
+      },
       roles: {
         label: "Current officers",
         description: "Who sits on the BIRSA committee, and what each role is responsible for.",

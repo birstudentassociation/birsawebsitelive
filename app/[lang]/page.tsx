@@ -54,16 +54,17 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   }).format(new Date());
 
   const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/services/study-plan", key: "planDegree" },
-    { href: "/student-life/living-nearby/where-to-eat", key: "placesNearby" },
-    { href: "/student-life/getting-started", key: "gettingStarted" },
     { href: "/student-life/getting-around/shuttle-bus", key: "shuttleBus" },
+    { href: "/student-life/getting-around/live-bus-tracker", key: "liveBus" },
+    { href: "/services/study-plan", key: "planDegree" },
+    { href: "/student-life/getting-started", key: "gettingStarted" },
   ];
 
   const activityHighlightCards: {
     href: string;
     key: keyof typeof copy.activityHighlight.items;
   }[] = [
+    { href: "/clubs", key: "clubs" },
     { href: "/activity/roles", key: "roles" },
     { href: "/activity/regulations", key: "regulations" },
     { href: "/activity", key: "overview" },
@@ -76,13 +77,26 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     [
       { key: "courseReviews", href: "/student-life/course-reviews", icon: "review" },
       { key: "equipmentLoan", href: "/services/equipment-loan", icon: "loan" },
-      { key: "clubs", href: "/clubs", icon: "club" },
+      { key: "placesNearby", href: "/student-life/living-nearby/where-to-eat", icon: "guide" },
     ] as const
   ).map(({ key, href, icon }) => ({
     href: localeHref(locale, href),
     icon,
     label: copy.featured.items[key].label,
     description: copy.featured.items[key].description,
+  }));
+
+  const helpItems: FeaturedItem[] = (
+    [
+      { key: "contact", href: "/contact", icon: "help" },
+      { key: "whereToGo", href: "/contact/where-to-go", icon: "help" },
+      { key: "emergency", href: "/emergency", icon: "alert" },
+    ] as const
+  ).map(({ key, href, icon }) => ({
+    href: localeHref(locale, href),
+    icon,
+    label: copy.getHelp.items[key].label,
+    description: copy.getHelp.items[key].description,
   }));
 
   return (
@@ -210,7 +224,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </div>
       </section>
 
-      {/* BIRSA activity highlight */}
+      {/* Get involved, with get help beside it */}
       <section aria-labelledby="activity-highlight-heading" className="wrap py-12 sm:py-16">
         <GridRow>
           <GridMain>
@@ -231,6 +245,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
               })}
             </NavList>
           </GridMain>
+          <GridAside>
+            <FeaturedRail
+              heading={copy.getHelp.heading}
+              headingId="get-help-heading"
+              items={helpItems}
+            />
+          </GridAside>
         </GridRow>
       </section>
     </>
