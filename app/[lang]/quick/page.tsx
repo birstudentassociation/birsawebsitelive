@@ -19,8 +19,8 @@ export async function generateMetadata({
   const title = lang === "th" ? "ทางลัด" : "Quick actions";
   const description =
     lang === "th"
-      ? "ทางลัดไปยังบริการที่นักศึกษา BIR ใช้บ่อย ทั้งยืมอุปกรณ์ รีวิววิชาเรียน ตารางรถเวียน การฝึกงาน ช่องทางขอความช่วยเหลือ และลิงก์ทางการของมหาวิทยาลัย"
-      : "Shortcuts to what BIR students use most, including equipment loans, course reviews, shuttle bus times, internships, getting help and official university links.";
+      ? "ทางลัดไปยังบริการที่นักศึกษา BIR ใช้บ่อย ทั้งรถเวียน รถเมล์แบบเรียลไทม์ ยืมอุปกรณ์ วางแผนการเรียน รีวิววิชาเรียน ช่องทางขอความช่วยเหลือ และลิงก์ทางการของมหาวิทยาลัย"
+      : "Shortcuts to what BIR students use most, including the shuttle bus, live bus times, equipment loans, degree planning, course reviews, getting help and official university links.";
   return buildMetadata({
     locale: lang,
     title,
