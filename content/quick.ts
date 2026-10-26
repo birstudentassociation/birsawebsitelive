@@ -119,11 +119,11 @@ export const quickGroups: QuickGroup[] = [
         icon: "register",
         en: {
           label: "Internship",
-          hint: "Forms, deadlines and marking for the third-year summer internship",
+          hint: "Deadlines, letters and fees for the summer internship",
         },
         th: {
           label: "การฝึกงาน",
-          hint: "แบบฟอร์ม กำหนดส่ง และเกณฑ์การประเมินของการฝึกงานชั้นปีที่ 3",
+          hint: "กำหนดส่ง หนังสือ และค่าลงทะเบียนของการฝึกงานภาคฤดูร้อน",
         },
       },
     ],

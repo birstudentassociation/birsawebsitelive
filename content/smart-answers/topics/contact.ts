@@ -366,8 +366,8 @@ export const contact: SmartAnswerService = {
         th: "ติดต่อสำนักงานหลักสูตร BIR",
       },
       summary: {
-        en: "The internship is run by the BIR programme office, not BIRSA. Forms, letters, deadlines, and grading all go through the programme.",
-        th: "การฝึกงานอยู่ในความรับผิดชอบของสำนักงานหลักสูตร BIR ไม่ใช่ BIRSA ทั้งแบบฟอร์ม หนังสือราชการ กำหนดส่ง และการให้คะแนน ดำเนินการผ่านหลักสูตรทั้งหมด",
+        en: "The internship is run by the BIR programme office, not BIRSA. Forms, letters and deadlines all go through the programme.",
+        th: "การฝึกงานอยู่ในความรับผิดชอบของสำนักงานหลักสูตร BIR ไม่ใช่ BIRSA ทั้งแบบฟอร์ม หนังสือ และกำหนดส่ง ดำเนินการผ่านหลักสูตรทั้งหมด",
       },
       owner: {
         en: "The BIR programme office. BIRSA does not process internship paperwork.",
