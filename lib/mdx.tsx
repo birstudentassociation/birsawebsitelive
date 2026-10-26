@@ -30,6 +30,9 @@ import LiveBusTracker from "@/components/bus-tracker/LiveBusTracker";
 import PlacesSection from "@/components/places/PlacesSection";
 import RelatedClubs from "@/components/clubs/RelatedClubs";
 import ThaiQrPayment from "@/components/ThaiQrPayment";
+import InternshipTimeline from "@/components/internship/InternshipTimeline";
+import InternshipSteps from "@/components/internship/InternshipSteps";
+import InternshipLetters from "@/components/internship/InternshipLetters";
 import type { Locale } from "@/lib/i18n";
 import { localiseMdxHref } from "@/lib/mdx-href";
 
@@ -120,6 +123,9 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     ThaiQrPayment: (props: { src: string; name: string; bank: string }) => (
       <ThaiQrPayment {...props} locale={locale} />
     ),
+    InternshipTimeline: () => <InternshipTimeline locale={locale} />,
+    InternshipSteps: () => <InternshipSteps locale={locale} />,
+    InternshipLetters: () => <InternshipLetters locale={locale} />,
     NearbyFood: () => <PlacesSection locale={locale} section="food" />,
     NearbyHousing: () => <PlacesSection locale={locale} section="housing" />,
     // `slugs` is a comma-separated string because next-mdx-remote compiles with
