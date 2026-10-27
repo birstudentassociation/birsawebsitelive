@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, localeHref, locales, type Locale } from "@/lib/i18n";
 import { buildMetadata } from "@/lib/seo";
-import { ADVISORY_FROM, ADVISORY_TO, advisoryCopy } from "@/content/advisory";
+import { ADVISORY_FROM, ADVISORY_TO, advisoryCopy, bangkokForecast } from "@/content/advisory";
 import { readingCopy } from "@/content/conditions/readings";
 import {
   fetchTideTable,
@@ -80,6 +80,7 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
   });
   const days = tideRaw === null ? [] : parseTideDays(tideRaw, ADVISORY_FROM, ADVISORY_TO);
   const today = bangkokToday(now);
+  const forecast = today <= bangkokForecast.date ? bangkokForecast.copy[locale] : null;
 
   return (
     <>
@@ -100,6 +101,28 @@ export default async function AdvisoryPage({ params }: { params: Promise<{ lang:
             {t.notice}
           </WarningText>
         </div>
+
+        {forecast ? (
+          <section
+            aria-labelledby="forecast-heading"
+            className="flex max-w-[var(--measure)] flex-col gap-3"
+          >
+            <h2 id="forecast-heading" className="font-display text-2xl">
+              {forecast.heading}
+            </h2>
+            <p className="text-lg leading-relaxed font-semibold">{forecast.lede}</p>
+            <p className="leading-relaxed">{forecast.comparison}</p>
+            <p className="leading-relaxed">{forecast.districts}</p>
+            <p className="leading-relaxed">{forecast.communitiesLede}</p>
+            <ol className="flex list-decimal flex-col gap-1 pl-6 leading-relaxed">
+              {forecast.communities.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
+            <p className="leading-relaxed">{forecast.seepage}</p>
+            <p className="text-sm text-muted">{forecast.source}</p>
+          </section>
+        ) : null}
 
         <section
           aria-labelledby="live-heading"

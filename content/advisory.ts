@@ -87,6 +87,8 @@ export const advisoryCopy: Record<
     help: [
       "Call the DDPM safety hotline on 1784. It is open 24 hours a day.",
       "Add the DDPM LINE account @1784DDPM to report an incident and ask for help.",
+      "Call the Bangkok Metropolitan Administration hotline on 1555.",
+      "Call the Bangkok flood control centre on 02 248 5115.",
     ],
     floodGuideLink: "Read what to do in a flood",
     aboutHeading: "About this warning",
@@ -143,6 +145,8 @@ export const advisoryCopy: Record<
     help: [
       "โทรสายด่วนนิรภัย 1784 ได้ตลอด 24 ชั่วโมง",
       "เพิ่มเพื่อนไลน์ ปภ.รับแจ้งเหตุ1784 (@1784DDPM) เพื่อแจ้งเหตุและขอความช่วยเหลือ",
+      "โทรสายด่วน กทม. 1555",
+      "โทรศูนย์ควบคุมระบบป้องกันน้ำท่วม กทม. 02 248 5115",
     ],
     floodGuideLink: "อ่านวิธีรับมือน้ำท่วม",
     aboutHeading: "ที่มาของประกาศ",
@@ -150,6 +154,77 @@ export const advisoryCopy: Record<
       "กรมอุทกศาสตร์ กองทัพเรือ ออกประกาศเรื่องสภาวะระดับน้ำในแม่น้ำเจ้าพระยา บริเวณป้อมพระจุลจอมเกล้าและพื้นที่ใกล้เคียง ฉบับที่ 14/2569 เมื่อวันที่ 26 ตุลาคม 2569 แจ้งว่าระหว่างวันที่ 27 ตุลาคม ถึง 5 พฤศจิกายน 2569 เวลา 06.00 ถึง 15.00 น. เป็นช่วงที่น้ำทะเลหนุนสูง",
       "เมื่อวันที่ 27 ตุลาคม 2569 นายนิรัตน์ พงษ์สิทธิถาวร อธิบดีกรมป้องกันและบรรเทาสาธารณภัย เปิดเผยว่า ปภ. ในฐานะกองอำนวยการป้องกันและบรรเทาสาธารณภัยกลาง (กอปภ.ก.) ได้แจ้งให้กรุงเทพมหานครและ 6 จังหวัดประชาสัมพันธ์ให้ประชาชนทราบช่วงเวลาที่น้ำทะเลหนุนสูง ตรวจสอบแนวคันกั้นน้ำ และเตรียมเครื่องจักรกลและทีมปฏิบัติการให้พร้อมช่วยเหลือประชาชนตลอด 24 ชั่วโมง",
     ],
+  },
+};
+
+export const bangkokForecast: {
+  date: string;
+  copy: Record<
+    Locale,
+    {
+      heading: string;
+      lede: string;
+      comparison: string;
+      districts: string;
+      communitiesLede: string;
+      communities: string[];
+      seepage: string;
+      source: string;
+    }
+  >;
+} = {
+  date: "2026-10-28",
+  copy: {
+    en: {
+      heading: "Bangkok forecast for Wednesday 28 October",
+      lede: "The river at Pak Khlong Talat, near Tha Prachan, is expected to reach its highest level of 2.02 m above mean sea level at 8:29am.",
+      comparison: "This is below 2.20 m, the level that flooded the riverside in 2021.",
+      districts:
+        "Bangkok asks people in Dusit, Phra Nakhon, Bang Kho Laem, Yan Nawa, Bangkok Noi and Khlong San districts to watch the water. Tha Prachan is in Phra Nakhon.",
+      communitiesLede:
+        "These 11 communities outside the flood walls should watch the water and get ready to move belongings to higher ground.",
+      communities: [
+        "Ratcha Pha Thapthim Ruam Jai",
+        "Thewarat Kunchon",
+        "Tha Wang",
+        "Wat Bang Khlo Nok",
+        "Wat In Banchong",
+        "Behind Charoen Krung Pracharak Hospital",
+        "Matanusorn",
+        "Rong Si",
+        "Wat Dusit Nimit Mai",
+        "Plai Soi Charoen Nakhon 29/2",
+        "Chang Nak Saphan Yao",
+      ],
+      seepage:
+        "If you live inside the flood walls along the Chao Phraya, Khlong Bangkok Noi or Khlong Maha Sawat, watch for water seeping through.",
+      source:
+        "Forecast from the Bangkok Metropolitan Administration, using data from the Hydrographic Department of the Royal Thai Navy",
+    },
+    th: {
+      heading: "คาดการณ์ระดับน้ำกรุงเทพมหานคร วันพุธที่ 28 ตุลาคม",
+      lede: "คาดว่าแม่น้ำเจ้าพระยาที่จุดวัดปากคลองตลาด ใกล้ท่าพระจันทร์ จะขึ้นสูงสุดเวลา 08.29 น. ที่ระดับ +2.02 ม.รทก.",
+      comparison: "ระดับนี้ยังต่ำกว่า 2.20 ม. ซึ่งเป็นระดับที่เคยท่วมริมน้ำในปี 2564",
+      districts:
+        "กรุงเทพมหานครขอให้ประชาชนในเขตดุสิต พระนคร บางคอแหลม ยานนาวา บางกอกน้อย และคลองสานเฝ้าระวัง ท่าพระจันทร์อยู่ในเขตพระนคร",
+      communitiesLede: "ชุมชนนอกแนวเขื่อน 11 ชุมชนต่อไปนี้ควรเฝ้าระวังและเตรียมยกของขึ้นที่สูง",
+      communities: [
+        "ชุมชนราชผาทับทิมร่วมใจ",
+        "ชุมชนเทวราชกุญชร",
+        "ชุมชนท่าวัง",
+        "ชุมชนวัดบางโคล่นอก",
+        "ชุมชนวัดอินทร์บรรจง",
+        "ชุมชนหลังโรงพยาบาลเจริญกรุงประชารักษ์",
+        "ชุมชนมาตานุสรณ์",
+        "ชุมชนโรงสี",
+        "ชุมชนวัดดุสิตนิมิตใหม่",
+        "ชุมชนปลายซอยเจริญนคร 29/2",
+        "ชุมชนช่างนาค สะพานยาว",
+      ],
+      seepage:
+        "ประชาชนในแนวเขื่อนริมแม่น้ำเจ้าพระยา คลองบางกอกน้อย และคลองมหาสวัสดิ์ ให้เฝ้าระวังน้ำรั่วซึม",
+      source: "ข้อมูลจากกรุงเทพมหานคร โดยใช้ข้อมูลของกรมอุทกศาสตร์ กองทัพเรือ",
+    },
   },
 };
 
