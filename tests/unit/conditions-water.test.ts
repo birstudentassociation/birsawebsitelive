@@ -12,6 +12,7 @@ import {
   parseFloodRoad,
   parseHiiThresholds,
   parseRainGauge,
+  parseTideDays,
   parseTideNextHigh,
   parseWaterlevelGraph,
   pointInGeoJson,
@@ -135,6 +136,34 @@ describe("parseFewsCsv and summariseForecast", () => {
     const summary = summariseForecast(rows, now);
     expect(summary.value).not.toBeNull();
     expect(summary.observedAt).toBe("2026-10-03T09:00:00+07:00");
+  });
+});
+
+describe("parseTideDays", () => {
+  const csv = [
+    "station,date,time,value",
+    "N01,2026-10-27,22:00:00,0.2",
+    "N01,2026-10-27,23:00:00,0.4",
+    "N01,2026-10-28,00:00:00,0.3",
+    "N01,2026-10-28,01:00:00,-0.5",
+    "N01,2026-10-28,02:00:00,-0.2",
+    "N01,2026-10-28,03:00:00,0.9",
+    "N01,2026-10-28,04:00:00,0.1",
+    "N01,2026-10-29,00:00:00,0.5",
+  ].join("\n");
+
+  it("groups predicted highs and lows by Bangkok date within the range", () => {
+    const days = parseTideDays(csv, "2026-10-28", "2026-11-05");
+    expect(days.map((day) => day.date)).toEqual(["2026-10-28"]);
+    expect(days[0]?.highs.map((row) => row.at)).toEqual(["2026-10-28T03:00:00+07:00"]);
+    expect(days[0]?.lows.map((row) => row.at)).toEqual([
+      "2026-10-28T01:00:00+07:00",
+      "2026-10-28T04:00:00+07:00",
+    ]);
+  });
+
+  it("returns nothing for an empty feed", () => {
+    expect(parseTideDays("", "2026-10-27", "2026-11-05")).toEqual([]);
   });
 });
 

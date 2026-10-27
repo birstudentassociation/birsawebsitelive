@@ -2,205 +2,161 @@ import type { Locale } from "@/lib/i18n";
 
 type Bi = Record<Locale, string>;
 
+export const ADVISORY_FROM = "2026-10-27";
+export const ADVISORY_TO = "2026-11-05";
+
 export const advisoryCopy: Record<
   Locale,
   {
     title: string;
     metaDescription: string;
     lede: string;
-    sealAlt: string;
     breadcrumb: string;
+    ogContext: string;
     noticeTitle: string;
     notice: string;
+    liveHeading: string;
+    liveLede: string;
+    checkedAt: string;
+    conditionsLink: string;
     tableHeading: string;
+    tableLede: string;
     caption: string;
-    columns: { date: string; classes: string; work: string };
-    rows: { date: string; classes: string; work: string }[];
-    meansHeading: string;
-    means: string[];
-    whyHeading: string;
-    why: string[];
-    announcementHeading: string;
-    announcementLede: string;
-    contact: string;
+    columns: { date: string; highs: string; lows: string };
+    today: string;
+    metres: string;
+    tableUnavailable: string;
+    tableSource: string;
+    areasHeading: string;
+    areasLede: string;
+    areas: string[];
+    doHeading: string;
+    do: string[];
+    helpHeading: string;
+    help: string[];
+    floodGuideLink: string;
+    aboutHeading: string;
+    about: string[];
   }
 > = {
   en: {
-    title: "Classes move online for the World Bank and IMF meetings",
+    title: "High tides on the Chao Phraya until 5 November",
     metaDescription:
-      "Thammasat moves classes online on 12 October and 14 to 16 October 2026. 13 October is a public holiday, and the BIR Office is closed from 12 to 16 October.",
-    lede: "Thammasat University moves teaching online on 12 October and from 14 to 16 October 2026. Tuesday 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
-    sealAlt: "Seal of Thammasat University",
+      "The Department of Disaster Prevention and Mitigation warns of high sea tides in Bangkok and 6 central provinces from 27 October to 5 November 2026, with the highest water between 6am and 3pm.",
+    lede: "The Department of Disaster Prevention and Mitigation (DDPM) has warned that high sea tides could push the Chao Phraya over its banks in Bangkok and 6 central provinces from 27 October to 5 November 2026. The water is expected to be highest between 6am and 3pm.",
     breadcrumb: "Advisory",
-    noticeTitle: "Classes move online on 12 and 14 to 16 October",
+    ogContext: "27 October to 5 November 2026, 6am to 3pm",
+    noticeTitle: "Riverside areas may flood between 6am and 3pm",
     notice:
-      "The Cabinet's measures aim to ease traffic and support security during the Annual Meetings of the World Bank Group and the International Monetary Fund in Bangkok.",
-    tableHeading: "Dates",
-    caption: "What changes at Thammasat Tha Prachan, 12 to 16 October 2026",
-    columns: { date: "Date", classes: "Classes", work: "Offices at Tha Prachan" },
-    rows: [
-      {
-        date: "Monday 12 October 2026",
-        classes: "Online. No classroom teaching.",
-        work: "Staff work from home. The BIR Office is closed.",
-      },
-      {
-        date: "Tuesday 13 October 2026",
-        classes: "Public holiday. No classes.",
-        work: "Public holiday. All offices are closed, including the BIR Office.",
-      },
-      {
-        date: "Wednesday 14 October 2026",
-        classes: "Online. No classroom teaching.",
-        work: "Staff work from home. The BIR Office is closed.",
-      },
-      {
-        date: "Thursday 15 October 2026",
-        classes: "Online. No classroom teaching.",
-        work: "Staff work from home. The BIR Office is closed.",
-      },
-      {
-        date: "Friday 16 October 2026",
-        classes: "Online. No classroom teaching.",
-        work: "Official business at Tha Prachan is suspended, except for staff their supervisors have assigned. The BIR Office is closed.",
-      },
+      "Tha Prachan campus is on the Chao Phraya. Water may come over the bank into low-lying areas by rivers and canals, communities outside the flood walls, and gaps where there is no permanent flood defence.",
+    liveHeading: "Tide and river now",
+    liveLede:
+      "These readings update every 5 minutes. The tide is a prediction from a model, so check the river level as well.",
+    checkedAt: "Checked at {time}",
+    conditionsLink: "See all river, weather and travel conditions",
+    tableHeading: "Predicted tides, 27 October to 5 November",
+    tableLede:
+      "Predicted heights in metres at the Navy Headquarters tide station (N01), on the river near Tha Prachan. Times are Bangkok time. The highest tide of each day is in bold.",
+    caption:
+      "Predicted high and low tides at the Navy Headquarters tide station, 27 October to 5 November 2026",
+    columns: { date: "Date", highs: "High tide", lows: "Low tide" },
+    today: "Today",
+    metres: "m",
+    tableUnavailable:
+      "The tide prediction is not available at the moment. Check again later, or use the ThaiWater website.",
+    tableSource: "Prediction from the Hydro Informatics Institute",
+    areasHeading: "Areas to watch",
+    areasLede: "The DDPM has asked these areas to watch for high water.",
+    areas: [
+      "Bangkok",
+      "Pathum Thani, in Mueang Pathum Thani and Sam Khok districts",
+      "Nonthaburi, in Mueang Nonthaburi, Pak Kret and Bang Kruai districts",
+      "Nakhon Pathom, in Bang Len, Nakhon Chai Si and Sam Phran districts",
+      "Samut Sakhon, in all districts",
+      "Samut Songkhram, in all districts",
+      "Samut Prakan, in Mueang Samut Prakan, Phra Samut Chedi, Phra Pradaeng and Bang Bo districts",
     ],
-    meansHeading: "What this means for you",
-    means: [
-      "Tuesday 13 October is a public holiday, so there are no classes.",
-      "The university asks faculties and instructors to move classes to an online format on 12 October and from 14 to 16 October.",
-      "The university asks units to suspend classroom teaching on those days.",
-      "The university asks units to suspend official business at Tha Prachan on 16 October, except for staff their supervisors have already assigned to duty.",
-      "The BIR Office is closed from 12 to 16 October 2026. For urgent matters, email bir@tu.ac.th.",
-      "Ask your instructor if you are not sure how your class will meet.",
+    doHeading: "What you should do",
+    do: [
+      "Check the river level before you go to the riverside or a pier, especially between 6am and 3pm.",
+      "Keep away from the river bank when the water is high. Do not walk or ride through flood water.",
+      "If you live by a river or canal, or in a low-lying area, move belongings and electrical items off the floor and be ready to act.",
+      "Follow warnings on the THAI DISASTER ALERT app.",
     ],
-    whyHeading: "Why classes are moving online",
-    why: [
-      "On 19 May 2026 the Cabinet agreed that government agencies in Bangkok work from home on Monday 12 October and on Wednesday 14 and Thursday 15 October. It also set special arrangements for Friday 16 October 2026 in Bangkok.",
-      "The Cabinet did this to ease traffic, to help delegates travel to the Annual Meetings of the World Bank Group and the International Monetary Fund 2026, and to keep the visiting finance ministers and central bank governors safe.",
-      "Thammasat University set out how it will teach and work at Tha Prachan during the meetings in response.",
-      "Tuesday 13 October is already a public holiday.",
+    helpHeading: "If you need help",
+    help: [
+      "Call the DDPM safety hotline on 1784. It is open 24 hours a day.",
+      "Add the DDPM LINE account @1784DDPM to report an incident and ask for help.",
     ],
-    announcementHeading: "The announcement in full",
-    announcementLede:
-      "The university announced these arrangements on 7 August 2026. This is an English translation of the Thai original.",
-    contact: "Contact your faculty if you need to confirm arrangements for a specific class.",
+    floodGuideLink: "Read what to do in a flood",
+    aboutHeading: "About this warning",
+    about: [
+      "The Hydrographic Department of the Royal Thai Navy issued announcement 14/2569 on 26 October 2026 about water levels in the Chao Phraya at Phra Chulachomklao Fort and nearby areas. It said sea tides would be high from 27 October to 5 November 2026 between 6am and 3pm.",
+      "On 27 October 2026 Nirat Phongsitthithavorn, Director General of the DDPM, said the department, as the Central Disaster Prevention and Mitigation Command, had asked Bangkok and the 6 provinces to tell people when the tides are high, check flood walls, and keep machinery and response teams ready to help people 24 hours a day.",
+    ],
   },
   th: {
-    title: "ธรรมศาสตร์ให้เรียนออนไลน์ช่วงประชุมธนาคารโลกและ IMF",
+    title: "เฝ้าระวังน้ำทะเลหนุนสูงถึงวันที่ 5 พฤศจิกายน",
     metaDescription:
-      "ธรรมศาสตร์ให้เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม 2569 วันที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
-    lede: "มหาวิทยาลัยธรรมศาสตร์ปรับการเรียนการสอนเป็นออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม 2569 วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ และสำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
-    sealAlt: "ตราสัญลักษณ์มหาวิทยาลัยธรรมศาสตร์",
+      "ปภ. แจ้งกรุงเทพมหานครและ 6 จังหวัดภาคกลางเฝ้าระวังน้ำทะเลหนุนสูงระหว่างวันที่ 27 ตุลาคม ถึง 5 พฤศจิกายน 2569 ช่วงเวลา 06.00 ถึง 15.00 น.",
+    lede: "กรมป้องกันและบรรเทาสาธารณภัย (ปภ.) แจ้งให้กรุงเทพมหานครและ 6 จังหวัดภาคกลางเฝ้าระวังน้ำทะเลหนุนสูงระหว่างวันที่ 27 ตุลาคม ถึง 5 พฤศจิกายน 2569 ช่วงเวลา 06.00 ถึง 15.00 น. น้ำในแม่น้ำเจ้าพระยาอาจล้นตลิ่ง",
     breadcrumb: "ประกาศแจ้งเตือน",
-    noticeTitle: "เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม",
+    ogContext: "27 ตุลาคม ถึง 5 พฤศจิกายน 2569 เวลา 06.00 ถึง 15.00 น.",
+    noticeTitle: "พื้นที่ริมน้ำอาจมีน้ำท่วมช่วง 06.00 ถึง 15.00 น.",
     notice:
-      "มาตรการของคณะรัฐมนตรีมีเป้าหมายเพื่อบรรเทาปัญหาการจราจรและดูแลความปลอดภัยในช่วงการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศที่กรุงเทพมหานคร",
-    tableHeading: "วันที่เปลี่ยนแปลง",
-    caption: "การเปลี่ยนแปลงที่ธรรมศาสตร์ ท่าพระจันทร์ วันที่ 12 ถึง 16 ตุลาคม 2569",
-    columns: { date: "วันที่", classes: "การเรียนการสอน", work: "การปฏิบัติงานที่ท่าพระจันทร์" },
-    rows: [
-      {
-        date: "วันจันทร์ที่ 12 ตุลาคม 2569",
-        classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
-      },
-      {
-        date: "วันอังคารที่ 13 ตุลาคม 2569",
-        classes: "วันหยุดราชการ ไม่มีการเรียนการสอน",
-        work: "วันหยุดราชการ สำนักงานทุกแห่งปิดทำการ รวมถึงสำนักงาน BIR",
-      },
-      {
-        date: "วันพุธที่ 14 ตุลาคม 2569",
-        classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
-      },
-      {
-        date: "วันพฤหัสบดีที่ 15 ตุลาคม 2569",
-        classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) สำนักงาน BIR ปิดทำการ",
-      },
-      {
-        date: "วันศุกร์ที่ 16 ตุลาคม 2569",
-        classes: "เรียนออนไลน์ งดเรียนในชั้นเรียน",
-        work: "งดการติดต่อราชการที่ท่าพระจันทร์ ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายให้ปฏิบัติหน้าที่ สำนักงาน BIR ปิดทำการ",
-      },
+      "ธรรมศาสตร์ ท่าพระจันทร์ตั้งอยู่ริมแม่น้ำเจ้าพระยา น้ำอาจไหลเข้าท่วมพื้นที่ลุ่มต่ำริมแม่น้ำและคลอง ชุมชนนอกแนวคันกั้นน้ำ และจุดที่ไม่มีแนวป้องกันน้ำถาวร (แนวฟันหลอ)",
+    liveHeading: "ระดับน้ำขณะนี้",
+    liveLede:
+      "ข้อมูลส่วนนี้ปรับทุก 5 นาที ระดับน้ำขึ้นน้ำลงเป็นค่าพยากรณ์จากแบบจำลอง จึงควรดูระดับน้ำในแม่น้ำประกอบด้วย",
+    checkedAt: "ตรวจสอบเมื่อเวลา {time} น.",
+    conditionsLink: "ดูสภาพแม่น้ำ อากาศ และการเดินทางทั้งหมด",
+    tableHeading: "ตารางน้ำขึ้นน้ำลง 27 ตุลาคม ถึง 5 พฤศจิกายน",
+    tableLede:
+      "ค่าพยากรณ์ความสูงของน้ำเป็นเมตร ที่สถานีน้ำขึ้นน้ำลงกองบัญชาการกองทัพเรือ (N01) ริมแม่น้ำใกล้ท่าพระจันทร์ เวลาเป็นเวลาประเทศไทย ตัวหนาคือน้ำขึ้นสูงสุดของแต่ละวัน",
+    caption:
+      "ค่าพยากรณ์น้ำขึ้นและน้ำลงที่สถานีกองบัญชาการกองทัพเรือ วันที่ 27 ตุลาคม ถึง 5 พฤศจิกายน 2569",
+    columns: { date: "วันที่", highs: "น้ำขึ้น", lows: "น้ำลง" },
+    today: "วันนี้",
+    metres: "ม.",
+    tableUnavailable:
+      "ขณะนี้ยังไม่มีข้อมูลพยากรณ์น้ำขึ้นน้ำลง โปรดตรวจสอบอีกครั้งภายหลัง หรือดูที่เว็บไซต์คลังข้อมูลน้ำแห่งชาติ",
+    tableSource: "ค่าพยากรณ์จากสถาบันสารสนเทศทรัพยากรน้ำ (สสน.)",
+    areasHeading: "พื้นที่เฝ้าระวัง",
+    areasLede: "ปภ. แจ้งให้พื้นที่ต่อไปนี้เฝ้าระวังสถานการณ์น้ำทะเลหนุนสูง",
+    areas: [
+      "กรุงเทพมหานคร",
+      "ปทุมธานี อำเภอเมืองปทุมธานี และอำเภอสามโคก",
+      "นนทบุรี อำเภอเมืองนนทบุรี อำเภอปากเกร็ด และอำเภอบางกรวย",
+      "นครปฐม อำเภอบางเลน อำเภอนครชัยศรี และอำเภอสามพราน",
+      "สมุทรสาคร ทุกอำเภอ",
+      "สมุทรสงคราม ทุกอำเภอ",
+      "สมุทรปราการ อำเภอเมืองสมุทรปราการ อำเภอพระสมุทรเจดีย์ อำเภอพระประแดง และอำเภอบางบ่อ",
     ],
-    meansHeading: "สิ่งที่นักศึกษาต้องรู้",
-    means: [
-      "วันอังคารที่ 13 ตุลาคมเป็นวันหยุดราชการ จึงไม่มีการเรียนการสอน",
-      "มหาวิทยาลัยขอความร่วมมือส่วนงานและคณาจารย์ปรับการเรียนการสอนเป็นรูปแบบออนไลน์ในวันที่ 12 ตุลาคม และวันที่ 14 ถึง 16 ตุลาคม",
-      "มหาวิทยาลัยขอให้งดการเรียนการสอนในรูปแบบชั้นเรียนในวันเหล่านั้น",
-      "มหาวิทยาลัยขอให้ส่วนงานงดการติดต่อราชการที่ท่าพระจันทร์ในวันที่ 16 ตุลาคม ยกเว้นบุคลากรที่ผู้บังคับบัญชามอบหมายหน้าที่ไว้แล้ว",
-      "สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม 2569 หากมีเรื่องเร่งด่วน ให้ส่งอีเมลถึง bir@tu.ac.th",
-      "หากไม่แน่ใจว่ารายวิชาของตนเรียนอย่างไร ให้สอบถามอาจารย์ผู้สอน",
+    doHeading: "สิ่งที่ควรทำ",
+    do: [
+      "ดูระดับน้ำก่อนไปริมแม่น้ำหรือท่าเรือ โดยเฉพาะช่วง 06.00 ถึง 15.00 น.",
+      "อยู่ห่างจากตลิ่งเมื่อน้ำขึ้นสูง และอย่าเดินหรือขับขี่ผ่านน้ำท่วม",
+      "หากพักอาศัยริมแม่น้ำ ริมคลอง หรือในพื้นที่ลุ่มต่ำ ให้ยกของและเครื่องใช้ไฟฟ้าขึ้นที่สูง และเตรียมพร้อมรับมือ",
+      "ติดตามประกาศแจ้งเตือนภัยในแอปพลิเคชัน THAI DISASTER ALERT",
     ],
-    whyHeading: "เหตุผลของการเปลี่ยนแปลง",
-    why: [
-      "เมื่อวันที่ 19 พฤษภาคม 2569 คณะรัฐมนตรีเห็นชอบให้หน่วยงานราชการในกรุงเทพมหานครปฏิบัติงานนอกสถานที่ตั้งในวันจันทร์ที่ 12 ตุลาคม วันพุธที่ 14 ตุลาคม และวันพฤหัสบดีที่ 15 ตุลาคม และกำหนดมาตรการเป็นกรณีพิเศษสำหรับวันศุกร์ที่ 16 ตุลาคม 2569 ในพื้นที่กรุงเทพมหานคร",
-      "มติครั้งนี้มีเป้าหมายเพื่อบรรเทาปัญหาการจราจร อำนวยความสะดวกแก่ผู้เข้าร่วมการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี 2569 และดูแลความปลอดภัยของรัฐมนตรีว่าการกระทรวงการคลังและผู้ว่าการธนาคารกลางของประเทศสมาชิก",
-      "มหาวิทยาลัยธรรมศาสตร์จึงกำหนดแนวทางการเรียนการสอนและการปฏิบัติงานที่ท่าพระจันทร์ในช่วงการประชุม",
-      "วันอังคารที่ 13 ตุลาคม 2569 เป็นวันหยุดราชการอยู่แล้ว",
+    helpHeading: "หากต้องการความช่วยเหลือ",
+    help: [
+      "โทรสายด่วนนิรภัย 1784 ได้ตลอด 24 ชั่วโมง",
+      "เพิ่มเพื่อนไลน์ ปภ.รับแจ้งเหตุ1784 (@1784DDPM) เพื่อแจ้งเหตุและขอความช่วยเหลือ",
     ],
-    announcementHeading: "ประกาศฉบับเต็ม",
-    announcementLede: "มหาวิทยาลัยประกาศแนวทางนี้เมื่อวันที่ 7 สิงหาคม 2569",
-    contact: "หากต้องการยืนยันรูปแบบการเรียนของรายวิชาใด ให้ติดต่อคณะของตน",
+    floodGuideLink: "อ่านวิธีรับมือน้ำท่วม",
+    aboutHeading: "ที่มาของประกาศ",
+    about: [
+      "กรมอุทกศาสตร์ กองทัพเรือ ออกประกาศเรื่องสภาวะระดับน้ำในแม่น้ำเจ้าพระยา บริเวณป้อมพระจุลจอมเกล้าและพื้นที่ใกล้เคียง ฉบับที่ 14/2569 เมื่อวันที่ 26 ตุลาคม 2569 แจ้งว่าระหว่างวันที่ 27 ตุลาคม ถึง 5 พฤศจิกายน 2569 เวลา 06.00 ถึง 15.00 น. เป็นช่วงที่น้ำทะเลหนุนสูง",
+      "เมื่อวันที่ 27 ตุลาคม 2569 นายนิรัตน์ พงษ์สิทธิถาวร อธิบดีกรมป้องกันและบรรเทาสาธารณภัย เปิดเผยว่า ปภ. ในฐานะกองอำนวยการป้องกันและบรรเทาสาธารณภัยกลาง (กอปภ.ก.) ได้แจ้งให้กรุงเทพมหานครและ 6 จังหวัดประชาสัมพันธ์ให้ประชาชนทราบช่วงเวลาที่น้ำทะเลหนุนสูง ตรวจสอบแนวคันกั้นน้ำ และเตรียมเครื่องจักรกลและทีมปฏิบัติการให้พร้อมช่วยเหลือประชาชนตลอด 24 ชั่วโมง",
+    ],
   },
 };
 
 export const advisoryBanner: { message: Bi; cta: Bi } = {
   message: {
-    en: "Classes at Thammasat Tha Prachan are online on 12 October and from 14 to 16 October. 13 October is a public holiday. The BIR Office is closed from 12 to 16 October.",
-    th: "ธรรมศาสตร์ ท่าพระจันทร์ เรียนออนไลน์วันที่ 12 และ 14 ถึง 16 ตุลาคม วันที่ 13 ตุลาคมเป็นวันหยุดราชการ สำนักงาน BIR ปิดทำการวันที่ 12 ถึง 16 ตุลาคม",
+    en: "High tides may flood riverside areas of Bangkok between 6am and 3pm until 5 November.",
+    th: "เฝ้าระวังน้ำทะเลหนุนสูงริมแม่น้ำเจ้าพระยา ช่วง 06.00 ถึง 15.00 น. จนถึงวันที่ 5 พฤศจิกายน",
   },
-  cta: { en: "Read the advisory", th: "อ่านประกาศ" },
-};
-
-export type AnnouncementText = {
-  title: string;
-  subject: string;
-  paragraphs: string[];
-  intro: string;
-  items: string[];
-  dateline: string;
-  signatory: string;
-  position: string;
-};
-
-export const announcementThai: AnnouncementText = {
-  title: "ประกาศมหาวิทยาลัยธรรมศาสตร์",
-  subject:
-    "เรื่อง แนวทางการจัดการเรียนการสอนและการปฏิบัติงาน ณ ท่าพระจันทร์ ในช่วงการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี ๒๕๖๙",
-  paragraphs: [
-    "ตามที่ ที่ประชุมคณะรัฐมนตรี (ครม.) เมื่อวันที่ ๑๙ พฤษภาคม ๒๕๖๙ มติอนุมัติให้วันศุกร์ที่ ๑๖ ตุลาคม ๒๕๖๙ เป็นวันหยุดราชการเป็นกรณีพิเศษในพื้นที่กรุงเทพมหานคร และเห็นชอบให้หน่วยงานราชการในพื้นที่กรุงเทพมหานครปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) ในวันจันทร์ที่ ๑๒ ตุลาคม ๒๕๖๙ และในช่วงระหว่างวันพุธที่ ๑๔ ตุลาคม ๒๕๖๙ และวันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙ เพื่อบรรเทาปัญหาด้านการจราจร และอำนวยความสะดวกในการเดินทางของผู้เข้าร่วมการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี ๒๕๖๙ รวมทั้งเพื่อให้การอารักขาและการรักษาความปลอดภัยรัฐมนตรีว่าการกระทรวงการคลังและผู้ว่าการธนาคารกลางของประเทศสมาชิกเป็นไปด้วยความเรียบร้อยและมีประสิทธิภาพสูงสุด นั้น",
-  ],
-  intro:
-    "มหาวิทยาลัยธรรมศาสตร์ จึงกำหนดแนวทางการจัดการเรียนการสอนและการปฏิบัติงาน ณ ท่าพระจันทร์ ในช่วงการประชุมประจำปีสภาผู้ว่าการธนาคารโลกและกองทุนการเงินระหว่างประเทศ ปี ๒๕๖๙ ดังต่อไปนี้",
-  items: [
-    "ขอให้ส่วนงานงดการเรียนการสอน การปฏิบัติงาน และการติดต่อราชการที่ท่าพระจันทร์ ในวันศุกร์ที่ ๑๖ ตุลาคม ๒๕๖๙ ยกเว้น บุคลากรที่ผู้บังคับบัญชาได้มอบหมายหน้าที่ให้ต้องปฏิบัติเป็นการเฉพาะไว้แล้ว",
-    "ขอความร่วมมือส่วนงานและคณาจารย์ปรับรูปแบบการเรียนการสอนเป็นรูปแบบออนไลน์ (Online) และงดการเรียนการสอนในรูปแบบชั้นเรียน (Onsite) ในวันจันทร์ที่ ๑๒ ตุลาคม ๒๕๖๙ และในช่วงระหว่างวันพุธที่ ๑๔ ตุลาคม ๒๕๖๙ ถึงวันศุกร์ที่ ๑๖ ตุลาคม ๒๕๖๙",
-    "ขอให้ส่วนงานและบุคลากรที่ปฏิบัติหน้าที่ประจำ ณ ท่าพระจันทร์ปฏิบัติงานนอกสถานที่ตั้ง (Work from Home) ในวันจันทร์ที่ ๑๒ ตุลาคม ๒๕๖๙ และในช่วงระหว่างวันพุธที่ ๑๔ ตุลาคม ๒๕๖๙ และวันพฤหัสบดีที่ ๑๕ ตุลาคม ๒๕๖๙",
-  ],
-  dateline: "ประกาศ ณ วันที่ ๗ เดือน สิงหาคม พ.ศ. ๒๕๖๙",
-  signatory: "(ศาสตราจารย์ศุภสวัสดิ์ ชัชวาลย์)",
-  position: "อธิการบดี",
-};
-
-export const announcementEnglish: AnnouncementText = {
-  title: "Announcement of Thammasat University",
-  subject:
-    "Subject. Arrangements for teaching and work at Tha Prachan during the Annual Meetings of the Boards of Governors of the World Bank and the International Monetary Fund 2026 (Buddhist Era 2569)",
-  paragraphs: [
-    "At its meeting on 19 May 2026, the Cabinet resolved to approve Friday 16 October 2026 as a special public holiday in the Bangkok area. It also agreed that government agencies in the Bangkok area should work away from their usual premises (work from home) on Monday 12 October 2026 and between Wednesday 14 October 2026 and Thursday 15 October 2026. The purpose is to ease traffic problems, to make travel easier for those attending the Annual Meetings of the Boards of Governors of the World Bank and the International Monetary Fund 2026, and to ensure that the protection and security of the finance ministers and central bank governors of the member countries are carried out in good order and as effectively as possible.",
-  ],
-  intro:
-    "Thammasat University therefore sets the following arrangements for teaching and work at Tha Prachan during the Annual Meetings of the Boards of Governors of the World Bank and the International Monetary Fund 2026.",
-  items: [
-    "Units are requested to suspend teaching, work and official contact at Tha Prachan on Friday 16 October 2026, except for personnel whom their supervisors have already specifically assigned to duty.",
-    "Units and teaching staff are asked to cooperate by changing teaching to an online format and suspending classroom (onsite) teaching on Monday 12 October 2026 and from Wednesday 14 October 2026 to Friday 16 October 2026.",
-    "Units and personnel on regular duty at Tha Prachan are requested to work away from their usual premises (work from home) on Monday 12 October 2026 and between Wednesday 14 October 2026 and Thursday 15 October 2026.",
-  ],
-  dateline: "Announced on 7 August 2026 (Buddhist Era 2569)",
-  signatory: "(Professor Supasawad Chardchawarn)",
-  position: "Rector",
+  cta: { en: "Check the tides", th: "ดูระดับน้ำล่าสุด" },
 };

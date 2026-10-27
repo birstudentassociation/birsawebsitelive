@@ -349,6 +349,32 @@ export function parseTideNextHigh(raw: string, now: Date): TideHigh | null {
   return { value: high.value, at: high.at, series };
 }
 
+export type TideDay = { date: string; highs: FewsRow[]; lows: FewsRow[] };
+
+export function parseTideDays(raw: string, fromDate: string, toDate: string): TideDay[] {
+  const rows = parseFewsCsv(raw);
+  const days = new Map<string, TideDay>();
+  for (let index = 1; index < rows.length - 1; index++) {
+    const row = rows[index];
+    const before = rows[index - 1];
+    const after = rows[index + 1];
+    if (!row || !before || !after) continue;
+    const date = row.at.slice(0, 10);
+    if (date < fromDate || date > toDate) continue;
+    const high = row.value >= before.value && row.value > after.value;
+    const low = row.value <= before.value && row.value < after.value;
+    if (!high && !low) continue;
+    const day = days.get(date) ?? { date, highs: [], lows: [] };
+    (high ? day.highs : day.lows).push(row);
+    days.set(date, day);
+  }
+  return [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
+}
+
+export async function fetchTideTable(): Promise<string | null> {
+  return getText(`${FEWS_BASE}/tide_table/N01.txt`);
+}
+
 export function parseHiiThresholds(raw: string, code: string): HiiThresholds | null {
   const lines = raw.split(/\r?\n/);
   const header = (lines[0] ?? "").split(",").map((cell) => cell.trim());

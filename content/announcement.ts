@@ -42,7 +42,7 @@ export const announcement: SiteAnnouncement = {
   active: true,
   severity: "warning",
   href: "/advisory",
-  expiresAt: "2026-10-16T16:59:00Z",
+  expiresAt: "2026-11-05T16:59:00Z",
   message: advisoryBanner.message,
   cta: advisoryBanner.cta,
 };
