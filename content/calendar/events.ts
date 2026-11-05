@@ -511,6 +511,16 @@ export const calendarEvents: CalendarEvent[] = [
     kind: "university",
   },
   {
+    id: "nov-bir-career-exhibition",
+    start: "2026-11-11",
+    title: {
+      en: "BIR Career Exhibition 2026",
+      th: "BIR Career Exhibition 2026",
+    },
+    slug: "bir-career-exhibition-2026",
+    kind: "birsa",
+  },
+  {
     id: "nov-asa-ir-workshop-2",
     start: "2026-11-14",
     title: {
