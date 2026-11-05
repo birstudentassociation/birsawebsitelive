@@ -103,10 +103,13 @@ describe("EventCalendar month navigation", () => {
       expect(currentMonth()).toBe(month);
     }
 
-    // Nothing is scheduled between January and March 2027, so the next step
-    // lands on the Songkran closure rather than on an empty month.
-    clickNext();
-    expect(currentMonth()).toBe("April 2027");
+    // BIR's add-drop window falls in January 2027 and the Makha Bucha
+    // substitute holiday in February. Nothing is scheduled in March 2027, so
+    // after February the next step skips to April rather than an empty month.
+    for (const month of ["January 2027", "February 2027", "April 2027"]) {
+      clickNext();
+      expect(currentMonth()).toBe(month);
+    }
   });
 
   it("steps back to the month before today", () => {
@@ -125,8 +128,8 @@ describe("EventCalendar month navigation", () => {
 
     for (let i = startIndex; i < keys.length - 1; i += 1) clickNext();
 
-    // The Songkran closure is the last dated item on the calendar.
-    expect(currentMonth()).toBe("April 2027");
+    // Coronation Day (4 May 2027) is the last dated item on the calendar.
+    expect(currentMonth()).toBe("May 2027");
     expect(screen.getByRole("button", { name: labels.nextMonth })).toBeDisabled();
   });
 

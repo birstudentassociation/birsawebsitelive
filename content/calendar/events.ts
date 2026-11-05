@@ -7,19 +7,21 @@
  * locale-aware href). Kept as plain, serialisable data so it can be passed
  * straight into the client `<EventCalendar>` component.
  *
- * This calendar carries no academic dates. Registration, payment, add-drop,
- * withdrawal, exam and I-grade windows are deliberately absent: BIR is a
- * special programme whose own dates are announced separately by the BIR office,
- * and the regular-programme windows in the Registrar's PDF would contradict
- * them. The Registrar's university-wide dates live in the
+ * Academic dates are limited to what the BIR office has announced. BIR is a
+ * special programme, so only its own registration and add-drop windows are
+ * recorded (semester 2/2569 so far), tagged with the `academic` field. The
+ * regular-programme windows in the Registrar's PDF are deliberately absent,
+ * because they would contradict BIR's. The holidays that fall in BIR's
+ * semester 2 and the Songkran closure are here as ordinary university events.
+ * Payment, withdrawal, exam and I-grade dates live in the
  * `academic-calendar-2569` news post instead.
  *
- * When the BIR office announces BIR's registration or add-drop dates for a
- * term (on birpolsci.com and the BIR Program Facebook page), record them here
- * with the `academic` field. The study plan screen lists and
- * exports the entries tagged for the terms in a student's plan, and shows
- * "no registration dates recorded yet" until there are some. See "Registration
- * and add-drop dates" in docs/EDITING.md.
+ * When the BIR office announces BIR's registration or add-drop dates for
+ * another term (on birpolsci.com and the BIR Program Facebook page), record
+ * them here the same way. The study plan screen lists and exports the entries
+ * tagged for the terms in a student's plan, and shows "no registration dates
+ * recorded yet" for terms without any. See "Registration and add-drop dates"
+ * in docs/EDITING.md.
  *
  * `kind` drives the colour accent:
  *   birsa      : BIRSA's own activities (brand red)
@@ -523,6 +525,60 @@ export const calendarEvents: CalendarEvent[] = [
   },
 
   // ---- AY 2569, from the Registrar's calendar -------------------------------
+  {
+    id: "ay69-s2-registration",
+    start: "2026-11-30",
+    end: "2026-12-04",
+    title: {
+      en: "BIR course registration, semester 2",
+      th: "ลงทะเบียนเรียน BIR ภาคเรียนที่ 2",
+    },
+    slug: "academic-calendar-2569",
+    kind: "university",
+    academic: { window: "registration", term: { year: 2569, semester: 2 } },
+  },
+  {
+    id: "ay69-s2-add-drop",
+    start: "2027-01-04",
+    end: "2027-01-17",
+    title: {
+      en: "BIR late registration and add-drop, semester 2",
+      th: "ลงทะเบียนล่าช้าและเพิ่ม-ถอนรายวิชา BIR ภาคเรียนที่ 2",
+    },
+    slug: "academic-calendar-2569",
+    kind: "university",
+    academic: { window: "add-drop", term: { year: 2569, semester: 2 } },
+  },
+  {
+    id: "ay69-s2-makha-bucha-substitute",
+    start: "2027-02-22",
+    title: {
+      en: "Substitute holiday for Makha Bucha Day, no classes",
+      th: "วันหยุดชดเชยวันมาฆบูชา ไม่มีการเรียนการสอน",
+    },
+    slug: "academic-calendar-2569",
+    kind: "university",
+  },
+  {
+    id: "ay69-s2-chakri-day",
+    start: "2027-04-06",
+    title: {
+      en: "Chakri Memorial Day, no classes",
+      th: "วันจักรี ไม่มีการเรียนการสอน",
+    },
+    slug: "academic-calendar-2569",
+    kind: "university",
+  },
+  {
+    id: "ay69-s2-coronation-day",
+    start: "2027-05-04",
+    title: {
+      en: "Coronation Day, no classes",
+      th: "วันฉัตรมงคล ไม่มีการเรียนการสอน",
+    },
+    slug: "academic-calendar-2569",
+    kind: "university",
+  },
   {
     id: "ay69-s2-songkran",
     start: "2027-04-12",

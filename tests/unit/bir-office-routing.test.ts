@@ -30,8 +30,13 @@ describe("the news posts that mention BIR's academic dates", () => {
       expect(text, file).toContain("(https://www.birpolsci.com)");
       expect(text, file).toMatch(/BIR Program/);
     }
-    expect(read(posts[0]!)).toContain("The BIR office announces BIR's course registration");
-    expect(read(posts[1]!)).toContain("สำนักงานโครงการ BIR จะประกาศวันลงทะเบียนเรียน");
+    // Semester 2/2569 dates are now in the post itself. Semester 1 stays with the BIR office.
+    expect(read(posts[0]!)).toContain("BIR's semester 2 dates are now in the BIR section below");
+    expect(read(posts[0]!)).toContain("announces BIR's semester 1 dates separately");
+    expect(read(posts[1]!)).toContain(
+      "กำหนดการภาคการศึกษาที่ 2 ของ BIR อยู่ในหัวข้อ BIR ด้านล่างแล้ว"
+    );
+    expect(read(posts[1]!)).toContain("กำหนดการภาคการศึกษาที่ 1 ของ BIR");
     expect(read(posts[2]!)).toContain("The BIR office announces BIR's registration");
     expect(read(posts[3]!)).toContain("สำนักงานโครงการ BIR จะประกาศวันลงทะเบียนเรียน");
   });
