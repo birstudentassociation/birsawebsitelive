@@ -20,6 +20,7 @@
  * this service's whole job and blocking them is not.
  */
 import {
+  canPlaceInTerm,
   resolveMinorCategory,
   type CategoryId,
   type Course,
@@ -87,6 +88,12 @@ export type TermSuggestion = {
   recommendedCredits: number | null;
   openSlots: OpenSlot[];
   groups: SuggestionGroup[];
+  /**
+   * Codes of unplaced, unpassed catalogue courses left out of this term
+   * because they cannot be placed in its kind (`canPlaceInTerm`). They appear
+   * nowhere in `openSlots` or `groups`; the caller says why they are missing.
+   */
+  notOfferedHere: string[];
 };
 
 /**
@@ -144,6 +151,7 @@ export function suggestForTerm(
       recommendedCredits: null,
       openSlots: [],
       groups: [],
+      notOfferedHere: [],
     };
   }
 
@@ -192,9 +200,14 @@ export function suggestForTerm(
 
   // The pool this whole module works from: every catalogue course not
   // already passed and not already placed anywhere, in any term.
-  const available = version.courses.value.filter(
+  const unplaced = version.courses.value.filter(
     (c) => !passedSet.has(c.code) && !placedSet.has(c.code)
   );
+  const available = unplaced.filter((c) => canPlaceInTerm(c.code, term.kind));
+  const notOfferedHere = unplaced
+    .filter((c) => !canPlaceInTerm(c.code, term.kind))
+    .map((c) => c.code)
+    .sort();
 
   // Same numbers the "what you still owe" table on the plan screen shows
   // (`remainingRequirements` fed by `planTotals`), so the picker's grouping
@@ -387,5 +400,6 @@ export function suggestForTerm(
     recommendedCredits,
     openSlots,
     groups,
+    notOfferedHere,
   };
 }

@@ -7,6 +7,7 @@
  * Course 1"), and only the student knows what filled them.
  */
 import {
+  canPlaceInTerm,
   resolveMinorCategory,
   type CategoryId,
   type CreditCategory,
@@ -336,6 +337,10 @@ const MAX_TERMS = 20;
  * still a real choice from a list and is still skipped for exactly the
  * reason above.
  *
+ * A course designated to semester 2 (`canPlaceInTerm`) is never placed in a
+ * semester 1 term, even where the recommended plan names it there: it is left
+ * unplaced for the student to add to a semester 2 term.
+ *
  * A term entry is created even for a recommended term that contributes no
  * course at all, such as Year 2 summer in content/curriculum/2564.ts, which
  * is entirely placeholders. Autofill still has to make that term exist and
@@ -372,9 +377,20 @@ export function populateRecommendedTerms(
     (code) => !passedSet.has(code) && !placedCodes.has(code)
   );
 
+  // A minor required course already sitting in a term fills one of that
+  // term's minorRequired slots, so a second run does not use the slot again
+  // for a course a semester 1 slot had to leave in the queue.
+  const requiredSet = new Set(minor?.required ?? []);
+  const filledRequiredSlots = new Map<number, number>();
+  for (const term of plan.terms) {
+    const count = term.codes.filter((code) => requiredSet.has(code)).length;
+    if (count > 0) filledRequiredSlots.set(termIndex(term.term), count);
+  }
+
   for (const recommendedTerm of version.recommendedPlan.value) {
     const recommendedIndex = termIndex(recommendedTerm.term);
     if (recommendedIndex < cutoff) continue;
+    let slotsAlreadyFilled = filledRequiredSlots.get(recommendedIndex) ?? 0;
 
     let target: PlannedCourseTerm | undefined;
     const existingIndex = indexByTermIndex.get(recommendedIndex);
@@ -390,6 +406,7 @@ export function populateRecommendedTerms(
     for (const entry of recommendedTerm.entries) {
       if (entry.kind === "course") {
         if (passedSet.has(entry.code) || placedCodes.has(entry.code)) continue;
+        if (!canPlaceInTerm(entry.code, recommendedTerm.term.kind)) continue;
         if (target.codes.length >= MAX_CODES_PER_TERM) continue;
         target.codes.push(entry.code);
         placedCodes.add(entry.code);
@@ -397,12 +414,19 @@ export function populateRecommendedTerms(
       }
 
       if (entry.category !== "minorRequired") continue;
+      if (slotsAlreadyFilled > 0) {
+        slotsAlreadyFilled -= 1;
+        continue;
+      }
       if (target.codes.length >= MAX_CODES_PER_TERM) continue;
       // Left in the queue, not dropped, when the term is already full: a
       // later term still needs the chance to take it.
-      const code = minorRequiredQueue[0];
+      const queueIndex = minorRequiredQueue.findIndex((queued) =>
+        canPlaceInTerm(queued, recommendedTerm.term.kind)
+      );
+      const code = minorRequiredQueue[queueIndex];
       if (!code) continue;
-      minorRequiredQueue.shift();
+      minorRequiredQueue.splice(queueIndex, 1);
       target.codes.push(code);
       placedCodes.add(code);
     }

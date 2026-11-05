@@ -188,6 +188,10 @@ export type StudyPlanCopy = {
     /** Shown when a term's free elective credit count is out of range. */
     freeElectiveError: string;
     termFullError: string;
+    /** Shown when a course taught in semester 2 only is added to a semester 1 term. */
+    notOfferedError: string;
+    /** Contains "{codes}". Said in the add-course drawer of a semester 1 term. */
+    notOfferedHereNote: string;
     creditsUnit: string;
     /** Label for the control that appends the next term after the last one shown. */
     addTermButton: string;
@@ -450,12 +454,16 @@ const en: StudyPlanCopy = {
     freeElectiveError: "Enter a number of credits between 0 and 21",
     termFullError:
       "That term already has 15 courses, which is the most it can hold. Remove one before adding another.",
+    notOfferedError:
+      "That course is taught in semester 2 only, so it cannot be added to a semester 1 term. Your plan has not changed.",
+    notOfferedHereNote:
+      "The faculty teaches these courses in semester 2 only, so they are not listed for this semester 1 term: {codes}.",
     creditsUnit: "credits",
     addTermButton: "Add another term",
     printLinkLabel: "Print this plan",
     doesNotCheckHeading: "What this does not check",
     doesNotCheck: [
-      "Whether a course runs in the term you have placed it in.",
+      "Whether a course runs in the term you have placed it in, except that courses the faculty teaches in semester 2 only are kept out of semester 1.",
       "Anything at the Dean's or your advisor's discretion.",
       "Anything depending on your GPA.",
     ],
@@ -639,12 +647,16 @@ const th: StudyPlanCopy = {
     freeElectiveError: "กรอกจำนวนหน่วยกิตระหว่าง 0 ถึง 21",
     termFullError:
       "ภาคนี้มีครบ 15 รายวิชาแล้ว ซึ่งเป็นจำนวนสูงสุด ลบรายวิชาออกก่อนจึงจะเพิ่มวิชาใหม่ได้",
+    notOfferedError:
+      "วิชานี้เปิดสอนเฉพาะภาคเรียนที่ 2 จึงเพิ่มในภาคเรียนที่ 1 ไม่ได้ แผนของคุณยังไม่เปลี่ยนแปลง",
+    notOfferedHereNote:
+      "คณะเปิดสอนวิชาเหล่านี้เฉพาะภาคเรียนที่ 2 จึงไม่แสดงในภาคเรียนที่ 1 นี้ ได้แก่ {codes}",
     creditsUnit: "หน่วยกิต",
     addTermButton: "เพิ่มอีก 1 ภาคการศึกษา",
     printLinkLabel: "พิมพ์แผนนี้",
     doesNotCheckHeading: "สิ่งที่บริการนี้ไม่ได้ตรวจ",
     doesNotCheck: [
-      "วิชาจะเปิดสอนจริงในภาคที่จัดไว้หรือไม่",
+      "วิชาจะเปิดสอนจริงในภาคที่จัดไว้หรือไม่ ยกเว้นวิชาที่คณะเปิดสอนเฉพาะภาคเรียนที่ 2 ซึ่งจะไม่ให้จัดในภาคเรียนที่ 1",
       "เรื่องที่อยู่ในดุลยพินิจของคณบดีหรืออาจารย์ที่ปรึกษา",
       "เรื่องที่ขึ้นกับเกรดเฉลี่ย",
     ],

@@ -161,6 +161,8 @@ const en: OwnCopy = {
       unavailableTerm:
         "{term} is not one of the terms your plan offers, so {code} cannot go there.",
       termFull: "{term} already has 15 courses, which is the most a term can hold.",
+      notOfferedInTerm:
+        "{code} is taught in semester 2 only, so it cannot be added to {term}, which is a semester 1.",
       tooManyTerms: "Your plan already has the most terms it can hold.",
       internshipTerm:
         "The internship takes up the whole of a summer, so {code} and the other courses in {term} cannot sit together.",
@@ -244,6 +246,8 @@ const th: OwnCopy = {
       unavailableTerm:
         "{term}ไม่อยู่ในช่วงที่แผนนี้เพิ่มวิชาได้ จึงเพิ่มวิชา {code} ในภาคนั้นไม่ได้",
       termFull: "{term}มีครบ 15 วิชาแล้ว ซึ่งเป็นจำนวนสูงสุดต่อภาค",
+      notOfferedInTerm:
+        "วิชา {code} เปิดสอนเฉพาะภาคเรียนที่ 2 จึงเพิ่มใน{term}ซึ่งเป็นภาคเรียนที่ 1 ไม่ได้",
       tooManyTerms: "แผนนี้มีจำนวนภาคการศึกษาครบตามที่กำหนดสูงสุดแล้ว",
       internshipTerm: "การฝึกงานใช้เวลาทั้งภาคฤดูร้อน จึงเรียนวิชา {code} ควบคู่ใน{term}ไม่ได้",
     },

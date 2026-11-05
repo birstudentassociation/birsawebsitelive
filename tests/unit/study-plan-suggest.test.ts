@@ -69,13 +69,13 @@ describe("suggestForTerm recommended grouping", () => {
       { year: 1, kind: "semester1" }
     );
 
-    // AH208 remains manually addable, but is not a first-semester
-    // recommendation. Only the six published first-semester courses are.
-    expect(findCourse(suggestion, "AH208")).toBeDefined();
+    // AH208 and LAS101 are taught in semester 2 only, so a semester 1 picker
+    // leaves them out even though the 2568 plan names LAS101 in this term.
+    expect(findCourse(suggestion, "AH208")).toBeUndefined();
+    expect(suggestion.notOfferedHere).toEqual(expect.arrayContaining(["AH208", "LAS101"]));
     const recommended = suggestion.groups.find((group) => group.id === "recommended");
     expect(recommended?.courses.map((course) => course.code).sort()).toEqual([
       "EL105",
-      "LAS101",
       "PI121",
       "TU100",
       "TU101",

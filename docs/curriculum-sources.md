@@ -148,6 +148,20 @@ Page counts below are confirmed by the crawlers that read each document.
   code-for-code identical to 2564, so no course in this comparison
   distinguishes cohort 66 from 68).
 
+### BIR Course Offering, Academic Year 2026, Semester 2 (4 January to 1 May 2027): `courseOffering2026S2`
+
+- URL: none. Supplied directly by the faculty as a PDF.
+- What it is: the faculty's list of courses taught in semester 2. The 32 codes
+  in it are held in `content/curriculum/offeringTerms.ts`, one map for every
+  curriculum version, and the study plan will not place them in a semester 1
+  term. PI280 appears in it only as a prerequisite and is not designated.
+- Retrieved: 2026-11-05.
+- Contradictions: the 2568 recommended plan puts LAS101 in Year 1 semester 1 and
+  PI270 in Year 2 semester 1. See the `year1-order-differs-from-schedule`
+  entry in `content/curriculum/2568.ts`, which already records the faculty
+  teaching LAS101 in semester 2 to real cohort 68 students. The plan data is
+  unchanged and the planner reports the conflict instead of moving it.
+
 ## Contradictions affecting what a student is told
 
 Copied verbatim from section 9 of

@@ -22,6 +22,7 @@
  * `lib/study-plan/findings.ts`).
  */
 import {
+  canPlaceInTerm,
   CURRICULUM_VERSIONS,
   resolveMinorCategory,
   type CategoryId,
@@ -107,6 +108,7 @@ export function allPrerequisitesMet(states: readonly PrerequisiteState[]): boole
  *    earliest such term.
  * 2. Its recommended term has passed, so the next term of the same kind
  *    (semester 1 courses go to the next semester 1).
+ *    A course taught in semester 2 only is never suggested a semester 1.
  * 3. It has no recommended term, or no term of its kind is on offer, so the
  *    next ordinary semester after the student's position. Summer is skipped
  *    here because nothing says the course runs then. The service does not
@@ -120,9 +122,9 @@ export function suggestTerm(
 ): TermRef | null {
   if (!position) return null;
   const version = CURRICULUM_VERSIONS[plan.versionId];
-  const candidates = addableTerms(version, plan, position).sort(
-    (a, b) => termIndex(a) - termIndex(b)
-  );
+  const candidates = addableTerms(version, plan, position)
+    .filter((term) => canPlaceInTerm(versionCode, term.kind))
+    .sort((a, b) => termIndex(a) - termIndex(b));
   const cutoff = termIndex(position);
   const recommended = recommendedIn(versionCode, plan.versionId);
 

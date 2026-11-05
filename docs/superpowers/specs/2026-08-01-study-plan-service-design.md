@@ -56,7 +56,11 @@ Out of scope, and stated as such on the service's own pages:
   144 in three different places. Double degree students get the stop page.
 - Whether a course is actually offered in a given term. That needs per-term
   offering data maintained by hand every semester, which BIRSA has not
-  committed to.
+  committed to. The one exception, added at the owner's explicit request on
+  2026-11-05, is the faculty's list of courses taught in semester 2
+  (`content/curriculum/offeringTerms.ts`, sourced to `courseOffering2026S2`),
+  which the planner refuses to place in a semester 1 term. Everything else
+  about offering remains out of scope.
 - Anything decided at the Dean's or an advisor's discretion.
 - GPA. The service never asks for it and never stores it, so it cannot say
   anything about honours, warning, probation or dismissal beyond linking to the

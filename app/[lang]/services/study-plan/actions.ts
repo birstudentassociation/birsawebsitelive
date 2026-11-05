@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import {
+  canPlaceInTerm,
   CURRICULUM_VERSIONS,
   resolveCohort,
   type TermKind,
@@ -103,7 +104,7 @@ function redirectToPlan(
   locale: Locale,
   plan: StudyPlan,
   focus?: TermRef | null,
-  notice?: "termFull"
+  notice?: "termFull" | "notOffered"
 ): never {
   const version = CURRICULUM_VERSIONS[plan.versionId];
   const terms = clearInternshipSummers(version, plan.terms);
@@ -335,7 +336,7 @@ export async function submitFillStep(
       // not a validation failure.
       if (!raw) continue;
       const value = catalogueCodes.has(raw) ? raw : resolveCourseCode(version.courses.value, raw);
-      if (value) passed.add(value);
+      if (value && canPlaceInTerm(value, slot.term.kind)) passed.add(value);
     }
   }
 
@@ -359,6 +360,9 @@ export async function submitFillStep(
  * catalogue, `resolveCourseCode` is tried against the same text before
  * giving up, so a name the student unambiguously typed is not silently
  * dropped just because the browser never got to resolve it first.
+ *
+ * A course taught in semester 2 only is refused in a semester 1 term with
+ * the `notOffered` notice, whatever the form posted.
  *
  * Silently no-ops when nothing resolves (a malformed `year`/`kind`, a code
  * or name that matches nothing, or one already passed or already placed
@@ -385,12 +389,14 @@ export async function addCourseToTerm(locale: Locale, formData: FormData): Promi
       : resolveCourseCode(version.courses.value, raw);
 
   let terms = current.terms;
-  let notice: "termFull" | undefined;
+  let notice: "termFull" | "notOffered" | undefined;
   if (term && code) {
     const alreadyPlaced =
       current.passed.includes(code) || current.terms.some((t) => t.codes.includes(code));
     const index = findTermEntryIndex(current, term);
-    if (
+    if (!alreadyPlaced && !canPlaceInTerm(code, term.kind)) {
+      notice = "notOffered";
+    } else if (
       !alreadyPlaced &&
       index !== -1 &&
       (current.terms[index]?.codes.length ?? 0) >= MAX_CODES_PER_TERM

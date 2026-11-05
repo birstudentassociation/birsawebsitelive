@@ -57,6 +57,7 @@ const copy: TermEditorCopy = {
   shortlistOrderNote: "Ordered by how they fit your plan. Reviews play no part in the order.",
   shortlistLeftOutNote: "They are still in the full course list below.",
   shortlistNoneEligible: "No course for this choice can be taken in this term yet.",
+  notOfferedHereNote: "Taught in semester 2 only, so not listed here: {codes}.",
   recommendedTermCompleteTemplate:
     "This term already has the {n} credits the recommended plan schedules.",
   pickRemainingTemplate: "{n} credits still needed",

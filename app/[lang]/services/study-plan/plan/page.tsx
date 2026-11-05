@@ -409,6 +409,7 @@ export default async function StudyPlanPage({
     shortlistOrderNote: insight.shortlist.orderNote,
     shortlistLeftOutNote: insight.shortlist.leftOutNote,
     shortlistNoneEligible: insight.shortlist.noneEligible,
+    notOfferedHereNote: copy.plan.notOfferedHereNote,
     courseSearch: { ...copy.courseSearch, prompt: copy.plan.addCoursePrompt },
   };
   const courseHref = (code: string) => localeHref(locale, `/student-life/course-reviews/${code}`);
@@ -548,6 +549,9 @@ export default async function StudyPlanPage({
           {notice === "termFull" ? (
             <WarningText locale={locale}>{copy.plan.termFullError}</WarningText>
           ) : null}
+          {notice === "notOffered" ? (
+            <WarningText locale={locale}>{copy.plan.notOfferedError}</WarningText>
+          ) : null}
 
           {/*
             Before the term list, not after it: filling every term at once is
@@ -638,6 +642,7 @@ export default async function StudyPlanPage({
                 )}
                 courseGroups={courseGroups}
                 openSlots={openSlots}
+                notOfferedHere={suggestion.notOfferedHere}
                 internshipOnly={suggestion.internshipOnly}
                 recommendedTermComplete={suggestion.recommendedTermComplete}
                 recommendedCredits={suggestion.recommendedCredits}

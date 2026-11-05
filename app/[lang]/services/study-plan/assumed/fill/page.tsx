@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import {
+  canPlaceInTerm,
   CURRICULUM_VERSIONS,
   resolveMinorCategory,
   type CategoryId,
@@ -137,12 +138,12 @@ export default async function StudyPlanFillPage({
   const fillSlots: FillSlot[] = slots.map((slot) => ({
     id: slot.id,
     label: slot.label[locale],
-    options: coursesForCategory(version, plan.minorId, slot.category, slot.choices).map(
-      (course) => ({
+    options: coursesForCategory(version, plan.minorId, slot.category, slot.choices)
+      .filter((course) => canPlaceInTerm(course.code, slot.term.kind))
+      .map((course) => ({
         value: course.code,
         label: `${course.code} ${course.title}`,
-      })
-    ),
+      })),
   }));
 
   const backHref = `${localeHref(locale, "/services/study-plan/assumed")}?${PLAN_FIELD}=${encodeURIComponent(serialisePlan(plan))}`;

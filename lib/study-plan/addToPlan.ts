@@ -16,7 +16,12 @@
  * Like the rest of the service this never blocks on a finding: a course whose
  * prerequisite is missing is still added, and the findings list says so.
  */
-import { CURRICULUM_VERSIONS, type TermKind, type TermRef } from "@/content/curriculum";
+import {
+  canPlaceInTerm,
+  CURRICULUM_VERSIONS,
+  type TermKind,
+  type TermRef,
+} from "@/content/curriculum";
 import { counterparts, hasPage } from "@/lib/courses/graph";
 import { addableTerms, clearInternshipSummers, termIndex } from "@/lib/study-plan/derive";
 import {
@@ -44,6 +49,8 @@ export type AddRefusal =
   /** A well-formed term the plan screen does not offer, such as one beyond the seven-year limit. */
   | "unavailableTerm"
   | "termFull"
+  /** The course is taught in semester 2 only and the term is a semester 1. */
+  | "notOfferedInTerm"
   | "tooManyTerms"
   /** The change would break the internship-is-the-whole-summer rule. */
   | "internshipTerm";
@@ -120,6 +127,9 @@ export function applyAddParam(
 
   if (termIndex(term) < termIndex(position)) {
     return { status: "refused", reason: "pastTerm", code: resolved, term };
+  }
+  if (!canPlaceInTerm(resolved, term.kind)) {
+    return { status: "refused", reason: "notOfferedInTerm", code: resolved, term };
   }
   const version = CURRICULUM_VERSIONS[plan.versionId];
   if (!addableTerms(version, plan, position).some((t) => termIndex(t) === termIndex(term))) {

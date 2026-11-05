@@ -3,11 +3,12 @@
  * catalogue already carries: the term on each student review that is not a
  * sample, and the term the assessment facts were recorded for.
  *
- * This is history and never an offering promise. The study plan design rules
- * out per-term offering data maintained by hand (it needs BIRSA to commit to
- * updating it every semester), so nothing here says a course will run in a
- * term, and a term missing from the history may simply not have been
- * recorded. The derivation is disclosed wherever it is shown, with
+ * This is history and never an offering promise. Nothing here says a course
+ * will run in a term, and a term missing from the history may simply not have
+ * been recorded. The one hand-maintained exception is the faculty's
+ * designation of semester 2 courses (`content/curriculum/offeringTerms.ts`),
+ * added at the owner's explicit request, which the study plan enforces
+ * separately and which this history neither reads nor feeds. The derivation is disclosed wherever it is shown, with
  * `OFFERING_HISTORY_NOTICE`, following the same rule as the curriculum's
  * inferred parts: the service may use derived data, but not silently.
  *

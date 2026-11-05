@@ -152,6 +152,8 @@ export type TermEditorCopy = {
   shortlistLeftOutNote: string;
   /** Said when courses count towards a choice but none made the shortlist. */
   shortlistNoneEligible: string;
+  /** Said when courses are left out because they are not taught in this kind of term. Contains "{codes}". */
+  notOfferedHereNote: string;
   /** Contains "{n}"; shown when this term has reached its prescribed load. */
   recommendedTermCompleteTemplate: string;
   /** Contains "{n}"; filled with the credits still owed in a group. */
@@ -195,6 +197,8 @@ export type TermEditorProps = {
   courseGroups: TermEditorCourseGroup[];
   /** Choices the recommended plan leaves open in this term ("Minor Elective Course 1"). */
   openSlots: TermEditorSlot[];
+  /** Codes of courses left out of every list because they cannot be placed in this kind of term. */
+  notOfferedHere?: string[];
   /** Whether this prescribed term has already reached its planned credit load. */
   recommendedTermComplete: boolean;
   /** The planned credit load used in `recommendedTermCompleteTemplate`. */
@@ -357,6 +361,7 @@ export default function TermEditor({
   workloadLine,
   courseGroups,
   openSlots,
+  notOfferedHere = [],
   recommendedTermComplete,
   recommendedCredits,
   defaultOpen,
@@ -664,6 +669,11 @@ export default function TermEditor({
                 {copy.moreOptionsLabel}
               </summary>
               <div className="mt-4 flex flex-col gap-4">
+                {notOfferedHere.length > 0 ? (
+                  <p className="text-xs leading-relaxed text-muted">
+                    {copy.notOfferedHereNote.replace("{codes}", notOfferedHere.join(", "))}
+                  </p>
+                ) : null}
                 {hasCourses ? (
                   <form action={addAction} className="flex flex-col gap-3 sm:flex-row sm:items-end">
                     <input type="hidden" name={PLAN_FIELD} value={plan} />

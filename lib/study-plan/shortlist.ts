@@ -35,7 +35,7 @@
  *
  * Pure functions, with the lookups passed in.
  */
-import type { CurriculumVersion, TermRef } from "@/content/curriculum";
+import { canPlaceInTerm, type CurriculumVersion, type TermRef } from "@/content/curriculum";
 import { unlocks } from "@/lib/courses/graph";
 import { recordedInKind, type OfferingHistory } from "@/lib/courses/offeringHistory";
 import { digestReviews, type ReviewDigest } from "@/lib/course-review/reviewSummary";
@@ -103,6 +103,7 @@ export function shortlistForSlot(
 
   for (const course of slot.candidates) {
     if (!countsTowardsSlot(slot, course)) continue;
+    if (!canPlaceInTerm(course.code, term.kind)) continue;
     if (course.missingPrerequisites.length > 0) {
       leftOut.prerequisites.push(course.code);
       continue;

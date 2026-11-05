@@ -19,10 +19,11 @@
  * "One term later" means the next semester for a course in a semester, and
  * the next summer for a course in a summer, because a summer holds the
  * internship and little else, and a semester course has no reason to land
- * there. Pure functions over the plan and the course graph; the input plan is
- * never mutated.
+ * there. A course designated to semester 2 skips any semester 1 on the way.
+ * Pure functions over the plan and the course graph; the input plan is never
+ * mutated.
  */
-import type { CurriculumVersion, TermRef } from "@/content/curriculum";
+import { canPlaceInTerm, type CurriculumVersion, type TermRef } from "@/content/curriculum";
 import { prerequisites, recommendedIn, unlocks } from "@/lib/courses/graph";
 import { projectedGraduation, termIndex } from "@/lib/study-plan/derive";
 import type { PlannedCourseTerm, StudyPlan } from "@/lib/study-plan/plan";
@@ -63,6 +64,13 @@ export function laterTerm(term: TermRef): TermRef {
   if (term.kind === "summer") return { year: term.year + 1, kind: "summer" };
   if (term.kind === "semester1") return { year: term.year, kind: "semester2" };
   return { year: term.year + 1, kind: "semester1" };
+}
+
+/** `laterTerm`, repeated until the course may sit in the term, so a semester 2 course skips every semester 1. */
+function laterTermFor(code: string, term: TermRef): TermRef {
+  let later = laterTerm(term);
+  while (!canPlaceInTerm(code, later.kind)) later = laterTerm(later);
+  return later;
 }
 
 function sameTerm(a: TermRef, b: TermRef): boolean {
@@ -127,7 +135,7 @@ export function whatIf(
   if (change.kind === "deferCourse") {
     const from = before.get(change.code);
     if (!from) return unchanged(plan, change);
-    after.set(change.code, laterTerm(from));
+    after.set(change.code, laterTermFor(change.code, from));
     moved.add(change.code);
   } else {
     const entry = plan.terms.find((t) => sameTerm(t.term, change.term));
@@ -135,7 +143,7 @@ export function whatIf(
       return unchanged(plan, change);
     }
     for (const code of entry.codes) {
-      after.set(code, laterTerm(change.term));
+      after.set(code, laterTermFor(code, change.term));
       moved.add(code);
     }
     if (entry.freeElectiveCredits > 0) {
@@ -161,7 +169,9 @@ export function whatIf(
         const term = after.get(code)!;
         if (!needed || termIndex(term) > termIndex(needed)) continue;
         let target = term;
-        while (termIndex(target) <= termIndex(needed)) target = laterTerm(target);
+        while (termIndex(target) <= termIndex(needed) || !canPlaceInTerm(code, target.kind)) {
+          target = laterTerm(target);
+        }
         after.set(code, target);
         dependents.add(code);
         changed = true;

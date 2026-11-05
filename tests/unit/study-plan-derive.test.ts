@@ -408,10 +408,10 @@ describe("populateRecommendedTerms", () => {
     expect(same?.freeElectiveCredits).toBe(6);
   });
 
-  it("fills in the chosen minor's three required courses, which sit in Year 3", () => {
-    // Governance's required courses are PI380, PI381, PI382. Autofilling from
-    // before Year 3 semester 1 (where the two minorRequired slots sit) and
-    // Year 3 semester 2 (where the third one sits) should place all three.
+  it("fills in the chosen minor's required courses, but only where their term allows", () => {
+    // Governance requires PI380, PI381 and PI382. The plan has two minorRequired
+    // slots in Year 3 semester 1 and one in a semester 2, and PI381 and PI382
+    // are taught in semester 2 only, so only one of them has a slot to land in.
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
@@ -420,7 +420,7 @@ describe("populateRecommendedTerms", () => {
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).toContain("PI380");
     expect(allCodes).toContain("PI381");
-    expect(allCodes).toContain("PI382");
+    expect(allCodes).not.toContain("PI382");
   });
 
   it("does not fill a minor elective slot, only the required slots", () => {
@@ -445,7 +445,6 @@ describe("populateRecommendedTerms", () => {
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).not.toContain("PI380");
     expect(allCodes).toContain("PI381");
-    expect(allCodes).toContain("PI382");
   });
 
   it("does not duplicate a minor required course the student already placed in a different term", () => {
@@ -478,7 +477,8 @@ describe("populateRecommendedTerms", () => {
 
   it("fills a different minor's required courses when a different minor is chosen", () => {
     // Global Political Economy's required courses are PI392, PI480, PI490,
-    // disjoint from governance's PI380/PI381/PI382.
+    // disjoint from governance's PI380/PI381/PI382. PI480 and PI490 are taught
+    // in semester 2 only, so PI490 has no semester 2 slot left.
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
@@ -487,7 +487,7 @@ describe("populateRecommendedTerms", () => {
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).toContain("PI392");
     expect(allCodes).toContain("PI480");
-    expect(allCodes).toContain("PI490");
+    expect(allCodes).not.toContain("PI490");
     expect(allCodes).not.toContain("PI380");
     expect(allCodes).not.toContain("PI381");
     expect(allCodes).not.toContain("PI382");

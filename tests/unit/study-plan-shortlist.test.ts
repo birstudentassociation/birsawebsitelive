@@ -39,7 +39,7 @@ const slotOf = (candidates: SuggestedCourse[], patch: Partial<OpenSlot> = {}): O
   ...patch,
 });
 
-const term: TermRef = { year: 3, kind: "semester1" };
+const term: TermRef = { year: 3, kind: "semester2" };
 const noHistory: { offeringHistory: (code: string) => OfferingHistory | null } = {
   offeringHistory: () => null,
 };
@@ -72,9 +72,9 @@ describe("shortlist eligibility", () => {
     const sources = {
       offeringHistory: (code: string) =>
         code === "PI390"
-          ? history({ semester2: [2568] })
+          ? history({ semester1: [2568] })
           : code === "PI211"
-            ? history({ semester1: [2567] })
+            ? history({ semester2: [2567] })
             : null,
     };
     const slot = slotOf([candidate("PI390"), candidate("PI211"), candidate("PI300")]);
@@ -89,13 +89,13 @@ describe("shortlist eligibility", () => {
       offeringHistory: (): OfferingHistory => ({
         code: "PI390",
         terms: [],
-        yearsByKind: { semester1: [], semester2: [2568], summer: [] },
+        yearsByKind: { semester1: [2568], semester2: [], summer: [] },
       }),
     };
     const slot = slotOf([candidate("PI390")]);
     expect(order(slot, sources)).toEqual([]);
-    const second = shortlistForSlot(version, plan, { year: 3, kind: "semester2" }, slot, sources);
-    expect(second.entries.map((e) => e.course.code)).toEqual(["PI390"]);
+    const first = shortlistForSlot(version, plan, { year: 3, kind: "semester1" }, slot, sources);
+    expect(first.entries.map((e) => e.course.code)).toEqual(["PI390"]);
   });
 
   it("counts a prerequisite failure first, so a course is left out for one reason only", () => {
@@ -103,7 +103,7 @@ describe("shortlist eligibility", () => {
       offeringHistory: (): OfferingHistory => ({
         code: "X",
         terms: [],
-        yearsByKind: { semester1: [], semester2: [2568], summer: [] },
+        yearsByKind: { semester1: [2568], semester2: [], summer: [] },
       }),
     };
     const slot = slotOf([candidate("PI364", { missingPrerequisites: ["PI280"] })]);
@@ -138,7 +138,7 @@ describe("shortlist eligibility", () => {
       (slot) => slot.id === "minorRequired1"
     )!;
     const list = shortlistForSlot(version, plan, { year: 3, kind: "semester1" }, real, noHistory);
-    expect(list.entries.map((e) => e.course.code)).toEqual(["PI380", "PI381", "PI382"]);
+    expect(list.entries.map((e) => e.course.code)).toEqual(["PI380"]);
     // Every other course in the slot's bucket is also a candidate, so none was lost on the way.
     expect(list.entries.length + list.leftOut.prerequisites.length).toBe(real.candidates.length);
   });
@@ -151,6 +151,16 @@ describe("shortlist eligibility", () => {
     expect(list.entries).toEqual([]);
     expect(list.leftOut.prerequisites.length).toBe(real.candidates.length);
     expect(real.candidates.length).toBeGreaterThan(0);
+  });
+});
+
+describe("semester 2 only courses", () => {
+  it("never reach a semester 1 shortlist, and do reach a semester 2 one", () => {
+    const slot = slotOf([candidate("PI390"), candidate("PI211")]);
+    const first = shortlistForSlot(version, plan, { year: 3, kind: "semester1" }, slot, noHistory);
+    expect(first.entries.map((e) => e.course.code)).toEqual(["PI390"]);
+    const second = shortlistForSlot(version, plan, { year: 3, kind: "semester2" }, slot, noHistory);
+    expect(second.entries.map((e) => e.course.code)).toEqual(["PI211", "PI390"]);
   });
 });
 

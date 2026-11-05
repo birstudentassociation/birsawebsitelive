@@ -19,6 +19,7 @@ import type {
 
 export * from "./types";
 export { SOURCES } from "./sources";
+export * from "./offeringTerms";
 
 export const CURRICULUM_VERSIONS: Record<CurriculumVersionId, CurriculumVersion> = {
   "2564": curriculum2564,

@@ -29,7 +29,7 @@ plan knows about the others, and where the suite does work a student cannot easi
 | The catalogue browser filters by track, category and year, but not by minor, prerequisite status or "not yet passed".                                                                     | Filtering is generic rather than about the reader.                                                                           |
 | Two course models: `content/course-review/types.ts` (`Course`, with `track` and `category`) and `content/curriculum/types.ts` (`Course`, per version). Titles and credits are held twice. | Drift risk, and only PI-coded 2568 courses have a page. Codes like `TU105`, `EL105`, `LAS101`, `EE214` in a plan go nowhere. |
 | One review in the whole catalogue, and it is a sample. Thirteen courses carry `assessmentFacts`. Submissions arrive by email via `/contact` and are hand-copied into TypeScript.          | Any feature that reads review data has almost nothing to read. This is the binding constraint on everything below.           |
-| No per-term offering data, by design (spec section 1).                                                                                                                                    | The planner cannot say whether a course runs in the term it is placed in.                                                    |
+| No per-term offering data, by design (spec section 1), except the semester 2 course list.                                                                                                 | The planner cannot say whether a course runs in the term it is placed in.                                                    |
 
 The order of the phases follows from the last two rows. Linking (phase 1) is cheap and useful
 with today's data. Term-level intelligence (phase 2) is useful on curriculum and assessment
@@ -196,7 +196,7 @@ and links into each course.
 
 ### 5.5 Offering history, derived
 
-The spec rules out per-term offering data maintained by hand. Reviews and assessment facts
+The spec rules out per-term offering data maintained by hand, apart from the faculty's list of semester 2 courses (`content/curriculum/offeringTerms.ts`), which the owner asked for and the planner enforces. Reviews and assessment facts
 each carry a term, so the graph can state **history**, not a promise: "Recorded as taught in
 semester 1 of 2566 and 2567." Shown on course pages and in the suggestion picker, with a
 `note` finding when a course is planned in a term kind it has never been recorded in. Carried
@@ -381,4 +381,4 @@ improves phase 2, and needs no code.
 - Storing plans on a BIRSA server by default.
 - Scraping or republishing syllabi.
 - GPA, honours or probation modelling.
-- Claiming a course will run in a given term. Offering history is history.
+- Claiming a course will run in a given term. Offering history is history. The semester 2 list only keeps those courses out of semester 1.

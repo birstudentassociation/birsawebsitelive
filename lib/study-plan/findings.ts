@@ -5,16 +5,25 @@
  * the service says so, cites the provision, and leaves the decision with
  * them. Three things are deliberately not checked: whether
  * a course runs in the term it was placed in, anything at the Dean's or an
- * advisor's discretion, and anything depending on GPA. The one thing that
- * comes near the first is the `offering` note, which reports where a course
- * has been recorded as taught and never says where it will run.
+ * advisor's discretion, and anything depending on GPA. Two things come near
+ * the first: the `offering` note, which reports where a course has been
+ * recorded as taught and never says where it will run, and the `semesterOnly`
+ * problem, which reports a course the faculty teaches in semester 2 only
+ * sitting in a semester 1 term. The screens refuse to put one there, so it
+ * can only arrive in a plan made earlier or edited by hand.
  *
  * The term-level notes (`examLoad`, `workloadLoad`, `offering`) and the
  * `deferral` warning rest on the course catalogue, so `checkPlan` takes the
  * lookups as an optional third argument. The defaults read the catalogue; a
  * test, or a caller that also holds published reviews, supplies its own.
  */
-import type { CurriculumVersion, LocalizedText, TermRef } from "@/content/curriculum";
+import {
+  canPlaceInTerm,
+  SOURCES,
+  type CurriculumVersion,
+  type LocalizedText,
+  type TermRef,
+} from "@/content/curriculum";
 import type { AssessmentFacts, StudentReview } from "@/content/course-review/types";
 import {
   HISTORY_COPY,
@@ -267,6 +276,28 @@ export function checkPlan(
         source: {
           document: "Course catalogue, student review and assessment fact terms",
           provision: `Recorded as taught in ${recorded("en")}; derived history, not an offering promise`,
+        },
+      });
+    }
+  }
+
+  // A course designated to semester 2 that a plan carries in a semester 1
+  // term. Reported, not removed: this service never rewrites a plan under the
+  // student, and a plan from before the designation existed can hold one.
+  for (const term of terms) {
+    for (const code of term.codes) {
+      if (canPlaceInTerm(code, term.term.kind)) continue;
+      const label = termLabel(term.term);
+      findings.push({
+        id: `semesterOnly:${code}`,
+        severity: "problem",
+        message: {
+          en: `${code} is in ${label.en}, but the faculty teaches it in semester 2 only. Move it to a semester 2 term.`,
+          th: `วิชา ${code} อยู่ในแผนของ${label.th} แต่คณะเปิดสอนวิชานี้เฉพาะภาคเรียนที่ 2 โปรดย้ายไปไว้ในภาคเรียนที่ 2`,
+        },
+        source: {
+          document: SOURCES.courseOffering2026S2.id,
+          provision: "BIR Course Offering, Academic Year 2026, Semester 2",
         },
       });
     }

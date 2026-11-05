@@ -82,6 +82,13 @@ export const SOURCES = {
     note: "Supplied directly by BIRSA as images, not published at a URL.",
     retrieved: "2026-08-02",
   },
+  courseOffering2026S2: {
+    id: "courseOffering2026S2",
+    title: "BIR Course Offering, Academic Year 2026, Semester 2 (4 January to 1 May 2027)",
+    url: "",
+    note: "Supplied directly by the faculty as a PDF, not published at a URL.",
+    retrieved: "2026-11-05",
+  },
   officialCurriculumPage: {
     id: "officialCurriculumPage",
     title: "BIR curriculum page, birpolsci.com, student ID code to curriculum mapping",

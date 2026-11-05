@@ -48,6 +48,7 @@ describe("plan link copy", () => {
         "badTerm",
         "internshipTerm",
         "notInVersion",
+        "notOfferedInTerm",
         "pastTerm",
         "termFull",
         "tooManyTerms",
