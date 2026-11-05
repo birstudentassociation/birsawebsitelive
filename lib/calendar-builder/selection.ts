@@ -77,6 +77,12 @@ export function validateClassSlot(slot: ClassSlotDraft): ClassSlotError[] {
   return errors;
 }
 
+/** The category a public event belongs to. */
+export function categoryForEvent(event: CalendarEvent): Exclude<CategoryId, "classes"> {
+  if (event.academic) return "registration";
+  return event.kind === "birsa" ? "birsa" : "holidays";
+}
+
 /** The public events in the chosen categories, in their original order. */
 export function eventsForCategories(
   events: CalendarEvent[],
