@@ -13,34 +13,27 @@ export const homeEn = {
     heading: "What's on",
     seeAll: "See all",
   },
-  calendar: {
-    heading: "Activity calendar",
-    intro: "Key dates for BIR students this term. Select a day with events to see the details.",
-    prevMonth: "Previous month",
-    nextMonth: "Next month",
-    selectedFor: "On {date}",
-    noEventsDay: "Nothing scheduled on this day.",
-    open: "Read",
-    // Screen-reader suffix on a day cell, appended after the date. `{n}` is the
-    // number of events on that day; `one` is used when n === 1.
-    eventCount: {
-      one: "{n} event",
-      other: "{n} events",
-    },
-    legend: {
-      birsa: "BIRSA activities",
-      university: "University and faculty",
-    },
-    styleLegend: {
-      period: "Multi-day period",
-      single: "Single-day event",
-    },
-    subscribe: {
-      heading: "Subscribe to this calendar",
-      intro:
-        "Add these dates to your own calendar app. Your app checks back for new dates on its own.",
-      webcal: "Subscribe (Apple Calendar, Outlook)",
-      https: "Calendar file link (Google Calendar, download)",
+  comingUp: {
+    heading: "Coming up",
+    intro: "The next dates for BIR students.",
+    labels: {
+      empty: "Nothing is scheduled at the moment. New dates appear here when BIRSA announces them.",
+      ongoing: "On now",
+      range: "{start} to {end}",
+      kinds: {
+        birsa: "BIRSA activities",
+        university: "University and faculty",
+      },
+      panel: {
+        heading: "Put BIR dates in your own calendar",
+        intro: "Pick the dates you care about and they appear in the calendar app you already use.",
+        points: [
+          "Choose what you want",
+          "Add your class times",
+          "Works with iPhone, Android, Google and Outlook",
+        ],
+        cta: "Build your calendar",
+      },
     },
   },
   quickLinks: {

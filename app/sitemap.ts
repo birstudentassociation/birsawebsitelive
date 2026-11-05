@@ -66,6 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/services/equipment-loan/status",
       "/services/equipment-loan/directory",
       // Entry point only: the cohort, plan and other steps are stateful.
+      "/services/calendar",
       "/services/study-plan",
       "/standards",
       "/6-october",

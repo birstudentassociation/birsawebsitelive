@@ -1,9 +1,7 @@
-import { Suspense } from "react";
 import Image from "next/image";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site-url";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 import JsonLd from "@/components/JsonLd";
 import { notFound } from "next/navigation";
@@ -13,7 +11,7 @@ import NavList, { NavListItem } from "@/components/NavList";
 import GridRow, { GridMain, GridAside } from "@/components/GridRow";
 import FeaturedRail, { type FeaturedItem } from "@/components/home/FeaturedRail";
 import NewsCard from "@/components/news/NewsCard";
-import EventCalendar from "@/components/home/EventCalendar";
+import ComingUp from "@/components/home/ComingUp";
 import { calendarEvents } from "@/content/calendar/events";
 import { homeEn } from "@/content/home/en";
 import { homeTh } from "@/content/home/th";
@@ -190,37 +188,21 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
         </section>
       ) : null}
 
-      {/* Activity calendar */}
+      {/* Coming up, with the calendar builder beside it */}
       <section aria-labelledby="calendar-heading" className="border-y border-line bg-cream">
         <div className="wrap py-12 sm:py-16">
           <div className="mb-6 max-w-[var(--measure)]">
             <h2 id="calendar-heading" className="font-display text-2xl sm:text-3xl">
-              {copy.calendar.heading}
+              {copy.comingUp.heading}
             </h2>
-            <p className="mt-2 text-lg text-muted">{copy.calendar.intro}</p>
+            <p className="mt-2 text-lg text-muted">{copy.comingUp.intro}</p>
           </div>
-          {/* A Suspense boundary lets React hydrate the calendar as its own
-              interruptible unit rather than inside the page's single task. The
-              server HTML still contains the full calendar. */}
-          <Suspense fallback={null}>
-            <EventCalendar
-              events={calendarEvents}
-              locale={locale}
-              todayKey={todayKey}
-              icsUrl={`${SITE_URL}/${locale}/calendar.ics`}
-              labels={{
-                prevMonth: copy.calendar.prevMonth,
-                nextMonth: copy.calendar.nextMonth,
-                selectedFor: copy.calendar.selectedFor,
-                noEventsDay: copy.calendar.noEventsDay,
-                open: copy.calendar.open,
-                eventCount: copy.calendar.eventCount,
-                legend: copy.calendar.legend,
-                styleLegend: copy.calendar.styleLegend,
-                subscribe: copy.calendar.subscribe,
-              }}
-            />
-          </Suspense>
+          <ComingUp
+            events={calendarEvents}
+            locale={locale}
+            todayKey={todayKey}
+            labels={copy.comingUp.labels}
+          />
         </div>
       </section>
 

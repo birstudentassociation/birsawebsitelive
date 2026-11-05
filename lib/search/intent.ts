@@ -961,8 +961,8 @@ const rules: Rule[] = [
       title: bi(locale, "Dates and what's on", "วันสำคัญและกิจกรรม"),
       description: bi(
         locale,
-        "The university's academic calendar, holidays and BIRSA events. The BIR office announces BIR's registration dates on birpolsci.com. You can also subscribe to the calendar so the dates appear in your own app.",
-        "ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR ประกาศที่ birpolsci.com คุณติดตามปฏิทินได้ เพื่อให้วันสำคัญแสดงในแอปของคุณ"
+        "The university's academic calendar, holidays and BIRSA events. The BIR office announces BIR's registration dates on birpolsci.com. You can also build your own calendar, with the dates you choose and your class times, and put it in your own app.",
+        "ปฏิทินการศึกษาของมหาวิทยาลัย วันหยุด และกิจกรรมของ BIRSA ส่วนวันลงทะเบียนของ BIR สำนักงานโครงการ BIR ประกาศที่ birpolsci.com คุณสร้างปฏิทินของตัวเองได้ ทั้งวันที่ที่เลือกและเวลาเรียน แล้วใส่ในแอปของคุณ"
       ),
       action: {
         label: bi(locale, "See what's on", "ดูข่าวและกิจกรรม"),
@@ -970,8 +970,8 @@ const rules: Rule[] = [
       },
       links: [
         {
-          label: bi(locale, "Subscribe to the calendar", "ติดตามปฏิทิน"),
-          href: localeHref(locale, "/calendar.ics"),
+          label: bi(locale, "Build your calendar", "สร้างปฏิทินของคุณ"),
+          href: localeHref(locale, "/services/calendar"),
         },
       ],
     }),

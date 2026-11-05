@@ -51,6 +51,11 @@ function buildLlmsTxt(): string {
     ),
     link("Getting started", "/student-life/getting-started", "Where to start for new students"),
     link("Clubs", "/clubs", "Student clubs and how to join"),
+    link(
+      "Build your calendar",
+      "/services/calendar",
+      "Choose BIR dates and class times for your own calendar app"
+    ),
     link("Find a service", "/services", "University services and BIRSA equipment loans"),
     link("BIRSA activity", "/activity", "What BIRSA does, its roles and its regulations"),
     link("Regulations", "/activity/regulations"),

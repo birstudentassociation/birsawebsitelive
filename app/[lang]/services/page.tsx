@@ -32,6 +32,7 @@ const copy: Record<
   {
     title: string;
     lede: string;
+    calendar: { title: string; description: string; cta: string };
     studyPlan: { title: string; description: string; cta: string };
     equipmentLoan: { title: string; description: string; cta: string };
     equipmentDirectory: { title: string; description: string; cta: string };
@@ -47,6 +48,12 @@ const copy: Record<
   en: {
     title: "Information and services",
     lede: "Borrow equipment, read course reviews and student-life guides written by students, or get logistics guidance if you're new to Bangkok.",
+    calendar: {
+      title: "Build your calendar",
+      description:
+        "Choose the BIR dates you want, add your class times, and put them in your own calendar app.",
+      cta: "Build your calendar",
+    },
     studyPlan: {
       title: "Plan your BIR degree",
       description:
@@ -93,6 +100,12 @@ const copy: Record<
   th: {
     title: "ข้อมูลและบริการ",
     lede: "ยืมอุปกรณ์ อ่านรีวิวรายวิชาและคู่มือชีวิตนักศึกษาที่เขียนโดยรุ่นพี่ หรือดูข้อมูลสำหรับนักศึกษาต่างชาติที่เริ่มต้นชีวิตในกรุงเทพฯ",
+    calendar: {
+      title: "สร้างปฏิทินของคุณ",
+      description:
+        "เลือกวันสำคัญของ BIR ที่ต้องการ เพิ่มเวลาเรียนของคุณ แล้วใส่ลงในแอปปฏิทินของคุณเอง",
+      cta: "สร้างปฏิทินของคุณ",
+    },
     studyPlan: {
       title: "วางแผนปริญญา BIR ของคุณ",
       description:
@@ -149,6 +162,7 @@ export default async function InformationServicesPage({
   const t = copy[locale];
   const infoServicesLabel = dict.nav.find((n) => n.href === "/services")!.label;
 
+  const calendarHref = localeHref(locale, "/services/calendar");
   const studyPlanHref = localeHref(locale, "/services/study-plan");
   const equipmentHref = localeHref(locale, "/services/equipment-loan");
   const equipmentDirectoryHref = localeHref(locale, "/services/equipment-loan/directory");
@@ -176,6 +190,9 @@ export default async function InformationServicesPage({
             <GridMain className="flex flex-col gap-4">
               <h2 className="font-display text-2xl">{t.servicesHeading}</h2>
               <NavList>
+                <NavListItem href={calendarHref} title={t.calendar.title} as="h3">
+                  {t.calendar.description}
+                </NavListItem>
                 <NavListItem href={studyPlanHref} title={t.studyPlan.title} as="h3">
                   {t.studyPlan.description}
                 </NavListItem>

@@ -76,6 +76,16 @@ export const quickGroups: QuickGroup[] = [
         th: { label: "มีอะไรบ้าง", hint: "ข่าวสารและกิจกรรม" },
       },
       {
+        key: "build-calendar",
+        href: "/services/calendar",
+        icon: "calendar",
+        en: {
+          label: "Build your calendar",
+          hint: "Put BIR dates and your classes in your own app",
+        },
+        th: { label: "สร้างปฏิทินของคุณ", hint: "ใส่วันสำคัญ BIR และเวลาเรียนในแอปของคุณเอง" },
+      },
+      {
         key: "borrow-equipment",
         href: "/services/equipment-loan",
         icon: "loan",

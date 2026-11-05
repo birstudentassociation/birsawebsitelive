@@ -41,6 +41,7 @@ const publicPaths = [
   "/student-life/course-reviews/TU104", // facts-only course page, outside the PI catalogue
   "/conditions", // live checks; feeds may be unavailable in CI
   "/services",
+  "/services/calendar", // calendar builder
   "/services/equipment-loan", // DB-degraded "not configured" state
   "/services/equipment-loan/directory", // club equipment directory (DB-degraded)
   "/services/equipment-loan/status", // status lookup form
@@ -239,19 +240,25 @@ test("the clubs category radiogroup is arrow-key navigable with a single tab sto
   await expect(first).toHaveAttribute("tabindex", "-1");
 });
 
-test("calendar day cells announce a localized event count", async ({ page }) => {
-  // English page: the count suffix reads "event"/"events".
+test("the Coming up section lists dates and leads to the calendar builder", async ({ page }) => {
+  for (const [lang, heading, cta] of [
+    ["en", "Coming up", "Build your calendar"],
+    ["th", "กำลังจะมาถึง", "สร้างปฏิทินของคุณ"],
+  ] as const) {
+    await page.goto(`/${lang}`);
+    const section = page.locator("main section").filter({
+      has: page.getByRole("heading", { level: 2, name: heading }),
+    });
+    await expect(section).toBeVisible();
+    // Every listed date links to its news post and carries a category tag.
+    const rows = section.getByRole("listitem").filter({ has: page.locator("time") });
+    expect(await rows.count()).toBeLessThanOrEqual(5);
+    const link = section.getByRole("link", { name: cta });
+    await expect(link).toHaveAttribute("href", `/${lang}/services/calendar`);
+  }
+  // The old month grid is gone.
   await page.goto("/en");
-  const enDay = page.locator('main button[aria-label*="event"]').first();
-  await expect(enDay).toBeVisible();
-
-  // Thai page: the same suffix is authored natively as "กิจกรรม", never the
-  // English word (regression guard for the previously hard-coded label).
-  await page.goto("/th");
-  const thDay = page.locator('main button[aria-label*="กิจกรรม"]').first();
-  await expect(thDay).toBeVisible();
-  const enLeak = await page.locator('main button[aria-label*="event"]').count();
-  expect(enLeak).toBe(0);
+  await expect(page.locator('main button[aria-label*="event"]')).toHaveCount(0);
 });
 
 test("the error summary does not steal focus back while the user edits a field", async ({
