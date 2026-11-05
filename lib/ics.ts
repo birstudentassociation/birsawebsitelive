@@ -31,13 +31,13 @@ const CALENDAR_NAME: Record<Locale, string> = {
 };
 
 /** Parses a `YYYY-MM-DD` string into UTC date parts, ignoring local timezone. */
-function parseIsoDate(iso: string): { y: number; m: number; d: number } {
+export function parseIsoDate(iso: string): { y: number; m: number; d: number } {
   const [y = "1970", m = "1", d = "1"] = iso.split("-");
   return { y: Number(y), m: Number(m), d: Number(d) };
 }
 
 /** Formats UTC date parts as `YYYYMMDD` for the `VALUE=DATE` iCalendar form. */
-function formatIcsDate(y: number, m: number, d: number): string {
+export function formatIcsDate(y: number, m: number, d: number): string {
   const pad2 = (n: number) => String(n).padStart(2, "0");
   return `${String(y).padStart(4, "0")}${pad2(m)}${pad2(d)}`;
 }
@@ -110,8 +110,31 @@ export function foldIcsLine(line: string): string {
   return segments.map((segment, i) => (i === 0 ? segment : ` ${segment}`)).join("\r\n");
 }
 
-function line(name: string, value: string): string {
+/** One folded `NAME:value` content line. */
+export function line(name: string, value: string): string {
   return foldIcsLine(`${name}:${value}`);
+}
+
+/** `DTSTAMP`/`LAST-MODIFIED` value derived from `ICS_REVISION`. */
+export const ICS_STAMP = ICS_REVISION.replace(/[-:]/g, "");
+
+/** The VEVENT lines (BEGIN to END) for one all-day event. */
+export function allDayEventLines(event: CalendarEvent, locale: Locale, siteUrl: string): string[] {
+  const host = new URL(siteUrl).host;
+  const url = `${siteUrl}/${locale}/news/${event.slug}`;
+  return [
+    "BEGIN:VEVENT",
+    line("UID", `${event.id}@${host}`),
+    line("DTSTAMP", ICS_STAMP),
+    `DTSTART;VALUE=DATE:${dtStart(event)}`,
+    `DTEND;VALUE=DATE:${exclusiveDtEnd(event)}`,
+    line("SUMMARY", escapeIcsText(event.title[locale])),
+    line("DESCRIPTION", escapeIcsText(url)),
+    line("URL", escapeIcsText(url)),
+    line("CATEGORIES", escapeIcsText(event.kind)),
+    line("LAST-MODIFIED", ICS_STAMP),
+    "END:VEVENT",
+  ];
 }
 
 export type BuildIcsOptions = {
@@ -130,8 +153,6 @@ export function buildIcs(
   locale: Locale,
   options: BuildIcsOptions
 ): string {
-  const host = new URL(options.siteUrl).host;
-
   const lines: string[] = [];
   lines.push("BEGIN:VCALENDAR");
   lines.push("VERSION:2.0");
@@ -141,22 +162,7 @@ export function buildIcs(
   lines.push(line("X-WR-CALNAME", escapeIcsText((options.name ?? CALENDAR_NAME)[locale])));
   lines.push("X-WR-TIMEZONE:Asia/Bangkok");
 
-  const dtStampValue = ICS_REVISION.replace(/[-:]/g, "");
-
-  for (const event of events) {
-    const url = `${options.siteUrl}/${locale}/news/${event.slug}`;
-    lines.push("BEGIN:VEVENT");
-    lines.push(line("UID", `${event.id}@${host}`));
-    lines.push(line("DTSTAMP", dtStampValue));
-    lines.push(`DTSTART;VALUE=DATE:${dtStart(event)}`);
-    lines.push(`DTEND;VALUE=DATE:${exclusiveDtEnd(event)}`);
-    lines.push(line("SUMMARY", escapeIcsText(event.title[locale])));
-    lines.push(line("DESCRIPTION", escapeIcsText(url)));
-    lines.push(line("URL", escapeIcsText(url)));
-    lines.push(line("CATEGORIES", escapeIcsText(event.kind)));
-    lines.push(line("LAST-MODIFIED", dtStampValue));
-    lines.push("END:VEVENT");
-  }
+  for (const event of events) lines.push(...allDayEventLines(event, locale, options.siteUrl));
 
   lines.push("END:VCALENDAR");
 

@@ -52,6 +52,12 @@ export type CalendarEvent = {
    * pick out the windows for the terms in a plan.
    */
   academic?: { window: AcademicWindowKind; term: AcademicTerm };
+  /**
+   * Set on a day or range with no teaching (a public holiday or the Songkran
+   * closure). The calendar builder skips weekly class occurrences that fall on
+   * it. Set it only where the title says there are no classes.
+   */
+  noClasses?: true;
 };
 
 export const calendarEvents: CalendarEvent[] = [
@@ -244,6 +250,7 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "activity-calendar",
     kind: "university",
+    noClasses: true,
   },
   {
     id: "aug-thai-peace-day",
@@ -450,6 +457,7 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "activity-calendar",
     kind: "university",
+    noClasses: true,
   },
   {
     id: "oct-online-classes-14-16",
@@ -558,6 +566,7 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "academic-calendar-2569",
     kind: "university",
+    noClasses: true,
   },
   {
     id: "ay69-s2-chakri-day",
@@ -568,6 +577,7 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "academic-calendar-2569",
     kind: "university",
+    noClasses: true,
   },
   {
     id: "ay69-s2-coronation-day",
@@ -578,6 +588,7 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "academic-calendar-2569",
     kind: "university",
+    noClasses: true,
   },
   {
     id: "ay69-s2-songkran",
@@ -589,5 +600,6 @@ export const calendarEvents: CalendarEvent[] = [
     },
     slug: "academic-calendar-2569",
     kind: "university",
+    noClasses: true,
   },
 ];
