@@ -3,6 +3,9 @@ import type { MilestoneId } from "@/lib/timetable-planner";
 
 export type PlannerCopy = {
   milestones: Record<MilestoneId, string>;
+  strip: Record<MilestoneId, string>;
+  startName: Record<MilestoneId, string>;
+  sep: string;
   status: {
     label: string;
     nowRegistration: string;
@@ -16,7 +19,6 @@ export type PlannerCopy = {
     today: string;
     done: string;
     inDays: { one: string; other: string };
-    daysLeft: { one: string; other: string };
   };
   nextUp: {
     label: string;
@@ -28,7 +30,7 @@ export type PlannerCopy = {
   };
   pick: {
     heading: string;
-    intro: string;
+    seeWeek: string;
     quickLabel: string;
     quickYear: Record<"year1" | "year2" | "year3", string>;
     quickDone: { one: string; other: string };
@@ -46,6 +48,7 @@ export type PlannerCopy = {
     remove: string;
     added: string;
     section: string;
+    switchSection: string;
     clash: string;
     examClash: string;
     needs: string;
@@ -108,6 +111,21 @@ const en: PlannerCopy = {
     midterms: "Midterms",
     finals: "Finals",
   },
+  strip: {
+    registration: "Registration",
+    payment: "Payment",
+    classes: "Classes",
+    midterms: "Midterms",
+    finals: "Finals",
+  },
+  startName: {
+    registration: "Registration",
+    payment: "Payment",
+    classes: "Classes",
+    midterms: "Midterms",
+    finals: "Finals",
+  },
+  sep: ", ",
   status: {
     label: "Where the semester is",
     nowRegistration: "Registration is open until 22:30 on {date}",
@@ -121,7 +139,6 @@ const en: PlannerCopy = {
     today: "Now",
     done: "Done",
     inDays: { one: "in 1 day", other: "in {n} days" },
-    daysLeft: { one: "1 day left", other: "{n} days left" },
   },
   nextUp: {
     label: "Next for you",
@@ -133,8 +150,7 @@ const en: PlannerCopy = {
   },
   pick: {
     heading: "Pick your courses",
-    intro:
-      "Tap a course to add it. Your week, your exams and any clashes update as you go, and this browser remembers your choices.",
+    seeWeek: "See your week",
     quickLabel: "Start with your year",
     quickYear: { year1: "Year 1", year2: "Year 2", year3: "Year 3" },
     quickDone: { one: "Added 1 course", other: "Added {n} courses" },
@@ -161,6 +177,7 @@ const en: PlannerCopy = {
     remove: "Remove",
     added: "Added",
     section: "Section {section}",
+    switchSection: "Switch",
     clash: "Clashes with {codes}",
     examClash: "Exam clash with {codes}",
     needs: "Needs {code} first",
@@ -231,24 +248,38 @@ const th: PlannerCopy = {
     midterms: "สอบกลางภาค",
     finals: "สอบปลายภาค",
   },
+  strip: {
+    registration: "ลงทะเบียน",
+    payment: "ชำระเงิน",
+    classes: "เปิดเรียน",
+    midterms: "กลางภาค",
+    finals: "ปลายภาค",
+  },
+  startName: {
+    registration: "เปิดลงทะเบียน",
+    payment: "เริ่มชำระเงิน",
+    classes: "เปิดเรียน",
+    midterms: "สอบกลางภาค",
+    finals: "สอบปลายภาค",
+  },
+  sep: " ",
   status: {
-    label: "ตอนนี้เทอมอยู่ตรงไหน",
-    nowRegistration: "เปิดลงทะเบียนอยู่ ปิดเวลา 22.30 น. {date}",
-    nowPayment: "ชำระเงินผ่านแอป TU GREATS ภายใน 22.30 น. {date}",
-    nowClasses: "สัปดาห์ที่ {week} จาก {total} สัปดาห์",
-    nowMidterms: "สัปดาห์สอบกลางภาค สอบถึง{date}",
-    nowFinals: "ช่วงสอบปลายภาค สอบถึง{date}",
-    next: "{name}เริ่ม{when} {date}",
+    label: "ภาคการศึกษานี้ถึงไหนแล้ว",
+    nowRegistration: "เปิดลงทะเบียนแล้ว ปิด{date} เวลา 22.30 น.",
+    nowPayment: "ชำระเงินผ่านแอป TU GREATS ได้ถึง{date} เวลา 22.30 น.",
+    nowClasses: "เรียนสัปดาห์ที่ {week} จากทั้งหมด {total} สัปดาห์",
+    nowMidterms: "สัปดาห์สอบกลางภาค สอบวันสุดท้าย{date}",
+    nowFinals: "ช่วงสอบปลายภาค สอบวันสุดท้าย{date}",
+    next: "{when}{name} ตรงกับ{date}",
     tomorrow: "พรุ่งนี้",
     ended: "ภาคการศึกษาที่ 2 จบแล้ว",
     today: "ตอนนี้",
     done: "ผ่านไปแล้ว",
     inDays: { one: "อีก 1 วัน", other: "อีก {n} วัน" },
-    daysLeft: { one: "เหลือ 1 วัน", other: "เหลือ {n} วัน" },
   },
   nextUp: {
-    label: "รายการถัดไปของคุณ",
-    live: "กำลังเรียนอยู่",
+    label: "ต่อไป",
+    live: "ตอนนี้",
     today: "วันนี้",
     tomorrow: "พรุ่งนี้",
     kind: { class: "เรียน", midterm: "สอบกลางภาค", final: "สอบปลายภาค" },
@@ -256,20 +287,19 @@ const th: PlannerCopy = {
   },
   pick: {
     heading: "เลือกวิชาที่ลง",
-    intro:
-      "แตะวิชาเพื่อเพิ่มลงตาราง ตารางเรียน ตารางสอบ และวิชาที่ชนกันจะอัปเดตทันที เบราว์เซอร์นี้จะจำวิชาที่เลือกไว้ให้",
+    seeWeek: "ดูตารางเรียนของคุณ",
     quickLabel: "เริ่มจากชั้นปีของคุณ",
     quickYear: { year1: "ปี 1", year2: "ปี 2", year3: "ปี 3" },
     quickDone: { one: "เพิ่มแล้ว 1 วิชา", other: "เพิ่มแล้ว {n} วิชา" },
     quickNone: "วิชาเหล่านี้อยู่ในตารางแล้ว",
-    sectionPrompt: "เลือกกลุ่มเรียน LAS101 ของคุณด้านล่าง",
+    sectionPrompt: "เลือกตอนเรียน LAS101 ของคุณด้านล่าง",
     search: "ค้นหาวิชา",
-    searchHint: "รหัสวิชา ชื่อวิชา อาจารย์ หรือห้อง",
+    searchHint: "ค้นด้วยรหัสวิชา ชื่อวิชา ชื่ออาจารย์ หรือห้อง",
     filters: "แสดง",
     all: "ทั้งหมด",
     mine: "วิชาของฉัน",
-    fits: "เฉพาะวิชาที่ไม่ชน",
-    fitsHint: "ซ่อนวิชาที่เวลาเรียนชนกับวิชาที่เลือกไว้",
+    fits: "แสดงเฉพาะวิชาที่เวลาไม่ชน",
+    fitsHint: "ซ่อนวิชาที่เวลาเรียนชนกับวิชาที่คุณเลือกไว้",
     shortGroups: {
       year1: "ปี 1",
       year2: "ปี 2",
@@ -283,9 +313,10 @@ const th: PlannerCopy = {
     add: "เพิ่ม",
     remove: "เอาออก",
     added: "เพิ่มแล้ว",
-    section: "กลุ่ม {section}",
+    section: "ตอนเรียน {section}",
+    switchSection: "เปลี่ยน",
     clash: "เวลาเรียนชนกับ {codes}",
-    examClash: "วันสอบชนกับ {codes}",
+    examClash: "เวลาสอบชนกับ {codes}",
     needs: "ต้องผ่าน {code} ก่อน",
     taughtWith: "สอนร่วมกับ {code}",
     final: "สอบปลายภาค",
@@ -298,11 +329,11 @@ const th: PlannerCopy = {
   week: {
     heading: "ตารางเรียนของคุณ",
     empty: "เพิ่มวิชาแล้วตารางเรียนจะขึ้นตรงนี้",
-    clashes: { one: "มี 1 คู่ที่เวลาชนกัน", other: "มี {n} คู่ที่เวลาชนกัน" },
-    noClash: "ไม่มีวิชาชนกัน",
+    clashes: { one: "มีวิชาเวลาชนกัน 1 คู่", other: "มีวิชาเวลาชนกัน {n} คู่" },
+    noClash: "ไม่มีวิชาเวลาชนกัน",
     credits: "{n} หน่วยกิต",
-    fees: "ค่าเล่าเรียน {n} หน่วยกิต นักศึกษาไทย {thai} บาท นักศึกษาต่างชาติ {foreign} บาท",
-    feesOver: "ตารางค่าเล่าเรียนมีถึง 21 หน่วยกิต",
+    fees: "ลง {n} หน่วยกิต ค่าเล่าเรียนของนักศึกษาไทยคือ {thai} บาท และของนักศึกษาต่างชาติคือ {foreign} บาท",
+    feesOver: "ตารางค่าเล่าเรียนระบุไว้ถึง 21 หน่วยกิตเท่านั้น",
   },
   exams: {
     heading: "ตารางสอบของคุณ",
@@ -312,20 +343,20 @@ const th: PlannerCopy = {
     clash: "ชนกัน",
     noRoom: "ยังไม่ประกาศห้องสอบ",
     past: "สอบแล้ว",
-    holiday: "วันอังคารที่ 4 พฤษภาคม เป็นวันฉัตรมงคล ไม่มีสอบ",
+    holiday: "วันอังคารที่ 4 พฤษภาคม เป็นวันหยุดราชการ (วันฉัตรมงคล) จึงไม่มีการสอบ",
   },
   actions: {
     calendar: "เพิ่มลงปฏิทินในมือถือ",
-    calendarHint: "หน้าปฏิทินกรอกวิชาของคุณไว้ให้แล้ว",
+    calendarHint: "วิชาที่คุณเลือกไว้จะขึ้นในหน้าปฏิทินโดยอัตโนมัติ",
     share: "คัดลอกลิงก์ตารางนี้",
     copied: "คัดลอกลิงก์แล้ว",
     copyFailed: "คัดลอกลิงก์นี้",
     clear: "เริ่มใหม่",
-    clearConfirm: "ลบทุกวิชาออกจากตารางของคุณหรือไม่",
+    clearConfirm: "ต้องการลบทุกวิชาออกจากตารางใช่ไหม",
   },
   shared: {
-    title: "นี่คือตารางที่มีคนแชร์มา",
-    body: "ตารางของคุณเองยังไม่เปลี่ยน จนกว่าจะกดเก็บตารางนี้ไว้",
+    title: "ตารางนี้มีคนแชร์มาให้คุณ",
+    body: "ตารางของคุณเองจะยังไม่เปลี่ยน จนกว่าคุณจะกดใช้ตารางนี้",
     keep: "ใช้เป็นตารางของฉัน",
     mine: "กลับไปดูตารางของฉัน",
   },

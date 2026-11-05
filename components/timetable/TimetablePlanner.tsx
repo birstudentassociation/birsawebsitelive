@@ -92,7 +92,11 @@ function clock(locale: Locale, time: string): string {
 }
 
 function span(c: PlannerCopy, locale: Locale, start: string, end: string): string {
-  return `${clock(locale, start)} ${c.to} ${clock(locale, end)}${c.timeSuffix}`;
+  return `${clock(locale, start)} ${c.to} ${clock(locale, end)}${c.timeSuffix.replace(" ", "\u00a0")}`;
+}
+
+function nb(text: string): string {
+  return text.replace(/ /g, "\u00a0");
 }
 
 function money(locale: Locale, n: number): string {
@@ -234,7 +238,7 @@ export default function TimetablePlanner({
     setQuery("");
     const parts = [added > 0 ? plural(c.pick.quickDone, added) : c.pick.quickNone];
     if (needsSection) parts.push(c.pick.sectionPrompt);
-    setMessage(parts.join(". ") + (locale === "en" ? "." : ""));
+    setMessage(locale === "en" ? `${parts.join(". ")}.` : parts.join(" "));
   }
 
   const visible = entries.filter((entry) => {
@@ -328,12 +332,9 @@ export default function TimetablePlanner({
       ) : null}
 
       <section aria-labelledby="planner-pick" className="flex flex-col gap-4">
-        <div>
-          <h3 id="planner-pick" className="font-display text-xl">
-            {c.pick.heading}
-          </h3>
-          <p className="mt-1 text-muted">{c.pick.intro}</p>
-        </div>
+        <h3 id="planner-pick" className="font-display text-xl">
+          {c.pick.heading}
+        </h3>
 
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-sm font-semibold text-muted">{c.pick.quickLabel}</span>
@@ -402,24 +403,33 @@ export default function TimetablePlanner({
               );
             })}
           </div>
-          <label className="flex items-start gap-2 text-sm">
-            <input
-              type="checkbox"
-              checked={fitsOnly}
-              onChange={(e) => setFitsOnly(e.target.checked)}
-              className="mt-0.5 h-5 w-5 accent-[var(--color-brand)]"
-            />
-            <span>
-              <span className="font-semibold">{c.pick.fits}</span>
-              <span className="block text-muted">{c.pick.fitsHint}</span>
-            </span>
-          </label>
+          {picked.length > 0 ? (
+            <label className="flex items-start gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={fitsOnly}
+                onChange={(e) => setFitsOnly(e.target.checked)}
+                className="mt-0.5 h-5 w-5 accent-[var(--color-brand)]"
+              />
+              <span>
+                <span className="font-semibold">{c.pick.fits}</span>
+                <span className="block text-muted">{c.pick.fitsHint}</span>
+              </span>
+            </label>
+          ) : null}
         </fieldset>
 
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-muted" aria-live="polite">
-            {plural(c.pick.count, visible.length)}
-          </p>
+          <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
+            <p className="text-muted" aria-live="polite">
+              {plural(c.pick.count, visible.length)}
+            </p>
+            {picked.length > 0 ? (
+              <a href="#planner-week" className="font-semibold text-brand-deep underline">
+                {c.pick.seeWeek}
+              </a>
+            ) : null}
+          </div>
           {visible.length === 0 ? (
             <div className="rounded-lg border border-dashed border-line-strong p-5 text-center">
               <p>{c.pick.noMatch}</p>
@@ -457,13 +467,15 @@ export default function TimetablePlanner({
 
       <section aria-labelledby="planner-week" className="flex flex-col gap-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <h3 id="planner-week" className="font-display text-xl">
+          <h3 id="planner-week" className="scroll-mt-24 font-display text-xl">
             {c.week.heading}
           </h3>
           {picked.length > 0 ? (
             <p className="flex flex-wrap gap-2 text-sm">
               <span className="rounded-full bg-sunken px-3 py-1 font-semibold">
-                {plural(c.pick.count, picked.length)}, {fill(c.week.credits, { n: credits })}
+                {plural(c.pick.count, picked.length)}
+                {c.sep}
+                {fill(c.week.credits, { n: credits })}
               </span>
               <span
                 className={clsx(
@@ -586,7 +598,7 @@ function StatusCard({
     const when =
       focus.daysUntil === 1 ? c.status.tomorrow : plural(c.status.inDays, focus.daysUntil);
     headline = fill(c.status.next, {
-      name: c.milestones[m.id],
+      name: c.startName[m.id],
       when,
       date: longDate(locale, m.start),
     });
@@ -622,11 +634,11 @@ function StatusCard({
             />
             <span
               className={clsx(
-                "truncate text-xs font-semibold sm:text-sm",
+                "text-xs leading-tight font-semibold sm:text-sm",
                 state === "now" ? "text-brand-deep" : state === "past" ? "text-muted" : "text-ink"
               )}
             >
-              {c.milestones[milestone.id]}
+              {c.strip[milestone.id]}
               {state === "now" ? <span className="sr-only"> ({c.status.today})</span> : null}
               {state === "past" ? <span className="sr-only"> ({c.status.done})</span> : null}
             </span>
@@ -653,9 +665,14 @@ function StatusCard({
               {upNext.item.entry.code} {upNext.item.entry.title}
             </p>
             <p className="text-sm">
-              {c.nextUp.kind[upNext.item.kind]}, {relativeDay(c, locale, today, upNext.item.date)},{" "}
-              {span(c, locale, upNext.item.start, upNext.item.end)}
-              {upNext.item.room ? `, ${formatRoom(upNext.item.room, locale)}` : ""}
+              {[
+                c.nextUp.kind[upNext.item.kind],
+                relativeDay(c, locale, today, upNext.item.date),
+                span(c, locale, upNext.item.start, upNext.item.end),
+                upNext.item.room ? formatRoom(upNext.item.room, locale) : "",
+              ]
+                .filter(Boolean)
+                .join(c.sep)}
             </p>
           </div>
         </div>
@@ -706,34 +723,51 @@ function CourseRow({
     >
       <div className="min-w-0 flex-1">
         <p id={labelId} className="font-semibold">
-          <span className="mr-1.5 font-mono text-[0.95em]">{entry.code}</span>
+          {hasPage ? (
+            <a
+              href={localeHref(locale, `/student-life/course-reviews/${entry.code}`)}
+              aria-label={fill(c.pick.coursePage, { code: entry.code })}
+              className="mr-1.5 font-mono text-[0.95em] text-brand-deep underline"
+            >
+              {entry.code}
+            </a>
+          ) : (
+            <span className="mr-1.5 font-mono text-[0.95em]">{entry.code}</span>
+          )}
           {entry.title}
           {entry.section ? (
-            <span className="ml-1.5 text-sm font-normal text-muted">
+            <span className="ml-1.5 text-sm font-normal whitespace-nowrap text-muted">
               {fill(c.pick.section, { section: entry.section })}
             </span>
           ) : null}
         </p>
         <p className="text-sm">
           <span className="font-semibold">{c.days[entry.day]}</span>{" "}
-          {span(c, locale, entry.start, entry.end)}, {formatRoom(entry.room, locale)}
-          {entry.lecturer ? <span className="text-muted">, {entry.lecturer}</span> : null}
+          {span(c, locale, entry.start, entry.end)}
+          {c.sep}
+          {formatRoom(entry.room, locale)}
+          {entry.lecturer ? <span className="block text-muted">{entry.lecturer}</span> : null}
         </p>
         <p className="text-sm text-muted">
-          {c.pick.midterm} {shortDate(locale, entry.midterm.date)}, {c.pick.final}{" "}
-          {shortDate(locale, entry.final.date)}
-          {finalRoom ? ` ${formatRoom(finalRoom, locale)}` : ""}
+          <span className="block sm:inline">
+            {c.pick.midterm} {nb(shortDate(locale, entry.midterm.date))}
+          </span>
+          <span className="hidden sm:inline">{c.sep}</span>
+          <span className="block sm:inline">
+            {c.pick.final} {nb(shortDate(locale, entry.final.date))}
+            {finalRoom ? ` ${formatRoom(finalRoom, locale)}` : ""}
+          </span>
         </p>
         {clash.length > 0 || examClash.length > 0 || prereq || joint ? (
           <p className="mt-1 flex flex-wrap gap-1.5">
             {clash.length > 0 ? (
               <Badge tone="warning">
-                ⚠ {fill(c.pick.clash, { codes: clash.map((e) => e.code).join(", ") })}
+                ⚠ {fill(c.pick.clash, { codes: clash.map((e) => e.code).join(c.sep) })}
               </Badge>
             ) : null}
             {examClash.length > 0 ? (
               <Badge tone="warning">
-                ⚠ {fill(c.pick.examClash, { codes: examClash.map((e) => e.code).join(", ") })}
+                ⚠ {fill(c.pick.examClash, { codes: examClash.map((e) => e.code).join(c.sep) })}
               </Badge>
             ) : null}
             {prereq ? <Badge tone="neutral">{fill(c.pick.needs, { code: prereq })}</Badge> : null}
@@ -741,14 +775,6 @@ function CourseRow({
               <Badge tone="neutral">{fill(c.pick.taughtWith, { code: joint })}</Badge>
             ) : null}
           </p>
-        ) : null}
-        {hasPage ? (
-          <a
-            href={localeHref(locale, `/student-life/course-reviews/${entry.code}`)}
-            className="mt-1 inline-block text-sm font-semibold text-brand-deep underline"
-          >
-            {fill(c.pick.coursePage, { code: entry.code })}
-          </a>
         ) : null}
       </div>
       <button
@@ -768,7 +794,7 @@ function CourseRow({
             <span aria-hidden="true">✓</span> {c.pick.added}
           </>
         ) : sameCodePicked ? (
-          c.pick.section.replace("{section}", entry.section ?? "")
+          c.pick.switchSection
         ) : (
           <>
             <span aria-hidden="true">+</span> {c.pick.add}
@@ -877,9 +903,11 @@ function WeekGrid({
                     {clash ? "⚠ " : ""}
                     {entry.code}
                   </p>
-                  <p className="text-muted">
-                    {clock(locale, entry.start)} {c.to} {clock(locale, entry.end)}
-                  </p>
+                  {lanes === 1 ? (
+                    <p className="text-muted">
+                      {clock(locale, entry.start)} {c.to} {clock(locale, entry.end)}
+                    </p>
+                  ) : null}
                   <p className="font-semibold">{formatRoom(entry.room, locale)}</p>
                 </div>
               );
@@ -964,7 +992,7 @@ function ExamList({
                   ? `กลุ่ม ${g.group} ${formatRoom(g.room, locale)}`
                   : `group ${g.group} ${g.room}`
               )
-              .join(", "))
+              .join(c.sep))
           : undefined;
       return { entry, slot, room };
     })
@@ -1004,10 +1032,11 @@ function ExamList({
                   {span(c, locale, slot.start, slot.end)}
                   {room ? (
                     <>
-                      , <span className="font-semibold">{formatRoom(room, locale)}</span>
+                      {c.sep}
+                      <span className="font-semibold">{formatRoom(room, locale)}</span>
                     </>
                   ) : kind === "final" ? (
-                    `, ${c.exams.noRoom}`
+                    `${c.sep}${c.exams.noRoom}`
                   ) : null}
                 </span>
                 {clash ? (
