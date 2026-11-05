@@ -828,6 +828,11 @@ const minors: Minor[] = [
  * not appear as a fixed plan entry. Years 2 to 4 are identical to the 2023
  * revision. The Handout for this version does not list a Semester 2 for
  * Year 4; a student's final semester is arranged with the Registrar's Office.
+ *
+ * One deviation from the Handout: minorRequired2 (Year 3 semester 1) and
+ * freeElective2 (Year 3 semester 2) trade places, so each minor's two
+ * semester 2 only required courses have two semester 2 slots. See the
+ * `minor-required-slots-semester2` contradiction.
  */
 const recommendedPlan: PlannedTerm[] = [
   {
@@ -930,9 +935,9 @@ const recommendedPlan: PlannedTerm[] = [
       },
       {
         kind: "placeholder",
-        id: "minorRequired2",
-        label: { en: "Minor required course 2", th: "วิชาโท วิชาบังคับ 2" },
-        category: "minorRequired",
+        id: "freeElective2",
+        label: { en: "Free elective course 2", th: "วิชาเลือกเสรี 2" },
+        category: "freeElective",
       },
       {
         kind: "placeholder",
@@ -988,9 +993,9 @@ const recommendedPlan: PlannedTerm[] = [
       },
       {
         kind: "placeholder",
-        id: "freeElective2",
-        label: { en: "Free elective course 2", th: "วิชาเลือกเสรี 2" },
-        category: "freeElective",
+        id: "minorRequired2",
+        label: { en: "Minor required course 2", th: "วิชาโท วิชาบังคับ 2" },
+        category: "minorRequired",
       },
     ],
   },
@@ -1082,6 +1087,15 @@ export const curriculum2564: CurriculumVersion = {
     // statement that has become false is deleted rather than suppressed; see
     // the note in 2564-rev2566.ts.
     contradictions: [
+      {
+        id: "minor-required-slots-semester2",
+        summary:
+          "Every minor has two required courses taught in semester 2 only (Governance PI381 and PI382, Public Administration PI341 and PI342, Global Political Economy PI480 and PI490), but the published plan leaves one semester 2 minorRequired slot, in Year 3 semester 2, against two in Year 3 semester 1. Autofill could therefore place only one of the two. minorRequired2 and freeElective2 now trade places (3 credits each), leaving one minor required slot in Year 3 semester 1 and two in Year 3 semester 2. Term totals are unchanged at 18. The minor required courses have no prerequisites in the catalogue. Moved on the owner's instruction of 2026-11-05.",
+        disclosure: {
+          en: "Your plan differs from the printed study plan in one place. Two of your three minor required courses are taught in semester 2 only, so one minor required slot has moved from Year 3 semester 1 to Year 3 semester 2, and a free elective slot has moved the other way. Each term keeps the same number of credits.",
+          th: "แผนของคุณต่างจากแผนการศึกษาที่พิมพ์ไว้หนึ่งจุด เพราะวิชาโทบังคับสองในสามวิชาเปิดสอนเฉพาะภาคเรียนที่ 2 จึงย้ายช่องวิชาโทบังคับหนึ่งช่องจากปีที่ 3 ภาคเรียนที่ 1 ไปปีที่ 3 ภาคเรียนที่ 2 และย้ายช่องวิชาเลือกเสรีมาแทน หน่วยกิตของแต่ละภาคเรียนเท่าเดิม",
+        },
+      },
       {
         id: "pi470-free-elective-placement",
         summary:

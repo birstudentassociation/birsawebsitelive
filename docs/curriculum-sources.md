@@ -156,11 +156,26 @@ Page counts below are confirmed by the crawlers that read each document.
   curriculum version, and the study plan will not place them in a semester 1
   term. PI280 appears in it only as a prerequisite and is not designated.
 - Retrieved: 2026-11-05.
-- Contradictions: the 2568 recommended plan puts LAS101 in Year 1 semester 1 and
-  PI270 in Year 2 semester 1. See the `year1-order-differs-from-schedule`
-  entry in `content/curriculum/2568.ts`, which already records the faculty
-  teaching LAS101 in semester 2 to real cohort 68 students. The plan data is
-  unchanged and the planner reports the conflict instead of moving it.
+- Contradictions: the published plans conflict with this offering in two ways,
+  both resolved in the plan data on the owner's instruction of 2026-11-05 and
+  both carried as student-facing disclosures.
+  - `semester2-courses-moved` (2568): the 2568 document puts LAS101 in Year 1
+    semester 1 and PI270 in Year 2 semester 1, but both are semester 2 only.
+    LAS101 now swaps with TU103 (Year 1) and PI270 swaps with PI280 (Year 2),
+    which also matches the class schedule already supplied for cohort 68
+    (`year1-order-differs-from-schedule`). Term credits stay 18, and PI280
+    still follows its prerequisite PI271.
+  - `minor-required-slots-semester2` (2564, 2564-rev2566 and 2568): every
+    minor has two required courses taught in semester 2 only (Governance PI381
+    and PI382, Public Administration PI341 and PI342, Global Political Economy
+    PI480 and PI490), yet the published plans leave one semester 2 minor
+    required slot against two in Year 3 semester 1. One minor required slot and
+    one free elective slot of equal credits now trade places between Year 3
+    semester 1 and semester 2 (minorRequired2 with freeElective2 in the 2564
+    family, with freeElective1 in 2568), so autofill places all three required
+    courses for every minor.
+    The recommended plan derivations stay `published`; the deviations live in
+    the contradictions, so they are findable and carry bilingual disclosure.
 
 ## Contradictions affecting what a student is told
 

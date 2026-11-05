@@ -39,7 +39,7 @@ describe("curriculum2568", () => {
     expect(c).toBeUndefined();
   });
 
-  // The published plan differs from the 2023 revision's in four ways, each of
+  // The shipped plan still differs from the 2023 revision's in several ways, each of
   // which a reuse-the-revision implementation would silently lose.
   it("follows the document where it departs from the 2023 revision", () => {
     const term = (year: number, kind: string) =>
@@ -52,9 +52,14 @@ describe("curriculum2568", () => {
     // PI470 in Year 3 semester 1, not Year 4.
     expect(codes(3, "semester1")).toContain("PI470");
     expect(codes(4, "semester1")).not.toContain("PI470");
-    // PI270 in Year 2 semester 1 and PI280 in semester 2, not the reverse.
-    expect(codes(2, "semester1")).toContain("PI270");
-    expect(codes(2, "semester2")).toContain("PI280");
+    // PI270 and PI280 follow the 2564 order (PI280 in Year 2 semester 1, PI270
+    // in semester 2), not the document's. PI270 is taught in semester 2 only;
+    // see the `semester2-courses-moved` contradiction.
+    expect(codes(2, "semester1")).toContain("PI280");
+    expect(codes(2, "semester2")).toContain("PI270");
+    // LAS101 and TU103 likewise trade places: LAS101 is semester 2 only.
+    expect(codes(1, "semester2")).toContain("LAS101");
+    expect(codes(1, "semester1")).toContain("TU103");
     // The Year 2 summer is load-bearing here: without its 6 credits the plan
     // does not reach 126, so it is not marked optional as it is in 2564.
     expect(term(2, "summer")?.optional).toBe(false);

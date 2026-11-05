@@ -113,7 +113,7 @@ describe("course page for a PI catalogue course", () => {
     const html = await render("en", "PI280");
     expect(html).toContain("PI280: ");
     expect(html).toContain("Usually taken in");
-    expect(html).toContain("Year 2, Semester 2");
+    expect(html).toContain("Year 2, Semester 1");
     expect(html).toContain(href("en", "PI271"));
     expect(html).toContain(href("en", "PI364"));
     expect(html).not.toContain("Counts towards<");

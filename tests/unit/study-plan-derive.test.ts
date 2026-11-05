@@ -408,10 +408,10 @@ describe("populateRecommendedTerms", () => {
     expect(same?.freeElectiveCredits).toBe(6);
   });
 
-  it("fills in the chosen minor's required courses, but only where their term allows", () => {
-    // Governance requires PI380, PI381 and PI382. The plan has two minorRequired
-    // slots in Year 3 semester 1 and one in a semester 2, and PI381 and PI382
-    // are taught in semester 2 only, so only one of them has a slot to land in.
+  it("fills in all three of the chosen minor's required courses, each in a term that teaches it", () => {
+    // Governance requires PI380, PI381 and PI382. PI381 and PI382 are taught
+    // in semester 2 only, so the plan carries one minorRequired slot in Year 3
+    // semester 1 and two in Year 3 semester 2, and all three land.
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
@@ -420,7 +420,10 @@ describe("populateRecommendedTerms", () => {
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).toContain("PI380");
     expect(allCodes).toContain("PI381");
-    expect(allCodes).not.toContain("PI382");
+    expect(allCodes).toContain("PI382");
+    const termOf = (code: string) => result.find((t) => t.codes.includes(code))?.term.kind;
+    expect(termOf("PI381")).toBe("semester2");
+    expect(termOf("PI382")).toBe("semester2");
   });
 
   it("does not fill a minor elective slot, only the required slots", () => {
@@ -478,7 +481,7 @@ describe("populateRecommendedTerms", () => {
   it("fills a different minor's required courses when a different minor is chosen", () => {
     // Global Political Economy's required courses are PI392, PI480, PI490,
     // disjoint from governance's PI380/PI381/PI382. PI480 and PI490 are taught
-    // in semester 2 only, so PI490 has no semester 2 slot left.
+    // in semester 2 only, and the two semester 2 minorRequired slots take both.
     const result = populateRecommendedTerms(
       version,
       { year: 2, kind: "semester1" },
@@ -487,7 +490,7 @@ describe("populateRecommendedTerms", () => {
     const allCodes = result.flatMap((t) => t.codes);
     expect(allCodes).toContain("PI392");
     expect(allCodes).toContain("PI480");
-    expect(allCodes).not.toContain("PI490");
+    expect(allCodes).toContain("PI490");
     expect(allCodes).not.toContain("PI380");
     expect(allCodes).not.toContain("PI381");
     expect(allCodes).not.toContain("PI382");

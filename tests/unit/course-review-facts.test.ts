@@ -57,12 +57,12 @@ describe("prerequisiteCodes and unlocks", () => {
 });
 
 describe("recommendedTerms", () => {
-  it("places PI270 in year 2 semester 1", () => {
-    expect(recommendedTerms("PI270")).toEqual([{ year: 2, kind: "semester1" }]);
+  it("places PI270 in year 2 semester 2", () => {
+    expect(recommendedTerms("PI270")).toEqual([{ year: 2, kind: "semester2" }]);
   });
 
-  it("places PI280 in year 2 semester 2", () => {
-    expect(recommendedTerms("PI280")).toEqual([{ year: 2, kind: "semester2" }]);
+  it("places PI280 in year 2 semester 1", () => {
+    expect(recommendedTerms("PI280")).toEqual([{ year: 2, kind: "semester1" }]);
   });
 
   it("places PI121 in year 1 semester 1", () => {

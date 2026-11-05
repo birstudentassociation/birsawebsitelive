@@ -70,7 +70,8 @@ describe("suggestForTerm recommended grouping", () => {
     );
 
     // AH208 and LAS101 are taught in semester 2 only, so a semester 1 picker
-    // leaves them out even though the 2568 plan names LAS101 in this term.
+    // leaves them out. The 2568 plan no longer names LAS101 in this term; it
+    // names TU103 here instead.
     expect(findCourse(suggestion, "AH208")).toBeUndefined();
     expect(suggestion.notOfferedHere).toEqual(expect.arrayContaining(["AH208", "LAS101"]));
     const recommended = suggestion.groups.find((group) => group.id === "recommended");
@@ -79,6 +80,7 @@ describe("suggestForTerm recommended grouping", () => {
       "PI121",
       "TU100",
       "TU101",
+      "TU103",
       "TU106",
     ]);
     expect(recommended?.courses.some((course) => course.code === "AH208")).toBe(false);
@@ -145,27 +147,28 @@ describe("suggestForTerm prescribed credit load", () => {
   });
 
   it("counts free-elective credits toward a planned free-elective slot", () => {
-    const term = { year: 3, kind: "semester2" } as const;
-    const courseCodes = ["PI320", "PI380", "PI313", "PI364", "PI365"];
-    const partlyFilledPlan = planWith({
-      terms: [
-        {
-          term,
-          codes: courseCodes,
-          freeElectiveCredits: 0,
-        },
-      ],
-    });
+    // Year 3 semester 1 holds both free elective slots since minorRequired2
+    // moved to semester 2 (see `minor-required-slots-semester2`).
+    const term = { year: 3, kind: "semester1" } as const;
+    const courseCodes = ["PI300", "PI390", "PI380", "PI364"];
+    const slotsOpen = (freeElectiveCredits: number) =>
+      suggestForTerm(
+        version,
+        planWith({ terms: [{ term, codes: courseCodes, freeElectiveCredits }] }),
+        term
+      );
 
-    expect(
-      suggestForTerm(version, partlyFilledPlan, term).openSlots.map((slot) => slot.id)
-    ).toContain("freeElective2");
+    expect(slotsOpen(0).openSlots.map((slot) => slot.id)).toEqual(
+      expect.arrayContaining(["freeElective1", "freeElective2"])
+    );
 
-    const plan = {
-      ...partlyFilledPlan,
-      terms: [{ term, codes: courseCodes, freeElectiveCredits: 3 }],
-    };
-    const suggestion = suggestForTerm(version, plan, term);
+    const oneCounted = slotsOpen(3);
+    expect(oneCounted.recommendedTermComplete).toBe(false);
+    expect(oneCounted.openSlots.filter((slot) => slot.id.startsWith("freeElective"))).toHaveLength(
+      1
+    );
+
+    const suggestion = slotsOpen(6);
     expect(suggestion.recommendedTermComplete).toBe(true);
     expect(suggestion.recommendedCredits).toBe(18);
     expect(suggestion.openSlots).toEqual([]);

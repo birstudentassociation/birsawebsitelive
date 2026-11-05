@@ -58,31 +58,50 @@ describe("InferenceNotice", () => {
   // equivalent cohort-69/68 scoping is already covered in
   // tests/unit/curriculum-registry.test.ts.
 
-  // 2568's only remaining derivation (recommendedPlan) is suppressed and its
-  // only remaining contradictions (no-2568-study-plan, catalogue-identical)
-  // both have `disclosure: null`. Before the fix, InferenceNotice decided
-  // whether to render from the raw `inferredParts`/`disclosures` counts,
-  // which are non-zero even though every entry gets filtered out before
-  // anything is shown; that produced a warning box with a heading and a
-  // "check the source documents" line but no actual warning underneath. The
-  // component now decides from the final, filtered sentence list, so it must render
-  // nothing at all for both 2568 cohorts. Checking the container is empty is
-  // the point of this test, not just that one string is missing: a shorter
-  // check (queryByText for one sentence) previously passed even though the
-  // empty shell still rendered.
-  it("renders nothing at all for cohort 68 on 2568, once every part is suppressed or nulled", () => {
-    const { container } = render(
-      <InferenceNotice version={CURRICULUM_VERSIONS["2568"]} cohortCode="68" locale="en" />
-    );
+  // The empty-return branch is still the point of this file: the component
+  // must decide whether to render from the final, filtered sentence list, not
+  // from the raw `inferredParts`/`disclosures` counts, or it draws a heading
+  // and a "check the source documents" line over nothing. No shipped version
+  // reaches that branch any more, because the plan-deviation disclosures
+  // (`semester2-courses-moved`, `minor-required-slots-semester2`) are real
+  // student-facing sentences. So the branch is covered with a synthetic
+  // version whose only contradictions have `disclosure: null`, and the shipped
+  // 2568 cohorts are checked to show exactly the sentences that exist.
+  it("renders nothing at all when every contradiction is nulled and nothing is inferred", () => {
+    const quiet: CurriculumVersion = {
+      ...CURRICULUM_VERSIONS["2568"],
+      verification: {
+        ...CURRICULUM_VERSIONS["2568"].verification,
+        contradictions: CURRICULUM_VERSIONS["2568"].verification.contradictions.map((c) => ({
+          ...c,
+          disclosure: null,
+        })),
+      },
+    };
+    const { container } = render(<InferenceNotice version={quiet} cohortCode="68" locale="en" />);
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders nothing at all for cohort 69 on 2568, once every part is suppressed or nulled", () => {
-    const { container } = render(
-      <InferenceNotice version={CURRICULUM_VERSIONS["2568"]} cohortCode="69" locale="en" />
-    );
-    expect(container).toBeEmptyDOMElement();
-  });
+  for (const cohortCode of ["68", "69"]) {
+    it(`tells a cohort ${cohortCode} student about both plan changes on 2568, in both languages`, () => {
+      for (const locale of ["en", "th"] as const) {
+        const { container, unmount } = render(
+          <InferenceNotice
+            version={CURRICULUM_VERSIONS["2568"]}
+            cohortCode={cohortCode}
+            locale={locale}
+          />
+        );
+        expect(container).not.toBeEmptyDOMElement();
+        const items = container.querySelectorAll("li");
+        expect(items).toHaveLength(2);
+        const text = container.textContent ?? "";
+        expect(text).toContain("LAS101");
+        expect(text).toContain(locale === "en" ? "minor required" : "วิชาโทบังคับ");
+        unmount();
+      }
+    });
+  }
 
   it("still renders normally when there is something to say, proving the fix did not disable the component", () => {
     // The control for the two empty-render tests above: it proves the fix is
@@ -92,8 +111,7 @@ describe("InferenceNotice", () => {
     // This used to run on cohort 66 and the 2023 revision's real
     // total-never-printed disclosure. That disclosure was stood down on
     // 2026-08-02 once the Student Handbook 2021 was found to print "Total 127"
-    // outright, and no shipped version carries a student-facing disclosure any
-    // more, so the control has to be synthetic. It borrows a real version for
+    // outright, so the control is synthetic. It borrows a real version for
     // every other field and overrides only the contradiction list, so the
     // component is still driven by a well-formed CurriculumVersion.
     const withSomethingToSay: CurriculumVersion = {
@@ -125,9 +143,8 @@ describe("InferenceNotice", () => {
     render(
       <InferenceNotice version={CURRICULUM_VERSIONS["2564-rev2566"]} cohortCode="67" locale="en" />
     );
-    // total-never-printed, the one remaining contradiction on this version,
-    // is not cohort-scoped, so it would still render if InferenceNotice
-    // renders anything for cohort 67. Confirms the attestation notice truly
+    // The minor-slot disclosure on this version is not cohort-scoped, so the
+    // notice does render for cohort 67; this confirms the attestation notice truly
     // stopped rendering rather than merely being replaced by a passing test.
     expect(
       screen.queryByText(/No published document says which curriculum cohort 67 follows/)

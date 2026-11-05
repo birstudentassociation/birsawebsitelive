@@ -129,6 +129,15 @@ export const curriculum2564rev2566: CurriculumVersion = {
     // true but no longer worth surfacing, not for statements that are wrong.
     contradictions: [
       {
+        id: "minor-required-slots-semester2",
+        summary:
+          "Every minor has two required courses taught in semester 2 only (Governance PI381 and PI382, Public Administration PI341 and PI342, Global Political Economy PI480 and PI490), but the published plan leaves one semester 2 minorRequired slot, in Year 3 semester 2, against two in Year 3 semester 1. Autofill could therefore place only one of the two. minorRequired2 and freeElective2 now trade places (3 credits each), leaving one minor required slot in Year 3 semester 1 and two in Year 3 semester 2. Term totals are unchanged at 18. The minor required courses have no prerequisites in the catalogue. Moved on the owner's instruction of 2026-11-05.",
+        disclosure: {
+          en: "Your plan differs from the printed study plan in one place. Two of your three minor required courses are taught in semester 2 only, so one minor required slot has moved from Year 3 semester 1 to Year 3 semester 2, and a free elective slot has moved the other way. Each term keeps the same number of credits.",
+          th: "แผนของคุณต่างจากแผนการศึกษาที่พิมพ์ไว้หนึ่งจุด เพราะวิชาโทบังคับสองในสามวิชาเปิดสอนเฉพาะภาคเรียนที่ 2 จึงย้ายช่องวิชาโทบังคับหนึ่งช่องจากปีที่ 3 ภาคเรียนที่ 1 ไปปีที่ 3 ภาคเรียนที่ 2 และย้ายช่องวิชาเลือกเสรีมาแทน หน่วยกิตของแต่ละภาคเรียนเท่าเดิม",
+        },
+      },
+      {
         id: "total-never-printed",
         summary:
           "BIR_64_rev66.pdf prints the three parts (30 + 91 + 6) but no grand total. The student-facing disclosure was removed on 2026-08-02: the Student Handbook 2021, already a source of record for this version, prints 'Total 127' in the curriculum structure table on page 12 and states the 127-credit minimum on page 10, for a three-part structure this revision leaves unchanged. The number is corroborated, so only the maintainer's note remains.",

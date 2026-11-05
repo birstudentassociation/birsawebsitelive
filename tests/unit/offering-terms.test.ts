@@ -167,21 +167,58 @@ describe("autofill from the recommended plan", () => {
     expect(twice).toEqual(once);
   });
 
-  it("leaves LAS101 and PI270 unplaced where the 2568 plan names them in semester 1", () => {
+  for (const id of VERSION_IDS) {
+    it(`autofills every required course of every minor for ${id}, whichever minor is chosen`, () => {
+      const version = CURRICULUM_VERSIONS[id];
+      expect(version.minors.length).toBe(3);
+      for (const minor of version.minors) {
+        const terms = populateRecommendedTerms(
+          version,
+          { year: 1, kind: "semester1" },
+          { passed: [], terms: [], minorId: minor.id }
+        );
+        const all = terms.flatMap((t) => t.codes);
+        for (const code of minor.required) expect(all, `${id} ${minor.id} ${code}`).toContain(code);
+      }
+    });
+
+    it(`still places the other required courses when one is already passed, for ${id}`, () => {
+      const version = CURRICULUM_VERSIONS[id];
+      for (const minor of version.minors) {
+        for (const passedCode of minor.required) {
+          const terms = populateRecommendedTerms(
+            version,
+            { year: 1, kind: "semester1" },
+            { passed: [passedCode], terms: [], minorId: minor.id }
+          );
+          const all = terms.flatMap((t) => t.codes);
+          for (const code of minor.required.filter((c) => c !== passedCode)) {
+            expect(all, `${id} ${minor.id} passed ${passedCode} needs ${code}`).toContain(code);
+          }
+        }
+      }
+    });
+  }
+
+  it("places LAS101 and PI270 in semester 2 where the 2568 plan now names them", () => {
     const version = CURRICULUM_VERSIONS["2568"];
     const terms = populateRecommendedTerms(
       version,
       { year: 1, kind: "semester1" },
       { passed: [], terms: [], minorId: "governance" }
     );
-    const all = terms.flatMap((t) => t.codes);
-    expect(all).not.toContain("LAS101");
-    expect(all).not.toContain("PI270");
+    for (const code of ["LAS101", "PI270"]) {
+      const holding = terms.filter((t) => t.codes.includes(code));
+      expect(
+        holding.map((t) => t.term.kind),
+        code
+      ).toEqual(["semester2"]);
+    }
   });
 });
 
 describe("recommended plans", () => {
-  it("name a designated course in a semester 1 term only in 2568, for LAS101 and PI270", () => {
+  it("name no designated course in a semester 1 term, as a course or as a placeholder choice", () => {
     const conflicts: string[] = [];
     for (const id of VERSION_IDS) {
       for (const term of CURRICULUM_VERSIONS[id].recommendedPlan.value) {
@@ -191,14 +228,53 @@ describe("recommended plans", () => {
             conflicts.push(`${id} year ${term.term.year} ${entry.code}`);
           }
           if (entry.kind === "placeholder") {
-            for (const code of entry.choices ?? []) {
-              if (!canPlaceInTerm(code, "semester1")) conflicts.push(`${id} choice ${code}`);
+            // A choice slot is allowed one semester 2 only option as long as
+            // the student has another to pick; every choice here must be
+            // placeable, so none of them is wholly semester 2 only.
+            const choices = entry.choices ?? [];
+            if (choices.length > 0 && choices.every((c) => !canPlaceInTerm(c, "semester1"))) {
+              conflicts.push(`${id} choices ${choices.join("/")}`);
             }
           }
         }
       }
     }
-    expect(conflicts.sort()).toEqual(["2568 year 1 LAS101", "2568 year 2 PI270"]);
+    expect(conflicts).toEqual([]);
+  });
+
+  it("give every choice slot and minor slot at least one option its own term can take", () => {
+    for (const id of VERSION_IDS) {
+      const version = CURRICULUM_VERSIONS[id];
+      for (const term of version.recommendedPlan.value) {
+        for (const entry of term.entries) {
+          if (entry.kind !== "placeholder") continue;
+          const pools: string[][] = [];
+          if (entry.choices) pools.push(entry.choices);
+          else if (entry.category === "minorRequired")
+            pools.push(...version.minors.map((m) => m.required));
+          else if (entry.category === "minorElective")
+            pools.push(...version.minors.map((m) => m.electives));
+          else if (entry.category === "minorElectiveOther")
+            pools.push(
+              ...version.minors.map((m) =>
+                version.minors
+                  .filter((o) => o.id !== m.id)
+                  .flatMap((o) => [...o.required, ...o.electives])
+              )
+            );
+          else {
+            const pool = version.courses.value
+              .filter((c) => c.category === entry.category)
+              .map((c) => c.code);
+            if (pool.length > 0) pools.push(pool);
+          }
+          for (const pool of pools) {
+            const usable = pool.filter((code) => canPlaceInTerm(code, term.term.kind));
+            expect(usable.length, `${id} ${entry.id}`).toBeGreaterThan(0);
+          }
+        }
+      }
+    }
   });
 
   it("reports a plan carrying those courses as findings instead of throwing", () => {

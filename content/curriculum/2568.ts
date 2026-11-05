@@ -56,12 +56,25 @@ const categories: CreditCategory[] = curriculum2564rev2566.categories.map((categ
  * document rather than reused from an older version, because it differs from
  * both in ways that reusing would quietly lose: PI470 sits in Year 3 semester
  * 1 and the first free elective in Year 3 semester 2 (the 2564 handout has
- * these the other way round), PI270 sits in Year 2 semester 1 and PI280 in
- * semester 2 (again the reverse of the handout), the Year 2 summer term is not
- * marked optional, and there is no Year 3 summer term at all, PI574 having
- * become a free elective. The terms total 18 + 18 + 18 + 18 + 6 + 18 + 18 + 12
- * = 126, which is the graduation total; the Year 2 summer is load-bearing and
- * that is why it is not optional here.
+ * these the other way round), the Year 2 summer term is not marked optional,
+ * and there is no Year 3 summer term at all, PI574 having become a free
+ * elective. The terms total 18 + 18 + 18 + 18 + 6 + 18 + 18 + 12 = 126, which
+ * is the graduation total; the Year 2 summer is load-bearing and that is why
+ * it is not optional here.
+ *
+ * Three pairs of entries are NOT as the document prints them, each swapped
+ * with an entry of equal credits so every term total above is unchanged. The
+ * pairs are recorded as two contradictions below, each with a disclosure. The faculty's
+ * course offering for Academic Year 2026 semester 2 (`courseOffering2026S2`)
+ * teaches LAS101 and PI270 in semester 2 only, but the document puts them in
+ * semester 1. LAS101 and TU103 trade places (Year 1), and PI270 and PI280
+ * trade places (Year 2); this makes Years 1 and 2 identical to the 2023
+ * revision's. Separately, minorRequired2 and freeElective1 trade places
+ * between Year 3 semester 1 and semester 2, because each minor has two
+ * required courses taught in semester 2 only and the document leaves just one
+ * semester 2 slot for them. Nothing moves ahead of a prerequisite: PI280
+ * needs PI271 (Year 1 semester 2) and now sits in Year 2 semester 1; no other
+ * moved course has a prerequisite or a dependent in the plan.
  *
  * The placeholder ids and labels are the 2564 ones, so that a plan carried
  * between versions keeps its filled slots. Where the document writes only
@@ -76,7 +89,7 @@ const recommendedPlan: PlannedTerm[] = [
     entries: [
       { kind: "course", code: "TU100" },
       { kind: "course", code: "TU101" },
-      { kind: "course", code: "LAS101" },
+      { kind: "course", code: "TU103" },
       { kind: "course", code: "EL105" },
       { kind: "course", code: "TU106" },
       { kind: "course", code: "PI121" },
@@ -87,7 +100,7 @@ const recommendedPlan: PlannedTerm[] = [
     optional: false,
     entries: [
       { kind: "course", code: "TU102" },
-      { kind: "course", code: "TU103" },
+      { kind: "course", code: "LAS101" },
       { kind: "course", code: "PI122" },
       {
         kind: "placeholder",
@@ -109,7 +122,7 @@ const recommendedPlan: PlannedTerm[] = [
     entries: [
       { kind: "course", code: "PI210" },
       { kind: "course", code: "PI241" },
-      { kind: "course", code: "PI270" },
+      { kind: "course", code: "PI280" },
       { kind: "course", code: "PI282" },
       { kind: "course", code: "PI291" },
       { kind: "course", code: "EE210" },
@@ -119,8 +132,8 @@ const recommendedPlan: PlannedTerm[] = [
     term: { year: 2, kind: "semester2" },
     optional: false,
     entries: [
+      { kind: "course", code: "PI270" },
       { kind: "course", code: "PI272" },
-      { kind: "course", code: "PI280" },
       { kind: "course", code: "PI292" },
       { kind: "course", code: "PI321" },
       { kind: "course", code: "PI370" },
@@ -171,9 +184,9 @@ const recommendedPlan: PlannedTerm[] = [
       },
       {
         kind: "placeholder",
-        id: "minorRequired2",
-        label: { en: "Minor required course 2", th: "วิชาโท วิชาบังคับ 2" },
-        category: "minorRequired",
+        id: "freeElective1",
+        label: { en: "Free elective course 1", th: "วิชาเลือกเสรี 1" },
+        category: "freeElective",
       },
       {
         kind: "placeholder",
@@ -223,9 +236,9 @@ const recommendedPlan: PlannedTerm[] = [
       },
       {
         kind: "placeholder",
-        id: "freeElective1",
-        label: { en: "Free elective course 1", th: "วิชาเลือกเสรี 1" },
-        category: "freeElective",
+        id: "minorRequired2",
+        label: { en: "Minor required course 2", th: "วิชาโท วิชาบังคับ 2" },
+        category: "minorRequired",
       },
     ],
   },
@@ -281,6 +294,8 @@ export const curriculum2568: CurriculumVersion = {
   categories,
   minors: curriculum2564rev2566.minors,
   courses: { value: courses, derivation: { kind: "published", source: "comparison2568" } },
+  // Still `published`: the plan is the document's, with the three swaps
+  // described above recorded as contradictions that carry a disclosure.
   recommendedPlan: {
     value: recommendedPlan,
     derivation: { kind: "published", source: "comparison2568" },
@@ -305,6 +320,24 @@ export const curriculum2568: CurriculumVersion = {
     // a cohort-66 student from a cohort-68 one on the confirm screen.
     contradictions: [
       {
+        id: "semester2-courses-moved",
+        summary:
+          "The 2568 document (section 4.3.2.3) puts LAS101 in Year 1 semester 1 and PI270 in Year 2 semester 1. The faculty's course offering for Academic Year 2026 semester 2 (courseOffering2026S2) lists both as semester 2 courses, and the BIR class schedule already had LAS101 in semester 2 for real cohort 68 students. Moved on the owner's instruction of 2026-11-05: LAS101 swaps with TU103 (Year 1) and PI270 swaps with PI280 (Year 2). Credits per term are unchanged (18 each). PI280 needs PI271, which stays in Year 1 semester 2, so the prerequisite still holds. Years 1 and 2 now read the same as the 2023 revision. Replace this once the faculty confirms which semester it intends.",
+        disclosure: {
+          en: "Your plan differs from the printed 2568 study plan. The faculty teaches LAS101 and PI270 in semester 2, so LAS101 is in Year 1 semester 2 (swapped with TU103) and PI270 is in Year 2 semester 2 (swapped with PI280). Each term keeps the same number of credits.",
+          th: "แผนของคุณต่างจากแผนการศึกษาหลักสูตร 2568 ที่พิมพ์ไว้ เพราะคณะเปิดสอน LAS101 และ PI270 ในภาคเรียนที่ 2 จึงย้าย LAS101 ไปปีที่ 1 ภาคเรียนที่ 2 (สลับกับ TU103) และย้าย PI270 ไปปีที่ 2 ภาคเรียนที่ 2 (สลับกับ PI280) หน่วยกิตของแต่ละภาคเรียนเท่าเดิม",
+        },
+      },
+      {
+        id: "minor-required-slots-semester2",
+        summary:
+          "Every minor has two required courses taught in semester 2 only (Governance PI381 and PI382, Public Administration PI341 and PI342, Global Political Economy PI480 and PI490), but the document leaves one semester 2 minorRequired slot, in Year 3 semester 2, against two in Year 3 semester 1. Autofill could therefore place only one of the two. minorRequired2 and freeElective1 now trade places (3 credits each), leaving one minor required slot in Year 3 semester 1 and two in Year 3 semester 2. Term totals are unchanged at 18. The minor required courses have no prerequisites in the catalogue. Moved on the owner's instruction of 2026-11-05.",
+        disclosure: {
+          en: "Your plan differs from the printed study plan in one place. Two of your three minor required courses are taught in semester 2 only, so one minor required slot has moved from Year 3 semester 1 to Year 3 semester 2, and a free elective slot has moved the other way. Each term keeps the same number of credits.",
+          th: "แผนของคุณต่างจากแผนการศึกษาที่พิมพ์ไว้หนึ่งจุด เพราะวิชาโทบังคับสองในสามวิชาเปิดสอนเฉพาะภาคเรียนที่ 2 จึงย้ายช่องวิชาโทบังคับหนึ่งช่องจากปีที่ 3 ภาคเรียนที่ 1 ไปปีที่ 3 ภาคเรียนที่ 2 และย้ายช่องวิชาเลือกเสรีมาแทน หน่วยกิตของแต่ละภาคเรียนเท่าเดิม",
+        },
+      },
+      {
         id: "catalogue-identical",
         summary:
           "The 2568 catalogue is code-for-code identical to 2564, so no course code distinguishes cohort 66 from cohort 68 on the confirm screen.",
@@ -313,7 +346,7 @@ export const curriculum2568: CurriculumVersion = {
       {
         id: "year1-order-differs-from-schedule",
         summary:
-          "The published plan puts LAS101 in Year 1 semester 1 and TU103 in semester 2. The BIR class schedule for Semester 1/2025 and the registration record for Semester 2/2568, supplied by BIRSA for real cohort 68 students, have those two the other way round. The published plan is followed here because it is the curriculum's own document. Nothing a student sees changes: both terms are the same six courses across the year and 18 credits either way, and both handouts state in terms that TU, EL and LAS courses may be arranged differently each semester depending on exemption results. No disclosure.",
+          "The published plan puts LAS101 in Year 1 semester 1 and TU103 in semester 2. The BIR class schedule for Semester 1/2025 and the registration record for Semester 2/2568, supplied by BIRSA for real cohort 68 students, have those two the other way round. Superseded on 2026-11-05: the faculty's semester 2 offering also teaches LAS101 in semester 2, so the plan now follows the schedule (see semester2-courses-moved). Both terms are the same six courses across the year and 18 credits either way, and both handouts state in terms that TU, EL and LAS courses may be arranged differently each semester depending on exemption results. Disclosure is carried by semester2-courses-moved.",
         disclosure: null,
       },
       {

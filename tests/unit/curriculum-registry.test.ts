@@ -77,15 +77,23 @@ describe("disclosures", () => {
     expect(shown.map((c) => c.id)).not.toContain("catalogue-identical");
   });
 
-  // No shipped version carries a student-facing disclosure any more. The last
-  // one, total-never-printed, was stood down on 2026-08-02: the Student
-  // Handbook 2021 prints "Total 127" outright, so the service no longer has to
-  // tell a student it added the figure up itself. The unfiltered-return
-  // behaviour this used to check is still checked, on the synthetic fixture in
-  // the scoping test below, which is the only place a disclosure now exists.
-  it("has nothing left to disclose on any shipped version", () => {
+  // The last long-standing disclosure, total-never-printed, was stood down on
+  // 2026-08-02. The ones below are new (2026-11-05) and are the plan
+  // deviations: each shipped version changes its recommended plan from the
+  // published one, and students are told. None is cohort-scoped.
+  it("discloses exactly the recorded plan deviations on each shipped version", () => {
+    expect(disclosures(CURRICULUM_VERSIONS["2564"]).map((c) => c.id)).toEqual([
+      "minor-required-slots-semester2",
+    ]);
+    expect(disclosures(CURRICULUM_VERSIONS["2564-rev2566"]).map((c) => c.id)).toEqual([
+      "minor-required-slots-semester2",
+    ]);
+    expect(disclosures(CURRICULUM_VERSIONS["2568"]).map((c) => c.id)).toEqual([
+      "semester2-courses-moved",
+      "minor-required-slots-semester2",
+    ]);
     for (const id of ["2564", "2564-rev2566", "2568"] as const) {
-      expect(disclosures(CURRICULUM_VERSIONS[id]), id).toHaveLength(0);
+      for (const c of disclosures(CURRICULUM_VERSIONS[id])) expect(c.cohorts, c.id).toBeUndefined();
     }
   });
 
