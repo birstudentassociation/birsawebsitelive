@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Button from "@/components/Button";
 import type { CalendarBuilderCopy } from "@/content/calendar-builder/types";
+import { timetableEntriesByCode } from "@/content/calendar/timetable";
 import type { CategoryId, ClassSlot } from "@/lib/calendar-builder/selection";
 import type { Locale } from "@/lib/i18n";
 import type { CourseOption } from "./ClassesStep";
@@ -13,6 +14,9 @@ export type PreviewEvent = {
   start: string;
   end?: string;
   title: string;
+  /** Exams carry a time of day and, for finals, a room. */
+  time?: string;
+  place?: string;
   category: Exclude<CategoryId, "classes">;
 };
 
@@ -23,6 +27,7 @@ export type PreviewProps = {
   /** Classes to show; empty unless "My class times" is chosen. */
   classes: ClassSlot[];
   courses: CourseOption[];
+  termKey: string;
   /** "My class times" is chosen but nothing has been added. */
   classesMissing: boolean;
   todayKey: string;
@@ -75,11 +80,15 @@ function MonthList({
                 <li key={event.id} className="flex flex-col gap-0.5 py-2.5">
                   <p className="text-sm font-semibold text-ink">
                     {date}
+                    {event.time ? `, ${event.time}` : ""}
                     {ongoing ? (
                       <span className="ml-2 font-normal text-muted">({copy.preview.ongoing})</span>
                     ) : null}
                   </p>
-                  <p className="text-[0.95rem] leading-snug text-ink">{event.title}</p>
+                  <p className="text-[0.95rem] leading-snug text-ink">
+                    {event.title}
+                    {event.place ? `, ${fill(copy.preview.placeAt, { place: event.place })}` : ""}
+                  </p>
                   <p className="flex items-center gap-1.5 text-xs text-muted">
                     <CategoryIcon id={event.category} className="h-3.5 w-3.5 shrink-0" />
                     {copy.categories[event.category].preview}
@@ -101,6 +110,7 @@ export default function Preview({
   events,
   classes,
   courses,
+  termKey,
   classesMissing,
   todayKey,
   summary,
@@ -109,7 +119,10 @@ export default function Preview({
   const p = copy.preview;
   const [showPast, setShowPast] = useState(false);
   const sorted = [...events].sort(
-    (a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id)
+    (a, b) =>
+      a.start.localeCompare(b.start) ||
+      (a.time ?? "").localeCompare(b.time ?? "") ||
+      a.id.localeCompare(b.id)
   );
   const isPast = (event: PreviewEvent) => (event.end ?? event.start) < todayKey;
   const past = sorted.filter(isPast);
@@ -149,10 +162,12 @@ export default function Preview({
             {[...classes]
               .sort((a, b) => a.day - b.day || a.start.localeCompare(b.start))
               .map((slot) => {
-                const course = courses.find((option) => option.code === slot.code);
+                const title =
+                  timetableEntriesByCode(termKey, slot.code)[0]?.title ??
+                  courses.find((option) => option.code === slot.code)?.title;
                 return (
                   <li
-                    key={`${slot.code}-${slot.day}-${slot.start}`}
+                    key={`${slot.code}-${slot.section ?? ""}-${slot.day}-${slot.start}`}
                     className="flex flex-col gap-0.5 py-2.5"
                   >
                     <p className="text-sm font-semibold text-ink">
@@ -164,7 +179,8 @@ export default function Preview({
                     </p>
                     <p className="text-[0.95rem] leading-snug break-words text-ink">
                       {slot.code}
-                      {course ? ` ${course.title}` : ""}
+                      {title ? ` ${title}` : ""}
+                      {slot.section ? ` (${fill(p.section, { section: slot.section })})` : ""}
                       {slot.place ? `, ${fill(p.placeAt, { place: slot.place })}` : ""}
                     </p>
                     <p className="flex items-center gap-1.5 text-xs text-muted">

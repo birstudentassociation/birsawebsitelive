@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import PageHeader from "@/components/PageHeader";
 import CalendarBuilder from "@/components/calendar-builder/CalendarBuilder";
 import { calendarEvents } from "@/content/calendar/events";
-import { currentOrNextTeachingTerm } from "@/content/calendar/terms";
+import { currentAndUpcomingTerms, defaultTeachingTerm, termKeyOf } from "@/content/calendar/terms";
 import { getCalendarBuilderCopy } from "@/content/calendar-builder";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import { todayInBangkok } from "@/lib/bangkok-today";
@@ -52,7 +52,14 @@ export default async function CalendarBuilderPage({
   const dict = getDictionary(locale);
   const copy = getCalendarBuilderCopy(locale);
   const todayKey = todayInBangkok();
-  const teachingTerm = currentOrNextTeachingTerm(todayKey);
+  const terms = currentAndUpcomingTerms(todayKey).map((t) => ({
+    key: termKeyOf(t),
+    year: t.term.year,
+    semester: t.term.semester,
+    start: t.start,
+    end: t.end,
+  }));
+  const defaultTerm = defaultTeachingTerm(todayKey);
   const servicesLabel = locale === "th" ? "ข้อมูลและบริการ" : "Information and services";
 
   return (
@@ -77,17 +84,8 @@ export default async function CalendarBuilderPage({
         copy={copy}
         events={calendarEvents}
         courses={courseOptions()}
-        term={
-          teachingTerm
-            ? {
-                key: `${teachingTerm.term.year}-${teachingTerm.term.semester}`,
-                year: teachingTerm.term.year,
-                semester: teachingTerm.term.semester,
-                start: teachingTerm.start,
-                end: teachingTerm.end,
-              }
-            : null
-        }
+        terms={terms}
+        defaultTermKey={defaultTerm ? termKeyOf(defaultTerm) : ""}
         todayKey={todayKey}
         siteUrl={SITE_URL}
       />

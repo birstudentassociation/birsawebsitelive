@@ -79,6 +79,13 @@ const SHAPES: Record<CategoryId, ReactNode> = {
       <path d="M10 5.8V10l3 2" />
     </>
   ),
+  exams: (
+    <>
+      <path d="M4 3h8l4 4v10H4Z" />
+      <path d="M12 3v4h4" />
+      <path d="M6.8 12.3l1.9 1.9 3.6-3.8" />
+    </>
+  ),
 };
 
 export function CategoryIcon({ id, className }: { id: CategoryId; className?: string }) {

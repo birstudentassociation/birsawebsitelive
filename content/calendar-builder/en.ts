@@ -39,6 +39,12 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
       description: "Your own weekly classes, repeated through the term.",
       preview: "Class",
     },
+    exams: {
+      label: "My exams",
+      description:
+        "Midterm and final exams for the classes you add from the BIR timetable. The timetable gives no midterm rooms, so only finals show a room.",
+      preview: "Exam",
+    },
   },
   step1: {
     heading: "Choose what to include",
@@ -49,13 +55,34 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
     classesPrompt: "Add your class times in step 2",
     classesCount: { one: "{n} class added", other: "{n} classes added" },
     classesNoTerm: "Available once the term dates are published",
+    examsNone: "Needs a class from the BIR timetable. Add one in step 2.",
+    examsCount: { one: "{n} exam added", other: "{n} exams added" },
   },
   step2: {
     heading: "Add your class times",
-    intro: "This step is optional. Add each class once and it repeats every week.",
+    intro:
+      "This step is optional. Choose your semester, then add each class once and it repeats every week.",
     termRange:
       "Classes repeat every week from {start} to {end}, for semester {semester} of {year}. Days with no classes, such as public holidays, are skipped for you.",
     termName: "Semester {semester} of {year}",
+    term: {
+      legend: "Which semester are your classes in?",
+      option: "Semester {semester}",
+      dates: "{start} to {end}",
+    },
+    timetableNote:
+      "The BIR timetable for this semester is built in. Pick a course and its day, time and room fill in for you, along with your exams.",
+    noTimetableNote:
+      "The timetable for this semester is not built in, so enter each time yourself. Course suggestions still help.",
+    quick: {
+      legend: "Add classes in one go",
+      year1: "Add all Year 1 courses",
+      year2: "Add all Year 2 required courses",
+      added: { one: "Added {n} class.", other: "Added {n} classes." },
+      none: "Those classes are already in your list.",
+      section: "{course} needs a section, so choose yours below.",
+      full: "Your list is full, so some classes were not added.",
+    },
     noTermTitle: "Term dates are not published yet",
     noTermBody:
       "You can add class times once the faculty publishes the dates for the next term. Until then, choose the other dates in step 1.",
@@ -66,12 +93,46 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
     formEdit: "Edit this class",
     code: {
       label: "Course",
-      hint: "Type a course code such as PI271, or pick one from the list.",
+      hint: "Type a code, name, lecturer, day or room, then pick from the list. You can also type a course that is not listed.",
     },
+    combo: {
+      groupOther: "Other courses (enter the time yourself)",
+      groupAll: "Courses (enter the time yourself)",
+      noMatches: "No matches",
+      noMatchesHint: "Type the course code, such as PI271, and enter the time yourself.",
+      results: { one: "{n} suggestion available", other: "{n} suggestions available" },
+      more: "{n} more. Keep typing to narrow the list.",
+      added: "Added",
+    },
+    detail: "{day} {start} to {end} · {room}",
+    section: {
+      legend: "Which section are you in?",
+      option: "Section {section}, {room}",
+      missing: "Choose your section",
+      roomsJoin: "{a} or {b}",
+    },
+    summary: {
+      heading: "From the BIR timetable",
+      when: "Class time",
+      place: "Place",
+      lecturer: "Lecturer",
+      exams: "Exams",
+      midterm: "Midterm",
+      final: "Final",
+      dateTime: "{date}, {start} to {end}",
+      change: "Change time or room",
+      reset: "Use the BIR timetable again",
+    },
+    clash: "This overlaps {course} on {day}, {start} to {end}. You can still add it.",
+    clashInList: "Overlaps {course}",
+    undone: "Undone.",
     day: { label: "Day", placeholder: "Choose a day" },
     start: "Start time",
     end: "End time",
-    place: { label: "Place", hint: "For example, Room 301." },
+    place: {
+      label: "Place",
+      hint: "Type a room such as R.102 or pick one from the list. Leave it blank if you are not sure.",
+    },
     optional: "optional",
     save: "Add this class",
     saveEdit: "Save changes",
@@ -84,7 +145,7 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
     updated: "Updated {course} on {day}.",
     removed: "Removed {course} on {day}.",
     undo: "Undo",
-    duplicate: "You have already added this class at this time",
+    duplicate: "You have already added {course}",
     errorTitle: "There is a problem",
     errors: {
       "code-missing": "Enter a course code",
@@ -94,6 +155,7 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
       "end-invalid": "Enter an end time",
       "end-before-start": "Choose an end time that is after the start time",
       "place-too-long": "Use {n} characters or fewer for the place",
+      "section-invalid": "Enter a section number",
     },
   },
   step3: {
@@ -102,7 +164,9 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
     question: "Where do you keep your calendar?",
     summaryDates: { one: "{n} date", other: "{n} dates" },
     summaryClasses: { one: "{n} weekly class", other: "{n} weekly classes" },
+    summaryExams: { one: "{n} exam", other: "{n} exams" },
     summaryJoin: "{a} and {b}",
+    summaryJoin3: "{a}, {b} and {c}",
     summaryNone: "Nothing chosen yet",
     classesMissing: "You chose My class times, but have not added a class yet. Add one in step 2.",
     linkLabel: "Your calendar link",
@@ -292,6 +356,8 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
     every: "Every {day}, {start} to {end}",
     placeAt: "at {place}",
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    daysShort: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    section: "section {section}",
     ongoing: "Happening now",
   },
 };

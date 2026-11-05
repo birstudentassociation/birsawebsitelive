@@ -1,12 +1,21 @@
 import { describe, expect, it } from "vitest";
 import type { CalendarEvent } from "@/content/calendar/events";
-import { currentOrNextTeachingTerm } from "@/content/calendar/terms";
+import {
+  currentAndUpcomingTerms,
+  currentOrNextTeachingTerm,
+  defaultTeachingTerm,
+  termKeyOf,
+} from "@/content/calendar/terms";
 import {
   DEFAULT_CATEGORIES,
   MAX_CLASSES,
   MAX_PLACE_LENGTH,
+  CATEGORY_IDS,
+  categoryForEvent,
   decodeSelection,
+  decodeSlot,
   encodeSelection,
+  encodeSlot,
   eventsForCategories,
   feedPath,
   validateClassSlot,
@@ -117,11 +126,115 @@ describe("encode and decode", () => {
   });
 });
 
+describe("sections and back-compat", () => {
+  it("writes a slot without a section exactly as before", () => {
+    expect(
+      encodeSlot({ code: "pi271", day: 1, start: "09:30", end: "12:20", place: "Room 301" })
+    ).toBe("PI271~1~0930~1220~Room 301");
+    expect(encodeSlot({ code: "PI271", day: 1, start: "09:30", end: "12:20" })).toBe(
+      "PI271~1~0930~1220~"
+    );
+  });
+
+  it("adds the section as an optional sixth field and round-trips it", () => {
+    const slot = {
+      code: "LAS101",
+      day: 5 as const,
+      start: "09:00",
+      end: "12:00",
+      section: "036402",
+    };
+    expect(encodeSlot(slot)).toBe("LAS101~5~0900~1200~~036402");
+    expect(decodeSlot("LAS101~5~0900~1200~~036402")).toEqual(slot);
+    const withPlace = { ...slot, place: "R.406" };
+    expect(decodeSlot(encodeSlot(withPlace))).toEqual(withPlace);
+    const s: Selection = { categories: ["exams"], term: "2569-2", classes: [withPlace] };
+    expect(decodeSelection(new URLSearchParams(encodeSelection(s).toString()))).toEqual(s);
+  });
+
+  it("still decodes links made before sections existed", () => {
+    expect(decodeSlot("PI271~1~0930~1220~Room 301")).toEqual({
+      code: "PI271",
+      day: 1,
+      start: "09:30",
+      end: "12:20",
+      place: "Room 301",
+    });
+    const old = new URLSearchParams(
+      "inc=birsa%2Cholidays%2Cregistration%2Cclasses&term=2569-2&c=PI271%7E1%7E0930%7E1220%7ERoom+301"
+    );
+    const out = decodeSelection(old);
+    expect(out.categories).toEqual(["birsa", "holidays", "registration", "classes"]);
+    expect(out.term).toBe("2569-2");
+    expect(out.classes).toEqual([
+      { code: "PI271", day: 1, start: "09:30", end: "12:20", place: "Room 301" },
+    ]);
+  });
+
+  it("keeps an old place that held a tilde, and rejects a bad section", () => {
+    expect(decodeSlot("PI271~1~0930~1220~A~B~C")?.place).toBe("A~B~C");
+    expect(decodeSlot("PI271~1~0930~1220~~bad section!")?.section).toBeUndefined();
+    expect(validateClassSlot({ ...base, section: "03 64" })).toEqual(["section-invalid"]);
+  });
+
+  it("falls back to the timetabled term when a link names none", () => {
+    expect(decodeSelection(new URLSearchParams("inc=birsa")).term).toBe("2569-2");
+    expect(decodeSelection(new URLSearchParams("term=2569-1")).term).toBe("2569-1");
+  });
+});
+
+describe("the exams category", () => {
+  it("is a category but never filters public events", () => {
+    expect(CATEGORY_IDS).toContain("exams");
+    expect(DEFAULT_CATEGORIES).not.toContain("exams");
+    const events = [ev("b", { kind: "birsa" })];
+    expect(eventsForCategories(events, ["exams"])).toEqual([]);
+    expect(categoryForEvent(events[0] as CalendarEvent)).toBe("birsa");
+    const s: Selection = { categories: ["classes", "exams"], term: "2569-2", classes: [] };
+    expect(encodeSelection(s).get("inc")).toBe("classes,exams");
+    expect(decodeSelection(new URLSearchParams("inc=exams,bogus")).categories).toEqual(["exams"]);
+  });
+});
+
 describe("currentOrNextTeachingTerm", () => {
   it("returns the term before, during, and null after", () => {
-    expect(currentOrNextTeachingTerm("2026-11-05")?.start).toBe("2027-01-04");
+    expect(currentOrNextTeachingTerm("2026-07-01")?.start).toBe("2026-08-03");
+    expect(currentOrNextTeachingTerm("2026-11-05")?.start).toBe("2026-08-03");
+    expect(currentOrNextTeachingTerm("2026-11-22")?.start).toBe("2027-01-04");
     expect(currentOrNextTeachingTerm("2027-03-01")?.end).toBe("2027-05-01");
     expect(currentOrNextTeachingTerm("2027-05-01")?.end).toBe("2027-05-01");
     expect(currentOrNextTeachingTerm("2027-05-02")).toBeNull();
+  });
+
+  it("lists the current and later terms", () => {
+    expect(currentAndUpcomingTerms("2026-11-05").map(termKeyOf)).toEqual(["2569-1", "2569-2"]);
+    expect(currentAndUpcomingTerms("2026-11-22").map(termKeyOf)).toEqual(["2569-2"]);
+    expect(currentAndUpcomingTerms("2027-05-02")).toEqual([]);
+  });
+});
+
+describe("defaultTeachingTerm", () => {
+  const key = (today: string) => {
+    const term = defaultTeachingTerm(today);
+    return term ? termKeyOf(term) : null;
+  };
+  it("takes the current term while it has more than 28 days to run", () => {
+    expect(key("2026-08-03")).toBe("2569-1");
+    expect(key("2026-10-01")).toBe("2569-1");
+    expect(key("2026-10-23")).toBe("2569-1"); // 29 days left
+  });
+  it("takes the next term once the current one ends within 28 days", () => {
+    expect(key("2026-10-24")).toBe("2569-2"); // 28 days left
+    expect(key("2026-11-05")).toBe("2569-2");
+    expect(key("2026-11-21")).toBe("2569-2");
+    expect(key("2026-12-15")).toBe("2569-2");
+  });
+  it("takes the first term before any starts, and the last term to its end", () => {
+    expect(key("2026-06-01")).toBe("2569-1");
+    expect(key("2027-04-30")).toBe("2569-2");
+    expect(key("2027-05-01")).toBe("2569-2");
+  });
+  it("has no default after every term has ended", () => {
+    expect(key("2027-05-02")).toBeNull();
   });
 });

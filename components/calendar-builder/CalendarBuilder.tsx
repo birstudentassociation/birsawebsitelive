@@ -9,49 +9,51 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import type { CalendarEvent } from "@/content/calendar/events";
+import { defaultTeachingTerm, termKeyOf } from "@/content/calendar/terms";
+import { findTimetableEntry } from "@/content/calendar/timetable";
 import type { CalendarBuilderCopy, DeviceId } from "@/content/calendar-builder/types";
 import { buildFeedLinks } from "@/lib/calendar-builder/links";
+import { examOccurrences, examTitle } from "@/lib/calendar-builder/exams";
+import {
+  STORAGE_KEY,
+  STORAGE_KEY_V1,
+  readStoredState,
+  writeStoredState,
+} from "@/lib/calendar-builder/storage";
 import {
   CATEGORY_IDS,
   DEFAULT_CATEGORIES,
   MAX_CLASSES,
   categoryForEvent,
-  decodeSelection,
-  encodeSelection,
   eventsForCategories,
   feedPath,
   type CategoryId,
   type ClassSlot,
+  type PublicCategoryId,
   type Selection,
 } from "@/lib/calendar-builder/selection";
 import { todayInBangkok } from "@/lib/bangkok-today";
 import { formatDate, type Locale } from "@/lib/i18n";
-import ClassesStep, { type CourseOption } from "./ClassesStep";
+import ClassesStep, { type BuilderTerm, type CourseOption } from "./ClassesStep";
 import DeviceGuide from "./DeviceGuide";
 import Preview, { type PreviewEvent } from "./Preview";
 import { CategoryIcon, fill, plural, shortDate } from "./helpers";
 
-export type BuilderTerm = {
-  /** `2569-2`. */
-  key: string;
-  year: number;
-  semester: number | string;
-  start: string;
-  end: string;
-};
+export type { BuilderTerm };
 
 export type CalendarBuilderProps = {
   locale: Locale;
   copy: CalendarBuilderCopy;
   events: CalendarEvent[];
   courses: CourseOption[];
-  term: BuilderTerm | null;
+  /** Terms that are current or still to come; empty when no dates are published. */
+  terms: BuilderTerm[];
+  /** The term to start on, from the server's date. */
+  defaultTermKey: string;
   /** Bangkok date when the page was rendered. */
   todayKey: string;
   siteUrl: string;
 };
-
-const STORAGE_KEY = "bir-calendar-builder:v1";
 
 /** The reader's likely calendar app, from the user agent. */
 export function guessDevice(userAgent: string, touchPoints = 0): DeviceId {
@@ -102,14 +104,16 @@ export default function CalendarBuilder({
   copy,
   events,
   courses,
-  term,
+  terms,
+  defaultTermKey,
   todayKey: serverToday,
   siteUrl,
 }: CalendarBuilderProps) {
   const [mounted, setMounted] = useState(false);
   const [todayKey, setTodayKey] = useState(serverToday);
   const [categories, setCategories] = useState<CategoryId[]>([...DEFAULT_CATEGORIES]);
-  const [classes, setClasses] = useState<ClassSlot[]>([]);
+  const [termKey, setTermKey] = useState(defaultTermKey);
+  const [classesByTerm, setClassesByTerm] = useState<Record<string, ClassSlot[]>>({});
   const [device, setDevice] = useState<DeviceId>("other");
   const [openRequest, setOpenRequest] = useState(0);
 
@@ -117,31 +121,55 @@ export default function CalendarBuilder({
   // device. Until then the server's defaults are shown, so hydration matches.
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect */
+    const today = todayInBangkok();
+    let chosen = defaultTermKey;
+    const live = defaultTeachingTerm(today);
+    if (live && terms.some((t) => t.key === termKeyOf(live))) chosen = termKeyOf(live);
     try {
-      const saved = window.localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const restored = decodeSelection(new URLSearchParams(saved));
-        setCategories(restored.categories);
-        setClasses(restored.classes);
-      }
+      const saved = readStoredState(
+        window.localStorage.getItem(STORAGE_KEY),
+        window.localStorage.getItem(STORAGE_KEY_V1)
+      );
+      setCategories(saved.categories);
+      setClassesByTerm(saved.classesByTerm);
+      if (saved.term && terms.some((t) => t.key === saved.term)) chosen = saved.term;
     } catch {
       // Storage can be blocked. The page works without it.
     }
-    setTodayKey(todayInBangkok());
+    setTermKey(chosen);
+    setTodayKey(today);
     setDevice(guessDevice(navigator.userAgent, navigator.maxTouchPoints));
     setMounted(true);
     /* eslint-enable react-hooks/set-state-in-effect */
+    // Runs once on mount, from the props the server rendered with.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const term = terms.find((t) => t.key === termKey) ?? null;
+  const classes = useMemo(
+    () => (term ? (classesByTerm[term.key] ?? []) : []),
+    [classesByTerm, term]
+  );
+  const exams = useMemo(
+    () => (term ? examOccurrences(term.key, classes, locale) : []),
+    [classes, locale, term]
+  );
+  const timetabledCount = (list: ClassSlot[]) =>
+    term ? list.filter((slot) => findTimetableEntry(term.key, slot.code, slot.section)).length : 0;
+  const examsAvailable = exams.length > 0;
 
   const selection: Selection = useMemo(
     () => ({
       categories: CATEGORY_IDS.filter(
-        (id) => categories.includes(id) && (id !== "classes" || term !== null)
+        (id) =>
+          categories.includes(id) &&
+          (id !== "classes" || term !== null) &&
+          (id !== "exams" || examsAvailable)
       ),
       term: term?.key ?? "",
       classes: term ? classes : [],
     }),
-    [categories, classes, term]
+    [categories, classes, term, examsAvailable]
   );
 
   useEffect(() => {
@@ -149,12 +177,13 @@ export default function CalendarBuilder({
     try {
       window.localStorage.setItem(
         STORAGE_KEY,
-        encodeSelection({ categories, term: term?.key ?? "", classes }).toString()
+        writeStoredState({ categories, term: termKey, classesByTerm })
       );
+      window.localStorage.removeItem(STORAGE_KEY_V1);
     } catch {
       // Ignore storage failures.
     }
-  }, [mounted, categories, classes, term]);
+  }, [mounted, categories, termKey, classesByTerm]);
 
   const feedUrl = mounted
     ? `${siteUrl}${feedPath(locale, selection)}`
@@ -168,27 +197,62 @@ export default function CalendarBuilder({
     () => eventsForCategories(events, selection.categories),
     [events, selection.categories]
   );
-  const previewEvents: PreviewEvent[] = chosenEvents.map((event) => ({
-    id: event.id,
-    start: event.start,
-    end: event.end,
-    title: event.title[locale],
-    category: categoryForEvent(event),
-  }));
+  const examsChosen = selection.categories.includes("exams");
+  const previewEvents: PreviewEvent[] = [
+    ...chosenEvents.map((event) => ({
+      id: event.id,
+      start: event.start,
+      end: event.end,
+      title: event.title[locale],
+      category: categoryForEvent(event),
+    })),
+    ...(examsChosen
+      ? exams.map((exam) => ({
+          id: exam.id,
+          start: exam.date,
+          title: examTitle(exam, locale),
+          category: "exams" as const,
+          time: fill(copy.preview.range, { start: exam.start, end: exam.end }),
+          ...(exam.room ? { place: exam.room } : {}),
+        }))
+      : []),
+  ];
 
   const classesChosen = selection.categories.includes("classes");
   const shownClasses = classesChosen ? selection.classes : [];
   const classesMissing = classesChosen && selection.classes.length === 0;
-  const upcomingCount = previewEvents.filter((e) => (e.end ?? e.start) >= todayKey).length;
+  const isUpcoming = (e: PreviewEvent) => (e.end ?? e.start) >= todayKey;
+  const upcomingCount = previewEvents.filter((e) => e.category !== "exams" && isUpcoming(e)).length;
+  const upcomingExams = previewEvents.filter((e) => e.category === "exams" && isUpcoming(e)).length;
 
   const summary = (() => {
     const parts: string[] = [];
     if (upcomingCount > 0) parts.push(plural(copy.step3.summaryDates, upcomingCount));
     if (shownClasses.length > 0) parts.push(plural(copy.step3.summaryClasses, shownClasses.length));
+    if (upcomingExams > 0) parts.push(plural(copy.step3.summaryExams, upcomingExams));
     if (parts.length === 0) return copy.step3.summaryNone;
     if (parts.length === 1) return parts[0] as string;
-    return fill(copy.step3.summaryJoin, { a: parts[0] as string, b: parts[1] as string });
+    if (parts.length === 2) {
+      return fill(copy.step3.summaryJoin, { a: parts[0] as string, b: parts[1] as string });
+    }
+    return fill(copy.step3.summaryJoin3, {
+      a: parts[0] as string,
+      b: parts[1] as string,
+      c: parts[2] as string,
+    });
   })();
+
+  function changeClasses(next: ClassSlot[]) {
+    const trimmed = next.slice(0, MAX_CLASSES);
+    if (!term) return;
+    setClassesByTerm((current) => ({ ...current, [term.key]: trimmed }));
+    // Adding a class switches on "My class times", and the first class from
+    // the timetable also switches on "My exams".
+    const gain = (id: CategoryId) =>
+      setCategories((current) => (current.includes(id) ? current : [...current, id]));
+    if (trimmed.length > classes.length) gain("classes");
+    if (timetabledCount(classes) === 0 && timetabledCount(trimmed) > 0) gain("exams");
+  }
 
   function toggle(id: CategoryId) {
     setCategories((current) =>
@@ -196,7 +260,7 @@ export default function CalendarBuilder({
     );
   }
 
-  function categoryMeta(id: Exclude<CategoryId, "classes">): string {
+  function categoryMeta(id: PublicCategoryId): string {
     const upcoming = events
       .filter((e) => categoryForEvent(e) === id && (e.end ?? e.start) >= todayKey)
       .sort((a, b) => a.start.localeCompare(b.start) || a.id.localeCompare(b.id));
@@ -209,9 +273,12 @@ export default function CalendarBuilder({
     return `${plural(copy.step1.upcoming, upcoming.length)}. ${next}`;
   }
 
-  const termDates = term
-    ? { start: formatDate(locale, term.start), end: formatDate(locale, term.end) }
-    : null;
+  const termDates = Object.fromEntries(
+    terms.map((t) => [
+      t.key,
+      { start: formatDate(locale, t.start), end: formatDate(locale, t.end) },
+    ])
+  );
 
   return (
     <div className="wrap py-10">
@@ -231,7 +298,8 @@ export default function CalendarBuilder({
                 <legend className="sr-only">{copy.step1.heading}</legend>
                 <ul className="flex flex-col gap-3">
                   {CATEGORY_IDS.map((id) => {
-                    const disabled = id === "classes" && term === null;
+                    const disabled =
+                      (id === "classes" && term === null) || (id === "exams" && !examsAvailable);
                     const checked = categories.includes(id) && !disabled;
                     const meta =
                       id === "classes"
@@ -240,7 +308,11 @@ export default function CalendarBuilder({
                           : classes.length > 0
                             ? plural(copy.step1.classesCount, classes.length)
                             : copy.step1.classesPrompt
-                        : categoryMeta(id);
+                        : id === "exams"
+                          ? disabled
+                            ? copy.step1.examsNone
+                            : plural(copy.step1.examsCount, exams.length)
+                          : categoryMeta(id);
                     const info = copy.categories[id];
                     return (
                       <li key={id}>
@@ -289,16 +361,14 @@ export default function CalendarBuilder({
               <div>
                 <ClassesStep
                   copy={copy}
-                  term={term}
+                  locale={locale}
+                  terms={terms}
+                  termKey={termKey}
+                  onTermChange={setTermKey}
                   termDates={termDates}
                   courses={courses}
                   classes={classes}
-                  onChange={(next) => setClasses(next.slice(0, MAX_CLASSES))}
-                  onAdded={() =>
-                    setCategories((current) =>
-                      current.includes("classes") ? current : [...current, "classes"]
-                    )
-                  }
+                  onChange={changeClasses}
                   openRequest={openRequest}
                 />
               </div>
@@ -360,6 +430,7 @@ export default function CalendarBuilder({
             events={previewEvents}
             classes={shownClasses}
             courses={courses}
+            termKey={termKey}
             classesMissing={classesMissing}
             todayKey={todayKey}
             summary={summary}

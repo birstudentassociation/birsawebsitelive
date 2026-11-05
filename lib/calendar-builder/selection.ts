@@ -4,12 +4,22 @@
  * through the feed URL's query string and never throws on decode.
  */
 import type { CalendarEvent } from "@/content/calendar/events";
-import { teachingTerms } from "@/content/calendar/terms";
+import { hasTimetable } from "@/content/calendar/timetable";
+import { teachingTerms, termKeyOf } from "@/content/calendar/terms";
 import type { Locale } from "@/lib/i18n";
 
-export type CategoryId = "birsa" | "holidays" | "registration" | "classes";
+export type CategoryId = "birsa" | "holidays" | "registration" | "classes" | "exams";
 
-export const CATEGORY_IDS: readonly CategoryId[] = ["birsa", "holidays", "registration", "classes"];
+export const CATEGORY_IDS: readonly CategoryId[] = [
+  "birsa",
+  "holidays",
+  "registration",
+  "classes",
+  "exams",
+];
+
+/** The categories made of public all-day events, as opposed to the student's own classes and exams. */
+export type PublicCategoryId = Exclude<CategoryId, "classes" | "exams">;
 
 export const DEFAULT_CATEGORIES: readonly CategoryId[] = ["birsa", "holidays", "registration"];
 
@@ -23,6 +33,8 @@ export type ClassSlot = {
   /** `HH:MM`, 24-hour. */
   end: string;
   place?: string;
+  /** Section number, for a course whose sections meet at the same time (LAS101). */
+  section?: string;
 };
 
 export type Selection = {
@@ -42,8 +54,10 @@ export type ClassSlotError =
   | "start-invalid"
   | "end-invalid"
   | "end-before-start"
-  | "place-too-long";
+  | "place-too-long"
+  | "section-invalid";
 
+const SECTION_RE = /^[A-Za-z0-9]{1,10}$/;
 const CODE_RE = /^[A-Z]{2,4}\d{3}[A-Z]?$/;
 const TIME_RE = /^([01]\d|2[0-3]):[0-5]\d$/;
 const TERM_RE = /^\d{4}-(1|2|summer)$/;
@@ -55,6 +69,7 @@ export type ClassSlotDraft = {
   start?: string;
   end?: string;
   place?: string;
+  section?: string;
 };
 
 /** Every problem with a slot, in a stable order; empty when it is valid. */
@@ -74,11 +89,13 @@ export function validateClassSlot(slot: ClassSlotDraft): ClassSlotError[] {
     errors.push("end-before-start");
   }
   if ((slot.place ?? "").trim().length > MAX_PLACE_LENGTH) errors.push("place-too-long");
+  const section = (slot.section ?? "").trim();
+  if (section && !SECTION_RE.test(section)) errors.push("section-invalid");
   return errors;
 }
 
 /** The category a public event belongs to. */
-export function categoryForEvent(event: CalendarEvent): Exclude<CategoryId, "classes"> {
+export function categoryForEvent(event: CalendarEvent): PublicCategoryId {
   if (event.academic) return "registration";
   return event.kind === "birsa" ? "birsa" : "holidays";
 }
@@ -96,9 +113,34 @@ export function eventsForCategories(
   });
 }
 
+/** The term a link without a valid `term` means: the first one with a timetable, as before semester 1 was added. */
 function defaultTerm(): string {
-  const first = teachingTerms[0];
-  return first ? `${first.term.year}-${first.term.semester}` : "";
+  const first = teachingTerms.find((t) => hasTimetable(termKeyOf(t))) ?? teachingTerms[0];
+  return first ? termKeyOf(first) : "";
+}
+
+/** `~` separates a slot's fields, so a place's `~` and `%` are escaped. Old links never held either. */
+const escapePlace = (place: string) => place.replace(/%/g, "%25").replace(/~/g, "%7E");
+const unescapePlace = (place: string) => place.replace(/%7E/gi, "~").replace(/%25/g, "%");
+
+/**
+ * One class as the value of a `c` parameter (`CODE~day~hhmm~hhmm~place[~section]`).
+ * The section is a sixth field written only when there is one, so slots
+ * without a section encode exactly as they always have.
+ */
+export function encodeSlot(slot: ClassSlot): string {
+  const hhmm = (t: string) => t.replace(":", "");
+  const place = escapePlace(slot.place?.trim() ?? "");
+  const fields: (string | number)[] = [
+    slot.code.trim().toUpperCase(),
+    slot.day,
+    hhmm(slot.start),
+    hhmm(slot.end),
+    place,
+  ];
+  const section = slot.section?.trim();
+  if (section) fields.push(section);
+  return fields.join("~");
 }
 
 /** Encodes a selection as query parameters (`inc`, `term`, repeated `c`). */
@@ -106,26 +148,29 @@ export function encodeSelection(selection: Selection): URLSearchParams {
   const params = new URLSearchParams();
   params.set("inc", selection.categories.join(","));
   params.set("term", selection.term);
-  for (const slot of selection.classes) {
-    const hhmm = (t: string) => t.replace(":", "");
-    const place = slot.place?.trim() ?? "";
-    params.append(
-      "c",
-      [slot.code.trim().toUpperCase(), slot.day, hhmm(slot.start), hhmm(slot.end), place].join("~")
-    );
-  }
+  for (const slot of selection.classes) params.append("c", encodeSlot(slot));
   return params;
 }
 
-function decodeSlot(raw: string): ClassSlot | null {
+/** Reads one `c` value; null when it is malformed. Total, never throws. */
+export function decodeSlot(raw: string): ClassSlot | null {
   const [code = "", day = "", start = "", end = "", ...rest] = raw.split("~");
   const time = (t: string) => (/^\d{4}$/.test(t) ? `${t.slice(0, 2)}:${t.slice(2)}` : t);
+  // A sixth field that looks like a section is one. Anything else is the tail
+  // of an old link whose place held a `~`, so it stays part of the place.
+  let section = "";
+  let placeRaw = rest.join("~");
+  if (rest.length === 2 && SECTION_RE.test(rest[1] ?? "")) {
+    placeRaw = rest[0] ?? "";
+    section = rest[1] ?? "";
+  }
   const draft = {
     code: code.trim().toUpperCase(),
     day: /^[1-7]$/.test(day) ? Number(day) : undefined,
     start: time(start),
     end: time(end),
-    place: rest.join("~").trim(),
+    place: unescapePlace(placeRaw).trim(),
+    section,
   };
   if (validateClassSlot(draft).length > 0) return null;
   const slot: ClassSlot = {
@@ -135,6 +180,7 @@ function decodeSlot(raw: string): ClassSlot | null {
     end: draft.end,
   };
   if (draft.place) slot.place = draft.place;
+  if (draft.section) slot.section = draft.section;
   return slot;
 }
 

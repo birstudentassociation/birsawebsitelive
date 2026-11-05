@@ -137,6 +137,16 @@ download, the same entries appear in the activity calendar and its feed, and
 `tests/unit/study-plan-registration-dates.test.ts` checks the filtering. Bump `ICS_REVISION` in
 `lib/ics.ts` so subscribers to the feed notice the change.
 
+### Class timetable for the calendar builder
+
+The calendar builder fills in class times and adds midterm and final exams from
+`content/calendar/timetable.ts`, one list per term (`2569-2` so far). Copy it from the BIR office's
+timetable post, never from memory. To add a term, add its dates to `content/calendar/terms.ts` and
+a list to `TIMETABLES`, one entry per course (two for a course with sections, such as LAS101).
+Midterm rooms are not announced, so leave them out. A term with no list falls back to typing times
+by hand, which is how semester 1 works. `tests/unit/calendar-timetable.test.ts` parses the English
+post's tables and fails if the data drifts from them, so update the post and the data together.
+
 ### Past events
 
 An event post (`type: event` with a `start`) looks after itself once it is over:

@@ -33,7 +33,7 @@ export type GuideCopy = {
   remove: string[];
 };
 
-export type ClassField = "code" | "day" | "start" | "end" | "place";
+export type ClassField = "code" | "section" | "day" | "start" | "end" | "place";
 
 export type CalendarBuilderCopy = {
   meta: { title: string; description: string };
@@ -54,12 +54,30 @@ export type CalendarBuilderCopy = {
     classesPrompt: string;
     classesCount: Plural;
     classesNoTerm: string;
+    /** Why "My exams" is switched off until a timetable class is added. */
+    examsNone: string;
+    examsCount: Plural;
   };
   step2: {
     heading: string;
     intro: string;
     termRange: string;
     termName: string;
+    /** The semester choice at the top of the step. */
+    term: { legend: string; option: string; dates: string };
+    /** Said when the chosen semester has a BIR timetable built in. */
+    timetableNote: string;
+    /** Said when it has not. */
+    noTimetableNote: string;
+    quick: {
+      legend: string;
+      year1: string;
+      year2: string;
+      added: Plural;
+      none: string;
+      section: string;
+      full: string;
+    };
     noTermTitle: string;
     noTermBody: string;
     empty: string;
@@ -68,6 +86,33 @@ export type CalendarBuilderCopy = {
     formAdd: string;
     formEdit: string;
     code: { label: string; hint: string };
+    combo: {
+      groupOther: string;
+      groupAll: string;
+      noMatches: string;
+      noMatchesHint: string;
+      results: Plural;
+      more: string;
+      added: string;
+    };
+    /** Second line of a timetable option, `{day} {start} to {end} · {room}`. */
+    detail: string;
+    section: { legend: string; option: string; missing: string; roomsJoin: string };
+    summary: {
+      heading: string;
+      when: string;
+      place: string;
+      lecturer: string;
+      exams: string;
+      midterm: string;
+      final: string;
+      dateTime: string;
+      change: string;
+      reset: string;
+    };
+    clash: string;
+    clashInList: string;
+    undone: string;
     day: { label: string; placeholder: string };
     start: string;
     end: string;
@@ -94,6 +139,7 @@ export type CalendarBuilderCopy = {
       "end-invalid": string;
       "end-before-start": string;
       "place-too-long": string;
+      "section-invalid": string;
     };
   };
   step3: {
@@ -102,7 +148,9 @@ export type CalendarBuilderCopy = {
     question: string;
     summaryDates: Plural;
     summaryClasses: Plural;
+    summaryExams: Plural;
     summaryJoin: string;
+    summaryJoin3: string;
     summaryNone: string;
     classesMissing: string;
     linkLabel: string;
@@ -128,6 +176,8 @@ export type CalendarBuilderCopy = {
     every: string;
     placeAt: string;
     days: [string, string, string, string, string, string, string];
+    daysShort: [string, string, string, string, string, string, string];
+    section: string;
     ongoing: string;
   };
 };

@@ -89,6 +89,12 @@ export const SOURCES = {
     note: "Supplied directly by the faculty as a PDF, not published at a URL.",
     retrieved: "2026-11-05",
   },
+  registrarCalendar2569: {
+    id: "registrarCalendar2569",
+    title: "Thammasat Registrar academic calendar, AY 2569 (2026/2027)",
+    url: "https://wapi.reg.tu.ac.th/uploads/content/%E0%B8%9B%E0%B8%8F%E0%B8%B4%E0%B8%97%E0%B8%B4%E0%B8%99%20%E0%B8%9B.%E0%B8%95%E0%B8%A3%E0%B8%B5%20%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%87%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9B%E0%B8%81%E0%B8%95%E0%B8%B4%2069.pdf",
+    retrieved: "2026-11-05",
+  },
   officialCurriculumPage: {
     id: "officialCurriculumPage",
     title: "BIR curriculum page, birpolsci.com, student ID code to curriculum mapping",
