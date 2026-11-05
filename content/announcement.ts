@@ -44,7 +44,7 @@ export const announcement: SiteAnnouncement = {
   expiresAt: "2026-11-06T16:59:00Z",
   message: {
     en: "The faculty, all libraries and Tha Prachan campus are closed on 6 November for the royal barge procession. All classes are online.",
-    th: "คณะ ห้องสมุดทุกแห่ง และศูนย์ท่าพระจันทร์ปิดวันที่ 6 พฤศจิกายน เนื่องจากขบวนพยุหยาตราทางชลมารค เรียนออนไลน์ทุกรายวิชา",
+    th: "คณะ ห้องสมุดทุกแห่ง และท่าพระจันทร์ปิดวันที่ 6 พฤศจิกายน เนื่องจากขบวนพยุหยาตราทางชลมารค เรียนออนไลน์ทุกรายวิชา",
   },
   cta: { en: "Read the notice", th: "อ่านประกาศ" },
 };
