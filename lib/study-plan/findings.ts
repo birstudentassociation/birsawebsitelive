@@ -270,8 +270,8 @@ export function checkPlan(
         id: `offering:${code}`,
         severity: "note",
         message: {
-          en: `${code} is in ${label.en}. It has only been recorded as taught in ${recorded("en")}, and never in a ${HISTORY_COPY.en[term.term.kind]} term. That is history, not a promise, and a term may be missing only because nobody recorded it. Check the faculty timetable before you register.`,
-          th: `วิชา ${code} อยู่ในแผนของ${label.th} แต่เคยมีบันทึกว่าเปิดสอนเฉพาะใน${recorded("th")} และไม่เคยมีบันทึกว่าเปิดใน${HISTORY_COPY.th[term.term.kind]} ข้อมูลนี้เป็นเพียงประวัติ ไม่ใช่คำยืนยัน และภาคที่ไม่ปรากฏอาจเป็นเพราะยังไม่มีผู้บันทึก โปรดตรวจสอบตารางสอนของคณะก่อนลงทะเบียน`,
+          en: `${code} is in ${label.en}. It has only been recorded as taught in ${recorded("en")}, and never in a ${HISTORY_COPY.en[term.term.kind]} term. A term may be missing only because nobody recorded it. Check the faculty timetable before you register.`,
+          th: `วิชา ${code} อยู่ในแผนของ${label.th} แต่เคยมีบันทึกว่าเปิดสอนเฉพาะใน${recorded("th")} และไม่เคยมีบันทึกว่าเปิดใน${HISTORY_COPY.th[term.term.kind]} ภาคที่ไม่ปรากฏอาจเป็นเพราะยังไม่มีผู้บันทึก โปรดตรวจสอบตารางสอนของคณะก่อนลงทะเบียน`,
         },
         source: {
           document: "Course catalogue, student review and assessment fact terms",

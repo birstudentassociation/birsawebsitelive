@@ -1,11 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
 import type { StudentReview } from "@/content/course-review/types";
 import {
   HISTORY_COPY,
-  OFFERING_HISTORY_NOTICE,
   historyLine,
   offeringHistory,
   recordedInKind,
@@ -195,8 +192,8 @@ describe("the offering note", () => {
     expect(finding?.id).toBe("offering:PI390");
     expect(finding?.severity).toBe("note");
     expect(finding?.message.en).toContain("only been recorded as taught in semester 1 of 2026/27");
-    expect(finding?.message.en).toContain("not a promise");
-    expect(finding?.message.th).toContain("ไม่ใช่คำยืนยัน");
+    expect(finding?.message.en).toContain("Check the faculty timetable");
+    expect(finding?.message.th).toContain("ตารางสอนของคณะ");
     expect(finding?.source.provision).toContain("not an offering promise");
   });
 
@@ -214,22 +211,5 @@ describe("the offering note", () => {
       offeringHistory: (code) => offeringHistory(code, [review(2568, 2)]),
     });
     expect(supplied.some((f) => f.id === "offering:PI390")).toBe(false);
-  });
-});
-
-describe("disclosure", () => {
-  it("says in both languages that this is history and not a promise", () => {
-    expect(OFFERING_HISTORY_NOTICE.en).toContain("history, not a promise");
-    expect(OFFERING_HISTORY_NOTICE.th).toMatch(/[฀-๿]/);
-  });
-
-  it("is rendered wherever a history is shown", () => {
-    const read = (file: string) => fs.readFileSync(path.join(process.cwd(), file), "utf8");
-    for (const file of [
-      "app/[lang]/student-life/course-reviews/[code]/page.tsx",
-      "app/[lang]/services/study-plan/plan/page.tsx",
-    ]) {
-      expect(read(file), file).toContain("OFFERING_HISTORY_NOTICE");
-    }
   });
 });

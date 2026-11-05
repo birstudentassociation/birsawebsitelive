@@ -219,11 +219,10 @@ describe("the compare page", () => {
     expect(html).toContain("No student reviews yet.");
   });
 
-  it("states assessment shape and offering history with the history disclosure", async () => {
+  it("states assessment shape and offering history", async () => {
     const html = await render("en", { a: "PI390", b: "PI364" });
     expect(html).toContain("Final exam worth 30% of the grade.");
     expect(html).toContain("Recorded as taught in semester 1 of 2026/27");
-    expect(html).toContain("history, not a promise");
   });
 
   it("never ranks the two courses", async () => {

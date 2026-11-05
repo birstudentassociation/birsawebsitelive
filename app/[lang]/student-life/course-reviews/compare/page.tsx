@@ -23,7 +23,7 @@ import {
   type CompareSide,
 } from "@/lib/courses/compare";
 import { courseNode } from "@/lib/courses/graph";
-import { OFFERING_HISTORY_NOTICE, historyLine } from "@/lib/courses/offeringHistory";
+import { historyLine } from "@/lib/courses/offeringHistory";
 import { categoryName, termsText } from "@/lib/course-review/display";
 import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
 import { reviewLine, type ReviewLineCopy } from "@/lib/course-review/reviewSummary";
@@ -302,11 +302,6 @@ export default async function CompareCoursesPage({
                 />
               </table>
             </div>
-            {result.a.history || result.b.history ? (
-              <p className="max-w-[var(--measure)] text-xs leading-relaxed text-muted">
-                {OFFERING_HISTORY_NOTICE[locale]}
-              </p>
-            ) : null}
           </section>
         )}
 

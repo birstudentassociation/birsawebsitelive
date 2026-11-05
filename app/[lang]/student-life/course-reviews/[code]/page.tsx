@@ -16,11 +16,7 @@ import CourseLinks from "@/components/course-review/CourseLinks";
 import YourPlanPanel from "@/components/course-review/YourPlanPanel";
 import { buildPlanLinkCopy } from "@/components/study-plan/planLinkCopy";
 import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
-import {
-  OFFERING_HISTORY_NOTICE,
-  historyLine,
-  offeringHistory,
-} from "@/lib/courses/offeringHistory";
+import { historyLine, offeringHistory } from "@/lib/courses/offeringHistory";
 import { buildPlanOutreachCopy } from "@/components/study-plan/planOutreachCopy";
 import { courses } from "@/content/course-review/courses";
 import type {
@@ -291,7 +287,6 @@ export default async function CourseDetailPage({
             {history ? (
               <Fact label={insight.historyLabel}>
                 <p>{historyLine(history, locale, insight.history)}</p>
-                <p className="mt-1 text-xs">{OFFERING_HISTORY_NOTICE[locale]}</p>
               </Fact>
             ) : null}
             {demandTerms.length > 0 ? (

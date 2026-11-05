@@ -156,6 +156,8 @@ Page counts below are confirmed by the crawlers that read each document.
   curriculum version, and the study plan will not place them in a semester 1
   term. PI280 appears in it only as a prerequisite and is not designated.
 - Retrieved: 2026-11-05.
+- Precedence: this semester 2 schedule supersedes the published study plans
+  wherever they disagree (owner's instruction of 2026-11-05).
 - Contradictions: the published plans conflict with this offering in two ways,
   both resolved in the plan data on the owner's instruction of 2026-11-05 and
   both carried as student-facing disclosures.

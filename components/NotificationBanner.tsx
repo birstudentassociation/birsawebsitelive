@@ -55,7 +55,7 @@ export default function NotificationBanner({
           success ? "bg-success text-cream" : "bg-brand-strong text-white"
         )}
       >
-        <h2 id={titleId} className="text-base font-bold">
+        <h2 id={titleId} className="text-base font-bold text-inherit">
           {title ?? defaultTitle[locale]}
         </h2>
       </div>

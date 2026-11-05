@@ -8,9 +8,7 @@
  * been recorded. The one hand-maintained exception is the faculty's
  * designation of semester 2 courses (`content/curriculum/offeringTerms.ts`),
  * added at the owner's explicit request, which the study plan enforces
- * separately and which this history neither reads nor feeds. The derivation is disclosed wherever it is shown, with
- * `OFFERING_HISTORY_NOTICE`, following the same rule as the curriculum's
- * inferred parts: the service may use derived data, but not silently.
+ * separately and which this history neither reads nor feeds.
  *
  * `offeringHistory` takes extra reviews as an optional second argument so
  * reviews published through the officer console (`lib/course-review/
@@ -20,7 +18,7 @@
  *
  * Pure functions over static data, with no React.
  */
-import type { LocalizedText, TermKind } from "@/content/curriculum/types";
+import type { TermKind } from "@/content/curriculum/types";
 import type { AcademicTerm, StudentReview } from "@/content/course-review/types";
 import { courseNode } from "@/lib/courses/graph";
 import { termYearLabel } from "@/lib/course-review/terms";
@@ -31,15 +29,6 @@ export type OfferingHistory = {
   terms: AcademicTerm[];
   /** Academic years (Buddhist Era) recorded for each term kind, oldest first. */
   yearsByKind: Record<TermKind, number[]>;
-};
-
-/**
- * Shown wherever a history is shown. It says what the history is made of, that
- * it is not a promise, and where the real answer is.
- */
-export const OFFERING_HISTORY_NOTICE: LocalizedText = {
-  en: "This is history, not a promise. It is worked out from the terms recorded on student reviews and in the assessment facts BIRSA holds, so a term missing here may simply not have been recorded. BIRSA does not hold timetable data and cannot say whether a course will run in a given term. Check the faculty timetable before you register.",
-  th: "ข้อมูลนี้เป็นประวัติที่เคยบันทึกไว้ ไม่ใช่คำยืนยันว่าจะเปิดสอน ระบบสรุปจากภาคการศึกษาที่ระบุไว้ในรีวิวของนักศึกษาและในข้อมูลการวัดผลที่ BIRSA มี ภาคที่ไม่ปรากฏจึงอาจเป็นเพียงภาคที่ยังไม่มีผู้บันทึก BIRSA ไม่มีข้อมูลตารางสอนและไม่อาจบอกได้ว่ารายวิชาจะเปิดในภาคใดหรือไม่ โปรดตรวจสอบตารางสอนของคณะก่อนลงทะเบียน",
 };
 
 function kindOf(term: AcademicTerm): TermKind {

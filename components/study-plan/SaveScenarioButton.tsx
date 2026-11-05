@@ -72,7 +72,12 @@ export default function SaveScenarioButton({
   return (
     <div className="flex flex-col gap-2">
       <div>
-        <Button type="button" variant="secondary" onClick={keep}>
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={keep}
+          className="h-auto! min-h-11 py-2 text-center whitespace-normal!"
+        >
           {label}
         </Button>
       </div>

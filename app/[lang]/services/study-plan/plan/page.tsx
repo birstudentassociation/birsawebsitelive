@@ -12,7 +12,6 @@ import { isElectiveDemandLive } from "@/lib/elective-demand/store";
 import { comparePath } from "@/lib/courses/compare";
 import {
   HISTORY_COPY,
-  OFFERING_HISTORY_NOTICE,
   historyLine,
   offeringHistory,
   type OfferingHistory,
@@ -507,7 +506,7 @@ export default async function StudyPlanPage({
         <div>
           <h2 className="font-display text-xl">{copy.plan.owedHeading}</h2>
           <div className="mt-4 overflow-x-auto">
-            <table className="w-full min-w-[28rem] border-collapse text-sm">
+            <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
                   <th className="py-2 pr-3 font-semibold text-muted">
@@ -542,10 +541,6 @@ export default async function StudyPlanPage({
         <div className="flex flex-col gap-4">
           <h2 className="font-display text-xl">{copy.plan.termsHeading}</h2>
           <p className="leading-relaxed text-muted">{copy.plan.termsHint}</p>
-          <p className="text-sm leading-relaxed text-muted">
-            <span className="font-semibold text-ink">{insight.historyNoticeTitle}. </span>
-            {OFFERING_HISTORY_NOTICE[locale]}
-          </p>
           {notice === "termFull" ? (
             <WarningText locale={locale}>{copy.plan.termFullError}</WarningText>
           ) : null}

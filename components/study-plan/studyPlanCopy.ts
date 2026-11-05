@@ -225,6 +225,7 @@ export type StudyPlanCopy = {
     /** Contains "{n}"; free elective credits already passed, shown as one line under the passed list. */
     passedFreeElectiveTemplate: string;
     termsHeading: string;
+    termsEmpty: string;
     noCoursesInTerm: string;
     /** Contains "{n}"; the free elective credits recorded for one term. */
     freeElectiveCreditsTemplate: string;
@@ -484,6 +485,7 @@ const en: StudyPlanCopy = {
       "We do not record which term you took each course in, so they are listed together here, not grouped by term.",
     passedFreeElectiveTemplate: "{n} free elective credits already passed",
     termsHeading: "Terms you have planned",
+    termsEmpty: "You have not planned any terms yet.",
     noCoursesInTerm: "No courses recorded.",
     freeElectiveCreditsTemplate: "{n} free elective credits",
     findingsHeading: "What we found",
@@ -676,6 +678,7 @@ const th: StudyPlanCopy = {
     passedHint: "ระบบไม่ได้บันทึกว่าแต่ละวิชาเรียนในภาคใด จึงแสดงรวมไว้ที่นี่ ไม่ได้แยกตามภาค",
     passedFreeElectiveTemplate: "ผ่านวิชาเลือกเสรีแล้ว {n} หน่วยกิต",
     termsHeading: "ภาคการศึกษาที่วางแผนไว้",
+    termsEmpty: "ยังไม่ได้วางแผนภาคการศึกษาใดเลย",
     noCoursesInTerm: "ไม่มีรายวิชา",
     freeElectiveCreditsTemplate: "วิชาเลือกเสรี {n} หน่วยกิต",
     findingsHeading: "ผลการตรวจแผน",

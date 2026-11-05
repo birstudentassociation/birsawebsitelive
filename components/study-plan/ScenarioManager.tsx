@@ -251,7 +251,12 @@ export default function ScenarioManager({ copy, currentPlan, planHref }: Scenari
           </p>
         ) : null}
         <div>
-          <Button type="submit" variant="secondary" disabled={atLimit}>
+          <Button
+            type="submit"
+            variant="secondary"
+            disabled={atLimit}
+            className="h-auto! min-h-11 py-2 text-center whitespace-normal!"
+          >
             {copy.newButton}
           </Button>
         </div>

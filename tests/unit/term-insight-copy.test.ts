@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { buildTermInsightCopy } from "@/components/study-plan/termInsightCopy";
-import { OFFERING_HISTORY_NOTICE } from "@/lib/courses/offeringHistory";
 import { whatIf } from "@/lib/study-plan/whatIf";
 import { whatIfSentences } from "@/lib/study-plan/whatIfText";
 import { CURRICULUM_VERSIONS } from "@/content/curriculum";
@@ -45,11 +44,6 @@ describe("term insight copy", () => {
     for (const [path, text] of en) {
       expect(text, path).not.toMatch(/\b(stars?|rating|score|difficulty|best|worst)\b/i);
     }
-  });
-
-  it("states the offering history as history in both languages", () => {
-    expect(OFFERING_HISTORY_NOTICE.en).toMatch(/not a promise/);
-    expect(OFFERING_HISTORY_NOTICE.th).toMatch(/ไม่ใช่คำยืนยัน/);
   });
 });
 

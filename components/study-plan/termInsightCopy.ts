@@ -31,7 +31,6 @@ export type TermInsightCopy = {
   history: HistoryCopy;
   /** The label of the offering history fact on a course page. */
   historyLabel: string;
-  historyNoticeTitle: string;
   /** The review line a candidate carries in a list. The band wording is passed in from the site dictionary. */
   reviewLine: Omit<ReviewLineCopy, "band">;
   shortlist: {
@@ -226,7 +225,6 @@ type OwnCopy = Omit<TermInsightCopy, "profile" | "workload" | "history">;
 
 const en: OwnCopy = {
   historyLabel: "Recorded history",
-  historyNoticeTitle: "About this history",
   reviewLine: {
     none: "No student reviews yet.",
     existsTemplate: "Student reviews on record, latest for {term}.",
@@ -243,8 +241,7 @@ const en: OwnCopy = {
     compareLink: "Compare with {code}",
     leftOutPrerequisites:
       "Left out because their prerequisites are not met by this term ({codes}).",
-    leftOutHistory:
-      "Left out because they have never been recorded in a {kind} term ({codes}). That is history, not a promise.",
+    leftOutHistory: "Left out because they have never been recorded in a {kind} term ({codes}).",
     leftOutNote: "They are still in the full course list. Nothing here blocks you.",
     noneEligible:
       "No course that counts towards this choice has its prerequisites met by this term and a recorded history in it.",
@@ -403,7 +400,6 @@ const en: OwnCopy = {
 
 const th: OwnCopy = {
   historyLabel: "ประวัติที่บันทึกไว้",
-  historyNoticeTitle: "เกี่ยวกับข้อมูลประวัติ",
   reviewLine: {
     none: "ยังไม่มีรีวิวจากนักศึกษา",
     existsTemplate: "มีรีวิวจากนักศึกษา ล่าสุดของ{term}",
@@ -419,8 +415,7 @@ const th: OwnCopy = {
     recommendedHere: "แผนการเรียนแนะนำให้เรียนในภาคนี้",
     compareLink: "เปรียบเทียบกับ {code}",
     leftOutPrerequisites: "ไม่แสดงเพราะยังผ่านวิชาบังคับก่อนไม่ครบภายในภาคนี้ ({codes})",
-    leftOutHistory:
-      "ไม่แสดงเพราะไม่เคยมีบันทึกว่าเปิดใน{kind} ({codes}) ข้อมูลนี้เป็นเพียงประวัติ ไม่ใช่คำยืนยัน",
+    leftOutHistory: "ไม่แสดงเพราะไม่เคยมีบันทึกว่าเปิดใน{kind} ({codes})",
     leftOutNote: "วิชาเหล่านี้ยังอยู่ในรายการวิชาทั้งหมด และเลือกได้ตามปกติ",
     noneEligible:
       "ไม่มีวิชาที่นับเข้าช่องนี้ ผ่านวิชาบังคับก่อนครบภายในภาคนี้ และเคยมีบันทึกว่าเปิดในภาคประเภทนี้",

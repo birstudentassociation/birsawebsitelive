@@ -177,6 +177,9 @@ export default function PlanDocument({
         <Heading level={sectionLevel} className={sectionClass}>
           {copy.print.termsHeading}
         </Heading>
+        {plannedTerms.length === 0 ? (
+          <p className="mt-4 text-muted">{copy.print.termsEmpty}</p>
+        ) : null}
         <div className="mt-4 flex flex-col gap-4">
           {plannedTerms.map((printTerm) => {
             const termCredits =
@@ -260,7 +263,7 @@ export default function PlanDocument({
           {copy.print.owedHeading}
         </Heading>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[28rem] border-collapse text-sm">
+          <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b border-line text-left">
                 <th className="py-2 pr-3 font-semibold text-muted">

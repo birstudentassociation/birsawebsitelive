@@ -257,7 +257,7 @@ export default function ScenarioSection({
               name={MINOR_FIELD}
               defaultValue={tryMinor?.id ?? ""}
               options={version.minors.map((m) => ({ value: m.id, label: m.name[locale] }))}
-              className="min-w-0 flex-1"
+              className="min-w-[12rem] flex-1"
             />
             <Button type="submit" variant="secondary">
               {insight.minorSwitch.button}
@@ -358,7 +358,7 @@ export default function ScenarioSection({
                   value: termKey(term),
                   label: termText(term),
                 }))}
-                className="min-w-0 flex-1"
+                className="min-w-[12rem] flex-1"
               />
               <Field
                 as="select"
@@ -369,7 +369,7 @@ export default function ScenarioSection({
                   { value: "exchange", label: insight.awayTerm.exchange },
                   { value: "leave", label: insight.awayTerm.leave },
                 ]}
-                className="min-w-0"
+                className="min-w-[10rem]"
               />
               <Button type="submit" variant="secondary">
                 {insight.awayTerm.button}
