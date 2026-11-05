@@ -25,7 +25,7 @@ import {
   type Selection,
 } from "@/lib/calendar-builder/selection";
 import { todayInBangkok } from "@/lib/bangkok-today";
-import { formatGuideDate, type Locale } from "@/lib/i18n";
+import { formatDate, type Locale } from "@/lib/i18n";
 import ClassesStep, { type CourseOption } from "./ClassesStep";
 import DeviceGuide from "./DeviceGuide";
 import Preview, { type PreviewEvent } from "./Preview";
@@ -210,7 +210,7 @@ export default function CalendarBuilder({
   }
 
   const termDates = term
-    ? { start: formatGuideDate(locale, term.start), end: formatGuideDate(locale, term.end) }
+    ? { start: formatDate(locale, term.start), end: formatDate(locale, term.end) }
     : null;
 
   return (
