@@ -16,7 +16,6 @@
  * replace the whole object when the next one comes along.
  */
 import type { Locale } from "@/lib/i18n";
-import { advisoryBanner } from "@/content/advisory";
 
 /** Amber (warning) reads more urgent than blue (info); neither reads as a red emergency. */
 export type AnnouncementSeverity = "info" | "warning" | "remembrance";
@@ -41,10 +40,13 @@ export type SiteAnnouncement = {
 export const announcement: SiteAnnouncement = {
   active: true,
   severity: "warning",
-  href: "/advisory",
-  expiresAt: "2026-11-05T16:59:00Z",
-  message: advisoryBanner.message,
-  cta: advisoryBanner.cta,
+  href: "/news/tha-prachan-closed-6-november-2026",
+  expiresAt: "2026-11-06T16:59:00Z",
+  message: {
+    en: "The faculty, all libraries and Tha Prachan campus are closed on 6 November for the royal barge procession. All classes are online.",
+    th: "คณะ ห้องสมุดทุกแห่ง และศูนย์ท่าพระจันทร์ปิดวันที่ 6 พฤศจิกายน เนื่องจากขบวนพยุหยาตราทางชลมารค เรียนออนไลน์ทุกรายวิชา",
+  },
+  cta: { en: "Read the notice", th: "อ่านประกาศ" },
 };
 
 /** The banner's expiry as epoch milliseconds, or null when unset or unparseable. */
