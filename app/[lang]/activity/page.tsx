@@ -8,6 +8,8 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import NavList, { NavListItem } from "@/components/NavList";
 import GridRow, { GridMain } from "@/components/GridRow";
+import { editions } from "@/content/open-data";
+import { openDataCopy } from "@/content/open-data/copy";
 
 export async function generateMetadata({
   params,
@@ -41,7 +43,7 @@ const copy: Record<
 > = {
   en: {
     title: "BIRSA activity",
-    lede: "Officer roles, student regulations, transparency documents, the BIR programme, contact details, and the latest news and events.",
+    lede: "Officer roles, student regulations, open data on BIRSA's money, meetings and activities, the BIR programme, contact details, and the latest news and events.",
     aboutHeading: "About BIRSA",
     rolesTitle: "Current officers",
     rolesSummary: "Who sits on the BIRSA committee, and what each role is responsible for.",
@@ -55,7 +57,7 @@ const copy: Record<
   },
   th: {
     title: "การดำเนินงานของ BIRSA",
-    lede: "บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส หลักสูตร BIR ช่องทางติดต่อ และข่าวสารกิจกรรมล่าสุด",
+    lede: "บทบาทหน้าที่ของกรรมการ ระเบียบนักศึกษา ข้อมูลเปิดเรื่องเงิน การประชุม และกิจกรรมของ BIRSA หลักสูตร BIR ช่องทางติดต่อ และข่าวสารกิจกรรมล่าสุด",
     aboutHeading: "เกี่ยวกับ BIRSA",
     rolesTitle: "คณะกรรมการชุดปัจจุบัน",
     rolesSummary: "รายชื่อคณะกรรมการ BIRSA และหน้าที่ของแต่ละตำแหน่ง",
@@ -93,12 +95,13 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const programmeEntry = findEntry("bir-programme");
   const eventsEntry = findEntry("events");
   const studentBodiesEntry = findEntry("student-bodies");
-  const transparencyEntry = findEntry("transparency");
   const contactEntry = findEntry("contact");
 
   const rolesHref = localeHref(locale, "/activity/roles");
   const regsHref = localeHref(locale, "/activity/regulations");
   const newsHref = localeHref(locale, "/news");
+  const openData = editions[0];
+  const od = openDataCopy[locale];
   const approvalCheck = service.topics.find((topic) => topic.slug === "activity-approval");
 
   return (
@@ -165,7 +168,14 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
                   {t.regsSummary}
                 </NavListItem>
 
-                {transparencyEntry ? entryItem(transparencyEntry) : null}
+                {openData ? (
+                  <NavListItem
+                    href={localeHref(locale, `/open-data/${openData.slug}`)}
+                    title={od.editionTitle(openData.label[locale])}
+                  >
+                    {od.editionLede}
+                  </NavListItem>
+                ) : null}
               </NavList>
             </GridMain>
           </GridRow>

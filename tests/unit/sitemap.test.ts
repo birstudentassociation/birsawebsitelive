@@ -54,7 +54,9 @@ describe("sitemap", () => {
         if (g.frontmatter.placeholder) placeholders.push(`/student-life/${topic}/${g.slug}`);
       }
     }
-    expect(placeholders.length).toBeGreaterThan(0);
+    // There may be none: the last activity placeholder (transparency) was
+    // replaced by the open data pages. Any placeholder added later must still
+    // stay out of the sitemap.
     for (const p of placeholders) {
       for (const locale of locales) expect(paths.has(`/${locale}${p}`)).toBe(false);
     }

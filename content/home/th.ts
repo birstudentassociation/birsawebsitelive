@@ -117,7 +117,7 @@ export const homeTh: typeof homeEn = {
       },
       overview: {
         label: "การดำเนินงานของ BIRSA",
-        description: "บทบาทกรรมการ ระเบียบนักศึกษา เอกสารความโปร่งใส และข่าวสาร",
+        description: "บทบาทกรรมการ ระเบียบนักศึกษา ข้อมูลเปิด และข่าวสาร",
       },
     },
   },

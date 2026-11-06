@@ -196,6 +196,18 @@ describe("open data text", () => {
       expect(s.replace(/\b\d{1,2}:\d{2}\b/g, ""), path).not.toMatch(/:/);
     }
   });
+
+  it("dates English by the Gregorian calendar and Thai by the Buddhist Era", () => {
+    const beYear = /(?<![\d,.])25[5-7]\d(?![\d,.])/;
+    const ceYear = /(?<![\d,.])20[12]\d(?![\d,.])/;
+    // Thai letters only: the baht sign shares the Thai Unicode block.
+    const thaiLetter = /[ก-ฺเ-๛]/;
+    for (const [path, s] of allStrings) {
+      if (path.endsWith(".en")) expect(s, path).not.toMatch(beYear);
+      // Proper names such as "Polsci Inter Union 2026" keep their own year.
+      if (path.endsWith(".th") && thaiLetter.test(s)) expect(s, path).not.toMatch(ceYear);
+    }
+  });
 });
 
 describe("open data formatting", () => {

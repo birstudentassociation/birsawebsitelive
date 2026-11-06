@@ -1,9 +1,5 @@
 import type { Topic } from "@/lib/open-data";
 
-const studentActivities = { en: "Student activities", th: "กิจกรรมนักศึกษา" };
-const organisation = { en: "Organisation development", th: "พัฒนาองค์กร" };
-
-const commonRoom = { en: "Common room", th: "ห้อง Common" };
 const openHouse = { en: "Open House", th: "Open House" };
 const jobFair = { en: "Job Fair", th: "Job Fair" };
 const clubDay = { en: "Club Day", th: "Club Day" };
@@ -23,41 +19,41 @@ export const money: Topic = {
     th: "เงินของ BIRSA วางแผนไว้ว่าจะใช้ไปกับอะไร",
   },
   summary: {
-    en: "BIRSA planned to spend ฿229,822, three quarters of it on the common room. Its own ledger records far less.",
-    th: "BIRSA วางแผนใช้เงิน 229,822 บาท สามในสี่เป็นห้อง Common แต่บัญชีของ BIRSA เองบันทึกไว้น้อยกว่ามาก",
+    en: "BIRSA planned to spend ฿56,542 on seven student activities. Its own ledger records far less.",
+    th: "BIRSA วางแผนใช้เงิน 56,542 บาท กับกิจกรรมนักศึกษาเจ็ดกิจกรรม แต่บัญชีของ BIRSA เองบันทึกไว้น้อยกว่ามาก",
   },
   mainPoints: [
     {
-      en: "The 2568 to 2569 budget plan totals ฿229,822.",
-      th: "แผนงบประมาณปี 2568 รวมทั้งหมด 229,822 บาท",
+      en: "The 2025 to 2026 budget plan for seven student activities adds up to ฿56,542.",
+      th: "แผนงบประมาณปีการศึกษา 2568 สำหรับกิจกรรมนักศึกษาเจ็ดกิจกรรมรวมได้ 56,542 บาท",
     },
     {
-      en: "The common room accounts for ฿173,280 of the plan, which is 75% of the total.",
-      th: "ห้อง Common คิดเป็น 173,280 บาท หรือร้อยละ 75 ของแผนทั้งหมด",
+      en: "Open House is the largest project at ฿30,000, more than half of the plan.",
+      th: "Open House เป็นโครงการที่ใช้งบมากที่สุด 30,000 บาท เกินครึ่งหนึ่งของแผน",
     },
     {
-      en: "Seven student activities were planned at ฿56,542 in total, led by Open House at ฿30,000.",
-      th: "กิจกรรมนักศึกษาเจ็ดกิจกรรมวางแผนไว้รวม 56,542 บาท มากที่สุดคือ Open House 30,000 บาท",
+      en: "Job Fair and Club Day come next, at ฿8,500 and ฿8,050.",
+      th: "รองลงมาคือ Job Fair 8,500 บาท และ Club Day 8,050 บาท",
     },
     {
-      en: "BIRSA's ledger records ฿2,003.28 of spending, less than 1% of the plan.",
-      th: "บัญชีของ BIRSA บันทึกรายจ่าย 2,003.28 บาท ซึ่งไม่ถึงร้อยละ 1 ของแผน",
+      en: "BIRSA's ledger records ฿2,003.28 of spending, less than 4% of the plan.",
+      th: "บัญชีของ BIRSA บันทึกรายจ่าย 2,003.28 บาท ไม่ถึงร้อยละ 4 ของแผน",
     },
     {
-      en: "The ledger ends at ฿1,006.79 left at the end of March 2569.",
+      en: "The ledger ends at ฿1,006.79 left at the end of March 2026.",
       th: "บัญชีสิ้นสุดที่เงินคงเหลือ 1,006.79 บาท ณ สิ้นเดือนมีนาคม 2569",
     },
   ],
   headlines: [
     {
-      value: "฿229,822",
+      value: "฿56,542",
       label: { en: "Planned spending", th: "รายจ่ายตามแผน" },
-      context: { en: "Budget plan, 2025 to 2026", th: "แผนงบประมาณ ปีการศึกษา 2568" },
+      context: { en: "Seven student activities", th: "กิจกรรมนักศึกษาเจ็ดกิจกรรม" },
     },
     {
-      value: "75%",
-      label: { en: "Planned for the common room", th: "สัดส่วนที่วางแผนไว้สำหรับห้อง Common" },
-      context: { en: "฿173,280 of ฿229,822", th: "173,280 บาท จาก 229,822 บาท" },
+      value: "฿30,000",
+      label: { en: "Planned for Open House", th: "งบที่วางแผนไว้สำหรับ Open House" },
+      context: { en: "The largest project", th: "โครงการที่ใช้งบมากที่สุด" },
     },
     {
       value: "฿2,003.28",
@@ -70,8 +66,8 @@ export const money: Topic = {
     },
   ],
   warning: {
-    en: "The budget is a plan, not what was spent. BIRSA's ledger records only a small fraction of it, and the common room items do not appear in the ledger at all, so it does not show how they were paid for.",
-    th: "งบประมาณเป็นเพียงแผน ไม่ใช่ยอดที่ใช้จริง บัญชีของ BIRSA บันทึกไว้เพียงส่วนเล็กน้อย และรายการของห้อง Common ไม่ปรากฏในบัญชีเลย จึงไม่ทราบว่าจ่ายด้วยเงินจากแหล่งใด",
+    en: "The budget is a plan, not what was spent. BIRSA's ledger records only a small part of it.",
+    th: "งบประมาณเป็นเพียงแผน ไม่ใช่ยอดที่ใช้จริง บัญชีของ BIRSA บันทึกไว้เพียงส่วนน้อยของแผน",
   },
   chart: {
     datasetId: "planned-budget",
@@ -79,16 +75,16 @@ export const money: Topic = {
     valueKey: "amount",
     groupBy: true,
     title: {
-      en: "The common room is three quarters of planned spending",
-      th: "ห้อง Common คือสามในสี่ของรายจ่ายตามแผน",
+      en: "Open House takes more than half of planned spending",
+      th: "Open House ใช้งบเกินครึ่งหนึ่งของรายจ่ายตามแผน",
     },
     subtitle: {
       en: "Planned spending in baht by project, 2025 to 2026",
       th: "รายจ่ายตามแผนเป็นบาท แยกตามโครงการ ปีการศึกษา 2568",
     },
     alt: {
-      en: "A bar chart showing that the common room is planned at 173,280 baht, far above Open House at 30,000 baht and every other project.",
-      th: "แผนภูมิแท่งแสดงว่าห้อง Common วางแผนไว้ 173,280 บาท สูงกว่า Open House ที่ 30,000 บาท และโครงการอื่นทุกโครงการอย่างมาก",
+      en: "A bar chart showing that Open House is planned at 30,000 baht, well above Job Fair at 8,500 baht and every other student activity.",
+      th: "แผนภูมิแท่งแสดงว่า Open House วางแผนไว้ 30,000 บาท สูงกว่า Job Fair ที่ 8,500 บาท และกิจกรรมนักศึกษาอื่นทุกกิจกรรมอย่างชัดเจน",
     },
   },
   datasets: [
@@ -96,11 +92,10 @@ export const money: Topic = {
       id: "planned-budget",
       title: { en: "Planned budget by line", th: "งบประมาณตามแผนแยกรายการ" },
       summary: {
-        en: "The budget plan lists 23 lines adding up to ฿229,822, last edited on 20 June 2568.",
-        th: "แผนงบประมาณมี 23 รายการ รวมได้ 229,822 บาท แก้ไขล่าสุดเมื่อวันที่ 20 มิถุนายน 2568",
+        en: "The budget plan lists 19 lines for student activities adding up to ฿56,542, last edited on 20 June 2025.",
+        th: "แผนงบประมาณมี 19 รายการสำหรับกิจกรรมนักศึกษา รวมได้ 56,542 บาท แก้ไขล่าสุดเมื่อวันที่ 20 มิถุนายน 2568",
       },
       columns: [
-        { key: "division", label: { en: "Division", th: "ฝ่าย" }, kind: "text" },
         { key: "project", label: { en: "Project", th: "โครงการ" }, kind: "text" },
         { key: "item", label: { en: "Item", th: "รายการ" }, kind: "text" },
         { key: "quantity", label: { en: "Quantity", th: "จำนวน" }, kind: "number" },
@@ -116,45 +111,9 @@ export const money: Topic = {
           total: true,
         },
       ],
-      declaredTotal: { amount: 229822 },
+      declaredTotal: { amount: 56542 },
       rows: [
         {
-          division: organisation,
-          project: commonRoom,
-          item: { en: "Television (Sony A95L Series)", th: "โทรทัศน์ (Sony A95L Series)" },
-          quantity: null,
-          unitCost: null,
-          amount: 134990,
-        },
-        {
-          division: organisation,
-          project: commonRoom,
-          item: { en: "PlayStation 5", th: "PlayStation 5" },
-          quantity: null,
-          unitCost: null,
-          amount: 29490,
-        },
-        {
-          division: organisation,
-          project: commonRoom,
-          item: {
-            en: "Table tennis table (GRAND SPORT, MDF 15 mm)",
-            th: "โต๊ะเทเบิลเทนนิส (GRAND SPORT, MDF 15 mm)",
-          },
-          quantity: null,
-          unitCost: null,
-          amount: 4900,
-        },
-        {
-          division: organisation,
-          project: commonRoom,
-          item: { en: "Pool table (model BT 100 US)", th: "โต๊ะพูล (รุ่น BT 100 US)" },
-          quantity: null,
-          unitCost: null,
-          amount: 3900,
-        },
-        {
-          division: studentActivities,
           project: openHouse,
           item: { en: "Handbook", th: "ค่า handbook" },
           quantity: null,
@@ -162,7 +121,6 @@ export const money: Topic = {
           amount: 10000,
         },
         {
-          division: studentActivities,
           project: openHouse,
           item: { en: "Speakers", th: "ค่าวิทยากร" },
           quantity: null,
@@ -170,7 +128,6 @@ export const money: Topic = {
           amount: 9600,
         },
         {
-          division: studentActivities,
           project: openHouse,
           item: equipment,
           quantity: null,
@@ -178,7 +135,6 @@ export const money: Topic = {
           amount: 7000,
         },
         {
-          division: studentActivities,
           project: openHouse,
           item: miscellaneous,
           quantity: null,
@@ -186,7 +142,6 @@ export const money: Topic = {
           amount: 3400,
         },
         {
-          division: studentActivities,
           project: jobFair,
           item: equipment,
           quantity: null,
@@ -194,7 +149,6 @@ export const money: Topic = {
           amount: 5000,
         },
         {
-          division: studentActivities,
           project: jobFair,
           item: dinner,
           quantity: 30,
@@ -202,7 +156,6 @@ export const money: Topic = {
           amount: 1500,
         },
         {
-          division: studentActivities,
           project: jobFair,
           item: {
             en: "Speaker fees (2 speakers, 1 hour)",
@@ -213,7 +166,6 @@ export const money: Topic = {
           amount: 1200,
         },
         {
-          division: studentActivities,
           project: jobFair,
           item: miscellaneous,
           quantity: null,
@@ -221,7 +173,6 @@ export const money: Topic = {
           amount: 800,
         },
         {
-          division: studentActivities,
           project: clubDay,
           item: equipment,
           quantity: null,
@@ -229,7 +180,6 @@ export const money: Topic = {
           amount: 4300,
         },
         {
-          division: studentActivities,
           project: clubDay,
           item: dinner,
           quantity: 55,
@@ -237,7 +187,6 @@ export const money: Topic = {
           amount: 2750,
         },
         {
-          division: studentActivities,
           project: clubDay,
           item: miscellaneous,
           quantity: null,
@@ -245,7 +194,6 @@ export const money: Topic = {
           amount: 1000,
         },
         {
-          division: studentActivities,
           project: movie,
           item: {
             en: "Soft drinks, cups and ice for 6 sessions",
@@ -256,7 +204,6 @@ export const money: Topic = {
           amount: 4392,
         },
         {
-          division: studentActivities,
           project: halloween,
           item: equipment,
           quantity: null,
@@ -264,7 +211,6 @@ export const money: Topic = {
           amount: 1000,
         },
         {
-          division: studentActivities,
           project: halloween,
           item: dinner,
           quantity: 20,
@@ -272,7 +218,6 @@ export const money: Topic = {
           amount: 1000,
         },
         {
-          division: studentActivities,
           project: halloween,
           item: miscellaneous,
           quantity: null,
@@ -280,7 +225,6 @@ export const money: Topic = {
           amount: 800,
         },
         {
-          division: studentActivities,
           project: valentine,
           item: equipment,
           quantity: null,
@@ -288,7 +232,6 @@ export const money: Topic = {
           amount: 1000,
         },
         {
-          division: studentActivities,
           project: valentine,
           item: dinner,
           quantity: 20,
@@ -296,7 +239,6 @@ export const money: Topic = {
           amount: 1000,
         },
         {
-          division: studentActivities,
           project: valentine,
           item: miscellaneous,
           quantity: null,
@@ -304,7 +246,6 @@ export const money: Topic = {
           amount: 800,
         },
         {
-          division: studentActivities,
           project: meetAjarns,
           item: {
             en: "Equipment (room 103, no cost listed)",
@@ -317,8 +258,8 @@ export const money: Topic = {
       ],
       notes: [
         {
-          en: "The plan states a Job Fair total of ฿9,500 and a grand total of ฿230,822, but its four Job Fair lines add up to ฿8,500. This table shows the lines as written, so its total is ฿1,000 lower than the plan's own.",
-          th: "แผนระบุยอดรวม Job Fair ไว้ 9,500 บาท และยอดรวมทั้งหมด 230,822 บาท แต่รายการย่อยของ Job Fair ทั้งสี่รายการรวมได้ 8,500 บาท ตารางนี้แสดงรายการตามที่เขียนไว้ ยอดรวมจึงต่ำกว่ายอดในแผน 1,000 บาท",
+          en: "The plan states a Job Fair total of ฿9,500 and a student activities total of ฿57,542, but its four Job Fair lines add up to ฿8,500. This table shows the lines as written, so its total is ฿1,000 lower than the plan's own.",
+          th: "แผนระบุยอดรวม Job Fair ไว้ 9,500 บาท และยอดรวมกิจกรรมนักศึกษา 57,542 บาท แต่รายการย่อยของ Job Fair ทั้งสี่รายการรวมได้ 8,500 บาท ตารางนี้แสดงรายการตามที่เขียนไว้ ยอดรวมจึงต่ำกว่ายอดในแผน 1,000 บาท",
         },
         {
           en: "Monthly Movie is planned at ฿732 a session for 3 sessions a term over 2 terms. BIRSA's Master Sheet Mission tab gives ฿2,000 instead. This page uses the budget plan.",
@@ -343,7 +284,7 @@ export const money: Topic = {
       id: "recorded-transactions",
       title: { en: "Transactions in BIRSA's ledger", th: "รายการในบัญชีของ BIRSA" },
       summary: {
-        en: "The ledger records 15 entries from June 2568 to March 2569, with spending of ฿2,003.28.",
+        en: "The ledger records 15 entries from June 2025 to March 2026, with spending of ฿2,003.28.",
         th: "บัญชีบันทึก 15 รายการ ตั้งแต่มิถุนายน 2568 ถึงมีนาคม 2569 มีรายจ่าย 2,003.28 บาท",
       },
       columns: [
@@ -477,7 +418,7 @@ export const money: Topic = {
           th: "บัญชีไม่มีแท็บของเดือนสิงหาคมถึงธันวาคม 2568 กุมภาพันธ์ 2569 และเมษายนถึงมิถุนายน 2569 จึงไม่มีบันทึกของเดือนเหล่านั้น",
         },
         {
-          en: "The balance was ฿5,405.18 in July 2568 and ฿451.79 at the start of the January tab. The ledger does not explain the ฿4,953.39 difference.",
+          en: "The balance was ฿5,405.18 in July 2025 and ฿451.79 at the start of the January tab. The ledger does not explain the ฿4,953.39 difference.",
           th: "ยอดคงเหลือเดือนกรกฎาคม 2568 คือ 5,405.18 บาท และ 451.79 บาทตอนต้นแท็บเดือนมกราคม บัญชีไม่ได้อธิบายส่วนต่าง 4,953.39 บาท",
         },
         {

@@ -7,7 +7,7 @@ export const activities: Topic = {
     th: "BIRSA จัดกิจกรรมอะไรบ้างในปีนี้",
   },
   summary: {
-    en: "BIRSA ran 10 projects between July 2568 and March 2569, and sold 17 shirts for ฿5,283.",
+    en: "BIRSA ran 10 projects between July 2025 and March 2026, and sold 17 shirts for ฿5,283.",
     th: "BIRSA จัดโครงการ 10 โครงการระหว่างเดือนกรกฎาคม 2568 ถึงมีนาคม 2569 และขายเสื้อได้ 17 ตัว เป็นเงิน 5,283 บาท",
   },
   headlines: [
@@ -48,15 +48,15 @@ export const activities: Topic = {
       th: "แบบเสนอโครงการของ 8 โครงการที่มีตัวเลข ตั้งงบประมาณรวม 51,860 บาท",
     },
     {
-      en: "Open House on 1 November 2568 had the largest budget, at ฿32,000, and 50 student organisers.",
+      en: "Open House on 1 November 2025 had the largest budget, at ฿32,000, and 50 student organisers.",
       th: "งาน Open House วันที่ 1 พฤศจิกายน 2568 ใช้งบมากที่สุด 32,000 บาท โดยมีนักศึกษาผู้จัดงาน 50 คน",
     },
     {
-      en: "Job Fair on 5 March 2569 expected 60 students and had 22 staff on a budget of ฿2,760.",
+      en: "Job Fair on 5 March 2026 expected 60 students and had 22 staff on a budget of ฿2,760.",
       th: "งาน Job Fair วันที่ 5 มีนาคม 2569 คาดว่ามีนักศึกษา 60 คน และมีทีมงาน 22 คน ใช้งบ 2,760 บาท",
     },
     {
-      en: "Meet Ajarn on 10 February 2569 asked for no funding, so its budget is ฿0.",
+      en: "Meet Ajarn on 10 February 2026 asked for no funding, so its budget is ฿0.",
       th: "งาน Meet Ajarn วันที่ 10 กุมภาพันธ์ 2569 ไม่ขอสนับสนุนงบประมาณ จึงมีงบประมาณ 0 บาท",
     },
     {
@@ -200,7 +200,7 @@ export const activities: Topic = {
           status: { en: "Completed", th: "เสร็จสิ้น" },
         },
         {
-          project: { en: "Polsci Inter Union 2026", th: "Polsci Inter Union 2569" },
+          project: { en: "Polsci Inter Union 2026", th: "Polsci Inter Union 2026" },
           date: "2026-03-21",
           venue: {
             en: "Faculty of Political Science, Chulalongkorn University, 13th floor meeting room",

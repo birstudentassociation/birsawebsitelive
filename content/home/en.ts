@@ -116,7 +116,7 @@ export const homeEn = {
       },
       overview: {
         label: "BIRSA activity",
-        description: "Officer roles, student regulations, transparency documents and news.",
+        description: "Officer roles, student regulations, open data and news.",
       },
     },
   },

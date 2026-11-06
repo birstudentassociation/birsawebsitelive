@@ -608,6 +608,21 @@ export const staticPages: StaticPage[] = [
     },
   },
   {
+    id: "page:open-data",
+    path: "/open-data/2025-26",
+    section: "activity",
+    kind: "reference",
+    title: { en: "BIRSA in numbers, 2025 to 2026", th: "BIRSA ในตัวเลข ปีการศึกษา 2568" },
+    summary: {
+      en: "What BIRSA planned and spent, what it ran, how often it met and how it was organised.",
+      th: "BIRSA วางแผนและใช้เงินอย่างไร จัดกิจกรรมอะไร ประชุมบ่อยแค่ไหน และมีโครงสร้างอย่างไร",
+    },
+    keywords: {
+      en: ["open data", "transparency", "budget", "spending", "minutes", "meetings", "decisions"],
+      th: ["ข้อมูลเปิด", "ความโปร่งใส", "งบประมาณ", "รายจ่าย", "รายงานการประชุม", "มติ"],
+    },
+  },
+  {
     id: "page:roles",
     path: "/activity/roles",
     section: "activity",
