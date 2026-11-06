@@ -18,6 +18,7 @@ import { allCourseCodes } from "@/lib/courses/graph";
 import { service as smartAnswers } from "@/content/smart-answers";
 import { onboardingAudiences } from "@/content/onboarding";
 import { SITE_URL } from "@/lib/site-url";
+import { editions } from "@/content/open-data";
 
 /** Regenerated daily so events drop out a year after they end. */
 export const revalidate = 86400;
@@ -86,6 +87,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     for (const path of staticPaths) {
       entries.push(entry(locale, path));
+    }
+
+    entries.push(entry(locale, "/open-data"));
+    for (const edition of editions) {
+      const base = `/open-data/${edition.slug}`;
+      entries.push(entry(locale, base, edition.published));
+      entries.push(entry(locale, `${base}/about-the-data`, edition.published));
+      for (const topic of edition.topics) {
+        entries.push(entry(locale, `${base}/${topic.slug}`, edition.published));
+      }
     }
 
     for (const post of getEntries("news", locale)) {

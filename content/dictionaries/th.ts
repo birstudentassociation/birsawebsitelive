@@ -311,6 +311,7 @@ export const th: typeof en = {
     contact: "ติดต่อ",
     officialLinks: "ลิงก์ทางการ",
     accessibility: "การเข้าถึง",
+    openData: "ข้อมูลเปิด",
     privacy: "ความเป็นส่วนตัว",
     cookies: "คุกกี้",
     standards: "เว็บไซต์นี้ทำงานอย่างไร",

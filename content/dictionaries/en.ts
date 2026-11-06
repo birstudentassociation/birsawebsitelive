@@ -314,6 +314,7 @@ export const en = {
     contact: "Contact",
     officialLinks: "Official links",
     accessibility: "Accessibility",
+    openData: "Open data",
     privacy: "Privacy",
     cookies: "Cookies",
     standards: "How this site works",

@@ -127,6 +127,9 @@ export default function Footer({ locale }: FooterProps) {
             <Link href={localeHref(locale, "/standards")} className="hover:text-brand-deep">
               {dict.footer.standards}
             </Link>
+            <Link href={localeHref(locale, "/open-data")} className="hover:text-brand-deep">
+              {dict.footer.openData}
+            </Link>
             <Link href={localeHref(locale, "/privacy")} className="hover:text-brand-deep">
               {dict.footer.privacy}
             </Link>
