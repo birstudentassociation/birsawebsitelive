@@ -511,6 +511,16 @@ export const calendarEvents: CalendarEvent[] = [
     kind: "university",
   },
   {
+    id: "nov-sotus-forum",
+    start: "2026-11-09",
+    title: {
+      en: "Thailand and Korea forum on SOTUS, 16:30 in Room 103",
+      th: "เวทีเสวนาโซตัส ไทยและเกาหลี 16.30 น. ห้อง 103",
+    },
+    slug: "thailand-korea-sotus-forum-2026",
+    kind: "university",
+  },
+  {
     id: "nov-bir-career-exhibition",
     start: "2026-11-11",
     title: {
