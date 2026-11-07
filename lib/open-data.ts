@@ -38,6 +38,8 @@ export type Column = {
   kind: ColumnKind;
   /** Add this column up in a totals row. Only for number or money. */
   total?: boolean;
+  /** Decimal places for a number or percent column, e.g. 1 for "36.9%". Default 0. */
+  decimals?: number;
 };
 
 export type CellValue = string | number | Bilingual | null;
@@ -118,7 +120,23 @@ export type Edition = {
   label: Bilingual;
   /** The day the edition was published; it never changes after that. */
   published: string;
+  /**
+   * One or two sentences for the edition's landing page and its card on the
+   * open data index: what this year's records do and do not let us show.
+   */
+  lede: Bilingual;
   topics: Topic[];
+  /** The "About the data" page for this edition. */
+  about: AboutSection[];
+};
+
+/** One section of an edition's "About the data" page. */
+export type AboutSection = {
+  /** Anchor id; "contact" also gets a link to the contact page. */
+  id: string;
+  heading: Bilingual;
+  paragraphs?: Bilingual[];
+  items?: Bilingual[];
 };
 
 // ---------------------------------------------------------------------------
@@ -191,9 +209,11 @@ export function cellText(
     case "money":
       return formatMoney(Number(value), decimals);
     case "number":
-      return numberFormat.format(Number(value));
+      return column.decimals
+        ? formatNumber(Number(value), column.decimals)
+        : numberFormat.format(Number(value));
     case "percent":
-      return `${formatNumber(Number(value))}%`;
+      return `${formatNumber(Number(value), column.decimals ?? 0)}%`;
     case "date":
       return formatTableDate(locale, String(value));
     default:
@@ -245,4 +265,95 @@ export function csvFilename(edition: string, dataset: string, locale: Locale): s
 export function csvSizeLabel(dataset: Dataset, locale: Locale): string {
   const bytes = new TextEncoder().encode(buildCsv(dataset, locale)).length;
   return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+// ---------------------------------------------------------------------------
+// Trends across editions
+// ---------------------------------------------------------------------------
+
+/** The academic years BIRSA has published, oldest first, with axis labels. */
+export const YEARS = [
+  {
+    slug: "2021-22",
+    long: { en: "2021 to 2022", th: "ปีการศึกษา 2564" },
+    short: { en: "2021/22", th: "2564" },
+  },
+  {
+    slug: "2022-23",
+    long: { en: "2022 to 2023", th: "ปีการศึกษา 2565" },
+    short: { en: "2022/23", th: "2565" },
+  },
+  {
+    slug: "2023-24",
+    long: { en: "2023 to 2024", th: "ปีการศึกษา 2566" },
+    short: { en: "2023/24", th: "2566" },
+  },
+  {
+    slug: "2024-25",
+    long: { en: "2024 to 2025", th: "ปีการศึกษา 2567" },
+    short: { en: "2024/25", th: "2567" },
+  },
+  {
+    slug: "2025-26",
+    long: { en: "2025 to 2026", th: "ปีการศึกษา 2568" },
+    short: { en: "2025/26", th: "2568" },
+  },
+] as const satisfies { slug: string; long: Bilingual; short: Bilingual }[];
+
+export type YearSlug = (typeof YEARS)[number]["slug"];
+
+/** The `year` cell for a trend row: the long label, matched back to its short one. */
+export function yearCell(slug: YearSlug): Bilingual {
+  const year = YEARS.find((y) => y.slug === slug)!;
+  return { ...year.long };
+}
+
+/** Short axis label for a `year` cell written with `yearCell`. */
+export function shortYear(locale: Locale, cell: CellValue | undefined): string {
+  if (!isBilingual(cell)) return String(cell ?? "");
+  const year = YEARS.find((y) => y.long.en === cell.en);
+  return year ? year.short[locale] : cell[locale];
+}
+
+/**
+ * How a trend is drawn.
+ * - `columns`: one column per year from the `year` and `valueKey` columns.
+ *   A null value is drawn as "no record", never as zero. The latest year with
+ *   a value is emphasised; the rest are quieter.
+ * - `multiples`: one small column chart per `groupKey` value, all on one
+ *   scale, years along each.
+ * - `matrix`: the dataset itself, drawn as a grid of years against items,
+ *   each cell's state matched (by its English text) against `legend`.
+ */
+export type TrendChart =
+  | { kind: "columns"; valueKey: string }
+  | { kind: "multiples"; groupKey: string; valueKey: string }
+  | {
+      kind: "matrix";
+      legend: { value: Bilingual; level: "full" | "partial" | "none" }[];
+    };
+
+export type TrendSection = {
+  /** Anchor and CSV file slug. */
+  id: string;
+  /** The question this section answers, as its heading. */
+  title: Bilingual;
+  /** One sentence, starting with the key fact. */
+  summary: Bilingual;
+  /** 2 to 4 points, each under 25 words. */
+  mainPoints: Bilingual[];
+  chart: TrendChart & {
+    /** States the finding, under 15 words. */
+    title: Bilingual;
+    subtitle: Bilingual;
+    /** One sentence, 100 to 200 characters, for screen readers. */
+    alt: Bilingual;
+  };
+  dataset: Dataset;
+  /** Show this as a figure tile, with a sparkline, on the open data index. */
+  tile?: { label: Bilingual; context: Bilingual };
+};
+
+export function trendCsvPath(id: string): string {
+  return `/open-data/trends/${id}.csv`;
 }

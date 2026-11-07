@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return buildMetadata({
     locale: lang,
     title: t.editionTitle(edition.label[lang]),
-    description: t.editionLede,
+    description: edition.lede[lang],
     path: `/open-data/${edition.slug}`,
   });
 }
@@ -59,7 +59,7 @@ export default async function OpenDataEditionPage({ params }: { params: Params }
     <>
       <PageHeader
         title={title}
-        lede={t.editionLede}
+        lede={edition.lede[locale]}
         breadcrumbs={
           <Breadcrumbs
             locale={locale}

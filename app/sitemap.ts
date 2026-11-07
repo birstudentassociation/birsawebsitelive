@@ -90,6 +90,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
 
     entries.push(entry(locale, "/open-data"));
+    entries.push(entry(locale, "/open-data/trends"));
     for (const edition of editions) {
       const base = `/open-data/${edition.slug}`;
       entries.push(entry(locale, base, edition.published));

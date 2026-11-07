@@ -1,11 +1,4 @@
-import type { Bilingual } from "@/lib/open-data";
-
-export type AboutSection = {
-  id: string;
-  heading: Bilingual;
-  paragraphs?: Bilingual[];
-  items?: Bilingual[];
-};
+import type { AboutSection } from "@/lib/open-data";
 
 /**
  * "About the data" for the 2025 to 2026 edition: how the figures were made,

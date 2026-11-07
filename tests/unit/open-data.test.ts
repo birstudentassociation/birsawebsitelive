@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { editions } from "@/content/open-data";
-import { about } from "@/content/open-data/2025-26/about";
 import { openDataCopy } from "@/content/open-data/copy";
+import { trends, trendsIntro } from "@/content/open-data/trends";
 import {
   buildCsv,
   columnTotal,
@@ -11,10 +11,13 @@ import {
   type Bilingual,
   type Dataset,
   type Topic,
+  YEARS,
 } from "@/lib/open-data";
 
 const topics: Topic[] = editions.flatMap((e) => e.topics);
-const datasets: Dataset[] = topics.flatMap((t) => t.datasets);
+const trendDatasets: Dataset[] = trends.map((s) => s.dataset);
+const about = editions.flatMap((e) => e.about);
+const datasets: Dataset[] = [...topics.flatMap((t) => t.datasets), ...trendDatasets];
 
 /** Every bilingual string in a topic, with a path for readable failures. */
 function bilingualStrings(topic: Topic): [string, Bilingual][] {
@@ -55,6 +58,42 @@ const allStrings: [string, string][] = [
       (["en", "th"] as const).map((l) => [`${t.slug}.${path}.${l}`, b[l]] as [string, string])
     )
   ),
+  ...editions.flatMap((e) =>
+    (["en", "th"] as const).map((l) => [`${e.slug}.lede.${l}`, e.lede[l]] as [string, string])
+  ),
+  ...trendsIntro.flatMap((b, i) =>
+    (["en", "th"] as const).map((l) => [`trendsIntro[${i}].${l}`, b[l]] as [string, string])
+  ),
+  ...trends.flatMap((sec) => {
+    const parts: [string, Bilingual | undefined][] = [
+      ["title", sec.title],
+      ["summary", sec.summary],
+      ["chart.title", sec.chart.title],
+      ["chart.subtitle", sec.chart.subtitle],
+      ["chart.alt", sec.chart.alt],
+      ["tile.label", sec.tile?.label],
+      ["tile.context", sec.tile?.context],
+      ["dataset.title", sec.dataset.title],
+      ["dataset.summary", sec.dataset.summary],
+      ["dataset.source", sec.dataset.source],
+      ["dataset.period", sec.dataset.period],
+      ...sec.mainPoints.map((p, i) => [`mainPoints[${i}]`, p] as [string, Bilingual]),
+      ...(sec.dataset.notes ?? []).map((n, i) => [`notes[${i}]`, n] as [string, Bilingual]),
+      ...sec.dataset.columns.map((c) => [`columns.${c.key}`, c.label] as [string, Bilingual]),
+      ...sec.dataset.rows.flatMap((row, r) =>
+        Object.entries(row)
+          .filter(([, v]) => isBilingual(v))
+          .map(([k, v]) => [`rows[${r}].${k}`, v as Bilingual] as [string, Bilingual])
+      ),
+    ];
+    return parts.flatMap(([path, b]) =>
+      b
+        ? (["en", "th"] as const).map(
+            (l) => [`trends.${sec.id}.${path}.${l}`, b[l]] as [string, string]
+          )
+        : []
+    );
+  }),
   ...about.flatMap((s) =>
     [s.heading, ...(s.paragraphs ?? []), ...(s.items ?? [])].flatMap((b, i) =>
       (["en", "th"] as const).map((l) => [`about.${s.id}[${i}].${l}`, b[l]] as [string, string])
@@ -207,6 +246,59 @@ describe("open data text", () => {
       // Proper names such as "Polsci Inter Union 2026" keep their own year.
       if (path.endsWith(".th") && thaiLetter.test(s)) expect(s, path).not.toMatch(ceYear);
     }
+  });
+});
+
+describe("open data trends", () => {
+  it("has unique, URL-safe section ids", () => {
+    const ids = trends.map((s) => s.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(id).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+  });
+
+  it("fills every string in both languages, with 2 to 4 main points", () => {
+    for (const sec of trends) {
+      expect(sec.mainPoints.length, sec.id).toBeGreaterThanOrEqual(2);
+      expect(sec.mainPoints.length, sec.id).toBeLessThanOrEqual(4);
+    }
+    for (const [path, s] of allStrings.filter(([p]) => p.startsWith("trends."))) {
+      expect(s.trim(), path).not.toBe("");
+    }
+  });
+
+  it("draws year charts from one row per year, oldest first, using real columns", () => {
+    const longs = YEARS.map((y) => y.long.en);
+    for (const sec of trends) {
+      const keys = sec.dataset.columns.map((c) => c.key);
+      if (sec.chart.kind === "columns") {
+        expect(keys).toContain("year");
+        expect(keys).toContain(sec.chart.valueKey);
+        const years = sec.dataset.rows.map((r) => (isBilingual(r.year) ? r.year.en : ""));
+        expect(years, sec.id).toEqual(longs);
+      }
+      if (sec.chart.kind === "multiples") {
+        expect(keys).toContain("year");
+        expect(keys).toContain(sec.chart.groupKey);
+        expect(keys).toContain(sec.chart.valueKey);
+        for (const r of sec.dataset.rows) {
+          expect(longs, sec.id).toContain(isBilingual(r.year) ? r.year.en : "");
+        }
+      }
+      if (sec.chart.kind === "matrix") {
+        const legend = sec.chart.legend.map((l) => l.value.en);
+        expect(sec.dataset.columns.slice(1).map((c) => c.label.en)).toEqual(longs);
+        for (const r of sec.dataset.rows) {
+          for (const c of sec.dataset.columns.slice(1)) {
+            const v = r[c.key];
+            expect(legend, `${sec.id} ${c.key}`).toContain(isBilingual(v) ? v.en : "");
+          }
+        }
+      }
+    }
+  });
+
+  it("only puts year charts on the index as tiles", () => {
+    for (const sec of trends.filter((s) => s.tile)) expect(sec.chart.kind).toBe("columns");
   });
 });
 

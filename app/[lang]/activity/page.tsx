@@ -100,7 +100,6 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
   const rolesHref = localeHref(locale, "/activity/roles");
   const regsHref = localeHref(locale, "/activity/regulations");
   const newsHref = localeHref(locale, "/news");
-  const openData = editions[0];
   const od = openDataCopy[locale];
   const approvalCheck = service.topics.find((topic) => topic.slug === "activity-approval");
 
@@ -168,12 +167,9 @@ export default async function ActivityPage({ params }: { params: Promise<{ lang:
                   {t.regsSummary}
                 </NavListItem>
 
-                {openData ? (
-                  <NavListItem
-                    href={localeHref(locale, `/open-data/${openData.slug}`)}
-                    title={od.editionTitle(openData.label[locale])}
-                  >
-                    {od.editionLede}
+                {editions.length ? (
+                  <NavListItem href={localeHref(locale, "/open-data")} title={od.title}>
+                    {od.indexLede}
                   </NavListItem>
                 ) : null}
               </NavList>

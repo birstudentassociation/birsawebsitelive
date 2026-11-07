@@ -7,7 +7,6 @@ import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { editions, getEdition } from "@/content/open-data";
 import { openDataCopy } from "@/content/open-data/copy";
-import { about } from "@/content/open-data/2025-26/about";
 
 export const dynamicParams = false;
 
@@ -59,7 +58,7 @@ export default async function AboutTheDataPage({ params }: { params: Params }) {
         }
       />
       <div className="wrap flex max-w-[var(--measure)] flex-col gap-10 py-10">
-        {about.map((section) => (
+        {edition.about.map((section) => (
           <section key={section.id} aria-labelledby={section.id}>
             <h2 id={section.id} className="font-display text-2xl">
               {section.heading[locale]}
