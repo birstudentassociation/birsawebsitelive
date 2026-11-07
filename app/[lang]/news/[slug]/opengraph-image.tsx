@@ -1,5 +1,6 @@
 import { getEntries, getEntry, isPastEvent } from "@/lib/content";
 import { formatDate, getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
+import { CAREER_EXHIBITION_SLUG, renderCareerExhibitionOgImage } from "@/lib/og-career-exhibition";
 import { OG_SIZE, renderCard, renderSiteOgImage, type CardAside } from "@/lib/og-image";
 
 export const alt = "BIR Student Association news";
@@ -55,6 +56,7 @@ export default async function OpengraphImage({
   const { lang, slug } = await params;
   const entry = isLocale(lang) ? getEntry("news", lang, slug) : null;
   if (!isLocale(lang) || !entry) return renderSiteOgImage();
+  if (slug === CAREER_EXHIBITION_SLUG) return renderCareerExhibitionOgImage(lang);
   const { title, summary, type, start, end, location, date, updated } = entry.frontmatter;
   const meta = getDictionary(lang).meta;
 
