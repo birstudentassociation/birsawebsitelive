@@ -12,6 +12,7 @@ import { prerequisiteCodes } from "@/lib/course-review/facts";
 import { prerequisites, type CourseNode } from "@/lib/courses/graph";
 import type { ClubFrontmatter, NewsFrontmatter } from "@/lib/content";
 import type { RegulationDoc } from "@/content/activity/regulations/types";
+import { bangkokIso } from "@/lib/event-when";
 
 type JsonLdObject = Record<string, unknown>;
 
@@ -163,9 +164,11 @@ export function newsJsonLd(
     return {
       ...base,
       "@type": "Event",
+      "@id": `${url}#event`,
       name: frontmatter.title,
-      startDate: frontmatter.start,
-      ...(frontmatter.end ? { endDate: frontmatter.end } : {}),
+      startDate: bangkokIso(frontmatter.start),
+      ...(frontmatter.end ? { endDate: bangkokIso(frontmatter.end) } : {}),
+      isAccessibleForFree: true,
       eventStatus: "https://schema.org/EventScheduled",
       eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       location: {

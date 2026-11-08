@@ -2,6 +2,7 @@ import { getEntries, getEntry, isPastEvent } from "@/lib/content";
 import { formatDate, getDictionary, isLocale, locales, type Locale } from "@/lib/i18n";
 import { CAREER_EXHIBITION_SLUG, renderCareerExhibitionOgImage } from "@/lib/og-career-exhibition";
 import { OG_SIZE, renderCard, renderSiteOgImage, type CardAside } from "@/lib/og-image";
+import { eventDateIntl, eventWhen } from "@/lib/event-when";
 
 export const alt = "BIR Student Association news";
 export const size = OG_SIZE;
@@ -17,35 +18,13 @@ export function generateStaticParams() {
 const eyebrow = { en: "What's on", th: "ข่าวและกิจกรรม" };
 const ended = { en: "Event ended", th: "กิจกรรมสิ้นสุดแล้ว" };
 
-const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
-
-function intl(locale: Locale, options: Intl.DateTimeFormatOptions, iso: string) {
-  return new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
-    ...options,
-    timeZone: DATE_ONLY.test(iso) ? "UTC" : "Asia/Bangkok",
-  }).format(new Date(iso));
-}
-
 function dateTile(locale: Locale, iso: string): CardAside {
   return {
     kind: "date",
-    month: intl(locale, { month: "short" }, iso),
-    day: intl(locale, { day: "numeric" }, iso),
-    weekday: intl(locale, { weekday: "long" }, iso),
+    month: eventDateIntl(locale, { month: "short" }, iso),
+    day: eventDateIntl(locale, { day: "numeric" }, iso),
+    weekday: eventDateIntl(locale, { weekday: "long" }, iso),
   };
-}
-
-function eventWhen(locale: Locale, start: string, end?: string): string {
-  const date = formatDate(locale, start);
-  if (end && formatDate(locale, end) !== date) {
-    return locale === "th"
-      ? `${date} ถึง ${formatDate(locale, end)}`
-      : `${date} to ${formatDate(locale, end)}`;
-  }
-  if (DATE_ONLY.test(start)) return date;
-  const time = (iso: string) => intl(locale, { hour: "2-digit", minute: "2-digit" }, iso);
-  const range = end ? `${time(start)} ${locale === "th" ? "ถึง" : "to"} ${time(end)}` : time(start);
-  return locale === "th" ? `${range} น.` : range;
 }
 
 export default async function OpengraphImage({

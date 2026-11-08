@@ -11,6 +11,7 @@ import Tag from "@/components/Tag";
 import ExternalLink from "@/components/ExternalLink";
 import Notice from "@/components/Notice";
 import { Mdx } from "@/lib/mdx";
+import { bangkokIso, eventWhenFull } from "@/lib/event-when";
 
 export function generateStaticParams() {
   return locales.flatMap((lang) =>
@@ -111,8 +112,15 @@ export default async function NewsDetailPage({
             {isEvent ? dict.meta.event : dict.meta.news}
           </Tag>
           <span className="text-sm text-muted">
-            {dict.meta.published} {formatDate(locale, frontmatter.date)}
+            {dict.meta.published}{" "}
+            <time dateTime={frontmatter.date}>{formatDate(locale, frontmatter.date)}</time>
           </span>
+          {frontmatter.updated && frontmatter.updated !== frontmatter.date ? (
+            <span className="text-sm text-muted">
+              {dict.meta.updated}{" "}
+              <time dateTime={frontmatter.updated}>{formatDate(locale, frontmatter.updated)}</time>
+            </span>
+          ) : null}
         </div>
 
         {isPastEvent(frontmatter) ? (
@@ -137,7 +145,11 @@ export default async function NewsDetailPage({
             {frontmatter.start ? (
               <div>
                 <dt className="text-sm font-semibold text-muted">{dict.meta.when}</dt>
-                <dd className="text-ink">{formatDate(locale, frontmatter.start)}</dd>
+                <dd className="text-ink">
+                  <time dateTime={bangkokIso(frontmatter.start)}>
+                    {eventWhenFull(locale, frontmatter.start, frontmatter.end)}
+                  </time>
+                </dd>
               </div>
             ) : null}
             {frontmatter.location ? (

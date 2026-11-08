@@ -34,6 +34,7 @@ import InternshipTimeline from "@/components/internship/InternshipTimeline";
 import InternshipSteps from "@/components/internship/InternshipSteps";
 import InternshipLetters from "@/components/internship/InternshipLetters";
 import BirTimetable from "@/components/timetable/BirTimetable";
+import AcademicCalendar from "@/components/academic-calendar/AcademicCalendar";
 import type { Locale } from "@/lib/i18n";
 import { localiseMdxHref } from "@/lib/mdx-href";
 
@@ -128,6 +129,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
     InternshipSteps: () => <InternshipSteps locale={locale} />,
     InternshipLetters: () => <InternshipLetters locale={locale} />,
     BirTimetable: () => <BirTimetable locale={locale} />,
+    AcademicCalendar: () => <AcademicCalendar locale={locale} />,
     NearbyFood: () => <PlacesSection locale={locale} section="food" />,
     NearbyHousing: () => <PlacesSection locale={locale} section="housing" />,
     // `slugs` is a comma-separated string because next-mdx-remote compiles with

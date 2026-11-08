@@ -183,6 +183,19 @@ describe("event structured data", () => {
     expect(th.location.address.addressRegion).toBe("กรุงเทพฯ");
   });
 
+  it("writes event times in Bangkok time and marks the event free to attend", () => {
+    const data = newsJsonLd(
+      "en",
+      "open-house",
+      { ...event(), start: "2026-03-10T03:00:00.000Z", end: "2026-03-10T05:30:00.000Z" },
+      "An open house."
+    );
+    expect(data.startDate).toBe("2026-03-10T10:00:00+07:00");
+    expect(data.endDate).toBe("2026-03-10T12:30:00+07:00");
+    expect(data.isAccessibleForFree).toBe(true);
+    expect(data["@id"]).toBe(`${SITE_URL}/en/news/open-house#event`);
+  });
+
   it("offers every event free of charge", () => {
     const data = build("en");
     expect(data.offers).toEqual({
