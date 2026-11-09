@@ -84,7 +84,7 @@ export default function DeviceGuide({ guide, feedUrl, links, copy, active }: Dev
             readOnly
             value={feedUrl}
             onFocus={(event) => event.currentTarget.select()}
-            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 text-sm text-ink"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 text-base text-ink"
           />
         </div>
       </div>

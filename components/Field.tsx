@@ -57,7 +57,7 @@ export default function Field({
   const describedBy = [hintId, errorId].filter(Boolean).join(" ") || undefined;
 
   const sharedClasses = clsx(
-    "focus-halo w-full rounded-md border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted",
+    "focus-halo w-full rounded-md border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted",
     error ? "border-error" : "border-input-border"
   );
 

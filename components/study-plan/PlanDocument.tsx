@@ -262,7 +262,7 @@ export default function PlanDocument({
         <Heading level={sectionLevel} className={sectionClass}>
           {copy.print.owedHeading}
         </Heading>
-        <div className="mt-4 overflow-x-auto">
+        <div className="relative mt-4 overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b border-line text-left">

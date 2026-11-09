@@ -142,7 +142,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
             <h2 className="font-display text-2xl">{t.cookiesTitle}</h2>
             <p className="leading-relaxed text-muted">{t.cookiesIntro}</p>
           </div>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -177,7 +177,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
             <h2 className="font-display text-2xl">{t.storageTitle}</h2>
             <p className="leading-relaxed text-muted">{t.storageIntro}</p>
           </div>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">

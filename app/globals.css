@@ -239,6 +239,7 @@ html[lang="th"] :is(h1, h2, h3) {
     font-size: 1.0625rem;
     line-height: 1.65;
     font-synthesis-weight: none;
+    overflow-wrap: break-word;
   }
 
   h1,
@@ -362,11 +363,11 @@ html[lang="th"] :is(h1, h2, h3) {
     padding: 0.75rem 1.15rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
-    box-shadow: var(--shadow-lg);
     transition: transform 0.15s ease;
   }
   .skip-link:focus {
     transform: translateY(0);
+    box-shadow: var(--shadow-lg);
     color: var(--color-cream);
   }
 
@@ -474,6 +475,12 @@ html[lang="th"] :is(h1, h2, h3) {
     padding: 0.6em 0.8em;
     text-align: left;
     vertical-align: top;
+  }
+  @media (max-width: 40rem) {
+    .prose th,
+    .prose td {
+      padding: 0.5em 0.6em;
+    }
   }
   .prose thead th {
     background: var(--color-sunken);

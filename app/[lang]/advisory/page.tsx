@@ -266,7 +266,7 @@ function TideTable({
       role="region"
       aria-label={t.caption}
       tabIndex={0}
-      className="max-w-full overflow-x-auto rounded-md border border-line bg-surface"
+      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface"
     >
       <table className="w-full min-w-[20rem] border-collapse text-left text-sm leading-relaxed">
         <caption className="px-3 py-2 text-left text-muted">{t.caption}</caption>

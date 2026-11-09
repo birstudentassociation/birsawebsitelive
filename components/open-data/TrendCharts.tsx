@@ -380,7 +380,7 @@ export function Matrix({
         role="region"
         aria-label={caption}
         tabIndex={0}
-        className="max-w-full overflow-x-auto rounded-md border border-line bg-surface focus-visible:outline-3 focus-visible:outline-offset-2"
+        className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface focus-visible:outline-3 focus-visible:outline-offset-2"
       >
         <table className="w-full border-collapse text-sm">
           <caption className="sr-only">{caption}</caption>

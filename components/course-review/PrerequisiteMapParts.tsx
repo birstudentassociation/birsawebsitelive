@@ -26,7 +26,7 @@ export function MapScroller({
         role="region"
         aria-label={label}
         tabIndex={0}
-        className="focus-halo max-w-full overflow-x-auto rounded-lg border border-line bg-surface p-2"
+        className="focus-halo relative max-w-full overflow-x-auto rounded-lg border border-line bg-surface p-2"
       >
         {children}
       </div>

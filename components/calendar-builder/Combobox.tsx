@@ -228,7 +228,7 @@ export default function Combobox({
           onClick={() => setOpen(true)}
           onKeyDown={onKeyDown}
           className={clsx(
-            "focus-halo h-11 w-full rounded-md border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted",
+            "focus-halo h-11 w-full rounded-md border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted",
             error ? "border-error" : "border-input-border"
           )}
         />

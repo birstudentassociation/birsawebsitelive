@@ -138,7 +138,7 @@ export default async function OfficerInventoryLayout({
         ];
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
       <header className="bg-brand text-white">
         <div className="wrap flex flex-wrap items-center justify-between gap-4 py-4">
           <Link

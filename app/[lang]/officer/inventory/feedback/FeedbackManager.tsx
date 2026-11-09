@@ -47,7 +47,7 @@ export default function FeedbackManager({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <table className="w-full text-left text-sm text-ink">
           <caption className="sr-only">{copy.commentHeader}</caption>
           <thead>

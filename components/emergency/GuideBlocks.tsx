@@ -132,7 +132,7 @@ export default function GuideBlocks({ blocks, locale, newTabLabel }: Props) {
           case "table": {
             const [head, ...rows] = block.rows;
             return (
-              <div key={index} className="overflow-x-auto">
+              <div key={index} className="relative overflow-x-auto">
                 <table className="w-full border-collapse text-left text-[0.95rem] leading-relaxed">
                   <caption className="mb-2 text-left font-display text-lg text-ink">
                     {block.caption}

@@ -53,6 +53,16 @@ function isExternalHref(href: string): boolean {
 }
 
 function createComponents(newTabLabel: string, tableRegionLabel: string, locale: Locale) {
+  const table = (props: TableHTMLAttributes<HTMLTableElement>) => (
+    <div
+      className="relative overflow-x-auto"
+      role="region"
+      aria-label={tableRegionLabel}
+      tabIndex={0}
+    >
+      <table {...props} />
+    </div>
+  );
   return {
     a(props: AnchorHTMLAttributes<HTMLAnchorElement>) {
       const { href = "", children, ...rest } = props;
@@ -77,13 +87,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
         </a>
       );
     },
-    table(props: TableHTMLAttributes<HTMLTableElement>) {
-      return (
-        <div className="overflow-x-auto" role="region" aria-label={tableRegionLabel} tabIndex={0}>
-          <table {...props} />
-        </div>
-      );
-    },
+    table,
     th(props: ThHTMLAttributes<HTMLTableCellElement>) {
       // remark-gfm only ever emits header cells in a <thead> (column
       // headers), so default the scope to "col" (WCAG 1.3.1 / H63) while
@@ -91,6 +95,7 @@ function createComponents(newTabLabel: string, tableRegionLabel: string, locale:
       const { scope, ...rest } = props;
       return <th scope={scope ?? "col"} {...rest} />;
     },
+    Table: table,
     Notice: (props: Omit<NoticeProps, "locale">) => <Notice {...props} locale={locale} />,
     InsetText,
     NotificationBanner: (props: Omit<NotificationBannerProps, "locale" | "announce">) => (

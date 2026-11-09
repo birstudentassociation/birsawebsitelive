@@ -65,7 +65,7 @@ export default function TermFreeElectiveForm({
             max={21}
             defaultValue={freeElectiveCredits}
             aria-invalid={hasError ? "true" : undefined}
-            className="focus-halo w-24 rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+            className="focus-halo w-24 rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink"
           />
           {hasError ? (
             <p className="flex items-center gap-1.5 text-sm font-medium text-error">

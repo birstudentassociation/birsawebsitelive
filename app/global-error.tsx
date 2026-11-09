@@ -53,7 +53,7 @@ export default function GlobalError({
       suppressHydrationWarning
     >
       <body>
-        <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
+        <main id="main" className="wrap flex min-h-dvh flex-col justify-center py-16">
           <h1 className="font-display text-3xl text-ink sm:text-4xl">{dict.error.title}</h1>
           <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.error.body}</p>
           <div className="mt-6 flex flex-wrap gap-3">

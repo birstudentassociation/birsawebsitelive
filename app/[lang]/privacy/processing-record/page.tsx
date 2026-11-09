@@ -289,7 +289,7 @@ export default async function ProcessingRecordPage({
             <h2 className="font-display text-2xl">{t.activitiesTitle}</h2>
             <p className="leading-relaxed text-muted">{t.activitiesIntro}</p>
           </div>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -356,7 +356,7 @@ export default async function ProcessingRecordPage({
             <h2 className="font-display text-2xl">{t.processorsTitle}</h2>
             <p className="leading-relaxed text-muted">{t.processorsIntro}</p>
           </div>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">

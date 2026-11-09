@@ -1221,7 +1221,7 @@ export default function ItemDetail({
             {adjustments.length === 0 ? (
               <p className="text-sm text-muted">{t.historyEmpty}</p>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="relative overflow-x-auto">
                 <table
                   aria-labelledby={`${formId}-history-heading`}
                   className="w-full text-left text-sm text-ink"

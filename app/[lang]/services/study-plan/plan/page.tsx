@@ -505,7 +505,7 @@ export default async function StudyPlanPage({
 
         <div>
           <h2 className="font-display text-xl">{copy.plan.owedHeading}</h2>
-          <div className="mt-4 overflow-x-auto">
+          <div className="relative mt-4 overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-line text-left">

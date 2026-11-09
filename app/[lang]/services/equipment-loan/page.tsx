@@ -58,6 +58,7 @@ const copy: Record<
     filterNav: string;
     clearFilters: string;
     noResults: string;
+    noItems: string;
     ownerLabel: string;
     allOwners: string;
     directoryNoticeTitle: string;
@@ -95,6 +96,7 @@ const copy: Record<
     filterNav: "Filter equipment",
     clearFilters: "Clear filters",
     noResults: "Nothing matched your filters. Try clearing them.",
+    noItems: "There is no equipment listed yet.",
     ownerLabel: "Owner",
     allOwners: "All owners",
     directoryNoticeTitle: "Club equipment",
@@ -131,6 +133,7 @@ const copy: Record<
     filterNav: "ตัวกรองอุปกรณ์",
     clearFilters: "ล้างตัวกรอง",
     noResults: "ไม่พบรายการที่ตรงกับตัวกรอง ลองล้างตัวกรองแล้วค้นหาใหม่",
+    noItems: "ยังไม่มีอุปกรณ์ในรายการ",
     ownerLabel: "เจ้าของ",
     allOwners: "ทุกเจ้าของ",
     directoryNoticeTitle: "อุปกรณ์ของชมรม",
@@ -514,7 +517,9 @@ export default async function EquipmentLoanPage({
             })}
           </div>
         ) : (
-          <p className="text-muted">{t.noResults}</p>
+          <p className="text-muted">
+            {selectedCategory || selectedOwner ? t.noResults : t.noItems}
+          </p>
         )}
       </div>
     </>

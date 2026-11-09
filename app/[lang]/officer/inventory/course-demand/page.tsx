@@ -158,7 +158,7 @@ export default async function OfficerElectiveDemandPage({
           {counts.length === 0 ? (
             <p className="text-sm text-muted">{t.empty}</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.tableTitle}</caption>
                 <thead>

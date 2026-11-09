@@ -143,7 +143,7 @@ export default async function OfficerCourseReviewsPage({
           {groups.length === 0 ? (
             <p className="text-sm text-muted">{t.queueEmpty}</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.queueTitle}</caption>
                 <thead>

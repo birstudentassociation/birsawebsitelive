@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import VisuallyHidden from "@/components/VisuallyHidden";
 
 export type ExternalLinkProps = {
@@ -21,14 +20,13 @@ export default function ExternalLink({
   className,
 }: ExternalLinkProps) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={clsx("inline-flex items-center gap-1", className)}
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
       {children}
-      <svg aria-hidden="true" viewBox="0 0 20 20" className="h-3.5 w-3.5 shrink-0">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 20 20"
+        className="ml-1 inline-block h-3.5 w-3.5 align-[-0.125em]"
+      >
         <path
           d="M7 13 13 7M8 7h5v5"
           fill="none"

@@ -260,7 +260,7 @@ export default function CourseCombobox({
           id={id}
           name={name}
           defaultValue={defaultValue ?? ""}
-          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink"
+          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink"
         >
           {emptyOption ? (
             <option value={emptyOption.value}>{emptyOption.label}</option>
@@ -328,7 +328,7 @@ export default function CourseCombobox({
           }}
           onKeyDown={handleKeyDown}
           onFocus={() => setOpen(true)}
-          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+          className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted"
         />
         {text !== "" ? (
           <button

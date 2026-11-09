@@ -23,7 +23,7 @@ export default function NextHours({ rows, t }: Props) {
       role="region"
       aria-label={t.nextHoursScrollLabel}
       tabIndex={0}
-      className="max-w-full overflow-x-auto rounded-md border border-line bg-surface"
+      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface"
     >
       <table className="w-full min-w-[30rem] border-collapse text-sm">
         <caption className="px-3 py-2 text-left text-muted">{t.nextHoursCaption}</caption>

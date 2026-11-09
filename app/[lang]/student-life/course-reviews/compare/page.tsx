@@ -235,7 +235,7 @@ export default async function CompareCoursesPage({
             <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted">
               {c.notRanked}
             </p>
-            <div className="overflow-x-auto rounded-lg border border-line bg-surface">
+            <div className="relative overflow-x-auto rounded-lg border border-line bg-surface">
               <table className="w-full min-w-[32rem] border-collapse text-sm">
                 <thead>
                   <tr className="bg-sunken">

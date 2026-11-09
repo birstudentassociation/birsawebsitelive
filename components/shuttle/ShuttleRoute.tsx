@@ -237,7 +237,7 @@ export default function ShuttleRoute({ locale }: ShuttleRouteProps) {
     <section className="flex flex-col gap-6">
       <h3 className="font-display text-lg">{t.mapTitle}</h3>
 
-      <div className="overflow-x-auto">
+      <div className="relative overflow-x-auto">
         <svg
           viewBox={`${VIEW_MIN_X} ${VIEW_MIN_Y} ${VIEW_W} ${VIEW_H}`}
           role="img"

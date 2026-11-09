@@ -145,7 +145,7 @@ export default function ScenarioSection({
         <div id="compare" className="flex flex-col gap-3 rounded-lg border border-line p-5">
           <h3 className="font-display text-lg">{insight.compare.heading}</h3>
           <p className="text-sm text-muted">{insight.compare.intro}</p>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full min-w-[24rem] border-collapse text-sm">
               <thead>
                 <tr className="border-b border-line text-left">

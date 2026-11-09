@@ -140,7 +140,7 @@ export default async function StudentLifePage({ params }: { params: Promise<{ la
           </NavList>
         </section>
 
-        <NavList>
+        <NavList className="border-t-0">
           <NavListItem
             href={localeHref(locale, "/student-life/getting-started")}
             title={gettingStarted.title}

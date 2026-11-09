@@ -72,7 +72,7 @@ function Tables({ locale, date }: ShuttleTimetableProps & { date: string }) {
         return (
           <div key={line.id} className="flex flex-col gap-3">
             <h3 className="font-display text-lg">{line.name[locale]}</h3>
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
               <table className="w-full border-collapse border-line text-sm">
                 <thead>
                   <tr className="border-b border-line text-left">

@@ -99,7 +99,7 @@ export default function ClubsExplorer({ clubs, locale, dict }: ClubsExplorerProp
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder={dict.searchPlaceholder}
-            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-[0.95rem] text-ink placeholder:text-muted"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-muted"
           />
         </div>
 

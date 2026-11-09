@@ -88,14 +88,14 @@ export default function NewsCard({
           {frontmatter.start ? (
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
-              <dt className="font-medium text-muted">{dict.meta.when}</dt>
+              <dt className="font-medium whitespace-nowrap text-muted">{dict.meta.when}</dt>
               <dd>{formatDate(locale, frontmatter.start)}</dd>
             </div>
           ) : null}
           {frontmatter.location ? (
             <div className="flex items-center gap-1.5">
               <PinIcon />
-              <dt className="font-medium text-muted">{dict.meta.where}</dt>
+              <dt className="font-medium whitespace-nowrap text-muted">{dict.meta.where}</dt>
               <dd>{frontmatter.location}</dd>
             </div>
           ) : null}

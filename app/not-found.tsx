@@ -60,7 +60,7 @@ export default function GlobalNotFound() {
             two cannot drift (and so this page keeps the guard that stops React
             stripping `data-theme` off <html>). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
-        <main id="main" className="wrap flex min-h-screen flex-col justify-center py-16">
+        <main id="main" className="wrap flex min-h-dvh flex-col justify-center py-16">
           <p className="text-sm font-semibold text-brand-deep">404</p>
           <h1 className="mt-2 font-display text-3xl text-ink sm:text-4xl">{dict.notFound.title}</h1>
           <p className="mt-3 max-w-[var(--measure)] text-lg text-muted">{dict.notFound.body}</p>

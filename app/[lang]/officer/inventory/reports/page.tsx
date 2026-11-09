@@ -212,7 +212,7 @@ export default async function OfficerReportsPage({
           {utilisation.length === 0 ? (
             <p className="text-sm text-muted">{t.utilisationEmpty}</p>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="relative overflow-x-auto">
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.utilisationTitle}</caption>
                 <thead>

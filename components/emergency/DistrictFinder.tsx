@@ -249,7 +249,7 @@ export default function DistrictFinder({ locale, districts: given, kinds, prompt
             }}
             onKeyDown={handleKeyDown}
             onFocus={() => setOpen(true)}
-            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface py-2.5 pr-20 pl-3.5 text-[0.95rem] text-ink placeholder:text-muted"
+            className="focus-halo h-11 w-full rounded-md border border-input-border bg-surface py-2.5 pr-20 pl-3.5 text-base text-ink placeholder:text-muted"
           />
           <div className="absolute right-1 flex items-center">
             {shown !== "" ? (

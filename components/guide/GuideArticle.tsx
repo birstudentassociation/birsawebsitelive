@@ -204,11 +204,11 @@ export default function GuideArticle({
           ) : null}
 
           {showToc ? (
-            <details className="rounded-lg border border-line bg-sunken p-5 lg:hidden print:hidden">
-              <summary className="cursor-pointer text-sm font-semibold tracking-wide text-muted uppercase">
+            <details className="rounded-lg border border-line bg-sunken lg:hidden print:hidden">
+              <summary className="cursor-pointer p-5 text-sm font-semibold tracking-wide text-muted uppercase">
                 {t.onThisPage}
               </summary>
-              <nav aria-label={t.onThisPage} className="mt-3">
+              <nav aria-label={t.onThisPage} className="px-5 pb-5">
                 {tocList}
               </nav>
             </details>
