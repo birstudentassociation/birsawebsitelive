@@ -36,20 +36,7 @@
 import type { VercelPoolClient } from "@vercel/postgres";
 import { sql, isInventoryConfigured } from "@/lib/inventory/db";
 import { RETENTION_YEARS } from "@/content/privacy/register";
-
-/**
- * `loans.status` values that mean the loan is over (db/migrations/005_loans.sql's
- * check constraint has eight statuses; these four are the terminal ones).
- * An open loan (pending, approved, checked_out, overdue) is never purged, no
- * matter how old it is: that is the single most important correctness
- * property of this module. `no_show` is included even though nothing in
- * lib/inventory/loans.ts currently transitions a loan to it: it is still a
- * real status with user-facing copy
- * (app/[lang]/services/equipment-loan/status/statusLookupCopy.ts), and
- * BIRSA's retention decision was two years for every category of personal
- * data, with no silent exception for a status nobody happens to set yet.
- */
-const CLOSED_LOAN_STATUSES = ["returned", "rejected", "cancelled", "no_show"] as const;
+import { CLOSED_LOAN_STATUSES } from "@/lib/inventory/loan-lifecycle";
 
 /** A passcode hash shape that `verifyPasscodeHash` (lib/inventory/auth.ts) can never match: real hashes are "<saltHex>:<hashHex>" with a colon. */
 const TOMBSTONE_PASSCODE_HASH = "purged-no-login-possible";

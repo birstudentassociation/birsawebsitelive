@@ -26,6 +26,7 @@ import type {
   UnitCondition,
   Role,
 } from "@/lib/inventory/types";
+import { LOAN_STATUSES, canTransition } from "@/lib/inventory/loan-lifecycle";
 
 /** Page size for the "other loans" (non-pending) group only; pending
  * requests are never paginated, since capping them would hide actionable
@@ -46,16 +47,7 @@ export type LoanQueueProps = {
 
 type RowMessage = { kind: "success" | "error"; text: string };
 
-const ALL_STATUSES: LoanStatus[] = [
-  "pending",
-  "approved",
-  "checked_out",
-  "overdue",
-  "returned",
-  "rejected",
-  "cancelled",
-  "no_show",
-];
+type RowAction = "approve" | "reject" | "checkout" | "checkin" | "cancel";
 
 const CONDITIONS: UnitCondition[] = ["good", "worn", "damaged", "lost"];
 
@@ -304,8 +296,7 @@ export default function LoanQueue({
   });
 
   const [loans, setLoans] = useState<Loan[]>(initialLoans);
-  const [busyId, setBusyId] = useState<string | null>(null);
-  const [busyAction, setBusyAction] = useState<string | null>(null);
+  const [busy, setBusy] = useState<{ loanId: string; action: RowAction } | null>(null);
   const [messages, setMessages] = useState<Record<string, RowMessage>>({});
   const [selectedUnit, setSelectedUnit] = useState<Record<string, string>>({});
   const [conditionOut, setConditionOut] = useState<Record<string, UnitCondition | "">>({});
@@ -316,7 +307,7 @@ export default function LoanQueue({
 
   const grouped = useMemo(() => {
     const map = new Map<LoanStatus, Loan[]>();
-    for (const status of ALL_STATUSES) map.set(status, []);
+    for (const status of LOAN_STATUSES) map.set(status, []);
     for (const loan of loans) {
       map.get(loan.status)?.push(loan);
     }
@@ -324,7 +315,7 @@ export default function LoanQueue({
   }, [loans]);
 
   const pendingLoans = grouped.get("pending") ?? [];
-  const otherStatuses = ALL_STATUSES.filter((status) => status !== "pending");
+  const otherStatuses = LOAN_STATUSES.filter((status) => status !== "pending");
   const otherCount = otherStatuses.reduce(
     (sum, status) => sum + (grouped.get(status)?.length ?? 0),
     0
@@ -376,7 +367,7 @@ export default function LoanQueue({
 
   async function runAction(
     loan: Loan,
-    action: string,
+    action: RowAction,
     confirmText: string,
     request: () => Promise<Response>,
     onSuccess: (loan: Loan) => void,
@@ -384,8 +375,7 @@ export default function LoanQueue({
   ) {
     const ok = await confirm({ title: confirmText, danger });
     if (!ok) return;
-    setBusyId(loan.id);
-    setBusyAction(action);
+    setBusy({ loanId: loan.id, action });
     setMessage(loan.id, undefined);
 
     try {
@@ -408,8 +398,7 @@ export default function LoanQueue({
     } catch {
       setMessage(loan.id, { kind: "error", text: t.genericErrorMessage });
     } finally {
-      setBusyId(null);
-      setBusyAction(null);
+      setBusy(null);
       setFocusLoanId(loan.id);
     }
   }
@@ -465,12 +454,10 @@ export default function LoanQueue({
     }
     const ok = await confirm({ title: t.confirmApprove(loan.reference) });
     if (!ok) return;
-    setBusyId(loan.id);
-    setBusyAction("approve");
+    setBusy({ loanId: loan.id, action: "approve" });
     setMessage(loan.id, undefined);
     await performApprove(loan);
-    setBusyId(null);
-    setBusyAction(null);
+    setBusy(null);
     setFocusLoanId(loan.id);
   }
 
@@ -570,7 +557,8 @@ export default function LoanQueue({
     const message = messages[loan.id];
     // Bulk-approving disables every pending row's actions too, not just the
     // one loan currently mid-request.
-    const isBusy = busyId === loan.id || (bulkApproving && loan.status === "pending");
+    const isBusy = busy?.loanId === loan.id || (bulkApproving && loan.status === "pending");
+    const busyAction = busy?.loanId === loan.id ? busy.action : null;
     const units = availableUnitsByLoan[loan.id] ?? [];
 
     return (
@@ -616,7 +604,7 @@ export default function LoanQueue({
           ) : null}
         </dl>
 
-        {canAct && loan.status === "pending" ? (
+        {canAct && canTransition(loan.status, "approve") ? (
           <div className="flex flex-col gap-3 pt-1">
             <Field
               label={t.unitLabel}
@@ -639,19 +627,19 @@ export default function LoanQueue({
             />
             <div className="flex flex-wrap items-center gap-3">
               <Button onClick={() => handleApprove(loan)} disabled={isBusy || units.length === 0}>
-                {isBusy && busyAction === "approve" ? t.approving : t.approveLabel}
+                {busyAction === "approve" ? t.approving : t.approveLabel}
               </Button>
               <Button variant="secondary" onClick={() => handleReject(loan)} disabled={isBusy}>
-                {isBusy && busyAction === "reject" ? t.rejecting : t.rejectLabel}
+                {busyAction === "reject" ? t.rejecting : t.rejectLabel}
               </Button>
               <Button variant="ghost" onClick={() => handleCancel(loan)} disabled={isBusy}>
-                {isBusy && busyAction === "cancel" ? t.cancelling : t.cancelLabel}
+                {busyAction === "cancel" ? t.cancelling : t.cancelLabel}
               </Button>
             </div>
           </div>
         ) : null}
 
-        {canAct && loan.status === "approved" ? (
+        {canAct && canTransition(loan.status, "checkout") ? (
           <div className="flex flex-col gap-3 pt-1">
             <Field
               label={`${t.conditionOutLabel} (${t.conditionOptional})`}
@@ -675,16 +663,16 @@ export default function LoanQueue({
             />
             <div className="flex flex-wrap items-center gap-3">
               <Button onClick={() => handleCheckout(loan)} disabled={isBusy}>
-                {isBusy && busyAction === "checkout" ? t.checkingOut : t.checkoutLabel}
+                {busyAction === "checkout" ? t.checkingOut : t.checkoutLabel}
               </Button>
               <Button variant="ghost" onClick={() => handleCancel(loan)} disabled={isBusy}>
-                {isBusy && busyAction === "cancel" ? t.cancelling : t.cancelLabel}
+                {busyAction === "cancel" ? t.cancelling : t.cancelLabel}
               </Button>
             </div>
           </div>
         ) : null}
 
-        {canAct && (loan.status === "checked_out" || loan.status === "overdue") ? (
+        {canAct && canTransition(loan.status, "checkin") ? (
           <div className="flex flex-col gap-3 pt-1">
             <Field
               label={`${t.conditionInLabel} (${t.conditionOptional})`}
@@ -708,7 +696,7 @@ export default function LoanQueue({
             />
             <div className="flex flex-wrap items-center gap-3">
               <Button onClick={() => handleCheckin(loan)} disabled={isBusy}>
-                {isBusy && busyAction === "checkin" ? t.checkingIn : t.checkinLabel}
+                {busyAction === "checkin" ? t.checkingIn : t.checkinLabel}
               </Button>
             </div>
           </div>
@@ -760,7 +748,7 @@ export default function LoanQueue({
             <Button
               variant="secondary"
               onClick={handleApproveAll}
-              disabled={bulkApproving || busyId !== null}
+              disabled={bulkApproving || busy !== null}
             >
               {bulkApproving ? t.approvingAllLabel : t.approveAllLabel}
             </Button>

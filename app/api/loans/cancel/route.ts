@@ -3,6 +3,7 @@ import { z } from "zod";
 import { checkRateLimit, getClientIp } from "@/app/api/_lib/guard";
 import { requireRole, isGlobalOfficer } from "@/lib/inventory/auth";
 import { cancelLoan, getLoanByReferenceAndEmail } from "@/lib/inventory/loans";
+import { canTransition } from "@/lib/inventory/loan-lifecycle";
 import { recordAudit } from "@/lib/inventory/audit";
 
 const publicCancelSchema = z.object({
@@ -84,11 +85,11 @@ export async function POST(request: Request) {
   const { reference, email } = result.data;
 
   const loan = await getLoanByReferenceAndEmail(reference, email);
-  if (!loan || loan.status !== "pending") {
+  if (!loan || !canTransition(loan.status, "borrowerCancel")) {
     return NextResponse.json({ ok: false, reason: "not-found" }, { status: 200 });
   }
 
-  const cancelled = await cancelLoan({ id: loan.id });
+  const cancelled = await cancelLoan({ id: loan.id, action: "borrowerCancel" });
   if (!cancelled.ok) {
     if (cancelled.reason === "not-configured") {
       return NextResponse.json({ ok: false, reason: "not-configured" }, { status: 200 });

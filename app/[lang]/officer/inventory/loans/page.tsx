@@ -14,6 +14,7 @@ import { getBorrower } from "@/lib/inventory/borrowers";
 import { getAvailableUnitsForRange } from "@/lib/inventory/units";
 import type { Item, Borrower, Unit, LoanStatus } from "@/lib/inventory/types";
 import LoanQueue from "@/components/inventory/LoanQueue";
+import { LOAN_STATUSES, isLoanStatus } from "@/lib/inventory/loan-lifecycle";
 
 /** Internal officer console page; never indexed. */
 export async function generateMetadata({
@@ -35,19 +36,7 @@ export async function generateMetadata({
   return { ...metadata, robots: { index: false, follow: false } };
 }
 
-const FILTERABLE_STATUSES: LoanStatus[] = [
-  "pending",
-  "approved",
-  "checked_out",
-  "overdue",
-  "returned",
-  "rejected",
-  "cancelled",
-];
-
-function isLoanStatus(value: string): value is LoanStatus {
-  return (FILTERABLE_STATUSES as string[]).includes(value) || value === "no_show";
-}
+const FILTERABLE_STATUSES = LOAN_STATUSES.filter((status) => status !== "no_show");
 
 type Copy = {
   title: string;

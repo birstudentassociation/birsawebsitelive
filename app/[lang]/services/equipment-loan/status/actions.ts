@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { loanLookupSchema } from "@/lib/validation";
 import { checkRateLimit } from "@/app/api/_lib/guard";
 import { getLoanByReferenceAndEmail, cancelLoan } from "@/lib/inventory/loans";
+import { canTransition } from "@/lib/inventory/loan-lifecycle";
 import { getItem } from "@/lib/inventory/items";
 import type { LoanStatus } from "@/lib/inventory/types";
 import { localeHref, type Locale } from "@/lib/i18n";
@@ -178,11 +179,11 @@ export async function submitCancelConfirm(
   }
 
   const loan = await getLoanByReferenceAndEmail(parsed.data.reference, parsed.data.email);
-  if (!loan || loan.status !== "pending") {
+  if (!loan || !canTransition(loan.status, "borrowerCancel")) {
     return { status: "not-found" };
   }
 
-  const cancelled = await cancelLoan({ id: loan.id });
+  const cancelled = await cancelLoan({ id: loan.id, action: "borrowerCancel" });
   if (!cancelled.ok) {
     return { status: "error" };
   }

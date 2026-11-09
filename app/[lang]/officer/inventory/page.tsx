@@ -15,6 +15,7 @@ import { isInventoryConfigured } from "@/lib/inventory/db";
 import { listLoans } from "@/lib/inventory/loans";
 import { getLowStockItems } from "@/lib/inventory/consumables";
 import type { LoanStatus } from "@/lib/inventory/types";
+import { LOAN_STATUSES } from "@/lib/inventory/loan-lifecycle";
 
 export async function generateMetadata({
   params,
@@ -138,17 +139,6 @@ const copy: Record<Locale, Copy> = {
     courseReviewsLink: "ไปที่รีวิวรายวิชา",
   },
 };
-
-const STATUS_ORDER: LoanStatus[] = [
-  "pending",
-  "approved",
-  "checked_out",
-  "overdue",
-  "returned",
-  "rejected",
-  "cancelled",
-  "no_show",
-];
 
 export default async function OfficerInventoryDashboardPage({
   params,
@@ -284,7 +274,7 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
   const [loans, lowStock] = await Promise.all([listLoans(), getLowStockItems()]);
 
   const counts = new Map<LoanStatus, number>();
-  for (const status of STATUS_ORDER) counts.set(status, 0);
+  for (const status of LOAN_STATUSES) counts.set(status, 0);
   for (const loan of loans) {
     counts.set(loan.status, (counts.get(loan.status) ?? 0) + 1);
   }
@@ -329,7 +319,7 @@ async function GlobalDashboardBoards({ locale, t }: { locale: Locale; t: Copy })
           {t.statusBoardTitle}
         </h2>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {STATUS_ORDER.map((status) => (
+          {LOAN_STATUSES.map((status) => (
             <Card key={status}>
               <p className="text-sm font-semibold text-muted">{t.statusLabels[status]}</p>
               <p className="font-display text-2xl text-ink">{counts.get(status) ?? 0}</p>

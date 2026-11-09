@@ -27,6 +27,13 @@ import type {
 } from "@/lib/inventory/types";
 import { upsertBorrower, countActiveLoans } from "@/lib/inventory/borrowers";
 import { isRealCalendarDate } from "@/lib/validation";
+import {
+  canTransition,
+  sqlStatusList,
+  transitionFromSql,
+  ON_LOAN_STATUSES,
+  UNIT_HOLDING_LOAN_STATUSES,
+} from "@/lib/inventory/loan-lifecycle";
 
 /** Used when a borrower's max_concurrent_loans is null. */
 const DEFAULT_MAX_CONCURRENT_LOANS = 3;
@@ -141,7 +148,9 @@ export function deriveUnitState(
   if (conditionIn === "damaged") {
     return "maintenance";
   }
-  if (activeStatuses.some((status) => status === "checked_out" || status === "overdue")) {
+  if (
+    activeStatuses.some((status) => (ON_LOAN_STATUSES as readonly LoanStatus[]).includes(status))
+  ) {
     return "on_loan";
   }
   if (activeStatuses.includes("approved")) {
@@ -166,7 +175,7 @@ async function syncUnitState(
 
   const loansResult = await client.query<{ status: LoanStatus }>(
     `select status from loans
-     where unit_id = $1 and status in ('approved', 'checked_out', 'overdue')`,
+     where unit_id = $1 and status in (${sqlStatusList(UNIT_HOLDING_LOAN_STATUSES)})`,
     [unitId]
   );
   const next = deriveUnitState(
@@ -495,7 +504,7 @@ export async function decideLoan(input: {
     if (!existing) {
       return { ok: false, reason: "not-found" };
     }
-    if (existing.status !== "pending") {
+    if (!canTransition(existing.status, input.decision === "rejected" ? "reject" : "approve")) {
       return { ok: false, reason: "already-decided" };
     }
 
@@ -548,7 +557,7 @@ export async function decideLoan(input: {
         const stuck = await client.query(
           `select 1 from loans
            where unit_id = $1 and id <> $2
-             and status in ('checked_out', 'overdue')
+             and status in (${sqlStatusList(ON_LOAN_STATUSES)})
              and end_date < $3::date
            limit 1`,
           [unitId, input.id, today]
@@ -560,7 +569,7 @@ export async function decideLoan(input: {
         const result = await client.query<LoanRow>(
           `update loans
            set unit_id = $1, status = 'approved', decided_by = $2, decided_at = now()
-           where id = $3 and status = 'pending'
+           where id = $3 and status in (${transitionFromSql("approve")})
            returning *`,
           [unitId, input.officerId, input.id]
         );
@@ -607,7 +616,7 @@ export async function checkoutLoan(input: {
     if (!existing) {
       return { ok: false, reason: "not-found" };
     }
-    if (existing.status !== "approved") {
+    if (!canTransition(existing.status, "checkout")) {
       return { ok: false, reason: "invalid-state" };
     }
 
@@ -616,7 +625,7 @@ export async function checkoutLoan(input: {
         `update loans
          set status = 'checked_out', checked_out_by = $1, checked_out_at = now(),
              condition_out = $2
-         where id = $3 and status = 'approved'
+         where id = $3 and status in (${transitionFromSql("checkout")})
          returning *`,
         [input.officerId, input.conditionOut ?? null, input.id]
       );
@@ -659,7 +668,7 @@ export async function checkinLoan(input: {
     if (!existing) {
       return { ok: false, reason: "not-found" };
     }
-    if (existing.status !== "checked_out" && existing.status !== "overdue") {
+    if (!canTransition(existing.status, "checkin")) {
       return { ok: false, reason: "invalid-state" };
     }
 
@@ -670,7 +679,7 @@ export async function checkinLoan(input: {
         `update loans
          set status = 'returned', checked_in_by = $1, checked_in_at = now(),
              condition_in = $2, closed_at = now()
-         where id = $3 and status in ('checked_out', 'overdue')
+         where id = $3 and status in (${transitionFromSql("checkin")})
          returning *`,
         [input.officerId, input.conditionIn ?? null, input.id]
       );
@@ -699,6 +708,7 @@ export async function checkinLoan(input: {
 export async function cancelLoan(input: {
   id: string;
   byOfficerId?: string | null;
+  action?: "cancel" | "borrowerCancel";
 }): Promise<
   | { ok: true; loan: Loan }
   | { ok: false; reason: "not-configured" | "not-found" | "invalid-state" | "error" }
@@ -712,7 +722,8 @@ export async function cancelLoan(input: {
     if (!existing) {
       return { ok: false, reason: "not-found" };
     }
-    if (existing.status !== "pending" && existing.status !== "approved") {
+    const action = input.action ?? "cancel";
+    if (!canTransition(existing.status, action)) {
       return { ok: false, reason: "invalid-state" };
     }
 
@@ -722,7 +733,7 @@ export async function cancelLoan(input: {
       const result = await client.query<LoanRow>(
         `update loans
          set status = 'cancelled', closed_at = now()
-         where id = $1 and status in ('pending', 'approved')
+         where id = $1 and status in (${transitionFromSql(action)})
          returning *`,
         [input.id]
       );

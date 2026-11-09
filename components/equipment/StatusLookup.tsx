@@ -21,6 +21,7 @@ import StatusPill from "@/components/inventory/StatusPill";
 import { formatDate, localeHref } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
 import type { LoanStatus } from "@/lib/inventory/types";
+import { canTransition } from "@/lib/inventory/loan-lifecycle";
 import type { LookupState } from "@/app/[lang]/services/equipment-loan/status/actions";
 
 /** Clears the status-lookup draft cookie and returns to the start of the journey. */
@@ -133,7 +134,7 @@ export default function StatusLookup({
               </dd>
             </div>
           </dl>
-          {loan.status === "pending" ? (
+          {canTransition(loan.status, "borrowerCancel") ? (
             <div>
               <Button href={cancelHref} variant="secondary">
                 {labels.cancelButton}

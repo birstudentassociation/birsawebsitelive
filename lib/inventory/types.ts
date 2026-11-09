@@ -7,6 +7,9 @@
  * snake_case database rows to these shapes, matching the convention in
  * lib/equipment-loan.ts.
  */
+import type { LoanStatus } from "@/lib/inventory/loan-lifecycle";
+
+export type { LoanStatus };
 
 export type Role =
   "admin" | "inventory_manager" | "loan_officer" | "read_only" | "academic_affairs";
@@ -16,16 +19,6 @@ export type TrackingMode = "asset" | "consumable";
 export type UnitCondition = "good" | "worn" | "damaged" | "lost";
 
 export type UnitState = "available" | "reserved" | "on_loan" | "maintenance" | "retired";
-
-export type LoanStatus =
-  | "pending"
-  | "approved"
-  | "checked_out"
-  | "overdue"
-  | "returned"
-  | "rejected"
-  | "cancelled"
-  | "no_show";
 
 export type Bilingual = { en: string; th: string };
 

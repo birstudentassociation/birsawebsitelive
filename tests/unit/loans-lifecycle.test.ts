@@ -150,6 +150,14 @@ describe("shared units across loans", () => {
     expect(db.units[0]?.state).toBe("available");
   });
 
+  it("refuses a borrower cancel once the loan is approved", async () => {
+    seed("reserved", [loan({ status: "approved" })]);
+    const result = await cancelLoan({ id: LOAN_A, action: "borrowerCancel" });
+    expect(result).toEqual({ ok: false, reason: "invalid-state" });
+    expect(db.loans[0]?.status).toBe("approved");
+    expect(db.units[0]?.state).toBe("reserved");
+  });
+
   it("does not take a unit out of maintenance when a loan is cancelled", async () => {
     seed("maintenance", [loan({ status: "approved" })]);
     await cancelLoan({ id: LOAN_A });

@@ -12,6 +12,7 @@ import { getSessionOfficer } from "@/lib/inventory/auth";
 import { isInventoryConfigured } from "@/lib/inventory/db";
 import { getStatusCounts, getItemUtilisation } from "@/lib/inventory/reports";
 import type { LoanStatus } from "@/lib/inventory/types";
+import { LOAN_STATUSES } from "@/lib/inventory/loan-lifecycle";
 
 /** Internal officer console page; never indexed. */
 export async function generateMetadata({
@@ -129,17 +130,6 @@ const copy: Record<Locale, Copy> = {
   },
 };
 
-const STATUS_ORDER: LoanStatus[] = [
-  "pending",
-  "approved",
-  "checked_out",
-  "overdue",
-  "returned",
-  "rejected",
-  "cancelled",
-  "no_show",
-];
-
 const EXPORT_LINK_CLASS =
   "focus-halo inline-flex h-11 items-center justify-center gap-2 rounded-lg border-[1.5px] border-ink px-5 text-[0.95rem] font-semibold text-ink transition-colors duration-150 hover:bg-sunken whitespace-nowrap";
 
@@ -206,7 +196,7 @@ export default async function OfficerReportsPage({
             {t.statusSummaryTitle}
           </h2>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {STATUS_ORDER.map((status) => (
+            {LOAN_STATUSES.map((status) => (
               <Card key={status}>
                 <p className="text-sm font-semibold text-muted">{t.statusLabels[status]}</p>
                 <p className="font-display text-2xl text-ink">{countsByStatus.get(status) ?? 0}</p>
