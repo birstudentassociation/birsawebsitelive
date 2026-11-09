@@ -12,8 +12,6 @@ const INK = "#211c19";
 const PINK = "#f19ea1";
 const WHITE = "#ffffff";
 
-const LOGO_DIR = path.join("assets", "og", CAREER_EXHIBITION_SLUG);
-
 const LOGOS: { file: string; background: string; height: number }[] = [
   { file: "fao-wordmark", background: WHITE, height: 50 },
   { file: "bitkub", background: WHITE, height: 40 },
@@ -44,8 +42,7 @@ const COPY: Record<Locale, { kicker: string; when: string; ribbon: string; place
   },
 };
 
-function pngSrc(file: string) {
-  const data = fs.readFileSync(path.join(process.cwd(), file));
+function pngSrc(data: Buffer) {
   return {
     src: `data:image/png;base64,${data.toString("base64")}`,
     width: data.readUInt32BE(16),
@@ -127,7 +124,7 @@ export async function renderCareerExhibitionOgImage(locale: Locale) {
       lineText("THAMMASAT UNIVERSITY", "text", RED, 16),
       lineText(copy.ribbon, "strong", WHITE, 22),
     ]);
-  const birsa = pngSrc(path.join("public", "birsa-logo.png"));
+  const birsa = pngSrc(fs.readFileSync(path.join(process.cwd(), "public", "birsa-logo.png")));
   const pills = await Promise.all(PILLS.map(([label]) => lineText(label, "strong", INK, 16)));
 
   return new ImageResponse(
@@ -212,7 +209,17 @@ export async function renderCareerExhibitionOgImage(locale: Locale) {
           }}
         >
           {LOGOS.map((logo) => {
-            const img = pngSrc(path.join(LOGO_DIR, `${logo.file}.png`));
+            const img = pngSrc(
+              fs.readFileSync(
+                path.join(
+                  process.cwd(),
+                  "assets",
+                  "og",
+                  "bir-career-exhibition-2026",
+                  `${logo.file}.png`
+                )
+              )
+            );
             const width = Math.min(TILE_W - 20, (img.width / img.height) * logo.height);
             const height = (width / img.width) * img.height;
             return (
