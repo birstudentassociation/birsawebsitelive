@@ -2,12 +2,13 @@
 
 /**
  * The calendar builder: three steps (choose dates, add class times, add to a
- * calendar app) beside a live preview. Owns the selection, which lives in the
+ * calendar app), one per page, beside a live preview. Owns the selection, which lives in the
  * feed link's query string and in this browser's localStorage, never on the
  * server. The server render and first client render use the defaults and the
  * public feed link, so with JavaScript off the guides still work.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import Button from "@/components/Button";
 import type { CalendarEvent } from "@/content/calendar/events";
 import { defaultTeachingTerm, termKeyOf } from "@/content/calendar/terms";
 import { findTimetableEntry } from "@/content/calendar/timetable";
@@ -65,21 +66,38 @@ export function guessDevice(userAgent: string, touchPoints = 0): DeviceId {
   return "other";
 }
 
+type StepNumber = 1 | 2 | 3;
+
+function stepFromHash(hash: string): StepNumber | null {
+  const match = /^#step-([123])$/.exec(hash);
+  return match ? (Number(match[1]) as StepNumber) : null;
+}
+
 function Step({
   n,
   id,
   heading,
   label,
+  hidden,
+  back,
   children,
 }: {
   n: number;
   id: string;
   heading: string;
   label: string;
+  hidden: boolean;
+  back?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="flex scroll-mt-4 flex-col gap-5">
+    <section
+      id={id}
+      aria-labelledby={`${id}-heading`}
+      hidden={hidden}
+      className="flex scroll-mt-24 flex-col gap-5"
+    >
+      {back}
       <div className="flex items-start gap-4">
         <span
           aria-hidden="true"
@@ -89,13 +107,32 @@ function Step({
         </span>
         <div>
           <p className="text-sm text-muted">{fill(label, { n })}</p>
-          <h2 id={`${id}-heading`} className="font-display text-2xl">
+          <h2
+            id={`${id}-heading`}
+            tabIndex={-1}
+            className="font-display text-2xl focus:outline-none"
+          >
             {heading}
           </h2>
         </div>
       </div>
       <div className="flex flex-col gap-5 sm:pl-[3.25rem]">{children}</div>
     </section>
+  );
+}
+
+function BackButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="inline-flex min-h-11 items-center gap-1.5 self-start text-sm font-semibold text-ink underline underline-offset-4"
+    >
+      <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4" fill="none">
+        <path d="M10 3 5 8l5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+      {label}
+    </button>
   );
 }
 
@@ -116,6 +153,32 @@ export default function CalendarBuilder({
   const [classesByTerm, setClassesByTerm] = useState<Record<string, ClassSlot[]>>({});
   const [device, setDevice] = useState<DeviceId>("other");
   const [openRequest, setOpenRequest] = useState(0);
+  const [step, setStep] = useState<StepNumber>(1);
+  const moved = useRef(false);
+
+  function goTo(next: StepNumber) {
+    moved.current = true;
+    setStep(next);
+    try {
+      window.history.pushState(null, "", `#step-${next}`);
+    } catch {
+      // History can be unavailable. The step still changes.
+    }
+  }
+
+  useEffect(() => {
+    const sync = () => setStep(stepFromHash(window.location.hash) ?? 1);
+    window.addEventListener("popstate", sync);
+    return () => window.removeEventListener("popstate", sync);
+  }, []);
+
+  useEffect(() => {
+    if (!moved.current) return;
+    moved.current = false;
+    const heading = document.getElementById(`step-${step}-heading`);
+    heading?.focus();
+    document.getElementById(`step-${step}`)?.scrollIntoView?.({ block: "start" });
+  }, [step]);
 
   // After mount: restore the saved choices, take the live date and guess the
   // device. Until then the server's defaults are shown, so hydration matches.
@@ -137,6 +200,7 @@ export default function CalendarBuilder({
       // Storage can be blocked. The page works without it.
     }
     setTermKey(chosen);
+    setStep(stepFromHash(window.location.hash) ?? 1);
     setTodayKey(today);
     setDevice(guessDevice(navigator.userAgent, navigator.maxTouchPoints));
     setMounted(true);
@@ -283,14 +347,20 @@ export default function CalendarBuilder({
   return (
     <div className="wrap py-10">
       <noscript>
-        <style>{`.js-only{display:none !important}.js-guide[hidden]{display:block !important}`}</style>
+        <style>{`.js-only{display:none !important}@layer base{.js-guide[hidden],#step-3[hidden]{display:flex !important}}`}</style>
         <p className="mb-8 max-w-[var(--measure)] leading-relaxed text-muted">{copy.noScript}</p>
       </noscript>
 
       <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-12">
         <div className="flex min-w-0 flex-col gap-12">
           <div className="js-only flex flex-col gap-12">
-            <Step n={1} id="step-1" heading={copy.step1.heading} label={copy.stepLabel}>
+            <Step
+              n={1}
+              id="step-1"
+              heading={copy.step1.heading}
+              label={copy.stepLabel}
+              hidden={step !== 1}
+            >
               <p className="max-w-[var(--measure)] leading-relaxed text-muted">
                 {copy.step1.intro}
               </p>
@@ -352,9 +422,21 @@ export default function CalendarBuilder({
                   {copy.skipToPreview}
                 </a>
               </p>
+              <div>
+                <Button type="button" onClick={() => goTo(2)}>
+                  {copy.continue}
+                </Button>
+              </div>
             </Step>
 
-            <Step n={2} id="step-2" heading={copy.step2.heading} label={copy.stepLabel}>
+            <Step
+              n={2}
+              id="step-2"
+              heading={copy.step2.heading}
+              label={copy.stepLabel}
+              hidden={step !== 2}
+              back={<BackButton label={copy.back} onClick={() => goTo(1)} />}
+            >
               <p className="max-w-[var(--measure)] leading-relaxed text-muted">
                 {copy.step2.intro}
               </p>
@@ -372,10 +454,26 @@ export default function CalendarBuilder({
                   openRequest={openRequest}
                 />
               </div>
+              <div>
+                <Button type="button" onClick={() => goTo(3)}>
+                  {copy.continue}
+                </Button>
+              </div>
             </Step>
           </div>
 
-          <Step n={3} id="step-3" heading={copy.step3.heading} label={copy.stepLabel}>
+          <Step
+            n={3}
+            id="step-3"
+            heading={copy.step3.heading}
+            label={copy.stepLabel}
+            hidden={step !== 3}
+            back={
+              <div className="js-only">
+                <BackButton label={copy.back} onClick={() => goTo(2)} />
+              </div>
+            }
+          >
             <p className="max-w-[var(--measure)] leading-relaxed text-muted">{copy.step3.intro}</p>
             <p className="js-only font-semibold text-ink">{summary}</p>
             {classesMissing ? (
@@ -434,7 +532,10 @@ export default function CalendarBuilder({
             classesMissing={classesMissing}
             todayKey={todayKey}
             summary={summary}
-            onAddClass={() => setOpenRequest((n) => n + 1)}
+            onAddClass={() => {
+              if (step !== 2) goTo(2);
+              setOpenRequest((n) => n + 1);
+            }}
           />
         </div>
       </div>

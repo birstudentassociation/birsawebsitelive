@@ -217,6 +217,7 @@ describe("the class form's course and place comboboxes", () => {
 
   function setupBuilder(locale: "en" | "th" = "en") {
     window.localStorage.clear();
+    window.history.replaceState(null, "", "/");
     const { container } = render(
       <CalendarBuilder
         locale={locale}
@@ -232,7 +233,9 @@ describe("the class form's course and place comboboxes", () => {
         siteUrl="https://example.org"
       />
     );
-    return within(container);
+    const ui = within(container);
+    fireEvent.click(ui.getByRole("button", { name: locale === "th" ? "ต่อไป" : "Continue" }));
+    return ui;
   }
 
   beforeEach(() => {

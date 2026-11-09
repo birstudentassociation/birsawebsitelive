@@ -21,7 +21,10 @@ const courses = [
   { code: "PI300", title: "Not in the timetable" },
 ];
 
+let root: HTMLElement;
+
 function setup(overrides: Partial<React.ComponentProps<typeof CalendarBuilder>> = {}) {
+  window.history.replaceState(null, "", "/");
   const { container } = render(
     <CalendarBuilder
       locale="en"
@@ -35,10 +38,30 @@ function setup(overrides: Partial<React.ComponentProps<typeof CalendarBuilder>> 
       {...overrides}
     />
   );
+  root = container;
   return within(container);
 }
 
+function currentStep(): number {
+  const section = root.querySelector<HTMLElement>("section[id^='step-']:not([hidden])");
+  return Number(section?.id.slice(5));
+}
+
+function go(ui: ReturnType<typeof setup>, n: 1 | 2 | 3) {
+  for (let i = 0; i < 3 && currentStep() !== n; i++) {
+    const section = within(root.querySelector<HTMLElement>(`#step-${currentStep()}`)!);
+    fireEvent.click(section.getByRole("button", { name: currentStep() < n ? "Continue" : "Back" }));
+  }
+  expect(currentStep()).toBe(n);
+  return ui;
+}
+
+function checkbox(ui: ReturnType<typeof setup>, name: RegExp) {
+  return go(ui, 1).getByRole("checkbox", { name }) as HTMLInputElement;
+}
+
 function visibleLink(ui: ReturnType<typeof setup>): string {
+  go(ui, 3);
   const inputs = ui.getAllByLabelText("Your calendar link") as HTMLInputElement[];
   const shown = inputs.find((input) => !input.closest("[hidden]"));
   return shown?.value ?? "";
@@ -69,10 +92,12 @@ describe("guessDevice", () => {
 const V2 = "bir-calendar-builder:v2";
 
 function chooseSemester(ui: ReturnType<typeof setup>, n: 1 | 2) {
+  go(ui, 2);
   fireEvent.click(ui.getByRole("radio", { name: new RegExp(`Semester ${n}`) }));
 }
 
 function openForm(ui: ReturnType<typeof setup>) {
+  go(ui, 2);
   fireEvent.click(ui.getByRole("button", { name: "Add a class" }));
 }
 
@@ -87,24 +112,56 @@ function addTimetabled(ui: ReturnType<typeof setup>, code: string) {
 }
 
 describe("CalendarBuilder", () => {
+  it("shows one step at a time and moves with Continue and Back", () => {
+    const ui = setup();
+    expect(currentStep()).toBe(1);
+    expect(root.querySelector("#step-2")?.hasAttribute("hidden")).toBe(true);
+    expect(root.querySelector("#step-3")?.hasAttribute("hidden")).toBe(true);
+
+    fireEvent.click(ui.getByRole("button", { name: "Continue" }));
+    expect(currentStep()).toBe(2);
+    expect(window.location.hash).toBe("#step-2");
+    expect(document.activeElement?.id).toBe("step-2-heading");
+
+    fireEvent.click(ui.getByRole("button", { name: "Continue" }));
+    expect(currentStep()).toBe(3);
+    expect(window.location.hash).toBe("#step-3");
+
+    fireEvent.click(ui.getByRole("button", { name: "Back" }));
+    expect(currentStep()).toBe(2);
+
+    window.history.replaceState(null, "", "#step-1");
+    fireEvent.popState(window);
+    expect(currentStep()).toBe(1);
+  });
+
+  it("opens the class form on step 2 from the preview", () => {
+    const ui = setup();
+    fireEvent.click(checkbox(ui, /My class times/));
+    fireEvent.click(
+      within(ui.getByRole("complementary")).getByRole("button", { name: /Add a class/ })
+    );
+    expect(currentStep()).toBe(2);
+  });
+
   it("toggling a category updates the preview and the feed link", () => {
     const ui = setup();
     expect(visibleLink(ui)).toContain("/en/my-calendar.ics?inc=birsa%2Cholidays%2Cregistration");
     const preview0 = within(ui.getByRole("complementary"));
     expect(preview0.getAllByText("Public holiday, no classes").length).toBeGreaterThan(0);
 
-    fireEvent.click(ui.getByRole("checkbox", { name: /University days, holidays and closures/ }));
+    fireEvent.click(checkbox(ui, /University days, holidays and closures/));
     expect(visibleLink(ui)).toContain("inc=birsa%2Cregistration");
     const preview = within(ui.getByRole("complementary"));
     expect(preview.queryByText("Public holiday, no classes")).toBeNull();
 
-    fireEvent.click(ui.getByRole("checkbox", { name: /BIRSA activities/ }));
-    fireEvent.click(ui.getByRole("checkbox", { name: /Registration and add or drop/ }));
+    fireEvent.click(checkbox(ui, /BIRSA activities/));
+    fireEvent.click(checkbox(ui, /Registration and add or drop/));
     expect(preview.getByText(/Nothing is chosen/)).toBeTruthy();
   });
 
   it("defaults to semester 2 today and shows each semester's dates under its option", () => {
-    const ui = setup({ defaultTermKey: "2569-1" });
+    const ui = go(setup({ defaultTermKey: "2569-1" }), 2);
     const s2 = ui.getByRole("radio", { name: /Semester 2/ }) as HTMLInputElement;
     expect(s2.checked).toBe(true);
     expect(ui.getByRole("radio", { name: /Semester 1/ }).closest("label")?.textContent).toMatch(
@@ -166,7 +223,7 @@ describe("CalendarBuilder", () => {
     expect(ui.queryByLabelText("Day")).toBeNull();
 
     fireEvent.click(ui.getByRole("button", { name: "Add this class" }));
-    const exams = ui.getByRole("checkbox", { name: /My exams/ }) as HTMLInputElement;
+    const exams = checkbox(ui, /My exams/);
     expect(exams.disabled).toBe(false);
     expect(exams.checked).toBe(true);
     expect(visibleLink(ui)).toContain("inc=birsa%2Cholidays%2Cregistration%2Cclasses%2Cexams");
@@ -180,7 +237,7 @@ describe("CalendarBuilder", () => {
 
   it("disables My exams with an explanation until a timetable class is added", () => {
     const ui = setup();
-    const exams = ui.getByRole("checkbox", { name: /My exams/ }) as HTMLInputElement;
+    const exams = checkbox(ui, /My exams/);
     expect(exams.disabled).toBe(true);
     expect(ui.getByText(/Needs a class from the BIR timetable/)).toBeTruthy();
     chooseSemester(ui, 1);
@@ -190,9 +247,7 @@ describe("CalendarBuilder", () => {
     fireEvent.change(ui.getByLabelText("Start time"), { target: { value: "10:00" } });
     fireEvent.change(ui.getByLabelText("End time"), { target: { value: "11:00" } });
     fireEvent.click(ui.getByRole("button", { name: "Add this class" }));
-    expect((ui.getByRole("checkbox", { name: /My exams/ }) as HTMLInputElement).disabled).toBe(
-      true
-    );
+    expect(checkbox(ui, /My exams/).disabled).toBe(true);
   });
 
   it("lets the student change the filled in time and room", () => {
@@ -233,7 +288,7 @@ describe("CalendarBuilder", () => {
   });
 
   it("adds a whole year, skips duplicates, and undoes", () => {
-    const ui = setup();
+    const ui = go(setup(), 2);
     fireEvent.click(ui.getByRole("button", { name: "Add all Year 1 courses" }));
     const status = ui.getByText(/Added 5 classes\./);
     expect(status.textContent).toMatch(/LAS101 needs a section/);
@@ -242,6 +297,7 @@ describe("CalendarBuilder", () => {
     expect(ui.getByRole("group", { name: "Which section are you in?" })).toBeTruthy();
     expect(visibleLink(ui)).toContain("exams");
 
+    go(ui, 2);
     fireEvent.click(ui.getByRole("button", { name: "Add all Year 1 courses" }));
     // Only LAS101 is left, and it still needs a section, so nothing new is added.
     expect(ui.getByText(/^LAS101 needs a section/)).toBeTruthy();
@@ -283,6 +339,7 @@ describe("CalendarBuilder", () => {
     expect(visibleLink(ui)).not.toContain("PI271");
     chooseSemester(ui, 2);
     expect(visibleLink(ui)).toContain("c=PI271");
+    go(ui, 2);
     expect(
       ui.getAllByText(/^PI271 Introduction to International Relations/).length
     ).toBeGreaterThan(0);
@@ -315,7 +372,7 @@ describe("CalendarBuilder", () => {
         classes: { "2569-1": ["PI300~3~1000~1100~"], "2569-2": ["PI271~2~0900~1200~R.102"] },
       })
     );
-    const ui = setup();
+    const ui = go(setup(), 2);
     expect((ui.getByRole("radio", { name: /Semester 1/ }) as HTMLInputElement).checked).toBe(true);
     expect(visibleLink(ui)).toContain("term=2569-1");
     expect(visibleLink(ui)).toContain("c=PI300");
@@ -324,21 +381,19 @@ describe("CalendarBuilder", () => {
 
   it("prompts when My class times is chosen with no classes", () => {
     const ui = setup();
-    fireEvent.click(ui.getByRole("checkbox", { name: /My class times/ }));
+    fireEvent.click(checkbox(ui, /My class times/));
     const preview = within(ui.getByRole("complementary"));
     expect(preview.getByText(/have not added a class yet/)).toBeTruthy();
   });
 
   it("explains when no term is published and disables class times", () => {
-    const ui = setup({ terms: [], defaultTermKey: "" });
+    const ui = go(setup({ terms: [], defaultTermKey: "" }), 2);
     expect(ui.getByText("Term dates are not published yet")).toBeTruthy();
-    expect(
-      (ui.getByRole("checkbox", { name: /My class times/ }) as HTMLInputElement).disabled
-    ).toBe(true);
+    expect(checkbox(ui, /My class times/).disabled).toBe(true);
   });
 
   it("switches the guide when a device is chosen", () => {
-    const ui = setup();
+    const ui = go(setup(), 3);
     fireEvent.click(ui.getByRole("radio", { name: "iPhone or iPad" }));
     expect(ui.getByRole("heading", { name: "iPhone or iPad" })).toBeTruthy();
     expect(ui.queryByRole("heading", { name: "Mac" })).toBeNull();
@@ -351,7 +406,7 @@ describe("CalendarBuilder", () => {
   });
 
   it("copies the link and confirms politely", async () => {
-    const ui = setup();
+    const ui = go(setup(), 3);
     fireEvent.click(ui.getByRole("radio", { name: "Mac" }));
     fireEvent.click(ui.getByRole("button", { name: "Copy link" }));
     await waitFor(() => expect(ui.getByText("Link copied")).toBeTruthy());

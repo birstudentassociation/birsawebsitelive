@@ -43,6 +43,8 @@ export type CalendarBuilderCopy = {
   calendarName: string;
   skipToPreview: string;
   stepLabel: string;
+  continue: string;
+  back: string;
   noScript: string;
   categories: Record<CategoryId, { label: string; description: string; preview: string }>;
   step1: {

@@ -16,6 +16,8 @@ export const calendarBuilderTh: CalendarBuilderCopy = {
   calendarName: "ปฏิทิน BIR ของฉัน",
   skipToPreview: "ดูรายการที่จะเพิ่ม",
   stepLabel: "ขั้นที่ {n} จาก 3",
+  continue: "ต่อไป",
+  back: "ย้อนกลับ",
   noScript:
     "การเลือกวันและการเพิ่มเวลาเรียนต้องเปิดใช้ JavaScript หากปิดอยู่ ยังสมัครรับปฏิทินกลางของ BIRSA ทั้งหมดได้ตามวิธีด้านล่าง",
   categories: {

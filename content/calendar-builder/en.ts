@@ -16,6 +16,8 @@ export const calendarBuilderEn: CalendarBuilderCopy = {
   calendarName: "My BIR calendar",
   skipToPreview: "See what will be added",
   stepLabel: "Step {n} of 3",
+  continue: "Continue",
+  back: "Back",
   noScript:
     "Choosing dates and adding class times needs JavaScript. Without it, you can still subscribe to the full BIRSA calendar using the steps below.",
   categories: {
