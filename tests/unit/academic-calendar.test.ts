@@ -29,6 +29,7 @@ describe("academic calendar 2569", () => {
       "s1",
       "s2-bir",
       "summer",
+      "holidays",
       "i-grade",
     ]);
     expect(periodsForTrack(academicCalendar2569, "registrar").map((p) => p.id)).toContain("s2-reg");

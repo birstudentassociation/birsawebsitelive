@@ -211,12 +211,6 @@ export const academicCalendar2569: AcademicPeriod[] = [
         title: t("Withdraw a course with a W", "ถอนรายวิชาโดยบันทึกอักษร W"),
       },
       {
-        id: "s2b-makha",
-        start: "2027-02-22",
-        kind: "holiday",
-        title: t("Substitute holiday for Makha Bucha Day", "วันหยุดชดเชยวันมาฆบูชา"),
-      },
-      {
         id: "s2b-midterms",
         start: "2027-02-23",
         end: "2027-02-27",
@@ -234,17 +228,11 @@ export const academicCalendar2569: AcademicPeriod[] = [
         ),
       },
       {
-        id: "s2b-chakri",
-        start: "2027-04-06",
-        kind: "holiday",
-        title: t("Chakri Memorial Day", "วันจักรี"),
-      },
-      {
         id: "s2b-songkran",
         start: "2027-04-12",
         end: "2027-04-18",
         kind: "holiday",
-        title: t("Songkran", "สงกรานต์"),
+        title: t("No classes for Songkran", "งดการเรียนการสอนช่วงสงกรานต์"),
       },
       {
         id: "s2b-last-class",
@@ -260,12 +248,6 @@ export const academicCalendar2569: AcademicPeriod[] = [
         title: t("Final exams", "สอบปลายภาค"),
       },
       {
-        id: "s2b-coronation",
-        start: "2027-05-04",
-        kind: "holiday",
-        title: t("Coronation Day", "วันฉัตรมงคล"),
-      },
-      {
         id: "s2b-grades",
         start: "2027-06-02",
         end: "2027-06-17",
@@ -279,8 +261,8 @@ export const academicCalendar2569: AcademicPeriod[] = [
         "การลงทะเบียนเปิดเวลา 09.00 น. ของวันแรก และปิดเวลา 22.30 น. ของวันสุดท้าย การชำระเงินใช้เวลาเดียวกัน ตรวจยอดค้างชำระและชำระเงินได้ในแอป TU GREATS"
       ),
       t(
-        "The date of Royal Ploughing Ceremony Day is still to be confirmed. There are no classes on holidays.",
-        "วันพืชมงคลยังรอประกาศ วันหยุดไม่มีการเรียนการสอน"
+        "There are no classes on public holidays. You can find them all under Public holidays.",
+        "วันหยุดราชการไม่มีการเรียนการสอน ดูวันหยุดทั้งหมดได้ในหัวข้อวันหยุดราชการ"
       ),
     ],
   },
@@ -493,6 +475,147 @@ export const academicCalendar2569: AcademicPeriod[] = [
       t(
         "Your section decides when the summer session ends. Sections 8123 and 8245 finish on 12 July 2027, and sections 3883 and 5984 finish on 15 July 2027.",
         "กลุ่มเรียนเป็นตัวกำหนดว่าภาคฤดูร้อนจบวันไหน กลุ่ม 8123 และ 8245 จบวันที่ 12 กรกฎาคม 2570 ส่วนกลุ่ม 3883 และ 5984 จบวันที่ 15 กรกฎาคม 2570"
+      ),
+    ],
+  },
+  {
+    id: "holidays",
+    title: t("Public holidays", "วันหยุดราชการ"),
+    intro: t(
+      "These are the government holidays from August 2026 to July 2027. The university is closed and there are no classes.",
+      "วันหยุดราชการตั้งแต่สิงหาคม 2569 ถึงกรกฎาคม 2570 มหาวิทยาลัยปิดทำการและไม่มีการเรียนการสอน"
+    ),
+    items: [
+      {
+        id: "ph-mother",
+        start: "2026-08-12",
+        kind: "holiday",
+        title: t(
+          "Queen Mother's Birthday and Mother's Day",
+          "วันเฉลิมพระชนมพรรษาสมเด็จพระบรมราชชนนีพันปีหลวง และวันแม่แห่งชาติ"
+        ),
+      },
+      {
+        id: "ph-rama9-memorial",
+        start: "2026-10-13",
+        kind: "holiday",
+        title: t("King Bhumibol Memorial Day", "วันนวมินทรมหาราช"),
+      },
+      {
+        id: "ph-chulalongkorn",
+        start: "2026-10-23",
+        kind: "holiday",
+        title: t("Chulalongkorn Day", "วันปิยมหาราช"),
+      },
+      {
+        id: "ph-father",
+        start: "2026-12-05",
+        kind: "holiday",
+        title: t(
+          "King Bhumibol's Birthday, National Day and Father's Day",
+          "วันคล้ายวันพระบรมราชสมภพ รัชกาลที่ 9 วันชาติ และวันพ่อแห่งชาติ"
+        ),
+      },
+      {
+        id: "ph-father-sub",
+        start: "2026-12-07",
+        kind: "holiday",
+        title: t("Substitute holiday for Father's Day", "วันหยุดชดเชยวันพ่อแห่งชาติ"),
+      },
+      {
+        id: "ph-constitution",
+        start: "2026-12-10",
+        kind: "holiday",
+        title: t("Constitution Day", "วันรัฐธรรมนูญ"),
+      },
+      {
+        id: "ph-nye",
+        start: "2026-12-31",
+        kind: "holiday",
+        title: t("New Year's Eve", "วันสิ้นปี"),
+      },
+      {
+        id: "ph-new-year",
+        start: "2027-01-01",
+        kind: "holiday",
+        title: t("New Year's Day", "วันขึ้นปีใหม่"),
+      },
+      {
+        id: "ph-makha",
+        start: "2027-02-21",
+        kind: "holiday",
+        title: t("Makha Bucha Day", "วันมาฆบูชา"),
+      },
+      {
+        id: "ph-makha-sub",
+        start: "2027-02-22",
+        kind: "holiday",
+        title: t("Substitute holiday for Makha Bucha Day", "วันหยุดชดเชยวันมาฆบูชา"),
+      },
+      {
+        id: "ph-chakri",
+        start: "2027-04-06",
+        kind: "holiday",
+        title: t("Chakri Memorial Day", "วันจักรี"),
+      },
+      {
+        id: "ph-songkran",
+        start: "2027-04-13",
+        end: "2027-04-15",
+        kind: "holiday",
+        title: t("Songkran", "วันสงกรานต์"),
+      },
+      {
+        id: "ph-coronation",
+        start: "2027-05-04",
+        kind: "holiday",
+        title: t("Coronation Day", "วันฉัตรมงคล"),
+      },
+      {
+        id: "ph-visakha",
+        start: "2027-05-20",
+        kind: "holiday",
+        title: t("Visakha Bucha Day", "วันวิสาขบูชา"),
+      },
+      {
+        id: "ph-queen",
+        start: "2027-06-03",
+        kind: "holiday",
+        title: t(
+          "Queen Suthida's Birthday",
+          "วันเฉลิมพระชนมพรรษาสมเด็จพระนางเจ้าสุทิดา พัชรสุธาพิมลลักษณ พระบรมราชินี"
+        ),
+      },
+      {
+        id: "ph-asanha",
+        start: "2027-07-18",
+        kind: "holiday",
+        title: t("Asanha Bucha Day", "วันอาสาฬหบูชา"),
+      },
+      {
+        id: "ph-lent",
+        start: "2027-07-19",
+        kind: "holiday",
+        title: t("Buddhist Lent Day", "วันเข้าพรรษา"),
+      },
+      {
+        id: "ph-king",
+        start: "2027-07-28",
+        kind: "holiday",
+        title: t(
+          "King Vajiralongkorn's Birthday",
+          "วันเฉลิมพระชนมพรรษาพระบาทสมเด็จพระวชิรเกล้าเจ้าอยู่หัว"
+        ),
+      },
+    ],
+    notes: [
+      t(
+        "The government has not yet set the date of Royal Ploughing Ceremony Day in May 2027, or a substitute holiday for Asanha Bucha Day, which falls on a Sunday.",
+        "รัฐบาลยังไม่ประกาศวันพืชมงคลในเดือนพฤษภาคม 2570 และวันหยุดชดเชยวันอาสาฬหบูชาซึ่งตรงกับวันอาทิตย์"
+      ),
+      t(
+        "The Cabinet can add special holidays during the year. We will add them here when they are announced.",
+        "คณะรัฐมนตรีอาจประกาศวันหยุดพิเศษเพิ่มระหว่างปี เราจะเพิ่มไว้ที่นี่เมื่อมีประกาศ"
       ),
     ],
   },
