@@ -870,20 +870,6 @@ export const contact: SmartAnswerService = {
             th: "เมื่อทุกคนปลอดภัยแล้ว ค่อยแจ้ง BIRSA หรือคณะ หากเรื่องนี้กระทบการเรียนหรือความเป็นอยู่ของคุณ",
           },
         },
-        {
-          kind: "note",
-          tone: "warning",
-          text: {
-            en: "The emergency guidance pages cover fire, earthquake, flooding, protests near campus, and campus closures, with what to do step by step.",
-            th: "หน้าคำแนะนำเหตุฉุกเฉินครอบคลุมเหตุไฟไหม้ แผ่นดินไหว น้ำท่วม การชุมนุมใกล้มหาวิทยาลัย และการปิดพื้นที่ พร้อมขั้นตอนที่ต้องทำ",
-          },
-        },
-      ],
-      actions: [
-        {
-          label: { en: "Emergency guidance", th: "คำแนะนำเหตุฉุกเฉิน" },
-          href: "/emergency",
-        },
       ],
       related: [
         {

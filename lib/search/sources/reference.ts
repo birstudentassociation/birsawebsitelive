@@ -460,6 +460,5 @@ export function referenceDocs(locale: Locale): SearchDoc[] {
     ...committeeDocs(locale),
     ...placeDocs(locale),
     ...quickLinkDocs(locale),
-    ...emergencyDocs(locale),
   ];
 }

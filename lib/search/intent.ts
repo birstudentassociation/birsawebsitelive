@@ -405,22 +405,17 @@ const rules: Rule[] = [
     ],
     build: (locale) => ({
       id: "emergency",
-      title: bi(locale, "Emergency guidance", "คำแนะนำในสถานการณ์ฉุกเฉิน"),
+      title: bi(locale, "Safety and emergencies", "ความปลอดภัยและเหตุฉุกเฉิน"),
       description: bi(
         locale,
-        "What to do, who to call, and how BIRSA will tell you what is happening.",
-        "สิ่งที่ต้องทำ ผู้ที่ต้องติดต่อ และวิธีที่ BIRSA จะแจ้งสถานการณ์ให้คุณทราบ"
+        "Who to call and how to stay safe on and around campus.",
+        "ผู้ที่ต้องติดต่อ และวิธีดูแลความปลอดภัยในและรอบมหาวิทยาลัย"
       ),
       action: {
-        label: bi(locale, "Open emergency guidance", "เปิดคำแนะนำฉุกเฉิน"),
-        href: localeHref(locale, "/emergency"),
+        label: bi(locale, "Open the safety guide", "เปิดคู่มือความปลอดภัย"),
+        href: localeHref(locale, "/student-life/health-and-safety/staying-safe"),
       },
-      links: [
-        {
-          label: bi(locale, "Safety and emergencies guide", "คู่มือความปลอดภัยและเหตุฉุกเฉิน"),
-          href: localeHref(locale, "/student-life/health-and-safety/staying-safe"),
-        },
-      ],
+      links: [],
       note: bi(
         locale,
         "If someone is in immediate danger, call 191 for the police or 1669 for an ambulance before reading anything here.",

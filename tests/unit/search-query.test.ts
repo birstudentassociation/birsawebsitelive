@@ -86,8 +86,9 @@ describe("runSearch: the queries that must work", () => {
 
   it("surfaces safety content for the one word someone would type", () => {
     const response = runSearch("en", "fire");
-    expect(response.results.some((result) => result.doc.section === "emergency")).toBe(true);
+    expect(response.results.some((result) => result.doc.section === "emergency")).toBe(false);
     expect(response.bestBet?.id).toBe("emergency");
+    expect(response.bestBet?.action.href).not.toContain("/emergency");
     expect(response.bestBet?.note).toBeTruthy();
   });
 

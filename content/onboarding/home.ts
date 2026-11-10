@@ -213,7 +213,6 @@ export const homeTrack: OnboardingTrack = {
             en: "Call 1669 for an ambulance and 191 for the police.",
             th: "โทร 1669 เรียกรถพยาบาล และ 191 แจ้งตำรวจ",
           },
-          href: "/emergency",
         },
         {
           id: "campus-clinic",

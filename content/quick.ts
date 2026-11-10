@@ -202,13 +202,6 @@ export const quickGroups: QuickGroup[] = [
         en: { label: "Give feedback", hint: "Tell us what you thought of a service" },
         th: { label: "ให้ความคิดเห็น", hint: "บอกเราว่าคุณคิดเห็นอย่างไรกับบริการ" },
       },
-      {
-        key: "emergency-guidance",
-        href: "/emergency",
-        icon: "alert",
-        en: { label: "Emergency guidance", hint: "What to do in a campus emergency" },
-        th: { label: "คำแนะนำฉุกเฉิน", hint: "สิ่งที่ควรทำเมื่อเกิดเหตุฉุกเฉินในคณะ" },
-      },
     ],
   },
   {

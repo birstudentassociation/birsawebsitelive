@@ -167,11 +167,6 @@ export default async function ConditionsPage({ params }: { params: Promise<{ lan
                 {t.sourceLinks.canals}
               </Link>
             </li>
-            <li>
-              <Link href={localeHref(locale, "/emergency")} className="text-brand-deep underline">
-                {t.sourceLinks.emergency}
-              </Link>
-            </li>
           </ul>
         </section>
 

@@ -64,10 +64,10 @@ describe("LatestNews", () => {
 });
 
 describe("GetHelp", () => {
-  it("has three links with the emergency one in red", () => {
+  it("has two links and none to the emergency guidance", () => {
     render(<GetHelp locale="en" />);
     expect(screen.getByRole("heading", { level: 2, name: "Get help" })).toBeInTheDocument();
-    expect(screen.getAllByRole("link")).toHaveLength(3);
+    expect(screen.getAllByRole("link")).toHaveLength(2);
     expect(screen.getByRole("link", { name: "Contact BIRSA" })).toHaveAttribute(
       "href",
       "/en/contact"
@@ -76,16 +76,14 @@ describe("GetHelp", () => {
       "href",
       "/en/contact/where-to-go"
     );
-    const emergency = screen.getByRole("link", { name: "Emergency guidance" });
-    expect(emergency).toHaveAttribute("href", "/en/emergency");
-    expect(emergency).toHaveClass("bg-brand");
+    expect(screen.queryByRole("link", { name: "Emergency guidance" })).not.toBeInTheDocument();
   });
 
   it("renders Thai copy", () => {
     render(<GetHelp locale="th" />);
-    expect(screen.getByRole("link", { name: homeTh.getHelp.items.emergency })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: homeTh.getHelp.items.contact })).toHaveAttribute(
       "href",
-      "/th/emergency"
+      "/th/contact"
     );
   });
 });

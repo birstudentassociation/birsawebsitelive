@@ -14,7 +14,6 @@ const rows: {
 }[] = [
   { key: "whereToGo", href: "/contact/where-to-go", icon: "help" },
   { key: "contact", href: "/contact", icon: "mail" },
-  { key: "emergency", href: "/emergency", icon: "phone", urgent: true },
 ];
 
 export default function GetHelp({
