@@ -72,7 +72,9 @@ export function DueSoonRow({ item, locale }: { item: DueItem; locale: Locale }) 
           ) : (
             <time dateTime={item.start}>{formatDate(locale, item.start)}</time>
           )}
-          {`, ${relativePhrase(item, locale)}, ${copy.sources[item.source]}`}
+          {locale === "th"
+            ? ` (${relativePhrase(item, locale)}) ${copy.sources[item.source]}`
+            : `, ${relativePhrase(item, locale)}, ${copy.sources[item.source]}`}
         </p>
         {item.closesInDays !== undefined ? (
           <p className="inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1 text-sm font-semibold text-white">

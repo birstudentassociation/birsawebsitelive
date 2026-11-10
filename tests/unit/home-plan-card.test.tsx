@@ -59,7 +59,7 @@ describe("PlanCard", () => {
 
   it("shows the empty state in Thai", () => {
     const { container } = render(<PlanCard locale="th" />);
-    expect(container.querySelector("h2")?.textContent).toBe("วางแผนเรียนปริญญา BIR");
+    expect(container.querySelector("h2")?.textContent).toBe("วางแผนการเรียน BIR");
   });
 
   it("shows credits done out of the total and a ring", () => {
