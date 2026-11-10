@@ -47,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       "/",
       "/quick",
       "/news",
+      "/dates",
       "/contact",
       // Dedicated landing page for study questions, which BIRSA does not answer.
       "/contact/academic",

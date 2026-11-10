@@ -1,17 +1,8 @@
-/**
- * Home page copy (English): authored natively, not translated.
- * See `content/home/th.ts` for the Thai version (same facts, own phrasing).
- */
 export const homeEn = {
-  hero: {
-    heading: "Your student association, standing by you.",
-    intro: "BIRSA runs events, support and representation for every BIR student.",
-    primaryCta: "Quick actions",
-    secondaryCta: "Information and services",
-  },
-  whatsOn: {
-    heading: "What's on",
-    seeAll: "See all",
+  title: "Today at BIR",
+  search: {
+    label: "Search BIRSA",
+    button: "Search",
   },
   comingUp: {
     heading: "Coming up",
@@ -36,88 +27,43 @@ export const homeEn = {
       },
     },
   },
-  quickLinks: {
-    heading: "Popular right now",
+  shortcuts: {
+    heading: "Shortcuts",
     items: {
-      shuttleBus: {
-        label: "Shuttle bus",
-        description:
-          "The next departure from Tha Prachan to MRT Sanam Chai and Pinklao, with the full timetable.",
-      },
-      liveBus: {
-        label: "Live bus times",
-        description: "Live arrival times for public buses at the three stops beside campus.",
-      },
-      planDegree: {
-        label: "Plan your BIR degree",
-        description:
-          "Build a term-by-term study plan from your curriculum, see what you still owe, and print it out.",
-      },
-      gettingStarted: {
-        label: "Getting started at BIR",
-        description:
-          "A step-by-step checklist for new students, whether you are moving to Bangkok or already here.",
-      },
+      courseReviews: "Course reviews",
+      timetable: "Timetable",
+      calendar: "Dates in your calendar",
+      foodMap: "Food map",
+      equipment: "Borrow equipment",
+      clubs: "Clubs",
     },
   },
-  featured: {
-    heading: "Featured",
-    items: {
-      courseReviews: {
-        label: "Course reviews",
-        description:
-          "Student-written notes on BIR courses: workload, assessment, and what to expect before you register.",
-      },
-      equipmentLoan: {
-        label: "Borrow equipment",
-        description:
-          "Request BIRSA equipment online, then track the request through to collection.",
-      },
-      placesNearby: {
-        label: "Food and housing nearby",
-        description:
-          "Around 70 places to eat around Tha Prachan and Pinklao, plus dorms and condos recommended by seniors, all on a map.",
-      },
-    },
+  latestNews: {
+    heading: "Latest news",
+    seeAll: "All news",
   },
   getHelp: {
     heading: "Get help",
     items: {
-      contact: {
-        label: "Contact BIRSA",
-        description: "Send a question, an idea or a concern to the committee.",
-      },
-      whereToGo: {
-        label: "Not sure who to ask",
-        description: "Answer a few questions to find the office that deals with it.",
-      },
-      emergency: {
-        label: "Emergency guidance",
-        description: "What to do if an emergency affects Tha Prachan campus.",
-      },
+      whereToGo: "Not sure who to ask",
+      contact: "Contact BIRSA",
+      emergency: "Emergency guidance",
     },
   },
-  activityHighlight: {
-    heading: "Get involved",
-    intro: "Join a club, meet the officers and see how BIRSA is run.",
+  allTopics: {
+    heading: "Everything on BIRSA",
     items: {
-      clubs: {
-        label: "BIR clubs",
-        description: "Twelve student clubs, what each one does, and how to join or start your own.",
-      },
-      roles: {
-        label: "Current officers",
-        description: "Who sits on the BIRSA committee, and what each role is responsible for.",
-      },
-      regulations: {
-        label: "Student regulations",
-        description:
-          "The University's regulations and Faculty Notice on student activities and discipline.",
-      },
-      overview: {
-        label: "BIRSA activity",
-        description: "Officer roles, student regulations, open data and news.",
-      },
+      studying: "Registration, grades, the curriculum and study support.",
+      money: "Tuition, monthly costs and financial help.",
+      gettingAround: "Reaching campus, the shuttle bus and the airport.",
+      livingNearby: "Where to eat and how to find somewhere to live.",
+      health: "Medical care, counselling and staying safe.",
+      rules: "Your rights, how to complain and visa rules.",
+      clubs: "Find a club, or start your own.",
+      firstWeeks: "What to do when you start at BIR.",
+      about: "Officers, regulations, open data and news.",
     },
+    clubsTitle: "Clubs and activities",
+    aboutTitle: "About BIRSA",
   },
 };

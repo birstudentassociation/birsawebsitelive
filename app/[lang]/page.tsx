@@ -1,20 +1,24 @@
-import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getDictionary, isLocale, localeHref, type Locale } from "@/lib/i18n";
 import { getEntries } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
+import { todayInBangkok } from "@/lib/bangkok-today";
+import { getTermStatus } from "@/lib/home/term-status";
 import JsonLd from "@/components/JsonLd";
-import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-import Button from "@/components/Button";
-import NavList, { NavListItem } from "@/components/NavList";
-import GridRow, { GridMain, GridAside } from "@/components/GridRow";
-import FeaturedRail, { type FeaturedItem } from "@/components/home/FeaturedRail";
-import NewsCard from "@/components/news/NewsCard";
-import ComingUp from "@/components/home/ComingUp";
-import { calendarEvents } from "@/content/calendar/events";
+import Icon from "@/components/icons/Icon";
+import DueSoon from "@/components/home/DueSoon";
+import RightNow from "@/components/home/RightNow";
+import PlanCard from "@/components/home/PlanCard";
+import Shortcuts from "@/components/home/Shortcuts";
+import LatestNews from "@/components/home/LatestNews";
+import GetHelp from "@/components/home/GetHelp";
+import AllTopics from "@/components/home/AllTopics";
 import { homeEn } from "@/content/home/en";
 import { homeTh } from "@/content/home/th";
+
+export const revalidate = 3600;
 
 const homeCopy = { en: homeEn, th: homeTh };
 
@@ -34,208 +38,96 @@ export async function generateMetadata({
   });
 }
 
+function formatToday(locale: Locale, todayKey: string): string {
+  const date = new Date(`${todayKey}T00:00:00Z`);
+  if (locale === "th") {
+    return new Intl.DateTimeFormat("th-TH-u-ca-gregory", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      timeZone: "UTC",
+    }).format(date);
+  }
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    timeZone: "UTC",
+  }).formatToParts(date);
+  const pick = (type: string) => parts.find((part) => part.type === type)?.value ?? "";
+  return `${pick("weekday")} ${pick("day")} ${pick("month")}`;
+}
+
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
   const locale: Locale = lang;
-  const dict = getDictionary(locale);
   const copy = homeCopy[locale];
-  const news = getEntries("news", locale).slice(0, 3);
-
-  // Compute "today" in Bangkok on the server so the calendar's SSR and
-  // hydration agree (en-CA renders as YYYY-MM-DD).
-  const todayKey = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Bangkok",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(new Date());
-
-  const quickLinkCards: { href: string; key: keyof typeof copy.quickLinks.items }[] = [
-    { href: "/student-life/getting-around/shuttle-bus", key: "shuttleBus" },
-    { href: "/student-life/getting-around/live-bus-tracker", key: "liveBus" },
-    { href: "/services/study-plan", key: "planDegree" },
-    { href: "/student-life/getting-started", key: "gettingStarted" },
-  ];
-
-  const activityHighlightCards: {
-    href: string;
-    key: keyof typeof copy.activityHighlight.items;
-  }[] = [
-    { href: "/clubs", key: "clubs" },
-    { href: "/activity/roles", key: "roles" },
-    { href: "/activity/regulations", key: "regulations" },
-    { href: "/activity", key: "overview" },
-  ];
-
-  // The rail sits beside the top tasks, so it deliberately carries none of
-  // them. These are three things worth a look that the list next to it does
-  // not already point at.
-  const featuredItems: FeaturedItem[] = (
-    [
-      { key: "courseReviews", href: "/student-life/course-reviews", icon: "review" },
-      { key: "equipmentLoan", href: "/services/equipment-loan", icon: "loan" },
-      { key: "placesNearby", href: "/student-life/living-nearby/where-to-eat", icon: "guide" },
-    ] as const
-  ).map(({ key, href, icon }) => ({
-    href: localeHref(locale, href),
-    icon,
-    label: copy.featured.items[key].label,
-    description: copy.featured.items[key].description,
-  }));
-
-  const helpItems: FeaturedItem[] = (
-    [
-      { key: "contact", href: "/contact", icon: "help" },
-      { key: "whereToGo", href: "/contact/where-to-go", icon: "help" },
-      { key: "emergency", href: "/emergency", icon: "alert" },
-    ] as const
-  ).map(({ key, href, icon }) => ({
-    href: localeHref(locale, href),
-    icon,
-    label: copy.getHelp.items[key].label,
-    description: copy.getHelp.items[key].description,
-  }));
+  const todayKey = todayInBangkok();
+  const termStatus = getTermStatus(todayKey, locale);
+  const news = getEntries("news", locale)
+    .slice(0, 3)
+    .map(({ slug, frontmatter }) => ({
+      slug,
+      title: frontmatter.title,
+      date: frontmatter.date,
+    }));
 
   return (
     <>
       <JsonLd data={websiteJsonLd(locale)} />
       <JsonLd data={organizationJsonLd(locale)} />
-      {/* Hero */}
-      <section className="border-b border-line bg-cream">
-        <div className="wrap grid gap-8 py-14 sm:py-20 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-10">
-          <div className="max-w-[var(--measure)]">
-            <h1 className="font-display text-4xl sm:text-5xl">{copy.hero.heading}</h1>
-            <p className="mt-4 text-lg text-muted">{copy.hero.intro}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={localeHref(locale, "/quick")}>{copy.hero.primaryCta}</Button>{" "}
-              <Button href={localeHref(locale, "/services")} variant="secondary">
-                {copy.hero.secondaryCta}
-              </Button>
-            </div>
+      <div className="wrap grid gap-4 py-6 sm:py-8 lg:grid-cols-12">
+        <header className="grid gap-4 lg:col-span-12 lg:grid-cols-2 lg:items-end">
+          <div>
+            <h1 className="font-display text-3xl sm:text-4xl">{copy.title}</h1>
+            <p className="mt-2 text-lg">
+              <strong>
+                {formatToday(locale, todayKey)}
+                {locale === "en" ? "." : null}
+              </strong>
+              {termStatus ? ` ${termStatus}` : null}
+            </p>
           </div>
-          <div aria-hidden="true" className="hidden justify-center md:flex">
-            <Image
-              src="/birsa-logo.png"
-              alt=""
-              width={320}
-              height={320}
-              className="h-auto w-full max-w-[18rem] opacity-90"
-              sizes="288px"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Quick links: top tasks, not a mirror of the header nav. Sits directly
-          under the hero, so it takes only a bottom border (the hero supplies
-          the line above it). */}
-      <section aria-labelledby="top-tasks-heading" className="border-b border-line bg-sunken">
-        <div className="wrap py-12 sm:py-16">
-          <GridRow>
-            <GridMain>
-              <h2 id="top-tasks-heading" className="mb-6 font-display text-2xl sm:text-3xl">
-                {copy.quickLinks.heading}
-              </h2>
-              <NavList>
-                {quickLinkCards.map(({ href, key }) => {
-                  const item = copy.quickLinks.items[key];
-                  return (
-                    <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
-                      {item.description}
-                    </NavListItem>
-                  );
-                })}
-              </NavList>
-            </GridMain>
-            <GridAside>
-              <FeaturedRail
-                heading={copy.featured.heading}
-                headingId="featured-heading"
-                items={featuredItems}
+          <form
+            role="search"
+            action={localeHref(locale, "/search")}
+            method="get"
+            className="lg:w-full lg:max-w-md lg:justify-self-end"
+          >
+            <label htmlFor="home-search" className="block text-sm font-semibold">
+              {copy.search.label}
+            </label>
+            <div className="mt-1 flex gap-2">
+              <input
+                id="home-search"
+                type="search"
+                name="q"
+                autoComplete="off"
+                className="focus-highlight h-12 min-w-0 flex-1 rounded-xl border-2 border-ink bg-surface px-3 text-ink"
               />
-            </GridAside>
-          </GridRow>
-        </div>
-      </section>
-
-      {/* What's on */}
-      {news.length > 0 ? (
-        <section aria-labelledby="whats-on-heading" className="wrap py-12 sm:py-16">
-          <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-            <h2 id="whats-on-heading" className="font-display text-2xl sm:text-3xl">
-              {copy.whatsOn.heading}
-            </h2>
-            <a
-              href={localeHref(locale, "/news")}
-              className="text-sm font-semibold text-brand-deep hover:underline"
-            >
-              {copy.whatsOn.seeAll}
-            </a>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {news.map((entry) => (
-              <NewsCard
-                key={entry.slug}
-                locale={locale}
-                dict={dict}
-                slug={entry.slug}
-                frontmatter={entry.frontmatter}
-              />
-            ))}
-          </div>
-        </section>
-      ) : null}
-
-      {/* Coming up, with the calendar builder beside it */}
-      <section aria-labelledby="calendar-heading" className="border-y border-line bg-cream">
-        <div className="wrap py-12 sm:py-16">
-          <div className="mb-6 max-w-[var(--measure)]">
-            <h2 id="calendar-heading" className="font-display text-2xl sm:text-3xl">
-              {copy.comingUp.heading}
-            </h2>
-            <p className="mt-2 text-lg text-muted">{copy.comingUp.intro}</p>
-          </div>
-          <ComingUp
-            events={calendarEvents}
-            locale={locale}
-            todayKey={todayKey}
-            labels={copy.comingUp.labels}
-          />
-        </div>
-      </section>
-
-      {/* Get involved, with get help beside it */}
-      <section aria-labelledby="activity-highlight-heading" className="wrap py-12 sm:py-16">
-        <GridRow>
-          <GridMain>
-            <div className="mb-6">
-              <h2 id="activity-highlight-heading" className="font-display text-2xl sm:text-3xl">
-                {copy.activityHighlight.heading}
-              </h2>
-              <p className="mt-2 text-lg text-muted">{copy.activityHighlight.intro}</p>
+              <button
+                type="submit"
+                aria-label={copy.search.button}
+                className="focus-highlight grid size-12 shrink-0 place-items-center rounded-xl bg-ink text-white"
+              >
+                <Icon name="arrow" className="h-5 w-5" />
+              </button>
             </div>
-            <NavList>
-              {activityHighlightCards.map(({ href, key }) => {
-                const item = copy.activityHighlight.items[key];
-                return (
-                  <NavListItem key={key} href={localeHref(locale, href)} title={item.label}>
-                    {item.description}
-                  </NavListItem>
-                );
-              })}
-            </NavList>
-          </GridMain>
-          <GridAside>
-            <FeaturedRail
-              heading={copy.getHelp.heading}
-              headingId="get-help-heading"
-              items={helpItems}
-            />
-          </GridAside>
-        </GridRow>
-      </section>
+          </form>
+        </header>
+        <DueSoon
+          locale={locale}
+          todayKey={todayKey}
+          className="lg:col-span-7 lg:col-start-1 lg:row-span-3"
+        />
+        <RightNow locale={locale} className="lg:col-span-5 lg:col-start-8" />
+        <PlanCard locale={locale} className="lg:col-span-5 lg:col-start-8" />
+        <Shortcuts locale={locale} className="lg:col-span-5 lg:col-start-8" />
+        <LatestNews locale={locale} items={news} className="lg:col-span-7 lg:col-start-1" />
+        <GetHelp locale={locale} className="lg:col-span-5 lg:col-start-8" />
+        <AllTopics locale={locale} className="lg:col-span-12" />
+      </div>
     </>
   );
 }

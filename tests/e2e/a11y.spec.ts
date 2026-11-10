@@ -16,6 +16,7 @@ const publicPaths = [
   "/advisory",
   "/privacy",
   "/news",
+  "/dates",
   "/news/welcome-bir-batch-18", // news article (MDX)
   "/activity",
   "/activity/birsa", // activity article (MDX)

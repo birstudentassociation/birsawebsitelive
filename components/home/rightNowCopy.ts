@@ -34,6 +34,21 @@ export type RightNowCopy = {
   };
 };
 
+function durationEn(minutes: number): string {
+  const unit = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+  if (minutes < 60) return unit(minutes, "minute");
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest === 0 ? unit(hours, "hour") : `${unit(hours, "hour")} ${unit(rest, "minute")}`;
+}
+
+function durationTh(minutes: number): string {
+  if (minutes < 60) return `${minutes} นาที`;
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest === 0 ? `${hours} ชั่วโมง` : `${hours} ชั่วโมง ${rest} นาที`;
+}
+
 export const rightNowCopy: Record<Locale, RightNowCopy> = {
   en: {
     heading: "Right now",
@@ -45,8 +60,7 @@ export const rightNowCopy: Record<Locale, RightNowCopy> = {
     shuttle: {
       label: "Shuttle to MRT Sanam Chai",
       labelWithFlag: (flag) => `Shuttle to MRT Sanam Chai, ${flag.toLowerCase()}`,
-      leaves: (time, minutes) =>
-        `Leaves ${time}, in ${minutes} ${minutes === 1 ? "minute" : "minutes"}`,
+      leaves: (time, minutes) => `Leaves ${time}, in ${durationEn(minutes)}`,
       noMoreToday: "No more shuttles today",
       firstToday: (time) => `First shuttle today leaves ${time}`,
       weekend: "No shuttle at weekends. Back on Monday",
@@ -84,7 +98,7 @@ export const rightNowCopy: Record<Locale, RightNowCopy> = {
     shuttle: {
       label: "รถเวียนไป MRT สนามไชย",
       labelWithFlag: (flag) => `รถเวียนไป MRT สนามไชย ${flag}`,
-      leaves: (time, minutes) => `ออก ${time} น. อีก ${minutes} นาที`,
+      leaves: (time, minutes) => `ออก ${time} น. อีก ${durationTh(minutes)}`,
       noMoreToday: "วันนี้หมดรอบรถเวียนแล้ว",
       firstToday: (time) => `รถเวียนเที่ยวแรกของวันนี้ออก ${time} น.`,
       weekend: "เสาร์อาทิตย์ไม่มีรถเวียน กลับมาวิ่งวันจันทร์",
