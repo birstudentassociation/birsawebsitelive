@@ -60,7 +60,8 @@
   --shadow-sm: 0 1px 2px rgba(33, 28, 25, 0.06);
   --shadow-md: 0 6px 20px -8px rgba(33, 28, 25, 0.18);
   --shadow-lg: 0 18px 40px -18px rgba(33, 28, 25, 0.28);
-  --scroll-shadow: rgba(33, 28, 25, 0.2);
+  --scroll-shadow: rgba(33, 28, 25, 0.22);
+  --scroll-shadow-edge: rgba(33, 28, 25, 0.56); /* ≥3.3:1 on every light fill (WCAG 1.4.11) */
 }
 
 /* ==========================================================================
@@ -104,7 +105,8 @@ html[data-theme="dark"] {
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
-  --scroll-shadow: rgba(0, 0, 0, 0.6);
+  --scroll-shadow: rgba(240, 233, 223, 0.16);
+  --scroll-shadow-edge: rgba(240, 233, 223, 0.48); /* ≥3.3:1 on every dark fill (WCAG 1.4.11) */
 }
 
 html[data-theme="dark"] .theme-icon-sun {
@@ -165,7 +167,8 @@ html[data-theme="dark"] .garuda-emblem {
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
     --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
-    --scroll-shadow: rgba(0, 0, 0, 0.6);
+    --scroll-shadow: rgba(240, 233, 223, 0.16);
+    --scroll-shadow-edge: rgba(240, 233, 223, 0.48); /* ≥3.3:1 on every dark fill (WCAG 1.4.11) */
   }
 
   html:not([data-theme="light"]) .theme-icon-sun {
@@ -419,13 +422,23 @@ html[lang="th"] :is(h1, h2, h3) {
     left: 0;
     border-start-start-radius: inherit;
     border-end-start-radius: inherit;
-    background: linear-gradient(to right, var(--scroll-shadow), transparent);
+    background: linear-gradient(
+      to right,
+      var(--scroll-shadow-edge) 0 3px,
+      var(--scroll-shadow) 3px,
+      transparent
+    );
   }
   .scroll-shadow-end {
     right: 0;
     border-start-end-radius: inherit;
     border-end-end-radius: inherit;
-    background: linear-gradient(to left, var(--scroll-shadow), transparent);
+    background: linear-gradient(
+      to left,
+      var(--scroll-shadow-edge) 0 3px,
+      var(--scroll-shadow) 3px,
+      transparent
+    );
   }
   @media (prefers-reduced-motion: reduce) {
     .scroll-shadow {

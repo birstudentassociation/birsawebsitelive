@@ -51,7 +51,7 @@ export default function ScrollRegion({
     <div className={clsx("relative", className)}>
       <div
         ref={ref}
-        className={clsx("overflow-x-auto rounded-[inherit]", scrollClassName)}
+        className={clsx("relative overflow-x-auto rounded-[inherit]", scrollClassName)}
         {...rest}
       >
         {children}
