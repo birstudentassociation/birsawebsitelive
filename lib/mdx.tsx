@@ -37,6 +37,7 @@ import BirTimetable from "@/components/timetable/BirTimetable";
 import AcademicCalendar from "@/components/academic-calendar/AcademicCalendar";
 import type { Locale } from "@/lib/i18n";
 import { localiseMdxHref } from "@/lib/mdx-href";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type MdxProps = {
   source: string;
@@ -54,14 +55,9 @@ function isExternalHref(href: string): boolean {
 
 function createComponents(newTabLabel: string, tableRegionLabel: string, locale: Locale) {
   const table = (props: TableHTMLAttributes<HTMLTableElement>) => (
-    <div
-      className="relative overflow-x-auto"
-      role="region"
-      aria-label={tableRegionLabel}
-      tabIndex={0}
-    >
+    <ScrollRegion role="region" aria-label={tableRegionLabel} tabIndex={0}>
       <table {...props} />
-    </div>
+    </ScrollRegion>
   );
   return {
     a(props: AnchorHTMLAttributes<HTMLAnchorElement>) {

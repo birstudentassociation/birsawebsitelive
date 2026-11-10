@@ -30,6 +30,7 @@ import type {
   UnitCondition,
   UnitState,
 } from "@/lib/inventory/types";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type ItemDetailProps = {
   item: Item;
@@ -1221,7 +1222,7 @@ export default function ItemDetail({
             {adjustments.length === 0 ? (
               <p className="text-sm text-muted">{t.historyEmpty}</p>
             ) : (
-              <div className="relative overflow-x-auto">
+              <ScrollRegion>
                 <table
                   aria-labelledby={`${formId}-history-heading`}
                   className="w-full text-left text-sm text-ink"
@@ -1260,7 +1261,7 @@ export default function ItemDetail({
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </ScrollRegion>
             )}
           </div>
         </section>

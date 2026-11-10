@@ -34,6 +34,7 @@
 import type { Locale } from "@/lib/i18n";
 import { shuttleLines, getLine, type LineId, type Stop } from "@/lib/shuttle";
 import Tag from "@/components/Tag";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type ShuttleRouteProps = {
   locale: Locale;
@@ -237,7 +238,7 @@ export default function ShuttleRoute({ locale }: ShuttleRouteProps) {
     <section className="flex flex-col gap-6">
       <h3 className="font-display text-lg">{t.mapTitle}</h3>
 
-      <div className="relative overflow-x-auto">
+      <ScrollRegion>
         <svg
           viewBox={`${VIEW_MIN_X} ${VIEW_MIN_Y} ${VIEW_W} ${VIEW_H}`}
           role="img"
@@ -340,7 +341,7 @@ export default function ShuttleRoute({ locale }: ShuttleRouteProps) {
             secondary={campusStop[other]}
           />
         </svg>
-      </div>
+      </ScrollRegion>
 
       <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
         {shuttleLines.map((line) => (

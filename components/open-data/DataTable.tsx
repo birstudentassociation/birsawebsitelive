@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import type { Locale } from "@/lib/i18n";
 import { cellText, columnTotal, moneyDecimals, type Column, type Dataset } from "@/lib/open-data";
+import ScrollRegion from "@/components/ScrollRegion";
 
 const labels: Record<Locale, { total: string; scroll: string }> = {
   en: { total: "Total", scroll: "scrollable" },
@@ -40,11 +41,12 @@ export default function DataTable({
   const caption = `${figureLabel}, ${dataset.title[locale]}`;
 
   return (
-    <div
+    <ScrollRegion
       role="region"
       aria-label={`${caption}, ${t.scroll}`}
       tabIndex={0}
-      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface focus-visible:outline-3 focus-visible:outline-offset-2"
+      className="max-w-full rounded-md border border-line bg-surface"
+      scrollClassName="focus-visible:outline-3 focus-visible:outline-offset-2"
     >
       <table className="w-full border-collapse text-sm">
         <caption className="px-3 pt-3 pb-2 text-left text-base font-semibold">{caption}</caption>
@@ -122,6 +124,6 @@ export default function DataTable({
           </tfoot>
         ) : null}
       </table>
-    </div>
+    </ScrollRegion>
   );
 }

@@ -17,6 +17,7 @@ import {
   processors,
   type RetentionTrigger,
 } from "@/content/privacy/register";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export async function generateMetadata({
   params,
@@ -289,7 +290,7 @@ export default async function ProcessingRecordPage({
             <h2 className="font-display text-2xl">{t.activitiesTitle}</h2>
             <p className="leading-relaxed text-muted">{t.activitiesIntro}</p>
           </div>
-          <div className="relative overflow-x-auto">
+          <ScrollRegion>
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -348,7 +349,7 @@ export default async function ProcessingRecordPage({
                 })}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -356,7 +357,7 @@ export default async function ProcessingRecordPage({
             <h2 className="font-display text-2xl">{t.processorsTitle}</h2>
             <p className="leading-relaxed text-muted">{t.processorsIntro}</p>
           </div>
-          <div className="relative overflow-x-auto">
+          <ScrollRegion>
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -383,7 +384,7 @@ export default async function ProcessingRecordPage({
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
         </section>
 
         <section className="flex flex-col gap-3">

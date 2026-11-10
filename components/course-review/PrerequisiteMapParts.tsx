@@ -5,6 +5,7 @@
  */
 import clsx from "clsx";
 import type { ToneStyle } from "@/components/course-review/mapTones";
+import ScrollRegion from "@/components/ScrollRegion";
 
 /**
  * The frame the drawing scrolls in. The map is wider than a phone, so it
@@ -22,14 +23,15 @@ export function MapScroller({
 }) {
   return (
     <div>
-      <div
+      <ScrollRegion
         role="region"
         aria-label={label}
         tabIndex={0}
-        className="focus-halo relative max-w-full overflow-x-auto rounded-lg border border-line bg-surface p-2"
+        className="max-w-full rounded-lg border border-line bg-surface"
+        scrollClassName="focus-halo p-2"
       >
         {children}
-      </div>
+      </ScrollRegion>
       <p className="mt-1 text-xs text-muted">{hint}</p>
     </div>
   );

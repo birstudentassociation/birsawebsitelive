@@ -5,6 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 import PageHeader from "@/components/PageHeader";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { browserStorage, cookieRecords } from "@/content/privacy/register";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export async function generateMetadata({
   params,
@@ -142,7 +143,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
             <h2 className="font-display text-2xl">{t.cookiesTitle}</h2>
             <p className="leading-relaxed text-muted">{t.cookiesIntro}</p>
           </div>
-          <div className="relative overflow-x-auto">
+          <ScrollRegion>
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -169,7 +170,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
         </section>
 
         <section className="flex flex-col gap-4">
@@ -177,7 +178,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
             <h2 className="font-display text-2xl">{t.storageTitle}</h2>
             <p className="leading-relaxed text-muted">{t.storageIntro}</p>
           </div>
-          <div className="relative overflow-x-auto">
+          <ScrollRegion>
             <table className="w-full border-collapse border-line text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -200,7 +201,7 @@ export default async function CookiesPage({ params }: { params: Promise<{ lang: 
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
         </section>
 
         <section className="flex flex-col gap-2">

@@ -3,6 +3,7 @@ import ExternalLink from "@/components/ExternalLink";
 import WarningText from "@/components/WarningText";
 import type { GuideBlock } from "@/content/emergency/types";
 import { localeHref, type Locale } from "@/lib/i18n";
+import ScrollRegion from "@/components/ScrollRegion";
 
 type LinkProps = {
   href: string;
@@ -132,7 +133,7 @@ export default function GuideBlocks({ blocks, locale, newTabLabel }: Props) {
           case "table": {
             const [head, ...rows] = block.rows;
             return (
-              <div key={index} className="relative overflow-x-auto">
+              <ScrollRegion key={index}>
                 <table className="w-full border-collapse text-left text-[0.95rem] leading-relaxed">
                   <caption className="mb-2 text-left font-display text-lg text-ink">
                     {block.caption}
@@ -175,7 +176,7 @@ export default function GuideBlocks({ blocks, locale, newTabLabel }: Props) {
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </ScrollRegion>
             );
           }
           case "card":

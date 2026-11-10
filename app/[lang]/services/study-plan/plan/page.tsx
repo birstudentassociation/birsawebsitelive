@@ -87,6 +87,7 @@ import {
   removeCourseFromTerm,
   setTermFreeElectiveCredits,
 } from "../actions";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export async function generateMetadata({
   params,
@@ -505,7 +506,7 @@ export default async function StudyPlanPage({
 
         <div>
           <h2 className="font-display text-xl">{copy.plan.owedHeading}</h2>
-          <div className="relative mt-4 overflow-x-auto">
+          <ScrollRegion className="mt-4">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -535,7 +536,7 @@ export default async function StudyPlanPage({
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
         </div>
 
         <div className="flex flex-col gap-4">

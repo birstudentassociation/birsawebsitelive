@@ -20,6 +20,7 @@ import {
 import { academicTermLabel, termOrder } from "@/lib/elective-demand/terms";
 import { DEMAND_THRESHOLD, meetsDemandThreshold } from "@/lib/elective-demand/threshold";
 import { demandConsoleCopy } from "./copy";
+import ScrollRegion from "@/components/ScrollRegion";
 
 /** Rows drawn on the page. The CSV export has every row. */
 const MAX_ROWS = 300;
@@ -158,7 +159,7 @@ export default async function OfficerElectiveDemandPage({
           {counts.length === 0 ? (
             <p className="text-sm text-muted">{t.empty}</p>
           ) : (
-            <div className="relative overflow-x-auto">
+            <ScrollRegion>
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.tableTitle}</caption>
                 <thead>
@@ -210,7 +211,7 @@ export default async function OfficerElectiveDemandPage({
                   })}
                 </tbody>
               </table>
-            </div>
+            </ScrollRegion>
           )}
           {counts.length > shown.length ? (
             <p className="text-sm text-muted">

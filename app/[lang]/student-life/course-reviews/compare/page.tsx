@@ -28,6 +28,7 @@ import { categoryName, termsText } from "@/lib/course-review/display";
 import { listPublishedReviews, mergeReviews } from "@/lib/course-review/published";
 import { reviewLine, type ReviewLineCopy } from "@/lib/course-review/reviewSummary";
 import { describeRecordedTerm } from "@/lib/study-plan/assessmentProfile";
+import ScrollRegion from "@/components/ScrollRegion";
 
 /**
  * A comparison is one of hundreds of thousands of possible pairs, each a thin
@@ -235,7 +236,7 @@ export default async function CompareCoursesPage({
             <p className="max-w-[var(--measure)] text-sm leading-relaxed text-muted">
               {c.notRanked}
             </p>
-            <div className="relative overflow-x-auto rounded-lg border border-line bg-surface">
+            <ScrollRegion className="rounded-lg border border-line bg-surface">
               <table className="w-full min-w-[32rem] border-collapse text-sm">
                 <thead>
                   <tr className="bg-sunken">
@@ -301,7 +302,7 @@ export default async function CompareCoursesPage({
                   compareCopy={c}
                 />
               </table>
-            </div>
+            </ScrollRegion>
           </section>
         )}
 

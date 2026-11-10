@@ -25,6 +25,7 @@ import { isSummariserConfigured } from "@/lib/course-review/summarise";
 import { termYearLabel } from "@/lib/course-review/terms";
 import type { AcademicTerm } from "@/content/course-review/types";
 import { consoleCopy } from "./copy";
+import ScrollRegion from "@/components/ScrollRegion";
 
 /** Internal officer console page; never indexed. */
 export async function generateMetadata({
@@ -143,7 +144,7 @@ export default async function OfficerCourseReviewsPage({
           {groups.length === 0 ? (
             <p className="text-sm text-muted">{t.queueEmpty}</p>
           ) : (
-            <div className="relative overflow-x-auto">
+            <ScrollRegion>
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.queueTitle}</caption>
                 <thead>
@@ -233,7 +234,7 @@ export default async function OfficerCourseReviewsPage({
                   })}
                 </tbody>
               </table>
-            </div>
+            </ScrollRegion>
           )}
         </section>
       </div>

@@ -1,4 +1,5 @@
 import { formatBangkokClock, formatCell, type HourRow } from "@/lib/conditions/format";
+import ScrollRegion from "@/components/ScrollRegion";
 
 type Labels = {
   nextHoursCaption: string;
@@ -19,11 +20,11 @@ export default function NextHours({ rows, t }: Props) {
   if (rows.length === 0) return <p className="text-muted">{t.nextHoursNone}</p>;
 
   return (
-    <div
+    <ScrollRegion
       role="region"
       aria-label={t.nextHoursScrollLabel}
       tabIndex={0}
-      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface"
+      className="max-w-full rounded-md border border-line bg-surface"
     >
       <table className="w-full min-w-[30rem] border-collapse text-sm">
         <caption className="px-3 py-2 text-left text-muted">{t.nextHoursCaption}</caption>
@@ -60,6 +61,6 @@ export default function NextHours({ rows, t }: Props) {
           ))}
         </tbody>
       </table>
-    </div>
+    </ScrollRegion>
   );
 }

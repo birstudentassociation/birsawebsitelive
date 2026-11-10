@@ -13,6 +13,7 @@ import { isInventoryConfigured } from "@/lib/inventory/db";
 import { getStatusCounts, getItemUtilisation } from "@/lib/inventory/reports";
 import type { LoanStatus } from "@/lib/inventory/types";
 import { LOAN_STATUSES } from "@/lib/inventory/loan-lifecycle";
+import ScrollRegion from "@/components/ScrollRegion";
 
 /** Internal officer console page; never indexed. */
 export async function generateMetadata({
@@ -212,7 +213,7 @@ export default async function OfficerReportsPage({
           {utilisation.length === 0 ? (
             <p className="text-sm text-muted">{t.utilisationEmpty}</p>
           ) : (
-            <div className="relative overflow-x-auto">
+            <ScrollRegion>
               <table className="w-full text-left text-sm text-ink">
                 <caption className="sr-only">{t.utilisationTitle}</caption>
                 <thead>
@@ -250,7 +251,7 @@ export default async function OfficerReportsPage({
                   ))}
                 </tbody>
               </table>
-            </div>
+            </ScrollRegion>
           )}
         </section>
 

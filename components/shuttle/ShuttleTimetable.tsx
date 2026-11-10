@@ -17,6 +17,7 @@ import {
   newTimetableFrom,
   usesNewTimetable,
 } from "@/lib/shuttle";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type ShuttleTimetableProps = {
   locale: Locale;
@@ -72,7 +73,7 @@ function Tables({ locale, date }: ShuttleTimetableProps & { date: string }) {
         return (
           <div key={line.id} className="flex flex-col gap-3">
             <h3 className="font-display text-lg">{line.name[locale]}</h3>
-            <div className="relative overflow-x-auto">
+            <ScrollRegion>
               <table className="w-full border-collapse border-line text-sm">
                 <thead>
                   <tr className="border-b border-line text-left">
@@ -114,7 +115,7 @@ function Tables({ locale, date }: ShuttleTimetableProps & { date: string }) {
                   })}
                 </tbody>
               </table>
-            </div>
+            </ScrollRegion>
             {dormitoryMarkers?.length ? (
               <ul className="flex flex-col gap-1 text-xs text-muted">
                 {dormitoryMarkers.map((marker) => (

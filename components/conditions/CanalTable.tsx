@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { fillTemplate, formatCell } from "@/lib/conditions/format";
 import type { CanalPoint, CanalStation, CanalStatus } from "@/lib/conditions/sources/canals";
 import type { Locale } from "@/lib/i18n";
+import ScrollRegion from "@/components/ScrollRegion";
 
 type Labels = {
   scrollLabel: string;
@@ -49,11 +50,11 @@ function Level({ point, t }: { point: CanalPoint | null; t: Labels }) {
 
 export default function CanalTable({ locale, caption, stations, showDistance, t }: Props) {
   return (
-    <div
+    <ScrollRegion
       role="region"
       aria-label={fillTemplate(t.scrollLabel, { table: caption })}
       tabIndex={0}
-      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface"
+      className="max-w-full rounded-md border border-line bg-surface"
     >
       <table className="w-full min-w-[34rem] border-collapse text-sm">
         <caption className="sr-only">{caption}</caption>
@@ -108,6 +109,6 @@ export default function CanalTable({ locale, caption, stations, showDistance, t 
           ))}
         </tbody>
       </table>
-    </div>
+    </ScrollRegion>
   );
 }

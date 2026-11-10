@@ -50,6 +50,7 @@ import {
   termWorkloadProfile,
   workloadLine,
 } from "@/lib/study-plan/workloadProfile";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type PlanDocumentProps = {
   plan: StudyPlan;
@@ -262,7 +263,7 @@ export default function PlanDocument({
         <Heading level={sectionLevel} className={sectionClass}>
           {copy.print.owedHeading}
         </Heading>
-        <div className="relative mt-4 overflow-x-auto">
+        <ScrollRegion className="mt-4">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="border-b border-line text-left">
@@ -292,7 +293,7 @@ export default function PlanDocument({
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       </div>
 
       {/* The reader of a shared copy may never have used the service, so the

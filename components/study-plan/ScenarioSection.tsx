@@ -40,6 +40,7 @@ import {
   type StudyPlanCopy,
 } from "@/components/study-plan/studyPlanCopy";
 import type { Locale } from "@/lib/i18n";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export type ScenarioSectionProps = {
   locale: Locale;
@@ -145,7 +146,7 @@ export default function ScenarioSection({
         <div id="compare" className="flex flex-col gap-3 rounded-lg border border-line p-5">
           <h3 className="font-display text-lg">{insight.compare.heading}</h3>
           <p className="text-sm text-muted">{insight.compare.intro}</p>
-          <div className="relative overflow-x-auto">
+          <ScrollRegion>
             <table className="w-full min-w-[24rem] border-collapse text-sm">
               <thead>
                 <tr className="border-b border-line text-left">
@@ -236,7 +237,7 @@ export default function ScenarioSection({
                 ))}
               </tbody>
             </table>
-          </div>
+          </ScrollRegion>
           <a
             href={`${planHref}?${PLAN_FIELD}=${encodeURIComponent(serialisedPlan)}`}
             className="focus-halo inline-flex min-h-11 items-center self-start font-semibold text-brand-deep hover:underline"

@@ -20,6 +20,7 @@ import WarningText from "@/components/WarningText";
 import PageHeader from "@/components/PageHeader";
 import ExternalLink from "@/components/ExternalLink";
 import ReadingRow from "@/components/conditions/ReadingRow";
+import ScrollRegion from "@/components/ScrollRegion";
 
 export const revalidate = 300;
 
@@ -262,11 +263,11 @@ function TideTable({
   );
 
   return (
-    <div
+    <ScrollRegion
       role="region"
       aria-label={t.caption}
       tabIndex={0}
-      className="relative max-w-full overflow-x-auto rounded-md border border-line bg-surface"
+      className="max-w-full rounded-md border border-line bg-surface"
     >
       <table className="w-full min-w-[20rem] border-collapse text-left text-sm leading-relaxed">
         <caption className="px-3 py-2 text-left text-muted">{t.caption}</caption>
@@ -308,6 +309,6 @@ function TideTable({
           })}
         </tbody>
       </table>
-    </div>
+    </ScrollRegion>
   );
 }

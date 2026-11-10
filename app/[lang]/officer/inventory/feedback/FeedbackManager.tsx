@@ -12,6 +12,7 @@ import Pager from "@/components/Pager";
 import Tag from "@/components/Tag";
 import type { FeedbackEntry } from "@/lib/feedback";
 import type { FeedbackCopy } from "@/components/feedback/feedbackCopy";
+import ScrollRegion from "@/components/ScrollRegion";
 
 const PAGE_SIZE = 20;
 
@@ -47,7 +48,7 @@ export default function FeedbackManager({
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative overflow-x-auto">
+      <ScrollRegion>
         <table className="w-full text-left text-sm text-ink">
           <caption className="sr-only">{copy.commentHeader}</caption>
           <thead>
@@ -85,7 +86,7 @@ export default function FeedbackManager({
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollRegion>
       <Pager
         page={page}
         totalPages={totalPages}

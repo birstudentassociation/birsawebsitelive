@@ -97,7 +97,7 @@ describe("PrerequisiteMap", () => {
     const { container } = map();
     const frame = container.querySelector('[role="region"]')!;
     expect(frame.className).toContain("overflow-x-auto");
-    expect(frame.className).toContain("max-w-full");
+    expect(frame.parentElement!.className).toContain("max-w-full");
     expect(frame.getAttribute("tabindex")).toBe("0");
     expect(frame.getAttribute("aria-label")).toBeTruthy();
   });
