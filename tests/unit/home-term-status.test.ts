@@ -7,7 +7,7 @@ describe("getTermStatus", () => {
       "Week 15 of semester 1. Finals start Monday 23 November."
     );
     expect(getTermStatus("2026-11-10", "th")).toBe(
-      "สัปดาห์ที่ 15 ของภาคการศึกษาที่ 1 สอบปลายภาคเริ่มวันจันทร์ที่ 23 พฤศจิกายน"
+      "ภาคการศึกษาที่ 1 สัปดาห์ที่ 15 เริ่มสอบปลายภาควันจันทร์ที่ 23 พฤศจิกายน"
     );
   });
 
@@ -21,7 +21,7 @@ describe("getTermStatus", () => {
 
   it("says when finals end during the exam period", () => {
     expect(getTermStatus("2026-11-25", "en")).toBe("Final exams until Friday 11 December.");
-    expect(getTermStatus("2026-11-25", "th")).toBe("สอบปลายภาคถึงวันศุกร์ที่ 11 ธันวาคม");
+    expect(getTermStatus("2026-11-25", "th")).toBe("สอบปลายภาคไปจนถึงวันศุกร์ที่ 11 ธันวาคม");
     expect(getTermStatus("2026-12-11", "en")).toBe("Final exams until Friday 11 December.");
   });
 
@@ -33,7 +33,9 @@ describe("getTermStatus", () => {
 
   it("says when the next term starts between terms", () => {
     expect(getTermStatus("2026-12-20", "en")).toBe("Semester 2 starts Monday 4 January.");
-    expect(getTermStatus("2026-12-20", "th")).toBe("ภาคการศึกษาที่ 2 เริ่มวันจันทร์ที่ 4 มกราคม");
+    expect(getTermStatus("2026-12-20", "th")).toBe(
+      "ภาคการศึกษาที่ 2 เปิดเรียนวันจันทร์ที่ 4 มกราคม"
+    );
   });
 
   it("says when the first term starts before it begins", () => {

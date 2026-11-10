@@ -58,11 +58,11 @@ const sentences = {
     termStarts: (label: string, date: string) => `${capitalised(label)} starts ${date}.`,
   },
   th: {
-    week: (week: number, label: string) => `สัปดาห์ที่ ${week} ของ${label}`,
-    finalsStart: (date: string) => `สอบปลายภาคเริ่ม${date}`,
+    week: (week: number, label: string) => `${label} สัปดาห์ที่ ${week}`,
+    finalsStart: (date: string) => `เริ่มสอบปลายภาค${date}`,
     classesEnded: (label: string) => `${label} สิ้นสุดการเรียนการสอนแล้ว`,
-    finalsUntil: (date: string) => `สอบปลายภาคถึง${date}`,
-    termStarts: (label: string, date: string) => `${label} เริ่ม${date}`,
+    finalsUntil: (date: string) => `สอบปลายภาคไปจนถึง${date}`,
+    termStarts: (label: string, date: string) => `${label} เปิดเรียน${date}`,
   },
 };
 

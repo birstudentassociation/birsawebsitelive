@@ -144,13 +144,13 @@ export function nextTermSteps(locale: Locale, journey: NextTermJourney): Localiz
       tasks: [
         {
           id: "open-plan",
-          label: en ? "Open your study plan" : "เปิดแผนการเรียนของคุณ",
+          label: en ? "Open your study plan" : "เปิดแผนการเรียน",
           hint: en ? "Start one if you have not made a plan" : "ถ้ายังไม่มีแผน เริ่มสร้างได้เลย",
           href: "/services/study-plan",
         },
         {
           id: "curriculum",
-          label: en ? "Read how your curriculum works" : "อ่านโครงสร้างหลักสูตรของคุณ",
+          label: en ? "Read how your curriculum works" : "อ่านโครงสร้างหลักสูตร",
           href: "/student-life/studying/curriculum",
         },
       ],
@@ -206,7 +206,7 @@ export function nextTermSteps(locale: Locale, journey: NextTermJourney): Localiz
         },
         {
           id: "calendar",
-          label: en ? "Put your classes in your phone's calendar" : "ใส่เวลาเรียนลงในปฏิทินของคุณ",
+          label: en ? "Put your classes in your phone's calendar" : "ใส่เวลาเรียนลงปฏิทินในมือถือ",
           href: "/services/calendar",
         },
       ],
