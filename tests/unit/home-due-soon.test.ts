@@ -83,7 +83,7 @@ describe("getDueSoon", () => {
       source: "birOffice",
       href: "/news/academic-calendar-2569",
       closesInDays: 9,
-      action: { label: "Plan your courses before it opens", href: "/services/study-plan" },
+      action: { label: "Plan your courses before it opens", href: "/services/plan-next-term" },
     });
   });
 

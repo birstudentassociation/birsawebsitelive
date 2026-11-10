@@ -1,3 +1,4 @@
+import { NEXT_TERM_PATH } from "@/content/next-term";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -34,6 +35,7 @@ const copy: Record<
     lede: string;
     calendar: { title: string; description: string; cta: string };
     studyPlan: { title: string; description: string; cta: string };
+    nextTerm: { title: string; description: string };
     equipmentLoan: { title: string; description: string; cta: string };
     equipmentDirectory: { title: string; description: string; cta: string };
     universityServices: { eyebrow: string; title: string; description: string; cta: string };
@@ -53,6 +55,11 @@ const copy: Record<
       description:
         "Choose the BIR dates you want, add your class times, and put them in your own calendar app.",
       cta: "Build your calendar",
+    },
+    nextTerm: {
+      title: "Plan your next term",
+      description:
+        "Every step from choosing courses to the end of add-drop, with the dates for the coming semester.",
     },
     studyPlan: {
       title: "Plan your BIR degree",
@@ -105,6 +112,11 @@ const copy: Record<
       description:
         "เลือกวันสำคัญของ BIR ที่ต้องการ เพิ่มเวลาเรียนของคุณ แล้วใส่ลงในแอปปฏิทินของคุณเอง",
       cta: "สร้างปฏิทินของคุณ",
+    },
+    nextTerm: {
+      title: "วางแผนเทอมหน้า",
+      description:
+        "ทุกขั้นตอนตั้งแต่เลือกวิชาไปจนถึงปิดช่วงเพิ่มถอนรายวิชา พร้อมวันสำคัญของภาคการศึกษาที่จะถึง",
     },
     studyPlan: {
       title: "วางแผนปริญญา BIR ของคุณ",
@@ -192,6 +204,13 @@ export default async function InformationServicesPage({
               <NavList>
                 <NavListItem href={calendarHref} title={t.calendar.title} as="h3">
                   {t.calendar.description}
+                </NavListItem>
+                <NavListItem
+                  href={localeHref(locale, NEXT_TERM_PATH)}
+                  title={t.nextTerm.title}
+                  as="h3"
+                >
+                  {t.nextTerm.description}
                 </NavListItem>
                 <NavListItem href={studyPlanHref} title={t.studyPlan.title} as="h3">
                   {t.studyPlan.description}

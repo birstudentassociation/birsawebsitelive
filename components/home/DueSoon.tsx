@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Icon from "@/components/icons/Icon";
 import { getDueSoon, type DueItem } from "@/lib/home/due-soon";
+import { getJourneyPhase, getNextTermJourney, shouldShowJourneyChip } from "@/lib/next-term";
+import { NEXT_TERM_PATH, nextTermCopy } from "@/content/next-term";
 import { formatDate, localeHref, type Locale } from "@/lib/i18n";
 import clsx from "clsx";
 import { dueSoonCopy } from "./dueSoonCopy";
@@ -94,6 +96,8 @@ export function DueSoonRow({ item, locale }: { item: DueItem; locale: Locale }) 
 export default function DueSoon({ locale, todayKey, className }: DueSoonProps) {
   const copy = dueSoonCopy[locale];
   const items = getDueSoon(todayKey, locale);
+  const journey = getNextTermJourney(todayKey);
+  const showChip = journey !== null && shouldShowJourneyChip(journey, todayKey);
 
   return (
     <section
@@ -115,6 +119,20 @@ export default function DueSoon({ locale, todayKey, className }: DueSoonProps) {
           <Icon name="arrow" className="h-4 w-4" />
         </Link>
       </div>
+      {showChip && journey ? (
+        <Link
+          href={localeHref(locale, NEXT_TERM_PATH)}
+          className="mb-3 inline-flex min-h-11 max-w-full items-center gap-2 rounded-full bg-study-tint px-4 py-2 text-sm text-study no-underline hover:underline"
+        >
+          <Icon name="plan" className="h-5 w-5" />
+          <span className="flex flex-wrap gap-x-2">
+            <span className="font-semibold">{nextTermCopy[locale].chip}</span>
+            <span className="sr-only">. </span>
+            <span>{nextTermCopy[locale].phase(getJourneyPhase(journey, todayKey))}</span>
+          </span>
+          <Icon name="arrow" className="h-4 w-4" />
+        </Link>
+      ) : null}
       {items.length > 0 ? (
         <ol aria-label={copy.listLabel} className="divide-y divide-line">
           {items.map((item) => (

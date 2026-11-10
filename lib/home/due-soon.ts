@@ -1,3 +1,4 @@
+import { NEXT_TERM_PATH } from "@/content/next-term";
 import { academicCalendar2569, type AcademicItem } from "@/content/calendar/academic-2569";
 import { calendarEvents, type CalendarEvent } from "@/content/calendar/events";
 import { dueSoonCopy } from "@/components/home/dueSoonCopy";
@@ -22,7 +23,6 @@ const DEFAULT_LIMIT = 5;
 const DEFAULT_WINDOW_DAYS = 30;
 const CLOSING_SOON_DAYS = 14;
 const ACADEMIC_CALENDAR_HREF = "/news/academic-calendar-2569";
-const STUDY_PLAN_HREF = "/services/study-plan";
 const WITHDRAW_GUIDE_HREF = "/student-life/studying/registration";
 const CUT_OFF_KINDS: AcademicItem["kind"][] = ["deadline", "withdrawal", "registration"];
 
@@ -118,7 +118,7 @@ function toDueItem(candidate: Candidate, todayKey: string, locale: Locale): DueI
     item.closesInDays = daysToLastDay;
   }
   if (candidate.isRegistrationWindow && !ongoing) {
-    item.action = { label: labels.planCourses, href: STUDY_PLAN_HREF };
+    item.action = { label: labels.planCourses, href: NEXT_TERM_PATH };
   } else if (candidate.isWithdrawal) {
     item.action = { label: labels.withdraw, href: WITHDRAW_GUIDE_HREF };
   }

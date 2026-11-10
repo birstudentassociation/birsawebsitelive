@@ -14,7 +14,7 @@ function dayNumber(key: string): number {
   return Math.floor(Date.UTC(year, month - 1, day) / 86_400_000);
 }
 
-function weekdayDate(locale: Locale, key: string): string {
+export function weekdayDate(locale: Locale, key: string): string {
   const parts = new Intl.DateTimeFormat(locale === "th" ? "th-TH-u-ca-gregory" : "en-GB", {
     weekday: "long",
     day: "numeric",
