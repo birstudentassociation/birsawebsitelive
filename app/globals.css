@@ -36,6 +36,14 @@
   --color-info: #2f5e4e;
   --color-info-tint: #e7efe9;
 
+  /* Category hues for the dashboard icons. Red is kept for the brand and for
+     anything that needs action now, so studying takes blue. Every hue is
+     ≥7:1 on its own tint in both themes. */
+  --color-study: #2b4f73;
+  --color-study-tint: #e4edf5;
+  --color-community: #6b3a62;
+  --color-community-tint: #f3e6f0;
+
   /* Typography ------------------------------------------------------------ */
   /* next/font sets --font-en-display (Fraunces), --font-en-body (Lexend),
      --font-th (Sarabun) and --font-th-display (JenjrusVris) on <html>. */
@@ -102,6 +110,11 @@ html[data-theme="dark"] {
   --color-info: #93c4b1;
   --color-info-tint: #22312a;
 
+  --color-study: #9cc1e6;
+  --color-study-tint: #1f2a36;
+  --color-community: #e0a9d4;
+  --color-community-tint: #352434;
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
   --shadow-lg: 0 18px 40px -18px rgba(0, 0, 0, 0.7);
@@ -163,6 +176,11 @@ html[data-theme="dark"] .garuda-emblem {
     --color-error-tint: #3c2422;
     --color-info: #93c4b1;
     --color-info-tint: #22312a;
+
+    --color-study: #9cc1e6;
+    --color-study-tint: #1f2a36;
+    --color-community: #e0a9d4;
+    --color-community-tint: #352434;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
     --shadow-md: 0 6px 20px -8px rgba(0, 0, 0, 0.55);
