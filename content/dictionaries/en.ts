@@ -252,6 +252,14 @@ export const en = {
     themeLight: "Switch to light mode",
   },
 
+  tabBar: {
+    label: "Main sections",
+    today: "Today",
+    dates: "Dates",
+    services: "Services",
+    help: "Help",
+  },
+
   actions: {
     readMore: "Read more",
     seeAll: "See all",

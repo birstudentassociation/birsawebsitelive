@@ -608,3 +608,28 @@ html[lang="th"] :is(h1, h2, h3) {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   Mobile tab bar
+   ========================================================================== */
+:root {
+  --tab-bar-height: 3.5rem;
+  --tab-bar-clearance: calc(var(--tab-bar-height) + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 63.999rem) {
+  .scroll-to-top {
+    bottom: calc(var(--tab-bar-clearance) + 1.25rem);
+  }
+}
+
+@media (max-width: 63.999rem) and (min-height: 500px) {
+  html {
+    scroll-padding-bottom: calc(var(--tab-bar-clearance) + 1rem);
+  }
+  .mobile-tab-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 40;
+  }
+}

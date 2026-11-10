@@ -249,6 +249,14 @@ export const th: typeof en = {
     themeLight: "เปลี่ยนเป็นโหมดสว่าง",
   },
 
+  tabBar: {
+    label: "เมนูหลัก",
+    today: "วันนี้",
+    dates: "วันสำคัญ",
+    services: "บริการ",
+    help: "ช่วยเหลือ",
+  },
+
   actions: {
     readMore: "อ่านต่อ",
     seeAll: "ดูทั้งหมด",

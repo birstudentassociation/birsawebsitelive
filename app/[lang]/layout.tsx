@@ -15,6 +15,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageFeedback from "@/components/PageFeedback";
 import ScrollToTop from "@/components/ScrollToTop";
+import MobileTabBar from "@/components/MobileTabBar";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -143,6 +144,7 @@ export default async function RootLayout({
         </main>
         <PageFeedback locale={locale} prompt={dict.feedback.prompt} report={dict.feedback.report} />
         <Footer locale={locale} />
+        <MobileTabBar locale={locale} labels={dict.tabBar} />
         <ScrollToTop label={dict.actions.backToTop} />
         <Analytics />
       </body>
