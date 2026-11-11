@@ -174,7 +174,7 @@ describe("course page reviews: the invitation", () => {
     vi.stubEnv("POSTGRES_URL", "postgres://example.invalid/db");
     published.reviews = [review()];
     const html = await render("en");
-    expect(html).toContain("Taken this course? You can add your own review.");
+    expect(html).toContain("If you have taken this course, you can add your own review.");
     expect(html).toContain(`href="/en/student-life/course-reviews/${course.code}/review"`);
   });
 
