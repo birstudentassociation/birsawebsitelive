@@ -60,7 +60,7 @@ const coverage: Dataset = {
   id: "what-each-year-holds",
   title: { en: "Records held for each year", th: "บันทึกที่มีในแต่ละปี" },
   summary: {
-    en: "Every year holds a budget plan, but no year holds a full account of what was actually spent.",
+    en: "Every year holds a budget plan, but no year holds a full account of what was spent.",
     th: "ทุกปีมีแผนงบประมาณ แต่ไม่มีปีใดมีบัญชีรายจ่ายจริงครบถ้วน",
   },
   columns: [{ key: "record", label: { en: "Record", th: "บันทึก" }, kind: "text" }, ...yearColumns],

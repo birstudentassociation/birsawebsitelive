@@ -362,7 +362,7 @@ export const en = {
 
   courseReview: {
     title: "Course reviews",
-    lede: "Notes on all BIR courses and electives. Workload, assessment style, and what to expect before you register.",
+    lede: "Notes on all BIR courses and electives, covering workload, assessment style and what to expect before you register.",
     browseHeading: "Browse the catalogue",
     searchPlaceholder: "Code, title or lecturer",
     trackLabel: "Track",
@@ -407,7 +407,7 @@ export const en = {
     workloadHeading: "Workload",
     assessmentHeading: "Assessment style",
     tipsHeading: "Tips from past students",
-    quotesHeading: "In their words",
+    quotesHeading: "Student quotes",
     noReviewTitle: "No student review yet",
     noReviewBody:
       "BIRSA has not collected a student review for this course yet. If you have taken it and can write a short review, get in touch.",
@@ -415,7 +415,7 @@ export const en = {
       writeReviewLink: "Write a review",
       noReviewBodyCollecting:
         "BIRSA has not published a student review for this course yet. If you have taken it, you can write a short review. Reviews are anonymous. BIRSA publishes a summary only once at least {threshold} students have reviewed the same course, term and instructor.",
-      addReviewPrompt: "Taken this course? You can add your own review.",
+      addReviewPrompt: "If you have taken this course, you can add your own review.",
       datedBadge: "Dated",
       datedNote:
         "This review is from more than three academic years ago, so the course may have changed since.",

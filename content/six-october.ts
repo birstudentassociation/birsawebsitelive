@@ -1168,9 +1168,9 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     remembranceHeading: "Fifty years on",
     remembrance: [
       "Tens of thousands of students and members of the public had gathered at Thammasat to protest against the return of Thanom Kittikachorn. Before dawn, Border Patrol Police surrounded the university, and then poured fire into it. The 3,094 people who survived the killing were all arrested that same day. That evening, the military seized power and restored dictatorship.",
-      "The dead are too often remembered only as a number, and some still have no name. Tha Prachan is where we study today. It is also where this happened.",
+      "The dead are too often remembered only as a number, and some still have no name. This happened at Tha Prachan, where we study today.",
     ],
-    backgroundHeading: "How it came to this",
+    backgroundHeading: "What led to it",
     background: [
       "The origins of the massacre can be traced back to 14 October 1973, when the student movement won its struggle and brought the greatest democratic awakening in Thai history. Right-wing groups grew in response. They included the Village Scouts, the Red Gaurs and Nawaphon, and parts of the state stood behind them.",
       "On 19 September 1976 Field Marshal Thanom Kittikachorn came home from Singapore as a novice and was ordained a monk at Wat Bowonniwet. On 24 September two Nakhon Pathom electricity workers were beaten to death while putting up posters against him, and their bodies were hanged at the gate of a housing estate.",
@@ -1239,7 +1239,7 @@ export const copy: Record<Locale, SixOctoberCopy> = {
     walkingTour: {
       heading: "Walking tour of the 6 October sites",
       intro:
-        "The 50 years of 6 October events at Thammasat University, Tha Prachan, include a walking tour of four places where the massacre and the events around it happened. The tour is a chance to understand the story on the ground where it took place.",
+        "The 50 years of 6 October events at Thammasat University, Tha Prachan, include a walking tour of four places where the massacre and the events around it happened. Visitors hear the story on the ground where it took place.",
       details: [
         { label: "Dates", value: "4 and 6 October 2026" },
         { label: "Tour times", value: "One tour each day, from 4.30pm to 6.30pm" },

@@ -65,7 +65,7 @@ export const nextTermCopy = {
     title: "วางแผนเทอมหน้า",
     chip: "วางแผนเทอมหน้า",
     lede: (journey: NextTermJourney) =>
-      `${termName("th", journey)}เปิดเรียน${weekdayDate("th", journey.teachingStart)} ทำตามขั้นตอนด้านล่างได้เลย ตั้งแต่เลือกวิชาไปจนถึงปิดช่วงเพิ่มถอนรายวิชา`,
+      `${termName("th", journey)}เปิดเรียน${weekdayDate("th", journey.teachingStart)} ทำตามขั้นตอนด้านล่าง ตั้งแต่เลือกวิชาไปจนถึงปิดช่วงเพิ่มถอนรายวิชา`,
     keyDatesHeading: "วันสำคัญ",
     registration: "ลงทะเบียนเรียน",
     payment: "ชำระค่าธรรมเนียม",
@@ -145,7 +145,9 @@ export function nextTermSteps(locale: Locale, journey: NextTermJourney): Localiz
         {
           id: "open-plan",
           label: en ? "Open your study plan" : "เปิดแผนการเรียน",
-          hint: en ? "Start one if you have not made a plan" : "ถ้ายังไม่มีแผน เริ่มสร้างได้เลย",
+          hint: en
+            ? "Start one if you have not made a plan"
+            : "ถ้ายังไม่มีแผน ให้เริ่มสร้างแผนใหม่",
           href: "/services/study-plan",
         },
         {

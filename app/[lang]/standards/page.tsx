@@ -62,7 +62,7 @@ const content: Record<
     principles: [
       {
         title: "Start with what students need",
-        body: "Every page exists because students asked a real question, not because it looked good on an org chart. If a page does not help you do something, we cut it.",
+        body: "Every page answers a question students asked. If a page does not help you do something, we cut it.",
       },
       {
         title: "Use simple, direct language",
@@ -98,7 +98,7 @@ const content: Record<
     ],
     a11yTestTitle: "How we test",
     a11yTest:
-      "Two automated test suites run on every code change, in Chrome, Firefox and Safari's rendering engines. The first (axe-core) sweeps every page template, in both Thai and English and in both light and dark colour mode, against the WCAG 2.0, 2.1 and 2.2 A and AA rules. The second drives every page with a keyboard only, checking things the first cannot: that focus is always visible and never trapped, that menus and dialogs open and close correctly, and that a complete form can be finished without a mouse. Automated testing alone does not prove a service is accessible. It catches a defined set of technical faults and nothing more. We have not yet tested this site with real assistive technology, such as a screen reader, a screen magnifier, or speech-recognition software. That is the biggest gap in our current testing, and the reason this statement says “partially compliant” rather than “compliant”.",
+      "Two automated test suites run on every code change, in Chrome, Firefox and Safari's rendering engines. The first (axe-core) sweeps every page template, in both Thai and English and in both light and dark colour mode, against the WCAG 2.0, 2.1 and 2.2 A and AA rules. The second drives every page with a keyboard only, checking things the first cannot: that focus is always visible and never trapped, that menus and dialogs open and close correctly, and that a complete form can be finished without a mouse. Automated testing alone does not prove a service is accessible. It catches a defined set of technical faults only. We have not yet tested this site with real assistive technology, such as a screen reader, a screen magnifier, or speech-recognition software. This is the biggest gap in our current testing, and it is why this statement says “partially compliant” rather than “compliant”.",
     a11yLimitsTitle: "Known issues",
     a11yLimitsIntro: "We know of the following issues.",
     a11yIssues: [
@@ -134,7 +134,7 @@ const content: Record<
     principles: [
       {
         title: "เริ่มจากสิ่งที่นักศึกษาต้องการ",
-        body: "ทุกหน้าในเว็บนี้มีที่มาจากคำถามจริงของนักศึกษา ไม่ใช่เพราะดูดีในผังองค์กร หน้าที่ไม่ช่วยให้คุณทำสิ่งใดได้ เราจะตัดออก",
+        body: "ทุกหน้าในเว็บนี้ตอบคำถามที่นักศึกษาถาม หน้าที่ไม่ช่วยให้คุณทำสิ่งใดได้ เราจะตัดออก",
       },
       {
         title: "ใช้ภาษาที่เข้าใจง่ายและตรงประเด็น",
@@ -170,7 +170,7 @@ const content: Record<
     ],
     a11yTestTitle: "เราตรวจสอบอย่างไร",
     a11yTest:
-      "ทุกครั้งที่มีการแก้โค้ด ระบบทดสอบอัตโนมัติสองชุดจะทำงานบนเอนจินการแสดงผลของ Chrome, Firefox และ Safari ชุดแรก (axe-core) ตรวจทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด เทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA ชุดที่สองใช้งานทุกหน้าด้วยคีย์บอร์ดอย่างเดียว เพื่อตรวจสิ่งที่ชุดแรกตรวจไม่ได้ ได้แก่ โฟกัสต้องมองเห็นชัดเจนเสมอและไม่ติดค้าง เมนูและกล่องโต้ตอบเปิดปิดได้ถูกต้อง และแบบฟอร์มทั้งหมดกรอกจนจบได้โดยไม่ต้องใช้เมาส์ การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถพิสูจน์ได้ว่าบริการเข้าถึงได้จริง เพราะจับได้เฉพาะข้อบกพร่องทางเทคนิคชุดหนึ่งเท่านั้น เรายังไม่ได้ทดสอบเว็บไซต์นี้ด้วยเทคโนโลยีสิ่งอำนวยความสะดวกจริง เช่น โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง นี่คือช่องว่างที่ใหญ่ที่สุดในการทดสอบปัจจุบันของเรา และเป็นเหตุผลที่คำแถลงนี้ระบุว่า “ผ่านมาตรฐานบางส่วน” แทนที่จะเป็น “ผ่านมาตรฐานเต็มรูปแบบ”",
+      "ทุกครั้งที่มีการแก้โค้ด ระบบทดสอบอัตโนมัติสองชุดจะทำงานบนเอนจินการแสดงผลของ Chrome, Firefox และ Safari ชุดแรก (axe-core) ตรวจทุกรูปแบบหน้า ทั้งภาษาไทยและอังกฤษ ทั้งโหมดสว่างและมืด เทียบกับกฎ WCAG 2.0, 2.1 และ 2.2 ระดับ A และ AA ชุดที่สองใช้งานทุกหน้าด้วยคีย์บอร์ดอย่างเดียว เพื่อตรวจสิ่งที่ชุดแรกตรวจไม่ได้ ได้แก่ โฟกัสต้องมองเห็นชัดเจนเสมอและไม่ติดค้าง เมนูและกล่องโต้ตอบเปิดปิดได้ถูกต้อง และแบบฟอร์มทั้งหมดกรอกจนจบได้โดยไม่ต้องใช้เมาส์ การทดสอบอัตโนมัติเพียงอย่างเดียวไม่สามารถพิสูจน์ได้ว่าบริการเข้าถึงได้จริง เพราะจับได้เฉพาะข้อบกพร่องทางเทคนิคชุดหนึ่งเท่านั้น เรายังไม่ได้ทดสอบเว็บไซต์นี้ด้วยเทคโนโลยีสิ่งอำนวยความสะดวกจริง เช่น โปรแกรมอ่านหน้าจอ โปรแกรมขยายหน้าจอ หรือซอฟต์แวร์สั่งงานด้วยเสียง ช่องว่างนี้ใหญ่ที่สุดในการทดสอบปัจจุบันของเรา และเป็นเหตุผลที่คำแถลงนี้ระบุว่า “ผ่านมาตรฐานบางส่วน” แทนที่จะเป็น “ผ่านมาตรฐานเต็มรูปแบบ”",
     a11yLimitsTitle: "ข้อจำกัดที่เรารู้",
     a11yLimitsIntro: "ข้อจำกัดที่ทราบมีดังนี้",
     a11yIssues: [

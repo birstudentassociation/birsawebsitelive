@@ -32,7 +32,7 @@ const fire: EmergencyScenario = {
   en: {
     title: "Fire on campus",
     summary:
-      "What to do if you see fire or smoke, or hear a fire alarm, in a campus building. Getting out fast matters more than anything else.",
+      "What to do if you see fire or smoke, or hear a fire alarm, in a campus building. Leave the building as quickly as you can.",
     banner:
       "There is a fire on campus. Keep away from the affected building and follow staff instructions.",
     now: [
@@ -106,7 +106,7 @@ const fire: EmergencyScenario = {
   th: {
     title: "เพลิงไหม้ในมหาวิทยาลัย",
     summary:
-      "สิ่งที่ต้องทำเมื่อเห็นไฟหรือควัน หรือได้ยินสัญญาณเตือนไฟไหม้ในอาคารของมหาวิทยาลัย การออกจากอาคารให้เร็วที่สุดสำคัญกว่าทุกอย่าง",
+      "สิ่งที่ต้องทำเมื่อเห็นไฟหรือควัน หรือได้ยินสัญญาณเตือนไฟไหม้ในอาคารของมหาวิทยาลัย ให้ออกจากอาคารให้เร็วที่สุด",
     banner: "เกิดเพลิงไหม้ในมหาวิทยาลัย ออกห่างจากอาคารที่เกิดเหตุ และทำตามคำแนะนำของเจ้าหน้าที่",
     now: [
       "ออกจากอาคารทางบันไดที่ใกล้และปลอดภัยที่สุด อย่าเสียเวลาเก็บของ",

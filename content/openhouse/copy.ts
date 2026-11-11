@@ -67,7 +67,7 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         th: "การตัดสินใจหนึ่งไปถึงชีวิตจริงได้อย่างไร",
       },
       opens: {
-        en: "Between a policy on paper and a service you actually use sits a whole machinery, from Weber’s bureaucracy to budgets, accountability and ethics, along with the old question of where politics ends and administration begins. This is where you learn how the state is run, and where it breaks.",
+        en: "Between a policy on paper and a service you actually use sits a whole machinery, from Weber’s bureaucracy to budgets, accountability and ethics, along with the old question of where politics ends and administration begins. You learn how the state is run and where it breaks.",
         th: "ระหว่างนโยบายบนกระดาษกับบริการที่คุณใช้จริง มีกลไกทั้งระบบคั่นอยู่ ทั้งระบบราชการแบบเวเบอร์ งบประมาณ ความรับผิดชอบ และจริยธรรม รวมถึงคำถามเก่าแก่ว่าการเมืองสิ้นสุดตรงไหนและการบริหารเริ่มต้นตรงไหน คุณจะได้เรียนว่ารัฐทำงานอย่างไร และล้มเหลวตรงไหน",
       },
       thinkers: [
@@ -125,8 +125,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         { en: "The developmental state", th: "รัฐนำการพัฒนา" },
       ],
       takeaway: {
-        en: "You stop seeing the economy as natural, and start seeing it as built.",
-        th: "คุณจะเลิกมองเศรษฐกิจว่าเป็นเรื่องธรรมชาติ และเห็นว่าเศรษฐกิจเป็นสิ่งที่มนุษย์สร้างขึ้น",
+        en: "You learn to see the economy as something people built.",
+        th: "คุณจะเห็นว่าเศรษฐกิจเป็นสิ่งที่มนุษย์สร้างขึ้น",
       },
     },
   },
@@ -146,8 +146,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         { en: "Social media", th: "สื่อสังคมออนไลน์" },
       ],
       takeaway: {
-        en: "You learn to read the medium, not just the message.",
-        th: "คุณจะอ่านตัวสื่อเป็น ไม่ใช่เพียงเนื้อหาที่สื่อนำเสนอ",
+        en: "You learn to read the medium as well as the message.",
+        th: "คุณจะอ่านได้ทั้งตัวสื่อและเนื้อหาที่สื่อนำเสนอ",
       },
     },
   },
@@ -170,8 +170,8 @@ export const CURATED_COURSES: { code: string; field: Bi; teaser: CourseTeaser }[
         { en: "Human rights", th: "สิทธิมนุษยชน" },
       ],
       takeaway: {
-        en: "You learn to explain the news instead of only following it.",
-        th: "คุณจะอธิบายข่าวได้ ไม่ใช่เพียงติดตามข่าว",
+        en: "You learn to explain the news as well as follow it.",
+        th: "คุณจะอธิบายข่าวได้ นอกเหนือจากการติดตามข่าว",
       },
     },
   },
@@ -414,8 +414,8 @@ export const COPY: Copy = {
   classKicker: { en: "First class", th: "คาบแรก" },
   classPrompt: { en: "What would you sit in on?", th: "อยากเข้าเรียนวิชาไหน" },
   classNote: {
-    en: "Six of the subjects studied here. Sit in on one and it is added to your day.",
-    th: "หกวิชาที่เรียนกันที่นี่ เลือกเข้าเรียนหนึ่งวิชา วิชานั้นจะรวมอยู่ในวันของคุณ",
+    en: "These are six of the subjects studied here. Sit in on one and it is added to your day.",
+    th: "ต่อไปนี้เป็นหกวิชาที่เรียนกันที่นี่ เลือกเข้าเรียนหนึ่งวิชา วิชานั้นจะรวมอยู่ในวันของคุณ",
   },
   classHint: {
     en: "Pick a class to sit in on",
@@ -447,7 +447,7 @@ export const COPY: Copy = {
   arriveKicker: { en: "Getting there", th: "การเดินทางมา" },
   arrivePrompt: { en: "How would you get here?", th: "คุณจะเดินทางมาอย่างไร" },
   arriveNote: {
-    en: "Tha Prachan sits on the river in the old city. People arrive one of a few ways.",
+    en: "People reach Tha Prachan, on the river in the old city, in one of a few ways.",
     th: "ท่าพระจันทร์อยู่ริมแม่น้ำในย่านเมืองเก่า มีทางมาหลักอยู่ไม่กี่ทาง",
   },
   lunchTime: { en: "12:07", th: "12:07" },
@@ -487,12 +487,12 @@ export const COPY: Copy = {
   betweenTime: { en: "10:47", th: "10:47" },
   betweenKicker: { en: "Between classes", th: "ช่วงว่างระหว่างคาบ" },
   betweenLine: {
-    en: "There is a lot of university in the hours that aren’t on a timetable.",
+    en: "A lot of university life happens in the hours that are not on a timetable.",
     th: "ชีวิตมหาวิทยาลัยจำนวนมากอยู่ในช่วงเวลานอกตารางเรียน",
   },
   betweenBody: {
-    en: "A coffee on the way to the next building. Printing something too close to a deadline. Someone you know, on the steps by the river. Most of it never makes the prospectus.",
-    th: "กาแฟแก้วหนึ่งระหว่างเดินไปตึกถัดไป งานที่พิมพ์ตอนใกล้กำหนดส่ง คนรู้จักสักคนที่บันไดริมน้ำ เรื่องเหล่านี้ส่วนใหญ่ไม่เคยอยู่ในเอกสารแนะนำหลักสูตร",
+    en: "Students buy a coffee on the way to the next building, print something close to a deadline and meet people they know on the steps by the river.",
+    th: "นักศึกษาซื้อกาแฟระหว่างเดินไปตึกถัดไป พิมพ์งานตอนใกล้กำหนดส่ง และพบคนรู้จักที่บันไดริมน้ำ",
   },
   backTime: { en: "13:23", th: "13:23" },
   backKicker: { en: "Back to class", th: "กลับเข้าเรียน" },
@@ -515,20 +515,20 @@ export const COPY: Copy = {
     },
   ],
   backNote: {
-    en: "No single answer.",
-    th: "ไม่มีคำตอบเดียว",
+    en: "These questions have no single answer.",
+    th: "คำถามเหล่านี้ไม่มีคำตอบเดียว",
   },
   duskTime: { en: "17:48", th: "17:48" },
   duskKicker: { en: "The campus changes", th: "เมื่อคณะเปลี่ยนไป" },
   duskLine: {
-    en: "Some days end when class does. Some don’t.",
-    th: "บางวันจบลงตอนเลิกเรียน บางวันไม่จบ",
+    en: "Some days end when class does, and some carry on.",
+    th: "บางวันจบลงตอนเลิกเรียน และบางวันยังดำเนินต่อไป",
   },
   homeTime: { en: "18:11", th: "18:11" },
   homeKicker: { en: "Getting home", th: "เดินทางกลับ" },
   homePrompt: {
-    en: "The last of the light, and the way back.",
-    th: "แสงสุดท้ายของวัน กับทางกลับบ้าน",
+    en: "Getting home at the end of the day",
+    th: "การเดินทางกลับบ้านตอนเย็น",
   },
   homeNote: {
     en: "Scheduled departures from the Tha Prachan campus, weekdays. A timetable, not live tracking.",
@@ -553,8 +553,8 @@ export const COPY: Copy = {
   evtExplore: { en: "Explore BIR", th: "สำรวจ BIR" },
   evtAsk: { en: "Ask a BIR student", th: "ถามรุ่นพี่ BIR" },
   arcHeadline: {
-    en: "Open House has ended. BIR is still here.",
-    th: "Open House จบไปแล้ว แต่ BIR ยังอยู่ตรงนี้",
+    en: "Open House has ended.",
+    th: "Open House จบไปแล้ว",
   },
   arcLead: {
     en: "You can still walk the day, and everything it points to is open all year.",
@@ -562,7 +562,7 @@ export const COPY: Copy = {
   },
   dayTime: { en: "Your day", th: "วันของคุณ" },
   dayKicker: { en: "Your day", th: "วันของคุณ" },
-  daySubtitle: { en: "A day you tried on", th: "วันหนึ่งที่คุณได้ลองใช้" },
+  daySubtitle: { en: "The day you chose", th: "วันที่คุณเลือกเอง" },
   dayEmpty: {
     en: "Your choices appear here.",
     th: "สิ่งที่คุณเลือกจะแสดงที่นี่",
@@ -576,8 +576,8 @@ export const COPY: Copy = {
   restart: { en: "Start the day again", th: "เริ่มวันใหม่อีกครั้ง" },
   inviteKicker: { en: "31 October", th: "31 ตุลาคม" },
   inviteHeadline: {
-    en: "Come and see it without the screen.",
-    th: "มาดูของจริงโดยไม่ต้องผ่านหน้าจอ",
+    en: "Visit the faculty in person.",
+    th: "มาเยี่ยมชมคณะด้วยตัวเอง",
   },
   whenLabel: { en: "When", th: "วันและเวลา" },
   whereLabel: { en: "Where", th: "สถานที่" },

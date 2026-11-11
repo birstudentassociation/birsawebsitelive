@@ -371,7 +371,7 @@ export const activities: SmartAnswerService = {
         {
           kind: "paragraph",
           text: {
-            en: "This matters even more for anything involving travel, an overnight stay, or activities with any physical risk.",
+            en: "This applies most to anything involving travel, an overnight stay, or any physical risk.",
             th: "โดยเฉพาะกิจกรรมที่มีการเดินทาง ค้างคืน หรือมีความเสี่ยงทางร่างกาย",
           },
         },
@@ -538,8 +538,8 @@ export const activities: SmartAnswerService = {
       kind: "outcome",
       id: "out-club-ready-bir",
       title: {
-        en: "You're ready: tell BIRSA your idea",
-        th: "พร้อมแล้ว บอกไอเดียกับ BIRSA",
+        en: "Tell BIRSA your idea",
+        th: "บอกไอเดียกับ BIRSA",
       },
       summary: {
         en: "You have an idea, people, and potential committee members. For a BIR-programme club, contact BIRSA next.",
@@ -572,8 +572,8 @@ export const activities: SmartAnswerService = {
       kind: "outcome",
       id: "out-club-ready-faculty",
       title: {
-        en: "You're ready: start with BIRSA, then formalise it with the Dean",
-        th: "พร้อมแล้ว เริ่มคุยกับ BIRSA ก่อน แล้วยื่นเรื่องต่อคณบดี",
+        en: "Start with BIRSA, then formalise it with the Dean",
+        th: "เริ่มคุยกับ BIRSA ก่อน แล้วยื่นเรื่องต่อคณบดี",
       },
       summary: {
         en: "Talk to BIRSA first. If you want it to become an official, faculty-wide activity group with its own budget, that formally needs 30 students of the Faculty of Political Science signing a petition for the Dean to consider and appoint.",
@@ -628,8 +628,8 @@ export const activities: SmartAnswerService = {
       kind: "outcome",
       id: "out-club-ready-university",
       title: {
-        en: "You're ready: start with BIRSA, then register with TUSU",
-        th: "พร้อมแล้ว เริ่มคุยกับ BIRSA ก่อน แล้วยื่นเรื่องต่อ อมธ.",
+        en: "Start with BIRSA, then register with TUSU",
+        th: "เริ่มคุยกับ BIRSA ก่อน แล้วยื่นเรื่องต่อ อมธ.",
       },
       summary: {
         en: "Talk to BIRSA first. If you want it open to students from any Faculty, that's a University-wide student activity club (ชุมนุม), registered with the Thammasat University Student Union (TUSU), not the Faculty.",
